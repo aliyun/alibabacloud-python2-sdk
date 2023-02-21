@@ -43,7 +43,7 @@ class Client(OpenApiClient):
             'cn-fujian': 'rds.aliyuncs.com',
             'cn-haidian-cm12-c01': 'rds.aliyuncs.com',
             'cn-hangzhou-bj-b01': 'rds.aliyuncs.com',
-            'cn-hangzhou-finance': 'rds.aliyuncs.com',
+            'cn-hangzhou-finance': 'rds-vpc.cn-hangzhou-finance.aliyuncs.com',
             'cn-hangzhou-internal-prod-1': 'rds.aliyuncs.com',
             'cn-hangzhou-internal-test-1': 'rds.aliyuncs.com',
             'cn-hangzhou-internal-test-2': 'rds.aliyuncs.com',
@@ -77,84 +77,432 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
-    def add_tags_to_resource_with_options(self, request, runtime):
+    def activate_migration_target_instance_with_options(self, request, runtime):
+        """
+        ## Prerequisites
+        Before you call the ActivateMigrationTargetInstance operation, make sure a cloud migration task is created by calling the [CreateCloudMigrationTask](~~411690~~) operation. In addition, make sure that the value that is returned for the **MigrateStage** parameter from the call of the [DescribeCloudMigrationResult](~~412150~~) operation is **increment**.
+        
+
+        @param request: ActivateMigrationTargetInstanceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ActivateMigrationTargetInstanceResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_name):
+            query['DBInstanceName'] = request.dbinstance_name
+        if not UtilClient.is_unset(request.force_switch):
+            query['ForceSwitch'] = request.force_switch
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.switch_time):
+            query['SwitchTime'] = request.switch_time
+        if not UtilClient.is_unset(request.switch_time_mode):
+            query['SwitchTimeMode'] = request.switch_time_mode
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ActivateMigrationTargetInstance',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.ActivateMigrationTargetInstanceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def activate_migration_target_instance(self, request):
+        """
+        ## Prerequisites
+        Before you call the ActivateMigrationTargetInstance operation, make sure a cloud migration task is created by calling the [CreateCloudMigrationTask](~~411690~~) operation. In addition, make sure that the value that is returned for the **MigrateStage** parameter from the call of the [DescribeCloudMigrationResult](~~412150~~) operation is **increment**.
+        
+
+        @param request: ActivateMigrationTargetInstanceRequest
+
+        @return: ActivateMigrationTargetInstanceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.activate_migration_target_instance_with_options(request, runtime)
+
+    def add_tags_to_resource_with_options(self, request, runtime):
+        """
+        This operation has the following limits:
+        *   Each tag consists of a TagKey and a TagValue. The TagKey is required, and the TagValue is optional.
+        *   The values of TagKey and TagValue cannot start with aliyun.
+        *   The values of TagKey and TagValue are not case-sensitive.
+        *   The maximum length of a TagKey is 64 characters, and the maximum length of a TagValue is 128 characters.
+        *   Each instance can be bound to a maximum of 10 tags. Each tag that is bound to the same instance must have a unique TagKey. If you bind a new tag to the instance and the TagKey of the new tag is the same as that of an existing tag, the new tag overwrites the existing tag.
+        
+
+        @param request: AddTagsToResourceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: AddTagsToResourceResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.tags):
+            query['Tags'] = request.tags
+        if not UtilClient.is_unset(request.proxy_id):
+            query['proxyId'] = request.proxy_id
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='AddTagsToResource',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.AddTagsToResourceResponse(),
-            self.do_rpcrequest('AddTagsToResource', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def add_tags_to_resource(self, request):
+        """
+        This operation has the following limits:
+        *   Each tag consists of a TagKey and a TagValue. The TagKey is required, and the TagValue is optional.
+        *   The values of TagKey and TagValue cannot start with aliyun.
+        *   The values of TagKey and TagValue are not case-sensitive.
+        *   The maximum length of a TagKey is 64 characters, and the maximum length of a TagValue is 128 characters.
+        *   Each instance can be bound to a maximum of 10 tags. Each tag that is bound to the same instance must have a unique TagKey. If you bind a new tag to the instance and the TagKey of the new tag is the same as that of an existing tag, the new tag overwrites the existing tag.
+        
+
+        @param request: AddTagsToResourceRequest
+
+        @return: AddTagsToResourceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.add_tags_to_resource_with_options(request, runtime)
 
     def allocate_instance_public_connection_with_options(self, request, runtime):
+        """
+        > An RDS instance is only allowed to apply for one external network connection address.
+        
+
+        @param request: AllocateInstancePublicConnectionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: AllocateInstancePublicConnectionResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.babelfish_port):
+            query['BabelfishPort'] = request.babelfish_port
+        if not UtilClient.is_unset(request.connection_string_prefix):
+            query['ConnectionStringPrefix'] = request.connection_string_prefix
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.general_group_name):
+            query['GeneralGroupName'] = request.general_group_name
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.port):
+            query['Port'] = request.port
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='AllocateInstancePublicConnection',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.AllocateInstancePublicConnectionResponse(),
-            self.do_rpcrequest('AllocateInstancePublicConnection', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def allocate_instance_public_connection(self, request):
+        """
+        > An RDS instance is only allowed to apply for one external network connection address.
+        
+
+        @param request: AllocateInstancePublicConnectionRequest
+
+        @return: AllocateInstancePublicConnectionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.allocate_instance_public_connection_with_options(request, runtime)
 
     def allocate_read_write_splitting_connection_with_options(self, request, runtime):
+        """
+        If read-only instances are attached to a primary ApsaraDB RDS for SQL Server instance, you can call this operation to apply for a unified read-only routing endpoint for the primary instance. After you apply for a read-only routing endpoint for a primary instance, the existing endpoints of the primary instance and its read-only instances remain valid. In addition, you can still apply for internal and public endpoints.
+        Before you call this operation, make sure that the following requirements are met:
+        *   If the instance runs MySQL, the instance uses a shared proxy.
+        *   The instance is in the Running state.
+        *   Read-only instances are attached to the primary instance.
+        *   The instance does not have an ongoing Data Transmission Service (DTS) migration task.
+        *   The instance runs one of the following database versions and RDS editions:
+        *   SQL Server (cluster edition)
+        *   MySQL 5.7 on RDS High-availability Edition with local SSDs
+        *   MySQL 5.6
+        
+
+        @param request: AllocateReadWriteSplittingConnectionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: AllocateReadWriteSplittingConnectionResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.connection_string_prefix):
+            query['ConnectionStringPrefix'] = request.connection_string_prefix
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.distribution_type):
+            query['DistributionType'] = request.distribution_type
+        if not UtilClient.is_unset(request.max_delay_time):
+            query['MaxDelayTime'] = request.max_delay_time
+        if not UtilClient.is_unset(request.net_type):
+            query['NetType'] = request.net_type
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.port):
+            query['Port'] = request.port
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.weight):
+            query['Weight'] = request.weight
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='AllocateReadWriteSplittingConnection',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.AllocateReadWriteSplittingConnectionResponse(),
-            self.do_rpcrequest('AllocateReadWriteSplittingConnection', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def allocate_read_write_splitting_connection(self, request):
+        """
+        If read-only instances are attached to a primary ApsaraDB RDS for SQL Server instance, you can call this operation to apply for a unified read-only routing endpoint for the primary instance. After you apply for a read-only routing endpoint for a primary instance, the existing endpoints of the primary instance and its read-only instances remain valid. In addition, you can still apply for internal and public endpoints.
+        Before you call this operation, make sure that the following requirements are met:
+        *   If the instance runs MySQL, the instance uses a shared proxy.
+        *   The instance is in the Running state.
+        *   Read-only instances are attached to the primary instance.
+        *   The instance does not have an ongoing Data Transmission Service (DTS) migration task.
+        *   The instance runs one of the following database versions and RDS editions:
+        *   SQL Server (cluster edition)
+        *   MySQL 5.7 on RDS High-availability Edition with local SSDs
+        *   MySQL 5.6
+        
+
+        @param request: AllocateReadWriteSplittingConnectionRequest
+
+        @return: AllocateReadWriteSplittingConnectionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.allocate_read_write_splitting_connection_with_options(request, runtime)
 
     def calculate_dbinstance_weight_with_options(self, request, runtime):
+        """
+        When the [read/write splitting](~~51073~~) feature is enabled, this operation is used to calculate system-assigned read weights. For more information about custom read weights, see [DescribeDBInstanceNetInfo](~~26237~~).
+        Before you call this operation, make sure that the following requirements are met:
+        *   The shared proxy feature is enabled for your ApsaraDB RDS for MySQL instance.
+        *   The instance must run one of the following database engine versions and RDS editions:
+        *   MySQL 5.7 on RDS High-availability Edition (with local SSDs)
+        *   MySQL 5.6
+        *   SQL Server on RDS Cluster Edition
+        
+
+        @param request: CalculateDBInstanceWeightRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CalculateDBInstanceWeightResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CalculateDBInstanceWeight',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.CalculateDBInstanceWeightResponse(),
-            self.do_rpcrequest('CalculateDBInstanceWeight', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def calculate_dbinstance_weight(self, request):
+        """
+        When the [read/write splitting](~~51073~~) feature is enabled, this operation is used to calculate system-assigned read weights. For more information about custom read weights, see [DescribeDBInstanceNetInfo](~~26237~~).
+        Before you call this operation, make sure that the following requirements are met:
+        *   The shared proxy feature is enabled for your ApsaraDB RDS for MySQL instance.
+        *   The instance must run one of the following database engine versions and RDS editions:
+        *   MySQL 5.7 on RDS High-availability Edition (with local SSDs)
+        *   MySQL 5.6
+        *   SQL Server on RDS Cluster Edition
+        
+
+        @param request: CalculateDBInstanceWeightRequest
+
+        @return: CalculateDBInstanceWeightResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.calculate_dbinstance_weight_with_options(request, runtime)
 
     def cancel_import_with_options(self, request, runtime):
+        """
+        This operation is supported for instances that run SQL Server and belong to the dedicated or dedicated host instance family. For more information about how to start a migration task, see [ImportDatabaseBetweenInstances](~~26301~~).
+        >  This operation is not supported for instances that run SQL Server 2017 EE.
+        
+
+        @param request: CancelImportRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CancelImportResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.import_id):
+            query['ImportId'] = request.import_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CancelImport',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.CancelImportResponse(),
-            self.do_rpcrequest('CancelImport', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def cancel_import(self, request):
+        """
+        This operation is supported for instances that run SQL Server and belong to the dedicated or dedicated host instance family. For more information about how to start a migration task, see [ImportDatabaseBetweenInstances](~~26301~~).
+        >  This operation is not supported for instances that run SQL Server 2017 EE.
+        
+
+        @param request: CancelImportRequest
+
+        @return: CancelImportResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.cancel_import_with_options(request, runtime)
 
     def check_account_name_available_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.account_name):
+            query['AccountName'] = request.account_name
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CheckAccountNameAvailable',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.CheckAccountNameAvailableResponse(),
-            self.do_rpcrequest('CheckAccountNameAvailable', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def check_account_name_available(self, request):
@@ -163,12 +511,42 @@ class Client(OpenApiClient):
 
     def check_cloud_resource_authorized_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.target_region_id):
+            query['TargetRegionId'] = request.target_region_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CheckCloudResourceAuthorized',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.CheckCloudResourceAuthorizedResponse(),
-            self.do_rpcrequest('CheckCloudResourceAuthorized', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def check_cloud_resource_authorized(self, request):
@@ -176,27 +554,115 @@ class Client(OpenApiClient):
         return self.check_cloud_resource_authorized_with_options(request, runtime)
 
     def check_create_ddr_dbinstance_with_options(self, request, runtime):
+        """
+        Before you call this operation, make sure that the source instance runs one of the following database engines:
+        *   MySQL. For more information, see [Back up an ApsaraDB RDS for MySQL instance across regions](~~120824~~).
+        *   SQL Server. For more information, see [Back up an ApsaraDB RDS for SQL Server instance across regions](~~187923~~).
+        *   PostgreSQL. For more information, see [Back up an ApsaraDB RDS for PostgreSQL instance across regions](~~206671~~).
+        
+
+        @param request: CheckCreateDdrDBInstanceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CheckCreateDdrDBInstanceResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.backup_set_id):
+            query['BackupSetId'] = request.backup_set_id
+        if not UtilClient.is_unset(request.dbinstance_class):
+            query['DBInstanceClass'] = request.dbinstance_class
+        if not UtilClient.is_unset(request.dbinstance_storage):
+            query['DBInstanceStorage'] = request.dbinstance_storage
+        if not UtilClient.is_unset(request.engine):
+            query['Engine'] = request.engine
+        if not UtilClient.is_unset(request.engine_version):
+            query['EngineVersion'] = request.engine_version
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.restore_time):
+            query['RestoreTime'] = request.restore_time
+        if not UtilClient.is_unset(request.restore_type):
+            query['RestoreType'] = request.restore_type
+        if not UtilClient.is_unset(request.source_dbinstance_name):
+            query['SourceDBInstanceName'] = request.source_dbinstance_name
+        if not UtilClient.is_unset(request.source_region):
+            query['SourceRegion'] = request.source_region
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CheckCreateDdrDBInstance',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.CheckCreateDdrDBInstanceResponse(),
-            self.do_rpcrequest('CheckCreateDdrDBInstance', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def check_create_ddr_dbinstance(self, request):
+        """
+        Before you call this operation, make sure that the source instance runs one of the following database engines:
+        *   MySQL. For more information, see [Back up an ApsaraDB RDS for MySQL instance across regions](~~120824~~).
+        *   SQL Server. For more information, see [Back up an ApsaraDB RDS for SQL Server instance across regions](~~187923~~).
+        *   PostgreSQL. For more information, see [Back up an ApsaraDB RDS for PostgreSQL instance across regions](~~206671~~).
+        
+
+        @param request: CheckCreateDdrDBInstanceRequest
+
+        @return: CheckCreateDdrDBInstanceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.check_create_ddr_dbinstance_with_options(request, runtime)
 
     def check_dbname_available_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.dbname):
+            query['DBName'] = request.dbname
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CheckDBNameAvailable',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.CheckDBNameAvailableResponse(),
-            self.do_rpcrequest('CheckDBNameAvailable', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def check_dbname_available(self, request):
@@ -205,516 +671,3168 @@ class Client(OpenApiClient):
 
     def check_instance_exist_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CheckInstanceExist',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.CheckInstanceExistResponse(),
-            self.do_rpcrequest('CheckInstanceExist', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def check_instance_exist(self, request):
         runtime = util_models.RuntimeOptions()
         return self.check_instance_exist_with_options(request, runtime)
 
-    def clear_dedicated_host_with_options(self, request, runtime):
+    def check_service_linked_role_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.service_linked_role):
+            query['ServiceLinkedRole'] = request.service_linked_role
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CheckServiceLinkedRole',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
-            rds_20140815_models.ClearDedicatedHostResponse(),
-            self.do_rpcrequest('ClearDedicatedHost', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            rds_20140815_models.CheckServiceLinkedRoleResponse(),
+            self.call_api(params, req, runtime)
         )
 
-    def clear_dedicated_host(self, request):
+    def check_service_linked_role(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.clear_dedicated_host_with_options(request, runtime)
+        return self.check_service_linked_role_with_options(request, runtime)
 
-    def clone_dbinstance_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
+    def clone_dbinstance_with_options(self, tmp_req, runtime):
+        """
+        Before you call this operation, make sure that the following requirements are met:
+        *   The original instance is in the Running state.
+        *   The original instance does not have ongoing migration tasks.
+        *   The log backup feature is enabled for the original instance to support point-in-time recovery.
+        *   If you want to clone the original instance by using backup sets, the original instance must have at least one backup set.
+        > ApsaraDB RDS allows you to create a cloned instance by using the credentials of your RAM user. Make sure that your RAM user is granted the permissions that are required to clone an instance. For more information, see [Use RAM to manage ApsaraDB for RDS permissions](~~58932~~).
+        Take note of the following information:
+        *   The new instance has the same IP address whitelist, SQL Explorer (SQL Audit), alert threshold, backup, and parameter settings as the original instance.
+        *   The account information and data of the new instance are the same as the account information and data that are indicated by the backup file or point in time used for restoration of the original instance.
+        
+
+        @param tmp_req: CloneDBInstanceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CloneDBInstanceResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = rds_20140815_models.CloneDBInstanceShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.serverless_config):
+            request.serverless_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.serverless_config, 'ServerlessConfig', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.backup_id):
+            query['BackupId'] = request.backup_id
+        if not UtilClient.is_unset(request.backup_type):
+            query['BackupType'] = request.backup_type
+        if not UtilClient.is_unset(request.category):
+            query['Category'] = request.category
+        if not UtilClient.is_unset(request.dbinstance_class):
+            query['DBInstanceClass'] = request.dbinstance_class
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.dbinstance_storage):
+            query['DBInstanceStorage'] = request.dbinstance_storage
+        if not UtilClient.is_unset(request.dbinstance_storage_type):
+            query['DBInstanceStorageType'] = request.dbinstance_storage_type
+        if not UtilClient.is_unset(request.db_names):
+            query['DbNames'] = request.db_names
+        if not UtilClient.is_unset(request.dedicated_host_group_id):
+            query['DedicatedHostGroupId'] = request.dedicated_host_group_id
+        if not UtilClient.is_unset(request.deletion_protection):
+            query['DeletionProtection'] = request.deletion_protection
+        if not UtilClient.is_unset(request.instance_network_type):
+            query['InstanceNetworkType'] = request.instance_network_type
+        if not UtilClient.is_unset(request.pay_type):
+            query['PayType'] = request.pay_type
+        if not UtilClient.is_unset(request.period):
+            query['Period'] = request.period
+        if not UtilClient.is_unset(request.private_ip_address):
+            query['PrivateIpAddress'] = request.private_ip_address
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.restore_table):
+            query['RestoreTable'] = request.restore_table
+        if not UtilClient.is_unset(request.restore_time):
+            query['RestoreTime'] = request.restore_time
+        if not UtilClient.is_unset(request.serverless_config_shrink):
+            query['ServerlessConfig'] = request.serverless_config_shrink
+        if not UtilClient.is_unset(request.table_meta):
+            query['TableMeta'] = request.table_meta
+        if not UtilClient.is_unset(request.used_time):
+            query['UsedTime'] = request.used_time
+        if not UtilClient.is_unset(request.vpcid):
+            query['VPCId'] = request.vpcid
+        if not UtilClient.is_unset(request.v_switch_id):
+            query['VSwitchId'] = request.v_switch_id
+        if not UtilClient.is_unset(request.zone_id):
+            query['ZoneId'] = request.zone_id
+        if not UtilClient.is_unset(request.zone_id_slave_1):
+            query['ZoneIdSlave1'] = request.zone_id_slave_1
+        if not UtilClient.is_unset(request.zone_id_slave_2):
+            query['ZoneIdSlave2'] = request.zone_id_slave_2
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CloneDBInstance',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.CloneDBInstanceResponse(),
-            self.do_rpcrequest('CloneDBInstance', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def clone_dbinstance(self, request):
+        """
+        Before you call this operation, make sure that the following requirements are met:
+        *   The original instance is in the Running state.
+        *   The original instance does not have ongoing migration tasks.
+        *   The log backup feature is enabled for the original instance to support point-in-time recovery.
+        *   If you want to clone the original instance by using backup sets, the original instance must have at least one backup set.
+        > ApsaraDB RDS allows you to create a cloned instance by using the credentials of your RAM user. Make sure that your RAM user is granted the permissions that are required to clone an instance. For more information, see [Use RAM to manage ApsaraDB for RDS permissions](~~58932~~).
+        Take note of the following information:
+        *   The new instance has the same IP address whitelist, SQL Explorer (SQL Audit), alert threshold, backup, and parameter settings as the original instance.
+        *   The account information and data of the new instance are the same as the account information and data that are indicated by the backup file or point in time used for restoration of the original instance.
+        
+
+        @param request: CloneDBInstanceRequest
+
+        @return: CloneDBInstanceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.clone_dbinstance_with_options(request, runtime)
 
     def clone_parameter_group_with_options(self, request, runtime):
+        """
+        You can apply a parameter template to an instance to configure a number of parameters at a time. For more information, see [Use a parameter template to configure the parameters of ApsaraDB RDS for MySQL instances](~~130565~~) or [Use a parameter template to configure the parameters of ApsaraDB RDS for PostgreSQL instances](~~457176~~).
+        >  This operation is supported only when your RDS instance runs MySQL or PostgreSQL.
+        
+
+        @param request: CloneParameterGroupRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CloneParameterGroupResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.parameter_group_desc):
+            query['ParameterGroupDesc'] = request.parameter_group_desc
+        if not UtilClient.is_unset(request.parameter_group_id):
+            query['ParameterGroupId'] = request.parameter_group_id
+        if not UtilClient.is_unset(request.parameter_group_name):
+            query['ParameterGroupName'] = request.parameter_group_name
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.target_region_id):
+            query['TargetRegionId'] = request.target_region_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CloneParameterGroup',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.CloneParameterGroupResponse(),
-            self.do_rpcrequest('CloneParameterGroup', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def clone_parameter_group(self, request):
+        """
+        You can apply a parameter template to an instance to configure a number of parameters at a time. For more information, see [Use a parameter template to configure the parameters of ApsaraDB RDS for MySQL instances](~~130565~~) or [Use a parameter template to configure the parameters of ApsaraDB RDS for PostgreSQL instances](~~457176~~).
+        >  This operation is supported only when your RDS instance runs MySQL or PostgreSQL.
+        
+
+        @param request: CloneParameterGroupRequest
+
+        @return: CloneParameterGroupResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.clone_parameter_group_with_options(request, runtime)
 
-    def copy_database_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
+    def confirm_notify_with_options(self, tmp_req, runtime):
+        """
+        After you call the QueryNotify operation to query notifications for an instance, you can call this operation to mark the notifications as confirmed. For more information, see [Query notifications for an ApsaraDB RDS instance](~~427959~~).
+        
+
+        @param tmp_req: ConfirmNotifyRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ConfirmNotifyResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = rds_20140815_models.ConfirmNotifyShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.notify_id_list):
+            request.notify_id_list_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.notify_id_list, 'NotifyIdList', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.confirmor):
+            body['Confirmor'] = request.confirmor
+        if not UtilClient.is_unset(request.notify_id_list_shrink):
+            body['NotifyIdList'] = request.notify_id_list_shrink
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ConfirmNotify',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.ConfirmNotifyResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def confirm_notify(self, request):
+        """
+        After you call the QueryNotify operation to query notifications for an instance, you can call this operation to mark the notifications as confirmed. For more information, see [Query notifications for an ApsaraDB RDS instance](~~427959~~).
+        
+
+        @param request: ConfirmNotifyRequest
+
+        @return: ConfirmNotifyResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.confirm_notify_with_options(request, runtime)
+
+    def copy_database_with_options(self, request, runtime):
+        """
+        This operation is phased out.
+        
+
+        @param request: CopyDatabaseRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CopyDatabaseResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CopyDatabase',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.CopyDatabaseResponse(),
-            self.do_rpcrequest('CopyDatabase', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def copy_database(self, request):
+        """
+        This operation is phased out.
+        
+
+        @param request: CopyDatabaseRequest
+
+        @return: CopyDatabaseResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.copy_database_with_options(request, runtime)
 
     def copy_database_between_instances_with_options(self, request, runtime):
+        """
+        You can also call the CopyDatabaseBetweenInstances operation to restore specific databases to an existing instance by point in time or backup file. For more information, see [Restore the data of an ApsaraDB RDS for SQL Server instance](~~95722~~).
+        Before you call this operation, make sure that the following requirements are met:
+        *   The source and destination instances belong to the same account.
+        *   The source and destination instances run the same version of database engine.
+        *   The source and destination instances are in the same region and can belong to different zones. The network types must be the same.
+        *   The source and destination instances do not have databases whose names are the same.
+        *   The available storage space of the destination instance is larger than the size of the databases to be copied.
+        > The CopyDatabaseBetweenInstances operation is applicable only to ApsaraDB RDS for SQL Server instances that run SQL Server 2012 or SQL Server 2016. You can restore specific databases or tables of an ApsaraDB RDS for MySQL instance to the original instance or a new instance. For more information, see [Restore individual databases and tables of an ApsaraDB RDS for MySQL instance](~~103175~~).
+        
+
+        @param request: CopyDatabaseBetweenInstancesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CopyDatabaseBetweenInstancesResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.backup_id):
+            query['BackupId'] = request.backup_id
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.db_names):
+            query['DbNames'] = request.db_names
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.restore_time):
+            query['RestoreTime'] = request.restore_time
+        if not UtilClient.is_unset(request.sync_user_privilege):
+            query['SyncUserPrivilege'] = request.sync_user_privilege
+        if not UtilClient.is_unset(request.target_dbinstance_id):
+            query['TargetDBInstanceId'] = request.target_dbinstance_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CopyDatabaseBetweenInstances',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.CopyDatabaseBetweenInstancesResponse(),
-            self.do_rpcrequest('CopyDatabaseBetweenInstances', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def copy_database_between_instances(self, request):
+        """
+        You can also call the CopyDatabaseBetweenInstances operation to restore specific databases to an existing instance by point in time or backup file. For more information, see [Restore the data of an ApsaraDB RDS for SQL Server instance](~~95722~~).
+        Before you call this operation, make sure that the following requirements are met:
+        *   The source and destination instances belong to the same account.
+        *   The source and destination instances run the same version of database engine.
+        *   The source and destination instances are in the same region and can belong to different zones. The network types must be the same.
+        *   The source and destination instances do not have databases whose names are the same.
+        *   The available storage space of the destination instance is larger than the size of the databases to be copied.
+        > The CopyDatabaseBetweenInstances operation is applicable only to ApsaraDB RDS for SQL Server instances that run SQL Server 2012 or SQL Server 2016. You can restore specific databases or tables of an ApsaraDB RDS for MySQL instance to the original instance or a new instance. For more information, see [Restore individual databases and tables of an ApsaraDB RDS for MySQL instance](~~103175~~).
+        
+
+        @param request: CopyDatabaseBetweenInstancesRequest
+
+        @return: CopyDatabaseBetweenInstancesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.copy_database_between_instances_with_options(request, runtime)
 
     def create_account_with_options(self, request, runtime):
+        """
+        Before you call this operation, make sure that the following requirements are met:
+        *   The instance is in the running state.
+        *   The database is in the running state.
+        *   The number of accounts that are created on the instance does not exceed the maximum number of accounts for an instance. For more information about the maximum number of accounts, see [Limits](~~41872~~).
+        >
+        *   This operation is supported for instances that run MySQL, MariaDB TX, PostgreSQL, and SQL Server. However, if the instance runs SQL Server 2017 or SQL Server 2019 on RDS Cluster Edition, this operation is not supported.
+        *   You can create multiple privileged accounts and standard accounts on an instance that runs PostgreSQL.
+        
+
+        @param request: CreateAccountRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateAccountResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.account_description):
+            query['AccountDescription'] = request.account_description
+        if not UtilClient.is_unset(request.account_name):
+            query['AccountName'] = request.account_name
+        if not UtilClient.is_unset(request.account_password):
+            query['AccountPassword'] = request.account_password
+        if not UtilClient.is_unset(request.account_type):
+            query['AccountType'] = request.account_type
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateAccount',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.CreateAccountResponse(),
-            self.do_rpcrequest('CreateAccount', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_account(self, request):
+        """
+        Before you call this operation, make sure that the following requirements are met:
+        *   The instance is in the running state.
+        *   The database is in the running state.
+        *   The number of accounts that are created on the instance does not exceed the maximum number of accounts for an instance. For more information about the maximum number of accounts, see [Limits](~~41872~~).
+        >
+        *   This operation is supported for instances that run MySQL, MariaDB TX, PostgreSQL, and SQL Server. However, if the instance runs SQL Server 2017 or SQL Server 2019 on RDS Cluster Edition, this operation is not supported.
+        *   You can create multiple privileged accounts and standard accounts on an instance that runs PostgreSQL.
+        
+
+        @param request: CreateAccountRequest
+
+        @return: CreateAccountResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_account_with_options(request, runtime)
 
     def create_backup_with_options(self, request, runtime):
+        """
+        This operation uses the backup feature of ApsaraDB RDS to create a backup set. You can also use an operation of Database Backup (DBS) to create a backup set. For more information, see [List of operations by function of DBS](~~437245~~).
+        Before you call this operation, make sure that the following requirements are met:
+        *   The instance is in the Running state.
+        *   The instance does not have ongoing backup tasks.
+        *   The number of backup files that are created per day for an instance cannot exceed 20.
+        
+
+        @param request: CreateBackupRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateBackupResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.backup_method):
+            query['BackupMethod'] = request.backup_method
+        if not UtilClient.is_unset(request.backup_strategy):
+            query['BackupStrategy'] = request.backup_strategy
+        if not UtilClient.is_unset(request.backup_type):
+            query['BackupType'] = request.backup_type
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.dbname):
+            query['DBName'] = request.dbname
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateBackup',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.CreateBackupResponse(),
-            self.do_rpcrequest('CreateBackup', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_backup(self, request):
+        """
+        This operation uses the backup feature of ApsaraDB RDS to create a backup set. You can also use an operation of Database Backup (DBS) to create a backup set. For more information, see [List of operations by function of DBS](~~437245~~).
+        Before you call this operation, make sure that the following requirements are met:
+        *   The instance is in the Running state.
+        *   The instance does not have ongoing backup tasks.
+        *   The number of backup files that are created per day for an instance cannot exceed 20.
+        
+
+        @param request: CreateBackupRequest
+
+        @return: CreateBackupResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_backup_with_options(request, runtime)
 
-    def create_database_with_options(self, request, runtime):
+    def create_cloud_migration_precheck_task_with_options(self, request, runtime):
+        """
+        ## Prerequisites
+        The ApsaraDB RDS for PostgreSQL instance meets the following requirements:
+        - The RDS instance and the self-managed PostgreSQL instance run the same PostgreSQL version, which can be PostgreSQL 10, PostgreSQL 11, PostgreSQL 12, PostgreSQL 13, or PostgreSQL 14.
+        - The RDS instance is a primary instance. Read-only RDS instances do not support cloud migration.
+        - The RDS instance uses standard SSDs or enhanced SSDs (ESSDs).
+        - The destination RDS instance is empty, and the available storage of the destination RDS instance is greater than or equal to the size of data in the self-managed PostgreSQL instance.
+        The self-managed PostgreSQL instance meets the following requirements:
+        - Network configurations
+        | Migration source | Network configuration |
+        | ---------------- | --------------------- |
+        | Self-managed ECS-based PostgreSQL Database | If the self-managed PostgreSQL instance resides on an Elastic Compute Service (ECS) instance, the ECS instance and the RDS instance must reside in the same virtual private cloud (VPC). If the ECS instance and the RDS instance reside in different VPCs, use Cloud Enterprise Network (CEN) to connect the VPCs. For more information, see [What is CEN?](https://www.alibabacloud.com/help/en/cloud-enterprise-network/latest/what-is-cen) |
+        | Self-managed PostgreSQL database in a data center (within the same VPC as the destination database) | The data center must be able to communicate with the VPC to which the destination RDS instance belongs. For more information, see [Connect a data center to a VPC](https://www.alibabacloud.com/help/en/virtual-private-cloud/latest/connect-a-data-center-to-a-vpc). |
+        | PostgreSQL migration with public network address (including migrating from other cloud vendors) | The source PostgreSQL instance must have a public IP address. |
+        - If the self-managed PostgreSQL instance resides on an ECS instance, an ECS security group is configured. For more information, see [(Optional) Configure an ECS security group on a self-managed PostgreSQL instance](https://www.alibabacloud.com/help/en/apsaradb-for-rds/latest/configure-an-ecs-security-group-on-a-self-managed-postgresql-instance).
+        - The configurations that are described in [Configure a self-managed PostgreSQL instance to listen to remote connections](https://www.alibabacloud.com/help/en/apsaradb-for-rds/latest/configure-a-self-managed-postgresql-instance-to-listen-to-remote-connections) are complete.
+        - The configurations that are described in [Create an account for cloud migration on a self-managed PostgreSQL instance](https://www.alibabacloud.com/help/en/apsaradb-for-rds/latest/create-an-account-for-cloud-migration-on-a-self-managed-postgresql-instance) are complete.
+        - The configurations that are described in [Update the pg_hba.conf file of a self-managed PostgreSQL instance](https://www.alibabacloud.com/help/en/apsaradb-for-rds/latest/update-the-pg-hba-conf-file-of-a-self-managed-postgresql-instance) are complete.
+        - The configurations that are described in [Configure the firewall of the server on which a self-managed PostgreSQL instance resides](https://www.alibabacloud.com/help/en/apsaradb-for-rds/latest/configure-the-firewall-of-the-server-on-which-a-self-managed-postgresql-instance-resides) are complete.
+        
+
+        @param request: CreateCloudMigrationPrecheckTaskRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateCloudMigrationPrecheckTaskResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_name):
+            query['DBInstanceName'] = request.dbinstance_name
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.source_account):
+            query['SourceAccount'] = request.source_account
+        if not UtilClient.is_unset(request.source_category):
+            query['SourceCategory'] = request.source_category
+        if not UtilClient.is_unset(request.source_ip_address):
+            query['SourceIpAddress'] = request.source_ip_address
+        if not UtilClient.is_unset(request.source_password):
+            query['SourcePassword'] = request.source_password
+        if not UtilClient.is_unset(request.source_port):
+            query['SourcePort'] = request.source_port
+        if not UtilClient.is_unset(request.task_name):
+            query['TaskName'] = request.task_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateCloudMigrationPrecheckTask',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
-            rds_20140815_models.CreateDatabaseResponse(),
-            self.do_rpcrequest('CreateDatabase', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            rds_20140815_models.CreateCloudMigrationPrecheckTaskResponse(),
+            self.call_api(params, req, runtime)
         )
 
-    def create_database(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.create_database_with_options(request, runtime)
+    def create_cloud_migration_precheck_task(self, request):
+        """
+        ## Prerequisites
+        The ApsaraDB RDS for PostgreSQL instance meets the following requirements:
+        - The RDS instance and the self-managed PostgreSQL instance run the same PostgreSQL version, which can be PostgreSQL 10, PostgreSQL 11, PostgreSQL 12, PostgreSQL 13, or PostgreSQL 14.
+        - The RDS instance is a primary instance. Read-only RDS instances do not support cloud migration.
+        - The RDS instance uses standard SSDs or enhanced SSDs (ESSDs).
+        - The destination RDS instance is empty, and the available storage of the destination RDS instance is greater than or equal to the size of data in the self-managed PostgreSQL instance.
+        The self-managed PostgreSQL instance meets the following requirements:
+        - Network configurations
+        | Migration source | Network configuration |
+        | ---------------- | --------------------- |
+        | Self-managed ECS-based PostgreSQL Database | If the self-managed PostgreSQL instance resides on an Elastic Compute Service (ECS) instance, the ECS instance and the RDS instance must reside in the same virtual private cloud (VPC). If the ECS instance and the RDS instance reside in different VPCs, use Cloud Enterprise Network (CEN) to connect the VPCs. For more information, see [What is CEN?](https://www.alibabacloud.com/help/en/cloud-enterprise-network/latest/what-is-cen) |
+        | Self-managed PostgreSQL database in a data center (within the same VPC as the destination database) | The data center must be able to communicate with the VPC to which the destination RDS instance belongs. For more information, see [Connect a data center to a VPC](https://www.alibabacloud.com/help/en/virtual-private-cloud/latest/connect-a-data-center-to-a-vpc). |
+        | PostgreSQL migration with public network address (including migrating from other cloud vendors) | The source PostgreSQL instance must have a public IP address. |
+        - If the self-managed PostgreSQL instance resides on an ECS instance, an ECS security group is configured. For more information, see [(Optional) Configure an ECS security group on a self-managed PostgreSQL instance](https://www.alibabacloud.com/help/en/apsaradb-for-rds/latest/configure-an-ecs-security-group-on-a-self-managed-postgresql-instance).
+        - The configurations that are described in [Configure a self-managed PostgreSQL instance to listen to remote connections](https://www.alibabacloud.com/help/en/apsaradb-for-rds/latest/configure-a-self-managed-postgresql-instance-to-listen-to-remote-connections) are complete.
+        - The configurations that are described in [Create an account for cloud migration on a self-managed PostgreSQL instance](https://www.alibabacloud.com/help/en/apsaradb-for-rds/latest/create-an-account-for-cloud-migration-on-a-self-managed-postgresql-instance) are complete.
+        - The configurations that are described in [Update the pg_hba.conf file of a self-managed PostgreSQL instance](https://www.alibabacloud.com/help/en/apsaradb-for-rds/latest/update-the-pg-hba-conf-file-of-a-self-managed-postgresql-instance) are complete.
+        - The configurations that are described in [Configure the firewall of the server on which a self-managed PostgreSQL instance resides](https://www.alibabacloud.com/help/en/apsaradb-for-rds/latest/configure-the-firewall-of-the-server-on-which-a-self-managed-postgresql-instance-resides) are complete.
+        
 
-    def create_dbinstance_with_options(self, request, runtime):
+        @param request: CreateCloudMigrationPrecheckTaskRequest
+
+        @return: CreateCloudMigrationPrecheckTaskResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.create_cloud_migration_precheck_task_with_options(request, runtime)
+
+    def create_cloud_migration_task_with_options(self, request, runtime):
+        """
+        ## Prerequisites
+        Before you call this operation, make sure that the ApsaraDB RDS for PostgreSQL instance passes the cloud migration assessment.
+        
+
+        @param request: CreateCloudMigrationTaskRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateCloudMigrationTaskResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_name):
+            query['DBInstanceName'] = request.dbinstance_name
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.source_account):
+            query['SourceAccount'] = request.source_account
+        if not UtilClient.is_unset(request.source_category):
+            query['SourceCategory'] = request.source_category
+        if not UtilClient.is_unset(request.source_ip_address):
+            query['SourceIpAddress'] = request.source_ip_address
+        if not UtilClient.is_unset(request.source_password):
+            query['SourcePassword'] = request.source_password
+        if not UtilClient.is_unset(request.source_port):
+            query['SourcePort'] = request.source_port
+        if not UtilClient.is_unset(request.task_name):
+            query['TaskName'] = request.task_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateCloudMigrationTask',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.CreateCloudMigrationTaskResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_cloud_migration_task(self, request):
+        """
+        ## Prerequisites
+        Before you call this operation, make sure that the ApsaraDB RDS for PostgreSQL instance passes the cloud migration assessment.
+        
+
+        @param request: CreateCloudMigrationTaskRequest
+
+        @return: CreateCloudMigrationTaskResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.create_cloud_migration_task_with_options(request, runtime)
+
+    def create_dbinstance_with_options(self, tmp_req, runtime):
+        """
+        Before you call this operation, make sure that you understand the billing methods and pricing of ApsaraDB RDS. For more information, see [Billable items, billing methods, and pricing](~~45020~~).
+        For more information about ApsaraDB RDS instance types, see [Primary ApsaraDB RDS instance types](~~26312~~).
+        
+
+        @param tmp_req: CreateDBInstanceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateDBInstanceResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = rds_20140815_models.CreateDBInstanceShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.serverless_config):
+            request.serverless_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.serverless_config, 'ServerlessConfig', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.amount):
+            query['Amount'] = request.amount
+        if not UtilClient.is_unset(request.auto_renew):
+            query['AutoRenew'] = request.auto_renew
+        if not UtilClient.is_unset(request.babelfish_config):
+            query['BabelfishConfig'] = request.babelfish_config
+        if not UtilClient.is_unset(request.business_info):
+            query['BusinessInfo'] = request.business_info
+        if not UtilClient.is_unset(request.category):
+            query['Category'] = request.category
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.connection_mode):
+            query['ConnectionMode'] = request.connection_mode
+        if not UtilClient.is_unset(request.connection_string):
+            query['ConnectionString'] = request.connection_string
+        if not UtilClient.is_unset(request.create_strategy):
+            query['CreateStrategy'] = request.create_strategy
+        if not UtilClient.is_unset(request.dbinstance_class):
+            query['DBInstanceClass'] = request.dbinstance_class
+        if not UtilClient.is_unset(request.dbinstance_description):
+            query['DBInstanceDescription'] = request.dbinstance_description
+        if not UtilClient.is_unset(request.dbinstance_net_type):
+            query['DBInstanceNetType'] = request.dbinstance_net_type
+        if not UtilClient.is_unset(request.dbinstance_storage):
+            query['DBInstanceStorage'] = request.dbinstance_storage
+        if not UtilClient.is_unset(request.dbinstance_storage_type):
+            query['DBInstanceStorageType'] = request.dbinstance_storage_type
+        if not UtilClient.is_unset(request.dbis_ignore_case):
+            query['DBIsIgnoreCase'] = request.dbis_ignore_case
+        if not UtilClient.is_unset(request.dbparam_group_id):
+            query['DBParamGroupId'] = request.dbparam_group_id
+        if not UtilClient.is_unset(request.dbtime_zone):
+            query['DBTimeZone'] = request.dbtime_zone
+        if not UtilClient.is_unset(request.dedicated_host_group_id):
+            query['DedicatedHostGroupId'] = request.dedicated_host_group_id
+        if not UtilClient.is_unset(request.deletion_protection):
+            query['DeletionProtection'] = request.deletion_protection
+        if not UtilClient.is_unset(request.dry_run):
+            query['DryRun'] = request.dry_run
+        if not UtilClient.is_unset(request.encryption_key):
+            query['EncryptionKey'] = request.encryption_key
+        if not UtilClient.is_unset(request.engine):
+            query['Engine'] = request.engine
+        if not UtilClient.is_unset(request.engine_version):
+            query['EngineVersion'] = request.engine_version
+        if not UtilClient.is_unset(request.instance_network_type):
+            query['InstanceNetworkType'] = request.instance_network_type
+        if not UtilClient.is_unset(request.pay_type):
+            query['PayType'] = request.pay_type
+        if not UtilClient.is_unset(request.period):
+            query['Period'] = request.period
+        if not UtilClient.is_unset(request.private_ip_address):
+            query['PrivateIpAddress'] = request.private_ip_address
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.role_arn):
+            query['RoleARN'] = request.role_arn
+        if not UtilClient.is_unset(request.security_iplist):
+            query['SecurityIPList'] = request.security_iplist
+        if not UtilClient.is_unset(request.serverless_config_shrink):
+            query['ServerlessConfig'] = request.serverless_config_shrink
+        if not UtilClient.is_unset(request.storage_auto_scale):
+            query['StorageAutoScale'] = request.storage_auto_scale
+        if not UtilClient.is_unset(request.storage_threshold):
+            query['StorageThreshold'] = request.storage_threshold
+        if not UtilClient.is_unset(request.storage_upper_bound):
+            query['StorageUpperBound'] = request.storage_upper_bound
+        if not UtilClient.is_unset(request.system_dbcharset):
+            query['SystemDBCharset'] = request.system_dbcharset
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
+        if not UtilClient.is_unset(request.target_dedicated_host_id_for_log):
+            query['TargetDedicatedHostIdForLog'] = request.target_dedicated_host_id_for_log
+        if not UtilClient.is_unset(request.target_dedicated_host_id_for_master):
+            query['TargetDedicatedHostIdForMaster'] = request.target_dedicated_host_id_for_master
+        if not UtilClient.is_unset(request.target_dedicated_host_id_for_slave):
+            query['TargetDedicatedHostIdForSlave'] = request.target_dedicated_host_id_for_slave
+        if not UtilClient.is_unset(request.target_minor_version):
+            query['TargetMinorVersion'] = request.target_minor_version
+        if not UtilClient.is_unset(request.used_time):
+            query['UsedTime'] = request.used_time
+        if not UtilClient.is_unset(request.user_backup_id):
+            query['UserBackupId'] = request.user_backup_id
+        if not UtilClient.is_unset(request.vpcid):
+            query['VPCId'] = request.vpcid
+        if not UtilClient.is_unset(request.v_switch_id):
+            query['VSwitchId'] = request.v_switch_id
+        if not UtilClient.is_unset(request.zone_id):
+            query['ZoneId'] = request.zone_id
+        if not UtilClient.is_unset(request.zone_id_slave_1):
+            query['ZoneIdSlave1'] = request.zone_id_slave_1
+        if not UtilClient.is_unset(request.zone_id_slave_2):
+            query['ZoneIdSlave2'] = request.zone_id_slave_2
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateDBInstance',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.CreateDBInstanceResponse(),
-            self.do_rpcrequest('CreateDBInstance', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_dbinstance(self, request):
+        """
+        Before you call this operation, make sure that you understand the billing methods and pricing of ApsaraDB RDS. For more information, see [Billable items, billing methods, and pricing](~~45020~~).
+        For more information about ApsaraDB RDS instance types, see [Primary ApsaraDB RDS instance types](~~26312~~).
+        
+
+        @param request: CreateDBInstanceRequest
+
+        @return: CreateDBInstanceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_dbinstance_with_options(request, runtime)
 
-    def create_dbproxy_endpoint_address_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
+    def create_dbinstance_endpoint_with_options(self, tmp_req, runtime):
+        """
+        ## Background information
+        *   This operation is suitable only for ApsaraDB RDS for MySQL instances that run RDS Cluster Edition.
+        *   Each type of endpoint can contain an internal endpoint and an external endpoint. When you create any type of endpoint, an internal endpoint is automatically created for the endpoint.
+        *   If the instance runs MySQL, you must specify the VPCId, VSwitchId, and NodeItems parameters.
+        
+
+        @param tmp_req: CreateDBInstanceEndpointRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateDBInstanceEndpointResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = rds_20140815_models.CreateDBInstanceEndpointShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.node_items):
+            request.node_items_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.node_items, 'NodeItems', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.connection_string_prefix):
+            query['ConnectionStringPrefix'] = request.connection_string_prefix
+        if not UtilClient.is_unset(request.dbinstance_endpoint_description):
+            query['DBInstanceEndpointDescription'] = request.dbinstance_endpoint_description
+        if not UtilClient.is_unset(request.dbinstance_endpoint_type):
+            query['DBInstanceEndpointType'] = request.dbinstance_endpoint_type
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.node_items_shrink):
+            query['NodeItems'] = request.node_items_shrink
+        if not UtilClient.is_unset(request.port):
+            query['Port'] = request.port
+        if not UtilClient.is_unset(request.private_ip_address):
+            query['PrivateIpAddress'] = request.private_ip_address
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.v_switch_id):
+            query['VSwitchId'] = request.v_switch_id
+        if not UtilClient.is_unset(request.vpc_id):
+            query['VpcId'] = request.vpc_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateDBInstanceEndpoint',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.CreateDBInstanceEndpointResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_dbinstance_endpoint(self, request):
+        """
+        ## Background information
+        *   This operation is suitable only for ApsaraDB RDS for MySQL instances that run RDS Cluster Edition.
+        *   Each type of endpoint can contain an internal endpoint and an external endpoint. When you create any type of endpoint, an internal endpoint is automatically created for the endpoint.
+        *   If the instance runs MySQL, you must specify the VPCId, VSwitchId, and NodeItems parameters.
+        
+
+        @param request: CreateDBInstanceEndpointRequest
+
+        @return: CreateDBInstanceEndpointResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.create_dbinstance_endpoint_with_options(request, runtime)
+
+    def create_dbinstance_endpoint_address_with_options(self, request, runtime):
+        """
+        ## Background information
+        *   This operation is suitable only for ApsaraDB RDS for MySQL instances that run RDS Cluster Edition.
+        *   You can create a public endpoint of an endpoint type only when no public endpoint is created for this endpoint type.
+        *   The node weights and other configurations are the same as those of the internal endpoint of this endpoint type. Only one public endpoint and one internal endpoint can be created for each endpoint type.
+        
+
+        @param request: CreateDBInstanceEndpointAddressRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateDBInstanceEndpointAddressResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.connection_string_prefix):
+            query['ConnectionStringPrefix'] = request.connection_string_prefix
+        if not UtilClient.is_unset(request.dbinstance_endpoint_id):
+            query['DBInstanceEndpointId'] = request.dbinstance_endpoint_id
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.ip_type):
+            query['IpType'] = request.ip_type
+        if not UtilClient.is_unset(request.port):
+            query['Port'] = request.port
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateDBInstanceEndpointAddress',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.CreateDBInstanceEndpointAddressResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_dbinstance_endpoint_address(self, request):
+        """
+        ## Background information
+        *   This operation is suitable only for ApsaraDB RDS for MySQL instances that run RDS Cluster Edition.
+        *   You can create a public endpoint of an endpoint type only when no public endpoint is created for this endpoint type.
+        *   The node weights and other configurations are the same as those of the internal endpoint of this endpoint type. Only one public endpoint and one internal endpoint can be created for each endpoint type.
+        
+
+        @param request: CreateDBInstanceEndpointAddressRequest
+
+        @return: CreateDBInstanceEndpointAddressResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.create_dbinstance_endpoint_address_with_options(request, runtime)
+
+    def create_dbinstance_for_rebuild_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dbinstance_description):
+            query['DBInstanceDescription'] = request.dbinstance_description
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.dbinstance_net_type):
+            query['DBInstanceNetType'] = request.dbinstance_net_type
+        if not UtilClient.is_unset(request.instance_network_type):
+            query['InstanceNetworkType'] = request.instance_network_type
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.pay_type):
+            query['PayType'] = request.pay_type
+        if not UtilClient.is_unset(request.period):
+            query['Period'] = request.period
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.security_iplist):
+            query['SecurityIPList'] = request.security_iplist
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.used_time):
+            query['UsedTime'] = request.used_time
+        if not UtilClient.is_unset(request.vpcid):
+            query['VPCId'] = request.vpcid
+        if not UtilClient.is_unset(request.v_switch_id):
+            query['VSwitchId'] = request.v_switch_id
+        if not UtilClient.is_unset(request.zone_id):
+            query['ZoneId'] = request.zone_id
+        if not UtilClient.is_unset(request.zone_id_slave_1):
+            query['ZoneIdSlave1'] = request.zone_id_slave_1
+        if not UtilClient.is_unset(request.zone_id_slave_2):
+            query['ZoneIdSlave2'] = request.zone_id_slave_2
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateDBInstanceForRebuild',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.CreateDBInstanceForRebuildResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_dbinstance_for_rebuild(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_dbinstance_for_rebuild_with_options(request, runtime)
+
+    def create_dbnodes_with_options(self, tmp_req, runtime):
+        """
+        ## Background information
+        This operation is suitable only for ApsaraDB RDS for MySQL instances that run RDS Cluster Edition. These RDS instances are referred to as RDS clusters.
+        
+
+        @param tmp_req: CreateDBNodesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateDBNodesResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = rds_20140815_models.CreateDBNodesShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.dbnode):
+            request.dbnode_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.dbnode, 'DBNode', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.dbnode_shrink):
+            query['DBNode'] = request.dbnode_shrink
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateDBNodes',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.CreateDBNodesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_dbnodes(self, request):
+        """
+        ## Background information
+        This operation is suitable only for ApsaraDB RDS for MySQL instances that run RDS Cluster Edition. These RDS instances are referred to as RDS clusters.
+        
+
+        @param request: CreateDBNodesRequest
+
+        @return: CreateDBNodesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.create_dbnodes_with_options(request, runtime)
+
+    def create_dbproxy_endpoint_address_with_options(self, request, runtime):
+        """
+        After you enable the dedicated proxy feature for an ApsaraDB RDS for MySQL instance or enable the database proxy feature for an ApsaraDB RDS for PostgreSQL instance, a default proxy endpoint is created. You can call this operation to create proxy endpoints of different network types. For more information, see [What are database proxies?](~~138705~~) and [Activate and configure the database proxy feature for an ApsaraDB RDS for PostgreSQL instance](~~418272~~).
+        >
+        *   The following network types are supported for instances that use local SSDs: VPC, Classic, and Public.
+        *   The following network types are supported for instances that use standard SSDs or enhanced SSDs (ESSDs): VPC and Public. If you want to create a proxy endpoint of the public network type, you must configure IP address whitelists for the instance and its read-only instances to ensure connectivity between the client and the instance. You can call the [ModifySecurityIps](~~26242~~) operation to configure an IP address whitelist for an instance.
+        
+
+        @param request: CreateDBProxyEndpointAddressRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateDBProxyEndpointAddressResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.connection_string_prefix):
+            query['ConnectionStringPrefix'] = request.connection_string_prefix
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.dbproxy_connect_string_net_type):
+            query['DBProxyConnectStringNetType'] = request.dbproxy_connect_string_net_type
+        if not UtilClient.is_unset(request.dbproxy_endpoint_id):
+            query['DBProxyEndpointId'] = request.dbproxy_endpoint_id
+        if not UtilClient.is_unset(request.dbproxy_engine_type):
+            query['DBProxyEngineType'] = request.dbproxy_engine_type
+        if not UtilClient.is_unset(request.dbproxy_new_connect_string_port):
+            query['DBProxyNewConnectStringPort'] = request.dbproxy_new_connect_string_port
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.vpcid):
+            query['VPCId'] = request.vpcid
+        if not UtilClient.is_unset(request.v_switch_id):
+            query['VSwitchId'] = request.v_switch_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateDBProxyEndpointAddress',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.CreateDBProxyEndpointAddressResponse(),
-            self.do_rpcrequest('CreateDBProxyEndpointAddress', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_dbproxy_endpoint_address(self, request):
+        """
+        After you enable the dedicated proxy feature for an ApsaraDB RDS for MySQL instance or enable the database proxy feature for an ApsaraDB RDS for PostgreSQL instance, a default proxy endpoint is created. You can call this operation to create proxy endpoints of different network types. For more information, see [What are database proxies?](~~138705~~) and [Activate and configure the database proxy feature for an ApsaraDB RDS for PostgreSQL instance](~~418272~~).
+        >
+        *   The following network types are supported for instances that use local SSDs: VPC, Classic, and Public.
+        *   The following network types are supported for instances that use standard SSDs or enhanced SSDs (ESSDs): VPC and Public. If you want to create a proxy endpoint of the public network type, you must configure IP address whitelists for the instance and its read-only instances to ensure connectivity between the client and the instance. You can call the [ModifySecurityIps](~~26242~~) operation to configure an IP address whitelist for an instance.
+        
+
+        @param request: CreateDBProxyEndpointAddressRequest
+
+        @return: CreateDBProxyEndpointAddressResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_dbproxy_endpoint_address_with_options(request, runtime)
 
-    def create_ddr_instance_with_options(self, request, runtime):
+    def create_database_with_options(self, request, runtime):
+        """
+        If you want to perform data management tasks such as data change and schema design, use Data Management (DMS). For more information, see [List of operations by function of DMS](~~97965~~).
+        Before you call this operation, make sure that the following requirements are met:
+        *   The instance is in the Running state.
+        *   The maximum number of databases for the instance is not reached. You can call the [DescribeDBInstanceAttribute](~~26231~~) operation to query the maximum number of databases.
+        *   The instance is not a read-only instance.
+        > This operation is not supported for instances that run PostgreSQL with local SSDs or SQL Server 2017 (cluster edition). You can execute the CREATE DATABASE statement to create a database.
+        
+
+        @param request: CreateDatabaseRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateDatabaseResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.character_set_name):
+            query['CharacterSetName'] = request.character_set_name
+        if not UtilClient.is_unset(request.dbdescription):
+            query['DBDescription'] = request.dbdescription
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.dbname):
+            query['DBName'] = request.dbname
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateDatabase',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.CreateDatabaseResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_database(self, request):
+        """
+        If you want to perform data management tasks such as data change and schema design, use Data Management (DMS). For more information, see [List of operations by function of DMS](~~97965~~).
+        Before you call this operation, make sure that the following requirements are met:
+        *   The instance is in the Running state.
+        *   The maximum number of databases for the instance is not reached. You can call the [DescribeDBInstanceAttribute](~~26231~~) operation to query the maximum number of databases.
+        *   The instance is not a read-only instance.
+        > This operation is not supported for instances that run PostgreSQL with local SSDs or SQL Server 2017 (cluster edition). You can execute the CREATE DATABASE statement to create a database.
+        
+
+        @param request: CreateDatabaseRequest
+
+        @return: CreateDatabaseResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.create_database_with_options(request, runtime)
+
+    def create_ddr_instance_with_options(self, request, runtime):
+        """
+        Before you call this operation, you can call the [CheckCreateDdrDBInstance](~~121721~~) operation to check whether the data of the source instance can be restored from a cross-region backup file.
+        Before you call this operation, make sure that the instance runs one of the following database engines:
+        *   MySQL. For more information, see [Back up an ApsaraDB RDS for MySQL instance across regions](~~120824~~).
+        *   SQL Server. For more information, see [Back up an ApsaraDB RDS for SQL Server instance across regions](~~187923~~).
+        *   PostgreSQL. For more information, see [Enable cross-region backups for an ApsaraDB RDS for PostgreSQL instance](~~206671~~).
+        
+
+        @param request: CreateDdrInstanceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateDdrInstanceResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.backup_set_id):
+            query['BackupSetId'] = request.backup_set_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.connection_mode):
+            query['ConnectionMode'] = request.connection_mode
+        if not UtilClient.is_unset(request.dbinstance_class):
+            query['DBInstanceClass'] = request.dbinstance_class
+        if not UtilClient.is_unset(request.dbinstance_description):
+            query['DBInstanceDescription'] = request.dbinstance_description
+        if not UtilClient.is_unset(request.dbinstance_net_type):
+            query['DBInstanceNetType'] = request.dbinstance_net_type
+        if not UtilClient.is_unset(request.dbinstance_storage):
+            query['DBInstanceStorage'] = request.dbinstance_storage
+        if not UtilClient.is_unset(request.dbinstance_storage_type):
+            query['DBInstanceStorageType'] = request.dbinstance_storage_type
+        if not UtilClient.is_unset(request.engine):
+            query['Engine'] = request.engine
+        if not UtilClient.is_unset(request.engine_version):
+            query['EngineVersion'] = request.engine_version
+        if not UtilClient.is_unset(request.instance_network_type):
+            query['InstanceNetworkType'] = request.instance_network_type
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.pay_type):
+            query['PayType'] = request.pay_type
+        if not UtilClient.is_unset(request.period):
+            query['Period'] = request.period
+        if not UtilClient.is_unset(request.private_ip_address):
+            query['PrivateIpAddress'] = request.private_ip_address
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.restore_time):
+            query['RestoreTime'] = request.restore_time
+        if not UtilClient.is_unset(request.restore_type):
+            query['RestoreType'] = request.restore_type
+        if not UtilClient.is_unset(request.security_iplist):
+            query['SecurityIPList'] = request.security_iplist
+        if not UtilClient.is_unset(request.source_dbinstance_name):
+            query['SourceDBInstanceName'] = request.source_dbinstance_name
+        if not UtilClient.is_unset(request.source_region):
+            query['SourceRegion'] = request.source_region
+        if not UtilClient.is_unset(request.system_dbcharset):
+            query['SystemDBCharset'] = request.system_dbcharset
+        if not UtilClient.is_unset(request.used_time):
+            query['UsedTime'] = request.used_time
+        if not UtilClient.is_unset(request.vpcid):
+            query['VPCId'] = request.vpcid
+        if not UtilClient.is_unset(request.v_switch_id):
+            query['VSwitchId'] = request.v_switch_id
+        if not UtilClient.is_unset(request.zone_id):
+            query['ZoneId'] = request.zone_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateDdrInstance',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.CreateDdrInstanceResponse(),
-            self.do_rpcrequest('CreateDdrInstance', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_ddr_instance(self, request):
+        """
+        Before you call this operation, you can call the [CheckCreateDdrDBInstance](~~121721~~) operation to check whether the data of the source instance can be restored from a cross-region backup file.
+        Before you call this operation, make sure that the instance runs one of the following database engines:
+        *   MySQL. For more information, see [Back up an ApsaraDB RDS for MySQL instance across regions](~~120824~~).
+        *   SQL Server. For more information, see [Back up an ApsaraDB RDS for SQL Server instance across regions](~~187923~~).
+        *   PostgreSQL. For more information, see [Enable cross-region backups for an ApsaraDB RDS for PostgreSQL instance](~~206671~~).
+        
+
+        @param request: CreateDdrInstanceRequest
+
+        @return: CreateDdrInstanceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_ddr_instance_with_options(request, runtime)
 
-    def create_dedicated_host_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            rds_20140815_models.CreateDedicatedHostResponse(),
-            self.do_rpcrequest('CreateDedicatedHost', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def create_dedicated_host(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.create_dedicated_host_with_options(request, runtime)
-
-    def create_dedicated_host_account_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            rds_20140815_models.CreateDedicatedHostAccountResponse(),
-            self.do_rpcrequest('CreateDedicatedHostAccount', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def create_dedicated_host_account(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.create_dedicated_host_account_with_options(request, runtime)
-
-    def create_dedicated_host_group_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            rds_20140815_models.CreateDedicatedHostGroupResponse(),
-            self.do_rpcrequest('CreateDedicatedHostGroup', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def create_dedicated_host_group(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.create_dedicated_host_group_with_options(request, runtime)
-
-    def create_dedicated_host_user_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            rds_20140815_models.CreateDedicatedHostUserResponse(),
-            self.do_rpcrequest('CreateDedicatedHostUser', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def create_dedicated_host_user(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.create_dedicated_host_user_with_options(request, runtime)
-
     def create_diagnostic_report_with_options(self, request, runtime):
+        """
+        This operation is no longer maintained. You can use the [CreateDiagnosticReport](~~204508~~) operation of Database Autonomy Service (DAS) to create a diagnostic report.
+        After you call this operation to create a diagnostic report, you can call the [DescribeDiagnosticReportList](~~64304~~) operation to download the diagnostic report.
+        
+
+        @param request: CreateDiagnosticReportRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateDiagnosticReportResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateDiagnosticReport',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.CreateDiagnosticReportResponse(),
-            self.do_rpcrequest('CreateDiagnosticReport', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_diagnostic_report(self, request):
+        """
+        This operation is no longer maintained. You can use the [CreateDiagnosticReport](~~204508~~) operation of Database Autonomy Service (DAS) to create a diagnostic report.
+        After you call this operation to create a diagnostic report, you can call the [DescribeDiagnosticReportList](~~64304~~) operation to download the diagnostic report.
+        
+
+        @param request: CreateDiagnosticReportRequest
+
+        @return: CreateDiagnosticReportResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_diagnostic_report_with_options(request, runtime)
 
+    def create_gadinstance_with_options(self, request, runtime):
+        """
+        ## Prerequisites
+        *   An Alibaba Cloud account is used.
+        *   The balance in your Alibaba Cloud account is greater than or equal to USD 100.
+        *   A primary ApsaraDB RDS for MySQL instance is created, and the instance is not used to create a global active database cluster. You can call the [CreateDBInstance](~~26228~~) operation to create an instance.
+        > You can create primary ApsaraDB RDS for MySQL instances in the following regions: China (Hangzhou), China (Shanghai), China (Qingdao), China (Beijing), China (Zhangjiakou), China (Shenzhen), and China (Chengdu).
+        For more information, see [Create and release an ApsaraDB RDS global active database cluster](~~328592~~).
+        
+
+        @param request: CreateGADInstanceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateGADInstanceResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.central_dbinstance_id):
+            query['CentralDBInstanceId'] = request.central_dbinstance_id
+        if not UtilClient.is_unset(request.central_rds_dts_admin_account):
+            query['CentralRdsDtsAdminAccount'] = request.central_rds_dts_admin_account
+        if not UtilClient.is_unset(request.central_rds_dts_admin_password):
+            query['CentralRdsDtsAdminPassword'] = request.central_rds_dts_admin_password
+        if not UtilClient.is_unset(request.central_region_id):
+            query['CentralRegionId'] = request.central_region_id
+        if not UtilClient.is_unset(request.dblist):
+            query['DBList'] = request.dblist
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
+        if not UtilClient.is_unset(request.unit_node):
+            query['UnitNode'] = request.unit_node
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateGADInstance',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.CreateGADInstanceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_gadinstance(self, request):
+        """
+        ## Prerequisites
+        *   An Alibaba Cloud account is used.
+        *   The balance in your Alibaba Cloud account is greater than or equal to USD 100.
+        *   A primary ApsaraDB RDS for MySQL instance is created, and the instance is not used to create a global active database cluster. You can call the [CreateDBInstance](~~26228~~) operation to create an instance.
+        > You can create primary ApsaraDB RDS for MySQL instances in the following regions: China (Hangzhou), China (Shanghai), China (Qingdao), China (Beijing), China (Zhangjiakou), China (Shenzhen), and China (Chengdu).
+        For more information, see [Create and release an ApsaraDB RDS global active database cluster](~~328592~~).
+        
+
+        @param request: CreateGADInstanceRequest
+
+        @return: CreateGADInstanceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.create_gadinstance_with_options(request, runtime)
+
+    def create_gad_instance_member_with_options(self, request, runtime):
+        """
+        ## Prerequisites
+        An ApsaraDB RDS global active database cluster is created. You can call the [CreateGADInstance](~~336893~~) operation to create a global active database cluster.
+        For more information, see [Add unit nodes to or move unit nodes from an ApsaraDB RDS global active database cluster](~~331851~~).
+        
+
+        @param request: CreateGadInstanceMemberRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateGadInstanceMemberResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.central_dbinstance_id):
+            query['CentralDBInstanceId'] = request.central_dbinstance_id
+        if not UtilClient.is_unset(request.central_rds_dts_admin_account):
+            query['CentralRdsDtsAdminAccount'] = request.central_rds_dts_admin_account
+        if not UtilClient.is_unset(request.central_rds_dts_admin_password):
+            query['CentralRdsDtsAdminPassword'] = request.central_rds_dts_admin_password
+        if not UtilClient.is_unset(request.central_region_id):
+            query['CentralRegionId'] = request.central_region_id
+        if not UtilClient.is_unset(request.dblist):
+            query['DBList'] = request.dblist
+        if not UtilClient.is_unset(request.gad_instance_id):
+            query['GadInstanceId'] = request.gad_instance_id
+        if not UtilClient.is_unset(request.unit_node):
+            query['UnitNode'] = request.unit_node
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateGadInstanceMember',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.CreateGadInstanceMemberResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_gad_instance_member(self, request):
+        """
+        ## Prerequisites
+        An ApsaraDB RDS global active database cluster is created. You can call the [CreateGADInstance](~~336893~~) operation to create a global active database cluster.
+        For more information, see [Add unit nodes to or move unit nodes from an ApsaraDB RDS global active database cluster](~~331851~~).
+        
+
+        @param request: CreateGadInstanceMemberRequest
+
+        @return: CreateGadInstanceMemberResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.create_gad_instance_member_with_options(request, runtime)
+
     def create_migrate_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.backup_mode):
+            query['BackupMode'] = request.backup_mode
+        if not UtilClient.is_unset(request.check_dbmode):
+            query['CheckDBMode'] = request.check_dbmode
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.dbname):
+            query['DBName'] = request.dbname
+        if not UtilClient.is_unset(request.is_online_db):
+            query['IsOnlineDB'] = request.is_online_db
+        if not UtilClient.is_unset(request.migrate_task_id):
+            query['MigrateTaskId'] = request.migrate_task_id
+        if not UtilClient.is_unset(request.ossurls):
+            query['OSSUrls'] = request.ossurls
+        if not UtilClient.is_unset(request.oss_object_positions):
+            query['OssObjectPositions'] = request.oss_object_positions
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateMigrateTask',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.CreateMigrateTaskResponse(),
-            self.do_rpcrequest('CreateMigrateTask', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_migrate_task(self, request):
         runtime = util_models.RuntimeOptions()
         return self.create_migrate_task_with_options(request, runtime)
 
-    def create_migrate_task_for_sqlserver_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            rds_20140815_models.CreateMigrateTaskForSQLServerResponse(),
-            self.do_rpcrequest('CreateMigrateTaskForSQLServer', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def create_migrate_task_for_sqlserver(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.create_migrate_task_for_sqlserver_with_options(request, runtime)
-
     def create_online_database_task_with_options(self, request, runtime):
+        """
+        This operation is used to migrate backup data to the cloud. Before you call this operation, check [Migrate full backup data to ApsaraDB RDS for SQL Server 2008 R2](~~95737~~), [Migrate full backup data to ApsaraDB RDS for SQL Server 2012, 2014, 2016, 2017, or 2019](~~95738~~), and [Migrate incremental backup data to ApsaraDB RDS for SQL Server 2012, 2014, 2016, 2017, or 2019](~~95736~~).
+        
+
+        @param request: CreateOnlineDatabaseTaskRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateOnlineDatabaseTaskResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.check_dbmode):
+            query['CheckDBMode'] = request.check_dbmode
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.dbname):
+            query['DBName'] = request.dbname
+        if not UtilClient.is_unset(request.migrate_task_id):
+            query['MigrateTaskId'] = request.migrate_task_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateOnlineDatabaseTask',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.CreateOnlineDatabaseTaskResponse(),
-            self.do_rpcrequest('CreateOnlineDatabaseTask', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_online_database_task(self, request):
+        """
+        This operation is used to migrate backup data to the cloud. Before you call this operation, check [Migrate full backup data to ApsaraDB RDS for SQL Server 2008 R2](~~95737~~), [Migrate full backup data to ApsaraDB RDS for SQL Server 2012, 2014, 2016, 2017, or 2019](~~95738~~), and [Migrate incremental backup data to ApsaraDB RDS for SQL Server 2012, 2014, 2016, 2017, or 2019](~~95736~~).
+        
+
+        @param request: CreateOnlineDatabaseTaskRequest
+
+        @return: CreateOnlineDatabaseTaskResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_online_database_task_with_options(request, runtime)
 
     def create_parameter_group_with_options(self, request, runtime):
+        """
+        You can configure a number of parameters at a time by using a parameter template and then apply the parameter template to an instance. For more information, see [Use a parameter template to configure the parameters of ApsaraDB RDS for MySQL instances](~~130565~~) and [Use a parameter template to configure the parameters of ApsaraDB RDS for PostgreSQL instances](~~457176~~).
+        >  You can apply parameter templates only to ApsaraDB RDS for MySQL instances and ApsaraDB RDS for PostgreSQL instances.
+        
+
+        @param request: CreateParameterGroupRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateParameterGroupResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.engine):
+            query['Engine'] = request.engine
+        if not UtilClient.is_unset(request.engine_version):
+            query['EngineVersion'] = request.engine_version
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.parameter_group_desc):
+            query['ParameterGroupDesc'] = request.parameter_group_desc
+        if not UtilClient.is_unset(request.parameter_group_name):
+            query['ParameterGroupName'] = request.parameter_group_name
+        if not UtilClient.is_unset(request.parameters):
+            query['Parameters'] = request.parameters
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateParameterGroup',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.CreateParameterGroupResponse(),
-            self.do_rpcrequest('CreateParameterGroup', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_parameter_group(self, request):
+        """
+        You can configure a number of parameters at a time by using a parameter template and then apply the parameter template to an instance. For more information, see [Use a parameter template to configure the parameters of ApsaraDB RDS for MySQL instances](~~130565~~) and [Use a parameter template to configure the parameters of ApsaraDB RDS for PostgreSQL instances](~~457176~~).
+        >  You can apply parameter templates only to ApsaraDB RDS for MySQL instances and ApsaraDB RDS for PostgreSQL instances.
+        
+
+        @param request: CreateParameterGroupRequest
+
+        @return: CreateParameterGroupResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_parameter_group_with_options(request, runtime)
 
     def create_read_only_dbinstance_with_options(self, request, runtime):
+        """
+        *Before you call this operation, take note of the following limits:**\
+        *   The primary instance cannot belong to a dedicated cluster and must run one of the following database engine versions and RDS editions:
+        *   MySQL 8.0 on RDS High-availability Edition or RDS Enterprise Edition.
+        *   MySQL 5.7 on RDS High-availability Edition or RDS Enterprise Edition.
+        *   MySQL 5.6.
+        *   SQL Server 2017 on RDS Cluster Edition.
+        *   PostgreSQL 10, PostgreSQL 11, PostgreSQL 12, PostgreSQL 13, PostgreSQL 14, or PostgreSQL 15 on RDS High-availability Edition. If the primary instance runs PostgreSQL 10, it must use local SSDs and it must be a dedicated instance that provides at least 8 cores and 32 GB of memory.
+        *   If the primary instance runs MySQL, you can create up to 10 read-only instances.
+        *   If the primary instance runs SQL Server, you can create up to seven read-only instances.
+        *   If the primary instance runs PostgreSQL with local SSDs, you can create up to five read-only instances. If the primary instance runs PostgreSQL with standard SSDs or enhanced SSDs (ESSDs), you can create up to 32 read-only instances.
+        
+
+        @param request: CreateReadOnlyDBInstanceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateReadOnlyDBInstanceResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.auto_renew):
+            query['AutoRenew'] = request.auto_renew
+        if not UtilClient.is_unset(request.category):
+            query['Category'] = request.category
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dbinstance_class):
+            query['DBInstanceClass'] = request.dbinstance_class
+        if not UtilClient.is_unset(request.dbinstance_description):
+            query['DBInstanceDescription'] = request.dbinstance_description
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.dbinstance_storage):
+            query['DBInstanceStorage'] = request.dbinstance_storage
+        if not UtilClient.is_unset(request.dbinstance_storage_type):
+            query['DBInstanceStorageType'] = request.dbinstance_storage_type
+        if not UtilClient.is_unset(request.dedicated_host_group_id):
+            query['DedicatedHostGroupId'] = request.dedicated_host_group_id
+        if not UtilClient.is_unset(request.deletion_protection):
+            query['DeletionProtection'] = request.deletion_protection
+        if not UtilClient.is_unset(request.engine_version):
+            query['EngineVersion'] = request.engine_version
+        if not UtilClient.is_unset(request.gdn_instance_name):
+            query['GdnInstanceName'] = request.gdn_instance_name
+        if not UtilClient.is_unset(request.instance_network_type):
+            query['InstanceNetworkType'] = request.instance_network_type
+        if not UtilClient.is_unset(request.instruction_set_arch):
+            query['InstructionSetArch'] = request.instruction_set_arch
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.pay_type):
+            query['PayType'] = request.pay_type
+        if not UtilClient.is_unset(request.period):
+            query['Period'] = request.period
+        if not UtilClient.is_unset(request.private_ip_address):
+            query['PrivateIpAddress'] = request.private_ip_address
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.target_dedicated_host_id_for_master):
+            query['TargetDedicatedHostIdForMaster'] = request.target_dedicated_host_id_for_master
+        if not UtilClient.is_unset(request.tddl_biz_type):
+            query['TddlBizType'] = request.tddl_biz_type
+        if not UtilClient.is_unset(request.tddl_region_config):
+            query['TddlRegionConfig'] = request.tddl_region_config
+        if not UtilClient.is_unset(request.used_time):
+            query['UsedTime'] = request.used_time
+        if not UtilClient.is_unset(request.vpcid):
+            query['VPCId'] = request.vpcid
+        if not UtilClient.is_unset(request.v_switch_id):
+            query['VSwitchId'] = request.v_switch_id
+        if not UtilClient.is_unset(request.zone_id):
+            query['ZoneId'] = request.zone_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateReadOnlyDBInstance',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.CreateReadOnlyDBInstanceResponse(),
-            self.do_rpcrequest('CreateReadOnlyDBInstance', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_read_only_dbinstance(self, request):
+        """
+        *Before you call this operation, take note of the following limits:**\
+        *   The primary instance cannot belong to a dedicated cluster and must run one of the following database engine versions and RDS editions:
+        *   MySQL 8.0 on RDS High-availability Edition or RDS Enterprise Edition.
+        *   MySQL 5.7 on RDS High-availability Edition or RDS Enterprise Edition.
+        *   MySQL 5.6.
+        *   SQL Server 2017 on RDS Cluster Edition.
+        *   PostgreSQL 10, PostgreSQL 11, PostgreSQL 12, PostgreSQL 13, PostgreSQL 14, or PostgreSQL 15 on RDS High-availability Edition. If the primary instance runs PostgreSQL 10, it must use local SSDs and it must be a dedicated instance that provides at least 8 cores and 32 GB of memory.
+        *   If the primary instance runs MySQL, you can create up to 10 read-only instances.
+        *   If the primary instance runs SQL Server, you can create up to seven read-only instances.
+        *   If the primary instance runs PostgreSQL with local SSDs, you can create up to five read-only instances. If the primary instance runs PostgreSQL with standard SSDs or enhanced SSDs (ESSDs), you can create up to 32 read-only instances.
+        
+
+        @param request: CreateReadOnlyDBInstanceRequest
+
+        @return: CreateReadOnlyDBInstanceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_read_only_dbinstance_with_options(request, runtime)
 
-    def create_temp_dbinstance_with_options(self, request, runtime):
+    def create_secret_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.db_instance_id):
+            query['DbInstanceId'] = request.db_instance_id
+        if not UtilClient.is_unset(request.db_names):
+            query['DbNames'] = request.db_names
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.engine):
+            query['Engine'] = request.engine
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.password):
+            query['Password'] = request.password
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.secret_name):
+            query['SecretName'] = request.secret_name
+        if not UtilClient.is_unset(request.username):
+            query['Username'] = request.username
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateSecret',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.CreateSecretResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_secret(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_secret_with_options(request, runtime)
+
+    def create_service_linked_role_with_options(self, request, runtime):
+        """
+        ApsaraDB RDS supports the following service-linked roles:
+        *   The AliyunServiceRoleForRdsPgsqlOnEcs role is used for ApsaraDB RDS for PostgreSQL instances.
+        *   The AliyunServiceRoleForRDSProxyOnEcs role is used for the database proxy feature of ApsaraDB RDS instances.
+        
+
+        @param request: CreateServiceLinkedRoleRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateServiceLinkedRoleResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.service_linked_role):
+            query['ServiceLinkedRole'] = request.service_linked_role
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateServiceLinkedRole',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.CreateServiceLinkedRoleResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_service_linked_role(self, request):
+        """
+        ApsaraDB RDS supports the following service-linked roles:
+        *   The AliyunServiceRoleForRdsPgsqlOnEcs role is used for ApsaraDB RDS for PostgreSQL instances.
+        *   The AliyunServiceRoleForRDSProxyOnEcs role is used for the database proxy feature of ApsaraDB RDS instances.
+        
+
+        @param request: CreateServiceLinkedRoleRequest
+
+        @return: CreateServiceLinkedRoleResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.create_service_linked_role_with_options(request, runtime)
+
+    def create_temp_dbinstance_with_options(self, request, runtime):
+        """
+        You can create a temporary instance based on a backup file or a point in time within the past seven days.
+        Before you call this operation, make sure that the following requirements are met:
+        *   Your instance runs SQL Server 2008 R2.
+        *   Your instance is in the Running state.
+        *   Your instance does not have ongoing migration tasks.
+        *   The last creation of a backup file is completed.
+        >  After a temporary instance is created, accounts and databases inherit the data in the backup file.
+        
+
+        @param request: CreateTempDBInstanceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateTempDBInstanceResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.backup_id):
+            query['BackupId'] = request.backup_id
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.restore_time):
+            query['RestoreTime'] = request.restore_time
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateTempDBInstance',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.CreateTempDBInstanceResponse(),
-            self.do_rpcrequest('CreateTempDBInstance', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def create_temp_dbinstance(self, request):
+        """
+        You can create a temporary instance based on a backup file or a point in time within the past seven days.
+        Before you call this operation, make sure that the following requirements are met:
+        *   Your instance runs SQL Server 2008 R2.
+        *   Your instance is in the Running state.
+        *   Your instance does not have ongoing migration tasks.
+        *   The last creation of a backup file is completed.
+        >  After a temporary instance is created, accounts and databases inherit the data in the backup file.
+        
+
+        @param request: CreateTempDBInstanceRequest
+
+        @return: CreateTempDBInstanceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_temp_dbinstance_with_options(request, runtime)
 
-    def delete_account_with_options(self, request, runtime):
+    def delete_adsetting_with_options(self, request, runtime):
+        """
+        This operation is available only for ApsaraDB RDS for SQL Server instances.
+        
+
+        @param request: DeleteADSettingRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteADSettingResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteADSetting',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.DeleteADSettingResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_adsetting(self, request):
+        """
+        This operation is available only for ApsaraDB RDS for SQL Server instances.
+        
+
+        @param request: DeleteADSettingRequest
+
+        @return: DeleteADSettingResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.delete_adsetting_with_options(request, runtime)
+
+    def delete_account_with_options(self, request, runtime):
+        """
+        Before you call this operation, make sure that the instance is in the Running state. If the instance is not in the Running state, the operation fails.
+        >
+        *   This operation is not supported for instances that run SQL Server 2017 EE, PostgreSQL with local SSDs.
+        *   If you want to delete an account from an instance that runs PostgreSQL with standard SSDs or enhanced SSDs (ESSDs) and the account has permissions on specific objects such as databases and tables, this operation reports the "`Some objects depend on account`" error. Before you can delete the account, you must remove the permissions from the account.
+        
+
+        @param request: DeleteAccountRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteAccountResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.account_name):
+            query['AccountName'] = request.account_name
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteAccount',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DeleteAccountResponse(),
-            self.do_rpcrequest('DeleteAccount', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_account(self, request):
+        """
+        Before you call this operation, make sure that the instance is in the Running state. If the instance is not in the Running state, the operation fails.
+        >
+        *   This operation is not supported for instances that run SQL Server 2017 EE, PostgreSQL with local SSDs.
+        *   If you want to delete an account from an instance that runs PostgreSQL with standard SSDs or enhanced SSDs (ESSDs) and the account has permissions on specific objects such as databases and tables, this operation reports the "`Some objects depend on account`" error. Before you can delete the account, you must remove the permissions from the account.
+        
+
+        @param request: DeleteAccountRequest
+
+        @return: DeleteAccountResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_account_with_options(request, runtime)
 
     def delete_backup_with_options(self, request, runtime):
+        """
+        Only the backup sets of the instance itself are deleted. The backup sets of the associated instances such as read-only, disaster recovery, and clone instances are not deleted.
+        Before you call this operation, make sure that the following requirements are met:
+        *   The instance is in the running state.
+        *   The instance is of the High-availability Edition and runs MySQL or PostgreSQL.
+        *   If log backups are disabled, RDS instance does not support data restoration by time. You can delete data backup sets which are retained for more than seven days.
+        *   If log backups are enabled and the retention period of log backups is less than the retention period of data backups, the data backup sets that exceed the retention period of log backups can be deleted.
+        
+
+        @param request: DeleteBackupRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteBackupResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.backup_id):
+            query['BackupId'] = request.backup_id
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteBackup',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DeleteBackupResponse(),
-            self.do_rpcrequest('DeleteBackup', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_backup(self, request):
+        """
+        Only the backup sets of the instance itself are deleted. The backup sets of the associated instances such as read-only, disaster recovery, and clone instances are not deleted.
+        Before you call this operation, make sure that the following requirements are met:
+        *   The instance is in the running state.
+        *   The instance is of the High-availability Edition and runs MySQL or PostgreSQL.
+        *   If log backups are disabled, RDS instance does not support data restoration by time. You can delete data backup sets which are retained for more than seven days.
+        *   If log backups are enabled and the retention period of log backups is less than the retention period of data backups, the data backup sets that exceed the retention period of log backups can be deleted.
+        
+
+        @param request: DeleteBackupRequest
+
+        @return: DeleteBackupResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_backup_with_options(request, runtime)
 
     def delete_backup_file_with_options(self, request, runtime):
+        """
+        This operation is available for users whose accounts are added to the whitelist of an ApsaraDB RDS for SQL Server instance. If your account is not added to the whitelist of the instance, you can join the Database Backup (DBS) DingTalk group whose ID is 35585947 and contact the on-duty engineer to add your account to the whitelist.
+        
+
+        @param request: DeleteBackupFileRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteBackupFileResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.backup_id):
+            query['BackupId'] = request.backup_id
+        if not UtilClient.is_unset(request.backup_time):
+            query['BackupTime'] = request.backup_time
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.dbname):
+            query['DBName'] = request.dbname
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteBackupFile',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DeleteBackupFileResponse(),
-            self.do_rpcrequest('DeleteBackupFile', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_backup_file(self, request):
+        """
+        This operation is available for users whose accounts are added to the whitelist of an ApsaraDB RDS for SQL Server instance. If your account is not added to the whitelist of the instance, you can join the Database Backup (DBS) DingTalk group whose ID is 35585947 and contact the on-duty engineer to add your account to the whitelist.
+        
+
+        @param request: DeleteBackupFileRequest
+
+        @return: DeleteBackupFileResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_backup_file_with_options(request, runtime)
 
-    def delete_database_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            rds_20140815_models.DeleteDatabaseResponse(),
-            self.do_rpcrequest('DeleteDatabase', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def delete_database(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.delete_database_with_options(request, runtime)
-
     def delete_dbinstance_with_options(self, request, runtime):
+        """
+        Before you call this operation, make sure that the following requirements are met:
+        *   The instance is in the Running state.
+        *   The read/write splitting feature is disabled for the instance.
+        *   The instance is a primary, read-only, disaster recovery, or temporary instance. If the instance is a primary instance, it uses the pay-as-you-go billing method.
+        > You can manually release an instance in the ApsaraDB RDS console. For more information, see [Release an instance](~~26184~~).
+        
+
+        @param request: DeleteDBInstanceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteDBInstanceResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.released_keep_policy):
+            query['ReleasedKeepPolicy'] = request.released_keep_policy
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteDBInstance',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DeleteDBInstanceResponse(),
-            self.do_rpcrequest('DeleteDBInstance', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_dbinstance(self, request):
+        """
+        Before you call this operation, make sure that the following requirements are met:
+        *   The instance is in the Running state.
+        *   The read/write splitting feature is disabled for the instance.
+        *   The instance is a primary, read-only, disaster recovery, or temporary instance. If the instance is a primary instance, it uses the pay-as-you-go billing method.
+        > You can manually release an instance in the ApsaraDB RDS console. For more information, see [Release an instance](~~26184~~).
+        
+
+        @param request: DeleteDBInstanceRequest
+
+        @return: DeleteDBInstanceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_dbinstance_with_options(request, runtime)
 
+    def delete_dbinstance_endpoint_with_options(self, request, runtime):
+        """
+        ## Background information
+        *   This operation is suitable only for ApsaraDB RDS for MySQL instances that run RDS Cluster Edition.
+        *   If you delete any type of endpoint from an instance, all endpoints that are contained in the type of endpoint are deleted.
+        
+
+        @param request: DeleteDBInstanceEndpointRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteDBInstanceEndpointResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dbinstance_endpoint_id):
+            query['DBInstanceEndpointId'] = request.dbinstance_endpoint_id
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteDBInstanceEndpoint',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.DeleteDBInstanceEndpointResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_dbinstance_endpoint(self, request):
+        """
+        ## Background information
+        *   This operation is suitable only for ApsaraDB RDS for MySQL instances that run RDS Cluster Edition.
+        *   If you delete any type of endpoint from an instance, all endpoints that are contained in the type of endpoint are deleted.
+        
+
+        @param request: DeleteDBInstanceEndpointRequest
+
+        @return: DeleteDBInstanceEndpointResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.delete_dbinstance_endpoint_with_options(request, runtime)
+
+    def delete_dbinstance_endpoint_address_with_options(self, request, runtime):
+        """
+        ## Background information
+        *   This operation is suitable only for ApsaraDB RDS for MySQL instances that run RDS Cluster Edition.
+        *   You can delete only the public endpoint of each endpoint type from the instance. If you want to delete an internal endpoint of any endpoint type, you can delete the type of endpoint.
+        
+
+        @param request: DeleteDBInstanceEndpointAddressRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteDBInstanceEndpointAddressResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        body = {}
+        if not UtilClient.is_unset(request.connection_string):
+            body['ConnectionString'] = request.connection_string
+        if not UtilClient.is_unset(request.dbinstance_endpoint_id):
+            body['DBInstanceEndpointId'] = request.dbinstance_endpoint_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeleteDBInstanceEndpointAddress',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.DeleteDBInstanceEndpointAddressResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_dbinstance_endpoint_address(self, request):
+        """
+        ## Background information
+        *   This operation is suitable only for ApsaraDB RDS for MySQL instances that run RDS Cluster Edition.
+        *   You can delete only the public endpoint of each endpoint type from the instance. If you want to delete an internal endpoint of any endpoint type, you can delete the type of endpoint.
+        
+
+        @param request: DeleteDBInstanceEndpointAddressRequest
+
+        @return: DeleteDBInstanceEndpointAddressResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.delete_dbinstance_endpoint_address_with_options(request, runtime)
+
+    def delete_dbnodes_with_options(self, tmp_req, runtime):
+        """
+        ## Background information
+        This operation is suitable only for ApsaraDB RDS for MySQL instances that run RDS Cluster Edition. These RDS instances are referred to as RDS clusters.
+        
+
+        @param tmp_req: DeleteDBNodesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteDBNodesResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = rds_20140815_models.DeleteDBNodesShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.dbnode_id):
+            request.dbnode_id_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.dbnode_id, 'DBNodeId', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.dbnode_id_shrink):
+            query['DBNodeId'] = request.dbnode_id_shrink
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteDBNodes',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.DeleteDBNodesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_dbnodes(self, request):
+        """
+        ## Background information
+        This operation is suitable only for ApsaraDB RDS for MySQL instances that run RDS Cluster Edition. These RDS instances are referred to as RDS clusters.
+        
+
+        @param request: DeleteDBNodesRequest
+
+        @return: DeleteDBNodesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.delete_dbnodes_with_options(request, runtime)
+
     def delete_dbproxy_endpoint_address_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.dbproxy_connect_string_net_type):
+            query['DBProxyConnectStringNetType'] = request.dbproxy_connect_string_net_type
+        if not UtilClient.is_unset(request.dbproxy_endpoint_id):
+            query['DBProxyEndpointId'] = request.dbproxy_endpoint_id
+        if not UtilClient.is_unset(request.dbproxy_engine_type):
+            query['DBProxyEngineType'] = request.dbproxy_engine_type
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteDBProxyEndpointAddress',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DeleteDBProxyEndpointAddressResponse(),
-            self.do_rpcrequest('DeleteDBProxyEndpointAddress', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_dbproxy_endpoint_address(self, request):
         runtime = util_models.RuntimeOptions()
         return self.delete_dbproxy_endpoint_address_with_options(request, runtime)
 
-    def delete_dedicated_host_account_with_options(self, request, runtime):
+    def delete_database_with_options(self, request, runtime):
+        """
+        This operation must meet the following requirements:
+        *   The instance is in the running state.
+        *   The instance is a master instance.
+        *   The database engine is MySQL, SQL Server, or MariaDB.
+        >  This operation is not applicable to ApsaraDB RDS for PostgreSQL. You can run the `DROP DATABASE` SQL statement to delete databases.
+        
+
+        @param request: DeleteDatabaseRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteDatabaseResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.dbname):
+            query['DBName'] = request.dbname
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteDatabase',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
-            rds_20140815_models.DeleteDedicatedHostAccountResponse(),
-            self.do_rpcrequest('DeleteDedicatedHostAccount', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            rds_20140815_models.DeleteDatabaseResponse(),
+            self.call_api(params, req, runtime)
         )
 
-    def delete_dedicated_host_account(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.delete_dedicated_host_account_with_options(request, runtime)
+    def delete_database(self, request):
+        """
+        This operation must meet the following requirements:
+        *   The instance is in the running state.
+        *   The instance is a master instance.
+        *   The database engine is MySQL, SQL Server, or MariaDB.
+        >  This operation is not applicable to ApsaraDB RDS for PostgreSQL. You can run the `DROP DATABASE` SQL statement to delete databases.
+        
 
-    def delete_dedicated_host_group_with_options(self, request, runtime):
+        @param request: DeleteDatabaseRequest
+
+        @return: DeleteDatabaseResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.delete_database_with_options(request, runtime)
+
+    def delete_gad_instance_with_options(self, request, runtime):
+        """
+        ## Precautions
+        *   A global active database cluster cannot be restored after it is deleted. Proceed with caution when you delete a global active database cluster.
+        *   If you delete a global active database cluster, the system removes all nodes and Data Transmission Service (DTS) synchronization tasks from the cluster. However, the system does not release the ApsaraDB RDS for MySQL instances that run as nodes in the cluster. If you no longer need the ApsaraDB RDS for MySQL instances, you can call the [DeleteDBInstance](~~26229~~) to delete the instances one after another.
+        
+
+        @param request: DeleteGadInstanceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteGadInstanceResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.gad_instance_name):
+            query['GadInstanceName'] = request.gad_instance_name
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteGadInstance',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
-            rds_20140815_models.DeleteDedicatedHostGroupResponse(),
-            self.do_rpcrequest('DeleteDedicatedHostGroup', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            rds_20140815_models.DeleteGadInstanceResponse(),
+            self.call_api(params, req, runtime)
         )
 
-    def delete_dedicated_host_group(self, request):
+    def delete_gad_instance(self, request):
+        """
+        ## Precautions
+        *   A global active database cluster cannot be restored after it is deleted. Proceed with caution when you delete a global active database cluster.
+        *   If you delete a global active database cluster, the system removes all nodes and Data Transmission Service (DTS) synchronization tasks from the cluster. However, the system does not release the ApsaraDB RDS for MySQL instances that run as nodes in the cluster. If you no longer need the ApsaraDB RDS for MySQL instances, you can call the [DeleteDBInstance](~~26229~~) to delete the instances one after another.
+        
+
+        @param request: DeleteGadInstanceRequest
+
+        @return: DeleteGadInstanceResponse
+        """
         runtime = util_models.RuntimeOptions()
-        return self.delete_dedicated_host_group_with_options(request, runtime)
+        return self.delete_gad_instance_with_options(request, runtime)
 
     def delete_parameter_group_with_options(self, request, runtime):
+        """
+        You can apply a parameter template to an instance to configure a number of parameters at a time. For more information, see [Use a parameter template to configure the parameters of ApsaraDB RDS for MySQL instances](~~130565~~) or [Use a parameter template to configure the parameters of ApsaraDB RDS for PostgreSQL instances](~~457176~~).
+        > * If you delete a parameter template, the instances to which the parameter template is applied are not affected.
+        > * Before you can delete a parameter template in ApsaraDB RDS for PostgreSQL, you must apply another parameter template to the ApsaraDB RDS for PostgreSQL instances to which the parameter template is applied. You can call the [DescribeParameterGroup](~~144842~~) operation to query the instances to which the parameter template is applied.
+        
+
+        @param request: DeleteParameterGroupRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteParameterGroupResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.parameter_group_id):
+            query['ParameterGroupId'] = request.parameter_group_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteParameterGroup',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DeleteParameterGroupResponse(),
-            self.do_rpcrequest('DeleteParameterGroup', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_parameter_group(self, request):
+        """
+        You can apply a parameter template to an instance to configure a number of parameters at a time. For more information, see [Use a parameter template to configure the parameters of ApsaraDB RDS for MySQL instances](~~130565~~) or [Use a parameter template to configure the parameters of ApsaraDB RDS for PostgreSQL instances](~~457176~~).
+        > * If you delete a parameter template, the instances to which the parameter template is applied are not affected.
+        > * Before you can delete a parameter template in ApsaraDB RDS for PostgreSQL, you must apply another parameter template to the ApsaraDB RDS for PostgreSQL instances to which the parameter template is applied. You can call the [DescribeParameterGroup](~~144842~~) operation to query the instances to which the parameter template is applied.
+        
+
+        @param request: DeleteParameterGroupRequest
+
+        @return: DeleteParameterGroupResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_parameter_group_with_options(request, runtime)
 
-    def delete_user_backup_file_with_options(self, request, runtime):
+    def delete_secret_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.db_instance_id):
+            query['DbInstanceId'] = request.db_instance_id
+        if not UtilClient.is_unset(request.engine):
+            query['Engine'] = request.engine
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.secret_arn):
+            query['SecretArn'] = request.secret_arn
+        if not UtilClient.is_unset(request.secret_name):
+            query['SecretName'] = request.secret_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteSecret',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.DeleteSecretResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_secret(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_secret_with_options(request, runtime)
+
+    def delete_user_backup_file_with_options(self, request, runtime):
+        """
+        >    A full backup file contains the data of a self-managed MySQL database. You can restore the data of a self-managed MySQL database from a full backup file to an ApsaraDB RDS for MySQL instance. For more information, see [Migrate full the backup data of a self-managed MySQL 5.7 database to an ApsaraDB RDS for MySQL instance](~~251779~~).
+        > *   This operation deletes full backup files only from the ApsaraDB RDS console. This operation does not affect the full backup files that are stored as objects in Object Storage Service (OSS) buckets. After you call this operation to delete a full backup file, you can call the [ImportUserBackupFile](~~260266~~) operation to reimport the full backup file.
+        
+
+        @param request: DeleteUserBackupFileRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteUserBackupFileResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.backup_id):
+            query['BackupId'] = request.backup_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteUserBackupFile',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DeleteUserBackupFileResponse(),
-            self.do_rpcrequest('DeleteUserBackupFile', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def delete_user_backup_file(self, request):
+        """
+        >    A full backup file contains the data of a self-managed MySQL database. You can restore the data of a self-managed MySQL database from a full backup file to an ApsaraDB RDS for MySQL instance. For more information, see [Migrate full the backup data of a self-managed MySQL 5.7 database to an ApsaraDB RDS for MySQL instance](~~251779~~).
+        > *   This operation deletes full backup files only from the ApsaraDB RDS console. This operation does not affect the full backup files that are stored as objects in Object Storage Service (OSS) buckets. After you call this operation to delete a full backup file, you can call the [ImportUserBackupFile](~~260266~~) operation to reimport the full backup file.
+        
+
+        @param request: DeleteUserBackupFileRequest
+
+        @return: DeleteUserBackupFileResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_user_backup_file_with_options(request, runtime)
 
     def descibe_imports_from_database_with_options(self, request, runtime):
+        """
+        This operation is suitable only for the instances that run MySQL or SQL Server. For more information about how to run a migration task, see [ImportDatabaseBetweenInstances](~~26301~~).
+        
+
+        @param request: DescibeImportsFromDatabaseRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescibeImportsFromDatabaseResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.engine):
+            query['Engine'] = request.engine
+        if not UtilClient.is_unset(request.import_id):
+            query['ImportId'] = request.import_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescibeImportsFromDatabase',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescibeImportsFromDatabaseResponse(),
-            self.do_rpcrequest('DescibeImportsFromDatabase', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def descibe_imports_from_database(self, request):
+        """
+        This operation is suitable only for the instances that run MySQL or SQL Server. For more information about how to run a migration task, see [ImportDatabaseBetweenInstances](~~26301~~).
+        
+
+        @param request: DescibeImportsFromDatabaseRequest
+
+        @return: DescibeImportsFromDatabaseResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.descibe_imports_from_database_with_options(request, runtime)
 
-    def describe_accounts_with_options(self, request, runtime):
+    def describe_adinfo_with_options(self, request, runtime):
+        """
+        This operation is available only for ApsaraDB RDS for SQL Server instances.
+        
+
+        @param request: DescribeADInfoRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeADInfoResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeADInfo',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.DescribeADInfoResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_adinfo(self, request):
+        """
+        This operation is available only for ApsaraDB RDS for SQL Server instances.
+        
+
+        @param request: DescribeADInfoRequest
+
+        @return: DescribeADInfoResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.describe_adinfo_with_options(request, runtime)
+
+    def describe_accounts_with_options(self, request, runtime):
+        """
+        >  This operation is not supported for instances that run SQL Server 2017 (cluster edition).
+        
+
+        @param request: DescribeAccountsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeAccountsResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.account_name):
+            query['AccountName'] = request.account_name
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeAccounts',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeAccountsResponse(),
-            self.do_rpcrequest('DescribeAccounts', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_accounts(self, request):
+        """
+        >  This operation is not supported for instances that run SQL Server 2017 (cluster edition).
+        
+
+        @param request: DescribeAccountsRequest
+
+        @return: DescribeAccountsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_accounts_with_options(request, runtime)
 
     def describe_action_event_policy_with_options(self, request, runtime):
+        """
+        The event history feature enables you to view the events that occurred in a region over a specific time range. The events include instance creation and parameter reconfiguration. For more information, see [Event history](~~129759~~).
+        
+
+        @param request: DescribeActionEventPolicyRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeActionEventPolicyResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeActionEventPolicy',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeActionEventPolicyResponse(),
-            self.do_rpcrequest('DescribeActionEventPolicy', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_action_event_policy(self, request):
+        """
+        The event history feature enables you to view the events that occurred in a region over a specific time range. The events include instance creation and parameter reconfiguration. For more information, see [Event history](~~129759~~).
+        
+
+        @param request: DescribeActionEventPolicyRequest
+
+        @return: DescribeActionEventPolicyResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_action_event_policy_with_options(request, runtime)
 
+    def describe_analyticdb_by_primary_dbinstance_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeAnalyticdbByPrimaryDBInstance',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.DescribeAnalyticdbByPrimaryDBInstanceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_analyticdb_by_primary_dbinstance(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_analyticdb_by_primary_dbinstance_with_options(request, runtime)
+
     def describe_available_classes_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.category):
+            query['Category'] = request.category
+        if not UtilClient.is_unset(request.commodity_code):
+            query['CommodityCode'] = request.commodity_code
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.dbinstance_storage_type):
+            query['DBInstanceStorageType'] = request.dbinstance_storage_type
+        if not UtilClient.is_unset(request.engine):
+            query['Engine'] = request.engine
+        if not UtilClient.is_unset(request.engine_version):
+            query['EngineVersion'] = request.engine_version
+        if not UtilClient.is_unset(request.instance_charge_type):
+            query['InstanceChargeType'] = request.instance_charge_type
+        if not UtilClient.is_unset(request.order_type):
+            query['OrderType'] = request.order_type
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.zone_id):
+            query['ZoneId'] = request.zone_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeAvailableClasses',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeAvailableClassesResponse(),
-            self.do_rpcrequest('DescribeAvailableClasses', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_available_classes(self, request):
@@ -722,83 +3840,219 @@ class Client(OpenApiClient):
         return self.describe_available_classes_with_options(request, runtime)
 
     def describe_available_cross_region_with_options(self, request, runtime):
+        """
+        Before you call this operation, make sure that the instance runs one of the following database engines:
+        *   MySQL. For more information, see [Back up an ApsaraDB RDS for MySQL instance across regions](~~120824~~).
+        *   SQL Server. For more information, see [Back up an ApsaraDB RDS for SQL Server instance across regions](~~187923~~).
+        *   PostgreSQL. For more information, see [Back up an ApsaraDB RDS for PostgreSQL instance across regions](~~206671~~).
+        
+
+        @param request: DescribeAvailableCrossRegionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeAvailableCrossRegionResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeAvailableCrossRegion',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeAvailableCrossRegionResponse(),
-            self.do_rpcrequest('DescribeAvailableCrossRegion', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_available_cross_region(self, request):
+        """
+        Before you call this operation, make sure that the instance runs one of the following database engines:
+        *   MySQL. For more information, see [Back up an ApsaraDB RDS for MySQL instance across regions](~~120824~~).
+        *   SQL Server. For more information, see [Back up an ApsaraDB RDS for SQL Server instance across regions](~~187923~~).
+        *   PostgreSQL. For more information, see [Back up an ApsaraDB RDS for PostgreSQL instance across regions](~~206671~~).
+        
+
+        @param request: DescribeAvailableCrossRegionRequest
+
+        @return: DescribeAvailableCrossRegionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_available_cross_region_with_options(request, runtime)
 
-    def describe_available_dedicated_host_classes_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            rds_20140815_models.DescribeAvailableDedicatedHostClassesResponse(),
-            self.do_rpcrequest('DescribeAvailableDedicatedHostClasses', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def describe_available_dedicated_host_classes(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_available_dedicated_host_classes_with_options(request, runtime)
-
-    def describe_available_dedicated_host_zones_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            rds_20140815_models.DescribeAvailableDedicatedHostZonesResponse(),
-            self.do_rpcrequest('DescribeAvailableDedicatedHostZones', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def describe_available_dedicated_host_zones(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_available_dedicated_host_zones_with_options(request, runtime)
-
     def describe_available_metrics_with_options(self, request, runtime):
+        """
+        ### Prerequisites
+        The instance runs PostgreSQL.
+        For more information, see [View the Enhanced Monitoring metrics of an ApsaraDB RDS for PostgreSQL instance](~~299200~~).
+        
+
+        @param request: DescribeAvailableMetricsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeAvailableMetricsResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_name):
+            query['DBInstanceName'] = request.dbinstance_name
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeAvailableMetrics',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeAvailableMetricsResponse(),
-            self.do_rpcrequest('DescribeAvailableMetrics', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_available_metrics(self, request):
+        """
+        ### Prerequisites
+        The instance runs PostgreSQL.
+        For more information, see [View the Enhanced Monitoring metrics of an ApsaraDB RDS for PostgreSQL instance](~~299200~~).
+        
+
+        @param request: DescribeAvailableMetricsRequest
+
+        @return: DescribeAvailableMetricsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_available_metrics_with_options(request, runtime)
 
     def describe_available_recovery_time_with_options(self, request, runtime):
+        """
+        To query the time range to which you can restore data by using a common backup file, see [DescribeBackups](~~26273~~).
+        Before you call this operation, make sure that the instance runs one of the following database engines:
+        *   MySQL. For more information, see [Back up an ApsaraDB RDS for MySQL instance across regions](~~120824~~).
+        *   PostgreSQL. For more information, see [Back up an ApsaraDB RDS for PostgreSQL instance across regions](~~206671~~).
+        
+
+        @param request: DescribeAvailableRecoveryTimeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeAvailableRecoveryTimeResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.cross_backup_id):
+            query['CrossBackupId'] = request.cross_backup_id
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeAvailableRecoveryTime',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeAvailableRecoveryTimeResponse(),
-            self.do_rpcrequest('DescribeAvailableRecoveryTime', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_available_recovery_time(self, request):
+        """
+        To query the time range to which you can restore data by using a common backup file, see [DescribeBackups](~~26273~~).
+        Before you call this operation, make sure that the instance runs one of the following database engines:
+        *   MySQL. For more information, see [Back up an ApsaraDB RDS for MySQL instance across regions](~~120824~~).
+        *   PostgreSQL. For more information, see [Back up an ApsaraDB RDS for PostgreSQL instance across regions](~~206671~~).
+        
+
+        @param request: DescribeAvailableRecoveryTimeRequest
+
+        @return: DescribeAvailableRecoveryTimeResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_available_recovery_time_with_options(request, runtime)
 
     def describe_available_zones_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.category):
+            query['Category'] = request.category
+        if not UtilClient.is_unset(request.commodity_code):
+            query['CommodityCode'] = request.commodity_code
+        if not UtilClient.is_unset(request.dbinstance_name):
+            query['DBInstanceName'] = request.dbinstance_name
+        if not UtilClient.is_unset(request.dispense_mode):
+            query['DispenseMode'] = request.dispense_mode
+        if not UtilClient.is_unset(request.engine):
+            query['Engine'] = request.engine
+        if not UtilClient.is_unset(request.engine_version):
+            query['EngineVersion'] = request.engine_version
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.zone_id):
+            query['ZoneId'] = request.zone_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeAvailableZones',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeAvailableZonesResponse(),
-            self.do_rpcrequest('DescribeAvailableZones', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_available_zones(self, request):
@@ -806,223 +4060,1045 @@ class Client(OpenApiClient):
         return self.describe_available_zones_with_options(request, runtime)
 
     def describe_backup_database_with_options(self, request, runtime):
+        """
+        > The operation is phased out.
+        
+
+        @param request: DescribeBackupDatabaseRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeBackupDatabaseResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.backup_id):
+            query['BackupId'] = request.backup_id
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeBackupDatabase',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeBackupDatabaseResponse(),
-            self.do_rpcrequest('DescribeBackupDatabase', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_backup_database(self, request):
+        """
+        > The operation is phased out.
+        
+
+        @param request: DescribeBackupDatabaseRequest
+
+        @return: DescribeBackupDatabaseResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_backup_database_with_options(request, runtime)
 
     def describe_backup_policy_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.backup_policy_mode):
+            query['BackupPolicyMode'] = request.backup_policy_mode
+        if not UtilClient.is_unset(request.compress_type):
+            query['CompressType'] = request.compress_type
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.released_keep_policy):
+            query['ReleasedKeepPolicy'] = request.released_keep_policy
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeBackupPolicy',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeBackupPolicyResponse(),
-            self.do_rpcrequest('DescribeBackupPolicy', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_backup_policy(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_backup_policy_with_options(request, runtime)
 
-    def describe_backups_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            rds_20140815_models.DescribeBackupsResponse(),
-            self.do_rpcrequest('DescribeBackups', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def describe_backups(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_backups_with_options(request, runtime)
-
     def describe_backup_tasks_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.backup_job_id):
+            query['BackupJobId'] = request.backup_job_id
+        if not UtilClient.is_unset(request.backup_job_status):
+            query['BackupJobStatus'] = request.backup_job_status
+        if not UtilClient.is_unset(request.backup_mode):
+            query['BackupMode'] = request.backup_mode
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.flag):
+            query['Flag'] = request.flag
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeBackupTasks',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeBackupTasksResponse(),
-            self.do_rpcrequest('DescribeBackupTasks', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_backup_tasks(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_backup_tasks_with_options(request, runtime)
 
-    def describe_binlog_files_with_options(self, request, runtime):
+    def describe_backups_with_options(self, request, runtime):
+        """
+        >  A data backup file can be used to restore data only when its *BackupStatus** value is **Success**.
+        
+
+        @param request: DescribeBackupsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeBackupsResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.backup_id):
+            query['BackupId'] = request.backup_id
+        if not UtilClient.is_unset(request.backup_mode):
+            query['BackupMode'] = request.backup_mode
+        if not UtilClient.is_unset(request.backup_status):
+            query['BackupStatus'] = request.backup_status
+        if not UtilClient.is_unset(request.backup_type):
+            query['BackupType'] = request.backup_type
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeBackups',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.DescribeBackupsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_backups(self, request):
+        """
+        >  A data backup file can be used to restore data only when its *BackupStatus** value is **Success**.
+        
+
+        @param request: DescribeBackupsRequest
+
+        @return: DescribeBackupsResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.describe_backups_with_options(request, runtime)
+
+    def describe_binlog_files_with_options(self, request, runtime):
+        """
+        If the return value of the **DownloadLink** parameter is NULL for a log backup file, ApsaraDB RDS does not provide a URL from which you can download the file.
+        *   If the return value of the **DownloadLink** parameter is not NULL for a log backup file, ApsaraDB RDS provides a URL from which you can download the file. The expiration time of the provided URL is specified by the **LinkExpiredTime** parameter. You must download the file before the expiration time.
+        *   This operation returns SQL log entries that are generated over a specified time range. The beginning of the time range must be later than or equal to the time that is specified by the LogEndTime parameter. In addition, the end of the time range must be earlier than or equal to the time that is specified by the LogBeginTime parameter.
+        >  This operation is not supported for instances that run SQL Server.
+        
+
+        @param request: DescribeBinlogFilesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeBinlogFilesResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeBinlogFiles',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeBinlogFilesResponse(),
-            self.do_rpcrequest('DescribeBinlogFiles', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_binlog_files(self, request):
+        """
+        If the return value of the **DownloadLink** parameter is NULL for a log backup file, ApsaraDB RDS does not provide a URL from which you can download the file.
+        *   If the return value of the **DownloadLink** parameter is not NULL for a log backup file, ApsaraDB RDS provides a URL from which you can download the file. The expiration time of the provided URL is specified by the **LinkExpiredTime** parameter. You must download the file before the expiration time.
+        *   This operation returns SQL log entries that are generated over a specified time range. The beginning of the time range must be later than or equal to the time that is specified by the LogEndTime parameter. In addition, the end of the time range must be earlier than or equal to the time that is specified by the LogBeginTime parameter.
+        >  This operation is not supported for instances that run SQL Server.
+        
+
+        @param request: DescribeBinlogFilesRequest
+
+        @return: DescribeBinlogFilesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_binlog_files_with_options(request, runtime)
 
     def describe_character_set_name_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.engine):
+            query['Engine'] = request.engine
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeCharacterSetName',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeCharacterSetNameResponse(),
-            self.do_rpcrequest('DescribeCharacterSetName', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_character_set_name(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_character_set_name_with_options(request, runtime)
 
-    def describe_collation_time_zones_with_options(self, request, runtime):
+    def describe_cloud_migration_precheck_result_with_options(self, request, runtime):
+        """
+        ## Prerequisites
+        Before you call the DescribeCloudMigrationPrecheckResult operation, make sure that the CreateCloudMigrationPrecheckTask operation is called to create a cloud migration assessment task for the ApsaraDB RDS for PostgreSQL instance.
+        
+
+        @param request: DescribeCloudMigrationPrecheckResultRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeCloudMigrationPrecheckResultResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_name):
+            query['DBInstanceName'] = request.dbinstance_name
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.source_ip_address):
+            query['SourceIpAddress'] = request.source_ip_address
+        if not UtilClient.is_unset(request.source_port):
+            query['SourcePort'] = request.source_port
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
+        if not UtilClient.is_unset(request.task_name):
+            query['TaskName'] = request.task_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeCloudMigrationPrecheckResult',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.DescribeCloudMigrationPrecheckResultResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_cloud_migration_precheck_result(self, request):
+        """
+        ## Prerequisites
+        Before you call the DescribeCloudMigrationPrecheckResult operation, make sure that the CreateCloudMigrationPrecheckTask operation is called to create a cloud migration assessment task for the ApsaraDB RDS for PostgreSQL instance.
+        
+
+        @param request: DescribeCloudMigrationPrecheckResultRequest
+
+        @return: DescribeCloudMigrationPrecheckResultResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.describe_cloud_migration_precheck_result_with_options(request, runtime)
+
+    def describe_cloud_migration_result_with_options(self, request, runtime):
+        """
+        ## Prerequisites
+        Before you call the DescribeCloudMigrationResult operation, make sure that cloud migration tasks are created by calling the [CreateCloudMigrationTask](~~411690~~) operation.
+        
+
+        @param request: DescribeCloudMigrationResultRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeCloudMigrationResultResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_name):
+            query['DBInstanceName'] = request.dbinstance_name
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.source_ip_address):
+            query['SourceIpAddress'] = request.source_ip_address
+        if not UtilClient.is_unset(request.source_port):
+            query['SourcePort'] = request.source_port
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
+        if not UtilClient.is_unset(request.task_name):
+            query['TaskName'] = request.task_name
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeCloudMigrationResult',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.DescribeCloudMigrationResultResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_cloud_migration_result(self, request):
+        """
+        ## Prerequisites
+        Before you call the DescribeCloudMigrationResult operation, make sure that cloud migration tasks are created by calling the [CreateCloudMigrationTask](~~411690~~) operation.
+        
+
+        @param request: DescribeCloudMigrationResultRequest
+
+        @return: DescribeCloudMigrationResultResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.describe_cloud_migration_result_with_options(request, runtime)
+
+    def describe_collation_time_zones_with_options(self, request, runtime):
+        """
+        >  This operation is supported only for instances that run SQL Server 2012 or later.
+        
+
+        @param request: DescribeCollationTimeZonesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeCollationTimeZonesResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeCollationTimeZones',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeCollationTimeZonesResponse(),
-            self.do_rpcrequest('DescribeCollationTimeZones', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_collation_time_zones(self, request):
+        """
+        >  This operation is supported only for instances that run SQL Server 2012 or later.
+        
+
+        @param request: DescribeCollationTimeZonesRequest
+
+        @return: DescribeCollationTimeZonesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_collation_time_zones_with_options(request, runtime)
 
     def describe_cross_backup_meta_list_with_options(self, request, runtime):
+        """
+        ApsaraDB RDS for MySQL instances support cross-region backup and restoration. For more information, see [Back up an ApsaraDB RDS for MySQL instance across regions](~~120824~~) and [Restore the data of an ApsaraDB RDS for MySQL instance across regions](~~120875~~).
+        Before you call this operation, make sure that the instance runs one of the following database engines:
+        *   MySQL. For more information, see [Back up an ApsaraDB RDS for MySQL instance across regions](~~120824~~).
+        *   SQL Server. For more information, see [Back up an ApsaraDB RDS for SQL Server instance across regions](~~187923~~).
+        *   PostgreSQL. For more information, see [Back up an ApsaraDB RDS for PostgreSQL instance across regions](~~206671~~).
+        
+
+        @param request: DescribeCrossBackupMetaListRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeCrossBackupMetaListResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.backup_set_id):
+            query['BackupSetId'] = request.backup_set_id
+        if not UtilClient.is_unset(request.get_db_name):
+            query['GetDbName'] = request.get_db_name
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_index):
+            query['PageIndex'] = request.page_index
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.pattern):
+            query['Pattern'] = request.pattern
+        if not UtilClient.is_unset(request.region):
+            query['Region'] = request.region
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeCrossBackupMetaList',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeCrossBackupMetaListResponse(),
-            self.do_rpcrequest('DescribeCrossBackupMetaList', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_cross_backup_meta_list(self, request):
+        """
+        ApsaraDB RDS for MySQL instances support cross-region backup and restoration. For more information, see [Back up an ApsaraDB RDS for MySQL instance across regions](~~120824~~) and [Restore the data of an ApsaraDB RDS for MySQL instance across regions](~~120875~~).
+        Before you call this operation, make sure that the instance runs one of the following database engines:
+        *   MySQL. For more information, see [Back up an ApsaraDB RDS for MySQL instance across regions](~~120824~~).
+        *   SQL Server. For more information, see [Back up an ApsaraDB RDS for SQL Server instance across regions](~~187923~~).
+        *   PostgreSQL. For more information, see [Back up an ApsaraDB RDS for PostgreSQL instance across regions](~~206671~~).
+        
+
+        @param request: DescribeCrossBackupMetaListRequest
+
+        @return: DescribeCrossBackupMetaListResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_cross_backup_meta_list_with_options(request, runtime)
 
     def describe_cross_region_backup_dbinstance_with_options(self, request, runtime):
+        """
+        Before you call this operation, make sure that the instance runs one of the following database engines:
+        *   MySQL. For more information, see [Back up an ApsaraDB RDS for MySQL instance across regions](~~120824~~).
+        *   SQL Server. For more information, see [Back up an ApsaraDB RDS for SQL Server instance across regions](~~187923~~).
+        *   PostgreSQL. For more information, see [Enable cross-region backups for an ApsaraDB RDS for PostgreSQL instance](~~206671~~).
+        
+
+        @param request: DescribeCrossRegionBackupDBInstanceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeCrossRegionBackupDBInstanceResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeCrossRegionBackupDBInstance',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeCrossRegionBackupDBInstanceResponse(),
-            self.do_rpcrequest('DescribeCrossRegionBackupDBInstance', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_cross_region_backup_dbinstance(self, request):
+        """
+        Before you call this operation, make sure that the instance runs one of the following database engines:
+        *   MySQL. For more information, see [Back up an ApsaraDB RDS for MySQL instance across regions](~~120824~~).
+        *   SQL Server. For more information, see [Back up an ApsaraDB RDS for SQL Server instance across regions](~~187923~~).
+        *   PostgreSQL. For more information, see [Enable cross-region backups for an ApsaraDB RDS for PostgreSQL instance](~~206671~~).
+        
+
+        @param request: DescribeCrossRegionBackupDBInstanceRequest
+
+        @return: DescribeCrossRegionBackupDBInstanceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_cross_region_backup_dbinstance_with_options(request, runtime)
 
     def describe_cross_region_backups_with_options(self, request, runtime):
+        """
+        For more information about how to query the cross-region log backup files of an RDS instance, see [DescribeCrossRegionLogBackupFiles](~~121734~~).
+        Before you call this operation, make sure that the instance runs one of the following database engines:
+        *   MySQL. For more information, see [Back up an ApsaraDB RDS for MySQL instance across regions](~~120824~~).
+        *   SQL Server. For more information, see [Back up an ApsaraDB RDS for SQL Server instance across regions](~~187923~~).
+        *   PostgreSQL. For more information, see [Back up an ApsaraDB RDS for PostgreSQL instance across regions](~~206671~~).
+        
+
+        @param request: DescribeCrossRegionBackupsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeCrossRegionBackupsResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.backup_id):
+            query['BackupId'] = request.backup_id
+        if not UtilClient.is_unset(request.cross_backup_id):
+            query['CrossBackupId'] = request.cross_backup_id
+        if not UtilClient.is_unset(request.cross_backup_region):
+            query['CrossBackupRegion'] = request.cross_backup_region
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeCrossRegionBackups',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeCrossRegionBackupsResponse(),
-            self.do_rpcrequest('DescribeCrossRegionBackups', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_cross_region_backups(self, request):
+        """
+        For more information about how to query the cross-region log backup files of an RDS instance, see [DescribeCrossRegionLogBackupFiles](~~121734~~).
+        Before you call this operation, make sure that the instance runs one of the following database engines:
+        *   MySQL. For more information, see [Back up an ApsaraDB RDS for MySQL instance across regions](~~120824~~).
+        *   SQL Server. For more information, see [Back up an ApsaraDB RDS for SQL Server instance across regions](~~187923~~).
+        *   PostgreSQL. For more information, see [Back up an ApsaraDB RDS for PostgreSQL instance across regions](~~206671~~).
+        
+
+        @param request: DescribeCrossRegionBackupsRequest
+
+        @return: DescribeCrossRegionBackupsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_cross_region_backups_with_options(request, runtime)
 
     def describe_cross_region_log_backup_files_with_options(self, request, runtime):
+        """
+        For more information about how to query the cross-region data backup files of an RDS instance, see [DescribeCrossRegionBackups](~~121733~~).
+        Before you call this operation, make sure that the instance runs one of the following database engine versions and RDS editions:
+        *   MySQL 8.0 on RDS High-availability Edition (with local SSDs)
+        *   MySQL 5.7 on RDS High-availability Edition (with local SSDs)
+        *   MySQL 5.6
+        
+
+        @param request: DescribeCrossRegionLogBackupFilesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeCrossRegionLogBackupFilesResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.cross_backup_region):
+            query['CrossBackupRegion'] = request.cross_backup_region
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeCrossRegionLogBackupFiles',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeCrossRegionLogBackupFilesResponse(),
-            self.do_rpcrequest('DescribeCrossRegionLogBackupFiles', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_cross_region_log_backup_files(self, request):
+        """
+        For more information about how to query the cross-region data backup files of an RDS instance, see [DescribeCrossRegionBackups](~~121733~~).
+        Before you call this operation, make sure that the instance runs one of the following database engine versions and RDS editions:
+        *   MySQL 8.0 on RDS High-availability Edition (with local SSDs)
+        *   MySQL 5.7 on RDS High-availability Edition (with local SSDs)
+        *   MySQL 5.6
+        
+
+        @param request: DescribeCrossRegionLogBackupFilesRequest
+
+        @return: DescribeCrossRegionLogBackupFilesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_cross_region_log_backup_files_with_options(request, runtime)
 
-    def describe_databases_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            rds_20140815_models.DescribeDatabasesResponse(),
-            self.do_rpcrequest('DescribeDatabases', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def describe_databases(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_databases_with_options(request, runtime)
-
     def describe_dbinstance_attribute_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.expired):
+            query['Expired'] = request.expired
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDBInstanceAttribute',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeDBInstanceAttributeResponse(),
-            self.do_rpcrequest('DescribeDBInstanceAttribute', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dbinstance_attribute(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_dbinstance_attribute_with_options(request, runtime)
 
-    def describe_dbinstance_detail_with_options(self, request, runtime):
+    def describe_dbinstance_by_tags_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.proxy_id):
+            query['proxyId'] = request.proxy_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDBInstanceByTags',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.DescribeDBInstanceByTagsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_dbinstance_by_tags(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_dbinstance_by_tags_with_options(request, runtime)
+
+    def describe_dbinstance_detail_with_options(self, request, runtime):
+        """
+        This operation is phased out.
+        
+
+        @param request: DescribeDBInstanceDetailRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDBInstanceDetailResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDBInstanceDetail',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeDBInstanceDetailResponse(),
-            self.do_rpcrequest('DescribeDBInstanceDetail', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dbinstance_detail(self, request):
+        """
+        This operation is phased out.
+        
+
+        @param request: DescribeDBInstanceDetailRequest
+
+        @return: DescribeDBInstanceDetailResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_dbinstance_detail_with_options(request, runtime)
 
     def describe_dbinstance_encryption_key_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.encryption_key):
+            query['EncryptionKey'] = request.encryption_key
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.target_region_id):
+            query['TargetRegionId'] = request.target_region_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDBInstanceEncryptionKey',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeDBInstanceEncryptionKeyResponse(),
-            self.do_rpcrequest('DescribeDBInstanceEncryptionKey', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dbinstance_encryption_key(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_dbinstance_encryption_key_with_options(request, runtime)
 
+    def describe_dbinstance_endpoints_with_options(self, request, runtime):
+        """
+        ## Background information
+        *   An ApsaraDB RDS for MySQL instance that runs RDS Cluster Edition is created. The RDS instance is referred to as an RDS cluster.
+        *   This operation is suitable only for ApsaraDB RDS for MySQL instances that run RDS Cluster Edition.
+        
+
+        @param request: DescribeDBInstanceEndpointsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDBInstanceEndpointsResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dbinstance_endpoint_id):
+            query['DBInstanceEndpointId'] = request.dbinstance_endpoint_id
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDBInstanceEndpoints',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.DescribeDBInstanceEndpointsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_dbinstance_endpoints(self, request):
+        """
+        ## Background information
+        *   An ApsaraDB RDS for MySQL instance that runs RDS Cluster Edition is created. The RDS instance is referred to as an RDS cluster.
+        *   This operation is suitable only for ApsaraDB RDS for MySQL instances that run RDS Cluster Edition.
+        
+
+        @param request: DescribeDBInstanceEndpointsRequest
+
+        @return: DescribeDBInstanceEndpointsResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.describe_dbinstance_endpoints_with_options(request, runtime)
+
     def describe_dbinstance_haconfig_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDBInstanceHAConfig',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeDBInstanceHAConfigResponse(),
-            self.do_rpcrequest('DescribeDBInstanceHAConfig', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dbinstance_haconfig(self, request):
@@ -1031,12 +5107,32 @@ class Client(OpenApiClient):
 
     def describe_dbinstance_iparray_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.whitelist_network_type):
+            query['WhitelistNetworkType'] = request.whitelist_network_type
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDBInstanceIPArrayList',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeDBInstanceIPArrayListResponse(),
-            self.do_rpcrequest('DescribeDBInstanceIPArrayList', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dbinstance_iparray_list(self, request):
@@ -1044,421 +5140,1945 @@ class Client(OpenApiClient):
         return self.describe_dbinstance_iparray_list_with_options(request, runtime)
 
     def describe_dbinstance_ip_hostname_with_options(self, request, runtime):
+        """
+        RDS instances are deployed based on ECS instances. This operation is used to query the hostname of an RDS instance. The hostname is required when you [configure a distributed transaction whitelist](~~124321~~).
+        The RDS instance is in the High-availability Edition and runs one of the following SQL Server editions: 2012 SE, 2012 EE, 2014 SE, 2016 SE, 2016 EE, and 2017 SE.
+        
+
+        @param request: DescribeDBInstanceIpHostnameRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDBInstanceIpHostnameResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDBInstanceIpHostname',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeDBInstanceIpHostnameResponse(),
-            self.do_rpcrequest('DescribeDBInstanceIpHostname', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dbinstance_ip_hostname(self, request):
+        """
+        RDS instances are deployed based on ECS instances. This operation is used to query the hostname of an RDS instance. The hostname is required when you [configure a distributed transaction whitelist](~~124321~~).
+        The RDS instance is in the High-availability Edition and runs one of the following SQL Server editions: 2012 SE, 2012 EE, 2014 SE, 2016 SE, 2016 EE, and 2017 SE.
+        
+
+        @param request: DescribeDBInstanceIpHostnameRequest
+
+        @return: DescribeDBInstanceIpHostnameResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_dbinstance_ip_hostname_with_options(request, runtime)
 
     def describe_dbinstance_metrics_with_options(self, request, runtime):
+        """
+        ### Prerequisites
+        The instance runs PostgreSQL.
+        For more information, see [View the Enhanced Monitoring metrics of an ApsaraDB RDS for PostgreSQL instance](~~299200~~).
+        
+
+        @param request: DescribeDBInstanceMetricsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDBInstanceMetricsResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_name):
+            query['DBInstanceName'] = request.dbinstance_name
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDBInstanceMetrics',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeDBInstanceMetricsResponse(),
-            self.do_rpcrequest('DescribeDBInstanceMetrics', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dbinstance_metrics(self, request):
+        """
+        ### Prerequisites
+        The instance runs PostgreSQL.
+        For more information, see [View the Enhanced Monitoring metrics of an ApsaraDB RDS for PostgreSQL instance](~~299200~~).
+        
+
+        @param request: DescribeDBInstanceMetricsRequest
+
+        @return: DescribeDBInstanceMetricsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_dbinstance_metrics_with_options(request, runtime)
 
     def describe_dbinstance_monitor_with_options(self, request, runtime):
+        """
+        >  This operation is not supported for RDS instances that run PostgreSQL. The monitoring frequency of such an instance varies based on the query time range. For more information, see [Query performance metrics](~~26280~~).
+        
+
+        @param request: DescribeDBInstanceMonitorRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDBInstanceMonitorResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDBInstanceMonitor',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeDBInstanceMonitorResponse(),
-            self.do_rpcrequest('DescribeDBInstanceMonitor', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dbinstance_monitor(self, request):
+        """
+        >  This operation is not supported for RDS instances that run PostgreSQL. The monitoring frequency of such an instance varies based on the query time range. For more information, see [Query performance metrics](~~26280~~).
+        
+
+        @param request: DescribeDBInstanceMonitorRequest
+
+        @return: DescribeDBInstanceMonitorResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_dbinstance_monitor_with_options(request, runtime)
 
     def describe_dbinstance_net_info_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.dbinstance_net_rwsplit_type):
+            query['DBInstanceNetRWSplitType'] = request.dbinstance_net_rwsplit_type
+        if not UtilClient.is_unset(request.flag):
+            query['Flag'] = request.flag
+        if not UtilClient.is_unset(request.general_group_name):
+            query['GeneralGroupName'] = request.general_group_name
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDBInstanceNetInfo',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeDBInstanceNetInfoResponse(),
-            self.do_rpcrequest('DescribeDBInstanceNetInfo', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dbinstance_net_info(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_dbinstance_net_info_with_options(request, runtime)
 
-    def describe_dbinstance_performance_with_options(self, request, runtime):
+    def describe_dbinstance_net_info_for_channel_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.dbinstance_net_rwsplit_type):
+            query['DBInstanceNetRWSplitType'] = request.dbinstance_net_rwsplit_type
+        if not UtilClient.is_unset(request.flag):
+            query['Flag'] = request.flag
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDBInstanceNetInfoForChannel',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.DescribeDBInstanceNetInfoForChannelResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_dbinstance_net_info_for_channel(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_dbinstance_net_info_for_channel_with_options(request, runtime)
+
+    def describe_dbinstance_performance_with_options(self, request, runtime):
+        """
+        You can query the performance of an instance over a specific time range based on its performance metrics. Performance metrics are generated by using one of the following methods based on the database engine and version, RDS edition, [monitoring frequency](~~26200~~) ([ModifyDBInstanceMonitor](~~26282~~)), and query time range:
+        *   For instances that do not run MySQL on RDS High-availability Edition with standard SSDs or enhanced SSDs (ESSDs) and those that do not run MariaDB TX:
+        *   5-second monitoring frequency
+        *   If the query time range is greater than seven days, performance metrics are collected at 1-day intervals.
+        *   If the query time range is greater than one day but less than or equal to seven days, performance metrics are collected at 1-hour intervals.
+        *   If the query time range is greater than or equal to an hour but less than or equal to one day, performance metrics are collected at 1-minute intervals.
+        *   If the query time range is less than an hour, performance metrics are collected at 5-second intervals.
+        *   60-second monitoring frequency
+        *   If the query time range is greater than 30 days, performance metrics are collected at 1-day intervals.
+        *   If the query time range is greater than seven days but less than or equal to 30 days, performance metrics are collected at 1-hour intervals.
+        *   If the query time range is less than or equal to seven days, performance metrics are collected at 1-minute intervals.
+        *   300-second monitoring frequency
+        *   If the query time range is greater than 30 days, performance metrics are collected at 1-day intervals.
+        *   If the query time range is greater than seven days but less than or equal to 30 days, performance metrics are collected at 1-hour intervals.
+        *   If the query time range is less than or equal to seven days, performance metrics are collected at 5-minute intervals.
+        *   For instances that are running MySQL on RDS High-availability Edition with standard SSDs or ESSDs and those that are running MariaDB TX:
+        *   If the query time range is greater than 30 days, performance metrics are collected at 1-day intervals.
+        *   If the query time range is greater than seven days but less than or equal to 30 days, performance metrics are collected at 1-hour intervals.
+        *   If the query time range is less than or equal to seven days, performance metrics are collected at 1-minute intervals.
+        *   For instances that run PostgreSQL with local SSDs, standard SSDs, or ESSDs:
+        *   If the query time range is less than or equal to an hour, performance metrics are collected at 5-second intervals.
+        *   If the query time range is less than or equal to 2 hours, performance metrics are collected at 10-second intervals.
+        *   If the query time range is less than or equal to 6 hours, performance metrics are collected at 30-second intervals.
+        *   If the query time range is less than or equal to 12 hours, performance metrics are collected at 1-minute intervals.
+        *   If the query time range is less than or equal to one day, performance metrics are collected at 2-minute intervals.
+        *   If the query time range is less than or equal to five days, performance metrics are collected at 10-minute intervals.
+        *   If the query time range is less than or equal to 15 days, performance metrics are collected at 30-minute intervals.
+        *   If the query time range is less than or equal to 30 days, performance metrics are collected at 1-hour intervals.
+        
+
+        @param request: DescribeDBInstancePerformanceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDBInstancePerformanceResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.key):
+            query['Key'] = request.key
+        if not UtilClient.is_unset(request.node_id):
+            query['NodeId'] = request.node_id
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDBInstancePerformance',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeDBInstancePerformanceResponse(),
-            self.do_rpcrequest('DescribeDBInstancePerformance', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dbinstance_performance(self, request):
+        """
+        You can query the performance of an instance over a specific time range based on its performance metrics. Performance metrics are generated by using one of the following methods based on the database engine and version, RDS edition, [monitoring frequency](~~26200~~) ([ModifyDBInstanceMonitor](~~26282~~)), and query time range:
+        *   For instances that do not run MySQL on RDS High-availability Edition with standard SSDs or enhanced SSDs (ESSDs) and those that do not run MariaDB TX:
+        *   5-second monitoring frequency
+        *   If the query time range is greater than seven days, performance metrics are collected at 1-day intervals.
+        *   If the query time range is greater than one day but less than or equal to seven days, performance metrics are collected at 1-hour intervals.
+        *   If the query time range is greater than or equal to an hour but less than or equal to one day, performance metrics are collected at 1-minute intervals.
+        *   If the query time range is less than an hour, performance metrics are collected at 5-second intervals.
+        *   60-second monitoring frequency
+        *   If the query time range is greater than 30 days, performance metrics are collected at 1-day intervals.
+        *   If the query time range is greater than seven days but less than or equal to 30 days, performance metrics are collected at 1-hour intervals.
+        *   If the query time range is less than or equal to seven days, performance metrics are collected at 1-minute intervals.
+        *   300-second monitoring frequency
+        *   If the query time range is greater than 30 days, performance metrics are collected at 1-day intervals.
+        *   If the query time range is greater than seven days but less than or equal to 30 days, performance metrics are collected at 1-hour intervals.
+        *   If the query time range is less than or equal to seven days, performance metrics are collected at 5-minute intervals.
+        *   For instances that are running MySQL on RDS High-availability Edition with standard SSDs or ESSDs and those that are running MariaDB TX:
+        *   If the query time range is greater than 30 days, performance metrics are collected at 1-day intervals.
+        *   If the query time range is greater than seven days but less than or equal to 30 days, performance metrics are collected at 1-hour intervals.
+        *   If the query time range is less than or equal to seven days, performance metrics are collected at 1-minute intervals.
+        *   For instances that run PostgreSQL with local SSDs, standard SSDs, or ESSDs:
+        *   If the query time range is less than or equal to an hour, performance metrics are collected at 5-second intervals.
+        *   If the query time range is less than or equal to 2 hours, performance metrics are collected at 10-second intervals.
+        *   If the query time range is less than or equal to 6 hours, performance metrics are collected at 30-second intervals.
+        *   If the query time range is less than or equal to 12 hours, performance metrics are collected at 1-minute intervals.
+        *   If the query time range is less than or equal to one day, performance metrics are collected at 2-minute intervals.
+        *   If the query time range is less than or equal to five days, performance metrics are collected at 10-minute intervals.
+        *   If the query time range is less than or equal to 15 days, performance metrics are collected at 30-minute intervals.
+        *   If the query time range is less than or equal to 30 days, performance metrics are collected at 1-hour intervals.
+        
+
+        @param request: DescribeDBInstancePerformanceRequest
+
+        @return: DescribeDBInstancePerformanceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_dbinstance_performance_with_options(request, runtime)
 
-    def describe_dbinstance_proxy_configuration_with_options(self, request, runtime):
+    def describe_dbinstance_promote_activity_with_options(self, request, runtime):
+        """
+        @deprecated
+        
+
+        @param request: DescribeDBInstancePromoteActivityRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDBInstancePromoteActivityResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.ali_uid):
+            query['AliUid'] = request.ali_uid
+        if not UtilClient.is_unset(request.db_instance_name):
+            query['DbInstanceName'] = request.db_instance_name
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDBInstancePromoteActivity',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.DescribeDBInstancePromoteActivityResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_dbinstance_promote_activity(self, request):
+        """
+        @deprecated
+        
+
+        @param request: DescribeDBInstancePromoteActivityRequest
+
+        @return: DescribeDBInstancePromoteActivityResponse
+        Deprecated
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.describe_dbinstance_promote_activity_with_options(request, runtime)
+
+    def describe_dbinstance_proxy_configuration_with_options(self, request, runtime):
+        """
+        This operation is used to query the original settings of shared proxies rather than the latest settings of dedicated proxies. For more information about how to query the settings of dedicated proxies, see [DescribeDBProxy](~~141055~~).
+        Before you call this operation, make sure that the following requirements are met:
+        *   The shared proxy feature must be enabled for the primary instance.
+        *   The read/write splitting feature must be enabled for the primary instance.
+        
+
+        @param request: DescribeDBInstanceProxyConfigurationRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDBInstanceProxyConfigurationResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDBInstanceProxyConfiguration',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeDBInstanceProxyConfigurationResponse(),
-            self.do_rpcrequest('DescribeDBInstanceProxyConfiguration', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dbinstance_proxy_configuration(self, request):
+        """
+        This operation is used to query the original settings of shared proxies rather than the latest settings of dedicated proxies. For more information about how to query the settings of dedicated proxies, see [DescribeDBProxy](~~141055~~).
+        Before you call this operation, make sure that the following requirements are met:
+        *   The shared proxy feature must be enabled for the primary instance.
+        *   The read/write splitting feature must be enabled for the primary instance.
+        
+
+        @param request: DescribeDBInstanceProxyConfigurationRequest
+
+        @return: DescribeDBInstanceProxyConfigurationResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_dbinstance_proxy_configuration_with_options(request, runtime)
 
-    def describe_dbinstances_with_options(self, request, runtime):
+    def describe_dbinstance_sslwith_options(self, request, runtime):
+        """
+        Before you call this operation, make sure that your instance is one of the following instances:
+        *   ApsaraDB RDS for MySQL instances that do not run RDS Basic Edition
+        *   ApsaraDB RDS for SQL Server instances
+        *   ApsaraDB RDS for PostgreSQL instances that use standard SSDs or enhanced SSDs (ESSDs)
+        
+
+        @param request: DescribeDBInstanceSSLRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDBInstanceSSLResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDBInstanceSSL',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.DescribeDBInstanceSSLResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_dbinstance_ssl(self, request):
+        """
+        Before you call this operation, make sure that your instance is one of the following instances:
+        *   ApsaraDB RDS for MySQL instances that do not run RDS Basic Edition
+        *   ApsaraDB RDS for SQL Server instances
+        *   ApsaraDB RDS for PostgreSQL instances that use standard SSDs or enhanced SSDs (ESSDs)
+        
+
+        @param request: DescribeDBInstanceSSLRequest
+
+        @return: DescribeDBInstanceSSLResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.describe_dbinstance_sslwith_options(request, runtime)
+
+    def describe_dbinstance_tdewith_options(self, request, runtime):
+        """
+        This operation is used to view the [TDE](~~96121~~) configuration of an instance.
+        >  This operation is applicable only to MySQL 5.6, SQL Server 2019 and SQL Server Enterprise Edition instances.
+        
+
+        @param request: DescribeDBInstanceTDERequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDBInstanceTDEResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDBInstanceTDE',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.DescribeDBInstanceTDEResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_dbinstance_tde(self, request):
+        """
+        This operation is used to view the [TDE](~~96121~~) configuration of an instance.
+        >  This operation is applicable only to MySQL 5.6, SQL Server 2019 and SQL Server Enterprise Edition instances.
+        
+
+        @param request: DescribeDBInstanceTDERequest
+
+        @return: DescribeDBInstanceTDEResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.describe_dbinstance_tdewith_options(request, runtime)
+
+    def describe_dbinstances_with_options(self, request, runtime):
+        """
+        You can use one of the following methods to check the response:
+        *   Method 1: Use the **MaxResults** parameter to specify the number of entries per page. Then, use the **NextToken** parameter to specify the token that is used to display the next page. The **NextToken** parameter is set to the value that is returned from the most recent call of the **DescribeDBInstances** operation for the **NextToken** parameter.
+        **\
+        **Note**The first time you call the DescribeDBInstances operation to perform a paged query, you need only to specify the **MaxResults** parameter. In this case, the operation returns the data of the first page and the value of the **NextToken** parameter.
+        *   Method 2: Use the **PageSize** parameter to specify the number of entries per page. Then, use the **PageNumber** parameter to display the next page.
+        > You can use only one of the preceding methods. If a large number of entries are returned, we recommend that you use Method 1 to increase the query speed.
+        
+
+        @param request: DescribeDBInstancesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDBInstancesResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.connection_mode):
+            query['ConnectionMode'] = request.connection_mode
+        if not UtilClient.is_unset(request.connection_string):
+            query['ConnectionString'] = request.connection_string
+        if not UtilClient.is_unset(request.dbinstance_class):
+            query['DBInstanceClass'] = request.dbinstance_class
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.dbinstance_status):
+            query['DBInstanceStatus'] = request.dbinstance_status
+        if not UtilClient.is_unset(request.dbinstance_type):
+            query['DBInstanceType'] = request.dbinstance_type
+        if not UtilClient.is_unset(request.dedicated_host_group_id):
+            query['DedicatedHostGroupId'] = request.dedicated_host_group_id
+        if not UtilClient.is_unset(request.dedicated_host_id):
+            query['DedicatedHostId'] = request.dedicated_host_id
+        if not UtilClient.is_unset(request.engine):
+            query['Engine'] = request.engine
+        if not UtilClient.is_unset(request.engine_version):
+            query['EngineVersion'] = request.engine_version
+        if not UtilClient.is_unset(request.expired):
+            query['Expired'] = request.expired
+        if not UtilClient.is_unset(request.instance_level):
+            query['InstanceLevel'] = request.instance_level
+        if not UtilClient.is_unset(request.instance_network_type):
+            query['InstanceNetworkType'] = request.instance_network_type
+        if not UtilClient.is_unset(request.max_results):
+            query['MaxResults'] = request.max_results
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.pay_type):
+            query['PayType'] = request.pay_type
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.search_key):
+            query['SearchKey'] = request.search_key
+        if not UtilClient.is_unset(request.tags):
+            query['Tags'] = request.tags
+        if not UtilClient.is_unset(request.v_switch_id):
+            query['VSwitchId'] = request.v_switch_id
+        if not UtilClient.is_unset(request.vpc_id):
+            query['VpcId'] = request.vpc_id
+        if not UtilClient.is_unset(request.zone_id):
+            query['ZoneId'] = request.zone_id
+        if not UtilClient.is_unset(request.proxy_id):
+            query['proxyId'] = request.proxy_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDBInstances',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeDBInstancesResponse(),
-            self.do_rpcrequest('DescribeDBInstances', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dbinstances(self, request):
+        """
+        You can use one of the following methods to check the response:
+        *   Method 1: Use the **MaxResults** parameter to specify the number of entries per page. Then, use the **NextToken** parameter to specify the token that is used to display the next page. The **NextToken** parameter is set to the value that is returned from the most recent call of the **DescribeDBInstances** operation for the **NextToken** parameter.
+        **\
+        **Note**The first time you call the DescribeDBInstances operation to perform a paged query, you need only to specify the **MaxResults** parameter. In this case, the operation returns the data of the first page and the value of the **NextToken** parameter.
+        *   Method 2: Use the **PageSize** parameter to specify the number of entries per page. Then, use the **PageNumber** parameter to display the next page.
+        > You can use only one of the preceding methods. If a large number of entries are returned, we recommend that you use Method 1 to increase the query speed.
+        
+
+        @param request: DescribeDBInstancesRequest
+
+        @return: DescribeDBInstancesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_dbinstances_with_options(request, runtime)
 
     def describe_dbinstances_as_csv_with_options(self, request, runtime):
+        """
+        This operation is no longer available. You can call the DescribeDBInstanceAttribute operation to query information about an instance.
+        
+
+        @param request: DescribeDBInstancesAsCsvRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDBInstancesAsCsvResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDBInstancesAsCsv',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeDBInstancesAsCsvResponse(),
-            self.do_rpcrequest('DescribeDBInstancesAsCsv', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dbinstances_as_csv(self, request):
+        """
+        This operation is no longer available. You can call the DescribeDBInstanceAttribute operation to query information about an instance.
+        
+
+        @param request: DescribeDBInstancesAsCsvRequest
+
+        @return: DescribeDBInstancesAsCsvResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_dbinstances_as_csv_with_options(request, runtime)
 
     def describe_dbinstances_by_expire_time_with_options(self, request, runtime):
+        """
+        > This operation is available only for subscription instances.
+        
+
+        @param request: DescribeDBInstancesByExpireTimeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDBInstancesByExpireTimeResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.expire_period):
+            query['ExpirePeriod'] = request.expire_period
+        if not UtilClient.is_unset(request.expired):
+            query['Expired'] = request.expired
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.tags):
+            query['Tags'] = request.tags
+        if not UtilClient.is_unset(request.proxy_id):
+            query['proxyId'] = request.proxy_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDBInstancesByExpireTime',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeDBInstancesByExpireTimeResponse(),
-            self.do_rpcrequest('DescribeDBInstancesByExpireTime', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dbinstances_by_expire_time(self, request):
+        """
+        > This operation is available only for subscription instances.
+        
+
+        @param request: DescribeDBInstancesByExpireTimeRequest
+
+        @return: DescribeDBInstancesByExpireTimeResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_dbinstances_by_expire_time_with_options(request, runtime)
 
     def describe_dbinstances_by_performance_with_options(self, request, runtime):
+        """
+        This operation is phased out.
+        
+
+        @param request: DescribeDBInstancesByPerformanceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDBInstancesByPerformanceResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.sort_key):
+            query['SortKey'] = request.sort_key
+        if not UtilClient.is_unset(request.sort_method):
+            query['SortMethod'] = request.sort_method
+        if not UtilClient.is_unset(request.tags):
+            query['Tags'] = request.tags
+        if not UtilClient.is_unset(request.proxy_id):
+            query['proxyId'] = request.proxy_id
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDBInstancesByPerformance',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeDBInstancesByPerformanceResponse(),
-            self.do_rpcrequest('DescribeDBInstancesByPerformance', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dbinstances_by_performance(self, request):
+        """
+        This operation is phased out.
+        
+
+        @param request: DescribeDBInstancesByPerformanceRequest
+
+        @return: DescribeDBInstancesByPerformanceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_dbinstances_by_performance_with_options(request, runtime)
 
     def describe_dbinstances_for_clone_with_options(self, request, runtime):
+        """
+        This operation is phased out.
+        
+
+        @param request: DescribeDBInstancesForCloneRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDBInstancesForCloneResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.connection_mode):
+            query['ConnectionMode'] = request.connection_mode
+        if not UtilClient.is_unset(request.current_instance_id):
+            query['CurrentInstanceId'] = request.current_instance_id
+        if not UtilClient.is_unset(request.dbinstance_class):
+            query['DBInstanceClass'] = request.dbinstance_class
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.dbinstance_status):
+            query['DBInstanceStatus'] = request.dbinstance_status
+        if not UtilClient.is_unset(request.dbinstance_type):
+            query['DBInstanceType'] = request.dbinstance_type
+        if not UtilClient.is_unset(request.engine):
+            query['Engine'] = request.engine
+        if not UtilClient.is_unset(request.engine_version):
+            query['EngineVersion'] = request.engine_version
+        if not UtilClient.is_unset(request.expired):
+            query['Expired'] = request.expired
+        if not UtilClient.is_unset(request.instance_network_type):
+            query['InstanceNetworkType'] = request.instance_network_type
+        if not UtilClient.is_unset(request.node_type):
+            query['NodeType'] = request.node_type
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.pay_type):
+            query['PayType'] = request.pay_type
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.search_key):
+            query['SearchKey'] = request.search_key
+        if not UtilClient.is_unset(request.v_switch_id):
+            query['VSwitchId'] = request.v_switch_id
+        if not UtilClient.is_unset(request.vpc_id):
+            query['VpcId'] = request.vpc_id
+        if not UtilClient.is_unset(request.zone_id):
+            query['ZoneId'] = request.zone_id
+        if not UtilClient.is_unset(request.proxy_id):
+            query['proxyId'] = request.proxy_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDBInstancesForClone',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeDBInstancesForCloneResponse(),
-            self.do_rpcrequest('DescribeDBInstancesForClone', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dbinstances_for_clone(self, request):
+        """
+        This operation is phased out.
+        
+
+        @param request: DescribeDBInstancesForCloneRequest
+
+        @return: DescribeDBInstancesForCloneResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_dbinstances_for_clone_with_options(request, runtime)
 
-    def describe_dbinstance_sslwith_options(self, request, runtime):
+    def describe_dbmini_engine_versions_with_options(self, request, runtime):
+        """
+        Before you purchase or upgrade an ApsaraDB RDS for MySQL instance or an ApsaraDB RDS for PostgreSQL instance, you can call the DescribeDBMiniEngineVersions operation to query the minor engine versions that are available for the instance.
+        
+
+        @param request: DescribeDBMiniEngineVersionsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDBMiniEngineVersionsResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.dedicated_host_group_id):
+            query['DedicatedHostGroupId'] = request.dedicated_host_group_id
+        if not UtilClient.is_unset(request.engine):
+            query['Engine'] = request.engine
+        if not UtilClient.is_unset(request.engine_version):
+            query['EngineVersion'] = request.engine_version
+        if not UtilClient.is_unset(request.minor_version_tag):
+            query['MinorVersionTag'] = request.minor_version_tag
+        if not UtilClient.is_unset(request.node_type):
+            query['NodeType'] = request.node_type
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.storage_type):
+            query['StorageType'] = request.storage_type
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDBMiniEngineVersions',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
-            rds_20140815_models.DescribeDBInstanceSSLResponse(),
-            self.do_rpcrequest('DescribeDBInstanceSSL', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            rds_20140815_models.DescribeDBMiniEngineVersionsResponse(),
+            self.call_api(params, req, runtime)
         )
 
-    def describe_dbinstance_ssl(self, request):
+    def describe_dbmini_engine_versions(self, request):
+        """
+        Before you purchase or upgrade an ApsaraDB RDS for MySQL instance or an ApsaraDB RDS for PostgreSQL instance, you can call the DescribeDBMiniEngineVersions operation to query the minor engine versions that are available for the instance.
+        
+
+        @param request: DescribeDBMiniEngineVersionsRequest
+
+        @return: DescribeDBMiniEngineVersionsResponse
+        """
         runtime = util_models.RuntimeOptions()
-        return self.describe_dbinstance_sslwith_options(request, runtime)
-
-    def describe_dbinstance_status_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = OpenApiUtilClient.query(UtilClient.to_map(request))
-        req = open_api_models.OpenApiRequest(
-            query=query
-        )
-        return TeaCore.from_map(
-            rds_20140815_models.DescribeDBInstanceStatusResponse(),
-            self.do_rpcrequest('DescribeDBInstanceStatus', '2014-08-15', 'HTTPS', 'GET', 'AK', 'json', req, runtime)
-        )
-
-    def describe_dbinstance_status(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_dbinstance_status_with_options(request, runtime)
-
-    def describe_dbinstance_tdewith_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            rds_20140815_models.DescribeDBInstanceTDEResponse(),
-            self.do_rpcrequest('DescribeDBInstanceTDE', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def describe_dbinstance_tde(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_dbinstance_tdewith_options(request, runtime)
+        return self.describe_dbmini_engine_versions_with_options(request, runtime)
 
     def describe_dbproxy_with_options(self, request, runtime):
+        """
+        Before you call the DescribeDBProxy operation, make sure that the [ModifyDBProxy](~~141054~~) operation is called to enable the database proxy feature for the instance.
+        *   The dedicated proxy feature of ApsaraDB RDS for MySQL provides capabilities such as read/write splitting and short-lived connection optimization. For more information, see [What are database proxies?](~~138705~~)
+        *   The database proxy feature of ApsaraDB RDS for PostgreSQL supports read/write splitting. For more information, see [What are database proxies?](~~412194~~)
+        
+
+        @param request: DescribeDBProxyRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDBProxyResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.dbproxy_engine_type):
+            query['DBProxyEngineType'] = request.dbproxy_engine_type
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDBProxy',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeDBProxyResponse(),
-            self.do_rpcrequest('DescribeDBProxy', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dbproxy(self, request):
+        """
+        Before you call the DescribeDBProxy operation, make sure that the [ModifyDBProxy](~~141054~~) operation is called to enable the database proxy feature for the instance.
+        *   The dedicated proxy feature of ApsaraDB RDS for MySQL provides capabilities such as read/write splitting and short-lived connection optimization. For more information, see [What are database proxies?](~~138705~~)
+        *   The database proxy feature of ApsaraDB RDS for PostgreSQL supports read/write splitting. For more information, see [What are database proxies?](~~412194~~)
+        
+
+        @param request: DescribeDBProxyRequest
+
+        @return: DescribeDBProxyResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_dbproxy_with_options(request, runtime)
 
     def describe_dbproxy_endpoint_with_options(self, request, runtime):
+        """
+        Before you call the DescribeDBProxyEndpoint operation, make sure that the [ModifyDBProxy](~~141054~~) operation is called to enable the database proxy feature for the instance.
+        *   The dedicated proxy feature of ApsaraDB RDS for MySQL provides capabilities such as read/write splitting and short-lived connection optimization. For more information, see [What are database proxies?](~~138705~~)
+        *   The database proxy feature of ApsaraDB RDS for PostgreSQL supports read/write splitting. For more information, see [What are database proxies?](~~412194~~)
+        
+
+        @param request: DescribeDBProxyEndpointRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDBProxyEndpointResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.dbproxy_connect_string):
+            query['DBProxyConnectString'] = request.dbproxy_connect_string
+        if not UtilClient.is_unset(request.dbproxy_endpoint_id):
+            query['DBProxyEndpointId'] = request.dbproxy_endpoint_id
+        if not UtilClient.is_unset(request.dbproxy_engine_type):
+            query['DBProxyEngineType'] = request.dbproxy_engine_type
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDBProxyEndpoint',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeDBProxyEndpointResponse(),
-            self.do_rpcrequest('DescribeDBProxyEndpoint', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dbproxy_endpoint(self, request):
+        """
+        Before you call the DescribeDBProxyEndpoint operation, make sure that the [ModifyDBProxy](~~141054~~) operation is called to enable the database proxy feature for the instance.
+        *   The dedicated proxy feature of ApsaraDB RDS for MySQL provides capabilities such as read/write splitting and short-lived connection optimization. For more information, see [What are database proxies?](~~138705~~)
+        *   The database proxy feature of ApsaraDB RDS for PostgreSQL supports read/write splitting. For more information, see [What are database proxies?](~~412194~~)
+        
+
+        @param request: DescribeDBProxyEndpointRequest
+
+        @return: DescribeDBProxyEndpointResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_dbproxy_endpoint_with_options(request, runtime)
 
     def describe_dbproxy_performance_with_options(self, request, runtime):
+        """
+        Before you call the DescribeDBProxyPerformance operation, make sure that the [ModifyDBProxy](~~141054~~) operation is called to enable the database proxy feature for the instance.
+        *   The dedicated proxy feature of ApsaraDB RDS for MySQL provides capabilities such as read/write splitting and short-lived connection optimization. For more information, see [What are database proxies?](~~138705~~)
+        *   The database proxy feature of ApsaraDB RDS for PostgreSQL supports read/write splitting. For more information, see [What are database proxies?](~~412194~~)
+        
+
+        @param request: DescribeDBProxyPerformanceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDBProxyPerformanceResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.dbproxy_engine_type):
+            query['DBProxyEngineType'] = request.dbproxy_engine_type
+        if not UtilClient.is_unset(request.dbproxy_instance_type):
+            query['DBProxyInstanceType'] = request.dbproxy_instance_type
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.metrics_name):
+            query['MetricsName'] = request.metrics_name
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDBProxyPerformance',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeDBProxyPerformanceResponse(),
-            self.do_rpcrequest('DescribeDBProxyPerformance', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dbproxy_performance(self, request):
+        """
+        Before you call the DescribeDBProxyPerformance operation, make sure that the [ModifyDBProxy](~~141054~~) operation is called to enable the database proxy feature for the instance.
+        *   The dedicated proxy feature of ApsaraDB RDS for MySQL provides capabilities such as read/write splitting and short-lived connection optimization. For more information, see [What are database proxies?](~~138705~~)
+        *   The database proxy feature of ApsaraDB RDS for PostgreSQL supports read/write splitting. For more information, see [What are database proxies?](~~412194~~)
+        
+
+        @param request: DescribeDBProxyPerformanceRequest
+
+        @return: DescribeDBProxyPerformanceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_dbproxy_performance_with_options(request, runtime)
 
-    def describe_dedicated_host_attribute_with_options(self, request, runtime):
+    def describe_dtcsecurity_ip_hosts_for_sqlserver_with_options(self, request, runtime):
+        """
+        For more information, see [Configure a distributed transaction whitelist](~~124321~~).
+        This operation is applicable to instances that run one of the following SQL Server versions on RDS High-Availability Edition: SQL Server 2012 SE, SQL Server 2012 EE, SQL Server 2014 SE, SQL Server 2016 SE, SQL Server 2016 EE, and SQL Server 2017 SE.
+        
+
+        @param request: DescribeDTCSecurityIpHostsForSQLServerRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDTCSecurityIpHostsForSQLServerResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDTCSecurityIpHostsForSQLServer',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
-            rds_20140815_models.DescribeDedicatedHostAttributeResponse(),
-            self.do_rpcrequest('DescribeDedicatedHostAttribute', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            rds_20140815_models.DescribeDTCSecurityIpHostsForSQLServerResponse(),
+            self.call_api(params, req, runtime)
         )
 
-    def describe_dedicated_host_attribute(self, request):
+    def describe_dtcsecurity_ip_hosts_for_sqlserver(self, request):
+        """
+        For more information, see [Configure a distributed transaction whitelist](~~124321~~).
+        This operation is applicable to instances that run one of the following SQL Server versions on RDS High-Availability Edition: SQL Server 2012 SE, SQL Server 2012 EE, SQL Server 2014 SE, SQL Server 2016 SE, SQL Server 2016 EE, and SQL Server 2017 SE.
+        
+
+        @param request: DescribeDTCSecurityIpHostsForSQLServerRequest
+
+        @return: DescribeDTCSecurityIpHostsForSQLServerResponse
+        """
         runtime = util_models.RuntimeOptions()
-        return self.describe_dedicated_host_attribute_with_options(request, runtime)
+        return self.describe_dtcsecurity_ip_hosts_for_sqlserver_with_options(request, runtime)
+
+    def describe_databases_with_options(self, request, runtime):
+        """
+        > If the specified request parameters are invalid, no database information is returned.
+        
+
+        @param request: DescribeDatabasesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDatabasesResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.dbname):
+            query['DBName'] = request.dbname
+        if not UtilClient.is_unset(request.dbstatus):
+            query['DBStatus'] = request.dbstatus
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDatabases',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.DescribeDatabasesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_databases(self, request):
+        """
+        > If the specified request parameters are invalid, no database information is returned.
+        
+
+        @param request: DescribeDatabasesRequest
+
+        @return: DescribeDatabasesResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.describe_databases_with_options(request, runtime)
 
     def describe_dedicated_host_groups_with_options(self, request, runtime):
+        """
+        Dedicated clusters allow you to manage a number of instances at a time. You can create multiple dedicated clusters in a single region. Each dedicated cluster consists of multiple hosts. You can create multiple instances on each host. For more information, see [What is ApsaraDB MyBase?](~~141455~~)
+        
+
+        @param request: DescribeDedicatedHostGroupsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDedicatedHostGroupsResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dedicated_host_group_id):
+            query['DedicatedHostGroupId'] = request.dedicated_host_group_id
+        if not UtilClient.is_unset(request.image_category):
+            query['ImageCategory'] = request.image_category
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDedicatedHostGroups',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeDedicatedHostGroupsResponse(),
-            self.do_rpcrequest('DescribeDedicatedHostGroups', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dedicated_host_groups(self, request):
+        """
+        Dedicated clusters allow you to manage a number of instances at a time. You can create multiple dedicated clusters in a single region. Each dedicated cluster consists of multiple hosts. You can create multiple instances on each host. For more information, see [What is ApsaraDB MyBase?](~~141455~~)
+        
+
+        @param request: DescribeDedicatedHostGroupsRequest
+
+        @return: DescribeDedicatedHostGroupsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_dedicated_host_groups_with_options(request, runtime)
 
-    def describe_dedicated_host_image_categories_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            rds_20140815_models.DescribeDedicatedHostImageCategoriesResponse(),
-            self.do_rpcrequest('DescribeDedicatedHostImageCategories', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def describe_dedicated_host_image_categories(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_dedicated_host_image_categories_with_options(request, runtime)
-
     def describe_dedicated_hosts_with_options(self, request, runtime):
+        """
+        Dedicated clusters allow you to manage a number of instances at a time. You can create multiple dedicated clusters in a single region. Each dedicated cluster consists of multiple hosts. You can create multiple instances on each host. For more information, see [What is ApsaraDB MyBase?](~~141455~~)
+        
+
+        @param request: DescribeDedicatedHostsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDedicatedHostsResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.allocation_status):
+            query['AllocationStatus'] = request.allocation_status
+        if not UtilClient.is_unset(request.dedicated_host_group_id):
+            query['DedicatedHostGroupId'] = request.dedicated_host_group_id
+        if not UtilClient.is_unset(request.dedicated_host_id):
+            query['DedicatedHostId'] = request.dedicated_host_id
+        if not UtilClient.is_unset(request.host_status):
+            query['HostStatus'] = request.host_status
+        if not UtilClient.is_unset(request.host_type):
+            query['HostType'] = request.host_type
+        if not UtilClient.is_unset(request.order_id):
+            query['OrderId'] = request.order_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.zone_id):
+            query['ZoneId'] = request.zone_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDedicatedHosts',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeDedicatedHostsResponse(),
-            self.do_rpcrequest('DescribeDedicatedHosts', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_dedicated_hosts(self, request):
+        """
+        Dedicated clusters allow you to manage a number of instances at a time. You can create multiple dedicated clusters in a single region. Each dedicated cluster consists of multiple hosts. You can create multiple instances on each host. For more information, see [What is ApsaraDB MyBase?](~~141455~~)
+        
+
+        @param request: DescribeDedicatedHostsRequest
+
+        @return: DescribeDedicatedHostsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_dedicated_hosts_with_options(request, runtime)
 
     def describe_detached_backups_with_options(self, request, runtime):
+        """
+        This operation is supported for instances that run MySQL with local SSDs. For more information about how to retain the data backup files of an instance after the instance is released, see [Configure automatic backup](~~98818~~).
+        
+
+        @param request: DescribeDetachedBackupsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDetachedBackupsResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.backup_id):
+            query['BackupId'] = request.backup_id
+        if not UtilClient.is_unset(request.backup_mode):
+            query['BackupMode'] = request.backup_mode
+        if not UtilClient.is_unset(request.backup_status):
+            query['BackupStatus'] = request.backup_status
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region):
+            query['Region'] = request.region
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDetachedBackups',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeDetachedBackupsResponse(),
-            self.do_rpcrequest('DescribeDetachedBackups', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_detached_backups(self, request):
+        """
+        This operation is supported for instances that run MySQL with local SSDs. For more information about how to retain the data backup files of an instance after the instance is released, see [Configure automatic backup](~~98818~~).
+        
+
+        @param request: DescribeDetachedBackupsRequest
+
+        @return: DescribeDetachedBackupsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_detached_backups_with_options(request, runtime)
 
     def describe_diagnostic_report_list_with_options(self, request, runtime):
+        """
+        This operation is no longer maintained. You can use the [DescribeDiagnosticReportList](~~204507~~) operation of Database Autonomy Service (DAS) to query diagnostic reports.
+        *   The returned diagnosis reports include data collection time, data generation time, and download URLs. The system retains the reports for 15 days.
+        *   This operation is not suitable for instances that run SQL Server 2017 (cluster edition).
+        
+
+        @param request: DescribeDiagnosticReportListRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDiagnosticReportListResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDiagnosticReportList',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeDiagnosticReportListResponse(),
-            self.do_rpcrequest('DescribeDiagnosticReportList', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_diagnostic_report_list(self, request):
+        """
+        This operation is no longer maintained. You can use the [DescribeDiagnosticReportList](~~204507~~) operation of Database Autonomy Service (DAS) to query diagnostic reports.
+        *   The returned diagnosis reports include data collection time, data generation time, and download URLs. The system retains the reports for 15 days.
+        *   This operation is not suitable for instances that run SQL Server 2017 (cluster edition).
+        
+
+        @param request: DescribeDiagnosticReportListRequest
+
+        @return: DescribeDiagnosticReportListResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_diagnostic_report_list_with_options(request, runtime)
 
-    def describe_download_link_details_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = OpenApiUtilClient.query(UtilClient.to_map(request))
-        req = open_api_models.OpenApiRequest(
-            query=query
-        )
-        return TeaCore.from_map(
-            rds_20140815_models.DescribeDownloadLinkDetailsResponse(),
-            self.do_rpcrequest('DescribeDownloadLinkDetails', '2014-08-15', 'HTTPS', 'GET', 'AK', 'json', req, runtime)
-        )
-
-    def describe_download_link_details(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_download_link_details_with_options(request, runtime)
-
-    def describe_dtcsecurity_ip_hosts_for_sqlserver_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            rds_20140815_models.DescribeDTCSecurityIpHostsForSQLServerResponse(),
-            self.do_rpcrequest('DescribeDTCSecurityIpHostsForSQLServer', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def describe_dtcsecurity_ip_hosts_for_sqlserver(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_dtcsecurity_ip_hosts_for_sqlserver_with_options(request, runtime)
-
     def describe_error_logs_with_options(self, request, runtime):
+        """
+        Error logs contain the time when they were generated and the error messages.
+        
+
+        @param request: DescribeErrorLogsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeErrorLogsResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeErrorLogs',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeErrorLogsResponse(),
-            self.do_rpcrequest('DescribeErrorLogs', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_error_logs(self, request):
+        """
+        Error logs contain the time when they were generated and the error messages.
+        
+
+        @param request: DescribeErrorLogsRequest
+
+        @return: DescribeErrorLogsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_error_logs_with_options(request, runtime)
 
     def describe_events_with_options(self, request, runtime):
+        """
+        The event history feature enables you to view the events that occurred within a region over a specific time range. Historical events include instance creation and parameter modification. For more information, see [View the event history of an ApsaraDB RDS instance](~~129759~~).
+        Before you call this operation, make sure that the event history feature is enabled. Otherwise, this operation fails.
+        
+
+        @param request: DescribeEventsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeEventsResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeEvents',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeEventsResponse(),
-            self.do_rpcrequest('DescribeEvents', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_events(self, request):
+        """
+        The event history feature enables you to view the events that occurred within a region over a specific time range. Historical events include instance creation and parameter modification. For more information, see [View the event history of an ApsaraDB RDS instance](~~129759~~).
+        Before you call this operation, make sure that the event history feature is enabled. Otherwise, this operation fails.
+        
+
+        @param request: DescribeEventsRequest
+
+        @return: DescribeEventsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_events_with_options(request, runtime)
 
-    def describe_hadiagnose_config_with_options(self, request, runtime):
+    def describe_gad_instances_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.gad_instance_name):
+            query['GadInstanceName'] = request.gad_instance_name
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeGadInstances',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.DescribeGadInstancesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_gad_instances(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_gad_instances_with_options(request, runtime)
+
+    def describe_hadiagnose_config_with_options(self, request, runtime):
+        """
+        By default, Alibaba Cloud uses persistent connections to check the availability of an instance. For more information, see [What is availability detection?](~~207467~~)
+        
+
+        @param request: DescribeHADiagnoseConfigRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeHADiagnoseConfigResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeHADiagnoseConfig',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeHADiagnoseConfigResponse(),
-            self.do_rpcrequest('DescribeHADiagnoseConfig', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_hadiagnose_config(self, request):
+        """
+        By default, Alibaba Cloud uses persistent connections to check the availability of an instance. For more information, see [What is availability detection?](~~207467~~)
+        
+
+        @param request: DescribeHADiagnoseConfigRequest
+
+        @return: DescribeHADiagnoseConfigResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_hadiagnose_config_with_options(request, runtime)
 
     def describe_haswitch_config_with_options(self, request, runtime):
+        """
+        After a primary/secondary switchover, the primary instance is demoted to secondary while the secondary instance is promoted to primary. For more information, see [Manually or automatically switch over services between the RDS MySQL master and slave instances](~~96054~~).
+        Before you call this operation, make sure the instance runs the High-availability Edition, Enterprise Edition, or Cluster Edition.
+        
+
+        @param request: DescribeHASwitchConfigRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeHASwitchConfigResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeHASwitchConfig',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeHASwitchConfigResponse(),
-            self.do_rpcrequest('DescribeHASwitchConfig', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_haswitch_config(self, request):
+        """
+        After a primary/secondary switchover, the primary instance is demoted to secondary while the secondary instance is promoted to primary. For more information, see [Manually or automatically switch over services between the RDS MySQL master and slave instances](~~96054~~).
+        Before you call this operation, make sure the instance runs the High-availability Edition, Enterprise Edition, or Cluster Edition.
+        
+
+        @param request: DescribeHASwitchConfigRequest
+
+        @return: DescribeHASwitchConfigResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_haswitch_config_with_options(request, runtime)
 
     def describe_instance_auto_renewal_attribute_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.proxy_id):
+            query['proxyId'] = request.proxy_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeInstanceAutoRenewalAttribute',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeInstanceAutoRenewalAttributeResponse(),
-            self.do_rpcrequest('DescribeInstanceAutoRenewalAttribute', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_instance_auto_renewal_attribute(self, request):
@@ -1466,27 +7086,95 @@ class Client(OpenApiClient):
         return self.describe_instance_auto_renewal_attribute_with_options(request, runtime)
 
     def describe_instance_cross_backup_policy_with_options(self, request, runtime):
+        """
+        Before you call this operation, make sure that the instance runs one of the following database engines:
+        *   MySQL. For more information, see [Back up an ApsaraDB RDS for MySQL instance across regions](~~120824~~).
+        *   SQL Server. For more information, see [Back up an ApsaraDB RDS for SQL Server instance across regions](~~187923~~).
+        *   PostgreSQL. For more information, see [Enable cross-region backups for an ApsaraDB RDS for PostgreSQL instance](~~206671~~).
+        
+
+        @param request: DescribeInstanceCrossBackupPolicyRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeInstanceCrossBackupPolicyResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeInstanceCrossBackupPolicy',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeInstanceCrossBackupPolicyResponse(),
-            self.do_rpcrequest('DescribeInstanceCrossBackupPolicy', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_instance_cross_backup_policy(self, request):
+        """
+        Before you call this operation, make sure that the instance runs one of the following database engines:
+        *   MySQL. For more information, see [Back up an ApsaraDB RDS for MySQL instance across regions](~~120824~~).
+        *   SQL Server. For more information, see [Back up an ApsaraDB RDS for SQL Server instance across regions](~~187923~~).
+        *   PostgreSQL. For more information, see [Enable cross-region backups for an ApsaraDB RDS for PostgreSQL instance](~~206671~~).
+        
+
+        @param request: DescribeInstanceCrossBackupPolicyRequest
+
+        @return: DescribeInstanceCrossBackupPolicyResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_instance_cross_backup_policy_with_options(request, runtime)
 
     def describe_instance_keywords_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.key):
+            query['Key'] = request.key
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeInstanceKeywords',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeInstanceKeywordsResponse(),
-            self.do_rpcrequest('DescribeInstanceKeywords', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_instance_keywords(self, request):
@@ -1495,12 +7183,36 @@ class Client(OpenApiClient):
 
     def describe_local_available_recovery_time_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region):
+            query['Region'] = request.region
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeLocalAvailableRecoveryTime',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeLocalAvailableRecoveryTimeResponse(),
-            self.do_rpcrequest('DescribeLocalAvailableRecoveryTime', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_local_available_recovery_time(self, request):
@@ -1509,12 +7221,42 @@ class Client(OpenApiClient):
 
     def describe_log_backup_files_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeLogBackupFiles',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeLogBackupFilesResponse(),
-            self.do_rpcrequest('DescribeLogBackupFiles', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_log_backup_files(self, request):
@@ -1522,27 +7264,109 @@ class Client(OpenApiClient):
         return self.describe_log_backup_files_with_options(request, runtime)
 
     def describe_meta_list_with_options(self, request, runtime):
+        """
+        Before you call the [RestoreTable](~~131510~~) operation to restore individual databases or tables of an ApsaraDB RDS for MySQL instance, you can call this operation to query the information about the databases and tables that can be restored. For more information, see [Restore individual databases and tables of an ApsaraDB RDS for MySQL instance](~~103175~~).
+        >  This operation is supported only when the instance runs MySQL 8.0, MySQL 5.7, or MySQL 5.6 on RDS High-availability Edition with local SSDs.
+        
+
+        @param request: DescribeMetaListRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeMetaListResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.backup_set_id):
+            query['BackupSetID'] = request.backup_set_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.get_db_name):
+            query['GetDbName'] = request.get_db_name
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_index):
+            query['PageIndex'] = request.page_index
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.pattern):
+            query['Pattern'] = request.pattern
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.restore_time):
+            query['RestoreTime'] = request.restore_time
+        if not UtilClient.is_unset(request.restore_type):
+            query['RestoreType'] = request.restore_type
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeMetaList',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeMetaListResponse(),
-            self.do_rpcrequest('DescribeMetaList', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_meta_list(self, request):
+        """
+        Before you call the [RestoreTable](~~131510~~) operation to restore individual databases or tables of an ApsaraDB RDS for MySQL instance, you can call this operation to query the information about the databases and tables that can be restored. For more information, see [Restore individual databases and tables of an ApsaraDB RDS for MySQL instance](~~103175~~).
+        >  This operation is supported only when the instance runs MySQL 8.0, MySQL 5.7, or MySQL 5.6 on RDS High-availability Edition with local SSDs.
+        
+
+        @param request: DescribeMetaListRequest
+
+        @return: DescribeMetaListResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_meta_list_with_options(request, runtime)
 
     def describe_migrate_task_by_id_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.migrate_task_id):
+            query['MigrateTaskId'] = request.migrate_task_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeMigrateTaskById',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeMigrateTaskByIdResponse(),
-            self.do_rpcrequest('DescribeMigrateTaskById', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_migrate_task_by_id(self, request):
@@ -1550,41 +7374,153 @@ class Client(OpenApiClient):
         return self.describe_migrate_task_by_id_with_options(request, runtime)
 
     def describe_migrate_tasks_with_options(self, request, runtime):
+        """
+        This operation allows you to query the migration tasks that are created for the instance over the last week.
+        > * This operation is supported only for migration tasks that are created to migrate full backup files.
+        > * This operation is not supported for instances that run SQL Server 2017 (cluster edition).
+        
+
+        @param request: DescribeMigrateTasksRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeMigrateTasksResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeMigrateTasks',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeMigrateTasksResponse(),
-            self.do_rpcrequest('DescribeMigrateTasks', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_migrate_tasks(self, request):
+        """
+        This operation allows you to query the migration tasks that are created for the instance over the last week.
+        > * This operation is supported only for migration tasks that are created to migrate full backup files.
+        > * This operation is not supported for instances that run SQL Server 2017 (cluster edition).
+        
+
+        @param request: DescribeMigrateTasksRequest
+
+        @return: DescribeMigrateTasksResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_migrate_tasks_with_options(request, runtime)
 
-    def describe_migrate_tasks_for_sqlserver_with_options(self, request, runtime):
+    def describe_modify_pghba_config_log_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeModifyPGHbaConfigLog',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
-            rds_20140815_models.DescribeMigrateTasksForSQLServerResponse(),
-            self.do_rpcrequest('DescribeMigrateTasksForSQLServer', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            rds_20140815_models.DescribeModifyPGHbaConfigLogResponse(),
+            self.call_api(params, req, runtime)
         )
 
-    def describe_migrate_tasks_for_sqlserver(self, request):
+    def describe_modify_pghba_config_log(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.describe_migrate_tasks_for_sqlserver_with_options(request, runtime)
+        return self.describe_modify_pghba_config_log_with_options(request, runtime)
 
     def describe_modify_parameter_log_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeModifyParameterLog',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeModifyParameterLogResponse(),
-            self.do_rpcrequest('DescribeModifyParameterLog', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_modify_parameter_log(self, request):
@@ -1592,97 +7528,415 @@ class Client(OpenApiClient):
         return self.describe_modify_parameter_log_with_options(request, runtime)
 
     def describe_oss_downloads_with_options(self, request, runtime):
+        """
+        >  This operation is not supported for instances that run SQL Server 2017 EE or SQL Server 2019 EE.
+        
+
+        @param request: DescribeOssDownloadsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeOssDownloadsResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.migrate_task_id):
+            query['MigrateTaskId'] = request.migrate_task_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeOssDownloads',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeOssDownloadsResponse(),
-            self.do_rpcrequest('DescribeOssDownloads', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_oss_downloads(self, request):
+        """
+        >  This operation is not supported for instances that run SQL Server 2017 EE or SQL Server 2019 EE.
+        
+
+        @param request: DescribeOssDownloadsRequest
+
+        @return: DescribeOssDownloadsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_oss_downloads_with_options(request, runtime)
 
-    def describe_oss_downloads_for_sqlserver_with_options(self, request, runtime):
+    def describe_pghba_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribePGHbaConfig',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
-            rds_20140815_models.DescribeOssDownloadsForSQLServerResponse(),
-            self.do_rpcrequest('DescribeOssDownloadsForSQLServer', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            rds_20140815_models.DescribePGHbaConfigResponse(),
+            self.call_api(params, req, runtime)
         )
 
-    def describe_oss_downloads_for_sqlserver(self, request):
+    def describe_pghba_config(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.describe_oss_downloads_for_sqlserver_with_options(request, runtime)
+        return self.describe_pghba_config_with_options(request, runtime)
 
     def describe_parameter_group_with_options(self, request, runtime):
+        """
+        You can configure a number of parameters at a time by using a parameter template and then apply the parameter template to instances. For more information, see [Use a parameter template to configure the parameters of ApsaraDB RDS for MySQL instances](~~130565~~) or [Use a parameter template to configure the parameters of ApsaraDB RDS for PostgreSQL instances](~~457176~~).
+        >  You can apply parameter templates only to ApsaraDB RDS for MySQL instances and ApsaraDB RDS for PostgreSQL instances.
+        
+
+        @param request: DescribeParameterGroupRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeParameterGroupResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.parameter_group_id):
+            query['ParameterGroupId'] = request.parameter_group_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeParameterGroup',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeParameterGroupResponse(),
-            self.do_rpcrequest('DescribeParameterGroup', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_parameter_group(self, request):
+        """
+        You can configure a number of parameters at a time by using a parameter template and then apply the parameter template to instances. For more information, see [Use a parameter template to configure the parameters of ApsaraDB RDS for MySQL instances](~~130565~~) or [Use a parameter template to configure the parameters of ApsaraDB RDS for PostgreSQL instances](~~457176~~).
+        >  You can apply parameter templates only to ApsaraDB RDS for MySQL instances and ApsaraDB RDS for PostgreSQL instances.
+        
+
+        @param request: DescribeParameterGroupRequest
+
+        @return: DescribeParameterGroupResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_parameter_group_with_options(request, runtime)
 
     def describe_parameter_groups_with_options(self, request, runtime):
+        """
+        You can configure a number of parameters at a time by using a parameter template and then apply the parameter template to instances. For more information, see [Use a parameter template to configure the parameters of ApsaraDB RDS for MySQL instances](~~130565~~) or [Use a parameter template to configure the parameters of ApsaraDB RDS for PostgreSQL instances](~~457176~~).
+        >  You can apply parameter templates only to ApsaraDB RDS for MySQL instances and ApsaraDB RDS for PostgreSQL instances.
+        
+
+        @param request: DescribeParameterGroupsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeParameterGroupsResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeParameterGroups',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeParameterGroupsResponse(),
-            self.do_rpcrequest('DescribeParameterGroups', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_parameter_groups(self, request):
+        """
+        You can configure a number of parameters at a time by using a parameter template and then apply the parameter template to instances. For more information, see [Use a parameter template to configure the parameters of ApsaraDB RDS for MySQL instances](~~130565~~) or [Use a parameter template to configure the parameters of ApsaraDB RDS for PostgreSQL instances](~~457176~~).
+        >  You can apply parameter templates only to ApsaraDB RDS for MySQL instances and ApsaraDB RDS for PostgreSQL instances.
+        
+
+        @param request: DescribeParameterGroupsRequest
+
+        @return: DescribeParameterGroupsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_parameter_groups_with_options(request, runtime)
 
-    def describe_parameters_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            rds_20140815_models.DescribeParametersResponse(),
-            self.do_rpcrequest('DescribeParameters', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def describe_parameters(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_parameters_with_options(request, runtime)
-
     def describe_parameter_templates_with_options(self, request, runtime):
+        """
+        Before you call this operation, make sure that the instance runs one of the following database engines:
+        *   MySQL 5.5, 5.6, 5.7, and 8.0
+        *   SQL Server 2008 R2
+        *   PostgreSQL 9.4, 10, 11, and 12
+        *   MariaDB 10.3
+        
+
+        @param request: DescribeParameterTemplatesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeParameterTemplatesResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.category):
+            query['Category'] = request.category
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.engine):
+            query['Engine'] = request.engine
+        if not UtilClient.is_unset(request.engine_version):
+            query['EngineVersion'] = request.engine_version
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeParameterTemplates',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeParameterTemplatesResponse(),
-            self.do_rpcrequest('DescribeParameterTemplates', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_parameter_templates(self, request):
+        """
+        Before you call this operation, make sure that the instance runs one of the following database engines:
+        *   MySQL 5.5, 5.6, 5.7, and 8.0
+        *   SQL Server 2008 R2
+        *   PostgreSQL 9.4, 10, 11, and 12
+        *   MariaDB 10.3
+        
+
+        @param request: DescribeParameterTemplatesRequest
+
+        @return: DescribeParameterTemplatesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_parameter_templates_with_options(request, runtime)
 
-    def describe_price_with_options(self, request, runtime):
+    def describe_parameters_with_options(self, request, runtime):
+        """
+        Before you call this operation, make sure that the instance runs one of the following database engines:
+        *   MySQL 5.5, MySQL 5.6, MySQL 5.7, or MySQL 8.0
+        *   SQL Server 2008 R2
+        *   PostgreSQL 10, PostgreSQL 11, PostgreSQL 12, PostgreSQL 13, PostgreSQL 14, or PostgreSQL 15
+        *   MariaDB 10.3
+        
+
+        @param request: DescribeParametersRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeParametersResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeParameters',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.DescribeParametersResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_parameters(self, request):
+        """
+        Before you call this operation, make sure that the instance runs one of the following database engines:
+        *   MySQL 5.5, MySQL 5.6, MySQL 5.7, or MySQL 8.0
+        *   SQL Server 2008 R2
+        *   PostgreSQL 10, PostgreSQL 11, PostgreSQL 12, PostgreSQL 13, PostgreSQL 14, or PostgreSQL 15
+        *   MariaDB 10.3
+        
+
+        @param request: DescribeParametersRequest
+
+        @return: DescribeParametersResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.describe_parameters_with_options(request, runtime)
+
+    def describe_price_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = rds_20140815_models.DescribePriceShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.dbnode):
+            request.dbnode_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.dbnode, 'DBNode', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.commodity_code):
+            query['CommodityCode'] = request.commodity_code
+        if not UtilClient.is_unset(request.dbinstance_class):
+            query['DBInstanceClass'] = request.dbinstance_class
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.dbinstance_storage):
+            query['DBInstanceStorage'] = request.dbinstance_storage
+        if not UtilClient.is_unset(request.dbinstance_storage_type):
+            query['DBInstanceStorageType'] = request.dbinstance_storage_type
+        if not UtilClient.is_unset(request.dbnode_shrink):
+            query['DBNode'] = request.dbnode_shrink
+        if not UtilClient.is_unset(request.engine):
+            query['Engine'] = request.engine
+        if not UtilClient.is_unset(request.engine_version):
+            query['EngineVersion'] = request.engine_version
+        if not UtilClient.is_unset(request.instance_used_type):
+            query['InstanceUsedType'] = request.instance_used_type
+        if not UtilClient.is_unset(request.order_type):
+            query['OrderType'] = request.order_type
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.pay_type):
+            query['PayType'] = request.pay_type
+        if not UtilClient.is_unset(request.quantity):
+            query['Quantity'] = request.quantity
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.time_type):
+            query['TimeType'] = request.time_type
+        if not UtilClient.is_unset(request.used_time):
+            query['UsedTime'] = request.used_time
+        if not UtilClient.is_unset(request.zone_id):
+            query['ZoneId'] = request.zone_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribePrice',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribePriceResponse(),
-            self.do_rpcrequest('DescribePrice', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_price(self, request):
@@ -1690,41 +7944,151 @@ class Client(OpenApiClient):
         return self.describe_price_with_options(request, runtime)
 
     def describe_rds_resource_settings_with_options(self, request, runtime):
+        """
+        This operation is phased out.
+        
+
+        @param request: DescribeRdsResourceSettingsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeRdsResourceSettingsResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_niche):
+            query['ResourceNiche'] = request.resource_niche
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeRdsResourceSettings',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeRdsResourceSettingsResponse(),
-            self.do_rpcrequest('DescribeRdsResourceSettings', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_rds_resource_settings(self, request):
+        """
+        This operation is phased out.
+        
+
+        @param request: DescribeRdsResourceSettingsRequest
+
+        @return: DescribeRdsResourceSettingsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_rds_resource_settings_with_options(request, runtime)
 
     def describe_read_dbinstance_delay_with_options(self, request, runtime):
+        """
+        Before you call this operation, make sure that the following requirements are met:
+        *   The primary instance must run the MySQL or PostgreSQL database engine.
+        *   The primary instance must be attached with a read-only instance.
+        
+
+        @param request: DescribeReadDBInstanceDelayRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeReadDBInstanceDelayResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.read_instance_id):
+            query['ReadInstanceId'] = request.read_instance_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeReadDBInstanceDelay',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeReadDBInstanceDelayResponse(),
-            self.do_rpcrequest('DescribeReadDBInstanceDelay', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_read_dbinstance_delay(self, request):
+        """
+        Before you call this operation, make sure that the following requirements are met:
+        *   The primary instance must run the MySQL or PostgreSQL database engine.
+        *   The primary instance must be attached with a read-only instance.
+        
+
+        @param request: DescribeReadDBInstanceDelayRequest
+
+        @return: DescribeReadDBInstanceDelayResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_read_dbinstance_delay_with_options(request, runtime)
 
     def describe_region_infos_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeRegionInfos',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeRegionInfosResponse(),
-            self.do_rpcrequest('DescribeRegionInfos', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_region_infos(self, request):
@@ -1732,209 +8096,1061 @@ class Client(OpenApiClient):
         return self.describe_region_infos_with_options(request, runtime)
 
     def describe_regions_with_options(self, request, runtime):
+        """
+        Before you call the [CreateDBInstance](~~26228~~) operation to create an RDS instance, you can call the DescribeRegions operation to query the available regions and zones.
+        >  If a zone supports the multi-zone deployment method, the value of the ZoneId parameter for the zone contains an MAZ part. Examples: cn-hangzhou-MAZ6(b,f) and cn-hangzhou-MAZ5(b,e,f).
+        
+
+        @param request: DescribeRegionsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeRegionsResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.accept_language):
+            query['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeRegions',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeRegionsResponse(),
-            self.do_rpcrequest('DescribeRegions', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_regions(self, request):
+        """
+        Before you call the [CreateDBInstance](~~26228~~) operation to create an RDS instance, you can call the DescribeRegions operation to query the available regions and zones.
+        >  If a zone supports the multi-zone deployment method, the value of the ZoneId parameter for the zone contains an MAZ part. Examples: cn-hangzhou-MAZ6(b,f) and cn-hangzhou-MAZ5(b,e,f).
+        
+
+        @param request: DescribeRegionsRequest
+
+        @return: DescribeRegionsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_regions_with_options(request, runtime)
 
     def describe_renewal_price_with_options(self, request, runtime):
+        """
+        This operation is supported only for subscription instances.
+        
+
+        @param request: DescribeRenewalPriceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeRenewalPriceResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.business_info):
+            query['BusinessInfo'] = request.business_info
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dbinstance_class):
+            query['DBInstanceClass'] = request.dbinstance_class
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.order_type):
+            query['OrderType'] = request.order_type
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.pay_type):
+            query['PayType'] = request.pay_type
+        if not UtilClient.is_unset(request.quantity):
+            query['Quantity'] = request.quantity
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.time_type):
+            query['TimeType'] = request.time_type
+        if not UtilClient.is_unset(request.used_time):
+            query['UsedTime'] = request.used_time
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeRenewalPrice',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeRenewalPriceResponse(),
-            self.do_rpcrequest('DescribeRenewalPrice', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_renewal_price(self, request):
+        """
+        This operation is supported only for subscription instances.
+        
+
+        @param request: DescribeRenewalPriceRequest
+
+        @return: DescribeRenewalPriceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_renewal_price_with_options(request, runtime)
 
     def describe_resource_usage_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeResourceUsage',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeResourceUsageResponse(),
-            self.do_rpcrequest('DescribeResourceUsage', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_resource_usage(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_resource_usage_with_options(request, runtime)
 
-    def describe_security_group_configuration_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            rds_20140815_models.DescribeSecurityGroupConfigurationResponse(),
-            self.do_rpcrequest('DescribeSecurityGroupConfiguration', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def describe_security_group_configuration(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_security_group_configuration_with_options(request, runtime)
-
-    def describe_slow_log_records_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            rds_20140815_models.DescribeSlowLogRecordsResponse(),
-            self.do_rpcrequest('DescribeSlowLogRecords', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def describe_slow_log_records(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_slow_log_records_with_options(request, runtime)
-
-    def describe_slow_logs_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            rds_20140815_models.DescribeSlowLogsResponse(),
-            self.do_rpcrequest('DescribeSlowLogs', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def describe_slow_logs(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_slow_logs_with_options(request, runtime)
-
     def describe_sqlcollector_policy_with_options(self, request, runtime):
+        """
+        This operation is applicable to the following database engine versions:
+        *   MySQL
+        *   SQL Server 2008 R2
+        *   PostgreSQL
+        
+
+        @param request: DescribeSQLCollectorPolicyRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeSQLCollectorPolicyResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeSQLCollectorPolicy',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeSQLCollectorPolicyResponse(),
-            self.do_rpcrequest('DescribeSQLCollectorPolicy', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_sqlcollector_policy(self, request):
+        """
+        This operation is applicable to the following database engine versions:
+        *   MySQL
+        *   SQL Server 2008 R2
+        *   PostgreSQL
+        
+
+        @param request: DescribeSQLCollectorPolicyRequest
+
+        @return: DescribeSQLCollectorPolicyResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_sqlcollector_policy_with_options(request, runtime)
 
     def describe_sqlcollector_retention_with_options(self, request, runtime):
+        """
+        The SQL explorer feature must be enabled for the instance.
+        The instance must run MySQL. For more information, see [SQL Explorer](~~96123~~).
+        
+
+        @param request: DescribeSQLCollectorRetentionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeSQLCollectorRetentionResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeSQLCollectorRetention',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeSQLCollectorRetentionResponse(),
-            self.do_rpcrequest('DescribeSQLCollectorRetention', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_sqlcollector_retention(self, request):
+        """
+        The SQL explorer feature must be enabled for the instance.
+        The instance must run MySQL. For more information, see [SQL Explorer](~~96123~~).
+        
+
+        @param request: DescribeSQLCollectorRetentionRequest
+
+        @return: DescribeSQLCollectorRetentionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_sqlcollector_retention_with_options(request, runtime)
 
     def describe_sqllog_files_with_options(self, request, runtime):
+        """
+        Before you call this operation, make sure that the instance runs one of the following database engines:
+        *   MySQL
+        *   SQL Server 2008 R2
+        *   PostgreSQL
+        >  The DescribeSQLLogFiles operation cannot be used to query the audit log files that are generated by SQL Explorer Trial Edition for an ApsaraDB RDS for MySQL instance.
+        
+
+        @param request: DescribeSQLLogFilesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeSQLLogFilesResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.file_name):
+            query['FileName'] = request.file_name
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeSQLLogFiles',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeSQLLogFilesResponse(),
-            self.do_rpcrequest('DescribeSQLLogFiles', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_sqllog_files(self, request):
+        """
+        Before you call this operation, make sure that the instance runs one of the following database engines:
+        *   MySQL
+        *   SQL Server 2008 R2
+        *   PostgreSQL
+        >  The DescribeSQLLogFiles operation cannot be used to query the audit log files that are generated by SQL Explorer Trial Edition for an ApsaraDB RDS for MySQL instance.
+        
+
+        @param request: DescribeSQLLogFilesRequest
+
+        @return: DescribeSQLLogFilesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_sqllog_files_with_options(request, runtime)
 
     def describe_sqllog_records_with_options(self, request, runtime):
+        """
+        Before you call this operation, make sure that the instance runs one of the following database engines:
+        *   MySQL
+        *   SQL Server
+        *   PostgreSQL
+        > * You can call this operation up to 1,000 times per minute per account. The calls initiated by using both your Alibaba Cloud account and RAM users within your Alibaba Cloud account are counted.
+        > *   This operation cannot be used to query the logs that are generated by SQL Explorer Trial Edition for an ApsaraDB RDS for MySQL instance.
+        > *   When you call this operation and set the **Form** parameter to **File** to generate an audit file, a maximum of 1 million log entries can be recorded in the audit file.
+        
+
+        @param request: DescribeSQLLogRecordsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeSQLLogRecordsResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.database):
+            query['Database'] = request.database
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.form):
+            query['Form'] = request.form
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.query_keywords):
+            query['QueryKeywords'] = request.query_keywords
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.sqlid):
+            query['SQLId'] = request.sqlid
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.user):
+            query['User'] = request.user
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeSQLLogRecords',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeSQLLogRecordsResponse(),
-            self.do_rpcrequest('DescribeSQLLogRecords', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_sqllog_records(self, request):
+        """
+        Before you call this operation, make sure that the instance runs one of the following database engines:
+        *   MySQL
+        *   SQL Server
+        *   PostgreSQL
+        > * You can call this operation up to 1,000 times per minute per account. The calls initiated by using both your Alibaba Cloud account and RAM users within your Alibaba Cloud account are counted.
+        > *   This operation cannot be used to query the logs that are generated by SQL Explorer Trial Edition for an ApsaraDB RDS for MySQL instance.
+        > *   When you call this operation and set the **Form** parameter to **File** to generate an audit file, a maximum of 1 million log entries can be recorded in the audit file.
+        
+
+        @param request: DescribeSQLLogRecordsRequest
+
+        @return: DescribeSQLLogRecordsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_sqllog_records_with_options(request, runtime)
 
     def describe_sqllog_report_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeSQLLogReportList',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeSQLLogReportListResponse(),
-            self.do_rpcrequest('DescribeSQLLogReportList', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_sqllog_report_list(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_sqllog_report_list_with_options(request, runtime)
 
-    def describe_sqllog_reports_with_options(self, request, runtime):
+    def describe_secrets_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.accept_language):
+            query['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.db_instance_id):
+            query['DbInstanceId'] = request.db_instance_id
+        if not UtilClient.is_unset(request.engine):
+            query['Engine'] = request.engine
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeSecrets',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
-            rds_20140815_models.DescribeSQLLogReportsResponse(),
-            self.do_rpcrequest('DescribeSQLLogReports', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            rds_20140815_models.DescribeSecretsResponse(),
+            self.call_api(params, req, runtime)
         )
 
-    def describe_sqllog_reports(self, request):
+    def describe_secrets(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.describe_sqllog_reports_with_options(request, runtime)
+        return self.describe_secrets_with_options(request, runtime)
+
+    def describe_security_group_configuration_with_options(self, request, runtime):
+        """
+        After an RDS instance is added to an ECS security group, all ECS instances in the security group can access the RDS instance. For more information, see [Configure a whitelist for an RDS instance](~~96118~~).
+        
+
+        @param request: DescribeSecurityGroupConfigurationRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeSecurityGroupConfigurationResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeSecurityGroupConfiguration',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.DescribeSecurityGroupConfigurationResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_security_group_configuration(self, request):
+        """
+        After an RDS instance is added to an ECS security group, all ECS instances in the security group can access the RDS instance. For more information, see [Configure a whitelist for an RDS instance](~~96118~~).
+        
+
+        @param request: DescribeSecurityGroupConfigurationRequest
+
+        @return: DescribeSecurityGroupConfigurationResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.describe_security_group_configuration_with_options(request, runtime)
+
+    def describe_slow_log_records_with_options(self, request, runtime):
+        """
+        >  The response parameters returned by this operation are updated every minute.
+        
+
+        @param request: DescribeSlowLogRecordsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeSlowLogRecordsResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.dbname):
+            query['DBName'] = request.dbname
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.sqlhash):
+            query['SQLHASH'] = request.sqlhash
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeSlowLogRecords',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.DescribeSlowLogRecordsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_slow_log_records(self, request):
+        """
+        >  The response parameters returned by this operation are updated every minute.
+        
+
+        @param request: DescribeSlowLogRecordsRequest
+
+        @return: DescribeSlowLogRecordsResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.describe_slow_log_records_with_options(request, runtime)
+
+    def describe_slow_logs_with_options(self, request, runtime):
+        """
+        Before you call this operation, make sure that the instance runs one of the following database engine versions:
+        *   All MySQL versions except MySQL 5.7 that is used with RDS Basic edition
+        *   SQL Server 2008 R2
+        *   MariaDB 10.3
+        >  Slow query logs are not collected in real time and may show a latency of 6 hours to 8 hours.
+        
+
+        @param request: DescribeSlowLogsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeSlowLogsResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.dbname):
+            query['DBName'] = request.dbname
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.sort_key):
+            query['SortKey'] = request.sort_key
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeSlowLogs',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.DescribeSlowLogsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_slow_logs(self, request):
+        """
+        Before you call this operation, make sure that the instance runs one of the following database engine versions:
+        *   All MySQL versions except MySQL 5.7 that is used with RDS Basic edition
+        *   SQL Server 2008 R2
+        *   MariaDB 10.3
+        >  Slow query logs are not collected in real time and may show a latency of 6 hours to 8 hours.
+        
+
+        @param request: DescribeSlowLogsRequest
+
+        @return: DescribeSlowLogsResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.describe_slow_logs_with_options(request, runtime)
+
+    def describe_support_online_resize_disk_with_options(self, request, runtime):
+        """
+        This operation is supported only for RDS instances that run SQL Server.
+        
+
+        @param request: DescribeSupportOnlineResizeDiskRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeSupportOnlineResizeDiskResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeSupportOnlineResizeDisk',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.DescribeSupportOnlineResizeDiskResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_support_online_resize_disk(self, request):
+        """
+        This operation is supported only for RDS instances that run SQL Server.
+        
+
+        @param request: DescribeSupportOnlineResizeDiskRequest
+
+        @return: DescribeSupportOnlineResizeDiskResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.describe_support_online_resize_disk_with_options(request, runtime)
 
     def describe_tags_with_options(self, request, runtime):
+        """
+        Before you call this operation, make sure that the following requirements are met:
+        *   If an instance ID is specified, all tags that are added to this instance can be queried, and the other filtering conditions are invalid.
+        *   If you specify only TagKeys, the results that match the specified TagKey are returned. If you specify both TagKeys and TagValues, the results that match both the TagKeys and TagValues are returned.
+        
+
+        @param request: DescribeTagsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeTagsResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.resource_type):
+            query['ResourceType'] = request.resource_type
+        if not UtilClient.is_unset(request.tags):
+            query['Tags'] = request.tags
+        if not UtilClient.is_unset(request.proxy_id):
+            query['proxyId'] = request.proxy_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeTags',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeTagsResponse(),
-            self.do_rpcrequest('DescribeTags', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_tags(self, request):
+        """
+        Before you call this operation, make sure that the following requirements are met:
+        *   If an instance ID is specified, all tags that are added to this instance can be queried, and the other filtering conditions are invalid.
+        *   If you specify only TagKeys, the results that match the specified TagKey are returned. If you specify both TagKeys and TagValues, the results that match both the TagKeys and TagValues are returned.
+        
+
+        @param request: DescribeTagsRequest
+
+        @return: DescribeTagsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_tags_with_options(request, runtime)
 
     def describe_tasks_with_options(self, request, runtime):
+        """
+        This operation is phased out.
+        
+
+        @param request: DescribeTasksRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeTasksResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
+        if not UtilClient.is_unset(request.task_action):
+            query['TaskAction'] = request.task_action
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeTasks',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeTasksResponse(),
-            self.do_rpcrequest('DescribeTasks', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_tasks(self, request):
+        """
+        This operation is phased out.
+        
+
+        @param request: DescribeTasksRequest
+
+        @return: DescribeTasksResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_tasks_with_options(request, runtime)
 
+    def describe_upgrade_major_version_precheck_task_with_options(self, request, runtime):
+        """
+        Before you upgrade the major engine version of an ApsaraDB RDS for PostgreSQL instance, you must perform an upgrade check and make sure that the check result is *Success**. You can call this operation to query the upgrade check report.
+        If the check result is **Fail**, you must handle the errors that occurred. For more information about how to handle common errors, see [Introduction to the check report for a major engine version upgrade to an ApsaraDB RDS for PostgreSQL instance](https://www.alibabacloud.com/help/en/apsaradb-for-rds/latest/introduction-to-the-check-report-of-a-major-engine-version-upgrade-for-an-apsaradb-rds-for-postgresql-instance).
+        
+
+        @param request: DescribeUpgradeMajorVersionPrecheckTaskRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeUpgradeMajorVersionPrecheckTaskResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.target_major_version):
+            query['TargetMajorVersion'] = request.target_major_version
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeUpgradeMajorVersionPrecheckTask',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.DescribeUpgradeMajorVersionPrecheckTaskResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_upgrade_major_version_precheck_task(self, request):
+        """
+        Before you upgrade the major engine version of an ApsaraDB RDS for PostgreSQL instance, you must perform an upgrade check and make sure that the check result is *Success**. You can call this operation to query the upgrade check report.
+        If the check result is **Fail**, you must handle the errors that occurred. For more information about how to handle common errors, see [Introduction to the check report for a major engine version upgrade to an ApsaraDB RDS for PostgreSQL instance](https://www.alibabacloud.com/help/en/apsaradb-for-rds/latest/introduction-to-the-check-report-of-a-major-engine-version-upgrade-for-an-apsaradb-rds-for-postgresql-instance).
+        
+
+        @param request: DescribeUpgradeMajorVersionPrecheckTaskRequest
+
+        @return: DescribeUpgradeMajorVersionPrecheckTaskResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.describe_upgrade_major_version_precheck_task_with_options(request, runtime)
+
+    def describe_upgrade_major_version_tasks_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.target_major_version):
+            query['TargetMajorVersion'] = request.target_major_version
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeUpgradeMajorVersionTasks',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.DescribeUpgradeMajorVersionTasksResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_upgrade_major_version_tasks(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_upgrade_major_version_tasks_with_options(request, runtime)
+
     def describe_vswitches_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dedicated_host_group_id):
+            query['DedicatedHostGroupId'] = request.dedicated_host_group_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.vpc_id):
+            query['VpcId'] = request.vpc_id
+        if not UtilClient.is_unset(request.zone_id):
+            query['ZoneId'] = request.zone_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeVSwitches',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DescribeVSwitchesResponse(),
-            self.do_rpcrequest('DescribeVSwitches', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def describe_vswitches(self, request):
@@ -1942,125 +9158,517 @@ class Client(OpenApiClient):
         return self.describe_vswitches_with_options(request, runtime)
 
     def destroy_dbinstance_with_options(self, request, runtime):
+        """
+        The DestroyDBInstance operation is phased out.
+        
+
+        @param request: DestroyDBInstanceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DestroyDBInstanceResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DestroyDBInstance',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.DestroyDBInstanceResponse(),
-            self.do_rpcrequest('DestroyDBInstance', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def destroy_dbinstance(self, request):
+        """
+        The DestroyDBInstance operation is phased out.
+        
+
+        @param request: DestroyDBInstanceRequest
+
+        @return: DestroyDBInstanceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.destroy_dbinstance_with_options(request, runtime)
 
-    def drop_dedicated_host_user_with_options(self, request, runtime):
+    def detach_gad_instance_member_with_options(self, request, runtime):
+        """
+        ## Precautions
+        This operation can be used to remove only unit nodes.
+        
+
+        @param request: DetachGadInstanceMemberRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DetachGadInstanceMemberResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.gad_instance_name):
+            query['GadInstanceName'] = request.gad_instance_name
+        if not UtilClient.is_unset(request.member_instance_name):
+            query['MemberInstanceName'] = request.member_instance_name
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DetachGadInstanceMember',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
-            rds_20140815_models.DropDedicatedHostUserResponse(),
-            self.do_rpcrequest('DropDedicatedHostUser', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            rds_20140815_models.DetachGadInstanceMemberResponse(),
+            self.call_api(params, req, runtime)
         )
 
-    def drop_dedicated_host_user(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.drop_dedicated_host_user_with_options(request, runtime)
+    def detach_gad_instance_member(self, request):
+        """
+        ## Precautions
+        This operation can be used to remove only unit nodes.
+        
 
-    def evaluate_dedicated_host_instance_resource_with_options(self, request, runtime):
+        @param request: DetachGadInstanceMemberRequest
+
+        @return: DetachGadInstanceMemberResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.detach_gad_instance_member_with_options(request, runtime)
+
+    def get_dbinstance_topology_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetDBInstanceTopology',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
-            rds_20140815_models.EvaluateDedicatedHostInstanceResourceResponse(),
-            self.do_rpcrequest('EvaluateDedicatedHostInstanceResource', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            rds_20140815_models.GetDBInstanceTopologyResponse(),
+            self.call_api(params, req, runtime)
         )
 
-    def evaluate_dedicated_host_instance_resource(self, request):
+    def get_dbinstance_topology(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.evaluate_dedicated_host_instance_resource_with_options(request, runtime)
+        return self.get_dbinstance_topology_with_options(request, runtime)
 
     def get_db_proxy_instance_ssl_with_options(self, request, runtime):
+        """
+        ApsaraDB RDS provides the dedicated proxy feature. You can configure SSL encryption for the dedicated proxy endpoint of an instance. This allows you to ensure the data security of the instance. For more information about the dedicated proxy feature, see [Dedicated proxy](~~138705~~).
+        Before you call this operation, make sure that the following requirements are met:
+        *   The dedicated proxy feature must be enabled for the instance.
+        *   The minor engine version that the dedicated proxies of the instance run must be 1.12.8 or later.
+        *   The minor engine version of the instance must be 20200831 or later, and the instance must run the following MySQL versions and RDS editions:
+        *   MySQL 8.0 on RDS High-availability Edition with local SSDs
+        *   MySQL 5.7 on RDS High-availability Edition with local SSDs
+        *   MySQL 5.6 on RDS High-availability Edition with local SSDs
+        
+
+        @param request: GetDbProxyInstanceSslRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetDbProxyInstanceSslResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbproxy_engine_type):
+            query['DBProxyEngineType'] = request.dbproxy_engine_type
+        if not UtilClient.is_unset(request.db_instance_id):
+            query['DbInstanceId'] = request.db_instance_id
+        if not UtilClient.is_unset(request.db_instance_id):
+            query['DbInstanceId'] = request.db_instance_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetDbProxyInstanceSsl',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.GetDbProxyInstanceSslResponse(),
-            self.do_rpcrequest('GetDbProxyInstanceSsl', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def get_db_proxy_instance_ssl(self, request):
+        """
+        ApsaraDB RDS provides the dedicated proxy feature. You can configure SSL encryption for the dedicated proxy endpoint of an instance. This allows you to ensure the data security of the instance. For more information about the dedicated proxy feature, see [Dedicated proxy](~~138705~~).
+        Before you call this operation, make sure that the following requirements are met:
+        *   The dedicated proxy feature must be enabled for the instance.
+        *   The minor engine version that the dedicated proxies of the instance run must be 1.12.8 or later.
+        *   The minor engine version of the instance must be 20200831 or later, and the instance must run the following MySQL versions and RDS editions:
+        *   MySQL 8.0 on RDS High-availability Edition with local SSDs
+        *   MySQL 5.7 on RDS High-availability Edition with local SSDs
+        *   MySQL 5.6 on RDS High-availability Edition with local SSDs
+        
+
+        @param request: GetDbProxyInstanceSslRequest
+
+        @return: GetDbProxyInstanceSslResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_db_proxy_instance_ssl_with_options(request, runtime)
 
     def grant_account_privilege_with_options(self, request, runtime):
+        """
+        Each account can be granted permissions on one or more databases. Before you call this operation, make sure that the instance is in the running state.
+        > This operation is not supported for instances that run SQL Server 2017 (cluster edition) or PostgreSQL with local SSDs.
+        
+
+        @param request: GrantAccountPrivilegeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GrantAccountPrivilegeResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.account_name):
+            query['AccountName'] = request.account_name
+        if not UtilClient.is_unset(request.account_privilege):
+            query['AccountPrivilege'] = request.account_privilege
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.dbname):
+            query['DBName'] = request.dbname
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GrantAccountPrivilege',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.GrantAccountPrivilegeResponse(),
-            self.do_rpcrequest('GrantAccountPrivilege', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def grant_account_privilege(self, request):
+        """
+        Each account can be granted permissions on one or more databases. Before you call this operation, make sure that the instance is in the running state.
+        > This operation is not supported for instances that run SQL Server 2017 (cluster edition) or PostgreSQL with local SSDs.
+        
+
+        @param request: GrantAccountPrivilegeRequest
+
+        @return: GrantAccountPrivilegeResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.grant_account_privilege_with_options(request, runtime)
 
     def grant_operator_permission_with_options(self, request, runtime):
+        """
+        When you seek help from Alibaba Cloud technical support to troubleshoot instance exceptions, you need to grant permissions to the service account of your instance. The service account is used by Alibaba Cloud technical support to perform operations on the databases of your instance.
+        This operation is available only when your instance runs one of the following database engines:
+        *   MySQL
+        *   SQL Server
+        *   PostgreSQL
+        For more information, see [Grant permissions to the service account of an ApsaraDB RDS for MySQL instance](~~96102~~), [Grant permissions to the service account of an ApsaraDB RDS for SQL Server instance](~~95693~~), and [Grant permissions to the service account of an ApsaraDB RDS for PostgreSQL instance](~~146887~~).
+        
+
+        @param request: GrantOperatorPermissionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GrantOperatorPermissionResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.expired_time):
+            query['ExpiredTime'] = request.expired_time
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.privileges):
+            query['Privileges'] = request.privileges
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GrantOperatorPermission',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.GrantOperatorPermissionResponse(),
-            self.do_rpcrequest('GrantOperatorPermission', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def grant_operator_permission(self, request):
+        """
+        When you seek help from Alibaba Cloud technical support to troubleshoot instance exceptions, you need to grant permissions to the service account of your instance. The service account is used by Alibaba Cloud technical support to perform operations on the databases of your instance.
+        This operation is available only when your instance runs one of the following database engines:
+        *   MySQL
+        *   SQL Server
+        *   PostgreSQL
+        For more information, see [Grant permissions to the service account of an ApsaraDB RDS for MySQL instance](~~96102~~), [Grant permissions to the service account of an ApsaraDB RDS for SQL Server instance](~~95693~~), and [Grant permissions to the service account of an ApsaraDB RDS for PostgreSQL instance](~~146887~~).
+        
+
+        @param request: GrantOperatorPermissionRequest
+
+        @return: GrantOperatorPermissionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.grant_operator_permission_with_options(request, runtime)
 
     def import_database_between_instances_with_options(self, request, runtime):
+        """
+        We recommend that you use Data Transmission Service (DTS). DTS provides data migration, subscription, and synchronization features that allow you to establish stable, secure transmission links.
+        During the migration, the source instance is in the **Migrating** state, and the destination instance is in the **Importing** state.
+        Before you call this operation, make sure that the following requirements are met:
+        *   The source and destination instances must run the SQL Server database engine and belong to the dedicated or dedicated host instance family. For more information about the supported instance types, see [Primary instance types](~~26312~~).
+        *   The source and destination instances must be created by using the same user credentials.
+        *   The source and destination instances must be in the Running state.
+        *   The source and destination databases must be in the Running state.
+        *   The remaining storage space of the destination instance must be greater than the used storage space of the source instance.
+        > * This operation is not supported for instances that run SQL Server 2017 EE.
+        > * You can migrate the data of multiple databases at a time.
+        
+
+        @param request: ImportDatabaseBetweenInstancesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ImportDatabaseBetweenInstancesResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinfo):
+            query['DBInfo'] = request.dbinfo
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.source_dbinstance_id):
+            query['SourceDBInstanceId'] = request.source_dbinstance_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ImportDatabaseBetweenInstances',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.ImportDatabaseBetweenInstancesResponse(),
-            self.do_rpcrequest('ImportDatabaseBetweenInstances', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def import_database_between_instances(self, request):
+        """
+        We recommend that you use Data Transmission Service (DTS). DTS provides data migration, subscription, and synchronization features that allow you to establish stable, secure transmission links.
+        During the migration, the source instance is in the **Migrating** state, and the destination instance is in the **Importing** state.
+        Before you call this operation, make sure that the following requirements are met:
+        *   The source and destination instances must run the SQL Server database engine and belong to the dedicated or dedicated host instance family. For more information about the supported instance types, see [Primary instance types](~~26312~~).
+        *   The source and destination instances must be created by using the same user credentials.
+        *   The source and destination instances must be in the Running state.
+        *   The source and destination databases must be in the Running state.
+        *   The remaining storage space of the destination instance must be greater than the used storage space of the source instance.
+        > * This operation is not supported for instances that run SQL Server 2017 EE.
+        > * You can migrate the data of multiple databases at a time.
+        
+
+        @param request: ImportDatabaseBetweenInstancesRequest
+
+        @return: ImportDatabaseBetweenInstancesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.import_database_between_instances_with_options(request, runtime)
 
     def import_user_backup_file_with_options(self, request, runtime):
+        """
+        >  A full backup file contains the data of a self-managed MySQL database. You can restore the data of a self-managed MySQL database from a full backup file to an ApsaraDB RDS for MySQL instance.
+        Before you call this operation, make sure that the following requirements are met:
+        *   The self-managed MySQL database must run MySQL 5.7, and the data of the database must be backed up by using XtraBackup and saved as a full backup file whose name ends with `_qp.xb`. For more information, see [Migrate the full backup data of a self-managed MySQL 5.7 database to an ApsaraDB RDS for MySQL instance](~~251779~~).
+        *   The full backup file of the self-managed MySQL database must be uploaded to an Object Storage Service (OSS) bucket in the region of the ApsaraDB RDS for MySQL instance. For more information, see [Migrate the full backup data of a self-managed MySQL 5.7 database to an ApsaraDB RDS for MySQL instance](~~251779~~).
+        >  This operation is supported only for MySQL 5.7.
+        
+
+        @param request: ImportUserBackupFileRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ImportUserBackupFileResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.backup_file):
+            query['BackupFile'] = request.backup_file
+        if not UtilClient.is_unset(request.bucket_region):
+            query['BucketRegion'] = request.bucket_region
+        if not UtilClient.is_unset(request.comment):
+            query['Comment'] = request.comment
+        if not UtilClient.is_unset(request.engine_version):
+            query['EngineVersion'] = request.engine_version
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.restore_size):
+            query['RestoreSize'] = request.restore_size
+        if not UtilClient.is_unset(request.retention):
+            query['Retention'] = request.retention
+        if not UtilClient.is_unset(request.zone_id):
+            query['ZoneId'] = request.zone_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ImportUserBackupFile',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.ImportUserBackupFileResponse(),
-            self.do_rpcrequest('ImportUserBackupFile', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def import_user_backup_file(self, request):
+        """
+        >  A full backup file contains the data of a self-managed MySQL database. You can restore the data of a self-managed MySQL database from a full backup file to an ApsaraDB RDS for MySQL instance.
+        Before you call this operation, make sure that the following requirements are met:
+        *   The self-managed MySQL database must run MySQL 5.7, and the data of the database must be backed up by using XtraBackup and saved as a full backup file whose name ends with `_qp.xb`. For more information, see [Migrate the full backup data of a self-managed MySQL 5.7 database to an ApsaraDB RDS for MySQL instance](~~251779~~).
+        *   The full backup file of the self-managed MySQL database must be uploaded to an Object Storage Service (OSS) bucket in the region of the ApsaraDB RDS for MySQL instance. For more information, see [Migrate the full backup data of a self-managed MySQL 5.7 database to an ApsaraDB RDS for MySQL instance](~~251779~~).
+        >  This operation is supported only for MySQL 5.7.
+        
+
+        @param request: ImportUserBackupFileRequest
+
+        @return: ImportUserBackupFileResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.import_user_backup_file_with_options(request, runtime)
 
     def list_classes_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.commodity_code):
+            query['CommodityCode'] = request.commodity_code
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.order_type):
+            query['OrderType'] = request.order_type
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListClasses',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.ListClassesResponse(),
-            self.do_rpcrequest('ListClasses', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_classes(self, request):
@@ -2069,12 +9677,40 @@ class Client(OpenApiClient):
 
     def list_tag_resources_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_id):
+            query['ResourceId'] = request.resource_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.resource_type):
+            query['ResourceType'] = request.resource_type
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListTagResources',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.ListTagResourcesResponse(),
-            self.do_rpcrequest('ListTagResources', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_tag_resources(self, request):
@@ -2082,223 +9718,1235 @@ class Client(OpenApiClient):
         return self.list_tag_resources_with_options(request, runtime)
 
     def list_user_backup_files_with_options(self, request, runtime):
+        """
+        >    A full backup file contains the data of a self-managed MySQL database. You can restore the data of a self-managed MySQL database from a full backup file to an ApsaraDB RDS for MySQL instance. For more information, see [Migrate the data of a self-managed MySQL 5.7 instance to the cloud](~~251779~~).
+        > *   Before you call the [CreateDBInstance](~~26228~~) operation to create an ApsaraDB RDS for MySQL instance into which you want to import full backup files, you can call the ListUserBackupFiles operation to query the IDs of full backup files.
+        > *   You can call the [ImportUserBackupFile](~~260266~~) operation to import a full backup file into an ApsaraDB RDS for MySQL instance.
+        
+
+        @param request: ListUserBackupFilesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListUserBackupFilesResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.backup_id):
+            query['BackupId'] = request.backup_id
+        if not UtilClient.is_unset(request.comment):
+            query['Comment'] = request.comment
+        if not UtilClient.is_unset(request.oss_url):
+            query['OssUrl'] = request.oss_url
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
+        if not UtilClient.is_unset(request.tags):
+            query['Tags'] = request.tags
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListUserBackupFiles',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.ListUserBackupFilesResponse(),
-            self.do_rpcrequest('ListUserBackupFiles', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def list_user_backup_files(self, request):
+        """
+        >    A full backup file contains the data of a self-managed MySQL database. You can restore the data of a self-managed MySQL database from a full backup file to an ApsaraDB RDS for MySQL instance. For more information, see [Migrate the data of a self-managed MySQL 5.7 instance to the cloud](~~251779~~).
+        > *   Before you call the [CreateDBInstance](~~26228~~) operation to create an ApsaraDB RDS for MySQL instance into which you want to import full backup files, you can call the ListUserBackupFiles operation to query the IDs of full backup files.
+        > *   You can call the [ImportUserBackupFile](~~260266~~) operation to import a full backup file into an ApsaraDB RDS for MySQL instance.
+        
+
+        @param request: ListUserBackupFilesRequest
+
+        @return: ListUserBackupFilesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_user_backup_files_with_options(request, runtime)
 
     def lock_account_with_options(self, request, runtime):
+        """
+        You cannot use a locked account to log on to the corresponding instance. You must first unlock the account. For more information, see [Lock and delete an account](~~147649~~).
+        
+
+        @param request: LockAccountRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: LockAccountResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.account_name):
+            query['AccountName'] = request.account_name
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='LockAccount',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.LockAccountResponse(),
-            self.do_rpcrequest('LockAccount', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def lock_account(self, request):
+        """
+        You cannot use a locked account to log on to the corresponding instance. You must first unlock the account. For more information, see [Lock and delete an account](~~147649~~).
+        
+
+        @param request: LockAccountRequest
+
+        @return: LockAccountResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.lock_account_with_options(request, runtime)
 
-    def migrate_dbinstance_with_options(self, request, runtime):
+    def migrate_connection_to_other_zone_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.connection_string):
+            query['ConnectionString'] = request.connection_string
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.zone_id):
+            query['ZoneId'] = request.zone_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='MigrateConnectionToOtherZone',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.MigrateConnectionToOtherZoneResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def migrate_connection_to_other_zone(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.migrate_connection_to_other_zone_with_options(request, runtime)
+
+    def migrate_dbinstance_with_options(self, request, runtime):
+        """
+        Dedicated clusters allow you to manage a number of instances at a time. You can create multiple dedicated clusters in a single region. Each dedicated cluster consists of multiple hosts. You can create multiple instances on each host. For more information, see [What is ApsaraDB MyBase?](~~141455~~)
+        
+
+        @param request: MigrateDBInstanceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: MigrateDBInstanceResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.dedicated_host_group_id):
+            query['DedicatedHostGroupId'] = request.dedicated_host_group_id
+        if not UtilClient.is_unset(request.effective_time):
+            query['EffectiveTime'] = request.effective_time
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.specified_time):
+            query['SpecifiedTime'] = request.specified_time
+        if not UtilClient.is_unset(request.target_dedicated_host_id_for_master):
+            query['TargetDedicatedHostIdForMaster'] = request.target_dedicated_host_id_for_master
+        if not UtilClient.is_unset(request.target_dedicated_host_id_for_slave):
+            query['TargetDedicatedHostIdForSlave'] = request.target_dedicated_host_id_for_slave
+        if not UtilClient.is_unset(request.zone_id_for_follower):
+            query['ZoneIdForFollower'] = request.zone_id_for_follower
+        if not UtilClient.is_unset(request.zone_id_for_log):
+            query['ZoneIdForLog'] = request.zone_id_for_log
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='MigrateDBInstance',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.MigrateDBInstanceResponse(),
-            self.do_rpcrequest('MigrateDBInstance', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def migrate_dbinstance(self, request):
+        """
+        Dedicated clusters allow you to manage a number of instances at a time. You can create multiple dedicated clusters in a single region. Each dedicated cluster consists of multiple hosts. You can create multiple instances on each host. For more information, see [What is ApsaraDB MyBase?](~~141455~~)
+        
+
+        @param request: MigrateDBInstanceRequest
+
+        @return: MigrateDBInstanceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.migrate_dbinstance_with_options(request, runtime)
 
     def migrate_security_ipmode_with_options(self, request, runtime):
+        """
+        In standard whitelist mode, IP addresses in the whitelist apply to both the classic network and VPCs. To minimize security risks, we recommend that you switch to the enhanced whitelist mode.
+        *   In enhanced whitelist mode, IP addresses in the whitelist are divided into VPC IP addresses and IP addresses of the classic network and Internet.
+        > * The enhanced whitelist mode cannot be switched back to the standard whitelist mode.
+        > * This operation is not applicable to instances that run SQL Server and MariaDB.
+        
+
+        @param request: MigrateSecurityIPModeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: MigrateSecurityIPModeResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='MigrateSecurityIPMode',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.MigrateSecurityIPModeResponse(),
-            self.do_rpcrequest('MigrateSecurityIPMode', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def migrate_security_ipmode(self, request):
+        """
+        In standard whitelist mode, IP addresses in the whitelist apply to both the classic network and VPCs. To minimize security risks, we recommend that you switch to the enhanced whitelist mode.
+        *   In enhanced whitelist mode, IP addresses in the whitelist are divided into VPC IP addresses and IP addresses of the classic network and Internet.
+        > * The enhanced whitelist mode cannot be switched back to the standard whitelist mode.
+        > * This operation is not applicable to instances that run SQL Server and MariaDB.
+        
+
+        @param request: MigrateSecurityIPModeRequest
+
+        @return: MigrateSecurityIPModeResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.migrate_security_ipmode_with_options(request, runtime)
 
     def migrate_to_other_zone_with_options(self, request, runtime):
+        """
+        The prerequisites for this operation vary based on the database engine of the instance. For more information, see the following topics:
+        *   [ApsaraDB RDS for MySQL](~~96053~~)
+        *   [ApsaraDB RDS for PostgreSQL](~~96746~~)
+        *   [ApsaraDB RDS for SQL Server](~~95658~~)
+        > This operation allows you to migrate an instance across zones in the same region. This operation does not allow you to migrate an instance across zones in different regions. For example, you cannot migrate an instance from a zone in the China (Hangzhou) region to a zone in the China (Qingdao) region.
+        
+
+        @param request: MigrateToOtherZoneRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: MigrateToOtherZoneResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.category):
+            query['Category'] = request.category
+        if not UtilClient.is_unset(request.dbinstance_class):
+            query['DBInstanceClass'] = request.dbinstance_class
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.dbinstance_storage):
+            query['DBInstanceStorage'] = request.dbinstance_storage
+        if not UtilClient.is_unset(request.effective_time):
+            query['EffectiveTime'] = request.effective_time
+        if not UtilClient.is_unset(request.is_modify_spec):
+            query['IsModifySpec'] = request.is_modify_spec
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.switch_time):
+            query['SwitchTime'] = request.switch_time
+        if not UtilClient.is_unset(request.vpcid):
+            query['VPCId'] = request.vpcid
+        if not UtilClient.is_unset(request.v_switch_id):
+            query['VSwitchId'] = request.v_switch_id
+        if not UtilClient.is_unset(request.zone_id):
+            query['ZoneId'] = request.zone_id
+        if not UtilClient.is_unset(request.zone_id_slave_1):
+            query['ZoneIdSlave1'] = request.zone_id_slave_1
+        if not UtilClient.is_unset(request.zone_id_slave_2):
+            query['ZoneIdSlave2'] = request.zone_id_slave_2
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='MigrateToOtherZone',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.MigrateToOtherZoneResponse(),
-            self.do_rpcrequest('MigrateToOtherZone', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def migrate_to_other_zone(self, request):
+        """
+        The prerequisites for this operation vary based on the database engine of the instance. For more information, see the following topics:
+        *   [ApsaraDB RDS for MySQL](~~96053~~)
+        *   [ApsaraDB RDS for PostgreSQL](~~96746~~)
+        *   [ApsaraDB RDS for SQL Server](~~95658~~)
+        > This operation allows you to migrate an instance across zones in the same region. This operation does not allow you to migrate an instance across zones in different regions. For example, you cannot migrate an instance from a zone in the China (Hangzhou) region to a zone in the China (Qingdao) region.
+        
+
+        @param request: MigrateToOtherZoneRequest
+
+        @return: MigrateToOtherZoneResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.migrate_to_other_zone_with_options(request, runtime)
 
-    def modify_account_description_with_options(self, request, runtime):
+    def modify_adinfo_with_options(self, request, runtime):
+        """
+        This operation is available only for ApsaraDB RDS for SQL Server instances.
+        
+
+        @param request: ModifyADInfoRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyADInfoResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.adaccount_name):
+            query['ADAccountName'] = request.adaccount_name
+        if not UtilClient.is_unset(request.addns):
+            query['ADDNS'] = request.addns
+        if not UtilClient.is_unset(request.adpassword):
+            query['ADPassword'] = request.adpassword
+        if not UtilClient.is_unset(request.adserver_ip_address):
+            query['ADServerIpAddress'] = request.adserver_ip_address
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyADInfo',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.ModifyADInfoResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_adinfo(self, request):
+        """
+        This operation is available only for ApsaraDB RDS for SQL Server instances.
+        
+
+        @param request: ModifyADInfoRequest
+
+        @return: ModifyADInfoResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.modify_adinfo_with_options(request, runtime)
+
+    def modify_account_description_with_options(self, request, runtime):
+        """
+        > This operation is not supported for instances that run SQL Server 2017 (cluster edition) or PostgreSQL.
+        
+
+        @param request: ModifyAccountDescriptionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyAccountDescriptionResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.account_description):
+            query['AccountDescription'] = request.account_description
+        if not UtilClient.is_unset(request.account_name):
+            query['AccountName'] = request.account_name
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyAccountDescription',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.ModifyAccountDescriptionResponse(),
-            self.do_rpcrequest('ModifyAccountDescription', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def modify_account_description(self, request):
+        """
+        > This operation is not supported for instances that run SQL Server 2017 (cluster edition) or PostgreSQL.
+        
+
+        @param request: ModifyAccountDescriptionRequest
+
+        @return: ModifyAccountDescriptionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_account_description_with_options(request, runtime)
 
     def modify_action_event_policy_with_options(self, request, runtime):
+        """
+        The event history feature enables you to view historical events that occurred in a region over a specific time range. These events include instance creation and parameter reconfiguration. For more information, see [Event history](~~129759~~).
+        
+
+        @param request: ModifyActionEventPolicyRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyActionEventPolicyResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.enable_event_log):
+            query['EnableEventLog'] = request.enable_event_log
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyActionEventPolicy',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.ModifyActionEventPolicyResponse(),
-            self.do_rpcrequest('ModifyActionEventPolicy', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def modify_action_event_policy(self, request):
+        """
+        The event history feature enables you to view historical events that occurred in a region over a specific time range. These events include instance creation and parameter reconfiguration. For more information, see [Event history](~~129759~~).
+        
+
+        @param request: ModifyActionEventPolicyRequest
+
+        @return: ModifyActionEventPolicyResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_action_event_policy_with_options(request, runtime)
 
     def modify_backup_policy_with_options(self, request, runtime):
+        """
+        Before you call this operation, make sure that the following requirements are met:
+        *   The instance is not a read-only instance.
+        *   The instance is in the Running state.
+        
+
+        @param request: ModifyBackupPolicyRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyBackupPolicyResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.archive_backup_keep_count):
+            query['ArchiveBackupKeepCount'] = request.archive_backup_keep_count
+        if not UtilClient.is_unset(request.archive_backup_keep_policy):
+            query['ArchiveBackupKeepPolicy'] = request.archive_backup_keep_policy
+        if not UtilClient.is_unset(request.archive_backup_retention_period):
+            query['ArchiveBackupRetentionPeriod'] = request.archive_backup_retention_period
+        if not UtilClient.is_unset(request.backup_interval):
+            query['BackupInterval'] = request.backup_interval
+        if not UtilClient.is_unset(request.backup_log):
+            query['BackupLog'] = request.backup_log
+        if not UtilClient.is_unset(request.backup_method):
+            query['BackupMethod'] = request.backup_method
+        if not UtilClient.is_unset(request.backup_policy_mode):
+            query['BackupPolicyMode'] = request.backup_policy_mode
+        if not UtilClient.is_unset(request.backup_retention_period):
+            query['BackupRetentionPeriod'] = request.backup_retention_period
+        if not UtilClient.is_unset(request.category):
+            query['Category'] = request.category
+        if not UtilClient.is_unset(request.compress_type):
+            query['CompressType'] = request.compress_type
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.enable_backup_log):
+            query['EnableBackupLog'] = request.enable_backup_log
+        if not UtilClient.is_unset(request.enable_increment_data_backup):
+            query['EnableIncrementDataBackup'] = request.enable_increment_data_backup
+        if not UtilClient.is_unset(request.high_space_usage_protection):
+            query['HighSpaceUsageProtection'] = request.high_space_usage_protection
+        if not UtilClient.is_unset(request.local_log_retention_hours):
+            query['LocalLogRetentionHours'] = request.local_log_retention_hours
+        if not UtilClient.is_unset(request.local_log_retention_space):
+            query['LocalLogRetentionSpace'] = request.local_log_retention_space
+        if not UtilClient.is_unset(request.log_backup_frequency):
+            query['LogBackupFrequency'] = request.log_backup_frequency
+        if not UtilClient.is_unset(request.log_backup_local_retention_number):
+            query['LogBackupLocalRetentionNumber'] = request.log_backup_local_retention_number
+        if not UtilClient.is_unset(request.log_backup_retention_period):
+            query['LogBackupRetentionPeriod'] = request.log_backup_retention_period
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.preferred_backup_period):
+            query['PreferredBackupPeriod'] = request.preferred_backup_period
+        if not UtilClient.is_unset(request.preferred_backup_time):
+            query['PreferredBackupTime'] = request.preferred_backup_time
+        if not UtilClient.is_unset(request.released_keep_policy):
+            query['ReleasedKeepPolicy'] = request.released_keep_policy
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyBackupPolicy',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.ModifyBackupPolicyResponse(),
-            self.do_rpcrequest('ModifyBackupPolicy', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def modify_backup_policy(self, request):
+        """
+        Before you call this operation, make sure that the following requirements are met:
+        *   The instance is not a read-only instance.
+        *   The instance is in the Running state.
+        
+
+        @param request: ModifyBackupPolicyRequest
+
+        @return: ModifyBackupPolicyResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_backup_policy_with_options(request, runtime)
 
     def modify_collation_time_zone_with_options(self, request, runtime):
+        """
+        > This operation is phased out.
+        
+
+        @param request: ModifyCollationTimeZoneRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyCollationTimeZoneResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.collation):
+            query['Collation'] = request.collation
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.timezone):
+            query['Timezone'] = request.timezone
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyCollationTimeZone',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.ModifyCollationTimeZoneResponse(),
-            self.do_rpcrequest('ModifyCollationTimeZone', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def modify_collation_time_zone(self, request):
+        """
+        > This operation is phased out.
+        
+
+        @param request: ModifyCollationTimeZoneRequest
+
+        @return: ModifyCollationTimeZoneResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_collation_time_zone_with_options(request, runtime)
 
-    def modify_das_instance_config_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            rds_20140815_models.ModifyDasInstanceConfigResponse(),
-            self.do_rpcrequest('ModifyDasInstanceConfig', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def modify_das_instance_config(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.modify_das_instance_config_with_options(request, runtime)
-
     def modify_dbdescription_with_options(self, request, runtime):
+        """
+        > This operation is not applicable to instances that run PostgreSQL.
+        
+
+        @param request: ModifyDBDescriptionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyDBDescriptionResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbdescription):
+            query['DBDescription'] = request.dbdescription
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.dbname):
+            query['DBName'] = request.dbname
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyDBDescription',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.ModifyDBDescriptionResponse(),
-            self.do_rpcrequest('ModifyDBDescription', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def modify_dbdescription(self, request):
+        """
+        > This operation is not applicable to instances that run PostgreSQL.
+        
+
+        @param request: ModifyDBDescriptionRequest
+
+        @return: ModifyDBDescriptionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_dbdescription_with_options(request, runtime)
 
     def modify_dbinstance_auto_upgrade_minor_version_with_options(self, request, runtime):
+        """
+        This operation is supported only for instances that run MySQL.
+        
+
+        @param request: ModifyDBInstanceAutoUpgradeMinorVersionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyDBInstanceAutoUpgradeMinorVersionResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.auto_upgrade_minor_version):
+            query['AutoUpgradeMinorVersion'] = request.auto_upgrade_minor_version
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyDBInstanceAutoUpgradeMinorVersion',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.ModifyDBInstanceAutoUpgradeMinorVersionResponse(),
-            self.do_rpcrequest('ModifyDBInstanceAutoUpgradeMinorVersion', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def modify_dbinstance_auto_upgrade_minor_version(self, request):
+        """
+        This operation is supported only for instances that run MySQL.
+        
+
+        @param request: ModifyDBInstanceAutoUpgradeMinorVersionRequest
+
+        @return: ModifyDBInstanceAutoUpgradeMinorVersionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_dbinstance_auto_upgrade_minor_version_with_options(request, runtime)
 
     def modify_dbinstance_connection_mode_with_options(self, request, runtime):
+        """
+        > The API has been taken offline
+        
+
+        @param request: ModifyDBInstanceConnectionModeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyDBInstanceConnectionModeResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.connection_mode):
+            query['ConnectionMode'] = request.connection_mode
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyDBInstanceConnectionMode',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.ModifyDBInstanceConnectionModeResponse(),
-            self.do_rpcrequest('ModifyDBInstanceConnectionMode', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def modify_dbinstance_connection_mode(self, request):
+        """
+        > The API has been taken offline
+        
+
+        @param request: ModifyDBInstanceConnectionModeRequest
+
+        @return: ModifyDBInstanceConnectionModeResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_dbinstance_connection_mode_with_options(request, runtime)
 
     def modify_dbinstance_connection_string_with_options(self, request, runtime):
+        """
+        ApsaraDB RDS provides the internal and public endpoints. ApsaraDB RDS also allows hybrid access by using both a Virtual Private Cloud (VPC) endpoint and a classic network endpoint.
+        > *   You can change only the prefix of an endpoint.
+        > *   The read/write splitting endpoint cannot be changed.
+        
+
+        @param request: ModifyDBInstanceConnectionStringRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyDBInstanceConnectionStringResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.babelfish_port):
+            query['BabelfishPort'] = request.babelfish_port
+        if not UtilClient.is_unset(request.connection_string_prefix):
+            query['ConnectionStringPrefix'] = request.connection_string_prefix
+        if not UtilClient.is_unset(request.current_connection_string):
+            query['CurrentConnectionString'] = request.current_connection_string
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.general_group_name):
+            query['GeneralGroupName'] = request.general_group_name
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.port):
+            query['Port'] = request.port
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyDBInstanceConnectionString',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.ModifyDBInstanceConnectionStringResponse(),
-            self.do_rpcrequest('ModifyDBInstanceConnectionString', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def modify_dbinstance_connection_string(self, request):
+        """
+        ApsaraDB RDS provides the internal and public endpoints. ApsaraDB RDS also allows hybrid access by using both a Virtual Private Cloud (VPC) endpoint and a classic network endpoint.
+        > *   You can change only the prefix of an endpoint.
+        > *   The read/write splitting endpoint cannot be changed.
+        
+
+        @param request: ModifyDBInstanceConnectionStringRequest
+
+        @return: ModifyDBInstanceConnectionStringResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_dbinstance_connection_string_with_options(request, runtime)
 
+    def modify_dbinstance_delayed_replication_time_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.read_sqlreplication_time):
+            query['ReadSQLReplicationTime'] = request.read_sqlreplication_time
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyDBInstanceDelayedReplicationTime',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.ModifyDBInstanceDelayedReplicationTimeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_dbinstance_delayed_replication_time(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_dbinstance_delayed_replication_time_with_options(request, runtime)
+
+    def modify_dbinstance_deletion_protection_with_options(self, request, runtime):
+        """
+        For more information, see [Enable or disable the release protection feature for an ApsaraDB RDS for MySQL instance](~~414512~~).
+        
+
+        @param request: ModifyDBInstanceDeletionProtectionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyDBInstanceDeletionProtectionResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.deletion_protection):
+            query['DeletionProtection'] = request.deletion_protection
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyDBInstanceDeletionProtection',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.ModifyDBInstanceDeletionProtectionResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_dbinstance_deletion_protection(self, request):
+        """
+        For more information, see [Enable or disable the release protection feature for an ApsaraDB RDS for MySQL instance](~~414512~~).
+        
+
+        @param request: ModifyDBInstanceDeletionProtectionRequest
+
+        @return: ModifyDBInstanceDeletionProtectionResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.modify_dbinstance_deletion_protection_with_options(request, runtime)
+
     def modify_dbinstance_description_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_description):
+            query['DBInstanceDescription'] = request.dbinstance_description
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyDBInstanceDescription',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.ModifyDBInstanceDescriptionResponse(),
-            self.do_rpcrequest('ModifyDBInstanceDescription', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def modify_dbinstance_description(self, request):
         runtime = util_models.RuntimeOptions()
         return self.modify_dbinstance_description_with_options(request, runtime)
 
+    def modify_dbinstance_endpoint_with_options(self, tmp_req, runtime):
+        """
+        ## Background information
+        *   This operation is suitable only for ApsaraDB RDS for MySQL instances that run RDS Cluster Edition.
+        *   When you modify information about the endpoint of an instance, you can modify the settings only of common parameters of the endpoint, such as the weight and description. This operation is called to manage an endpoint.
+        
+
+        @param tmp_req: ModifyDBInstanceEndpointRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyDBInstanceEndpointResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = rds_20140815_models.ModifyDBInstanceEndpointShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.node_items):
+            request.node_items_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.node_items, 'NodeItems', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dbinstance_endpoint_description):
+            query['DBInstanceEndpointDescription'] = request.dbinstance_endpoint_description
+        if not UtilClient.is_unset(request.dbinstance_endpoint_id):
+            query['DBInstanceEndpointId'] = request.dbinstance_endpoint_id
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.node_items_shrink):
+            query['NodeItems'] = request.node_items_shrink
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyDBInstanceEndpoint',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.ModifyDBInstanceEndpointResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_dbinstance_endpoint(self, request):
+        """
+        ## Background information
+        *   This operation is suitable only for ApsaraDB RDS for MySQL instances that run RDS Cluster Edition.
+        *   When you modify information about the endpoint of an instance, you can modify the settings only of common parameters of the endpoint, such as the weight and description. This operation is called to manage an endpoint.
+        
+
+        @param request: ModifyDBInstanceEndpointRequest
+
+        @return: ModifyDBInstanceEndpointResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.modify_dbinstance_endpoint_with_options(request, runtime)
+
+    def modify_dbinstance_endpoint_address_with_options(self, request, runtime):
+        """
+        This operation is suitable only for ApsaraDB RDS for MySQL instances that run RDS Cluster Edition.
+        *   You can modify the following information about the endpoint of an instance: the public and internal endpoints, the public and internal ports, and the virtual private cloud (VPC), vSwitch, and IP address of the internal endpoint.
+        *   The VPC and vSwitch must be modified at the same time. If you specify the VPC, vSwitch, and IP address of the internal endpoint, you do not need to specify the endpoint and port. If you specify the endpoint and port of the internal endpoint, you do not need to specify the VPC, vSwitch, and IP address.
+        
+
+        @param request: ModifyDBInstanceEndpointAddressRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyDBInstanceEndpointAddressResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.connection_string):
+            query['ConnectionString'] = request.connection_string
+        if not UtilClient.is_unset(request.connection_string_prefix):
+            query['ConnectionStringPrefix'] = request.connection_string_prefix
+        if not UtilClient.is_unset(request.dbinstance_endpoint_id):
+            query['DBInstanceEndpointId'] = request.dbinstance_endpoint_id
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.port):
+            query['Port'] = request.port
+        if not UtilClient.is_unset(request.private_ip_address):
+            query['PrivateIpAddress'] = request.private_ip_address
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.v_switch_id):
+            query['VSwitchId'] = request.v_switch_id
+        if not UtilClient.is_unset(request.vpc_id):
+            query['VpcId'] = request.vpc_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyDBInstanceEndpointAddress',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.ModifyDBInstanceEndpointAddressResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_dbinstance_endpoint_address(self, request):
+        """
+        This operation is suitable only for ApsaraDB RDS for MySQL instances that run RDS Cluster Edition.
+        *   You can modify the following information about the endpoint of an instance: the public and internal endpoints, the public and internal ports, and the virtual private cloud (VPC), vSwitch, and IP address of the internal endpoint.
+        *   The VPC and vSwitch must be modified at the same time. If you specify the VPC, vSwitch, and IP address of the internal endpoint, you do not need to specify the endpoint and port. If you specify the endpoint and port of the internal endpoint, you do not need to specify the VPC, vSwitch, and IP address.
+        
+
+        @param request: ModifyDBInstanceEndpointAddressRequest
+
+        @return: ModifyDBInstanceEndpointAddressResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.modify_dbinstance_endpoint_address_with_options(request, runtime)
+
     def modify_dbinstance_haconfig_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.db_instance_id):
+            query['DbInstanceId'] = request.db_instance_id
+        if not UtilClient.is_unset(request.hamode):
+            query['HAMode'] = request.hamode
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.sync_mode):
+            query['SyncMode'] = request.sync_mode
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyDBInstanceHAConfig',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.ModifyDBInstanceHAConfigResponse(),
-            self.do_rpcrequest('ModifyDBInstanceHAConfig', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def modify_dbinstance_haconfig(self, request):
@@ -2306,517 +10954,2455 @@ class Client(OpenApiClient):
         return self.modify_dbinstance_haconfig_with_options(request, runtime)
 
     def modify_dbinstance_maintain_time_with_options(self, request, runtime):
+        """
+        You can set the maintenance time to a period of time during off-peak hours. Alibaba Cloud performs routine maintenance within the maintenance time to minimize impacts on your business.
+        
+
+        @param request: ModifyDBInstanceMaintainTimeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyDBInstanceMaintainTimeResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.maintain_time):
+            query['MaintainTime'] = request.maintain_time
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyDBInstanceMaintainTime',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.ModifyDBInstanceMaintainTimeResponse(),
-            self.do_rpcrequest('ModifyDBInstanceMaintainTime', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def modify_dbinstance_maintain_time(self, request):
+        """
+        You can set the maintenance time to a period of time during off-peak hours. Alibaba Cloud performs routine maintenance within the maintenance time to minimize impacts on your business.
+        
+
+        @param request: ModifyDBInstanceMaintainTimeRequest
+
+        @return: ModifyDBInstanceMaintainTimeResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_dbinstance_maintain_time_with_options(request, runtime)
 
     def modify_dbinstance_metrics_with_options(self, request, runtime):
+        """
+        ## Prerequisites
+        Before you call this operation, make sure that the instance runs PostgreSQL.
+        For more information, see [View the Enhanced Monitoring metrics of an ApsaraDB RDS for PostgreSQL instance](~~299200~~).
+        
+
+        @param request: ModifyDBInstanceMetricsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyDBInstanceMetricsResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_name):
+            query['DBInstanceName'] = request.dbinstance_name
+        if not UtilClient.is_unset(request.metrics_config):
+            query['MetricsConfig'] = request.metrics_config
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.scope):
+            query['Scope'] = request.scope
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyDBInstanceMetrics',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.ModifyDBInstanceMetricsResponse(),
-            self.do_rpcrequest('ModifyDBInstanceMetrics', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def modify_dbinstance_metrics(self, request):
+        """
+        ## Prerequisites
+        Before you call this operation, make sure that the instance runs PostgreSQL.
+        For more information, see [View the Enhanced Monitoring metrics of an ApsaraDB RDS for PostgreSQL instance](~~299200~~).
+        
+
+        @param request: ModifyDBInstanceMetricsRequest
+
+        @return: ModifyDBInstanceMetricsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_dbinstance_metrics_with_options(request, runtime)
 
     def modify_dbinstance_monitor_with_options(self, request, runtime):
+        """
+        Before you call this operation, make sure that you understand the billing methods and pricing of ApsaraDB RDS. For more information, see [Billable items, billing methods, and pricing](~~45020~~).
+        Alibaba Cloud provides different monitoring frequencies for different instances. For more information, see [Set monitoring frequencies](~~26200~~).
+        > * If your want to set the monitoring frequency to every few seconds, you are charged additional fees. For more information, see [Billable items, billing methods, and pricing](~~45020~~).
+        > * This operation is not supported for ApsaraDB RDS for PostgreSQL instances. The monitoring frequency of an ApsaraDB RDS for PostgreSQL instance varies based on the query time range. For more information, see [Query performance metrics](~~26280~~).
+        
+
+        @param request: ModifyDBInstanceMonitorRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyDBInstanceMonitorResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.period):
+            query['Period'] = request.period
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyDBInstanceMonitor',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.ModifyDBInstanceMonitorResponse(),
-            self.do_rpcrequest('ModifyDBInstanceMonitor', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def modify_dbinstance_monitor(self, request):
+        """
+        Before you call this operation, make sure that you understand the billing methods and pricing of ApsaraDB RDS. For more information, see [Billable items, billing methods, and pricing](~~45020~~).
+        Alibaba Cloud provides different monitoring frequencies for different instances. For more information, see [Set monitoring frequencies](~~26200~~).
+        > * If your want to set the monitoring frequency to every few seconds, you are charged additional fees. For more information, see [Billable items, billing methods, and pricing](~~45020~~).
+        > * This operation is not supported for ApsaraDB RDS for PostgreSQL instances. The monitoring frequency of an ApsaraDB RDS for PostgreSQL instance varies based on the query time range. For more information, see [Query performance metrics](~~26280~~).
+        
+
+        @param request: ModifyDBInstanceMonitorRequest
+
+        @return: ModifyDBInstanceMonitorResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_dbinstance_monitor_with_options(request, runtime)
 
     def modify_dbinstance_network_expire_time_with_options(self, request, runtime):
+        """
+        When an ApsaraDB for RDS instance is in the hybrid access mode, which uses both a VPC endpoint and a classic network endpoint, this operation is used to extend the expiration time of the classic network endpoint.
+        
+
+        @param request: ModifyDBInstanceNetworkExpireTimeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyDBInstanceNetworkExpireTimeResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.classic_expired_days):
+            query['ClassicExpiredDays'] = request.classic_expired_days
+        if not UtilClient.is_unset(request.connection_string):
+            query['ConnectionString'] = request.connection_string
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyDBInstanceNetworkExpireTime',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.ModifyDBInstanceNetworkExpireTimeResponse(),
-            self.do_rpcrequest('ModifyDBInstanceNetworkExpireTime', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def modify_dbinstance_network_expire_time(self, request):
+        """
+        When an ApsaraDB for RDS instance is in the hybrid access mode, which uses both a VPC endpoint and a classic network endpoint, this operation is used to extend the expiration time of the classic network endpoint.
+        
+
+        @param request: ModifyDBInstanceNetworkExpireTimeRequest
+
+        @return: ModifyDBInstanceNetworkExpireTimeResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_dbinstance_network_expire_time_with_options(request, runtime)
 
     def modify_dbinstance_network_type_with_options(self, request, runtime):
+        """
+        ## Prerequisites
+        The network type of the instance is classic network.
+        
+
+        @param request: ModifyDBInstanceNetworkTypeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyDBInstanceNetworkTypeResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.classic_expired_days):
+            query['ClassicExpiredDays'] = request.classic_expired_days
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.instance_network_type):
+            query['InstanceNetworkType'] = request.instance_network_type
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.private_ip_address):
+            query['PrivateIpAddress'] = request.private_ip_address
+        if not UtilClient.is_unset(request.read_write_splitting_classic_expired_days):
+            query['ReadWriteSplittingClassicExpiredDays'] = request.read_write_splitting_classic_expired_days
+        if not UtilClient.is_unset(request.read_write_splitting_private_ip_address):
+            query['ReadWriteSplittingPrivateIpAddress'] = request.read_write_splitting_private_ip_address
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.retain_classic):
+            query['RetainClassic'] = request.retain_classic
+        if not UtilClient.is_unset(request.vpcid):
+            query['VPCId'] = request.vpcid
+        if not UtilClient.is_unset(request.v_switch_id):
+            query['VSwitchId'] = request.v_switch_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyDBInstanceNetworkType',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.ModifyDBInstanceNetworkTypeResponse(),
-            self.do_rpcrequest('ModifyDBInstanceNetworkType', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def modify_dbinstance_network_type(self, request):
+        """
+        ## Prerequisites
+        The network type of the instance is classic network.
+        
+
+        @param request: ModifyDBInstanceNetworkTypeRequest
+
+        @return: ModifyDBInstanceNetworkTypeResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_dbinstance_network_type_with_options(request, runtime)
 
     def modify_dbinstance_pay_type_with_options(self, request, runtime):
+        """
+        This operation is used to change only the billing method of an instance from pay-as-you-go to subscription.
+        The following requirements must be met:
+        *   The instance belongs to the current account.
+        *   The instance uses one of the most recent instance types. For more information, see [Instance types](~~26312~~).
+        > You cannot directly change the billing method of an instance that uses a phased-out instance type from pay-as-you-go to subscription. If you want to change the billing method of an instance that uses a phased-out instance type from pay-as-you-go to subscription, you must change the instance type of the instance to one of the most recent instance types. Then, you can change the billing method of the instance from pay-as-you-go to subscription. To change the instance type of an instance, you can change the instance specifications of the instance. For more information, see [Change the specifications of an ApsaraDB RDS instance](~~26178~~).
+        *   The instance uses the pay-as-you-go billing method and is in the Running state.
+        *   Your Alibaba Cloud account has no unpaid orders for the instance for which you want to change the billing method.
+        
+
+        @param request: ModifyDBInstancePayTypeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyDBInstancePayTypeResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.pay_type):
+            query['PayType'] = request.pay_type
+        if not UtilClient.is_unset(request.period):
+            query['Period'] = request.period
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.used_time):
+            query['UsedTime'] = request.used_time
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyDBInstancePayType',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.ModifyDBInstancePayTypeResponse(),
-            self.do_rpcrequest('ModifyDBInstancePayType', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def modify_dbinstance_pay_type(self, request):
+        """
+        This operation is used to change only the billing method of an instance from pay-as-you-go to subscription.
+        The following requirements must be met:
+        *   The instance belongs to the current account.
+        *   The instance uses one of the most recent instance types. For more information, see [Instance types](~~26312~~).
+        > You cannot directly change the billing method of an instance that uses a phased-out instance type from pay-as-you-go to subscription. If you want to change the billing method of an instance that uses a phased-out instance type from pay-as-you-go to subscription, you must change the instance type of the instance to one of the most recent instance types. Then, you can change the billing method of the instance from pay-as-you-go to subscription. To change the instance type of an instance, you can change the instance specifications of the instance. For more information, see [Change the specifications of an ApsaraDB RDS instance](~~26178~~).
+        *   The instance uses the pay-as-you-go billing method and is in the Running state.
+        *   Your Alibaba Cloud account has no unpaid orders for the instance for which you want to change the billing method.
+        
+
+        @param request: ModifyDBInstancePayTypeRequest
+
+        @return: ModifyDBInstancePayTypeResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_dbinstance_pay_type_with_options(request, runtime)
 
     def modify_dbinstance_proxy_configuration_with_options(self, request, runtime):
+        """
+        > This operation is phased out.
+        
+
+        @param request: ModifyDBInstanceProxyConfigurationRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyDBInstanceProxyConfigurationResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.proxy_configuration_key):
+            query['ProxyConfigurationKey'] = request.proxy_configuration_key
+        if not UtilClient.is_unset(request.proxy_configuration_value):
+            query['ProxyConfigurationValue'] = request.proxy_configuration_value
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyDBInstanceProxyConfiguration',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.ModifyDBInstanceProxyConfigurationResponse(),
-            self.do_rpcrequest('ModifyDBInstanceProxyConfiguration', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def modify_dbinstance_proxy_configuration(self, request):
+        """
+        > This operation is phased out.
+        
+
+        @param request: ModifyDBInstanceProxyConfigurationRequest
+
+        @return: ModifyDBInstanceProxyConfigurationResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_dbinstance_proxy_configuration_with_options(request, runtime)
 
-    def modify_dbinstance_spec_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            rds_20140815_models.ModifyDBInstanceSpecResponse(),
-            self.do_rpcrequest('ModifyDBInstanceSpec', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def modify_dbinstance_spec(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.modify_dbinstance_spec_with_options(request, runtime)
-
     def modify_dbinstance_sslwith_options(self, request, runtime):
+        """
+        This operation is used to configure SSL encryption for an instance. For more information, see [Secure Sockets Layer](~~32474~~).
+        > * Before you call this operation, make sure that your instance is one of the following instances:
+        >     *   ApsaraDB RDS for MySQL instances that do not run RDS Basic Edition
+        >     *   ApsaraDB RDS for SQL Server instances
+        >     *   ApsaraDB RDS for PostgreSQL instances that use standard SSDs or enhanced SSDs (ESSDs)
+        > *   SSL encryption is not supported for the connections to the read/write splitting endpoint of an instance.
+        
+
+        @param request: ModifyDBInstanceSSLRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyDBInstanceSSLResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.acl):
+            query['ACL'] = request.acl
+        if not UtilClient.is_unset(request.catype):
+            query['CAType'] = request.catype
+        if not UtilClient.is_unset(request.client_cacert):
+            query['ClientCACert'] = request.client_cacert
+        if not UtilClient.is_unset(request.client_caenabled):
+            query['ClientCAEnabled'] = request.client_caenabled
+        if not UtilClient.is_unset(request.client_cert_revocation_list):
+            query['ClientCertRevocationList'] = request.client_cert_revocation_list
+        if not UtilClient.is_unset(request.client_crl_enabled):
+            query['ClientCrlEnabled'] = request.client_crl_enabled
+        if not UtilClient.is_unset(request.connection_string):
+            query['ConnectionString'] = request.connection_string
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.replication_acl):
+            query['ReplicationACL'] = request.replication_acl
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.sslenabled):
+            query['SSLEnabled'] = request.sslenabled
+        if not UtilClient.is_unset(request.server_cert):
+            query['ServerCert'] = request.server_cert
+        if not UtilClient.is_unset(request.server_key):
+            query['ServerKey'] = request.server_key
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyDBInstanceSSL',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.ModifyDBInstanceSSLResponse(),
-            self.do_rpcrequest('ModifyDBInstanceSSL', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def modify_dbinstance_ssl(self, request):
+        """
+        This operation is used to configure SSL encryption for an instance. For more information, see [Secure Sockets Layer](~~32474~~).
+        > * Before you call this operation, make sure that your instance is one of the following instances:
+        >     *   ApsaraDB RDS for MySQL instances that do not run RDS Basic Edition
+        >     *   ApsaraDB RDS for SQL Server instances
+        >     *   ApsaraDB RDS for PostgreSQL instances that use standard SSDs or enhanced SSDs (ESSDs)
+        > *   SSL encryption is not supported for the connections to the read/write splitting endpoint of an instance.
+        
+
+        @param request: ModifyDBInstanceSSLRequest
+
+        @return: ModifyDBInstanceSSLResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_dbinstance_sslwith_options(request, runtime)
 
-    def modify_dbinstance_tdewith_options(self, request, runtime):
-        UtilClient.validate_model(request)
+    def modify_dbinstance_spec_with_options(self, tmp_req, runtime):
+        """
+        Before you call this operation, make sure that the following requirements are met:
+        *   The instance is in the running state.
+        *   The instance does not have ongoing backup tasks.
+        *   At least one of the DBInstanceClass and DBInstanceStorage parameters is specified in the request.
+        *   If you want to decrease the storage capacity, the new storage capacity that you specify is greater than or equal to 1.1 times the used storage.
+        *   The instance is a primary instance or read-only instance.
+        > If you want to upgrade the RDS edition of the instance, select an instance type that supports the new RDS edition. For example, if you want to upgrade the RDS edition of the instance from RDS Basic Edition to RDS High-availability Edition, select an instance type that supports RDS High-availability Edition.
+        
+
+        @param tmp_req: ModifyDBInstanceSpecRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyDBInstanceSpecResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = rds_20140815_models.ModifyDBInstanceSpecShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.serverless_configuration):
+            request.serverless_configuration_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.serverless_configuration, 'ServerlessConfiguration', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.category):
+            query['Category'] = request.category
+        if not UtilClient.is_unset(request.dbinstance_class):
+            query['DBInstanceClass'] = request.dbinstance_class
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.dbinstance_storage):
+            query['DBInstanceStorage'] = request.dbinstance_storage
+        if not UtilClient.is_unset(request.dbinstance_storage_type):
+            query['DBInstanceStorageType'] = request.dbinstance_storage_type
+        if not UtilClient.is_unset(request.dedicated_host_group_id):
+            query['DedicatedHostGroupId'] = request.dedicated_host_group_id
+        if not UtilClient.is_unset(request.direction):
+            query['Direction'] = request.direction
+        if not UtilClient.is_unset(request.effective_time):
+            query['EffectiveTime'] = request.effective_time
+        if not UtilClient.is_unset(request.engine_version):
+            query['EngineVersion'] = request.engine_version
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.pay_type):
+            query['PayType'] = request.pay_type
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.serverless_configuration_shrink):
+            query['ServerlessConfiguration'] = request.serverless_configuration_shrink
+        if not UtilClient.is_unset(request.source_biz):
+            query['SourceBiz'] = request.source_biz
+        if not UtilClient.is_unset(request.switch_time):
+            query['SwitchTime'] = request.switch_time
+        if not UtilClient.is_unset(request.used_time):
+            query['UsedTime'] = request.used_time
+        if not UtilClient.is_unset(request.zone_id):
+            query['ZoneId'] = request.zone_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyDBInstanceSpec',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.ModifyDBInstanceSpecResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_dbinstance_spec(self, request):
+        """
+        Before you call this operation, make sure that the following requirements are met:
+        *   The instance is in the running state.
+        *   The instance does not have ongoing backup tasks.
+        *   At least one of the DBInstanceClass and DBInstanceStorage parameters is specified in the request.
+        *   If you want to decrease the storage capacity, the new storage capacity that you specify is greater than or equal to 1.1 times the used storage.
+        *   The instance is a primary instance or read-only instance.
+        > If you want to upgrade the RDS edition of the instance, select an instance type that supports the new RDS edition. For example, if you want to upgrade the RDS edition of the instance from RDS Basic Edition to RDS High-availability Edition, select an instance type that supports RDS High-availability Edition.
+        
+
+        @param request: ModifyDBInstanceSpecRequest
+
+        @return: ModifyDBInstanceSpecResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.modify_dbinstance_spec_with_options(request, runtime)
+
+    def modify_dbinstance_tdewith_options(self, request, runtime):
+        """
+        TDE can perform real-time I/O encryption and decryption on data files. TDE encrypts data before the data is written to a disk, and decrypts data before the data is read from a disk and written to the memory. For more information, see [Configure TDE for an ApsaraDB RDS for MySQL instance](~~96121~~).
+        Before you call this operation, make sure that the following requirements are met:
+        *   Key Management Service (KMS) is activated. If KMS is not activated, you can activate KMS when you enable TDE.
+        *   The instance must run one of the following database engine versions and RDS editions:
+        *   MySQL 8.0 (with a minor engine version of 20191015 or later) on RDS High-availability Edition with local SSDs
+        *   MySQL 5.7 (with a minor engine version of 20191015 or later) on RDS High-availability Edition with local SSDs
+        *   MySQL 5.6
+        *   SQL Server 2019 SE or an Enterprise Edition of SQL Server
+        *   PostgreSQL 10, PostgreSQL 11, PostgreSQL 12, PostgreSQL 13, PostgreSQL 14, PostgreSQL 15 with standard SSDs or enhanced SSDs (ESSDs) and a minor engine version of 20221030 or later
+        
+
+        @param request: ModifyDBInstanceTDERequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyDBInstanceTDEResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.certificate):
+            query['Certificate'] = request.certificate
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.dbname):
+            query['DBName'] = request.dbname
+        if not UtilClient.is_unset(request.encryption_key):
+            query['EncryptionKey'] = request.encryption_key
+        if not UtilClient.is_unset(request.is_rotate):
+            query['IsRotate'] = request.is_rotate
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.pass_word):
+            query['PassWord'] = request.pass_word
+        if not UtilClient.is_unset(request.private_key):
+            query['PrivateKey'] = request.private_key
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.role_arn):
+            query['RoleArn'] = request.role_arn
+        if not UtilClient.is_unset(request.tdestatus):
+            query['TDEStatus'] = request.tdestatus
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyDBInstanceTDE',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.ModifyDBInstanceTDEResponse(),
-            self.do_rpcrequest('ModifyDBInstanceTDE', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def modify_dbinstance_tde(self, request):
+        """
+        TDE can perform real-time I/O encryption and decryption on data files. TDE encrypts data before the data is written to a disk, and decrypts data before the data is read from a disk and written to the memory. For more information, see [Configure TDE for an ApsaraDB RDS for MySQL instance](~~96121~~).
+        Before you call this operation, make sure that the following requirements are met:
+        *   Key Management Service (KMS) is activated. If KMS is not activated, you can activate KMS when you enable TDE.
+        *   The instance must run one of the following database engine versions and RDS editions:
+        *   MySQL 8.0 (with a minor engine version of 20191015 or later) on RDS High-availability Edition with local SSDs
+        *   MySQL 5.7 (with a minor engine version of 20191015 or later) on RDS High-availability Edition with local SSDs
+        *   MySQL 5.6
+        *   SQL Server 2019 SE or an Enterprise Edition of SQL Server
+        *   PostgreSQL 10, PostgreSQL 11, PostgreSQL 12, PostgreSQL 13, PostgreSQL 14, PostgreSQL 15 with standard SSDs or enhanced SSDs (ESSDs) and a minor engine version of 20221030 or later
+        
+
+        @param request: ModifyDBInstanceTDERequest
+
+        @return: ModifyDBInstanceTDEResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_dbinstance_tdewith_options(request, runtime)
 
     def modify_dbproxy_with_options(self, request, runtime):
+        """
+        The dedicated proxy feature of ApsaraDB RDS for MySQL provides capabilities such as read/write splitting and short-lived connection optimization. For more information, see [What are database proxies?](~~138705~~)
+        *   The database proxy feature of ApsaraDB RDS for PostgreSQL supports read/write splitting. For more information, see [What are database proxies?](~~412194~~)
+        Before you call this operation, make sure that the following requirements are met:
+        If the instance runs MySQL, the instance must run one of the following MySQL versions and RDS editions:
+        *   MySQL 8.0 with a minor engine version of 20191204 or later on RDS Enterprise Edition
+        *   MySQL 8.0 with a minor engine version of 20190915 or later on RDS High-availability Edition
+        *   MySQL 5.7 with a minor engine version of 20191128 or later on RDS Enterprise Edition
+        *   MySQL 5.7 with a minor engine version of 20190925 or later on RDS High-availability Edition
+        *   MySQL 5.6 with a minor engine version of 20200229 or later on RDS High-availability Edition
+        If the instance runs PostgreSQL, the instance must meet the following requirements:
+        *   The instance runs PostgreSQL 10, PostgreSQL 11, PostgreSQL 12, PostgreSQL 13, PostgreSQL 14, or PostgreSQL 15.
+        *   The instance uses standard SSDs or enhanced SSDs (ESSDs).
+        *   The instance runs RDS High-availability Edition.
+        *   The instance is a primary instance.
+        
+
+        @param request: ModifyDBProxyRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyDBProxyResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.config_dbproxy_service):
+            query['ConfigDBProxyService'] = request.config_dbproxy_service
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.dbproxy_engine_type):
+            query['DBProxyEngineType'] = request.dbproxy_engine_type
+        if not UtilClient.is_unset(request.dbproxy_instance_num):
+            query['DBProxyInstanceNum'] = request.dbproxy_instance_num
+        if not UtilClient.is_unset(request.instance_network_type):
+            query['InstanceNetworkType'] = request.instance_network_type
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.vpcid):
+            query['VPCId'] = request.vpcid
+        if not UtilClient.is_unset(request.v_switch_id):
+            query['VSwitchId'] = request.v_switch_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyDBProxy',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.ModifyDBProxyResponse(),
-            self.do_rpcrequest('ModifyDBProxy', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def modify_dbproxy(self, request):
+        """
+        The dedicated proxy feature of ApsaraDB RDS for MySQL provides capabilities such as read/write splitting and short-lived connection optimization. For more information, see [What are database proxies?](~~138705~~)
+        *   The database proxy feature of ApsaraDB RDS for PostgreSQL supports read/write splitting. For more information, see [What are database proxies?](~~412194~~)
+        Before you call this operation, make sure that the following requirements are met:
+        If the instance runs MySQL, the instance must run one of the following MySQL versions and RDS editions:
+        *   MySQL 8.0 with a minor engine version of 20191204 or later on RDS Enterprise Edition
+        *   MySQL 8.0 with a minor engine version of 20190915 or later on RDS High-availability Edition
+        *   MySQL 5.7 with a minor engine version of 20191128 or later on RDS Enterprise Edition
+        *   MySQL 5.7 with a minor engine version of 20190925 or later on RDS High-availability Edition
+        *   MySQL 5.6 with a minor engine version of 20200229 or later on RDS High-availability Edition
+        If the instance runs PostgreSQL, the instance must meet the following requirements:
+        *   The instance runs PostgreSQL 10, PostgreSQL 11, PostgreSQL 12, PostgreSQL 13, PostgreSQL 14, or PostgreSQL 15.
+        *   The instance uses standard SSDs or enhanced SSDs (ESSDs).
+        *   The instance runs RDS High-availability Edition.
+        *   The instance is a primary instance.
+        
+
+        @param request: ModifyDBProxyRequest
+
+        @return: ModifyDBProxyResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_dbproxy_with_options(request, runtime)
 
     def modify_dbproxy_endpoint_with_options(self, request, runtime):
+        """
+        Before you call the ModifyDBProxyEndpoint operation, make sure that the [ModifyDBProxy](~~141054~~) operation is called to enable the database proxy feature for the instance.
+        *   The dedicated proxy feature of ApsaraDB RDS for MySQL provides capabilities such as read/write splitting and short-lived connection optimization. For more information, see [What are database proxies?](~~138705~~)
+        *   The database proxy feature of ApsaraDB RDS for PostgreSQL supports read/write splitting. For more information, see [What are database proxies?](~~412194~~)
+        
+
+        @param request: ModifyDBProxyEndpointRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyDBProxyEndpointResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.config_dbproxy_features):
+            query['ConfigDBProxyFeatures'] = request.config_dbproxy_features
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.dbproxy_endpoint_id):
+            query['DBProxyEndpointId'] = request.dbproxy_endpoint_id
+        if not UtilClient.is_unset(request.dbproxy_engine_type):
+            query['DBProxyEngineType'] = request.dbproxy_engine_type
+        if not UtilClient.is_unset(request.db_endpoint_aliases):
+            query['DbEndpointAliases'] = request.db_endpoint_aliases
+        if not UtilClient.is_unset(request.db_endpoint_operator):
+            query['DbEndpointOperator'] = request.db_endpoint_operator
+        if not UtilClient.is_unset(request.db_endpoint_read_write_mode):
+            query['DbEndpointReadWriteMode'] = request.db_endpoint_read_write_mode
+        if not UtilClient.is_unset(request.db_endpoint_type):
+            query['DbEndpointType'] = request.db_endpoint_type
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.read_only_instance_distribution_type):
+            query['ReadOnlyInstanceDistributionType'] = request.read_only_instance_distribution_type
+        if not UtilClient.is_unset(request.read_only_instance_max_delay_time):
+            query['ReadOnlyInstanceMaxDelayTime'] = request.read_only_instance_max_delay_time
+        if not UtilClient.is_unset(request.read_only_instance_weight):
+            query['ReadOnlyInstanceWeight'] = request.read_only_instance_weight
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyDBProxyEndpoint',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.ModifyDBProxyEndpointResponse(),
-            self.do_rpcrequest('ModifyDBProxyEndpoint', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def modify_dbproxy_endpoint(self, request):
+        """
+        Before you call the ModifyDBProxyEndpoint operation, make sure that the [ModifyDBProxy](~~141054~~) operation is called to enable the database proxy feature for the instance.
+        *   The dedicated proxy feature of ApsaraDB RDS for MySQL provides capabilities such as read/write splitting and short-lived connection optimization. For more information, see [What are database proxies?](~~138705~~)
+        *   The database proxy feature of ApsaraDB RDS for PostgreSQL supports read/write splitting. For more information, see [What are database proxies?](~~412194~~)
+        
+
+        @param request: ModifyDBProxyEndpointRequest
+
+        @return: ModifyDBProxyEndpointResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_dbproxy_endpoint_with_options(request, runtime)
 
     def modify_dbproxy_endpoint_address_with_options(self, request, runtime):
+        """
+        After you enable the database proxy feature, a default proxy endpoint is generated. The proxy terminal feature is bound to the default proxy endpoint. You can create, modify, or delete a proxy endpoint.
+        
+
+        @param request: ModifyDBProxyEndpointAddressRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyDBProxyEndpointAddressResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.dbproxy_connect_string_net_type):
+            query['DBProxyConnectStringNetType'] = request.dbproxy_connect_string_net_type
+        if not UtilClient.is_unset(request.dbproxy_endpoint_id):
+            query['DBProxyEndpointId'] = request.dbproxy_endpoint_id
+        if not UtilClient.is_unset(request.dbproxy_engine_type):
+            query['DBProxyEngineType'] = request.dbproxy_engine_type
+        if not UtilClient.is_unset(request.dbproxy_new_connect_string):
+            query['DBProxyNewConnectString'] = request.dbproxy_new_connect_string
+        if not UtilClient.is_unset(request.dbproxy_new_connect_string_port):
+            query['DBProxyNewConnectStringPort'] = request.dbproxy_new_connect_string_port
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyDBProxyEndpointAddress',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.ModifyDBProxyEndpointAddressResponse(),
-            self.do_rpcrequest('ModifyDBProxyEndpointAddress', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def modify_dbproxy_endpoint_address(self, request):
+        """
+        After you enable the database proxy feature, a default proxy endpoint is generated. The proxy terminal feature is bound to the default proxy endpoint. You can create, modify, or delete a proxy endpoint.
+        
+
+        @param request: ModifyDBProxyEndpointAddressRequest
+
+        @return: ModifyDBProxyEndpointAddressResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_dbproxy_endpoint_address_with_options(request, runtime)
 
     def modify_dbproxy_instance_with_options(self, request, runtime):
+        """
+        Before you call the ModifyDBProxyInstance operation, make sure that the [ModifyDBProxy](~~141054~~) operation is called to enable the database proxy feature for the instance.
+        *   The dedicated proxy feature of ApsaraDB RDS for MySQL provides capabilities such as read/write splitting and short-lived connection optimization. For more information, see [What are database proxies?](~~138705~~)
+        *   The database proxy feature of ApsaraDB RDS for PostgreSQL supports read/write splitting. For more information, see [What are database proxies?](~~412194~~)
+        
+
+        @param request: ModifyDBProxyInstanceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyDBProxyInstanceResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.dbproxy_engine_type):
+            query['DBProxyEngineType'] = request.dbproxy_engine_type
+        if not UtilClient.is_unset(request.dbproxy_instance_num):
+            query['DBProxyInstanceNum'] = request.dbproxy_instance_num
+        if not UtilClient.is_unset(request.dbproxy_instance_type):
+            query['DBProxyInstanceType'] = request.dbproxy_instance_type
+        if not UtilClient.is_unset(request.effective_specific_time):
+            query['EffectiveSpecificTime'] = request.effective_specific_time
+        if not UtilClient.is_unset(request.effective_time):
+            query['EffectiveTime'] = request.effective_time
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyDBProxyInstance',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.ModifyDBProxyInstanceResponse(),
-            self.do_rpcrequest('ModifyDBProxyInstance', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def modify_dbproxy_instance(self, request):
+        """
+        Before you call the ModifyDBProxyInstance operation, make sure that the [ModifyDBProxy](~~141054~~) operation is called to enable the database proxy feature for the instance.
+        *   The dedicated proxy feature of ApsaraDB RDS for MySQL provides capabilities such as read/write splitting and short-lived connection optimization. For more information, see [What are database proxies?](~~138705~~)
+        *   The database proxy feature of ApsaraDB RDS for PostgreSQL supports read/write splitting. For more information, see [What are database proxies?](~~412194~~)
+        
+
+        @param request: ModifyDBProxyInstanceRequest
+
+        @return: ModifyDBProxyInstanceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_dbproxy_instance_with_options(request, runtime)
 
-    def modify_db_proxy_instance_ssl_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            rds_20140815_models.ModifyDbProxyInstanceSslResponse(),
-            self.do_rpcrequest('ModifyDbProxyInstanceSsl', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def modify_db_proxy_instance_ssl(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.modify_db_proxy_instance_ssl_with_options(request, runtime)
-
-    def modify_dedicated_host_account_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            rds_20140815_models.ModifyDedicatedHostAccountResponse(),
-            self.do_rpcrequest('ModifyDedicatedHostAccount', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def modify_dedicated_host_account(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.modify_dedicated_host_account_with_options(request, runtime)
-
-    def modify_dedicated_host_attribute_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            rds_20140815_models.ModifyDedicatedHostAttributeResponse(),
-            self.do_rpcrequest('ModifyDedicatedHostAttribute', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def modify_dedicated_host_attribute(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.modify_dedicated_host_attribute_with_options(request, runtime)
-
-    def modify_dedicated_host_group_attribute_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            rds_20140815_models.ModifyDedicatedHostGroupAttributeResponse(),
-            self.do_rpcrequest('ModifyDedicatedHostGroupAttribute', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def modify_dedicated_host_group_attribute(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.modify_dedicated_host_group_attribute_with_options(request, runtime)
-
-    def modify_dedicated_host_user_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            rds_20140815_models.ModifyDedicatedHostUserResponse(),
-            self.do_rpcrequest('ModifyDedicatedHostUser', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def modify_dedicated_host_user(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.modify_dedicated_host_user_with_options(request, runtime)
-
     def modify_dtcsecurity_ip_hosts_for_sqlserver_with_options(self, request, runtime):
+        """
+        Distributed transaction whitelists allow for distributed transactions between an Elastic Compute Service (ECS) instance and an RDS instance. For more information, see [Configure a distributed transaction whitelist](~~124321~~).
+        This operation is applicable to instances that run one of the following SQL Server versions in the RDS High-Availability Edition: 2012 SE, 2012 EE, 2014 SE, 2016 SE, 2016 EE, and 2017 SE.
+        
+
+        @param request: ModifyDTCSecurityIpHostsForSQLServerRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyDTCSecurityIpHostsForSQLServerResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.security_ip_hosts):
+            query['SecurityIpHosts'] = request.security_ip_hosts
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.white_list_group_name):
+            query['WhiteListGroupName'] = request.white_list_group_name
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyDTCSecurityIpHostsForSQLServer',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.ModifyDTCSecurityIpHostsForSQLServerResponse(),
-            self.do_rpcrequest('ModifyDTCSecurityIpHostsForSQLServer', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def modify_dtcsecurity_ip_hosts_for_sqlserver(self, request):
+        """
+        Distributed transaction whitelists allow for distributed transactions between an Elastic Compute Service (ECS) instance and an RDS instance. For more information, see [Configure a distributed transaction whitelist](~~124321~~).
+        This operation is applicable to instances that run one of the following SQL Server versions in the RDS High-Availability Edition: 2012 SE, 2012 EE, 2014 SE, 2016 SE, 2016 EE, and 2017 SE.
+        
+
+        @param request: ModifyDTCSecurityIpHostsForSQLServerRequest
+
+        @return: ModifyDTCSecurityIpHostsForSQLServerResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_dtcsecurity_ip_hosts_for_sqlserver_with_options(request, runtime)
 
-    def modify_hadiagnose_config_with_options(self, request, runtime):
+    def modify_das_instance_config_with_options(self, request, runtime):
+        """
+        This operation is supported for ApsaraDB RDS for MySQL instances that run RDS High-availability Edition and use standard SSDs or enhanced SSDs (ESSDs) and ApsaraDB RDS for PostgreSQL instances that use standard SSDs or ESSDs. If the available storage reaches the specified threshold, ApsaraDB RDS increases the storage capacity of the instance to meet your storage requirements. In most cases, no transient connections occur during the expansion process. For more information, see [Configure automatic storage expansion for an ApsaraDB RDS for MySQL instance](~~173826~~) and [Configure automatic storage expansion for an ApsaraDB RDS for PostgreSQL instance](~~432496~~).
+        >  If an automatic storage expansion is triggered, ApsaraDB RDS increases the storage capacity based on the larger value between 15% of the purchased storage capacity and 5 GB.
+        
+
+        @param request: ModifyDasInstanceConfigRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyDasInstanceConfigResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.storage_auto_scale):
+            query['StorageAutoScale'] = request.storage_auto_scale
+        if not UtilClient.is_unset(request.storage_threshold):
+            query['StorageThreshold'] = request.storage_threshold
+        if not UtilClient.is_unset(request.storage_upper_bound):
+            query['StorageUpperBound'] = request.storage_upper_bound
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyDasInstanceConfig',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.ModifyDasInstanceConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_das_instance_config(self, request):
+        """
+        This operation is supported for ApsaraDB RDS for MySQL instances that run RDS High-availability Edition and use standard SSDs or enhanced SSDs (ESSDs) and ApsaraDB RDS for PostgreSQL instances that use standard SSDs or ESSDs. If the available storage reaches the specified threshold, ApsaraDB RDS increases the storage capacity of the instance to meet your storage requirements. In most cases, no transient connections occur during the expansion process. For more information, see [Configure automatic storage expansion for an ApsaraDB RDS for MySQL instance](~~173826~~) and [Configure automatic storage expansion for an ApsaraDB RDS for PostgreSQL instance](~~432496~~).
+        >  If an automatic storage expansion is triggered, ApsaraDB RDS increases the storage capacity based on the larger value between 15% of the purchased storage capacity and 5 GB.
+        
+
+        @param request: ModifyDasInstanceConfigRequest
+
+        @return: ModifyDasInstanceConfigResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.modify_das_instance_config_with_options(request, runtime)
+
+    def modify_db_proxy_instance_ssl_with_options(self, request, runtime):
+        """
+        ApsaraDB RDS provides the dedicated proxy feature. You can configure SSL encryption for the dedicated proxy endpoint of an instance. This ensures the data security of the instance. For more information, see [Dedicated proxy](~~138705~~).
+        Before you call this operation, make sure that the following requirements are met:
+        *   The dedicated proxy feature is enabled for the instance.
+        *   The minor engine version that the dedicated proxies of the instance run is 1.12.8 or later.
+        *   Your RDS instance runs one of the following MySQL versions and RDS editions:
+        *   MySQL 8.0 on RDS High-availability Edition with local SSDs. The minor engine version is 20200831 or later.
+        *   MySQL 5.7 on RDS High-availability Edition with local SSDs. The minor engine version is 20200831 or later.
+        *   MySQL 5.6 on RDS High-availability Edition with local SSDs. The minor engine version is 20200831 or later.
+        >  Calling this operation causes your instance to restart. Proceed with caution.
+        
+
+        @param request: ModifyDbProxyInstanceSslRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyDbProxyInstanceSslResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbproxy_engine_type):
+            query['DBProxyEngineType'] = request.dbproxy_engine_type
+        if not UtilClient.is_unset(request.db_instance_id):
+            query['DbInstanceId'] = request.db_instance_id
+        if not UtilClient.is_unset(request.db_instance_id):
+            query['DbInstanceId'] = request.db_instance_id
+        if not UtilClient.is_unset(request.db_proxy_connect_string):
+            query['DbProxyConnectString'] = request.db_proxy_connect_string
+        if not UtilClient.is_unset(request.db_proxy_endpoint_id):
+            query['DbProxyEndpointId'] = request.db_proxy_endpoint_id
+        if not UtilClient.is_unset(request.db_proxy_ssl_enabled):
+            query['DbProxySslEnabled'] = request.db_proxy_ssl_enabled
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyDbProxyInstanceSsl',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.ModifyDbProxyInstanceSslResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_db_proxy_instance_ssl(self, request):
+        """
+        ApsaraDB RDS provides the dedicated proxy feature. You can configure SSL encryption for the dedicated proxy endpoint of an instance. This ensures the data security of the instance. For more information, see [Dedicated proxy](~~138705~~).
+        Before you call this operation, make sure that the following requirements are met:
+        *   The dedicated proxy feature is enabled for the instance.
+        *   The minor engine version that the dedicated proxies of the instance run is 1.12.8 or later.
+        *   Your RDS instance runs one of the following MySQL versions and RDS editions:
+        *   MySQL 8.0 on RDS High-availability Edition with local SSDs. The minor engine version is 20200831 or later.
+        *   MySQL 5.7 on RDS High-availability Edition with local SSDs. The minor engine version is 20200831 or later.
+        *   MySQL 5.6 on RDS High-availability Edition with local SSDs. The minor engine version is 20200831 or later.
+        >  Calling this operation causes your instance to restart. Proceed with caution.
+        
+
+        @param request: ModifyDbProxyInstanceSslRequest
+
+        @return: ModifyDbProxyInstanceSslResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.modify_db_proxy_instance_ssl_with_options(request, runtime)
+
+    def modify_hadiagnose_config_with_options(self, request, runtime):
+        """
+        By default, Alibaba Cloud uses persistent connections to check the availability of an instance. For more information, see [What is availability detection?](~~207467~~)
+        
+
+        @param request: ModifyHADiagnoseConfigRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyHADiagnoseConfigResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.tcp_connection_type):
+            query['TcpConnectionType'] = request.tcp_connection_type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyHADiagnoseConfig',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.ModifyHADiagnoseConfigResponse(),
-            self.do_rpcrequest('ModifyHADiagnoseConfig', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def modify_hadiagnose_config(self, request):
+        """
+        By default, Alibaba Cloud uses persistent connections to check the availability of an instance. For more information, see [What is availability detection?](~~207467~~)
+        
+
+        @param request: ModifyHADiagnoseConfigRequest
+
+        @return: ModifyHADiagnoseConfigResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_hadiagnose_config_with_options(request, runtime)
 
     def modify_haswitch_config_with_options(self, request, runtime):
+        """
+        After a switchover is complete, the original primary RDS instance runs as the secondary RDS instance. For more information, see [Switch workloads over between primary and secondary ApsaraDB RDS for MySQL instances](~~96054~~).
+        Before you call this operation, make sure that the instance does not run the RDS Basic Edition.
+        
+
+        @param request: ModifyHASwitchConfigRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyHASwitchConfigResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.haconfig):
+            query['HAConfig'] = request.haconfig
+        if not UtilClient.is_unset(request.manual_hatime):
+            query['ManualHATime'] = request.manual_hatime
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyHASwitchConfig',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.ModifyHASwitchConfigResponse(),
-            self.do_rpcrequest('ModifyHASwitchConfig', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def modify_haswitch_config(self, request):
+        """
+        After a switchover is complete, the original primary RDS instance runs as the secondary RDS instance. For more information, see [Switch workloads over between primary and secondary ApsaraDB RDS for MySQL instances](~~96054~~).
+        Before you call this operation, make sure that the instance does not run the RDS Basic Edition.
+        
+
+        @param request: ModifyHASwitchConfigRequest
+
+        @return: ModifyHASwitchConfigResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_haswitch_config_with_options(request, runtime)
 
     def modify_instance_auto_renewal_attribute_with_options(self, request, runtime):
+        """
+        If you enable auto-renewal for your instance, you do not need to manually renew your subscription or be concerned about business interruptions caused by subscription expiration. For more information, see [Configure auto-renewal](~~96049~~).
+        
+
+        @param request: ModifyInstanceAutoRenewalAttributeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyInstanceAutoRenewalAttributeResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.auto_renew):
+            query['AutoRenew'] = request.auto_renew
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.duration):
+            query['Duration'] = request.duration
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyInstanceAutoRenewalAttribute',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.ModifyInstanceAutoRenewalAttributeResponse(),
-            self.do_rpcrequest('ModifyInstanceAutoRenewalAttribute', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def modify_instance_auto_renewal_attribute(self, request):
+        """
+        If you enable auto-renewal for your instance, you do not need to manually renew your subscription or be concerned about business interruptions caused by subscription expiration. For more information, see [Configure auto-renewal](~~96049~~).
+        
+
+        @param request: ModifyInstanceAutoRenewalAttributeRequest
+
+        @return: ModifyInstanceAutoRenewalAttributeResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_instance_auto_renewal_attribute_with_options(request, runtime)
 
     def modify_instance_cross_backup_policy_with_options(self, request, runtime):
+        """
+        Before you call this operation, make sure that the source instance runs one of the following database engines:
+        *   MySQL. For more information, see [Enable cross-region backups for an ApsaraDB RDS for MySQL instance](~~120824~~).
+        *   SQL Server. For more information, see [Enable cross-region backups for an ApsaraDB RDS for SQL Server instance](~~187923~~).
+        *   PostgreSQL. For more information, see [Enable cross-region backups for an ApsaraDB RDS for PostgreSQL instance](~~206671~~).
+        
+
+        @param request: ModifyInstanceCrossBackupPolicyRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyInstanceCrossBackupPolicyResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.backup_enabled):
+            query['BackupEnabled'] = request.backup_enabled
+        if not UtilClient.is_unset(request.cross_backup_region):
+            query['CrossBackupRegion'] = request.cross_backup_region
+        if not UtilClient.is_unset(request.cross_backup_type):
+            query['CrossBackupType'] = request.cross_backup_type
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.log_backup_enabled):
+            query['LogBackupEnabled'] = request.log_backup_enabled
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.retent_type):
+            query['RetentType'] = request.retent_type
+        if not UtilClient.is_unset(request.retention):
+            query['Retention'] = request.retention
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyInstanceCrossBackupPolicy',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.ModifyInstanceCrossBackupPolicyResponse(),
-            self.do_rpcrequest('ModifyInstanceCrossBackupPolicy', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def modify_instance_cross_backup_policy(self, request):
+        """
+        Before you call this operation, make sure that the source instance runs one of the following database engines:
+        *   MySQL. For more information, see [Enable cross-region backups for an ApsaraDB RDS for MySQL instance](~~120824~~).
+        *   SQL Server. For more information, see [Enable cross-region backups for an ApsaraDB RDS for SQL Server instance](~~187923~~).
+        *   PostgreSQL. For more information, see [Enable cross-region backups for an ApsaraDB RDS for PostgreSQL instance](~~206671~~).
+        
+
+        @param request: ModifyInstanceCrossBackupPolicyRequest
+
+        @return: ModifyInstanceCrossBackupPolicyResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_instance_cross_backup_policy_with_options(request, runtime)
 
-    def modify_parameter_with_options(self, request, runtime):
+    def modify_pghba_config_with_options(self, request, runtime):
+        """
+        ApsaraDB RDS for PostgreSQL allows you to modify the pg_hba.conf file based on your business requirements. For more information, see [Introduction to the pg_hba.conf file](https://www.postgresql.org/docs/11/auth-pg-hba-conf.html).
+        You can modify the information of the Active Directory (AD) domain controller in the pg_hba.conf file of an instance. Then, you can connect the instance to a self-managed AD domain. For more information, see [Connect an ApsaraDB RDS for PostgreSQL instance to a self-managed AD domain](~~349288~~).
+        
+
+        @param request: ModifyPGHbaConfigRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyPGHbaConfigResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.hba_item):
+            query['HbaItem'] = request.hba_item
+        if not UtilClient.is_unset(request.ops_type):
+            query['OpsType'] = request.ops_type
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyPGHbaConfig',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.ModifyPGHbaConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_pghba_config(self, request):
+        """
+        ApsaraDB RDS for PostgreSQL allows you to modify the pg_hba.conf file based on your business requirements. For more information, see [Introduction to the pg_hba.conf file](https://www.postgresql.org/docs/11/auth-pg-hba-conf.html).
+        You can modify the information of the Active Directory (AD) domain controller in the pg_hba.conf file of an instance. Then, you can connect the instance to a self-managed AD domain. For more information, see [Connect an ApsaraDB RDS for PostgreSQL instance to a self-managed AD domain](~~349288~~).
+        
+
+        @param request: ModifyPGHbaConfigRequest
+
+        @return: ModifyPGHbaConfigResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.modify_pghba_config_with_options(request, runtime)
+
+    def modify_parameter_with_options(self, request, runtime):
+        """
+        You can modify the parameters directly or by using a parameter template. After you submit the parameter modification request, ApsaraDB RDS starts a task to apply the new parameter values to the instance. If a new parameter value takes effect only after the instance restarts, ApsaraDB RDS restarts the instance. For information about configurable parameters, see [Configure the parameters of an ApsaraDB RDS for MySQL instance](~~96063~~).
+        > Before a parameter modification task is run, ApsaraDB RDS checks whether the parameters exist, whether they are configurable, and whether the new parameter values are valid.
+        
+
+        @param request: ModifyParameterRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyParameterResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.forcerestart):
+            query['Forcerestart'] = request.forcerestart
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.parameter_group_id):
+            query['ParameterGroupId'] = request.parameter_group_id
+        if not UtilClient.is_unset(request.parameters):
+            query['Parameters'] = request.parameters
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.switch_time):
+            query['SwitchTime'] = request.switch_time
+        if not UtilClient.is_unset(request.switch_time_mode):
+            query['SwitchTimeMode'] = request.switch_time_mode
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyParameter',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.ModifyParameterResponse(),
-            self.do_rpcrequest('ModifyParameter', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def modify_parameter(self, request):
+        """
+        You can modify the parameters directly or by using a parameter template. After you submit the parameter modification request, ApsaraDB RDS starts a task to apply the new parameter values to the instance. If a new parameter value takes effect only after the instance restarts, ApsaraDB RDS restarts the instance. For information about configurable parameters, see [Configure the parameters of an ApsaraDB RDS for MySQL instance](~~96063~~).
+        > Before a parameter modification task is run, ApsaraDB RDS checks whether the parameters exist, whether they are configurable, and whether the new parameter values are valid.
+        
+
+        @param request: ModifyParameterRequest
+
+        @return: ModifyParameterResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_parameter_with_options(request, runtime)
 
     def modify_parameter_group_with_options(self, request, runtime):
+        """
+        You can configure a number of parameters at a time by using a parameter template and then apply the parameter template to instances. For more information, see [Use a parameter template to configure the parameters of ApsaraDB RDS for MySQL instances](~~130565~~) or [Use a parameter template to configure the parameters of ApsaraDB RDS for PostgreSQL instances](~~457176~~).
+        >  You can apply parameter templates only to ApsaraDB RDS for MySQL instances and ApsaraDB RDS for PostgreSQL instances.
+        
+
+        @param request: ModifyParameterGroupRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyParameterGroupResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.modify_mode):
+            query['ModifyMode'] = request.modify_mode
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.parameter_group_desc):
+            query['ParameterGroupDesc'] = request.parameter_group_desc
+        if not UtilClient.is_unset(request.parameter_group_id):
+            query['ParameterGroupId'] = request.parameter_group_id
+        if not UtilClient.is_unset(request.parameter_group_name):
+            query['ParameterGroupName'] = request.parameter_group_name
+        if not UtilClient.is_unset(request.parameters):
+            query['Parameters'] = request.parameters
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyParameterGroup',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.ModifyParameterGroupResponse(),
-            self.do_rpcrequest('ModifyParameterGroup', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def modify_parameter_group(self, request):
+        """
+        You can configure a number of parameters at a time by using a parameter template and then apply the parameter template to instances. For more information, see [Use a parameter template to configure the parameters of ApsaraDB RDS for MySQL instances](~~130565~~) or [Use a parameter template to configure the parameters of ApsaraDB RDS for PostgreSQL instances](~~457176~~).
+        >  You can apply parameter templates only to ApsaraDB RDS for MySQL instances and ApsaraDB RDS for PostgreSQL instances.
+        
+
+        @param request: ModifyParameterGroupRequest
+
+        @return: ModifyParameterGroupResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_parameter_group_with_options(request, runtime)
 
-    def modify_readonly_instance_delay_replication_time_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            rds_20140815_models.ModifyReadonlyInstanceDelayReplicationTimeResponse(),
-            self.do_rpcrequest('ModifyReadonlyInstanceDelayReplicationTime', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def modify_readonly_instance_delay_replication_time(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.modify_readonly_instance_delay_replication_time_with_options(request, runtime)
-
     def modify_read_write_splitting_connection_with_options(self, request, runtime):
+        """
+        Before you call this operation, make sure that the following requirements are met:
+        *   The shared proxy feature is enabled for your ApsaraDB RDS for MySQL instance.
+        *   The read/write splitting feature is enabled for your ApsaraDB RDS for MySQL instance.
+        *   The instance must run one of the following database engine versions and RDS editions:
+        *   MySQL 5.7 on RDS High-availability Edition (with local SSDs)
+        *   MySQL 5.6
+        *   SQL Server on RDS Cluster Edition
+        
+
+        @param request: ModifyReadWriteSplittingConnectionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyReadWriteSplittingConnectionResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.connection_string_prefix):
+            query['ConnectionStringPrefix'] = request.connection_string_prefix
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.distribution_type):
+            query['DistributionType'] = request.distribution_type
+        if not UtilClient.is_unset(request.max_delay_time):
+            query['MaxDelayTime'] = request.max_delay_time
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.port):
+            query['Port'] = request.port
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.weight):
+            query['Weight'] = request.weight
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyReadWriteSplittingConnection',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.ModifyReadWriteSplittingConnectionResponse(),
-            self.do_rpcrequest('ModifyReadWriteSplittingConnection', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def modify_read_write_splitting_connection(self, request):
+        """
+        Before you call this operation, make sure that the following requirements are met:
+        *   The shared proxy feature is enabled for your ApsaraDB RDS for MySQL instance.
+        *   The read/write splitting feature is enabled for your ApsaraDB RDS for MySQL instance.
+        *   The instance must run one of the following database engine versions and RDS editions:
+        *   MySQL 5.7 on RDS High-availability Edition (with local SSDs)
+        *   MySQL 5.6
+        *   SQL Server on RDS Cluster Edition
+        
+
+        @param request: ModifyReadWriteSplittingConnectionRequest
+
+        @return: ModifyReadWriteSplittingConnectionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_read_write_splitting_connection_with_options(request, runtime)
 
-    def modify_resource_group_with_options(self, request, runtime):
+    def modify_readonly_instance_delay_replication_time_with_options(self, request, runtime):
+        """
+        You can specify the latency at which your primary RDS instance replicates data to a read-only instance. For more information, see [Set a replication delay for an RDS MySQL read-only instance](~~96056~~).
+        
+
+        @param request: ModifyReadonlyInstanceDelayReplicationTimeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyReadonlyInstanceDelayReplicationTimeResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.read_sqlreplication_time):
+            query['ReadSQLReplicationTime'] = request.read_sqlreplication_time
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyReadonlyInstanceDelayReplicationTime',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.ModifyReadonlyInstanceDelayReplicationTimeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_readonly_instance_delay_replication_time(self, request):
+        """
+        You can specify the latency at which your primary RDS instance replicates data to a read-only instance. For more information, see [Set a replication delay for an RDS MySQL read-only instance](~~96056~~).
+        
+
+        @param request: ModifyReadonlyInstanceDelayReplicationTimeRequest
+
+        @return: ModifyReadonlyInstanceDelayReplicationTimeResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.modify_readonly_instance_delay_replication_time_with_options(request, runtime)
+
+    def modify_resource_group_with_options(self, request, runtime):
+        """
+        Resource Management enables you to build an organizational structure for resources based on your business needs. You can use a resource directory, folders, accounts, and resource groups to hierarchically organize and manage resources. For more information, see [What is Resource Management?](~~94475~~)
+        
+
+        @param request: ModifyResourceGroupRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyResourceGroupResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyResourceGroup',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.ModifyResourceGroupResponse(),
-            self.do_rpcrequest('ModifyResourceGroup', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def modify_resource_group(self, request):
+        """
+        Resource Management enables you to build an organizational structure for resources based on your business needs. You can use a resource directory, folders, accounts, and resource groups to hierarchically organize and manage resources. For more information, see [What is Resource Management?](~~94475~~)
+        
+
+        @param request: ModifyResourceGroupRequest
+
+        @return: ModifyResourceGroupResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_resource_group_with_options(request, runtime)
 
-    def modify_security_group_configuration_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            rds_20140815_models.ModifySecurityGroupConfigurationResponse(),
-            self.do_rpcrequest('ModifySecurityGroupConfiguration', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def modify_security_group_configuration(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.modify_security_group_configuration_with_options(request, runtime)
-
-    def modify_security_ips_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            rds_20140815_models.ModifySecurityIpsResponse(),
-            self.do_rpcrequest('ModifySecurityIps', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def modify_security_ips(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.modify_security_ips_with_options(request, runtime)
-
     def modify_sqlcollector_policy_with_options(self, request, runtime):
+        """
+        Before you call this operation, make sure that the instance runs one of the following database engines:
+        *   MySQL
+        *   SQL Server
+        *   PostgreSQL
+        >  If you call this operation by using the credentials of a RAM user, the RAM user must have the read and write permissions such as AliyunRDSFullAccess on the instance. If the RAM user does not have the read and write permissions on the instance, the system displays a message stating that you do not have the permissions to call this operation. For more information about how to grant permissions to a RAM user, see [Use RAM to manage ApsaraDB RDS permissions](~~58932~~).
+        
+
+        @param request: ModifySQLCollectorPolicyRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifySQLCollectorPolicyResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.sqlcollector_status):
+            query['SQLCollectorStatus'] = request.sqlcollector_status
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifySQLCollectorPolicy',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.ModifySQLCollectorPolicyResponse(),
-            self.do_rpcrequest('ModifySQLCollectorPolicy', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def modify_sqlcollector_policy(self, request):
+        """
+        Before you call this operation, make sure that the instance runs one of the following database engines:
+        *   MySQL
+        *   SQL Server
+        *   PostgreSQL
+        >  If you call this operation by using the credentials of a RAM user, the RAM user must have the read and write permissions such as AliyunRDSFullAccess on the instance. If the RAM user does not have the read and write permissions on the instance, the system displays a message stating that you do not have the permissions to call this operation. For more information about how to grant permissions to a RAM user, see [Use RAM to manage ApsaraDB RDS permissions](~~58932~~).
+        
+
+        @param request: ModifySQLCollectorPolicyRequest
+
+        @return: ModifySQLCollectorPolicyResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_sqlcollector_policy_with_options(request, runtime)
 
     def modify_sqlcollector_retention_with_options(self, request, runtime):
+        """
+        The SQL explorer must be enabled for the instance.
+        The instance must run MySQL. For more information, see [SQL Explorer](~~96123~~).
+        >  After you shorten the log backup retention period, log backpack files that are stored longer than the specified log backup retention period are immediately deleted.
+        
+
+        @param request: ModifySQLCollectorRetentionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifySQLCollectorRetentionResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.config_value):
+            query['ConfigValue'] = request.config_value
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifySQLCollectorRetention',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.ModifySQLCollectorRetentionResponse(),
-            self.do_rpcrequest('ModifySQLCollectorRetention', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def modify_sqlcollector_retention(self, request):
+        """
+        The SQL explorer must be enabled for the instance.
+        The instance must run MySQL. For more information, see [SQL Explorer](~~96123~~).
+        >  After you shorten the log backup retention period, log backpack files that are stored longer than the specified log backup retention period are immediately deleted.
+        
+
+        @param request: ModifySQLCollectorRetentionRequest
+
+        @return: ModifySQLCollectorRetentionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_sqlcollector_retention_with_options(request, runtime)
 
-    def purge_dbinstance_log_with_options(self, request, runtime):
+    def modify_security_group_configuration_with_options(self, request, runtime):
+        """
+        After an RDS instance is added to an ECS security group, all ECS instances in the security group can access the RDS instance. For more information, see [Configure a whitelist for an RDS instance](~~96118~~).
+        
+
+        @param request: ModifySecurityGroupConfigurationRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifySecurityGroupConfigurationResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.security_group_id):
+            query['SecurityGroupId'] = request.security_group_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifySecurityGroupConfiguration',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.ModifySecurityGroupConfigurationResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_security_group_configuration(self, request):
+        """
+        After an RDS instance is added to an ECS security group, all ECS instances in the security group can access the RDS instance. For more information, see [Configure a whitelist for an RDS instance](~~96118~~).
+        
+
+        @param request: ModifySecurityGroupConfigurationRequest
+
+        @return: ModifySecurityGroupConfigurationResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.modify_security_group_configuration_with_options(request, runtime)
+
+    def modify_security_ips_with_options(self, request, runtime):
+        """
+        An IP address allowlist contains the IP addresses and CIDR blocks that are granted access to the instance. For more information about how to configure an IP address allowlist, see [Configure an IP address allowlist for an ApsaraDB RDS instance](~~96118~~).
+        >  Before you call this operation, make sure that the instance is in the Running state.
+        
+
+        @param request: ModifySecurityIpsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifySecurityIpsResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_iparray_attribute):
+            query['DBInstanceIPArrayAttribute'] = request.dbinstance_iparray_attribute
+        if not UtilClient.is_unset(request.dbinstance_iparray_name):
+            query['DBInstanceIPArrayName'] = request.dbinstance_iparray_name
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.fresh_white_list_readins):
+            query['FreshWhiteListReadins'] = request.fresh_white_list_readins
+        if not UtilClient.is_unset(request.modify_mode):
+            query['ModifyMode'] = request.modify_mode
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.security_iptype):
+            query['SecurityIPType'] = request.security_iptype
+        if not UtilClient.is_unset(request.security_ips):
+            query['SecurityIps'] = request.security_ips
+        if not UtilClient.is_unset(request.whitelist_network_type):
+            query['WhitelistNetworkType'] = request.whitelist_network_type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifySecurityIps',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.ModifySecurityIpsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_security_ips(self, request):
+        """
+        An IP address allowlist contains the IP addresses and CIDR blocks that are granted access to the instance. For more information about how to configure an IP address allowlist, see [Configure an IP address allowlist for an ApsaraDB RDS instance](~~96118~~).
+        >  Before you call this operation, make sure that the instance is in the Running state.
+        
+
+        @param request: ModifySecurityIpsRequest
+
+        @return: ModifySecurityIpsResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.modify_security_ips_with_options(request, runtime)
+
+    def purge_dbinstance_log_with_options(self, request, runtime):
+        """
+        ApsaraDB RDS allows an instance to automatically upload log backup files to Object Storage Service (OSS) buckets. If the remaining storage space of an instance is insufficient, ApsaraDB RDS also allows you to manually upload the log backup files of the instance to OSS buckets. After the log backup files of an instance are uploaded, ApsaraDB RDS deletes these files from the instance to release storage space.
+        This operation is called to upload log backup files from an instance to OSS buckets and then delete these files from the instance. If the instance runs SQL Server, transaction log backup files are compressed before they are uploaded. For more information about log backups, see [Back up an ApsaraDB RDS for MySQL instance](~~98818~~) or [Back up an ApsaraDB RDS for SQL Server instance](~~95717~~).
+        > * This operation is supported only for instances that run MySQL or SQL Server.
+        > * When you upload log backup files, the data restoration feature is not affected.
+        > * This operation is called to release storage space. The backup storage usage is not reduced.
+        > * The OSS buckets to which log backup files are uploaded are provided by ApsaraDB RDS. You do not need to purchase these OSS buckets. In addition, you cannot access these OSS buckets.
+        
+
+        @param request: PurgeDBInstanceLogRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: PurgeDBInstanceLogResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='PurgeDBInstanceLog',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.PurgeDBInstanceLogResponse(),
-            self.do_rpcrequest('PurgeDBInstanceLog', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def purge_dbinstance_log(self, request):
+        """
+        ApsaraDB RDS allows an instance to automatically upload log backup files to Object Storage Service (OSS) buckets. If the remaining storage space of an instance is insufficient, ApsaraDB RDS also allows you to manually upload the log backup files of the instance to OSS buckets. After the log backup files of an instance are uploaded, ApsaraDB RDS deletes these files from the instance to release storage space.
+        This operation is called to upload log backup files from an instance to OSS buckets and then delete these files from the instance. If the instance runs SQL Server, transaction log backup files are compressed before they are uploaded. For more information about log backups, see [Back up an ApsaraDB RDS for MySQL instance](~~98818~~) or [Back up an ApsaraDB RDS for SQL Server instance](~~95717~~).
+        > * This operation is supported only for instances that run MySQL or SQL Server.
+        > * When you upload log backup files, the data restoration feature is not affected.
+        > * This operation is called to release storage space. The backup storage usage is not reduced.
+        > * The OSS buckets to which log backup files are uploaded are provided by ApsaraDB RDS. You do not need to purchase these OSS buckets. In addition, you cannot access these OSS buckets.
+        
+
+        @param request: PurgeDBInstanceLogRequest
+
+        @return: PurgeDBInstanceLogResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.purge_dbinstance_log_with_options(request, runtime)
 
-    def rebuild_dbinstance_with_options(self, request, runtime):
+    def query_notify_with_options(self, request, runtime):
+        """
+        The notifications are highlighted at the top of the ApsaraDB RDS console. The notifications include renewal reminders and reminders of instance creation failures.
+        After you call this operation to query notifications, you can call the [ConfirmNotify](~~428005~~) operation to mark the notifications as confirmed, which means that you understand the content of the notifications.
+        
+
+        @param request: QueryNotifyRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: QueryNotifyResponse
+        """
         UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.from_):
+            body['From'] = request.from_
+        if not UtilClient.is_unset(request.page_number):
+            body['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.to):
+            body['To'] = request.to
+        if not UtilClient.is_unset(request.with_confirmed):
+            body['WithConfirmed'] = request.with_confirmed
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='QueryNotify',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.QueryNotifyResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_notify(self, request):
+        """
+        The notifications are highlighted at the top of the ApsaraDB RDS console. The notifications include renewal reminders and reminders of instance creation failures.
+        After you call this operation to query notifications, you can call the [ConfirmNotify](~~428005~~) operation to mark the notifications as confirmed, which means that you understand the content of the notifications.
+        
+
+        @param request: QueryNotifyRequest
+
+        @return: QueryNotifyResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.query_notify_with_options(request, runtime)
+
+    def rebuild_dbinstance_with_options(self, request, runtime):
+        """
+        Dedicated clusters allow you to manage a number of instances at a time. You can create multiple dedicated clusters in a single region. Each dedicated cluster consists of multiple hosts. You can create multiple instances on each host. For more information, see [What is ApsaraDB MyBase?](~~141455~~)
+        
+
+        @param request: RebuildDBInstanceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RebuildDBInstanceResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.dedicated_host_group_id):
+            query['DedicatedHostGroupId'] = request.dedicated_host_group_id
+        if not UtilClient.is_unset(request.dedicated_host_id):
+            query['DedicatedHostId'] = request.dedicated_host_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.rebuild_node_type):
+            query['RebuildNodeType'] = request.rebuild_node_type
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RebuildDBInstance',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.RebuildDBInstanceResponse(),
-            self.do_rpcrequest('RebuildDBInstance', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def rebuild_dbinstance(self, request):
+        """
+        Dedicated clusters allow you to manage a number of instances at a time. You can create multiple dedicated clusters in a single region. Each dedicated cluster consists of multiple hosts. You can create multiple instances on each host. For more information, see [What is ApsaraDB MyBase?](~~141455~~)
+        
+
+        @param request: RebuildDBInstanceRequest
+
+        @return: RebuildDBInstanceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.rebuild_dbinstance_with_options(request, runtime)
 
-    def recovery_dbinstance_with_options(self, request, runtime):
+    def receive_dbinstance_with_options(self, request, runtime):
+        """
+        ## Prerequisites
+        A disaster recovery instance is created.
+        
+
+        @param request: ReceiveDBInstanceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ReceiveDBInstanceResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.guard_dbinstance_id):
+            query['GuardDBInstanceId'] = request.guard_dbinstance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ReceiveDBInstance',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.ReceiveDBInstanceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def receive_dbinstance(self, request):
+        """
+        ## Prerequisites
+        A disaster recovery instance is created.
+        
+
+        @param request: ReceiveDBInstanceRequest
+
+        @return: ReceiveDBInstanceResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.receive_dbinstance_with_options(request, runtime)
+
+    def recovery_dbinstance_with_options(self, request, runtime):
+        """
+        This operation is used only to restore data to a new RDS instance. If you want to restore data to an existing RDS instance, call the [CopyDatabaseBetweenInstances](~~88810~~) operation.
+        Restoration to a new RDS instance: Create an instance. Then, restore some or all databases of the original instance to the new instance.
+        *   If you specify database names, only databases with the specified names are restored to the new instance.
+        *   If you do not specify database names, all databases are restored to the new instance.
+        >  This operation is only supported for instances that run SQL Server 2012 and later.
+        
+
+        @param request: RecoveryDBInstanceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RecoveryDBInstanceResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.backup_id):
+            query['BackupId'] = request.backup_id
+        if not UtilClient.is_unset(request.dbinstance_class):
+            query['DBInstanceClass'] = request.dbinstance_class
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.dbinstance_storage):
+            query['DBInstanceStorage'] = request.dbinstance_storage
+        if not UtilClient.is_unset(request.dbinstance_storage_type):
+            query['DBInstanceStorageType'] = request.dbinstance_storage_type
+        if not UtilClient.is_unset(request.db_names):
+            query['DbNames'] = request.db_names
+        if not UtilClient.is_unset(request.instance_network_type):
+            query['InstanceNetworkType'] = request.instance_network_type
+        if not UtilClient.is_unset(request.pay_type):
+            query['PayType'] = request.pay_type
+        if not UtilClient.is_unset(request.period):
+            query['Period'] = request.period
+        if not UtilClient.is_unset(request.private_ip_address):
+            query['PrivateIpAddress'] = request.private_ip_address
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.restore_time):
+            query['RestoreTime'] = request.restore_time
+        if not UtilClient.is_unset(request.target_dbinstance_id):
+            query['TargetDBInstanceId'] = request.target_dbinstance_id
+        if not UtilClient.is_unset(request.used_time):
+            query['UsedTime'] = request.used_time
+        if not UtilClient.is_unset(request.vpcid):
+            query['VPCId'] = request.vpcid
+        if not UtilClient.is_unset(request.v_switch_id):
+            query['VSwitchId'] = request.v_switch_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RecoveryDBInstance',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.RecoveryDBInstanceResponse(),
-            self.do_rpcrequest('RecoveryDBInstance', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def recovery_dbinstance(self, request):
+        """
+        This operation is used only to restore data to a new RDS instance. If you want to restore data to an existing RDS instance, call the [CopyDatabaseBetweenInstances](~~88810~~) operation.
+        Restoration to a new RDS instance: Create an instance. Then, restore some or all databases of the original instance to the new instance.
+        *   If you specify database names, only databases with the specified names are restored to the new instance.
+        *   If you do not specify database names, all databases are restored to the new instance.
+        >  This operation is only supported for instances that run SQL Server 2012 and later.
+        
+
+        @param request: RecoveryDBInstanceRequest
+
+        @return: RecoveryDBInstanceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.recovery_dbinstance_with_options(request, runtime)
 
     def release_instance_connection_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.current_connection_string):
+            query['CurrentConnectionString'] = request.current_connection_string
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.instance_network_type):
+            query['InstanceNetworkType'] = request.instance_network_type
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ReleaseInstanceConnection',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.ReleaseInstanceConnectionResponse(),
-            self.do_rpcrequest('ReleaseInstanceConnection', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def release_instance_connection(self, request):
@@ -2824,195 +13410,793 @@ class Client(OpenApiClient):
         return self.release_instance_connection_with_options(request, runtime)
 
     def release_instance_public_connection_with_options(self, request, runtime):
+        """
+        To ensure data security, you can release the public endpoint when you do not need to access the database from the Internet.
+        
+
+        @param request: ReleaseInstancePublicConnectionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ReleaseInstancePublicConnectionResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.current_connection_string):
+            query['CurrentConnectionString'] = request.current_connection_string
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ReleaseInstancePublicConnection',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.ReleaseInstancePublicConnectionResponse(),
-            self.do_rpcrequest('ReleaseInstancePublicConnection', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def release_instance_public_connection(self, request):
+        """
+        To ensure data security, you can release the public endpoint when you do not need to access the database from the Internet.
+        
+
+        @param request: ReleaseInstancePublicConnectionRequest
+
+        @return: ReleaseInstancePublicConnectionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.release_instance_public_connection_with_options(request, runtime)
 
     def release_read_write_splitting_connection_with_options(self, request, runtime):
+        """
+        Before you call this operation, make sure that the following requirements are met:
+        *   If the instance runs MySQL, the instance uses a shared proxy.
+        *   The read/write splitting feature is enabled for the instance.
+        *   The instance runs one of the following database versions and RDS editions:
+        *   MySQL 5.7 on RDS High-availability Edition with local SSDs
+        *   MySQL 5.6
+        *   SQL Server (cluster edition)
+        
+
+        @param request: ReleaseReadWriteSplittingConnectionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ReleaseReadWriteSplittingConnectionResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ReleaseReadWriteSplittingConnection',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.ReleaseReadWriteSplittingConnectionResponse(),
-            self.do_rpcrequest('ReleaseReadWriteSplittingConnection', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def release_read_write_splitting_connection(self, request):
+        """
+        Before you call this operation, make sure that the following requirements are met:
+        *   If the instance runs MySQL, the instance uses a shared proxy.
+        *   The read/write splitting feature is enabled for the instance.
+        *   The instance runs one of the following database versions and RDS editions:
+        *   MySQL 5.7 on RDS High-availability Edition with local SSDs
+        *   MySQL 5.6
+        *   SQL Server (cluster edition)
+        
+
+        @param request: ReleaseReadWriteSplittingConnectionRequest
+
+        @return: ReleaseReadWriteSplittingConnectionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.release_read_write_splitting_connection_with_options(request, runtime)
 
     def remove_tags_from_resource_with_options(self, request, runtime):
+        """
+        This operation has the following limits:
+        *   A maximum of 10 tags can be unbound in a single request.
+        *   If a tag is unbound from all of the instances to which the tag has been bound, the tag is automatically deleted.
+        *   If you specify only a TagKey, all tags that match the TagKey condition are unbound.
+        *   You must specify at least a TagKey or a set of a TagKey and a TagValue.
+        
+
+        @param request: RemoveTagsFromResourceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RemoveTagsFromResourceResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.tags):
+            query['Tags'] = request.tags
+        if not UtilClient.is_unset(request.proxy_id):
+            query['proxyId'] = request.proxy_id
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RemoveTagsFromResource',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.RemoveTagsFromResourceResponse(),
-            self.do_rpcrequest('RemoveTagsFromResource', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def remove_tags_from_resource(self, request):
+        """
+        This operation has the following limits:
+        *   A maximum of 10 tags can be unbound in a single request.
+        *   If a tag is unbound from all of the instances to which the tag has been bound, the tag is automatically deleted.
+        *   If you specify only a TagKey, all tags that match the TagKey condition are unbound.
+        *   You must specify at least a TagKey or a set of a TagKey and a TagValue.
+        
+
+        @param request: RemoveTagsFromResourceRequest
+
+        @return: RemoveTagsFromResourceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.remove_tags_from_resource_with_options(request, runtime)
 
     def renew_instance_with_options(self, request, runtime):
+        """
+        Before you call this operation, make sure that you understand the billing methods and pricing of ApsaraDB RDS. For more information, see [Billable items, billing methods, and pricing](~~45020~~).
+        Before you call this operation, make sure that the following requirements are met:
+        *   The instance is a subscription instance.
+        *   Your account supports credit card payments or balance payments.
+        > By default, coupons available for your account are preferentially used for payment.
+        
+
+        @param request: RenewInstanceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RenewInstanceResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.auto_pay):
+            query['AutoPay'] = request.auto_pay
+        if not UtilClient.is_unset(request.auto_renew):
+            query['AutoRenew'] = request.auto_renew
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.period):
+            query['Period'] = request.period
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RenewInstance',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.RenewInstanceResponse(),
-            self.do_rpcrequest('RenewInstance', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def renew_instance(self, request):
+        """
+        Before you call this operation, make sure that you understand the billing methods and pricing of ApsaraDB RDS. For more information, see [Billable items, billing methods, and pricing](~~45020~~).
+        Before you call this operation, make sure that the following requirements are met:
+        *   The instance is a subscription instance.
+        *   Your account supports credit card payments or balance payments.
+        > By default, coupons available for your account are preferentially used for payment.
+        
+
+        @param request: RenewInstanceRequest
+
+        @return: RenewInstanceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.renew_instance_with_options(request, runtime)
 
-    def replace_dedicated_host_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            rds_20140815_models.ReplaceDedicatedHostResponse(),
-            self.do_rpcrequest('ReplaceDedicatedHost', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def replace_dedicated_host(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.replace_dedicated_host_with_options(request, runtime)
-
     def reset_account_with_options(self, request, runtime):
+        """
+        >  This operation is not applicable to instances that run SQL Server 2008 R2, which do not have a privileged account.
+        
+
+        @param request: ResetAccountRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ResetAccountResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.account_name):
+            query['AccountName'] = request.account_name
+        if not UtilClient.is_unset(request.account_password):
+            query['AccountPassword'] = request.account_password
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ResetAccount',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.ResetAccountResponse(),
-            self.do_rpcrequest('ResetAccount', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def reset_account(self, request):
+        """
+        >  This operation is not applicable to instances that run SQL Server 2008 R2, which do not have a privileged account.
+        
+
+        @param request: ResetAccountRequest
+
+        @return: ResetAccountResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.reset_account_with_options(request, runtime)
 
     def reset_account_password_with_options(self, request, runtime):
+        """
+        Before you call this operation, make sure that the instance must be in the Running state.
+        >  This operation is not supported for accounts that are created by using SQL statements. This applies to instances that run SQL Server 2017 EE and PostgreSQL.
+        
+
+        @param request: ResetAccountPasswordRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ResetAccountPasswordResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.account_name):
+            query['AccountName'] = request.account_name
+        if not UtilClient.is_unset(request.account_password):
+            query['AccountPassword'] = request.account_password
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ResetAccountPassword',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.ResetAccountPasswordResponse(),
-            self.do_rpcrequest('ResetAccountPassword', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def reset_account_password(self, request):
+        """
+        Before you call this operation, make sure that the instance must be in the Running state.
+        >  This operation is not supported for accounts that are created by using SQL statements. This applies to instances that run SQL Server 2017 EE and PostgreSQL.
+        
+
+        @param request: ResetAccountPasswordRequest
+
+        @return: ResetAccountPasswordResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.reset_account_password_with_options(request, runtime)
 
     def restart_dbinstance_with_options(self, request, runtime):
+        """
+        If a large number of transactions need to be submitted or rolled back, the restart process may be delayed for a minute.
+        Before you call this operation, make sure that the following requirements are met:
+        *   The instance is in the running state.
+        *   The instance does not have ongoing backup tasks.
+        
+
+        @param request: RestartDBInstanceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RestartDBInstanceResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RestartDBInstance',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.RestartDBInstanceResponse(),
-            self.do_rpcrequest('RestartDBInstance', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def restart_dbinstance(self, request):
+        """
+        If a large number of transactions need to be submitted or rolled back, the restart process may be delayed for a minute.
+        Before you call this operation, make sure that the following requirements are met:
+        *   The instance is in the running state.
+        *   The instance does not have ongoing backup tasks.
+        
+
+        @param request: RestartDBInstanceRequest
+
+        @return: RestartDBInstanceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.restart_dbinstance_with_options(request, runtime)
 
-    def restart_dedicated_host_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
-        )
-        return TeaCore.from_map(
-            rds_20140815_models.RestartDedicatedHostResponse(),
-            self.do_rpcrequest('RestartDedicatedHost', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
-        )
-
-    def restart_dedicated_host(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.restart_dedicated_host_with_options(request, runtime)
-
     def restore_ddr_table_with_options(self, request, runtime):
+        """
+        Before you call this operation, you can call the [CheckCreateDdrDBInstance](~~121721~~) operation to check whether the data of the source instance can be restored from a cross-region backup file.
+        Before you call this operation, make sure that the following requirements are met:
+        *   A cross-region backup file is created for the source instance after the restoration of individual databases or tables is enabled for the instance.
+        *   If you want to restore data from a specific point in time, the log backup feature is enabled for the source instance.
+        *   The names that you want to use for the restored tables do not exist in the destination instance.
+        *   The source instance runs one of the following database engines:
+        *   MySQL. For more information, see [Back up an ApsaraDB RDS for MySQL instance across regions](~~120824~~).
+        *   SQL Server. For more information, see [Back up an ApsaraDB RDS for SQL Server instance across regions](~~187923~~).
+        *   PostgreSQL. For more information, see [Back up an ApsaraDB RDS for PostgreSQL instance across regions](~~206671~~).
+        
+
+        @param request: RestoreDdrTableRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RestoreDdrTableResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.backup_id):
+            query['BackupId'] = request.backup_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.restore_time):
+            query['RestoreTime'] = request.restore_time
+        if not UtilClient.is_unset(request.restore_type):
+            query['RestoreType'] = request.restore_type
+        if not UtilClient.is_unset(request.source_dbinstance_name):
+            query['SourceDBInstanceName'] = request.source_dbinstance_name
+        if not UtilClient.is_unset(request.source_region):
+            query['SourceRegion'] = request.source_region
+        if not UtilClient.is_unset(request.table_meta):
+            query['TableMeta'] = request.table_meta
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RestoreDdrTable',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.RestoreDdrTableResponse(),
-            self.do_rpcrequest('RestoreDdrTable', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def restore_ddr_table(self, request):
+        """
+        Before you call this operation, you can call the [CheckCreateDdrDBInstance](~~121721~~) operation to check whether the data of the source instance can be restored from a cross-region backup file.
+        Before you call this operation, make sure that the following requirements are met:
+        *   A cross-region backup file is created for the source instance after the restoration of individual databases or tables is enabled for the instance.
+        *   If you want to restore data from a specific point in time, the log backup feature is enabled for the source instance.
+        *   The names that you want to use for the restored tables do not exist in the destination instance.
+        *   The source instance runs one of the following database engines:
+        *   MySQL. For more information, see [Back up an ApsaraDB RDS for MySQL instance across regions](~~120824~~).
+        *   SQL Server. For more information, see [Back up an ApsaraDB RDS for SQL Server instance across regions](~~187923~~).
+        *   PostgreSQL. For more information, see [Back up an ApsaraDB RDS for PostgreSQL instance across regions](~~206671~~).
+        
+
+        @param request: RestoreDdrTableRequest
+
+        @return: RestoreDdrTableResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.restore_ddr_table_with_options(request, runtime)
 
     def restore_table_with_options(self, request, runtime):
+        """
+        ApsaraDB RDS for MySQL supports the restoration of individual databases and tables. If you delete databases or tables from an instance, you can restore the databases or tables by using a backup file. For more information, see [Restore individual databases and tables of an ApsaraDB RDS for MySQL instance](~~103175~~).
+        Before you call this operation, make sure that the following requirements are met:
+        *   Your RDS instance is in the Running state.
+        *   The instance does not have ongoing migration tasks.
+        *   If you want to restore data to a specific point in time, the log backup feature is enabled for the instance. For more information, see [Back up an ApsaraDB RDS for MySQL instance](~~98818~~).
+        *   The restoration of individual databases or tables is enabled, and new backups are created. For more information, see [Restore individual databases and tables of an ApsaraDB RDS for MySQL instance](~~103175~~).
+        *   The names that you want to use for the restored tables do not exist in the instance.
+        >  This operation is supported only by instances that run MySQL.
+        
+
+        @param request: RestoreTableRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RestoreTableResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.backup_id):
+            query['BackupId'] = request.backup_id
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.instant_recovery):
+            query['InstantRecovery'] = request.instant_recovery
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.restore_time):
+            query['RestoreTime'] = request.restore_time
+        if not UtilClient.is_unset(request.table_meta):
+            query['TableMeta'] = request.table_meta
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RestoreTable',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.RestoreTableResponse(),
-            self.do_rpcrequest('RestoreTable', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def restore_table(self, request):
+        """
+        ApsaraDB RDS for MySQL supports the restoration of individual databases and tables. If you delete databases or tables from an instance, you can restore the databases or tables by using a backup file. For more information, see [Restore individual databases and tables of an ApsaraDB RDS for MySQL instance](~~103175~~).
+        Before you call this operation, make sure that the following requirements are met:
+        *   Your RDS instance is in the Running state.
+        *   The instance does not have ongoing migration tasks.
+        *   If you want to restore data to a specific point in time, the log backup feature is enabled for the instance. For more information, see [Back up an ApsaraDB RDS for MySQL instance](~~98818~~).
+        *   The restoration of individual databases or tables is enabled, and new backups are created. For more information, see [Restore individual databases and tables of an ApsaraDB RDS for MySQL instance](~~103175~~).
+        *   The names that you want to use for the restored tables do not exist in the instance.
+        >  This operation is supported only by instances that run MySQL.
+        
+
+        @param request: RestoreTableRequest
+
+        @return: RestoreTableResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.restore_table_with_options(request, runtime)
 
     def revoke_account_privilege_with_options(self, request, runtime):
+        """
+        Before you call this operation, make sure that the following requirements are met:
+        * The ApsaraDB for RDS instance is in the running state.
+        * The database is in the running state.
+        > *   The permissions that can be revoked include SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, REFERENCES, INDEX, ALTER, CREATE TEMPORARY TABLES, LOCK TABLES, EXECUTE, CREATE VIEW, SHOW VIEW, CREATE ROUTINE, ALTER ROUTINE, EVENT, and TRIGGER.
+        > *   If the instance runs SQL Server 2017 EE and PostgreSQL, this operation is not supported.
+        
+
+        @param request: RevokeAccountPrivilegeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RevokeAccountPrivilegeResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.account_name):
+            query['AccountName'] = request.account_name
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.dbname):
+            query['DBName'] = request.dbname
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RevokeAccountPrivilege',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.RevokeAccountPrivilegeResponse(),
-            self.do_rpcrequest('RevokeAccountPrivilege', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def revoke_account_privilege(self, request):
+        """
+        Before you call this operation, make sure that the following requirements are met:
+        * The ApsaraDB for RDS instance is in the running state.
+        * The database is in the running state.
+        > *   The permissions that can be revoked include SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, REFERENCES, INDEX, ALTER, CREATE TEMPORARY TABLES, LOCK TABLES, EXECUTE, CREATE VIEW, SHOW VIEW, CREATE ROUTINE, ALTER ROUTINE, EVENT, and TRIGGER.
+        > *   If the instance runs SQL Server 2017 EE and PostgreSQL, this operation is not supported.
+        
+
+        @param request: RevokeAccountPrivilegeRequest
+
+        @return: RevokeAccountPrivilegeResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.revoke_account_privilege_with_options(request, runtime)
 
     def revoke_operator_permission_with_options(self, request, runtime):
+        """
+        After Alibaba Cloud technical support resolves the issues on your instance, you can revoke permissions from the service account of your instance.
+        This operation is available only when your instance runs one of the following database engines:
+        *   MySQL
+        *   SQL Server
+        *   PostgreSQL
+        
+
+        @param request: RevokeOperatorPermissionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RevokeOperatorPermissionResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RevokeOperatorPermission',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.RevokeOperatorPermissionResponse(),
-            self.do_rpcrequest('RevokeOperatorPermission', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def revoke_operator_permission(self, request):
+        """
+        After Alibaba Cloud technical support resolves the issues on your instance, you can revoke permissions from the service account of your instance.
+        This operation is available only when your instance runs one of the following database engines:
+        *   MySQL
+        *   SQL Server
+        *   PostgreSQL
+        
+
+        @param request: RevokeOperatorPermissionRequest
+
+        @return: RevokeOperatorPermissionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.revoke_operator_permission_with_options(request, runtime)
 
     def start_dbinstance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.dbinstance_trans_type):
+            query['DBInstanceTransType'] = request.dbinstance_trans_type
+        if not UtilClient.is_unset(request.dedicated_host_group_id):
+            query['DedicatedHostGroupId'] = request.dedicated_host_group_id
+        if not UtilClient.is_unset(request.effective_time):
+            query['EffectiveTime'] = request.effective_time
+        if not UtilClient.is_unset(request.engine_version):
+            query['EngineVersion'] = request.engine_version
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.specified_time):
+            query['SpecifiedTime'] = request.specified_time
+        if not UtilClient.is_unset(request.storage):
+            query['Storage'] = request.storage
+        if not UtilClient.is_unset(request.target_dbinstance_class):
+            query['TargetDBInstanceClass'] = request.target_dbinstance_class
+        if not UtilClient.is_unset(request.target_dedicated_host_id_for_log):
+            query['TargetDedicatedHostIdForLog'] = request.target_dedicated_host_id_for_log
+        if not UtilClient.is_unset(request.target_dedicated_host_id_for_master):
+            query['TargetDedicatedHostIdForMaster'] = request.target_dedicated_host_id_for_master
+        if not UtilClient.is_unset(request.target_dedicated_host_id_for_slave):
+            query['TargetDedicatedHostIdForSlave'] = request.target_dedicated_host_id_for_slave
+        if not UtilClient.is_unset(request.v_switch_id):
+            query['VSwitchId'] = request.v_switch_id
+        if not UtilClient.is_unset(request.zone_id):
+            query['ZoneId'] = request.zone_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='StartDBInstance',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.StartDBInstanceResponse(),
-            self.do_rpcrequest('StartDBInstance', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def start_dbinstance(self, request):
@@ -3020,83 +14204,397 @@ class Client(OpenApiClient):
         return self.start_dbinstance_with_options(request, runtime)
 
     def stop_dbinstance_with_options(self, request, runtime):
+        """
+        For more information about the precautions to stop an ApsaraDB RDS for MySQL instance, see [Stop an instance](~~427093~~).
+        *   The following list describes the precautions when you stop an instance that is created in a dedicated cluster:
+        *   After you stop an instance, the computing resources of the instance are released. However, the data of the instance is retained. The retained data can be used to start the instance.
+        *   When you stop an instance, all the read-only instances that are attached to the instance are stopped at the same time.
+        *   After you stop an instance, its storage resources are still retained. You do not need to pay extra fees for the storage of the retained data.
+        
+
+        @param request: StopDBInstanceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: StopDBInstanceResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='StopDBInstance',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.StopDBInstanceResponse(),
-            self.do_rpcrequest('StopDBInstance', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def stop_dbinstance(self, request):
+        """
+        For more information about the precautions to stop an ApsaraDB RDS for MySQL instance, see [Stop an instance](~~427093~~).
+        *   The following list describes the precautions when you stop an instance that is created in a dedicated cluster:
+        *   After you stop an instance, the computing resources of the instance are released. However, the data of the instance is retained. The retained data can be used to start the instance.
+        *   When you stop an instance, all the read-only instances that are attached to the instance are stopped at the same time.
+        *   After you stop an instance, its storage resources are still retained. You do not need to pay extra fees for the storage of the retained data.
+        
+
+        @param request: StopDBInstanceRequest
+
+        @return: StopDBInstanceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.stop_dbinstance_with_options(request, runtime)
 
     def switch_dbinstance_hawith_options(self, request, runtime):
+        """
+        This operation switches services between the RDS primary and secondary instances that are not in the Basic Edition. After the switching, the secondary instance becomes primary and carries all business traffic.
+        
+
+        @param request: SwitchDBInstanceHARequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: SwitchDBInstanceHAResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.effective_time):
+            query['EffectiveTime'] = request.effective_time
+        if not UtilClient.is_unset(request.force):
+            query['Force'] = request.force
+        if not UtilClient.is_unset(request.node_id):
+            query['NodeId'] = request.node_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='SwitchDBInstanceHA',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.SwitchDBInstanceHAResponse(),
-            self.do_rpcrequest('SwitchDBInstanceHA', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def switch_dbinstance_ha(self, request):
+        """
+        This operation switches services between the RDS primary and secondary instances that are not in the Basic Edition. After the switching, the secondary instance becomes primary and carries all business traffic.
+        
+
+        @param request: SwitchDBInstanceHARequest
+
+        @return: SwitchDBInstanceHAResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.switch_dbinstance_hawith_options(request, runtime)
 
     def switch_dbinstance_net_type_with_options(self, request, runtime):
+        """
+        To save endpoint resources, you can call this operation to switch an instance between its internal and public endpoints. After the endpoint that is used to connect to the instance is changed, you must update the endpoint information in the code of your application and restart the application.
+        Before you call this operation, make sure that the following requirements are met:
+        *   The instance is connected by using its internal or public endpoint.
+        *   The instance is in the Running state.
+        *   The number of times that you have switched the instance between its internal and public endpoints within the last 24 hours does not reach 20.
+        *   The instance resides in the classic network.
+        
+
+        @param request: SwitchDBInstanceNetTypeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: SwitchDBInstanceNetTypeResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.connection_string_prefix):
+            query['ConnectionStringPrefix'] = request.connection_string_prefix
+        if not UtilClient.is_unset(request.connection_string_type):
+            query['ConnectionStringType'] = request.connection_string_type
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.port):
+            query['Port'] = request.port
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='SwitchDBInstanceNetType',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.SwitchDBInstanceNetTypeResponse(),
-            self.do_rpcrequest('SwitchDBInstanceNetType', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def switch_dbinstance_net_type(self, request):
+        """
+        To save endpoint resources, you can call this operation to switch an instance between its internal and public endpoints. After the endpoint that is used to connect to the instance is changed, you must update the endpoint information in the code of your application and restart the application.
+        Before you call this operation, make sure that the following requirements are met:
+        *   The instance is connected by using its internal or public endpoint.
+        *   The instance is in the Running state.
+        *   The number of times that you have switched the instance between its internal and public endpoints within the last 24 hours does not reach 20.
+        *   The instance resides in the classic network.
+        
+
+        @param request: SwitchDBInstanceNetTypeRequest
+
+        @return: SwitchDBInstanceNetTypeResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.switch_dbinstance_net_type_with_options(request, runtime)
 
     def switch_dbinstance_vpc_with_options(self, request, runtime):
+        """
+        The instance must run one of the following database engines:
+        *   MySQL with local SSDs, standard SSDs, or enhanced SSDs (ESSDs)
+        *   SQL Server with standard SSDs or ESSDs
+        *   MariaDB TX with standard SSDs or ESSDs
+        *   PostgreSQL with standard SSDs or ESSDs
+        For more information about the impact of VPC and vSwitch changes, see [Switch an ApsaraDB RDS for MySQL instance to a new VPC and a new vSwitch](~~137567~~).
+        
+
+        @param request: SwitchDBInstanceVpcRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: SwitchDBInstanceVpcResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.private_ip_address):
+            query['PrivateIpAddress'] = request.private_ip_address
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.vpcid):
+            query['VPCId'] = request.vpcid
+        if not UtilClient.is_unset(request.v_switch_id):
+            query['VSwitchId'] = request.v_switch_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='SwitchDBInstanceVpc',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.SwitchDBInstanceVpcResponse(),
-            self.do_rpcrequest('SwitchDBInstanceVpc', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def switch_dbinstance_vpc(self, request):
+        """
+        The instance must run one of the following database engines:
+        *   MySQL with local SSDs, standard SSDs, or enhanced SSDs (ESSDs)
+        *   SQL Server with standard SSDs or ESSDs
+        *   MariaDB TX with standard SSDs or ESSDs
+        *   PostgreSQL with standard SSDs or ESSDs
+        For more information about the impact of VPC and vSwitch changes, see [Switch an ApsaraDB RDS for MySQL instance to a new VPC and a new vSwitch](~~137567~~).
+        
+
+        @param request: SwitchDBInstanceVpcRequest
+
+        @return: SwitchDBInstanceVpcResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.switch_dbinstance_vpc_with_options(request, runtime)
 
-    def tag_resources_with_options(self, request, runtime):
+    def switch_guard_to_master_instance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='SwitchGuardToMasterInstance',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.SwitchGuardToMasterInstanceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def switch_guard_to_master_instance(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.switch_guard_to_master_instance_with_options(request, runtime)
+
+    def tag_resources_with_options(self, request, runtime):
+        """
+        If you have a large number of instances, you can create multiple tags and add these tags to the instances. Then, you can filter these instances by tag.
+        *   A tag consists of a key and a value. Each key must be unique in a region for an Alibaba Cloud account. Different keys can be mapped to the same value.
+        *   If the tag that you specify does not exist, this tag is automatically created and added to the specified instance.
+        *   If the key of the specified tag is the same as that of an existing tag, the specified tag overwrites the existing tag.
+        *   You can add up to 20 tags to an instance.
+        *   You can add tags to up to 50 instances in each call.
+        
+
+        @param request: TagResourcesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: TagResourcesResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_id):
+            query['ResourceId'] = request.resource_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.resource_type):
+            query['ResourceType'] = request.resource_type
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='TagResources',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.TagResourcesResponse(),
-            self.do_rpcrequest('TagResources', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def tag_resources(self, request):
+        """
+        If you have a large number of instances, you can create multiple tags and add these tags to the instances. Then, you can filter these instances by tag.
+        *   A tag consists of a key and a value. Each key must be unique in a region for an Alibaba Cloud account. Different keys can be mapped to the same value.
+        *   If the tag that you specify does not exist, this tag is automatically created and added to the specified instance.
+        *   If the key of the specified tag is the same as that of an existing tag, the specified tag overwrites the existing tag.
+        *   You can add up to 20 tags to an instance.
+        *   You can add tags to up to 50 instances in each call.
+        
+
+        @param request: TagResourcesRequest
+
+        @return: TagResourcesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.tag_resources_with_options(request, runtime)
 
     def terminate_migrate_task_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.migrate_task_id):
+            query['MigrateTaskId'] = request.migrate_task_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='TerminateMigrateTask',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.TerminateMigrateTaskResponse(),
-            self.do_rpcrequest('TerminateMigrateTask', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def terminate_migrate_task(self, request):
@@ -3104,99 +14602,607 @@ class Client(OpenApiClient):
         return self.terminate_migrate_task_with_options(request, runtime)
 
     def transform_dbinstance_pay_type_with_options(self, request, runtime):
+        """
+        >  If you change the billing method of an instance from subscription to pay-as-you-go, a refund is provided. The refund amount is equal to the remaining subscription fee deducted by an amount of service fee. For more information, see [Switch an ApsaraDB RDS for MySQL instance from subscription to pay-as-you-go](~~161875~~).
+        > * If the balance of your Alibaba Cloud account is insufficient, you cannot change the billing method of an instance from pay-as-you-go to subscription.
+        > * This operation is not supported for instances whose specification change orders are not finished.
+        > * This operation is not supported for instances that are created in dedicated clusters.
+        ApsaraDB RDS supports the following two billing methods:
+        * Subscription: A subscription instance is an instance for which you pay an upfront fee. For long-term use, the subscription billing method is more cost-effective than the pay-as-you-go billing method. You are offered lower prices for longer subscription periods.
+        * Pay-as-you-go: A pay-as-you-go instance is an instance for which you are charged per hour based on your resource usage. The hourly fee is calculated based on the instance type that you specify in the purchase order and is deducted from the balance of your Alibaba Cloud account. For short-term use, we recommend that you select the pay-as-you-go billing method. If you no longer need a pay-as-you-go instance, you can release the instance to reduce costs.
+        For more information about the billing methods, see [Pricing, billable items, and billing methods](~~45020~~).
+        
+
+        @param request: TransformDBInstancePayTypeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: TransformDBInstancePayTypeResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.auto_renew):
+            query['AutoRenew'] = request.auto_renew
+        if not UtilClient.is_unset(request.business_info):
+            query['BusinessInfo'] = request.business_info
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.pay_type):
+            query['PayType'] = request.pay_type
+        if not UtilClient.is_unset(request.period):
+            query['Period'] = request.period
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.used_time):
+            query['UsedTime'] = request.used_time
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='TransformDBInstancePayType',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.TransformDBInstancePayTypeResponse(),
-            self.do_rpcrequest('TransformDBInstancePayType', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def transform_dbinstance_pay_type(self, request):
+        """
+        >  If you change the billing method of an instance from subscription to pay-as-you-go, a refund is provided. The refund amount is equal to the remaining subscription fee deducted by an amount of service fee. For more information, see [Switch an ApsaraDB RDS for MySQL instance from subscription to pay-as-you-go](~~161875~~).
+        > * If the balance of your Alibaba Cloud account is insufficient, you cannot change the billing method of an instance from pay-as-you-go to subscription.
+        > * This operation is not supported for instances whose specification change orders are not finished.
+        > * This operation is not supported for instances that are created in dedicated clusters.
+        ApsaraDB RDS supports the following two billing methods:
+        * Subscription: A subscription instance is an instance for which you pay an upfront fee. For long-term use, the subscription billing method is more cost-effective than the pay-as-you-go billing method. You are offered lower prices for longer subscription periods.
+        * Pay-as-you-go: A pay-as-you-go instance is an instance for which you are charged per hour based on your resource usage. The hourly fee is calculated based on the instance type that you specify in the purchase order and is deducted from the balance of your Alibaba Cloud account. For short-term use, we recommend that you select the pay-as-you-go billing method. If you no longer need a pay-as-you-go instance, you can release the instance to reduce costs.
+        For more information about the billing methods, see [Pricing, billable items, and billing methods](~~45020~~).
+        
+
+        @param request: TransformDBInstancePayTypeRequest
+
+        @return: TransformDBInstancePayTypeResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.transform_dbinstance_pay_type_with_options(request, runtime)
 
     def unlock_account_with_options(self, request, runtime):
+        """
+        You cannot use a locked account to log on to the corresponding instance. You must first unlock the account. For more information, see [Unlock and delete an account](~~147649~~).
+        
+
+        @param request: UnlockAccountRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UnlockAccountResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.account_name):
+            query['AccountName'] = request.account_name
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UnlockAccount',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.UnlockAccountResponse(),
-            self.do_rpcrequest('UnlockAccount', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def unlock_account(self, request):
+        """
+        You cannot use a locked account to log on to the corresponding instance. You must first unlock the account. For more information, see [Unlock and delete an account](~~147649~~).
+        
+
+        @param request: UnlockAccountRequest
+
+        @return: UnlockAccountResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.unlock_account_with_options(request, runtime)
 
     def untag_resources_with_options(self, request, runtime):
+        """
+        >  You can unbind up to 20 tags at a time.
+        > * If a tag is unbound from an instance and is not bound to other instances, the tag is deleted.
+        
+
+        @param request: UntagResourcesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UntagResourcesResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.all):
+            query['All'] = request.all
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_id):
+            query['ResourceId'] = request.resource_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.resource_type):
+            query['ResourceType'] = request.resource_type
+        if not UtilClient.is_unset(request.tag_key):
+            query['TagKey'] = request.tag_key
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UntagResources',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.UntagResourcesResponse(),
-            self.do_rpcrequest('UntagResources', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def untag_resources(self, request):
+        """
+        >  You can unbind up to 20 tags at a time.
+        > * If a tag is unbound from an instance and is not bound to other instances, the tag is deleted.
+        
+
+        @param request: UntagResourcesRequest
+
+        @return: UntagResourcesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.untag_resources_with_options(request, runtime)
 
     def update_user_backup_file_with_options(self, request, runtime):
+        """
+        >  A full backup file contains the data of a self-managed MySQL database. You can restore the data of a self-managed MySQL database from a full backup file to an ApsaraDB RDS for MySQL instance. For more information, see [Migrate the full backup data of a self-managed MySQL 5.7 database to an ApsaraDB RDS for MySQL instance](~~251779~~).
+        
+
+        @param request: UpdateUserBackupFileRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateUserBackupFileResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.backup_id):
+            query['BackupId'] = request.backup_id
+        if not UtilClient.is_unset(request.comment):
+            query['Comment'] = request.comment
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.retention):
+            query['Retention'] = request.retention
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateUserBackupFile',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.UpdateUserBackupFileResponse(),
-            self.do_rpcrequest('UpdateUserBackupFile', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def update_user_backup_file(self, request):
+        """
+        >  A full backup file contains the data of a self-managed MySQL database. You can restore the data of a self-managed MySQL database from a full backup file to an ApsaraDB RDS for MySQL instance. For more information, see [Migrate the full backup data of a self-managed MySQL 5.7 database to an ApsaraDB RDS for MySQL instance](~~251779~~).
+        
+
+        @param request: UpdateUserBackupFileRequest
+
+        @return: UpdateUserBackupFileResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.update_user_backup_file_with_options(request, runtime)
 
     def upgrade_dbinstance_engine_version_with_options(self, request, runtime):
+        """
+        >  The fee that you must pay after the upgrade varies based on the instance types and storage types of the original instance and the new instance.
+        If the instance is a primary instance to which read-only instances or disaster recovery instances are attached, you must upgrade the major engine versions of the read-only instances or disaster recovery instances before you upgrade the major engine version of the primary instance.
+        Before you call this operation, make sure that the following requirements are met:
+        *   The original instance is in the Running state.
+        *   The instance runs one of the following database versions:
+        *   MySQL 5.7
+        *   MySQL 5.6
+        *   MySQL 5.5
+        You can call the [UpgradeDBInstanceMajorVersion](~~330972~~) operation to upgrade the major engine version of an ApsaraDB RDS for PostgreSQL instance.
+        
+
+        @param request: UpgradeDBInstanceEngineVersionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpgradeDBInstanceEngineVersionResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.effective_time):
+            query['EffectiveTime'] = request.effective_time
+        if not UtilClient.is_unset(request.engine_version):
+            query['EngineVersion'] = request.engine_version
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpgradeDBInstanceEngineVersion',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.UpgradeDBInstanceEngineVersionResponse(),
-            self.do_rpcrequest('UpgradeDBInstanceEngineVersion', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def upgrade_dbinstance_engine_version(self, request):
+        """
+        >  The fee that you must pay after the upgrade varies based on the instance types and storage types of the original instance and the new instance.
+        If the instance is a primary instance to which read-only instances or disaster recovery instances are attached, you must upgrade the major engine versions of the read-only instances or disaster recovery instances before you upgrade the major engine version of the primary instance.
+        Before you call this operation, make sure that the following requirements are met:
+        *   The original instance is in the Running state.
+        *   The instance runs one of the following database versions:
+        *   MySQL 5.7
+        *   MySQL 5.6
+        *   MySQL 5.5
+        You can call the [UpgradeDBInstanceMajorVersion](~~330972~~) operation to upgrade the major engine version of an ApsaraDB RDS for PostgreSQL instance.
+        
+
+        @param request: UpgradeDBInstanceEngineVersionRequest
+
+        @return: UpgradeDBInstanceEngineVersionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.upgrade_dbinstance_engine_version_with_options(request, runtime)
 
     def upgrade_dbinstance_kernel_version_with_options(self, request, runtime):
+        """
+        An update to the minor engine version enhances performance, introduces new features, and fixes known bugs. For more information, see [Update the minor engine version of an ApsaraDB RDS for MySQL instance](~~96059~~), [Update the minor engine version of an ApsaraDB RDS for SQL Server instance](~~213582~~) and [Update the minor engine version of an ApsaraDB RDS for PostgreSQL instance](~~146895~~).
+        >  This operation is supported only for instances that run the MySQL, SQL Server, or PostgreSQL database engine.
+        
+
+        @param request: UpgradeDBInstanceKernelVersionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpgradeDBInstanceKernelVersionResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.switch_time):
+            query['SwitchTime'] = request.switch_time
+        if not UtilClient.is_unset(request.target_minor_version):
+            query['TargetMinorVersion'] = request.target_minor_version
+        if not UtilClient.is_unset(request.upgrade_time):
+            query['UpgradeTime'] = request.upgrade_time
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpgradeDBInstanceKernelVersion',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.UpgradeDBInstanceKernelVersionResponse(),
-            self.do_rpcrequest('UpgradeDBInstanceKernelVersion', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def upgrade_dbinstance_kernel_version(self, request):
+        """
+        An update to the minor engine version enhances performance, introduces new features, and fixes known bugs. For more information, see [Update the minor engine version of an ApsaraDB RDS for MySQL instance](~~96059~~), [Update the minor engine version of an ApsaraDB RDS for SQL Server instance](~~213582~~) and [Update the minor engine version of an ApsaraDB RDS for PostgreSQL instance](~~146895~~).
+        >  This operation is supported only for instances that run the MySQL, SQL Server, or PostgreSQL database engine.
+        
+
+        @param request: UpgradeDBInstanceKernelVersionRequest
+
+        @return: UpgradeDBInstanceKernelVersionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.upgrade_dbinstance_kernel_version_with_options(request, runtime)
 
-    def upgrade_dbproxy_instance_kernel_version_with_options(self, request, runtime):
+    def upgrade_dbinstance_major_version_with_options(self, request, runtime):
+        """
+        During an upgrade, ApsaraDB RDS retains the original RDS instance and creates an RDS instance that runs the new major engine version. You start to be *charged** for the new RDS instance based on the **pay-as-you-go** billing method after the instance is created. The new instance **does not inherit the reduced price that is offered to the original instance**. Before you call this operation, make sure that you fully understand the [billing methods and pricing](~~45020~~) of ApsaraDB RDS. You can decide whether to upgrade the major engine version based on your business requirements.
+        Before you upgrade the major engine version, you must call the [UpgradeDBInstanceMajorVersionPrecheck](~~330050~~) operation to perform an upgrade check and then call the [DescribeUpgradeMajorVersionPrecheckTask](~~330088~~) operation to query the upgrade check report. You can call the UpgradeDBInstanceMajorVersion operation only when the check result is **Success**.
+        Before you call this operation, make sure that the following requirements are met:
+        *   The original instance must run PostgreSQL 13, PostgreSQL 12, PostgreSQL 11, PostgreSQL 10, or PostgreSQL 9.4.
+        *   The original instance must run RDS High-availability Edition or RDS Basic Edition.
+        *   The original RDS instance must reside in a virtual private cloud (VPC). If the original instance resides in the classic network, you must migrate the instance to a VPC before you call this operation. For more information about how to view or change the network type of an instance, see [Change the network type of an ApsaraDB RDS for PostgreSQL instance](~~96761~~).
+        *   The original instance cannot be a read-only instance and cannot be created in a dedicated cluster.
+        *   The ID of the original instance cannot start with pg-cn.
+        An upgrade brings impacts, such as a transient connection that lasts a few minutes. We recommend that you perform an upgrade during off-peak hours. Before you perform an upgrade, we recommend that you read [Upgrade the major engine version of an ApsaraDB RDS for PostgreSQL instance](~~203309~~).
+        
+
+        @param request: UpgradeDBInstanceMajorVersionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpgradeDBInstanceMajorVersionResponse
+        """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.collect_stat_mode):
+            query['CollectStatMode'] = request.collect_stat_mode
+        if not UtilClient.is_unset(request.dbinstance_class):
+            query['DBInstanceClass'] = request.dbinstance_class
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.dbinstance_storage):
+            query['DBInstanceStorage'] = request.dbinstance_storage
+        if not UtilClient.is_unset(request.dbinstance_storage_type):
+            query['DBInstanceStorageType'] = request.dbinstance_storage_type
+        if not UtilClient.is_unset(request.instance_network_type):
+            query['InstanceNetworkType'] = request.instance_network_type
+        if not UtilClient.is_unset(request.pay_type):
+            query['PayType'] = request.pay_type
+        if not UtilClient.is_unset(request.period):
+            query['Period'] = request.period
+        if not UtilClient.is_unset(request.private_ip_address):
+            query['PrivateIpAddress'] = request.private_ip_address
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.switch_over):
+            query['SwitchOver'] = request.switch_over
+        if not UtilClient.is_unset(request.switch_time):
+            query['SwitchTime'] = request.switch_time
+        if not UtilClient.is_unset(request.switch_time_mode):
+            query['SwitchTimeMode'] = request.switch_time_mode
+        if not UtilClient.is_unset(request.target_major_version):
+            query['TargetMajorVersion'] = request.target_major_version
+        if not UtilClient.is_unset(request.used_time):
+            query['UsedTime'] = request.used_time
+        if not UtilClient.is_unset(request.vpcid):
+            query['VPCId'] = request.vpcid
+        if not UtilClient.is_unset(request.v_switch_id):
+            query['VSwitchId'] = request.v_switch_id
+        if not UtilClient.is_unset(request.zone_id):
+            query['ZoneId'] = request.zone_id
+        if not UtilClient.is_unset(request.zone_id_slave_1):
+            query['ZoneIdSlave1'] = request.zone_id_slave_1
+        if not UtilClient.is_unset(request.zone_id_slave_2):
+            query['ZoneIdSlave2'] = request.zone_id_slave_2
         req = open_api_models.OpenApiRequest(
-            body=UtilClient.to_map(request)
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpgradeDBInstanceMajorVersion',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.UpgradeDBInstanceMajorVersionResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def upgrade_dbinstance_major_version(self, request):
+        """
+        During an upgrade, ApsaraDB RDS retains the original RDS instance and creates an RDS instance that runs the new major engine version. You start to be *charged** for the new RDS instance based on the **pay-as-you-go** billing method after the instance is created. The new instance **does not inherit the reduced price that is offered to the original instance**. Before you call this operation, make sure that you fully understand the [billing methods and pricing](~~45020~~) of ApsaraDB RDS. You can decide whether to upgrade the major engine version based on your business requirements.
+        Before you upgrade the major engine version, you must call the [UpgradeDBInstanceMajorVersionPrecheck](~~330050~~) operation to perform an upgrade check and then call the [DescribeUpgradeMajorVersionPrecheckTask](~~330088~~) operation to query the upgrade check report. You can call the UpgradeDBInstanceMajorVersion operation only when the check result is **Success**.
+        Before you call this operation, make sure that the following requirements are met:
+        *   The original instance must run PostgreSQL 13, PostgreSQL 12, PostgreSQL 11, PostgreSQL 10, or PostgreSQL 9.4.
+        *   The original instance must run RDS High-availability Edition or RDS Basic Edition.
+        *   The original RDS instance must reside in a virtual private cloud (VPC). If the original instance resides in the classic network, you must migrate the instance to a VPC before you call this operation. For more information about how to view or change the network type of an instance, see [Change the network type of an ApsaraDB RDS for PostgreSQL instance](~~96761~~).
+        *   The original instance cannot be a read-only instance and cannot be created in a dedicated cluster.
+        *   The ID of the original instance cannot start with pg-cn.
+        An upgrade brings impacts, such as a transient connection that lasts a few minutes. We recommend that you perform an upgrade during off-peak hours. Before you perform an upgrade, we recommend that you read [Upgrade the major engine version of an ApsaraDB RDS for PostgreSQL instance](~~203309~~).
+        
+
+        @param request: UpgradeDBInstanceMajorVersionRequest
+
+        @return: UpgradeDBInstanceMajorVersionResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.upgrade_dbinstance_major_version_with_options(request, runtime)
+
+    def upgrade_dbinstance_major_version_precheck_with_options(self, request, runtime):
+        """
+        ApsaraDB RDS for PostgreSQL provides the major version upgrade feature. You can use this feature to upgrade the major engine version of an ApsaraDB RDS for PostgreSQL instance.
+        Before you perform an upgrade, you must perform an upgrade check and make sure that the check result is **Success**. You can call this operation to perform an upgrade check.
+        An upgrade brings impacts, such as a transient connection that lasts a few minutes. We recommend that you perform an upgrade during off-peak hours. Before you perform an upgrade, we recommend that you read [Upgrade the major engine version of an ApsaraDB RDS for PostgreSQL instance](~~203309~~).
+        
+
+        @param request: UpgradeDBInstanceMajorVersionPrecheckRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpgradeDBInstanceMajorVersionPrecheckResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.target_major_version):
+            query['TargetMajorVersion'] = request.target_major_version
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpgradeDBInstanceMajorVersionPrecheck',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.UpgradeDBInstanceMajorVersionPrecheckResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def upgrade_dbinstance_major_version_precheck(self, request):
+        """
+        ApsaraDB RDS for PostgreSQL provides the major version upgrade feature. You can use this feature to upgrade the major engine version of an ApsaraDB RDS for PostgreSQL instance.
+        Before you perform an upgrade, you must perform an upgrade check and make sure that the check result is **Success**. You can call this operation to perform an upgrade check.
+        An upgrade brings impacts, such as a transient connection that lasts a few minutes. We recommend that you perform an upgrade during off-peak hours. Before you perform an upgrade, we recommend that you read [Upgrade the major engine version of an ApsaraDB RDS for PostgreSQL instance](~~203309~~).
+        
+
+        @param request: UpgradeDBInstanceMajorVersionPrecheckRequest
+
+        @return: UpgradeDBInstanceMajorVersionPrecheckResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.upgrade_dbinstance_major_version_precheck_with_options(request, runtime)
+
+    def upgrade_dbproxy_instance_kernel_version_with_options(self, request, runtime):
+        """
+        Before you call the UpgradeDBProxyInstanceKernelVersion operation, make sure that the [ModifyDBProxy](~~141054~~) operation is called to enable the database proxy feature for the instance.
+        *   The dedicated proxy feature of ApsaraDB RDS for MySQL provides capabilities such as read/write splitting and short-lived connection optimization. For more information, see [What are database proxies?](~~138705~~)
+        *   The database proxy feature of ApsaraDB RDS for PostgreSQL supports read/write splitting. For more information, see [What are database proxies?](~~412194~~)
+        
+
+        @param request: UpgradeDBProxyInstanceKernelVersionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpgradeDBProxyInstanceKernelVersionResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.dbproxy_engine_type):
+            query['DBProxyEngineType'] = request.dbproxy_engine_type
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.switch_time):
+            query['SwitchTime'] = request.switch_time
+        if not UtilClient.is_unset(request.upgrade_time):
+            query['UpgradeTime'] = request.upgrade_time
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpgradeDBProxyInstanceKernelVersion',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
         )
         return TeaCore.from_map(
             rds_20140815_models.UpgradeDBProxyInstanceKernelVersionResponse(),
-            self.do_rpcrequest('UpgradeDBProxyInstanceKernelVersion', '2014-08-15', 'HTTPS', 'POST', 'AK', 'json', req, runtime)
+            self.call_api(params, req, runtime)
         )
 
     def upgrade_dbproxy_instance_kernel_version(self, request):
+        """
+        Before you call the UpgradeDBProxyInstanceKernelVersion operation, make sure that the [ModifyDBProxy](~~141054~~) operation is called to enable the database proxy feature for the instance.
+        *   The dedicated proxy feature of ApsaraDB RDS for MySQL provides capabilities such as read/write splitting and short-lived connection optimization. For more information, see [What are database proxies?](~~138705~~)
+        *   The database proxy feature of ApsaraDB RDS for PostgreSQL supports read/write splitting. For more information, see [What are database proxies?](~~412194~~)
+        
+
+        @param request: UpgradeDBProxyInstanceKernelVersionRequest
+
+        @return: UpgradeDBProxyInstanceKernelVersionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.upgrade_dbproxy_instance_kernel_version_with_options(request, runtime)

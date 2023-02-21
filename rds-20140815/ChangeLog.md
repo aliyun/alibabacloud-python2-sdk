@@ -1,3 +1,6 @@
+2023-02-21 Version: 1.0.4
+- Support More Open Api.
+
 2021-09-16 Version: 1.0.3
 - AMP Version Change.
 
