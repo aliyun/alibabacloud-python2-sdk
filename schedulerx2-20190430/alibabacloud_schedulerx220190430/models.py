@@ -137,6 +137,124 @@ class BatchDeleteJobsResponse(TeaModel):
         return self
 
 
+class BatchDeleteRouteStrategyRequest(TeaModel):
+    def __init__(self, group_id=None, job_id_list=None, namespace=None, region_id=None):
+        self.group_id = group_id  # type: str
+        self.job_id_list = job_id_list  # type: list[long]
+        self.namespace = namespace  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BatchDeleteRouteStrategyRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.group_id is not None:
+            result['GroupId'] = self.group_id
+        if self.job_id_list is not None:
+            result['JobIdList'] = self.job_id_list
+        if self.namespace is not None:
+            result['Namespace'] = self.namespace
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('GroupId') is not None:
+            self.group_id = m.get('GroupId')
+        if m.get('JobIdList') is not None:
+            self.job_id_list = m.get('JobIdList')
+        if m.get('Namespace') is not None:
+            self.namespace = m.get('Namespace')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class BatchDeleteRouteStrategyResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, request_id=None, success=None):
+        self.code = code  # type: int
+        self.message = message  # type: str
+        # Id of the request
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BatchDeleteRouteStrategyResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class BatchDeleteRouteStrategyResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: BatchDeleteRouteStrategyResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(BatchDeleteRouteStrategyResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = BatchDeleteRouteStrategyResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class BatchDisableJobsRequest(TeaModel):
     def __init__(self, group_id=None, job_id_list=None, namespace=None, namespace_source=None, region_id=None):
         # The ID of the application. You can obtain the ID of the application on the **Application Management** page in the SchedulerX console.
@@ -406,15 +524,17 @@ class BatchEnableJobsResponse(TeaModel):
 
 
 class CreateAppGroupRequest(TeaModel):
-    def __init__(self, app_key=None, app_name=None, description=None, group_id=None, max_jobs=None,
-                 monitor_config_json=None, monitor_contacts_json=None, namespace=None, namespace_name=None, namespace_source=None,
-                 region_id=None, schedule_busy_workers=None):
+    def __init__(self, app_key=None, app_name=None, app_type=None, description=None, enable_log=None, group_id=None,
+                 max_jobs=None, monitor_config_json=None, monitor_contacts_json=None, namespace=None, namespace_name=None,
+                 namespace_source=None, region_id=None, schedule_busy_workers=None):
         # The AppKey for the application.
         self.app_key = app_key  # type: str
         # The name of the application.
         self.app_name = app_name  # type: str
+        self.app_type = app_type  # type: int
         # The description of the application.
         self.description = description  # type: str
+        self.enable_log = enable_log  # type: bool
         # The ID of the application. You can obtain the application ID on the Application Management page in Distributed Task Scheduling Platform.
         self.group_id = group_id  # type: str
         # The maximum number of jobs.
@@ -447,8 +567,12 @@ class CreateAppGroupRequest(TeaModel):
             result['AppKey'] = self.app_key
         if self.app_name is not None:
             result['AppName'] = self.app_name
+        if self.app_type is not None:
+            result['AppType'] = self.app_type
         if self.description is not None:
             result['Description'] = self.description
+        if self.enable_log is not None:
+            result['EnableLog'] = self.enable_log
         if self.group_id is not None:
             result['GroupId'] = self.group_id
         if self.max_jobs is not None:
@@ -475,8 +599,12 @@ class CreateAppGroupRequest(TeaModel):
             self.app_key = m.get('AppKey')
         if m.get('AppName') is not None:
             self.app_name = m.get('AppName')
+        if m.get('AppType') is not None:
+            self.app_type = m.get('AppType')
         if m.get('Description') is not None:
             self.description = m.get('Description')
+        if m.get('EnableLog') is not None:
+            self.enable_log = m.get('EnableLog')
         if m.get('GroupId') is not None:
             self.group_id = m.get('GroupId')
         if m.get('MaxJobs') is not None:
@@ -1228,6 +1356,171 @@ class CreateNamespaceResponse(TeaModel):
         return self
 
 
+class CreateRouteStrategyRequest(TeaModel):
+    def __init__(self, group_id=None, job_id=None, name=None, namespace=None, region_id=None, status=None,
+                 strategy_content=None, type=None):
+        self.group_id = group_id  # type: str
+        self.job_id = job_id  # type: long
+        self.name = name  # type: str
+        self.namespace = namespace  # type: str
+        self.region_id = region_id  # type: str
+        self.status = status  # type: int
+        self.strategy_content = strategy_content  # type: str
+        self.type = type  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateRouteStrategyRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.group_id is not None:
+            result['GroupId'] = self.group_id
+        if self.job_id is not None:
+            result['JobId'] = self.job_id
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.namespace is not None:
+            result['Namespace'] = self.namespace
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.strategy_content is not None:
+            result['StrategyContent'] = self.strategy_content
+        if self.type is not None:
+            result['Type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('GroupId') is not None:
+            self.group_id = m.get('GroupId')
+        if m.get('JobId') is not None:
+            self.job_id = m.get('JobId')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('Namespace') is not None:
+            self.namespace = m.get('Namespace')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('StrategyContent') is not None:
+            self.strategy_content = m.get('StrategyContent')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        return self
+
+
+class CreateRouteStrategyResponseBodyData(TeaModel):
+    def __init__(self):
+        pass
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateRouteStrategyResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        return self
+
+
+class CreateRouteStrategyResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        self.code = code  # type: int
+        self.data = data  # type: CreateRouteStrategyResponseBodyData
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(CreateRouteStrategyResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = CreateRouteStrategyResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class CreateRouteStrategyResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateRouteStrategyResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateRouteStrategyResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateRouteStrategyResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CreateWorkflowRequest(TeaModel):
     def __init__(self, description=None, group_id=None, max_concurrency=None, name=None, namespace=None,
                  namespace_source=None, region_id=None, time_expression=None, time_type=None, timezone=None):
@@ -1407,6 +1700,124 @@ class CreateWorkflowResponse(TeaModel):
         return self
 
 
+class DeleteAppGroupRequest(TeaModel):
+    def __init__(self, delete_jobs=None, group_id=None, namespace=None, region_id=None):
+        self.delete_jobs = delete_jobs  # type: bool
+        self.group_id = group_id  # type: str
+        self.namespace = namespace  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteAppGroupRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.delete_jobs is not None:
+            result['DeleteJobs'] = self.delete_jobs
+        if self.group_id is not None:
+            result['GroupId'] = self.group_id
+        if self.namespace is not None:
+            result['Namespace'] = self.namespace
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DeleteJobs') is not None:
+            self.delete_jobs = m.get('DeleteJobs')
+        if m.get('GroupId') is not None:
+            self.group_id = m.get('GroupId')
+        if m.get('Namespace') is not None:
+            self.namespace = m.get('Namespace')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class DeleteAppGroupResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, request_id=None, success=None):
+        self.code = code  # type: int
+        self.message = message  # type: str
+        # Id of the request
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteAppGroupResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class DeleteAppGroupResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteAppGroupResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteAppGroupResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteAppGroupResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DeleteJobRequest(TeaModel):
     def __init__(self, group_id=None, job_id=None, namespace=None, namespace_source=None, region_id=None):
         # The ID of the application. You can obtain the application ID on the **Application Management** page in Distributed Task Scheduling Platform.
@@ -1537,6 +1948,123 @@ class DeleteJobResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DeleteJobResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DeleteRouteStrategyRequest(TeaModel):
+    def __init__(self, group_id=None, job_id=None, namespace=None, region_id=None):
+        self.group_id = group_id  # type: str
+        self.job_id = job_id  # type: long
+        self.namespace = namespace  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteRouteStrategyRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.group_id is not None:
+            result['GroupId'] = self.group_id
+        if self.job_id is not None:
+            result['JobId'] = self.job_id
+        if self.namespace is not None:
+            result['Namespace'] = self.namespace
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('GroupId') is not None:
+            self.group_id = m.get('GroupId')
+        if m.get('JobId') is not None:
+            self.job_id = m.get('JobId')
+        if m.get('Namespace') is not None:
+            self.namespace = m.get('Namespace')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class DeleteRouteStrategyResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, request_id=None, success=None):
+        self.code = code  # type: int
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteRouteStrategyResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class DeleteRouteStrategyResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteRouteStrategyResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteRouteStrategyResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteRouteStrategyResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -2867,6 +3395,181 @@ class ExecuteWorkflowResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ExecuteWorkflowResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetAppGroupRequest(TeaModel):
+    def __init__(self, group_id=None, namespace=None, region_id=None):
+        self.group_id = group_id  # type: str
+        self.namespace = namespace  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetAppGroupRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.group_id is not None:
+            result['GroupId'] = self.group_id
+        if self.namespace is not None:
+            result['Namespace'] = self.namespace
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('GroupId') is not None:
+            self.group_id = m.get('GroupId')
+        if m.get('Namespace') is not None:
+            self.namespace = m.get('Namespace')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class GetAppGroupResponseBodyData(TeaModel):
+    def __init__(self, app_key=None, app_name=None, cur_jobs=None, description=None, group_id=None, max_jobs=None,
+                 monitor_config_json=None):
+        self.app_key = app_key  # type: str
+        self.app_name = app_name  # type: str
+        self.cur_jobs = cur_jobs  # type: int
+        self.description = description  # type: str
+        self.group_id = group_id  # type: str
+        self.max_jobs = max_jobs  # type: int
+        self.monitor_config_json = monitor_config_json  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetAppGroupResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_key is not None:
+            result['AppKey'] = self.app_key
+        if self.app_name is not None:
+            result['AppName'] = self.app_name
+        if self.cur_jobs is not None:
+            result['CurJobs'] = self.cur_jobs
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.group_id is not None:
+            result['GroupId'] = self.group_id
+        if self.max_jobs is not None:
+            result['MaxJobs'] = self.max_jobs
+        if self.monitor_config_json is not None:
+            result['MonitorConfigJson'] = self.monitor_config_json
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppKey') is not None:
+            self.app_key = m.get('AppKey')
+        if m.get('AppName') is not None:
+            self.app_name = m.get('AppName')
+        if m.get('CurJobs') is not None:
+            self.cur_jobs = m.get('CurJobs')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('GroupId') is not None:
+            self.group_id = m.get('GroupId')
+        if m.get('MaxJobs') is not None:
+            self.max_jobs = m.get('MaxJobs')
+        if m.get('MonitorConfigJson') is not None:
+            self.monitor_config_json = m.get('MonitorConfigJson')
+        return self
+
+
+class GetAppGroupResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        self.code = code  # type: int
+        self.data = data  # type: GetAppGroupResponseBodyData
+        self.message = message  # type: str
+        # Id of the request
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(GetAppGroupResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = GetAppGroupResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class GetAppGroupResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetAppGroupResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetAppGroupResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetAppGroupResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -7308,6 +8011,129 @@ class StopInstanceResponse(TeaModel):
         return self
 
 
+class UpdateAppGroupRequest(TeaModel):
+    def __init__(self, description=None, group_id=None, max_concurrency=None, namespace=None, region_id=None):
+        self.description = description  # type: str
+        self.group_id = group_id  # type: str
+        self.max_concurrency = max_concurrency  # type: int
+        self.namespace = namespace  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateAppGroupRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.group_id is not None:
+            result['GroupId'] = self.group_id
+        if self.max_concurrency is not None:
+            result['MaxConcurrency'] = self.max_concurrency
+        if self.namespace is not None:
+            result['Namespace'] = self.namespace
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('GroupId') is not None:
+            self.group_id = m.get('GroupId')
+        if m.get('MaxConcurrency') is not None:
+            self.max_concurrency = m.get('MaxConcurrency')
+        if m.get('Namespace') is not None:
+            self.namespace = m.get('Namespace')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class UpdateAppGroupResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, request_id=None, success=None):
+        self.code = code  # type: int
+        self.message = message  # type: str
+        # Id of the request
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateAppGroupResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class UpdateAppGroupResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UpdateAppGroupResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdateAppGroupResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UpdateAppGroupResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class UpdateJobRequestContactInfo(TeaModel):
     def __init__(self, ding=None, user_mail=None, user_name=None, user_phone=None):
         # The webhook URL of the DingTalk chatbot. For more information, see [DingTalk development documentation](https://open.dingtalk.com/document/org/application-types).
@@ -7357,8 +8183,8 @@ class UpdateJobRequest(TeaModel):
                  fail_enable=None, fail_times=None, group_id=None, job_id=None, max_attempt=None, max_concurrency=None,
                  miss_worker_enable=None, name=None, namespace=None, namespace_source=None, page_size=None, parameters=None,
                  queue_size=None, region_id=None, send_channel=None, success_notice_enable=None, task_attempt_interval=None,
-                 task_max_attempt=None, time_expression=None, time_type=None, timeout=None, timeout_enable=None,
-                 timeout_kill_enable=None):
+                 task_dispatch_mode=None, task_max_attempt=None, time_expression=None, time_type=None, timeout=None,
+                 timeout_enable=None, timeout_kill_enable=None):
         # The interval at which the system attempts to rerun a job. Default value: 30. Unit: seconds.
         self.attempt_interval = attempt_interval  # type: int
         # When the Time type parameter is set to cron, you can specify a custom calendar.
@@ -7426,6 +8252,7 @@ class UpdateJobRequest(TeaModel):
         self.success_notice_enable = success_notice_enable  # type: bool
         # The interval at which the system can rerun the subtask when the subtask fails. This parameter is an advanced configuration item of the MapReduce job.
         self.task_attempt_interval = task_attempt_interval  # type: int
+        self.task_dispatch_mode = task_dispatch_mode  # type: str
         # The number of retries that the system can perform when the subtask fails. This parameter is an advanced configuration item of the MapReduce job.
         self.task_max_attempt = task_max_attempt  # type: int
         # The time expression. You can set the time expression according to the selected time type.
@@ -7523,6 +8350,8 @@ class UpdateJobRequest(TeaModel):
             result['SuccessNoticeEnable'] = self.success_notice_enable
         if self.task_attempt_interval is not None:
             result['TaskAttemptInterval'] = self.task_attempt_interval
+        if self.task_dispatch_mode is not None:
+            result['TaskDispatchMode'] = self.task_dispatch_mode
         if self.task_max_attempt is not None:
             result['TaskMaxAttempt'] = self.task_max_attempt
         if self.time_expression is not None:
@@ -7596,6 +8425,8 @@ class UpdateJobRequest(TeaModel):
             self.success_notice_enable = m.get('SuccessNoticeEnable')
         if m.get('TaskAttemptInterval') is not None:
             self.task_attempt_interval = m.get('TaskAttemptInterval')
+        if m.get('TaskDispatchMode') is not None:
+            self.task_dispatch_mode = m.get('TaskDispatchMode')
         if m.get('TaskMaxAttempt') is not None:
             self.task_max_attempt = m.get('TaskMaxAttempt')
         if m.get('TimeExpression') is not None:
