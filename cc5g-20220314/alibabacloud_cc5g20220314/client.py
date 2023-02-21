@@ -960,6 +960,32 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_batch_operate_cards_tasks_with_options(request, runtime)
 
+    def list_card_usages_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListCardUsages',
+            version='2022-03-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cc5g20220314_models.ListCardUsagesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_card_usages(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_card_usages_with_options(request, runtime)
+
     def list_cards_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
