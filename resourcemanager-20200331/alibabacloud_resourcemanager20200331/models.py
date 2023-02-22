@@ -470,6 +470,93 @@ class BindSecureMobilePhoneResponse(TeaModel):
         return self
 
 
+class CancelChangeAccountEmailRequest(TeaModel):
+    def __init__(self, account_id=None):
+        self.account_id = account_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CancelChangeAccountEmailRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.account_id is not None:
+            result['AccountId'] = self.account_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccountId') is not None:
+            self.account_id = m.get('AccountId')
+        return self
+
+
+class CancelChangeAccountEmailResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CancelChangeAccountEmailResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class CancelChangeAccountEmailResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CancelChangeAccountEmailResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CancelChangeAccountEmailResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CancelChangeAccountEmailResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CancelCreateCloudAccountRequest(TeaModel):
     def __init__(self, record_id=None):
         self.record_id = record_id  # type: str
@@ -810,6 +897,98 @@ class CancelPromoteResourceAccountResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CancelPromoteResourceAccountResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ChangeAccountEmailRequest(TeaModel):
+    def __init__(self, account_id=None, email=None):
+        self.account_id = account_id  # type: str
+        self.email = email  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ChangeAccountEmailRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.account_id is not None:
+            result['AccountId'] = self.account_id
+        if self.email is not None:
+            result['Email'] = self.email
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccountId') is not None:
+            self.account_id = m.get('AccountId')
+        if m.get('Email') is not None:
+            self.email = m.get('Email')
+        return self
+
+
+class ChangeAccountEmailResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ChangeAccountEmailResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ChangeAccountEmailResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ChangeAccountEmailResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ChangeAccountEmailResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ChangeAccountEmailResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -1704,11 +1883,12 @@ class CreateResourceAccountRequestTag(TeaModel):
 
 class CreateResourceAccountRequest(TeaModel):
     def __init__(self, account_name_prefix=None, display_name=None, parent_folder_id=None, payer_account_id=None,
-                 tag=None):
+                 resell_account_type=None, tag=None):
         self.account_name_prefix = account_name_prefix  # type: str
         self.display_name = display_name  # type: str
         self.parent_folder_id = parent_folder_id  # type: str
         self.payer_account_id = payer_account_id  # type: str
+        self.resell_account_type = resell_account_type  # type: str
         self.tag = tag  # type: list[CreateResourceAccountRequestTag]
 
     def validate(self):
@@ -1731,6 +1911,8 @@ class CreateResourceAccountRequest(TeaModel):
             result['ParentFolderId'] = self.parent_folder_id
         if self.payer_account_id is not None:
             result['PayerAccountId'] = self.payer_account_id
+        if self.resell_account_type is not None:
+            result['ResellAccountType'] = self.resell_account_type
         result['Tag'] = []
         if self.tag is not None:
             for k in self.tag:
@@ -1747,6 +1929,8 @@ class CreateResourceAccountRequest(TeaModel):
             self.parent_folder_id = m.get('ParentFolderId')
         if m.get('PayerAccountId') is not None:
             self.payer_account_id = m.get('PayerAccountId')
+        if m.get('ResellAccountType') is not None:
+            self.resell_account_type = m.get('ResellAccountType')
         self.tag = []
         if m.get('Tag') is not None:
             for k in m.get('Tag'):
@@ -4190,12 +4374,13 @@ class GetAccountResponseBodyAccountTags(TeaModel):
 
 
 class GetAccountResponseBodyAccount(TeaModel):
-    def __init__(self, account_id=None, account_name=None, display_name=None, folder_id=None,
+    def __init__(self, account_id=None, account_name=None, display_name=None, email_status=None, folder_id=None,
                  identity_information=None, join_method=None, join_time=None, location=None, modify_time=None,
                  resource_directory_id=None, resource_directory_path=None, status=None, tags=None, type=None):
         self.account_id = account_id  # type: str
         self.account_name = account_name  # type: str
         self.display_name = display_name  # type: str
+        self.email_status = email_status  # type: str
         self.folder_id = folder_id  # type: str
         self.identity_information = identity_information  # type: str
         self.join_method = join_method  # type: str
@@ -4226,6 +4411,8 @@ class GetAccountResponseBodyAccount(TeaModel):
             result['AccountName'] = self.account_name
         if self.display_name is not None:
             result['DisplayName'] = self.display_name
+        if self.email_status is not None:
+            result['EmailStatus'] = self.email_status
         if self.folder_id is not None:
             result['FolderId'] = self.folder_id
         if self.identity_information is not None:
@@ -4260,6 +4447,8 @@ class GetAccountResponseBodyAccount(TeaModel):
             self.account_name = m.get('AccountName')
         if m.get('DisplayName') is not None:
             self.display_name = m.get('DisplayName')
+        if m.get('EmailStatus') is not None:
+            self.email_status = m.get('EmailStatus')
         if m.get('FolderId') is not None:
             self.folder_id = m.get('FolderId')
         if m.get('IdentityInformation') is not None:
@@ -12448,6 +12637,93 @@ class ResendPromoteResourceAccountEmailResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ResendPromoteResourceAccountEmailResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class RetryChangeAccountEmailRequest(TeaModel):
+    def __init__(self, account_id=None):
+        self.account_id = account_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RetryChangeAccountEmailRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.account_id is not None:
+            result['AccountId'] = self.account_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccountId') is not None:
+            self.account_id = m.get('AccountId')
+        return self
+
+
+class RetryChangeAccountEmailResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RetryChangeAccountEmailResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class RetryChangeAccountEmailResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: RetryChangeAccountEmailResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(RetryChangeAccountEmailResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = RetryChangeAccountEmailResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 

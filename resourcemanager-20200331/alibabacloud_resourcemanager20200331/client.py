@@ -181,6 +181,34 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.bind_secure_mobile_phone_with_options(request, runtime)
 
+    def cancel_change_account_email_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.account_id):
+            query['AccountId'] = request.account_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CancelChangeAccountEmail',
+            version='2020-03-31',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            resource_manager_20200331_models.CancelChangeAccountEmailResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def cancel_change_account_email(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.cancel_change_account_email_with_options(request, runtime)
+
     def cancel_create_cloud_account_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -264,6 +292,36 @@ class Client(OpenApiClient):
     def cancel_promote_resource_account(self, request):
         runtime = util_models.RuntimeOptions()
         return self.cancel_promote_resource_account_with_options(request, runtime)
+
+    def change_account_email_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.account_id):
+            query['AccountId'] = request.account_id
+        if not UtilClient.is_unset(request.email):
+            query['Email'] = request.email
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ChangeAccountEmail',
+            version='2020-03-31',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            resource_manager_20200331_models.ChangeAccountEmailResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def change_account_email(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.change_account_email_with_options(request, runtime)
 
     def check_account_delete_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -466,6 +524,8 @@ class Client(OpenApiClient):
             query['ParentFolderId'] = request.parent_folder_id
         if not UtilClient.is_unset(request.payer_account_id):
             query['PayerAccountId'] = request.payer_account_id
+        if not UtilClient.is_unset(request.resell_account_type):
+            query['ResellAccountType'] = request.resell_account_type
         if not UtilClient.is_unset(request.tag):
             query['Tag'] = request.tag
         req = open_api_models.OpenApiRequest(
@@ -2430,6 +2490,34 @@ class Client(OpenApiClient):
     def resend_promote_resource_account_email(self, request):
         runtime = util_models.RuntimeOptions()
         return self.resend_promote_resource_account_email_with_options(request, runtime)
+
+    def retry_change_account_email_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.account_id):
+            query['AccountId'] = request.account_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RetryChangeAccountEmail',
+            version='2020-03-31',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            resource_manager_20200331_models.RetryChangeAccountEmailResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def retry_change_account_email(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.retry_change_account_email_with_options(request, runtime)
 
     def send_verification_code_for_bind_secure_mobile_phone_with_options(self, request, runtime):
         UtilClient.validate_model(request)
