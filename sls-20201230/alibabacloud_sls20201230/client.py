@@ -9,8 +9,8 @@ from alibabacloud_gateway_spi.client import Client as SPIClient
 from alibabacloud_tea_openapi.client import Client as OpenApiClient
 from alibabacloud_tea_openapi import models as open_api_models
 from alibabacloud_gateway_sls.client import Client as GatewayClientClient
-from alibabacloud_sls20201230 import models as sls_20201230_models
 from alibabacloud_tea_util import models as util_models
+from alibabacloud_sls20201230 import models as sls_20201230_models
 from alibabacloud_tea_util.client import Client as UtilClient
 from alibabacloud_openapi_util.client import Client as OpenApiUtilClient
 
@@ -26,11 +26,6 @@ class Client(OpenApiClient):
         self._client = GatewayClientClient()
         self._spi = self._client
         self._endpoint_rule = 'central'
-
-    def apply_config_to_machine_group(self, project, machine_group, config_name):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.apply_config_to_machine_group_with_options(project, machine_group, config_name, headers, runtime)
 
     def apply_config_to_machine_group_with_options(self, project, machine_group, config_name, headers, runtime):
         host_map = {}
@@ -55,10 +50,44 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def create_consumer_group(self, project, logstore, request):
+    def apply_config_to_machine_group(self, project, machine_group, config_name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_consumer_group_with_options(project, logstore, request, headers, runtime)
+        return self.apply_config_to_machine_group_with_options(project, machine_group, config_name, headers, runtime)
+
+    def change_resource_group_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.resource_group_id):
+            body['resourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.resource_id):
+            body['resourceId'] = request.resource_id
+        if not UtilClient.is_unset(request.resource_type):
+            body['resourceType'] = request.resource_type
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ChangeResourceGroup',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/resourcegroup',
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.ChangeResourceGroupResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def change_resource_group(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.change_resource_group_with_options(request, headers, runtime)
 
     def create_consumer_group_with_options(self, project, logstore, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -92,10 +121,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def create_domain(self, project, request):
+    def create_consumer_group(self, project, logstore, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_domain_with_options(project, request, headers, runtime)
+        return self.create_consumer_group_with_options(project, logstore, request, headers, runtime)
 
     def create_domain_with_options(self, project, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -125,10 +154,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def create_index(self, project, logstore, request):
+    def create_domain(self, project, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_index_with_options(project, logstore, request, headers, runtime)
+        return self.create_domain_with_options(project, request, headers, runtime)
 
     def create_index_with_options(self, project, logstore, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -170,10 +199,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def create_log_store(self, project, request):
+    def create_index(self, project, logstore, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_log_store_with_options(project, request, headers, runtime)
+        return self.create_index_with_options(project, logstore, request, headers, runtime)
 
     def create_log_store_with_options(self, project, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -223,10 +252,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def create_logging(self, project, request):
+    def create_log_store(self, project, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_logging_with_options(project, request, headers, runtime)
+        return self.create_log_store_with_options(project, request, headers, runtime)
 
     def create_logging_with_options(self, project, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -258,10 +287,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def create_machine_group(self, project, request):
+    def create_logging(self, project, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_machine_group_with_options(project, request, headers, runtime)
+        return self.create_logging_with_options(project, request, headers, runtime)
 
     def create_machine_group_with_options(self, project, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -299,10 +328,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def create_odps_shipper(self, project, logstore, request):
+    def create_machine_group(self, project, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_odps_shipper_with_options(project, logstore, request, headers, runtime)
+        return self.create_machine_group_with_options(project, request, headers, runtime)
 
     def create_odps_shipper_with_options(self, project, logstore, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -336,10 +365,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def create_oss_external_store(self, project, request):
+    def create_odps_shipper(self, project, logstore, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_oss_external_store_with_options(project, request, headers, runtime)
+        return self.create_odps_shipper_with_options(project, logstore, request, headers, runtime)
 
     def create_oss_external_store_with_options(self, project, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -373,10 +402,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def create_oss_shipper(self, project, logstore, request):
+    def create_oss_external_store(self, project, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_oss_shipper_with_options(project, logstore, request, headers, runtime)
+        return self.create_oss_external_store_with_options(project, request, headers, runtime)
 
     def create_oss_shipper_with_options(self, project, logstore, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -410,10 +439,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def create_project(self, request):
+    def create_oss_shipper(self, project, logstore, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_project_with_options(request, headers, runtime)
+        return self.create_oss_shipper_with_options(project, logstore, request, headers, runtime)
 
     def create_project_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -422,6 +451,8 @@ class Client(OpenApiClient):
             body['description'] = request.description
         if not UtilClient.is_unset(request.project_name):
             body['projectName'] = request.project_name
+        if not UtilClient.is_unset(request.resource_group_id):
+            body['resourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
@@ -442,10 +473,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def create_rds_external_store(self, project, request):
+    def create_project(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_rds_external_store_with_options(project, request, headers, runtime)
+        return self.create_project_with_options(request, headers, runtime)
 
     def create_rds_external_store_with_options(self, project, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -479,10 +510,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def create_saved_search(self, project, request):
+    def create_rds_external_store(self, project, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_saved_search_with_options(project, request, headers, runtime)
+        return self.create_rds_external_store_with_options(project, request, headers, runtime)
 
     def create_saved_search_with_options(self, project, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -520,10 +551,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def delete_consumer_group(self, project, logstore, consumer_group):
+    def create_saved_search(self, project, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_consumer_group_with_options(project, logstore, consumer_group, headers, runtime)
+        return self.create_saved_search_with_options(project, request, headers, runtime)
 
     def delete_consumer_group_with_options(self, project, logstore, consumer_group, headers, runtime):
         host_map = {}
@@ -548,10 +579,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def delete_domain(self, project, domain_name):
+    def delete_consumer_group(self, project, logstore, consumer_group):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_domain_with_options(project, domain_name, headers, runtime)
+        return self.delete_consumer_group_with_options(project, logstore, consumer_group, headers, runtime)
 
     def delete_domain_with_options(self, project, domain_name, headers, runtime):
         host_map = {}
@@ -576,10 +607,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def delete_external_store(self, project, external_store_name):
+    def delete_domain(self, project, domain_name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_external_store_with_options(project, external_store_name, headers, runtime)
+        return self.delete_domain_with_options(project, domain_name, headers, runtime)
 
     def delete_external_store_with_options(self, project, external_store_name, headers, runtime):
         host_map = {}
@@ -604,10 +635,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def delete_index(self, project, logstore):
+    def delete_external_store(self, project, external_store_name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_index_with_options(project, logstore, headers, runtime)
+        return self.delete_external_store_with_options(project, external_store_name, headers, runtime)
 
     def delete_index_with_options(self, project, logstore, headers, runtime):
         host_map = {}
@@ -632,10 +663,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def delete_log_store(self, project, logstore):
+    def delete_index(self, project, logstore):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_log_store_with_options(project, logstore, headers, runtime)
+        return self.delete_index_with_options(project, logstore, headers, runtime)
 
     def delete_log_store_with_options(self, project, logstore, headers, runtime):
         host_map = {}
@@ -660,10 +691,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def delete_logging(self, project):
+    def delete_log_store(self, project, logstore):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_logging_with_options(project, headers, runtime)
+        return self.delete_log_store_with_options(project, logstore, headers, runtime)
 
     def delete_logging_with_options(self, project, headers, runtime):
         host_map = {}
@@ -688,10 +719,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def delete_machine_group(self, project, machine_group):
+    def delete_logging(self, project):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_machine_group_with_options(project, machine_group, headers, runtime)
+        return self.delete_logging_with_options(project, headers, runtime)
 
     def delete_machine_group_with_options(self, project, machine_group, headers, runtime):
         host_map = {}
@@ -716,17 +747,19 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def delete_project(self, project):
+    def delete_machine_group(self, project, machine_group):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_project_with_options(project, headers, runtime)
+        return self.delete_machine_group_with_options(project, machine_group, headers, runtime)
 
-    def delete_project_with_options(self, project, headers, runtime):
-        host_map = {}
-        host_map['project'] = project
+    def delete_project_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.project):
+            query['project'] = request.project
         req = open_api_models.OpenApiRequest(
-            host_map=host_map,
-            headers=headers
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DeleteProject',
@@ -744,10 +777,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def delete_project_policy(self, project):
+    def delete_project(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_project_policy_with_options(project, headers, runtime)
+        return self.delete_project_with_options(request, headers, runtime)
 
     def delete_project_policy_with_options(self, project, headers, runtime):
         host_map = {}
@@ -772,10 +805,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def delete_saved_search(self, project, savedsearch_name):
+    def delete_project_policy(self, project):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_saved_search_with_options(project, savedsearch_name, headers, runtime)
+        return self.delete_project_policy_with_options(project, headers, runtime)
 
     def delete_saved_search_with_options(self, project, savedsearch_name, headers, runtime):
         host_map = {}
@@ -800,10 +833,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def delete_shipper(self, project, logstore, shipper_name):
+    def delete_saved_search(self, project, savedsearch_name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_shipper_with_options(project, logstore, shipper_name, headers, runtime)
+        return self.delete_saved_search_with_options(project, savedsearch_name, headers, runtime)
 
     def delete_shipper_with_options(self, project, logstore, shipper_name, headers, runtime):
         host_map = {}
@@ -828,10 +861,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def get_applied_configs(self, project, machine_group):
+    def delete_shipper(self, project, logstore, shipper_name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_applied_configs_with_options(project, machine_group, headers, runtime)
+        return self.delete_shipper_with_options(project, logstore, shipper_name, headers, runtime)
 
     def get_applied_configs_with_options(self, project, machine_group, headers, runtime):
         host_map = {}
@@ -856,10 +889,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def get_applied_machine_groups(self, project, config_name):
+    def get_applied_configs(self, project, machine_group):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_applied_machine_groups_with_options(project, config_name, headers, runtime)
+        return self.get_applied_configs_with_options(project, machine_group, headers, runtime)
 
     def get_applied_machine_groups_with_options(self, project, config_name, headers, runtime):
         host_map = {}
@@ -884,10 +917,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def get_check_point(self, project, logstore, consumer_group, request):
+    def get_applied_machine_groups(self, project, config_name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_check_point_with_options(project, logstore, consumer_group, request, headers, runtime)
+        return self.get_applied_machine_groups_with_options(project, config_name, headers, runtime)
 
     def get_check_point_with_options(self, project, logstore, consumer_group, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -917,10 +950,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def get_context_logs(self, project, logstore, request):
+    def get_check_point(self, project, logstore, consumer_group, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_context_logs_with_options(project, logstore, request, headers, runtime)
+        return self.get_check_point_with_options(project, logstore, consumer_group, request, headers, runtime)
 
     def get_context_logs_with_options(self, project, logstore, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -958,10 +991,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def get_cursor(self, project, logstore, shard_id, request):
+    def get_context_logs(self, project, logstore, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_cursor_with_options(project, logstore, shard_id, request, headers, runtime)
+        return self.get_context_logs_with_options(project, logstore, request, headers, runtime)
 
     def get_cursor_with_options(self, project, logstore, shard_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -991,10 +1024,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def get_cursor_time(self, project, logstore, shard_id, request):
+    def get_cursor(self, project, logstore, shard_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_cursor_time_with_options(project, logstore, shard_id, request, headers, runtime)
+        return self.get_cursor_with_options(project, logstore, shard_id, request, headers, runtime)
 
     def get_cursor_time_with_options(self, project, logstore, shard_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1024,10 +1057,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def get_external_store(self, project, external_store_name):
+    def get_cursor_time(self, project, logstore, shard_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_external_store_with_options(project, external_store_name, headers, runtime)
+        return self.get_cursor_time_with_options(project, logstore, shard_id, request, headers, runtime)
 
     def get_external_store_with_options(self, project, external_store_name, headers, runtime):
         host_map = {}
@@ -1052,10 +1085,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def get_histograms(self, project, logstore, request):
+    def get_external_store(self, project, external_store_name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_histograms_with_options(project, logstore, request, headers, runtime)
+        return self.get_external_store_with_options(project, external_store_name, headers, runtime)
 
     def get_histograms_with_options(self, project, logstore, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1091,10 +1124,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def get_index(self, project, logstore):
+    def get_histograms(self, project, logstore, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_index_with_options(project, logstore, headers, runtime)
+        return self.get_histograms_with_options(project, logstore, request, headers, runtime)
 
     def get_index_with_options(self, project, logstore, headers, runtime):
         host_map = {}
@@ -1119,10 +1152,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def get_log_store(self, project, logstore):
+    def get_index(self, project, logstore):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_log_store_with_options(project, logstore, headers, runtime)
+        return self.get_index_with_options(project, logstore, headers, runtime)
 
     def get_log_store_with_options(self, project, logstore, headers, runtime):
         host_map = {}
@@ -1147,10 +1180,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def get_logging(self, project):
+    def get_log_store(self, project, logstore):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_logging_with_options(project, headers, runtime)
+        return self.get_log_store_with_options(project, logstore, headers, runtime)
 
     def get_logging_with_options(self, project, headers, runtime):
         host_map = {}
@@ -1175,10 +1208,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def get_logs(self, project, logstore, request):
+    def get_logging(self, project):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_logs_with_options(project, logstore, request, headers, runtime)
+        return self.get_logging_with_options(project, headers, runtime)
 
     def get_logs_with_options(self, project, logstore, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1222,10 +1255,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def get_machine_group(self, project, machine_group):
+    def get_logs(self, project, logstore, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_machine_group_with_options(project, machine_group, headers, runtime)
+        return self.get_logs_with_options(project, logstore, request, headers, runtime)
 
     def get_machine_group_with_options(self, project, machine_group, headers, runtime):
         host_map = {}
@@ -1250,10 +1283,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def get_project(self, project):
+    def get_machine_group(self, project, machine_group):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_project_with_options(project, headers, runtime)
+        return self.get_machine_group_with_options(project, machine_group, headers, runtime)
 
     def get_project_with_options(self, project, headers, runtime):
         host_map = {}
@@ -1278,10 +1311,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def get_project_logs(self, project, request):
+    def get_project(self, project):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_project_logs_with_options(project, request, headers, runtime)
+        return self.get_project_with_options(project, headers, runtime)
 
     def get_project_logs_with_options(self, project, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1313,10 +1346,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def get_project_policy(self, project):
+    def get_project_logs(self, project, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_project_policy_with_options(project, headers, runtime)
+        return self.get_project_logs_with_options(project, request, headers, runtime)
 
     def get_project_policy_with_options(self, project, headers, runtime):
         host_map = {}
@@ -1334,17 +1367,17 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='json',
-            body_type='json'
+            body_type='string'
         )
         return TeaCore.from_map(
             sls_20201230_models.GetProjectPolicyResponse(),
             self.execute(params, req, runtime)
         )
 
-    def get_saved_search(self, project, savedsearch_name):
+    def get_project_policy(self, project):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_saved_search_with_options(project, savedsearch_name, headers, runtime)
+        return self.get_project_policy_with_options(project, headers, runtime)
 
     def get_saved_search_with_options(self, project, savedsearch_name, headers, runtime):
         host_map = {}
@@ -1369,10 +1402,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def get_shipper_status(self, project, logstore, shipper_name, request):
+    def get_saved_search(self, project, savedsearch_name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_shipper_status_with_options(project, logstore, shipper_name, request, headers, runtime)
+        return self.get_saved_search_with_options(project, savedsearch_name, headers, runtime)
 
     def get_shipper_status_with_options(self, project, logstore, shipper_name, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1410,10 +1443,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def list_consumer_group(self, project, logstore):
+    def get_shipper_status(self, project, logstore, shipper_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_consumer_group_with_options(project, logstore, headers, runtime)
+        return self.get_shipper_status_with_options(project, logstore, shipper_name, request, headers, runtime)
 
     def list_consumer_group_with_options(self, project, logstore, headers, runtime):
         host_map = {}
@@ -1438,10 +1471,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def list_domains(self, project, request):
+    def list_consumer_group(self, project, logstore):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_domains_with_options(project, request, headers, runtime)
+        return self.list_consumer_group_with_options(project, logstore, headers, runtime)
 
     def list_domains_with_options(self, project, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1475,10 +1508,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def list_external_store(self, project, request):
+    def list_domains(self, project, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_external_store_with_options(project, request, headers, runtime)
+        return self.list_domains_with_options(project, request, headers, runtime)
 
     def list_external_store_with_options(self, project, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1512,10 +1545,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def list_log_stores(self, project, request):
+    def list_external_store(self, project, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_log_stores_with_options(project, request, headers, runtime)
+        return self.list_external_store_with_options(project, request, headers, runtime)
 
     def list_log_stores_with_options(self, project, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1553,10 +1586,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def list_machine_group(self, project, request):
+    def list_log_stores(self, project, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_machine_group_with_options(project, request, headers, runtime)
+        return self.list_log_stores_with_options(project, request, headers, runtime)
 
     def list_machine_group_with_options(self, project, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1590,10 +1623,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def list_machines(self, project, machine_group, request):
+    def list_machine_group(self, project, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_machines_with_options(project, machine_group, request, headers, runtime)
+        return self.list_machine_group_with_options(project, request, headers, runtime)
 
     def list_machines_with_options(self, project, machine_group, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1625,10 +1658,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def list_project(self, request):
+    def list_machines(self, project, machine_group, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_project_with_options(request, headers, runtime)
+        return self.list_machines_with_options(project, machine_group, request, headers, runtime)
 
     def list_project_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1659,10 +1692,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def list_saved_search(self, project, request):
+    def list_project(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_saved_search_with_options(project, request, headers, runtime)
+        return self.list_project_with_options(request, headers, runtime)
 
     def list_saved_search_with_options(self, project, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1694,10 +1727,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def list_shards(self, project, logstore):
+    def list_saved_search(self, project, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_shards_with_options(project, logstore, headers, runtime)
+        return self.list_saved_search_with_options(project, request, headers, runtime)
 
     def list_shards_with_options(self, project, logstore, headers, runtime):
         host_map = {}
@@ -1722,10 +1755,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def list_shipper(self, project, logstore):
+    def list_shards(self, project, logstore):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_shipper_with_options(project, logstore, headers, runtime)
+        return self.list_shards_with_options(project, logstore, headers, runtime)
 
     def list_shipper_with_options(self, project, logstore, headers, runtime):
         host_map = {}
@@ -1750,10 +1783,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def list_tag_resources(self, request):
+    def list_shipper(self, project, logstore):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_tag_resources_with_options(request, headers, runtime)
+        return self.list_shipper_with_options(project, logstore, headers, runtime)
 
     def list_tag_resources_with_options(self, tmp_req, headers, runtime):
         UtilClient.validate_model(tmp_req)
@@ -1790,10 +1823,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def pull_data(self, project, logstore, shard, request):
+    def list_tag_resources(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.pull_data_with_options(project, logstore, shard, request, headers, runtime)
+        return self.list_tag_resources_with_options(request, headers, runtime)
 
     def pull_data_with_options(self, project, logstore, shard, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1827,10 +1860,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def put_project_policy(self, project, request):
+    def pull_data(self, project, logstore, shard, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.put_project_policy_with_options(project, request, headers, runtime)
+        return self.pull_data_with_options(project, logstore, shard, request, headers, runtime)
 
     def put_project_policy_with_options(self, project, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1857,10 +1890,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def put_webtracking(self, project, logstore_name, request):
+    def put_project_policy(self, project, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.put_webtracking_with_options(project, logstore_name, request, headers, runtime)
+        return self.put_project_policy_with_options(project, request, headers, runtime)
 
     def put_webtracking_with_options(self, project, logstore_name, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1896,10 +1929,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def remove_config_from_machine_group(self, project, machine_group, config_name):
+    def put_webtracking(self, project, logstore_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.remove_config_from_machine_group_with_options(project, machine_group, config_name, headers, runtime)
+        return self.put_webtracking_with_options(project, logstore_name, request, headers, runtime)
 
     def remove_config_from_machine_group_with_options(self, project, machine_group, config_name, headers, runtime):
         host_map = {}
@@ -1924,10 +1957,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def split_shard(self, project, logstore, shard, request):
+    def remove_config_from_machine_group(self, project, machine_group, config_name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.split_shard_with_options(project, logstore, shard, request, headers, runtime)
+        return self.remove_config_from_machine_group_with_options(project, machine_group, config_name, headers, runtime)
 
     def split_shard_with_options(self, project, logstore, shard, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1959,10 +1992,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def tag_resources(self, request):
+    def split_shard(self, project, logstore, shard, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.tag_resources_with_options(request, headers, runtime)
+        return self.split_shard_with_options(project, logstore, shard, request, headers, runtime)
 
     def tag_resources_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1993,10 +2026,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def untag_resources(self, request):
+    def tag_resources(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.untag_resources_with_options(request, headers, runtime)
+        return self.tag_resources_with_options(request, headers, runtime)
 
     def untag_resources_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2029,10 +2062,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def update_consumer_group(self, project, logstore, consumer_group, request):
+    def untag_resources(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_consumer_group_with_options(project, logstore, consumer_group, request, headers, runtime)
+        return self.untag_resources_with_options(request, headers, runtime)
 
     def update_consumer_group_with_options(self, project, logstore, consumer_group, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2064,10 +2097,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def update_index(self, project, logstore, request):
+    def update_consumer_group(self, project, logstore, consumer_group, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_index_with_options(project, logstore, request, headers, runtime)
+        return self.update_consumer_group_with_options(project, logstore, consumer_group, request, headers, runtime)
 
     def update_index_with_options(self, project, logstore, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2109,10 +2142,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def update_log_store(self, project, logstore, request):
+    def update_index(self, project, logstore, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_log_store_with_options(project, logstore, request, headers, runtime)
+        return self.update_index_with_options(project, logstore, request, headers, runtime)
 
     def update_log_store_with_options(self, project, logstore, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2162,10 +2195,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def update_logging(self, project, request):
+    def update_log_store(self, project, logstore, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_logging_with_options(project, request, headers, runtime)
+        return self.update_log_store_with_options(project, logstore, request, headers, runtime)
 
     def update_logging_with_options(self, project, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2197,10 +2230,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def update_machine_group(self, project, group_name, request):
+    def update_logging(self, project, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_machine_group_with_options(project, group_name, request, headers, runtime)
+        return self.update_logging_with_options(project, request, headers, runtime)
 
     def update_machine_group_with_options(self, project, group_name, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2238,10 +2271,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def update_machine_group_machine(self, project, machine_group, request):
+    def update_machine_group(self, project, group_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_machine_group_machine_with_options(project, machine_group, request, headers, runtime)
+        return self.update_machine_group_with_options(project, group_name, request, headers, runtime)
 
     def update_machine_group_machine_with_options(self, project, machine_group, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2272,10 +2305,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def update_odps_shipper(self, project, logstore, shipper_name, request):
+    def update_machine_group_machine(self, project, machine_group, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_odps_shipper_with_options(project, logstore, shipper_name, request, headers, runtime)
+        return self.update_machine_group_machine_with_options(project, machine_group, request, headers, runtime)
 
     def update_odps_shipper_with_options(self, project, logstore, shipper_name, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2309,10 +2342,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def update_oss_external_store(self, project, external_store_name, request):
+    def update_odps_shipper(self, project, logstore, shipper_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_oss_external_store_with_options(project, external_store_name, request, headers, runtime)
+        return self.update_odps_shipper_with_options(project, logstore, shipper_name, request, headers, runtime)
 
     def update_oss_external_store_with_options(self, project, external_store_name, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2346,10 +2379,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def update_oss_shipper(self, project, logstore, shipper_name, request):
+    def update_oss_external_store(self, project, external_store_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_oss_shipper_with_options(project, logstore, shipper_name, request, headers, runtime)
+        return self.update_oss_external_store_with_options(project, external_store_name, request, headers, runtime)
 
     def update_oss_shipper_with_options(self, project, logstore, shipper_name, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2383,21 +2416,22 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def update_project(self, project, request):
+    def update_oss_shipper(self, project, logstore, shipper_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_project_with_options(project, request, headers, runtime)
+        return self.update_oss_shipper_with_options(project, logstore, shipper_name, request, headers, runtime)
 
-    def update_project_with_options(self, project, request, headers, runtime):
+    def update_project_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
-        host_map = {}
-        host_map['project'] = project
+        query = {}
+        if not UtilClient.is_unset(request.project):
+            query['project'] = request.project
         body = {}
         if not UtilClient.is_unset(request.description):
             body['description'] = request.description
         req = open_api_models.OpenApiRequest(
-            host_map=host_map,
             headers=headers,
+            query=OpenApiUtilClient.query(query),
             body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
@@ -2416,10 +2450,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def update_rds_external_store(self, project, external_store_name, request):
+    def update_project(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_rds_external_store_with_options(project, external_store_name, request, headers, runtime)
+        return self.update_project_with_options(request, headers, runtime)
 
     def update_rds_external_store_with_options(self, project, external_store_name, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2453,10 +2487,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def update_saved_search(self, project, savedsearch_name, request):
+    def update_rds_external_store(self, project, external_store_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_saved_search_with_options(project, savedsearch_name, request, headers, runtime)
+        return self.update_rds_external_store_with_options(project, external_store_name, request, headers, runtime)
 
     def update_saved_search_with_options(self, project, savedsearch_name, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2493,3 +2527,8 @@ class Client(OpenApiClient):
             sls_20201230_models.UpdateSavedSearchResponse(),
             self.execute(params, req, runtime)
         )
+
+    def update_saved_search(self, project, savedsearch_name, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_saved_search_with_options(project, savedsearch_name, request, headers, runtime)
