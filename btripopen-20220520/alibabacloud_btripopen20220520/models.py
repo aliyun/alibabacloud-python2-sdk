@@ -10406,13 +10406,14 @@ class EstimatedPriceQueryHeaders(TeaModel):
 
 class EstimatedPriceQueryRequest(TeaModel):
     def __init__(self, arr_city=None, category=None, dep_city=None, end_time=None, itinerary_id=None,
-                 start_time=None, user_id=None):
+                 start_time=None, sub_corp_id=None, user_id=None):
         self.arr_city = arr_city  # type: str
         self.category = category  # type: str
         self.dep_city = dep_city  # type: str
         self.end_time = end_time  # type: long
         self.itinerary_id = itinerary_id  # type: str
         self.start_time = start_time  # type: long
+        self.sub_corp_id = sub_corp_id  # type: str
         self.user_id = user_id  # type: str
 
     def validate(self):
@@ -10436,6 +10437,8 @@ class EstimatedPriceQueryRequest(TeaModel):
             result['itinerary_id'] = self.itinerary_id
         if self.start_time is not None:
             result['start_time'] = self.start_time
+        if self.sub_corp_id is not None:
+            result['sub_corp_id'] = self.sub_corp_id
         if self.user_id is not None:
             result['user_id'] = self.user_id
         return result
@@ -10454,6 +10457,8 @@ class EstimatedPriceQueryRequest(TeaModel):
             self.itinerary_id = m.get('itinerary_id')
         if m.get('start_time') is not None:
             self.start_time = m.get('start_time')
+        if m.get('sub_corp_id') is not None:
+            self.sub_corp_id = m.get('sub_corp_id')
         if m.get('user_id') is not None:
             self.user_id = m.get('user_id')
         return self

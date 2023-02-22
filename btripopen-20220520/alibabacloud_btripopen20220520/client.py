@@ -1429,6 +1429,8 @@ class Client(OpenApiClient):
             query['itinerary_id'] = request.itinerary_id
         if not UtilClient.is_unset(request.start_time):
             query['start_time'] = request.start_time
+        if not UtilClient.is_unset(request.sub_corp_id):
+            query['sub_corp_id'] = request.sub_corp_id
         if not UtilClient.is_unset(request.user_id):
             query['user_id'] = request.user_id
         real_headers = {}
