@@ -4150,7 +4150,8 @@ class GetJobInfoResponse(TeaModel):
 
 
 class GetJobInstanceRequest(TeaModel):
-    def __init__(self, group_id=None, job_id=None, job_instance_id=None, namespace=None, namespace_source=None):
+    def __init__(self, group_id=None, job_id=None, job_instance_id=None, namespace=None, namespace_source=None,
+                 region_id=None):
         # The ID of the application. You can obtain the application ID on the Application Management page in the SchedulerX console.
         self.group_id = group_id  # type: str
         # The ID of the job.
@@ -4161,6 +4162,7 @@ class GetJobInstanceRequest(TeaModel):
         self.namespace = namespace  # type: str
         # The source of the namespace. This parameter is required only for a special third party.
         self.namespace_source = namespace_source  # type: str
+        self.region_id = region_id  # type: str
 
     def validate(self):
         pass
@@ -4181,6 +4183,8 @@ class GetJobInstanceRequest(TeaModel):
             result['Namespace'] = self.namespace
         if self.namespace_source is not None:
             result['NamespaceSource'] = self.namespace_source
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
         return result
 
     def from_map(self, m=None):
@@ -4195,6 +4199,8 @@ class GetJobInstanceRequest(TeaModel):
             self.namespace = m.get('Namespace')
         if m.get('NamespaceSource') is not None:
             self.namespace_source = m.get('NamespaceSource')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
         return self
 
 
