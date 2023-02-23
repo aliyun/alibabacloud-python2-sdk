@@ -9955,17 +9955,17 @@ class GetFileLastCommitResponseBodyResultSignature(TeaModel):
 
         result = dict()
         if self.gpg_key_id is not None:
-            result['GpgKeyId'] = self.gpg_key_id
+            result['gpgKeyId'] = self.gpg_key_id
         if self.verification_status is not None:
-            result['VerificationStatus'] = self.verification_status
+            result['verificationStatus'] = self.verification_status
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('GpgKeyId') is not None:
-            self.gpg_key_id = m.get('GpgKeyId')
-        if m.get('VerificationStatus') is not None:
-            self.verification_status = m.get('VerificationStatus')
+        if m.get('gpgKeyId') is not None:
+            self.gpg_key_id = m.get('gpgKeyId')
+        if m.get('verificationStatus') is not None:
+            self.verification_status = m.get('verificationStatus')
         return self
 
 
@@ -13831,7 +13831,8 @@ class GetSearchCodePreviewResponse(TeaModel):
 
 class GetSprintInfoResponseBodySprint(TeaModel):
     def __init__(self, creator=None, description=None, end_date=None, gmt_create=None, gmt_modified=None,
-                 identifier=None, modifier=None, name=None, scope=None, space_identifier=None, start_date=None, status=None):
+                 identifier=None, modifier=None, name=None, owners=None, scope=None, space_identifier=None, start_date=None,
+                 status=None):
         self.creator = creator  # type: str
         self.description = description  # type: str
         self.end_date = end_date  # type: long
@@ -13840,6 +13841,7 @@ class GetSprintInfoResponseBodySprint(TeaModel):
         self.identifier = identifier  # type: str
         self.modifier = modifier  # type: str
         self.name = name  # type: str
+        self.owners = owners  # type: list[str]
         self.scope = scope  # type: str
         self.space_identifier = space_identifier  # type: str
         self.start_date = start_date  # type: long
@@ -13870,6 +13872,8 @@ class GetSprintInfoResponseBodySprint(TeaModel):
             result['modifier'] = self.modifier
         if self.name is not None:
             result['name'] = self.name
+        if self.owners is not None:
+            result['owners'] = self.owners
         if self.scope is not None:
             result['scope'] = self.scope
         if self.space_identifier is not None:
@@ -13898,6 +13902,8 @@ class GetSprintInfoResponseBodySprint(TeaModel):
             self.modifier = m.get('modifier')
         if m.get('name') is not None:
             self.name = m.get('name')
+        if m.get('owners') is not None:
+            self.owners = m.get('owners')
         if m.get('scope') is not None:
             self.scope = m.get('scope')
         if m.get('spaceIdentifier') is not None:
@@ -19128,7 +19134,7 @@ class ListProjectMembersResponseBodyMembers(TeaModel):
     def __init__(self, account=None, avatar=None, ding_talk_id=None, display_name=None, display_nick_name=None,
                  display_real_name=None, division=None, email=None, gender=None, identifier=None, mobile=None, name_en=None,
                  nick_name=None, nick_name_pinyin=None, organization_user_info=None, real_name=None, real_name_pinyin=None,
-                 stamp=None, tb_role_id=None):
+                 role_name=None, stamp=None, tb_role_id=None):
         self.account = account  # type: str
         self.avatar = avatar  # type: str
         self.ding_talk_id = ding_talk_id  # type: str
@@ -19146,6 +19152,7 @@ class ListProjectMembersResponseBodyMembers(TeaModel):
         self.organization_user_info = organization_user_info  # type: ListProjectMembersResponseBodyMembersOrganizationUserInfo
         self.real_name = real_name  # type: str
         self.real_name_pinyin = real_name_pinyin  # type: str
+        self.role_name = role_name  # type: str
         self.stamp = stamp  # type: str
         self.tb_role_id = tb_role_id  # type: str
 
@@ -19195,6 +19202,8 @@ class ListProjectMembersResponseBodyMembers(TeaModel):
             result['realName'] = self.real_name
         if self.real_name_pinyin is not None:
             result['realNamePinyin'] = self.real_name_pinyin
+        if self.role_name is not None:
+            result['roleName'] = self.role_name
         if self.stamp is not None:
             result['stamp'] = self.stamp
         if self.tb_role_id is not None:
@@ -19239,6 +19248,8 @@ class ListProjectMembersResponseBodyMembers(TeaModel):
             self.real_name = m.get('realName')
         if m.get('realNamePinyin') is not None:
             self.real_name_pinyin = m.get('realNamePinyin')
+        if m.get('roleName') is not None:
+            self.role_name = m.get('roleName')
         if m.get('stamp') is not None:
             self.stamp = m.get('stamp')
         if m.get('tbRoleId') is not None:
