@@ -1635,6 +1635,36 @@ class Client(OpenApiClient):
         headers = {}
         return self.delete_variable_group_with_options(organization_id, id, headers, runtime)
 
+    def delete_workitem_with_options(self, organization_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.identifier):
+            query['identifier'] = request.identifier
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteWorkitem',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/workitem/delete' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.DeleteWorkitemResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_workitem(self, organization_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_workitem_with_options(organization_id, request, headers, runtime)
+
     def delete_workitem_all_comment_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -5269,3 +5299,35 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_workitem_comment_with_options(organization_id, request, headers, runtime)
+
+    def update_workitem_field_with_options(self, organization_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.update_workitem_property_request):
+            body['updateWorkitemPropertyRequest'] = request.update_workitem_property_request
+        if not UtilClient.is_unset(request.workitem_identifier):
+            body['workitemIdentifier'] = request.workitem_identifier
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateWorkitemField',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/workitems/updateWorkitemField' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.UpdateWorkitemFieldResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_workitem_field(self, organization_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_workitem_field_with_options(organization_id, request, headers, runtime)
