@@ -2287,8 +2287,8 @@ class Client(OpenApiClient):
 
     def describe_cdn_sub_list_with_options(self, runtime):
         """
-        > - By default, this operation queries all tracking tasks. However, only one tracking task can be displayed. Therefore, only one tracking task is returned.
-        - You can call this API operation up to three times per second per account.
+        By default, this operation queries all custom operations reports. However, only one operations report can be displayed. Therefore, only one operations report is returned.
+        *   You can call this operation up to three times per second per account.
         
 
         @param request: DescribeCdnSubListRequest
@@ -2316,8 +2316,8 @@ class Client(OpenApiClient):
 
     def describe_cdn_sub_list(self):
         """
-        > - By default, this operation queries all tracking tasks. However, only one tracking task can be displayed. Therefore, only one tracking task is returned.
-        - You can call this API operation up to three times per second per account.
+        By default, this operation queries all custom operations reports. However, only one operations report can be displayed. Therefore, only one operations report is returned.
+        *   You can call this operation up to three times per second per account.
         
 
         @return: DescribeCdnSubListResponse
@@ -4557,7 +4557,7 @@ class Client(OpenApiClient):
 
     def describe_domain_realtime_log_delivery_with_options(self, request, runtime):
         """
-        >  You can call this API operation up to 100 times per second per account.
+        > You can call this operation up to 100 times per second per account.
         
 
         @param request: DescribeDomainRealtimeLogDeliveryRequest
@@ -4589,7 +4589,7 @@ class Client(OpenApiClient):
 
     def describe_domain_realtime_log_delivery(self, request):
         """
-        >  You can call this API operation up to 100 times per second per account.
+        > You can call this operation up to 100 times per second per account.
         
 
         @param request: DescribeDomainRealtimeLogDeliveryRequest
@@ -5801,8 +5801,8 @@ class Client(OpenApiClient):
 
     def describe_l2vips_by_domain_with_options(self, request, runtime):
         """
-        >    This operation is available only to users whose daily peak bandwidth value is higher than 1 Gbit/s. If you meet this requirement, you can [submit a ticket](https://workorder-intl.console.aliyun.com/?spm=5176.2020520001.aliyun_topbar.18.dbd44bd3e4f845#/ticket/createIndex) to apply for permissions to use this operation.
-        *   The maximum number of times that each user can call this operation per second is 40.
+        This operation is available only to users whose daily peak bandwidth value is higher than 1 Gbit/s. If you meet this requirement, you can [submit a ticket](https://workorder-intl.console.aliyun.com/?spm=5176.2020520001.aliyun_topbar.18.dbd44bd3e4f845#/ticket/createIndex) to apply for permissions to use this operation.
+        *   You can call this operation up to 40 times per second per account.
         
 
         @param request: DescribeL2VipsByDomainRequest
@@ -5840,8 +5840,8 @@ class Client(OpenApiClient):
 
     def describe_l2vips_by_domain(self, request):
         """
-        >    This operation is available only to users whose daily peak bandwidth value is higher than 1 Gbit/s. If you meet this requirement, you can [submit a ticket](https://workorder-intl.console.aliyun.com/?spm=5176.2020520001.aliyun_topbar.18.dbd44bd3e4f845#/ticket/createIndex) to apply for permissions to use this operation.
-        *   The maximum number of times that each user can call this operation per second is 40.
+        This operation is available only to users whose daily peak bandwidth value is higher than 1 Gbit/s. If you meet this requirement, you can [submit a ticket](https://workorder-intl.console.aliyun.com/?spm=5176.2020520001.aliyun_topbar.18.dbd44bd3e4f845#/ticket/createIndex) to apply for permissions to use this operation.
+        *   You can call this operation up to 40 times per second per account.
         
 
         @param request: DescribeL2VipsByDomainRequest
@@ -6307,7 +6307,7 @@ class Client(OpenApiClient):
 
     def describe_user_certificate_expire_count_with_options(self, runtime):
         """
-        >  The maximum number of times that each user can call this operation per second is 100.
+        > You can call this operation up to 100 times per second per account.
         
 
         @param request: DescribeUserCertificateExpireCountRequest
@@ -6335,7 +6335,7 @@ class Client(OpenApiClient):
 
     def describe_user_certificate_expire_count(self):
         """
-        >  The maximum number of times that each user can call this operation per second is 100.
+        > You can call this operation up to 100 times per second per account.
         
 
         @return: DescribeUserCertificateExpireCountResponse
@@ -6653,7 +6653,7 @@ class Client(OpenApiClient):
 
     def describe_verify_content_with_options(self, request, runtime):
         """
-        > The maximum number of times that each user can call this operation per second is 100.
+        > You can call this operation up to 100 times per second per account.
         
 
         @param request: DescribeVerifyContentRequest
@@ -6687,7 +6687,7 @@ class Client(OpenApiClient):
 
     def describe_verify_content(self, request):
         """
-        > The maximum number of times that each user can call this operation per second is 100.
+        > You can call this operation up to 100 times per second per account.
         
 
         @param request: DescribeVerifyContentRequest
@@ -8097,7 +8097,7 @@ class Client(OpenApiClient):
 
     def verify_domain_owner_with_options(self, request, runtime):
         """
-        >  The maximum number of times that each user can call this operation per second is 100.
+        > You can call this operation up to 100 times per second per account.
         
 
         @param request: VerifyDomainOwnerRequest
@@ -8133,7 +8133,7 @@ class Client(OpenApiClient):
 
     def verify_domain_owner(self, request):
         """
-        >  The maximum number of times that each user can call this operation per second is 100.
+        > You can call this operation up to 100 times per second per account.
         
 
         @param request: VerifyDomainOwnerRequest
