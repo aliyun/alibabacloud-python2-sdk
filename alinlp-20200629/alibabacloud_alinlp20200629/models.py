@@ -197,6 +197,200 @@ class ADMMUResponse(TeaModel):
         return self
 
 
+class ADMiniCogRequest(TeaModel):
+    def __init__(self, params=None, service_code=None):
+        self.params = params  # type: str
+        self.service_code = service_code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ADMiniCogRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.params is not None:
+            result['Params'] = self.params
+        if self.service_code is not None:
+            result['ServiceCode'] = self.service_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Params') is not None:
+            self.params = m.get('Params')
+        if m.get('ServiceCode') is not None:
+            self.service_code = m.get('ServiceCode')
+        return self
+
+
+class ADMiniCogResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ADMiniCogResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ADMiniCogResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ADMiniCogResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ADMiniCogResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ADMiniCogResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ADMiniCogResultRequest(TeaModel):
+    def __init__(self, params=None, service_code=None):
+        self.params = params  # type: str
+        self.service_code = service_code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ADMiniCogResultRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.params is not None:
+            result['Params'] = self.params
+        if self.service_code is not None:
+            result['ServiceCode'] = self.service_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Params') is not None:
+            self.params = m.get('Params')
+        if m.get('ServiceCode') is not None:
+            self.service_code = m.get('ServiceCode')
+        return self
+
+
+class ADMiniCogResultResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ADMiniCogResultResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ADMiniCogResultResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ADMiniCogResultResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ADMiniCogResultResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ADMiniCogResultResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class GetBrandChEcomRequest(TeaModel):
     def __init__(self, image_url=None, service_code=None, text=None):
         self.image_url = image_url  # type: str
@@ -2707,6 +2901,103 @@ class GetSummaryChEcomResponse(TeaModel):
         return self
 
 
+class GetTableQAServiceInfoByIdRequest(TeaModel):
+    def __init__(self, service_code=None, service_id=None):
+        self.service_code = service_code  # type: str
+        self.service_id = service_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetTableQAServiceInfoByIdRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.service_code is not None:
+            result['ServiceCode'] = self.service_code
+        if self.service_id is not None:
+            result['ServiceId'] = self.service_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ServiceCode') is not None:
+            self.service_code = m.get('ServiceCode')
+        if m.get('ServiceId') is not None:
+            self.service_id = m.get('ServiceId')
+        return self
+
+
+class GetTableQAServiceInfoByIdResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetTableQAServiceInfoByIdResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class GetTableQAServiceInfoByIdResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetTableQAServiceInfoByIdResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetTableQAServiceInfoByIdResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetTableQAServiceInfoByIdResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class GetTcChEcomRequest(TeaModel):
     def __init__(self, service_code=None, text=None):
         self.service_code = service_code  # type: str
@@ -4541,124 +4832,6 @@ class GetWsCustomizedSeaGeneralResponse(TeaModel):
         return self
 
 
-class InsertCustomRequest(TeaModel):
-    def __init__(self, api_id=None, custom_file_name=None, custom_url=None, reg_file_name=None, reg_url=None,
-                 service_code=None):
-        self.api_id = api_id  # type: int
-        self.custom_file_name = custom_file_name  # type: str
-        self.custom_url = custom_url  # type: str
-        self.reg_file_name = reg_file_name  # type: str
-        self.reg_url = reg_url  # type: str
-        self.service_code = service_code  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(InsertCustomRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.api_id is not None:
-            result['ApiId'] = self.api_id
-        if self.custom_file_name is not None:
-            result['CustomFileName'] = self.custom_file_name
-        if self.custom_url is not None:
-            result['CustomUrl'] = self.custom_url
-        if self.reg_file_name is not None:
-            result['RegFileName'] = self.reg_file_name
-        if self.reg_url is not None:
-            result['RegUrl'] = self.reg_url
-        if self.service_code is not None:
-            result['ServiceCode'] = self.service_code
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('ApiId') is not None:
-            self.api_id = m.get('ApiId')
-        if m.get('CustomFileName') is not None:
-            self.custom_file_name = m.get('CustomFileName')
-        if m.get('CustomUrl') is not None:
-            self.custom_url = m.get('CustomUrl')
-        if m.get('RegFileName') is not None:
-            self.reg_file_name = m.get('RegFileName')
-        if m.get('RegUrl') is not None:
-            self.reg_url = m.get('RegUrl')
-        if m.get('ServiceCode') is not None:
-            self.service_code = m.get('ServiceCode')
-        return self
-
-
-class InsertCustomResponseBody(TeaModel):
-    def __init__(self, data=None, request_id=None):
-        self.data = data  # type: str
-        self.request_id = request_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(InsertCustomResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.data is not None:
-            result['Data'] = self.data
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Data') is not None:
-            self.data = m.get('Data')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        return self
-
-
-class InsertCustomResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.status_code = status_code  # type: int
-        self.body = body  # type: InsertCustomResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(InsertCustomResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.status_code is not None:
-            result['statusCode'] = self.status_code
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('statusCode') is not None:
-            self.status_code = m.get('statusCode')
-        if m.get('body') is not None:
-            temp_model = InsertCustomResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
 class OpenAlinlpServiceResponseBody(TeaModel):
     def __init__(self, order_id=None, request_id=None):
         self.order_id = order_id  # type: str
@@ -4727,57 +4900,36 @@ class OpenAlinlpServiceResponse(TeaModel):
         return self
 
 
-class UpdateCustomRequest(TeaModel):
-    def __init__(self, custom_file_name=None, custom_id=None, custom_url=None, reg_file_name=None, reg_url=None,
-                 service_code=None):
-        self.custom_file_name = custom_file_name  # type: str
-        self.custom_id = custom_id  # type: int
-        self.custom_url = custom_url  # type: str
-        self.reg_file_name = reg_file_name  # type: str
-        self.reg_url = reg_url  # type: str
+class RequestTableQARequest(TeaModel):
+    def __init__(self, params=None, service_code=None):
+        self.params = params  # type: str
         self.service_code = service_code  # type: str
 
     def validate(self):
         pass
 
     def to_map(self):
-        _map = super(UpdateCustomRequest, self).to_map()
+        _map = super(RequestTableQARequest, self).to_map()
         if _map is not None:
             return _map
 
         result = dict()
-        if self.custom_file_name is not None:
-            result['CustomFileName'] = self.custom_file_name
-        if self.custom_id is not None:
-            result['CustomId'] = self.custom_id
-        if self.custom_url is not None:
-            result['CustomUrl'] = self.custom_url
-        if self.reg_file_name is not None:
-            result['RegFileName'] = self.reg_file_name
-        if self.reg_url is not None:
-            result['RegUrl'] = self.reg_url
+        if self.params is not None:
+            result['Params'] = self.params
         if self.service_code is not None:
             result['ServiceCode'] = self.service_code
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('CustomFileName') is not None:
-            self.custom_file_name = m.get('CustomFileName')
-        if m.get('CustomId') is not None:
-            self.custom_id = m.get('CustomId')
-        if m.get('CustomUrl') is not None:
-            self.custom_url = m.get('CustomUrl')
-        if m.get('RegFileName') is not None:
-            self.reg_file_name = m.get('RegFileName')
-        if m.get('RegUrl') is not None:
-            self.reg_url = m.get('RegUrl')
+        if m.get('Params') is not None:
+            self.params = m.get('Params')
         if m.get('ServiceCode') is not None:
             self.service_code = m.get('ServiceCode')
         return self
 
 
-class UpdateCustomResponseBody(TeaModel):
+class RequestTableQAResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
         self.data = data  # type: str
         self.request_id = request_id  # type: str
@@ -4786,7 +4938,7 @@ class UpdateCustomResponseBody(TeaModel):
         pass
 
     def to_map(self):
-        _map = super(UpdateCustomResponseBody, self).to_map()
+        _map = super(RequestTableQAResponseBody, self).to_map()
         if _map is not None:
             return _map
 
@@ -4806,11 +4958,11 @@ class UpdateCustomResponseBody(TeaModel):
         return self
 
 
-class UpdateCustomResponse(TeaModel):
+class RequestTableQAResponse(TeaModel):
     def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
         self.status_code = status_code  # type: int
-        self.body = body  # type: UpdateCustomResponseBody
+        self.body = body  # type: RequestTableQAResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
@@ -4820,7 +4972,7 @@ class UpdateCustomResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
-        _map = super(UpdateCustomResponse, self).to_map()
+        _map = super(RequestTableQAResponse, self).to_map()
         if _map is not None:
             return _map
 
@@ -4840,7 +4992,114 @@ class UpdateCustomResponse(TeaModel):
         if m.get('statusCode') is not None:
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
-            temp_model = UpdateCustomResponseBody()
+            temp_model = RequestTableQAResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class RequestTableQAOnlineRequest(TeaModel):
+    def __init__(self, bot_id=None, params=None, question=None, service_code=None):
+        self.bot_id = bot_id  # type: str
+        self.params = params  # type: str
+        self.question = question  # type: str
+        self.service_code = service_code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RequestTableQAOnlineRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.bot_id is not None:
+            result['BotId'] = self.bot_id
+        if self.params is not None:
+            result['Params'] = self.params
+        if self.question is not None:
+            result['Question'] = self.question
+        if self.service_code is not None:
+            result['ServiceCode'] = self.service_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BotId') is not None:
+            self.bot_id = m.get('BotId')
+        if m.get('Params') is not None:
+            self.params = m.get('Params')
+        if m.get('Question') is not None:
+            self.question = m.get('Question')
+        if m.get('ServiceCode') is not None:
+            self.service_code = m.get('ServiceCode')
+        return self
+
+
+class RequestTableQAOnlineResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RequestTableQAOnlineResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class RequestTableQAOnlineResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: RequestTableQAOnlineResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(RequestTableQAOnlineResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = RequestTableQAOnlineResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
