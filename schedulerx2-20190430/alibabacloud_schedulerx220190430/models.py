@@ -800,7 +800,7 @@ class CreateJobRequest(TeaModel):
                  miss_worker_enable=None, name=None, namespace=None, namespace_source=None, page_size=None, parameters=None,
                  queue_size=None, region_id=None, send_channel=None, status=None, success_notice_enable=None,
                  task_attempt_interval=None, task_max_attempt=None, time_expression=None, time_type=None, timeout=None,
-                 timeout_enable=None, timeout_kill_enable=None, xattrs=None):
+                 timeout_enable=None, timeout_kill_enable=None, timezone=None, xattrs=None):
         # The interval at which the system attempts to rerun a job. Default value: 30. Unit: seconds.
         self.attempt_interval = attempt_interval  # type: int
         # When the Time type parameter is set to cron, you can specify a custom calendar.
@@ -910,6 +910,7 @@ class CreateJobRequest(TeaModel):
         # *   **true**: Turn on Timeout termination.
         # *   **false**: Turn off Timeout termination.
         self.timeout_kill_enable = timeout_kill_enable  # type: bool
+        self.timezone = timezone  # type: str
         # If the Task type parameter is set to k8s, this parameter is required. xxljob task: {"resource":"job"} shell task: {"image":"busybox","resource":"shell"}
         self.xattrs = xattrs  # type: str
 
@@ -995,6 +996,8 @@ class CreateJobRequest(TeaModel):
             result['TimeoutEnable'] = self.timeout_enable
         if self.timeout_kill_enable is not None:
             result['TimeoutKillEnable'] = self.timeout_kill_enable
+        if self.timezone is not None:
+            result['Timezone'] = self.timezone
         if self.xattrs is not None:
             result['XAttrs'] = self.xattrs
         return result
@@ -1072,6 +1075,8 @@ class CreateJobRequest(TeaModel):
             self.timeout_enable = m.get('TimeoutEnable')
         if m.get('TimeoutKillEnable') is not None:
             self.timeout_kill_enable = m.get('TimeoutKillEnable')
+        if m.get('Timezone') is not None:
+            self.timezone = m.get('Timezone')
         if m.get('XAttrs') is not None:
             self.xattrs = m.get('XAttrs')
         return self
@@ -8190,7 +8195,7 @@ class UpdateJobRequest(TeaModel):
                  miss_worker_enable=None, name=None, namespace=None, namespace_source=None, page_size=None, parameters=None,
                  queue_size=None, region_id=None, send_channel=None, success_notice_enable=None, task_attempt_interval=None,
                  task_dispatch_mode=None, task_max_attempt=None, time_expression=None, time_type=None, timeout=None,
-                 timeout_enable=None, timeout_kill_enable=None):
+                 timeout_enable=None, timeout_kill_enable=None, timezone=None):
         # The interval at which the system attempts to rerun a job. Default value: 30. Unit: seconds.
         self.attempt_interval = attempt_interval  # type: int
         # When the Time type parameter is set to cron, you can specify a custom calendar.
@@ -8287,6 +8292,7 @@ class UpdateJobRequest(TeaModel):
         # *   **true**: Turn on Timeout termination.
         # *   **false**: Turn off Timeout termination.
         self.timeout_kill_enable = timeout_kill_enable  # type: bool
+        self.timezone = timezone  # type: str
 
     def validate(self):
         if self.contact_info:
@@ -8370,6 +8376,8 @@ class UpdateJobRequest(TeaModel):
             result['TimeoutEnable'] = self.timeout_enable
         if self.timeout_kill_enable is not None:
             result['TimeoutKillEnable'] = self.timeout_kill_enable
+        if self.timezone is not None:
+            result['Timezone'] = self.timezone
         return result
 
     def from_map(self, m=None):
@@ -8445,6 +8453,8 @@ class UpdateJobRequest(TeaModel):
             self.timeout_enable = m.get('TimeoutEnable')
         if m.get('TimeoutKillEnable') is not None:
             self.timeout_kill_enable = m.get('TimeoutKillEnable')
+        if m.get('Timezone') is not None:
+            self.timezone = m.get('Timezone')
         return self
 
 
