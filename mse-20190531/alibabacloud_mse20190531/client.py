@@ -264,12 +264,16 @@ class Client(OpenApiClient):
             query['GatewayUniqueId'] = request.gateway_unique_id
         if not UtilClient.is_unset(request.name):
             query['Name'] = request.name
+        if not UtilClient.is_unset(request.policies):
+            query['Policies'] = request.policies
         if not UtilClient.is_unset(request.predicates_shrink):
             query['Predicates'] = request.predicates_shrink
         if not UtilClient.is_unset(request.redirect_jsonshrink):
             query['RedirectJSON'] = request.redirect_jsonshrink
         if not UtilClient.is_unset(request.route_order):
             query['RouteOrder'] = request.route_order
+        if not UtilClient.is_unset(request.route_type):
+            query['RouteType'] = request.route_type
         if not UtilClient.is_unset(request.services_shrink):
             query['Services'] = request.services_shrink
         req = open_api_models.OpenApiRequest(
@@ -2124,6 +2128,16 @@ class Client(OpenApiClient):
         return self.export_zookeeper_data_with_options(request, runtime)
 
     def fetch_lossless_rule_list_with_options(self, request, runtime):
+        """
+        You can call this operation to query the rules for graceful start and shutdown.
+        
+
+        @param request: FetchLosslessRuleListRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: FetchLosslessRuleListResponse
+        """
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
@@ -2146,6 +2160,14 @@ class Client(OpenApiClient):
         )
 
     def fetch_lossless_rule_list(self, request):
+        """
+        You can call this operation to query the rules for graceful start and shutdown.
+        
+
+        @param request: FetchLosslessRuleListRequest
+
+        @return: FetchLosslessRuleListResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.fetch_lossless_rule_list_with_options(request, runtime)
 
@@ -2818,6 +2840,16 @@ class Client(OpenApiClient):
         return self.get_nacos_history_config_with_options(request, runtime)
 
     def get_overview_with_options(self, request, runtime):
+        """
+        You can call the GetOverview operation to query overview information about service governance.
+        
+
+        @param request: GetOverviewRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetOverviewResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.accept_language):
@@ -2846,6 +2878,14 @@ class Client(OpenApiClient):
         )
 
     def get_overview(self, request):
+        """
+        You can call the GetOverview operation to query overview information about service governance.
+        
+
+        @param request: GetOverviewRequest
+
+        @return: GetOverviewResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_overview_with_options(request, runtime)
 
