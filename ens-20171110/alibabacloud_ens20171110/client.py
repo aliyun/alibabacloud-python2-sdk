@@ -360,6 +360,40 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.authorize_security_group_egress_with_options(request, runtime)
 
+    def clean_dist_data_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.data_name):
+            query['DataName'] = request.data_name
+        if not UtilClient.is_unset(request.data_version):
+            query['DataVersion'] = request.data_version
+        if not UtilClient.is_unset(request.ens_region_id):
+            query['EnsRegionId'] = request.ens_region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CleanDistData',
+            version='2017-11-10',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ens_20171110_models.CleanDistDataResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def clean_dist_data(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.clean_dist_data_with_options(request, runtime)
+
     def create_armserver_instances_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -485,6 +519,8 @@ class Client(OpenApiClient):
             query['InstanceChargeType'] = request.instance_charge_type
         if not UtilClient.is_unset(request.size):
             query['Size'] = request.size
+        if not UtilClient.is_unset(request.snapshot_id):
+            query['SnapshotId'] = request.snapshot_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2270,8 +2306,12 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_create_pre_paid_instance_result_with_options(request, runtime)
 
-    def describe_data_dist_result_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
+    def describe_data_dist_result_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = ens_20171110_models.DescribeDataDistResultShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.ens_region_ids):
+            request.ens_region_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.ens_region_ids, 'EnsRegionIds', 'json')
         query = {}
         if not UtilClient.is_unset(request.app_id):
             query['AppId'] = request.app_id
@@ -2279,6 +2319,8 @@ class Client(OpenApiClient):
             query['DataNames'] = request.data_names
         if not UtilClient.is_unset(request.data_versions):
             query['DataVersions'] = request.data_versions
+        if not UtilClient.is_unset(request.ens_region_ids_shrink):
+            query['EnsRegionIds'] = request.ens_region_ids_shrink
         if not UtilClient.is_unset(request.instance_ids):
             query['InstanceIds'] = request.instance_ids
         if not UtilClient.is_unset(request.max_date):
@@ -2425,12 +2467,16 @@ class Client(OpenApiClient):
             query['EnsRegionId'] = request.ens_region_id
         if not UtilClient.is_unset(request.ens_region_ids):
             query['EnsRegionIds'] = request.ens_region_ids
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
         if not UtilClient.is_unset(request.order_by_params):
             query['OrderByParams'] = request.order_by_params
         if not UtilClient.is_unset(request.page_number):
             query['PageNumber'] = request.page_number
         if not UtilClient.is_unset(request.page_size):
             query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.snapshot_id):
+            query['SnapshotId'] = request.snapshot_id
         if not UtilClient.is_unset(request.status):
             query['Status'] = request.status
         if not UtilClient.is_unset(request.type):
@@ -2523,6 +2569,8 @@ class Client(OpenApiClient):
             query['AssociatedInstanceType'] = request.associated_instance_type
         if not UtilClient.is_unset(request.eip_address):
             query['EipAddress'] = request.eip_address
+        if not UtilClient.is_unset(request.eip_name):
+            query['EipName'] = request.eip_name
         if not UtilClient.is_unset(request.ens_region_id):
             query['EnsRegionId'] = request.ens_region_id
         if not UtilClient.is_unset(request.page_number):
@@ -3141,8 +3189,6 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.os_type):
             query['OsType'] = request.os_type
-        if not UtilClient.is_unset(request.version):
-            query['Version'] = request.version
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -3213,12 +3259,10 @@ class Client(OpenApiClient):
             query['PageNumber'] = request.page_number
         if not UtilClient.is_unset(request.page_size):
             query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.snapshot_id):
+            query['SnapshotId'] = request.snapshot_id
         if not UtilClient.is_unset(request.status):
             query['Status'] = request.status
-        if not UtilClient.is_unset(request.version):
-            query['Version'] = request.version
-        if not UtilClient.is_unset(request.product):
-            query['product'] = request.product
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -4199,6 +4243,8 @@ class Client(OpenApiClient):
             query['PageNumber'] = request.page_number
         if not UtilClient.is_unset(request.page_size):
             query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.snapshot_id):
+            query['SnapshotId'] = request.snapshot_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -5192,60 +5238,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.modify_vswitch_attribute_with_options(request, runtime)
 
-    def pre_create_ens_service_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.bandwidth_type):
-            query['BandwidthType'] = request.bandwidth_type
-        if not UtilClient.is_unset(request.buy_resources_detail):
-            query['BuyResourcesDetail'] = request.buy_resources_detail
-        if not UtilClient.is_unset(request.data_disk_size):
-            query['DataDiskSize'] = request.data_disk_size
-        if not UtilClient.is_unset(request.ens_service_name):
-            query['EnsServiceName'] = request.ens_service_name
-        if not UtilClient.is_unset(request.image_id):
-            query['ImageId'] = request.image_id
-        if not UtilClient.is_unset(request.instance_bandwithd_limit):
-            query['InstanceBandwithdLimit'] = request.instance_bandwithd_limit
-        if not UtilClient.is_unset(request.instance_spec):
-            query['InstanceSpec'] = request.instance_spec
-        if not UtilClient.is_unset(request.key_pair_name):
-            query['KeyPairName'] = request.key_pair_name
-        if not UtilClient.is_unset(request.net_level):
-            query['NetLevel'] = request.net_level
-        if not UtilClient.is_unset(request.password):
-            query['Password'] = request.password
-        if not UtilClient.is_unset(request.scheduling_price_strategy):
-            query['SchedulingPriceStrategy'] = request.scheduling_price_strategy
-        if not UtilClient.is_unset(request.scheduling_strategy):
-            query['SchedulingStrategy'] = request.scheduling_strategy
-        if not UtilClient.is_unset(request.system_disk_size):
-            query['SystemDiskSize'] = request.system_disk_size
-        if not UtilClient.is_unset(request.user_data):
-            query['UserData'] = request.user_data
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='PreCreateEnsService',
-            version='2017-11-10',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            ens_20171110_models.PreCreateEnsServiceResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def pre_create_ens_service(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.pre_create_ens_service_with_options(request, runtime)
-
     def push_application_data_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -5426,6 +5418,32 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.reboot_instances_with_options(request, runtime)
 
+    def recover_aicinstance_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RecoverAICInstance',
+            version='2017-11-10',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ens_20171110_models.RecoverAICInstanceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def recover_aicinstance(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.recover_aicinstance_with_options(request, runtime)
+
     def reinit_instance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -5493,6 +5511,34 @@ class Client(OpenApiClient):
     def reinit_instances(self, request):
         runtime = util_models.RuntimeOptions()
         return self.reinit_instances_with_options(request, runtime)
+
+    def release_aicinstance_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.server_id):
+            query['ServerId'] = request.server_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ReleaseAICInstance',
+            version='2017-11-10',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ens_20171110_models.ReleaseAICInstanceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def release_aicinstance(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.release_aicinstance_with_options(request, runtime)
 
     def release_armserver_instance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -5896,6 +5942,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.reset_device_instance_with_options(request, runtime)
 
+    def reset_disk_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.disk_id):
+            query['DiskId'] = request.disk_id
+        if not UtilClient.is_unset(request.snapshot_id):
+            query['SnapshotId'] = request.snapshot_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ResetDisk',
+            version='2017-11-10',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ens_20171110_models.ResetDiskResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def reset_disk(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.reset_disk_with_options(request, runtime)
+
     def resize_disk_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -6111,6 +6187,8 @@ class Client(OpenApiClient):
             query['NetWorkId'] = request.net_work_id
         if not UtilClient.is_unset(request.password):
             query['Password'] = request.password
+        if not UtilClient.is_unset(request.password_inherit):
+            query['PasswordInherit'] = request.password_inherit
         if not UtilClient.is_unset(request.period):
             query['Period'] = request.period
         if not UtilClient.is_unset(request.period_unit):
