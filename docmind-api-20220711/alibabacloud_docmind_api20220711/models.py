@@ -611,7 +611,8 @@ class GetTableUnderstandingResultResponse(TeaModel):
 
 
 class SubmitConvertImageToExcelJobRequest(TeaModel):
-    def __init__(self, image_name_extension=None, image_names=None, image_urls=None):
+    def __init__(self, force_merge_excel=None, image_name_extension=None, image_names=None, image_urls=None):
+        self.force_merge_excel = force_merge_excel  # type: bool
         self.image_name_extension = image_name_extension  # type: str
         self.image_names = image_names  # type: list[str]
         self.image_urls = image_urls  # type: list[str]
@@ -625,6 +626,8 @@ class SubmitConvertImageToExcelJobRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.force_merge_excel is not None:
+            result['ForceMergeExcel'] = self.force_merge_excel
         if self.image_name_extension is not None:
             result['ImageNameExtension'] = self.image_name_extension
         if self.image_names is not None:
@@ -635,6 +638,8 @@ class SubmitConvertImageToExcelJobRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('ForceMergeExcel') is not None:
+            self.force_merge_excel = m.get('ForceMergeExcel')
         if m.get('ImageNameExtension') is not None:
             self.image_name_extension = m.get('ImageNameExtension')
         if m.get('ImageNames') is not None:
@@ -645,7 +650,9 @@ class SubmitConvertImageToExcelJobRequest(TeaModel):
 
 
 class SubmitConvertImageToExcelJobShrinkRequest(TeaModel):
-    def __init__(self, image_name_extension=None, image_names_shrink=None, image_urls_shrink=None):
+    def __init__(self, force_merge_excel=None, image_name_extension=None, image_names_shrink=None,
+                 image_urls_shrink=None):
+        self.force_merge_excel = force_merge_excel  # type: bool
         self.image_name_extension = image_name_extension  # type: str
         self.image_names_shrink = image_names_shrink  # type: str
         self.image_urls_shrink = image_urls_shrink  # type: str
@@ -659,6 +666,8 @@ class SubmitConvertImageToExcelJobShrinkRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.force_merge_excel is not None:
+            result['ForceMergeExcel'] = self.force_merge_excel
         if self.image_name_extension is not None:
             result['ImageNameExtension'] = self.image_name_extension
         if self.image_names_shrink is not None:
@@ -669,6 +678,8 @@ class SubmitConvertImageToExcelJobShrinkRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('ForceMergeExcel') is not None:
+            self.force_merge_excel = m.get('ForceMergeExcel')
         if m.get('ImageNameExtension') is not None:
             self.image_name_extension = m.get('ImageNameExtension')
         if m.get('ImageNames') is not None:
@@ -1127,9 +1138,10 @@ class SubmitConvertImageToWordJobResponse(TeaModel):
 
 
 class SubmitConvertPdfToExcelJobRequest(TeaModel):
-    def __init__(self, file_name=None, file_url=None):
+    def __init__(self, file_name=None, file_url=None, force_merge_excel=None):
         self.file_name = file_name  # type: str
         self.file_url = file_url  # type: str
+        self.force_merge_excel = force_merge_excel  # type: bool
 
     def validate(self):
         pass
@@ -1144,6 +1156,8 @@ class SubmitConvertPdfToExcelJobRequest(TeaModel):
             result['FileName'] = self.file_name
         if self.file_url is not None:
             result['FileUrl'] = self.file_url
+        if self.force_merge_excel is not None:
+            result['ForceMergeExcel'] = self.force_merge_excel
         return result
 
     def from_map(self, m=None):
@@ -1152,13 +1166,16 @@ class SubmitConvertPdfToExcelJobRequest(TeaModel):
             self.file_name = m.get('FileName')
         if m.get('FileUrl') is not None:
             self.file_url = m.get('FileUrl')
+        if m.get('ForceMergeExcel') is not None:
+            self.force_merge_excel = m.get('ForceMergeExcel')
         return self
 
 
 class SubmitConvertPdfToExcelJobAdvanceRequest(TeaModel):
-    def __init__(self, file_name=None, file_url_object=None):
+    def __init__(self, file_name=None, file_url_object=None, force_merge_excel=None):
         self.file_name = file_name  # type: str
         self.file_url_object = file_url_object  # type: READABLE
+        self.force_merge_excel = force_merge_excel  # type: bool
 
     def validate(self):
         pass
@@ -1173,6 +1190,8 @@ class SubmitConvertPdfToExcelJobAdvanceRequest(TeaModel):
             result['FileName'] = self.file_name
         if self.file_url_object is not None:
             result['FileUrl'] = self.file_url_object
+        if self.force_merge_excel is not None:
+            result['ForceMergeExcel'] = self.force_merge_excel
         return result
 
     def from_map(self, m=None):
@@ -1181,6 +1200,8 @@ class SubmitConvertPdfToExcelJobAdvanceRequest(TeaModel):
             self.file_name = m.get('FileName')
         if m.get('FileUrl') is not None:
             self.file_url_object = m.get('FileUrl')
+        if m.get('ForceMergeExcel') is not None:
+            self.force_merge_excel = m.get('ForceMergeExcel')
         return self
 
 
