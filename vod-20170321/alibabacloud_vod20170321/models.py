@@ -2229,60 +2229,61 @@ class CreateUploadVideoRequest(TeaModel):
                  storage_location=None, tags=None, template_group_id=None, title=None, user_data=None, workflow_id=None):
         # The ID of the application. Default value: **app-1000000**. For more information, see [Overview](~~113600~~).
         self.app_id = app_id  # type: str
-        # The category ID of the audio or video file. You can use one of the following methods to obtain the category ID:
+        # The category ID of the media file. You can use one of the following methods to obtain the category ID:
         # 
-        # * Log on to the [ApsaraVideo VOD console](https://vod.console.aliyun.com). In the left-side navigation pane, choose **Configuration Management** > **Media Management** > **Categories**. On the Categories page, you can view the category ID.
-        # * View the value of the CateId parameter returned by the [AddCategory](~~56401~~) operation that you called to create a category.
-        # * View the value of the CateId parameter returned by the [GetCategories](~~56406~~) operation that you called to query a category.
+        # *   Log on to the [ApsaraVideo VOD console](https://vod.console.aliyun.com). In the left-side navigation pane, choose **Configuration Management** > **Media Management** > **Categories** to view the category ID of the media file.
+        # *   Obtain the value of CateId from the response to the [AddCategory](~~56401~~) operation.
+        # *   Obtain the value of CateId from the response to the [GetCategories](~~56406~~) operation.
         self.cate_id = cate_id  # type: long
         # The URL of the custom video thumbnail.
         self.cover_url = cover_url  # type: str
         # The description of the audio or video file.
         # 
-        # * The description can be up to 1,024 characters in length.
-        # * The value must be encoded in UTF-8.
+        # *   The value can be up to 1,024 characters in length.
+        # *   The value must be encoded in UTF-8.
         self.description = description  # type: str
         # The name of the audio or video file.
         # 
-        # * The name must contain a file name extension, which is not case-sensitive.
-        # * For more information about file name extensions supported by ApsaraVideo VOD, see [Overview](~~55396~~).
+        # *   The name must contain a file name extension, which is not case-sensitive.
+        # *   For more information about file name extensions supported by ApsaraVideo VOD, see [Overview](~~55396~~).
         self.file_name = file_name  # type: str
-        # The size of the audio or video file. Unit: byte.
+        # The size of the audio or video file. Unit: bytes.
         self.file_size = file_size  # type: long
-        # The storage location. You can use one of the following methods to obtain the storage location:
+        # The storage address. To obtain the storage address, log on to the [ApsaraVideo VOD console](https://vod.console.aliyun.com). In the left-side navigation pane, choose **Configuration Management** > **Media Management** > **Storage**.
         # 
-        # Log on to the [ApsaraVideo VOD console](https://vod.console.aliyun.com). In the left-side navigation pane, choose **Configuration Management** > **Media Management** > **Storage**. On the Storage page, you can view the storage location.
-        # 
-        # > If this parameter is set to a specific value, the audio or video file is uploaded to the specified storage location.
+        # > If you specify a storage address, media files are uploaded to the specified address.
         self.storage_location = storage_location  # type: str
-        # The one or more tags of the audio or video file.
+        # The tags of the audio or video file.
         # 
-        # * You can specify a maximum of 16 tags.
-        # * If you need to specify multiple tags, separate the tags with commas (,).
-        # * Each tag can be up to 32 characters in length.
-        # * The value must be encoded in UTF-8.
+        # *   You can specify a maximum of 16 tags.
+        # *   If you want to specify multiple tags, separate the tags with commas (,).
+        # *   Each tag can be up to 32 characters in length.
+        # *   The value must be encoded in UTF-8.
         self.tags = tags  # type: str
         # The ID of the transcoding template group. You can use one of the following methods to obtain the ID of the transcoding template group:
         # 
-        # * Log on to the [ApsaraVideo VOD console](https://vod.console.aliyun.com). In the left-side navigation pane, choose **Configuration Management** > **Media Processing** > **Transcoding Template Groups**. On the Transcoding Template Groups page, you can view the ID of the transcoding template group.
-        # * View the value of the TranscodeTemplateGroupId parameter returned by the [AddTranscodeTemplateGroup](~~102665~~) operation that you called to create a transcoding template group.
-        # * View the value of the TranscodeTemplateGroupId parameter returned by the [ListTranscodeTemplateGroup](~~102669~~) operation that you called to query a transcoding template group.
+        # *   Log on to the [ApsaraVideo VOD console](https://vod.console.aliyun.com). In the left-side navigation pane, choose **Configuration Management** > **Media Processing** > **Transcoding Template Groups** to view the ID of the transcoding template group.
+        # *   Obtain the value of TranscodeTemplateGroupId in the response to the [AddTranscodeTemplateGroup](~~102665~~) operation.
+        # *   Obtain the value of TranscodeTemplateGroupId in the response to the [ListTranscodeTemplateGroup](~~102669~~) operation.
         # 
-        # > If you leave this parameter empty, the default transcoding template group is used for transcoding. If you set this parameter to the ID of a specific transcoding template group, the specified transcoding template group is used for transcoding.
+        # > If you leave this parameter empty, the default transcoding template group is used. If you specify this parameter, the specified transcoding template group is used for transcoding.
         self.template_group_id = template_group_id  # type: str
         # The title of the audio or video file.
         # 
-        # * The title can be up to 128 characters in length.
-        # * The value must be encoded in UTF-8.
+        # *   The title can be up to 128 characters in length.
+        # *   The value must be encoded in UTF-8.
         self.title = title  # type: str
-        # The custom configurations, including callback configurations and upload acceleration configurations. The value is a JSON string. For more information, see the "UserData: specifies the custom configurations for media upload" section of the [Request parameters](~~86952~~) topic.
+        # The custom configurations such as callback configurations and upload acceleration configurations. The value must be a JSON string. For more information, see [Request parameters](~~86952~~).
         # 
-        # > * The callback configurations take effect only after you specify the HTTP callback URL and select the specific callback events in the ApsaraVideo VOD console. For more information about how to configure an HTTP callback in the ApsaraVideo VOD console, see [Configure callback settings](~~86071~~).
-        # > * To use the upload acceleration feature, submit a [ticket](https://ticket-intl.console.aliyun.com/#/ticket/createIndex) to enable this feature. For more information, see [Overview](~~55396~~).
+        # > 
+        # 
+        # *   The callback configurations take effect only after you specify the HTTP callback URL and select specific callback events in the ApsaraVideo VOD console. For more information about how to configure HTTP callback settings in the ApsaraVideo VOD console, see [Configure callback settings](~~86071~~).
+        # 
+        # *   If you want to enable the upload acceleration feature, [submit a request on Yida](https://yida.alibaba-inc.com/o/ticketapply). For more information, see [Overview](~~55396~~).
         self.user_data = user_data  # type: str
         # The ID of the workflow. To view the ID of the workflow, log on to the [ApsaraVideo VOD console](https://vod.console.aliyun.com). In the left-side navigation pane, choose **Configuration Management** > **Media Processing** > **Workflows**.
         # 
-        # > If both the WorkflowId and TemplateGroupId parameters are set, the value of the WorkflowId parameter takes effect. For more information, see [Workflows](~~115347~~).
+        # > If you specify the WorkflowId and TemplateGroupId parameters, the value of the WorkflowId parameter takes effect. For more information, see [Workflows](~~115347~~).
         self.workflow_id = workflow_id  # type: str
 
     def validate(self):
@@ -2355,13 +2356,13 @@ class CreateUploadVideoResponseBody(TeaModel):
         self.request_id = request_id  # type: str
         # The upload URL.
         # 
-        # > The upload URL returned by this operation is Base64-encoded. Before you can use an SDK or an API operation to upload a media asset based on the upload URL, you must decode the upload URL by using the Base64 algorithm. You must parse the upload URL only if you use native OSS SDKs or OSS API for uploads.
+        # > The returned upload URL is a Base64-encoded URL. You must decode the Base64-encoded URL before you use an SDK or call an API operation to upload media files. You need to parse UploadAddress only if you use the Object Storage Service (OSS) SDK or call an OSS API operation to upload media files.
         self.upload_address = upload_address  # type: str
         # The upload credential.
         # 
-        # > The upload credential returned by this operation is Base64-encoded. Before you can use an SDK or an API operation to upload a media asset based on the upload credential, you must decode the upload credential by using the Base64 algorithm. You must parse the upload credential only if you use native OSS SDKs or OSS API for uploads.
+        # > The returned upload credential is a Base64-encoded value. You must decode the Base64-encoded credential before you use an SDK or call an API operation to upload media files. You need to parse UploadAuth only if you use the OSS SDK or call an OSS API operation to upload media files.
         self.upload_auth = upload_auth  # type: str
-        # The ID of the audio or video file. You can set the request parameter VideoId to this ID when you call an operation for media asset management, media processing, or media review.
+        # The ID of the audio or video file. VideoId can be used as a request parameter when you call an operation for media asset management, media processing, or media review.
         self.video_id = video_id  # type: str
 
     def validate(self):
@@ -7132,10 +7133,24 @@ class DescribeVodDomainLogResponse(TeaModel):
 
 class DescribeVodDomainSrcBpsDataRequest(TeaModel):
     def __init__(self, domain_name=None, end_time=None, interval=None, owner_id=None, start_time=None):
+        # The accelerated domain name. You can specify a maximum of 500 domain names in a request. Separate multiple domain names with commas (,). If you specify multiple domain names in a request, aggregation results are returned.
+        # 
+        # If you leave this parameter empty, the origin bandwidth data for all accelerated domain names is queried by default.
         self.domain_name = domain_name  # type: str
+        # The end of the time range to query. The end time must be later than the start time. Specify the time in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         self.end_time = end_time  # type: str
+        # The time interval between the data entries to return. Unit: seconds. Valid values:
+        # 
+        # *   **300**: 5 minutes
+        # *   **3600**: 1 hour
+        # *   **86400**: 1 day
+        # 
+        # > The time granularity supported by the Interval parameter varies based on the time range per query specified by using `StartTime` and `EndTime`. For more information, see the **Time granularity** section of this topic.
         self.interval = interval  # type: str
         self.owner_id = owner_id  # type: long
+        # The beginning of the time range to query. Specify the time in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
+        # 
+        # If you leave this parameter empty, the origin bandwidth data that is generated in the last 24 hours is queried by default.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -7176,8 +7191,11 @@ class DescribeVodDomainSrcBpsDataRequest(TeaModel):
 
 class DescribeVodDomainSrcBpsDataResponseBodySrcBpsDataPerIntervalDataModule(TeaModel):
     def __init__(self, https_value=None, time_stamp=None, value=None):
+        # The bandwidth values of origin HTTPS requests.
         self.https_value = https_value  # type: str
+        # The timestamp of the returned data. The time follows the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time is displayed in UTC.
         self.time_stamp = time_stamp  # type: str
+        # The bandwidth value at each time interval.
         self.value = value  # type: str
 
     def validate(self):
@@ -7243,11 +7261,17 @@ class DescribeVodDomainSrcBpsDataResponseBodySrcBpsDataPerInterval(TeaModel):
 class DescribeVodDomainSrcBpsDataResponseBody(TeaModel):
     def __init__(self, data_interval=None, domain_name=None, end_time=None, request_id=None,
                  src_bps_data_per_interval=None, start_time=None):
+        # The time interval between the entries returned. Unit: seconds.
         self.data_interval = data_interval  # type: str
+        # The accelerated domain name.
         self.domain_name = domain_name  # type: str
+        # The end of the time range during which data was queried.
         self.end_time = end_time  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Details about the origin bandwidth data returned at each time interval. Unit: bit/s.
         self.src_bps_data_per_interval = src_bps_data_per_interval  # type: DescribeVodDomainSrcBpsDataResponseBodySrcBpsDataPerInterval
+        # The start of the time range during which data was queried.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -7333,10 +7357,24 @@ class DescribeVodDomainSrcBpsDataResponse(TeaModel):
 
 class DescribeVodDomainSrcTrafficDataRequest(TeaModel):
     def __init__(self, domain_name=None, end_time=None, interval=None, owner_id=None, start_time=None):
+        # The accelerated domain name. You can specify a maximum of 500 domain names in a request. Separate multiple domain names with commas (,). If you specify multiple domain names in a request, aggregation results are returned.
+        # 
+        # If you leave this parameter empty, the origin traffic data for all accelerated domain names is queried by default.
         self.domain_name = domain_name  # type: str
+        # The end of the time range to query. The end time must be later than the start time. Specify the time in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         self.end_time = end_time  # type: str
+        # The time interval between the data entries to return. Unit: seconds. Valid values:
+        # 
+        # *   **300**: 5 minutes
+        # *   **3600**: 1 hour
+        # *   **86400**: 1 day
+        # 
+        # > The time granularity supported by the Interval parameter varies based on the time range per query specified by using `StartTime` and `EndTime`. For more information, see the **Time granularity** section of this topic.
         self.interval = interval  # type: str
         self.owner_id = owner_id  # type: long
+        # The beginning of the time range to query. Specify the time in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
+        # 
+        # If you leave this parameter empty, the origin traffic data that is generated in the last 24 hours is queried by default.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -7377,8 +7415,11 @@ class DescribeVodDomainSrcTrafficDataRequest(TeaModel):
 
 class DescribeVodDomainSrcTrafficDataResponseBodySrcTrafficDataPerIntervalDataModule(TeaModel):
     def __init__(self, https_value=None, time_stamp=None, value=None):
+        # The amount of traffic generated by origin HTTPS requests.
         self.https_value = https_value  # type: str
+        # The timestamp of the returned data. The time follows the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm:ss*Z format. The time is displayed in UTC.
         self.time_stamp = time_stamp  # type: str
+        # The traffic value at each time interval.
         self.value = value  # type: str
 
     def validate(self):
@@ -7444,12 +7485,19 @@ class DescribeVodDomainSrcTrafficDataResponseBodySrcTrafficDataPerInterval(TeaMo
 class DescribeVodDomainSrcTrafficDataResponseBody(TeaModel):
     def __init__(self, data_interval=None, domain_name=None, end_time=None, request_id=None,
                  src_traffic_data_per_interval=None, start_time=None, total_traffic=None):
+        # The time interval between the entries returned. Unit: seconds.
         self.data_interval = data_interval  # type: str
+        # The accelerated domain name.
         self.domain_name = domain_name  # type: str
+        # The end of the time range during which data was queried. The time follows the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm:ss*Z format. The time is displayed in UTC.
         self.end_time = end_time  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Details about the origin traffic returned at each time interval. Unit: bytes.
         self.src_traffic_data_per_interval = src_traffic_data_per_interval  # type: DescribeVodDomainSrcTrafficDataResponseBodySrcTrafficDataPerInterval
+        # The start of the time range during which data was queried. The time follows the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm:ss*Z format. The time is displayed in UTC.
         self.start_time = start_time  # type: str
+        # The total traffic. Unit: bytes.
         self.total_traffic = total_traffic  # type: str
 
     def validate(self):
@@ -7802,8 +7850,8 @@ class DescribeVodDomainTrafficDataResponse(TeaModel):
 
 
 class DescribeVodDomainUsageDataRequest(TeaModel):
-    def __init__(self, area=None, domain_name=None, end_time=None, field=None, owner_id=None, start_time=None,
-                 type=None):
+    def __init__(self, area=None, domain_name=None, end_time=None, field=None, interval=None, owner_id=None,
+                 start_time=None, type=None):
         # The region where the data is queried. The default value is CN, which indicates mainland China. Valid values:
         # 
         # *   **CN**: mainland China.
@@ -7818,6 +7866,7 @@ class DescribeVodDomainUsageDataRequest(TeaModel):
         # *   **bps**: bandwidth.
         # *   **traf**: traffic.
         self.field = field  # type: str
+        self.interval = interval  # type: str
         self.owner_id = owner_id  # type: long
         # The beginning of the time range to query. Specify the time in the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm:ss*Z format. The time must be in UTC.
         self.start_time = start_time  # type: str
@@ -7845,6 +7894,8 @@ class DescribeVodDomainUsageDataRequest(TeaModel):
             result['EndTime'] = self.end_time
         if self.field is not None:
             result['Field'] = self.field
+        if self.interval is not None:
+            result['Interval'] = self.interval
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
         if self.start_time is not None:
@@ -7863,6 +7914,8 @@ class DescribeVodDomainUsageDataRequest(TeaModel):
             self.end_time = m.get('EndTime')
         if m.get('Field') is not None:
             self.field = m.get('Field')
+        if m.get('Interval') is not None:
+            self.interval = m.get('Interval')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
         if m.get('StartTime') is not None:
@@ -11450,10 +11503,10 @@ class GetAIMediaAuditJobResponse(TeaModel):
 
 class GetAITemplateRequest(TeaModel):
     def __init__(self, template_id=None):
-        # The ID of the AI template. You can use one of the following methods to obtain the ID of the AI template:
+        # The ID of the AI template. You can use one of the following methods to obtain the ID:
         # 
-        # *   Call the [AddAITemplate](~~102930~~) operation to add an AI template if no AI template exists. The value of TemplateId from the response is the ID of the AI template.
-        # *   Call the [ListAITemplate](~~102936~~) operation if the template already exists. The value of TemplateId from the response is the ID of the AI template.
+        # *   Call the [AddAITemplate](~~102930~~) operation to add an AI template if no AI template exists. The value of TemplateId in the response is the ID of the AI template.
+        # *   Call the [ListAITemplate](~~102936~~) operation if the template already exists. The value of TemplateId in the response is the ID of the AI template.
         self.template_id = template_id  # type: str
 
     def validate(self):
@@ -12939,7 +12992,7 @@ class GetCategoriesResponse(TeaModel):
 
 class GetDefaultAITemplateRequest(TeaModel):
     def __init__(self, template_type=None):
-        # The type of the AI template. Set the value to **AIMediaAudit**, which specifies intelligent review.
+        # The type of the AI template. Set the value to **AIMediaAudit**, which specifies the automated review.
         self.template_type = template_type  # type: str
 
     def validate(self):
@@ -12967,7 +13020,7 @@ class GetDefaultAITemplateResponseBodyTemplateInfo(TeaModel):
                  template_id=None, template_name=None, template_type=None):
         # The time when the AI template was created. The time follows the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm:ss*Z format. The time is displayed in UTC.
         self.creation_time = creation_time  # type: str
-        # Indicates whether the template is the default template. Valid values:
+        # Indicates whether the template is the default AI template. Valid values:
         # 
         # *   **Default**\
         # *   **NotDefault**\
@@ -12985,7 +13038,7 @@ class GetDefaultAITemplateResponseBodyTemplateInfo(TeaModel):
         self.template_id = template_id  # type: str
         # The name of the AI template.
         self.template_name = template_name  # type: str
-        # The type of the AI template. The value is **AIMediaAudit**, which indicates intelligent review.
+        # The type of the AI template. The value is **AIMediaAudit**, which indicates automated review.
         self.template_type = template_type  # type: str
 
     def validate(self):
@@ -19693,7 +19746,11 @@ class GetUploadDetailsResponse(TeaModel):
 
 class GetVideoInfoRequest(TeaModel):
     def __init__(self, video_id=None):
-        # The ID of the video.
+        # The ID of the media file. You can use one of the following methods to obtain the ID of the file:
+        # 
+        # *   Log on to the [ApsaraVideo VOD](https://vod.console.aliyun.com) console. In the left-side navigation pane, choose **Media Files** > **Audio/Video**. On the Video and Audio page, view the ID of the audio or video file. This method is applicable to files that are uploaded by using the ApsaraVideo VOD console.
+        # *   Obtain the value of VideoId from the response to the [CreateUploadVideo](~~55407~~) operation that you called to obtain an upload URL and credential.
+        # *   Obtain the value of VideoId from the response to the [SearchMedia](~~86044~~) operation that you called to query the media ID after the media file is uploaded.
         self.video_id = video_id  # type: str
 
     def validate(self):
@@ -19752,47 +19809,49 @@ class GetVideoInfoResponseBodyVideo(TeaModel):
         # *   **Normal**: pass
         # *   **Blocked**: failed
         self.audit_status = audit_status  # type: str
-        # The category ID of the video.
+        # The category ID of the media file.
         self.cate_id = cate_id  # type: long
-        # The category of the video.
+        # The name of the category.
         self.cate_name = cate_name  # type: str
-        # The thumbnail URL of the video.
+        # The thumbnail URL of the media file.
         self.cover_url = cover_url  # type: str
-        # The time when the video was created. The time follows the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm:ss*Z format. The time is displayed in UTC.
+        # The time when the media file was created. The time follows the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm:ss*Z format. The time is displayed in UTC.
         self.creation_time = creation_time  # type: str
-        # The information about the custom media asset.
-        # > This parameter has been deprecated. This parameter is no longer returned when you call the API.
+        # The custom information about the media file.
+        # 
+        # > This parameter has been deprecated. This parameter is no longer returned after you call the operation.
         self.custom_media_info = custom_media_info  # type: str
-        # The description of the video.
+        # The description of the media file.
         self.description = description  # type: str
-        # The duration of the video. Unit: seconds.
+        # The duration of the media file. Unit: seconds.
         self.duration = duration  # type: float
-        # The time when the video was updated. The time follows the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm:ss*Z format. The time is displayed in UTC.
+        # The time when the media file was updated. The time follows the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm:ss*Z format. The time is displayed in UTC.
         self.modification_time = modification_time  # type: str
-        # The region ID of the Object Storage Service (OSS) bucket.
+        # The region where the media file is stored.
         self.region_id = region_id  # type: str
-        # The size of the source video file. Unit: byte.
+        # The size of the source file. Unit: bytes.
         self.size = size  # type: long
-        # The URL array of video snapshots.
+        # The video snapshot URLs.
         self.snapshots = snapshots  # type: GetVideoInfoResponseBodyVideoSnapshots
-        # The video status. Valid values:
+        # The status of the video. For information about the operations that can be performed on videos in different statuses and limits, see the Status: the status of a video section of the [Basic data types](~~52839~~) topic. Valid values:
+        # 
         # *   **Uploading**: The video is being uploaded.
         # *   **UploadFail**: The video failed to be uploaded.
         # *   **UploadSucc**: The video has been uploaded.
         # *   **Transcoding**: The video is being transcoded.
         # *   **TranscodeFail**: The video failed to be transcoded.
-        # *   **Blocked**: The video failed the review.
-        # *   **Normal**: The video passed the review.
+        # *   **Blocked**: The video is blocked.
+        # *   **Normal**: The video is normal.
         self.status = status  # type: str
-        # The OSS bucket where the video is stored.
+        # The storage address of the media file.
         self.storage_location = storage_location  # type: str
-        # The tags of the video. Separate multiple tags with commas (,).
+        # The tags of the media file. Multiple tags are separated by commas (,).
         self.tags = tags  # type: str
-        # The ID of the template group.
+        # The ID of the transcoding template group.
         self.template_group_id = template_group_id  # type: str
-        # The title of the video.
+        # The title of the media file.
         self.title = title  # type: str
-        # The ID of the video.
+        # The ID of the media file.
         self.video_id = video_id  # type: str
 
     def validate(self):
@@ -19893,7 +19952,7 @@ class GetVideoInfoResponseBody(TeaModel):
     def __init__(self, request_id=None, video=None):
         # The ID of the request.
         self.request_id = request_id  # type: str
-        # The information about the video.
+        # The information about the media file.
         self.video = video  # type: GetVideoInfoResponseBodyVideo
 
     def validate(self):
@@ -21521,7 +21580,8 @@ class ListAITemplateResponseBodyTemplateInfoList(TeaModel):
         # *   **System**\
         # *   **Custom**\
         self.source = source  # type: str
-        # The detailed configurations of the AI template. The value is a JSON string.
+        # The detailed configurations of the AI template. The value is a JSON string. 
+        # <props="china">For more information, see [AITemplateConfig](~~89863~~#title-vd3-499-o36).</props>
         self.template_config = template_config  # type: str
         # The ID of the AI template.
         self.template_id = template_id  # type: str
@@ -23584,21 +23644,23 @@ class ListWatermarkResponseBodyWatermarkInfos(TeaModel):
                  watermark_config=None, watermark_id=None):
         # The ID of the application.
         self.app_id = app_id  # type: str
-        # The time when the watermark was added. The time follows the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm:ss*Z format. The time is displayed in UTC.
+        # The time when the watermark was created. The time follows the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm:ss*Z format. The time is displayed in UTC.
         self.creation_time = creation_time  # type: str
-        # The Object Storage Service (OSS) URL or Content Delivery Network (CDN) URL of the watermark file. A text watermark does not have a file URL.
+        # The Object Storage Service (OSS) URL or CDN URL of the watermark file. A text watermark does not have a file URL.
         self.file_url = file_url  # type: str
-        # Indicates whether the watermark is the default one. Valid values:
-        # *   **Default**: The watermark is the default one.
-        # *   **NotDefault**: The watermark is not the default one.
+        # Indicates whether the default watermark was used. Valid values:
+        # 
+        # *   **Default**\
+        # *   **NotDefault**\
         self.is_default = is_default  # type: str
         # The name of the watermark.
         self.name = name  # type: str
         # The type of the watermark. Valid values:
+        # 
         # *   **Image**\
         # *   **Text**\
         self.type = type  # type: str
-        # The configurations such as the position and effect of the text watermark or image watermark. The value is a JSON-formatted string. For more information about the data structure, see the "WatermarkConfig" section of the [Media processing parameters](~~98618~~) topic.
+        # The configuration information such as the position and effect about the text watermark or image watermark. The value is a JSON string. For more information about the data structure, see the "WatermarkConfig: specifies the watermark configurations" section of the [Parameters for media processing](~~98618~~) topic.
         self.watermark_config = watermark_config  # type: str
         # The ID of the watermark.
         self.watermark_id = watermark_id  # type: str
@@ -23655,7 +23717,7 @@ class ListWatermarkResponseBody(TeaModel):
     def __init__(self, request_id=None, watermark_infos=None):
         # The ID of the request.
         self.request_id = request_id  # type: str
-        # The watermarks.
+        # Details about the watermarks.
         self.watermark_infos = watermark_infos  # type: list[ListWatermarkResponseBodyWatermarkInfos]
 
     def validate(self):
@@ -26602,15 +26664,15 @@ class SetVodDomainCertificateRequest(TeaModel):
                  security_token=None):
         # The name of the certificate.
         self.cert_name = cert_name  # type: str
-        # The domain name that is secured by the certificate. The domain name uses HTTPS acceleration.
+        # The domain name that is secured by the certificate. The domain name must use HTTPS acceleration.
         self.domain_name = domain_name  # type: str
         self.owner_id = owner_id  # type: long
         # The private key. This parameter is required only if you enable the SSL certificate.
         self.sslpri = sslpri  # type: str
         # Specifies whether to enable the SSL certificate. Valid values:
         # 
-        # *   **on**: enables the SSL certificate.
-        # *   **off**: disables the SSL certificate. Default value: off.
+        # *   **on**\
+        # *   **off**\
         self.sslprotocol = sslprotocol  # type: str
         # The content of the certificate. This parameter is required only if you enable the SSL certificate.
         self.sslpub = sslpub  # type: str
@@ -28169,9 +28231,9 @@ class SubmitWorkflowJobRequest(TeaModel):
     def __init__(self, media_id=None, workflow_id=None):
         # The ID of the media file. You can use one of the following methods to obtain the ID:
         # 
-        # *   Log on to the [ApsaraVideo VOD](https://vod.console.aliyun.com) console. In the left-side navigation pane, choose **Media Files** > **Audio/Video**. On the Video and Audio page, view the ID of the audio or video file. This method is applicable to files that are uploaded by using the ApsaraVideo VOD console.
-        # *   Obtain the value of the VideoId parameter when you call the [CreateUploadVideo](~~55407~~) operation to upload media files.
-        # *   Obtain the value of the VideoId parameter when you call the [SearchMedia](~~86044~~) operation after you upload media files.
+        # *   Log on to the [ApsaraVideo VOD](https://vod.console.aliyun.com) console. In the left-side navigation pane, choose **Media Files** > **Audio/Video**. On the Video and Audio page, view the ID of the media file. This method is applicable to files that are uploaded by using the ApsaraVideo VOD console.
+        # *   Obtain the value of VideoId from the response to the [CreateUploadVideo](~~55407~~) operation that you call to upload media files.
+        # *   Obtain the value of VideoId from the response to the [SearchMedia](~~86044~~) operation after you upload media files.
         self.media_id = media_id  # type: str
         # The ID of the workflow. To view the ID of the workflow, log on to the [ApsaraVideo VOD console](https://vod.console.aliyun.com). In the left-side navigation pane, choose **Configuration Management** > **Media Processing** > **Workflows**.
         self.workflow_id = workflow_id  # type: str
@@ -28268,10 +28330,10 @@ class UpdateAITemplateRequest(TeaModel):
     def __init__(self, template_config=None, template_id=None, template_name=None):
         # The detailed configurations of the AI template. The value is a JSON string.
         self.template_config = template_config  # type: str
-        # The ID of the AI template. You can use one of the following methods to obtain the ID of the AI template:
+        # The ID of the AI template. You can use one of the following methods to obtain the ID:
         # 
-        # *   Call the [AddAITemplate](~~102930~~) operation to add an AI template if no AI template exists. The value of TemplateId from the response is the ID of the AI template.
-        # *   Call the [ListAITemplate](~~102936~~) operation if the template already exists. The value of TemplateId from the response is the ID of the AI template.
+        # *   Call the [AddAITemplate](~~102930~~) operation to add an AI template if no AI template exists. The value of TemplateId in the response is the ID of the AI template.
+        # *   Call the [ListAITemplate](~~102936~~) operation if the template already exists. The value of TemplateId in the response is the ID of the AI template.
         self.template_id = template_id  # type: str
         # The name of the AI template. The name can be up to 128 bytes in length.
         self.template_name = template_name  # type: str
