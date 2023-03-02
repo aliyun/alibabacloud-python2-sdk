@@ -219,10 +219,11 @@ class AddressGetHeaders(TeaModel):
 
 
 class AddressGetRequest(TeaModel):
-    def __init__(self, action_type=None, itinerary_id=None, phone=None, type=None, user_id=None):
+    def __init__(self, action_type=None, itinerary_id=None, phone=None, sub_corp_id=None, type=None, user_id=None):
         self.action_type = action_type  # type: int
         self.itinerary_id = itinerary_id  # type: str
         self.phone = phone  # type: str
+        self.sub_corp_id = sub_corp_id  # type: str
         self.type = type  # type: int
         self.user_id = user_id  # type: str
 
@@ -241,6 +242,8 @@ class AddressGetRequest(TeaModel):
             result['itinerary_id'] = self.itinerary_id
         if self.phone is not None:
             result['phone'] = self.phone
+        if self.sub_corp_id is not None:
+            result['sub_corp_id'] = self.sub_corp_id
         if self.type is not None:
             result['type'] = self.type
         if self.user_id is not None:
@@ -255,6 +258,8 @@ class AddressGetRequest(TeaModel):
             self.itinerary_id = m.get('itinerary_id')
         if m.get('phone') is not None:
             self.phone = m.get('phone')
+        if m.get('sub_corp_id') is not None:
+            self.sub_corp_id = m.get('sub_corp_id')
         if m.get('type') is not None:
             self.type = m.get('type')
         if m.get('user_id') is not None:
