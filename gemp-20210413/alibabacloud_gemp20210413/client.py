@@ -3,6 +3,7 @@
 from __future__ import unicode_literals
 
 from Tea.core import TeaCore
+from Tea.converter import TeaConverter
 
 from alibabacloud_tea_openapi.client import Client as OpenApiClient
 from alibabacloud_tea_openapi import models as open_api_models
@@ -19,6 +20,7 @@ class Client(OpenApiClient):
     """
     def __init__(self, config):
         super(Client, self).__init__(config)
+        self._signature_algorithm = 'v2'
         self._endpoint_rule = 'regional'
         self.check_config(config)
         self._endpoint = self.get_endpoint('gemp', self._region_id, self._endpoint_rule, self._network, self._suffix, self._endpoint_map, self._endpoint)
@@ -640,6 +642,10 @@ class Client(OpenApiClient):
             body['childRuleRelation'] = request.child_rule_relation
         if not UtilClient.is_unset(request.client_token):
             body['clientToken'] = request.client_token
+        if not UtilClient.is_unset(request.convergence_fields):
+            body['convergenceFields'] = request.convergence_fields
+        if not UtilClient.is_unset(request.convergence_type):
+            body['convergenceType'] = request.convergence_type
         if not UtilClient.is_unset(request.coverage_problem_levels):
             body['coverageProblemLevels'] = request.coverage_problem_levels
         if not UtilClient.is_unset(request.effection):
@@ -2059,6 +2065,38 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.get_incident_with_options(request, headers, runtime)
+
+    def get_incident_list_by_id_list_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.client_token):
+            body['clientToken'] = request.client_token
+        if not UtilClient.is_unset(request.incident_id_list):
+            body['incidentIdList'] = request.incident_id_list
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='GetIncidentListByIdList',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/incident/getIncidentListByIdList',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gemp20210413_models.GetIncidentListByIdListResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_incident_list_by_id_list(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_incident_list_by_id_list_with_options(request, headers, runtime)
 
     def get_incident_statistics_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4156,6 +4194,33 @@ class Client(OpenApiClient):
         headers = {}
         return self.list_users_with_options(request, headers, runtime)
 
+    def push_monitor_with_options(self, api_key, request, headers, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=request.body
+        )
+        params = open_api_models.Params(
+            action='PushMonitor',
+            version='2021-04-13',
+            protocol='HTTPS',
+            pathname='/api/monitor/push/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(api_key)),
+            method='POST',
+            auth_type='Anonymous',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            gemp20210413_models.PushMonitorResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def push_monitor(self, api_key, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.push_monitor_with_options(api_key, request, headers, runtime)
+
     def recover_problem_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -4846,6 +4911,10 @@ class Client(OpenApiClient):
             body['childRuleRelation'] = request.child_rule_relation
         if not UtilClient.is_unset(request.client_token):
             body['clientToken'] = request.client_token
+        if not UtilClient.is_unset(request.convergence_fields):
+            body['convergenceFields'] = request.convergence_fields
+        if not UtilClient.is_unset(request.convergence_type):
+            body['convergenceType'] = request.convergence_type
         if not UtilClient.is_unset(request.coverage_problem_levels):
             body['coverageProblemLevels'] = request.coverage_problem_levels
         if not UtilClient.is_unset(request.effection):
