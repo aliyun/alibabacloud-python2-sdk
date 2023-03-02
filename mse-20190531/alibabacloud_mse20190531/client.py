@@ -2070,6 +2070,16 @@ class Client(OpenApiClient):
         return self.export_nacos_config_with_options(request, runtime)
 
     def export_zookeeper_data_with_options(self, request, runtime):
+        """
+        Only one task can run at a time.
+        
+
+        @param request: ExportZookeeperDataRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ExportZookeeperDataResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.accept_language):
@@ -2102,6 +2112,14 @@ class Client(OpenApiClient):
         )
 
     def export_zookeeper_data(self, request):
+        """
+        Only one task can run at a time.
+        
+
+        @param request: ExportZookeeperDataRequest
+
+        @return: ExportZookeeperDataResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.export_zookeeper_data_with_options(request, runtime)
 
@@ -3144,6 +3162,17 @@ class Client(OpenApiClient):
         return self.import_services_with_options(request, runtime)
 
     def import_zookeeper_data_with_options(self, request, runtime):
+        """
+        *\
+        **Danger** This operation clears existing data. Exercise caution when you call this API operation.
+        
+
+        @param request: ImportZookeeperDataRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ImportZookeeperDataResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.accept_language):
@@ -3178,6 +3207,15 @@ class Client(OpenApiClient):
         )
 
     def import_zookeeper_data(self, request):
+        """
+        *\
+        **Danger** This operation clears existing data. Exercise caution when you call this API operation.
+        
+
+        @param request: ImportZookeeperDataRequest
+
+        @return: ImportZookeeperDataResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.import_zookeeper_data_with_options(request, runtime)
 
@@ -5456,6 +5494,8 @@ class Client(OpenApiClient):
             query['ConfigSecretEnabled'] = request.config_secret_enabled
         if not UtilClient.is_unset(request.config_type):
             query['ConfigType'] = request.config_type
+        if not UtilClient.is_unset(request.eureka_supported):
+            query['EurekaSupported'] = request.eureka_supported
         if not UtilClient.is_unset(request.extended_types_enable):
             query['ExtendedTypesEnable'] = request.extended_types_enable
         if not UtilClient.is_unset(request.init_limit):
