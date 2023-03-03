@@ -794,9 +794,10 @@ class CreateEscalationPlanRequestEscalationPlanRulesEscalationPlanConditions(Tea
 
 
 class CreateEscalationPlanRequestEscalationPlanRulesEscalationPlanStrategies(TeaModel):
-    def __init__(self, enable_webhook=None, notice_channels=None, notice_objects=None, notice_time=None,
-                 service_group_ids=None):
+    def __init__(self, enable_webhook=None, escalation_plan_type=None, notice_channels=None, notice_objects=None,
+                 notice_time=None, service_group_ids=None):
         self.enable_webhook = enable_webhook  # type: bool
+        self.escalation_plan_type = escalation_plan_type  # type: str
         self.notice_channels = notice_channels  # type: list[str]
         self.notice_objects = notice_objects  # type: list[long]
         self.notice_time = notice_time  # type: str
@@ -813,6 +814,8 @@ class CreateEscalationPlanRequestEscalationPlanRulesEscalationPlanStrategies(Tea
         result = dict()
         if self.enable_webhook is not None:
             result['enableWebhook'] = self.enable_webhook
+        if self.escalation_plan_type is not None:
+            result['escalationPlanType'] = self.escalation_plan_type
         if self.notice_channels is not None:
             result['noticeChannels'] = self.notice_channels
         if self.notice_objects is not None:
@@ -827,6 +830,8 @@ class CreateEscalationPlanRequestEscalationPlanRulesEscalationPlanStrategies(Tea
         m = m or dict()
         if m.get('enableWebhook') is not None:
             self.enable_webhook = m.get('enableWebhook')
+        if m.get('escalationPlanType') is not None:
+            self.escalation_plan_type = m.get('escalationPlanType')
         if m.get('noticeChannels') is not None:
             self.notice_channels = m.get('noticeChannels')
         if m.get('noticeObjects') is not None:
