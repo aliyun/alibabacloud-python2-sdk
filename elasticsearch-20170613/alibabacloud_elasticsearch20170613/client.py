@@ -453,6 +453,21 @@ class Client(OpenApiClient):
         return self.create_data_stream_with_options(instance_id, request, headers, runtime)
 
     def create_data_tasks_with_options(self, instance_id, request, headers, runtime):
+        """
+        Before you call this operation, note that:
+        *   Currently, the one-click index migration feature only supports the China (Beijing) region.
+        *   The source and destination Elasticsearch clusters must meet the following requirements: a user-created or Alibaba Cloud Elasticsearch Elasticsearch cluster with a source of version 6.7.0 and a Alibaba Cloud Elasticsearch Elasticsearch cluster with a destination of version 6.3.2 or 6.7.0.
+        
+
+        @param request: CreateDataTasksRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateDataTasksResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -479,6 +494,16 @@ class Client(OpenApiClient):
         )
 
     def create_data_tasks(self, instance_id, request):
+        """
+        Before you call this operation, note that:
+        *   Currently, the one-click index migration feature only supports the China (Beijing) region.
+        *   The source and destination Elasticsearch clusters must meet the following requirements: a user-created or Alibaba Cloud Elasticsearch Elasticsearch cluster with a source of version 6.7.0 and a Alibaba Cloud Elasticsearch Elasticsearch cluster with a destination of version 6.3.2 or 6.7.0.
+        
+
+        @param request: CreateDataTasksRequest
+
+        @return: CreateDataTasksResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.create_data_tasks_with_options(instance_id, request, headers, runtime)
@@ -559,6 +584,21 @@ class Client(OpenApiClient):
         return self.create_index_template_with_options(instance_id, request, headers, runtime)
 
     def create_logstash_with_options(self, request, headers, runtime):
+        """
+        Before you call the API operation, note that:
+        *   Before you call this operation, make sure that you have fully understood the payment method and price of Logstash.
+        *   Before you create an instance, you must complete real-name verification.
+        
+
+        @param request: CreateLogstashRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateLogstashResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -576,6 +616,8 @@ class Client(OpenApiClient):
             body['paymentInfo'] = request.payment_info
         if not UtilClient.is_unset(request.payment_type):
             body['paymentType'] = request.payment_type
+        if not UtilClient.is_unset(request.resource_group_id):
+            body['resourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.version):
             body['version'] = request.version
         req = open_api_models.OpenApiRequest(
@@ -600,6 +642,16 @@ class Client(OpenApiClient):
         )
 
     def create_logstash(self, request):
+        """
+        Before you call the API operation, note that:
+        *   Before you call this operation, make sure that you have fully understood the payment method and price of Logstash.
+        *   Before you create an instance, you must complete real-name verification.
+        
+
+        @param request: CreateLogstashRequest
+
+        @return: CreateLogstashResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.create_logstash_with_options(request, headers, runtime)
@@ -614,7 +666,7 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query),
-            body=request.body
+            body=UtilClient.to_array(request.body)
         )
         params = open_api_models.Params(
             action='CreatePipelines',
@@ -669,6 +721,19 @@ class Client(OpenApiClient):
         return self.create_snapshot_with_options(instance_id, request, headers, runtime)
 
     def create_vpc_endpoint_with_options(self, instance_id, request, headers, runtime):
+        """
+        For more information about this API operation, see [Configure a private connection to an instance](~~279559~~).
+        
+
+        @param request: CreateVpcEndpointRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateVpcEndpointResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -702,6 +767,14 @@ class Client(OpenApiClient):
         )
 
     def create_vpc_endpoint(self, instance_id, request):
+        """
+        For more information about this API operation, see [Configure a private connection to an instance](~~279559~~).
+        
+
+        @param request: CreateVpcEndpointRequest
+
+        @return: CreateVpcEndpointResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.create_vpc_endpoint_with_options(instance_id, request, headers, runtime)
@@ -994,6 +1067,20 @@ class Client(OpenApiClient):
         return self.delete_instance_with_options(instance_id, request, headers, runtime)
 
     def delete_logstash_with_options(self, instance_id, request, headers, runtime):
+        """
+        Before you call an interface, note the following:
+        After an instance is released, the physical resources used by the instance are recycled. All related data is lost and cannot be recovered. The Cloud disks attached to the instance nodes are also released. The corresponding snapshots are deleted.
+        
+
+        @param request: DeleteLogstashRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteLogstashResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -1021,6 +1108,15 @@ class Client(OpenApiClient):
         )
 
     def delete_logstash(self, instance_id, request):
+        """
+        Before you call an interface, note the following:
+        After an instance is released, the physical resources used by the instance are recycled. All related data is lost and cannot be recovered. The Cloud disks attached to the instance nodes are also released. The corresponding snapshots are deleted.
+        
+
+        @param request: DeleteLogstashRequest
+
+        @return: DeleteLogstashResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.delete_logstash_with_options(instance_id, request, headers, runtime)
@@ -1120,6 +1216,17 @@ class Client(OpenApiClient):
         return self.delete_vpc_endpoint_with_options(instance_id, endpoint_id, request, headers, runtime)
 
     def describe_ack_operator_with_options(self, cluster_id, headers, runtime):
+        """
+        >  Before installing the collector on the ACK cluster, you can call this interface to view the installation status of the Elasticsearch Operator on the target cluster.
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeAckOperatorResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1140,6 +1247,12 @@ class Client(OpenApiClient):
         )
 
     def describe_ack_operator(self, cluster_id):
+        """
+        >  Before installing the collector on the ACK cluster, you can call this interface to view the installation status of the Elasticsearch Operator on the target cluster.
+        
+
+        @return: DescribeAckOperatorResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.describe_ack_operator_with_options(cluster_id, headers, runtime)
@@ -1360,6 +1473,20 @@ class Client(OpenApiClient):
         return self.describe_dynamic_settings_with_options(instance_id, headers, runtime)
 
     def describe_elasticsearch_health_with_options(self, instance_id, headers, runtime):
+        """
+        The instance health condition supports the following three states:
+        *   GREEN: The distribution of primary and secondary shards is normal.
+        *   YELLOW: The primary shard is normally allocated, but the replica is not normally allocated.
+        *   RED: The primary shard is not normally allocated.
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeElasticsearchHealthResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1380,6 +1507,15 @@ class Client(OpenApiClient):
         )
 
     def describe_elasticsearch_health(self, instance_id):
+        """
+        The instance health condition supports the following three states:
+        *   GREEN: The distribution of primary and secondary shards is normal.
+        *   YELLOW: The primary shard is normally allocated, but the replica is not normally allocated.
+        *   RED: The primary shard is not normally allocated.
+        
+
+        @return: DescribeElasticsearchHealthResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.describe_elasticsearch_health_with_options(instance_id, headers, runtime)
@@ -2021,6 +2157,19 @@ class Client(OpenApiClient):
         return self.get_transferable_nodes_with_options(instance_id, request, headers, runtime)
 
     def initialize_operation_role_with_options(self, request, headers, runtime):
+        """
+        >  When using a collector to collect logs from different data sources or performing elastic cluster scaling tasks (for the China site), you must first grant permissions to create service linked roles.
+        
+
+        @param request: InitializeOperationRoleRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: InitializeOperationRoleResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -2047,11 +2196,32 @@ class Client(OpenApiClient):
         )
 
     def initialize_operation_role(self, request):
+        """
+        >  When using a collector to collect logs from different data sources or performing elastic cluster scaling tasks (for the China site), you must first grant permissions to create service linked roles.
+        
+
+        @param request: InitializeOperationRoleRequest
+
+        @return: InitializeOperationRoleResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.initialize_operation_role_with_options(request, headers, runtime)
 
     def install_ack_operator_with_options(self, cluster_id, request, headers, runtime):
+        """
+        >  Before installing the collector on the ACK cluster, you need to call this interface and install the Elasticsearch Operator. on the target cluster.
+        
+
+        @param request: InstallAckOperatorRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: InstallAckOperatorResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -2078,6 +2248,14 @@ class Client(OpenApiClient):
         )
 
     def install_ack_operator(self, cluster_id, request):
+        """
+        >  Before installing the collector on the ACK cluster, you need to call this interface and install the Elasticsearch Operator. on the target cluster.
+        
+
+        @param request: InstallAckOperatorRequest
+
+        @return: InstallAckOperatorResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.install_ack_operator_with_options(cluster_id, request, headers, runtime)
@@ -2114,6 +2292,20 @@ class Client(OpenApiClient):
         return self.install_kibana_system_plugin_with_options(instance_id, request, headers, runtime)
 
     def install_logstash_system_plugin_with_options(self, instance_id, request, headers, runtime):
+        """
+        Before you call this operation, note that:
+        The plug-ins to be installed must be included in the [System Default Plug-ins](~~139626~~) list of Alibaba Cloud Logstash. External open-source plug-ins are not supported.
+        
+
+        @param request: InstallLogstashSystemPluginRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: InstallLogstashSystemPluginResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -2140,6 +2332,15 @@ class Client(OpenApiClient):
         )
 
     def install_logstash_system_plugin(self, instance_id, request):
+        """
+        Before you call this operation, note that:
+        The plug-ins to be installed must be included in the [System Default Plug-ins](~~139626~~) list of Alibaba Cloud Logstash. External open-source plug-ins are not supported.
+        
+
+        @param request: InstallLogstashSystemPluginRequest
+
+        @return: InstallLogstashSystemPluginResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.install_logstash_system_plugin_with_options(instance_id, request, headers, runtime)
@@ -2297,6 +2498,19 @@ class Client(OpenApiClient):
         return self.list_ack_clusters_with_options(request, headers, runtime)
 
     def list_ack_namespaces_with_options(self, cluster_id, request, headers, runtime):
+        """
+        >  When you create an ACK cluster-based collector, you need to specify the namespace of the cluster. You can call this interface to view all namespaces of the cluster and select the appropriate namespace based on this.
+        
+
+        @param request: ListAckNamespacesRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListAckNamespacesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.page):
@@ -2324,6 +2538,14 @@ class Client(OpenApiClient):
         )
 
     def list_ack_namespaces(self, cluster_id, request):
+        """
+        >  When you create an ACK cluster-based collector, you need to specify the namespace of the cluster. You can call this interface to view all namespaces of the cluster and select the appropriate namespace based on this.
+        
+
+        @param request: ListAckNamespacesRequest
+
+        @return: ListAckNamespacesResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_ack_namespaces_with_options(cluster_id, request, headers, runtime)
@@ -2831,6 +3053,36 @@ class Client(OpenApiClient):
         headers = {}
         return self.list_diagnose_report_ids_with_options(instance_id, request, headers, runtime)
 
+    def list_diagnosis_items_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.lang):
+            query['lang'] = request.lang
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListDiagnosisItems',
+            version='2017-06-13',
+            protocol='HTTPS',
+            pathname='/openapi/diagnosis/items',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            elasticsearch_20170613_models.ListDiagnosisItemsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_diagnosis_items(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_diagnosis_items_with_options(request, headers, runtime)
+
     def list_dict_information_with_options(self, instance_id, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -2898,6 +3150,19 @@ class Client(OpenApiClient):
         return self.list_dicts_with_options(instance_id, request, headers, runtime)
 
     def list_ecs_instances_with_options(self, request, headers, runtime):
+        """
+        *Important** To call this operation, you must create the Aliyun Elasticsearch AccessingOOSRole and the system service role AliyunOOSAccessingECS 4ESRole to Elasticsearch the service account to obtain the ECS access permissions of the primary account. For more information, see [Collect ECS service logs](~~146446~~).
+        
+
+        @param request: ListEcsInstancesRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListEcsInstancesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.ecs_instance_ids):
@@ -2933,6 +3198,14 @@ class Client(OpenApiClient):
         )
 
     def list_ecs_instances(self, request):
+        """
+        *Important** To call this operation, you must create the Aliyun Elasticsearch AccessingOOSRole and the system service role AliyunOOSAccessingECS 4ESRole to Elasticsearch the service account to obtain the ECS access permissions of the primary account. For more information, see [Collect ECS service logs](~~146446~~).
+        
+
+        @param request: ListEcsInstancesRequest
+
+        @return: ListEcsInstancesResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_ecs_instances_with_options(request, headers, runtime)
@@ -3402,6 +3675,19 @@ class Client(OpenApiClient):
         return self.list_pipeline_with_options(instance_id, request, headers, runtime)
 
     def list_pipeline_ids_with_options(self, instance_id, request, headers, runtime):
+        """
+        >  Pipeline management is divided into configuration file management and Kibana pipeline management. Kibana pipeline management is not open in some regional consoles.
+        
+
+        @param request: ListPipelineIdsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListPipelineIdsResponse
+        """
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             headers=headers,
@@ -3424,6 +3710,14 @@ class Client(OpenApiClient):
         )
 
     def list_pipeline_ids(self, instance_id, request):
+        """
+        >  Pipeline management is divided into configuration file management and Kibana pipeline management. Kibana pipeline management is not open in some regional consoles.
+        
+
+        @param request: ListPipelineIdsRequest
+
+        @return: ListPipelineIdsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_pipeline_ids_with_options(instance_id, request, headers, runtime)
@@ -3505,6 +3799,19 @@ class Client(OpenApiClient):
         return self.list_search_log_with_options(instance_id, request, headers, runtime)
 
     def list_shard_recoveries_with_options(self, instance_id, request, headers, runtime):
+        """
+        >  Shard recovery is the process of synchronizing from primary to secondary shards. After the restoration is complete, the secondary parts are available for searching.
+        
+
+        @param request: ListShardRecoveriesRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListShardRecoveriesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.active_only):
@@ -3530,6 +3837,14 @@ class Client(OpenApiClient):
         )
 
     def list_shard_recoveries(self, instance_id, request):
+        """
+        >  Shard recovery is the process of synchronizing from primary to secondary shards. After the restoration is complete, the secondary parts are available for searching.
+        
+
+        @param request: ListShardRecoveriesRequest
+
+        @return: ListShardRecoveriesResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_shard_recoveries_with_options(instance_id, request, headers, runtime)
@@ -3664,6 +3979,23 @@ class Client(OpenApiClient):
         return self.list_vpc_endpoints_with_options(instance_id, request, headers, runtime)
 
     def migrate_to_other_zone_with_options(self, instance_id, request, headers, runtime):
+        """
+        If the specifications in your zone are insufficient, you can upgrade your instance to nodes in another zone. Before calling this interface, you must ensure that:
+        *   The error message returned because the current account is in a zone that has sufficient resources.
+        After migrating nodes with current specifications to another zone, you need to manually [upgrade cluster](~~96650~~) because the cluster will not be upgraded during the migration process. Therefore, select a zone with sufficient resources to avoid cluster upgrade failure. We recommend that you choose new zones that are in lower alphabetical order. For example, for cn-hangzhou-e and cn-hangzhou-h zones, choose cn-hangzhou-h first.
+        *   The cluster is in the healthy state.
+        Can be passed`  GET _cat/health?v  `command to view the health status of the cluster.
+        
+
+        @param request: MigrateToOtherZoneRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: MigrateToOtherZoneResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dry_run):
@@ -3690,6 +4022,18 @@ class Client(OpenApiClient):
         )
 
     def migrate_to_other_zone(self, instance_id, request):
+        """
+        If the specifications in your zone are insufficient, you can upgrade your instance to nodes in another zone. Before calling this interface, you must ensure that:
+        *   The error message returned because the current account is in a zone that has sufficient resources.
+        After migrating nodes with current specifications to another zone, you need to manually [upgrade cluster](~~96650~~) because the cluster will not be upgraded during the migration process. Therefore, select a zone with sufficient resources to avoid cluster upgrade failure. We recommend that you choose new zones that are in lower alphabetical order. For example, for cn-hangzhou-e and cn-hangzhou-h zones, choose cn-hangzhou-h first.
+        *   The cluster is in the healthy state.
+        Can be passed`  GET _cat/health?v  `command to view the health status of the cluster.
+        
+
+        @param request: MigrateToOtherZoneRequest
+
+        @return: MigrateToOtherZoneResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.migrate_to_other_zone_with_options(instance_id, request, headers, runtime)
@@ -3753,6 +4097,22 @@ class Client(OpenApiClient):
         return self.modify_elastictask_with_options(instance_id, request, headers, runtime)
 
     def modify_instance_maintain_time_with_options(self, instance_id, request, headers, runtime):
+        """
+        Before you call this operation, note that:
+        *   Before maintenance is performed, the system sends SMS messages and emails to the contacts listed in your Alibaba Cloud account.
+        *   On the day of instance maintenance, to ensure the stability of the entire maintenance process, the instance enters the Active state before it can be maintenance window. In this case, you can still access the cluster and perform query operations such as performance monitoring. However, you cannot perform modification operations such as restart and configuration upgrades for the cluster.
+        *   The instance connection may be disconnected within the available maintenance window. Make sure that the application has a reconnection mechanism.
+        
+
+        @param request: ModifyInstanceMaintainTimeRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyInstanceMaintainTimeResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -3779,11 +4139,39 @@ class Client(OpenApiClient):
         )
 
     def modify_instance_maintain_time(self, instance_id, request):
+        """
+        Before you call this operation, note that:
+        *   Before maintenance is performed, the system sends SMS messages and emails to the contacts listed in your Alibaba Cloud account.
+        *   On the day of instance maintenance, to ensure the stability of the entire maintenance process, the instance enters the Active state before it can be maintenance window. In this case, you can still access the cluster and perform query operations such as performance monitoring. However, you cannot perform modification operations such as restart and configuration upgrades for the cluster.
+        *   The instance connection may be disconnected within the available maintenance window. Make sure that the application has a reconnection mechanism.
+        
+
+        @param request: ModifyInstanceMaintainTimeRequest
+
+        @return: ModifyInstanceMaintainTimeResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.modify_instance_maintain_time_with_options(instance_id, request, headers, runtime)
 
     def modify_white_ips_with_options(self, instance_id, request, headers, runtime):
+        """
+        The instance is in the Active (activating), Invalid (invalid), and Inactive (inactive) state and cannot be updated.
+        *   You can update the whitelist in two ways: IP address whitelist list and IP address whitelist group. The two methods cannot be used at the same time. In addition to InstanceId and clientToken, the two methods support different parameters, as follows:
+        *   IP address whitelist: whiteIpList, nodeType, and networkType
+        *   IP address whitelist groups: modifyMode and whiteIpGroup
+        *   Public network access whitelists do not support configuring private IP addresses. Private network access whitelists do not support configuring public IP addresses.
+        
+
+        @param request: ModifyWhiteIpsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyWhiteIpsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -3821,6 +4209,18 @@ class Client(OpenApiClient):
         )
 
     def modify_white_ips(self, instance_id, request):
+        """
+        The instance is in the Active (activating), Invalid (invalid), and Inactive (inactive) state and cannot be updated.
+        *   You can update the whitelist in two ways: IP address whitelist list and IP address whitelist group. The two methods cannot be used at the same time. In addition to InstanceId and clientToken, the two methods support different parameters, as follows:
+        *   IP address whitelist: whiteIpList, nodeType, and networkType
+        *   IP address whitelist groups: modifyMode and whiteIpGroup
+        *   Public network access whitelists do not support configuring private IP addresses. Private network access whitelists do not support configuring public IP addresses.
+        
+
+        @param request: ModifyWhiteIpsRequest
+
+        @return: ModifyWhiteIpsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.modify_white_ips_with_options(instance_id, request, headers, runtime)
@@ -3889,6 +4289,19 @@ class Client(OpenApiClient):
         return self.open_diagnosis_with_options(instance_id, request, headers, runtime)
 
     def open_https_with_options(self, instance_id, request, headers, runtime):
+        """
+        >  To ensure data security, we recommend that you enable HTTPS.
+        
+
+        @param request: OpenHttpsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: OpenHttpsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -3914,6 +4327,14 @@ class Client(OpenApiClient):
         )
 
     def open_https(self, instance_id, request):
+        """
+        >  To ensure data security, we recommend that you enable HTTPS.
+        
+
+        @param request: OpenHttpsRequest
+
+        @return: OpenHttpsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.open_https_with_options(instance_id, request, headers, runtime)
@@ -4124,6 +4545,19 @@ class Client(OpenApiClient):
         return self.restart_collector_with_options(res_id, request, headers, runtime)
 
     def restart_instance_with_options(self, instance_id, request, headers, runtime):
+        """
+        >  After the instance is restarted, the instance enters the activating state. After the instance is restarted, its status changes to active. Alibaba Cloud Elasticsearch supports restarting a single node. Restarting a node can be divided into normal restart and blue-green restart.
+        
+
+        @param request: RestartInstanceRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RestartInstanceResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -4152,6 +4586,14 @@ class Client(OpenApiClient):
         )
 
     def restart_instance(self, instance_id, request):
+        """
+        >  After the instance is restarted, the instance enters the activating state. After the instance is restarted, its status changes to active. Alibaba Cloud Elasticsearch supports restarting a single node. Restarting a node can be divided into normal restart and blue-green restart.
+        
+
+        @param request: RestartInstanceRequest
+
+        @return: RestartInstanceResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.restart_instance_with_options(instance_id, request, headers, runtime)
@@ -4322,6 +4764,20 @@ class Client(OpenApiClient):
         return self.run_pipelines_with_options(instance_id, request, headers, runtime)
 
     def shrink_node_with_options(self, instance_id, request, headers, runtime):
+        """
+        When you call this operation, take note of the following items:
+        Before you remove data nodes, you must migrate the data stored on them to other nodes.
+        
+
+        @param request: ShrinkNodeRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ShrinkNodeResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -4354,6 +4810,15 @@ class Client(OpenApiClient):
         )
 
     def shrink_node(self, instance_id, request):
+        """
+        When you call this operation, take note of the following items:
+        Before you remove data nodes, you must migrate the data stored on them to other nodes.
+        
+
+        @param request: ShrinkNodeRequest
+
+        @return: ShrinkNodeResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.shrink_node_with_options(instance_id, request, headers, runtime)
@@ -4698,6 +5163,22 @@ class Client(OpenApiClient):
         return self.uninstall_plugin_with_options(instance_id, request, headers, runtime)
 
     def untag_resources_with_options(self, request, headers, runtime):
+        """
+        When you call this operation, take note of the following items:
+        *   You can only delete user tags.
+        > User labels are manually added to instances by users. A system Tag is a tag that Alibaba Cloud services add to instances. System labels are divided into visible labels and invisible labels.
+        *   If you delete a resource tag relationship that is not associated with any resources, you must delete the tags.
+        
+
+        @param request: UntagResourcesRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UntagResourcesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.all):
@@ -4730,11 +5211,36 @@ class Client(OpenApiClient):
         )
 
     def untag_resources(self, request):
+        """
+        When you call this operation, take note of the following items:
+        *   You can only delete user tags.
+        > User labels are manually added to instances by users. A system Tag is a tag that Alibaba Cloud services add to instances. System labels are divided into visible labels and invisible labels.
+        *   If you delete a resource tag relationship that is not associated with any resources, you must delete the tags.
+        
+
+        @param request: UntagResourcesRequest
+
+        @return: UntagResourcesResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.untag_resources_with_options(request, headers, runtime)
 
     def update_admin_password_with_options(self, instance_id, request, headers, runtime):
+        """
+        When you call this operation, take note of the following limits:
+        If the instance is in the Activating, Invalid, or Inactive state, the information cannot be updated.
+        
+
+        @param request: UpdateAdminPasswordRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateAdminPasswordResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -4764,6 +5270,15 @@ class Client(OpenApiClient):
         )
 
     def update_admin_password(self, instance_id, request):
+        """
+        When you call this operation, take note of the following limits:
+        If the instance is in the Activating, Invalid, or Inactive state, the information cannot be updated.
+        
+
+        @param request: UpdateAdminPasswordRequest
+
+        @return: UpdateAdminPasswordResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_admin_password_with_options(instance_id, request, headers, runtime)
@@ -4800,6 +5315,22 @@ class Client(OpenApiClient):
         return self.update_advanced_setting_with_options(instance_id, request, headers, runtime)
 
     def update_aliws_dict_with_options(self, instance_id, request, headers, runtime):
+        """
+        Note the following when calling this interface:
+        *   Alibaba Cloud Elasticsearch V5.0 clusters do not support the analysis-aliws plug-in.
+        *   If the dictionary file is obtained from OSS, make sure that the OSS bucket is public-readable.
+        *   If the ORIGIN configuration is not added to an uploaded dictionary file, the dictionary file is deleted after you call this operation.
+        
+
+        @param request: UpdateAliwsDictRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateAliwsDictResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -4826,6 +5357,17 @@ class Client(OpenApiClient):
         )
 
     def update_aliws_dict(self, instance_id, request):
+        """
+        Note the following when calling this interface:
+        *   Alibaba Cloud Elasticsearch V5.0 clusters do not support the analysis-aliws plug-in.
+        *   If the dictionary file is obtained from OSS, make sure that the OSS bucket is public-readable.
+        *   If the ORIGIN configuration is not added to an uploaded dictionary file, the dictionary file is deleted after you call this operation.
+        
+
+        @param request: UpdateAliwsDictRequest
+
+        @return: UpdateAliwsDictResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_aliws_dict_with_options(instance_id, request, headers, runtime)
@@ -5180,6 +5722,20 @@ class Client(OpenApiClient):
         return self.update_extend_config_with_options(instance_id, request, headers, runtime)
 
     def update_extendfiles_with_options(self, instance_id, request, headers, runtime):
+        """
+        Note the following when calling this interface:
+        Currently, this operation only allows you to delete Logstash extension files that have been uploaded in the console. If you want to add or modify an identifier, perform the operations in the console.
+        
+
+        @param request: UpdateExtendfilesRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateExtendfilesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -5206,11 +5762,35 @@ class Client(OpenApiClient):
         )
 
     def update_extendfiles(self, instance_id, request):
+        """
+        Note the following when calling this interface:
+        Currently, this operation only allows you to delete Logstash extension files that have been uploaded in the console. If you want to add or modify an identifier, perform the operations in the console.
+        
+
+        @param request: UpdateExtendfilesRequest
+
+        @return: UpdateExtendfilesResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_extendfiles_with_options(instance_id, request, headers, runtime)
 
     def update_hot_ik_dicts_with_options(self, instance_id, request, headers, runtime):
+        """
+        Note the following when calling this interface:
+        *   If the dictionary file is obtained from OSS, make sure that the OSS bucket is public-readable.
+        *   If the ORIGIN configuration is not added to an uploaded dictionary file, the dictionary file is deleted after you call this operation.
+        
+
+        @param request: UpdateHotIkDictsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateHotIkDictsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -5237,6 +5817,16 @@ class Client(OpenApiClient):
         )
 
     def update_hot_ik_dicts(self, instance_id, request):
+        """
+        Note the following when calling this interface:
+        *   If the dictionary file is obtained from OSS, make sure that the OSS bucket is public-readable.
+        *   If the ORIGIN configuration is not added to an uploaded dictionary file, the dictionary file is deleted after you call this operation.
+        
+
+        @param request: UpdateHotIkDictsRequest
+
+        @return: UpdateHotIkDictsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_hot_ik_dicts_with_options(instance_id, request, headers, runtime)
@@ -5304,6 +5894,26 @@ class Client(OpenApiClient):
         return self.update_index_template_with_options(instance_id, index_template, request, headers, runtime)
 
     def update_instance_with_options(self, instance_id, request, headers, runtime):
+        """
+        When you call this operation, take note of the following items:
+        *   If the instance is in the Activating, Invalid, or Inactive state, you cannot change the configurations.
+        *   If the indexes of your cluster do not have replica shards, the load of the cluster is excessively high, and large amounts of data are written to or queried in your cluster, access to the cluster may time out during a cluster configuration upgrade or downgrade. We recommend that you configure an access retry mechanism for your client before you upgrade the configuration of your cluster. This reduces the impact on your business.
+        *   You can change the configurations of only one type of node at a time (data node, dedicated master node, cold data node, coordinator node, Kibana node, and elastic node).
+        *   Due to the health and stability of your cluster, Alibaba Cloud Elasticsearch does not support the purchase of 1-core 2 GB instances, 2-core 2 GB instances for dedicated master nodes, and 7.4 instances since May 2021. If you have confirmed that the purchased specifications are no longer available for sale, you must perform the following operations:
+        *   For the 1-core 2 GB and 2-core 2 GB specifications, we recommend that you upgrade to the stable sales specifications that are available on the buy page in advance. For more information about the sales specifications available on the buy page, see [Purchase page parameters](~~163243~~).
+        *   If your cluster is of V7.4, purchase a V7.10 cluster and migrate data from the original cluster to the V7.10 cluster.
+        For more information, see [Upgrade a cluster](~~96650~~) and [Downgrade a cluster](~~198887~~).
+        
+
+        @param request: UpdateInstanceRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateInstanceResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -5351,6 +5961,21 @@ class Client(OpenApiClient):
         )
 
     def update_instance(self, instance_id, request):
+        """
+        When you call this operation, take note of the following items:
+        *   If the instance is in the Activating, Invalid, or Inactive state, you cannot change the configurations.
+        *   If the indexes of your cluster do not have replica shards, the load of the cluster is excessively high, and large amounts of data are written to or queried in your cluster, access to the cluster may time out during a cluster configuration upgrade or downgrade. We recommend that you configure an access retry mechanism for your client before you upgrade the configuration of your cluster. This reduces the impact on your business.
+        *   You can change the configurations of only one type of node at a time (data node, dedicated master node, cold data node, coordinator node, Kibana node, and elastic node).
+        *   Due to the health and stability of your cluster, Alibaba Cloud Elasticsearch does not support the purchase of 1-core 2 GB instances, 2-core 2 GB instances for dedicated master nodes, and 7.4 instances since May 2021. If you have confirmed that the purchased specifications are no longer available for sale, you must perform the following operations:
+        *   For the 1-core 2 GB and 2-core 2 GB specifications, we recommend that you upgrade to the stable sales specifications that are available on the buy page in advance. For more information about the sales specifications available on the buy page, see [Purchase page parameters](~~163243~~).
+        *   If your cluster is of V7.4, purchase a V7.10 cluster and migrate data from the original cluster to the V7.10 cluster.
+        For more information, see [Upgrade a cluster](~~96650~~) and [Downgrade a cluster](~~198887~~).
+        
+
+        @param request: UpdateInstanceRequest
+
+        @return: UpdateInstanceResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_instance_with_options(instance_id, request, headers, runtime)
@@ -5387,6 +6012,20 @@ class Client(OpenApiClient):
         return self.update_instance_charge_type_with_options(instance_id, request, headers, runtime)
 
     def update_instance_settings_with_options(self, instance_id, request, headers, runtime):
+        """
+        When you call this operation, take note of the following items:
+        When the instance is in the activating, invalid, or inactive state, you cannot update the configuration.
+        
+
+        @param request: UpdateInstanceSettingsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateInstanceSettingsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -5413,6 +6052,15 @@ class Client(OpenApiClient):
         )
 
     def update_instance_settings(self, instance_id, request):
+        """
+        When you call this operation, take note of the following items:
+        When the instance is in the activating, invalid, or inactive state, you cannot update the configuration.
+        
+
+        @param request: UpdateInstanceSettingsRequest
+
+        @return: UpdateInstanceSettingsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_instance_settings_with_options(instance_id, request, headers, runtime)
@@ -5487,6 +6135,20 @@ class Client(OpenApiClient):
         return self.update_kibana_white_ips_with_options(instance_id, request, headers, runtime)
 
     def update_logstash_with_options(self, instance_id, request, headers, runtime):
+        """
+        When you call this operation, take note of the following limits:
+        If the instance is in the Activating, Invalid, or Inactive state, you cannot modify the instance information.
+        
+
+        @param request: UpdateLogstashRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateLogstashResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -5518,6 +6180,15 @@ class Client(OpenApiClient):
         )
 
     def update_logstash(self, instance_id, request):
+        """
+        When you call this operation, take note of the following limits:
+        If the instance is in the Activating, Invalid, or Inactive state, you cannot modify the instance information.
+        
+
+        @param request: UpdateLogstashRequest
+
+        @return: UpdateLogstashResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_logstash_with_options(instance_id, request, headers, runtime)
@@ -5558,10 +6229,13 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.client_token):
             query['clientToken'] = request.client_token
+        body = {}
+        if not UtilClient.is_unset(request.description):
+            body['description'] = request.description
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query),
-            body=request.body
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='UpdateLogstashDescription',
@@ -5585,6 +6259,20 @@ class Client(OpenApiClient):
         return self.update_logstash_description_with_options(instance_id, request, headers, runtime)
 
     def update_logstash_settings_with_options(self, instance_id, request, headers, runtime):
+        """
+        When you call this operation, take note of the following items:
+        If the instance is in the Active (activating), Invalid (invalid), and Inactive (inactive) state, the information cannot be updated.
+        
+
+        @param request: UpdateLogstashSettingsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateLogstashSettingsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -5611,6 +6299,15 @@ class Client(OpenApiClient):
         )
 
     def update_logstash_settings(self, instance_id, request):
+        """
+        When you call this operation, take note of the following items:
+        If the instance is in the Active (activating), Invalid (invalid), and Inactive (inactive) state, the information cannot be updated.
+        
+
+        @param request: UpdateLogstashSettingsRequest
+
+        @return: UpdateLogstashSettingsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_logstash_settings_with_options(instance_id, request, headers, runtime)
@@ -5846,6 +6543,21 @@ class Client(OpenApiClient):
         return self.update_snapshot_setting_with_options(instance_id, request, headers, runtime)
 
     def update_synonyms_dicts_with_options(self, instance_id, request, headers, runtime):
+        """
+        Note the following when calling this interface:
+        *   If the dictionary file is obtained from OSS, make sure that the OSS bucket is public-readable.
+        *   If the ORIGIN configuration is not added to an uploaded dictionary file, the dictionary file is deleted after you call this operation.
+        
+
+        @param request: UpdateSynonymsDictsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateSynonymsDictsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -5872,6 +6584,16 @@ class Client(OpenApiClient):
         )
 
     def update_synonyms_dicts(self, instance_id, request):
+        """
+        Note the following when calling this interface:
+        *   If the dictionary file is obtained from OSS, make sure that the OSS bucket is public-readable.
+        *   If the ORIGIN configuration is not added to an uploaded dictionary file, the dictionary file is deleted after you call this operation.
+        
+
+        @param request: UpdateSynonymsDictsRequest
+
+        @return: UpdateSynonymsDictsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_synonyms_dicts_with_options(instance_id, request, headers, runtime)
@@ -5986,6 +6708,19 @@ class Client(OpenApiClient):
         return self.update_xpack_monitor_config_with_options(instance_id, request, headers, runtime)
 
     def upgrade_engine_version_with_options(self, instance_id, request, headers, runtime):
+        """
+        >  You can upgrade an instance version only from version 5.5.3 to version 5.6.16, version 5.6.16 to version 6.3.2, and version 6.3.2 to version 6.7.0. For more information, see [Upgrade version](~~148786~~).
+        
+
+        @param request: UpgradeEngineVersionRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpgradeEngineVersionResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -6019,6 +6754,14 @@ class Client(OpenApiClient):
         )
 
     def upgrade_engine_version(self, instance_id, request):
+        """
+        >  You can upgrade an instance version only from version 5.5.3 to version 5.6.16, version 5.6.16 to version 6.3.2, and version 6.3.2 to version 6.7.0. For more information, see [Upgrade version](~~148786~~).
+        
+
+        @param request: UpgradeEngineVersionRequest
+
+        @return: UpgradeEngineVersionResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.upgrade_engine_version_with_options(instance_id, request, headers, runtime)
@@ -6090,6 +6833,19 @@ class Client(OpenApiClient):
         return self.validate_shrink_nodes_with_options(instance_id, request, headers, runtime)
 
     def validate_slr_permission_with_options(self, request, headers, runtime):
+        """
+        >  Before you use the collector tool to collect logs from different data sources, you must be authorized to create service linked roles. You can call this operation to verify that it has been created.
+        
+
+        @param request: ValidateSlrPermissionRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ValidateSlrPermissionResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -6117,6 +6873,14 @@ class Client(OpenApiClient):
         )
 
     def validate_slr_permission(self, request):
+        """
+        >  Before you use the collector tool to collect logs from different data sources, you must be authorized to create service linked roles. You can call this operation to verify that it has been created.
+        
+
+        @param request: ValidateSlrPermissionRequest
+
+        @return: ValidateSlrPermissionResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.validate_slr_permission_with_options(request, headers, runtime)
@@ -6160,6 +6924,8 @@ class Client(OpenApiClient):
         body = {}
         if not UtilClient.is_unset(request.client_node_configuration):
             body['clientNodeConfiguration'] = request.client_node_configuration
+        if not UtilClient.is_unset(request.description):
+            body['description'] = request.description
         if not UtilClient.is_unset(request.elastic_data_node_configuration):
             body['elasticDataNodeConfiguration'] = request.elastic_data_node_configuration
         if not UtilClient.is_unset(request.es_admin_password):
@@ -6182,6 +6948,8 @@ class Client(OpenApiClient):
             body['paymentInfo'] = request.payment_info
         if not UtilClient.is_unset(request.payment_type):
             body['paymentType'] = request.payment_type
+        if not UtilClient.is_unset(request.resource_group_id):
+            body['resourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.warm_node_configuration):
             body['warmNodeConfiguration'] = request.warm_node_configuration
         if not UtilClient.is_unset(request.zone_count):
@@ -6200,7 +6968,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='json',
-            body_type='json'
+            body_type='none'
         )
         return TeaCore.from_map(
             elasticsearch_20170613_models.CreateInstanceResponse(),
