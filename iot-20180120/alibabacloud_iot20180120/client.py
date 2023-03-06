@@ -2325,8 +2325,6 @@ class Client(OpenApiClient):
         UtilClient.validate_model(tmp_req)
         request = iot_20180120_models.CreateDownloadDataJobShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
-        if not UtilClient.is_unset(tmp_req.context):
-            request.context_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.context, 'Context', 'json')
         if not UtilClient.is_unset(tmp_req.file_config):
             request.file_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.file_config, 'FileConfig', 'json')
         query = {}
@@ -2341,8 +2339,6 @@ class Client(OpenApiClient):
         if not UtilClient.is_unset(request.table_name):
             query['TableName'] = request.table_name
         body = {}
-        if not UtilClient.is_unset(request.context_shrink):
-            body['Context'] = request.context_shrink
         if not UtilClient.is_unset(request.iot_instance_id):
             body['IotInstanceId'] = request.iot_instance_id
         req = open_api_models.OpenApiRequest(
@@ -5893,6 +5889,38 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_scene_rule_with_options(request, runtime)
 
+    def get_share_speech_model_audio_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        if not UtilClient.is_unset(request.share_task_id):
+            body['ShareTaskId'] = request.share_task_id
+        if not UtilClient.is_unset(request.speech_model_code_list):
+            body['SpeechModelCodeList'] = request.speech_model_code_list
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='GetShareSpeechModelAudio',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.GetShareSpeechModelAudioResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_share_speech_model_audio(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_share_speech_model_audio_with_options(request, runtime)
+
     def get_share_task_by_device_open_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -9055,6 +9083,38 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.query_device_property_status_with_options(request, runtime)
 
+    def query_device_provisioning_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.device_name):
+            query['DeviceName'] = request.device_name
+        body = {}
+        if not UtilClient.is_unset(request.product_key):
+            body['ProductKey'] = request.product_key
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='QueryDeviceProvisioning',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.QueryDeviceProvisioningResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_device_provisioning(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_device_provisioning_with_options(request, runtime)
+
     def query_device_service_data_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -10566,6 +10626,34 @@ class Client(OpenApiClient):
     def query_speech_device(self, request):
         runtime = util_models.RuntimeOptions()
         return self.query_speech_device_with_options(request, runtime)
+
+    def query_speech_license_available_quota_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.iot_instance_id):
+            body['IotInstanceId'] = request.iot_instance_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='QuerySpeechLicenseAvailableQuota',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            iot_20180120_models.QuerySpeechLicenseAvailableQuotaResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_speech_license_available_quota(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_speech_license_available_quota_with_options(request, runtime)
 
     def query_speech_license_device_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
