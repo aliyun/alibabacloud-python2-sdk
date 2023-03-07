@@ -31,6 +31,16 @@ class Client(OpenApiClient):
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
     def add_container_app_with_options(self, request, runtime):
+        """
+        If you select an image for a new containerized application, the image is pulled from Docker Hub by default. However, the version of the image may not be up to date. You can call the [PullImage](~~159052~~) operation to pull the latest image.
+        
+
+        @param request: AddContainerAppRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: AddContainerAppResponse
+        """
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
@@ -53,10 +63,30 @@ class Client(OpenApiClient):
         )
 
     def add_container_app(self, request):
+        """
+        If you select an image for a new containerized application, the image is pulled from Docker Hub by default. However, the version of the image may not be up to date. You can call the [PullImage](~~159052~~) operation to pull the latest image.
+        
+
+        @param request: AddContainerAppRequest
+
+        @return: AddContainerAppResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.add_container_app_with_options(request, runtime)
 
     def add_existed_nodes_with_options(self, request, runtime):
+        """
+        The compute nodes to be added are in the Stopped state.
+        *   After the compute nodes are added to the cluster, the operating systems of the nodes are replaced with the operating system specified by the ImageId parameter.
+        *   The hosts of the compute nodes must be different from those of the existing compute nodes in the cluster. Otherwise, the add operation fails.
+        
+
+        @param request: AddExistedNodesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: AddExistedNodesResponse
+        """
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
@@ -79,6 +109,16 @@ class Client(OpenApiClient):
         )
 
     def add_existed_nodes(self, request):
+        """
+        The compute nodes to be added are in the Stopped state.
+        *   After the compute nodes are added to the cluster, the operating systems of the nodes are replaced with the operating system specified by the ImageId parameter.
+        *   The hosts of the compute nodes must be different from those of the existing compute nodes in the cluster. Otherwise, the add operation fails.
+        
+
+        @param request: AddExistedNodesRequest
+
+        @return: AddExistedNodesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.add_existed_nodes_with_options(request, runtime)
 
@@ -213,6 +253,16 @@ class Client(OpenApiClient):
         return self.add_users_with_options(request, runtime)
 
     def apply_nodes_with_options(self, request, runtime):
+        """
+        You can call the ApplyNodes operation to specify the number of compute nodes, the number of vCPUs, and the memory size when you add nodes to a cluster.
+        
+
+        @param request: ApplyNodesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ApplyNodesResponse
+        """
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
@@ -235,10 +285,28 @@ class Client(OpenApiClient):
         )
 
     def apply_nodes(self, request):
+        """
+        You can call the ApplyNodes operation to specify the number of compute nodes, the number of vCPUs, and the memory size when you add nodes to a cluster.
+        
+
+        @param request: ApplyNodesRequest
+
+        @return: ApplyNodesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.apply_nodes_with_options(request, runtime)
 
     def create_cluster_with_options(self, request, runtime):
+        """
+        After you create an Elastic High Performance Computing (E-HPC) cluster, you are charged for the cluster resources that you use. We recommend that you learn about the billing methods of E-HPC in advance. For more information, see [Billing overview](~~57844~~).
+        
+
+        @param request: CreateClusterRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateClusterResponse
+        """
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
@@ -261,6 +329,14 @@ class Client(OpenApiClient):
         )
 
     def create_cluster(self, request):
+        """
+        After you create an Elastic High Performance Computing (E-HPC) cluster, you are charged for the cluster resources that you use. We recommend that you learn about the billing methods of E-HPC in advance. For more information, see [Billing overview](~~57844~~).
+        
+
+        @param request: CreateClusterRequest
+
+        @return: CreateClusterResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_cluster_with_options(request, runtime)
 
@@ -421,6 +497,16 @@ class Client(OpenApiClient):
         return self.create_job_template_with_options(request, runtime)
 
     def delete_cluster_with_options(self, request, runtime):
+        """
+        After a cluster is released, the pay-as-you-go nodes and the subscription nodes that have expired are automatically released. The subscription nodes that have not expired are retained. If you need to release the subscription nodes that have not expired, change their billing method to pay-as-you-go. Before you release a cluster, make sure that you will no longer use the cluster.
+        
+
+        @param request: DeleteClusterRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteClusterResponse
+        """
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
@@ -443,6 +529,14 @@ class Client(OpenApiClient):
         )
 
     def delete_cluster(self, request):
+        """
+        After a cluster is released, the pay-as-you-go nodes and the subscription nodes that have expired are automatically released. The subscription nodes that have not expired are retained. If you need to release the subscription nodes that have not expired, change their billing method to pay-as-you-go. Before you release a cluster, make sure that you will no longer use the cluster.
+        
+
+        @param request: DeleteClusterRequest
+
+        @return: DeleteClusterResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_cluster_with_options(request, runtime)
 
@@ -629,6 +723,16 @@ class Client(OpenApiClient):
         return self.delete_local_image_with_options(request, runtime)
 
     def delete_nodes_with_options(self, request, runtime):
+        """
+        Before you delete a compute node, we recommend that you export all job data from the node to prevent data loss.
+        
+
+        @param request: DeleteNodesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteNodesResponse
+        """
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
@@ -651,6 +755,14 @@ class Client(OpenApiClient):
         )
 
     def delete_nodes(self, request):
+        """
+        Before you delete a compute node, we recommend that you export all job data from the node to prevent data loss.
+        
+
+        @param request: DeleteNodesRequest
+
+        @return: DeleteNodesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_nodes_with_options(request, runtime)
 
@@ -707,6 +819,16 @@ class Client(OpenApiClient):
         return self.delete_security_group_with_options(request, runtime)
 
     def delete_users_with_options(self, request, runtime):
+        """
+        If you delete a user, only its information is deleted. The files stored in the /home directory for the user are still retained. For example, if you delete a user named user1, the files in the `/home/user1/` directory of the cluster are not deleted. However, a deleted user cannot be recovered. Even if you create another user that has the same name, the data that was retained for the deleted user is not reused.
+        
+
+        @param request: DeleteUsersRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteUsersResponse
+        """
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
@@ -729,6 +851,14 @@ class Client(OpenApiClient):
         )
 
     def delete_users(self, request):
+        """
+        If you delete a user, only its information is deleted. The files stored in the /home directory for the user are still retained. For example, if you delete a user named user1, the files in the `/home/user1/` directory of the cluster are not deleted. However, a deleted user cannot be recovered. Even if you create another user that has the same name, the data that was retained for the deleted user is not reused.
+        
+
+        @param request: DeleteUsersRequest
+
+        @return: DeleteUsersResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_users_with_options(request, runtime)
 
@@ -2371,6 +2501,16 @@ class Client(OpenApiClient):
         return self.list_tag_resources_with_options(request, runtime)
 
     def list_tasks_with_options(self, request, runtime):
+        """
+        If you succeed in calling an asynchronous API operation, a response is generated before a resulting task is completed. Therefore, to query the result of the task, you can use the TaskId parameter returned by the API operation.
+        
+
+        @param request: ListTasksRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListTasksResponse
+        """
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
@@ -2393,6 +2533,14 @@ class Client(OpenApiClient):
         )
 
     def list_tasks(self, request):
+        """
+        If you succeed in calling an asynchronous API operation, a response is generated before a resulting task is completed. Therefore, to query the result of the task, you can use the TaskId parameter returned by the API operation.
+        
+
+        @param request: ListTasksRequest
+
+        @return: ListTasksResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_tasks_with_options(request, runtime)
 
@@ -2501,6 +2649,16 @@ class Client(OpenApiClient):
         return self.list_volumes_with_options(request, runtime)
 
     def modify_cluster_attributes_with_options(self, request, runtime):
+        """
+        Before you modify the basic information of a cluster, you can call the [DescribeCluster](~~87126~~) operation to query details of the selected cluster.
+        
+
+        @param request: ModifyClusterAttributesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyClusterAttributesResponse
+        """
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
@@ -2523,6 +2681,14 @@ class Client(OpenApiClient):
         )
 
     def modify_cluster_attributes(self, request):
+        """
+        Before you modify the basic information of a cluster, you can call the [DescribeCluster](~~87126~~) operation to query details of the selected cluster.
+        
+
+        @param request: ModifyClusterAttributesRequest
+
+        @return: ModifyClusterAttributesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_cluster_attributes_with_options(request, runtime)
 
@@ -2731,6 +2897,20 @@ class Client(OpenApiClient):
         return self.query_service_pack_and_price_with_options(runtime)
 
     def recover_cluster_with_options(self, request, runtime):
+        """
+        You can call the operation to reset and restore a cluster only when the cluster is in the Exception state. You can call the [ListClusters](~~87116~~) operation to query the ID and status of a cluster.
+        We recommend that you export all job data before you restore a cluster. When you reset and restore a cluster, take note of the following impacts:
+        *   The system disks of all nodes are changed. By default, new system disks are configured based on the settings that you specified when the cluster was created.
+        *   The data on the system disks and data disks of all cluster nodes is lost. The data includes user information, job information, scheduler queue information, and configuration data of auto-scaling queues. However, the data on Apsara File Storage NAS file systems is retained.
+        *   The self-managed queues in the cluster are deleted. All nodes are retained and migrated to the default queue of the cluster.
+        
+
+        @param request: RecoverClusterRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RecoverClusterResponse
+        """
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
@@ -2753,6 +2933,18 @@ class Client(OpenApiClient):
         )
 
     def recover_cluster(self, request):
+        """
+        You can call the operation to reset and restore a cluster only when the cluster is in the Exception state. You can call the [ListClusters](~~87116~~) operation to query the ID and status of a cluster.
+        We recommend that you export all job data before you restore a cluster. When you reset and restore a cluster, take note of the following impacts:
+        *   The system disks of all nodes are changed. By default, new system disks are configured based on the settings that you specified when the cluster was created.
+        *   The data on the system disks and data disks of all cluster nodes is lost. The data includes user information, job information, scheduler queue information, and configuration data of auto-scaling queues. However, the data on Apsara File Storage NAS file systems is retained.
+        *   The self-managed queues in the cluster are deleted. All nodes are retained and migrated to the default queue of the cluster.
+        
+
+        @param request: RecoverClusterRequest
+
+        @return: RecoverClusterResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.recover_cluster_with_options(request, runtime)
 
@@ -2783,6 +2975,16 @@ class Client(OpenApiClient):
         return self.rerun_jobs_with_options(request, runtime)
 
     def reset_nodes_with_options(self, request, runtime):
+        """
+        After a node is reset, the operating system and software return to their initial states. To ensure that jobs run as expected, we recommend that you do not reset running nodes unless you need to perform crash recovery.
+        
+
+        @param request: ResetNodesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ResetNodesResponse
+        """
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
@@ -2805,6 +3007,14 @@ class Client(OpenApiClient):
         )
 
     def reset_nodes(self, request):
+        """
+        After a node is reset, the operating system and software return to their initial states. To ensure that jobs run as expected, we recommend that you do not reset running nodes unless you need to perform crash recovery.
+        
+
+        @param request: ResetNodesRequest
+
+        @return: ResetNodesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.reset_nodes_with_options(request, runtime)
 
@@ -2835,6 +3045,16 @@ class Client(OpenApiClient):
         return self.run_cloud_metric_profiling_with_options(request, runtime)
 
     def set_auto_scale_config_with_options(self, request, runtime):
+        """
+        If you specify different auto scaling settings in the Queue Configuration section and Global Configurations section on the Auto Scale page, the settings in the Queue Configuration section prevail.
+        
+
+        @param request: SetAutoScaleConfigRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: SetAutoScaleConfigResponse
+        """
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
@@ -2857,6 +3077,14 @@ class Client(OpenApiClient):
         )
 
     def set_auto_scale_config(self, request):
+        """
+        If you specify different auto scaling settings in the Queue Configuration section and Global Configurations section on the Auto Scale page, the settings in the Queue Configuration section prevail.
+        
+
+        @param request: SetAutoScaleConfigRequest
+
+        @return: SetAutoScaleConfigResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.set_auto_scale_config_with_options(request, runtime)
 
@@ -3135,6 +3363,16 @@ class Client(OpenApiClient):
         return self.start_visual_service_with_options(request, runtime)
 
     def stop_cluster_with_options(self, request, runtime):
+        """
+        If you stop a subscription compute node, its billing is not affected. If you stop a pay-as-you-go compute node for which you have enabled the economical mode*, you are no longer charged for its computing resources. For more information, see [Economical mode](~~63353~~).
+        
+
+        @param request: StopClusterRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: StopClusterResponse
+        """
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
@@ -3157,6 +3395,14 @@ class Client(OpenApiClient):
         )
 
     def stop_cluster(self, request):
+        """
+        If you stop a subscription compute node, its billing is not affected. If you stop a pay-as-you-go compute node for which you have enabled the economical mode*, you are no longer charged for its computing resources. For more information, see [Economical mode](~~63353~~).
+        
+
+        @param request: StopClusterRequest
+
+        @return: StopClusterResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.stop_cluster_with_options(request, runtime)
 
@@ -3265,6 +3511,16 @@ class Client(OpenApiClient):
         return self.stop_visual_service_with_options(request, runtime)
 
     def submit_job_with_options(self, request, runtime):
+        """
+        Before you submit a job in a cluster, you must upload a job file to the cluster, for example, job.sh. For more information, see [CreateJobFile](~~159049~~).
+        
+
+        @param request: SubmitJobRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: SubmitJobResponse
+        """
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
@@ -3287,6 +3543,14 @@ class Client(OpenApiClient):
         )
 
     def submit_job(self, request):
+        """
+        Before you submit a job in a cluster, you must upload a job file to the cluster, for example, job.sh. For more information, see [CreateJobFile](~~159049~~).
+        
+
+        @param request: SubmitJobRequest
+
+        @return: SubmitJobResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.submit_job_with_options(request, runtime)
 
@@ -3491,6 +3755,16 @@ class Client(OpenApiClient):
         return self.update_cluster_volumes_with_options(request, runtime)
 
     def update_queue_config_with_options(self, request, runtime):
+        """
+        After you update the instance types of a resource group, the nodes that you add by scaling out the cluster are automatically included in the resource group.
+        
+
+        @param request: UpdateQueueConfigRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateQueueConfigResponse
+        """
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
@@ -3513,6 +3787,14 @@ class Client(OpenApiClient):
         )
 
     def update_queue_config(self, request):
+        """
+        After you update the instance types of a resource group, the nodes that you add by scaling out the cluster are automatically included in the resource group.
+        
+
+        @param request: UpdateQueueConfigRequest
+
+        @return: UpdateQueueConfigResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.update_queue_config_with_options(request, runtime)
 

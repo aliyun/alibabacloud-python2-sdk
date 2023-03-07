@@ -5,10 +5,21 @@ from Tea.model import TeaModel
 
 class AddContainerAppRequest(TeaModel):
     def __init__(self, container_type=None, description=None, image_tag=None, name=None, repository=None):
+        # The type of the container. Set the value to singularity.
         self.container_type = container_type  # type: str
+        # The description of the container.
         self.description = description  # type: str
+        # The tags of the image.
+        # 
+        # The repository stores a type of images such as Ubuntu images. Tags are used to identify the images. Examples: 16.04, 17.04, and latest.
+        # 
+        # Default value: latest
         self.image_tag = image_tag  # type: str
+        # The name of the container. The name must be 2 to 64 characters in length. It must start with a letter and can contain letters, digits, hyphens (-), and underscores (\_).
         self.name = name  # type: str
+        # The name of the repository. The image that has the same name as the repository is pulled.
+        # 
+        # For information about image names, visit [Docker Hub official website](https://hub.docker.com/search?q=\&type=image).
         self.repository = repository  # type: str
 
     def validate(self):
@@ -73,7 +84,9 @@ class AddContainerAppResponseBodyContainerId(TeaModel):
 
 class AddContainerAppResponseBody(TeaModel):
     def __init__(self, container_id=None, request_id=None):
+        # The ID of the container.
         self.container_id = container_id  # type: AddContainerAppResponseBodyContainerId
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -143,6 +156,7 @@ class AddContainerAppResponse(TeaModel):
 
 class AddExistedNodesRequestInstance(TeaModel):
     def __init__(self, id=None):
+        # The Nth node ID. N starts from 1. Valid values: 1 to 100.
         self.id = id  # type: str
 
     def validate(self):
@@ -167,10 +181,31 @@ class AddExistedNodesRequestInstance(TeaModel):
 
 class AddExistedNodesRequest(TeaModel):
     def __init__(self, cluster_id=None, image_id=None, image_owner_alias=None, instance=None, job_queue=None):
+        # The ID of the cluster.
+        # 
+        # You can call the [ListClusters](~~87116~~) operation to query the cluster ID.
         self.cluster_id = cluster_id  # type: str
+        # The ID of the image that is specified for the compute nodes. The image must meet the following requirements:
+        # 
+        # *   The operating system that is specified by the image must be the same as that of the existing cluster nodes. For example, if the operating system of the cluster nodes is CentOS, you can select only a CentOS image.
+        # 
+        # > If you add nodes to a hybrid cloud cluster that supports multiple operating systems, you can select a Windows Server image or a CentOS image when the operating system of the cluster nodes is Windows.
+        # 
+        # *   The major version of the image specified for the compute nodes that you want to add is the same as that of the image of the cluster. For example, if the version of the cluster image is CentOS 7.x, the version of the image specified for the compute nodes must be CentOS 7.x.
+        # 
+        # You can call the [ListImages](~~87213~~) and [ListCustomImages](~~87215~~) operations to query the image ID.
         self.image_id = image_id  # type: str
+        # The type of the image. Valid values:
+        # 
+        # *   system: public image
+        # *   self: custom image
+        # *   others: shared image
+        # *   marketplace: Alibaba Cloud Marketplace image
+        # 
+        # Default value: system
         self.image_owner_alias = image_owner_alias  # type: str
         self.instance = instance  # type: list[AddExistedNodesRequestInstance]
+        # The queue in the cluster to which the node is to be added.
         self.job_queue = job_queue  # type: str
 
     def validate(self):
@@ -219,7 +254,9 @@ class AddExistedNodesRequest(TeaModel):
 
 class AddExistedNodesResponseBody(TeaModel):
     def __init__(self, request_id=None, task_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The ID of the task.
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -287,8 +324,11 @@ class AddExistedNodesResponse(TeaModel):
 
 class AddLocalNodesRequest(TeaModel):
     def __init__(self, cluster_id=None, nodes=None, queue=None):
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The information of the local node. A JSON string that contains the HostName, IpAddress, CpuCores, and Memory (Unit: MB) of the local node.
         self.nodes = nodes  # type: str
+        # The queue to which to add the local node.
         self.queue = queue  # type: str
 
     def validate(self):
@@ -345,7 +385,9 @@ class AddLocalNodesResponseBodyInstanceIds(TeaModel):
 
 class AddLocalNodesResponseBody(TeaModel):
     def __init__(self, instance_ids=None, request_id=None):
+        # The local nodes in the cluster.
         self.instance_ids = instance_ids  # type: AddLocalNodesResponseBodyInstanceIds
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -416,11 +458,57 @@ class AddLocalNodesResponse(TeaModel):
 class AddNodesRequestDataDisks(TeaModel):
     def __init__(self, data_disk_category=None, data_disk_delete_with_instance=None, data_disk_encrypted=None,
                  data_disk_kmskey_id=None, data_disk_performance_level=None, data_disk_size=None):
+        # The type of the data disk. Valid values:
+        # 
+        # *   cloud_efficiency: ultra disk
+        # *   cloud_ssd: SSD
+        # *   cloud_essd: ESSD
+        # *   cloud: basic disk
+        # 
+        # Default value: cloud_efficiency
+        # 
+        # Valid values of N: 0 to 16
         self.data_disk_category = data_disk_category  # type: str
+        # Specifies whether the data disk is released when the node is released. Valid values:
+        # 
+        # *   true
+        # *   false
+        # 
+        # Default value: true
+        # 
+        # Valid values of N: 0 to 16
         self.data_disk_delete_with_instance = data_disk_delete_with_instance  # type: bool
+        # Specifies whether to encrypt the data disk. Valid values:
+        # 
+        # *   true
+        # *   false
+        # 
+        # Default value: false
+        # 
+        # Valid values of N: 0 to 16
         self.data_disk_encrypted = data_disk_encrypted  # type: bool
+        # The KMS key ID of the data disk.
+        # 
+        # Valid values of N: 0 to 16
         self.data_disk_kmskey_id = data_disk_kmskey_id  # type: str
+        # The performance level of the ESSD used as the data disk. The parameter only takes effect only when the DataDisks.N.DataDiskCategory parameter is set to cloud_essd. Valid values:
+        # 
+        # *   PL0: A single ESSD can deliver up to 10,000 random read/write IOPS.
+        # *   PL1: A single ESSD can deliver up to 50,000 random read/write IOPS.
+        # *   PL2: A single ESSD can deliver up to 100,000 random read/write IOPS.
+        # *   PL3: A single ESSD can deliver up to 1,000,000 random read/write IOPS.
+        # 
+        # Default value: PL1
+        # 
+        # Valid values of N: 0 to 16
         self.data_disk_performance_level = data_disk_performance_level  # type: str
+        # The size of the data disk. Unit: GB
+        # 
+        # Valid values: 40 to 500
+        # 
+        # Default value: 40
+        # 
+        # Valid values of N: 0 to 16
         self.data_disk_size = data_disk_size  # type: int
 
     def validate(self):
@@ -469,39 +557,180 @@ class AddNodesRequest(TeaModel):
                  compute_spot_interruption_behavior=None, compute_spot_price_limit=None, compute_spot_strategy=None, count=None, create_mode=None,
                  data_disks=None, ecs_charge_type=None, host_name_prefix=None, host_name_suffix=None, image_id=None,
                  image_owner_alias=None, instance_type=None, internet_charge_type=None, internet_max_band_width_in=None,
-                 internet_max_band_width_out=None, job_queue=None, min_count=None, period=None, period_unit=None, sync=None,
-                 system_disk_level=None, system_disk_size=None, system_disk_type=None, v_switch_id=None, zone_id=None):
+                 internet_max_band_width_out=None, job_queue=None, min_count=None, network_interface_traffic_mode=None, period=None,
+                 period_unit=None, sync=None, system_disk_level=None, system_disk_size=None, system_disk_type=None,
+                 v_switch_id=None, zone_id=None):
+        # Specifies whether to allocate a public IP address to the compute nodes. Valid values:
+        # 
+        # *   true: A public IP address is allocated to the compute nodes.
+        # *   false: A public IP address is not allocated to the compute nodes.
+        # 
+        # Default value: false
         self.allocate_public_address = allocate_public_address  # type: bool
+        # Specifies whether to enable auto-renewal. The parameter takes effect only when EcsChargeType is set to PrePaid. Valid values:
+        # 
+        # *   true: enables auto-renewal
+        # *   false: disables auto-renewal
+        # 
+        # Default value: true
         self.auto_renew = auto_renew  # type: str
+        # The auto-renewal period of the subscription compute nodes. The parameter takes effect when AutoRenew is set to true.
+        # 
+        # *   If PeriodUnit is set to Week, the valid values of the AutoRenewPeriod parameter are 1, 2, and 3.
+        # *   If PeriodUnit is set to Month, the valid values of the AutoRenewPeriod parameter are 1, 2, 3, 6, and 12.
+        # 
+        # Default value: 1
         self.auto_renew_period = auto_renew_period  # type: int
+        # The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must ensure that the value is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How do I ensure the idempotence of a request?](~~25693~~)
         self.client_token = client_token  # type: str
+        # The ID of the E-HPC cluster.
+        # 
+        # You can call the [ListClusters](~~87116~~) operation to query the cluster ID.
         self.cluster_id = cluster_id  # type: str
+        # Specifies whether the compute nodes support hyper-threading. Valid values:
+        # 
+        # *   true: Hyper-threading is supported.
+        # *   false: Hyper-threading is not supported.
+        # 
+        # Default value: true
         self.compute_enable_ht = compute_enable_ht  # type: bool
+        # The protection period of the preemptible instance. Unit: hours. Valid values: 0 and 1. A value of 0 indicates that the preemptible instance has no protection period.
         self.compute_spot_duration = compute_spot_duration  # type: int
+        # The interruption mode of the preemptible instance. Default value: Terminate. Set the value to Terminate, which indicates that the instance is released.
         self.compute_spot_interruption_behavior = compute_spot_interruption_behavior  # type: str
+        # The maximum hourly price of the compute nodes. The value can be accurate to three decimal places. The parameter only takes effect when SpotStrategy is set to SpotWithPriceLimit.
         self.compute_spot_price_limit = compute_spot_price_limit  # type: str
+        # The preemption policy of the compute nodes. The parameter only takes effect when EcsChargeType is set to PostPaid. Valid values:
+        # 
+        # *   NoSpot: The compute nodes are pay-as-you-go instances.
+        # *   SpotWithPriceLimit: The instance is a preemptible instance that has a user-defined maximum hourly price.
+        # *   SpotAsPriceGo: The compute nodes are preemptible instances for which the market price at the time of purchase is used as the bid price.
+        # 
+        # Default value: NoSpot
         self.compute_spot_strategy = compute_spot_strategy  # type: str
+        # The number of compute nodes that you want to add. Valid values: 1 to 99. The value of this parameter is greater than that of the MinCount parameter.
+        # 
+        # *   If the number of available ECS instances is less than the value of the MinCount parameter, the compute nodes cannot be added.
+        # *   If the number of available ECS instances is greater than the value of the MinCount parameter and less than that of the Count parameter, the compute nodes are added based on the value of the MinCount parameter.
+        # *   If the number of available ECS instances is greater than the value of the Count parameter, the compute nodes are added based on the value of the Count parameter.
         self.count = count  # type: int
+        # The mode in which the compute nodes are added. Valid values:
+        # 
+        # *   manual: The compute nodes are manually added.
+        # *   autoscale: The compute nodes are automatically added.
+        # 
+        # Default value: manual
         self.create_mode = create_mode  # type: str
         self.data_disks = data_disks  # type: list[AddNodesRequestDataDisks]
+        # The billing method of the compute nodes. Valid values:
+        # 
+        # *   PostPaid: pay-as-you-go
+        # *   PrePaid: subscription
+        # 
+        # Default value: PostPaid
+        # 
+        # If the parameter is set to PrePaid, auto-renewal is enabled by default. After the E-HPC cluster is released, auto-renewal is disabled.
         self.ecs_charge_type = ecs_charge_type  # type: str
+        # The prefix of the hostname. You can specify the parameter to manage the compute nodes in an efficient manner.
         self.host_name_prefix = host_name_prefix  # type: str
+        # The suffix of the hostname. You can specify the parameter to manage the compute nodes in an efficient manner.
         self.host_name_suffix = host_name_suffix  # type: str
+        # The ID of the image that is specified for the compute nodes. The image must meet the following requirements:
+        # 
+        # *   The operating system that is specified by the image must be the same as that of the existing cluster nodes. For example, if the operating system of the cluster nodes is CentOS, you can select only a CentOS image.
+        # 
+        # > If you add nodes to a hybrid cloud cluster that supports multiple operating systems, you can select a Windows Server image or a CentOS image when the operating system of the cluster nodes is Windows.
+        # 
+        # *   The major version of the image specified for the compute nodes that you want to add is the same as that of the image of the cluster. For example, if the version of the cluster image is CentOS 7.x, the version of the image specified for the compute nodes must be CentOS 7.x.
+        # 
+        # You can call the [ListImages](~~87213~~) and [ListCustomImages](~~87215~~) operations to query the image ID.
         self.image_id = image_id  # type: str
+        # The type of the image. Valid values:
+        # 
+        # *   system: public image
+        # *   self: custom image
+        # *   others: shared image
+        # *   marketplace: Alibaba Cloud Marketplace image
+        # 
+        # Default value: system
         self.image_owner_alias = image_owner_alias  # type: str
+        # The instance type of the compute nodes. The default value is the instance type that was specified when you created the E-HPC cluster or the last time when you added compute nodes.
         self.instance_type = instance_type  # type: str
+        # The billing method of the elastic IP address (EIP). Valid values:
+        # 
+        # *   PayByBandwidth: pay-by-bandwidth
+        # *   PayByTraffic: pay-by-traffic
         self.internet_charge_type = internet_charge_type  # type: str
+        # The maximum inbound public bandwidth. Unit: Mbit/s. Valid values:
+        # 
+        # *   If the purchased outbound public bandwidth is less than or equal to 10 Mbit/s, the valid values of the parameter are 1 to 10 and the default value is 10.
+        # *   If the purchased outbound public bandwidth is greater than 10 Mbit/s, the valid values of this parameter are 1 to the amount of the outbound bandwidth that is purchased.
         self.internet_max_band_width_in = internet_max_band_width_in  # type: int
+        # The maximum outbound public bandwidth. Unit: Mbit/s. Valid values: 0 to 100.
+        # 
+        # Default value: 0
         self.internet_max_band_width_out = internet_max_band_width_out  # type: int
+        # The queue to which the compute nodes are added.
         self.job_queue = job_queue  # type: str
+        # The minimum number of the compute nodes that you want to add. Valid values: 1 to 99. The value of the parameter is less than that of the Count parameter.
+        # 
+        # *   If the number of available ECS instances is less than the value of the MinCount parameter, the compute nodes cannot be added.
+        # *   If the number of available ECS instances is greater than the value of the MinCount parameter and less than that of the Count parameter, the compute nodes are added based on the value of the MinCount parameter.
+        # *   If the number of available ECS instances is greater than the value of the Count parameter, the compute nodes are added based on the value of the Count parameter.
+        # 
+        # Default value: 1
         self.min_count = min_count  # type: int
+        self.network_interface_traffic_mode = network_interface_traffic_mode  # type: str
+        # The duration of the subscription. The unit of the duration is specified by the PeriodUnit parameter. The parameter only takes effect when InstanceChargeType is set to PrePaid. Valid values:
+        # 
+        # *   If PeriodUnit is set to Week, the valid values of the Period parameter are 1, 2, 3, and 4.
+        # *   Valid values when PeriodUnit is set to Month: 1, 2, 3, 4, 5, 6, 7, 8, 9, 12, 24, 36, 48, and 60.
+        # 
+        # Default value: 1
         self.period = period  # type: int
+        # The unit of the subscription period. Valid values:
+        # 
+        # *   Week
+        # *   Month
+        # 
+        # Default value: Month
         self.period_unit = period_unit  # type: str
+        # Specifies whether to set the API operation as a synchronous operation. Valid values:
+        # 
+        # *   true
+        # *   false
+        # 
+        # Default value: false
         self.sync = sync  # type: bool
+        # The performance level of the ESSD that is used as the system disk. Valid values:
+        # 
+        # *   PL0: A single ESSD can deliver up to 10,000 random read/write IOPS.
+        # *   PL1: A single ESSD can deliver up to 50,000 random read/write IOPS.
+        # *   PL2: A single ESSD can deliver up to 100,000 random read/write IOPS.
+        # *   PL3: A single ESSD can deliver up to 1,000,000 random read/write IOPS.
+        # 
+        # Default value: PL1
+        # 
+        # For more information about ESSD performance parameters, see [ESSD](~~122389~~).
         self.system_disk_level = system_disk_level  # type: str
+        # The size of the system disk. Unit: GiB
+        # 
+        # Valid values: 40 to 500
+        # 
+        # Default value: 40
         self.system_disk_size = system_disk_size  # type: int
+        # The type of the system disk. Valid values:
+        # 
+        # *   cloud_efficiency: ultra disk.
+        # *   cloud_ssd: SSD.
+        # *   cloud_essd: ESSD.
+        # *   cloud: basic disk. Disks of this type are retired.
+        # 
+        # Default value: cloud_efficiency
         self.system_disk_type = system_disk_type  # type: str
+        # The ID of the vSwitch.
         self.v_switch_id = v_switch_id  # type: str
+        # The ID of the zone.
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -566,6 +795,8 @@ class AddNodesRequest(TeaModel):
             result['JobQueue'] = self.job_queue
         if self.min_count is not None:
             result['MinCount'] = self.min_count
+        if self.network_interface_traffic_mode is not None:
+            result['NetworkInterfaceTrafficMode'] = self.network_interface_traffic_mode
         if self.period is not None:
             result['Period'] = self.period
         if self.period_unit is not None:
@@ -637,6 +868,8 @@ class AddNodesRequest(TeaModel):
             self.job_queue = m.get('JobQueue')
         if m.get('MinCount') is not None:
             self.min_count = m.get('MinCount')
+        if m.get('NetworkInterfaceTrafficMode') is not None:
+            self.network_interface_traffic_mode = m.get('NetworkInterfaceTrafficMode')
         if m.get('Period') is not None:
             self.period = m.get('Period')
         if m.get('PeriodUnit') is not None:
@@ -682,8 +915,13 @@ class AddNodesResponseBodyInstanceIds(TeaModel):
 
 class AddNodesResponseBody(TeaModel):
     def __init__(self, instance_ids=None, request_id=None, task_id=None):
+        # The ID of the instance.
+        # 
+        # >  AddNodes is an asynchronous API operation. If a request succeeds, a response is immediately generated before ECS instances are created. Therefore, the value of the parameter is null. You can call the [ListNodes](~~87161~~) operation to obtain the IDs of the ECS instances.
         self.instance_ids = instance_ids  # type: AddNodesResponseBodyInstanceIds
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The ID of the task.
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -757,7 +995,11 @@ class AddNodesResponse(TeaModel):
 
 class AddQueueRequest(TeaModel):
     def __init__(self, cluster_id=None, queue_name=None):
+        # The ID of the cluster.
+        # 
+        # You can call the [ListClusters](~~87116~~) operation to query the cluster ID.
         self.cluster_id = cluster_id  # type: str
+        # The name of the queue. The name must be 1 to 63 characters in length and start with a letter. It can contain letters, digits, and underscores (\_).
         self.queue_name = queue_name  # type: str
 
     def validate(self):
@@ -786,6 +1028,7 @@ class AddQueueRequest(TeaModel):
 
 class AddQueueResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -849,8 +1092,15 @@ class AddQueueResponse(TeaModel):
 
 class AddSecurityGroupRequest(TeaModel):
     def __init__(self, client_token=None, cluster_id=None, security_group_id=None):
+        # The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must make sure that the value is unique among different requests. The ClientToken value can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure the idempotence of a request](~~25693~~).
         self.client_token = client_token  # type: str
+        # The ID of the cluster.
+        # 
+        # You can call the [ListClusters](~~87116~~) operation to query the cluster ID.
         self.cluster_id = cluster_id  # type: str
+        # The ID of the security group.
+        # 
+        # You can call the [DescribeSecurityGroups](~~25556~~) operation to query available security groups in the current region.
         self.security_group_id = security_group_id  # type: str
 
     def validate(self):
@@ -883,6 +1133,7 @@ class AddSecurityGroupRequest(TeaModel):
 
 class AddSecurityGroupResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -946,8 +1197,27 @@ class AddSecurityGroupResponse(TeaModel):
 
 class AddUsersRequestUser(TeaModel):
     def __init__(self, group=None, name=None, password=None):
+        # The permission group to which the user belongs. Valid values:
+        # 
+        # *   users: an ordinary permission group. It is applicable to ordinary users that need only to submit and debug jobs.
+        # *   wheel: a sudo permission group. It is applicable to the administrator who needs to manage the cluster. In addition to submitting and debugging jobs, users who have sudo permissions can run sudo commands to install software and restart nodes.
+        # 
+        # Valid values of N: 1 to 100
         self.group = group  # type: str
+        # The name of the user that you want to add. The name must be 6 to 30 characters in length and can contain letters, digits, and periods (.). It must start with a letter.
+        # 
+        # Valid values of N: 1 to 100
         self.name = name  # type: str
+        # The password of the user. The password must be 8 to 30 characters in length and contain three of the following items:
+        # 
+        # *   Uppercase letter
+        # *   Lowercase letter
+        # *   Digit
+        # *   Special character: `()~!@#$%^&*-_+=|{}[]:;\"/<>,.?/`
+        # 
+        # Valid values of N: 1 to 100
+        # 
+        # >  We recommend that you use HTTPS to call the AddUsers operation to ensure that the password remains confidential.
         self.password = password  # type: str
 
     def validate(self):
@@ -981,6 +1251,9 @@ class AddUsersRequestUser(TeaModel):
 class AddUsersRequest(TeaModel):
     def __init__(self, async=None, cluster_id=None, user=None):
         self.async = async  # type: bool
+        # The ID of the cluster.
+        # 
+        # You can call the [ListClusters](~~87116~~) operation to query the cluster ID.
         self.cluster_id = cluster_id  # type: str
         self.user = user  # type: list[AddUsersRequestUser]
 
@@ -1022,6 +1295,7 @@ class AddUsersRequest(TeaModel):
 
 class AddUsersResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1085,8 +1359,19 @@ class AddUsersResponse(TeaModel):
 
 class ApplyNodesRequestInstanceTypeModel(TeaModel):
     def __init__(self, instance_type=None, max_price=None, target_image_id=None):
+        # The instance type of the compute node. The default value is the instance type that was specified when you created the cluster or the last time when you added compute nodes.
+        # 
+        # Valid values of N: 1 to 10
         self.instance_type = instance_type  # type: str
+        # The maximum hourly price that you can pay for the preemptible node. The value is a floating-point number that supports up to three decimal places.
+        # 
+        # The parameter takes effect only when ComputeSpotStrategy is set to SpotWithPriceLimit.
+        # 
+        # Valid values of N: 1 to 10
         self.max_price = max_price  # type: float
+        # The image ID of the compute node. You must select a Windows image.
+        # 
+        # Valid values of N: 1 to 10
         self.target_image_id = target_image_id  # type: str
 
     def validate(self):
@@ -1119,7 +1404,13 @@ class ApplyNodesRequestInstanceTypeModel(TeaModel):
 
 class ApplyNodesRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The tag key of the compute node that you want to attach. Valid values of N: 1 to 20. The tag key cannot be an empty string. It can be up to 128 characters in length and cannot start with acs: or aliyun. It cannot contain http:// or https://.
+        # 
+        # Valid values of N: 1 to 10
         self.key = key  # type: str
+        # The tag value of the compute node that you want to add. Valid values of N: 1 to 20. The tag value can be an empty string. It can be up to 128 characters in length and cannot start with acs: or contain http:// or https://.
+        # 
+        # Valid values of N: 1 to 10
         self.value = value  # type: str
 
     def validate(self):
@@ -1148,7 +1439,11 @@ class ApplyNodesRequestTag(TeaModel):
 
 class ApplyNodesRequestZoneInfos(TeaModel):
     def __init__(self, v_switch_id=None, zone_id=None):
+        # The ID of the vSwitch. Valid values of N: 1 to 10.
         self.v_switch_id = v_switch_id  # type: str
+        # The ID of the zone to which the cluster belongs. Valid values of N: 1 to 10.
+        # 
+        # >  Each zone ID must be unique.
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -1183,31 +1478,142 @@ class ApplyNodesRequest(TeaModel):
                  resource_amount_type=None, round=None, strict_resource_provision=None, strict_satisfied_target_capacity=None,
                  system_disk_level=None, system_disk_size=None, system_disk_type=None, tag=None, target_capacity=None,
                  zone_infos=None):
+        # Specifies whether to allocate a public IP address to the compute nodes. Valid values:
+        # 
+        # *   true: A public IP address is allocated to the compute nodes.
+        # *   false: A public IP address is not allocated to the compute nodes.
+        # 
+        # Default value: false
         self.allocate_public_address = allocate_public_address  # type: bool
+        # The ID of the cluster.
+        # 
+        # You can call the [ListClusters](~~87126~~) operation to query the cluster ID.
         self.cluster_id = cluster_id  # type: str
+        # The maximum hourly price of the compute nodes. The value is a floating-point number that supports up to three decimal places. The parameter takes effect only when ComputeSpotStrategy is set to SpotWithPriceLimit.
+        # 
+        # If ComputeSpotPriceLimit and InstanceTypeModel.N.MaxPrice are specified at the same time, compute nodes are created based on the smaller value of these parameters.
         self.compute_spot_price_limit = compute_spot_price_limit  # type: float
+        # The preemption policy of the compute nodes. Valid values:
+        # 
+        # *   NoSpot: The compute nodes use the pay-as-you-go billing method.
+        # *   SpotWithPriceLimit: The compute nodes are preemptible instances that have a user-defined maximum hourly price.
+        # *   SpotAsPriceGo: The compute nodes are preemptible instances for which the market price at the time of purchase is used as the bid price.
+        # 
+        # Default value: NoSpot
         self.compute_spot_strategy = compute_spot_strategy  # type: str
+        # The number of vCPUs. The parameter is required when the ResourceAmountType parameter is set to Cores.
+        # 
+        # You can set Cores, vCPU, and Memory to query node specifications. For example, you can query the available compute nodes that have 2 vCPUs and 16 GB of memory by setting vCPU to 2 and Memory to 16. You can also query compute nodes by zone. Query results are sorted by price.
         self.cores = cores  # type: int
+        # The prefix of the hostname. You can specify the parameter to manage the compute nodes in an efficient manner.
         self.host_name_prefix = host_name_prefix  # type: str
+        # The suffix of the hostname. You can specify the parameter to manage the compute nodes in an efficient manner.
         self.host_name_suffix = host_name_suffix  # type: str
+        # The image ID of the compute nodes to be added. The parameter takes effect only when the TargetImageId parameter is not specified.
+        # 
+        # You can call the [ListImages](~~87213~~) and [ListCustomImages](~~87215~~) operations to query the image ID.
+        # 
+        # >  If you add multiple compute nodes, the TargetImageId parameter takes effect only on the nodes for which the TargetImageId parameter is specified.
         self.image_id = image_id  # type: str
+        # The level of the instance family. The parameter takes effect only when Cores and Memory are specified. Valid values:
+        # 
+        # *   EntryLevel.
+        # *   EnterpriseLevel.
+        # *   CreditEntryLevel. For more information, see [What are burstable instances?](~~59977~~)
+        # 
+        # Default value: EnterpriseLevel
         self.instance_family_level = instance_family_level  # type: str
         self.instance_type_model = instance_type_model  # type: list[ApplyNodesRequestInstanceTypeModel]
+        # The billing method of the elastic IP address (EIP). Valid values:
+        # 
+        # *   PayByBandwidth: pay-by-bandwidth
+        # *   PayByTraffic: pay-by-traffic
         self.internet_charge_type = internet_charge_type  # type: str
+        # The maximum inbound public bandwidth. Unit: Mbit/s. Valid values:
+        # 
+        # *   If the purchased outbound public bandwidth is less than or equal to 10 Mbit/s, the valid values of the parameter are 1 to 10 and the default value is 10.
+        # *   If the purchased outbound public bandwidth is greater than 10 Mbit/s, the valid values of this parameter are 1 to the amount of the outbound bandwidth that is purchased.
         self.internet_max_band_width_in = internet_max_band_width_in  # type: int
+        # The maximum outbound public bandwidth. Unit: Mbit/s. Valid values: 0 to 100.
+        # 
+        # Default value: 0
         self.internet_max_band_width_out = internet_max_band_width_out  # type: int
+        # The interval between two consecutive batches. Valid values: 60 to 600. Unit: seconds.
+        # 
+        # Default value: 60
         self.interval = interval  # type: int
+        # The queue to which the compute nodes are added.
+        # 
+        # You can call the [ListQueues](~~92176~~) operation to query the queue name.
         self.job_queue = job_queue  # type: str
+        # The memory capacity. The parameter is required when the ResourceAmountType parameter is set to Cores. Unit: GB.
+        # 
+        # You can set Cores, vCPU, and Memory to query node specifications. For example, you can query the available compute nodes that have 2 vCPUs and 16 GB of memory by setting vCPU to 2 and Memory to 16. You can also query compute nodes by zone. Query results are sorted by price.
         self.memory = memory  # type: int
+        # The application policy of the preemptible nodes. Valid values:
+        # 
+        # *   LowPriceResourcePlanning: Preemptible nodes are created based on the unit prices of vCPUs in ascending order. Preemptible nodes are created first when preemptible instance types are specified.
+        # *   CapacityOptResourcePlanning: Preemptible nodes are created based on the prices and release rates in ascending order.
+        # *   CustomizedResourcePlanning: Nodes are added based on the predefined value of the ZoneIds.N parameter. Instances of a zone that has a higher priority are used first.
         self.priority_strategy = priority_strategy  # type: str
+        # The type of the resource to be added. Valid values:
+        # 
+        # *   Instances: compute node
+        # *   Cores: vCPU and memory
+        # 
+        # Default value: Instances
         self.resource_amount_type = resource_amount_type  # type: str
+        # The total number of batches to create nodes. Valid values: 1 to 10.
+        # 
+        # Default value: 1
         self.round = round  # type: int
+        # Specifies whether to strictly meet the requirements of the TargetCapacity parameter. The parameter takes effect only when StrictSatisfiedTargetCapacity is set to true. Valid values:
+        # 
+        # *   true: Check the inventory of the resources. Compute nodes are created based on the value of the TargetCapacity parameter only when the available resources are sufficient. Otherwise, no compute nodes are created.
+        # *   false: Check the inventory of the resources. Compute nodes are created only when the available resources are sufficient. However, some compute nodes may fail to be created because resources become insufficient after the inventory is checked.
+        # 
+        # Default value: false
         self.strict_resource_provision = strict_resource_provision  # type: bool
+        # Specifies whether to meet the requirements of the TargetCapacity parameter. Valid values:
+        # 
+        # *   true: If the available resources are fewer than the resources that you want to add, no compute nodes are created and an error is returned. If the available resources are more than the resources that you want to add, the following cases may occur:
+        # 
+        #     *   If StrictResourceProvision is set to true, check the inventory of the resources. Compute nodes are created based on the value of the TargetCapacity parameter only when the available resources are sufficient. Otherwise, no compute nodes are created.
+        #     *   If StrictResourceProvision is set to false, check the inventory of the resources. Compute nodes are created only when the available resources are sufficient. However, some compute nodes may fail to be created because resources become insufficient after the inventory is checked.
+        # 
+        # *   false: If the available resources are insufficient, compute nodes are created based on the inventory of the resources.
+        # 
+        # Default value: true
         self.strict_satisfied_target_capacity = strict_satisfied_target_capacity  # type: bool
+        # The performance level of the ESSD used as the system disk. Valid values:
+        # 
+        # *   PL0: A single ESSD can deliver up to 10,000 random read/write IOPS.
+        # *   PL1: A single ESSD can deliver up to 50,000 random read/write IOPS.
+        # *   PL2: A single ESSD can deliver up to 100,000 random read/write IOPS.
+        # *   PL3: A single ESSD can deliver up to 1,000,000 random read/write IOPS.
+        # 
+        # Default value: PL0
+        # 
+        # For more information, see [ESSDs](~~122389~~).
         self.system_disk_level = system_disk_level  # type: str
+        # The size of the system disk. Unit: GB.
+        # 
+        # Valid values: 40 to 500
+        # 
+        # Default value: 40
         self.system_disk_size = system_disk_size  # type: int
+        # The type of the system disk. Valid values:
+        # 
+        # *   cloud_efficiency: ultra disk.
+        # *   cloud_ssd: SSD.
+        # *   cloud_essd: ESSD.
+        # *   cloud: basic disk. Disks of this type are retired.
         self.system_disk_type = system_disk_type  # type: str
         self.tag = tag  # type: list[ApplyNodesRequestTag]
+        # The number of the resource that you want to add. The specific number depends on the value of the ResourceAmountType parameter:
+        # 
+        # *   If ResourceAmountType is set to Instance, the value range of TargetCapacity is 1 to 200.
+        # *   If ResourceAmountType is set to Cores, the value range of TargetCapacity is 1 to 1,000.
         self.target_capacity = target_capacity  # type: int
         self.zone_infos = zone_infos  # type: list[ApplyNodesRequestZoneInfos]
 
@@ -1387,10 +1793,17 @@ class ApplyNodesResponseBodyInstanceIds(TeaModel):
 
 class ApplyNodesResponseBody(TeaModel):
     def __init__(self, detail=None, instance_ids=None, request_id=None, satisfied_amount=None, task_id=None):
+        # The detailed result of the request.
         self.detail = detail  # type: str
+        # The ID of the Elastic Compute Service (ECS) instance.
+        # 
+        # >  AddNodes is an asynchronous API operation. If a request succeeds, a response is immediately generated before ECS instances are created. Therefore, the value of the parameter is null. You can call the [ListNodes](~~87161~~) operation to query the ID of the ECS instance.
         self.instance_ids = instance_ids  # type: ApplyNodesResponseBodyInstanceIds
+        # The ID of the task.
         self.request_id = request_id  # type: str
+        # The number of the compute nodes that were created.
         self.satisfied_amount = satisfied_amount  # type: int
+        # The ID of the request.
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -1472,7 +1885,11 @@ class ApplyNodesResponse(TeaModel):
 
 class CreateClusterRequestEcsOrderCompute(TeaModel):
     def __init__(self, count=None, instance_type=None):
+        # The number of the compute nodes. Valid values: 1 to 99.
         self.count = count  # type: int
+        # The instance type of the compute nodes.
+        # 
+        # You can call the [ListPreferredEcsTypes](~~188592~~) operation to query the recommended instance types.
         self.instance_type = instance_type  # type: str
 
     def validate(self):
@@ -1501,7 +1918,11 @@ class CreateClusterRequestEcsOrderCompute(TeaModel):
 
 class CreateClusterRequestEcsOrderLogin(TeaModel):
     def __init__(self, count=None, instance_type=None):
+        # The number of the logon nodes. Valid value: 1.
         self.count = count  # type: int
+        # The instance type of the logon nodes.
+        # 
+        # You can call the [ListPreferredEcsTypes](~~188592~~) operation to query the recommended instance types.
         self.instance_type = instance_type  # type: str
 
     def validate(self):
@@ -1530,7 +1951,11 @@ class CreateClusterRequestEcsOrderLogin(TeaModel):
 
 class CreateClusterRequestEcsOrderManager(TeaModel):
     def __init__(self, count=None, instance_type=None):
+        # The number of the management nodes. Valid values: 1 and 2.
         self.count = count  # type: int
+        # The instance type of the management nodes.
+        # 
+        # You can call the [ListPreferredEcsTypes](~~188592~~) operation to query the recommended instance types.
         self.instance_type = instance_type  # type: str
 
     def validate(self):
@@ -1604,6 +2029,11 @@ class CreateClusterRequestEcsOrder(TeaModel):
 
 class CreateClusterRequestAdditionalVolumesRoles(TeaModel):
     def __init__(self, name=None):
+        # The type of the nodes to which the additional file system is attached.
+        # 
+        # Valid values of N in AdditionalVolumes.N.Roles: 1 to 10
+        # 
+        # Valid values of N in Roles.N.Name: 0 to 8
         self.name = name  # type: str
 
     def validate(self):
@@ -1629,15 +2059,47 @@ class CreateClusterRequestAdditionalVolumesRoles(TeaModel):
 class CreateClusterRequestAdditionalVolumes(TeaModel):
     def __init__(self, job_queue=None, local_directory=None, location=None, remote_directory=None, roles=None,
                  volume_id=None, volume_mount_option=None, volume_mountpoint=None, volume_protocol=None, volume_type=None):
+        # The queue of the nodes to which the additional file system is attached.
+        # 
+        # Valid values of N: 1 to 10
         self.job_queue = job_queue  # type: str
+        # The local directory on which the additional file system is mounted.
+        # 
+        # Valid values of N: 1 to 10
         self.local_directory = local_directory  # type: str
+        # The type of the E-HPC cluster. Set the value to PublicCloud.
+        # 
+        # Valid values of N: 1 to 10
         self.location = location  # type: str
+        # The remote directory on which the additional file system is mounted.
+        # 
+        # Valid values of N: 1 to 10
         self.remote_directory = remote_directory  # type: str
         self.roles = roles  # type: list[CreateClusterRequestAdditionalVolumesRoles]
+        # The ID of the additional file system.
+        # 
+        # Valid values of N: 1 to 10
         self.volume_id = volume_id  # type: str
+        # The mount options of the additional file system.
+        # 
+        # Valid values of N: 1 to 10
         self.volume_mount_option = volume_mount_option  # type: str
+        # The mount target of the additional file system.
+        # 
+        # Valid values of N: 1 to 10
         self.volume_mountpoint = volume_mountpoint  # type: str
+        # The type of the protocol that is used by the additional file system. Valid values:
+        # 
+        # *   NFS
+        # *   SMB
+        # 
+        # Valid values of N: 1 to 10
+        # 
+        # Default value: NFS
         self.volume_protocol = volume_protocol  # type: str
+        # The type of the additional shared storage. Only NAS file systems are supported.
+        # 
+        # Valid values of N: 1 to 10
         self.volume_type = volume_type  # type: str
 
     def validate(self):
@@ -1706,6 +2168,11 @@ class CreateClusterRequestAdditionalVolumes(TeaModel):
 
 class CreateClusterRequestApplication(TeaModel):
     def __init__(self, tag=None):
+        # The tag of the software.
+        # 
+        # Valid values of N: 0 to 100
+        # 
+        # You can call the [ListSoftwares](~~87216~~) operation to query the tag of the software.
         self.tag = tag  # type: str
 
     def validate(self):
@@ -1730,7 +2197,13 @@ class CreateClusterRequestApplication(TeaModel):
 
 class CreateClusterRequestPostInstallScript(TeaModel):
     def __init__(self, args=None, url=None):
+        # The parameter that is used to run the script after the E-HPC cluster is created.
+        # 
+        # Valid values of N: 0 to 16
         self.args = args  # type: str
+        # The URL that is used to download the script after the E-HPC cluster is created.
+        # 
+        # Valid values of N: 0 to 16
         self.url = url  # type: str
 
     def validate(self):
@@ -1759,7 +2232,9 @@ class CreateClusterRequestPostInstallScript(TeaModel):
 
 class CreateClusterRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the tag.
         self.key = key  # type: str
+        # The value of the tag.
         self.value = value  # type: str
 
     def validate(self):
@@ -1792,65 +2267,266 @@ class CreateClusterRequest(TeaModel):
                  compute_enable_ht=None, compute_spot_price_limit=None, compute_spot_strategy=None, deploy_mode=None,
                  description=None, domain=None, ecs_charge_type=None, ehpc_version=None, ha_enable=None, image_id=None,
                  image_owner_alias=None, input_file_url=None, is_compute_ess=None, job_queue=None, key_pair_name=None, name=None,
-                 os_tag=None, password=None, period=None, period_unit=None, plugin=None, post_install_script=None,
-                 ram_node_types=None, ram_role_name=None, remote_directory=None, remote_vis_enable=None, resource_group_id=None,
-                 scc_cluster_id=None, scheduler_type=None, security_group_id=None, security_group_name=None,
+                 network_interface_traffic_mode=None, os_tag=None, password=None, period=None, period_unit=None, plugin=None,
+                 post_install_script=None, ram_node_types=None, ram_role_name=None, remote_directory=None, remote_vis_enable=None,
+                 resource_group_id=None, scc_cluster_id=None, scheduler_type=None, security_group_id=None, security_group_name=None,
                  system_disk_level=None, system_disk_size=None, system_disk_type=None, tag=None, v_switch_id=None, volume_id=None,
                  volume_mount_option=None, volume_mountpoint=None, volume_protocol=None, volume_type=None, vpc_id=None,
                  without_agent=None, without_elastic_ip=None, zone_id=None):
         self.ecs_order = ecs_order  # type: CreateClusterRequestEcsOrder
+        # The type of the domain account service. Valid values:
+        # 
+        # *   nis
+        # *   ldap
+        # 
+        # Default value: nis
         self.account_type = account_type  # type: str
         self.additional_volumes = additional_volumes  # type: list[CreateClusterRequestAdditionalVolumes]
         self.application = application  # type: list[CreateClusterRequestApplication]
+        # Specifies whether to enable auto-renewal for the subscription. Valid values:
+        # 
+        # *   true
+        # *   false
+        # 
+        # Default value: false
         self.auto_renew = auto_renew  # type: str
+        # The auto-renewal period of the subscription compute nodes. The parameter takes effect when AutoRenew is set to true.
         self.auto_renew_period = auto_renew_period  # type: int
+        # The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must ensure that the value is unique among different requests. The token can only contain ASCII characters and cannot exceed 64 characters in length. For more information, see [How do I ensure the idempotence of a request?](~~25693~~)
         self.client_token = client_token  # type: str
+        # The version of the E-HPC client. By default, the parameter is set to the latest version number.
+        # 
+        # You can call the [ListCurrentClientVersion](~~87223~~) operation to query the latest version of the E-HPC client.
         self.client_version = client_version  # type: str
+        # The version of the E-HPC cluster.
+        # 
+        # Default value: 1.0
         self.cluster_version = cluster_version  # type: str
+        # Specifies whether the compute nodes support hyper-threading. Valid values:
+        # 
+        # *   true
+        # *   false
+        # 
+        # Default value: true
         self.compute_enable_ht = compute_enable_ht  # type: bool
+        # The maximum hourly price of the compute nodes. A maximum of three decimal places can be used in the value of the parameter. The parameter is valid only when the ComputeSpotStrategy parameter is set to SpotWithPriceLimit.
         self.compute_spot_price_limit = compute_spot_price_limit  # type: str
+        # The bidding method of the compute nodes. Valid values:
+        # 
+        # *   NoSpot: The compute nodes are pay-as-you-go instances.
+        # *   SpotWithPriceLimit: The compute nodes are preemptible instances that have a user-defined maximum hourly price.
+        # *   SpotAsPriceGo: The compute nodes are preemptible instances for which the market price at the time of purchase is used as the bid price.
+        # 
+        # Default value: NoSpot
         self.compute_spot_strategy = compute_spot_strategy  # type: str
+        # The mode in which the E-HPC cluster is deployed. Valid values:
+        # 
+        # *   Standard: An account node, a scheduling node, a logon node, and multiple compute nodes are separately deployed.
+        # *   Simple: A management node, a logon node, and multiple compute nodes are deployed. The management node consists of an account node and a scheduling node. The logon node and compute nodes are separately deployed.
+        # *   Tiny: A management node and multiple compute nodes are deployed. The management node consists of an account node, a scheduling node, and a logon node. The compute nodes are separately deployed.
+        # 
+        # Default value: Standard
         self.deploy_mode = deploy_mode  # type: str
+        # The description of the E-HPC cluster. The description must be 2 to 256 characters in length. It cannot start with http:// or https://.
         self.description = description  # type: str
+        # The domain name of the on-premises E-HPC cluster.
+        # 
+        # This parameter takes effect only when the AccoutType parameter is set to Idap.
         self.domain = domain  # type: str
+        # The billing method of the nodes. Valid values:
+        # 
+        # *   PostPaid: pay-as-you-go
+        # *   PrePaid: subscription
+        # 
+        # If you set the parameter to PrePaid, auto-renewal is enabled by default.
         self.ecs_charge_type = ecs_charge_type  # type: str
+        # The version of E-HPC. By default, the parameter is set to the latest version number.
         self.ehpc_version = ehpc_version  # type: str
+        # Specifies whether to enable the high availability feature. Valid values:
+        # 
+        # *   true
+        # *   false
+        # 
+        # Default value: false
+        # 
+        # >  If high availability is enabled, a primary management node and a secondary management node are used.
         self.ha_enable = ha_enable  # type: bool
+        # The ID of the image.
+        # 
+        # You can call the [ListImages](~~87213~~) and [ListCustomImages](~~87215~~) operations to query the images that are supported by E-HPC.
         self.image_id = image_id  # type: str
+        # The type of the image. Valid values:
+        # 
+        # *   system: public image
+        # *   self: custom image
+        # *   others: shared image
+        # 
+        # Default value: system
         self.image_owner_alias = image_owner_alias  # type: str
+        # The URL of the job files that are uploaded to an Object Storage Service (OSS) bucket.
         self.input_file_url = input_file_url  # type: str
+        # Specifies whether to enable auto scaling. Valid values:
+        # 
+        # *   true
+        # *   false
+        # 
+        # Default value: false
         self.is_compute_ess = is_compute_ess  # type: bool
+        # The queue to which the compute nodes are added.
         self.job_queue = job_queue  # type: str
+        # The name of the AccessKey pair.
+        # 
+        # >  For more information, see [Create an SSH key pair](~~51793~~).
         self.key_pair_name = key_pair_name  # type: str
+        # The name of the E-HPC cluster. The name must be 2 to 64 characters in length.
         self.name = name  # type: str
+        self.network_interface_traffic_mode = network_interface_traffic_mode  # type: str
+        # The operating system tag of the image.
         self.os_tag = os_tag  # type: str
+        # The root password of the logon node. The password must be 8 to 30 characters in length and contain at least three of the following items: uppercase letters, lowercase letters, digits, and special characters. The password can contain the following special characters:
+        # 
+        # `( ) ~ ! @ # $ % ^ & * - + = | { } [ ] : ; ‘ < > , . ? /`
+        # 
+        # You must specify either Password or KeyPairName. If both are specified, the Password parameter prevails.
+        # 
+        # >  We recommend that you use HTTPS to call the API operation to prevent password leakages.
         self.password = password  # type: str
+        # The duration of the subscription. The unit of the duration is specified by the `PeriodUnit` parameter.
+        # 
+        # *   If you set PriceUnit to Year, the valid values of the Period parameter are 1, 2, and 3.
+        # *   If you set PriceUnit to Month, the valid values of the Period parameter are 1, 2, 3, 4, 5, 6, 7, 8, and 9.
+        # *   If you set PriceUnit to Hour, the valid value of the Period parameter is 1.
+        # 
+        # Default value: 1
         self.period = period  # type: int
+        # The unit of the subscription duration. Valid values:
+        # 
+        # *   Year
+        # *   Month
+        # *   Hour
+        # 
+        # Default value: Month
         self.period_unit = period_unit  # type: str
+        # The mode configurations of the plug-in. This parameter takes effect only when the SchedulerType parameter is set to custom.
+        # 
+        # The value must be a JSON string. The parameter contains the following parameters: pluginMod, pluginLocalPath, and pluginOssPath.
+        # 
+        # *   pluginMod: the mode of the plug-in. The following modes are supported:
+        # 
+        #     *   oss: The plug-in is downloaded and decompressed from OSS to a local path. The local path is specified by the pluginLocalPath parameter.
+        #     *   image: By default, the plug-in is stored in a pre-defined local path. The local path is specified by the pluginLocalPath parameter.
+        # 
+        # *   pluginLocalPath: the local path where the plug-in is stored. We recommend that you select a shared directory in oss mode and a non-shared directory in image mode.
+        # 
+        # *   pluginOssPath: the remote path where the plug-in is stored in OSS. This parameter takes effect only when the pluginMod parameter is set to oss.
         self.plugin = plugin  # type: str
         self.post_install_script = post_install_script  # type: list[CreateClusterRequestPostInstallScript]
         self.ram_node_types = ram_node_types  # type: list[str]
+        # The name of the Resource Access Management (RAM) role.
+        # 
+        # You can call the [ListRoles](~~28713~~) operation provided by RAM to query the created RAM roles.
         self.ram_role_name = ram_role_name  # type: str
+        # The remote directory on which the file system is mounted.
         self.remote_directory = remote_directory  # type: str
+        # Specifies whether to enable Virtual Network Computing (VNC). Valid values:
+        # 
+        # *   true
+        # *   false
+        # 
+        # Default value: false
         self.remote_vis_enable = remote_vis_enable  # type: str
+        # The ID of the resource group.
+        # 
+        # You can call the [ListResourceGroups](~~158855~~) operation to obtain the ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
+        # The ID of the Super Computing Cluster (SCC) instance.
+        # 
+        # If you specify the parameter, the SCC instance is moved to a new SCC cluster.
         self.scc_cluster_id = scc_cluster_id  # type: str
+        # The type of the scheduler. Valid values:
+        # 
+        # *   pbs
+        # *   slurm
+        # *   opengridscheduler
+        # *   deadline
+        # 
+        # Default value: pbs
         self.scheduler_type = scheduler_type  # type: str
+        # The ID of the security group to which the E-HPC cluster belongs.
+        # 
+        # You can call the [DescribeSecurityGroups](~~25556~~) operation to query available security groups in the current region.
         self.security_group_id = security_group_id  # type: str
+        # If you do not use an existing security group, set the parameter to the name of a new security group. A default policy is applied to the new security group.
         self.security_group_name = security_group_name  # type: str
+        # The performance level of the ESSD that is used as the system disk. Valid values:
+        # 
+        # *   PL0: An ESSD can deliver up to 10,000 random read/write IOPS.
+        # *   PL1: A single ESSD can deliver up to 50,000 random read/write IOPS.
+        # *   PL2: A single ESSD can deliver up to 100,000 random read/write IOPS.
+        # *   PL3: An ESSD delivers up to 1,000,000 random read/write IOPS.
+        # 
+        # Default value: PL1
+        # 
+        # For more information, see [ESSDs](~~122389~~).
         self.system_disk_level = system_disk_level  # type: str
+        # The size of the system disk. Unit: GB.
+        # 
+        # Valid values: 40 to 500
+        # 
+        # Default value: 40
         self.system_disk_size = system_disk_size  # type: int
+        # The type of the system disk. Valid values:
+        # 
+        # *   cloud_efficiency: ultra disk.
+        # *   cloud_ssd: standard SSD.
+        # *   cloud_essd: enhanced SSD (ESSD).
+        # *   cloud: basic disk. Disks of this type are retired.
+        # 
+        # Default value: cloud_ssd
         self.system_disk_type = system_disk_type  # type: str
         self.tag = tag  # type: list[CreateClusterRequestTag]
+        # The ID of the vSwitch. E-HPC supports only VPC networks.
+        # 
+        # You can call the [DescribeVSwitches](~~35748~~) operation to query available vSwitches.
         self.v_switch_id = v_switch_id  # type: str
+        # The ID of the file system. If you leave the parameter empty, a Performance NAS file system is created by default.
+        # 
+        # You can call the [ListFileSystemWithMountTargets](~~204364~~) operation to query available mount targets.
         self.volume_id = volume_id  # type: str
+        # The mount options of the NFS file system that you want to mount by running the mount command.
+        # 
+        # For more information, see [Mount an NFS file system on a Linux ECS instance](https://www.alibabacloud.com/help/en/nas/latest/mount-an-nfs-file-system-on-a-linux-ecs-instance#section-jyi-hyd-hbr).
         self.volume_mount_option = volume_mount_option  # type: str
+        # The mount target of the file system. Take note of the following information:
+        # 
+        # *   If you do not specify the VolumeId parameter, you can leave the VolumeMountpoint parameter empty. A mount target is created by default.
+        # *   If you specify the VolumeId parameter, the VolumeMountpoint parameter is required. You can call the [ListFileSystemWithMountTargets](~~204364~~) operation to query available mount targets.
         self.volume_mountpoint = volume_mountpoint  # type: str
+        # The type of the protocol that is used by the file system. Valid values:
+        # 
+        # *   NFS
+        # *   SMB
+        # 
+        # Default value: NFS
         self.volume_protocol = volume_protocol  # type: str
+        # The type of the shared storage. Set the value to `nas`, which indicates a NAS file system.
         self.volume_type = volume_type  # type: str
+        # The ID of the virtual private cloud (VPC) to which the E-HPC cluster belongs.
+        # 
+        # You can call the [DescribeVpcs](~~35739~~) operation to query available VPCs.
         self.vpc_id = vpc_id  # type: str
+        # Specifies whether not to install the agent.
+        # 
+        # *   true: The agent is not installed.
+        # *   false: The agent is installed.
+        # 
+        # Default value: false
         self.without_agent = without_agent  # type: bool
+        # Specifies whether the logon node uses an elastic IP address (EIP). Default value: false
         self.without_elastic_ip = without_elastic_ip  # type: bool
+        # The ID of the zone.
+        # 
+        # You can call the [ListRegions](~~188593~~) and [DescribeZones](~~25610~~) operations to query IDs of the zones where E-HPC is supported.
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -1933,6 +2609,8 @@ class CreateClusterRequest(TeaModel):
             result['KeyPairName'] = self.key_pair_name
         if self.name is not None:
             result['Name'] = self.name
+        if self.network_interface_traffic_mode is not None:
+            result['NetworkInterfaceTrafficMode'] = self.network_interface_traffic_mode
         if self.os_tag is not None:
             result['OsTag'] = self.os_tag
         if self.password is not None:
@@ -2056,6 +2734,8 @@ class CreateClusterRequest(TeaModel):
             self.key_pair_name = m.get('KeyPairName')
         if m.get('Name') is not None:
             self.name = m.get('Name')
+        if m.get('NetworkInterfaceTrafficMode') is not None:
+            self.network_interface_traffic_mode = m.get('NetworkInterfaceTrafficMode')
         if m.get('OsTag') is not None:
             self.os_tag = m.get('OsTag')
         if m.get('Password') is not None:
@@ -2125,8 +2805,13 @@ class CreateClusterRequest(TeaModel):
 
 class CreateClusterResponseBody(TeaModel):
     def __init__(self, cluster_id=None, request_id=None, task_id=None):
+        # The ID of the E-HPC cluster.
         self.cluster_id = cluster_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The ID of the task.
+        # 
+        # >  CreateCluster is an asynchronous API operation. If a request succeeds, a response is immediately generated before nodes are created. You can call the [ListTasks](~~268225~~) operation to query the result of the task.
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -2578,6 +3263,7 @@ class CreateGWSInstanceResponse(TeaModel):
 
 class CreateHybridClusterRequestEcsOrderCompute(TeaModel):
     def __init__(self, instance_type=None):
+        # The instance type of the compute nodes.
         self.instance_type = instance_type  # type: str
 
     def validate(self):
@@ -2602,6 +3288,7 @@ class CreateHybridClusterRequestEcsOrderCompute(TeaModel):
 
 class CreateHybridClusterRequestEcsOrderManager(TeaModel):
     def __init__(self, instance_type=None):
+        # The instance type of the management node on the cloud. Only Proxy Mode is supported.
         self.instance_type = instance_type  # type: str
 
     def validate(self):
@@ -2662,6 +3349,7 @@ class CreateHybridClusterRequestEcsOrder(TeaModel):
 
 class CreateHybridClusterRequestApplication(TeaModel):
     def __init__(self, tag=None):
+        # The tag of the application. Valid values of N: 1 to 5.
         self.tag = tag  # type: str
 
     def validate(self):
@@ -2686,11 +3374,33 @@ class CreateHybridClusterRequestApplication(TeaModel):
 
 class CreateHybridClusterRequestNodes(TeaModel):
     def __init__(self, account_type=None, dir=None, host_name=None, ip_address=None, role=None, scheduler_type=None):
+        # The service type of the domain account to which the on-premises node in the cluster belongs. Valid values:
+        # 
+        # *   nis
+        # *   ldap
+        # 
+        # Default value: nis
         self.account_type = account_type  # type: str
+        # The directory of the on-premises node in the cluster.
         self.dir = dir  # type: str
+        # The hostname of the on-premises node in the cluster.
         self.host_name = host_name  # type: str
+        # The IP address of the on-premises node in the cluster.
         self.ip_address = ip_address  # type: str
+        # The role of the on-premises node in the cluster. Valid values:
+        # 
+        # *   Manager: management node
+        # *   Login: logon node
+        # *   Compute: compute node
         self.role = role  # type: str
+        # The scheduler type of the on-premises node in the cluster. Valid values:
+        # 
+        # *   pbs
+        # *   slurm
+        # *   opengridscheduler
+        # *   deadline
+        # 
+        # Default value: pbs
         self.scheduler_type = scheduler_type  # type: str
 
     def validate(self):
@@ -2764,7 +3474,9 @@ class CreateHybridClusterRequestOpenldapPar(TeaModel):
 
 class CreateHybridClusterRequestPostInstallScript(TeaModel):
     def __init__(self, args=None, url=None):
+        # The parameters that are used to run the post-installation script. Valid values of N: 1 to 16.
         self.args = args  # type: str
+        # The full path of the post-installation script. Valid values of N: 1 to 16.
         self.url = url  # type: str
 
     def validate(self):
@@ -2841,42 +3553,110 @@ class CreateHybridClusterRequest(TeaModel):
                  volume_type=None, vpc_id=None, win_ad_par=None, zone_id=None):
         self.ecs_order = ecs_order  # type: CreateHybridClusterRequestEcsOrder
         self.application = application  # type: list[CreateHybridClusterRequestApplication]
+        # The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must make sure that the value is unique among different requests. The ClientToken value can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure the idempotence of a request](~~25693~~).
         self.client_token = client_token  # type: str
+        # The version of the client. By default, the latest version is used.
         self.client_version = client_version  # type: str
+        # The maximum hourly price for the ECS instance under the compute node. A maximum of three decimal places can be used in the value of the parameter. The parameter is valid only when the ComputeSpotStrategy parameter is set to SpotWithPriceLimit.
         self.compute_spot_price_limit = compute_spot_price_limit  # type: float
+        # The preemption policy of the compute nodes. Valid values:
+        # 
+        # *   NoSpot: The compute nodes are pay-as-you-go instances.
+        # *   SpotWithPriceLimit: The instances of the compute node are preemptible instances. These types of instances have a specified maximum hourly price.
+        # *   SpotAsPriceGo: The instances of the compute node are preemptible instances. The price of these instances is based on the current market price.
+        # 
+        # Default value: NoSpot
         self.compute_spot_strategy = compute_spot_strategy  # type: str
+        # The description of the cluster. The description must be 2 to 256 characters in length. It cannot start with http:// or https://.
+        # 
+        # Default value: null
         self.description = description  # type: str
+        # The type of the domain account service. Valid values:
+        # 
+        # *   nis
+        # *   ldap
+        # 
+        # Default value: nis
         self.domain = domain  # type: str
+        # The version of E-HPC. By default, the latest version is used.
         self.ehpc_version = ehpc_version  # type: str
+        # The ID of the image.
         self.image_id = image_id  # type: str
+        # The type of the image. Valid values:
+        # 
+        # *   system: public image
+        # *   self: custom image
+        # *   others: shared image
+        # *   marketplace: Alibaba Cloud Marketplace image
         self.image_owner_alias = image_owner_alias  # type: str
+        # The default queue of the scale-out nodes.
         self.job_queue = job_queue  # type: str
+        # The name of the AccessKey pair. The name must be 2 to 128 characters in length. It must start with a letter and cannot start with http:// or https://. It can contain letters, digits, colons (:), underscores (\_), and hyphens (-).
+        # 
+        # >  For more information, see [Create an SSH key pair](~~51793~~).
         self.key_pair_name = key_pair_name  # type: str
+        # The location where the cluster resides. Set the value to OnPremise.
         self.location = location  # type: str
+        # Specifies whether the cluster supports multiple operating systems. Valid values:
+        # 
+        # *   true
+        # *   false
+        # 
+        # Default value: false
         self.multi_os = multi_os  # type: bool
+        # The name of the cluster. The name must be 2 to 64 characters in length, and can contain only letters, digits, hyphens (-), and underscores (\_). It must start with a letter.
         self.name = name  # type: str
         self.nodes = nodes  # type: list[CreateHybridClusterRequestNodes]
+        # The path in which the on-premises file system is mounted on the nodes on the cloud.
         self.on_premise_volume_local_path = on_premise_volume_local_path  # type: str
+        # The mount target of the on-premises file system.
         self.on_premise_volume_mount_point = on_premise_volume_mount_point  # type: str
+        # The type of the protocol that is used by the on-premises file system. Only NFS is supported.
         self.on_premise_volume_protocol = on_premise_volume_protocol  # type: str
+        # The mount path of the on-premises file system.
         self.on_premise_volume_remote_path = on_premise_volume_remote_path  # type: str
         self.openldap_par = openldap_par  # type: CreateHybridClusterRequestOpenldapPar
+        # The image tag of the operating system. You can call the [ListImages](~~87213~~) operation to query the image tag.
         self.os_tag = os_tag  # type: str
+        # The root password of the logon node. The password must be 8 to 30 characters in length and contain at least three of the following items: uppercase letters, lowercase letters, digits, and special characters. The password can contain the following special characters:
+        # 
+        # `() ~ ! @ # $ % ^ & * - = + | { } [ ] : ; ‘ < > , . ? /`
+        # 
+        # >  We recommend that you use HTTPS to call the API operation to prevent password leakage.
         self.password = password  # type: str
         self.plugin = plugin  # type: str
         self.post_install_script = post_install_script  # type: list[CreateHybridClusterRequestPostInstallScript]
+        # The remote directory to which the file system is mounted.
         self.remote_directory = remote_directory  # type: str
+        # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
+        # Specifies whether the scheduler is preinstalled for the image. Valid values:
+        # 
+        # *   true: The scheduler is preinstalled. When you create or add a node, you do not need to install the scheduler.
+        # *   false: The scheduler is not preinstalled. When you create or add a cluster, you must install the scheduler.
         self.scheduler_pre_install = scheduler_pre_install  # type: bool
+        # You can select an existing security group.
+        # 
+        # >  If you specify this parameter, you cannot specify the `SecurityGroupName` parameter at the same time.
         self.security_group_id = security_group_id  # type: str
+        # If you do not use an existing security group, set the parameter to the name of a new security group. A default policy is applied to the new security group.
+        # 
+        # >  If you specify this parameter, you cannot specify the `SecurityGroupId` parameter at the same time.
         self.security_group_name = security_group_name  # type: str
+        # The ID of the vSwitch.
         self.v_switch_id = v_switch_id  # type: str
+        # The ID of the file system. NAS file systems cannot be automatically created.
         self.volume_id = volume_id  # type: str
+        # The mount target of the file system. Mount targets cannot be automatically created for NAS file systems.
         self.volume_mountpoint = volume_mountpoint  # type: str
+        # The type of the protocol that is used by the file system. Only NFS is supported.
         self.volume_protocol = volume_protocol  # type: str
+        # The type of the file system. Only NAS file systems are supported.
         self.volume_type = volume_type  # type: str
+        # The ID of the virtual private cloud (VPC) to which the cluster belongs.
         self.vpc_id = vpc_id  # type: str
         self.win_ad_par = win_ad_par  # type: CreateHybridClusterRequestWinAdPar
+        # The ID of the zone.
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -3088,8 +3868,11 @@ class CreateHybridClusterRequest(TeaModel):
 
 class CreateHybridClusterResponseBody(TeaModel):
     def __init__(self, cluster_id=None, request_id=None, task_id=None):
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The ID of the task.
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -3163,10 +3946,19 @@ class CreateJobFileRequest(TeaModel):
     def __init__(self, async=None, cluster_id=None, content=None, runas_user=None, runas_user_password=None,
                  target_file=None):
         self.async = async  # type: bool
+        # The ID of the cluster.
+        # 
+        # You can call the [ListClusters](~~87116~~) operation to query the cluster ID.
         self.cluster_id = cluster_id  # type: str
+        # The content of the job file. The content is encoded in Base64.
         self.content = content  # type: str
+        # The user to which the job belongs.
+        # 
+        # You can call the [ListUsers](~~188572~~) operation to query the users of the cluster.
         self.runas_user = runas_user  # type: str
+        # The password of the user.
         self.runas_user_password = runas_user_password  # type: str
+        # The name of the job file.
         self.target_file = target_file  # type: str
 
     def validate(self):
@@ -3211,6 +4003,7 @@ class CreateJobFileRequest(TeaModel):
 
 class CreateJobFileResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3277,25 +4070,73 @@ class CreateJobTemplateRequest(TeaModel):
                  mem=None, name=None, node=None, package_path=None, priority=None, queue=None, re_runable=None,
                  runas_user=None, stderr_redirect_path=None, stdout_redirect_path=None, task=None, thread=None, unzip_cmd=None,
                  variables=None, with_unzip_cmd=None):
+        # The job array.
+        # 
+        # Format: X-Y:Z. X is the minimum index value. Y is the maximum index value. Z is the step size. For example, 2-7:2 indicates that three jobs need to be run and their index values are 2, 4, and 6.
         self.array_request = array_request  # type: str
+        # The maximum running time of the job. Valid formats:
+        # 
+        # *   hh:mm:ss
+        # *   mm:ss
+        # *   ss
+        # 
+        # We recommend that you use the hh:mm:ss format. If the maximum running time is 12 hours, set the value to 12:00:00.
         self.clock_time = clock_time  # type: str
+        # The command that is used to run the job.
         self.command_line = command_line  # type: str
+        # The maximum GPU usage required by a single compute node. Valid values: 1 to 8.
+        # 
+        # The parameter takes effect only when the cluster uses PBS and a compute node is a GPU-accelerated instance.
         self.gpu = gpu  # type: int
+        # The URL of the job files that are uploaded to an Object Storage Service (OSS) bucket.
         self.input_file_url = input_file_url  # type: str
+        # The maximum memory usage required by a single compute node. Unit: GB, MB, or KB. The unit is case-insensitive.
         self.mem = mem  # type: str
+        # The name of the job template. The name must be 2 to 64 characters in length. It must start with a letter and can contain letters, digits, hyphens (-), and underscores (\_).
         self.name = name  # type: str
+        # The number of compute nodes. Valid values: 1 to 500.
+        # 
+        # >  If the parameter is not specified, the Task, Thread, Mem, and Gpu parameters become invalid.
         self.node = node  # type: int
+        # The path that is used to run the job.
         self.package_path = package_path  # type: str
+        # The priority of the job. Valid values: 0 to 9. A large value indicates a high priority.
+        # 
+        # Default value: 0
         self.priority = priority  # type: int
+        # The name of the queue in which the job is run.
+        # 
+        # You can call the [ListQueues](~~92176~~) operation to query the queue name.
         self.queue = queue  # type: str
+        # Specifies whether the job can be rerun. Valid values:
+        # 
+        # *   true: The job can be rerun.
+        # *   false: The job cannot be rerun.
         self.re_runable = re_runable  # type: bool
+        # The name of the user that runs the job.
+        # 
+        # You can call the [ListUsers](~~188572~~) operation to query the users of the cluster.
         self.runas_user = runas_user  # type: str
+        # The output file path of stderr.
         self.stderr_redirect_path = stderr_redirect_path  # type: str
+        # The output file path of stdout.
         self.stdout_redirect_path = stdout_redirect_path  # type: str
+        # The number of tasks required by a single compute node. Valid values: 1 to 1000.
         self.task = task  # type: int
+        # The number of threads required by a single compute node. Valid values: 1 to 1000.
         self.thread = thread  # type: int
+        # The command that is used to decompress the job files downloaded from an OSS bucket. The parameter takes effect only when WithUnzipCmd is set to true. Valid values:
+        # 
+        # *   tar xzf: decompresses GZIP files.
+        # *   tar xf: decompresses TAR files.
+        # *   unzip: decompresses ZIP files.
         self.unzip_cmd = unzip_cmd  # type: str
+        # The runtime variables passed to the job. They can be accessed by using environment variables in the executable file.
         self.variables = variables  # type: str
+        # Specifies whether to decompress the job files downloaded from an OSS bucket. Valid values:
+        # 
+        # *   true: The job files are decompressed.
+        # *   false: The job files are not decompressed.
         self.with_unzip_cmd = with_unzip_cmd  # type: bool
 
     def validate(self):
@@ -3396,7 +4237,9 @@ class CreateJobTemplateRequest(TeaModel):
 
 class CreateJobTemplateResponseBody(TeaModel):
     def __init__(self, request_id=None, template_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The ID of the job template.
         self.template_id = template_id  # type: str
 
     def validate(self):
@@ -3464,7 +4307,13 @@ class CreateJobTemplateResponse(TeaModel):
 
 class DeleteClusterRequest(TeaModel):
     def __init__(self, cluster_id=None, release_instance=None):
+        # The ID of the cluster.
+        # 
+        # You can call the [ListClusters](~~87116~~) operation to query the cluster ID.
         self.cluster_id = cluster_id  # type: str
+        # Specifies whether to release Elastic Compute Service (ECS) instances that are created by using Elastic High Performance Computing (E-HPC).
+        # 
+        # Default value: true
         self.release_instance = release_instance  # type: str
 
     def validate(self):
@@ -3493,7 +4342,9 @@ class DeleteClusterRequest(TeaModel):
 
 class DeleteClusterResponseBody(TeaModel):
     def __init__(self, request_id=None, task_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The ID of the task.
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -3561,6 +4412,9 @@ class DeleteClusterResponse(TeaModel):
 
 class DeleteContainerAppsRequestContainerApp(TeaModel):
     def __init__(self, id=None):
+        # The ID of the containerized application that you want to delete. Valid values of N: 1 to 100.
+        # 
+        # You can call the [ListContainerApps](~~87333~~) operation to query the ID of the containerized application.
         self.id = id  # type: str
 
     def validate(self):
@@ -3617,6 +4471,7 @@ class DeleteContainerAppsRequest(TeaModel):
 
 class DeleteContainerAppsResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3854,9 +4709,19 @@ class DeleteGWSInstanceResponse(TeaModel):
 
 class DeleteImageRequest(TeaModel):
     def __init__(self, cluster_id=None, container_type=None, image_tag=None, repository=None):
+        # The ID of the cluster.
+        # 
+        # You can call the [ListClusters](~~87116~~) operation to query the cluster ID.
         self.cluster_id = cluster_id  # type: str
+        # The type of the container. Set the value to singularity.
         self.container_type = container_type  # type: str
+        # The tags of the image.
+        # 
+        # Default value: latest
         self.image_tag = image_tag  # type: str
+        # The name of the repository.
+        # 
+        # You can call the [ListContainerImages](~~87348~~) operation to query the name of the repository.
         self.repository = repository  # type: str
 
     def validate(self):
@@ -3893,6 +4758,7 @@ class DeleteImageRequest(TeaModel):
 
 class DeleteImageResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3956,6 +4822,11 @@ class DeleteImageResponse(TeaModel):
 
 class DeleteJobTemplatesRequest(TeaModel):
     def __init__(self, templates=None):
+        # The list of job templates. A maximum of 20 job templates can be deleted.
+        # 
+        # Format: `[{"Id": "0.sched****"},{"Id": "1.sched****"}]`. Separate multiple job templates with commas (,).
+        # 
+        # You can call the [ListJobTemplates](~~87248~~) operation to obtain the job template ID.
         self.templates = templates  # type: str
 
     def validate(self):
@@ -3980,6 +4851,7 @@ class DeleteJobTemplatesRequest(TeaModel):
 
 class DeleteJobTemplatesResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4043,8 +4915,19 @@ class DeleteJobTemplatesResponse(TeaModel):
 
 class DeleteJobsRequest(TeaModel):
     def __init__(self, async=None, cluster_id=None, jobs=None):
+        # Specifies whether to use an asynchronous link to delete the jobs.
+        # 
+        # Default value: false
         self.async = async  # type: bool
+        # The ID of the cluster.
+        # 
+        # You can call the [ListClusters](~~87116~~) operation to query the cluster ID.
         self.cluster_id = cluster_id  # type: str
+        # The list of jobs that you want to delete. Maximum number of jobs: 100. Minimum number of jobs: 1.
+        # 
+        # Format: `[{"Id": "0.sched****"},{"Id": "1.sched****"}]`. Separate multiple jobs with commas (,).
+        # 
+        # You can call the [ListJobs](~~87251~~) operation to query the job ID.
         self.jobs = jobs  # type: str
 
     def validate(self):
@@ -4077,6 +4960,7 @@ class DeleteJobsRequest(TeaModel):
 
 class DeleteJobsResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4140,8 +5024,11 @@ class DeleteJobsResponse(TeaModel):
 
 class DeleteLocalImageRequest(TeaModel):
     def __init__(self, cluster_id=None, container_type=None, image_name=None):
+        # The ID of the cluster from which that you want to delete the image.
         self.cluster_id = cluster_id  # type: str
+        # The type of the image. Set the value to singularity.
         self.container_type = container_type  # type: str
+        # The name of the image that you want to delete.
         self.image_name = image_name  # type: str
 
     def validate(self):
@@ -4174,6 +5061,7 @@ class DeleteLocalImageRequest(TeaModel):
 
 class DeleteLocalImageResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4237,6 +5125,9 @@ class DeleteLocalImageResponse(TeaModel):
 
 class DeleteNodesRequestInstance(TeaModel):
     def __init__(self, id=None):
+        # The ID of the compute node that you want to delete. Valid values of N: 1 to 100.
+        # 
+        # You can call the [DescribeCluster](~~87126~~) operation to query the IDs of the nodes in the cluster.
         self.id = id  # type: str
 
     def validate(self):
@@ -4261,9 +5152,19 @@ class DeleteNodesRequestInstance(TeaModel):
 
 class DeleteNodesRequest(TeaModel):
     def __init__(self, cluster_id=None, instance=None, release_instance=None, sync=None):
+        # The ID of the cluster.
+        # 
+        # You can call the [ListClusters](~~87116~~) operation to query the cluster ID.
         self.cluster_id = cluster_id  # type: str
         self.instance = instance  # type: list[DeleteNodesRequestInstance]
+        # Specifies whether to release the instances that are created by using E-HPC.
+        # 
+        # Default value: true
         self.release_instance = release_instance  # type: bool
+        # Specifies whether to directly delete the node. Valid values:
+        # 
+        # *   true
+        # *   false
         self.sync = sync  # type: bool
 
     def validate(self):
@@ -4308,7 +5209,12 @@ class DeleteNodesRequest(TeaModel):
 
 class DeleteNodesResponseBody(TeaModel):
     def __init__(self, request_id=None, task_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The ID of the task.
+        # 
+        # *   If you set the Sync parameter to true, the DeleteNodes operation is synchronous. Valid value: Not Available.
+        # *   If you set the Sync parameter to false, the DeleteNodes operation is asynchronous. You can call the [ListTasks](~~268225~~) operation to query the result of the task.
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -4376,7 +5282,13 @@ class DeleteNodesResponse(TeaModel):
 
 class DeleteQueueRequest(TeaModel):
     def __init__(self, cluster_id=None, queue_name=None):
+        # The ID of the cluster.
+        # 
+        # You can call the [ListClusters](~~87116~~) operation to query the cluster ID.
         self.cluster_id = cluster_id  # type: str
+        # The name of the queue that you want to delete.
+        # 
+        # You can call the [ListQueues](~~92176~~) operation to query the name of the queue.
         self.queue_name = queue_name  # type: str
 
     def validate(self):
@@ -4405,6 +5317,7 @@ class DeleteQueueRequest(TeaModel):
 
 class DeleteQueueResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4468,7 +5381,9 @@ class DeleteQueueResponse(TeaModel):
 
 class DeleteSecurityGroupRequest(TeaModel):
     def __init__(self, cluster_id=None, security_group_id=None):
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The ID of the security group.
         self.security_group_id = security_group_id  # type: str
 
     def validate(self):
@@ -4497,6 +5412,7 @@ class DeleteSecurityGroupRequest(TeaModel):
 
 class DeleteSecurityGroupResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4560,6 +5476,9 @@ class DeleteSecurityGroupResponse(TeaModel):
 
 class DeleteUsersRequestUser(TeaModel):
     def __init__(self, name=None):
+        # The name of the user that you want to delete. Valid values of N: 1 to 100.
+        # 
+        # You can call the [ListUsers](~~188572~~) operation to query the users of the cluster.
         self.name = name  # type: str
 
     def validate(self):
@@ -4585,6 +5504,9 @@ class DeleteUsersRequestUser(TeaModel):
 class DeleteUsersRequest(TeaModel):
     def __init__(self, async=None, cluster_id=None, user=None):
         self.async = async  # type: bool
+        # The ID of the cluster.
+        # 
+        # You can call the [ListClusters](~~87116~~) operation to query the cluster ID.
         self.cluster_id = cluster_id  # type: str
         self.user = user  # type: list[DeleteUsersRequestUser]
 
@@ -4626,6 +5548,7 @@ class DeleteUsersRequest(TeaModel):
 
 class DeleteUsersResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4689,6 +5612,7 @@ class DeleteUsersResponse(TeaModel):
 
 class DescribeAutoScaleConfigRequest(TeaModel):
     def __init__(self, cluster_id=None):
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
 
     def validate(self):
@@ -4716,21 +5640,46 @@ class DescribeAutoScaleConfigResponseBody(TeaModel):
                  exclude_nodes=None, extra_nodes_grow_ratio=None, grow_interval_in_minutes=None, grow_ratio=None,
                  grow_timeout_in_minutes=None, max_nodes_in_cluster=None, request_id=None, shrink_idle_times=None,
                  shrink_interval_in_minutes=None, spot_price_limit=None, spot_strategy=None, uid=None):
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The type of the scheduler. Valid values:
+        # 
+        # *   pbs
+        # *   slurm
+        # *   opengridscheduler
+        # *   deadline
         self.cluster_type = cluster_type  # type: str
+        # Indicates whether auto scale-out is enabled.
         self.enable_auto_grow = enable_auto_grow  # type: bool
+        # Indicates whether auto scale-in is enabled.
         self.enable_auto_shrink = enable_auto_shrink  # type: bool
+        # The list of nodes on which auto scaling is not enabled.
         self.exclude_nodes = exclude_nodes  # type: str
+        # The ratio of added nodes to the original ones. Valid values: 0 to 100.
         self.extra_nodes_grow_ratio = extra_nodes_grow_ratio  # type: int
+        # The scale-out interval. The interval at which the compute nodes were scaled out. Valid values: 2 to 10.
         self.grow_interval_in_minutes = grow_interval_in_minutes  # type: int
+        # The percentage of the added nodes. Valid values: 1 to 100.
         self.grow_ratio = grow_ratio  # type: int
+        # The timeout period before the node was started. Valid values: 10 to 60.
         self.grow_timeout_in_minutes = grow_timeout_in_minutes  # type: int
+        # The maximum number of compute nodes in the cluster. This parameter indicates the largest number of nodes that can be added to the cluster.
         self.max_nodes_in_cluster = max_nodes_in_cluster  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The number of consecutive idle times of a node during a scale-in check. Valid values: 2 to 5.
         self.shrink_idle_times = shrink_idle_times  # type: int
+        # The scale-in interval. The interval at which the compute nodes were scaled in. Valid values: 2 to 10.
         self.shrink_interval_in_minutes = shrink_interval_in_minutes  # type: int
+        # The maximum hourly rate of the instance. The value is accurate to three decimal places. It takes effect only when SpotStrategy is set to SpotWithPriceLimit.
         self.spot_price_limit = spot_price_limit  # type: str
+        # The bidding policy for the compute nodes. Valid values:
+        # 
+        # *   NoSpot: The instance is created as a regular pay-as-you-go instance.
+        # *   SpotWithPriceLimit: The instance is a preemptible one with a user-defined maximum hourly rate.
+        # *   SpotAsPriceGo: The instance is created as a pay-as-you-go instance that is automatically priced based on the Alibaba Cloud Marketplace.
         self.spot_strategy = spot_strategy  # type: str
+        # The ID of the user.
         self.uid = uid  # type: str
 
     def validate(self):
@@ -4854,6 +5803,7 @@ class DescribeAutoScaleConfigResponse(TeaModel):
 
 class DescribeClusterRequest(TeaModel):
     def __init__(self, cluster_id=None):
+        # The ID of the cluster. You can call the [ListClusters](~~87116~~) operation to query the list of clusters in a region.
         self.cluster_id = cluster_id  # type: str
 
     def validate(self):
@@ -4878,8 +5828,11 @@ class DescribeClusterRequest(TeaModel):
 
 class DescribeClusterResponseBodyClusterInfoApplicationsApplicationInfo(TeaModel):
     def __init__(self, name=None, tag=None, version=None):
+        # The name of the software.
         self.name = name  # type: str
+        # The tag of the software.
         self.tag = tag  # type: str
+        # The version of the software.
         self.version = version  # type: str
 
     def validate(self):
@@ -4944,7 +5897,9 @@ class DescribeClusterResponseBodyClusterInfoApplications(TeaModel):
 
 class DescribeClusterResponseBodyClusterInfoEcsInfoCompute(TeaModel):
     def __init__(self, count=None, instance_type=None):
+        # The number of compute nodes.
         self.count = count  # type: int
+        # The instance type of the compute nodes.
         self.instance_type = instance_type  # type: str
 
     def validate(self):
@@ -4973,7 +5928,9 @@ class DescribeClusterResponseBodyClusterInfoEcsInfoCompute(TeaModel):
 
 class DescribeClusterResponseBodyClusterInfoEcsInfoLogin(TeaModel):
     def __init__(self, count=None, instance_type=None):
+        # The number of logon nodes.
         self.count = count  # type: int
+        # The instance type of the logon nodes.
         self.instance_type = instance_type  # type: str
 
     def validate(self):
@@ -5002,7 +5959,9 @@ class DescribeClusterResponseBodyClusterInfoEcsInfoLogin(TeaModel):
 
 class DescribeClusterResponseBodyClusterInfoEcsInfoManager(TeaModel):
     def __init__(self, count=None, instance_type=None):
+        # The number of management nodes.
         self.count = count  # type: int
+        # The instance type of the management nodes.
         self.instance_type = instance_type  # type: str
 
     def validate(self):
@@ -5031,7 +5990,9 @@ class DescribeClusterResponseBodyClusterInfoEcsInfoManager(TeaModel):
 
 class DescribeClusterResponseBodyClusterInfoEcsInfoProxyMgr(TeaModel):
     def __init__(self, count=None, instance_type=None):
+        # The number of proxy nodes.
         self.count = count  # type: int
+        # The instance type of the proxy node.
         self.instance_type = instance_type  # type: str
 
     def validate(self):
@@ -5060,9 +6021,15 @@ class DescribeClusterResponseBodyClusterInfoEcsInfoProxyMgr(TeaModel):
 
 class DescribeClusterResponseBodyClusterInfoEcsInfo(TeaModel):
     def __init__(self, compute=None, login=None, manager=None, proxy_mgr=None):
+        # The list of compute nodes.
         self.compute = compute  # type: DescribeClusterResponseBodyClusterInfoEcsInfoCompute
+        # The list of logon nodes.
         self.login = login  # type: DescribeClusterResponseBodyClusterInfoEcsInfoLogin
+        # The list of management nodes.
         self.manager = manager  # type: DescribeClusterResponseBodyClusterInfoEcsInfoManager
+        # The list of proxy nodes on the cloud. 
+        # 
+        # This parameter is returned only when the cluster is deployed across hybrid environments and the hybrid-cloud proxy mode is enabled for the cluster.
         self.proxy_mgr = proxy_mgr  # type: DescribeClusterResponseBodyClusterInfoEcsInfoProxyMgr
 
     def validate(self):
@@ -5110,8 +6077,15 @@ class DescribeClusterResponseBodyClusterInfoEcsInfo(TeaModel):
 
 class DescribeClusterResponseBodyClusterInfoOnPremiseInfoOnPremiseInfo(TeaModel):
     def __init__(self, host_name=None, ip=None, type=None):
+        # The hostname of the on-premises management nodes.
         self.host_name = host_name  # type: str
+        # The IP address of the on-premises management nodes.
         self.ip = ip  # type: str
+        # The type of on-premises management nodes. Valid values:
+        # 
+        # - scheduler
+        # - account
+        # - account, scheduler
         self.type = type  # type: str
 
     def validate(self):
@@ -5176,7 +6150,9 @@ class DescribeClusterResponseBodyClusterInfoOnPremiseInfo(TeaModel):
 
 class DescribeClusterResponseBodyClusterInfoPostInstallScriptsPostInstallScriptInfo(TeaModel):
     def __init__(self, args=None, url=None):
+        # The runtime parameter of the script.
         self.args = args  # type: str
+        # The URL that was used to download the script.
         self.url = url  # type: str
 
     def validate(self):
@@ -5243,39 +6219,109 @@ class DescribeClusterResponseBodyClusterInfo(TeaModel):
                  ram_role_name=None, region_id=None, remote_directory=None, scc_cluster_id=None, scheduler_type=None,
                  security_group_id=None, status=None, v_switch_id=None, volume_id=None, volume_mountpoint=None, volume_protocol=None,
                  volume_type=None, vpc_id=None):
+        # The service type of the domain account. Valid values:
+        # 
+        # *   nis
+        # *   ldap
         self.account_type = account_type  # type: str
+        # The array of the software in the cluster. The array contains the name and version of the software.
         self.applications = applications  # type: DescribeClusterResponseBodyClusterInfoApplications
+        # The image of the cluster.
         self.base_os_tag = base_os_tag  # type: str
+        # The version of the E-HPC client.
         self.client_version = client_version  # type: str
+        # The time when the cluster was created.
         self.create_time = create_time  # type: str
+        # The mode in which the cluster is deployed. Valid values:
+        # 
+        # *   Standard: An account node, a scheduling node, a logon node, and multiple compute nodes are separately deployed.
+        # *   Advanced: Two high availability (HA) account nodes, two HA scheduler nodes, one logon node, and multiple compute nodes are separately deployed.
+        # *   Simple: A management node, a logon node, and multiple compute nodes are deployed. The management node consists of an account node and a scheduling node. The logon node and compute nodes are separately deployed.
+        # *   Tiny: A management node and multiple compute nodes are deployed. The management node consists of an account node, a scheduling node, and a logon node. The compute nodes are separately deployed.
         self.deploy_mode = deploy_mode  # type: str
+        # The description of the cluster.
         self.description = description  # type: str
+        # The billing method of the nodes in the cluster. Valid values:
+        # 
+        # *   PostPaid: pay-as-you-go
+        # *   PrePaid: subscription
         self.ecs_charge_type = ecs_charge_type  # type: str
+        # The list of ECS instance specifications and quantity.
         self.ecs_info = ecs_info  # type: DescribeClusterResponseBodyClusterInfoEcsInfo
+        # Indicates whether the high availability feature is enabled.
+        # 
+        # >  If high availability is enabled, a primary management node and a secondary management node are used.
         self.ha_enable = ha_enable  # type: bool
+        # The ID of the Elastic Compute Service (ECS) instance.
         self.id = id  # type: str
+        # The ID of the image.
         self.image_id = image_id  # type: str
+        # The name of the image.
         self.image_name = image_name  # type: str
+        # The type of the image. Valid values:
+        # 
+        # *   system: public image
+        # *   self: custom image
+        # *   others: shared image
+        # *   marketplace: Alibaba Cloud Marketplace image
         self.image_owner_alias = image_owner_alias  # type: str
+        # The name of the AccessKey pair.
         self.key_pair_name = key_pair_name  # type: str
+        # The location where the cluster is deployed. Valid values:
+        # 
+        # *   OnPremise: The cluster is deployed on a hybrid cloud.
+        # *   PublicCloud: The node is deployed on a public cloud.
         self.location = location  # type: str
+        # The name of the cluster.
         self.name = name  # type: str
+        # The list of on-premises management nodes. 
+        # 
+        # This parameter is returned only when the cluster is deployed across hybrid environments and the hybrid-cloud proxy mode is enabled for the cluster.
         self.on_premise_info = on_premise_info  # type: DescribeClusterResponseBodyClusterInfoOnPremiseInfo
+        # The image tag of the operating system.
         self.os_tag = os_tag  # type: str
+        # The list of scripts downloaded after the cluster was created.
         self.post_install_scripts = post_install_scripts  # type: DescribeClusterResponseBodyClusterInfoPostInstallScripts
         self.ram_node_types = ram_node_types  # type: str
         self.ram_role_name = ram_role_name  # type: str
+        # The region ID of the security group.
         self.region_id = region_id  # type: str
+        # The remote directory on which the file system is mounted.
         self.remote_directory = remote_directory  # type: str
+        # The ID of the Super Computing Cluster (SCC) instance. If the cluster is not an SCC instance, a null string is returned.
         self.scc_cluster_id = scc_cluster_id  # type: str
+        # The type of the scheduler. Valid values:
+        # 
+        # *   pbs
+        # *   slurm
+        # *   opengridscheduler
+        # *   deadline
         self.scheduler_type = scheduler_type  # type: str
+        # The ID of the security group.
         self.security_group_id = security_group_id  # type: str
+        # The status of the cluster. Valid values:
+        # 
+        # *   uninit: The cluster is not initialized.
+        # *   creating: The cluster is being created.
+        # *   init: The cluster is being initialized.
+        # *   running: The cluster is running.
+        # *   exception: The cluster encounters an exception.
+        # *   releasing: The cluster is being released.
         self.status = status  # type: str
+        # The ID of the vSwitch. E-HPC can be deployed only in VPCs.
         self.v_switch_id = v_switch_id  # type: str
+        # The ID of the Apsara File Storage NAS file system. NAS file systems cannot be automatically created.
         self.volume_id = volume_id  # type: str
+        # The mount target of the file system. Mount targets cannot be automatically created for NAS file systems.
         self.volume_mountpoint = volume_mountpoint  # type: str
+        # The type of the protocol that is used by the file system. Valid values:
+        # 
+        # *   nfs
+        # *   smb
         self.volume_protocol = volume_protocol  # type: str
+        # The type of the network shared storage. Valid value: NAS.
         self.volume_type = volume_type  # type: str
+        # The ID of the VPC.
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
@@ -5443,7 +6489,9 @@ class DescribeClusterResponseBodyClusterInfo(TeaModel):
 
 class DescribeClusterResponseBody(TeaModel):
     def __init__(self, cluster_info=None, request_id=None):
+        # The information about the cluster.
         self.cluster_info = cluster_info  # type: DescribeClusterResponseBodyClusterInfo
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5513,6 +6561,9 @@ class DescribeClusterResponse(TeaModel):
 
 class DescribeContainerAppRequest(TeaModel):
     def __init__(self, container_id=None):
+        # The ID of the containerized application.
+        # 
+        # You can call the [ListContainerApps](~~87333~~) operation to query the ID of the containerized application.
         self.container_id = container_id  # type: str
 
     def validate(self):
@@ -5538,12 +6589,19 @@ class DescribeContainerAppRequest(TeaModel):
 class DescribeContainerAppResponseBodyContainerAppInfo(TeaModel):
     def __init__(self, create_time=None, description=None, id=None, image_tag=None, name=None, repository=None,
                  type=None):
+        # The time when the containerized application was created.
         self.create_time = create_time  # type: str
+        # The description of the containerized application.
         self.description = description  # type: str
+        # The ID of the containerized application.
         self.id = id  # type: str
+        # The tags of the image.
         self.image_tag = image_tag  # type: str
+        # The name of the containerized application.
         self.name = name  # type: str
+        # The name of the repository.
         self.repository = repository  # type: str
+        # The type of the container. Set the value to singularity.
         self.type = type  # type: str
 
     def validate(self):
@@ -5592,7 +6650,9 @@ class DescribeContainerAppResponseBodyContainerAppInfo(TeaModel):
 
 class DescribeContainerAppResponseBody(TeaModel):
     def __init__(self, container_app_info=None, request_id=None):
+        # The information of the containerized application.
         self.container_app_info = container_app_info  # type: DescribeContainerAppResponseBodyContainerAppInfo
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5662,7 +6722,9 @@ class DescribeContainerAppResponse(TeaModel):
 
 class DescribeEstackImageRequest(TeaModel):
     def __init__(self, page_number=None, page_size=None):
+        # The number of the page to return.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page.
         self.page_size = page_size  # type: int
 
     def validate(self):
@@ -5691,10 +6753,15 @@ class DescribeEstackImageRequest(TeaModel):
 
 class DescribeEstackImageResponseBodyImageListImageListInfo(TeaModel):
     def __init__(self, image_name=None, image_size=None, image_type=None, image_url=None, recent_update_time=None):
+        # The name of the image.
         self.image_name = image_name  # type: str
+        # The size of the image.
         self.image_size = image_size  # type: int
+        # The type of the image.
         self.image_type = image_type  # type: str
+        # The download URL of the image.
         self.image_url = image_url  # type: str
+        # The time when the image was last modified.
         self.recent_update_time = recent_update_time  # type: str
 
     def validate(self):
@@ -5767,10 +6834,15 @@ class DescribeEstackImageResponseBodyImageList(TeaModel):
 
 class DescribeEstackImageResponseBody(TeaModel):
     def __init__(self, image_list=None, page_number=None, page_size=None, request_id=None, total_count=None):
+        # The array of base images.
         self.image_list = image_list  # type: DescribeEstackImageResponseBodyImageList
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of images.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -6007,6 +7079,7 @@ class DescribeGWSClustersResponseBodyClustersClusterInfo(TeaModel):
         self.create_time = create_time  # type: str
         self.instance_count = instance_count  # type: int
         self.status = status  # type: str
+        # VPC ID。
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
@@ -6676,9 +7749,13 @@ class DescribeGWSInstancesResponse(TeaModel):
 
 class DescribeImageRequest(TeaModel):
     def __init__(self, cluster_id=None, container_type=None, image_tag=None, repository=None):
+        # The ID of the cluster that you want to manage.
         self.cluster_id = cluster_id  # type: str
+        # The type of the container. Set the value to singularity.
         self.container_type = container_type  # type: str
+        # The tag of the image. Default value: latest.
         self.image_tag = image_tag  # type: str
+        # The name of the repository.
         self.repository = repository  # type: str
 
     def validate(self):
@@ -6716,12 +7793,22 @@ class DescribeImageRequest(TeaModel):
 class DescribeImageResponseBodyImageInfo(TeaModel):
     def __init__(self, image_id=None, repository=None, status=None, system=None, tag=None, type=None,
                  update_date_time=None):
+        # The ID of the image.
         self.image_id = image_id  # type: str
+        # The name of the repository.
         self.repository = repository  # type: str
+        # The status of the image.
         self.status = status  # type: str
+        # The container system.
         self.system = system  # type: str
+        # The tag of the image.
         self.tag = tag  # type: str
+        # The type of the image. Valid values:
+        # 
+        # *   shifter
+        # *   docker
         self.type = type  # type: str
+        # The time when the image was last updated.
         self.update_date_time = update_date_time  # type: str
 
     def validate(self):
@@ -6770,7 +7857,9 @@ class DescribeImageResponseBodyImageInfo(TeaModel):
 
 class DescribeImageResponseBody(TeaModel):
     def __init__(self, image_info=None, request_id=None):
+        # The information of the image.
         self.image_info = image_info  # type: DescribeImageResponseBodyImageInfo
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -7057,11 +8146,31 @@ class DescribeImageGatewayConfigResponse(TeaModel):
 
 class DescribeImagePriceRequest(TeaModel):
     def __init__(self, amount=None, image_id=None, order_type=None, period=None, price_unit=None, sku_code=None):
+        # The number of images that you want to purchase. Valid values: 1 to 1000.
+        # 
+        # Default value: 1
         self.amount = amount  # type: int
+        # The ID of the image.
         self.image_id = image_id  # type: str
+        # The type of the order. The order can be set only as a purchase order. Valid value: INSTANCE-BUY.
         self.order_type = order_type  # type: str
+        # The subscription duration. Valid values:
+        # 
+        # *   If PriceUnit is set to Day, the valid values of the Period parameter are 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, and 30.
+        # *   If PriceUnit is set to Month, the valid values of the Period parameter are 1, 2, 3, 4, 5, 6, 7, 8, and 9.
+        # *   If PriceUnit is set to Year, the valid values of the Period parameter are 1, 2, and 3.
+        # 
+        # Default value: 1
         self.period = period  # type: int
+        # The unit of the subscription duration. Valid values:
+        # 
+        # *   Day
+        # *   Month
+        # *   Year
+        # 
+        # Default value: Day
         self.price_unit = price_unit  # type: str
+        # The stock keeping unit (SKU) of the image. Valid value: package.
         self.sku_code = sku_code  # type: str
 
     def validate(self):
@@ -7107,11 +8216,17 @@ class DescribeImagePriceRequest(TeaModel):
 class DescribeImagePriceResponseBody(TeaModel):
     def __init__(self, amount=None, discount_price=None, image_id=None, original_price=None, request_id=None,
                  trade_price=None):
+        # The number of images that you want to purchase.
         self.amount = amount  # type: int
+        # The discount that is applied.
         self.discount_price = discount_price  # type: float
+        # The ID of the image.
         self.image_id = image_id  # type: str
+        # The original price of the image.
         self.original_price = original_price  # type: float
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The final price of the image.
         self.trade_price = trade_price  # type: float
 
     def validate(self):
@@ -7196,7 +8311,13 @@ class DescribeImagePriceResponse(TeaModel):
 class DescribeJobRequest(TeaModel):
     def __init__(self, async=None, cluster_id=None, job_id=None):
         self.async = async  # type: bool
+        # The ID of the cluster.
+        # 
+        # You can call the [ListClusters](~~87116~~) operation to query the cluster ID.
         self.cluster_id = cluster_id  # type: str
+        # The ID of the job.
+        # 
+        # You can call the [ListJobs](~~87251~~) operation to query the job ID.
         self.job_id = job_id  # type: str
 
     def validate(self):
@@ -7229,6 +8350,7 @@ class DescribeJobRequest(TeaModel):
 
 class DescribeJobResponseBodyMessage(TeaModel):
     def __init__(self, job_info=None):
+        # The details of the job.
         self.job_info = job_info  # type: str
 
     def validate(self):
@@ -7253,7 +8375,9 @@ class DescribeJobResponseBodyMessage(TeaModel):
 
 class DescribeJobResponseBody(TeaModel):
     def __init__(self, message=None, request_id=None):
+        # The list of returned job information.
         self.message = message  # type: DescribeJobResponseBodyMessage
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -7456,10 +8580,53 @@ class DescribeNFSClientStatusResponse(TeaModel):
 
 class DescribePriceRequestCommoditiesDataDisks(TeaModel):
     def __init__(self, category=None, delete_with_instance=None, encrypted=None, performance_level=None, size=None):
+        # The type of the data disk. Valid values:
+        # 
+        # *   cloud_efficiency: ultra disk
+        # *   cloud_ssd: SSD
+        # *   cloud_essd: ESSD
+        # *   cloud: basic disk
+        # 
+        # Default value: cloud_efficiency
+        # 
+        # Valid values of N: 0 to 4
         self.category = category  # type: str
+        # Specifies whether the data disk is released when the node is released. Valid values:
+        # 
+        # *   true
+        # *   false
+        # 
+        # Default value: true
+        # 
+        # Valid values of N: 0 to 4
         self.delete_with_instance = delete_with_instance  # type: bool
+        # Specifies whether to encrypt the data disk. Valid values:
+        # 
+        # *   true
+        # *   false
+        # 
+        # Default value: false
+        # 
+        # Valid values of N: 0 to 4
         self.encrypted = encrypted  # type: bool
+        # The performance level of the ESSD used as the data disk. This parameter takes effect only when the Commodities.N.DataDisks.N.category parameter is set to cloud_essd. Default value: PL1. Valid values:
+        # 
+        # *   PL0: A single ESSD can deliver up to 10,000 random read/write IOPS.
+        # *   PL1: A single ESSD can deliver up to 50,000 random read/write IOPS.
+        # *   PL2: A single ESSD can deliver up to 100,000 random read/write IOPS.
+        # *   PL3: A single ESSD can deliver up to 1,000,000 random read/write IOPS.
+        # 
+        # Default value: PL1
+        # 
+        # Valid values of N: 0 to 4
         self.performance_level = performance_level  # type: str
+        # The size of the data disk. Unit: GB.
+        # 
+        # Valid values: 40 to 500
+        # 
+        # Default value: 40
+        # 
+        # Valid values of N: 0 to 4
         self.size = size  # type: int
 
     def validate(self):
@@ -7502,16 +8669,83 @@ class DescribePriceRequestCommodities(TeaModel):
     def __init__(self, amount=None, data_disks=None, instance_type=None, internet_charge_type=None,
                  internet_max_band_width_out=None, network_type=None, node_type=None, period=None, system_disk_category=None,
                  system_disk_performance_level=None, system_disk_size=None):
+        # The node quantity of the type. Valid values: 1 to 1000.
+        # 
+        # Default value: 1
+        # 
+        # Valid values of N: 1 to 10
         self.amount = amount  # type: int
         self.data_disks = data_disks  # type: list[DescribePriceRequestCommoditiesDataDisks]
+        # The instance type of the node.
+        # 
+        # Valid values of N: 1 to 10
         self.instance_type = instance_type  # type: str
+        # The EIP billing method of the node. Valid values:
+        # 
+        # *   PayByBandwidth: pay-by-bandwidth
+        # *   PayByTraffic: pay-by-traffic
+        # 
+        # Valid values of N: 1 to 10
         self.internet_charge_type = internet_charge_type  # type: str
+        # The maximum outbound public bandwidth of the node. Unit: Mbit/s.
+        # 
+        # Valid values: 0 to 100
+        # 
+        # Default value: 0
+        # 
+        # Valid values of N: 1 to 10
         self.internet_max_band_width_out = internet_max_band_width_out  # type: int
+        # The network type of the node. Valid value: VPC.
+        # 
+        # Valid values of N: 1 to 10
         self.network_type = network_type  # type: str
+        # The type of the node. Valid values:
+        # 
+        # *   Compute: compute node
+        # *   Manager: management node
+        # *   Login: logon node
+        # 
+        # Valid values of N: 1 to 10
         self.node_type = node_type  # type: str
+        # The subscription duration of the node. Valid values:
+        # 
+        # *   If PriceUnit is set to Year, the valid values of the Period parameter are 1, 2, and 3.
+        # *   If PriceUnit is set to Month, the valid values of the Period parameter are 1, 2, 3, 4, 5, 6, 7, 8, and 9.
+        # *   If PriceUnit is set to Hour, the valid value of the Period parameter is 1.
+        # 
+        # Default value: 1
+        # 
+        # Valid values of N: 1 to 10
         self.period = period  # type: int
+        # The system disk type of the node. Valid values:
+        # 
+        # *   cloud_efficiency: ultra disk
+        # *   cloud_ssd: SSD
+        # *   cloud_essd: ESSD
+        # *   cloud: basic disk
+        # 
+        # Default value: cloud_efficiency
+        # 
+        # Valid values of N: 1 to 10
         self.system_disk_category = system_disk_category  # type: str
+        # The performance level of the ESSD used as the system disk. This parameter takes effect only when the Commodities.N.SystemDiskCategory parameter is set to cloud_essd. Default value: PL1. Valid values:
+        # 
+        # *   PL0: A single ESSD can deliver up to 10,000 random read/write IOPS.
+        # *   PL1: A single ESSD can deliver up to 50,000 random read/write IOPS.
+        # *   PL2: A single ESSD can deliver up to 100,000 random read/write IOPS.
+        # *   PL3: A single ESSD can deliver up to 1,000,000 random read/write IOPS.
+        # 
+        # Default value: PL1
+        # 
+        # Valid values of N: 1 to 10
         self.system_disk_performance_level = system_disk_performance_level  # type: str
+        # The system disk size of the node. Unit: GB.
+        # 
+        # Valid values: 40 to 500
+        # 
+        # Default value: 40
+        # 
+        # Valid values of N: 1 to 10
         self.system_disk_size = system_disk_size  # type: int
 
     def validate(self):
@@ -7584,9 +8818,23 @@ class DescribePriceRequestCommodities(TeaModel):
 
 class DescribePriceRequest(TeaModel):
     def __init__(self, charge_type=None, commodities=None, order_type=None, price_unit=None):
+        # The billing method of the ECS instances. Valid values:
+        # 
+        # *   PostPaid: pay-as-you-go
+        # *   PrePaid: subscription
+        # 
+        # Default value: PostPaid
         self.charge_type = charge_type  # type: str
         self.commodities = commodities  # type: list[DescribePriceRequestCommodities]
+        # The type of the order. The order can be set only as a purchase order. Valid value: INSTANCE-BUY.
         self.order_type = order_type  # type: str
+        # The billing cycle of the Elastic Compute Service (ECS) instances. This parameter takes effect only when the ChargeType parameter is set to PrePaid. Valid values:
+        # 
+        # *   Month: pay-by-month
+        # *   Year: pay-by-year
+        # *   Hour: pay-by-hour
+        # 
+        # Default value: Hour
         self.price_unit = price_unit  # type: str
 
     def validate(self):
@@ -7631,9 +8879,23 @@ class DescribePriceRequest(TeaModel):
 
 class DescribePriceResponseBodyPricesPriceInfo(TeaModel):
     def __init__(self, currency=None, node_type=None, original_price=None, trade_price=None):
+        # The currency that is used to measure the price. Valid values:
+        # 
+        # USD
         self.currency = currency  # type: str
+        # The type of the node. Valid values:
+        # 
+        # *   Manager: management node
+        # *   Login: logon node
+        # *   Compute: compute node
         self.node_type = node_type  # type: str
+        # The original price of the image.
+        # 
+        # Unit: USD
         self.original_price = original_price  # type: float
+        # The final price.
+        # 
+        # Unit: USD
         self.trade_price = trade_price  # type: float
 
     def validate(self):
@@ -7702,8 +8964,13 @@ class DescribePriceResponseBodyPrices(TeaModel):
 
 class DescribePriceResponseBody(TeaModel):
     def __init__(self, prices=None, request_id=None, total_trade_price=None):
+        # The array of cluster prices. If you query the prices of multiple nodes in the cluster, the sequence of the prices in the returned value of PriceInfo is the same as that of the nodes in the request parameters. For example, the first price in the value of PriceInfo is the price of the first node specified in the request parameters.
         self.prices = prices  # type: DescribePriceResponseBodyPrices
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total price.
+        # 
+        # Unit: USD
         self.total_trade_price = total_trade_price  # type: float
 
     def validate(self):
@@ -7780,26 +9047,77 @@ class EditJobTemplateRequest(TeaModel):
                  mem=None, name=None, node=None, package_path=None, priority=None, queue=None, re_runable=None,
                  runas_user=None, stderr_redirect_path=None, stdout_redirect_path=None, task=None, template_id=None,
                  thread=None, unzip_cmd=None, variables=None, with_unzip_cmd=None):
+        # The job array.
+        # 
+        # Format: X-Y:Z. X is the minimum index value. Y is the maximum index value. Z is the step size. For example, 2-7:2 indicates that three jobs need to be run and their index values are 2, 4, and 6.
         self.array_request = array_request  # type: str
+        # The maximum running time of the job. Valid formats:
+        # 
+        # *   hh:mm:ss
+        # *   mm:ss
+        # *   ss
+        # 
+        # We recommend that you use the hh:mm:ss format. If the maximum running time is 12 hours, set the value to 12:00:00.
         self.clock_time = clock_time  # type: str
+        # The command that is used to run the job.
         self.command_line = command_line  # type: str
+        # The maximum GPU usage required by a single compute node. Valid values: 1 to 8.
+        # 
+        # The parameter takes effect only when the cluster uses PBS and a compute node is a GPU-accelerated instance.
         self.gpu = gpu  # type: int
+        # The URL of the job files that are uploaded to an Object Storage Service (OSS) bucket.
         self.input_file_url = input_file_url  # type: str
+        # The maximum memory usage required by a single compute node. Unit: GB, MB, or KB. The unit is case-insensitive.
         self.mem = mem  # type: str
+        # The name of the job template.
+        # 
+        # You can call the [ListJobTemplates](~~87248~~) operation to obtain the job template name.
         self.name = name  # type: str
+        # The number of the compute nodes. Valid values: 1 to 500.
+        # 
+        # >  If the parameter is not specified, the Task, Thread, Mem, and Gpu parameters become invalid.
         self.node = node  # type: int
+        # The path that is used to run the job.
         self.package_path = package_path  # type: str
+        # The priority of the job. Valid values: 0 to 9. A large value indicates a high priority.
+        # 
+        # Default value: 0
         self.priority = priority  # type: int
+        # The name of the queue.
         self.queue = queue  # type: str
+        # Specifies whether the job can be rerun. Valid values:
+        # 
+        # *   true: The job can be rerun.
+        # *   false: The job cannot be rerun.
         self.re_runable = re_runable  # type: bool
+        # The name of the user that runs the job.
+        # 
+        # You can call the [ListUsers](~~188572~~) operation to query the users of the cluster.
         self.runas_user = runas_user  # type: str
+        # The output file path of stderr.
         self.stderr_redirect_path = stderr_redirect_path  # type: str
+        # The output file path of stdout.
         self.stdout_redirect_path = stdout_redirect_path  # type: str
+        # The number of tasks required by a single compute node. Valid values: 1 to 1000.
         self.task = task  # type: int
+        # The ID of the job template.
+        # 
+        # You can call the [ListJobTemplates](~~87248~~) operation to obtain the job template ID.
         self.template_id = template_id  # type: str
+        # The number of threads required by a single compute node. Valid values: 1 to 1000.
         self.thread = thread  # type: int
+        # The command that is used to decompress the job files downloaded from an OSS bucket. The parameter takes effect only when WithUnzipCmd is set to true. Valid values:
+        # 
+        # *   tar xzf: decompresses GZIP files.
+        # *   tar xf: decompresses TAR files.
+        # *   unzip: decompresses ZIP files.
         self.unzip_cmd = unzip_cmd  # type: str
+        # The runtime variables passed to the job. They can be accessed by using environment variables in the executable file.
         self.variables = variables  # type: str
+        # Specifies whether to decompress the job files downloaded from an OSS bucket. Valid values:
+        # 
+        # *   true: The job files are decompressed.
+        # *   false: The job files are not decompressed.
         self.with_unzip_cmd = with_unzip_cmd  # type: bool
 
     def validate(self):
@@ -7904,7 +9222,9 @@ class EditJobTemplateRequest(TeaModel):
 
 class EditJobTemplateResponseBody(TeaModel):
     def __init__(self, request_id=None, template_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The ID of the job template.
         self.template_id = template_id  # type: str
 
     def validate(self):
@@ -7973,14 +9293,41 @@ class EditJobTemplateResponse(TeaModel):
 class GetAccountingReportRequest(TeaModel):
     def __init__(self, cluster_id=None, dim=None, end_time=None, filter_value=None, job_id=None, page_number=None,
                  page_size=None, report_type=None, start_time=None):
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The layers at which you want to query the bandwidth and traffic data. Valid values:
+        # 
+        # *   user: Query by user.
+        # *   queue: Query by queue.
+        # *   instance: Query by instance.
         self.dim = dim  # type: str
+        # The end of the time range to query. This value is a UNIX timestamp representing the number of seconds that have elapsed since the epoch time January 1, 1970, 00:00:00 UTC.
         self.end_time = end_time  # type: int
+        # The actual name of the dimension to be queried. Valid values:
+        # 
+        # *   If you set the value of the parameter Dim to user, the value of FilterValue is the name of the specified user.
+        # *   If you set the value of the parameter Dim to queue, the value of FilterValue is the name of the specified queue.
+        # *   If you set the value of the parameter Dim to instance, the value of FilterValue is the instance name.
         self.filter_value = filter_value  # type: str
+        # The ID of the job.
         self.job_id = job_id  # type: str
+        # The number of entries to return on each page. Valid values: 1 to 50.
+        # 
+        # Default value: 10.
         self.page_number = page_number  # type: int
+        # The page number of the returned page.
+        # 
+        # Pages start from page 1.
+        # 
+        # Default value: 1.
         self.page_size = page_size  # type: int
+        # The query type. Valid values:
+        # 
+        # *   total_report: Queries the number of CPU cores in different dimensions.
+        # *   job_report: Collects the historical node data of a node.
+        # *   number_report: Queries job information in different dimensions.
         self.report_type = report_type  # type: str
+        # The beginning of the time range to query. This value is a UNIX timestamp representing the number of seconds that have elapsed since the epoch time January 1, 1970, 00:00:00 UTC.
         self.start_time = start_time  # type: int
 
     def validate(self):
@@ -8062,12 +9409,19 @@ class GetAccountingReportResponseBodyData(TeaModel):
 class GetAccountingReportResponseBody(TeaModel):
     def __init__(self, data=None, metrics=None, page_number=None, page_size=None, request_id=None,
                  total_core_time=None, total_count=None):
+        # The list serialized in the JSON format. The list contains multiple records.
         self.data = data  # type: GetAccountingReportResponseBodyData
+        # The list serialized in the JSON format. The list contains the column names of each record in the Data.
         self.metrics = metrics  # type: str
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of CPU cores in the queried cluster.
         self.total_core_time = total_core_time  # type: int
+        # The total number of entries.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -8157,6 +9511,7 @@ class GetAccountingReportResponse(TeaModel):
 
 class GetAutoScaleConfigRequest(TeaModel):
     def __init__(self, cluster_id=None):
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
 
     def validate(self):
@@ -8182,11 +9537,35 @@ class GetAutoScaleConfigRequest(TeaModel):
 class GetAutoScaleConfigResponseBodyQueuesQueueInfoDataDisksDataDisksInfo(TeaModel):
     def __init__(self, data_disk_category=None, data_disk_delete_with_instance=None, data_disk_encrypted=None,
                  data_disk_kmskey_id=None, data_disk_performance_level=None, data_disk_size=None):
+        # The type of the data disk. Valid values:
+        # 
+        # - cloud_efficiency: ultra disk
+        # - cloud_ssd: SSD
+        # - cloud_essd: ESSD
+        # - cloud: basic disk
         self.data_disk_category = data_disk_category  # type: str
+        # Indicates whether the data disk is released when the node is released. Valid values:
+        # 
+        # - true
+        # - false
         self.data_disk_delete_with_instance = data_disk_delete_with_instance  # type: bool
+        # Indicates whether the data disk is encrypted. Valid values:
+        # 
+        # - true
+        # - false
         self.data_disk_encrypted = data_disk_encrypted  # type: bool
+        # The KMS key ID of the data disk.
         self.data_disk_kmskey_id = data_disk_kmskey_id  # type: str
+        # The performance level of the ESSD used as the data disk. The parameter takes effect only when the DataDisks.N.DataDiskCategory parameter is set to cloud_essd. Valid values: 
+        # 
+        # - PL0: A single ESSD can deliver up to 10,000 random read/write IOPS.
+        # - PL1: A single ESSD can deliver up to 50,000 random read/write IOPS.
+        # - PL2: A single ESSD can deliver up to 100,000 random read/write IOPS.
+        # - PL3: A single ESSD can deliver up to 1,000,000 random read/write IOPS.
         self.data_disk_performance_level = data_disk_performance_level  # type: str
+        # The capacity of the data disk. Unit: GB.
+        # 
+        # Valid values: 40 to 500
         self.data_disk_size = data_disk_size  # type: int
 
     def validate(self):
@@ -8264,13 +9643,23 @@ class GetAutoScaleConfigResponseBodyQueuesQueueInfoDataDisks(TeaModel):
 class GetAutoScaleConfigResponseBodyQueuesQueueInfoInstanceTypesInstanceTypeInfo(TeaModel):
     def __init__(self, host_name_prefix=None, instance_type=None, spot_duration=None,
                  spot_interruption_behavior=None, spot_price_limit=None, spot_strategy=None, v_switch_id=None, zone_id=None):
+        # The prefix of the hostname. You can query compute nodes that have a specified prefix.
         self.host_name_prefix = host_name_prefix  # type: str
+        # The instance type of the node.
         self.instance_type = instance_type  # type: str
         self.spot_duration = spot_duration  # type: int
         self.spot_interruption_behavior = spot_interruption_behavior  # type: str
+        # The maximum hourly price of the compute nodes. The value can be accurate to three decimal places. The parameter takes effect only when SpotStrategy is set to SpotWithPriceLimit.
         self.spot_price_limit = spot_price_limit  # type: float
+        # The bidding method of the compute nodes. Valid values:
+        # 
+        # *   NoSpot: The compute nodes are pay-as-you-go instances.
+        # *   SpotWithPriceLimit: The compute nodes are preemptible instances that have a user-defined maximum hourly price.
+        # *   SpotAsPriceGo: The compute nodes are preemptible instances for which the market price at the time of purchase is used as the bid price.
         self.spot_strategy = spot_strategy  # type: str
+        # The ID of the vSwitch.
         self.v_switch_id = v_switch_id  # type: str
+        # The ID of the zone.
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -8359,24 +9748,71 @@ class GetAutoScaleConfigResponseBodyQueuesQueueInfo(TeaModel):
                  min_nodes_in_queue=None, min_nodes_per_cycle=None, queue_image_id=None, queue_name=None, resource_group_id=None,
                  spot_price_limit=None, spot_strategy=None, system_disk_category=None, system_disk_level=None,
                  system_disk_size=None):
+        # The list of data disks.
         self.data_disks = data_disks  # type: GetAutoScaleConfigResponseBodyQueuesQueueInfoDataDisks
+        # Indicates whether the queue enabled auto scale-out. Valid values:
+        # 
+        # *   true
+        # *   false
         self.enable_auto_grow = enable_auto_grow  # type: bool
+        # Indicates whether the queue enabled auto scale-in. Valid values:
+        # 
+        # *   true
+        # *   false
         self.enable_auto_shrink = enable_auto_shrink  # type: bool
+        # The prefix of the queue name. You can query queues that have a specified prefix.
         self.host_name_prefix = host_name_prefix  # type: str
+        # The suffix of the queue name. You can query queues that have a specified suffix.
         self.host_name_suffix = host_name_suffix  # type: str
+        # The instance type of the compute nodes that were automatically added in the queue.
         self.instance_type = instance_type  # type: str
+        # The specification information of the compute nodes.
         self.instance_types = instance_types  # type: GetAutoScaleConfigResponseBodyQueuesQueueInfoInstanceTypes
+        # The maximum number of compute nodes that can be added in a queue. Valid values: 0 to 500.
         self.max_nodes_in_queue = max_nodes_in_queue  # type: int
+        # The maximum number of compute nodes that can be added in each round of scale-out. Valid values: 0 to 99.  
+        # 
+        # Default value: 0.
         self.max_nodes_per_cycle = max_nodes_per_cycle  # type: long
+        # The minimum number of compute nodes that can be retained in a queue. Valid values: 0 to 50.
         self.min_nodes_in_queue = min_nodes_in_queue  # type: int
+        # The minimum number of compute nodes that can be added in each round of scale-out. Valid values: 1 to 99.  
+        # 
+        # Default value: 1. 
+        # 
+        # If the compute nodes that you want to add in a round is less than the minimum compute nodes that can be added, the value of this parameter is automatically changed to the number of compute nodes that you want to add. This ensures that compute nodes can be added as expected.  
+        # 
+        # >  The configuration takes effect only for the minimum compute nodes that can be added in the current round.
         self.min_nodes_per_cycle = min_nodes_per_cycle  # type: long
+        # The image ID of the compute nodes in the queue.
         self.queue_image_id = queue_image_id  # type: str
+        # The name of the queue.
         self.queue_name = queue_name  # type: str
+        # The ID of the resource group to which the compute nodes belong.
         self.resource_group_id = resource_group_id  # type: str
+        # The maximum hourly price of the compute nodes. The value can be accurate to three decimal places. The parameter takes effect only when SpotStrategy is set to SpotWithPriceLimit.
         self.spot_price_limit = spot_price_limit  # type: float
+        # The preemption policy of the compute nodes. Valid values:
+        # 
+        # *   NoSpot: The compute nodes are pay-as-you-go instances.
+        # *   SpotWithPriceLimit: The compute nodes are preemptible instances that have a user-defined maximum hourly price.
+        # *   SpotAsPriceGo: The compute nodes are preemptible instances for which the market price at the time of purchase is used as the bid price.
         self.spot_strategy = spot_strategy  # type: str
+        # The type of the system disk. Valid values:
+        # 
+        # *   cloud_efficiency: ultra disk
+        # *   cloud_ssd: SSD
+        # *   cloud_essd: ESSD
+        # *   cloud: basic disk
         self.system_disk_category = system_disk_category  # type: str
+        # The performance level of the system disk. Valid values:
+        # 
+        # *   PL0: A single ESSD can deliver up to 10,000 random read/write IOPS.
+        # *   PL1: A single ESSD can deliver up to 50,000 random read/write IOPS.
+        # *   PL2: A single ESSD can deliver up to 100,000 random read/write IOPS.
+        # *   PL3: A single ESSD can deliver up to 1,000,000 random read/write IOPS.
         self.system_disk_level = system_disk_level  # type: str
+        # The size of the system disk. Unit: GB. Valid values: 40 to 500.
         self.system_disk_size = system_disk_size  # type: int
 
     def validate(self):
@@ -8513,23 +9949,68 @@ class GetAutoScaleConfigResponseBody(TeaModel):
                  exclude_nodes=None, extra_nodes_grow_ratio=None, grow_interval_in_minutes=None, grow_ratio=None,
                  grow_timeout_in_minutes=None, image_id=None, max_nodes_in_cluster=None, queues=None, request_id=None,
                  shrink_idle_times=None, shrink_interval_in_minutes=None, spot_price_limit=None, spot_strategy=None, uid=None):
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The type of the scheduler. Valid values:
+        # 
+        # *   slurm
+        # *   pbs
+        # *   opengridscheduler
+        # *   deadline
         self.cluster_type = cluster_type  # type: str
+        # Indicates whether the cluster enabled auto scale-out. Valid values:
+        # 
+        # *   true
+        # *   false
         self.enable_auto_grow = enable_auto_grow  # type: bool
+        # Indicates whether the cluster enabled auto scale-in. Valid values:
+        # 
+        # *   true
+        # *   false
         self.enable_auto_shrink = enable_auto_shrink  # type: bool
+        # The compute nodes that were excluded from the list of auto scaling nodes. Multiple compute nodes were separated with commas (,).
         self.exclude_nodes = exclude_nodes  # type: str
+        # The percentage of extra compute nodes. Valid values: 0 to 100.
+        # 
+        # If you need to add 100 compute nodes and the value of the ExtraNodesGrowRatio parameter is 2, 102 compute nodes are added.
         self.extra_nodes_grow_ratio = extra_nodes_grow_ratio  # type: int
+        # The interval between two consecutive rounds of scale-in. Unit: minutes. Valid values: 2 to 10.
+        # 
+        # >  An interval may exist during multiple rounds of a scale-out task or between two consecutive scale-out tasks.
         self.grow_interval_in_minutes = grow_interval_in_minutes  # type: int
+        # The percentage of each round of scale-out. Valid values: 1 to 100.
+        # 
+        # If you set GrowRatio to 50, the scale-out has two rounds. Each round completes half of the scale-out.
         self.grow_ratio = grow_ratio  # type: int
+        # The timeout period before the scale-out nodes were started. Unit: minutes. Valid values: 10 to 60.
+        # 
+        # If the scale-out timeout period has been reached but the scale-out nodes still do not reach the Running state, the system resets them.
         self.grow_timeout_in_minutes = grow_timeout_in_minutes  # type: int
+        # The image ID of the compute nodes in the queue.
         self.image_id = image_id  # type: str
+        # The maximum number of compute nodes that can be added in the cluster. Valid values: 0 to 500.
         self.max_nodes_in_cluster = max_nodes_in_cluster  # type: int
+        # The auto scaling configuration of the queue.
+        # 
+        # >  If auto scaling is enabled for the cluster and queue at the same time, the queue settings prevail.
         self.queues = queues  # type: GetAutoScaleConfigResponseBodyQueues
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The number of consecutive times that a compute node is idle during the resource scale-in check. Valid values: 2 to 5.
+        # 
+        # If the parameter is set to 3, a compute node is idle for more than three consecutive times. In this case, the node is released.
         self.shrink_idle_times = shrink_idle_times  # type: int
+        # The interval between two consecutive rounds of scale-out. Unit: minutes. Valid values: 2 to 10.
         self.shrink_interval_in_minutes = shrink_interval_in_minutes  # type: int
+        # The maximum hourly price of the compute nodes. The value can be accurate to three decimal places. The parameter takes effect only when SpotStrategy is set to SpotWithPriceLimit.
         self.spot_price_limit = spot_price_limit  # type: float
+        # The preemption policy of the compute nodes. Valid values:
+        # 
+        # *   NoSpot: The compute nodes are pay-as-you-go instances.
+        # *   SpotWithPriceLimit: The compute nodes are preemptible instances that have a user-defined maximum hourly price.
+        # *   SpotAsPriceGo: The compute nodes are preemptible instances for which the market price at the time of purchase is used as the bid price.
         self.spot_strategy = spot_strategy  # type: str
+        # The ID of the Alibaba Cloud account.
         self.uid = uid  # type: str
 
     def validate(self):
@@ -8664,14 +10145,49 @@ class GetAutoScaleConfigResponse(TeaModel):
 class GetCloudMetricLogsRequest(TeaModel):
     def __init__(self, aggregation_interval=None, aggregation_type=None, cluster_id=None, filter=None, from_=None,
                  metric_categories=None, metric_scope=None, reverse=None, to=None):
+        # The data aggregation interval. Unit: seconds.
+        # 
+        # Valid values: 1, 10, 60, 600, and 3600.
+        # 
+        # Default value: 1
         self.aggregation_interval = aggregation_interval  # type: int
+        # The data aggregation type. Valid values:
+        # 
+        # *   sum: the sum of the data
+        # *   avg: the average value
+        # *   max: the maximum value
+        # *   min: the minimum value
+        # 
+        # Aggregation is disabled by default.
         self.aggregation_type = aggregation_type  # type: str
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The filter conditions. A JSON string consisting of one or more key:value pairs. Value range of key:
+        # 
+        # *   InstanceId: the ID of the node
+        # *   Hostname: the hostname of the node
+        # *   NetworkInterface: the name of the network interface
+        # *   DiskDevice: the name of the disk
         self.filter = filter  # type: str
+        # The beginning of the time range to query. This value is a UNIX timestamp representing the number of seconds that have elapsed since the epoch time January 1, 1970, 00:00:00 UTC.
         self.from_ = from_  # type: int
+        # The category of the output performance metrics. Separate multiple metrics with commas (,). Valid values:
+        # 
+        # *   cpu
+        # *   memory
         self.metric_categories = metric_categories  # type: str
+        # The dimensions of the performance metric. Valid values:
+        # 
+        # *   machine
+        # *   process
+        # *   network
+        # *   disk
         self.metric_scope = metric_scope  # type: str
+        # Logs are returned in reverse order of timestamps.
+        # 
+        # Default value: false
         self.reverse = reverse  # type: bool
+        # The end of the time range to query. This value is a UNIX timestamp representing the number of seconds that have elapsed since the epoch time January 1, 1970, 00:00:00 UTC.
         self.to = to  # type: int
 
     def validate(self):
@@ -8729,11 +10245,17 @@ class GetCloudMetricLogsRequest(TeaModel):
 class GetCloudMetricLogsResponseBodyMetricLogsMetricLog(TeaModel):
     def __init__(self, disk_device=None, hostname=None, instance_id=None, metric_data=None, network_interface=None,
                  time=None):
+        # The name of the disk.
         self.disk_device = disk_device  # type: str
+        # The hostname of the node.
         self.hostname = hostname  # type: str
+        # The ID of the node.
         self.instance_id = instance_id  # type: str
+        # A JSON-serialized string that contains values for multiple performance metrics.
         self.metric_data = metric_data  # type: str
+        # The name of the network interface.
         self.network_interface = network_interface  # type: str
+        # The timestamp of the log. This value is a UNIX timestamp representing the number of seconds that have elapsed since the epoch time January 1, 1970, 00:00:00 UTC.
         self.time = time  # type: int
 
     def validate(self):
@@ -8810,7 +10332,9 @@ class GetCloudMetricLogsResponseBodyMetricLogs(TeaModel):
 
 class GetCloudMetricLogsResponseBody(TeaModel):
     def __init__(self, metric_logs=None, request_id=None):
+        # The list of the performance data.
         self.metric_logs = metric_logs  # type: GetCloudMetricLogsResponseBodyMetricLogs
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -8880,8 +10404,11 @@ class GetCloudMetricLogsResponse(TeaModel):
 
 class GetCloudMetricProfilingRequest(TeaModel):
     def __init__(self, cluster_id=None, profiling_id=None, region_id=None):
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The profiling ID. You can call the [ListCloudMetricProfilings](~~188711~~) operation to obtain the profiling ID.
         self.profiling_id = profiling_id  # type: str
+        # The ID of the region.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -8914,9 +10441,13 @@ class GetCloudMetricProfilingRequest(TeaModel):
 
 class GetCloudMetricProfilingResponseBodySvgUrlsSvgInfo(TeaModel):
     def __init__(self, name=None, size=None, type=None, url=None):
+        # The name of the SVG file that contains the profiling results.
         self.name = name  # type: str
+        # The size of the SVG file. Unit: bytes.
         self.size = size  # type: int
+        # The type of the SVG file.
         self.type = type  # type: str
+        # The URL of the Object Storage Service (OSS) bucket where the scalable vector graphics (SVG) file is stored.
         self.url = url  # type: str
 
     def validate(self):
@@ -8985,7 +10516,9 @@ class GetCloudMetricProfilingResponseBodySvgUrls(TeaModel):
 
 class GetCloudMetricProfilingResponseBody(TeaModel):
     def __init__(self, request_id=None, svg_urls=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The list of profiling results.
         self.svg_urls = svg_urls  # type: GetCloudMetricProfilingResponseBodySvgUrls
 
     def validate(self):
@@ -9055,6 +10588,9 @@ class GetCloudMetricProfilingResponse(TeaModel):
 
 class GetClusterVolumesRequest(TeaModel):
     def __init__(self, cluster_id=None):
+        # The ID of the cluster.
+        # 
+        # You can call the [ListClusters](~~87116~~) operation to query the cluster ID.
         self.cluster_id = cluster_id  # type: str
 
     def validate(self):
@@ -9079,6 +10615,11 @@ class GetClusterVolumesRequest(TeaModel):
 
 class GetClusterVolumesResponseBodyVolumesVolumeInfoRolesRoleInfo(TeaModel):
     def __init__(self, name=None):
+        # The type of the node on which the file system is mounted. Valid values:
+        # 
+        # *   Compute: compute node
+        # *   Manager: management node
+        # *   Login: logon node
         self.name = name  # type: str
 
     def validate(self):
@@ -9136,15 +10677,33 @@ class GetClusterVolumesResponseBodyVolumesVolumeInfoRoles(TeaModel):
 class GetClusterVolumesResponseBodyVolumesVolumeInfo(TeaModel):
     def __init__(self, job_queue=None, local_directory=None, location=None, must_keep=None, remote_directory=None,
                  roles=None, volume_id=None, volume_mountpoint=None, volume_protocol=None, volume_type=None):
+        # The queue of the job.
         self.job_queue = job_queue  # type: str
+        # The local mount directory.
         self.local_directory = local_directory  # type: str
+        # The type of cluster. Valid values:
+        # 
+        # *   OnPremise: The cluster is deployed on a hybrid cloud.
+        # *   PublicCloud: The cluster is deployed on a public cloud.
         self.location = location  # type: str
+        # Indicates whether the resource can be unmounted.
         self.must_keep = must_keep  # type: bool
+        # The remote mount directory.
         self.remote_directory = remote_directory  # type: str
+        # The array of the node on which the file system is mounted.
         self.roles = roles  # type: GetClusterVolumesResponseBodyVolumesVolumeInfoRoles
+        # The ID of the file system.
         self.volume_id = volume_id  # type: str
+        # The address of the mount target.
         self.volume_mountpoint = volume_mountpoint  # type: str
+        # The storage protocol type of the file system. Valid values:
+        # 
+        # *   NFS
+        # *   SMB
         self.volume_protocol = volume_protocol  # type: str
+        # The type of the file system. Valid values:
+        # 
+        # *   NAS
         self.volume_type = volume_type  # type: str
 
     def validate(self):
@@ -9239,8 +10798,11 @@ class GetClusterVolumesResponseBodyVolumes(TeaModel):
 
 class GetClusterVolumesResponseBody(TeaModel):
     def __init__(self, region_id=None, request_id=None, volumes=None):
+        # The ID of the region.
         self.region_id = region_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The array of the file system mounted to the E-HPC cluster.
         self.volumes = volumes  # type: GetClusterVolumesResponseBodyVolumes
 
     def validate(self):
@@ -9353,6 +10915,7 @@ class GetCommonImageRequest(TeaModel):
 
 class GetCommonImageResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -9513,7 +11076,11 @@ class GetGWSConnectTicketResponse(TeaModel):
 
 class GetHybridClusterConfigRequest(TeaModel):
     def __init__(self, cluster_id=None, node=None):
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The name of the on-premises compute node. You can call this operation to query the configurations of the on-premises compute node.
+        # 
+        # By default, the operation queries the configurations of a cluster.
         self.node = node  # type: str
 
     def validate(self):
@@ -9542,7 +11109,14 @@ class GetHybridClusterConfigRequest(TeaModel):
 
 class GetHybridClusterConfigResponseBody(TeaModel):
     def __init__(self, cluster_config=None, request_id=None):
+        # The configurations returned.
+        # 
+        # *   If the parameter Node is null, you can obtain the configurations of the hybrid cloud cluster.
+        # *   If the parameter Node is a specified on-premises compute node, you can obtain the configurations of the on-premises compute node.
+        # 
+        # This parameter is returned in the ini format. You can use this parameter to configure on-premises cluster nodes.
         self.cluster_config = cluster_config  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -9610,6 +11184,7 @@ class GetHybridClusterConfigResponse(TeaModel):
 
 class GetIfEcsTypeSupportHtConfigRequest(TeaModel):
     def __init__(self, instance_type=None):
+        # The instance type of the ECS instance.
         self.instance_type = instance_type  # type: str
 
     def validate(self):
@@ -9634,9 +11209,22 @@ class GetIfEcsTypeSupportHtConfigRequest(TeaModel):
 
 class GetIfEcsTypeSupportHtConfigResponseBody(TeaModel):
     def __init__(self, default_ht_enabled=None, instance_type=None, request_id=None, support_ht_config=None):
+        # Indicates whether Hyper-Threading is enabled by default. Valid values:
+        # 
+        # *   true: Hyper-Threading is enabled by default.
+        # 
+        # *   false: Hyper-Threading is disabled by default
+        # 
+        # > By default, Hyper-Threading is not enabled for the SCC specification family, while Hyper-Threading is enabled for other specification families by default.
         self.default_ht_enabled = default_ht_enabled  # type: bool
+        # The instance type of the ECS instance.
         self.instance_type = instance_type  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether hyper-threading is supported. Valid values:
+        # 
+        # *   true: Hyper-Threading is supported.
+        # *   false: Hyper-Threading is not supported.
         self.support_ht_config = support_ht_config  # type: bool
 
     def validate(self):
@@ -9712,10 +11300,26 @@ class GetIfEcsTypeSupportHtConfigResponse(TeaModel):
 
 class GetJobLogRequest(TeaModel):
     def __init__(self, cluster_id=None, exec_host=None, job_id=None, offset=None, size=None):
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The node on which the job runs.
+        # 
+        # *   If the job is completed, you do not need to specify the parameter.
+        # *   If the job is running, you must specify the parameter.
         self.exec_host = exec_host  # type: str
+        # The ID of the job.
         self.job_id = job_id  # type: str
+        # The position where logs start to be read.
+        # 
+        # Unit: bits
+        # 
+        # Default value: 0
         self.offset = offset  # type: long
+        # The maximum size of logs that you can read in a single request.
+        # 
+        # Unit: bits
+        # 
+        # Default value: 1024
         self.size = size  # type: int
 
     def validate(self):
@@ -9756,9 +11360,13 @@ class GetJobLogRequest(TeaModel):
 
 class GetJobLogResponseBody(TeaModel):
     def __init__(self, error_log=None, job_id=None, output_log=None, request_id=None):
+        # The content of the error logs. The content is encoded in Base64.
         self.error_log = error_log  # type: str
+        # The ID of the job.
         self.job_id = job_id  # type: str
+        # The content of the output logs. The content is encoded in Base64.
         self.output_log = output_log  # type: str
+        # The ID of the task.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -9834,7 +11442,13 @@ class GetJobLogResponse(TeaModel):
 
 class GetPostScriptsRequest(TeaModel):
     def __init__(self, cluster_id=None, region_id=None):
+        # The ID of the cluster.
+        # 
+        # You can call the [ListClusters](~~87116~~) operation to query the cluster ID.
         self.cluster_id = cluster_id  # type: str
+        # The ID of the region.
+        # 
+        # You can call the [ListRegions](~~188593~~) operation to query the latest region list.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -9863,7 +11477,9 @@ class GetPostScriptsRequest(TeaModel):
 
 class GetPostScriptsResponseBodyPostInstallScripts(TeaModel):
     def __init__(self, args=None, url=None):
+        # The parameter that is used to run the Nth post-installation script. Valid values of N: 1 to 16.
         self.args = args  # type: str
+        # The URL that is used to download the Nth post-installation script. Valid values of N: 1 to 16.
         self.url = url  # type: str
 
     def validate(self):
@@ -9892,7 +11508,9 @@ class GetPostScriptsResponseBodyPostInstallScripts(TeaModel):
 
 class GetPostScriptsResponseBody(TeaModel):
     def __init__(self, post_install_scripts=None, request_id=None):
+        # The post-installation scripts.
         self.post_install_scripts = post_install_scripts  # type: list[GetPostScriptsResponseBodyPostInstallScripts]
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -9968,6 +11586,15 @@ class GetPostScriptsResponse(TeaModel):
 
 class GetSchedulerInfoRequestScheduler(TeaModel):
     def __init__(self, sched_name=None):
+        # The name of the scheduler. Valid values:
+        # 
+        # *   pbs
+        # *   pbs19
+        # *   slurm
+        # *   slurm19
+        # *   slurm20
+        # 
+        # Valid values of N: 0 to 100
         self.sched_name = sched_name  # type: str
 
     def validate(self):
@@ -9992,7 +11619,9 @@ class GetSchedulerInfoRequestScheduler(TeaModel):
 
 class GetSchedulerInfoRequest(TeaModel):
     def __init__(self, cluster_id=None, region_id=None, scheduler=None):
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The ID of the region.
         self.region_id = region_id  # type: str
         self.scheduler = scheduler  # type: list[GetSchedulerInfoRequestScheduler]
 
@@ -10034,7 +11663,9 @@ class GetSchedulerInfoRequest(TeaModel):
 
 class GetSchedulerInfoResponseBodySchedInfo(TeaModel):
     def __init__(self, configuration=None, sched_name=None):
+        # The detailed settings of the scheduler.
         self.configuration = configuration  # type: str
+        # The type of the scheduler.
         self.sched_name = sched_name  # type: str
 
     def validate(self):
@@ -10063,7 +11694,9 @@ class GetSchedulerInfoResponseBodySchedInfo(TeaModel):
 
 class GetSchedulerInfoResponseBody(TeaModel):
     def __init__(self, request_id=None, sched_info=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The settings of the scheduler.
         self.sched_info = sched_info  # type: list[GetSchedulerInfoResponseBodySchedInfo]
 
     def validate(self):
@@ -10140,11 +11773,17 @@ class GetSchedulerInfoResponse(TeaModel):
 class GetUserImageRequest(TeaModel):
     def __init__(self, cluster_id=None, container_type=None, image_name=None, image_path=None, ossbucket=None,
                  ossend_point=None):
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The type of the image. Set the value to singularity.
         self.container_type = container_type  # type: str
+        # The name of the image.
         self.image_name = image_name  # type: str
+        # The path where the image is stored in the OSS bucket.
         self.image_path = image_path  # type: str
+        # The OSS bucket.
         self.ossbucket = ossbucket  # type: str
+        # The endpoint of OSS.
         self.ossend_point = ossend_point  # type: str
 
     def validate(self):
@@ -10189,6 +11828,7 @@ class GetUserImageRequest(TeaModel):
 
 class GetUserImageResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -10252,6 +11892,9 @@ class GetUserImageResponse(TeaModel):
 
 class GetVisualServiceStatusRequest(TeaModel):
     def __init__(self, cluster_id=None):
+        # The ID of the cluster.
+        # 
+        # You can call the [ListClusters](~~87116~~) operation to query the cluster ID.
         self.cluster_id = cluster_id  # type: str
 
     def validate(self):
@@ -10276,7 +11919,9 @@ class GetVisualServiceStatusRequest(TeaModel):
 
 class GetVisualServiceStatusResponseBody(TeaModel):
     def __init__(self, message=None, request_id=None):
+        # The response message.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -10344,6 +11989,9 @@ class GetVisualServiceStatusResponse(TeaModel):
 
 class InitializeEHPCRequest(TeaModel):
     def __init__(self, region_id=None):
+        # The ID of the region where the service-linked role is created.
+        # 
+        # You can call the [ListRegions](~~188593~~) operation to obtain the IDs of regions supported by E-HPC.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -10368,6 +12016,7 @@ class InitializeEHPCRequest(TeaModel):
 
 class InitializeEHPCResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -10431,8 +12080,11 @@ class InitializeEHPCResponse(TeaModel):
 
 class InspectImageRequest(TeaModel):
     def __init__(self, cluster_id=None, container_type=None, image_name=None):
+        # The ID of the E-HPC cluster where the image whose Inspect information you want to view resides.
         self.cluster_id = cluster_id  # type: str
+        # The container type of the image. Set the value to singularity.
         self.container_type = container_type  # type: str
+        # The name of the image whose Inspect information you want to view.
         self.image_name = image_name  # type: str
 
     def validate(self):
@@ -10466,11 +12118,17 @@ class InspectImageRequest(TeaModel):
 class InspectImageResponseBodyImageStatusImageInspectInfo(TeaModel):
     def __init__(self, boot_strap=None, build_arch=None, build_date=None, container_version=None, def_from=None,
                  schema_version=None):
+        # The version of the bootstrapper used by the container image.
         self.boot_strap = boot_strap  # type: str
+        # The architecture used to build the image.
         self.build_arch = build_arch  # type: str
+        # The date on which the image was built.
         self.build_date = build_date  # type: str
+        # The container version of the image.
         self.container_version = container_version  # type: str
+        # The mode in which the image was built.
         self.def_from = def_from  # type: str
+        # The singularity version and kernel version of the image.
         self.schema_version = schema_version  # type: str
 
     def validate(self):
@@ -10515,6 +12173,7 @@ class InspectImageResponseBodyImageStatusImageInspectInfo(TeaModel):
 
 class InspectImageResponseBodyImageStatus(TeaModel):
     def __init__(self, image_inspect_info=None):
+        # The list of Inspect information about the image.
         self.image_inspect_info = image_inspect_info  # type: InspectImageResponseBodyImageStatusImageInspectInfo
 
     def validate(self):
@@ -10541,7 +12200,9 @@ class InspectImageResponseBodyImageStatus(TeaModel):
 
 class InspectImageResponseBody(TeaModel):
     def __init__(self, image_status=None, request_id=None):
+        # The status of the image.
         self.image_status = image_status  # type: InspectImageResponseBodyImageStatus
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -10611,7 +12272,13 @@ class InspectImageResponse(TeaModel):
 
 class InstallSoftwareRequest(TeaModel):
     def __init__(self, application=None, cluster_id=None):
+        # The name of the software that you want to install.
+        # 
+        # You can call the [ListSoftwares](~~87216~~) operation to query the software that can be installed.
         self.application = application  # type: str
+        # The ID of the cluster.
+        # 
+        # You can call the [ListClusters](~~87116~~) operation to query the cluster ID.
         self.cluster_id = cluster_id  # type: str
 
     def validate(self):
@@ -10640,6 +12307,7 @@ class InstallSoftwareRequest(TeaModel):
 
 class InstallSoftwareResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -10703,6 +12371,9 @@ class InstallSoftwareResponse(TeaModel):
 
 class InvokeShellCommandRequestInstance(TeaModel):
     def __init__(self, id=None):
+        # The ID of the node on which the command is run.
+        # 
+        # >  The Instance.N.Id parameter specifies the node on which the command is run. If it is not specified, the command is run on all nodes of the cluster.
         self.id = id  # type: str
 
     def validate(self):
@@ -10727,10 +12398,18 @@ class InvokeShellCommandRequestInstance(TeaModel):
 
 class InvokeShellCommandRequest(TeaModel):
     def __init__(self, cluster_id=None, command=None, instance=None, timeout=None, working_dir=None):
+        # The ID of the cluster.
+        # 
+        # You can call the [ListClusters](~~87116~~) operation to query the cluster ID.
         self.cluster_id = cluster_id  # type: str
+        # The content of the command. The value must be 2 to 2,048 characters in length.
         self.command = command  # type: str
         self.instance = instance  # type: list[InvokeShellCommandRequestInstance]
+        # The timeout period. If a command times out, the command process is terminated. Unit: seconds.
+        # 
+        # Default value: 60
         self.timeout = timeout  # type: int
+        # The working directory of the command. Default value: /root.
         self.working_dir = working_dir  # type: str
 
     def validate(self):
@@ -10803,8 +12482,11 @@ class InvokeShellCommandResponseBodyInstanceIds(TeaModel):
 
 class InvokeShellCommandResponseBody(TeaModel):
     def __init__(self, command_id=None, instance_ids=None, request_id=None):
+        # The ID of the command. It is used to query the running status of the command.
         self.command_id = command_id  # type: str
+        # The list of IDs of the instances on which you want to run the command.
         self.instance_ids = instance_ids  # type: InvokeShellCommandResponseBodyInstanceIds
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -10878,9 +12560,25 @@ class InvokeShellCommandResponse(TeaModel):
 
 class ListAvailableEcsTypesRequest(TeaModel):
     def __init__(self, instance_charge_type=None, show_sold_out=None, spot_strategy=None, zone_id=None):
+        # The billing method of the ECS instances. Valid values:
+        # 
+        # *   PostPaid: pay-as-you-go
+        # *   PrePaid: subscription
         self.instance_charge_type = instance_charge_type  # type: str
+        # Specifies whether the ECS instances are sold out. Valid values:
+        # 
+        # *   false: available
+        # *   true: sold out
+        # 
+        # Default value: false
         self.show_sold_out = show_sold_out  # type: bool
+        # The preemption policy of the ECS instances. Valid values:
+        # 
+        # *   NoSpot: The ECS instances are pay-as-you-go instances.
+        # *   SpotWithPriceLimit: The ECS instances are preemptible instances that have a user-defined maximum hourly price.
+        # *   SpotAsPriceGo: The ECS instances are preemptible instances for which the market price at the time of purchase is used as the bid price.
         self.spot_strategy = spot_strategy  # type: str
+        # The zone ID.
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -10943,17 +12641,32 @@ class ListAvailableEcsTypesResponseBodyInstanceTypeFamiliesInstanceTypeFamilyInf
     def __init__(self, cpu_core_count=None, eni_quantity=None, gpuamount=None, gpuspec=None,
                  instance_bandwidth_rx=None, instance_bandwidth_tx=None, instance_pps_rx=None, instance_pps_tx=None,
                  instance_type_id=None, memory_size=None, status=None, zone_ids=None):
+        # The number of vCPUs.
         self.cpu_core_count = cpu_core_count  # type: int
+        # The maximum number of elastic network interfaces (ENIs) that can be bound to an ECS instance.
         self.eni_quantity = eni_quantity  # type: int
+        # The number of GPUs of an ECS instance.
         self.gpuamount = gpuamount  # type: int
+        # The GPU type of the ECS instance.
         self.gpuspec = gpuspec  # type: str
+        # The maximum inbound internal bandwidth. Unit: Kbit/s.
         self.instance_bandwidth_rx = instance_bandwidth_rx  # type: int
+        # The maximum outbound internal bandwidth. Unit: Kbit/s.
         self.instance_bandwidth_tx = instance_bandwidth_tx  # type: int
+        # The inbound packet forwarding rate over the internal network. Unit: pps
         self.instance_pps_rx = instance_pps_rx  # type: int
+        # The outbound packet forwarding rate over the internal network. Unit: pps
         self.instance_pps_tx = instance_pps_tx  # type: int
+        # The ID of the ECS instance type.
         self.instance_type_id = instance_type_id  # type: str
+        # The memory size of the ECS instance. Unit: GiB
         self.memory_size = memory_size  # type: int
+        # The status of the ECS instance. Valid values:
+        # 
+        # *   SoldOut
+        # *   Available
         self.status = status  # type: str
+        # The list of zone IDs.
         self.zone_ids = zone_ids  # type: ListAvailableEcsTypesResponseBodyInstanceTypeFamiliesInstanceTypeFamilyInfoTypesTypesInfoZoneIds
 
     def validate(self):
@@ -11056,8 +12769,11 @@ class ListAvailableEcsTypesResponseBodyInstanceTypeFamiliesInstanceTypeFamilyInf
 
 class ListAvailableEcsTypesResponseBodyInstanceTypeFamiliesInstanceTypeFamilyInfo(TeaModel):
     def __init__(self, generation=None, instance_type_family_id=None, types=None):
+        # The instance family.
         self.generation = generation  # type: str
+        # The ID of the instance family. For more information, see [Instance families](~~25378~~).
         self.instance_type_family_id = instance_type_family_id  # type: str
+        # The list of instance types.
         self.types = types  # type: ListAvailableEcsTypesResponseBodyInstanceTypeFamiliesInstanceTypeFamilyInfoTypes
 
     def validate(self):
@@ -11124,8 +12840,14 @@ class ListAvailableEcsTypesResponseBodyInstanceTypeFamilies(TeaModel):
 
 class ListAvailableEcsTypesResponseBody(TeaModel):
     def __init__(self, instance_type_families=None, request_id=None, support_spot_instance=None):
+        # The instance family to which the instance type belongs.
         self.instance_type_families = instance_type_families  # type: ListAvailableEcsTypesResponseBodyInstanceTypeFamilies
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Specifies whether preemptible instances are supported. Valid values:
+        # 
+        # *   false: not supported
+        # *   true: supported
         self.support_spot_instance = support_spot_instance  # type: bool
 
     def validate(self):
@@ -11199,9 +12921,19 @@ class ListAvailableEcsTypesResponse(TeaModel):
 
 class ListCloudMetricProfilingsRequest(TeaModel):
     def __init__(self, cluster_id=None, page_number=None, page_size=None, region_id=None):
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The page number of the page to return.
+        # 
+        # Pages start from page 1.
+        # 
+        # Default value: 1
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page. Valid values: 1 to 50
+        # 
+        # Default value: 10
         self.page_size = page_size  # type: int
+        # The ID of the region.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -11239,12 +12971,23 @@ class ListCloudMetricProfilingsRequest(TeaModel):
 class ListCloudMetricProfilingsResponseBodyProfilingsProfilingInfo(TeaModel):
     def __init__(self, duration=None, freq=None, host_name=None, instance_id=None, pid=None, profiling_id=None,
                  trigger_time=None):
+        # The duration of the profiling process. Unit: seconds
+        # 
+        # Valid values: 10 to 300
         self.duration = duration  # type: int
+        # The frequency of the profiling process. Unit: Hz
+        # 
+        # Valid values: 1 to 2000
         self.freq = freq  # type: int
+        # The name of the host.
         self.host_name = host_name  # type: str
+        # The ID of the node.
         self.instance_id = instance_id  # type: str
+        # The ID of the profiling process.
         self.pid = pid  # type: int
+        # The ID of the profiling process.
         self.profiling_id = profiling_id  # type: str
+        # The time when the profiling process is triggered.
         self.trigger_time = trigger_time  # type: str
 
     def validate(self):
@@ -11325,10 +13068,15 @@ class ListCloudMetricProfilingsResponseBodyProfilings(TeaModel):
 
 class ListCloudMetricProfilingsResponseBody(TeaModel):
     def __init__(self, page_number=None, page_size=None, profilings=None, request_id=None, total_count=None):
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries that are returned per page.
         self.page_size = page_size  # type: int
+        # The profiling information of a specified cluster.
         self.profilings = profilings  # type: ListCloudMetricProfilingsResponseBodyProfilings
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of entries.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -11410,8 +13158,13 @@ class ListCloudMetricProfilingsResponse(TeaModel):
 
 class ListClusterLogsRequest(TeaModel):
     def __init__(self, cluster_id=None, page_number=None, page_size=None):
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The number of the page to return. Pages start from page 1.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page. Valid values: 1 to 100
+        # 
+        # Default: 10
         self.page_size = page_size  # type: int
 
     def validate(self):
@@ -11444,9 +13197,13 @@ class ListClusterLogsRequest(TeaModel):
 
 class ListClusterLogsResponseBodyLogsLogInfo(TeaModel):
     def __init__(self, create_time=None, level=None, message=None, operation=None):
+        # The time when the log was created.
         self.create_time = create_time  # type: str
+        # The severity level of the log entry.
         self.level = level  # type: str
+        # The content of the log entry.
         self.message = message  # type: str
+        # The name of the operation.
         self.operation = operation  # type: str
 
     def validate(self):
@@ -11516,11 +13273,17 @@ class ListClusterLogsResponseBodyLogs(TeaModel):
 class ListClusterLogsResponseBody(TeaModel):
     def __init__(self, cluster_id=None, logs=None, page_number=None, page_size=None, request_id=None,
                  total_count=None):
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The details about operations logs.
         self.logs = logs  # type: ListClusterLogsResponseBodyLogs
+        # The number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries that are returned per page.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of entries.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -11606,7 +13369,11 @@ class ListClusterLogsResponse(TeaModel):
 
 class ListClustersRequest(TeaModel):
     def __init__(self, page_number=None, page_size=None):
+        # The number of the page to return. Pages start from page 1.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page. Valid values: 1 to 50.
+        # 
+        # Default value: 10
         self.page_size = page_size  # type: int
 
     def validate(self):
@@ -11636,10 +13403,15 @@ class ListClustersRequest(TeaModel):
 class ListClustersResponseBodyClustersClusterInfoSimpleComputes(TeaModel):
     def __init__(self, exception_count=None, normal_count=None, operating_count=None, stopped_count=None,
                  total=None):
+        # The number of abnormal nodes.
         self.exception_count = exception_count  # type: int
+        # The number of normal nodes.
         self.normal_count = normal_count  # type: int
+        # The number of nodes that are being used in the queue. This includes those that are being initialized, installed, or released.
         self.operating_count = operating_count  # type: int
+        # The number of stopped nodes.
         self.stopped_count = stopped_count  # type: int
+        # The total number of nodes.
         self.total = total  # type: int
 
     def validate(self):
@@ -11681,10 +13453,15 @@ class ListClustersResponseBodyClustersClusterInfoSimpleComputes(TeaModel):
 class ListClustersResponseBodyClustersClusterInfoSimpleManagers(TeaModel):
     def __init__(self, exception_count=None, normal_count=None, operating_count=None, stopped_count=None,
                  total=None):
+        # The number of abnormal nodes.
         self.exception_count = exception_count  # type: int
+        # The number of normal nodes.
         self.normal_count = normal_count  # type: int
+        # The number of nodes that are being used in the queue. This includes those that are being initialized, installed, or released.
         self.operating_count = operating_count  # type: int
+        # The number of stopped nodes.
         self.stopped_count = stopped_count  # type: int
+        # The total number of management nodes.
         self.total = total  # type: int
 
     def validate(self):
@@ -11725,8 +13502,11 @@ class ListClustersResponseBodyClustersClusterInfoSimpleManagers(TeaModel):
 
 class ListClustersResponseBodyClustersClusterInfoSimpleTotalResources(TeaModel):
     def __init__(self, cpu=None, gpu=None, memory=None):
+        # The number of CPU cores. Unit: cores.
         self.cpu = cpu  # type: int
+        # The number of GPU cards. Unit: cards.
         self.gpu = gpu  # type: int
+        # The memory size. Unit: MiB.
         self.memory = memory  # type: int
 
     def validate(self):
@@ -11759,8 +13539,11 @@ class ListClustersResponseBodyClustersClusterInfoSimpleTotalResources(TeaModel):
 
 class ListClustersResponseBodyClustersClusterInfoSimpleUsedResources(TeaModel):
     def __init__(self, cpu=None, gpu=None, memory=None):
+        # The number of CPU cores. Unit: cores.
         self.cpu = cpu  # type: int
+        # The number of GPU cards. Unit: cards.
         self.gpu = gpu  # type: int
+        # The memory size. Unit: MiB.
         self.memory = memory  # type: int
 
     def validate(self):
@@ -11798,38 +13581,114 @@ class ListClustersResponseBodyClustersClusterInfoSimple(TeaModel):
                  instance_type=None, is_compute_ess=None, location=None, login_nodes=None, managers=None, name=None,
                  node_prefix=None, node_suffix=None, os_tag=None, region_id=None, scheduler_type=None, status=None,
                  total_resources=None, used_resources=None, v_switch_id=None, vpc_id=None, zone_id=None):
+        # The server type of the account. Valid values:
+        # 
+        # *   nis
+        # *   ldap
         self.account_type = account_type  # type: str
+        # The operating system tag of the base image. The tag was used only by the management node.
         self.base_os_tag = base_os_tag  # type: str
+        # The version of the client.
         self.client_version = client_version  # type: str
+        # The maximum hourly price for the ECS instance under the compute node. The return value can be accurate to three decimal places.
         self.compute_spot_price_limit = compute_spot_price_limit  # type: float
+        # The bidding method of the compute nodes. Valid values:
+        # 
+        # *   NoSpot: The instances of the compute node are pay-as-you-go instances.
+        # *   SpotWithPriceLimit: The instances of the compute node are preemptible instances. These types of instances have a specified maximum hourly price.
+        # *   SpotAsPriceGo: The instances of the compute node are preemptible instances. The price of these instances is based on the current market price.
         self.compute_spot_strategy = compute_spot_strategy  # type: str
+        # The information about compute nodes.
         self.computes = computes  # type: ListClustersResponseBodyClustersClusterInfoSimpleComputes
+        # The number of compute nodes in the cluster.
         self.count = count  # type: int
+        # The time when the instance was created.
         self.create_time = create_time  # type: str
+        # The mode in which the cluster was deployed. Valid values:
+        # 
+        # *   Standard: An account node, a scheduling node, a logon node, and multiple compute nodes are separately deployed.
+        # *   Advanced: Two high availability (HA) account nodes, two HA scheduler nodes, one logon node, and multiple compute nodes are separately deployed.
+        # *   Simple: A management node, a logon node, and multiple compute nodes are deployed. The management node consists of an account node and a scheduling node. The logon node and compute nodes are separately deployed.
+        # *   Tiny: A management node and multiple compute nodes are deployed. The management node consists of an account node, a scheduling node, and a logon node. The compute nodes are separately deployed.
         self.deploy_mode = deploy_mode  # type: str
+        # The description of the cluster.
         self.description = description  # type: str
+        # The version of E-HPC.
         self.ehpc_version = ehpc_version  # type: str
+        # Indicates whether plug-ins were used in the cluster. Valid values:
+        # 
+        # *   true: Plug-ins are used.
+        # *   false: Plug-ins are not used.
+        # 
+        # Default value: false
         self.has_plugin = has_plugin  # type: bool
+        # The ID of the cluster.
         self.id = id  # type: str
+        # The ID of the image.
         self.image_id = image_id  # type: str
+        # The type of the image. Valid values:
+        # 
+        # *   system: public image
+        # *   self: custom image
+        # *   others: shared image
+        # *   marketplace: Alibaba Cloud Marketplace image
         self.image_owner_alias = image_owner_alias  # type: str
+        # The billing method of the nodes in the cluster. Valid values:
+        # 
+        # *   PostPaid: pay-as-you-go
+        # *   PrePaid: subscription
         self.instance_charge_type = instance_charge_type  # type: str
+        # The instance type of the compute nodes.
         self.instance_type = instance_type  # type: str
+        # Indicates whether a scaling group was enabled. Valid values:
+        # 
+        # *   true: A scaling group is enabled.
+        # *   false: No scaling group is enabled.
         self.is_compute_ess = is_compute_ess  # type: bool
+        # The location where the cluster was deployed. Valid values:
+        # 
+        # *   OnPremise: The cluster is deployed on a hybrid cloud.
+        # *   PublicCloud: The cluster is deployed on a public cloud.
         self.location = location  # type: str
+        # The list of logon nodes.
         self.login_nodes = login_nodes  # type: str
+        # The list of management nodes.
         self.managers = managers  # type: ListClustersResponseBodyClustersClusterInfoSimpleManagers
+        # The name of the cluster.
         self.name = name  # type: str
+        # The prefix of the node.
         self.node_prefix = node_prefix  # type: str
+        # The suffix of the node.
         self.node_suffix = node_suffix  # type: str
+        # The operating system tag of the image.
         self.os_tag = os_tag  # type: str
+        # The ID of the region.
         self.region_id = region_id  # type: str
+        # The type of the scheduler. Valid values:
+        # 
+        # *   pbs
+        # *   slurm
+        # *   opengridscheduler
+        # *   deadline
         self.scheduler_type = scheduler_type  # type: str
+        # The status of the cluster. Valid values:
+        # 
+        # *   uninit: The cluster is not initialized.
+        # *   creating: The cluster is being created.
+        # *   init: The cluster is being initialized.
+        # *   running: The cluster is running.
+        # *   exception: The cluster encounters an exception.
+        # *   releasing: The cluster is being released.
         self.status = status  # type: str
+        # The statistics of all resources in the cluster.
         self.total_resources = total_resources  # type: ListClustersResponseBodyClustersClusterInfoSimpleTotalResources
+        # The number of consumed resources in the cluster.
         self.used_resources = used_resources  # type: ListClustersResponseBodyClustersClusterInfoSimpleUsedResources
+        # The ID of the vSwitch.
         self.v_switch_id = v_switch_id  # type: str
+        # The ID of the virtual private cloud (VPC).
         self.vpc_id = vpc_id  # type: str
+        # The ID of the zone.
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -12025,10 +13884,15 @@ class ListClustersResponseBodyClusters(TeaModel):
 
 class ListClustersResponseBody(TeaModel):
     def __init__(self, clusters=None, page_number=None, page_size=None, request_id=None, total_count=None):
+        # The list of clusters.
         self.clusters = clusters  # type: ListClustersResponseBodyClusters
+        # The number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of returned entries.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -12110,7 +13974,11 @@ class ListClustersResponse(TeaModel):
 
 class ListClustersMetaRequest(TeaModel):
     def __init__(self, page_number=None, page_size=None):
+        # The number of the page to return. Pages start from page 1.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page. Valid values: 1 to 50.
+        # 
+        # Default value: 10
         self.page_size = page_size  # type: int
 
     def validate(self):
@@ -12141,18 +14009,62 @@ class ListClustersMetaResponseBodyClustersClusterInfoSimple(TeaModel):
     def __init__(self, account_type=None, client_version=None, deploy_mode=None, description=None, has_plugin=None,
                  id=None, is_compute_ess=None, location=None, name=None, os_tag=None, scheduler_type=None, status=None,
                  vpc_id=None):
+        # The server type of the account. Valid values:
+        # 
+        # *   nis
+        # *   ldap
         self.account_type = account_type  # type: str
+        # The version of the client.
         self.client_version = client_version  # type: str
+        # The mode in which the cluster is deployed. Valid values:
+        # 
+        # *   Standard: An account node, a scheduling node, a logon node, and multiple compute nodes are separately deployed.
+        # *   Advanced: Two high availability (HA) account nodes, two HA scheduler nodes, one logon node, and multiple compute nodes are separately deployed.
+        # *   Simple: A management node, a logon node, and multiple compute nodes are deployed. The management node consists of an account node and a scheduling node. The logon node and compute nodes are separately deployed.
+        # *   Tiny: A management node and multiple compute nodes are deployed. The management node consists of an account node, a scheduling node, and a logon node. The compute nodes are separately deployed.
         self.deploy_mode = deploy_mode  # type: str
+        # The description of the cluster.
         self.description = description  # type: str
+        # Indicates whether the cluster uses a plug-in. Valid values:
+        # 
+        # *   true
+        # *   false
+        # 
+        # Default value: false
         self.has_plugin = has_plugin  # type: bool
+        # The ID of the cluster.
         self.id = id  # type: str
+        # Indicates whether a scaling group is enabled. Valid values:
+        # 
+        # *   true: A scaling group is enabled.
+        # *   false: No scaling group is enabled.
         self.is_compute_ess = is_compute_ess  # type: bool
+        # The location where the cluster is deployed. Valid values:
+        # 
+        # *   OnPremise: The cluster is deployed on a hybrid cloud.
+        # *   PublicCloud: The cluster is deployed on a public cloud.
         self.location = location  # type: str
+        # The name of the cluster.
         self.name = name  # type: str
+        # The image tag of the operating system.
         self.os_tag = os_tag  # type: str
+        # The type of the scheduler. Valid values:
+        # 
+        # *   pbs
+        # *   slurm
+        # *   opengridscheduler
+        # *   deadline
         self.scheduler_type = scheduler_type  # type: str
+        # The status of the cluster. Valid values:
+        # 
+        # *   uninit: The cluster is not initialized.
+        # *   creating: The cluster is being created.
+        # *   init: The cluster is being initialized.
+        # *   running: The cluster is running.
+        # *   exception: The cluster encounters an exception.
+        # *   releasing: The cluster is being released.
         self.status = status  # type: str
+        # The ID of the virtual private cloud (VPC).
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
@@ -12257,10 +14169,15 @@ class ListClustersMetaResponseBodyClusters(TeaModel):
 
 class ListClustersMetaResponseBody(TeaModel):
     def __init__(self, clusters=None, page_number=None, page_size=None, request_id=None, total_count=None):
+        # The list of clusters.
         self.clusters = clusters  # type: ListClustersMetaResponseBodyClusters
+        # The number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page. Valid values: 1 to 50.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of returned entries.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -12342,9 +14259,23 @@ class ListClustersMetaResponse(TeaModel):
 
 class ListCommandsRequest(TeaModel):
     def __init__(self, cluster_id=None, command_id=None, page_number=None, page_size=None):
+        # The ID of the cluster.
+        # 
+        # You can call the [ListClusters](~~87116~~) operation to query the cluster ID.
         self.cluster_id = cluster_id  # type: str
+        # The ID of the command.
         self.command_id = command_id  # type: str
+        # The page number of the returned page.
+        # 
+        # Page number starts from page 1.
+        # 
+        # Default value: 1.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page.
+        # 
+        # Valid values: 1 to 50.
+        # 
+        # Default value: 10.
         self.page_size = page_size  # type: int
 
     def validate(self):
@@ -12381,9 +14312,13 @@ class ListCommandsRequest(TeaModel):
 
 class ListCommandsResponseBodyCommandsCommand(TeaModel):
     def __init__(self, command_content=None, command_id=None, timeout=None, working_dir=None):
+        # The content of the command.
         self.command_content = command_content  # type: str
+        # The ID of the command.
         self.command_id = command_id  # type: str
+        # The timeout period. Unit: seconds.
         self.timeout = timeout  # type: str
+        # The working directory of the command.
         self.working_dir = working_dir  # type: str
 
     def validate(self):
@@ -12452,10 +14387,15 @@ class ListCommandsResponseBodyCommands(TeaModel):
 
 class ListCommandsResponseBody(TeaModel):
     def __init__(self, commands=None, page_number=None, page_size=None, request_id=None, total_count=None):
+        # The list of commands.
         self.commands = commands  # type: ListCommandsResponseBodyCommands
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned on the current page.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of returned entries.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -12537,8 +14477,13 @@ class ListCommandsResponse(TeaModel):
 
 class ListCommunityImagesRequest(TeaModel):
     def __init__(self, base_os_tag=None, cluster_id=None, instance_type=None):
+        # The tag of the base operating system (BOS).
         self.base_os_tag = base_os_tag  # type: str
+        # The ID of the cluster. If the cluster supports multiple operating systems, all community images in the region where the cluster resides are queried.
+        # 
+        # If you do not specify the cluster ID, the community images that are supported by all clusters are queried.
         self.cluster_id = cluster_id  # type: str
+        # The type of the Elastic Compute Service (ECS) instance. If you do not specify the instance type, the community images that are supported by all instance types are queried.
         self.instance_type = instance_type  # type: str
 
     def validate(self):
@@ -12571,9 +14516,29 @@ class ListCommunityImagesRequest(TeaModel):
 
 class ListCommunityImagesResponseBodyImagesImageInfoBaseOsTag(TeaModel):
     def __init__(self, architecture=None, os_tag=None, platform=None, version=None):
+        # The architecture of the operating system. Valid values:
+        # 
+        # *   i386
+        # *   x86\_64
         self.architecture = architecture  # type: str
+        # The tag of the OS image.
         self.os_tag = os_tag  # type: str
+        # The distribution of the operating system. Valid values:
+        # 
+        # *   CentOS
+        # *   Ubuntu
+        # *   SUSE
+        # *   OpenSUSE
+        # *   Debian
+        # *   CoreOS
+        # *   Aliyun
+        # *   Windows Server 2003
+        # *   Windows Server 2008
+        # *   Windows Server 2012
+        # *   Others Linux
+        # *   Customized Linux
         self.platform = platform  # type: str
+        # The version of the operating system.
         self.version = version  # type: str
 
     def validate(self):
@@ -12610,10 +14575,18 @@ class ListCommunityImagesResponseBodyImagesImageInfoBaseOsTag(TeaModel):
 
 class ListCommunityImagesResponseBodyImagesImageInfoOsTag(TeaModel):
     def __init__(self, architecture=None, base_os_tag=None, os_tag=None, platform=None, version=None):
+        # The architecture of the operating system. Valid values:
+        # 
+        # *   i386
+        # *   x86\_64
         self.architecture = architecture  # type: str
+        # The tag of the BOS image.
         self.base_os_tag = base_os_tag  # type: str
+        # The tag of the OS image.
         self.os_tag = os_tag  # type: str
+        # The operating system.
         self.platform = platform  # type: str
+        # The version of the operating system.
         self.version = version  # type: str
 
     def validate(self):
@@ -12656,18 +14629,46 @@ class ListCommunityImagesResponseBodyImagesImageInfo(TeaModel):
     def __init__(self, base_os_tag=None, description=None, image_id=None, image_name=None, image_owner_alias=None,
                  os_tag=None, post_install_script=None, pricing_cycle=None, product_code=None, size=None, sku_code=None,
                  status=None, uid=None):
+        # The tag of the BOS image.
         self.base_os_tag = base_os_tag  # type: ListCommunityImagesResponseBodyImagesImageInfoBaseOsTag
+        # The description of the image.
         self.description = description  # type: str
+        # The ID of the image.
         self.image_id = image_id  # type: str
+        # The name of the image.
         self.image_name = image_name  # type: str
+        # The type of the image. Valid values:
+        # 
+        # *   self: custom image
+        # *   others: shared image
         self.image_owner_alias = image_owner_alias  # type: str
+        # An array of OS images that are supported by E-HPC.
         self.os_tag = os_tag  # type: ListCommunityImagesResponseBodyImagesImageInfoOsTag
+        # The script that is run after the image is installed.
         self.post_install_script = post_install_script  # type: str
+        # The billing unit of the image. Valid values:
+        # 
+        # *   Hour
+        # *   Month
+        # *   Year
         self.pricing_cycle = pricing_cycle  # type: str
+        # The Alibaba Cloud Marketplace product code of the image.
         self.product_code = product_code  # type: str
+        # The size of the image. Unit: GiB.
         self.size = size  # type: int
+        # The stock keeping unit (SKU) of the image. Valid values:
+        # 
+        # *   ECS: pay-as-you-go
+        # *   package: subscription
         self.sku_code = sku_code  # type: str
+        # The status of the image. Valid values:
+        # 
+        # *   UnAvailable: The image is unavailable.
+        # *   Available: The image is available.
+        # *   Creating: The image is being created.
+        # *   CreateFailed: The image failed to be created.
         self.status = status  # type: str
+        # The owner of the image.
         self.uid = uid  # type: str
 
     def validate(self):
@@ -12777,7 +14778,9 @@ class ListCommunityImagesResponseBodyImages(TeaModel):
 
 class ListCommunityImagesResponseBody(TeaModel):
     def __init__(self, images=None, request_id=None):
+        # The list of community images, including custom images and shared images.
         self.images = images  # type: ListCommunityImagesResponseBodyImages
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -12847,7 +14850,15 @@ class ListCommunityImagesResponse(TeaModel):
 
 class ListContainerAppsRequest(TeaModel):
     def __init__(self, page_number=None, page_size=None):
+        # The page number of the returned page.
+        # 
+        # Pages start from page 1.
+        # 
+        # Default value: 1.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page. Valid values: 1 to 50.
+        # 
+        # Default value: 10.
         self.page_size = page_size  # type: int
 
     def validate(self):
@@ -12877,12 +14888,19 @@ class ListContainerAppsRequest(TeaModel):
 class ListContainerAppsResponseBodyContainerAppsContainerApps(TeaModel):
     def __init__(self, create_time=None, description=None, id=None, image_tag=None, name=None, repository=None,
                  type=None):
+        # The time when the containerized application was created.
         self.create_time = create_time  # type: str
+        # The description of the containerized application.
         self.description = description  # type: str
+        # The ID of the containerized application.
         self.id = id  # type: str
+        # The tags of the image.
         self.image_tag = image_tag  # type: str
+        # The name of the containerized application.
         self.name = name  # type: str
+        # The name of the repository.
         self.repository = repository  # type: str
+        # The type of the container. Set the value to singularity.
         self.type = type  # type: str
 
     def validate(self):
@@ -12963,10 +14981,15 @@ class ListContainerAppsResponseBodyContainerApps(TeaModel):
 
 class ListContainerAppsResponseBody(TeaModel):
     def __init__(self, container_apps=None, page_number=None, page_size=None, request_id=None, total_count=None):
+        # The array of containerized applications.
         self.container_apps = container_apps  # type: ListContainerAppsResponseBodyContainerApps
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of containerized applications.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -13048,9 +15071,21 @@ class ListContainerAppsResponse(TeaModel):
 
 class ListContainerImagesRequest(TeaModel):
     def __init__(self, cluster_id=None, container_type=None, page_number=None, page_size=None):
+        # The ID of the cluster.
+        # 
+        # You can call the [ListClusters](~~87116~~) operation to query the cluster ID.
         self.cluster_id = cluster_id  # type: str
+        # The type of the container. Set the value to singularity.
         self.container_type = container_type  # type: str
+        # The number of the page to return.
+        # 
+        # Pages start from page 1.
+        # 
+        # Default value: 1
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page. Valid values: 1 to 50.
+        # 
+        # Default value: 10
         self.page_size = page_size  # type: int
 
     def validate(self):
@@ -13088,12 +15123,19 @@ class ListContainerImagesRequest(TeaModel):
 class ListContainerImagesResponseBodyImagesImages(TeaModel):
     def __init__(self, image_id=None, repository=None, status=None, system=None, tag=None, type=None,
                  update_date_time=None):
+        # The ID of the image.
         self.image_id = image_id  # type: str
+        # The name of the repository.
         self.repository = repository  # type: str
+        # The status of the image.
         self.status = status  # type: str
+        # The container system of the image.
         self.system = system  # type: str
+        # The tags of the image.
         self.tag = tag  # type: str
+        # The type of the container. Set the value to singularity.
         self.type = type  # type: str
+        # The time when the image was updated.
         self.update_date_time = update_date_time  # type: str
 
     def validate(self):
@@ -13174,11 +15216,17 @@ class ListContainerImagesResponseBodyImages(TeaModel):
 
 class ListContainerImagesResponseBody(TeaModel):
     def __init__(self, dbinfo=None, images=None, page_number=None, page_size=None, request_id=None, total_count=None):
+        # The information of the database.
         self.dbinfo = dbinfo  # type: str
+        # The array of local images.
         self.images = images  # type: ListContainerImagesResponseBodyImages
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of returned entries.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -13553,7 +15601,9 @@ class ListCpfsFileSystemsResponse(TeaModel):
 
 class ListCurrentClientVersionResponseBody(TeaModel):
     def __init__(self, client_version=None, request_id=None):
+        # The latest version number of the E-HPC client.
         self.client_version = client_version  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -13621,9 +15671,18 @@ class ListCurrentClientVersionResponse(TeaModel):
 
 class ListCustomImagesRequest(TeaModel):
     def __init__(self, base_os_tag=None, cluster_id=None, image_owner_alias=None, instance_type=None):
+        # The image tag of the base operating system. The tag is used only by the management node.
         self.base_os_tag = base_os_tag  # type: str
+        # The ID of the cluster where the application resides. If the cluster supports multiple operating systems, all the images in the region where the cluster resides are queried.
+        # 
+        # By default, if you do not specify the cluster ID, the images that are supported by all the clusters is queried.
         self.cluster_id = cluster_id  # type: str
+        # The source of the image. Valid values:
+        # 
+        # *   self: custom image
+        # *   others: shared image
         self.image_owner_alias = image_owner_alias  # type: str
+        # Specify the type of the instance. By default, if you do not specify the type of the instance, the list of images that are supported by all the instance types are queried.
         self.instance_type = instance_type  # type: str
 
     def validate(self):
@@ -13660,9 +15719,29 @@ class ListCustomImagesRequest(TeaModel):
 
 class ListCustomImagesResponseBodyImagesImageInfoBaseOsTag(TeaModel):
     def __init__(self, architecture=None, os_tag=None, platform=None, version=None):
+        # The architecture of the operating system. Valid values:
+        # 
+        # *   i386
+        # *   x86\_64
         self.architecture = architecture  # type: str
+        # The image tag of the operating system.
         self.os_tag = os_tag  # type: str
+        # The release version of the operating system. Valid values:
+        # 
+        # *   CentOS
+        # *   Ubuntu
+        # *   SUSE
+        # *   OpenSUSE
+        # *   Debian
+        # *   CoreOS
+        # *   Aliyun
+        # *   Windows Server 2003
+        # *   Windows Server 2008
+        # *   Windows Server 2012
+        # *   Others Linux
+        # *   Customized Linux
         self.platform = platform  # type: str
+        # The version number of the operating system.
         self.version = version  # type: str
 
     def validate(self):
@@ -13699,10 +15778,18 @@ class ListCustomImagesResponseBodyImagesImageInfoBaseOsTag(TeaModel):
 
 class ListCustomImagesResponseBodyImagesImageInfoOsTag(TeaModel):
     def __init__(self, architecture=None, base_os_tag=None, os_tag=None, platform=None, version=None):
+        # The architecture of the operating system. Valid values:
+        # 
+        # *   i386
+        # *   x86\_64
         self.architecture = architecture  # type: str
+        # The image tag of the base operating system.
         self.base_os_tag = base_os_tag  # type: str
+        # The image tag of the operating system.
         self.os_tag = os_tag  # type: str
+        # The platform of the operating system.
         self.platform = platform  # type: str
+        # The version of the operating system.
         self.version = version  # type: str
 
     def validate(self):
@@ -13745,18 +15832,47 @@ class ListCustomImagesResponseBodyImagesImageInfo(TeaModel):
     def __init__(self, base_os_tag=None, description=None, image_id=None, image_name=None, image_owner_alias=None,
                  os_tag=None, post_install_script=None, pricing_cycle=None, product_code=None, size=None, sku_code=None,
                  status=None, uid=None):
+        # The image tag of the base operating system.
         self.base_os_tag = base_os_tag  # type: ListCustomImagesResponseBodyImagesImageInfoBaseOsTag
+        # The description of the image.
         self.description = description  # type: str
+        # The ID of the image.
         self.image_id = image_id  # type: str
+        # The name of the image.
         self.image_name = image_name  # type: str
+        # The type of image. Valid values:
+        # 
+        # *   self: custom image
+        # *   others: shared image
         self.image_owner_alias = image_owner_alias  # type: str
+        # An array of system images that are supported by E-HPC.
         self.os_tag = os_tag  # type: ListCustomImagesResponseBodyImagesImageInfoOsTag
+        # The script that is run after the image is installed.
         self.post_install_script = post_install_script  # type: str
+        # The billing unit of the image. Valid values:
+        # 
+        # *   Hour
+        # *   Month
+        # *   Year
         self.pricing_cycle = pricing_cycle  # type: str
+        # The product code on Alibaba Cloud Marketplace.
         self.product_code = product_code  # type: str
+        # The size of the image. Unit: GiB
         self.size = size  # type: int
+        # The stock keeping unit (SKU) of the image. Valid values:
+        # 
+        # \-ECS: pay-as-you-go
+        # 
+        # \-package: subscription
         self.sku_code = sku_code  # type: str
+        # The status of the image. Valid values:
+        # 
+        # *   UnAvailable: The image is unavailable.
+        # *   Available: The image is available.
+        # *   Creating: The image is being created.
+        # *   CreateFailed: The image has failed to be created.
         self.status = status  # type: str
+        # The owner of the image.
         self.uid = uid  # type: str
 
     def validate(self):
@@ -13866,7 +15982,9 @@ class ListCustomImagesResponseBodyImages(TeaModel):
 
 class ListCustomImagesResponseBody(TeaModel):
     def __init__(self, images=None, request_id=None):
+        # The list of custom images and shared images that are supported by the E-HPC.
         self.images = images  # type: ListCustomImagesResponseBodyImages
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -13936,7 +16054,15 @@ class ListCustomImagesResponse(TeaModel):
 
 class ListFileSystemWithMountTargetsRequest(TeaModel):
     def __init__(self, page_number=None, page_size=None):
+        # The page number of the page to return.
+        # 
+        # Page numbers start from 1.
+        # 
+        # Default value: 1
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page. Valid values: 1 to 50.
+        # 
+        # Default value: 10
         self.page_size = page_size  # type: int
 
     def validate(self):
@@ -13966,11 +16092,25 @@ class ListFileSystemWithMountTargetsRequest(TeaModel):
 class ListFileSystemWithMountTargetsResponseBodyFileSystemListFileSystemsMountTargetListMountTargets(TeaModel):
     def __init__(self, access_group=None, mount_target_domain=None, network_type=None, status=None, vpc_id=None,
                  vsw_id=None):
+        # The name of the permission group that applied to the mount target.
         self.access_group = access_group  # type: str
+        # The domain name of the mount target.
         self.mount_target_domain = mount_target_domain  # type: str
+        # The network type of the mount target. Valid values:
+        # 
+        # *   Vpc: virtual private cloud (VPC)
+        # *   Classic: the classic network
         self.network_type = network_type  # type: str
+        # The status of the mount target. Valid values:
+        # 
+        # *   Active: The mount target is available.
+        # *   Inactive: The mount target is inactive.
+        # *   Pending: The mount target is being created or modified.
+        # *   Deleting: The mount target is being deleted.
         self.status = status  # type: str
+        # The ID of the VPC.
         self.vpc_id = vpc_id  # type: str
+        # The ID of the vSwitch.
         self.vsw_id = vsw_id  # type: str
 
     def validate(self):
@@ -14047,6 +16187,7 @@ class ListFileSystemWithMountTargetsResponseBodyFileSystemListFileSystemsMountTa
 
 class ListFileSystemWithMountTargetsResponseBodyFileSystemListFileSystemsPackageListPackages(TeaModel):
     def __init__(self, package_id=None):
+        # The ID of the storage plan.
         self.package_id = package_id  # type: str
 
     def validate(self):
@@ -14105,19 +16246,52 @@ class ListFileSystemWithMountTargetsResponseBodyFileSystemListFileSystems(TeaMod
     def __init__(self, band_width=None, capacity=None, create_time=None, destription=None, encrypt_type=None,
                  file_system_id=None, file_system_type=None, metered_size=None, mount_target_list=None, package_list=None,
                  protocol_type=None, region_id=None, status=None, storage_type=None, vpc_id=None):
+        # The bandwidth of the file system. Unit: MB/s.
         self.band_width = band_width  # type: int
+        # The capacity of the file system. Unit: GiB.
         self.capacity = capacity  # type: int
+        # The time when the file system was created.
         self.create_time = create_time  # type: str
+        # The description of the file system.
         self.destription = destription  # type: str
+        # Indicates whether the file system is encrypted. Valid values:
+        # 
+        # *   0: The file system is not encrypted.
+        # *   1: The file system is encrypted.
         self.encrypt_type = encrypt_type  # type: int
+        # The ID of the file system.
         self.file_system_id = file_system_id  # type: str
+        # The type of the file system. Valid values:
+        # 
+        # *   standard: General-purpose NAS file system
+        # *   extreme: Extreme NAS file system
         self.file_system_type = file_system_type  # type: str
+        # The used capacity of the file system. Unit: bytes.
         self.metered_size = metered_size  # type: int
+        # The list of mount targets.
         self.mount_target_list = mount_target_list  # type: ListFileSystemWithMountTargetsResponseBodyFileSystemListFileSystemsMountTargetList
+        # The list of storage plans.
         self.package_list = package_list  # type: ListFileSystemWithMountTargetsResponseBodyFileSystemListFileSystemsPackageList
+        # The protocol type of the file system. Valid values:
+        # 
+        # - NFS
+        # - SMB
         self.protocol_type = protocol_type  # type: str
+        # The ID of the region.
         self.region_id = region_id  # type: str
+        # The status of the file system. Valid values:
+        # 
+        # - Pending: The file system is being created or modified.
+        # - Running: The file system is available.
+        # - Stopped: The file system is stopped.
+        # - Extending: The file system is being scaled out.
+        # - Stopping: The file system is being stopped.
+        # - Deleting: The file system is being deleted.
         self.status = status  # type: str
+        # The storage type of the file system. 
+        # 
+        # - If FileSystemType is set to standard, the StorageType parameter has the following valid values: Capacity and Performance.
+        # - If FileSystemType is set to extreme, the StorageType parameter has the following valid values: standard and advance.
         self.storage_type = storage_type  # type: str
         self.vpc_id = vpc_id  # type: str
 
@@ -14236,10 +16410,15 @@ class ListFileSystemWithMountTargetsResponseBodyFileSystemList(TeaModel):
 
 class ListFileSystemWithMountTargetsResponseBody(TeaModel):
     def __init__(self, file_system_list=None, page_number=None, page_size=None, request_id=None, total_count=None):
+        # The list of file systems.
         self.file_system_list = file_system_list  # type: ListFileSystemWithMountTargetsResponseBodyFileSystemList
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of entries.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -14321,7 +16500,12 @@ class ListFileSystemWithMountTargetsResponse(TeaModel):
 
 class ListImagesRequest(TeaModel):
     def __init__(self, base_os_tag=None, instance_type=None):
+        # The image tag of the operating system. The tag is used only for management nodes.
         self.base_os_tag = base_os_tag  # type: str
+        # The instance type of the node.
+        # 
+        # *   If a value is passed to the parameter, the list of images that are supported by the specified instance type is queried.
+        # *   If no value is passed to the parameter, the list of images that are supported by all instance types is queried.
         self.instance_type = instance_type  # type: str
 
     def validate(self):
@@ -14349,12 +16533,27 @@ class ListImagesRequest(TeaModel):
 
 
 class ListImagesResponseBodyOsTagsOsInfo(TeaModel):
-    def __init__(self, architecture=None, base_os_tag=None, image_id=None, os_tag=None, platform=None, version=None):
+    def __init__(self, architecture=None, base_os_tag=None, image_id=None, osname=None, osname_en=None, os_tag=None,
+                 platform=None, version=None):
+        # The architecture of the operating system. Valid values:
+        # 
+        # *   i386
+        # *   x86\_64
         self.architecture = architecture  # type: str
+        # The image tag of the operating system. The tag is used only for management nodes.
         self.base_os_tag = base_os_tag  # type: str
+        # The ID of the image.
         self.image_id = image_id  # type: str
+        self.osname = osname  # type: str
+        self.osname_en = osname_en  # type: str
+        # The image tag of the cluster.
         self.os_tag = os_tag  # type: str
+        # The operating system. Valid values:
+        # 
+        # *   CentOS
+        # *   windows
         self.platform = platform  # type: str
+        # The version of the operating system.
         self.version = version  # type: str
 
     def validate(self):
@@ -14372,6 +16571,10 @@ class ListImagesResponseBodyOsTagsOsInfo(TeaModel):
             result['BaseOsTag'] = self.base_os_tag
         if self.image_id is not None:
             result['ImageId'] = self.image_id
+        if self.osname is not None:
+            result['OSName'] = self.osname
+        if self.osname_en is not None:
+            result['OSNameEn'] = self.osname_en
         if self.os_tag is not None:
             result['OsTag'] = self.os_tag
         if self.platform is not None:
@@ -14388,6 +16591,10 @@ class ListImagesResponseBodyOsTagsOsInfo(TeaModel):
             self.base_os_tag = m.get('BaseOsTag')
         if m.get('ImageId') is not None:
             self.image_id = m.get('ImageId')
+        if m.get('OSName') is not None:
+            self.osname = m.get('OSName')
+        if m.get('OSNameEn') is not None:
+            self.osname_en = m.get('OSNameEn')
         if m.get('OsTag') is not None:
             self.os_tag = m.get('OsTag')
         if m.get('Platform') is not None:
@@ -14431,7 +16638,9 @@ class ListImagesResponseBodyOsTags(TeaModel):
 
 class ListImagesResponseBody(TeaModel):
     def __init__(self, os_tags=None, request_id=None):
+        # The list of images that are supported by E-HPC.
         self.os_tags = os_tags  # type: ListImagesResponseBodyOsTags
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -14501,6 +16710,9 @@ class ListImagesResponse(TeaModel):
 
 class ListInstalledSoftwareRequest(TeaModel):
     def __init__(self, cluster_id=None):
+        # The ID of the cluster.
+        # 
+        # You can call the [ListClusters](~~87116~~) operation to query the cluster ID.
         self.cluster_id = cluster_id  # type: str
 
     def validate(self):
@@ -14525,9 +16737,16 @@ class ListInstalledSoftwareRequest(TeaModel):
 
 class ListInstalledSoftwareResponseBodySoftwareListSoftwareList(TeaModel):
     def __init__(self, software_id=None, software_name=None, software_status=None, software_version=None):
+        # The ID of the software.
         self.software_id = software_id  # type: str
+        # The name of the software.
         self.software_name = software_name  # type: str
+        # The status of the software. Valid values:
+        # 
+        # *   Installing: The software is being installed.
+        # *   Installed: The software is installed.
         self.software_status = software_status  # type: str
+        # The version of the software.
         self.software_version = software_version  # type: str
 
     def validate(self):
@@ -14596,7 +16815,9 @@ class ListInstalledSoftwareResponseBodySoftwareList(TeaModel):
 
 class ListInstalledSoftwareResponseBody(TeaModel):
     def __init__(self, request_id=None, software_list=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The list of installed software.
         self.software_list = software_list  # type: ListInstalledSoftwareResponseBodySoftwareList
 
     def validate(self):
@@ -14666,6 +16887,9 @@ class ListInstalledSoftwareResponse(TeaModel):
 
 class ListInvocationResultsRequestInstance(TeaModel):
     def __init__(self, id=None):
+        # The ID of the node on which the command is run.
+        # 
+        # >  The Instance.N.Id parameter specifies the node on which the command is run. If it is not specified, the command is run on all nodes of the cluster.
         self.id = id  # type: str
 
     def validate(self):
@@ -14691,11 +16915,31 @@ class ListInvocationResultsRequestInstance(TeaModel):
 class ListInvocationResultsRequest(TeaModel):
     def __init__(self, cluster_id=None, command_id=None, instance=None, invoke_record_status=None, page_number=None,
                  page_size=None):
+        # The ID of the cluster.
+        # 
+        # You can call the [ListClusters](~~87116~~) operation to query the cluster ID.
         self.cluster_id = cluster_id  # type: str
+        # The ID of the command.
+        # 
+        # You can call the [ListCommands](~~87388~~) operation to query the command ID.
         self.command_id = command_id  # type: str
         self.instance = instance  # type: list[ListInvocationResultsRequestInstance]
+        # The status of the command that you want to query. Valid values:
+        # 
+        # *   Finished
+        # *   Running
+        # *   Failed
+        # *   Stopped
         self.invoke_record_status = invoke_record_status  # type: str
+        # The number of the page to return.
+        # 
+        # Page numbers start from 1.
+        # 
+        # Default value: 1
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page. Valid values: 1 to 50.
+        # 
+        # Default value: 10
         self.page_size = page_size  # type: int
 
     def validate(self):
@@ -14749,12 +16993,24 @@ class ListInvocationResultsRequest(TeaModel):
 class ListInvocationResultsResponseBodyInvocationResultsInvocationResult(TeaModel):
     def __init__(self, command_id=None, exit_code=None, finished_time=None, instance_id=None,
                  invoke_record_status=None, message=None, success=None):
+        # The ID of the command.
         self.command_id = command_id  # type: str
+        # The exit code.
         self.exit_code = exit_code  # type: int
+        # The time at which the command entered the Finished state.
         self.finished_time = finished_time  # type: str
+        # The ID of the node on which the command was run.
         self.instance_id = instance_id  # type: str
+        # The status of the command. Valid values:
+        # 
+        # *   Finished
+        # *   Running
+        # *   Failed
+        # *   Stopped
         self.invoke_record_status = invoke_record_status  # type: str
+        # The output result.
         self.message = message  # type: str
+        # Indicates whether the command was run and its result was obtained.
         self.success = success  # type: bool
 
     def validate(self):
@@ -14835,10 +17091,15 @@ class ListInvocationResultsResponseBodyInvocationResults(TeaModel):
 
 class ListInvocationResultsResponseBody(TeaModel):
     def __init__(self, invocation_results=None, page_number=None, page_size=None, request_id=None, total_count=None):
+        # The result of the command.
         self.invocation_results = invocation_results  # type: ListInvocationResultsResponseBodyInvocationResults
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of returned entries.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -14920,7 +17181,13 @@ class ListInvocationResultsResponse(TeaModel):
 
 class ListInvocationStatusRequest(TeaModel):
     def __init__(self, cluster_id=None, command_id=None):
+        # The ID of the cluster.
+        # 
+        # You can call the [ListClusters](~~87116~~) operation to query the cluster ID.
         self.cluster_id = cluster_id  # type: str
+        # The ID of the command.
+        # 
+        # You can call the [ListCommands](~~87388~~) operation to query the command ID.
         self.command_id = command_id  # type: str
 
     def validate(self):
@@ -14949,7 +17216,14 @@ class ListInvocationStatusRequest(TeaModel):
 
 class ListInvocationStatusResponseBodyInvokeInstancesInvokeInstance(TeaModel):
     def __init__(self, instance_id=None, instance_invoke_status=None):
+        # The ID of the node.
         self.instance_id = instance_id  # type: str
+        # The status of the node. Valid values:
+        # 
+        # *   Finished
+        # *   Running
+        # *   Failed
+        # *   Stopped
         self.instance_invoke_status = instance_invoke_status  # type: str
 
     def validate(self):
@@ -15010,9 +17284,18 @@ class ListInvocationStatusResponseBodyInvokeInstances(TeaModel):
 
 class ListInvocationStatusResponseBody(TeaModel):
     def __init__(self, command_id=None, invoke_instances=None, invoke_status=None, request_id=None):
+        # The ID of the command.
         self.command_id = command_id  # type: str
+        # The list of statuses. A list is returned for each node.
         self.invoke_instances = invoke_instances  # type: ListInvocationStatusResponseBodyInvokeInstances
+        # The overall status of all nodes in the cluster. Valid values:
+        # 
+        # - Finished
+        # - Running
+        # - Failed
+        # - Stopped
         self.invoke_status = invoke_status  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -15090,8 +17373,17 @@ class ListInvocationStatusResponse(TeaModel):
 
 class ListJobTemplatesRequest(TeaModel):
     def __init__(self, name=None, page_number=None, page_size=None):
+        # The name of the job template.
+        # 
+        # You can call the [ListJobTemplates](~~87248~~) operation to obtain the job template name.
         self.name = name  # type: str
+        # The number of the page to return. Page numbers start from 1.
+        # 
+        # Default value: 1
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page. Maximum value: 50.
+        # 
+        # Default value: 10
         self.page_size = page_size  # type: int
 
     def validate(self):
@@ -15127,26 +17419,65 @@ class ListJobTemplatesResponseBodyTemplatesJobTemplates(TeaModel):
                  input_file_url=None, mem=None, name=None, node=None, package_path=None, priority=None, queue=None, re_runable=None,
                  runas_user=None, stderr_redirect_path=None, stdout_redirect_path=None, task=None, thread=None, unzip_cmd=None,
                  variables=None, with_unzip_cmd=None):
+        # The job array.
+        # 
+        # Format: X-Y:Z. X is the minimum index value. Y is the maximum index value. Z is the step size. For example, 2-7:2 indicates that three jobs need to be run and their index values are 2, 4, and 6.
         self.array_request = array_request  # type: str
+        # The maximum running time of the job. Valid formats:
+        # 
+        # *   hh:mm:ss
+        # *   mm:ss
+        # *   ss
         self.clock_time = clock_time  # type: str
+        # The command that was used to run the job.
         self.command_line = command_line  # type: str
+        # The maximum GPU usage required by a single compute node. Valid values: 1 to 8.
+        # 
+        # The parameter takes effect only when the cluster uses PBS and a compute node is a GPU-accelerated instance.
         self.gpu = gpu  # type: int
+        # The ID of the job template.
         self.id = id  # type: str
+        # The URL of the job files that were uploaded to an Object Storage Service (OSS) bucket.
         self.input_file_url = input_file_url  # type: str
+        # The maximum memory usage of a single compute node. The unit can be GB, MB, or KB, and is case-insensitive.
         self.mem = mem  # type: str
+        # The name of the job template.
         self.name = name  # type: str
+        # The number of the compute nodes. Valid values: 1 to 500.
         self.node = node  # type: int
+        # The path that was used to run the job.
         self.package_path = package_path  # type: str
+        # The priority of the job. Valid values: 0 to 9. A large value indicates a high priority.
         self.priority = priority  # type: int
+        # The queue of the job.
         self.queue = queue  # type: str
+        # Indicates whether the job can be rerun. Valid values:
+        # 
+        # *   true: The job can be rerun.
+        # *   false: The job cannot be rerun.
         self.re_runable = re_runable  # type: bool
+        # The name of the user that ran the job.
         self.runas_user = runas_user  # type: str
+        # The output file path of stderr.
         self.stderr_redirect_path = stderr_redirect_path  # type: str
+        # The output file path of stdout.
         self.stdout_redirect_path = stdout_redirect_path  # type: str
+        # The number of tasks required by a single compute node. Valid values: 1 to 1000.
         self.task = task  # type: int
+        # The number of threads required by a single compute node. Valid values: 1 to 1000.
         self.thread = thread  # type: int
+        # The command that was used to decompress the job files downloaded from an OSS bucket. The parameter takes effect only when WithUnzipCmd is set to true. Valid values:
+        # 
+        # *   tar xzf: decompresses GZIP files.
+        # *   tar xf: decompresses TAR files.
+        # *   unzip: decompresses ZIP files.
         self.unzip_cmd = unzip_cmd  # type: str
+        # The environment variables of the job.
         self.variables = variables  # type: str
+        # Indicates whether to decompress the job files downloaded from an OSS bucket. Valid values:
+        # 
+        # *   true: The job files are decompressed.
+        # *   false: The job files are not decompressed.
         self.with_unzip_cmd = with_unzip_cmd  # type: bool
 
     def validate(self):
@@ -15283,10 +17614,15 @@ class ListJobTemplatesResponseBodyTemplates(TeaModel):
 
 class ListJobTemplatesResponseBody(TeaModel):
     def __init__(self, page_number=None, page_size=None, request_id=None, templates=None, total_count=None):
+        # The number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The list of job templates.
         self.templates = templates  # type: ListJobTemplatesResponseBodyTemplates
+        # The total number of returned entries.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -15368,11 +17704,36 @@ class ListJobTemplatesResponse(TeaModel):
 
 class ListJobsRequest(TeaModel):
     def __init__(self, cluster_id=None, owner=None, page_number=None, page_size=None, rerunable=None, state=None):
+        # The ID of the cluster.
+        # 
+        # You can call the [ListClusters](~~87116~~) operation to query the cluster ID.
         self.cluster_id = cluster_id  # type: str
+        # The name of the user that runs the job.
+        # 
+        # You can call the [ListUsers](~~188572~~) operation to query the users in the cluster.
         self.owner = owner  # type: str
+        # The number of the page to return.
+        # 
+        # Pages start from page 1.
+        # 
+        # Default value: 1
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page. Maximum value: 50.
+        # 
+        # Default value: 10
         self.page_size = page_size  # type: int
+        # Specifies whether the job can be rerun. Valid values:
+        # 
+        # *   true
+        # *   false
+        # 
+        # Default value: false
         self.rerunable = rerunable  # type: str
+        # The status of the job. Valid values:
+        # 
+        # *   all
+        # *   finished
+        # *   notfinish
         self.state = state  # type: str
 
     def validate(self):
@@ -15417,7 +17778,9 @@ class ListJobsRequest(TeaModel):
 
 class ListJobsResponseBodyJobsJobInfoResources(TeaModel):
     def __init__(self, cores=None, nodes=None):
+        # The number of CPUs that were used to run the job.
         self.cores = cores  # type: int
+        # The number of nodes that were used to run the job.
         self.nodes = nodes  # type: int
 
     def validate(self):
@@ -15448,20 +17811,41 @@ class ListJobsResponseBodyJobsJobInfo(TeaModel):
     def __init__(self, array_request=None, comment=None, id=None, last_modify_time=None, name=None, node_list=None,
                  owner=None, priority=None, resources=None, shell_path=None, start_time=None, state=None, stderr=None,
                  stdout=None, submit_time=None):
+        # The job array. If the job is not in a queue, the output is empty.
+        # 
+        # Format: X-Y:Z. X is the minimum index value. Y is the maximum index value. Z is the step size. For example, 2-7:2 indicates that three jobs need to be run and their index values are 2, 4, and 6.
         self.array_request = array_request  # type: str
+        # The description of the job.
         self.comment = comment  # type: str
+        # The ID of the job.
         self.id = id  # type: str
+        # The time when the job was last modified.
         self.last_modify_time = last_modify_time  # type: str
+        # The name of the job.
         self.name = name  # type: str
+        # The list of compute nodes that were used to run the job.
         self.node_list = node_list  # type: str
+        # The name of the user that runs the job.
         self.owner = owner  # type: str
+        # The priority of the job. Valid values: 0 to 9. A large value indicates a high priority.
         self.priority = priority  # type: str
+        # The resources that were used to run the job.
         self.resources = resources  # type: ListJobsResponseBodyJobsJobInfoResources
+        # The path that was used to run the job.
         self.shell_path = shell_path  # type: str
+        # The time when the job started to run.
         self.start_time = start_time  # type: str
+        # The status of the job. Valid values: Valid values:
+        # 
+        # *   FINISHED: The job is completed
+        # *   RUNNING: The job is running.
+        # *   QUEUED: The job is pending in a queue.
         self.state = state  # type: str
+        # The output file path of stderr.
         self.stderr = stderr  # type: str
+        # The output file path of stdout.
         self.stdout = stdout  # type: str
+        # The time when the job was submitted.
         self.submit_time = submit_time  # type: str
 
     def validate(self):
@@ -15576,10 +17960,15 @@ class ListJobsResponseBodyJobs(TeaModel):
 
 class ListJobsResponseBody(TeaModel):
     def __init__(self, jobs=None, page_number=None, page_size=None, request_id=None, total_count=None):
+        # The list of jobs.
         self.jobs = jobs  # type: ListJobsResponseBodyJobs
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of returned entries.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -15663,19 +18052,56 @@ class ListJobsWithFiltersRequest(TeaModel):
     def __init__(self, async=None, cluster_id=None, create_time_end=None, create_time_start=None,
                  execute_order=None, job_name=None, job_status=None, nodes=None, page_number=None, page_size=None, pend_order=None,
                  queues=None, region_id=None, submit_order=None, users=None):
+        # Specifies whether to enable asynchronous query.
         self.async = async  # type: bool
+        # The ID of the cluster.
+        # 
+        # You can call the [ListClusters](~~87116~~) operation to query the cluster ID.
         self.cluster_id = cluster_id  # type: str
+        # The latest time when a job is submitted. The value is a UNIX timestamp, which represents the number of seconds that have elapsed since the epoch time January 1, 1970, 00:00:00 UTC.
         self.create_time_end = create_time_end  # type: str
+        # The earliest time when a job is submitted. The value is a UNIX timestamp, which represents the number of seconds that have elapsed since the epoch time January 1, 1970, 00:00:00 UTC.
         self.create_time_start = create_time_start  # type: str
+        # The order in which jobs are sorted based on the execution time. Valid values:
+        # 
+        # *   asc: ascending order
+        # *   desc: descending order
         self.execute_order = execute_order  # type: str
+        # The name of the job. Fuzzy match is supported.
         self.job_name = job_name  # type: str
+        # The status of the job. Valid values:
+        # 
+        # *   all
+        # *   finished
+        # *   notfinish
+        # 
+        # Default value: all
         self.job_status = job_status  # type: str
         self.nodes = nodes  # type: list[str]
+        # The number of the page to return.
+        # 
+        # Pages start from page 1.
+        # 
+        # Default value: 1
         self.page_number = page_number  # type: long
+        # The number of entries to return on each page. Maximum value: 50.
+        # 
+        # Default value: 10
         self.page_size = page_size  # type: long
+        # The order in which jobs are sorted based on the time when they queue. Valid values:
+        # 
+        # *   asc: ascending order
+        # *   desc: descending order
         self.pend_order = pend_order  # type: str
         self.queues = queues  # type: list[str]
+        # The ID of the region.
+        # 
+        # You can call the [ListRegions](~~188593~~) operation to query the list of regions where E-HPC is supported.
         self.region_id = region_id  # type: str
+        # The order in which jobs are sorted based on the time when they are submitted. Valid values:
+        # 
+        # *   asc: ascending order
+        # *   desc: descending order
         self.submit_order = submit_order  # type: str
         self.users = users  # type: list[str]
 
@@ -15757,7 +18183,9 @@ class ListJobsWithFiltersRequest(TeaModel):
 
 class ListJobsWithFiltersResponseBodyJobsResources(TeaModel):
     def __init__(self, cores=None, nodes=None):
+        # The number of CPUs that were used to run the job.
         self.cores = cores  # type: long
+        # The number of nodes that were used to run the job.
         self.nodes = nodes  # type: long
 
     def validate(self):
@@ -15788,23 +18216,50 @@ class ListJobsWithFiltersResponseBodyJobs(TeaModel):
     def __init__(self, array_request=None, comment=None, id=None, last_modify_time=None, name=None, node_list=None,
                  owner=None, priority=None, queue=None, rerunable=None, resources=None, shell_path=None, start_time=None,
                  state=None, stderr=None, stdout=None, submit_time=None, variable_list=None):
+        # The job array. If the job is not in a queue, the output is empty.
+        # 
+        # Format: X-Y:Z. X is the minimum index value. Y is the maximum index value. Z is the step size. For example, 2-7:2 indicates that three jobs need to be run and their index values are 2, 4, and 6.
         self.array_request = array_request  # type: str
+        # The description of the job.
         self.comment = comment  # type: str
+        # The ID of the job.
         self.id = id  # type: str
+        # The time when the job was last modified.
         self.last_modify_time = last_modify_time  # type: str
+        # The name of the job.
         self.name = name  # type: str
+        # The list of compute nodes that were used to run the job.
         self.node_list = node_list  # type: str
+        # The name of the user that ran the job.
         self.owner = owner  # type: str
+        # The priority of the job. Valid values: 0 to 9. A large value indicates a high priority.
         self.priority = priority  # type: str
+        # The number of queues that ran the job.
         self.queue = queue  # type: str
+        # Indicates whether the job can be run again. Valid values:
+        # 
+        # *   true
+        # *   false
         self.rerunable = rerunable  # type: bool
+        # The resources that were used to run the job.
         self.resources = resources  # type: ListJobsWithFiltersResponseBodyJobsResources
+        # The path that was used to run the job.
         self.shell_path = shell_path  # type: str
+        # The time when the job started to run.
         self.start_time = start_time  # type: str
+        # The status of the job. Valid values:
+        # 
+        # *   FINISHED: The job is completed.
+        # *   RUNNING: The job connector is running.
+        # *   QUEUED: The job is pending in a queue.
         self.state = state  # type: str
+        # The output file path of stderr.
         self.stderr = stderr  # type: str
+        # The output file path of stdout.
         self.stdout = stdout  # type: str
+        # The time when the job was submitted.
         self.submit_time = submit_time  # type: str
+        # The list of variables of the job.
         self.variable_list = variable_list  # type: str
 
     def validate(self):
@@ -15899,11 +18354,20 @@ class ListJobsWithFiltersResponseBodyJobs(TeaModel):
 
 class ListJobsWithFiltersResponseBody(TeaModel):
     def __init__(self, jobs=None, page_number=None, page_size=None, request_id=None, success=None, total_count=None):
+        # The list of jobs.
         self.jobs = jobs  # type: list[ListJobsWithFiltersResponseBodyJobs]
+        # The page number of the returned page.
         self.page_number = page_number  # type: long
+        # The number of entries returned per page.
         self.page_size = page_size  # type: long
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true: The call was successful.
+        # *   false: The request failed.
         self.success = success  # type: bool
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -15996,16 +18460,55 @@ class ListJobsWithFiltersResponse(TeaModel):
 class ListNodesRequest(TeaModel):
     def __init__(self, cluster_id=None, filter=None, host_name=None, host_name_prefix=None, host_name_suffix=None,
                  page_number=None, page_size=None, private_ip_address=None, role=None, sequence=None, sort_by=None):
+        # The ID of the cluster.
+        # 
+        # You can call the [ListClusters](~~87116~~) operation to query the cluster ID.
         self.cluster_id = cluster_id  # type: str
+        # The filter options of the node list.
+        # 
+        # Format: {"status":"node_status"}. Replace node_status with the node status. Valid values of node_status:
+        # 
+        # *   uninit: The node is being installed.
+        # *   exception: An exception has occurred on the node.
+        # *   running: The node is running.
+        # *   initing: The node is being initialized.
+        # *   releasing: The node is being released.
+        # *   untracking: The node is not added to the cluster.
+        # *   stopped: The node is stopped.
         self.filter = filter  # type: str
+        # The name of the node. You can perform a fuzzy search. MySQL regular expressions are supported.
         self.host_name = host_name  # type: str
+        # The prefix of the hostname. You can query nodes that have a specified prefix.
         self.host_name_prefix = host_name_prefix  # type: str
+        # The suffix of the hostname. You can query nodes that have a specified suffix.
         self.host_name_suffix = host_name_suffix  # type: str
+        # The number of the page to return. Pages start from page 1.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page. Valid values: 1 to 100.
+        # 
+        # Default value: 10
         self.page_size = page_size  # type: int
+        # The private IP address of the node.
         self.private_ip_address = private_ip_address  # type: str
+        # The type of the node. Valid values:
+        # 
+        # *   Manager: management node
+        # *   Login: logon node
+        # *   Compute: compute node
         self.role = role  # type: str
+        # The sorting method of the node list. Valid values:
+        # 
+        # *   Forward: sorts the nodes in chronological order.
+        # *   Backward: sorts the nodes in reverse chronological order.
+        # 
+        # Default value: Forward
+        # 
+        # >  Sequence is used in combination with SortBy. If SortBy is set to AddedTime and Sequence is set to Forward, nodes are sorted by the time that they were added in chronological order.
         self.sequence = sequence  # type: str
+        # The sorting method of the node list. Valid values:
+        # 
+        # *   AddedTime: sorts the nodes by the time that they were added.
+        # *   HostName: sorts the nodes by their host names.
         self.sort_by = sort_by  # type: str
 
     def validate(self):
@@ -16094,8 +18597,11 @@ class ListNodesResponseBodyNodesNodeInfoRoles(TeaModel):
 
 class ListNodesResponseBodyNodesNodeInfoTotalResources(TeaModel):
     def __init__(self, cpu=None, gpu=None, memory=None):
+        # The number of vCPUs.
         self.cpu = cpu  # type: int
+        # The number of GPUs.
         self.gpu = gpu  # type: int
+        # The memory capacity. Unit: GB
         self.memory = memory  # type: int
 
     def validate(self):
@@ -16128,8 +18634,11 @@ class ListNodesResponseBodyNodesNodeInfoTotalResources(TeaModel):
 
 class ListNodesResponseBodyNodesNodeInfoUsedResources(TeaModel):
     def __init__(self, cpu=None, gpu=None, memory=None):
+        # The number of vCPUs.
         self.cpu = cpu  # type: int
+        # The number of GPUs.
         self.gpu = gpu  # type: int
+        # The memory capacity. Unit: GB
         self.memory = memory  # type: int
 
     def validate(self):
@@ -16166,31 +18675,95 @@ class ListNodesResponseBodyNodesNodeInfo(TeaModel):
                  ip_address=None, location=None, lock_reason=None, public_ip_address=None, region_id=None, roles=None,
                  spot_strategy=None, state_in_sched=None, status=None, total_resources=None, used_resources=None,
                  v_switch_id=None, version=None, vpc_id=None, zone_id=None):
+        # The time when the node was added to the cluster.
         self.add_time = add_time  # type: str
+        # The mode in which the compute nodes are added. Valid values:
+        # 
+        # *   manual: The compute nodes are manually added.
+        # *   autoscale: The compute nodes are automatically added.
         self.create_mode = create_mode  # type: str
+        # Indicates whether the node was created by using E-HPC.
+        # 
+        # *   true: The node is created by using E-HPC.
+        # *   false: The node is not created by using E-HPC.
         self.created_by_ehpc = created_by_ehpc  # type: bool
+        # Indicates whether the subscription node expired. For a pay-as-you-go node, false is returned.
         self.expired = expired  # type: bool
+        # The time when the subscription node expires. For a pay-as-you-go node, a null value is returned.
         self.expired_time = expired_time  # type: str
+        # The name of the node.
         self.host_name = host_name  # type: str
+        # Indicates whether hyper-threading is enabled.
         self.ht_enabled = ht_enabled  # type: bool
+        # The ID of the node.
         self.id = id  # type: str
+        # The ID of the image.
         self.image_id = image_id  # type: str
+        # The type of the image. Valid values:
+        # 
+        # *   system: public image
+        # *   self: custom image
+        # *   others: shared image
+        # *   marketplace: Alibaba Cloud Marketplace image
         self.image_owner_alias = image_owner_alias  # type: str
+        # The instance types of the node.
         self.instance_type = instance_type  # type: str
+        # The IP address of the node.
         self.ip_address = ip_address  # type: str
+        # The location where the node was deployed. Valid values:
+        # 
+        # *   OnPremise: The node is deployed on your data center.
+        # *   PublicCloud: The node is deployed on the public cloud.
         self.location = location  # type: str
+        # The reason why the node was locked. Valid values:
+        # 
+        # *   financial: The node is locked due to overdue payments.
+        # *   security: The node is locked for security reasons.
+        # *   recycling: The preemptible node is locked and pending release.
+        # *   dedicatedhostfinancial: The node is locked due to the overdue payments of the dedicated host.
+        # 
+        # By default, an empty string is returned.
         self.lock_reason = lock_reason  # type: str
+        # The public IP address of the node.
         self.public_ip_address = public_ip_address  # type: str
+        # The ID of the region.
         self.region_id = region_id  # type: str
+        # The type of the node. Valid values:
+        # 
+        # *   Scheduler: primary scheduling node
+        # *   SchedulerBackup: secondary scheduling node
+        # *   Account: primary domain server node
+        # *   AccountBackup: secondary domain server node
+        # *   Login: logon node
+        # *   Compute: compute node
+        # 
+        # Scheduling nodes and domain server nodes are management nodes.
         self.roles = roles  # type: ListNodesResponseBodyNodesNodeInfoRoles
+        # The bidding method of the compute nodes.
         self.spot_strategy = spot_strategy  # type: str
+        # The status of the node displayed on the scheduler. The status varies with the scheduler.
         self.state_in_sched = state_in_sched  # type: str
+        # The status of the node. Valid values:
+        # 
+        # *   uninit: The node is being installed.
+        # *   exception: An exception has occurred on the node.
+        # *   running: The node is running.
+        # *   initing: The node is being initialized.
+        # *   releasing: The node is being released.
+        # *   untracking: The node is not added to the cluster.
+        # *   stopped: The node is stopped.
         self.status = status  # type: str
+        # The statistics of the resources used by the node.
         self.total_resources = total_resources  # type: ListNodesResponseBodyNodesNodeInfoTotalResources
+        # The usage of the compute nodes in the cluster. For other types of nodes, an empty value is returned.
         self.used_resources = used_resources  # type: ListNodesResponseBodyNodesNodeInfoUsedResources
+        # The ID of the vSwitch.
         self.v_switch_id = v_switch_id  # type: str
+        # The version of the client.
         self.version = version  # type: str
+        # The ID of the virtual private cloud (VPC).
         self.vpc_id = vpc_id  # type: str
+        # The ID of the zone.
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -16355,10 +18928,15 @@ class ListNodesResponseBodyNodes(TeaModel):
 
 class ListNodesResponseBody(TeaModel):
     def __init__(self, nodes=None, page_number=None, page_size=None, request_id=None, total_count=None):
+        # The information about nodes.
         self.nodes = nodes  # type: ListNodesResponseBodyNodes
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of returned entries.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -16441,9 +19019,15 @@ class ListNodesResponse(TeaModel):
 class ListNodesByQueueRequest(TeaModel):
     def __init__(self, async=None, cluster_id=None, page_number=None, page_size=None, queue_name=None):
         self.async = async  # type: bool
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The number of the page to return. Pages start from page 1.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page. Valid values: 1 to 50.
+        # 
+        # Default value: 10
         self.page_size = page_size  # type: int
+        # The name of the queue.
         self.queue_name = queue_name  # type: str
 
     def validate(self):
@@ -16484,8 +19068,11 @@ class ListNodesByQueueRequest(TeaModel):
 
 class ListNodesByQueueResponseBodyNodesNodeInfoTotalResources(TeaModel):
     def __init__(self, cpu=None, gpu=None, memory=None):
+        # The number of CPU cores. Unit: cores.
         self.cpu = cpu  # type: int
+        # The total number of GPU cards. Unit: cards.
         self.gpu = gpu  # type: int
+        # The memory capacity. Unit: GB.
         self.memory = memory  # type: int
 
     def validate(self):
@@ -16518,8 +19105,11 @@ class ListNodesByQueueResponseBodyNodesNodeInfoTotalResources(TeaModel):
 
 class ListNodesByQueueResponseBodyNodesNodeInfoUsedResources(TeaModel):
     def __init__(self, cpu=None, gpu=None, memory=None):
+        # The number of CPU cores. Unit: cores.
         self.cpu = cpu  # type: int
+        # The total number of GPU cards. Unit: cards.
         self.gpu = gpu  # type: int
+        # The memory capacity. Unit: GB.
         self.memory = memory  # type: int
 
     def validate(self):
@@ -16556,29 +19146,82 @@ class ListNodesByQueueResponseBodyNodesNodeInfo(TeaModel):
                  location=None, lock_reason=None, public_ip_address=None, region_id=None, spot_strategy=None,
                  state_in_sched=None, status=None, total_resources=None, used_resources=None, v_switch_id=None, version=None,
                  vpc_id=None, zone_id=None):
+        # The time when the node was added to the cluster.
         self.add_time = add_time  # type: str
+        # The mode in which the node was added. Valid values:
+        # 
+        # *   manual: The node was manually added.
+        # *   autoscale: The node is automatically added.
         self.create_mode = create_mode  # type: str
+        # Indicates whether the node was created by using E-HPC.
         self.created_by_ehpc = created_by_ehpc  # type: bool
+        # Indicates whether the subscription node has expired. If the node is a pay-as-you-go node, false is returned.
         self.expired = expired  # type: bool
+        # The time when the subscription instance expires. If the node is a pay-as-you-go node, a null value is returned.
         self.expired_time = expired_time  # type: str
+        # The name of the node.
         self.host_name = host_name  # type: str
+        # Indicates whether Hyper-Threading (HT) is enabled.
         self.ht_enabled = ht_enabled  # type: bool
+        # The ID of the ECS instance.
         self.id = id  # type: str
+        # The ID of the image.
         self.image_id = image_id  # type: str
+        # The type of the image. Valid values:
+        # 
+        # *   system: public image
+        # *   self: custom image
+        # *   others: shared image
+        # *   marketplace: Alibaba Cloud Marketplace image
         self.image_owner_alias = image_owner_alias  # type: str
+        # The private IP address of the node.
         self.ip_address = ip_address  # type: str
+        # The location where the node is deployed. Valid values:
+        # 
+        # *   OnPremise: The node is deployed on a hybrid cloud.
+        # *   PublicCloud: The node is deployed on a public cloud.
         self.location = location  # type: str
+        # The reason why the node is locked. Valid values:
+        # 
+        # *   financial: The node is locked due to overdue payments.
+        # *   security: The node is locked due to security reasons.
+        # *   recycling: The preemptible node is locked and pending release.
+        # *   dedicatedhostfinancial: The node is locked due to the overdue payments of the dedicated host.
+        # 
+        # By default, an empty string is returned.
         self.lock_reason = lock_reason  # type: str
+        # The public IP address of the node.
         self.public_ip_address = public_ip_address  # type: str
+        # The ID of the region.
         self.region_id = region_id  # type: str
+        # The preemption policy for the Elastic Compute Service (ECS) instance. Valid values:
+        # 
+        # *   NoSpot: applies to regular pay-as-you-go instances.
+        # *   SpotWithPriceLimit: The instances of the compute node are preemptible instances. These types of instances have a specified maximum hourly price.
+        # *   SpotAsPriceGo: The instances of the compute node are preemptible instances. The price of these instances is based on the current market price.
         self.spot_strategy = spot_strategy  # type: str
+        # The status of the node displayed on the scheduler. The status varies with the scheduler.
         self.state_in_sched = state_in_sched  # type: str
+        # The status of the node. Valid values:
+        # 
+        # *   uninit: The node is not initialized.
+        # *   init: The node is being initialized.
+        # *   ready: The node is ready.
+        # *   running: The node is running.
+        # *   exception: An exception has occurred on the node.
+        # *   untracking: The node is not added to the cluster.
         self.status = status  # type: str
+        # The number of all resources in the cluster.
         self.total_resources = total_resources  # type: ListNodesByQueueResponseBodyNodesNodeInfoTotalResources
+        # The usage of the compute nodes in the cluster. For other types of nodes, an empty value is returned.
         self.used_resources = used_resources  # type: ListNodesByQueueResponseBodyNodesNodeInfoUsedResources
+        # The ID of the vSwitch.
         self.v_switch_id = v_switch_id  # type: str
+        # The version of the E-HPC client.
         self.version = version  # type: str
+        # The ID of the virtual private cloud (VPC).
         self.vpc_id = vpc_id  # type: str
+        # The ID of the zone.
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -16732,10 +19375,15 @@ class ListNodesByQueueResponseBodyNodes(TeaModel):
 
 class ListNodesByQueueResponseBody(TeaModel):
     def __init__(self, nodes=None, page_number=None, page_size=None, request_id=None, total_count=None):
+        # The list of nodes.
         self.nodes = nodes  # type: ListNodesByQueueResponseBodyNodes
+        # The number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of returned entries.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -16817,9 +19465,26 @@ class ListNodesByQueueResponse(TeaModel):
 
 class ListNodesNoPagingRequest(TeaModel):
     def __init__(self, cluster_id=None, host_name=None, role=None, sequence=None):
+        # The ID of the cluster.
+        # 
+        # You can call the [ListClusters](~~87116~~) operation to query the cluster ID.
         self.cluster_id = cluster_id  # type: str
+        # The name of the node. You can perform a fuzzy search. MySQL regular expressions are supported.
         self.host_name = host_name  # type: str
+        # The type of the node. Valid values:
+        # 
+        # *   Manager: management node
+        # *   Login: logon node
+        # *   Compute: compute node
+        # 
+        # Default value: Compute
         self.role = role  # type: str
+        # The sorting method of the node list. Valid values:
+        # 
+        # *   Forward: sorts the nodes in chronological order.
+        # *   Backward: sorts the nodes in reverse chronological order.
+        # 
+        # Default value: Forward
         self.sequence = sequence  # type: str
 
     def validate(self):
@@ -16856,10 +19521,23 @@ class ListNodesNoPagingRequest(TeaModel):
 
 class ListNodesNoPagingResponseBodyNodesNodeInfo(TeaModel):
     def __init__(self, host_name=None, id=None, image_id=None, instance_type=None, status=None):
+        # The name of the node.
         self.host_name = host_name  # type: str
+        # The ID of the node.
         self.id = id  # type: str
+        # The ID of the image.
         self.image_id = image_id  # type: str
+        # The instance type of the node.
         self.instance_type = instance_type  # type: str
+        # The status of the node. Valid values:
+        # 
+        # *   uninit: The node is being installed.
+        # *   exception: An exception has occurred on the node.
+        # *   running: The node is running.
+        # *   initing: The node is being initialized.
+        # *   releasing: The node is being released.
+        # *   untracking: The node is not added to the cluster.
+        # *   stopped: The node is stopped.
         self.status = status  # type: str
 
     def validate(self):
@@ -16932,7 +19610,9 @@ class ListNodesNoPagingResponseBodyNodes(TeaModel):
 
 class ListNodesNoPagingResponseBody(TeaModel):
     def __init__(self, nodes=None, request_id=None):
+        # The information about nodes.
         self.nodes = nodes  # type: ListNodesNoPagingResponseBodyNodes
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -17002,8 +19682,18 @@ class ListNodesNoPagingResponse(TeaModel):
 
 class ListPreferredEcsTypesRequest(TeaModel):
     def __init__(self, instance_charge_type=None, spot_strategy=None, zone_id=None):
+        # The billing method of the ECS instance. Valid values:
+        # 
+        # *   PostPaid: pay-as-you-go
+        # *   PrePaid: subscription
         self.instance_charge_type = instance_charge_type  # type: str
+        # The bidding policy of the ECS instance. Valid values:
+        # 
+        # *   NoSpot: The instance is created as a regular pay-as-you-go instance.
+        # *   SpotWithPriceLimit: The instance to be created is a preemptible instance with a user-defined maximum hourly price.
+        # *   SpotAsPriceGo: The instance is a preemptible instance whose price is based on the current market price.
         self.spot_strategy = spot_strategy  # type: str
+        # The ID of the zone.
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -17108,8 +19798,11 @@ class ListPreferredEcsTypesResponseBodySeriesSeriesInfoRolesManager(TeaModel):
 
 class ListPreferredEcsTypesResponseBodySeriesSeriesInfoRoles(TeaModel):
     def __init__(self, compute=None, login=None, manager=None):
+        # The list of recommended ECS instance types for compute nodes.
         self.compute = compute  # type: ListPreferredEcsTypesResponseBodySeriesSeriesInfoRolesCompute
+        # The list of recommended ECS instance types for logon nodes.
         self.login = login  # type: ListPreferredEcsTypesResponseBodySeriesSeriesInfoRolesLogin
+        # The list of recommended ECS instance types for management nodes.
         self.manager = manager  # type: ListPreferredEcsTypesResponseBodySeriesSeriesInfoRolesManager
 
     def validate(self):
@@ -17150,8 +19843,21 @@ class ListPreferredEcsTypesResponseBodySeriesSeriesInfoRoles(TeaModel):
 
 class ListPreferredEcsTypesResponseBodySeriesSeriesInfo(TeaModel):
     def __init__(self, roles=None, series_id=None, series_name=None):
+        # The recommended ECS instance types for various nodes of the E-HPC cluster.
         self.roles = roles  # type: ListPreferredEcsTypesResponseBodySeriesSeriesInfoRoles
+        # The ID of the ECS instance series. Valid values:
+        # 
+        # *   HighCompute: high computing
+        # *   HighMem: high storage
+        # *   GPU
+        # *   All: all options.
         self.series_id = series_id  # type: str
+        # The name of the instance series. Valid values:
+        # 
+        # *   SeriesHighCompute
+        # *   SeriesHighMem
+        # *   SeriesGPU
+        # *   SeriesAll
         self.series_name = series_name  # type: str
 
     def validate(self):
@@ -17218,8 +19924,11 @@ class ListPreferredEcsTypesResponseBodySeries(TeaModel):
 
 class ListPreferredEcsTypesResponseBody(TeaModel):
     def __init__(self, request_id=None, series=None, support_spot_instance=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The list of recommended ECS instances. Each SeriesInfo element contains the recommended ECS instance types for various nodes of the E-HPC cluster.
         self.series = series  # type: ListPreferredEcsTypesResponseBodySeries
+        # Indicates whether spot instances are supported.
         self.support_spot_instance = support_spot_instance  # type: bool
 
     def validate(self):
@@ -17293,7 +20002,9 @@ class ListPreferredEcsTypesResponse(TeaModel):
 
 class ListQueuesRequest(TeaModel):
     def __init__(self, async=None, cluster_id=None):
+        # Specifies whether to enable asynchronous query.
         self.async = async  # type: bool
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
 
     def validate(self):
@@ -17346,7 +20057,9 @@ class ListQueuesResponseBodyQueuesQueueInfoComputeInstanceType(TeaModel):
 
 class ListQueuesResponseBodyQueuesQueueInfoSpotInstanceTypesInstance(TeaModel):
     def __init__(self, instance_type=None, spot_price_limit=None):
+        # The specifications of the ECS instance.
         self.instance_type = instance_type  # type: str
+        # The maximum hourly price of the preemptible instance. The value can be accurate to three decimal places. The parameter takes effect only when SpotStrategy is set to SpotWithPriceLimit.
         self.spot_price_limit = spot_price_limit  # type: float
 
     def validate(self):
@@ -17409,15 +20122,38 @@ class ListQueuesResponseBodyQueuesQueueInfo(TeaModel):
     def __init__(self, compute_instance_type=None, enable_auto_grow=None, host_name_prefix=None,
                  host_name_suffix=None, image_id=None, queue_name=None, resource_group_id=None, spot_instance_types=None,
                  spot_strategy=None, type=None):
+        # The instance type of the compute nodes.
         self.compute_instance_type = compute_instance_type  # type: ListQueuesResponseBodyQueuesQueueInfoComputeInstanceType
+        # Indicates whether the queue enabled auto scale-out. Valid values:
+        # 
+        # true: The queue enabled auto scale-out.
+        # 
+        # false: The queue disabled auto scale-out.
         self.enable_auto_grow = enable_auto_grow  # type: bool
+        # The prefix of the host name.
         self.host_name_prefix = host_name_prefix  # type: str
+        # The suffix of the host name.
         self.host_name_suffix = host_name_suffix  # type: str
+        # The ID of the image.
         self.image_id = image_id  # type: str
+        # The name of the queue.
         self.queue_name = queue_name  # type: str
+        # The ID of the resource group to which the queue belongs.
         self.resource_group_id = resource_group_id  # type: str
         self.spot_instance_types = spot_instance_types  # type: ListQueuesResponseBodyQueuesQueueInfoSpotInstanceTypes
+        # The preemption policy of the compute nodes. Valid values:
+        # 
+        # NoSpot: The instances of the compute node are pay-as-you-go instances.
+        # 
+        # SpotWithPriceLimit: The instances of the compute node are preemptible instances. These types of instances have a specified maximum hourly price.
+        # 
+        # SpotAsPriceGo: The instances of the compute node are preemptible instances. The price of these instances is based on the current market price.
         self.spot_strategy = spot_strategy  # type: str
+        # The type of the queue. Valid values:
+        # 
+        # Execution: Queues in which jobs can be executed.
+        # 
+        # Router: Queues in which jobs cannot be executed but are forwarded to the bounded Execution queue for processing.
         self.type = type  # type: str
 
     def validate(self):
@@ -17516,6 +20252,7 @@ class ListQueuesResponseBodyQueues(TeaModel):
 class ListQueuesResponseBody(TeaModel):
     def __init__(self, queues=None, request_id=None):
         self.queues = queues  # type: ListQueuesResponseBodyQueues
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -17585,7 +20322,9 @@ class ListQueuesResponse(TeaModel):
 
 class ListRegionsResponseBodyRegionsRegionInfo(TeaModel):
     def __init__(self, local_name=None, region_id=None):
+        # The region name.
         self.local_name = local_name  # type: str
+        # The ID of the region.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -17646,7 +20385,9 @@ class ListRegionsResponseBodyRegions(TeaModel):
 
 class ListRegionsResponseBody(TeaModel):
     def __init__(self, regions=None, request_id=None):
+        # The array of regions.
         self.regions = regions  # type: ListRegionsResponseBodyRegions
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -17716,6 +20457,7 @@ class ListRegionsResponse(TeaModel):
 
 class ListSecurityGroupsRequest(TeaModel):
     def __init__(self, cluster_id=None):
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
 
     def validate(self):
@@ -17764,8 +20506,11 @@ class ListSecurityGroupsResponseBodySecurityGroups(TeaModel):
 
 class ListSecurityGroupsResponseBody(TeaModel):
     def __init__(self, request_id=None, security_groups=None, total_count=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The ID of the security group.
         self.security_groups = security_groups  # type: ListSecurityGroupsResponseBodySecurityGroups
+        # The number of security groups.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -17839,7 +20584,13 @@ class ListSecurityGroupsResponse(TeaModel):
 
 class ListSoftwaresRequest(TeaModel):
     def __init__(self, ehpc_version=None, os_tag=None):
+        # The version of the E-HPC client.
+        # 
+        # You can call the [ListCurrentClientVersion](~~87223~~) operation to query the E-HPC client version.
         self.ehpc_version = ehpc_version  # type: str
+        # The image tag of the cluster.
+        # 
+        # You can use the [ListImages](~~87213~~) to query the image tag of the cluster.
         self.os_tag = os_tag  # type: str
 
     def validate(self):
@@ -17868,9 +20619,16 @@ class ListSoftwaresRequest(TeaModel):
 
 class ListSoftwaresResponseBodySoftwaresSoftwareInfoApplicationsApplicationInfo(TeaModel):
     def __init__(self, name=None, required=None, tag=None, version=None):
+        # The name of the software.
         self.name = name  # type: str
+        # Indicates whether the software is required. Valid values:
+        # 
+        # *   false: optional
+        # *   true: required
         self.required = required  # type: bool
+        # The tag of the software.
         self.tag = tag  # type: str
+        # The version of the software.
         self.version = version  # type: str
 
     def validate(self):
@@ -17940,12 +20698,33 @@ class ListSoftwaresResponseBodySoftwaresSoftwareInfoApplications(TeaModel):
 class ListSoftwaresResponseBodySoftwaresSoftwareInfo(TeaModel):
     def __init__(self, account_type=None, account_version=None, applications=None, ehpc_version=None, os_tag=None,
                  scheduler_type=None, scheduler_version=None):
+        # The service type of the domain account. Valid values:
+        # 
+        # *   nis
+        # *   ldap
         self.account_type = account_type  # type: str
+        # The version of the domain account service.
         self.account_version = account_version  # type: str
+        # The list of the software in the cluster.
         self.applications = applications  # type: ListSoftwaresResponseBodySoftwaresSoftwareInfoApplications
+        # The version of the E-HPC client.
         self.ehpc_version = ehpc_version  # type: str
+        # The image tag of the cluster.
         self.os_tag = os_tag  # type: str
+        # The type of the scheduler. Valid values:
+        # 
+        # *   pbs
+        # *   pbs19
+        # *   slurm
+        # *   slurm19
+        # *   slurm20
+        # *   opengridscheduler
+        # *   deadline
+        # *   gridengine
+        # *   cube
+        # *   custom
         self.scheduler_type = scheduler_type  # type: str
+        # The version of the scheduler.
         self.scheduler_version = scheduler_version  # type: str
 
     def validate(self):
@@ -18028,7 +20807,9 @@ class ListSoftwaresResponseBodySoftwares(TeaModel):
 
 class ListSoftwaresResponseBody(TeaModel):
     def __init__(self, request_id=None, softwares=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The list of the information about the software installed in the cluster.
         self.softwares = softwares  # type: ListSoftwaresResponseBodySoftwares
 
     def validate(self):
@@ -18098,7 +20879,9 @@ class ListSoftwaresResponse(TeaModel):
 
 class ListTagResourcesRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the tag.
         self.key = key  # type: str
+        # The value of the tag.
         self.value = value  # type: str
 
     def validate(self):
@@ -18127,9 +20910,12 @@ class ListTagResourcesRequestTag(TeaModel):
 
 class ListTagResourcesRequest(TeaModel):
     def __init__(self, next_token=None, region_id=None, resource_id=None, resource_type=None, tag=None):
+        # The token used to start the next query.
         self.next_token = next_token  # type: str
+        # The ID of the region to which the resource belongs.
         self.region_id = region_id  # type: str
         self.resource_id = resource_id  # type: list[str]
+        # The type of the resource. Set the value to cluster, which indicates E-HPC clusters.
         self.resource_type = resource_type  # type: str
         self.tag = tag  # type: list[ListTagResourcesRequestTag]
 
@@ -18179,9 +20965,13 @@ class ListTagResourcesRequest(TeaModel):
 
 class ListTagResourcesResponseBodyTagResourcesTagResource(TeaModel):
     def __init__(self, resource_id=None, resource_type=None, tag_key=None, tag_value=None):
+        # The ID of the resource. Set the value to the ID of the cluster.
         self.resource_id = resource_id  # type: str
+        # The type of the resource. Set the value to cluster, which indicates E-HPC clusters.
         self.resource_type = resource_type  # type: str
+        # The key of the tag.
         self.tag_key = tag_key  # type: str
+        # The value of the tag.
         self.tag_value = tag_value  # type: str
 
     def validate(self):
@@ -18250,8 +21040,11 @@ class ListTagResourcesResponseBodyTagResources(TeaModel):
 
 class ListTagResourcesResponseBody(TeaModel):
     def __init__(self, next_token=None, request_id=None, tag_resources=None):
+        # The token that is required for the next query. If the NextToken parameter is empty, no subsequent query will be sent.
         self.next_token = next_token  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The list of tags.
         self.tag_resources = tag_resources  # type: ListTagResourcesResponseBodyTagResources
 
     def validate(self):
@@ -18325,10 +21118,36 @@ class ListTagResourcesResponse(TeaModel):
 
 class ListTasksRequest(TeaModel):
     def __init__(self, archived=None, cluster_id=None, page_number=None, page_size=None, task_id=None):
+        # Specifies whether to display the response history of the asynchronous API operation. Valid values:
+        # 
+        # *   true: displays the current response and response history of the asynchronous API operation.
+        # *   false: displays only the current response of the asynchronous API operation. If no tasks are running, `[]` is returned.
+        # 
+        # Default value: false
+        # 
+        # >  If you specify the TaskId parameter, the Archived parameter is invalid.
         self.archived = archived  # type: bool
+        # The ID of the cluster.
+        # 
+        # You can call the [ListClusters](~~87116~~) operation to obtain the cluster ID.
         self.cluster_id = cluster_id  # type: str
+        # The number of the page to return. Pages start from page 1. Valid values: 1 to 999.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page. Valid values: 1 to 50.
+        # 
+        # Default value: 10
         self.page_size = page_size  # type: int
+        # The ID of the task. You can call the following asynchronous API operations to obtain the task ID.
+        # 
+        # *   [CreateCluster](~~87100~~)
+        # *   [StartCluster](~~200345~~)
+        # *   [StopCluster](~~200346~~)
+        # *   [DeleteCluster](~~87110~~)
+        # *   [AddNodes](~~87147~~)
+        # *   [StartNodes](~~87159~~)
+        # *   [ResetNodes](~~87158~~)
+        # *   [StopNodes](~~87160~~)
+        # *   [DeleteNodes](~~87155~~)
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -18370,14 +21189,43 @@ class ListTasksRequest(TeaModel):
 class ListTasksResponseBodyTasks(TeaModel):
     def __init__(self, cluster_id=None, current_step=None, errors=None, request=None, result=None, status=None,
                  task_id=None, task_type=None, total_steps=None):
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The current step of the task.
         self.current_step = current_step  # type: int
+        # The list of error messages returned for the task.
+        # 
+        # For information about error messages and their solutions, visit the [API Error Center](https://error-center.alibabacloud.com/status/product/EHPC).
         self.errors = errors  # type: str
+        # The request parameters of the task. The value is a JSON string.
         self.request = request  # type: str
+        # The result of the task. Valid values:
+        # 
+        # *   If TaskType is set to CreateCluster and AddComputes, the value is in the `{\"Instances\":[]}` format, which indicates the information of the nodes added to the cluster.
+        # *   If TaskType is set to a value other than CreateCluster and AddComputes, the value is in the `{}` format.
         self.result = result  # type: str
+        # The status of the task. Valid values:
+        # 
+        # *   Processing: The task is running.
+        # *   Success: The task is completed.
+        # *   Fail: The task failed.
+        # *   PartialFail: The task partially failed.
         self.status = status  # type: str
+        # The ID of the task.
         self.task_id = task_id  # type: str
+        # The type of the task. Valid values:
+        # 
+        # *   CreateCluster: creates a cluster by calling the [CreateCluster](~~87100~~) operation.
+        # *   StartCluster: starts a cluster by calling the [StartCluster](~~200345~~) operation.
+        # *   StopCluster: stops a cluster by calling the [StopCluster](~~200346~~) operation.
+        # *   DeleteCluster: releases a cluster by calling the [DeleteCluster](~~87110~~) operation.
+        # *   AddComputes: adds nodes to a cluster by calling the [AddNodes](~~87147~~) operation.
+        # *   StartComputes: starts nodes by calling the [StartNodes](~~87159~~) operation.
+        # *   ResetCompute: resets nodes by calling the [ResetNodes](~~87158~~) operation.
+        # *   StopComputes: stops nodes by calling the [StopNodes](~~87160~~) operation.
+        # *   DeleteComputes: deletes nodes by calling the [DeleteNodes](~~87155~~) operation.
         self.task_type = task_type  # type: str
+        # The total number of steps of the task.
         self.total_steps = total_steps  # type: int
 
     def validate(self):
@@ -18434,10 +21282,15 @@ class ListTasksResponseBodyTasks(TeaModel):
 
 class ListTasksResponseBody(TeaModel):
     def __init__(self, page_number=None, page_size=None, request_id=None, tasks=None, total_count=None):
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The list of task information.
         self.tasks = tasks  # type: list[ListTasksResponseBodyTasks]
+        # The total number of entries of the task.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -18525,7 +21378,9 @@ class ListTasksResponse(TeaModel):
 
 class ListUpgradeClientsRequest(TeaModel):
     def __init__(self, cluster_id=None, region_id=None):
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The ID of the region.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -18554,9 +21409,13 @@ class ListUpgradeClientsRequest(TeaModel):
 
 class ListUpgradeClientsResponseBodyClientRecords(TeaModel):
     def __init__(self, new_version=None, old_version=None, sub_uid=None, update_time=None):
+        # The version of the E-HPC client after the upgrade.
         self.new_version = new_version  # type: str
+        # The version of the E-HPC client before the upgrade.
         self.old_version = old_version  # type: str
+        # The ID of the user that upgraded the E-HPC client.
         self.sub_uid = sub_uid  # type: str
+        # The time when the operation was performed.
         self.update_time = update_time  # type: str
 
     def validate(self):
@@ -18593,9 +21452,13 @@ class ListUpgradeClientsResponseBodyClientRecords(TeaModel):
 
 class ListUpgradeClientsResponseBody(TeaModel):
     def __init__(self, client_records=None, current_version=None, latest_version=None, request_id=None):
+        # The upgrade records of the cluster.
         self.client_records = client_records  # type: list[ListUpgradeClientsResponseBodyClientRecords]
+        # The current version of the E-HPC client.
         self.current_version = current_version  # type: str
+        # The latest version of the E-HPC client.
         self.latest_version = latest_version  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -18679,8 +21542,19 @@ class ListUpgradeClientsResponse(TeaModel):
 
 class ListUsersRequest(TeaModel):
     def __init__(self, cluster_id=None, page_number=None, page_size=None):
+        # The ID of the cluster.
+        # 
+        # You can call the [ListClusters](~~87116~~) operation to query the cluster ID.
         self.cluster_id = cluster_id  # type: str
+        # The number of the page to return.
+        # 
+        # Pages start from page 1.
+        # 
+        # Default value: 1
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page. Valid values: 1 to 50.
+        # 
+        # Default value: 10
         self.page_size = page_size  # type: int
 
     def validate(self):
@@ -18713,8 +21587,14 @@ class ListUsersRequest(TeaModel):
 
 class ListUsersResponseBodyUsersUserInfo(TeaModel):
     def __init__(self, add_time=None, group=None, name=None):
+        # The time when the user was created.
         self.add_time = add_time  # type: str
+        # The name of the permission group. Valid values:
+        # 
+        # *   users: an ordinary permission group. It is applicable to ordinary users that need only to submit and debug jobs.
+        # *   wheel: a sudo permission group. It is applicable to the administrator who needs to manage the cluster. In addition to submitting and debugging jobs, users who have sudo permissions can run sudo commands to install software and restart nodes.
         self.group = group  # type: str
+        # The username.
         self.name = name  # type: str
 
     def validate(self):
@@ -18779,10 +21659,15 @@ class ListUsersResponseBodyUsers(TeaModel):
 
 class ListUsersResponseBody(TeaModel):
     def __init__(self, page_number=None, page_size=None, request_id=None, total_count=None, users=None):
+        # The number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of returned entries.
         self.total_count = total_count  # type: int
+        # The list of users.
         self.users = users  # type: ListUsersResponseBodyUsers
 
     def validate(self):
@@ -19075,7 +21960,15 @@ class ListUsersAsyncResponse(TeaModel):
 
 class ListVolumesRequest(TeaModel):
     def __init__(self, page_number=None, page_size=None):
+        # The number of the page to return.
+        # 
+        # Pages start from page 1.
+        # 
+        # Default value: 1
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page. Valid values: 1 to 50.
+        # 
+        # Default value: 10
         self.page_size = page_size  # type: int
 
     def validate(self):
@@ -19105,14 +21998,33 @@ class ListVolumesRequest(TeaModel):
 class ListVolumesResponseBodyVolumesVolumeInfoAdditionalVolumesVolumeInfo(TeaModel):
     def __init__(self, job_queue=None, local_directory=None, location=None, remote_directory=None, role=None,
                  volume_id=None, volume_mountpoint=None, volume_protocol=None, volume_type=None):
+        # The queue to which the job belongs.
         self.job_queue = job_queue  # type: str
+        # The local mount directory.
         self.local_directory = local_directory  # type: str
+        # The location where the cluster was deployed. Valid values:
+        # 
+        # *   OnPremise: The cluster is deployed on a hybrid cloud.
+        # *   PublicCloud: The cluster is deployed on a public cloud.
         self.location = location  # type: str
+        # The remote directory on which the file system is mounted.
         self.remote_directory = remote_directory  # type: str
+        # The type of the node on which the file system is mounted. Valid values:
+        # 
+        # *   Manager: management node
+        # *   Login: logon node
+        # *   Compute: compute node
         self.role = role  # type: str
+        # The ID of the file system.
         self.volume_id = volume_id  # type: str
+        # The domain name of the mount target.
         self.volume_mountpoint = volume_mountpoint  # type: str
+        # The type of the storage protocol. Valid values:
+        # 
+        # *   NFS
+        # *   SMB
         self.volume_protocol = volume_protocol  # type: str
+        # The type of the additional file system. Only NAS is supported.
         self.volume_type = volume_type  # type: str
 
     def validate(self):
@@ -19202,14 +22114,26 @@ class ListVolumesResponseBodyVolumesVolumeInfoAdditionalVolumes(TeaModel):
 class ListVolumesResponseBodyVolumesVolumeInfo(TeaModel):
     def __init__(self, additional_volumes=None, cluster_id=None, cluster_name=None, region_id=None,
                  remote_directory=None, volume_id=None, volume_mountpoint=None, volume_protocol=None, volume_type=None):
+        # The information of additional file systems mounted on E-HPC clusters.
         self.additional_volumes = additional_volumes  # type: ListVolumesResponseBodyVolumesVolumeInfoAdditionalVolumes
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The name of the cluster.
         self.cluster_name = cluster_name  # type: str
+        # The ID of the region.
         self.region_id = region_id  # type: str
+        # The remote directory on which the file system is mounted.
         self.remote_directory = remote_directory  # type: str
+        # The ID of the file system.
         self.volume_id = volume_id  # type: str
+        # The domain name of the mount target.
         self.volume_mountpoint = volume_mountpoint  # type: str
+        # The type of the storage protocol. Valid values:
+        # 
+        # *   NFS
+        # *   SMB
         self.volume_protocol = volume_protocol  # type: str
+        # The type of the file system that is mounted on the cluster. Only NAS is supported.
         self.volume_type = volume_type  # type: str
 
     def validate(self):
@@ -19300,10 +22224,15 @@ class ListVolumesResponseBodyVolumes(TeaModel):
 
 class ListVolumesResponseBody(TeaModel):
     def __init__(self, page_number=None, page_size=None, request_id=None, total_count=None, volumes=None):
+        # The number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of returned entries.
         self.total_count = total_count  # type: int
+        # The information of file systems that are mounted on E-HPC clusters.
         self.volumes = volumes  # type: ListVolumesResponseBodyVolumes
 
     def validate(self):
@@ -19386,10 +22315,20 @@ class ListVolumesResponse(TeaModel):
 class ModifyClusterAttributesRequest(TeaModel):
     def __init__(self, cluster_id=None, description=None, image_id=None, image_owner_alias=None, name=None,
                  ram_node_types=None, ram_role_name=None):
+        # The ID of the cluster that you want to modify.
         self.cluster_id = cluster_id  # type: str
+        # The new cluster description.
         self.description = description  # type: str
+        # The ID of the image.
         self.image_id = image_id  # type: str
+        # The new image type of the cluster. Valid values:
+        # 
+        # *   system: public image
+        # *   self: custom image
+        # *   others: shared image
+        # *   marketplace: Alibaba Cloud Marketplace image
         self.image_owner_alias = image_owner_alias  # type: str
+        # The new cluster name.
         self.name = name  # type: str
         self.ram_node_types = ram_node_types  # type: list[str]
         self.ram_role_name = ram_role_name  # type: str
@@ -19440,6 +22379,7 @@ class ModifyClusterAttributesRequest(TeaModel):
 
 class ModifyClusterAttributesResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -19503,7 +22443,11 @@ class ModifyClusterAttributesResponse(TeaModel):
 
 class ModifyContainerAppAttributesRequest(TeaModel):
     def __init__(self, container_id=None, description=None):
+        # The ID of the container.
+        # 
+        # You can call the [ListContainerApps](~~87333~~) operation to query the ID of the containerized application.
         self.container_id = container_id  # type: str
+        # The new description of the containerized application.
         self.description = description  # type: str
 
     def validate(self):
@@ -19532,6 +22476,7 @@ class ModifyContainerAppAttributesRequest(TeaModel):
 
 class ModifyContainerAppAttributesResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -19765,7 +22710,14 @@ class ModifyImageGatewayConfigResponse(TeaModel):
 
 class ModifyUserGroupsRequestUser(TeaModel):
     def __init__(self, group=None, name=None):
+        # The new permission group of the user. Valid values:
+        # 
+        # *   users: an ordinary permission group. It is applicable to ordinary users that need only to submit and debug jobs.
+        # *   wheel: a sudo permission group. It is applicable to the administrator who needs to manage the cluster. In addition to submitting and debugging jobs, users who have sudo permissions can run sudo commands to install software and restart nodes.
         self.group = group  # type: str
+        # The name of the user whose permissions you want to modify. Valid values of N: 1 to 100.
+        # 
+        # You can call the [ListUsers](~~188572~~) operation to query the users of the cluster.
         self.name = name  # type: str
 
     def validate(self):
@@ -19795,6 +22747,9 @@ class ModifyUserGroupsRequestUser(TeaModel):
 class ModifyUserGroupsRequest(TeaModel):
     def __init__(self, async=None, cluster_id=None, user=None):
         self.async = async  # type: bool
+        # The ID of the cluster.
+        # 
+        # You can call the [ListClusters](~~87116~~) operation to query the cluster ID.
         self.cluster_id = cluster_id  # type: str
         self.user = user  # type: list[ModifyUserGroupsRequestUser]
 
@@ -19836,6 +22791,7 @@ class ModifyUserGroupsRequest(TeaModel):
 
 class ModifyUserGroupsResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -19899,7 +22855,20 @@ class ModifyUserGroupsResponse(TeaModel):
 
 class ModifyUserPasswordsRequestUser(TeaModel):
     def __init__(self, name=None, password=None):
+        # The name of the Nth user whose password you want to modify. Valid values of N: 1 to 100.
+        # 
+        # You can call the [ListUsers](~~188572~~) operation to query the users of the cluster.
         self.name = name  # type: str
+        # The password of the Nth user. The password must be 8 to 30 characters in length and contain three of the following items:
+        # 
+        # *   Uppercase letter
+        # *   Lowercase letter
+        # *   Digit
+        # *   Special character: `()~!@#$%^&*-_+=|{}[]:;\"/<>,.?/`
+        # 
+        # Valid values of N: 1 to 100
+        # 
+        # >  We recommend that you use HTTPS to call the AddUsers operation to ensure that the password remains confidential.
         self.password = password  # type: str
 
     def validate(self):
@@ -19929,6 +22898,9 @@ class ModifyUserPasswordsRequestUser(TeaModel):
 class ModifyUserPasswordsRequest(TeaModel):
     def __init__(self, async=None, cluster_id=None, user=None):
         self.async = async  # type: bool
+        # The ID of the E-HPC cluster.
+        # 
+        # You can call the [ListClusters](~~87116~~) operation to query the cluster ID.
         self.cluster_id = cluster_id  # type: str
         self.user = user  # type: list[ModifyUserPasswordsRequestUser]
 
@@ -19970,6 +22942,7 @@ class ModifyUserPasswordsRequest(TeaModel):
 
 class ModifyUserPasswordsResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -20033,9 +23006,17 @@ class ModifyUserPasswordsResponse(TeaModel):
 
 class ModifyVisualServicePasswdRequest(TeaModel):
     def __init__(self, cluster_id=None, passwd=None, runas_user=None, runas_user_password=None):
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The connection password of the VNC remote visualization service. The password must be 8 to 30 characters in length and include at least three of the following character types: uppercase letters, lowercase letters, digits, and special characters. Special characters include:
+        # 
+        # `()~! @#$%^&*-_+=|{}[]:;\"/<>,.? /`
+        # 
+        # >  You must use HTTPS to call the API to ensure that the password remains confidential.
         self.passwd = passwd  # type: str
+        # The username of the cluster. Default value: root user. You can call the [ListUsers](~~188572~~) operation to query all users in a cluster.
         self.runas_user = runas_user  # type: str
+        # The user password of the cluster.
         self.runas_user_password = runas_user_password  # type: str
 
     def validate(self):
@@ -20072,7 +23053,12 @@ class ModifyVisualServicePasswdRequest(TeaModel):
 
 class ModifyVisualServicePasswdResponseBody(TeaModel):
     def __init__(self, message=None, request_id=None):
+        # The status of the VNC Remote visualization service. Valid values:
+        # 
+        # *   Service started.: started
+        # *   Service stopped.: stopped
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -20252,9 +23238,13 @@ class MountNFSResponse(TeaModel):
 
 class PullImageRequest(TeaModel):
     def __init__(self, cluster_id=None, container_type=None, image_tag=None, repository=None):
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The type of the image. Default value: shifter.
         self.container_type = container_type  # type: str
+        # The tag of the image. Default value: latest.
         self.image_tag = image_tag  # type: str
+        # The name of the repository.
         self.repository = repository  # type: str
 
     def validate(self):
@@ -20291,6 +23281,7 @@ class PullImageRequest(TeaModel):
 
 class PullImageResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -20532,12 +23523,45 @@ class QueryServicePackAndPriceResponse(TeaModel):
 class RecoverClusterRequest(TeaModel):
     def __init__(self, account_type=None, client_version=None, cluster_id=None, image_id=None,
                  image_owner_alias=None, os_tag=None, scheduler_type=None):
+        # The service type of the domain account. Valid values:
+        # 
+        # *   nis
+        # *   ldap
+        # 
+        # Default value: nis
         self.account_type = account_type  # type: str
+        # The version of the E-HPC client. The default value is the latest version of the client.
+        # 
+        # You can call the [ListCurrentClientVersion](~~87223~~) operation to query the current version of the E-HPC client.
         self.client_version = client_version  # type: str
+        # The ID of the cluster. The cluster must be in the Exception state.
+        # 
+        # You can call the [ListClusters](~~87116~~) operation to query the cluster ID and status.
         self.cluster_id = cluster_id  # type: str
+        # The ID of the image.
+        # 
+        # You can call the [ListImages](~~87213~~) and [ListCustomImages](~~87215~~) operations to query the images that are supported by E-HPC.
         self.image_id = image_id  # type: str
+        # The type of the image. Valid values:
+        # 
+        # *   system: public image
+        # *   self: custom image
+        # *   others: shared image
+        # 
+        # Default value: system
         self.image_owner_alias = image_owner_alias  # type: str
+        # The image tag of the operating system.
+        # 
+        # You can call the [ListImages](~~87213~~) and [ListCustomImages](~~87215~~) operations to query the image tags supported by Elastic High Performance Computing (E-HPC).
         self.os_tag = os_tag  # type: str
+        # The type of the scheduler. Valid values:
+        # 
+        # *   pbs
+        # *   slurm
+        # *   opengridscheduler
+        # *   deadline
+        # 
+        # Default value: pbs
         self.scheduler_type = scheduler_type  # type: str
 
     def validate(self):
@@ -20586,7 +23610,9 @@ class RecoverClusterRequest(TeaModel):
 
 class RecoverClusterResponseBody(TeaModel):
     def __init__(self, request_id=None, task_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The ID of the task.
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -20654,8 +23680,21 @@ class RecoverClusterResponse(TeaModel):
 
 class RerunJobsRequest(TeaModel):
     def __init__(self, async=None, cluster_id=None, jobs=None):
+        # Specifies whether to use an asynchronous link to rerun the job.
+        # 
+        # Default value: false
         self.async = async  # type: bool
+        # The ID of the cluster.
+        # 
+        # You can call the [ListClusters](~~87116~~) operation to query the cluster ID.
         self.cluster_id = cluster_id  # type: str
+        # The list of jobs that you want to run. Maximum number of jobs: 100. Minimum number of jobs: 1.
+        # 
+        # Format: `[{"Id": "0.sched****"},{"Id": "1.sched****"}]`. Separate multiple jobs with commas (,).
+        # 
+        # You can call the [ListJobs](~~87251~~) operation to query the job ID.
+        # 
+        # >  You can rerun only jobs that are in the RUNNING or QUEUED state.
         self.jobs = jobs  # type: str
 
     def validate(self):
@@ -20688,6 +23727,7 @@ class RerunJobsRequest(TeaModel):
 
 class RerunJobsResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -20751,6 +23791,9 @@ class RerunJobsResponse(TeaModel):
 
 class ResetNodesRequestInstance(TeaModel):
     def __init__(self, id=None):
+        # The ID of the compute node that you want to reset. Valid values of N: 1 to 100
+        # 
+        # You can call the [ListNodes](~~87161~~) operation to query the IDs of the compute nodes.
         self.id = id  # type: str
 
     def validate(self):
@@ -20775,6 +23818,9 @@ class ResetNodesRequestInstance(TeaModel):
 
 class ResetNodesRequest(TeaModel):
     def __init__(self, cluster_id=None, instance=None):
+        # The ID of the cluster.
+        # 
+        # You can call the [ListClusters](~~87116~~) operation to query the cluster ID.
         self.cluster_id = cluster_id  # type: str
         self.instance = instance  # type: list[ResetNodesRequestInstance]
 
@@ -20812,7 +23858,9 @@ class ResetNodesRequest(TeaModel):
 
 class ResetNodesResponseBody(TeaModel):
     def __init__(self, request_id=None, task_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The ID of the task.
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -20880,11 +23928,25 @@ class ResetNodesResponse(TeaModel):
 
 class RunCloudMetricProfilingRequest(TeaModel):
     def __init__(self, cluster_id=None, duration=None, freq=None, host_name=None, process_id=None, region_id=None):
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The duration of the profiling process. Unit: seconds.
+        # 
+        # Value values: 10 to 300
+        # 
+        # Default value: 30
         self.duration = duration  # type: int
+        # The sampling frequency. Unit: Hz
+        # 
+        # Valid values: 1 to 2000
+        # 
+        # Default value: 2000
         self.freq = freq  # type: int
+        # The name of the host.
         self.host_name = host_name  # type: str
+        # The ID of the profiling process.
         self.process_id = process_id  # type: int
+        # The ID of the region where the cluster resides.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -20929,6 +23991,7 @@ class RunCloudMetricProfilingRequest(TeaModel):
 
 class RunCloudMetricProfilingResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -20993,11 +24056,57 @@ class RunCloudMetricProfilingResponse(TeaModel):
 class SetAutoScaleConfigRequestQueuesDataDisks(TeaModel):
     def __init__(self, data_disk_category=None, data_disk_delete_with_instance=None, data_disk_encrypted=None,
                  data_disk_kmskey_id=None, data_disk_performance_level=None, data_disk_size=None):
+        # The type of the data disk. Valid values:
+        # 
+        # *   cloud_efficiency: ultra disk
+        # *   cloud_ssd: SSD
+        # *   cloud_essd: ESSD
+        # *   cloud: basic disk
+        # 
+        # Default value: cloud_efficiency
+        # 
+        # Valid values of N: 0 to 16
         self.data_disk_category = data_disk_category  # type: str
+        # Specifies whether the data disk is released when the node is released. Valid values:
+        # 
+        # *   true
+        # *   false
+        # 
+        # Default value: true
+        # 
+        # Valid values of N: 0 to 16
         self.data_disk_delete_with_instance = data_disk_delete_with_instance  # type: bool
+        # Specifies whether to encrypt the data disk. Valid values:
+        # 
+        # *   true
+        # *   false
+        # 
+        # Default value: false
+        # 
+        # Valid values of N: 0 to 16
         self.data_disk_encrypted = data_disk_encrypted  # type: bool
+        # The KMS key ID of the data disk.
+        # 
+        # Valid values of N: 0 to 16
         self.data_disk_kmskey_id = data_disk_kmskey_id  # type: str
+        # The performance level of the ESSD used as the data disk. The parameter takes effect only when the Queues.N.DataDisks.N.DataDiskCategory parameter is set to cloud_essd. Valid values:
+        # 
+        # *   PL0: A single ESSD can deliver up to 10,000 random read/write IOPS.
+        # *   PL1: A single ESSD can deliver up to 50,000 random read/write IOPS.
+        # *   PL2: A single ESSD can deliver up to 100,000 random read/write IOPS.
+        # *   PL3: A single ESSD can deliver up to 1,000,000 random read/write IOPS.
+        # 
+        # Default value: PL1
+        # 
+        # Valid values of N: 0 to 16
         self.data_disk_performance_level = data_disk_performance_level  # type: str
+        # The size of the data disk. Unit: GB.
+        # 
+        # Valid values: 40 to 500
+        # 
+        # Default value: 40
+        # 
+        # Valid values of N: 0 to 16
         self.data_disk_size = data_disk_size  # type: int
 
     def validate(self):
@@ -21043,12 +24152,43 @@ class SetAutoScaleConfigRequestQueuesDataDisks(TeaModel):
 class SetAutoScaleConfigRequestQueuesInstanceTypes(TeaModel):
     def __init__(self, instance_type=None, spot_duration=None, spot_interruption_behavior=None,
                  spot_price_limit=None, spot_strategy=None, v_switch_id=None, zone_id=None):
+        # The instance type of the compute nodes that are automatically added in the queue.
+        # 
+        # N queue names can be set at the same time. Valid values of N: 1 to 8.
+        # 
+        # The instance types of N compute nodes in the queue can be set at the same time when auto scaling is performed in the queue. Valid values of N: 0 to 500.
         self.instance_type = instance_type  # type: str
         self.spot_duration = spot_duration  # type: int
         self.spot_interruption_behavior = spot_interruption_behavior  # type: str
+        # The maximum hourly price of the compute nodes that are automatically added in the queue. The value can be accurate to three decimal places. The parameter takes effect only when `Queues.N.InstanceTypes.N.SpotStrategy` is set to `Queues.N.InstanceTypes.N.SpotStrategy`.
+        # 
+        # The maximum hourly prices of the compute nodes that are automatically added in N queues can be set the same time. Valid values of N: 1 to 8.
+        # 
+        # The maximum hourly prices of N compute nodes in the queue can be set at the same time when auto scaling is performed in the queue. Valid values of N: 0 to 500.
         self.spot_price_limit = spot_price_limit  # type: float
+        # The bidding method of the compute nodes that are automatically added in the queue. Valid values:
+        # 
+        # *   NoSpot: The compute nodes are pay-as-you-go instances.
+        # *   SpotWithPriceLimit: The compute nodes are preemptible instances that have a user-defined maximum hourly price.
+        # *   SpotAsPriceGo: The compute nodes are preemptible instances for which the market price at the time of purchase is used as the bid price.
+        # 
+        # Default value: NoSpot
+        # 
+        # N queue names can be set at the same time. Valid values of N: 1 to 8.
+        # 
+        # The bidding methods of N compute nodes in the queue can be set at the same time when auto scaling is performed in the queue. Valid values of N: 0 to 500.
         self.spot_strategy = spot_strategy  # type: str
+        # The vSwitch ID of the compute nodes that are automatically added in the queue.
+        # 
+        # N queue names can be set at the same time. Valid values of N: 1 to 8.
+        # 
+        # The vSwitch IDs of N compute nodes in the queue can be set at the same time when auto scaling is performed in the queue. Valid values of N: 0 to 500.
         self.v_switch_id = v_switch_id  # type: str
+        # The zone ID of the compute nodes that are automatically added in the queue belongs.
+        # 
+        # N queue names can be set at the same time. Valid values of N: 1 to 8.
+        # 
+        # The zone IDs of N compute nodes in the queue can be set at the same time when auto scaling is performed in the queue. Valid values of N: 0 to 500.
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -21101,22 +24241,111 @@ class SetAutoScaleConfigRequestQueues(TeaModel):
                  min_nodes_in_queue=None, min_nodes_per_cycle=None, queue_image_id=None, queue_name=None, spot_price_limit=None,
                  spot_strategy=None, system_disk_category=None, system_disk_level=None, system_disk_size=None):
         self.data_disks = data_disks  # type: list[SetAutoScaleConfigRequestQueuesDataDisks]
+        # Specifies whether the queue enables auto scale-out. Valid values:
+        # 
+        # *   true: enables auto scale-out.
+        # *   false: disables auto scale-out
+        # 
+        # Valid values of N: 1 to 8
+        # 
+        # Default value: false
         self.enable_auto_grow = enable_auto_grow  # type: bool
+        # Specifies whether the queue enables auto scale-in. Valid values:
+        # 
+        # *   true: enables auto scale-in.
+        # *   false: disables auto scale-in
+        # 
+        # Valid values of N: 1 to 8
+        # 
+        # Default value: false
         self.enable_auto_shrink = enable_auto_shrink  # type: bool
+        # The hostname prefix of the host that is used to perform scale-out for the queue. You can manage compute nodes that have a specified hostname prefix.
+        # 
+        # Valid values of N: 1 to 8
         self.host_name_prefix = host_name_prefix  # type: str
+        # The hostname suffix of the host that is used to perform scale-out for the queue. You can manage nodes that have a specified hostname suffix.
+        # 
+        # Valid values of N: 1 to 8
         self.host_name_suffix = host_name_suffix  # type: str
+        # The instance type of the compute nodes that are automatically added in the queue. Valid values of N: 1 to 8
         self.instance_type = instance_type  # type: str
         self.instance_types = instance_types  # type: list[SetAutoScaleConfigRequestQueuesInstanceTypes]
+        # The maximum number of the compute nodes that can be added in the queue. Valid values: 0 to 500.
+        # 
+        # Valid values of N: 1 to 8
+        # 
+        # Default value: 100
         self.max_nodes_in_queue = max_nodes_in_queue  # type: int
+        # The maximum number of compute nodes that can be added in each round of scale-out. Valid values: 0 to 99.
+        # 
+        # Default value: 0
         self.max_nodes_per_cycle = max_nodes_per_cycle  # type: long
+        # The minimum number of the compute nodes that can be removed in the queue. Valid values: 0 to 50.
+        # 
+        # Valid values of N: 1 to 8
+        # 
+        # Default value: 0
         self.min_nodes_in_queue = min_nodes_in_queue  # type: int
+        # The minimum number of compute nodes that can be added in each round of scale-out. Valid values: 1 to 99.
+        # 
+        # Default value: 1
+        # 
+        # If the compute nodes that you want to add in a round is less than the minimum compute nodes that can be added, the value of this parameter is automatically changed to the number of compute nodes that you want to add. This ensures that compute nodes can be added as expected.
+        # 
+        # >  The configuration takes effect only for the minimum compute nodes that can be added in the current round.
         self.min_nodes_per_cycle = min_nodes_per_cycle  # type: long
+        # The image ID of the queue where scale-out is performed. Valid values of N: 1 to 8.
+        # 
+        # > 
+        # *   If you set both `Queues.N.QueueImageId` and `ImageId`, `Queues.N.QueueImageId` prevails.
+        # *   If you set `Queues.N.QueueImageId` or `ImageId`, the parameter that you set takes effect.
+        # *   If you leave both `Queues.N.QueueImageId` and `ImageId` empty, the image that was specified when you created the cluster or the last time when you scaled out the cluster is used by default.
         self.queue_image_id = queue_image_id  # type: str
+        # The name of the queue. N queue names can be set at the same time. Valid values of N: 1 to 8.
         self.queue_name = queue_name  # type: str
+        # The maximum hourly price of the compute nodes that are automatically added in the queue. The value can be accurate to three decimal places. The parameter takes effect only when `Queues.N.SpotStrategy` is set to `SpotWithPriceLimit`.
+        # 
+        # Valid values of N: 1 to 8
         self.spot_price_limit = spot_price_limit  # type: float
+        # The bidding method of the compute nodes that are automatically added in the queue. Valid values of N: 1 to 8
+        # 
+        # Valid values:
+        # 
+        # *   NoSpot: The compute nodes are pay-as-you-go instances.
+        # *   SpotWithPriceLimit: The compute nodes are preemptible instances that have a user-defined maximum hourly price.
+        # *   SpotAsPriceGo: The compute nodes are preemptible instances for which the market price at the time of purchase is used as the bid price.
+        # 
+        # Default value: NoSpot
         self.spot_strategy = spot_strategy  # type: str
+        # The type of the system disk specified for the compute nodes that are added in the queue. Valid values:
+        # 
+        # *   cloud_efficiency: ultra disk.
+        # *   cloud_ssd: SSD.
+        # *   cloud_essd: ESSD.
+        # *   cloud: basic disk. Disks of this type are retired.
+        # 
+        # Valid values of N: 1 to 8
+        # 
+        # Default value: cloud_efficiency
         self.system_disk_category = system_disk_category  # type: str
+        # The performance level of the system disk specified for the compute nodes that are added in the queue. Valid values:
+        # 
+        # *   PL0: A single ESSD can deliver up to 10,000 random read/write IOPS.
+        # *   PL1: A single ESSD can deliver up to 50,000 random read/write IOPS.
+        # *   PL2: A single ESSD can deliver up to 100,000 random read/write IOPS.
+        # *   PL3: A single ESSD can deliver up to 1,000,000 random read/write IOPS.
+        # 
+        # Valid values of N: 1 to 8
+        # 
+        # Default value: PL1
         self.system_disk_level = system_disk_level  # type: str
+        # The size of the system disk specified for the compute nodes that are added in the queue. Unit: GB.
+        # 
+        # Valid values: 40 to 500
+        # 
+        # Valid values of N: 1 to 8
+        # 
+        # Default value: 40
         self.system_disk_size = system_disk_size  # type: int
 
     def validate(self):
@@ -21229,20 +24458,89 @@ class SetAutoScaleConfigRequest(TeaModel):
                  extra_nodes_grow_ratio=None, grow_interval_in_minutes=None, grow_ratio=None, grow_timeout_in_minutes=None, image_id=None,
                  max_nodes_in_cluster=None, queues=None, shrink_idle_times=None, shrink_interval_in_minutes=None, spot_price_limit=None,
                  spot_strategy=None):
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # Specifies whether to enable auto scale-out. Valid values:
+        # 
+        # *   true: enables auto scale-out.
+        # *   false: disables auto scale-out
+        # 
+        # Default value: false
         self.enable_auto_grow = enable_auto_grow  # type: bool
+        # Specifies whether to enable auto scale-in. Valid values:
+        # 
+        # *   true: enables auto scale-in.
+        # *   false: disables auto scale-in
+        # 
+        # Default value: false
         self.enable_auto_shrink = enable_auto_shrink  # type: bool
+        # The compute nodes that are excluded from the list of auto scaling nodes. Separate multiple compute nodes with commas (,).
+        # 
+        # If you want to retain a compute node, you can set the node as an exceptional node. Then, the node is not released if it is idle.
         self.exclude_nodes = exclude_nodes  # type: str
+        # The percentage of extra compute nodes. Valid values: 0 to 100
+        # 
+        # Default value: 0
+        # 
+        # If you need to add 100 compute nodes and the value of the ExtraNodesGrowRatio parameter is 2, 102 compute nodes are added.
         self.extra_nodes_grow_ratio = extra_nodes_grow_ratio  # type: int
+        # The interval between two consecutive rounds of scale-out. Unit: minutes.
+        # 
+        # Valid values: 2 to 10
+        # 
+        # Default value: 2
+        # 
+        # >  An interval may exist during multiple rounds of a scale-out task or between two consecutive scale-out tasks.
         self.grow_interval_in_minutes = grow_interval_in_minutes  # type: int
+        # The percentage of each round of scale-out. Valid values: 1 to 100.
+        # 
+        # Default value: 100
+        # 
+        # If you set GrowRatio to 50, the scale-out has two rounds. Each round completes half of the scale-out.
         self.grow_ratio = grow_ratio  # type: int
+        # The scale-out timeout period. Unit: minutes.
+        # 
+        # Valid values: 10 to 60
+        # 
+        # Default value: 20
+        # 
+        # If the scale-out timeout period has been reached but the scale-out nodes still do not reach the Running state, the system resets them.
         self.grow_timeout_in_minutes = grow_timeout_in_minutes  # type: int
+        # The ID of the image.
+        # 
+        # > 
+        # *   If you set both `Queues.N.QueueImageId` and `ImageId`, `Queues.N.QueueImageId` prevails.
+        # *   If you set `Queues.N.QueueImageId` or `ImageId`, the parameter that you set takes effect.
+        # *   If you leave both `Queues.N.QueueImageId` and `ImageId` empty, the image that was specified when you created the cluster or the last time when you scaled out the cluster is used by default.
         self.image_id = image_id  # type: str
+        # The maximum number of compute nodes that can be added in the cluster. Valid values: 0 to 500.
+        # 
+        # Default value: 100
         self.max_nodes_in_cluster = max_nodes_in_cluster  # type: int
         self.queues = queues  # type: list[SetAutoScaleConfigRequestQueues]
+        # The number of consecutive times that a compute node is idle during the resource scale-in check.
+        # 
+        # Valid values: 2 to 5
+        # 
+        # Default value: 3
+        # 
+        # If the parameter is set to 3, a compute node is idle for more than three consecutive times. In this case, the node is released. If a compute node is idle for more than 6 minutes in a row, it is released by default. This is because the default value of the ShrinkIntervalInMinutes parameter is 2.
         self.shrink_idle_times = shrink_idle_times  # type: int
+        # The interval between two consecutive rounds of scale-in. Unit: minutes.
+        # 
+        # Valid values: 2 to 10
+        # 
+        # Default value: 2
         self.shrink_interval_in_minutes = shrink_interval_in_minutes  # type: int
+        # The maximum hourly price of the compute nodes. The value can be accurate to three decimal places. The parameter takes effect only when `SpotStrategy` is set to `SpotWithPriceLimit`.
         self.spot_price_limit = spot_price_limit  # type: float
+        # The preemption policy of the compute nodes. Valid values:
+        # 
+        # *   NoSpot: The compute nodes are pay-as-you-go instances.
+        # *   SpotWithPriceLimit: The compute nodes are preemptible instances that have a user-defined maximum hourly price.
+        # *   SpotAsPriceGo: The compute nodes are preemptible instances for which the market price at the time of purchase is used as the bid price.
+        # 
+        # Default value: NoSpot
         self.spot_strategy = spot_strategy  # type: str
 
     def validate(self):
@@ -21331,6 +24629,7 @@ class SetAutoScaleConfigRequest(TeaModel):
 
 class SetAutoScaleConfigResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -21701,7 +25000,9 @@ class SetGWSInstanceUserResponse(TeaModel):
 
 class SetPostScriptsRequestPostInstallScripts(TeaModel):
     def __init__(self, args=None, url=None):
+        # The parameter that is used to run the Nth post-installation script. Valid values of N: 1 to 16.
         self.args = args  # type: str
+        # The URL that is used to download the Nth post-installation script. Valid values of N: 1 to 16.
         self.url = url  # type: str
 
     def validate(self):
@@ -21730,8 +25031,12 @@ class SetPostScriptsRequestPostInstallScripts(TeaModel):
 
 class SetPostScriptsRequest(TeaModel):
     def __init__(self, cluster_id=None, post_install_scripts=None, region_id=None):
+        # The ID of the cluster.
+        # 
+        # You can call the [ListClusters](~~87116~~) operation to query the cluster ID.
         self.cluster_id = cluster_id  # type: str
         self.post_install_scripts = post_install_scripts  # type: list[SetPostScriptsRequestPostInstallScripts]
+        # The ID of the region where the cluster resides. You can call the [ListRegions](~~188593~~) operation to query the latest region list.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -21772,6 +25077,7 @@ class SetPostScriptsRequest(TeaModel):
 
 class SetPostScriptsResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -21835,6 +25141,9 @@ class SetPostScriptsResponse(TeaModel):
 
 class SetQueueRequestNode(TeaModel):
     def __init__(self, name=None):
+        # The name of the compute node that you want to move. Valid values of N: 1 to 100.
+        # 
+        # You can call the [ListNodes](~~87161~~) operation to query the names of the compute nodes.
         self.name = name  # type: str
 
     def validate(self):
@@ -21859,8 +25168,14 @@ class SetQueueRequestNode(TeaModel):
 
 class SetQueueRequest(TeaModel):
     def __init__(self, cluster_id=None, node=None, queue_name=None):
+        # The ID of the cluster.
+        # 
+        # You can call the [ListClusters](~~87116~~) operation to query the cluster ID.
         self.cluster_id = cluster_id  # type: str
         self.node = node  # type: list[SetQueueRequestNode]
+        # The name of the destination queue.
+        # 
+        # You can call the [ListQueues](~~92176~~) operation to query the queue name.
         self.queue_name = queue_name  # type: str
 
     def validate(self):
@@ -21901,6 +25216,7 @@ class SetQueueRequest(TeaModel):
 
 class SetQueueResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -21964,7 +25280,13 @@ class SetQueueResponse(TeaModel):
 
 class SetSchedulerInfoRequestPbsInfoAclLimit(TeaModel):
     def __init__(self, acl_users=None, queue=None):
+        # The user that can use the queue. Separate multiple users with commas (`,`).
+        # 
+        # If you specify users, you must specify the PbsInfo.N.AclLimit.N.Queue parameter.
         self.acl_users = acl_users  # type: str
+        # AclLimit specifies the queue that has limits when it is used. Valid values of N: 0 to 100.
+        # 
+        # If you set `PbsInfo.N.AclLimit.N.Queue` to `workq` and `PbsInfo.N.AclLimit.N.AclUsers` to `user1,user2`, workq can be used only by user1 and user2.
         self.queue = queue  # type: str
 
     def validate(self):
@@ -21993,11 +25315,27 @@ class SetSchedulerInfoRequestPbsInfoAclLimit(TeaModel):
 
 class SetSchedulerInfoRequestPbsInfoResourceLimit(TeaModel):
     def __init__(self, cpus=None, max_jobs=None, mem=None, nodes=None, queue=None, user=None):
+        # The maximum number of vCPUs that can be used for nodes in a queue.
         self.cpus = cpus  # type: int
+        # The maximum number of jobs that can be submitted to the cluster. If the total number of running jobs and queuing jobs exceeds the value, no more jobs can be submitted.
         self.max_jobs = max_jobs  # type: int
+        # The maximum memory resources that can be used in a queue. Units:
+        # 
+        # *   gb
+        # *   mb
+        # *   kb
         self.mem = mem  # type: str
+        # The maximum number of nodes that can be used in a queue.
         self.nodes = nodes  # type: int
+        # PbsInfo specifies the number of PBS schedulers that can be configured in the cluster. Valid values of N: 0 to 100.
+        # 
+        # ResourceLimit specifies the maximum number of queue resources that can be used. Valid values of N: 0 to 100.
+        # 
+        # Queue specifies the name of the queue that is used to run jobs.
+        # 
+        # If one of the User, Cpus, Nodes, and Mem parameters is set in ResourceLimit, you must specify the Queue parameter.
         self.queue = queue  # type: str
+        # The name of the user that runs jobs.
         self.user = user  # type: str
 
     def validate(self):
@@ -22044,10 +25382,24 @@ class SetSchedulerInfoRequestPbsInfo(TeaModel):
     def __init__(self, acl_limit=None, job_history_duration=None, resource_limit=None, sched_interval=None,
                  sched_max_jobs=None, sched_max_queued_jobs=None):
         self.acl_limit = acl_limit  # type: list[SetSchedulerInfoRequestPbsInfoAclLimit]
+        # The retention period of jobs. After the retention period is exceeded, job data is deleted. Unit: days.
+        # 
+        # Valid values: 1 to 30
+        # 
+        # Default value: 14
         self.job_history_duration = job_history_duration  # type: int
         self.resource_limit = resource_limit  # type: list[SetSchedulerInfoRequestPbsInfoResourceLimit]
+        # PbsInfo specifies the number of PBS schedulers that can be configured in the cluster. Valid values of N: 0 to 100.
+        # 
+        # SchedInterval specifies the scheduling period. Unit: seconds.
+        # 
+        # A scheduling period is the interval between two consecutive running jobs. If you set SchedInterval to 60, another job can be run 60 seconds after a job starts running.
+        # 
+        # Default value: 60
         self.sched_interval = sched_interval  # type: int
+        # The maximum number of jobs that can be scheduled in the cluster. If the total number of running jobs and queuing jobs exceeds the value, no more jobs can be submitted. Default value: 20000.
         self.sched_max_jobs = sched_max_jobs  # type: int
+        # The maximum number of queuing jobs that can be scheduled in the cluster. If the number of queuing jobs exceeds the value, no more jobs can be submitted. Default value: 10000.
         self.sched_max_queued_jobs = sched_max_queued_jobs  # type: int
 
     def validate(self):
@@ -22109,6 +25461,15 @@ class SetSchedulerInfoRequestPbsInfo(TeaModel):
 
 class SetSchedulerInfoRequestScheduler(TeaModel):
     def __init__(self, sched_name=None):
+        # The name of the scheduler. Valid values:
+        # 
+        # *   pbs
+        # *   pbs19
+        # *   slurm
+        # *   slurm19
+        # *   slurm20
+        # 
+        # >  If you set Scheduler.N.SchedName to pbs or pbs19, you must specify at least one of the PbsInfo.N.SchedInterval, PbsInfo.N.JobHistoryDuration, and PbsInfo.N.AclLimit parameters. If you set Scheduler.N.SchedName to slurm, slurm19, or slurm20, you must specify at least one of the SlurmInfo.N.SchedInterval and SlurmInfo.N.BackfillInterval parameters.
         self.sched_name = sched_name  # type: str
 
     def validate(self):
@@ -22133,7 +25494,15 @@ class SetSchedulerInfoRequestScheduler(TeaModel):
 
 class SetSchedulerInfoRequestSlurmInfo(TeaModel):
     def __init__(self, backfill_interval=None, sched_interval=None):
+        # The backfill scheduling period. Unit: seconds.
+        # 
+        # Default value: 60
         self.backfill_interval = backfill_interval  # type: int
+        # SlurmInfo specifies the number of Slurm schedulers that can be configured in the cluster. Valid values of N: 0 to 100.
+        # 
+        # SchedInterval specifies the scheduling period. Unit: seconds.
+        # 
+        # Default value: 60
         self.sched_interval = sched_interval  # type: int
 
     def validate(self):
@@ -22162,8 +25531,14 @@ class SetSchedulerInfoRequestSlurmInfo(TeaModel):
 
 class SetSchedulerInfoRequest(TeaModel):
     def __init__(self, cluster_id=None, pbs_info=None, region_id=None, scheduler=None, slurm_info=None):
+        # The ID of the cluster.
+        # 
+        # You can call the [ListClusters](~~87116~~) operation to query the cluster ID.
         self.cluster_id = cluster_id  # type: str
         self.pbs_info = pbs_info  # type: list[SetSchedulerInfoRequestPbsInfo]
+        # The ID of the region.
+        # 
+        # You can call the [ListRegions](~~188593~~) operation to obtain the IDs of regions supported by Elastic High Performance Computing (E-HPC).
         self.region_id = region_id  # type: str
         self.scheduler = scheduler  # type: list[SetSchedulerInfoRequestScheduler]
         self.slurm_info = slurm_info  # type: list[SetSchedulerInfoRequestSlurmInfo]
@@ -22232,7 +25607,9 @@ class SetSchedulerInfoRequest(TeaModel):
 
 class SetSchedulerInfoResponseBody(TeaModel):
     def __init__(self, message=None, request_id=None):
+        # The response message.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -22300,6 +25677,7 @@ class SetSchedulerInfoResponse(TeaModel):
 
 class StartClusterRequest(TeaModel):
     def __init__(self, cluster_id=None):
+        # The ID of the cluster that you want to start.
         self.cluster_id = cluster_id  # type: str
 
     def validate(self):
@@ -22324,7 +25702,9 @@ class StartClusterRequest(TeaModel):
 
 class StartClusterResponseBody(TeaModel):
     def __init__(self, request_id=None, task_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The ID of the task.
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -22479,6 +25859,9 @@ class StartGWSInstanceResponse(TeaModel):
 
 class StartNodesRequestInstance(TeaModel):
     def __init__(self, id=None):
+        # The ID of the Nth node. Valid values of N: 1 to 100.
+        # 
+        # Make sure that the node is in the Stopped state. You can call the [ListNodes](~~87161~~) operation to query the status of the node.
         self.id = id  # type: str
 
     def validate(self):
@@ -22503,8 +25886,18 @@ class StartNodesRequestInstance(TeaModel):
 
 class StartNodesRequest(TeaModel):
     def __init__(self, cluster_id=None, instance=None, role=None):
+        # The ID of the cluster.
+        # 
+        # You can call the [ListClusters](~~87116~~) operation to query the cluster ID.
         self.cluster_id = cluster_id  # type: str
         self.instance = instance  # type: list[StartNodesRequestInstance]
+        # The role of the node. Valid values:
+        # 
+        # *   Manager: management node
+        # *   Login: logon node
+        # *   Compute: compute node
+        # 
+        # Default value: Compute
         self.role = role  # type: str
 
     def validate(self):
@@ -22545,7 +25938,9 @@ class StartNodesRequest(TeaModel):
 
 class StartNodesResponseBody(TeaModel):
     def __init__(self, request_id=None, task_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The ID of the task.
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -22613,8 +26008,11 @@ class StartNodesResponse(TeaModel):
 
 class StartVisualServiceRequest(TeaModel):
     def __init__(self, cidr_ip=None, cluster_id=None, port=None):
+        # A public IP address of logon nodes in the cluster.
         self.cidr_ip = cidr_ip  # type: str
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The fixed port. Set the value to 12016
         self.port = port  # type: int
 
     def validate(self):
@@ -22647,7 +26045,12 @@ class StartVisualServiceRequest(TeaModel):
 
 class StartVisualServiceResponseBody(TeaModel):
     def __init__(self, message=None, request_id=None):
+        # The status of the VNC Remote visualization service. Valid values:
+        # 
+        # *   Service started
+        # *   Service stopped
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -22715,6 +26118,9 @@ class StartVisualServiceResponse(TeaModel):
 
 class StopClusterRequest(TeaModel):
     def __init__(self, cluster_id=None):
+        # The ID of the cluster.
+        # 
+        # You can call the [ListClusters](~~87116~~) operation to query the cluster ID.
         self.cluster_id = cluster_id  # type: str
 
     def validate(self):
@@ -22739,7 +26145,9 @@ class StopClusterRequest(TeaModel):
 
 class StopClusterResponseBody(TeaModel):
     def __init__(self, request_id=None, task_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The ID of the task.
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -22894,8 +26302,21 @@ class StopGWSInstanceResponse(TeaModel):
 
 class StopJobsRequest(TeaModel):
     def __init__(self, async=None, cluster_id=None, jobs=None):
+        # Specifies whether to use an asynchronous link to stop the job.
+        # 
+        # Default value: false
         self.async = async  # type: bool
+        # The ID of the cluster.
+        # 
+        # You can call the [ListClusters](~~87116~~) operation to query the cluster ID.
         self.cluster_id = cluster_id  # type: str
+        # The list of jobs that you want to stop. Maximum number of jobs: 100. Minimum number of jobs: 1.
+        # 
+        # Format: `[{"Id": "0.sched****"},{"Id": "1.sched****"}]`. Separate multiple jobs with commas (,).
+        # 
+        # You can call the [ListJobs](~~87251~~) operation to query the job ID.
+        # 
+        # >  You can stop only jobs that are in the RUNNING or QUEUED state.
         self.jobs = jobs  # type: str
 
     def validate(self):
@@ -22928,6 +26349,7 @@ class StopJobsRequest(TeaModel):
 
 class StopJobsResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -22991,6 +26413,9 @@ class StopJobsResponse(TeaModel):
 
 class StopNodesRequestInstance(TeaModel):
     def __init__(self, id=None):
+        # The ID of the Nth node that you want to stop. Valid values of N: 1 to 100
+        # 
+        # You can call the [ListNodes](~~87161~~) operation to query the IDs of the compute nodes.
         self.id = id  # type: str
 
     def validate(self):
@@ -23015,8 +26440,18 @@ class StopNodesRequestInstance(TeaModel):
 
 class StopNodesRequest(TeaModel):
     def __init__(self, cluster_id=None, instance=None, role=None):
+        # The ID of the E-HPC cluster.
+        # 
+        # You can call the [ListClusters](~~87116~~) operation to query the cluster ID.
         self.cluster_id = cluster_id  # type: str
         self.instance = instance  # type: list[StopNodesRequestInstance]
+        # The role of the node. Valid values:
+        # 
+        # *   Manager: management node
+        # *   Login: logon node
+        # *   Compute: compute node
+        # 
+        # Default value: Compute
         self.role = role  # type: str
 
     def validate(self):
@@ -23057,7 +26492,9 @@ class StopNodesRequest(TeaModel):
 
 class StopNodesResponseBody(TeaModel):
     def __init__(self, request_id=None, task_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The ID of the task.
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -23125,8 +26562,11 @@ class StopNodesResponse(TeaModel):
 
 class StopVisualServiceRequest(TeaModel):
     def __init__(self, cidr_ip=None, cluster_id=None, port=None):
+        # A public IP address of login nodes in the cluster.
         self.cidr_ip = cidr_ip  # type: str
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The fixed port. Set the value to 12016.
         self.port = port  # type: int
 
     def validate(self):
@@ -23159,7 +26599,12 @@ class StopVisualServiceRequest(TeaModel):
 
 class StopVisualServiceResponseBody(TeaModel):
     def __init__(self, message=None, request_id=None):
+        # The status of the VNC Remote Service. Valid values:
+        # 
+        # *   Service started
+        # *   Service stopped
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -23225,40 +26670,136 @@ class StopVisualServiceResponse(TeaModel):
         return self
 
 
-class SubmitJobRequest(TeaModel):
-    def __init__(self, array_request=None, async=None, clock_time=None, cluster_id=None, command_line=None,
-                 container_id=None, cpu=None, gpu=None, input_file_url=None, job_queue=None, mem=None, name=None, node=None,
-                 package_path=None, post_cmd_line=None, priority=None, re_runable=None, runas_user=None,
-                 runas_user_password=None, stderr_redirect_path=None, stdout_redirect_path=None, task=None, thread=None, unzip_cmd=None,
-                 variables=None):
-        self.array_request = array_request  # type: str
-        self.async = async  # type: bool
-        self.clock_time = clock_time  # type: str
-        self.cluster_id = cluster_id  # type: str
-        self.command_line = command_line  # type: str
-        self.container_id = container_id  # type: str
-        self.cpu = cpu  # type: int
-        self.gpu = gpu  # type: int
-        self.input_file_url = input_file_url  # type: str
-        self.job_queue = job_queue  # type: str
-        self.mem = mem  # type: str
-        self.name = name  # type: str
-        self.node = node  # type: int
-        self.package_path = package_path  # type: str
-        self.post_cmd_line = post_cmd_line  # type: str
+class SubmitJobRequestJobRetry(TeaModel):
+    def __init__(self, count=None, on_exit_code=None, priority=None):
+        self.count = count  # type: int
+        self.on_exit_code = on_exit_code  # type: int
         self.priority = priority  # type: int
-        self.re_runable = re_runable  # type: bool
-        self.runas_user = runas_user  # type: str
-        self.runas_user_password = runas_user_password  # type: str
-        self.stderr_redirect_path = stderr_redirect_path  # type: str
-        self.stdout_redirect_path = stdout_redirect_path  # type: str
-        self.task = task  # type: int
-        self.thread = thread  # type: int
-        self.unzip_cmd = unzip_cmd  # type: str
-        self.variables = variables  # type: str
 
     def validate(self):
         pass
+
+    def to_map(self):
+        _map = super(SubmitJobRequestJobRetry, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.count is not None:
+            result['Count'] = self.count
+        if self.on_exit_code is not None:
+            result['OnExitCode'] = self.on_exit_code
+        if self.priority is not None:
+            result['Priority'] = self.priority
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Count') is not None:
+            self.count = m.get('Count')
+        if m.get('OnExitCode') is not None:
+            self.on_exit_code = m.get('OnExitCode')
+        if m.get('Priority') is not None:
+            self.priority = m.get('Priority')
+        return self
+
+
+class SubmitJobRequest(TeaModel):
+    def __init__(self, job_retry=None, array_request=None, async=None, clock_time=None, cluster_id=None,
+                 command_line=None, container_id=None, cpu=None, gpu=None, input_file_url=None, job_queue=None, mem=None,
+                 name=None, node=None, package_path=None, post_cmd_line=None, priority=None, re_runable=None,
+                 runas_user=None, runas_user_password=None, stderr_redirect_path=None, stdout_redirect_path=None, task=None,
+                 thread=None, unzip_cmd=None, variables=None):
+        self.job_retry = job_retry  # type: SubmitJobRequestJobRetry
+        # The job array.
+        # 
+        # Format: X-Y:Z. The minimum index value X is the first index. The maximum index value Y is the last index. Z is the step size. For example, 2-7:2 indicates that three jobs need to be run and their index values are 2, 4, and 6.
+        self.array_request = array_request  # type: str
+        # Specifies whether to use an asynchronous link to submit the job.
+        # 
+        # Default value: false
+        self.async = async  # type: bool
+        # The maximum running time of the job. Valid formats:
+        # 
+        # *   hh:mm:ss
+        # *   mm:ss
+        # *   ss
+        # 
+        # We recommend that you use the hh:mm:ss format. If the maximum running time is 12 hours, set the value to 12:00:00.
+        self.clock_time = clock_time  # type: str
+        # The ID of the cluster.
+        # 
+        # You can call the [ListClusters](~~87116~~) operation to query the cluster ID.
+        self.cluster_id = cluster_id  # type: str
+        # The command that is used to run the job.
+        self.command_line = command_line  # type: str
+        # The ID of the containerized application. If you want to use a container application, you must specify its ID.
+        # 
+        # You can call the [ListContainerApps](~~87333~~) operation to query the container application ID.
+        self.container_id = container_id  # type: str
+        # The number of CPU cores required by a single compute node.
+        self.cpu = cpu  # type: int
+        # The maximum GPU usage required by a single compute node.
+        # 
+        # The parameter takes effect only when the cluster uses PBS and a compute node is a GPU-accelerated instance.
+        self.gpu = gpu  # type: int
+        # The URL of the job files that are uploaded to an Object Storage Service (OSS) bucket.
+        self.input_file_url = input_file_url  # type: str
+        # The name of the queue in which the job is run.
+        # 
+        # You can call the [ListQueues](~~92176~~) operation to query the name of the queue.
+        self.job_queue = job_queue  # type: str
+        # The maximum memory usage required by a single compute node. Unit: GB, MB, or KB. The unit is case-insensitive.
+        self.mem = mem  # type: str
+        # The name of the job. The name must be 6 to 30 characters in length and start with a letter. It can contain letters, digits, and periods (.).
+        self.name = name  # type: str
+        # The number of compute nodes required to run the job.
+        # 
+        # >  If the parameter is not specified, the Task, Thread, Mem, and Gpu parameters become invalid.
+        self.node = node  # type: int
+        # The path that is used to run the job.
+        self.package_path = package_path  # type: str
+        # The command to perform on the job after the job is submitted.
+        self.post_cmd_line = post_cmd_line  # type: str
+        # The priority of the job. Valid values: 0 to 9. A large value indicates a high priority.
+        # 
+        # Default value: 0
+        self.priority = priority  # type: int
+        # Specifies whether the job can be rerun. Valid values:
+        # 
+        # *   true: The job can be rerun.
+        # *   false: The job cannot be rerun.
+        self.re_runable = re_runable  # type: bool
+        # The name of the user that runs the job.
+        # 
+        # You can call the [ListUsers](~~188572~~) operation to query the users of the cluster.
+        self.runas_user = runas_user  # type: str
+        # The user password.
+        self.runas_user_password = runas_user_password  # type: str
+        # The output file path of stderr.
+        self.stderr_redirect_path = stderr_redirect_path  # type: str
+        # The output file path of stdout.
+        self.stdout_redirect_path = stdout_redirect_path  # type: str
+        # The number of processes created for a single compute node.
+        # 
+        # The parameter is applicable to Message Passing Interface (MPI) jobs.
+        self.task = task  # type: int
+        # The number of threads created for a single compute node.
+        # 
+        # The parameter is applicable to OpenMP jobs.
+        self.thread = thread  # type: int
+        # The command for file decompression. The command that is used to decompress the job files downloaded from an OSS bucket. Valid values:
+        # 
+        # *   tar xzf: Decompresses GZIP files.
+        # *   tar xf: Decompresses TAR files.
+        # *   unzip: Decompresses ZIP files.
+        self.unzip_cmd = unzip_cmd  # type: str
+        # The runtime variables passed to the job. They can be accessed by using environment variables in the executable file.
+        self.variables = variables  # type: str
+
+    def validate(self):
+        if self.job_retry:
+            self.job_retry.validate()
 
     def to_map(self):
         _map = super(SubmitJobRequest, self).to_map()
@@ -23266,6 +26807,8 @@ class SubmitJobRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.job_retry is not None:
+            result['JobRetry'] = self.job_retry.to_map()
         if self.array_request is not None:
             result['ArrayRequest'] = self.array_request
         if self.async is not None:
@@ -23320,6 +26863,9 @@ class SubmitJobRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('JobRetry') is not None:
+            temp_model = SubmitJobRequestJobRetry()
+            self.job_retry = temp_model.from_map(m['JobRetry'])
         if m.get('ArrayRequest') is not None:
             self.array_request = m.get('ArrayRequest')
         if m.get('Async') is not None:
@@ -23375,7 +26921,9 @@ class SubmitJobRequest(TeaModel):
 
 class SubmitJobResponseBody(TeaModel):
     def __init__(self, job_id=None, request_id=None):
+        # The ID of the job.
         self.job_id = job_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -23443,7 +26991,9 @@ class SubmitJobResponse(TeaModel):
 
 class SummaryImagesRequest(TeaModel):
     def __init__(self, cluster_id=None, container_type=None):
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The type of the image. Set the value to singularity.
         self.container_type = container_type  # type: str
 
     def validate(self):
@@ -23472,7 +27022,9 @@ class SummaryImagesRequest(TeaModel):
 
 class SummaryImagesResponseBody(TeaModel):
     def __init__(self, images_name=None, request_id=None):
+        # The names of all images in the cluster.
         self.images_name = images_name  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -23540,8 +27092,11 @@ class SummaryImagesResponse(TeaModel):
 
 class SummaryImagesInfoRequest(TeaModel):
     def __init__(self, cluster_id=None, container_type=None, image_name=None):
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The container type of the image. Set the value to singularity.
         self.container_type = container_type  # type: str
+        # The name of the image. You can call the [SummaryImages](~~440783~~) operation to query the names of all images in a cluster.
         self.image_name = image_name  # type: str
 
     def validate(self):
@@ -23574,7 +27129,9 @@ class SummaryImagesInfoRequest(TeaModel):
 
 class SummaryImagesInfoResponseBody(TeaModel):
     def __init__(self, images_info=None, request_id=None):
+        # The detailed information about the image.
         self.images_info = images_info  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -23642,7 +27199,13 @@ class SummaryImagesInfoResponse(TeaModel):
 
 class SyncUsersRequest(TeaModel):
     def __init__(self, cluster_id=None, region_id=None):
+        # The ID of the cluster.
+        # 
+        # You can call the [ListClusters](~~87116~~) operation to query the list of E-HPC clusters.
         self.cluster_id = cluster_id  # type: str
+        # The ID of the region where the cluster resides.
+        # 
+        # You can call the [ListRegions](~~188593~~) operation to query the list of regions where E-HPC is available.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -23671,6 +27234,7 @@ class SyncUsersRequest(TeaModel):
 
 class SyncUsersResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -23734,7 +27298,9 @@ class SyncUsersResponse(TeaModel):
 
 class TagResourcesRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the tag. The tag key cannot be an empty string. It can be up to 128 characters in length and cannot contain `http://` or `https://`. It must not start with `acs:` or `aliyun`.
         self.key = key  # type: str
+        # The value of the tag. The tag key cannot be an empty string. It can be up to 128 characters in length and cannot contain `http://` or `https://`. It must not start with `acs:` or `aliyun`.
         self.value = value  # type: str
 
     def validate(self):
@@ -23763,8 +27329,10 @@ class TagResourcesRequestTag(TeaModel):
 
 class TagResourcesRequest(TeaModel):
     def __init__(self, region_id=None, resource_id=None, resource_type=None, tag=None):
+        # The ID of the region to which the resource belongs.
         self.region_id = region_id  # type: str
         self.resource_id = resource_id  # type: list[str]
+        # The type of the resource. Set the value to cluster, which indicates E-HPC clusters.
         self.resource_type = resource_type  # type: str
         self.tag = tag  # type: list[TagResourcesRequestTag]
 
@@ -23810,6 +27378,7 @@ class TagResourcesRequest(TeaModel):
 
 class TagResourcesResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -23873,9 +27442,17 @@ class TagResourcesResponse(TeaModel):
 
 class UnTagResourcesRequest(TeaModel):
     def __init__(self, all=None, region_id=None, resource_id=None, resource_type=None, tag_key=None):
+        # Specifies whether to remove all tags from the resource. This parameter is valid only when the TagKey.N parameter is not specified. Valid values:
+        # 
+        # *   true
+        # *   false
+        # 
+        # Default value: false
         self.all = all  # type: bool
+        # The ID of the region to which the resource belongs.
         self.region_id = region_id  # type: str
         self.resource_id = resource_id  # type: list[str]
+        # The type of the resource. Set the value to cluster, which indicates E-HPC clusters.
         self.resource_type = resource_type  # type: str
         self.tag_key = tag_key  # type: list[str]
 
@@ -23917,6 +27494,7 @@ class UnTagResourcesRequest(TeaModel):
 
 class UnTagResourcesResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -23980,7 +27558,13 @@ class UnTagResourcesResponse(TeaModel):
 
 class UninstallSoftwareRequest(TeaModel):
     def __init__(self, application=None, cluster_id=None):
+        # The name of the software that you want to uninstall.
+        # 
+        # You can call the [ListInstalledSoftware](~~188591~~) operation to query the software that is installed in the cluster.
         self.application = application  # type: str
+        # The ID of the cluster.
+        # 
+        # You can call the [ListClusters](~~87116~~) operation to query the cluster ID.
         self.cluster_id = cluster_id  # type: str
 
     def validate(self):
@@ -24009,6 +27593,7 @@ class UninstallSoftwareRequest(TeaModel):
 
 class UninstallSoftwareResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -24072,6 +27657,11 @@ class UninstallSoftwareResponse(TeaModel):
 
 class UpdateClusterVolumesRequestAdditionalVolumesRoles(TeaModel):
     def __init__(self, name=None):
+        # The node type on which the nth additional mounted file system is mounted. Valid values:
+        # 
+        # *   Manager: management node
+        # *   Login: logon node
+        # *   Compute: compute node
         self.name = name  # type: str
 
     def validate(self):
@@ -24097,14 +27687,30 @@ class UpdateClusterVolumesRequestAdditionalVolumesRoles(TeaModel):
 class UpdateClusterVolumesRequestAdditionalVolumes(TeaModel):
     def __init__(self, job_queue=None, local_directory=None, location=None, remote_directory=None, roles=None,
                  volume_id=None, volume_mountpoint=None, volume_protocol=None, volume_type=None):
+        # The queue name of the nth attached mounted filesystem.
         self.job_queue = job_queue  # type: str
+        # The on-premises mount directory for the nth additional mounted file system.
         self.local_directory = local_directory  # type: str
+        # The storage location of the nth attached mounted file system. Valid values:
+        # 
+        # *   OnPremise: hybrid cloud cluster
+        # *   PublicCloud: public cloud cluster
         self.location = location  # type: str
+        # The remote directory to be mounted by the nth additional mounted file system.
         self.remote_directory = remote_directory  # type: str
         self.roles = roles  # type: list[UpdateClusterVolumesRequestAdditionalVolumesRoles]
+        # The ID of the nth additional mounted file system.
         self.volume_id = volume_id  # type: str
+        # The domain name of the mount target for the nth additional mounted file system.
         self.volume_mountpoint = volume_mountpoint  # type: str
+        # The protocol type of the nth additional mounted file system. Valid values:
+        # 
+        # *   NFS
+        # *   SMB
         self.volume_protocol = volume_protocol  # type: str
+        # The type of the nth additional mounted file system. Currently, only NAS is supported.
+        # 
+        # Valid values of N: 1 to 10.
         self.volume_type = volume_type  # type: str
 
     def validate(self):
@@ -24170,6 +27776,7 @@ class UpdateClusterVolumesRequestAdditionalVolumes(TeaModel):
 class UpdateClusterVolumesRequest(TeaModel):
     def __init__(self, additional_volumes=None, cluster_id=None):
         self.additional_volumes = additional_volumes  # type: list[UpdateClusterVolumesRequestAdditionalVolumes]
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
 
     def validate(self):
@@ -24206,6 +27813,7 @@ class UpdateClusterVolumesRequest(TeaModel):
 
 class UpdateClusterVolumesResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -24269,9 +27877,19 @@ class UpdateClusterVolumesResponse(TeaModel):
 
 class UpdateQueueConfigRequest(TeaModel):
     def __init__(self, cluster_id=None, compute_instance_type=None, queue_name=None, resource_group_id=None):
+        # The ID of the cluster.
+        # 
+        # You can call the [ListClusters](~~87116~~) operation to query the cluster ID.
         self.cluster_id = cluster_id  # type: str
+        # The instance type of the node.
+        # 
+        # You can call the [ListPreferredEcsTypes](~~188592~~) operation to query the recommended instance types.
         self.compute_instance_type = compute_instance_type  # type: str
+        # The name of the queue.
         self.queue_name = queue_name  # type: str
+        # The ID of the resource group.
+        # 
+        # You can call the [ListResourceGroups](~~158855~~) operation to query the IDs of resource groups.
         self.resource_group_id = resource_group_id  # type: str
 
     def validate(self):
@@ -24308,6 +27926,7 @@ class UpdateQueueConfigRequest(TeaModel):
 
 class UpdateQueueConfigResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -24371,7 +27990,9 @@ class UpdateQueueConfigResponse(TeaModel):
 
 class UpgradeClientRequest(TeaModel):
     def __init__(self, client_version=None, cluster_id=None):
+        # The version to which the client will be upgraded. By default, the client is upgraded to the latest version. You can call the [ListCurrentClientVersion](~~87223~~) operation to query the latest version number of the Elastic High Performance Computing (E-HPC) client.
         self.client_version = client_version  # type: str
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
 
     def validate(self):
@@ -24400,6 +28021,7 @@ class UpgradeClientRequest(TeaModel):
 
 class UpgradeClientResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
