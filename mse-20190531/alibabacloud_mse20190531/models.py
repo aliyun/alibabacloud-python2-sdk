@@ -6997,7 +6997,8 @@ class CreateOrUpdateSwimmingLaneResponse(TeaModel):
 class CreateOrUpdateSwimmingLaneGroupRequest(TeaModel):
     def __init__(self, accept_language=None, app_ids=None, db_gray_enable=None, enable=None, entry_app=None,
                  gmt_create=None, gmt_modified=None, id=None, license_key=None, message_queue_filter_side=None,
-                 message_queue_gray_enable=None, name=None, namespace=None, region=None, source=None, status=None, user_id=None):
+                 message_queue_gray_enable=None, name=None, namespace=None, record_canary_detail=None, region=None, source=None, status=None,
+                 user_id=None):
         # The language of the response. Valid values:
         # 
         # *   zh: Chinese
@@ -7026,6 +7027,7 @@ class CreateOrUpdateSwimmingLaneGroupRequest(TeaModel):
         # The name.
         self.name = name  # type: str
         self.namespace = namespace  # type: str
+        self.record_canary_detail = record_canary_detail  # type: bool
         # The region ID.
         self.region = region  # type: str
         # The service source. Valid value: edasmsc.
@@ -7070,6 +7072,8 @@ class CreateOrUpdateSwimmingLaneGroupRequest(TeaModel):
             result['Name'] = self.name
         if self.namespace is not None:
             result['Namespace'] = self.namespace
+        if self.record_canary_detail is not None:
+            result['RecordCanaryDetail'] = self.record_canary_detail
         if self.region is not None:
             result['Region'] = self.region
         if self.source is not None:
@@ -7108,6 +7112,99 @@ class CreateOrUpdateSwimmingLaneGroupRequest(TeaModel):
             self.name = m.get('Name')
         if m.get('Namespace') is not None:
             self.namespace = m.get('Namespace')
+        if m.get('RecordCanaryDetail') is not None:
+            self.record_canary_detail = m.get('RecordCanaryDetail')
+        if m.get('Region') is not None:
+            self.region = m.get('Region')
+        if m.get('Source') is not None:
+            self.source = m.get('Source')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('UserId') is not None:
+            self.user_id = m.get('UserId')
+        return self
+
+
+class CreateOrUpdateSwimmingLaneGroupResponseBodyData(TeaModel):
+    def __init__(self, app_ids=None, db_gray_enable=None, enable=None, entry_app=None, id=None,
+                 message_queue_filter_side=None, message_queue_gray_enable=None, name=None, namespace=None, record_canary_detail=None,
+                 region=None, source=None, status=None, user_id=None):
+        self.app_ids = app_ids  # type: str
+        self.db_gray_enable = db_gray_enable  # type: str
+        self.enable = enable  # type: str
+        self.entry_app = entry_app  # type: str
+        self.id = id  # type: long
+        self.message_queue_filter_side = message_queue_filter_side  # type: str
+        self.message_queue_gray_enable = message_queue_gray_enable  # type: bool
+        self.name = name  # type: str
+        self.namespace = namespace  # type: str
+        self.record_canary_detail = record_canary_detail  # type: bool
+        self.region = region  # type: str
+        self.source = source  # type: str
+        self.status = status  # type: int
+        self.user_id = user_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateOrUpdateSwimmingLaneGroupResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_ids is not None:
+            result['AppIds'] = self.app_ids
+        if self.db_gray_enable is not None:
+            result['DbGrayEnable'] = self.db_gray_enable
+        if self.enable is not None:
+            result['Enable'] = self.enable
+        if self.entry_app is not None:
+            result['EntryApp'] = self.entry_app
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.message_queue_filter_side is not None:
+            result['MessageQueueFilterSide'] = self.message_queue_filter_side
+        if self.message_queue_gray_enable is not None:
+            result['MessageQueueGrayEnable'] = self.message_queue_gray_enable
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.namespace is not None:
+            result['Namespace'] = self.namespace
+        if self.record_canary_detail is not None:
+            result['RecordCanaryDetail'] = self.record_canary_detail
+        if self.region is not None:
+            result['Region'] = self.region
+        if self.source is not None:
+            result['Source'] = self.source
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.user_id is not None:
+            result['UserId'] = self.user_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppIds') is not None:
+            self.app_ids = m.get('AppIds')
+        if m.get('DbGrayEnable') is not None:
+            self.db_gray_enable = m.get('DbGrayEnable')
+        if m.get('Enable') is not None:
+            self.enable = m.get('Enable')
+        if m.get('EntryApp') is not None:
+            self.entry_app = m.get('EntryApp')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('MessageQueueFilterSide') is not None:
+            self.message_queue_filter_side = m.get('MessageQueueFilterSide')
+        if m.get('MessageQueueGrayEnable') is not None:
+            self.message_queue_gray_enable = m.get('MessageQueueGrayEnable')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('Namespace') is not None:
+            self.namespace = m.get('Namespace')
+        if m.get('RecordCanaryDetail') is not None:
+            self.record_canary_detail = m.get('RecordCanaryDetail')
         if m.get('Region') is not None:
             self.region = m.get('Region')
         if m.get('Source') is not None:
@@ -7125,7 +7222,7 @@ class CreateOrUpdateSwimmingLaneGroupResponseBody(TeaModel):
         # The status code. The value 200 is returned if the request is successful.
         self.code = code  # type: int
         # The details of the data.
-        self.data = data  # type: any
+        self.data = data  # type: CreateOrUpdateSwimmingLaneGroupResponseBodyData
         # The dynamic part in the error message.
         self.dynamic_message = dynamic_message  # type: str
         # The error code returned if the request failed.
@@ -7142,7 +7239,8 @@ class CreateOrUpdateSwimmingLaneGroupResponseBody(TeaModel):
         self.success = success  # type: bool
 
     def validate(self):
-        pass
+        if self.data:
+            self.data.validate()
 
     def to_map(self):
         _map = super(CreateOrUpdateSwimmingLaneGroupResponseBody, self).to_map()
@@ -7153,7 +7251,7 @@ class CreateOrUpdateSwimmingLaneGroupResponseBody(TeaModel):
         if self.code is not None:
             result['Code'] = self.code
         if self.data is not None:
-            result['Data'] = self.data
+            result['Data'] = self.data.to_map()
         if self.dynamic_message is not None:
             result['DynamicMessage'] = self.dynamic_message
         if self.error_code is not None:
@@ -7173,7 +7271,8 @@ class CreateOrUpdateSwimmingLaneGroupResponseBody(TeaModel):
         if m.get('Code') is not None:
             self.code = m.get('Code')
         if m.get('Data') is not None:
-            self.data = m.get('Data')
+            temp_model = CreateOrUpdateSwimmingLaneGroupResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
         if m.get('DynamicMessage') is not None:
             self.dynamic_message = m.get('DynamicMessage')
         if m.get('ErrorCode') is not None:
@@ -10394,7 +10493,7 @@ class DeleteSwimmingLaneResponse(TeaModel):
 
 
 class DeleteSwimmingLaneGroupRequest(TeaModel):
-    def __init__(self, accept_language=None, group_id=None):
+    def __init__(self, accept_language=None, group_id=None, namespace=None, region=None, name=None):
         # The language of the response. Valid values:
         # 
         # *   zh: Chinese
@@ -10402,6 +10501,9 @@ class DeleteSwimmingLaneGroupRequest(TeaModel):
         self.accept_language = accept_language  # type: str
         # The ID of the lane group.
         self.group_id = group_id  # type: long
+        self.namespace = namespace  # type: str
+        self.region = region  # type: str
+        self.name = name  # type: str
 
     def validate(self):
         pass
@@ -10416,6 +10518,12 @@ class DeleteSwimmingLaneGroupRequest(TeaModel):
             result['AcceptLanguage'] = self.accept_language
         if self.group_id is not None:
             result['GroupId'] = self.group_id
+        if self.namespace is not None:
+            result['Namespace'] = self.namespace
+        if self.region is not None:
+            result['Region'] = self.region
+        if self.name is not None:
+            result['name'] = self.name
         return result
 
     def from_map(self, m=None):
@@ -10424,6 +10532,12 @@ class DeleteSwimmingLaneGroupRequest(TeaModel):
             self.accept_language = m.get('AcceptLanguage')
         if m.get('GroupId') is not None:
             self.group_id = m.get('GroupId')
+        if m.get('Namespace') is not None:
+            self.namespace = m.get('Namespace')
+        if m.get('Region') is not None:
+            self.region = m.get('Region')
+        if m.get('name') is not None:
+            self.name = m.get('name')
         return self
 
 
@@ -31569,13 +31683,104 @@ class QueryAllSwimmingLaneGroupRequest(TeaModel):
         return self
 
 
+class QueryAllSwimmingLaneGroupResponseBodyData(TeaModel):
+    def __init__(self, app_ids=None, db_gray_enable=None, enable=None, entry_app=None, id=None,
+                 message_queue_filter_side=None, message_queue_gray_enable=None, name=None, namespace=None, record_canary_detail=None,
+                 region=None, source=None, status=None, user_id=None):
+        self.app_ids = app_ids  # type: str
+        self.db_gray_enable = db_gray_enable  # type: str
+        self.enable = enable  # type: str
+        self.entry_app = entry_app  # type: str
+        self.id = id  # type: long
+        self.message_queue_filter_side = message_queue_filter_side  # type: str
+        self.message_queue_gray_enable = message_queue_gray_enable  # type: bool
+        self.name = name  # type: str
+        self.namespace = namespace  # type: str
+        self.record_canary_detail = record_canary_detail  # type: bool
+        self.region = region  # type: str
+        self.source = source  # type: str
+        self.status = status  # type: int
+        self.user_id = user_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryAllSwimmingLaneGroupResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_ids is not None:
+            result['AppIds'] = self.app_ids
+        if self.db_gray_enable is not None:
+            result['DbGrayEnable'] = self.db_gray_enable
+        if self.enable is not None:
+            result['Enable'] = self.enable
+        if self.entry_app is not None:
+            result['EntryApp'] = self.entry_app
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.message_queue_filter_side is not None:
+            result['MessageQueueFilterSide'] = self.message_queue_filter_side
+        if self.message_queue_gray_enable is not None:
+            result['MessageQueueGrayEnable'] = self.message_queue_gray_enable
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.namespace is not None:
+            result['Namespace'] = self.namespace
+        if self.record_canary_detail is not None:
+            result['RecordCanaryDetail'] = self.record_canary_detail
+        if self.region is not None:
+            result['Region'] = self.region
+        if self.source is not None:
+            result['Source'] = self.source
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.user_id is not None:
+            result['UserId'] = self.user_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppIds') is not None:
+            self.app_ids = m.get('AppIds')
+        if m.get('DbGrayEnable') is not None:
+            self.db_gray_enable = m.get('DbGrayEnable')
+        if m.get('Enable') is not None:
+            self.enable = m.get('Enable')
+        if m.get('EntryApp') is not None:
+            self.entry_app = m.get('EntryApp')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('MessageQueueFilterSide') is not None:
+            self.message_queue_filter_side = m.get('MessageQueueFilterSide')
+        if m.get('MessageQueueGrayEnable') is not None:
+            self.message_queue_gray_enable = m.get('MessageQueueGrayEnable')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('Namespace') is not None:
+            self.namespace = m.get('Namespace')
+        if m.get('RecordCanaryDetail') is not None:
+            self.record_canary_detail = m.get('RecordCanaryDetail')
+        if m.get('Region') is not None:
+            self.region = m.get('Region')
+        if m.get('Source') is not None:
+            self.source = m.get('Source')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('UserId') is not None:
+            self.user_id = m.get('UserId')
+        return self
+
+
 class QueryAllSwimmingLaneGroupResponseBody(TeaModel):
     def __init__(self, code=None, data=None, dynamic_message=None, error_code=None, http_status_code=None,
                  message=None, request_id=None, success=None):
         # The status code. A value of 200 is returned if the request is successful.
         self.code = code  # type: int
         # The details of the data.
-        self.data = data  # type: any
+        self.data = data  # type: list[QueryAllSwimmingLaneGroupResponseBodyData]
         # The dynamic part in the error message.
         self.dynamic_message = dynamic_message  # type: str
         # The error code returned if the request failed.
@@ -31596,7 +31801,10 @@ class QueryAllSwimmingLaneGroupResponseBody(TeaModel):
         self.success = success  # type: bool
 
     def validate(self):
-        pass
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(QueryAllSwimmingLaneGroupResponseBody, self).to_map()
@@ -31606,8 +31814,10 @@ class QueryAllSwimmingLaneGroupResponseBody(TeaModel):
         result = dict()
         if self.code is not None:
             result['Code'] = self.code
+        result['Data'] = []
         if self.data is not None:
-            result['Data'] = self.data
+            for k in self.data:
+                result['Data'].append(k.to_map() if k else None)
         if self.dynamic_message is not None:
             result['DynamicMessage'] = self.dynamic_message
         if self.error_code is not None:
@@ -31626,8 +31836,11 @@ class QueryAllSwimmingLaneGroupResponseBody(TeaModel):
         m = m or dict()
         if m.get('Code') is not None:
             self.code = m.get('Code')
+        self.data = []
         if m.get('Data') is not None:
-            self.data = m.get('Data')
+            for k in m.get('Data'):
+                temp_model = QueryAllSwimmingLaneGroupResponseBodyData()
+                self.data.append(temp_model.from_map(k))
         if m.get('DynamicMessage') is not None:
             self.dynamic_message = m.get('DynamicMessage')
         if m.get('ErrorCode') is not None:
