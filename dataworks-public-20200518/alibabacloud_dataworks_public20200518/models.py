@@ -49351,6 +49351,129 @@ class RunTriggerNodeResponse(TeaModel):
         return self
 
 
+class SaveDataServiceApiTestResultRequest(TeaModel):
+    def __init__(self, api_id=None, auto_generate=None, fail_result_sample=None, project_id=None,
+                 result_sample=None):
+        self.api_id = api_id  # type: long
+        self.auto_generate = auto_generate  # type: bool
+        self.fail_result_sample = fail_result_sample  # type: str
+        self.project_id = project_id  # type: long
+        self.result_sample = result_sample  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SaveDataServiceApiTestResultRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.api_id is not None:
+            result['ApiId'] = self.api_id
+        if self.auto_generate is not None:
+            result['AutoGenerate'] = self.auto_generate
+        if self.fail_result_sample is not None:
+            result['FailResultSample'] = self.fail_result_sample
+        if self.project_id is not None:
+            result['ProjectId'] = self.project_id
+        if self.result_sample is not None:
+            result['ResultSample'] = self.result_sample
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ApiId') is not None:
+            self.api_id = m.get('ApiId')
+        if m.get('AutoGenerate') is not None:
+            self.auto_generate = m.get('AutoGenerate')
+        if m.get('FailResultSample') is not None:
+            self.fail_result_sample = m.get('FailResultSample')
+        if m.get('ProjectId') is not None:
+            self.project_id = m.get('ProjectId')
+        if m.get('ResultSample') is not None:
+            self.result_sample = m.get('ResultSample')
+        return self
+
+
+class SaveDataServiceApiTestResultResponseBody(TeaModel):
+    def __init__(self, data=None, http_status_code=None, request_id=None, success=None):
+        self.data = data  # type: bool
+        self.http_status_code = http_status_code  # type: int
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SaveDataServiceApiTestResultResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class SaveDataServiceApiTestResultResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: SaveDataServiceApiTestResultResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SaveDataServiceApiTestResultResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = SaveDataServiceApiTestResultResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ScanSensitiveDataRequest(TeaModel):
     def __init__(self, data=None):
         # The data that you want to check.

@@ -8100,6 +8100,42 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.run_trigger_node_with_options(request, runtime)
 
+    def save_data_service_api_test_result_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.api_id):
+            body['ApiId'] = request.api_id
+        if not UtilClient.is_unset(request.auto_generate):
+            body['AutoGenerate'] = request.auto_generate
+        if not UtilClient.is_unset(request.fail_result_sample):
+            body['FailResultSample'] = request.fail_result_sample
+        if not UtilClient.is_unset(request.project_id):
+            body['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.result_sample):
+            body['ResultSample'] = request.result_sample
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='SaveDataServiceApiTestResult',
+            version='2020-05-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dataworks_public_20200518_models.SaveDataServiceApiTestResultResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def save_data_service_api_test_result(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.save_data_service_api_test_result_with_options(request, runtime)
+
     def scan_sensitive_data_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
