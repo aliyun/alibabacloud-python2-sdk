@@ -72,6 +72,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.enroll_account_with_options(request, runtime)
 
+    def get_account_factory_baseline_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.baseline_id):
+            query['BaselineId'] = request.baseline_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetAccountFactoryBaseline',
+            version='2021-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            governance_20210120_models.GetAccountFactoryBaselineResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_account_factory_baseline(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_account_factory_baseline_with_options(request, runtime)
+
     def get_enrolled_account_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -101,6 +131,38 @@ class Client(OpenApiClient):
     def get_enrolled_account(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_enrolled_account_with_options(request, runtime)
+
+    def list_account_factory_baselines_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.max_results):
+            query['MaxResults'] = request.max_results
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListAccountFactoryBaselines',
+            version='2021-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            governance_20210120_models.ListAccountFactoryBaselinesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_account_factory_baselines(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_account_factory_baselines_with_options(request, runtime)
 
     def list_enrolled_accounts_with_options(self, request, runtime):
         UtilClient.validate_model(request)
