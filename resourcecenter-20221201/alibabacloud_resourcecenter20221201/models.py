@@ -1240,47 +1240,15 @@ class ListResourceTypesRequest(TeaModel):
         return self
 
 
-class ListResourceTypesResponseBodyResourceTypesCodeMapping(TeaModel):
-    def __init__(self, resource_group=None, tag=None):
-        self.resource_group = resource_group  # type: str
-        self.tag = tag  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ListResourceTypesResponseBodyResourceTypesCodeMapping, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.resource_group is not None:
-            result['ResourceGroup'] = self.resource_group
-        if self.tag is not None:
-            result['Tag'] = self.tag
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('ResourceGroup') is not None:
-            self.resource_group = m.get('ResourceGroup')
-        if m.get('Tag') is not None:
-            self.tag = m.get('Tag')
-        return self
-
-
 class ListResourceTypesResponseBodyResourceTypes(TeaModel):
-    def __init__(self, code_mapping=None, filter_keys=None, product_name=None, resource_type=None,
-                 resource_type_name=None):
-        self.code_mapping = code_mapping  # type: ListResourceTypesResponseBodyResourceTypesCodeMapping
+    def __init__(self, filter_keys=None, product_name=None, resource_type=None, resource_type_name=None):
         self.filter_keys = filter_keys  # type: list[str]
         self.product_name = product_name  # type: str
         self.resource_type = resource_type  # type: str
         self.resource_type_name = resource_type_name  # type: str
 
     def validate(self):
-        if self.code_mapping:
-            self.code_mapping.validate()
+        pass
 
     def to_map(self):
         _map = super(ListResourceTypesResponseBodyResourceTypes, self).to_map()
@@ -1288,8 +1256,6 @@ class ListResourceTypesResponseBodyResourceTypes(TeaModel):
             return _map
 
         result = dict()
-        if self.code_mapping is not None:
-            result['CodeMapping'] = self.code_mapping.to_map()
         if self.filter_keys is not None:
             result['FilterKeys'] = self.filter_keys
         if self.product_name is not None:
@@ -1302,9 +1268,6 @@ class ListResourceTypesResponseBodyResourceTypes(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('CodeMapping') is not None:
-            temp_model = ListResourceTypesResponseBodyResourceTypesCodeMapping()
-            self.code_mapping = temp_model.from_map(m['CodeMapping'])
         if m.get('FilterKeys') is not None:
             self.filter_keys = m.get('FilterKeys')
         if m.get('ProductName') is not None:
