@@ -782,11 +782,13 @@ class GetVideoTaskInfoShrinkRequest(TeaModel):
 
 
 class GetVideoTaskInfoResponseBodyDataTaskResult(TeaModel):
-    def __init__(self, fail_code=None, fail_reason=None, subtitles_url=None, video_url=None):
+    def __init__(self, fail_code=None, fail_reason=None, subtitles_url=None, video_url=None,
+                 word_subtitles_url=None):
         self.fail_code = fail_code  # type: str
         self.fail_reason = fail_reason  # type: str
         self.subtitles_url = subtitles_url  # type: str
         self.video_url = video_url  # type: str
+        self.word_subtitles_url = word_subtitles_url  # type: str
 
     def validate(self):
         pass
@@ -805,6 +807,8 @@ class GetVideoTaskInfoResponseBodyDataTaskResult(TeaModel):
             result['SubtitlesUrl'] = self.subtitles_url
         if self.video_url is not None:
             result['VideoUrl'] = self.video_url
+        if self.word_subtitles_url is not None:
+            result['WordSubtitlesUrl'] = self.word_subtitles_url
         return result
 
     def from_map(self, m=None):
@@ -817,6 +821,8 @@ class GetVideoTaskInfoResponseBodyDataTaskResult(TeaModel):
             self.subtitles_url = m.get('SubtitlesUrl')
         if m.get('VideoUrl') is not None:
             self.video_url = m.get('VideoUrl')
+        if m.get('WordSubtitlesUrl') is not None:
+            self.word_subtitles_url = m.get('WordSubtitlesUrl')
         return self
 
 
