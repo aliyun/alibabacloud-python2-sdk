@@ -769,8 +769,8 @@ class Client(OpenApiClient):
             query['ImageName'] = request.image_name
         if not UtilClient.is_unset(request.instance_id):
             query['InstanceId'] = request.instance_id
-        if not UtilClient.is_unset(request.product):
-            query['product'] = request.product
+        if not UtilClient.is_unset(request.snapshot_id):
+            query['SnapshotId'] = request.snapshot_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1551,6 +1551,34 @@ class Client(OpenApiClient):
     def delete_device_internet_port(self, request):
         runtime = util_models.RuntimeOptions()
         return self.delete_device_internet_port_with_options(request, runtime)
+
+    def delete_disk_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.disk_id):
+            query['DiskId'] = request.disk_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteDisk',
+            version='2017-11-10',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ens_20171110_models.DeleteDiskResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_disk(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_disk_with_options(request, runtime)
 
     def delete_ens_route_entry_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -4615,6 +4643,32 @@ class Client(OpenApiClient):
     def get_oss_storage_and_acc_by_buckets(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_oss_storage_and_acc_by_buckets_with_options(request, runtime)
+
+    def get_oss_usage_data_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetOssUsageData',
+            version='2017-11-10',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ens_20171110_models.GetOssUsageDataResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_oss_usage_data(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_oss_usage_data_with_options(request, runtime)
 
     def import_key_pair_with_options(self, request, runtime):
         UtilClient.validate_model(request)
