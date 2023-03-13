@@ -1138,9 +1138,10 @@ class SubmitConvertImageToWordJobResponse(TeaModel):
 
 
 class SubmitConvertPdfToExcelJobRequest(TeaModel):
-    def __init__(self, file_name=None, file_url=None, force_merge_excel=None):
+    def __init__(self, file_name=None, file_url=None, force_export_inner_image=None, force_merge_excel=None):
         self.file_name = file_name  # type: str
         self.file_url = file_url  # type: str
+        self.force_export_inner_image = force_export_inner_image  # type: bool
         self.force_merge_excel = force_merge_excel  # type: bool
 
     def validate(self):
@@ -1156,6 +1157,8 @@ class SubmitConvertPdfToExcelJobRequest(TeaModel):
             result['FileName'] = self.file_name
         if self.file_url is not None:
             result['FileUrl'] = self.file_url
+        if self.force_export_inner_image is not None:
+            result['ForceExportInnerImage'] = self.force_export_inner_image
         if self.force_merge_excel is not None:
             result['ForceMergeExcel'] = self.force_merge_excel
         return result
@@ -1166,15 +1169,18 @@ class SubmitConvertPdfToExcelJobRequest(TeaModel):
             self.file_name = m.get('FileName')
         if m.get('FileUrl') is not None:
             self.file_url = m.get('FileUrl')
+        if m.get('ForceExportInnerImage') is not None:
+            self.force_export_inner_image = m.get('ForceExportInnerImage')
         if m.get('ForceMergeExcel') is not None:
             self.force_merge_excel = m.get('ForceMergeExcel')
         return self
 
 
 class SubmitConvertPdfToExcelJobAdvanceRequest(TeaModel):
-    def __init__(self, file_name=None, file_url_object=None, force_merge_excel=None):
+    def __init__(self, file_name=None, file_url_object=None, force_export_inner_image=None, force_merge_excel=None):
         self.file_name = file_name  # type: str
         self.file_url_object = file_url_object  # type: READABLE
+        self.force_export_inner_image = force_export_inner_image  # type: bool
         self.force_merge_excel = force_merge_excel  # type: bool
 
     def validate(self):
@@ -1190,6 +1196,8 @@ class SubmitConvertPdfToExcelJobAdvanceRequest(TeaModel):
             result['FileName'] = self.file_name
         if self.file_url_object is not None:
             result['FileUrl'] = self.file_url_object
+        if self.force_export_inner_image is not None:
+            result['ForceExportInnerImage'] = self.force_export_inner_image
         if self.force_merge_excel is not None:
             result['ForceMergeExcel'] = self.force_merge_excel
         return result
@@ -1200,6 +1208,8 @@ class SubmitConvertPdfToExcelJobAdvanceRequest(TeaModel):
             self.file_name = m.get('FileName')
         if m.get('FileUrl') is not None:
             self.file_url_object = m.get('FileUrl')
+        if m.get('ForceExportInnerImage') is not None:
+            self.force_export_inner_image = m.get('ForceExportInnerImage')
         if m.get('ForceMergeExcel') is not None:
             self.force_merge_excel = m.get('ForceMergeExcel')
         return self
@@ -1472,9 +1482,10 @@ class SubmitConvertPdfToImageJobResponse(TeaModel):
 
 
 class SubmitConvertPdfToWordJobRequest(TeaModel):
-    def __init__(self, file_name=None, file_url=None):
+    def __init__(self, file_name=None, file_url=None, force_export_inner_image=None):
         self.file_name = file_name  # type: str
         self.file_url = file_url  # type: str
+        self.force_export_inner_image = force_export_inner_image  # type: bool
 
     def validate(self):
         pass
@@ -1489,6 +1500,8 @@ class SubmitConvertPdfToWordJobRequest(TeaModel):
             result['FileName'] = self.file_name
         if self.file_url is not None:
             result['FileUrl'] = self.file_url
+        if self.force_export_inner_image is not None:
+            result['ForceExportInnerImage'] = self.force_export_inner_image
         return result
 
     def from_map(self, m=None):
@@ -1497,13 +1510,16 @@ class SubmitConvertPdfToWordJobRequest(TeaModel):
             self.file_name = m.get('FileName')
         if m.get('FileUrl') is not None:
             self.file_url = m.get('FileUrl')
+        if m.get('ForceExportInnerImage') is not None:
+            self.force_export_inner_image = m.get('ForceExportInnerImage')
         return self
 
 
 class SubmitConvertPdfToWordJobAdvanceRequest(TeaModel):
-    def __init__(self, file_name=None, file_url_object=None):
+    def __init__(self, file_name=None, file_url_object=None, force_export_inner_image=None):
         self.file_name = file_name  # type: str
         self.file_url_object = file_url_object  # type: READABLE
+        self.force_export_inner_image = force_export_inner_image  # type: bool
 
     def validate(self):
         pass
@@ -1518,6 +1534,8 @@ class SubmitConvertPdfToWordJobAdvanceRequest(TeaModel):
             result['FileName'] = self.file_name
         if self.file_url_object is not None:
             result['FileUrl'] = self.file_url_object
+        if self.force_export_inner_image is not None:
+            result['ForceExportInnerImage'] = self.force_export_inner_image
         return result
 
     def from_map(self, m=None):
@@ -1526,6 +1544,8 @@ class SubmitConvertPdfToWordJobAdvanceRequest(TeaModel):
             self.file_name = m.get('FileName')
         if m.get('FileUrl') is not None:
             self.file_url_object = m.get('FileUrl')
+        if m.get('ForceExportInnerImage') is not None:
+            self.force_export_inner_image = m.get('ForceExportInnerImage')
         return self
 
 
