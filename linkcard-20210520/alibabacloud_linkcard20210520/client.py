@@ -187,6 +187,40 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.add_directional_group_with_options(request, runtime)
 
+    def add_tags_to_card_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = linkcard_20210520_models.AddTagsToCardShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.tag_name_list):
+            request.tag_name_list_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.tag_name_list, 'TagNameList', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.iccid):
+            query['Iccid'] = request.iccid
+        if not UtilClient.is_unset(request.tag_name_list_shrink):
+            query['TagNameList'] = request.tag_name_list_shrink
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='AddTagsToCard',
+            version='2021-05-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            linkcard_20210520_models.AddTagsToCardResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def add_tags_to_card(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.add_tags_to_card_with_options(request, runtime)
+
     def batch_add_directional_address_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -404,6 +438,42 @@ class Client(OpenApiClient):
     def get_card_latest_flow(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_card_latest_flow_with_options(request, runtime)
+
+    def get_card_real_status_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = linkcard_20210520_models.GetCardRealStatusShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.serial_no):
+            request.serial_no_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.serial_no, 'SerialNo', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.iccid):
+            query['Iccid'] = request.iccid
+        if not UtilClient.is_unset(request.msisdn):
+            query['Msisdn'] = request.msisdn
+        if not UtilClient.is_unset(request.serial_no_shrink):
+            query['SerialNo'] = request.serial_no_shrink
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetCardRealStatus',
+            version='2021-05-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            linkcard_20210520_models.GetCardRealStatusResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_card_real_status(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_card_real_status_with_options(request, runtime)
 
     def get_card_status_statistics_with_options(self, runtime):
         req = open_api_models.OpenApiRequest()
