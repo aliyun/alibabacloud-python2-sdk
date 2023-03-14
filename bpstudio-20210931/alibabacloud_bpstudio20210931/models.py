@@ -5,8 +5,11 @@ from Tea.model import TeaModel
 
 class ChangeResourceGroupRequest(TeaModel):
     def __init__(self, new_resource_group_id=None, resource_id=None, resource_type=None):
+        # rg-aek2ajbjoloa23q
         self.new_resource_group_id = new_resource_group_id  # type: str
+        # P7RMVSVM9LOVYQOM
         self.resource_id = resource_id  # type: str
+        # APPLICATION
         self.resource_type = resource_type  # type: str
 
     def validate(self):
@@ -42,6 +45,7 @@ class ChangeResourceGroupResponseBody(TeaModel):
         self.code = code  # type: long
         self.data = data  # type: str
         self.message = message  # type: str
+        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1213,6 +1217,7 @@ class GetExecuteOperationResultResponseBodyData(TeaModel):
 class GetExecuteOperationResultResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
         self.code = code  # type: int
+        # Status
         self.data = data  # type: GetExecuteOperationResultResponseBodyData
         self.message = message  # type: str
         self.request_id = request_id  # type: str
@@ -1671,7 +1676,7 @@ class ListApplicationResponseBodyData(TeaModel):
         self.image_url = image_url  # type: str
         self.name = name  # type: str
         self.resource_group_id = resource_group_id  # type: str
-        self.status = status  # type: int
+        self.status = status  # type: str
         self.topo_url = topo_url  # type: str
 
     def validate(self):
