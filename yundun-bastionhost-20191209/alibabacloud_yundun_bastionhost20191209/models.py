@@ -5,9 +5,21 @@ from Tea.model import TeaModel
 
 class AddHostsToGroupRequest(TeaModel):
     def __init__(self, host_group_id=None, host_ids=None, instance_id=None, region_id=None):
+        # The ID of the host group to which you want to add hosts.
+        # 
+        # >  You can call the [ListHostGroups](~~201307~~) operation to query the ID of the host group.
         self.host_group_id = host_group_id  # type: str
+        # The ID of the host that you want to add to the host group. The value is a JSON string. You can add up to 100 host IDs.
+        # 
+        # >  You can call the [ListHosts](~~200665~~) operation to query the IDs of hosts.
         self.host_ids = host_ids  # type: str
+        # The ID of the bastion host for which you want to add hosts to the host group.
+        # 
+        # >  You can call the [DescribeInstances](~~153281~~) operation to query the ID of the bastion host.
         self.instance_id = instance_id  # type: str
+        # The region ID of the bastion host for which you want to add hosts to the host group.
+        # 
+        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -44,9 +56,27 @@ class AddHostsToGroupRequest(TeaModel):
 
 class AddHostsToGroupResponseBodyResults(TeaModel):
     def __init__(self, code=None, host_group_id=None, host_id=None, message=None):
+        # The return code that indicates whether the call was successful. Valid values:
+        # 
+        # *   **OK**: The call was successful.
+        # 
+        # *   **UNEXPECTED**: An unknown error occurred.
+        # 
+        # *   **INVALID_ARGUMENT**: A request parameter is invalid.
+        # 
+        #  > Make sure that the request parameters are valid and call the operation again.
+        # 
+        # *   **OBJECT_NOT_FOUND**: The specified object on which you want to perform the operation does not exist.
+        # 
+        # > Check whether the specified ID of the bastion host exists, whether the specified hosts exist, and whether the specified host IDs are valid. Then, call the operation again.
+        # 
+        # *   **OBJECT_AlREADY_EXISTS**: The specified object on which you want to perform the operation already exists.
         self.code = code  # type: str
+        # The ID of the host group.
         self.host_group_id = host_group_id  # type: str
+        # The ID of the host.
         self.host_id = host_id  # type: str
+        # This parameter is deprecated.
         self.message = message  # type: str
 
     def validate(self):
@@ -83,7 +113,9 @@ class AddHostsToGroupResponseBodyResults(TeaModel):
 
 class AddHostsToGroupResponseBody(TeaModel):
     def __init__(self, request_id=None, results=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The result of the call.
         self.results = results  # type: list[AddHostsToGroupResponseBodyResults]
 
     def validate(self):
@@ -119,12 +151,14 @@ class AddHostsToGroupResponseBody(TeaModel):
 
 
 class AddHostsToGroupResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: AddHostsToGroupResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -137,6 +171,8 @@ class AddHostsToGroupResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -145,6 +181,8 @@ class AddHostsToGroupResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = AddHostsToGroupResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -153,9 +191,21 @@ class AddHostsToGroupResponse(TeaModel):
 
 class AddUsersToGroupRequest(TeaModel):
     def __init__(self, instance_id=None, region_id=None, user_group_id=None, user_ids=None):
+        # The ID of the bastion host for which you want to add users to the user group.
+        # 
+        # >  You can call the [DescribeInstances](~~153281~~) operation to query the ID of the bastion host.
         self.instance_id = instance_id  # type: str
+        # The region ID of the bastion host for which you want to add users to the user group.
+        # 
+        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
+        # The ID of the user group to which you want to add users.
+        # 
+        # >  You can call the [ListUserGroups](~~204509~~) operation to query the ID of the user group.
         self.user_group_id = user_group_id  # type: str
+        # The ID of the user that you want to add to the user group. The value is a JSON string. You can add up to 100 user IDs. If you specify multiple IDs, separate the IDs with commas (,).
+        # 
+        # >  You can call the [ListUsers](~~204522~~) operation to query the IDs of users.
         self.user_ids = user_ids  # type: str
 
     def validate(self):
@@ -192,9 +242,27 @@ class AddUsersToGroupRequest(TeaModel):
 
 class AddUsersToGroupResponseBodyResults(TeaModel):
     def __init__(self, code=None, message=None, user_group_id=None, user_id=None):
+        # The return code that indicates whether the call was successful. Valid values:
+        # 
+        # *   **OK**: The call was successful.
+        # 
+        # *   **UNEXPECTED**: An unknown error occurred.
+        # 
+        # *   **INVALID_ARGUMENT**: A request parameter is invalid.
+        # 
+        # > Make sure that the request parameters are valid and call the operation again.
+        # 
+        # *   **OBJECT_NOT_FOUND**: The specified object on which you want to perform the operation does not exist.
+        # 
+        # > Check whether the specified ID of the bastion host exists, whether the specified hosts exist, and whether the specified host IDs are valid. Then, call the operation again.
+        # 
+        # *   **OBJECT_AlREADY_EXISTS**: The specified object on which you want to perform the operation already exists.
         self.code = code  # type: str
+        # This parameter is deprecated.
         self.message = message  # type: str
+        # The ID of the group.
         self.user_group_id = user_group_id  # type: str
+        # The ID of the user.
         self.user_id = user_id  # type: str
 
     def validate(self):
@@ -231,7 +299,9 @@ class AddUsersToGroupResponseBodyResults(TeaModel):
 
 class AddUsersToGroupResponseBody(TeaModel):
     def __init__(self, request_id=None, results=None):
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
+        # The result of the call.
         self.results = results  # type: list[AddUsersToGroupResponseBodyResults]
 
     def validate(self):
@@ -267,12 +337,14 @@ class AddUsersToGroupResponseBody(TeaModel):
 
 
 class AddUsersToGroupResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: AddUsersToGroupResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -285,6 +357,8 @@ class AddUsersToGroupResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -293,6 +367,8 @@ class AddUsersToGroupResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = AddUsersToGroupResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -301,9 +377,17 @@ class AddUsersToGroupResponse(TeaModel):
 
 class AttachHostAccountsToHostShareKeyRequest(TeaModel):
     def __init__(self, host_account_ids=None, host_share_key_id=None, instance_id=None, region_id=None):
+        # The IDs of the host accounts.
+        # 
+        # >  You must specify this parameter.
         self.host_account_ids = host_account_ids  # type: str
+        # The ID of the shared key.
+        # 
+        # >  You must specify this parameter.
         self.host_share_key_id = host_share_key_id  # type: str
+        # The ID of the bastion host. You can call the [DescribeInstances](~~153281~~) operation to query the ID of the bastion host.
         self.instance_id = instance_id  # type: str
+        # The region ID of the bastion host. For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -340,9 +424,13 @@ class AttachHostAccountsToHostShareKeyRequest(TeaModel):
 
 class AttachHostAccountsToHostShareKeyResponseBodyResults(TeaModel):
     def __init__(self, code=None, host_account_id=None, host_share_key_id=None, message=None):
+        # The error code returned. If **OK** is returned, the association was successful. If another error code is returned, the association failed.
         self.code = code  # type: str
+        # The ID of the host account.
         self.host_account_id = host_account_id  # type: str
+        # The ID of the shared key.
         self.host_share_key_id = host_share_key_id  # type: str
+        # The error message returned.
         self.message = message  # type: str
 
     def validate(self):
@@ -379,8 +467,9 @@ class AttachHostAccountsToHostShareKeyResponseBodyResults(TeaModel):
 
 class AttachHostAccountsToHostShareKeyResponseBody(TeaModel):
     def __init__(self, request_id=None, results=None):
-        # Id of the request
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
+        # The result of the call.
         self.results = results  # type: list[AttachHostAccountsToHostShareKeyResponseBodyResults]
 
     def validate(self):
@@ -416,12 +505,14 @@ class AttachHostAccountsToHostShareKeyResponseBody(TeaModel):
 
 
 class AttachHostAccountsToHostShareKeyResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: AttachHostAccountsToHostShareKeyResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -434,6 +525,8 @@ class AttachHostAccountsToHostShareKeyResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -442,6 +535,8 @@ class AttachHostAccountsToHostShareKeyResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = AttachHostAccountsToHostShareKeyResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -450,9 +545,21 @@ class AttachHostAccountsToHostShareKeyResponse(TeaModel):
 
 class AttachHostAccountsToUserRequest(TeaModel):
     def __init__(self, hosts=None, instance_id=None, region_id=None, user_id=None):
+        # The IDs of the host and host account that you want to authorize the user to manage. You can specify up to 10 host IDs and up to 10 host account IDs for each host. You can specify only host IDs. In this case, the user is authorized to manage only the specified hosts. For more information about this parameter, see the "Description of the Hosts parameter" section of this topic.
+        # 
+        # >  You can call the [ListHosts](~~200665~~) operation to query the ID of the host and the [ListHostAccounts](~~204372~~) operation to query the ID of the host account.
         self.hosts = hosts  # type: str
+        # The ID of the bastion host for which you want to authorize the user to manage the specified hosts and host accounts.
+        # 
+        # >  You can call the [DescribeInstances](~~153281~~) operation to query the ID of the bastion host.
         self.instance_id = instance_id  # type: str
+        # The region ID of the bastion host for which you want to authorize the user to manage the specified hosts and host accounts.
+        # 
+        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
+        # The ID of the user that you want to authorize to manage the specified hosts and host accounts.
+        # 
+        # >  You can call the [ListUsers](~~204522~~) operation to query the ID of the user.
         self.user_id = user_id  # type: str
 
     def validate(self):
@@ -489,8 +596,17 @@ class AttachHostAccountsToUserRequest(TeaModel):
 
 class AttachHostAccountsToUserResponseBodyResultsHostAccounts(TeaModel):
     def __init__(self, code=None, host_account_id=None, message=None):
+        # The return code that indicates whether the user was authorized to manage the specified host account. Valid values:
+        # 
+        # *   **OK**: The call was successful.
+        # *   **UNEXPECTED**: An unknown error occurred.
+        # *   **INVALID_ARGUMENT**: A request parameter is invalid.
+        # *   **OBJECT_NOT_FOUND**: The specified object on which you want to perform the operation does not exist.
+        # *   **OBJECT_AlREADY_EXISTS**: The specified object on which you want to perform the operation already exists.
         self.code = code  # type: str
+        # The ID of the host account.
         self.host_account_id = host_account_id  # type: str
+        # This parameter is deprecated.
         self.message = message  # type: str
 
     def validate(self):
@@ -523,10 +639,29 @@ class AttachHostAccountsToUserResponseBodyResultsHostAccounts(TeaModel):
 
 class AttachHostAccountsToUserResponseBodyResults(TeaModel):
     def __init__(self, code=None, host_accounts=None, host_id=None, message=None, user_id=None):
+        # The return code that indicates whether the call was successful. Valid values:
+        # 
+        # *   **OK**: The call was successful.
+        # 
+        # *   **UNEXPECTED**: An unknown error occurred.
+        # 
+        # *   **INVALID_ARGUMENT**: A request parameter is invalid.
+        # 
+        # > Make sure that the request parameters are valid and call the operation again.
+        # 
+        # *   **OBJECT_NOT_FOUND**: The specified object on which you want to perform the operation does not exist.
+        # 
+        # > Check whether the specified ID of the bastion host exists, whether the specified hosts exist, and whether the specified host IDs are valid. Then, call the operation again.
+        # 
+        # *   **OBJECT_AlREADY_EXISTS**: The specified object on which you want to perform the operation already exists.
         self.code = code  # type: str
+        # The result of authorizing the specified user to manage the specified host accounts.
         self.host_accounts = host_accounts  # type: list[AttachHostAccountsToUserResponseBodyResultsHostAccounts]
+        # The ID of the host.
         self.host_id = host_id  # type: str
+        # This parameter is deprecated.
         self.message = message  # type: str
+        # The ID of the user.
         self.user_id = user_id  # type: str
 
     def validate(self):
@@ -575,7 +710,9 @@ class AttachHostAccountsToUserResponseBodyResults(TeaModel):
 
 class AttachHostAccountsToUserResponseBody(TeaModel):
     def __init__(self, request_id=None, results=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The result of the call.
         self.results = results  # type: list[AttachHostAccountsToUserResponseBodyResults]
 
     def validate(self):
@@ -611,12 +748,14 @@ class AttachHostAccountsToUserResponseBody(TeaModel):
 
 
 class AttachHostAccountsToUserResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: AttachHostAccountsToUserResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -629,6 +768,8 @@ class AttachHostAccountsToUserResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -637,6 +778,8 @@ class AttachHostAccountsToUserResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = AttachHostAccountsToUserResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -645,9 +788,21 @@ class AttachHostAccountsToUserResponse(TeaModel):
 
 class AttachHostAccountsToUserGroupRequest(TeaModel):
     def __init__(self, hosts=None, instance_id=None, region_id=None, user_group_id=None):
+        # The IDs of the host and host account that you want to authorize the user group to manage. You can specify up to 10 host IDs and up to 10 host account IDs for each host. You can specify only host IDs. In this case, the user group is authorized to manage only the specified hosts. For more information about this parameter, see the "Description of the Hosts parameter" section of this topic.
+        # 
+        # >  You can call the [ListHosts](~~200665~~) operation to query the ID of the host and the [ListHostAccounts](~~204372~~) operation to query the ID of the host account.
         self.hosts = hosts  # type: str
+        # The ID of the bastion host in which you want to authorize the user group to manage the specified hosts and host accounts.
+        # 
+        # >  You can call the [DescribeInstances](~~153281~~) operation to query the ID of the bastion host.
         self.instance_id = instance_id  # type: str
+        # The region ID of the bastion host in which you want to authorize the user group to manage the specified hosts and host accounts.
+        # 
+        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
+        # The ID of the user group that you want to authorize to manage the specified hosts and host accounts.
+        # 
+        # >  You can call the [ListUserGroups](~~204509~~) operation to query the ID of the user group.
         self.user_group_id = user_group_id  # type: str
 
     def validate(self):
@@ -684,8 +839,17 @@ class AttachHostAccountsToUserGroupRequest(TeaModel):
 
 class AttachHostAccountsToUserGroupResponseBodyResultsHostAccounts(TeaModel):
     def __init__(self, code=None, host_account_id=None, message=None):
+        # The return code that indicates whether the user group was authorized to manage the specified host account. Valid values:
+        # 
+        # *   **OK**: The call was successful.
+        # *   **UNEXPECTED**: An unknown error occurred.
+        # *   **INVALID_ARGUMENT**: A request parameter is invalid.
+        # *   **OBJECT_NOT_FOUND**: The specified object on which you want to perform the operation does not exist.
+        # *   **OBJECT_AlREADY_EXISTS**: The specified object on which you want to perform the operation already exists.
         self.code = code  # type: str
+        # The ID of the host account.
         self.host_account_id = host_account_id  # type: str
+        # This parameter is deprecated.
         self.message = message  # type: str
 
     def validate(self):
@@ -718,10 +882,21 @@ class AttachHostAccountsToUserGroupResponseBodyResultsHostAccounts(TeaModel):
 
 class AttachHostAccountsToUserGroupResponseBodyResults(TeaModel):
     def __init__(self, code=None, host_accounts=None, host_id=None, message=None, user_group_id=None):
+        # The return code that indicates whether the call was successful. Valid values:
+        # 
+        # *   **OK**: The call was successful.
+        # *   **UNEXPECTED**: An unknown error occurred.
+        # *   **INVALID_ARGUMENT**: A request parameter is invalid.
+        # *   **OBJECT_NOT_FOUND**: The specified object on which you want to perform the operation does not exist.
+        # *   **OBJECT_AlREADY_EXISTS**: The specified object on which you want to perform the operation already exists.
         self.code = code  # type: str
+        # The result of authorizing the specified user group to manage the specified host accounts.
         self.host_accounts = host_accounts  # type: list[AttachHostAccountsToUserGroupResponseBodyResultsHostAccounts]
+        # The ID of the host.
         self.host_id = host_id  # type: str
+        # This parameter is deprecated.
         self.message = message  # type: str
+        # The ID of the group.
         self.user_group_id = user_group_id  # type: str
 
     def validate(self):
@@ -770,7 +945,9 @@ class AttachHostAccountsToUserGroupResponseBodyResults(TeaModel):
 
 class AttachHostAccountsToUserGroupResponseBody(TeaModel):
     def __init__(self, request_id=None, results=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The result of the call.
         self.results = results  # type: list[AttachHostAccountsToUserGroupResponseBodyResults]
 
     def validate(self):
@@ -806,12 +983,14 @@ class AttachHostAccountsToUserGroupResponseBody(TeaModel):
 
 
 class AttachHostAccountsToUserGroupResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: AttachHostAccountsToUserGroupResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -824,6 +1003,8 @@ class AttachHostAccountsToUserGroupResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -832,6 +1013,8 @@ class AttachHostAccountsToUserGroupResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = AttachHostAccountsToUserGroupResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -840,9 +1023,21 @@ class AttachHostAccountsToUserGroupResponse(TeaModel):
 
 class AttachHostGroupAccountsToUserRequest(TeaModel):
     def __init__(self, host_groups=None, instance_id=None, region_id=None, user_id=None):
+        # The ID of the host group and the name of the host account that you want to authorize the user to manage. You can specify up to 10 host group IDs and up to 10 host account names for each host group. You can specify only host group IDs. In this case, the user is authorized to manage only the specified host groups. For more information about this parameter, see the "Description of the HostGroups parameter" section of this topic.
+        # 
+        # >  You can call the [ListHostGroups](~~201307~~) operation to query the ID of the host group and the [ListHostAccounts](~~204372~~) operation to query the name of the host account.
         self.host_groups = host_groups  # type: str
+        # The ID of the bastion host for which you want to authorize the user to manage the specified host groups and host accounts.
+        # 
+        # >  You can call the [DescribeInstances](~~153281~~) operation to query the ID of the bastion host.
         self.instance_id = instance_id  # type: str
+        # The region ID of the bastion host for which you want to authorize the user to manage the specified host groups and host accounts.
+        # 
+        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
+        # The ID of the user that you want to authorize to manage the specified host groups and host accounts.
+        # 
+        # >  You can call the [ListUsers](~~204522~~) operation to query the ID of the user.
         self.user_id = user_id  # type: str
 
     def validate(self):
@@ -879,8 +1074,17 @@ class AttachHostGroupAccountsToUserRequest(TeaModel):
 
 class AttachHostGroupAccountsToUserResponseBodyResultsHostAccountNames(TeaModel):
     def __init__(self, code=None, host_account_name=None, message=None):
+        # The return code that indicates whether the user was authorized to manage the specified host account. Valid values:
+        # 
+        # *   **OK**: The call was successful.
+        # *   **UNEXPECTED**: An unknown error occurred.
+        # *   **INVALID_ARGUMENT**: A request parameter is invalid.
+        # *   **OBJECT_NOT_FOUND**: The specified object on which you want to perform the operation does not exist.
+        # *   **OBJECT_AlREADY_EXISTS**: The specified object on which you want to perform the operation already exists.
         self.code = code  # type: str
+        # The name of the host account.
         self.host_account_name = host_account_name  # type: str
+        # This parameter is deprecated.
         self.message = message  # type: str
 
     def validate(self):
@@ -913,10 +1117,21 @@ class AttachHostGroupAccountsToUserResponseBodyResultsHostAccountNames(TeaModel)
 
 class AttachHostGroupAccountsToUserResponseBodyResults(TeaModel):
     def __init__(self, code=None, host_account_names=None, host_group_id=None, message=None, user_id=None):
+        # The return code that indicates whether the call was successful. Valid values:
+        # 
+        # *   **OK**: The call was successful.
+        # *   **UNEXPECTED**: An unknown error occurred.
+        # *   **INVALID_ARGUMENT**: A request parameter is invalid.
+        # *   **OBJECT_NOT_FOUND**: The specified object on which you want to perform the operation does not exist.
+        # *   **OBJECT_AlREADY_EXISTS**: The specified object on which you want to perform the operation already exists.
         self.code = code  # type: str
+        # The result of authorizing the user to manage the specified host accounts.
         self.host_account_names = host_account_names  # type: list[AttachHostGroupAccountsToUserResponseBodyResultsHostAccountNames]
+        # The ID of the host group.
         self.host_group_id = host_group_id  # type: str
+        # This parameter is deprecated.
         self.message = message  # type: str
+        # The ID of the user.
         self.user_id = user_id  # type: str
 
     def validate(self):
@@ -965,7 +1180,9 @@ class AttachHostGroupAccountsToUserResponseBodyResults(TeaModel):
 
 class AttachHostGroupAccountsToUserResponseBody(TeaModel):
     def __init__(self, request_id=None, results=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The result of the call.
         self.results = results  # type: list[AttachHostGroupAccountsToUserResponseBodyResults]
 
     def validate(self):
@@ -1001,12 +1218,14 @@ class AttachHostGroupAccountsToUserResponseBody(TeaModel):
 
 
 class AttachHostGroupAccountsToUserResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: AttachHostGroupAccountsToUserResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -1019,6 +1238,8 @@ class AttachHostGroupAccountsToUserResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1027,6 +1248,8 @@ class AttachHostGroupAccountsToUserResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = AttachHostGroupAccountsToUserResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -1035,9 +1258,21 @@ class AttachHostGroupAccountsToUserResponse(TeaModel):
 
 class AttachHostGroupAccountsToUserGroupRequest(TeaModel):
     def __init__(self, host_groups=None, instance_id=None, region_id=None, user_group_id=None):
+        # The ID of the host group and the name of the host account that you want to authorize the user group to manage. You can specify up to 10 host group IDs and up to 10 host account names for each host group. You can specify only host group IDs. In this case, the user group is authorized to manage only the specified host groups. For more information about this parameter, see the "Description of the HostGroups parameter" section of this topic.
+        # 
+        # >  You can call the [ListHostGroups](~~201307~~) operation to query the ID of the host group and the [ListHostAccounts](~~204372~~) operation to query the name of the host account.
         self.host_groups = host_groups  # type: str
+        # The ID of the bastion host for which you want to authorize the user group to manage the specified host groups and host accounts.
+        # 
+        # >  You can call the [DescribeInstances](~~153281~~) operation to query the ID of the bastion host.
         self.instance_id = instance_id  # type: str
+        # The region ID of the bastion host for which you want to authorize the user group to manage the specified host groups and host accounts.
+        # 
+        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
+        # The ID of the user group that you want to authorize to manage the specified host groups and host accounts.
+        # 
+        # >  You can call the [ListUserGroups](~~204509~~) operation to query the ID of the user group.
         self.user_group_id = user_group_id  # type: str
 
     def validate(self):
@@ -1074,8 +1309,17 @@ class AttachHostGroupAccountsToUserGroupRequest(TeaModel):
 
 class AttachHostGroupAccountsToUserGroupResponseBodyResultsHostAccountNames(TeaModel):
     def __init__(self, code=None, host_account_name=None, message=None):
+        # The return code that indicates whether the user group was authorized to manage the specified host account. Valid values:
+        # 
+        # *   **OK**: The call was successful.
+        # *   **UNEXPECTED**: An unknown error occurred.
+        # *   **INVALID_ARGUMENT**: A request parameter is invalid.
+        # *   **OBJECT_NOT_FOUND**: The specified object on which you want to perform the operation does not exist.
+        # *   **OBJECT_AlREADY_EXISTS**: The specified object on which you want to perform the operation already exists.
         self.code = code  # type: str
+        # The name of the host account.
         self.host_account_name = host_account_name  # type: str
+        # This parameter is deprecated.
         self.message = message  # type: str
 
     def validate(self):
@@ -1108,10 +1352,21 @@ class AttachHostGroupAccountsToUserGroupResponseBodyResultsHostAccountNames(TeaM
 
 class AttachHostGroupAccountsToUserGroupResponseBodyResults(TeaModel):
     def __init__(self, code=None, host_account_names=None, host_group_id=None, message=None, user_group_id=None):
+        # The return code that indicates whether the call was successful. Valid values:
+        # 
+        # *   **OK**: The call was successful.
+        # *   **UNEXPECTED**: An unknown error occurred.
+        # *   **INVALID_ARGUMENT**: A request parameter is invalid.
+        # *   **OBJECT_NOT_FOUND**: The specified object on which you want to perform the operation does not exist.
+        # *   **OBJECT_AlREADY_EXISTS**: The specified object on which you want to perform the operation already exists.
         self.code = code  # type: str
+        # The result of authorizing the user group to manage the specified host accounts.
         self.host_account_names = host_account_names  # type: list[AttachHostGroupAccountsToUserGroupResponseBodyResultsHostAccountNames]
+        # The ID of the host group.
         self.host_group_id = host_group_id  # type: str
+        # This parameter is deprecated.
         self.message = message  # type: str
+        # The ID of the group.
         self.user_group_id = user_group_id  # type: str
 
     def validate(self):
@@ -1160,7 +1415,9 @@ class AttachHostGroupAccountsToUserGroupResponseBodyResults(TeaModel):
 
 class AttachHostGroupAccountsToUserGroupResponseBody(TeaModel):
     def __init__(self, request_id=None, results=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The result of the call.
         self.results = results  # type: list[AttachHostGroupAccountsToUserGroupResponseBodyResults]
 
     def validate(self):
@@ -1196,12 +1453,14 @@ class AttachHostGroupAccountsToUserGroupResponseBody(TeaModel):
 
 
 class AttachHostGroupAccountsToUserGroupResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: AttachHostGroupAccountsToUserGroupResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -1214,6 +1473,8 @@ class AttachHostGroupAccountsToUserGroupResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1222,6 +1483,8 @@ class AttachHostGroupAccountsToUserGroupResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = AttachHostGroupAccountsToUserGroupResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -1230,9 +1493,18 @@ class AttachHostGroupAccountsToUserGroupResponse(TeaModel):
 
 class ConfigInstanceSecurityGroupsRequest(TeaModel):
     def __init__(self, authorized_security_groups=None, instance_id=None, lang=None, region_id=None):
+        # The IDs of authorized security group.
         self.authorized_security_groups = authorized_security_groups  # type: list[str]
+        # The ID of the bastion host.
+        # 
+        # >  You can call the [DescribeInstances](~~153281~~) operation to query the ID of the bastion host.
         self.instance_id = instance_id  # type: str
+        # The language of the content within the request and response. Default value: **zh**. Valid values:
+        # 
+        # *   **zh**: Chinese
+        # *   **en**: English
         self.lang = lang  # type: str
+        # The region ID of the bastion host.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -1269,7 +1541,9 @@ class ConfigInstanceSecurityGroupsRequest(TeaModel):
 
 class ConfigInstanceSecurityGroupsResponseBody(TeaModel):
     def __init__(self, instance_id=None, request_id=None):
+        # The ID of the bastion host for which security groups were configured.
         self.instance_id = instance_id  # type: str
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1297,12 +1571,14 @@ class ConfigInstanceSecurityGroupsResponseBody(TeaModel):
 
 
 class ConfigInstanceSecurityGroupsResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ConfigInstanceSecurityGroupsResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -1315,6 +1591,8 @@ class ConfigInstanceSecurityGroupsResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1323,6 +1601,8 @@ class ConfigInstanceSecurityGroupsResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ConfigInstanceSecurityGroupsResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -1331,8 +1611,11 @@ class ConfigInstanceSecurityGroupsResponse(TeaModel):
 
 class ConfigInstanceWhiteListRequest(TeaModel):
     def __init__(self, instance_id=None, region_id=None, white_list=None):
+        # The ID of the bastion host for which you want to configure a whitelist of public IP addresses.
         self.instance_id = instance_id  # type: str
+        # The region ID of the bastion host.
         self.region_id = region_id  # type: str
+        # The public IP addresses that you want to add to the whitelist. You can add up to 30 IP addresses.
         self.white_list = white_list  # type: list[str]
 
     def validate(self):
@@ -1365,7 +1648,9 @@ class ConfigInstanceWhiteListRequest(TeaModel):
 
 class ConfigInstanceWhiteListResponseBody(TeaModel):
     def __init__(self, instance_id=None, request_id=None):
+        # The ID of the bastion host for which a whitelist of public IP addresses is configured.
         self.instance_id = instance_id  # type: str
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1393,12 +1678,14 @@ class ConfigInstanceWhiteListResponseBody(TeaModel):
 
 
 class ConfigInstanceWhiteListResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ConfigInstanceWhiteListResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -1411,6 +1698,8 @@ class ConfigInstanceWhiteListResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1419,6 +1708,8 @@ class ConfigInstanceWhiteListResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ConfigInstanceWhiteListResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -1429,16 +1720,49 @@ class CreateHostRequest(TeaModel):
     def __init__(self, active_address_type=None, comment=None, host_name=None, host_private_address=None,
                  host_public_address=None, instance_id=None, instance_region_id=None, ostype=None, region_id=None, source=None,
                  source_instance_id=None):
+        # The endpoint type of the host that you want to create. Valid values:
+        # 
+        # *   **Public**: a public endpoint
+        # *   **Private**: an internal endpoint
         self.active_address_type = active_address_type  # type: str
+        # The description of the host that you want to create. The value can be up to 500 characters.
         self.comment = comment  # type: str
+        # The name of the host that you want to create. The name can be up to 128 characters in length.
         self.host_name = host_name  # type: str
+        # The internal endpoint of the host that you want to create. You can set this parameter to a domain name or an IP address.
+        # 
+        # >  This parameter is required if the **ActiveAddressType** parameter is set to **Private**.
         self.host_private_address = host_private_address  # type: str
+        # The public endpoint of the host that you want to create. You can set this parameter to a domain name or an IP address.
+        # 
+        # >  This parameter is required if the **ActiveAddressType** parameter is set to **Public**.
         self.host_public_address = host_public_address  # type: str
+        # The ID of the Bastionhost instance where you want to create the host.
+        # 
+        # >  You can call the [DescribeInstances](~~153281~~) operation to query the ID of the Bastionhost instance.
         self.instance_id = instance_id  # type: str
+        # The ID of the region where the ECS instance or dedicated cluster host that you want to create resides.
+        # 
+        # >  This parameter is required if the **Source** parameter is set to **Ecs** or **Rds**.
         self.instance_region_id = instance_region_id  # type: str
+        # The operating system of the host that you want to create. Valid values:
+        # 
+        # *   **Linux**\
+        # *   **Windows**\
         self.ostype = ostype  # type: str
+        # The region ID of the Bastionhost instance where you want to create the host.
+        # 
+        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
+        # The source of the host that you want to create. Valid values:
+        # 
+        # *   **Local**: an on-premises host
+        # *   **Ecs**: an Elastic Compute Service (ECS) instance
+        # *   **Rds**: a host in a dedicated cluster
         self.source = source  # type: str
+        # The ID of the ECS instance or dedicated cluster host that you want to create.
+        # 
+        # >  This parameter is required if the **Source** parameter is set to **Ecs** or **Rds**.
         self.source_instance_id = source_instance_id  # type: str
 
     def validate(self):
@@ -1503,7 +1827,9 @@ class CreateHostRequest(TeaModel):
 
 class CreateHostResponseBody(TeaModel):
     def __init__(self, host_id=None, request_id=None):
+        # The ID of the host that was created.
         self.host_id = host_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1531,12 +1857,14 @@ class CreateHostResponseBody(TeaModel):
 
 
 class CreateHostResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: CreateHostResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -1549,6 +1877,8 @@ class CreateHostResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1557,6 +1887,8 @@ class CreateHostResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateHostResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -1566,14 +1898,38 @@ class CreateHostResponse(TeaModel):
 class CreateHostAccountRequest(TeaModel):
     def __init__(self, host_account_name=None, host_id=None, host_share_key_id=None, instance_id=None,
                  pass_phrase=None, password=None, private_key=None, protocol_name=None, region_id=None):
+        # The name of the host account that you want to add. The name can be up to 128 characters in length.
         self.host_account_name = host_account_name  # type: str
+        # The ID of the host to which you want to add a host account.
+        # 
+        # >  You can call the [ListHosts](~~200665~~) operation to query the ID of the host.
         self.host_id = host_id  # type: str
+        # The ID of the shared key.
         self.host_share_key_id = host_share_key_id  # type: str
+        # The ID of the bastion host in which you want to add a host account to the host.
+        # 
+        # >  You can call the [DescribeInstances](~~153281~~) operation to query the ID of the bastion host.
         self.instance_id = instance_id  # type: str
+        # The passphrase of the private key for the host account.
+        # 
+        # >  You can specify this parameter when the ProtocolName parameter is set to SSH. If the ProtocolName parameter is set to RDP, you do not need to specify this parameter.
         self.pass_phrase = pass_phrase  # type: str
+        # The password of the host account.
         self.password = password  # type: str
+        # The private key of the host account. The value is a Base64-encoded string.
+        # 
+        # >  This parameter takes effect only when the ProtocolName parameter is set to SSH. If the ProtocolName parameter is set to RDP, you do not need to specify this parameter. You can configure a password and a private key for the host account at the same time. If both a password and a private key are configured for the host account, Bastionhost preferentially uses the private key to log on to the host.
         self.private_key = private_key  # type: str
+        # The protocol of the host to which you want to add a host account.
+        # 
+        # Valid values:
+        # 
+        # *   SSH
+        # *   RDP
         self.protocol_name = protocol_name  # type: str
+        # The region ID of the bastion host in which you want to add a host account to the host.
+        # 
+        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -1630,7 +1986,9 @@ class CreateHostAccountRequest(TeaModel):
 
 class CreateHostAccountResponseBody(TeaModel):
     def __init__(self, host_account_id=None, request_id=None):
+        # The ID of the host account.
         self.host_account_id = host_account_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1658,12 +2016,14 @@ class CreateHostAccountResponseBody(TeaModel):
 
 
 class CreateHostAccountResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: CreateHostAccountResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -1676,6 +2036,8 @@ class CreateHostAccountResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1684,6 +2046,8 @@ class CreateHostAccountResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateHostAccountResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -1692,9 +2056,17 @@ class CreateHostAccountResponse(TeaModel):
 
 class CreateHostGroupRequest(TeaModel):
     def __init__(self, comment=None, host_group_name=None, instance_id=None, region_id=None):
+        # The description of the host group. The value can be up to 500 characters in length.
         self.comment = comment  # type: str
+        # The name of the host group. The name can be up to 128 characters in length.
         self.host_group_name = host_group_name  # type: str
+        # The ID of the Bastionhost instance where you want to create the host group.
+        # 
+        # >  You can call the [DescribeInstances](~~153281~~) operation to query the ID of the Bastionhost instance.
         self.instance_id = instance_id  # type: str
+        # The region ID of the Bastionhost instance where you want to create the host group.
+        # 
+        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -1731,7 +2103,9 @@ class CreateHostGroupRequest(TeaModel):
 
 class CreateHostGroupResponseBody(TeaModel):
     def __init__(self, host_group_id=None, request_id=None):
+        # The ID of the host group.
         self.host_group_id = host_group_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1759,12 +2133,14 @@ class CreateHostGroupResponseBody(TeaModel):
 
 
 class CreateHostGroupResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: CreateHostGroupResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -1777,6 +2153,8 @@ class CreateHostGroupResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1785,6 +2163,8 @@ class CreateHostGroupResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateHostGroupResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -1794,10 +2174,15 @@ class CreateHostGroupResponse(TeaModel):
 class CreateHostShareKeyRequest(TeaModel):
     def __init__(self, host_share_key_name=None, instance_id=None, pass_phrase=None, private_key=None,
                  region_id=None):
+        # The name of the shared key that you want to create. The name can be a maximum of 128 characters in length.
         self.host_share_key_name = host_share_key_name  # type: str
+        # The ID of the bastion host. You can call the [DescribeInstances](~~153281~~) operation to query the ID of the bastion host.
         self.instance_id = instance_id  # type: str
+        # The password of the private key. The value is a Base64-encoded string.
         self.pass_phrase = pass_phrase  # type: str
+        # The private key. The value is a Base64-encoded string.
         self.private_key = private_key  # type: str
+        # The region ID of the bastion host. For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -1838,8 +2223,9 @@ class CreateHostShareKeyRequest(TeaModel):
 
 class CreateHostShareKeyResponseBody(TeaModel):
     def __init__(self, host_share_key_id=None, request_id=None):
+        # The ID of the shared key.
         self.host_share_key_id = host_share_key_id  # type: long
-        # Id of the request
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1867,12 +2253,14 @@ class CreateHostShareKeyResponseBody(TeaModel):
 
 
 class CreateHostShareKeyResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: CreateHostShareKeyResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -1885,6 +2273,8 @@ class CreateHostShareKeyResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -1893,6 +2283,8 @@ class CreateHostShareKeyResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateHostShareKeyResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -1900,18 +2292,69 @@ class CreateHostShareKeyResponse(TeaModel):
 
 
 class CreateUserRequest(TeaModel):
-    def __init__(self, comment=None, display_name=None, email=None, instance_id=None, mobile=None,
-                 mobile_country_code=None, password=None, region_id=None, source=None, source_user_id=None, user_name=None):
+    def __init__(self, comment=None, display_name=None, effective_end_time=None, effective_start_time=None,
+                 email=None, instance_id=None, mobile=None, mobile_country_code=None, need_reset_password=None,
+                 password=None, region_id=None, source=None, source_user_id=None, two_factor_methods=None,
+                 two_factor_status=None, user_name=None):
+        # The remarks of the user that you want to add. The remarks can be up to 500 characters in length.
         self.comment = comment  # type: str
+        # The display name of the user that you want to add. This display name can be up to 128 characters in length.
         self.display_name = display_name  # type: str
+        self.effective_end_time = effective_end_time  # type: long
+        self.effective_start_time = effective_start_time  # type: long
+        # The email address of the user that you want to add.
         self.email = email  # type: str
+        # The ID of the bastion host to which you want to add a user.
+        # 
+        # >  You can call the [DescribeInstances](~~153281~~) operation to query the ID of the bastion host.
         self.instance_id = instance_id  # type: str
+        # The mobile phone number of the user that you want to add.
         self.mobile = mobile  # type: str
+        # The country where the mobile number of the user is registered. Default value: **CN**. Valid values:
+        # 
+        # *   **CN**: the Chinese mainland, whose country calling code is +86
+        # *   **HK**: Hong Kong (China), whose country calling code is +852
+        # *   **MO**: Macau (China), whose country calling code is +853
+        # *   **TW**: Taiwan (China), whose country calling code is +886
+        # *   **RU**: Russia, whose country calling code is +7
+        # *   **SG**: Singapore, whose country calling code is +65
+        # *   **MY**: Malaysia, whose country calling code is +60
+        # *   **ID**: Indonesia, whose country calling code is +62
+        # *   **DE**: Germany, whose country calling code is +49
+        # *   **AU**: Australia, whose country calling code is +61
+        # *   **US**: US, whose country calling code is +1
+        # *   **AE**: United Arab Emirates, whose country calling code is +971
+        # *   **JP**: Japan, whose country calling code is +81
+        # *   **GB**: UK, whose country calling code is +44
+        # *   **IN**: India, whose country calling code is +91
+        # *   **KR**: Republic of Korea, whose country calling code is +82
+        # *   **PH**: Philippines, whose country calling code is +63
+        # *   **CH**: Switzerland, whose country calling code is +41
+        # *   **SE**: Sweden, whose country calling code is +46
         self.mobile_country_code = mobile_country_code  # type: str
+        self.need_reset_password = need_reset_password  # type: bool
+        # The logon password of the user that you want to add. The logon password can be up to 128 characters in length.
+        # 
+        # >  This parameter is required if the **Source** parameter is set to **Local**.
         self.password = password  # type: str
+        # The region ID of the bastion host to which you want to add a user.
+        # 
+        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
+        # The source of the user that you want to add. Valid values:
+        # 
+        # - **Local**: a local user
+        # - **Ram**: a RAM user
+        # - **AD** : an AD-authenticated user
+        # - **LDAP** : an LDAP-authenticated user
         self.source = source  # type: str
+        # The unique identifier of the user that you want to add.
+        # 
+        # >  This parameter uniquely identifies a RAM user of the bastion host. This parameter is required if the **Source** parameter is set to **Ram**. You can call the [ListUsers](~~28684~~) operation to obtain the unique identifier of the user from the **UserId** response parameter.
         self.source_user_id = source_user_id  # type: str
+        self.two_factor_methods = two_factor_methods  # type: str
+        self.two_factor_status = two_factor_status  # type: str
+        # The logon name of the user that you want to add. The logon name can contain only letters, digits, and underscores (\_) and can be up to 128 characters in length.
         self.user_name = user_name  # type: str
 
     def validate(self):
@@ -1927,6 +2370,10 @@ class CreateUserRequest(TeaModel):
             result['Comment'] = self.comment
         if self.display_name is not None:
             result['DisplayName'] = self.display_name
+        if self.effective_end_time is not None:
+            result['EffectiveEndTime'] = self.effective_end_time
+        if self.effective_start_time is not None:
+            result['EffectiveStartTime'] = self.effective_start_time
         if self.email is not None:
             result['Email'] = self.email
         if self.instance_id is not None:
@@ -1935,6 +2382,8 @@ class CreateUserRequest(TeaModel):
             result['Mobile'] = self.mobile
         if self.mobile_country_code is not None:
             result['MobileCountryCode'] = self.mobile_country_code
+        if self.need_reset_password is not None:
+            result['NeedResetPassword'] = self.need_reset_password
         if self.password is not None:
             result['Password'] = self.password
         if self.region_id is not None:
@@ -1943,6 +2392,10 @@ class CreateUserRequest(TeaModel):
             result['Source'] = self.source
         if self.source_user_id is not None:
             result['SourceUserId'] = self.source_user_id
+        if self.two_factor_methods is not None:
+            result['TwoFactorMethods'] = self.two_factor_methods
+        if self.two_factor_status is not None:
+            result['TwoFactorStatus'] = self.two_factor_status
         if self.user_name is not None:
             result['UserName'] = self.user_name
         return result
@@ -1953,6 +2406,10 @@ class CreateUserRequest(TeaModel):
             self.comment = m.get('Comment')
         if m.get('DisplayName') is not None:
             self.display_name = m.get('DisplayName')
+        if m.get('EffectiveEndTime') is not None:
+            self.effective_end_time = m.get('EffectiveEndTime')
+        if m.get('EffectiveStartTime') is not None:
+            self.effective_start_time = m.get('EffectiveStartTime')
         if m.get('Email') is not None:
             self.email = m.get('Email')
         if m.get('InstanceId') is not None:
@@ -1961,6 +2418,8 @@ class CreateUserRequest(TeaModel):
             self.mobile = m.get('Mobile')
         if m.get('MobileCountryCode') is not None:
             self.mobile_country_code = m.get('MobileCountryCode')
+        if m.get('NeedResetPassword') is not None:
+            self.need_reset_password = m.get('NeedResetPassword')
         if m.get('Password') is not None:
             self.password = m.get('Password')
         if m.get('RegionId') is not None:
@@ -1969,6 +2428,10 @@ class CreateUserRequest(TeaModel):
             self.source = m.get('Source')
         if m.get('SourceUserId') is not None:
             self.source_user_id = m.get('SourceUserId')
+        if m.get('TwoFactorMethods') is not None:
+            self.two_factor_methods = m.get('TwoFactorMethods')
+        if m.get('TwoFactorStatus') is not None:
+            self.two_factor_status = m.get('TwoFactorStatus')
         if m.get('UserName') is not None:
             self.user_name = m.get('UserName')
         return self
@@ -1976,7 +2439,9 @@ class CreateUserRequest(TeaModel):
 
 class CreateUserResponseBody(TeaModel):
     def __init__(self, request_id=None, user_id=None):
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
+        # The ID of the user.
         self.user_id = user_id  # type: str
 
     def validate(self):
@@ -2004,12 +2469,14 @@ class CreateUserResponseBody(TeaModel):
 
 
 class CreateUserResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: CreateUserResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -2022,6 +2489,8 @@ class CreateUserResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -2030,6 +2499,8 @@ class CreateUserResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateUserResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -2038,9 +2509,17 @@ class CreateUserResponse(TeaModel):
 
 class CreateUserGroupRequest(TeaModel):
     def __init__(self, comment=None, instance_id=None, region_id=None, user_group_name=None):
+        # The remarks of the user group. The remarks can be up to 500 characters in length.
         self.comment = comment  # type: str
+        # The ID of the bastion host for which you want to create a user group.
+        # 
+        # >  You can call the [DescribeInstances](~~153281~~) operation to query the ID of the bastion host.
         self.instance_id = instance_id  # type: str
+        # The region ID of the bastion host for which you want to create a user group.
+        # 
+        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
+        # The name of the user group that you want to create. This name can be a up to 128 characters in length.
         self.user_group_name = user_group_name  # type: str
 
     def validate(self):
@@ -2077,7 +2556,9 @@ class CreateUserGroupRequest(TeaModel):
 
 class CreateUserGroupResponseBody(TeaModel):
     def __init__(self, request_id=None, user_group_id=None):
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
+        # The ID of the user group.
         self.user_group_id = user_group_id  # type: str
 
     def validate(self):
@@ -2105,12 +2586,14 @@ class CreateUserGroupResponseBody(TeaModel):
 
 
 class CreateUserGroupResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: CreateUserGroupResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -2123,6 +2606,8 @@ class CreateUserGroupResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -2131,16 +2616,157 @@ class CreateUserGroupResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateUserGroupResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
 
+class CreateUserPublicKeyRequest(TeaModel):
+    def __init__(self, comment=None, instance_id=None, public_key=None, public_key_name=None, region_id=None,
+                 user_id=None):
+        # The description of the public key. The description can be up to 500 characters in length.
+        self.comment = comment  # type: str
+        # The ID of the bastion host on which you want to create a public key for the user.
+        # 
+        # > You can call the [listinstances](~~204522~~) operation to query the ID of the bastion host.
+        self.instance_id = instance_id  # type: str
+        # The public key. Encode the value by using the Base64 algorithm.
+        self.public_key = public_key  # type: str
+        # The name of the public key.
+        self.public_key_name = public_key_name  # type: str
+        # Specifies the region ID of the bastion host on which you want to create a public key for the user.
+        # 
+        # > For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
+        self.region_id = region_id  # type: str
+        # Specifies the ID of the user for whom you want to create a public key.
+        self.user_id = user_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateUserPublicKeyRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.comment is not None:
+            result['Comment'] = self.comment
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.public_key is not None:
+            result['PublicKey'] = self.public_key
+        if self.public_key_name is not None:
+            result['PublicKeyName'] = self.public_key_name
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.user_id is not None:
+            result['UserId'] = self.user_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Comment') is not None:
+            self.comment = m.get('Comment')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('PublicKey') is not None:
+            self.public_key = m.get('PublicKey')
+        if m.get('PublicKeyName') is not None:
+            self.public_key_name = m.get('PublicKeyName')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('UserId') is not None:
+            self.user_id = m.get('UserId')
+        return self
+
+
+class CreateUserPublicKeyResponseBody(TeaModel):
+    def __init__(self, public_key_id=None, request_id=None):
+        # The ID of the public key.
+        self.public_key_id = public_key_id  # type: str
+        # The ID of the request, which is used to locate and troubleshoot issues.
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateUserPublicKeyResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.public_key_id is not None:
+            result['PublicKeyId'] = self.public_key_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('PublicKeyId') is not None:
+            self.public_key_id = m.get('PublicKeyId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class CreateUserPublicKeyResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateUserPublicKeyResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateUserPublicKeyResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateUserPublicKeyResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DeleteHostRequest(TeaModel):
     def __init__(self, host_id=None, instance_id=None, region_id=None):
+        # The ID of the host that you want to delete.
+        # 
+        # >  You can call the [ListHosts](~~200665~~) operation to query the ID of the host.
         self.host_id = host_id  # type: str
+        # The ID of the Bastionhost instance where you want to delete the host.
+        # 
+        # >  You can call the [DescribeInstances](~~153281~~) operation to query the ID of the Bastionhost instance.
         self.instance_id = instance_id  # type: str
+        # The region ID of the Bastionhost instance where you want to delete the host.
+        # 
+        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -2173,6 +2799,7 @@ class DeleteHostRequest(TeaModel):
 
 class DeleteHostResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2196,12 +2823,14 @@ class DeleteHostResponseBody(TeaModel):
 
 
 class DeleteHostResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DeleteHostResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -2214,6 +2843,8 @@ class DeleteHostResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -2222,6 +2853,8 @@ class DeleteHostResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DeleteHostResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -2230,8 +2863,17 @@ class DeleteHostResponse(TeaModel):
 
 class DeleteHostAccountRequest(TeaModel):
     def __init__(self, host_account_id=None, instance_id=None, region_id=None):
+        # The ID of the host account that you want to remove.
+        # 
+        # >  You can call the [ListHostAccounts](~~204372~~) operation to query the ID of the host account.
         self.host_account_id = host_account_id  # type: str
+        # The ID of the bastion host from which you want to remove the host account.
+        # 
+        # >  You can call the [DescribeInstances](~~153281~~) operation to query the ID of the bastion host.
         self.instance_id = instance_id  # type: str
+        # The region ID of the bastion host from which you want to remove the host account.
+        # 
+        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -2264,6 +2906,7 @@ class DeleteHostAccountRequest(TeaModel):
 
 class DeleteHostAccountResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2287,12 +2930,14 @@ class DeleteHostAccountResponseBody(TeaModel):
 
 
 class DeleteHostAccountResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DeleteHostAccountResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -2305,6 +2950,8 @@ class DeleteHostAccountResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -2313,6 +2960,8 @@ class DeleteHostAccountResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DeleteHostAccountResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -2321,8 +2970,17 @@ class DeleteHostAccountResponse(TeaModel):
 
 class DeleteHostGroupRequest(TeaModel):
     def __init__(self, host_group_id=None, instance_id=None, region_id=None):
+        # The ID of the host group that you want to delete.
+        # 
+        # >  You can call the [ListHostGroups](~~201307~~) operation to query the ID of the host group.
         self.host_group_id = host_group_id  # type: str
+        # The ID of the bastion host from which you want to delete the host group.
+        # 
+        # >  You can call the [DescribeInstances](~~153281~~) operation to query the ID of the bastion host.
         self.instance_id = instance_id  # type: str
+        # The region ID of the bastion host from which you want to delete the host group.
+        # 
+        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -2355,6 +3013,7 @@ class DeleteHostGroupRequest(TeaModel):
 
 class DeleteHostGroupResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2378,12 +3037,14 @@ class DeleteHostGroupResponseBody(TeaModel):
 
 
 class DeleteHostGroupResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DeleteHostGroupResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -2396,6 +3057,8 @@ class DeleteHostGroupResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -2404,6 +3067,8 @@ class DeleteHostGroupResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DeleteHostGroupResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -2412,8 +3077,13 @@ class DeleteHostGroupResponse(TeaModel):
 
 class DeleteHostShareKeyRequest(TeaModel):
     def __init__(self, host_share_key_id=None, instance_id=None, region_id=None):
+        # The ID of the shared key.
+        # 
+        # >  You must specify this parameter.
         self.host_share_key_id = host_share_key_id  # type: str
+        # The ID of the bastion host. You can call the [DescribeInstances](~~153281~~) operation to query the ID of the bastion host.
         self.instance_id = instance_id  # type: str
+        # The region ID of the bastion host. For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -2446,7 +3116,7 @@ class DeleteHostShareKeyRequest(TeaModel):
 
 class DeleteHostShareKeyResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2470,12 +3140,14 @@ class DeleteHostShareKeyResponseBody(TeaModel):
 
 
 class DeleteHostShareKeyResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DeleteHostShareKeyResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -2488,6 +3160,8 @@ class DeleteHostShareKeyResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -2496,6 +3170,8 @@ class DeleteHostShareKeyResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DeleteHostShareKeyResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -2504,8 +3180,17 @@ class DeleteHostShareKeyResponse(TeaModel):
 
 class DeleteUserRequest(TeaModel):
     def __init__(self, instance_id=None, region_id=None, user_id=None):
+        # The ID of the Bastionhost instance to which the user to be deleted belongs.
+        # 
+        # >  You can call the [DescribeInstances](~~153281~~) operation to query the ID of the Bastionhost instance.
         self.instance_id = instance_id  # type: str
+        # The region ID of the Bastionhost instance to which the user to be deleted belongs.
+        # 
+        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
+        # The ID of the user to be deleted.
+        # 
+        # >  You can call the [ListUsers](~~204522~~) operation to query the ID of the user.
         self.user_id = user_id  # type: str
 
     def validate(self):
@@ -2538,6 +3223,7 @@ class DeleteUserRequest(TeaModel):
 
 class DeleteUserResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2561,12 +3247,14 @@ class DeleteUserResponseBody(TeaModel):
 
 
 class DeleteUserResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DeleteUserResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -2579,6 +3267,8 @@ class DeleteUserResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -2587,6 +3277,8 @@ class DeleteUserResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DeleteUserResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -2595,8 +3287,17 @@ class DeleteUserResponse(TeaModel):
 
 class DeleteUserGroupRequest(TeaModel):
     def __init__(self, instance_id=None, region_id=None, user_group_id=None):
+        # The ID of the Bastionhost instance where you want to delete the user group.
+        # 
+        # >  You can call the [DescribeInstances](~~153281~~) operation to query the ID of the Bastionhost instance.
         self.instance_id = instance_id  # type: str
+        # The region ID of the Bastionhost instance where you want to delete the user group.
+        # 
+        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
+        # The ID of the user group that you want to delete.
+        # 
+        # >  You can call the [ListUserGroups](~~204509~~) operation to query the ID of the user group.
         self.user_group_id = user_group_id  # type: str
 
     def validate(self):
@@ -2629,6 +3330,7 @@ class DeleteUserGroupRequest(TeaModel):
 
 class DeleteUserGroupResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2652,12 +3354,14 @@ class DeleteUserGroupResponseBody(TeaModel):
 
 
 class DeleteUserGroupResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DeleteUserGroupResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -2670,6 +3374,8 @@ class DeleteUserGroupResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -2678,15 +3384,122 @@ class DeleteUserGroupResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DeleteUserGroupResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
 
+class DeleteUserPublicKeyRequest(TeaModel):
+    def __init__(self, instance_id=None, public_key_id=None, region_id=None):
+        # Specifies the region ID of the bastion host on which you want to delete the public key from the user.
+        # 
+        # > You can call the [DescribeInstances](~~153281~~) operation to query the ID of the bastion host.
+        self.instance_id = instance_id  # type: str
+        # The ID of the public key.
+        self.public_key_id = public_key_id  # type: str
+        # The region ID of the bastion host. For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteUserPublicKeyRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.public_key_id is not None:
+            result['PublicKeyId'] = self.public_key_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('PublicKeyId') is not None:
+            self.public_key_id = m.get('PublicKeyId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class DeleteUserPublicKeyResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        # The ID of the request, which is used to locate and troubleshoot issues.
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteUserPublicKeyResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DeleteUserPublicKeyResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteUserPublicKeyResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteUserPublicKeyResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteUserPublicKeyResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeInstanceAttributeRequest(TeaModel):
     def __init__(self, instance_id=None, region_id=None):
+        # The ID of the bastion host to query.
         self.instance_id = instance_id  # type: str
+        # The region ID of the bastion host to query.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -2715,7 +3528,15 @@ class DescribeInstanceAttributeRequest(TeaModel):
 
 class DescribeInstanceAttributeResponseBodyInstanceAttributePorts(TeaModel):
     def __init__(self, custom_port=None, standard_port=None):
+        # The custom port.
+        # 
+        # > : You can change only the SSH and RDP ports. If O\&M ports are not specified, the value of the StandardPort parameter is returned.
         self.custom_port = custom_port  # type: int
+        # The standard port of the bastion host. Valid values:
+        # 
+        # *   **SSH**: 60022
+        # *   **RDP**: 63389
+        # *   **HTTPS**: 443
         self.standard_port = standard_port  # type: int
 
     def validate(self):
@@ -2743,37 +3564,82 @@ class DescribeInstanceAttributeResponseBodyInstanceAttributePorts(TeaModel):
 
 
 class DescribeInstanceAttributeResponseBodyInstanceAttribute(TeaModel):
-    def __init__(self, authorized_security_groups=None, description=None, eni_instance_id=None, expire_time=None,
-                 instance_id=None, instance_status=None, internet_endpoint=None, intranet_endpoint=None, license_code=None,
-                 modify_password_module=None, network_proxy_module=None, ports=None, private_export_ips=None, private_white_list=None,
-                 public_export_ips=None, public_ips=None, public_network_access=None, public_white_list=None, region_id=None,
-                 resource_group_id=None, security_group_ids=None, start_time=None, storage=None, vpc_id=None, vswitch_id=None,
-                 web_terminal_module=None):
+    def __init__(self, authorized_security_groups=None, db_operation_module=None, description=None,
+                 eni_instance_id=None, expire_time=None, instance_id=None, instance_status=None, internet_endpoint=None,
+                 intranet_endpoint=None, license_code=None, modify_password_module=None, network_proxy_module=None, ports=None,
+                 private_export_ips=None, private_white_list=None, public_export_ips=None, public_ips=None,
+                 public_network_access=None, public_white_list=None, region_id=None, resource_group_id=None, security_group_ids=None,
+                 start_time=None, storage=None, vpc_id=None, vswitch_id=None, web_terminal_module=None):
+        # An array that consists of the IDs of authorized security groups.
         self.authorized_security_groups = authorized_security_groups  # type: list[str]
+        # The status of the database O\&M feature.
+        self.db_operation_module = db_operation_module  # type: str
+        # The remarks of the bastion host.
         self.description = description  # type: str
+        # The ID of the elastic network interface (ENI).
         self.eni_instance_id = eni_instance_id  # type: str
+        # The time when the bastion host expires.
         self.expire_time = expire_time  # type: long
+        # The ID of the bastion host.
         self.instance_id = instance_id  # type: str
+        # The status of the bastion host. Valid values:
+        # 
+        # *   **PENDING**: The bastion host is not initialized.
+        # *   **CREATING**: The bastion host is being created.
+        # *   **RUNNING**: The bastion host is running.
+        # *   **EXPIRED**: The bastion host expired.
+        # *   **CREATE_FAILED**: The bastion host fails to be created.
+        # *   **UPGRADING**: The configurations of the bastion host are being changed.
+        # *   **UPGRADE_FAILED**: The configurations of the bastion host fail to be changed.
         self.instance_status = instance_status  # type: str
+        # The public endpoint of the bastion host.
         self.internet_endpoint = internet_endpoint  # type: str
+        # The internal endpoint of the bastion host.
         self.intranet_endpoint = intranet_endpoint  # type: str
+        # The license code.
         self.license_code = license_code  # type: str
+        # The status of the automatic password change feature.
+        # 
+        # *   **Enable**\
+        # *   **Disable**\
         self.modify_password_module = modify_password_module  # type: str
+        # The status of the network domain feature.
+        # 
+        # *   **Enable**\
+        # *   **Disable**\
         self.network_proxy_module = network_proxy_module  # type: str
+        # An array that consists of the O\&M ports of the bastion host.
         self.ports = ports  # type: list[DescribeInstanceAttributeResponseBodyInstanceAttributePorts]
+        # An array that consists of the egress private IP addresses of the bastion host.
         self.private_export_ips = private_export_ips  # type: list[str]
+        # An array that consists of private IP addresses in a whitelist for the bastion host.
         self.private_white_list = private_white_list  # type: list[str]
+        # An array that consists of the egress public IP addresses of the bastion host.
         self.public_export_ips = public_export_ips  # type: list[str]
+        # An array that consists of the public IP addresses of the bastion host.
         self.public_ips = public_ips  # type: list[str]
+        # Indicates whether the bastion host can be accessed over the Internet.
         self.public_network_access = public_network_access  # type: bool
+        # An array that consists of public IP addresses in a whitelist for the bastion host.
         self.public_white_list = public_white_list  # type: list[str]
+        # The ID of the region in which the bastion host resides.
         self.region_id = region_id  # type: str
+        # The ID of the resource group to which the bastion host belongs.
         self.resource_group_id = resource_group_id  # type: str
+        # An array that consists of the IDs of the security groups to which the bastion host belongs.
         self.security_group_ids = security_group_ids  # type: list[str]
+        # The time when the bastion host was purchased.
         self.start_time = start_time  # type: long
+        # The storage capacity of the bastion host.
         self.storage = storage  # type: long
+        # The ID of the virtual private cloud (VPC) to which the bastion host belongs.
         self.vpc_id = vpc_id  # type: str
+        # The ID of the vSwitch to which the bastion host belongs.
         self.vswitch_id = vswitch_id  # type: str
+        # The status of the web terminal.
+        # 
+        # *   **Enable**\
+        # *   **Disable**\
         self.web_terminal_module = web_terminal_module  # type: str
 
     def validate(self):
@@ -2790,6 +3656,8 @@ class DescribeInstanceAttributeResponseBodyInstanceAttribute(TeaModel):
         result = dict()
         if self.authorized_security_groups is not None:
             result['AuthorizedSecurityGroups'] = self.authorized_security_groups
+        if self.db_operation_module is not None:
+            result['DbOperationModule'] = self.db_operation_module
         if self.description is not None:
             result['Description'] = self.description
         if self.eni_instance_id is not None:
@@ -2848,6 +3716,8 @@ class DescribeInstanceAttributeResponseBodyInstanceAttribute(TeaModel):
         m = m or dict()
         if m.get('AuthorizedSecurityGroups') is not None:
             self.authorized_security_groups = m.get('AuthorizedSecurityGroups')
+        if m.get('DbOperationModule') is not None:
+            self.db_operation_module = m.get('DbOperationModule')
         if m.get('Description') is not None:
             self.description = m.get('Description')
         if m.get('EniInstanceId') is not None:
@@ -2906,7 +3776,9 @@ class DescribeInstanceAttributeResponseBodyInstanceAttribute(TeaModel):
 
 class DescribeInstanceAttributeResponseBody(TeaModel):
     def __init__(self, instance_attribute=None, request_id=None):
+        # The attribute information about the bastion host.
         self.instance_attribute = instance_attribute  # type: DescribeInstanceAttributeResponseBodyInstanceAttribute
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2936,12 +3808,14 @@ class DescribeInstanceAttributeResponseBody(TeaModel):
 
 
 class DescribeInstanceAttributeResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeInstanceAttributeResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -2954,6 +3828,8 @@ class DescribeInstanceAttributeResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -2962,6 +3838,8 @@ class DescribeInstanceAttributeResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeInstanceAttributeResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -2970,7 +3848,9 @@ class DescribeInstanceAttributeResponse(TeaModel):
 
 class DescribeInstancesRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The tag key of the bastion host.
         self.key = key  # type: str
+        # The tag value of the bastion host.
         self.value = value  # type: str
 
     def validate(self):
@@ -3000,12 +3880,27 @@ class DescribeInstancesRequestTag(TeaModel):
 class DescribeInstancesRequest(TeaModel):
     def __init__(self, instance_id=None, instance_status=None, page_number=None, page_size=None, region_id=None,
                  resource_group_id=None, tag=None):
+        # The IDs of the bastion hosts.
         self.instance_id = instance_id  # type: list[str]
+        # The state of the bastion host. Valid values:
+        # 
+        # *   **PENDING**: The bastion host is not initialized.
+        # *   **CREATING**: The bastion host is being created.
+        # *   **RUNNING**: The bastion host is running.
+        # *   **EXPIRED**: The bastion host expired.
+        # *   **CREATE_FAILED**: The bastion host fails to be created.
+        # *   **UPGRADING**: The configurations of the bastion host are being changed.
+        # *   **UPGRADE_FAILED**: The configurations of the bastion host fail to be changed.
         self.instance_status = instance_status  # type: str
+        # The number of the page to return. Default value: **1**.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page. Default value: **10**.
         self.page_size = page_size  # type: int
+        # The region ID of the bastion host.
         self.region_id = region_id  # type: str
+        # The ID of the resource group to which the bastion host belongs.
         self.resource_group_id = resource_group_id  # type: str
+        # The tags.
         self.tag = tag  # type: list[DescribeInstancesRequestTag]
 
     def validate(self):
@@ -3065,21 +3960,54 @@ class DescribeInstancesResponseBodyInstances(TeaModel):
                  instance_status=None, internet_endpoint=None, intranet_endpoint=None, legacy=None, license_code=None,
                  plan_code=None, public_network_access=None, region_id=None, resource_group_id=None, start_time=None,
                  vpc_id=None, vswitch_id=None):
+        # The description of the bastion host.
         self.description = description  # type: str
+        # The timestamp when the bastion host expires. Unit: milliseconds.
         self.expire_time = expire_time  # type: long
+        # The image version of the bastion host.
         self.image_version = image_version  # type: str
+        # The ID of the bastion host.
         self.instance_id = instance_id  # type: str
+        # The state of the bastion host. Valid values:
+        # 
+        # *   **PENDING**: The bastion host is not initialized.
+        # *   **CREATING**: The bastion host is being created.
+        # *   **RUNNING**: The bastion host is running.
+        # *   **EXPIRED**: The bastion host expired.
+        # *   **CREATE_FAILED**: The bastion host fails to be created.
+        # *   **UPGRADING**: The configurations of the bastion host are being changed.
+        # *   **UPGRADE_FAILED**: The configurations of the bastion host fail to be changed.
         self.instance_status = instance_status  # type: str
+        # The public O\&M address of the bastion host.
         self.internet_endpoint = internet_endpoint  # type: str
+        # The private O\&M address of the bastion host.
         self.intranet_endpoint = intranet_endpoint  # type: str
+        # Indicates whether the bastion host runs an earlier version. Valid values:
+        # 
+        # *   **true**: indicates that the bastion host runs V2 or V3.1.
+        # *   **false**:indicates that the bastion host runs V3.2.
         self.legacy = legacy  # type: bool
+        # The license code of the bastion host.
         self.license_code = license_code  # type: str
+        # The edition of the bastion host. Valid values:
+        # 
+        # *   **cloudbastion**: Basic
+        # *   **cloudbastion_ha**: Enterprise
         self.plan_code = plan_code  # type: str
+        # Indicates whether the bastion host can be accessed from the Internet. Valid values:
+        # 
+        # *   **true**: The bastion host can be accessed from the Internet.
+        # *   **false**: The bastion host cannot be accessed from the Internet.
         self.public_network_access = public_network_access  # type: bool
+        # The region ID of the bastion host.
         self.region_id = region_id  # type: str
+        # The ID of the resource group to which the bastion host belongs.
         self.resource_group_id = resource_group_id  # type: str
+        # The timestamp when the bastion host is purchased or renewed. Unit: milliseconds.
         self.start_time = start_time  # type: long
+        # The ID of the virtual private cloud (VPC) to which the bastion host belongs.
         self.vpc_id = vpc_id  # type: str
+        # The ID of the vSwitch to which the bastion host belongs.
         self.vswitch_id = vswitch_id  # type: str
 
     def validate(self):
@@ -3164,8 +4092,11 @@ class DescribeInstancesResponseBodyInstances(TeaModel):
 
 class DescribeInstancesResponseBody(TeaModel):
     def __init__(self, instances=None, request_id=None, total_count=None):
+        # An array that consists of the queried bastion hosts.
         self.instances = instances  # type: list[DescribeInstancesResponseBodyInstances]
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
+        # The total number of bastion hosts that are queried.
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -3205,12 +4136,14 @@ class DescribeInstancesResponseBody(TeaModel):
 
 
 class DescribeInstancesResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeInstancesResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -3223,6 +4156,8 @@ class DescribeInstancesResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -3231,6 +4166,8 @@ class DescribeInstancesResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeInstancesResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -3238,8 +4175,15 @@ class DescribeInstancesResponse(TeaModel):
 
 
 class DescribeRegionsRequest(TeaModel):
-    def __init__(self, accept_language=None):
+    def __init__(self, accept_language=None, region_id=None):
+        # The natural language in which responses are returned. Valid values:
+        # 
+        # *   **zh-CN**: Chinese. This is the default value.
+        # *   **en-US**: English.
+        # *   **ja**: Japanese.
         self.accept_language = accept_language  # type: str
+        # The ID of the region.
+        self.region_id = region_id  # type: str
 
     def validate(self):
         pass
@@ -3252,19 +4196,26 @@ class DescribeRegionsRequest(TeaModel):
         result = dict()
         if self.accept_language is not None:
             result['AcceptLanguage'] = self.accept_language
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('AcceptLanguage') is not None:
             self.accept_language = m.get('AcceptLanguage')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
         return self
 
 
 class DescribeRegionsResponseBodyRegions(TeaModel):
     def __init__(self, local_name=None, region_endpoint=None, region_id=None):
+        # The name of the region.
         self.local_name = local_name  # type: str
+        # The endpoint of the region.
         self.region_endpoint = region_endpoint  # type: str
+        # The ID of the region.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -3297,7 +4248,9 @@ class DescribeRegionsResponseBodyRegions(TeaModel):
 
 class DescribeRegionsResponseBody(TeaModel):
     def __init__(self, regions=None, request_id=None):
+        # The information about regions where you can create bastion hosts.
         self.regions = regions  # type: list[DescribeRegionsResponseBodyRegions]
+        # The ID of request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3333,12 +4286,14 @@ class DescribeRegionsResponseBody(TeaModel):
 
 
 class DescribeRegionsResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DescribeRegionsResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -3351,6 +4306,8 @@ class DescribeRegionsResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -3359,6 +4316,8 @@ class DescribeRegionsResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeRegionsResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -3367,9 +4326,13 @@ class DescribeRegionsResponse(TeaModel):
 
 class DetachHostAccountsFromHostShareKeyRequest(TeaModel):
     def __init__(self, host_account_ids=None, host_share_key_id=None, instance_id=None, region_id=None):
+        # The IDs of the host accounts.
         self.host_account_ids = host_account_ids  # type: str
+        # The ID of the shared key.
         self.host_share_key_id = host_share_key_id  # type: str
+        # The ID of the bastion host. You can call the [DescribeInstances](~~153281~~) operation to query the ID of the bastion host.
         self.instance_id = instance_id  # type: str
+        # The region ID of the bastion host. For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -3406,9 +4369,13 @@ class DetachHostAccountsFromHostShareKeyRequest(TeaModel):
 
 class DetachHostAccountsFromHostShareKeyResponseBodyResults(TeaModel):
     def __init__(self, code=None, host_account_id=None, host_share_key_id=None, message=None):
+        # The error code. If **OK** is returned, the disassociation was successful. If a different error code is returned, the disassociation failed.
         self.code = code  # type: str
+        # The ID of the host account.
         self.host_account_id = host_account_id  # type: str
+        # The ID of the shared key.
         self.host_share_key_id = host_share_key_id  # type: str
+        # The error message.
         self.message = message  # type: str
 
     def validate(self):
@@ -3445,8 +4412,9 @@ class DetachHostAccountsFromHostShareKeyResponseBodyResults(TeaModel):
 
 class DetachHostAccountsFromHostShareKeyResponseBody(TeaModel):
     def __init__(self, request_id=None, results=None):
-        # Id of the request
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
+        # The result of the call.
         self.results = results  # type: list[DetachHostAccountsFromHostShareKeyResponseBodyResults]
 
     def validate(self):
@@ -3482,12 +4450,14 @@ class DetachHostAccountsFromHostShareKeyResponseBody(TeaModel):
 
 
 class DetachHostAccountsFromHostShareKeyResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DetachHostAccountsFromHostShareKeyResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -3500,6 +4470,8 @@ class DetachHostAccountsFromHostShareKeyResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -3508,6 +4480,8 @@ class DetachHostAccountsFromHostShareKeyResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DetachHostAccountsFromHostShareKeyResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -3516,9 +4490,21 @@ class DetachHostAccountsFromHostShareKeyResponse(TeaModel):
 
 class DetachHostAccountsFromUserRequest(TeaModel):
     def __init__(self, hosts=None, instance_id=None, region_id=None, user_id=None):
+        # The IDs of the host and host account on which you want to revoke permissions from the user. You can specify up to 10 host IDs and up to 10 host account IDs for each host. You can specify only host IDs. In this case, the permissions on both the specified hosts and all host accounts of the hosts are revoked from the user. For more information about this parameter, see the "Description of the Hosts parameter" section of this topic.
+        # 
+        # >  You can call the [ListHosts](~~200665~~) operation to query the ID of the host and the [ListHostAccounts](~~204372~~) operation to query the ID of the host account.
         self.hosts = hosts  # type: str
+        # The ID of the bastion host in which you want to revoke permissions on the specified hosts and host accounts from the user.
+        # 
+        # >  You can call the [DescribeInstances](~~153281~~) operation to query the ID of the bastion host.
         self.instance_id = instance_id  # type: str
+        # The region ID of the bastion host in which you want to revoke permissions on the specified hosts and host accounts from the user.
+        # 
+        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
+        # The ID of the user from which you want to revoke permissions on the specified hosts and host accounts.
+        # 
+        # >  You can call the [ListUsers](~~204522~~) operation to query the ID of the user.
         self.user_id = user_id  # type: str
 
     def validate(self):
@@ -3555,8 +4541,17 @@ class DetachHostAccountsFromUserRequest(TeaModel):
 
 class DetachHostAccountsFromUserResponseBodyResultsHostAccounts(TeaModel):
     def __init__(self, code=None, host_account_id=None, message=None):
+        # The return code that indicates whether permissions on the specified host account were revoked from the user. Valid values:
+        # 
+        # *   **OK**: The call was successful.
+        # *   **UNEXPECTED**: An unknown error occurred.
+        # *   **INVALID_ARGUMENT**: A request parameter is invalid.
+        # *   **OBJECT_NOT_FOUND**: The specified object on which you want to perform the operation does not exist.
+        # *   **OBJECT_AlREADY_EXISTS**: The specified object on which you want to perform the operation already exists.
         self.code = code  # type: str
+        # The ID of the host account.
         self.host_account_id = host_account_id  # type: str
+        # This parameter is deprecated.
         self.message = message  # type: str
 
     def validate(self):
@@ -3589,10 +4584,21 @@ class DetachHostAccountsFromUserResponseBodyResultsHostAccounts(TeaModel):
 
 class DetachHostAccountsFromUserResponseBodyResults(TeaModel):
     def __init__(self, code=None, host_accounts=None, host_id=None, message=None, user_id=None):
+        # The return code that indicates whether the call was successful. Valid values:
+        # 
+        # *   **OK**: The call was successful.
+        # *   **UNEXPECTED**: An unknown error occurred.
+        # *   **INVALID_ARGUMENT**: A request parameter is invalid.
+        # *   **OBJECT_NOT_FOUND**: The specified object on which you want to perform the operation does not exist.
+        # *   **OBJECT_AlREADY_EXISTS**: The specified object on which you want to perform the operation already exists.
         self.code = code  # type: str
+        # The result of revoking permissions on the specified host accounts from the user.
         self.host_accounts = host_accounts  # type: list[DetachHostAccountsFromUserResponseBodyResultsHostAccounts]
+        # The ID of the host.
         self.host_id = host_id  # type: str
+        # This parameter is deprecated.
         self.message = message  # type: str
+        # The ID of the user.
         self.user_id = user_id  # type: str
 
     def validate(self):
@@ -3641,7 +4647,9 @@ class DetachHostAccountsFromUserResponseBodyResults(TeaModel):
 
 class DetachHostAccountsFromUserResponseBody(TeaModel):
     def __init__(self, request_id=None, results=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The result of the call.
         self.results = results  # type: list[DetachHostAccountsFromUserResponseBodyResults]
 
     def validate(self):
@@ -3677,12 +4685,14 @@ class DetachHostAccountsFromUserResponseBody(TeaModel):
 
 
 class DetachHostAccountsFromUserResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DetachHostAccountsFromUserResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -3695,6 +4705,8 @@ class DetachHostAccountsFromUserResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -3703,6 +4715,8 @@ class DetachHostAccountsFromUserResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DetachHostAccountsFromUserResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -3711,9 +4725,23 @@ class DetachHostAccountsFromUserResponse(TeaModel):
 
 class DetachHostAccountsFromUserGroupRequest(TeaModel):
     def __init__(self, hosts=None, instance_id=None, region_id=None, user_group_id=None):
+        # The IDs of the host and host account on which you want to revoke permissions from the user group.
+        # 
+        # You can specify up to 10 host IDs and up to 10 host account IDs for each host. You can specify only host IDs. In this case, the permissions on both the specified hosts and all host accounts of the hosts are revoked from the user group. For more information about this parameter, see the "Description of the Hosts parameter" section of this topic.
+        # 
+        # >  You can call the [ListHosts](~~200665~~) operation to query the ID of the host and the [ListHostAccounts](~~204372~~) operation to query the ID of the host account.
         self.hosts = hosts  # type: str
+        # The ID of the bastion host in which you want to revoke permissions on the specified hosts and host accounts from the user group.
+        # 
+        # >  You can call the [DescribeInstances](~~153281~~) operation to query the ID of the bastion host.
         self.instance_id = instance_id  # type: str
+        # The region ID of the bastion host in which you want to revoke permissions on the specified hosts and host accounts from the user group.
+        # 
+        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
+        # The ID of the user group from which you want to revoke permissions on the specified hosts and host accounts.
+        # 
+        # >  You can call the [ListUserGroups](~~204509~~) operation to query the ID of the user group.
         self.user_group_id = user_group_id  # type: str
 
     def validate(self):
@@ -3750,8 +4778,17 @@ class DetachHostAccountsFromUserGroupRequest(TeaModel):
 
 class DetachHostAccountsFromUserGroupResponseBodyResultsHostAccounts(TeaModel):
     def __init__(self, code=None, host_account_id=None, message=None):
+        # The return code that indicates whether permissions on the specified host account were revoked from the user group. Valid values:
+        # 
+        # *   **OK**: The call was successful.
+        # *   **UNEXPECTED**: An unknown error occurred.
+        # *   **INVALID_ARGUMENT**: A request parameter is invalid.
+        # *   **OBJECT_NOT_FOUND**: The specified object on which you want to perform the operation does not exist.
+        # *   **OBJECT_AlREADY_EXISTS**: The specified object on which you want to perform the operation already exists.
         self.code = code  # type: str
+        # The ID of the host account.
         self.host_account_id = host_account_id  # type: str
+        # This parameter is deprecated.
         self.message = message  # type: str
 
     def validate(self):
@@ -3784,10 +4821,21 @@ class DetachHostAccountsFromUserGroupResponseBodyResultsHostAccounts(TeaModel):
 
 class DetachHostAccountsFromUserGroupResponseBodyResults(TeaModel):
     def __init__(self, code=None, host_accounts=None, host_id=None, message=None, user_group_id=None):
+        # The return code that indicates whether the call was successful. Valid values:
+        # 
+        # *   **OK**: The call was successful.
+        # *   **UNEXPECTED**: An unknown error occurred.
+        # *   **INVALID_ARGUMENT**: A request parameter is invalid.
+        # *   **OBJECT_NOT_FOUND**: The specified object on which you want to perform the operation does not exist.
+        # *   **OBJECT_AlREADY_EXISTS**: The specified object on which you want to perform the operation already exists.
         self.code = code  # type: str
+        # The result of revoking permissions on the specified host accounts from the user group.
         self.host_accounts = host_accounts  # type: list[DetachHostAccountsFromUserGroupResponseBodyResultsHostAccounts]
+        # The ID of the host.
         self.host_id = host_id  # type: str
+        # This parameter is deprecated.
         self.message = message  # type: str
+        # The ID of the group.
         self.user_group_id = user_group_id  # type: str
 
     def validate(self):
@@ -3836,7 +4884,9 @@ class DetachHostAccountsFromUserGroupResponseBodyResults(TeaModel):
 
 class DetachHostAccountsFromUserGroupResponseBody(TeaModel):
     def __init__(self, request_id=None, results=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The result of the call.
         self.results = results  # type: list[DetachHostAccountsFromUserGroupResponseBodyResults]
 
     def validate(self):
@@ -3872,12 +4922,14 @@ class DetachHostAccountsFromUserGroupResponseBody(TeaModel):
 
 
 class DetachHostAccountsFromUserGroupResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DetachHostAccountsFromUserGroupResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -3890,6 +4942,8 @@ class DetachHostAccountsFromUserGroupResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -3898,6 +4952,8 @@ class DetachHostAccountsFromUserGroupResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DetachHostAccountsFromUserGroupResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -3906,9 +4962,21 @@ class DetachHostAccountsFromUserGroupResponse(TeaModel):
 
 class DetachHostGroupAccountsFromUserRequest(TeaModel):
     def __init__(self, host_groups=None, instance_id=None, region_id=None, user_id=None):
+        # The ID of the host group and the name of the host account on which you want to revoke permissions from the user. You can specify up to 10 host group IDs and up to 10 host account names for each host group. You can specify only host group IDs. In this case, the permissions on the specified host groups and all host accounts in the host groups are revoked from the user. For more information about this parameter, see the "Description of the HostGroups parameter" section of this topic.
+        # 
+        # >  You can call the [ListHostGroups](~~201307~~) operation to query the ID of the host group and the [ListHostAccounts](~~204372~~) operation to query the name of the host account.
         self.host_groups = host_groups  # type: str
+        # The ID of the bastion host for which you want to revoke permissions on the specified host groups and host accounts from the user.
+        # 
+        # >  You can call the [DescribeInstances](~~153281~~) operation to query the ID of the bastion host.
         self.instance_id = instance_id  # type: str
+        # The region ID of the bastion host for which you want to revoke permissions on the specified host groups and host accounts from the user.
+        # 
+        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
+        # The ID of the user from which you want to revoke permissions on the specified host groups and host accounts.
+        # 
+        # >  You can call the [ListUsers](~~204522~~) operation to query the ID of the user.
         self.user_id = user_id  # type: str
 
     def validate(self):
@@ -3945,8 +5013,17 @@ class DetachHostGroupAccountsFromUserRequest(TeaModel):
 
 class DetachHostGroupAccountsFromUserResponseBodyResultsHostAccountNames(TeaModel):
     def __init__(self, code=None, host_account_name=None, message=None):
+        # The return code that indicates whether permissions on the specified host account were revoked from the user. Valid values:
+        # 
+        # *   **OK**: The call was successful.
+        # *   **UNEXPECTED**: An unknown error occurred.
+        # *   **INVALID_ARGUMENT**: A request parameter is invalid.
+        # *   **OBJECT_NOT_FOUND**: The specified object on which you want to perform the operation does not exist.
+        # *   **OBJECT_AlREADY_EXISTS**: The specified object on which you want to perform the operation already exists.
         self.code = code  # type: str
+        # The name of the host account.
         self.host_account_name = host_account_name  # type: str
+        # This parameter is deprecated.
         self.message = message  # type: str
 
     def validate(self):
@@ -3979,10 +5056,21 @@ class DetachHostGroupAccountsFromUserResponseBodyResultsHostAccountNames(TeaMode
 
 class DetachHostGroupAccountsFromUserResponseBodyResults(TeaModel):
     def __init__(self, code=None, host_account_names=None, host_group_id=None, message=None, user_id=None):
+        # The return code that indicates whether the call was successful. Valid values:
+        # 
+        # *   **OK**: The call was successful.
+        # *   **UNEXPECTED**: An unknown error occurred.
+        # *   **INVALID_ARGUMENT**: A request parameter is invalid.
+        # *   **OBJECT_NOT_FOUND**: The specified object on which you want to perform the operation does not exist.
+        # *   **OBJECT_AlREADY_EXISTS**: The specified object on which you want to perform the operation already exists.
         self.code = code  # type: str
+        # The result of revoking permissions on the specified host accounts from the user.
         self.host_account_names = host_account_names  # type: list[DetachHostGroupAccountsFromUserResponseBodyResultsHostAccountNames]
+        # The ID of the host group.
         self.host_group_id = host_group_id  # type: str
+        # This parameter is deprecated.
         self.message = message  # type: str
+        # The ID of the user.
         self.user_id = user_id  # type: str
 
     def validate(self):
@@ -4031,7 +5119,9 @@ class DetachHostGroupAccountsFromUserResponseBodyResults(TeaModel):
 
 class DetachHostGroupAccountsFromUserResponseBody(TeaModel):
     def __init__(self, request_id=None, results=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The result of the call.
         self.results = results  # type: list[DetachHostGroupAccountsFromUserResponseBodyResults]
 
     def validate(self):
@@ -4067,12 +5157,14 @@ class DetachHostGroupAccountsFromUserResponseBody(TeaModel):
 
 
 class DetachHostGroupAccountsFromUserResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DetachHostGroupAccountsFromUserResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -4085,6 +5177,8 @@ class DetachHostGroupAccountsFromUserResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -4093,6 +5187,8 @@ class DetachHostGroupAccountsFromUserResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DetachHostGroupAccountsFromUserResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -4101,9 +5197,21 @@ class DetachHostGroupAccountsFromUserResponse(TeaModel):
 
 class DetachHostGroupAccountsFromUserGroupRequest(TeaModel):
     def __init__(self, host_groups=None, instance_id=None, region_id=None, user_group_id=None):
+        # The ID of the host group and the name of host account on which you want to revoke permissions from the user group. You can specify up to 10 host group IDs and up to 10 host account names for each host group. You can specify only host group IDs. In this case, the permissions on the specified host groups and all host accounts in the host groups are revoked from the user group. For more information about this parameter, see the "Description of the HostGroups parameter" section of this topic.
+        # 
+        # >  You can call the [ListHostGroups](~~201307~~) operation to query the ID of the host group and the [ListHostAccounts](~~204372~~) operation to query the name of the host account.
         self.host_groups = host_groups  # type: str
+        # The ID of the bastion host for which you want to revoke permissions on the specified host groups and host accounts from the user group.
+        # 
+        # >  You can call the [DescribeInstances](~~153281~~) operation to query the ID of the bastion host.
         self.instance_id = instance_id  # type: str
+        # The region ID of the bastion host for which you want to revoke permissions on the specified host groups and host accounts from the user group.
+        # 
+        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
+        # The ID of the user group from which you want to revoke permissions on the specified host groups and host accounts.
+        # 
+        # >  You can call the [ListUserGroups](~~204509~~) operation to query the ID of the user group.
         self.user_group_id = user_group_id  # type: str
 
     def validate(self):
@@ -4140,8 +5248,17 @@ class DetachHostGroupAccountsFromUserGroupRequest(TeaModel):
 
 class DetachHostGroupAccountsFromUserGroupResponseBodyResultsHostAccountNames(TeaModel):
     def __init__(self, code=None, host_account_name=None, message=None):
+        # The return code that indicates whether permissions on the specified host account were revoked from the specified user group. Valid values:
+        # 
+        # *   **OK**: The call was successful.
+        # *   **UNEXPECTED**: An unknown error occurred.
+        # *   **INVALID_ARGUMENT**: A request parameter is invalid.
+        # *   **OBJECT_NOT_FOUND**: The specified object on which you want to perform the operation does not exist.
+        # *   **OBJECT_AlREADY_EXISTS**: The specified object on which you want to perform the operation already exists.
         self.code = code  # type: str
+        # The name of the host account.
         self.host_account_name = host_account_name  # type: str
+        # This parameter is deprecated.
         self.message = message  # type: str
 
     def validate(self):
@@ -4174,10 +5291,21 @@ class DetachHostGroupAccountsFromUserGroupResponseBodyResultsHostAccountNames(Te
 
 class DetachHostGroupAccountsFromUserGroupResponseBodyResults(TeaModel):
     def __init__(self, code=None, host_account_names=None, host_group_id=None, message=None, user_group_id=None):
+        # The return code that indicates whether the call was successful. Valid values:
+        # 
+        # *   **OK**: The call was successful.
+        # *   **UNEXPECTED**: An unknown error occurred.
+        # *   **INVALID_ARGUMENT**: A request parameter is invalid.
+        # *   **OBJECT_NOT_FOUND**: The specified object on which you want to perform the operation does not exist.
+        # *   **OBJECT_AlREADY_EXISTS**: The specified object on which you want to perform the operation already exists.
         self.code = code  # type: str
+        # The result of revoking permissions on the specified host accounts from the user group.
         self.host_account_names = host_account_names  # type: list[DetachHostGroupAccountsFromUserGroupResponseBodyResultsHostAccountNames]
+        # The ID of the host group.
         self.host_group_id = host_group_id  # type: str
+        # This parameter is deprecated.
         self.message = message  # type: str
+        # The ID of the group.
         self.user_group_id = user_group_id  # type: str
 
     def validate(self):
@@ -4226,7 +5354,9 @@ class DetachHostGroupAccountsFromUserGroupResponseBodyResults(TeaModel):
 
 class DetachHostGroupAccountsFromUserGroupResponseBody(TeaModel):
     def __init__(self, request_id=None, results=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The result of the call.
         self.results = results  # type: list[DetachHostGroupAccountsFromUserGroupResponseBodyResults]
 
     def validate(self):
@@ -4262,12 +5392,14 @@ class DetachHostGroupAccountsFromUserGroupResponseBody(TeaModel):
 
 
 class DetachHostGroupAccountsFromUserGroupResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DetachHostGroupAccountsFromUserGroupResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -4280,6 +5412,8 @@ class DetachHostGroupAccountsFromUserGroupResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -4288,6 +5422,8 @@ class DetachHostGroupAccountsFromUserGroupResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DetachHostGroupAccountsFromUserGroupResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -4296,7 +5432,11 @@ class DetachHostGroupAccountsFromUserGroupResponse(TeaModel):
 
 class DisableInstancePublicAccessRequest(TeaModel):
     def __init__(self, instance_id=None, region_id=None):
+        # The ID of the bastion host whose Internet access you want to disable.
+        # 
+        # >  You can call the [DescribeInstances](~~153281~~) operation to obtain the ID of the bastion host.
         self.instance_id = instance_id  # type: str
+        # The region ID of the bastion host.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -4325,7 +5465,9 @@ class DisableInstancePublicAccessRequest(TeaModel):
 
 class DisableInstancePublicAccessResponseBody(TeaModel):
     def __init__(self, instance_id=None, request_id=None):
+        # The ID of the bastion host whose Internet access is disabled.
         self.instance_id = instance_id  # type: str
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4353,12 +5495,14 @@ class DisableInstancePublicAccessResponseBody(TeaModel):
 
 
 class DisableInstancePublicAccessResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: DisableInstancePublicAccessResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -4371,6 +5515,8 @@ class DisableInstancePublicAccessResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -4379,6 +5525,8 @@ class DisableInstancePublicAccessResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DisableInstancePublicAccessResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -4387,7 +5535,11 @@ class DisableInstancePublicAccessResponse(TeaModel):
 
 class EnableInstancePublicAccessRequest(TeaModel):
     def __init__(self, instance_id=None, region_id=None):
+        # The ID of the bastion host.
+        # 
+        # >  You can call the [DescribeInstances](~~153281~~) operation to query the ID of the bastion host.
         self.instance_id = instance_id  # type: str
+        # The region ID of the bastion host.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -4416,7 +5568,9 @@ class EnableInstancePublicAccessRequest(TeaModel):
 
 class EnableInstancePublicAccessResponseBody(TeaModel):
     def __init__(self, instance_id=None, request_id=None):
+        # The ID of the bastion host whose Internet access is enabled.
         self.instance_id = instance_id  # type: str
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4444,12 +5598,14 @@ class EnableInstancePublicAccessResponseBody(TeaModel):
 
 
 class EnableInstancePublicAccessResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: EnableInstancePublicAccessResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -4462,6 +5618,8 @@ class EnableInstancePublicAccessResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -4470,6 +5628,8 @@ class EnableInstancePublicAccessResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = EnableInstancePublicAccessResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -4478,8 +5638,17 @@ class EnableInstancePublicAccessResponse(TeaModel):
 
 class GetHostRequest(TeaModel):
     def __init__(self, host_id=None, instance_id=None, region_id=None):
+        # The ID of the host that you want to query. You can specify only one host ID.
+        # 
+        # >  You can call the [ListHosts](~~200665~~) operation to query the ID of the host.
         self.host_id = host_id  # type: str
+        # The ID of the Bastionhost instance where you want to query the host.
+        # 
+        # >  You can call the [DescribeInstances](~~153281~~) operation to query the ID of the Bastionhost instance.
         self.instance_id = instance_id  # type: str
+        # The region ID of the Bastionhost instance where you want to query the host.
+        # 
+        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -4512,8 +5681,14 @@ class GetHostRequest(TeaModel):
 
 class GetHostResponseBodyHostProtocols(TeaModel):
     def __init__(self, host_finger_print=None, port=None, protocol_name=None):
+        # The fingerprint of the host. This parameter uniquely identifies a host.
         self.host_finger_print = host_finger_print  # type: str
+        # The service port of the host.
         self.port = port  # type: int
+        # The protocol that is used to connect to the host. Valid values:
+        # 
+        # *   **SSH**\
+        # *   **RDP**\
         self.protocol_name = protocol_name  # type: str
 
     def validate(self):
@@ -4548,16 +5723,43 @@ class GetHostResponseBodyHost(TeaModel):
     def __init__(self, active_address_type=None, comment=None, host_id=None, host_name=None,
                  host_private_address=None, host_public_address=None, ostype=None, protocols=None, source=None, source_instance_id=None,
                  source_instance_state=None):
+        # The endpoint type of the host. Valid values:
+        # 
+        # *   **Public**: a public endpoint
+        # *   **Private**: an internal endpoint
         self.active_address_type = active_address_type  # type: str
+        # The description of the host.
         self.comment = comment  # type: str
+        # The ID of the host.
         self.host_id = host_id  # type: str
+        # The name of the host.
         self.host_name = host_name  # type: str
+        # The internal endpoint of the host. You can set this parameter to a domain name or an IP address.
         self.host_private_address = host_private_address  # type: str
+        # The public endpoint of the host. You can set this parameter to a domain name or an IP address.
         self.host_public_address = host_public_address  # type: str
+        # The operating system of the host. Valid values:
+        # 
+        # *   **Linux**\
+        # *   **Windows**\
         self.ostype = ostype  # type: str
+        # The protocol information of the host.
         self.protocols = protocols  # type: list[GetHostResponseBodyHostProtocols]
+        # The source of the host. Valid values:
+        # 
+        # *   **Local**: an on-premises host
+        # *   **Ecs**: an Elastic Compute Service (ECS) instance
+        # *   **Rds**: a host in a dedicated cluster
         self.source = source  # type: str
+        # The ID of the ECS instance or dedicated cluster host that was queried.
+        # 
+        # >  No value is returned for this parameter if the **Source** parameter is set to **Local**.
         self.source_instance_id = source_instance_id  # type: str
+        # The status of the host. Valid values:
+        # 
+        # - **Normal**: The host is normal.
+        # 
+        # - **Release**: The host is released.
         self.source_instance_state = source_instance_state  # type: str
 
     def validate(self):
@@ -4630,7 +5832,9 @@ class GetHostResponseBodyHost(TeaModel):
 
 class GetHostResponseBody(TeaModel):
     def __init__(self, host=None, request_id=None):
+        # The information of the host that was queried.
         self.host = host  # type: GetHostResponseBodyHost
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4660,12 +5864,14 @@ class GetHostResponseBody(TeaModel):
 
 
 class GetHostResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: GetHostResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -4678,6 +5884,8 @@ class GetHostResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -4686,6 +5894,8 @@ class GetHostResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetHostResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -4694,8 +5904,17 @@ class GetHostResponse(TeaModel):
 
 class GetHostAccountRequest(TeaModel):
     def __init__(self, host_account_id=None, instance_id=None, region_id=None):
+        # The ID of the host account that you want to query.
+        # 
+        # >  You can call the [ListHostAccounts](~~204372~~) operation to query the ID of the host account.
         self.host_account_id = host_account_id  # type: str
+        # The ID of the Bastionhost instance where you want to query the details of the host account.
+        # 
+        # >  You can call the [DescribeInstances](~~153281~~) operation to query the ID of the Bastionhost instance.
         self.instance_id = instance_id  # type: str
+        # The region ID of the Bastionhost instance where you want to query the details of the host account.
+        # 
+        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -4729,13 +5948,27 @@ class GetHostAccountRequest(TeaModel):
 class GetHostAccountResponseBodyHostAccount(TeaModel):
     def __init__(self, has_password=None, host_account_id=None, host_account_name=None, host_id=None,
                  host_share_key_id=None, host_share_key_name=None, private_key_fingerprint=None, protocol_name=None):
+        # Indicates whether a password is set for the host account. Valid values:
+        # 
+        # *   **true**: indicates that a password is set for the host account.
+        # *   **false**: indicates that no password is set for the host account.
         self.has_password = has_password  # type: bool
+        # The ID of the host account.
         self.host_account_id = host_account_id  # type: str
+        # The name of the host account.
         self.host_account_name = host_account_name  # type: str
+        # The ID of the host to which the host account belongs.
         self.host_id = host_id  # type: str
+        # The ID of the shared key.
         self.host_share_key_id = host_share_key_id  # type: str
+        # The name of the shared key.
         self.host_share_key_name = host_share_key_name  # type: str
+        # The fingerprint of the private key.
         self.private_key_fingerprint = private_key_fingerprint  # type: str
+        # The protocol used by the host account. Valid values:
+        # 
+        # *   **SSH**\
+        # *   **RDP**\
         self.protocol_name = protocol_name  # type: str
 
     def validate(self):
@@ -4788,7 +6021,9 @@ class GetHostAccountResponseBodyHostAccount(TeaModel):
 
 class GetHostAccountResponseBody(TeaModel):
     def __init__(self, host_account=None, request_id=None):
+        # The details of the host account that were queried.
         self.host_account = host_account  # type: GetHostAccountResponseBodyHostAccount
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4818,12 +6053,14 @@ class GetHostAccountResponseBody(TeaModel):
 
 
 class GetHostAccountResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: GetHostAccountResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -4836,6 +6073,8 @@ class GetHostAccountResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -4844,6 +6083,8 @@ class GetHostAccountResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetHostAccountResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -4852,8 +6093,17 @@ class GetHostAccountResponse(TeaModel):
 
 class GetHostGroupRequest(TeaModel):
     def __init__(self, host_group_id=None, instance_id=None, region_id=None):
+        # The ID of the host group that you want to query.
+        # 
+        # >  You can call the [ListHostGroups](~~201307~~) operation to query the ID of the host group.
         self.host_group_id = host_group_id  # type: str
+        # The ID of the Bastionhost instance where you want to query the host group.
+        # 
+        # >  You can call the [DescribeInstances](~~153281~~) operation to query the ID of the Bastionhost instance.
         self.instance_id = instance_id  # type: str
+        # The region ID of the Bastionhost instance where you want to query the host group.
+        # 
+        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -4886,8 +6136,11 @@ class GetHostGroupRequest(TeaModel):
 
 class GetHostGroupResponseBodyHostGroup(TeaModel):
     def __init__(self, comment=None, host_group_id=None, host_group_name=None):
+        # The description of the host group.
         self.comment = comment  # type: str
+        # The ID of the host group.
         self.host_group_id = host_group_id  # type: str
+        # The name of the host group.
         self.host_group_name = host_group_name  # type: str
 
     def validate(self):
@@ -4920,7 +6173,9 @@ class GetHostGroupResponseBodyHostGroup(TeaModel):
 
 class GetHostGroupResponseBody(TeaModel):
     def __init__(self, host_group=None, request_id=None):
+        # The details of the host group returned.
         self.host_group = host_group  # type: GetHostGroupResponseBodyHostGroup
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4950,12 +6205,14 @@ class GetHostGroupResponseBody(TeaModel):
 
 
 class GetHostGroupResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: GetHostGroupResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -4968,6 +6225,8 @@ class GetHostGroupResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -4976,6 +6235,8 @@ class GetHostGroupResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetHostGroupResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -4984,8 +6245,11 @@ class GetHostGroupResponse(TeaModel):
 
 class GetHostShareKeyRequest(TeaModel):
     def __init__(self, host_share_key_id=None, instance_id=None, region_id=None):
+        # The ID of the shared key whose details you want to query.
         self.host_share_key_id = host_share_key_id  # type: str
+        # The ID of the bastion host. You can call the [DescribeInstances](~~153281~~) operation to query the ID of the bastion host.
         self.instance_id = instance_id  # type: str
+        # The region ID of the bastion host. For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -5019,9 +6283,13 @@ class GetHostShareKeyRequest(TeaModel):
 class GetHostShareKeyResponseBodyHostShareKey(TeaModel):
     def __init__(self, host_share_key_id=None, host_share_key_name=None, last_modify_key_at=None,
                  private_key_finger_print=None):
+        # The ID of the shared key.
         self.host_share_key_id = host_share_key_id  # type: str
+        # The name of the shared key.
         self.host_share_key_name = host_share_key_name  # type: str
+        # The time when the information about the shared key was last modified.
         self.last_modify_key_at = last_modify_key_at  # type: long
+        # The fingerprint of the private key.
         self.private_key_finger_print = private_key_finger_print  # type: str
 
     def validate(self):
@@ -5058,8 +6326,9 @@ class GetHostShareKeyResponseBodyHostShareKey(TeaModel):
 
 class GetHostShareKeyResponseBody(TeaModel):
     def __init__(self, host_share_key=None, request_id=None):
+        # The details of the shared key.
         self.host_share_key = host_share_key  # type: GetHostShareKeyResponseBodyHostShareKey
-        # Id of the request
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5089,12 +6358,14 @@ class GetHostShareKeyResponseBody(TeaModel):
 
 
 class GetHostShareKeyResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: GetHostShareKeyResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -5107,6 +6378,8 @@ class GetHostShareKeyResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -5115,6 +6388,8 @@ class GetHostShareKeyResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetHostShareKeyResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -5123,7 +6398,13 @@ class GetHostShareKeyResponse(TeaModel):
 
 class GetInstanceADAuthServerRequest(TeaModel):
     def __init__(self, instance_id=None, region_id=None):
+        # The ID of the bastion host to query.
+        # 
+        # You can call the [DescribeInstances](~~153281~~) operation to query the ID of the bastion host.
         self.instance_id = instance_id  # type: str
+        # The region ID of the bastion host to query.
+        # 
+        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -5153,17 +6434,35 @@ class GetInstanceADAuthServerRequest(TeaModel):
 class GetInstanceADAuthServerResponseBodyAD(TeaModel):
     def __init__(self, account=None, base_dn=None, domain=None, email_mapping=None, filter=None, has_password=None,
                  is_ssl=None, mobile_mapping=None, name_mapping=None, port=None, server=None, standby_server=None):
+        # The distinguished name (DN) of the AD server account.
         self.account = account  # type: str
+        # The Base DN of the AD server.
         self.base_dn = base_dn  # type: str
+        # The domain on the AD server.
         self.domain = domain  # type: str
+        # The field that is used to indicate the email address of a user on the AD server.
         self.email_mapping = email_mapping  # type: str
+        # The condition that is used to filter users.
         self.filter = filter  # type: str
+        # Indicates whether passwords are required. Valid values:
+        # 
+        # *   **true**: required
+        # *   **false**: not required
         self.has_password = has_password  # type: bool
+        # Indicates whether SSL is supported. Valid values:
+        # 
+        # *   **true**: supported
+        # *   **false**: not supported
         self.is_ssl = is_ssl  # type: bool
+        # The field that is used to indicate the mobile phone number of a user on the AD server.
         self.mobile_mapping = mobile_mapping  # type: str
+        # The field that is used to indicate the name of a user on the AD server.
         self.name_mapping = name_mapping  # type: str
+        # The port that is used to access the AD server.
         self.port = port  # type: long
+        # The address of the AD server.
         self.server = server  # type: str
+        # The address of the secondary AD server.
         self.standby_server = standby_server  # type: str
 
     def validate(self):
@@ -5232,8 +6531,9 @@ class GetInstanceADAuthServerResponseBodyAD(TeaModel):
 
 class GetInstanceADAuthServerResponseBody(TeaModel):
     def __init__(self, ad=None, request_id=None):
+        # The settings of AD authentication.
         self.ad = ad  # type: GetInstanceADAuthServerResponseBodyAD
-        # Id of the request
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5263,12 +6563,14 @@ class GetInstanceADAuthServerResponseBody(TeaModel):
 
 
 class GetInstanceADAuthServerResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: GetInstanceADAuthServerResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -5281,6 +6583,8 @@ class GetInstanceADAuthServerResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -5289,6 +6593,8 @@ class GetInstanceADAuthServerResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetInstanceADAuthServerResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -5297,7 +6603,13 @@ class GetInstanceADAuthServerResponse(TeaModel):
 
 class GetInstanceLDAPAuthServerRequest(TeaModel):
     def __init__(self, instance_id=None, region_id=None):
+        # The ID of the bastion host.
+        # 
+        # >  You can call the [DescribeInstances](~~153281~~) operation to query the ID of the bastion host.
         self.instance_id = instance_id  # type: str
+        # The region ID of the bastion host.
+        # 
+        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -5327,17 +6639,35 @@ class GetInstanceLDAPAuthServerRequest(TeaModel):
 class GetInstanceLDAPAuthServerResponseBodyLDAP(TeaModel):
     def __init__(self, account=None, base_dn=None, email_mapping=None, filter=None, has_password=None, is_ssl=None,
                  login_name_mapping=None, mobile_mapping=None, name_mapping=None, port=None, server=None, standby_server=None):
+        # The account of the LDAP server.
         self.account = account  # type: str
+        # The Base distinguished name (DN).
         self.base_dn = base_dn  # type: str
+        # The field that is used to indicate the email address of a user on the LDAP server.
         self.email_mapping = email_mapping  # type: str
+        # The condition that is used to filter users.
         self.filter = filter  # type: str
+        # Indicates whether passwords are required. Valid values:
+        # 
+        # *   **true**: required
+        # *   **false**: not required
         self.has_password = has_password  # type: str
+        # Indicates whether SSL is supported. Valid values:
+        # 
+        # *   **true**: supported
+        # *   **false**: not supported
         self.is_ssl = is_ssl  # type: bool
+        # The field that is used to indicate the logon name of a user on the LDAP server.
         self.login_name_mapping = login_name_mapping  # type: str
+        # The field that is used to indicate the mobile phone number of a user on the LDAP server.
         self.mobile_mapping = mobile_mapping  # type: str
+        # The field that is used to indicate the name of a user on the LDAP server.
         self.name_mapping = name_mapping  # type: str
+        # The port that is used to access the LDAP server.
         self.port = port  # type: long
+        # The address of the LDAP server.
         self.server = server  # type: str
+        # The address of the secondary LDAP server.
         self.standby_server = standby_server  # type: str
 
     def validate(self):
@@ -5406,8 +6736,9 @@ class GetInstanceLDAPAuthServerResponseBodyLDAP(TeaModel):
 
 class GetInstanceLDAPAuthServerResponseBody(TeaModel):
     def __init__(self, ldap=None, request_id=None):
+        # The settings of LDAP authentication.
         self.ldap = ldap  # type: GetInstanceLDAPAuthServerResponseBodyLDAP
-        # Id of the request
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5437,12 +6768,14 @@ class GetInstanceLDAPAuthServerResponseBody(TeaModel):
 
 
 class GetInstanceLDAPAuthServerResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: GetInstanceLDAPAuthServerResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -5455,6 +6788,8 @@ class GetInstanceLDAPAuthServerResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -5463,6 +6798,8 @@ class GetInstanceLDAPAuthServerResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetInstanceLDAPAuthServerResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -5471,7 +6808,13 @@ class GetInstanceLDAPAuthServerResponse(TeaModel):
 
 class GetInstanceTwoFactorRequest(TeaModel):
     def __init__(self, instance_id=None, region_id=None):
+        # The ID of the bastion host to query.
+        # 
+        # >  You can call the [DescribeInstances](~~153281~~) operation to query the ID of the bastion host.
         self.instance_id = instance_id  # type: str
+        # The region ID of the bastion host to query.
+        # 
+        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -5498,52 +6841,22 @@ class GetInstanceTwoFactorRequest(TeaModel):
         return self
 
 
-class GetInstanceTwoFactorResponseBodyConfigDingTalkConfig(TeaModel):
-    def __init__(self, agent_id=None, app_key=None, has_app_secret=None):
-        self.agent_id = agent_id  # type: str
-        self.app_key = app_key  # type: str
-        self.has_app_secret = has_app_secret  # type: bool
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(GetInstanceTwoFactorResponseBodyConfigDingTalkConfig, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.agent_id is not None:
-            result['AgentId'] = self.agent_id
-        if self.app_key is not None:
-            result['AppKey'] = self.app_key
-        if self.has_app_secret is not None:
-            result['HasAppSecret'] = self.has_app_secret
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('AgentId') is not None:
-            self.agent_id = m.get('AgentId')
-        if m.get('AppKey') is not None:
-            self.app_key = m.get('AppKey')
-        if m.get('HasAppSecret') is not None:
-            self.has_app_secret = m.get('HasAppSecret')
-        return self
-
-
 class GetInstanceTwoFactorResponseBodyConfig(TeaModel):
-    def __init__(self, ding_talk_config=None, enable_two_factor=None, message_language=None,
-                 skip_two_factor_time=None, two_factor_methods=None):
-        self.ding_talk_config = ding_talk_config  # type: GetInstanceTwoFactorResponseBodyConfigDingTalkConfig
+    def __init__(self, enable_two_factor=None, skip_two_factor_time=None, two_factor_methods=None):
+        # Indicates whether two-factor authentication is enabled. Valid values:
+        # 
+        # *   **true**: enabled
+        # *   **false**: disabled
         self.enable_two_factor = enable_two_factor  # type: bool
-        self.message_language = message_language  # type: str
+        # The duration within which two-factor authentication is not required after a local user passes two-factor authentication. Valid values: `0 to 168`. Unit: hours.
+        # 
+        # >  If 0 is returned, a local user must pass two-factor authentication every time the local user logs on to the bastion host.
         self.skip_two_factor_time = skip_two_factor_time  # type: long
+        # Indicates one or more methods that are used to send verification codes if two-factor authentication is enabled.
         self.two_factor_methods = two_factor_methods  # type: list[str]
 
     def validate(self):
-        if self.ding_talk_config:
-            self.ding_talk_config.validate()
+        pass
 
     def to_map(self):
         _map = super(GetInstanceTwoFactorResponseBodyConfig, self).to_map()
@@ -5551,12 +6864,8 @@ class GetInstanceTwoFactorResponseBodyConfig(TeaModel):
             return _map
 
         result = dict()
-        if self.ding_talk_config is not None:
-            result['DingTalkConfig'] = self.ding_talk_config.to_map()
         if self.enable_two_factor is not None:
             result['EnableTwoFactor'] = self.enable_two_factor
-        if self.message_language is not None:
-            result['MessageLanguage'] = self.message_language
         if self.skip_two_factor_time is not None:
             result['SkipTwoFactorTime'] = self.skip_two_factor_time
         if self.two_factor_methods is not None:
@@ -5565,13 +6874,8 @@ class GetInstanceTwoFactorResponseBodyConfig(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('DingTalkConfig') is not None:
-            temp_model = GetInstanceTwoFactorResponseBodyConfigDingTalkConfig()
-            self.ding_talk_config = temp_model.from_map(m['DingTalkConfig'])
         if m.get('EnableTwoFactor') is not None:
             self.enable_two_factor = m.get('EnableTwoFactor')
-        if m.get('MessageLanguage') is not None:
-            self.message_language = m.get('MessageLanguage')
         if m.get('SkipTwoFactorTime') is not None:
             self.skip_two_factor_time = m.get('SkipTwoFactorTime')
         if m.get('TwoFactorMethods') is not None:
@@ -5581,8 +6885,9 @@ class GetInstanceTwoFactorResponseBodyConfig(TeaModel):
 
 class GetInstanceTwoFactorResponseBody(TeaModel):
     def __init__(self, config=None, request_id=None):
+        # The settings of two-factor authentication.
         self.config = config  # type: GetInstanceTwoFactorResponseBodyConfig
-        # Id of the request
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5612,12 +6917,14 @@ class GetInstanceTwoFactorResponseBody(TeaModel):
 
 
 class GetInstanceTwoFactorResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: GetInstanceTwoFactorResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -5630,6 +6937,8 @@ class GetInstanceTwoFactorResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -5638,265 +6947,27 @@ class GetInstanceTwoFactorResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetInstanceTwoFactorResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
 
-class GetInstanceUpgradeInfoRequest(TeaModel):
-    def __init__(self, instance_id=None, lang=None, region_id=None):
-        self.instance_id = instance_id  # type: str
-        self.lang = lang  # type: str
-        self.region_id = region_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(GetInstanceUpgradeInfoRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.instance_id is not None:
-            result['InstanceId'] = self.instance_id
-        if self.lang is not None:
-            result['Lang'] = self.lang
-        if self.region_id is not None:
-            result['RegionId'] = self.region_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('InstanceId') is not None:
-            self.instance_id = m.get('InstanceId')
-        if m.get('Lang') is not None:
-            self.lang = m.get('Lang')
-        if m.get('RegionId') is not None:
-            self.region_id = m.get('RegionId')
-        return self
-
-
-class GetInstanceUpgradeInfoResponseBodyInstanceUpgradeInfoCandidatePeriodList(TeaModel):
-    def __init__(self, candidate_end_time=None, candidate_start_time=None):
-        self.candidate_end_time = candidate_end_time  # type: long
-        self.candidate_start_time = candidate_start_time  # type: long
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(GetInstanceUpgradeInfoResponseBodyInstanceUpgradeInfoCandidatePeriodList, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.candidate_end_time is not None:
-            result['CandidateEndTime'] = self.candidate_end_time
-        if self.candidate_start_time is not None:
-            result['CandidateStartTime'] = self.candidate_start_time
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('CandidateEndTime') is not None:
-            self.candidate_end_time = m.get('CandidateEndTime')
-        if m.get('CandidateStartTime') is not None:
-            self.candidate_start_time = m.get('CandidateStartTime')
-        return self
-
-
-class GetInstanceUpgradeInfoResponseBodyInstanceUpgradeInfoInvalidPeriodList(TeaModel):
-    def __init__(self, invalid_end_time=None, invalid_start_time=None):
-        self.invalid_end_time = invalid_end_time  # type: long
-        self.invalid_start_time = invalid_start_time  # type: long
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(GetInstanceUpgradeInfoResponseBodyInstanceUpgradeInfoInvalidPeriodList, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.invalid_end_time is not None:
-            result['InvalidEndTime'] = self.invalid_end_time
-        if self.invalid_start_time is not None:
-            result['InvalidStartTime'] = self.invalid_start_time
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('InvalidEndTime') is not None:
-            self.invalid_end_time = m.get('InvalidEndTime')
-        if m.get('InvalidStartTime') is not None:
-            self.invalid_start_time = m.get('InvalidStartTime')
-        return self
-
-
-class GetInstanceUpgradeInfoResponseBodyInstanceUpgradeInfo(TeaModel):
-    def __init__(self, ali_uid=None, candidate_period_list=None, image_version=None, instance_id=None,
-                 invalid_period_list=None, latest_start_time=None, operable=None, period_interval=None, upgrade_end_time=None,
-                 upgrade_mode=None, upgrade_start_time=None):
-        self.ali_uid = ali_uid  # type: long
-        self.candidate_period_list = candidate_period_list  # type: list[GetInstanceUpgradeInfoResponseBodyInstanceUpgradeInfoCandidatePeriodList]
-        self.image_version = image_version  # type: str
-        self.instance_id = instance_id  # type: str
-        self.invalid_period_list = invalid_period_list  # type: list[GetInstanceUpgradeInfoResponseBodyInstanceUpgradeInfoInvalidPeriodList]
-        self.latest_start_time = latest_start_time  # type: long
-        self.operable = operable  # type: bool
-        self.period_interval = period_interval  # type: int
-        self.upgrade_end_time = upgrade_end_time  # type: long
-        self.upgrade_mode = upgrade_mode  # type: str
-        self.upgrade_start_time = upgrade_start_time  # type: long
-
-    def validate(self):
-        if self.candidate_period_list:
-            for k in self.candidate_period_list:
-                if k:
-                    k.validate()
-        if self.invalid_period_list:
-            for k in self.invalid_period_list:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super(GetInstanceUpgradeInfoResponseBodyInstanceUpgradeInfo, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.ali_uid is not None:
-            result['AliUid'] = self.ali_uid
-        result['CandidatePeriodList'] = []
-        if self.candidate_period_list is not None:
-            for k in self.candidate_period_list:
-                result['CandidatePeriodList'].append(k.to_map() if k else None)
-        if self.image_version is not None:
-            result['ImageVersion'] = self.image_version
-        if self.instance_id is not None:
-            result['InstanceId'] = self.instance_id
-        result['InvalidPeriodList'] = []
-        if self.invalid_period_list is not None:
-            for k in self.invalid_period_list:
-                result['InvalidPeriodList'].append(k.to_map() if k else None)
-        if self.latest_start_time is not None:
-            result['LatestStartTime'] = self.latest_start_time
-        if self.operable is not None:
-            result['Operable'] = self.operable
-        if self.period_interval is not None:
-            result['PeriodInterval'] = self.period_interval
-        if self.upgrade_end_time is not None:
-            result['UpgradeEndTime'] = self.upgrade_end_time
-        if self.upgrade_mode is not None:
-            result['UpgradeMode'] = self.upgrade_mode
-        if self.upgrade_start_time is not None:
-            result['UpgradeStartTime'] = self.upgrade_start_time
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('AliUid') is not None:
-            self.ali_uid = m.get('AliUid')
-        self.candidate_period_list = []
-        if m.get('CandidatePeriodList') is not None:
-            for k in m.get('CandidatePeriodList'):
-                temp_model = GetInstanceUpgradeInfoResponseBodyInstanceUpgradeInfoCandidatePeriodList()
-                self.candidate_period_list.append(temp_model.from_map(k))
-        if m.get('ImageVersion') is not None:
-            self.image_version = m.get('ImageVersion')
-        if m.get('InstanceId') is not None:
-            self.instance_id = m.get('InstanceId')
-        self.invalid_period_list = []
-        if m.get('InvalidPeriodList') is not None:
-            for k in m.get('InvalidPeriodList'):
-                temp_model = GetInstanceUpgradeInfoResponseBodyInstanceUpgradeInfoInvalidPeriodList()
-                self.invalid_period_list.append(temp_model.from_map(k))
-        if m.get('LatestStartTime') is not None:
-            self.latest_start_time = m.get('LatestStartTime')
-        if m.get('Operable') is not None:
-            self.operable = m.get('Operable')
-        if m.get('PeriodInterval') is not None:
-            self.period_interval = m.get('PeriodInterval')
-        if m.get('UpgradeEndTime') is not None:
-            self.upgrade_end_time = m.get('UpgradeEndTime')
-        if m.get('UpgradeMode') is not None:
-            self.upgrade_mode = m.get('UpgradeMode')
-        if m.get('UpgradeStartTime') is not None:
-            self.upgrade_start_time = m.get('UpgradeStartTime')
-        return self
-
-
-class GetInstanceUpgradeInfoResponseBody(TeaModel):
-    def __init__(self, instance_upgrade_info=None, request_id=None):
-        self.instance_upgrade_info = instance_upgrade_info  # type: GetInstanceUpgradeInfoResponseBodyInstanceUpgradeInfo
-        self.request_id = request_id  # type: str
-
-    def validate(self):
-        if self.instance_upgrade_info:
-            self.instance_upgrade_info.validate()
-
-    def to_map(self):
-        _map = super(GetInstanceUpgradeInfoResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.instance_upgrade_info is not None:
-            result['InstanceUpgradeInfo'] = self.instance_upgrade_info.to_map()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('InstanceUpgradeInfo') is not None:
-            temp_model = GetInstanceUpgradeInfoResponseBodyInstanceUpgradeInfo()
-            self.instance_upgrade_info = temp_model.from_map(m['InstanceUpgradeInfo'])
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        return self
-
-
-class GetInstanceUpgradeInfoResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: GetInstanceUpgradeInfoResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(GetInstanceUpgradeInfoResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('body') is not None:
-            temp_model = GetInstanceUpgradeInfoResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
 class GetUserRequest(TeaModel):
     def __init__(self, instance_id=None, region_id=None, user_id=None):
+        # The ID of the Bastionhost instance to which the user to be queried belongs.
+        # 
+        # >  You can call the [DescribeInstances](~~153281~~) operation to query the ID of the Bastionhost instance.
         self.instance_id = instance_id  # type: str
+        # The region ID of the Bastionhost instance to which the user to be queried belongs.
+        # 
+        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
+        # The ID of the user to be queried.
+        # 
+        # >  You can call the [ListUsers](~~204522~~) operation to query the ID of the user.
         self.user_id = user_id  # type: str
 
     def validate(self):
@@ -5928,17 +6999,59 @@ class GetUserRequest(TeaModel):
 
 
 class GetUserResponseBodyUser(TeaModel):
-    def __init__(self, comment=None, display_name=None, email=None, mobile=None, mobile_country_code=None,
-                 source=None, source_user_id=None, user_id=None, user_name=None, user_state=None):
+    def __init__(self, comment=None, display_name=None, effective_end_time=None, effective_start_time=None,
+                 email=None, mobile=None, mobile_country_code=None, need_reset_password=None, source=None,
+                 source_user_id=None, two_factor_methods=None, two_factor_status=None, user_id=None, user_name=None,
+                 user_state=None):
+        # The description of the user.
         self.comment = comment  # type: str
+        # The display name of the user.
         self.display_name = display_name  # type: str
+        self.effective_end_time = effective_end_time  # type: long
+        self.effective_start_time = effective_start_time  # type: long
+        # The email address of the user.
         self.email = email  # type: str
+        # The mobile number of the user.
         self.mobile = mobile  # type: str
+        # The country where the mobile number of the user is registered. Valid values:
+        # 
+        # *   **CN**: the Chinese mainland, whose country calling code is +86
+        # *   **HK**: Hong Kong (China), whose country calling code is +852
+        # *   **MO**: Macau (China), whose country calling code is +853
+        # *   **TW**: Taiwan (China), whose country calling code is +886
+        # *   **RU**: Russia, whose country calling code is +7
+        # *   **SG**: Singapore, whose country calling code is +65
+        # *   **MY**: Malaysia, whose country calling code is +60
+        # *   **ID**: Indonesia, whose country calling code is +62
+        # *   **DE**: Germany, whose country calling code is +49
+        # *   **AU**: Australia, whose country calling code is +61
+        # *   **US**: United States, whose country calling code is +1
+        # *   **AE**: United Arab Emirates, whose country calling code is +971
+        # *   **JP**: Japan, whose country calling code is +81
+        # *   **GB**: United Kingdom, whose country calling code is +44
+        # *   **IN**: India, whose country calling code is +91
+        # *   **KR**: South Korea, whose country calling code is +82
+        # *   **PH**: Philippines, whose country calling code is +63
+        # *   **CH**: Switzerland, whose country calling code is +41
+        # *   **SE**: Sweden, whose country calling code is +46
         self.mobile_country_code = mobile_country_code  # type: str
+        self.need_reset_password = need_reset_password  # type: bool
+        # The source of the user. Valid values:
+        # 
+        # *   **Local**: a local user
+        # *   **Ram**: a RAM user
         self.source = source  # type: str
+        # The unique ID of the user.
+        # 
+        # >  This parameter uniquely identifies a RAM user of the Bastionhost instance. A value is returned for this parameter if the **Source** parameter is set to **Ram**. No value is returned for this parameter if the **Source** parameter is set to **Local**.
         self.source_user_id = source_user_id  # type: str
+        self.two_factor_methods = two_factor_methods  # type: list[str]
+        self.two_factor_status = two_factor_status  # type: str
+        # The ID of the user.
         self.user_id = user_id  # type: str
+        # The logon name of the user.
         self.user_name = user_name  # type: str
+        # The statuses of the user.
         self.user_state = user_state  # type: list[str]
 
     def validate(self):
@@ -5954,16 +7067,26 @@ class GetUserResponseBodyUser(TeaModel):
             result['Comment'] = self.comment
         if self.display_name is not None:
             result['DisplayName'] = self.display_name
+        if self.effective_end_time is not None:
+            result['EffectiveEndTime'] = self.effective_end_time
+        if self.effective_start_time is not None:
+            result['EffectiveStartTime'] = self.effective_start_time
         if self.email is not None:
             result['Email'] = self.email
         if self.mobile is not None:
             result['Mobile'] = self.mobile
         if self.mobile_country_code is not None:
             result['MobileCountryCode'] = self.mobile_country_code
+        if self.need_reset_password is not None:
+            result['NeedResetPassword'] = self.need_reset_password
         if self.source is not None:
             result['Source'] = self.source
         if self.source_user_id is not None:
             result['SourceUserId'] = self.source_user_id
+        if self.two_factor_methods is not None:
+            result['TwoFactorMethods'] = self.two_factor_methods
+        if self.two_factor_status is not None:
+            result['TwoFactorStatus'] = self.two_factor_status
         if self.user_id is not None:
             result['UserId'] = self.user_id
         if self.user_name is not None:
@@ -5978,16 +7101,26 @@ class GetUserResponseBodyUser(TeaModel):
             self.comment = m.get('Comment')
         if m.get('DisplayName') is not None:
             self.display_name = m.get('DisplayName')
+        if m.get('EffectiveEndTime') is not None:
+            self.effective_end_time = m.get('EffectiveEndTime')
+        if m.get('EffectiveStartTime') is not None:
+            self.effective_start_time = m.get('EffectiveStartTime')
         if m.get('Email') is not None:
             self.email = m.get('Email')
         if m.get('Mobile') is not None:
             self.mobile = m.get('Mobile')
         if m.get('MobileCountryCode') is not None:
             self.mobile_country_code = m.get('MobileCountryCode')
+        if m.get('NeedResetPassword') is not None:
+            self.need_reset_password = m.get('NeedResetPassword')
         if m.get('Source') is not None:
             self.source = m.get('Source')
         if m.get('SourceUserId') is not None:
             self.source_user_id = m.get('SourceUserId')
+        if m.get('TwoFactorMethods') is not None:
+            self.two_factor_methods = m.get('TwoFactorMethods')
+        if m.get('TwoFactorStatus') is not None:
+            self.two_factor_status = m.get('TwoFactorStatus')
         if m.get('UserId') is not None:
             self.user_id = m.get('UserId')
         if m.get('UserName') is not None:
@@ -5999,7 +7132,9 @@ class GetUserResponseBodyUser(TeaModel):
 
 class GetUserResponseBody(TeaModel):
     def __init__(self, request_id=None, user=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The information of the user that was queried.
         self.user = user  # type: GetUserResponseBodyUser
 
     def validate(self):
@@ -6029,12 +7164,14 @@ class GetUserResponseBody(TeaModel):
 
 
 class GetUserResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: GetUserResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -6047,6 +7184,8 @@ class GetUserResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -6055,6 +7194,8 @@ class GetUserResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetUserResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -6063,8 +7204,17 @@ class GetUserResponse(TeaModel):
 
 class GetUserGroupRequest(TeaModel):
     def __init__(self, instance_id=None, region_id=None, user_group_id=None):
+        # The ID of the Bastionhost instance where you want to query the details of the user group.
+        # 
+        # >  You can call the [DescribeInstances](~~153281~~) operation to query the ID of the Bastionhost instance.
         self.instance_id = instance_id  # type: str
+        # The region ID of the Bastionhost instance where you want to query the details of the user group.
+        # 
+        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
+        # The ID of the user group to be queried.
+        # 
+        # >  You can call the [ListUserGroups](~~204509~~) operation to query the ID of the user group.
         self.user_group_id = user_group_id  # type: str
 
     def validate(self):
@@ -6097,8 +7247,11 @@ class GetUserGroupRequest(TeaModel):
 
 class GetUserGroupResponseBodyUserGroup(TeaModel):
     def __init__(self, comment=None, user_group_id=None, user_group_name=None):
+        # The description of the user group.
         self.comment = comment  # type: str
+        # The ID of the user group.
         self.user_group_id = user_group_id  # type: str
+        # The name of the user group.
         self.user_group_name = user_group_name  # type: str
 
     def validate(self):
@@ -6131,7 +7284,9 @@ class GetUserGroupResponseBodyUserGroup(TeaModel):
 
 class GetUserGroupResponseBody(TeaModel):
     def __init__(self, request_id=None, user_group=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The details of the user group returned.
         self.user_group = user_group  # type: GetUserGroupResponseBodyUserGroup
 
     def validate(self):
@@ -6161,12 +7316,14 @@ class GetUserGroupResponseBody(TeaModel):
 
 
 class GetUserGroupResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: GetUserGroupResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -6179,6 +7336,8 @@ class GetUserGroupResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -6187,6 +7346,8 @@ class GetUserGroupResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetUserGroupResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -6196,12 +7357,34 @@ class GetUserGroupResponse(TeaModel):
 class ListHostAccountsRequest(TeaModel):
     def __init__(self, host_account_name=None, host_id=None, instance_id=None, page_number=None, page_size=None,
                  protocol_name=None, region_id=None):
+        # The name of the host account that you want to query. The name can be up to 128 characters in length. Only exact match is supported.
         self.host_account_name = host_account_name  # type: str
+        # The ID of the specified host whose accounts you want to query.
+        # 
+        # >  You can call the [ListHosts](~~200665~~) operation to query the ID of the host.
         self.host_id = host_id  # type: str
+        # The ID of the bastion host in which you want to query accounts of the specified host.
+        # 
+        # >  You can call the DescribeInstances operation to query the ID of the bastion host.
         self.instance_id = instance_id  # type: str
+        # The number of the page to return. Default value: **1**.
         self.page_number = page_number  # type: str
+        # The number of entries to return on each page.
+        # 
+        # Maximum value: 100. Default value: 20. If you leave this parameter empty, 20 entries are returned on each page.
+        # 
+        # >  We recommend that you do not leave this parameter empty.
         self.page_size = page_size  # type: str
+        # The protocol used by the host whose accounts you want to query.
+        # 
+        # Valid values:
+        # 
+        # *   SSH
+        # *   RDP
         self.protocol_name = protocol_name  # type: str
+        # The region ID of the bastion host in which you want to query accounts of the specified host.
+        # 
+        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -6251,13 +7434,31 @@ class ListHostAccountsRequest(TeaModel):
 class ListHostAccountsResponseBodyHostAccounts(TeaModel):
     def __init__(self, has_password=None, host_account_id=None, host_account_name=None, host_id=None,
                  host_share_key_id=None, host_share_key_name=None, private_key_fingerprint=None, protocol_name=None):
+        # Indicates whether a password is configured for the host account.
+        # 
+        # Valid values:
+        # 
+        # *   true: A password is configured for the host account.
+        # *   false: No passwords are configured for the host account.
         self.has_password = has_password  # type: bool
+        # The ID of the host account.
         self.host_account_id = host_account_id  # type: str
+        # The name of the host account.
         self.host_account_name = host_account_name  # type: str
+        # The ID of the host.
         self.host_id = host_id  # type: str
+        # The ID of the shared key.
         self.host_share_key_id = host_share_key_id  # type: str
+        # The name of the shared key.
         self.host_share_key_name = host_share_key_name  # type: str
+        # The fingerprint of the private key for the host account.
         self.private_key_fingerprint = private_key_fingerprint  # type: str
+        # The protocol that is used by the host.
+        # 
+        # Valid values:
+        # 
+        # *   SSH
+        # *   RDP
         self.protocol_name = protocol_name  # type: str
 
     def validate(self):
@@ -6310,8 +7511,11 @@ class ListHostAccountsResponseBodyHostAccounts(TeaModel):
 
 class ListHostAccountsResponseBody(TeaModel):
     def __init__(self, host_accounts=None, request_id=None, total_count=None):
+        # An array that consists of the queried host accounts.
         self.host_accounts = host_accounts  # type: list[ListHostAccountsResponseBodyHostAccounts]
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of host accounts that are queried.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -6351,12 +7555,14 @@ class ListHostAccountsResponseBody(TeaModel):
 
 
 class ListHostAccountsResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ListHostAccountsResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -6369,6 +7575,8 @@ class ListHostAccountsResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -6377,6 +7585,8 @@ class ListHostAccountsResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListHostAccountsResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -6385,10 +7595,15 @@ class ListHostAccountsResponse(TeaModel):
 
 class ListHostAccountsForHostShareKeyRequest(TeaModel):
     def __init__(self, host_share_key_id=None, instance_id=None, page_number=None, page_size=None, region_id=None):
+        # The ID of the shared key.
         self.host_share_key_id = host_share_key_id  # type: str
+        # The ID of the bastion host. You can call the [DescribeInstances](~~153281~~) operation to query the ID of the bastion host.
         self.instance_id = instance_id  # type: str
+        # The number of the page to return. Default value: **1**.
         self.page_number = page_number  # type: str
+        # The number of entries to return on each page. Default value: **10**.
         self.page_size = page_size  # type: str
+        # The region ID of the bastion host. For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -6429,9 +7644,13 @@ class ListHostAccountsForHostShareKeyRequest(TeaModel):
 
 class ListHostAccountsForHostShareKeyResponseBodyHostAccounts(TeaModel):
     def __init__(self, host_account_name=None, host_id=None, hosts_account_id=None, protocol_name=None):
+        # The name of the host account.
         self.host_account_name = host_account_name  # type: str
+        # The ID of the host.
         self.host_id = host_id  # type: str
+        # The ID of the host account.
         self.hosts_account_id = hosts_account_id  # type: str
+        # The O&M protocol.
         self.protocol_name = protocol_name  # type: str
 
     def validate(self):
@@ -6468,9 +7687,11 @@ class ListHostAccountsForHostShareKeyResponseBodyHostAccounts(TeaModel):
 
 class ListHostAccountsForHostShareKeyResponseBody(TeaModel):
     def __init__(self, host_accounts=None, request_id=None, total_count=None):
+        # An array that consists of the host accounts that are associated with the shared key.
         self.host_accounts = host_accounts  # type: list[ListHostAccountsForHostShareKeyResponseBodyHostAccounts]
-        # Id of the request
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
+        # The total number of the host accounts that are associated with the shared key.
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -6510,12 +7731,14 @@ class ListHostAccountsForHostShareKeyResponseBody(TeaModel):
 
 
 class ListHostAccountsForHostShareKeyResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ListHostAccountsForHostShareKeyResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -6528,6 +7751,8 @@ class ListHostAccountsForHostShareKeyResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -6536,6 +7761,8 @@ class ListHostAccountsForHostShareKeyResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListHostAccountsForHostShareKeyResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -6545,12 +7772,31 @@ class ListHostAccountsForHostShareKeyResponse(TeaModel):
 class ListHostAccountsForUserRequest(TeaModel):
     def __init__(self, host_account_name=None, host_id=None, instance_id=None, page_number=None, page_size=None,
                  region_id=None, user_id=None):
+        # The name of the host account that you want to query. Exact match is supported.
         self.host_account_name = host_account_name  # type: str
+        # The ID of the host for which you want to query the host accounts that the user is authorized to manage.
+        # 
+        # >  You can call the [ListHosts](~~200665~~) operation to query the ID of the host.
         self.host_id = host_id  # type: str
+        # The ID of the Bastionhost instance where you want to query the host accounts that the user is authorized to manage on the host.
+        # 
+        # >  You can call the [DescribeInstances](~~153281~~) operation to query the ID of the Bastionhost instance.
         self.instance_id = instance_id  # type: str
+        # The number of the page to return. Default value: **1**.
         self.page_number = page_number  # type: str
+        # The number of entries to return on each page.
+        # 
+        # The value of the PageSize parameter must not exceed 100. Default value: 20. If you leave the PageSize parameter empty, 20 entries are returned on each page.
+        # 
+        # >  We recommend that you do not leave the PageSize parameter empty.
         self.page_size = page_size  # type: str
+        # The region ID of the Bastionhost instance where you want to query the host accounts that the user is authorized to manage on the host.
+        # 
+        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
+        # The ID of the user for which you want to query authorized host accounts.
+        # 
+        # >  You can call the [ListUsers](~~204522~~) operation to query the ID of the user ID.
         self.user_id = user_id  # type: str
 
     def validate(self):
@@ -6600,10 +7846,21 @@ class ListHostAccountsForUserRequest(TeaModel):
 class ListHostAccountsForUserResponseBodyHostAccounts(TeaModel):
     def __init__(self, host_account_id=None, host_account_name=None, host_id=None, is_authorized=None,
                  protocol_name=None):
+        # The ID of the host account.
         self.host_account_id = host_account_id  # type: str
+        # The name of the host account.
         self.host_account_name = host_account_name  # type: str
+        # The ID of the host for which the host accounts were queried.
         self.host_id = host_id  # type: str
+        # Indicates whether the user is authorized to manage the host account. Valid values:
+        # 
+        # *   **true**: The user is authorized to manage the host account.
+        # *   **false**: The user is not authorized to manage the host account.
         self.is_authorized = is_authorized  # type: bool
+        # The protocol that is used by the host account. Valid values:
+        # 
+        # *   **SSH**\
+        # *   **RDP**\
         self.protocol_name = protocol_name  # type: str
 
     def validate(self):
@@ -6644,8 +7901,11 @@ class ListHostAccountsForUserResponseBodyHostAccounts(TeaModel):
 
 class ListHostAccountsForUserResponseBody(TeaModel):
     def __init__(self, host_accounts=None, request_id=None, total_count=None):
+        # The host accounts returned.
         self.host_accounts = host_accounts  # type: list[ListHostAccountsForUserResponseBodyHostAccounts]
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of host accounts returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -6685,12 +7945,14 @@ class ListHostAccountsForUserResponseBody(TeaModel):
 
 
 class ListHostAccountsForUserResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ListHostAccountsForUserResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -6703,6 +7965,8 @@ class ListHostAccountsForUserResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -6711,6 +7975,8 @@ class ListHostAccountsForUserResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListHostAccountsForUserResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -6720,12 +7986,31 @@ class ListHostAccountsForUserResponse(TeaModel):
 class ListHostAccountsForUserGroupRequest(TeaModel):
     def __init__(self, host_account_name=None, host_id=None, instance_id=None, page_number=None, page_size=None,
                  region_id=None, user_group_id=None):
+        # The name of the host account that you want to query. Exact match is supported.
         self.host_account_name = host_account_name  # type: str
+        # The ID of the host for which you want to query the host accounts that the user group is authorized to manage.
+        # 
+        # >  You can call the [ListHosts](~~200665~~) operation to query the ID of the host.
         self.host_id = host_id  # type: str
+        # The ID of the Bastionhost instance where you want to query the host accounts that the user group is authorized to manage on the host.
+        # 
+        # >  You can call the [DescribeInstances](~~153281~~) operation to query the ID of the Bastionhost instance.
         self.instance_id = instance_id  # type: str
+        # The number of the page to return. Default value: **1**.
         self.page_number = page_number  # type: str
+        # The number of entries to return on each page.
+        # 
+        # The value of the PageSize parameter must not exceed 100. Default value: 20. If you leave the PageSize parameter empty, 20 entries are returned on each page.
+        # 
+        # >  We recommend that you do not leave the PageSize parameter empty.
         self.page_size = page_size  # type: str
+        # The region ID of the Bastionhost instance where you want to query the host accounts that the user group is authorized to manage on the host.
+        # 
+        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
+        # The ID of the user group for which you want to query authorized host accounts.
+        # 
+        # >  You can call the [ListUserGroups](~~204509~~) operation to query the ID of the user group.
         self.user_group_id = user_group_id  # type: str
 
     def validate(self):
@@ -6775,10 +8060,21 @@ class ListHostAccountsForUserGroupRequest(TeaModel):
 class ListHostAccountsForUserGroupResponseBodyHostAccounts(TeaModel):
     def __init__(self, host_account_id=None, host_account_name=None, host_id=None, is_authorized=None,
                  protocol_name=None):
+        # The ID of the host account.
         self.host_account_id = host_account_id  # type: str
+        # The name of the host account.
         self.host_account_name = host_account_name  # type: str
+        # The ID of the host for which the host accounts were queried.
         self.host_id = host_id  # type: str
+        # Indicates whether the user group is authorized to manage the host account. Valid values:
+        # 
+        # *   **true**: The user group is authorized to manage the host account.
+        # *   **false**: The user group is not authorized to manage the host account.
         self.is_authorized = is_authorized  # type: bool
+        # The protocol that is used by the host account. Valid values:
+        # 
+        # *   **SSH**\
+        # *   **RDP**\
         self.protocol_name = protocol_name  # type: str
 
     def validate(self):
@@ -6819,8 +8115,11 @@ class ListHostAccountsForUserGroupResponseBodyHostAccounts(TeaModel):
 
 class ListHostAccountsForUserGroupResponseBody(TeaModel):
     def __init__(self, host_accounts=None, request_id=None, total_count=None):
+        # The host accounts returned.
         self.host_accounts = host_accounts  # type: list[ListHostAccountsForUserGroupResponseBodyHostAccounts]
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of host accounts returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -6860,12 +8159,14 @@ class ListHostAccountsForUserGroupResponseBody(TeaModel):
 
 
 class ListHostAccountsForUserGroupResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ListHostAccountsForUserGroupResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -6878,6 +8179,8 @@ class ListHostAccountsForUserGroupResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -6886,6 +8189,8 @@ class ListHostAccountsForUserGroupResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListHostAccountsForUserGroupResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -6894,9 +8199,21 @@ class ListHostAccountsForUserGroupResponse(TeaModel):
 
 class ListHostGroupAccountNamesForUserRequest(TeaModel):
     def __init__(self, host_group_id=None, instance_id=None, region_id=None, user_id=None):
+        # The ID of the host group.
+        # 
+        # >  You can call the [ListHostGroups](~~201307~~) operation to query the ID of the host group.
         self.host_group_id = host_group_id  # type: str
+        # The ID of the Bastionhost instance where you want to query the host account names that the user is authorized to manage in a specified host group.
+        # 
+        # >  You can call the [DescribeInstances](~~153281~~) operation to query the ID of the Bastionhost instance.
         self.instance_id = instance_id  # type: str
+        # The region ID of the Bastionhost instance where you want to query the host account names that the user is authorized to manage in a specified host group.
+        # 
+        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
+        # The ID of the user.
+        # 
+        # >  You can call the [ListUsers](~~204522~~) operation to query the ID of the user.
         self.user_id = user_id  # type: str
 
     def validate(self):
@@ -6933,7 +8250,9 @@ class ListHostGroupAccountNamesForUserRequest(TeaModel):
 
 class ListHostGroupAccountNamesForUserResponseBody(TeaModel):
     def __init__(self, host_account_names=None, request_id=None):
+        # The names of host accounts returned.
         self.host_account_names = host_account_names  # type: list[str]
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -6961,12 +8280,14 @@ class ListHostGroupAccountNamesForUserResponseBody(TeaModel):
 
 
 class ListHostGroupAccountNamesForUserResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ListHostGroupAccountNamesForUserResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -6979,6 +8300,8 @@ class ListHostGroupAccountNamesForUserResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -6987,6 +8310,8 @@ class ListHostGroupAccountNamesForUserResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListHostGroupAccountNamesForUserResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -6995,9 +8320,21 @@ class ListHostGroupAccountNamesForUserResponse(TeaModel):
 
 class ListHostGroupAccountNamesForUserGroupRequest(TeaModel):
     def __init__(self, host_group_id=None, instance_id=None, region_id=None, user_group_id=None):
+        # The ID of the host group.
+        # 
+        # >  You can call the [ListHostGroups](~~201307~~) operation to query the ID of the host group.
         self.host_group_id = host_group_id  # type: str
+        # The ID of the Bastionhost instance where you want to query the host account names that the user group is authorized to manage in a specified host group.
+        # 
+        # >  You can call the [DescribeInstances](~~153281~~) operation to query the ID of the Bastionhost instance.
         self.instance_id = instance_id  # type: str
+        # The region ID of the Bastionhost instance where you want to query the host account names that the user group is authorized to manage in a specified host group.
+        # 
+        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
+        # The ID of the user group.
+        # 
+        # >  You can call the [ListUserGroups](~~204509~~) operation to query the ID of the user group.
         self.user_group_id = user_group_id  # type: str
 
     def validate(self):
@@ -7034,7 +8371,9 @@ class ListHostGroupAccountNamesForUserGroupRequest(TeaModel):
 
 class ListHostGroupAccountNamesForUserGroupResponseBody(TeaModel):
     def __init__(self, host_account_names=None, request_id=None):
+        # The names of host accounts returned.
         self.host_account_names = host_account_names  # type: list[str]
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -7062,12 +8401,14 @@ class ListHostGroupAccountNamesForUserGroupResponseBody(TeaModel):
 
 
 class ListHostGroupAccountNamesForUserGroupResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ListHostGroupAccountNamesForUserGroupResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -7080,6 +8421,8 @@ class ListHostGroupAccountNamesForUserGroupResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -7088,6 +8431,8 @@ class ListHostGroupAccountNamesForUserGroupResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListHostGroupAccountNamesForUserGroupResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -7096,10 +8441,23 @@ class ListHostGroupAccountNamesForUserGroupResponse(TeaModel):
 
 class ListHostGroupsRequest(TeaModel):
     def __init__(self, host_group_name=None, instance_id=None, page_number=None, page_size=None, region_id=None):
+        # The name of the host group that you want to query. Only exact match is supported.
         self.host_group_name = host_group_name  # type: str
+        # The ID of the Bastionhost instance where you want to query host groups.
+        # 
+        # >  You can call the [DescribeInstances](~~153281~~) operation to query the ID of the Bastionhost instance.
         self.instance_id = instance_id  # type: str
+        # The number of the page to return. Default value: **1**.
         self.page_number = page_number  # type: str
+        # The number of entries to return on each page.
+        # 
+        # The value of the PageSize parameter must not exceed 100. Default value: 20. If you leave the PageSize parameter empty, 20 entries are returned on each page by default.
+        # 
+        # >  We recommend that you do not leave the PageSize parameter empty.
         self.page_size = page_size  # type: str
+        # The region ID of the Bastionhost instance where you want to query host groups.
+        # 
+        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -7140,9 +8498,13 @@ class ListHostGroupsRequest(TeaModel):
 
 class ListHostGroupsResponseBodyHostGroups(TeaModel):
     def __init__(self, comment=None, host_group_id=None, host_group_name=None, member_count=None):
+        # The description of the host group.
         self.comment = comment  # type: str
+        # The ID of the host group.
         self.host_group_id = host_group_id  # type: str
+        # The name of the host group.
         self.host_group_name = host_group_name  # type: str
+        # The number of hosts in the host group.
         self.member_count = member_count  # type: int
 
     def validate(self):
@@ -7179,8 +8541,11 @@ class ListHostGroupsResponseBodyHostGroups(TeaModel):
 
 class ListHostGroupsResponseBody(TeaModel):
     def __init__(self, host_groups=None, request_id=None, total_count=None):
+        # The host groups returned.
         self.host_groups = host_groups  # type: list[ListHostGroupsResponseBodyHostGroups]
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of host groups returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -7220,12 +8585,14 @@ class ListHostGroupsResponseBody(TeaModel):
 
 
 class ListHostGroupsResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ListHostGroupsResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -7238,6 +8605,8 @@ class ListHostGroupsResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -7246,6 +8615,8 @@ class ListHostGroupsResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListHostGroupsResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -7255,12 +8626,32 @@ class ListHostGroupsResponse(TeaModel):
 class ListHostGroupsForUserRequest(TeaModel):
     def __init__(self, host_group_name=None, instance_id=None, mode=None, page_number=None, page_size=None,
                  region_id=None, user_id=None):
+        # The name of the host group that you want to query. The name can be up to 128 characters in length. Only exact match is supported.
         self.host_group_name = host_group_name  # type: str
+        # The ID of the Bastionhost instance where you want to query the host groups that the user is authorized or not authorized to manage.
+        # 
+        # >  You can call the [DescribeInstances](~~153281~~) operation to query the ID of the Bastionhost instance.
         self.instance_id = instance_id  # type: str
+        # The category of the host group that you want to query. Valid values:
+        # 
+        # *   **Authorized**: Query the host groups that the user is authorized to manage. This is the default value.
+        # *   **Unauthorized**: Query the host groups that the user is not authorized to manage.
         self.mode = mode  # type: str
+        # The number of the page to return. Default value: **1**.
         self.page_number = page_number  # type: str
+        # The number of entries to return on each page.
+        # 
+        # The value of the PageSize parameter must not exceed 100. Default value: 20. If you leave the PageSize parameter empty, 20 entries are returned on each page.
+        # 
+        # >  We recommend that you do not leave the PageSize parameter empty.
         self.page_size = page_size  # type: str
+        # The region ID of the Bastionhost instance where you want to query the host groups that the user is authorized or not authorized to manage.
+        # 
+        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
+        # The ID of the user.
+        # 
+        # >  You can call the [ListUsers](~~204522~~) operation to query the ID of the user.
         self.user_id = user_id  # type: str
 
     def validate(self):
@@ -7309,8 +8700,11 @@ class ListHostGroupsForUserRequest(TeaModel):
 
 class ListHostGroupsForUserResponseBodyHostGroups(TeaModel):
     def __init__(self, comment=None, host_group_id=None, host_group_name=None):
+        # The description of the host group.
         self.comment = comment  # type: str
+        # The ID of the host group.
         self.host_group_id = host_group_id  # type: str
+        # The name of the host group.
         self.host_group_name = host_group_name  # type: str
 
     def validate(self):
@@ -7343,8 +8737,11 @@ class ListHostGroupsForUserResponseBodyHostGroups(TeaModel):
 
 class ListHostGroupsForUserResponseBody(TeaModel):
     def __init__(self, host_groups=None, request_id=None, total_count=None):
+        # The host groups returned.
         self.host_groups = host_groups  # type: list[ListHostGroupsForUserResponseBodyHostGroups]
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of host groups returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -7384,12 +8781,14 @@ class ListHostGroupsForUserResponseBody(TeaModel):
 
 
 class ListHostGroupsForUserResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ListHostGroupsForUserResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -7402,6 +8801,8 @@ class ListHostGroupsForUserResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -7410,6 +8811,8 @@ class ListHostGroupsForUserResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListHostGroupsForUserResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -7419,12 +8822,32 @@ class ListHostGroupsForUserResponse(TeaModel):
 class ListHostGroupsForUserGroupRequest(TeaModel):
     def __init__(self, host_group_name=None, instance_id=None, mode=None, page_number=None, page_size=None,
                  region_id=None, user_group_id=None):
+        # The name of the host group that you want to query. Only exact match is supported.
         self.host_group_name = host_group_name  # type: str
+        # The ID of the Bastionhost instance where you want to query the host groups that the user group is authorized or not authorized to manage.
+        # 
+        # >  You can call the [DescribeInstances](~~153281~~) operation to query the ID of the Bastionhost instance.
         self.instance_id = instance_id  # type: str
+        # The category of the host group that you want to query. Valid values:
+        # 
+        # *   **Authorized**: Query the host groups that the user group is authorized to manage. This is the default value.
+        # *   **Unauthorized**: Query the host groups that the user group is not authorized to manage.
         self.mode = mode  # type: str
+        # The number of the page to return. Default value: **1**.
         self.page_number = page_number  # type: str
+        # The number of entries to return on each page.
+        # 
+        # The value of the PageSize parameter must not exceed 100. Default value: 20. If you leave the PageSize parameter empty, 20 entries are returned on each page.
+        # 
+        # >  We recommend that you do not leave the PageSize parameter empty.
         self.page_size = page_size  # type: str
+        # The region ID of the Bastionhost instance where you want to query the host groups that the user group is authorized or not authorized to manage.
+        # 
+        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
+        # The ID of the user group.
+        # 
+        # >  You can call the [ListUserGroups](~~204509~~) operation to query the ID of the user group.
         self.user_group_id = user_group_id  # type: str
 
     def validate(self):
@@ -7473,8 +8896,11 @@ class ListHostGroupsForUserGroupRequest(TeaModel):
 
 class ListHostGroupsForUserGroupResponseBodyHostGroups(TeaModel):
     def __init__(self, comment=None, host_group_id=None, host_group_name=None):
+        # The description of the host group.
         self.comment = comment  # type: str
+        # The ID of the host group.
         self.host_group_id = host_group_id  # type: str
+        # The name of the host group.
         self.host_group_name = host_group_name  # type: str
 
     def validate(self):
@@ -7507,8 +8933,11 @@ class ListHostGroupsForUserGroupResponseBodyHostGroups(TeaModel):
 
 class ListHostGroupsForUserGroupResponseBody(TeaModel):
     def __init__(self, host_groups=None, request_id=None, total_count=None):
+        # The host groups returned.
         self.host_groups = host_groups  # type: list[ListHostGroupsForUserGroupResponseBodyHostGroups]
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of host groups returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -7548,12 +8977,14 @@ class ListHostGroupsForUserGroupResponseBody(TeaModel):
 
 
 class ListHostGroupsForUserGroupResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ListHostGroupsForUserGroupResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -7566,6 +8997,8 @@ class ListHostGroupsForUserGroupResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -7574,6 +9007,8 @@ class ListHostGroupsForUserGroupResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListHostGroupsForUserGroupResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -7582,9 +9017,13 @@ class ListHostGroupsForUserGroupResponse(TeaModel):
 
 class ListHostShareKeysRequest(TeaModel):
     def __init__(self, instance_id=None, page_number=None, page_size=None, region_id=None):
+        # The ID of the bastion host. You can call the [DescribeInstances](~~153281~~) operation to query the ID of the bastion host.
         self.instance_id = instance_id  # type: str
+        # The number of the page to return. Default value: **1**.
         self.page_number = page_number  # type: str
+        # The number of entries to return on each page. Default value: **20**.
         self.page_size = page_size  # type: str
+        # The region ID of the bastion host. For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -7622,10 +9061,15 @@ class ListHostShareKeysRequest(TeaModel):
 class ListHostShareKeysResponseBodyHostShareKeys(TeaModel):
     def __init__(self, host_account_count=None, host_share_key_id=None, host_share_key_name=None,
                  last_modify_key_at=None, private_key_finger_print=None):
+        # The number of the associated host accounts.
         self.host_account_count = host_account_count  # type: long
+        # The ID of the host account.
         self.host_share_key_id = host_share_key_id  # type: str
+        # The name of the shared key.
         self.host_share_key_name = host_share_key_name  # type: str
+        # The time when the shared key was last modified.
         self.last_modify_key_at = last_modify_key_at  # type: long
+        # The fingerprint of the private key.
         self.private_key_finger_print = private_key_finger_print  # type: str
 
     def validate(self):
@@ -7666,9 +9110,11 @@ class ListHostShareKeysResponseBodyHostShareKeys(TeaModel):
 
 class ListHostShareKeysResponseBody(TeaModel):
     def __init__(self, host_share_keys=None, request_id=None, total_count=None):
+        # An array that consists of the shared keys.
         self.host_share_keys = host_share_keys  # type: list[ListHostShareKeysResponseBodyHostShareKeys]
-        # Id of the request
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
+        # The total number of the shared keys.
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -7708,12 +9154,14 @@ class ListHostShareKeysResponseBody(TeaModel):
 
 
 class ListHostShareKeysResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ListHostShareKeysResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -7726,6 +9174,8 @@ class ListHostShareKeysResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -7734,6 +9184,8 @@ class ListHostShareKeysResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListHostShareKeysResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -7744,16 +9196,48 @@ class ListHostsRequest(TeaModel):
     def __init__(self, host_address=None, host_group_id=None, host_name=None, instance_id=None, ostype=None,
                  page_number=None, page_size=None, region_id=None, source=None, source_instance_id=None,
                  source_instance_state=None):
+        # The endpoint of the host that you want to query. You can set this parameter to a domain name or an IP address. Only exact match is supported.
         self.host_address = host_address  # type: str
+        # The ID of the host group to which the host that you want to query belongs.
+        # 
+        # >  You can call the [ListHostGroups](~~201307~~) operation to query the ID of the host group.
         self.host_group_id = host_group_id  # type: str
+        # The name of the host that you want to query. Only exact match is supported.
         self.host_name = host_name  # type: str
+        # The ID of the Bastionhost instance where you want to query hosts.
+        # 
+        # >  You can call the [DescribeInstances](~~153281~~) operation to query the ID of the Bastionhost instance.
         self.instance_id = instance_id  # type: str
+        # The operating system of the host that you want to query. Valid values:
+        # 
+        # *   **Linux**\
+        # *   **Windows**\
         self.ostype = ostype  # type: str
+        # The number of the page to return. Default value: **1**.
         self.page_number = page_number  # type: str
+        # The number of entries to return on each page.
+        # 
+        # The value of the PageSize parameter must not exceed 100. Default value: 20. If you leave the PageSize parameter empty, 20 entries are returned on each page by default.
+        # 
+        # >  We recommend that you do not leave the PageSize parameter empty.
         self.page_size = page_size  # type: str
+        # The region ID of the Bastionhost instance where you want to query hosts.
+        # 
+        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
+        # The source of the host that you want to query. Valid values:
+        # 
+        # *   **Local**: an on-premises host
+        # *   **Ecs**: an Elastic Compute Service (ECS) instance
+        # *   **Rds**: a host in a dedicated cluster
         self.source = source  # type: str
+        # The ID of the ECS instance or dedicated cluster host that you want to query. Only exact match is supported.
         self.source_instance_id = source_instance_id  # type: str
+        # The status of the host that you want to query. Valid values:
+        # 
+        # - **Normal**: The host is normal.
+        # 
+        # - **Release**: The host is released.
         self.source_instance_state = source_instance_state  # type: str
 
     def validate(self):
@@ -7820,16 +9304,43 @@ class ListHostsResponseBodyHosts(TeaModel):
     def __init__(self, active_address_type=None, comment=None, host_account_count=None, host_id=None,
                  host_name=None, host_private_address=None, host_public_address=None, ostype=None, source=None,
                  source_instance_id=None, source_instance_state=None):
+        # The endpoint type of the host. Valid values:
+        # 
+        # *   **Public**: a public endpoint
+        # *   **Private**: an internal endpoint
         self.active_address_type = active_address_type  # type: str
+        # The description of the host.
         self.comment = comment  # type: str
+        # The number of host accounts of the host.
         self.host_account_count = host_account_count  # type: int
+        # The ID of the host.
         self.host_id = host_id  # type: str
+        # The name of the host.
         self.host_name = host_name  # type: str
+        # The internal endpoint of the host. You can set this parameter to a domain name or an IP address.
         self.host_private_address = host_private_address  # type: str
+        # The public endpoint of the host. You can set this parameter to a domain name or an IP address.
         self.host_public_address = host_public_address  # type: str
+        # The operating system of the host. Valid values:
+        # 
+        # *   **Linux**\
+        # *   **Windows**\
         self.ostype = ostype  # type: str
+        # The source of the host. Valid values:
+        # 
+        # *   **Local**: an on-premises host
+        # *   **Ecs**: an Elastic Compute Service (ECS) instance
+        # *   **Rds**: a host in a dedicated cluster
         self.source = source  # type: str
+        # The ID of the ECS instance or dedicated cluster host that was queried.
+        # 
+        # >  No value is returned for this parameter if the **Source** parameter is set to **Local**.
         self.source_instance_id = source_instance_id  # type: str
+        # The status of the host. Valid values:
+        # 
+        # - **Normal**: The host is normal.
+        # 
+        # - **Release**: The host is released.
         self.source_instance_state = source_instance_state  # type: str
 
     def validate(self):
@@ -7894,8 +9405,11 @@ class ListHostsResponseBodyHosts(TeaModel):
 
 class ListHostsResponseBody(TeaModel):
     def __init__(self, hosts=None, request_id=None, total_count=None):
+        # The hosts that were queried.
         self.hosts = hosts  # type: list[ListHostsResponseBodyHosts]
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of hosts that were queried.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -7935,12 +9449,14 @@ class ListHostsResponseBody(TeaModel):
 
 
 class ListHostsResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ListHostsResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -7953,6 +9469,8 @@ class ListHostsResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -7961,6 +9479,8 @@ class ListHostsResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListHostsResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -7970,14 +9490,39 @@ class ListHostsResponse(TeaModel):
 class ListHostsForUserRequest(TeaModel):
     def __init__(self, host_address=None, host_name=None, instance_id=None, mode=None, ostype=None, page_number=None,
                  page_size=None, region_id=None, user_id=None):
+        # The endpoint of the host that you want to query. You can set this parameter to a domain name or an IP address. Only exact match is supported.
         self.host_address = host_address  # type: str
+        # The name of the host that you want to query. Only exact match is supported.
         self.host_name = host_name  # type: str
+        # The ID of the Bastionhost instance where you want to query the hosts that the user is authorized or not authorized to manage.
+        # 
+        # >  You can call the [DescribeInstances](~~153281~~) operation to query the ID of the Bastionhost instance.
         self.instance_id = instance_id  # type: str
+        # The category of the host that you want to query. Valid values:
+        # 
+        # *   **Authorized**: Query the hosts that the user is authorized to manage. This is the default value.
+        # *   **Unauthorized**: Query the hosts that the user is not authorized to manage.
         self.mode = mode  # type: str
+        # The operating system of the host that you want to query. Valid values:
+        # 
+        # *   **Linux**\
+        # *   **Windows**\
         self.ostype = ostype  # type: str
+        # The number of the page to return. Default value: 1.
         self.page_number = page_number  # type: str
+        # The number of entries to return on each page.
+        # 
+        # The value of the PageSize parameter must not exceed 100. Default value: 20. If you leave the PageSize parameter empty, 20 entries are returned on each page.
+        # 
+        # >  We recommend that you do not leave the PageSize parameter empty.
         self.page_size = page_size  # type: str
+        # The region ID of the Bastionhost instance where you want to query the hosts that the user is authorized or not authorized to manage.
+        # 
+        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
+        # The ID of the user.
+        # 
+        # >  You can call the [ListUsers](~~204522~~) operation to query the ID of the user ID.
         self.user_id = user_id  # type: str
 
     def validate(self):
@@ -8035,12 +9580,25 @@ class ListHostsForUserRequest(TeaModel):
 class ListHostsForUserResponseBodyHosts(TeaModel):
     def __init__(self, active_address_type=None, comment=None, host_id=None, host_name=None,
                  host_private_address=None, host_public_address=None, ostype=None):
+        # The endpoint type of the host. Valid values:
+        # 
+        # *   **Public**: a public endpoint
+        # *   **Private**: an internal endpoint
         self.active_address_type = active_address_type  # type: str
+        # The description of the host.
         self.comment = comment  # type: str
+        # The ID of the host.
         self.host_id = host_id  # type: str
+        # The name of the host.
         self.host_name = host_name  # type: str
+        # The internal endpoint of the host. The value is a domain name or an IP address.
         self.host_private_address = host_private_address  # type: str
+        # The public endpoint of the host. The value is a domain name or an IP address.
         self.host_public_address = host_public_address  # type: str
+        # The operating system of the host. Valid values:
+        # 
+        # *   **Linux**\
+        # *   **Windows**\
         self.ostype = ostype  # type: str
 
     def validate(self):
@@ -8089,8 +9647,11 @@ class ListHostsForUserResponseBodyHosts(TeaModel):
 
 class ListHostsForUserResponseBody(TeaModel):
     def __init__(self, hosts=None, request_id=None, total_count=None):
+        # The hosts returned.
         self.hosts = hosts  # type: list[ListHostsForUserResponseBodyHosts]
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of hosts returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -8130,12 +9691,14 @@ class ListHostsForUserResponseBody(TeaModel):
 
 
 class ListHostsForUserResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ListHostsForUserResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -8148,6 +9711,8 @@ class ListHostsForUserResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -8156,6 +9721,8 @@ class ListHostsForUserResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListHostsForUserResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -8165,14 +9732,39 @@ class ListHostsForUserResponse(TeaModel):
 class ListHostsForUserGroupRequest(TeaModel):
     def __init__(self, host_address=None, host_name=None, instance_id=None, mode=None, ostype=None, page_number=None,
                  page_size=None, region_id=None, user_group_id=None):
+        # The endpoint of the host that you want to query. You can set this parameter to a domain name or an IP address. Only exact match is supported.
         self.host_address = host_address  # type: str
+        # The name of the host that you want to query. Only exact match is supported.
         self.host_name = host_name  # type: str
+        # The ID of the Bastionhost instance where you want to query the hosts that the user group is authorized or not authorized to manage.
+        # 
+        # >  You can call the [DescribeInstances](~~153281~~) operation to query the ID of the Bastionhost instance.
         self.instance_id = instance_id  # type: str
+        # The category of the host that you want to query. Valid values:
+        # 
+        # *   **Authorized**: Query the hosts that the user group is authorized to manage. This is the default value.
+        # *   **Unauthorized**: Query the hosts that the user group is not authorized to manage.
         self.mode = mode  # type: str
+        # The operating system of the host that you want to query. Valid values:
+        # 
+        # *   **Linux**\
+        # *   **Windows**\
         self.ostype = ostype  # type: str
+        # The number of the page to return. Default value: 1.
         self.page_number = page_number  # type: str
+        # The number of entries to return on each page.
+        # 
+        # The value of the PageSize parameter must not exceed 100. Default value: 20. If you leave the PageSize parameter empty, 20 entries are returned on each page.
+        # 
+        # >  We recommend that you do not leave the PageSize parameter empty.
         self.page_size = page_size  # type: str
+        # The region ID of the Bastionhost instance where you want to query the hosts that the user group is authorized or not authorized to manage.
+        # 
+        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
+        # The ID of the user group for which you want to query hosts.
+        # 
+        # >  You can call the [ListUserGroups](~~204509~~) operation to query the ID of the user group.
         self.user_group_id = user_group_id  # type: str
 
     def validate(self):
@@ -8230,12 +9822,25 @@ class ListHostsForUserGroupRequest(TeaModel):
 class ListHostsForUserGroupResponseBodyHosts(TeaModel):
     def __init__(self, active_address_type=None, comment=None, host_id=None, host_name=None,
                  host_private_address=None, host_public_address=None, ostype=None):
+        # The endpoint type of the host. Valid values:
+        # 
+        # *   **Public**: a public endpoint
+        # *   **Private**: an internal endpoint
         self.active_address_type = active_address_type  # type: str
+        # The description of the host.
         self.comment = comment  # type: str
+        # The ID of the host.
         self.host_id = host_id  # type: str
+        # The name of the host.
         self.host_name = host_name  # type: str
+        # The internal endpoint of the host. The value is a domain name or an IP address.
         self.host_private_address = host_private_address  # type: str
+        # The public endpoint of the host. The value is a domain name or an IP address.
         self.host_public_address = host_public_address  # type: str
+        # The operating system of the host. Valid values:
+        # 
+        # *   **Linux**\
+        # *   **Windows**\
         self.ostype = ostype  # type: str
 
     def validate(self):
@@ -8284,8 +9889,11 @@ class ListHostsForUserGroupResponseBodyHosts(TeaModel):
 
 class ListHostsForUserGroupResponseBody(TeaModel):
     def __init__(self, hosts=None, request_id=None, total_count=None):
+        # The hosts returned.
         self.hosts = hosts  # type: list[ListHostsForUserGroupResponseBodyHosts]
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of hosts returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -8325,12 +9933,14 @@ class ListHostsForUserGroupResponseBody(TeaModel):
 
 
 class ListHostsForUserGroupResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ListHostsForUserGroupResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -8343,6 +9953,8 @@ class ListHostsForUserGroupResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -8351,6 +9963,8 @@ class ListHostsForUserGroupResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListHostsForUserGroupResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -8359,9 +9973,15 @@ class ListHostsForUserGroupResponse(TeaModel):
 
 class ListTagKeysRequest(TeaModel):
     def __init__(self, page_number=None, page_size=None, region_id=None, resource_type=None):
+        # The number of the page to return.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page.
         self.page_size = page_size  # type: int
+        # The region ID of the Bastionhost instance.
         self.region_id = region_id  # type: str
+        # The type of the resource.
+        # 
+        # Set the value to INSTANCE, which indicates that the resource is a Bastionhost instance.
         self.resource_type = resource_type  # type: str
 
     def validate(self):
@@ -8398,7 +10018,9 @@ class ListTagKeysRequest(TeaModel):
 
 class ListTagKeysResponseBodyTagKeys(TeaModel):
     def __init__(self, tag_count=None, tag_key=None):
+        # The number of times the tag key was used.
         self.tag_count = tag_count  # type: int
+        # The name of the tag key.
         self.tag_key = tag_key  # type: str
 
     def validate(self):
@@ -8427,10 +10049,15 @@ class ListTagKeysResponseBodyTagKeys(TeaModel):
 
 class ListTagKeysResponseBody(TeaModel):
     def __init__(self, page_number=None, page_size=None, request_id=None, tag_keys=None, total_count=None):
+        # The number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The information of tags.
         self.tag_keys = tag_keys  # type: list[ListTagKeysResponseBodyTagKeys]
+        # The total number of tags returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -8478,12 +10105,14 @@ class ListTagKeysResponseBody(TeaModel):
 
 
 class ListTagKeysResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ListTagKeysResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -8496,6 +10125,8 @@ class ListTagKeysResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -8504,6 +10135,8 @@ class ListTagKeysResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListTagKeysResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -8512,7 +10145,13 @@ class ListTagKeysResponse(TeaModel):
 
 class ListTagResourcesRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of tag N.
+        # 
+        # Valid values of N: 1 to 20.
         self.key = key  # type: str
+        # The value of tag N.
+        # 
+        # Valid values of N: 1 to 20.
         self.value = value  # type: str
 
     def validate(self):
@@ -8541,10 +10180,17 @@ class ListTagResourcesRequestTag(TeaModel):
 
 class ListTagResourcesRequest(TeaModel):
     def __init__(self, next_token=None, region_id=None, resource_id=None, resource_type=None, tag=None):
+        # The token for starting the next query.
         self.next_token = next_token  # type: str
+        # The region ID of the Bastionhost instance.
         self.region_id = region_id  # type: str
+        # The IDs of instances. The ID is up to 20.
         self.resource_id = resource_id  # type: list[str]
+        # The type of the resource.
+        # 
+        # Set the value to INSTANCE, which indicates that the resource is a Bastionhost instance.
         self.resource_type = resource_type  # type: str
+        # The tags.
         self.tag = tag  # type: list[ListTagResourcesRequestTag]
 
     def validate(self):
@@ -8593,9 +10239,15 @@ class ListTagResourcesRequest(TeaModel):
 
 class ListTagResourcesResponseBodyTagResources(TeaModel):
     def __init__(self, resource_id=None, resource_type=None, tag_key=None, tag_value=None):
+        # The ID of the instance.
         self.resource_id = resource_id  # type: str
+        # The type of the resource.
+        # 
+        # The returned value is INSTANCE, which indicates that the resource is a Bastionhost instance.
         self.resource_type = resource_type  # type: str
+        # The key of the tag.
         self.tag_key = tag_key  # type: str
+        # The value of the tag.
         self.tag_value = tag_value  # type: str
 
     def validate(self):
@@ -8632,8 +10284,13 @@ class ListTagResourcesResponseBodyTagResources(TeaModel):
 
 class ListTagResourcesResponseBody(TeaModel):
     def __init__(self, next_token=None, request_id=None, tag_resources=None):
+        # The token for starting the next query.
         self.next_token = next_token  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The information about Bastionhost instances and the tags bound to Bastionhost instances.
+        # 
+        # The following information is included: instance ID, resource type, tag key, and tag value.
         self.tag_resources = tag_resources  # type: list[ListTagResourcesResponseBodyTagResources]
 
     def validate(self):
@@ -8673,12 +10330,14 @@ class ListTagResourcesResponseBody(TeaModel):
 
 
 class ListTagResourcesResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ListTagResourcesResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -8691,6 +10350,8 @@ class ListTagResourcesResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -8699,6 +10360,8 @@ class ListTagResourcesResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListTagResourcesResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -8707,10 +10370,22 @@ class ListTagResourcesResponse(TeaModel):
 
 class ListUserGroupsRequest(TeaModel):
     def __init__(self, instance_id=None, page_number=None, page_size=None, region_id=None, user_group_name=None):
+        # The ID of the bastion host on which you want to query user groups.
+        # 
+        # > You can call the [DescribeInstances](~~153281~~) operation to query the ID of the bastion host.
         self.instance_id = instance_id  # type: str
+        # The number of the page to return. Default value: **1**.
         self.page_number = page_number  # type: str
+        # The number of entries to return on each page.\
+        # Maximum value: 100. Default value: 20. If you leave this parameter empty, 20 entries are returned on each page.
+        # 
+        # > We recommend that you do not leave this parameter empty.
         self.page_size = page_size  # type: str
+        # The region ID of the bastion host on which you want to query user groups.
+        # 
+        # > For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
+        # The name of the user group that you want to query. Only exact match is supported.
         self.user_group_name = user_group_name  # type: str
 
     def validate(self):
@@ -8751,9 +10426,13 @@ class ListUserGroupsRequest(TeaModel):
 
 class ListUserGroupsResponseBodyUserGroups(TeaModel):
     def __init__(self, comment=None, member_count=None, user_group_id=None, user_group_name=None):
+        # The description of the user group.
         self.comment = comment  # type: str
+        # The number of users in the user group.
         self.member_count = member_count  # type: int
+        # The ID of the user group.
         self.user_group_id = user_group_id  # type: str
+        # The name of the user group.
         self.user_group_name = user_group_name  # type: str
 
     def validate(self):
@@ -8790,8 +10469,11 @@ class ListUserGroupsResponseBodyUserGroups(TeaModel):
 
 class ListUserGroupsResponseBody(TeaModel):
     def __init__(self, request_id=None, total_count=None, user_groups=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of user groups returned.
         self.total_count = total_count  # type: int
+        # The user groups returned.
         self.user_groups = user_groups  # type: list[ListUserGroupsResponseBodyUserGroups]
 
     def validate(self):
@@ -8831,12 +10513,14 @@ class ListUserGroupsResponseBody(TeaModel):
 
 
 class ListUserGroupsResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ListUserGroupsResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -8849,6 +10533,8 @@ class ListUserGroupsResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -8857,8 +10543,199 @@ class ListUserGroupsResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListUserGroupsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListUserPublicKeysRequest(TeaModel):
+    def __init__(self, instance_id=None, page_number=None, page_size=None, region_id=None, user_id=None):
+        # The ID of the bastion host on which you want to query all public keys of the user.
+        # 
+        # > You can call the [DescribeInstances](~~153281~~) operation to query the ID of the bastion host.
+        self.instance_id = instance_id  # type: str
+        # The number of the page to return. Default value: 1.
+        self.page_number = page_number  # type: str
+        # The number of entries to return on each page.\
+        # Maximum value: 100. Default value: 20. If you leave this parameter empty, 20 entries are returned on each page.
+        # 
+        # > We recommend that you do not leave this parameter empty.
+        self.page_size = page_size  # type: str
+        # The region ID of the bastion host on which you want to query all public keys of the user.
+        # 
+        # > For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
+        self.region_id = region_id  # type: str
+        # The ID of the user whose public keys you want to query.
+        self.user_id = user_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListUserPublicKeysRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.user_id is not None:
+            result['UserId'] = self.user_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('UserId') is not None:
+            self.user_id = m.get('UserId')
+        return self
+
+
+class ListUserPublicKeysResponseBodyPublicKeys(TeaModel):
+    def __init__(self, comment=None, finger_print=None, public_key_id=None, public_key_name=None, user_id=None):
+        # The description of the public key.
+        self.comment = comment  # type: str
+        # The fingerprint of the public key.
+        self.finger_print = finger_print  # type: str
+        # The ID of the public key.
+        self.public_key_id = public_key_id  # type: str
+        # The name of the public key.
+        self.public_key_name = public_key_name  # type: str
+        # The ID of the user to which the public key belongs.
+        self.user_id = user_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListUserPublicKeysResponseBodyPublicKeys, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.comment is not None:
+            result['Comment'] = self.comment
+        if self.finger_print is not None:
+            result['FingerPrint'] = self.finger_print
+        if self.public_key_id is not None:
+            result['PublicKeyId'] = self.public_key_id
+        if self.public_key_name is not None:
+            result['PublicKeyName'] = self.public_key_name
+        if self.user_id is not None:
+            result['UserId'] = self.user_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Comment') is not None:
+            self.comment = m.get('Comment')
+        if m.get('FingerPrint') is not None:
+            self.finger_print = m.get('FingerPrint')
+        if m.get('PublicKeyId') is not None:
+            self.public_key_id = m.get('PublicKeyId')
+        if m.get('PublicKeyName') is not None:
+            self.public_key_name = m.get('PublicKeyName')
+        if m.get('UserId') is not None:
+            self.user_id = m.get('UserId')
+        return self
+
+
+class ListUserPublicKeysResponseBody(TeaModel):
+    def __init__(self, public_keys=None, request_id=None, total_count=None):
+        # An array that consists of the public keys of the user.
+        self.public_keys = public_keys  # type: list[ListUserPublicKeysResponseBodyPublicKeys]
+        # The ID of the request, which is used to locate and troubleshoot issues.
+        self.request_id = request_id  # type: str
+        # The total number of public keys.
+        self.total_count = total_count  # type: long
+
+    def validate(self):
+        if self.public_keys:
+            for k in self.public_keys:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListUserPublicKeysResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['PublicKeys'] = []
+        if self.public_keys is not None:
+            for k in self.public_keys:
+                result['PublicKeys'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.public_keys = []
+        if m.get('PublicKeys') is not None:
+            for k in m.get('PublicKeys'):
+                temp_model = ListUserPublicKeysResponseBodyPublicKeys()
+                self.public_keys.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class ListUserPublicKeysResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListUserPublicKeysResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListUserPublicKeysResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListUserPublicKeysResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -8866,16 +10743,46 @@ class ListUserGroupsResponse(TeaModel):
 class ListUsersRequest(TeaModel):
     def __init__(self, display_name=None, instance_id=None, mobile=None, page_number=None, page_size=None,
                  region_id=None, source=None, source_user_id=None, user_group_id=None, user_name=None, user_state=None):
+        # The display name of the user to be queried. Only exact match is supported.
         self.display_name = display_name  # type: str
+        # The ID of the Bastionhost instance to which the users to be queried belong.
+        # 
+        # >  You can call the [DescribeInstances](~~153281~~) operation to query the ID of the Bastionhost instance.
         self.instance_id = instance_id  # type: str
+        # The mobile number of the user to be queried. Only exact match is supported.
         self.mobile = mobile  # type: str
+        # The number of the page to return. Default value: **1**.
         self.page_number = page_number  # type: str
+        # The number of entries to return on each page.
+        # 
+        # The value of the PageSize parameter must not exceed 100. By default, the number of entries on each page is 20. If you do not set the PageSize parameter, 20 entries are returned per page by default.
+        # 
+        # >  We recommend that you do not leave this parameter empty.
         self.page_size = page_size  # type: str
+        # The region ID of the Bastionhost instance to which the users to be queried belong.
+        # 
+        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
+        # The source of the user to be queried. Valid values:
+        # 
+        # *   **Local**: a local user
+        # *   **Ram**: a RAM user
         self.source = source  # type: str
+        # The unique ID of the user to be queried. Only exact match is supported.
+        # 
+        # >  This parameter uniquely identifies a RAM user of the Bastionhost instance. This parameter takes effect only when the **Source** parameter is set to **Ram**. You can call the [ListUsers](~~28684~~) operation to obtain the unique ID of the user from the **UserId** response parameter.
         self.source_user_id = source_user_id  # type: str
+        # The ID of the user group to be queried.
+        # 
+        # >  You can call the [ListUserGroups](~~204509~~) operation to query the ID of the user group.
         self.user_group_id = user_group_id  # type: str
+        # The logon name of the user to be queried. Only exact match is supported.
         self.user_name = user_name  # type: str
+        # The status of the user to be queried. Valid values:
+        # 
+        # *   **Normal**: The user can access the Bastionhost instance.
+        # *   **Frozen**: The user is locked and cannot access the Bastionhost instance.
+        # *   **Expired**: The user has expired and cannot access the Bastionhost instance.
         self.user_state = user_state  # type: str
 
     def validate(self):
@@ -8939,17 +10846,59 @@ class ListUsersRequest(TeaModel):
 
 
 class ListUsersResponseBodyUsers(TeaModel):
-    def __init__(self, comment=None, display_name=None, email=None, mobile=None, mobile_country_code=None,
-                 source=None, source_user_id=None, user_id=None, user_name=None, user_state=None):
+    def __init__(self, comment=None, display_name=None, effective_end_time=None, effective_start_time=None,
+                 email=None, mobile=None, mobile_country_code=None, need_reset_password=None, source=None,
+                 source_user_id=None, two_factor_methods=None, two_factor_status=None, user_id=None, user_name=None,
+                 user_state=None):
+        # The description of the user.
         self.comment = comment  # type: str
+        # The display name of the user.
         self.display_name = display_name  # type: str
+        self.effective_end_time = effective_end_time  # type: long
+        self.effective_start_time = effective_start_time  # type: long
+        # The email address of the user.
         self.email = email  # type: str
+        # The mobile number of the user.
         self.mobile = mobile  # type: str
+        # The country where the mobile number of the user is registered. Valid values:
+        # 
+        # *   **CN**: the Chinese mainland, whose country calling code is +86
+        # *   **HK**: Hong Kong (China), whose country calling code is +852
+        # *   **MO**: Macau (China), whose country calling code is +853
+        # *   **TW**: Taiwan (China), whose country calling code is +886
+        # *   **RU**: Russia, whose country calling code is +7
+        # *   **SG**: Singapore, whose country calling code is +65
+        # *   **MY**: Malaysia, whose country calling code is +60
+        # *   **ID**: Indonesia, whose country calling code is +62
+        # *   **DE**: Germany, whose country calling code is +49
+        # *   **AU**: Australia, whose country calling code is +61
+        # *   **US**: United States, whose country calling code is +1
+        # *   **AE**: United Arab Emirates, whose country calling code is +971
+        # *   **JP**: Japan, whose country calling code is +81
+        # *   **GB**: United Kingdom, whose country calling code is +44
+        # *   **IN**: India, whose country calling code is +91
+        # *   **KR**: South Korea, whose country calling code is +82
+        # *   **PH**: Philippines, whose country calling code is +63
+        # *   **CH**: Switzerland, whose country calling code is +41
+        # *   **SE**: Sweden, whose country calling code is +46
         self.mobile_country_code = mobile_country_code  # type: str
+        self.need_reset_password = need_reset_password  # type: bool
+        # The source of the user. Valid values:
+        # 
+        # *   **Local**: a local user
+        # *   **Ram**: a RAM user
         self.source = source  # type: str
+        # The unique ID of the user.
+        # 
+        # >  This parameter uniquely identifies a RAM user of the Bastionhost instance. A value is returned for this parameter if the **Source** parameter is set to **Ram**. No value is returned for this parameter if the **Source** parameter is set to **Local**.
         self.source_user_id = source_user_id  # type: str
+        self.two_factor_methods = two_factor_methods  # type: list[str]
+        self.two_factor_status = two_factor_status  # type: str
+        # The ID of the user.
         self.user_id = user_id  # type: str
+        # The logon name of the user.
         self.user_name = user_name  # type: str
+        # The statuses of the user.
         self.user_state = user_state  # type: list[str]
 
     def validate(self):
@@ -8965,16 +10914,26 @@ class ListUsersResponseBodyUsers(TeaModel):
             result['Comment'] = self.comment
         if self.display_name is not None:
             result['DisplayName'] = self.display_name
+        if self.effective_end_time is not None:
+            result['EffectiveEndTime'] = self.effective_end_time
+        if self.effective_start_time is not None:
+            result['EffectiveStartTime'] = self.effective_start_time
         if self.email is not None:
             result['Email'] = self.email
         if self.mobile is not None:
             result['Mobile'] = self.mobile
         if self.mobile_country_code is not None:
             result['MobileCountryCode'] = self.mobile_country_code
+        if self.need_reset_password is not None:
+            result['NeedResetPassword'] = self.need_reset_password
         if self.source is not None:
             result['Source'] = self.source
         if self.source_user_id is not None:
             result['SourceUserId'] = self.source_user_id
+        if self.two_factor_methods is not None:
+            result['TwoFactorMethods'] = self.two_factor_methods
+        if self.two_factor_status is not None:
+            result['TwoFactorStatus'] = self.two_factor_status
         if self.user_id is not None:
             result['UserId'] = self.user_id
         if self.user_name is not None:
@@ -8989,16 +10948,26 @@ class ListUsersResponseBodyUsers(TeaModel):
             self.comment = m.get('Comment')
         if m.get('DisplayName') is not None:
             self.display_name = m.get('DisplayName')
+        if m.get('EffectiveEndTime') is not None:
+            self.effective_end_time = m.get('EffectiveEndTime')
+        if m.get('EffectiveStartTime') is not None:
+            self.effective_start_time = m.get('EffectiveStartTime')
         if m.get('Email') is not None:
             self.email = m.get('Email')
         if m.get('Mobile') is not None:
             self.mobile = m.get('Mobile')
         if m.get('MobileCountryCode') is not None:
             self.mobile_country_code = m.get('MobileCountryCode')
+        if m.get('NeedResetPassword') is not None:
+            self.need_reset_password = m.get('NeedResetPassword')
         if m.get('Source') is not None:
             self.source = m.get('Source')
         if m.get('SourceUserId') is not None:
             self.source_user_id = m.get('SourceUserId')
+        if m.get('TwoFactorMethods') is not None:
+            self.two_factor_methods = m.get('TwoFactorMethods')
+        if m.get('TwoFactorStatus') is not None:
+            self.two_factor_status = m.get('TwoFactorStatus')
         if m.get('UserId') is not None:
             self.user_id = m.get('UserId')
         if m.get('UserName') is not None:
@@ -9010,8 +10979,11 @@ class ListUsersResponseBodyUsers(TeaModel):
 
 class ListUsersResponseBody(TeaModel):
     def __init__(self, request_id=None, total_count=None, users=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of users that were queried.
         self.total_count = total_count  # type: int
+        # The list of users that were queried.
         self.users = users  # type: list[ListUsersResponseBodyUsers]
 
     def validate(self):
@@ -9051,12 +11023,14 @@ class ListUsersResponseBody(TeaModel):
 
 
 class ListUsersResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ListUsersResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -9069,6 +11043,8 @@ class ListUsersResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -9077,6 +11053,8 @@ class ListUsersResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListUsersResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -9085,8 +11063,17 @@ class ListUsersResponse(TeaModel):
 
 class LockUsersRequest(TeaModel):
     def __init__(self, instance_id=None, region_id=None, user_ids=None):
+        # The ID of the bastion host to which the users to be locked belong.
+        # 
+        # >  You can call the [DescribeInstances](~~153281~~) operation to query the ID of the bastion host.
         self.instance_id = instance_id  # type: str
+        # The region ID of the bastion host to which the users to be locked belong.
+        # 
+        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
+        # The ID of the user to be locked. The value is a JSON string. You can add up to 100 user IDs. If you specify multiple IDs, separate the IDs with commas (,).
+        # 
+        # >  You can call the [ListUsers](~~204522~~) operation to query the IDs of users.
         self.user_ids = user_ids  # type: str
 
     def validate(self):
@@ -9119,8 +11106,25 @@ class LockUsersRequest(TeaModel):
 
 class LockUsersResponseBodyResults(TeaModel):
     def __init__(self, code=None, message=None, user_id=None):
+        # The return code that indicates whether the call was successful. Valid values:
+        # 
+        # *   **OK**: The call was successful.
+        # 
+        # *   **UNEXPECTED**: An unknown error occurred.
+        # 
+        # *   **INVALID_ARGUMENT**: A request parameter is invalid.
+        # 
+        # > Make sure that the request parameters are valid and call the operation again.
+        # 
+        # *   **OBJECT_NOT_FOUND**: The specified object on which you want to perform the operation does not exist.
+        # 
+        # > Check whether the specified ID of the bastion host exists, whether the specified hosts exist, and whether the specified host IDs are valid. Then, call the operation again.
+        # 
+        # *   **OBJECT_AlREADY_EXISTS**: The specified object on which you want to perform the operation already exists.
         self.code = code  # type: str
+        # This parameter is deprecated.
         self.message = message  # type: str
+        # The ID of the user.
         self.user_id = user_id  # type: str
 
     def validate(self):
@@ -9153,7 +11157,9 @@ class LockUsersResponseBodyResults(TeaModel):
 
 class LockUsersResponseBody(TeaModel):
     def __init__(self, request_id=None, results=None):
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
+        # The result of the call.
         self.results = results  # type: list[LockUsersResponseBodyResults]
 
     def validate(self):
@@ -9189,12 +11195,14 @@ class LockUsersResponseBody(TeaModel):
 
 
 class LockUsersResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: LockUsersResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -9207,6 +11215,8 @@ class LockUsersResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -9215,6 +11225,8 @@ class LockUsersResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = LockUsersResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -9224,13 +11236,30 @@ class LockUsersResponse(TeaModel):
 class ModifyHostRequest(TeaModel):
     def __init__(self, comment=None, host_id=None, host_name=None, host_private_address=None,
                  host_public_address=None, instance_id=None, ostype=None, region_id=None):
+        # The new description of the host. The value can be up to 500 characters in length.
         self.comment = comment  # type: str
+        # The ID of the host.
+        # 
+        # >  You can call the [ListHosts](~~200665~~) operation to query the ID of the host.
         self.host_id = host_id  # type: str
+        # The new name of the host. The name can be up to 128 characters.
         self.host_name = host_name  # type: str
+        # The new internal endpoint of the host. You can set this parameter to a domain name or an IP address.
         self.host_private_address = host_private_address  # type: str
+        # The new public endpoint of the host. You can set this parameter to a domain name or an IP address.
         self.host_public_address = host_public_address  # type: str
+        # The ID of the Bastionhost instance where you want to modify the information of the host.
+        # 
+        # >  You can call the [DescribeInstances](~~153281~~) operation to query the ID of the Bastionhost instance.
         self.instance_id = instance_id  # type: str
+        # The new operating system of the host. Valid values:
+        # 
+        # *   **Linux**\
+        # *   **Windows**\
         self.ostype = ostype  # type: str
+        # The region ID of the Bastionhost instance where you want to modify the information of the host.
+        # 
+        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -9283,6 +11312,7 @@ class ModifyHostRequest(TeaModel):
 
 class ModifyHostResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -9306,12 +11336,14 @@ class ModifyHostResponseBody(TeaModel):
 
 
 class ModifyHostResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ModifyHostResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -9324,6 +11356,8 @@ class ModifyHostResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -9332,6 +11366,8 @@ class ModifyHostResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ModifyHostResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -9341,13 +11377,31 @@ class ModifyHostResponse(TeaModel):
 class ModifyHostAccountRequest(TeaModel):
     def __init__(self, host_account_id=None, host_account_name=None, host_share_key_id=None, instance_id=None,
                  pass_phrase=None, password=None, private_key=None, region_id=None):
+        # The ID of the host account whose information you want to modify.
+        # 
+        # > : You can call the [ListHostAccounts](~~204372~~) operation to query the ID of the host account.
         self.host_account_id = host_account_id  # type: str
+        # The new name of the host account. The name can be up to 128 characters in length.
         self.host_account_name = host_account_name  # type: str
+        # The ID of the shared key.
         self.host_share_key_id = host_share_key_id  # type: str
+        # The ID of the bastion host in which you want to modify the information about the host account.
+        # 
+        # > : You can call the [DescribeInstances](~~153281~~) operation to query the ID of the bastion host.
         self.instance_id = instance_id  # type: str
+        # The passphrase of the new private key for the host account.
+        # 
+        # > : This parameter takes effect only when the protocol of the host is set to SSH. If the protocol of the host is set to RDP, this parameter is not required.
         self.pass_phrase = pass_phrase  # type: str
+        # The new password of the host account.
         self.password = password  # type: str
+        # The new private key of the host account. The value is a Base64-encoded string.
+        # 
+        # > : This parameter takes effect only when the protocol of the host is set to SSH. If the protocol of the host is set to RDP, this parameter is not required. You can call the [GetHostAccount](~~204391~~) operation to query the protocol used by the host. You can configure a password and a private key for the host account at the same time. If both a password and a private key are configured for the host account, Bastionhost preferentially uses the private key for logon.
         self.private_key = private_key  # type: str
+        # The region ID of the bastion host in which you want to modify the information about the host account.
+        # 
+        # > : For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -9400,6 +11454,7 @@ class ModifyHostAccountRequest(TeaModel):
 
 class ModifyHostAccountResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -9423,12 +11478,14 @@ class ModifyHostAccountResponseBody(TeaModel):
 
 
 class ModifyHostAccountResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ModifyHostAccountResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -9441,6 +11498,8 @@ class ModifyHostAccountResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -9449,6 +11508,8 @@ class ModifyHostAccountResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ModifyHostAccountResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -9457,10 +11518,21 @@ class ModifyHostAccountResponse(TeaModel):
 
 class ModifyHostGroupRequest(TeaModel):
     def __init__(self, comment=None, host_group_id=None, host_group_name=None, instance_id=None, region_id=None):
+        # The new description of the host group. The value can be up to 500 characters in length.
         self.comment = comment  # type: str
+        # The ID of the host group that you want to modify.
+        # 
+        # >  You can call the [ListHostGroups](~~201307~~) operation to query the ID of the host group.
         self.host_group_id = host_group_id  # type: str
+        # The new name of the host group. The name can be up to 128 characters in length.
         self.host_group_name = host_group_name  # type: str
+        # The ID of the Bastionhost instance where you want to modify the information of the host group.
+        # 
+        # >  You can call the [DescribeInstances](~~153281~~) operation to query the ID of the Bastionhost instance.
         self.instance_id = instance_id  # type: str
+        # The region ID of the Bastionhost instance where you want to modify the information of the host group.
+        # 
+        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -9501,6 +11573,7 @@ class ModifyHostGroupRequest(TeaModel):
 
 class ModifyHostGroupResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -9524,12 +11597,14 @@ class ModifyHostGroupResponseBody(TeaModel):
 
 
 class ModifyHostGroupResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ModifyHostGroupResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -9542,6 +11617,8 @@ class ModifyHostGroupResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -9550,6 +11627,8 @@ class ModifyHostGroupResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ModifyHostGroupResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -9559,11 +11638,17 @@ class ModifyHostGroupResponse(TeaModel):
 class ModifyHostShareKeyRequest(TeaModel):
     def __init__(self, host_share_key_id=None, host_share_key_name=None, instance_id=None, pass_phrase=None,
                  private_key=None, region_id=None):
+        # The ID of the shared key whose information you want to modify.
         self.host_share_key_id = host_share_key_id  # type: str
+        # The name of the shared key.
         self.host_share_key_name = host_share_key_name  # type: str
+        # The ID of the bastion host. You can call the [DescribeInstances](~~153281~~) operation to query the ID of the bastion host.
         self.instance_id = instance_id  # type: str
+        # The password of the private key. The value is a Base64-encoded string.
         self.pass_phrase = pass_phrase  # type: str
+        # The private key. The value is a Base64-encoded string.
         self.private_key = private_key  # type: str
+        # The region ID of the bastion host. For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -9608,7 +11693,7 @@ class ModifyHostShareKeyRequest(TeaModel):
 
 class ModifyHostShareKeyResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -9632,12 +11717,14 @@ class ModifyHostShareKeyResponseBody(TeaModel):
 
 
 class ModifyHostShareKeyResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ModifyHostShareKeyResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -9650,6 +11737,8 @@ class ModifyHostShareKeyResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -9658,6 +11747,8 @@ class ModifyHostShareKeyResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ModifyHostShareKeyResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -9666,9 +11757,22 @@ class ModifyHostShareKeyResponse(TeaModel):
 
 class ModifyHostsActiveAddressTypeRequest(TeaModel):
     def __init__(self, active_address_type=None, host_ids=None, instance_id=None, region_id=None):
+        # The new portal type of the host. Valid values:
+        # 
+        # *   **Public**: public portal
+        # *   **Private**: internal portal
         self.active_address_type = active_address_type  # type: str
+        # The ID of the host for which you want to change the portal type. The value is a JSON string. You can add up to 100 host IDs.
+        # 
+        # >  You can call the [ListHosts](~~200665~~) operation to query the ID of the host.
         self.host_ids = host_ids  # type: str
+        # The ID of the bastion host for which you want to change the portal type of the host.
+        # 
+        # >  You can call the [DescribeInstances](~~153281~~) operation to query the ID of the bastion host.
         self.instance_id = instance_id  # type: str
+        # The region ID of the bastion host for which you want to change the portal type of the host.
+        # 
+        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -9705,8 +11809,17 @@ class ModifyHostsActiveAddressTypeRequest(TeaModel):
 
 class ModifyHostsActiveAddressTypeResponseBodyResults(TeaModel):
     def __init__(self, code=None, host_id=None, message=None):
+        # The return code that indicates whether the call was successful. Valid values:
+        # 
+        # *   **OK**: The call was successful.
+        # *   **UNEXPECTED**: An unknown error occurred.
+        # *   **INVALID_ARGUMENT**: A request parameter is invalid.
+        # *   **OBJECT_NOT_FOUND**: The specified object on which you want to perform the operation does not exist.
+        # *   **OBJECT_AlREADY_EXISTS**: The specified object on which you want to perform the operation already exists.
         self.code = code  # type: str
+        # The ID of the host.
         self.host_id = host_id  # type: str
+        # This parameter is deprecated.
         self.message = message  # type: str
 
     def validate(self):
@@ -9739,7 +11852,9 @@ class ModifyHostsActiveAddressTypeResponseBodyResults(TeaModel):
 
 class ModifyHostsActiveAddressTypeResponseBody(TeaModel):
     def __init__(self, request_id=None, results=None):
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
+        # The result of the call.
         self.results = results  # type: list[ModifyHostsActiveAddressTypeResponseBodyResults]
 
     def validate(self):
@@ -9775,12 +11890,14 @@ class ModifyHostsActiveAddressTypeResponseBody(TeaModel):
 
 
 class ModifyHostsActiveAddressTypeResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ModifyHostsActiveAddressTypeResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -9793,6 +11910,8 @@ class ModifyHostsActiveAddressTypeResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -9801,6 +11920,8 @@ class ModifyHostsActiveAddressTypeResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ModifyHostsActiveAddressTypeResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -9809,10 +11930,24 @@ class ModifyHostsActiveAddressTypeResponse(TeaModel):
 
 class ModifyHostsPortRequest(TeaModel):
     def __init__(self, host_ids=None, instance_id=None, port=None, protocol_name=None, region_id=None):
+        # The ID of the host for which you want to change the port. The value is a JSON string. You can add up to 100 host IDs. If you specify multiple IDs, separate the IDs with commas (,).
+        # 
+        # >  You can call the [ListHosts](~~200665~~) operation to query the IDs of hosts.
         self.host_ids = host_ids  # type: str
+        # The ID of the bastion host for which you want to change the port of the host.
+        # 
+        # >  You can call the [DescribeInstances](~~153281~~) operation to query the ID of the bastion host.
         self.instance_id = instance_id  # type: str
+        # The new port of the host. The port number must be an integer. Valid values: 22 to 65535.
         self.port = port  # type: str
+        # The protocol that is used to connect to the host. Valid values:
+        # 
+        # *   **SSH**\
+        # *   **RDP**\
         self.protocol_name = protocol_name  # type: str
+        # The region ID of the bastion host for which you want to change the port of the host.
+        # 
+        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -9853,8 +11988,22 @@ class ModifyHostsPortRequest(TeaModel):
 
 class ModifyHostsPortResponseBodyResults(TeaModel):
     def __init__(self, code=None, host_id=None, message=None):
+        # The return code that indicates whether the call was successful. Valid values:
+        # 
+        # *   **OK**: The call was successful.
+        # *   **UNEXPECTED**: An unknown error occurred.
+        # *   **INVALID_ARGUMENT**: A request parameter is invalid.
+        #     > Make sure that the request parameters are valid and call the operation again.
+        # 
+        # *   **OBJECT_NOT_FOUND**: The specified object on which you want to perform the operation does not exist.
+        # 
+        #     > Check whether the specified ID of the bastion host exists, whether the specified hosts exist, and whether the specified host IDs are valid. Then, call the operation again.
+        # 
+        # *   **OBJECT\_AlREADY\_EXISTS**: The specified object on which you want to perform the operation already exists.
         self.code = code  # type: str
+        # The ID of the host.
         self.host_id = host_id  # type: str
+        # This parameter is deprecated.
         self.message = message  # type: str
 
     def validate(self):
@@ -9887,7 +12036,9 @@ class ModifyHostsPortResponseBodyResults(TeaModel):
 
 class ModifyHostsPortResponseBody(TeaModel):
     def __init__(self, request_id=None, results=None):
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
+        # The result of the call.
         self.results = results  # type: list[ModifyHostsPortResponseBodyResults]
 
     def validate(self):
@@ -9923,12 +12074,14 @@ class ModifyHostsPortResponseBody(TeaModel):
 
 
 class ModifyHostsPortResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ModifyHostsPortResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -9941,6 +12094,8 @@ class ModifyHostsPortResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -9949,6 +12104,8 @@ class ModifyHostsPortResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ModifyHostsPortResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -9959,19 +12116,36 @@ class ModifyInstanceADAuthServerRequest(TeaModel):
     def __init__(self, account=None, base_dn=None, domain=None, email_mapping=None, filter=None, instance_id=None,
                  is_ssl=None, mobile_mapping=None, name_mapping=None, password=None, port=None, region_id=None, server=None,
                  standby_server=None):
+        # The username of the account that is used for the AD server.
         self.account = account  # type: str
+        # The Base distinguished name (DN).
         self.base_dn = base_dn  # type: str
+        # The domain on the AD server.
         self.domain = domain  # type: str
+        # The field that is used to indicate the email address of a user on the AD server.
         self.email_mapping = email_mapping  # type: str
+        # The condition that is used to filter users.
         self.filter = filter  # type: str
+        # The ID of the bastion host. You can call the [DescribeInstances](~~153281~~) operation to query the ID of the bastion host.
         self.instance_id = instance_id  # type: str
+        # Specifies whether to support SSL. Valid values:
+        # 
+        # *   **true**: supports SSL.
+        # *   **false**: does not support SSL.
         self.is_ssl = is_ssl  # type: str
+        # The field that is used to indicate the mobile phone number of a user on the AD server.
         self.mobile_mapping = mobile_mapping  # type: str
+        # The field that is used to indicate the name of a user on the AD server.
         self.name_mapping = name_mapping  # type: str
+        # The password of the account that is used for the AD server.
         self.password = password  # type: str
+        # The port that is used to access the AD server.
         self.port = port  # type: str
+        # The region ID of the bastion host. For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
+        # The address of the AD server.
         self.server = server  # type: str
+        # The address of the secondary AD server.
         self.standby_server = standby_server  # type: str
 
     def validate(self):
@@ -10048,7 +12222,7 @@ class ModifyInstanceADAuthServerRequest(TeaModel):
 
 class ModifyInstanceADAuthServerResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -10072,12 +12246,14 @@ class ModifyInstanceADAuthServerResponseBody(TeaModel):
 
 
 class ModifyInstanceADAuthServerResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ModifyInstanceADAuthServerResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -10090,6 +12266,8 @@ class ModifyInstanceADAuthServerResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -10098,6 +12276,8 @@ class ModifyInstanceADAuthServerResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ModifyInstanceADAuthServerResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -10106,8 +12286,17 @@ class ModifyInstanceADAuthServerResponse(TeaModel):
 
 class ModifyInstanceAttributeRequest(TeaModel):
     def __init__(self, description=None, instance_id=None, region_id=None):
+        # The description of the bastion host.
+        # 
+        # > The description can contain only letters, digits, underscores (\_), and hyphens (-). The description can be up to 30 characters in length.
         self.description = description  # type: str
+        # The ID of the bastion host.
+        # 
+        # > You can call the [DescribeInstances](~~153281~~) operation to query the ID of the bastion host.
         self.instance_id = instance_id  # type: str
+        # The region ID of the bastion host.
+        # 
+        # > For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -10140,6 +12329,7 @@ class ModifyInstanceAttributeRequest(TeaModel):
 
 class ModifyInstanceAttributeResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -10163,12 +12353,14 @@ class ModifyInstanceAttributeResponseBody(TeaModel):
 
 
 class ModifyInstanceAttributeResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ModifyInstanceAttributeResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -10181,6 +12373,8 @@ class ModifyInstanceAttributeResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -10189,6 +12383,8 @@ class ModifyInstanceAttributeResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ModifyInstanceAttributeResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -10199,19 +12395,36 @@ class ModifyInstanceLDAPAuthServerRequest(TeaModel):
     def __init__(self, account=None, base_dn=None, email_mapping=None, filter=None, instance_id=None, is_ssl=None,
                  login_name_mapping=None, mobile_mapping=None, name_mapping=None, password=None, port=None, region_id=None, server=None,
                  standby_server=None):
+        # The username of the account that is used for the LDAP server.
         self.account = account  # type: str
+        # The Base distinguished name (DN).
         self.base_dn = base_dn  # type: str
+        # The field that is used to indicate the email address of a user on the LDAP server.
         self.email_mapping = email_mapping  # type: str
+        # The condition that is used to filter users.
         self.filter = filter  # type: str
+        # The ID of the bastion host. You can call the [DescribeInstances](~~153281~~) operation to query the ID of the bastion host.
         self.instance_id = instance_id  # type: str
+        # Specifies whether to support SSL. Valid values:
+        # 
+        # *   **true**: supports SSL.
+        # *   **false**: does not support SSL.
         self.is_ssl = is_ssl  # type: str
+        # The field that is used to indicate the logon name of a user on the LDAP server.
         self.login_name_mapping = login_name_mapping  # type: str
+        # The field that is used to indicate the mobile phone number of a user on the LDAP server.
         self.mobile_mapping = mobile_mapping  # type: str
+        # The field that is used to indicate the name of a user on the LDAP server.
         self.name_mapping = name_mapping  # type: str
+        # The password of the account that is used for the LDAP server.
         self.password = password  # type: str
+        # The port that is used to access the LDAP server.
         self.port = port  # type: str
+        # The region ID of the bastion host. For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
+        # The address of the LDAP server.
         self.server = server  # type: str
+        # The address of the secondary LDAP server.
         self.standby_server = standby_server  # type: str
 
     def validate(self):
@@ -10288,7 +12501,7 @@ class ModifyInstanceLDAPAuthServerRequest(TeaModel):
 
 class ModifyInstanceLDAPAuthServerResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -10312,12 +12525,14 @@ class ModifyInstanceLDAPAuthServerResponseBody(TeaModel):
 
 
 class ModifyInstanceLDAPAuthServerResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ModifyInstanceLDAPAuthServerResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -10330,6 +12545,8 @@ class ModifyInstanceLDAPAuthServerResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -10338,6 +12555,8 @@ class ModifyInstanceLDAPAuthServerResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ModifyInstanceLDAPAuthServerResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -10345,14 +12564,28 @@ class ModifyInstanceLDAPAuthServerResponse(TeaModel):
 
 
 class ModifyInstanceTwoFactorRequest(TeaModel):
-    def __init__(self, ding_talk_config=None, enable_two_factor=None, instance_id=None, message_language=None,
-                 region_id=None, skip_two_factor_time=None, two_factor_methods=None):
-        self.ding_talk_config = ding_talk_config  # type: str
+    def __init__(self, enable_two_factor=None, instance_id=None, region_id=None, skip_two_factor_time=None,
+                 two_factor_methods=None):
+        # Specifies whether to enable two-factor authentication. Valid values:
+        # 
+        # *   **true**: enables two-factor authentication.
+        # *   **false**: disables two-factor authentication.
         self.enable_two_factor = enable_two_factor  # type: str
+        # The ID of the bastion host.
+        # 
+        # >  You can call the [DescribeInstances](~~153281~~) operation to query the ID of the bastion host.
         self.instance_id = instance_id  # type: str
-        self.message_language = message_language  # type: str
+        # The region ID of the bastion host.
+        # 
+        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
+        # The duration within which two-factor authentication is not required after a local user passes two-factor authentication. Valid values: 0 to 168. Unit: hours. If you set this parameter to 0, the local user must pass two-factor authentication every time the local user logs on to the bastion host.
         self.skip_two_factor_time = skip_two_factor_time  # type: str
+        # One or more methods that are used to send a verification code if two-factor authentication is enabled. If you set the EnableTwoFactor parameter to true, you must specify at least one method. Valid values:
+        # 
+        # *   **sms**: text message
+        # *   **email**: email
+        # *   **dingtalk**: Notice in DingTalk
         self.two_factor_methods = two_factor_methods  # type: str
 
     def validate(self):
@@ -10364,14 +12597,10 @@ class ModifyInstanceTwoFactorRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.ding_talk_config is not None:
-            result['DingTalkConfig'] = self.ding_talk_config
         if self.enable_two_factor is not None:
             result['EnableTwoFactor'] = self.enable_two_factor
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
-        if self.message_language is not None:
-            result['MessageLanguage'] = self.message_language
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         if self.skip_two_factor_time is not None:
@@ -10382,14 +12611,10 @@ class ModifyInstanceTwoFactorRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('DingTalkConfig') is not None:
-            self.ding_talk_config = m.get('DingTalkConfig')
         if m.get('EnableTwoFactor') is not None:
             self.enable_two_factor = m.get('EnableTwoFactor')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
-        if m.get('MessageLanguage') is not None:
-            self.message_language = m.get('MessageLanguage')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         if m.get('SkipTwoFactorTime') is not None:
@@ -10401,7 +12626,7 @@ class ModifyInstanceTwoFactorRequest(TeaModel):
 
 class ModifyInstanceTwoFactorResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Id of the request
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -10425,12 +12650,14 @@ class ModifyInstanceTwoFactorResponseBody(TeaModel):
 
 
 class ModifyInstanceTwoFactorResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ModifyInstanceTwoFactorResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -10443,6 +12670,8 @@ class ModifyInstanceTwoFactorResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -10451,124 +12680,87 @@ class ModifyInstanceTwoFactorResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ModifyInstanceTwoFactorResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
 
-class ModifyInstanceUpgradePeriodRequest(TeaModel):
-    def __init__(self, instance_id=None, lang=None, region_id=None, upgrade_mode=None, upgrade_start_time=None):
-        self.instance_id = instance_id  # type: str
-        self.lang = lang  # type: str
-        self.region_id = region_id  # type: str
-        self.upgrade_mode = upgrade_mode  # type: str
-        self.upgrade_start_time = upgrade_start_time  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ModifyInstanceUpgradePeriodRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.instance_id is not None:
-            result['InstanceId'] = self.instance_id
-        if self.lang is not None:
-            result['Lang'] = self.lang
-        if self.region_id is not None:
-            result['RegionId'] = self.region_id
-        if self.upgrade_mode is not None:
-            result['UpgradeMode'] = self.upgrade_mode
-        if self.upgrade_start_time is not None:
-            result['UpgradeStartTime'] = self.upgrade_start_time
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('InstanceId') is not None:
-            self.instance_id = m.get('InstanceId')
-        if m.get('Lang') is not None:
-            self.lang = m.get('Lang')
-        if m.get('RegionId') is not None:
-            self.region_id = m.get('RegionId')
-        if m.get('UpgradeMode') is not None:
-            self.upgrade_mode = m.get('UpgradeMode')
-        if m.get('UpgradeStartTime') is not None:
-            self.upgrade_start_time = m.get('UpgradeStartTime')
-        return self
-
-
-class ModifyInstanceUpgradePeriodResponseBody(TeaModel):
-    def __init__(self, request_id=None):
-        self.request_id = request_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ModifyInstanceUpgradePeriodResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        return self
-
-
-class ModifyInstanceUpgradePeriodResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: ModifyInstanceUpgradePeriodResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(ModifyInstanceUpgradePeriodResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('body') is not None:
-            temp_model = ModifyInstanceUpgradePeriodResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
 class ModifyUserRequest(TeaModel):
-    def __init__(self, comment=None, display_name=None, email=None, instance_id=None, mobile=None,
-                 mobile_country_code=None, password=None, region_id=None, user_id=None):
+    def __init__(self, comment=None, display_name=None, effective_end_time=None, effective_start_time=None,
+                 email=None, instance_id=None, mobile=None, mobile_country_code=None, need_reset_password=None,
+                 password=None, region_id=None, two_factor_methods=None, two_factor_status=None, user_id=None):
+        # The new description of the user. The description can be up to 500 characters in length.
         self.comment = comment  # type: str
+        # The new display name of the user. This display name can be up to 128 characters in length.
         self.display_name = display_name  # type: str
+        # The end of the validity period of the user. The value is a UNIX timestamp. Unit: seconds.
+        self.effective_end_time = effective_end_time  # type: long
+        # The beginning of the validity period of the user. The value is a UNIX timestamp. Unit: seconds.
+        self.effective_start_time = effective_start_time  # type: long
+        # The new email address of the user.
+        # 
+        # > This parameter is required when the TwoFactorStatus parameter is set to Enable and the TwoFactorMethods parameter is set to email.
         self.email = email  # type: str
+        # The ID of the bastion host where you want to modify user information.
+        # 
+        # > You can call the [DescribeInstances](~~153281~~) operation to query the ID of the bastion host.
         self.instance_id = instance_id  # type: str
+        # The new mobile number of the user.
+        # 
+        # > This parameter is required when the TwoFactorStatus parameter is set to Enable and the TwoFactorMethods parameter is set to sms or dingtalk.
         self.mobile = mobile  # type: str
+        # The country where the new mobile number of the user is registered. Valid values:
+        # 
+        # *   **CN:** the Chinese mainland, whose country calling code is +86
+        # *   **HK:** Hong Kong (China), whose country calling code is +852
+        # *   **MO:** Macao (China), whose country calling code is +853
+        # *   **TW:** Taiwan (China), whose country calling code is +886
+        # *   **RU:** Russia, whose country calling code is +7
+        # *   **SG:** Singapore, whose country calling code is +65
+        # *   **MY:** Malaysia, whose country calling code is +60
+        # *   **ID:** Indonesia, whose country calling code is +62
+        # *   **DE:** Germany, whose country calling code is +49
+        # *   **AU:** Australia, whose country calling code is +61
+        # *   **US:** US, whose country calling code is +1
+        # *   **AE:** United Arab Emirates, whose country calling code is +971
+        # *   **JP:** Japan, whose country calling code is +81
+        # *   **GB:** UK, whose country calling code is +44
+        # *   **IN:** India, whose country calling code is +91
+        # *   **KR:** Republic of Korea, whose country calling code is +82
+        # *   **PH:** Philippines, whose country calling code is +63
+        # *   **CH:** Switzerland, whose country calling code is +41
+        # *   **SE:** Sweden, whose country calling code is +46
+        # *   **SA:** Saudi Arabia, whose country calling code is +966
         self.mobile_country_code = mobile_country_code  # type: str
+        # The original password of the user. The password must be 8 to 128 characters in length and must contain lowercase letters, uppercase letters, digits, and special characters.
+        self.need_reset_password = need_reset_password  # type: bool
+        # The new password of the user. The password must be 8 to 128 characters in length and must contain lowercase letters, uppercase letters, digits, and special characters.
         self.password = password  # type: str
+        # The region ID of the bastion host where you want to modify user information.
+        # 
+        # > For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
+        # The two-factor authentication method. You can select only one method. Valid values:
+        # 
+        # *   **sms:** text message
+        # *   **email:** email
+        # *   **dingtalk:** DingTalk
+        # *   **totp OTP:** time-based one-time password (TOTP) app
+        # 
+        # > 
+        # 
+        # *   When the TwoFactorStatus parameter is set to Enable, you must specify one of the preceding values.
+        self.two_factor_methods = two_factor_methods  # type: str
+        # The two-factor authentication status of the user. Valid values:
+        # 
+        # *   **Global:** follows the global settings
+        # *   **Disable:** disables two-factor authentication
+        # *   **Enable:** enable two-factor authentication and follows settings of the single user
+        self.two_factor_status = two_factor_status  # type: str
+        # The ID of the user whose information you want to modify.
         self.user_id = user_id  # type: str
 
     def validate(self):
@@ -10584,6 +12776,10 @@ class ModifyUserRequest(TeaModel):
             result['Comment'] = self.comment
         if self.display_name is not None:
             result['DisplayName'] = self.display_name
+        if self.effective_end_time is not None:
+            result['EffectiveEndTime'] = self.effective_end_time
+        if self.effective_start_time is not None:
+            result['EffectiveStartTime'] = self.effective_start_time
         if self.email is not None:
             result['Email'] = self.email
         if self.instance_id is not None:
@@ -10592,10 +12788,16 @@ class ModifyUserRequest(TeaModel):
             result['Mobile'] = self.mobile
         if self.mobile_country_code is not None:
             result['MobileCountryCode'] = self.mobile_country_code
+        if self.need_reset_password is not None:
+            result['NeedResetPassword'] = self.need_reset_password
         if self.password is not None:
             result['Password'] = self.password
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.two_factor_methods is not None:
+            result['TwoFactorMethods'] = self.two_factor_methods
+        if self.two_factor_status is not None:
+            result['TwoFactorStatus'] = self.two_factor_status
         if self.user_id is not None:
             result['UserId'] = self.user_id
         return result
@@ -10606,6 +12808,10 @@ class ModifyUserRequest(TeaModel):
             self.comment = m.get('Comment')
         if m.get('DisplayName') is not None:
             self.display_name = m.get('DisplayName')
+        if m.get('EffectiveEndTime') is not None:
+            self.effective_end_time = m.get('EffectiveEndTime')
+        if m.get('EffectiveStartTime') is not None:
+            self.effective_start_time = m.get('EffectiveStartTime')
         if m.get('Email') is not None:
             self.email = m.get('Email')
         if m.get('InstanceId') is not None:
@@ -10614,10 +12820,16 @@ class ModifyUserRequest(TeaModel):
             self.mobile = m.get('Mobile')
         if m.get('MobileCountryCode') is not None:
             self.mobile_country_code = m.get('MobileCountryCode')
+        if m.get('NeedResetPassword') is not None:
+            self.need_reset_password = m.get('NeedResetPassword')
         if m.get('Password') is not None:
             self.password = m.get('Password')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('TwoFactorMethods') is not None:
+            self.two_factor_methods = m.get('TwoFactorMethods')
+        if m.get('TwoFactorStatus') is not None:
+            self.two_factor_status = m.get('TwoFactorStatus')
         if m.get('UserId') is not None:
             self.user_id = m.get('UserId')
         return self
@@ -10625,6 +12837,7 @@ class ModifyUserRequest(TeaModel):
 
 class ModifyUserResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -10648,12 +12861,14 @@ class ModifyUserResponseBody(TeaModel):
 
 
 class ModifyUserResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ModifyUserResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -10666,6 +12881,8 @@ class ModifyUserResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -10674,6 +12891,8 @@ class ModifyUserResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ModifyUserResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -10682,10 +12901,21 @@ class ModifyUserResponse(TeaModel):
 
 class ModifyUserGroupRequest(TeaModel):
     def __init__(self, comment=None, instance_id=None, region_id=None, user_group_id=None, user_group_name=None):
+        # The new description of the user group. The value can be up to 500 characters in length.
         self.comment = comment  # type: str
+        # The ID of the Bastionhost instance where you want to modify the information of the user group.
+        # 
+        # >  You can call the [DescribeInstances](~~153281~~) operation to query the ID of the Bastionhost instance.
         self.instance_id = instance_id  # type: str
+        # The region ID of the Bastionhost instance where you want to modify the information of the user group.
+        # 
+        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
+        # The ID of the user group that you want to modify.
+        # 
+        # >  You can call the [ListUserGroups](~~204509~~) operation to query the ID of the user group.
         self.user_group_id = user_group_id  # type: str
+        # The new name of the user group. The value can be up to 128 characters in length.
         self.user_group_name = user_group_name  # type: str
 
     def validate(self):
@@ -10726,6 +12956,7 @@ class ModifyUserGroupRequest(TeaModel):
 
 class ModifyUserGroupResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -10749,12 +12980,14 @@ class ModifyUserGroupResponseBody(TeaModel):
 
 
 class ModifyUserGroupResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ModifyUserGroupResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -10767,6 +13000,8 @@ class ModifyUserGroupResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -10775,6 +13010,8 @@ class ModifyUserGroupResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ModifyUserGroupResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -10783,9 +13020,17 @@ class ModifyUserGroupResponse(TeaModel):
 
 class MoveResourceGroupRequest(TeaModel):
     def __init__(self, region_id=None, resource_group_id=None, resource_id=None, resource_type=None):
+        # The region ID of the bastion host.
         self.region_id = region_id  # type: str
+        # The ID of the resource group to which the bastion host is moved.
+        # 
+        # >  You can call the [DescribeInstances](~~153281~~) operation to query the resource group ID of the bastion host.
         self.resource_group_id = resource_group_id  # type: str
+        # The ID of the bastion host for which you want to change the resource group.
+        # 
+        # >  You can call the [DescribeInstances](~~153281~~) operation to query the ID of the bastion host.
         self.resource_id = resource_id  # type: str
+        # The type of the resource. Set the value to **INSTANCE**, which indicates that the resource is a bastion host.
         self.resource_type = resource_type  # type: str
 
     def validate(self):
@@ -10822,6 +13067,7 @@ class MoveResourceGroupRequest(TeaModel):
 
 class MoveResourceGroupResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -10845,12 +13091,14 @@ class MoveResourceGroupResponseBody(TeaModel):
 
 
 class MoveResourceGroupResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: MoveResourceGroupResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -10863,6 +13111,8 @@ class MoveResourceGroupResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -10871,6 +13121,8 @@ class MoveResourceGroupResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = MoveResourceGroupResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -10879,9 +13131,21 @@ class MoveResourceGroupResponse(TeaModel):
 
 class RemoveHostsFromGroupRequest(TeaModel):
     def __init__(self, host_group_id=None, host_ids=None, instance_id=None, region_id=None):
+        # The ID of the host group from which you want to remove hosts.
+        # 
+        # >  You can call the [ListHostGroups](~~201307~~) operation to query the ID of the host group.
         self.host_group_id = host_group_id  # type: str
+        # The ID of the host that you want to remove from the host group. The value is a JSON string. You can add up to 100 host IDs.
+        # 
+        # >  You can call the [ListHosts](~~200665~~) operation to query the IDs of hosts.
         self.host_ids = host_ids  # type: str
+        # The ID of the bastion host for which you want to remove hosts from the host group.
+        # 
+        # >  You can call the [DescribeInstances](~~153281~~) operation to query the ID of the bastion host.
         self.instance_id = instance_id  # type: str
+        # The region ID of the bastion host for which you want to remove hosts from the host group.
+        # 
+        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -10918,9 +13182,19 @@ class RemoveHostsFromGroupRequest(TeaModel):
 
 class RemoveHostsFromGroupResponseBodyResults(TeaModel):
     def __init__(self, code=None, host_group_id=None, host_id=None, message=None):
+        # The return code that indicates whether the call was successful. Valid values:
+        # 
+        # *   **OK**: The call was successful.
+        # *   **UNEXPECTED**: An unknown error occurred.
+        # *   **INVALID_ARGUMENT**: A request parameter is invalid.
+        # *   **OBJECT_NOT_FOUND**: The specified object on which you want to perform the operation does not exist.
+        # *   **OBJECT_AlREADY_EXISTS**: The specified object on which you want to perform the operation already exists.
         self.code = code  # type: str
+        # The ID of the host group.
         self.host_group_id = host_group_id  # type: str
+        # The ID of the host.
         self.host_id = host_id  # type: str
+        # This parameter is deprecated.
         self.message = message  # type: str
 
     def validate(self):
@@ -10957,7 +13231,9 @@ class RemoveHostsFromGroupResponseBodyResults(TeaModel):
 
 class RemoveHostsFromGroupResponseBody(TeaModel):
     def __init__(self, request_id=None, results=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The result of the call.
         self.results = results  # type: list[RemoveHostsFromGroupResponseBodyResults]
 
     def validate(self):
@@ -10993,12 +13269,14 @@ class RemoveHostsFromGroupResponseBody(TeaModel):
 
 
 class RemoveHostsFromGroupResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: RemoveHostsFromGroupResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -11011,6 +13289,8 @@ class RemoveHostsFromGroupResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -11019,6 +13299,8 @@ class RemoveHostsFromGroupResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = RemoveHostsFromGroupResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -11027,9 +13309,21 @@ class RemoveHostsFromGroupResponse(TeaModel):
 
 class RemoveUsersFromGroupRequest(TeaModel):
     def __init__(self, instance_id=None, region_id=None, user_group_id=None, user_ids=None):
+        # The ID of the bastion host for which you want to remove users from the user group.
+        # 
+        # >  You can call the [DescribeInstances](~~153281~~) operation to query the ID of the bastion host.
         self.instance_id = instance_id  # type: str
+        # The region ID of the bastion host for which you want to remove users from the user group.
+        # 
+        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
+        # The ID of the user group from which you want to remove users.
+        # 
+        # >  You can call the [ListUserGroups](~~204509~~) operation to query the ID of the user group.
         self.user_group_id = user_group_id  # type: str
+        # The ID of the user who you want to remove. The value is a JSON string. You can add up to 100 user IDs. If you specify multiple IDs, separate the IDs with commas (,).
+        # 
+        # >  You can call the [ListUsers](~~204522~~) operation to query the IDs of users.
         self.user_ids = user_ids  # type: str
 
     def validate(self):
@@ -11066,9 +13360,27 @@ class RemoveUsersFromGroupRequest(TeaModel):
 
 class RemoveUsersFromGroupResponseBodyResults(TeaModel):
     def __init__(self, code=None, message=None, user_group_id=None, user_id=None):
+        # The return code that indicates whether the call was successful. Valid values:
+        # 
+        # *   **OK**: The call was successful.
+        # 
+        # *   **UNEXPECTED**: An unknown error occurred.
+        # 
+        # *   **INVALID_ARGUMENT**: A request parameter is invalid.
+        # 
+        # > Make sure that the request parameters are valid and call the operation again.
+        # 
+        # *   **OBJECT_NOT_FOUND**: The specified object on which you want to perform the operation does not exist.
+        # 
+        # > Check whether the specified ID of the bastion host exists, whether the specified hosts exist, and whether the specified host IDs are valid. Then, call the operation again.
+        # 
+        # *   **OBJECT_AlREADY_EXISTS**: The specified object on which you want to perform the operation already exists.
         self.code = code  # type: str
+        # This parameter is deprecated.
         self.message = message  # type: str
+        # The ID of the group.
         self.user_group_id = user_group_id  # type: str
+        # The ID of the user.
         self.user_id = user_id  # type: str
 
     def validate(self):
@@ -11105,7 +13417,9 @@ class RemoveUsersFromGroupResponseBodyResults(TeaModel):
 
 class RemoveUsersFromGroupResponseBody(TeaModel):
     def __init__(self, request_id=None, results=None):
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
+        # The result of the call.
         self.results = results  # type: list[RemoveUsersFromGroupResponseBodyResults]
 
     def validate(self):
@@ -11141,12 +13455,14 @@ class RemoveUsersFromGroupResponseBody(TeaModel):
 
 
 class RemoveUsersFromGroupResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: RemoveUsersFromGroupResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -11159,6 +13475,8 @@ class RemoveUsersFromGroupResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -11167,6 +13485,8 @@ class RemoveUsersFromGroupResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = RemoveUsersFromGroupResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -11175,9 +13495,22 @@ class RemoveUsersFromGroupResponse(TeaModel):
 
 class ResetHostAccountCredentialRequest(TeaModel):
     def __init__(self, credential_type=None, host_account_id=None, instance_id=None, region_id=None):
+        # The type of the logon credential that you want to delete. Valid values:
+        # 
+        # *   **Password**: You want to delete the password.
+        # *   **PrivateKey**: You want to delete the SSH private key.
         self.credential_type = credential_type  # type: str
+        # The ID of the host account for which the logon credential is to be deleted.
+        # 
+        # >  You can call the [ListHostAccounts](~~204372~~) operation to query the ID of the host account.
         self.host_account_id = host_account_id  # type: str
+        # The ID of the Bastionhost instance where you want to delete the logon credential for the host account.
+        # 
+        # >  You can call the [DescribeInstances](~~153281~~) operation to query the ID of the Bastionhost instance.
         self.instance_id = instance_id  # type: str
+        # The region ID of the Bastionhost instance where you want to delete the logon credential for the host account.
+        # 
+        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -11214,6 +13547,7 @@ class ResetHostAccountCredentialRequest(TeaModel):
 
 class ResetHostAccountCredentialResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -11237,12 +13571,14 @@ class ResetHostAccountCredentialResponseBody(TeaModel):
 
 
 class ResetHostAccountCredentialResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: ResetHostAccountCredentialResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -11255,6 +13591,8 @@ class ResetHostAccountCredentialResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -11263,6 +13601,8 @@ class ResetHostAccountCredentialResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ResetHostAccountCredentialResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -11271,9 +13611,15 @@ class ResetHostAccountCredentialResponse(TeaModel):
 
 class StartInstanceRequest(TeaModel):
     def __init__(self, instance_id=None, region_id=None, security_group_ids=None, vswitch_id=None):
+        # The ID of the bastion host that you want to enable.
+        # 
+        # >  You can call the [DescribeInstances](~~153281~~) operation to obtain the ID of the bastion host.
         self.instance_id = instance_id  # type: str
+        # The region ID of the bastion host.
         self.region_id = region_id  # type: str
+        # The IDs of the security groups.
         self.security_group_ids = security_group_ids  # type: list[str]
+        # The ID of the vSwitch to which the bastion host belongs.
         self.vswitch_id = vswitch_id  # type: str
 
     def validate(self):
@@ -11310,7 +13656,9 @@ class StartInstanceRequest(TeaModel):
 
 class StartInstanceResponseBody(TeaModel):
     def __init__(self, instance_id=None, request_id=None):
+        # The ID of the bastion host that you enable.
         self.instance_id = instance_id  # type: str
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -11338,12 +13686,14 @@ class StartInstanceResponseBody(TeaModel):
 
 
 class StartInstanceResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: StartInstanceResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -11356,6 +13706,8 @@ class StartInstanceResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -11364,6 +13716,8 @@ class StartInstanceResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = StartInstanceResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -11372,7 +13726,21 @@ class StartInstanceResponse(TeaModel):
 
 class TagResourcesRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of tag N of the instance.
+        # 
+        # Valid values of N: 1 to 20.
+        # 
+        # > 
+        # *   The key can be up to 128 characters in length but cannot be an empty string.
+        # *   The key cannot start with **aliyun** or **acs:**. It cannot contain **http://** or **https://**.
         self.key = key  # type: str
+        # The value of tag N of the instance.
+        # 
+        # Valid values of N: 1 to 20.
+        # 
+        # > 
+        # *   The value can be up to 128 characters in length or an empty string.
+        # *   The value cannot start with **aliyun** or **acs:**. It cannot contain **http://** or **https://**.
         self.value = value  # type: str
 
     def validate(self):
@@ -11401,9 +13769,15 @@ class TagResourcesRequestTag(TeaModel):
 
 class TagResourcesRequest(TeaModel):
     def __init__(self, region_id=None, resource_id=None, resource_type=None, tag=None):
+        # The region ID of the Bastionhost instances to which tags need to be created and bound.
         self.region_id = region_id  # type: str
+        # The resource IDs.
         self.resource_id = resource_id  # type: list[str]
+        # The type of the resource.
+        # 
+        # Set the value to INSTANCE, which indicates that the resource is a Bastionhost instance.
         self.resource_type = resource_type  # type: str
+        # The tags.
         self.tag = tag  # type: list[TagResourcesRequestTag]
 
     def validate(self):
@@ -11448,6 +13822,7 @@ class TagResourcesRequest(TeaModel):
 
 class TagResourcesResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -11471,12 +13846,14 @@ class TagResourcesResponseBody(TeaModel):
 
 
 class TagResourcesResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: TagResourcesResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -11489,6 +13866,8 @@ class TagResourcesResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -11497,6 +13876,8 @@ class TagResourcesResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = TagResourcesResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -11505,8 +13886,17 @@ class TagResourcesResponse(TeaModel):
 
 class UnlockUsersRequest(TeaModel):
     def __init__(self, instance_id=None, region_id=None, user_ids=None):
+        # The ID of the bastion host to which the users to be unlocked belong.
+        # 
+        # >  You can call the [DescribeInstances](~~153281~~) operation to query the ID of the bastion host.
         self.instance_id = instance_id  # type: str
+        # The region ID of the bastion host to which the users to be unlocked belong.
+        # 
+        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
+        # The ID of the user that you want to unlock. The value is a JSON string. You can add up to 100 user IDs. If you specify multiple IDs, separate the IDs with commas (,).
+        # 
+        # >  You can call the [ListUsers](~~204522~~) operation to query the IDs of users.
         self.user_ids = user_ids  # type: str
 
     def validate(self):
@@ -11539,8 +13929,25 @@ class UnlockUsersRequest(TeaModel):
 
 class UnlockUsersResponseBodyResults(TeaModel):
     def __init__(self, code=None, message=None, user_id=None):
+        # The return code that indicates whether the call was successful. Valid values:
+        # 
+        # *   **OK**: The call was successful.
+        # 
+        # *   **UNEXPECTED**: An unknown error occurred.
+        # 
+        # *   **INVALID_ARGUMENT**: A request parameter is invalid.
+        # 
+        # > Make sure that the request parameters are valid and call the operation again.
+        # 
+        # *   **OBJECT_NOT_FOUND**: The specified object on which you want to perform the operation does not exist.
+        # 
+        # > Check whether the specified ID of the bastion host exists, whether the specified hosts exist, and whether the specified host IDs are valid. Then, call the operation again.
+        # 
+        # *   **OBJECT_AlREADY_EXISTS**: The specified object on which you want to perform the operation already exists.
         self.code = code  # type: str
+        # This parameter is deprecated.
         self.message = message  # type: str
+        # The ID of the user.
         self.user_id = user_id  # type: str
 
     def validate(self):
@@ -11573,7 +13980,9 @@ class UnlockUsersResponseBodyResults(TeaModel):
 
 class UnlockUsersResponseBody(TeaModel):
     def __init__(self, request_id=None, results=None):
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
+        # The result of the call.
         self.results = results  # type: list[UnlockUsersResponseBodyResults]
 
     def validate(self):
@@ -11609,12 +14018,14 @@ class UnlockUsersResponseBody(TeaModel):
 
 
 class UnlockUsersResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: UnlockUsersResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -11627,6 +14038,8 @@ class UnlockUsersResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -11635,6 +14048,8 @@ class UnlockUsersResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = UnlockUsersResponseBody()
             self.body = temp_model.from_map(m['body'])
@@ -11643,10 +14058,22 @@ class UnlockUsersResponse(TeaModel):
 
 class UntagResourcesRequest(TeaModel):
     def __init__(self, all=None, region_id=None, resource_id=None, resource_type=None, tag_key=None):
+        # Specifies whether to delete all tags that are added to the bastion host.
+        # 
+        # *   If you specify TagKey.N, the value of this parameter can only be **false**, which indicates that only a specified tag is deleted.
+        # *   If you do not specify TagKey.N and the value of this parameter is **true**, all tags are deleted. If you do not specify TagKey.N and the value of this parameter is **false**, no tags are deleted.
         self.all = all  # type: bool
+        # The region ID of the bastion host to query.
+        # 
+        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
+        # The resource IDs. You can specify a maximum of 20 resource IDs.
         self.resource_id = resource_id  # type: list[str]
+        # The type of the resource.
+        # 
+        # Set the value to **INSTANCE**, which indicates that the resource is a bastion host.
         self.resource_type = resource_type  # type: str
+        # The tag keys of the resource.
         self.tag_key = tag_key  # type: list[str]
 
     def validate(self):
@@ -11687,6 +14114,7 @@ class UntagResourcesRequest(TeaModel):
 
 class UntagResourcesResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -11710,12 +14138,14 @@ class UntagResourcesResponseBody(TeaModel):
 
 
 class UntagResourcesResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
         self.body = body  # type: UntagResourcesResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
         self.validate_required(self.body, 'body')
         if self.body:
             self.body.validate()
@@ -11728,6 +14158,8 @@ class UntagResourcesResponse(TeaModel):
         result = dict()
         if self.headers is not None:
             result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
         if self.body is not None:
             result['body'] = self.body.to_map()
         return result
@@ -11736,359 +14168,10 @@ class UntagResourcesResponse(TeaModel):
         m = m or dict()
         if m.get('headers') is not None:
             self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = UntagResourcesResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class UpgradeInstanceImageVersionRequest(TeaModel):
-    def __init__(self, instance_id=None, lang=None, region_id=None):
-        self.instance_id = instance_id  # type: str
-        self.lang = lang  # type: str
-        self.region_id = region_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(UpgradeInstanceImageVersionRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.instance_id is not None:
-            result['InstanceId'] = self.instance_id
-        if self.lang is not None:
-            result['Lang'] = self.lang
-        if self.region_id is not None:
-            result['RegionId'] = self.region_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('InstanceId') is not None:
-            self.instance_id = m.get('InstanceId')
-        if m.get('Lang') is not None:
-            self.lang = m.get('Lang')
-        if m.get('RegionId') is not None:
-            self.region_id = m.get('RegionId')
-        return self
-
-
-class UpgradeInstanceImageVersionResponseBody(TeaModel):
-    def __init__(self, request_id=None):
-        self.request_id = request_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(UpgradeInstanceImageVersionResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        return self
-
-
-class UpgradeInstanceImageVersionResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: UpgradeInstanceImageVersionResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(UpgradeInstanceImageVersionResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('body') is not None:
-            temp_model = UpgradeInstanceImageVersionResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class VerifyInstanceADAuthServerRequest(TeaModel):
-    def __init__(self, account=None, base_dn=None, domain=None, filter=None, instance_id=None, is_ssl=None,
-                 password=None, port=None, region_id=None, server=None, standby_server=None):
-        self.account = account  # type: str
-        self.base_dn = base_dn  # type: str
-        self.domain = domain  # type: str
-        self.filter = filter  # type: str
-        self.instance_id = instance_id  # type: str
-        self.is_ssl = is_ssl  # type: str
-        self.password = password  # type: str
-        self.port = port  # type: str
-        self.region_id = region_id  # type: str
-        self.server = server  # type: str
-        self.standby_server = standby_server  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(VerifyInstanceADAuthServerRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.account is not None:
-            result['Account'] = self.account
-        if self.base_dn is not None:
-            result['BaseDN'] = self.base_dn
-        if self.domain is not None:
-            result['Domain'] = self.domain
-        if self.filter is not None:
-            result['Filter'] = self.filter
-        if self.instance_id is not None:
-            result['InstanceId'] = self.instance_id
-        if self.is_ssl is not None:
-            result['IsSSL'] = self.is_ssl
-        if self.password is not None:
-            result['Password'] = self.password
-        if self.port is not None:
-            result['Port'] = self.port
-        if self.region_id is not None:
-            result['RegionId'] = self.region_id
-        if self.server is not None:
-            result['Server'] = self.server
-        if self.standby_server is not None:
-            result['StandbyServer'] = self.standby_server
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Account') is not None:
-            self.account = m.get('Account')
-        if m.get('BaseDN') is not None:
-            self.base_dn = m.get('BaseDN')
-        if m.get('Domain') is not None:
-            self.domain = m.get('Domain')
-        if m.get('Filter') is not None:
-            self.filter = m.get('Filter')
-        if m.get('InstanceId') is not None:
-            self.instance_id = m.get('InstanceId')
-        if m.get('IsSSL') is not None:
-            self.is_ssl = m.get('IsSSL')
-        if m.get('Password') is not None:
-            self.password = m.get('Password')
-        if m.get('Port') is not None:
-            self.port = m.get('Port')
-        if m.get('RegionId') is not None:
-            self.region_id = m.get('RegionId')
-        if m.get('Server') is not None:
-            self.server = m.get('Server')
-        if m.get('StandbyServer') is not None:
-            self.standby_server = m.get('StandbyServer')
-        return self
-
-
-class VerifyInstanceADAuthServerResponseBody(TeaModel):
-    def __init__(self, request_id=None):
-        # Id of the request
-        self.request_id = request_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(VerifyInstanceADAuthServerResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        return self
-
-
-class VerifyInstanceADAuthServerResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: VerifyInstanceADAuthServerResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(VerifyInstanceADAuthServerResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('body') is not None:
-            temp_model = VerifyInstanceADAuthServerResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class VerifyInstanceLDAPAuthServerRequest(TeaModel):
-    def __init__(self, account=None, base_dn=None, filter=None, instance_id=None, is_ssl=None, password=None,
-                 port=None, region_id=None, server=None, standby_server=None):
-        self.account = account  # type: str
-        self.base_dn = base_dn  # type: str
-        self.filter = filter  # type: str
-        self.instance_id = instance_id  # type: str
-        self.is_ssl = is_ssl  # type: str
-        self.password = password  # type: str
-        self.port = port  # type: str
-        self.region_id = region_id  # type: str
-        self.server = server  # type: str
-        self.standby_server = standby_server  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(VerifyInstanceLDAPAuthServerRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.account is not None:
-            result['Account'] = self.account
-        if self.base_dn is not None:
-            result['BaseDN'] = self.base_dn
-        if self.filter is not None:
-            result['Filter'] = self.filter
-        if self.instance_id is not None:
-            result['InstanceId'] = self.instance_id
-        if self.is_ssl is not None:
-            result['IsSSL'] = self.is_ssl
-        if self.password is not None:
-            result['Password'] = self.password
-        if self.port is not None:
-            result['Port'] = self.port
-        if self.region_id is not None:
-            result['RegionId'] = self.region_id
-        if self.server is not None:
-            result['Server'] = self.server
-        if self.standby_server is not None:
-            result['StandbyServer'] = self.standby_server
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Account') is not None:
-            self.account = m.get('Account')
-        if m.get('BaseDN') is not None:
-            self.base_dn = m.get('BaseDN')
-        if m.get('Filter') is not None:
-            self.filter = m.get('Filter')
-        if m.get('InstanceId') is not None:
-            self.instance_id = m.get('InstanceId')
-        if m.get('IsSSL') is not None:
-            self.is_ssl = m.get('IsSSL')
-        if m.get('Password') is not None:
-            self.password = m.get('Password')
-        if m.get('Port') is not None:
-            self.port = m.get('Port')
-        if m.get('RegionId') is not None:
-            self.region_id = m.get('RegionId')
-        if m.get('Server') is not None:
-            self.server = m.get('Server')
-        if m.get('StandbyServer') is not None:
-            self.standby_server = m.get('StandbyServer')
-        return self
-
-
-class VerifyInstanceLDAPAuthServerResponseBody(TeaModel):
-    def __init__(self, request_id=None):
-        self.request_id = request_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(VerifyInstanceLDAPAuthServerResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        return self
-
-
-class VerifyInstanceLDAPAuthServerResponse(TeaModel):
-    def __init__(self, headers=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.body = body  # type: VerifyInstanceLDAPAuthServerResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(VerifyInstanceLDAPAuthServerResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('body') is not None:
-            temp_model = VerifyInstanceLDAPAuthServerResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 

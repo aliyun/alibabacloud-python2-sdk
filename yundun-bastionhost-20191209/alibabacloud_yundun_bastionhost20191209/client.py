@@ -31,6 +31,19 @@ class Client(OpenApiClient):
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
     def add_hosts_to_group_with_options(self, request, runtime):
+        """
+        ## Usage notes
+        You can call this operation to add one or more hosts to a host group. You can add multiple hosts to a host group to manage and grant permissions on the hosts in a centralized manner.
+        ## QPS limit
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: AddHostsToGroupRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: AddHostsToGroupResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.host_group_id):
@@ -61,10 +74,34 @@ class Client(OpenApiClient):
         )
 
     def add_hosts_to_group(self, request):
+        """
+        ## Usage notes
+        You can call this operation to add one or more hosts to a host group. You can add multiple hosts to a host group to manage and grant permissions on the hosts in a centralized manner.
+        ## QPS limit
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: AddHostsToGroupRequest
+
+        @return: AddHostsToGroupResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.add_hosts_to_group_with_options(request, runtime)
 
     def add_users_to_group_with_options(self, request, runtime):
+        """
+        ## Usage notes
+        You can call this operation to add one or more users to a user group. After you call the [CreateUserGroup](https://www.alibabacloud.com/help/en/bastion-host/latest/createusergroup) operation to create a user group, you can call the AddUsersToGroup operation to add multiple users to the user group. Then, you can manage and grant permissions to the users at a time.
+        ## QPS limit
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: AddUsersToGroupRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: AddUsersToGroupResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.instance_id):
@@ -95,6 +132,17 @@ class Client(OpenApiClient):
         )
 
     def add_users_to_group(self, request):
+        """
+        ## Usage notes
+        You can call this operation to add one or more users to a user group. After you call the [CreateUserGroup](https://www.alibabacloud.com/help/en/bastion-host/latest/createusergroup) operation to create a user group, you can call the AddUsersToGroup operation to add multiple users to the user group. Then, you can manage and grant permissions to the users at a time.
+        ## QPS limit
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: AddUsersToGroupRequest
+
+        @return: AddUsersToGroupResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.add_users_to_group_with_options(request, runtime)
 
@@ -167,6 +215,16 @@ class Client(OpenApiClient):
         return self.attach_host_accounts_to_user_with_options(request, runtime)
 
     def attach_host_accounts_to_user_group_with_options(self, request, runtime):
+        """
+        After you authorize a user group to manage specific hosts and host accounts, all the users in the user group have access to the authorized hosts and host accounts.
+        
+
+        @param request: AttachHostAccountsToUserGroupRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: AttachHostAccountsToUserGroupResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.hosts):
@@ -197,6 +255,14 @@ class Client(OpenApiClient):
         )
 
     def attach_host_accounts_to_user_group(self, request):
+        """
+        After you authorize a user group to manage specific hosts and host accounts, all the users in the user group have access to the authorized hosts and host accounts.
+        
+
+        @param request: AttachHostAccountsToUserGroupRequest
+
+        @return: AttachHostAccountsToUserGroupResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.attach_host_accounts_to_user_group_with_options(request, runtime)
 
@@ -303,6 +369,19 @@ class Client(OpenApiClient):
         return self.config_instance_security_groups_with_options(request, runtime)
 
     def config_instance_white_list_with_options(self, request, runtime):
+        """
+        ## Usage notes
+        You can call this operation to configure a whitelist of public IP addresses for a bastion host. By default, a bastion host is accessible from all public IP addresses. If you want to allow the requests from specific public IP addresses, you can call this operation to add trusted IP addresses to the whitelist of the bastion host.
+        ## Limits
+        You can call this operation up to 30 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: ConfigInstanceWhiteListRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ConfigInstanceWhiteListResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.instance_id):
@@ -331,6 +410,17 @@ class Client(OpenApiClient):
         )
 
     def config_instance_white_list(self, request):
+        """
+        ## Usage notes
+        You can call this operation to configure a whitelist of public IP addresses for a bastion host. By default, a bastion host is accessible from all public IP addresses. If you want to allow the requests from specific public IP addresses, you can call this operation to add trusted IP addresses to the whitelist of the bastion host.
+        ## Limits
+        You can call this operation up to 30 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: ConfigInstanceWhiteListRequest
+
+        @return: ConfigInstanceWhiteListResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.config_instance_white_list_with_options(request, runtime)
 
@@ -497,12 +587,29 @@ class Client(OpenApiClient):
         return self.create_host_share_key_with_options(request, runtime)
 
     def create_user_with_options(self, request, runtime):
+        """
+        ## Usage notes
+        You can call this operation to add a user to a bastion host. You can add local users and Resource Access Management (RAM) users. After a Bastionhost administrator adds a user to a bastion host, the O&M personnel can log on to the bastion host as the user to perform O&M operations on the host on which they have permissions.
+        ## Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: CreateUserRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateUserResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.comment):
             query['Comment'] = request.comment
         if not UtilClient.is_unset(request.display_name):
             query['DisplayName'] = request.display_name
+        if not UtilClient.is_unset(request.effective_end_time):
+            query['EffectiveEndTime'] = request.effective_end_time
+        if not UtilClient.is_unset(request.effective_start_time):
+            query['EffectiveStartTime'] = request.effective_start_time
         if not UtilClient.is_unset(request.email):
             query['Email'] = request.email
         if not UtilClient.is_unset(request.instance_id):
@@ -511,6 +618,8 @@ class Client(OpenApiClient):
             query['Mobile'] = request.mobile
         if not UtilClient.is_unset(request.mobile_country_code):
             query['MobileCountryCode'] = request.mobile_country_code
+        if not UtilClient.is_unset(request.need_reset_password):
+            query['NeedResetPassword'] = request.need_reset_password
         if not UtilClient.is_unset(request.password):
             query['Password'] = request.password
         if not UtilClient.is_unset(request.region_id):
@@ -519,6 +628,10 @@ class Client(OpenApiClient):
             query['Source'] = request.source
         if not UtilClient.is_unset(request.source_user_id):
             query['SourceUserId'] = request.source_user_id
+        if not UtilClient.is_unset(request.two_factor_methods):
+            query['TwoFactorMethods'] = request.two_factor_methods
+        if not UtilClient.is_unset(request.two_factor_status):
+            query['TwoFactorStatus'] = request.two_factor_status
         if not UtilClient.is_unset(request.user_name):
             query['UserName'] = request.user_name
         req = open_api_models.OpenApiRequest(
@@ -541,10 +654,34 @@ class Client(OpenApiClient):
         )
 
     def create_user(self, request):
+        """
+        ## Usage notes
+        You can call this operation to add a user to a bastion host. You can add local users and Resource Access Management (RAM) users. After a Bastionhost administrator adds a user to a bastion host, the O&M personnel can log on to the bastion host as the user to perform O&M operations on the host on which they have permissions.
+        ## Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: CreateUserRequest
+
+        @return: CreateUserResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_user_with_options(request, runtime)
 
     def create_user_group_with_options(self, request, runtime):
+        """
+        ## Usage notes
+        You can call this operation to create a user group for a bastion host as an administrator. Then, you can call the [AddUsersToGroup](https://www.alibabacloud.com/help/en/bastion-host/latest/adduserstogroup) operation to add users to the user group at a time. After you add the users to the user group, you can authorize and manage the users in a centralized manner.
+        ## Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: CreateUserGroupRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateUserGroupResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.comment):
@@ -575,8 +712,75 @@ class Client(OpenApiClient):
         )
 
     def create_user_group(self, request):
+        """
+        ## Usage notes
+        You can call this operation to create a user group for a bastion host as an administrator. Then, you can call the [AddUsersToGroup](https://www.alibabacloud.com/help/en/bastion-host/latest/adduserstogroup) operation to add users to the user group at a time. After you add the users to the user group, you can authorize and manage the users in a centralized manner.
+        ## Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: CreateUserGroupRequest
+
+        @return: CreateUserGroupResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_user_group_with_options(request, runtime)
+
+    def create_user_public_key_with_options(self, request, runtime):
+        """
+        You can call the CreateUserPublicKey operation to create a public key for the specified user of a bastion host.
+        
+
+        @param request: CreateUserPublicKeyRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateUserPublicKeyResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.comment):
+            query['Comment'] = request.comment
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.public_key):
+            query['PublicKey'] = request.public_key
+        if not UtilClient.is_unset(request.public_key_name):
+            query['PublicKeyName'] = request.public_key_name
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateUserPublicKey',
+            version='2019-12-09',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            yundun_bastionhost_20191209_models.CreateUserPublicKeyResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_user_public_key(self, request):
+        """
+        You can call the CreateUserPublicKey operation to create a public key for the specified user of a bastion host.
+        
+
+        @param request: CreateUserPublicKeyRequest
+
+        @return: CreateUserPublicKeyResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.create_user_public_key_with_options(request, runtime)
 
     def delete_host_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -611,6 +815,20 @@ class Client(OpenApiClient):
         return self.delete_host_with_options(request, runtime)
 
     def delete_host_account_with_options(self, request, runtime):
+        """
+        ## Usage notes
+        You can call this operation to remove a single host account. If you no longer use a host account that is added to a host in Bastionhost, you can call this operation to remove the host account from the host.
+        >  After you remove the host account, you must enter the username and password of the host when you log on to the host in Bastionhost.
+        ## Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: DeleteHostAccountRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteHostAccountResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.host_account_id):
@@ -639,10 +857,35 @@ class Client(OpenApiClient):
         )
 
     def delete_host_account(self, request):
+        """
+        ## Usage notes
+        You can call this operation to remove a single host account. If you no longer use a host account that is added to a host in Bastionhost, you can call this operation to remove the host account from the host.
+        >  After you remove the host account, you must enter the username and password of the host when you log on to the host in Bastionhost.
+        ## Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: DeleteHostAccountRequest
+
+        @return: DeleteHostAccountResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_host_account_with_options(request, runtime)
 
     def delete_host_group_with_options(self, request, runtime):
+        """
+        ## Usage notes
+        You can call this operation to delete a single host group. If you no longer need to perform O&M operations on all hosts in a host group, you can call this operation to delete the host group.
+        ## Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: DeleteHostGroupRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteHostGroupResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.host_group_id):
@@ -671,6 +914,17 @@ class Client(OpenApiClient):
         )
 
     def delete_host_group(self, request):
+        """
+        ## Usage notes
+        You can call this operation to delete a single host group. If you no longer need to perform O&M operations on all hosts in a host group, you can call this operation to delete the host group.
+        ## Limits
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: DeleteHostGroupRequest
+
+        @return: DeleteHostGroupResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_host_group_with_options(request, runtime)
 
@@ -770,6 +1024,56 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.delete_user_group_with_options(request, runtime)
 
+    def delete_user_public_key_with_options(self, request, runtime):
+        """
+        You can call the DeleteUserPublicKey operation to delete a public key from the specified user of a bastion host.
+        
+
+        @param request: DeleteUserPublicKeyRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteUserPublicKeyResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.public_key_id):
+            query['PublicKeyId'] = request.public_key_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteUserPublicKey',
+            version='2019-12-09',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            yundun_bastionhost_20191209_models.DeleteUserPublicKeyResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_user_public_key(self, request):
+        """
+        You can call the DeleteUserPublicKey operation to delete a public key from the specified user of a bastion host.
+        
+
+        @param request: DeleteUserPublicKeyRequest
+
+        @return: DeleteUserPublicKeyResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.delete_user_public_key_with_options(request, runtime)
+
     def describe_instance_attribute_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -847,6 +1151,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.accept_language):
             query['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1007,6 +1313,16 @@ class Client(OpenApiClient):
         return self.detach_host_group_accounts_from_user_with_options(request, runtime)
 
     def detach_host_group_accounts_from_user_group_with_options(self, request, runtime):
+        """
+        ***\
+        
+
+        @param request: DetachHostGroupAccountsFromUserGroupRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DetachHostGroupAccountsFromUserGroupResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.host_groups):
@@ -1037,6 +1353,14 @@ class Client(OpenApiClient):
         )
 
     def detach_host_group_accounts_from_user_group(self, request):
+        """
+        ***\
+        
+
+        @param request: DetachHostGroupAccountsFromUserGroupRequest
+
+        @return: DetachHostGroupAccountsFromUserGroupResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.detach_host_group_accounts_from_user_group_with_options(request, runtime)
 
@@ -1229,6 +1553,19 @@ class Client(OpenApiClient):
         return self.get_host_share_key_with_options(request, runtime)
 
     def get_instance_adauth_server_with_options(self, request, runtime):
+        """
+        ## Usage notes
+        You can call this operation to query the settings of AD authentication on a bastion host. After you configure AD authentication on a bastion host, you can import AD-authenticated users into the bastion host. After the AD-authenticated users are imported into the bastion host, the AD-authenticated users can log on to the bastion host to perform O&M operations on servers.
+        ## Limits
+        You can call this operation up to 10 times per second for each account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: GetInstanceADAuthServerRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetInstanceADAuthServerResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.instance_id):
@@ -1255,6 +1592,17 @@ class Client(OpenApiClient):
         )
 
     def get_instance_adauth_server(self, request):
+        """
+        ## Usage notes
+        You can call this operation to query the settings of AD authentication on a bastion host. After you configure AD authentication on a bastion host, you can import AD-authenticated users into the bastion host. After the AD-authenticated users are imported into the bastion host, the AD-authenticated users can log on to the bastion host to perform O&M operations on servers.
+        ## Limits
+        You can call this operation up to 10 times per second for each account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: GetInstanceADAuthServerRequest
+
+        @return: GetInstanceADAuthServerResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_instance_adauth_server_with_options(request, runtime)
 
@@ -1289,6 +1637,19 @@ class Client(OpenApiClient):
         return self.get_instance_ldapauth_server_with_options(request, runtime)
 
     def get_instance_two_factor_with_options(self, request, runtime):
+        """
+        ## Usage notes
+        You can call this operation to query the settings of two-factor authentication on a bastion host. After you enable two-factor authentication, Bastionhost sends a verification code to a local user when the local user logs on to a bastion host. A local user can log on to the bastion host only when the local user enters the valid username and password and the verification code. This reduces the security risks caused by account information leaks.
+        ## Limits
+        You can call this operation up to 10 times per second for each account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: GetInstanceTwoFactorRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetInstanceTwoFactorResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.instance_id):
@@ -1315,40 +1676,19 @@ class Client(OpenApiClient):
         )
 
     def get_instance_two_factor(self, request):
+        """
+        ## Usage notes
+        You can call this operation to query the settings of two-factor authentication on a bastion host. After you enable two-factor authentication, Bastionhost sends a verification code to a local user when the local user logs on to a bastion host. A local user can log on to the bastion host only when the local user enters the valid username and password and the verification code. This reduces the security risks caused by account information leaks.
+        ## Limits
+        You can call this operation up to 10 times per second for each account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: GetInstanceTwoFactorRequest
+
+        @return: GetInstanceTwoFactorResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_instance_two_factor_with_options(request, runtime)
-
-    def get_instance_upgrade_info_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.instance_id):
-            query['InstanceId'] = request.instance_id
-        if not UtilClient.is_unset(request.lang):
-            query['Lang'] = request.lang
-        if not UtilClient.is_unset(request.region_id):
-            query['RegionId'] = request.region_id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='GetInstanceUpgradeInfo',
-            version='2019-12-09',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            yundun_bastionhost_20191209_models.GetInstanceUpgradeInfoResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def get_instance_upgrade_info(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.get_instance_upgrade_info_with_options(request, runtime)
 
     def get_user_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1925,6 +2265,17 @@ class Client(OpenApiClient):
         return self.list_hosts_for_user_group_with_options(request, runtime)
 
     def list_tag_keys_with_options(self, request, runtime):
+        """
+        ## Debugging
+        [OpenAPI Explorer automatically calculates the signature value. For your convenience, we recommend that you call this operation in OpenAPI Explorer. OpenAPI Explorer dynamically generates the sample code of the operation for different SDKs.](https://api.aliyun.com/#product=Yundun-bastionhost\\&api=ListTagKeys\\&type=RPC\\&version=2019-12-09)
+        
+
+        @param request: ListTagKeysRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListTagKeysResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.page_number):
@@ -1955,6 +2306,15 @@ class Client(OpenApiClient):
         )
 
     def list_tag_keys(self, request):
+        """
+        ## Debugging
+        [OpenAPI Explorer automatically calculates the signature value. For your convenience, we recommend that you call this operation in OpenAPI Explorer. OpenAPI Explorer dynamically generates the sample code of the operation for different SDKs.](https://api.aliyun.com/#product=Yundun-bastionhost\\&api=ListTagKeys\\&type=RPC\\&version=2019-12-09)
+        
+
+        @param request: ListTagKeysRequest
+
+        @return: ListTagKeysResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_tag_keys_with_options(request, runtime)
 
@@ -2030,6 +2390,42 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_user_groups_with_options(request, runtime)
 
+    def list_user_public_keys_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListUserPublicKeys',
+            version='2019-12-09',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            yundun_bastionhost_20191209_models.ListUserPublicKeysResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_user_public_keys(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_user_public_keys_with_options(request, runtime)
+
     def list_users_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -2079,6 +2475,19 @@ class Client(OpenApiClient):
         return self.list_users_with_options(request, runtime)
 
     def lock_users_with_options(self, request, runtime):
+        """
+        ## Usage notes
+        You can call this operation to lock one or more users of a bastion host. If a user does not need to use a bastion host to perform O&M operations within a specific period of time, you can lock the user. The locked user can no longer log on to or perform O&M operations on the hosts on which the user is granted permissions. If you want to unlock the user later, you can call the [UnlockUsers](https://www.alibabacloud.com/help/en/bastion-host/latest/unlockusers) operation.
+        ## QPS limit
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: LockUsersRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: LockUsersResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.instance_id):
@@ -2107,10 +2516,32 @@ class Client(OpenApiClient):
         )
 
     def lock_users(self, request):
+        """
+        ## Usage notes
+        You can call this operation to lock one or more users of a bastion host. If a user does not need to use a bastion host to perform O&M operations within a specific period of time, you can lock the user. The locked user can no longer log on to or perform O&M operations on the hosts on which the user is granted permissions. If you want to unlock the user later, you can call the [UnlockUsers](https://www.alibabacloud.com/help/en/bastion-host/latest/unlockusers) operation.
+        ## QPS limit
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: LockUsersRequest
+
+        @return: LockUsersResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.lock_users_with_options(request, runtime)
 
     def modify_host_with_options(self, request, runtime):
+        """
+        You can call this operation to modify the basic information of an on-premises host, an Elastic Compute Service (ECS) instance, or a host in a dedicated cluster.
+        >  The basic information of ECS instances and hosts in dedicated clusters within your Alibaba Cloud account is synchronized to Bastionhost on a regular basis. After you modify the basic information of an ECS instance or a host in a dedicated cluster, the modification result may be overwritten by the synchronized information.
+        
+
+        @param request: ModifyHostRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyHostResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.comment):
@@ -2149,6 +2580,15 @@ class Client(OpenApiClient):
         )
 
     def modify_host(self, request):
+        """
+        You can call this operation to modify the basic information of an on-premises host, an Elastic Compute Service (ECS) instance, or a host in a dedicated cluster.
+        >  The basic information of ECS instances and hosts in dedicated clusters within your Alibaba Cloud account is synchronized to Bastionhost on a regular basis. After you modify the basic information of an ECS instance or a host in a dedicated cluster, the modification result may be overwritten by the synchronized information.
+        
+
+        @param request: ModifyHostRequest
+
+        @return: ModifyHostResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_host_with_options(request, runtime)
 
@@ -2303,6 +2743,20 @@ class Client(OpenApiClient):
         return self.modify_hosts_active_address_type_with_options(request, runtime)
 
     def modify_hosts_port_with_options(self, request, runtime):
+        """
+        ## Usage notes
+        You can call this operation to change the port for the O&M protocol on one or more hosts. If the standard port for the O&M protocol on your host is vulnerable to attacks, you can call this operation to specify a custom port. For example, the standard port for SSH is port 22.
+        >  Ports 0 to 1024 are reserved for Bastionhost. Do not change the port for the O&M protocol to a reserved port.
+        ## QPS limit
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: ModifyHostsPortRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyHostsPortResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.host_ids):
@@ -2335,6 +2789,18 @@ class Client(OpenApiClient):
         )
 
     def modify_hosts_port(self, request):
+        """
+        ## Usage notes
+        You can call this operation to change the port for the O&M protocol on one or more hosts. If the standard port for the O&M protocol on your host is vulnerable to attacks, you can call this operation to specify a custom port. For example, the standard port for SSH is port 22.
+        >  Ports 0 to 1024 are reserved for Bastionhost. Do not change the port for the O&M protocol to a reserved port.
+        ## QPS limit
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: ModifyHostsPortRequest
+
+        @return: ModifyHostsPortResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_hosts_port_with_options(request, runtime)
 
@@ -2481,14 +2947,10 @@ class Client(OpenApiClient):
     def modify_instance_two_factor_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        if not UtilClient.is_unset(request.ding_talk_config):
-            query['DingTalkConfig'] = request.ding_talk_config
         if not UtilClient.is_unset(request.enable_two_factor):
             query['EnableTwoFactor'] = request.enable_two_factor
         if not UtilClient.is_unset(request.instance_id):
             query['InstanceId'] = request.instance_id
-        if not UtilClient.is_unset(request.message_language):
-            query['MessageLanguage'] = request.message_language
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.skip_two_factor_time):
@@ -2518,42 +2980,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.modify_instance_two_factor_with_options(request, runtime)
 
-    def modify_instance_upgrade_period_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.instance_id):
-            query['InstanceId'] = request.instance_id
-        if not UtilClient.is_unset(request.lang):
-            query['Lang'] = request.lang
-        if not UtilClient.is_unset(request.region_id):
-            query['RegionId'] = request.region_id
-        if not UtilClient.is_unset(request.upgrade_mode):
-            query['UpgradeMode'] = request.upgrade_mode
-        if not UtilClient.is_unset(request.upgrade_start_time):
-            query['UpgradeStartTime'] = request.upgrade_start_time
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='ModifyInstanceUpgradePeriod',
-            version='2019-12-09',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            yundun_bastionhost_20191209_models.ModifyInstanceUpgradePeriodResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def modify_instance_upgrade_period(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.modify_instance_upgrade_period_with_options(request, runtime)
-
     def modify_user_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -2561,6 +2987,10 @@ class Client(OpenApiClient):
             query['Comment'] = request.comment
         if not UtilClient.is_unset(request.display_name):
             query['DisplayName'] = request.display_name
+        if not UtilClient.is_unset(request.effective_end_time):
+            query['EffectiveEndTime'] = request.effective_end_time
+        if not UtilClient.is_unset(request.effective_start_time):
+            query['EffectiveStartTime'] = request.effective_start_time
         if not UtilClient.is_unset(request.email):
             query['Email'] = request.email
         if not UtilClient.is_unset(request.instance_id):
@@ -2569,10 +2999,16 @@ class Client(OpenApiClient):
             query['Mobile'] = request.mobile
         if not UtilClient.is_unset(request.mobile_country_code):
             query['MobileCountryCode'] = request.mobile_country_code
+        if not UtilClient.is_unset(request.need_reset_password):
+            query['NeedResetPassword'] = request.need_reset_password
         if not UtilClient.is_unset(request.password):
             query['Password'] = request.password
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.two_factor_methods):
+            query['TwoFactorMethods'] = request.two_factor_methods
+        if not UtilClient.is_unset(request.two_factor_status):
+            query['TwoFactorStatus'] = request.two_factor_status
         if not UtilClient.is_unset(request.user_id):
             query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
@@ -2703,6 +3139,19 @@ class Client(OpenApiClient):
         return self.remove_hosts_from_group_with_options(request, runtime)
 
     def remove_users_from_group_with_options(self, request, runtime):
+        """
+        ## Usage notes
+        You can call this operation to remove one or more users from a user group. When users in a user group are transferred to a new position, resign, or are switched to another user group, you can call this operation to remove the users from the current user group at a time.
+        ## QPS limit
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: RemoveUsersFromGroupRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RemoveUsersFromGroupResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.instance_id):
@@ -2733,6 +3182,17 @@ class Client(OpenApiClient):
         )
 
     def remove_users_from_group(self, request):
+        """
+        ## Usage notes
+        You can call this operation to remove one or more users from a user group. When users in a user group are transferred to a new position, resign, or are switched to another user group, you can call this operation to remove the users from the current user group at a time.
+        ## QPS limit
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: RemoveUsersFromGroupRequest
+
+        @return: RemoveUsersFromGroupResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.remove_users_from_group_with_options(request, runtime)
 
@@ -2839,6 +3299,19 @@ class Client(OpenApiClient):
         return self.tag_resources_with_options(request, runtime)
 
     def unlock_users_with_options(self, request, runtime):
+        """
+        ## Usage notes
+        After you call the [LockUsers](https://www.alibabacloud.com/help/en/bastion-host/latest/lockusers) operation to lock one or more users of a bastion host, you can call this operation to unlock the users. After the users are unlocked, the users can perform O&M operations by using the bastion host.
+        ## QPS limit
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: UnlockUsersRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UnlockUsersResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.instance_id):
@@ -2867,6 +3340,17 @@ class Client(OpenApiClient):
         )
 
     def unlock_users(self, request):
+        """
+        ## Usage notes
+        After you call the [LockUsers](https://www.alibabacloud.com/help/en/bastion-host/latest/lockusers) operation to lock one or more users of a bastion host, you can call this operation to unlock the users. After the users are unlocked, the users can perform O&M operations by using the bastion host.
+        ## QPS limit
+        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        
+
+        @param request: UnlockUsersRequest
+
+        @return: UnlockUsersResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.unlock_users_with_options(request, runtime)
 
@@ -2905,129 +3389,3 @@ class Client(OpenApiClient):
     def untag_resources(self, request):
         runtime = util_models.RuntimeOptions()
         return self.untag_resources_with_options(request, runtime)
-
-    def upgrade_instance_image_version_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.instance_id):
-            query['InstanceId'] = request.instance_id
-        if not UtilClient.is_unset(request.lang):
-            query['Lang'] = request.lang
-        if not UtilClient.is_unset(request.region_id):
-            query['RegionId'] = request.region_id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='UpgradeInstanceImageVersion',
-            version='2019-12-09',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            yundun_bastionhost_20191209_models.UpgradeInstanceImageVersionResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def upgrade_instance_image_version(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.upgrade_instance_image_version_with_options(request, runtime)
-
-    def verify_instance_adauth_server_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.account):
-            query['Account'] = request.account
-        if not UtilClient.is_unset(request.base_dn):
-            query['BaseDN'] = request.base_dn
-        if not UtilClient.is_unset(request.domain):
-            query['Domain'] = request.domain
-        if not UtilClient.is_unset(request.filter):
-            query['Filter'] = request.filter
-        if not UtilClient.is_unset(request.instance_id):
-            query['InstanceId'] = request.instance_id
-        if not UtilClient.is_unset(request.is_ssl):
-            query['IsSSL'] = request.is_ssl
-        if not UtilClient.is_unset(request.password):
-            query['Password'] = request.password
-        if not UtilClient.is_unset(request.port):
-            query['Port'] = request.port
-        if not UtilClient.is_unset(request.region_id):
-            query['RegionId'] = request.region_id
-        if not UtilClient.is_unset(request.server):
-            query['Server'] = request.server
-        if not UtilClient.is_unset(request.standby_server):
-            query['StandbyServer'] = request.standby_server
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='VerifyInstanceADAuthServer',
-            version='2019-12-09',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            yundun_bastionhost_20191209_models.VerifyInstanceADAuthServerResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def verify_instance_adauth_server(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.verify_instance_adauth_server_with_options(request, runtime)
-
-    def verify_instance_ldapauth_server_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.account):
-            query['Account'] = request.account
-        if not UtilClient.is_unset(request.base_dn):
-            query['BaseDN'] = request.base_dn
-        if not UtilClient.is_unset(request.filter):
-            query['Filter'] = request.filter
-        if not UtilClient.is_unset(request.instance_id):
-            query['InstanceId'] = request.instance_id
-        if not UtilClient.is_unset(request.is_ssl):
-            query['IsSSL'] = request.is_ssl
-        if not UtilClient.is_unset(request.password):
-            query['Password'] = request.password
-        if not UtilClient.is_unset(request.port):
-            query['Port'] = request.port
-        if not UtilClient.is_unset(request.region_id):
-            query['RegionId'] = request.region_id
-        if not UtilClient.is_unset(request.server):
-            query['Server'] = request.server
-        if not UtilClient.is_unset(request.standby_server):
-            query['StandbyServer'] = request.standby_server
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='VerifyInstanceLDAPAuthServer',
-            version='2019-12-09',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            yundun_bastionhost_20191209_models.VerifyInstanceLDAPAuthServerResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def verify_instance_ldapauth_server(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.verify_instance_ldapauth_server_with_options(request, runtime)
