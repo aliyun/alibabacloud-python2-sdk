@@ -11904,13 +11904,15 @@ class FlightCreateOrderRequestContactInfo(TeaModel):
 
 class FlightCreateOrderRequestTravelerInfoList(TeaModel):
     def __init__(self, birthday=None, cert_nation=None, cert_no=None, cert_type=None, cert_valid_date=None,
-                 name=None, out_user_id=None, phone=None, sex=None, type=None):
+                 name=None, nationality=None, nationality_code=None, out_user_id=None, phone=None, sex=None, type=None):
         self.birthday = birthday  # type: str
         self.cert_nation = cert_nation  # type: str
         self.cert_no = cert_no  # type: str
         self.cert_type = cert_type  # type: str
         self.cert_valid_date = cert_valid_date  # type: str
         self.name = name  # type: str
+        self.nationality = nationality  # type: str
+        self.nationality_code = nationality_code  # type: str
         self.out_user_id = out_user_id  # type: str
         self.phone = phone  # type: str
         self.sex = sex  # type: int
@@ -11937,6 +11939,10 @@ class FlightCreateOrderRequestTravelerInfoList(TeaModel):
             result['cert_valid_date'] = self.cert_valid_date
         if self.name is not None:
             result['name'] = self.name
+        if self.nationality is not None:
+            result['nationality'] = self.nationality
+        if self.nationality_code is not None:
+            result['nationality_code'] = self.nationality_code
         if self.out_user_id is not None:
             result['out_user_id'] = self.out_user_id
         if self.phone is not None:
@@ -11961,6 +11967,10 @@ class FlightCreateOrderRequestTravelerInfoList(TeaModel):
             self.cert_valid_date = m.get('cert_valid_date')
         if m.get('name') is not None:
             self.name = m.get('name')
+        if m.get('nationality') is not None:
+            self.nationality = m.get('nationality')
+        if m.get('nationality_code') is not None:
+            self.nationality_code = m.get('nationality_code')
         if m.get('out_user_id') is not None:
             self.out_user_id = m.get('out_user_id')
         if m.get('phone') is not None:
@@ -13336,6 +13346,7 @@ class FlightListingSearchResponseBodyModuleFlightListFlightRuleListBaggageItemBa
         self.baggage_sub_content_visualizes = baggage_sub_content_visualizes  # type: list[FlightListingSearchResponseBodyModuleFlightListFlightRuleListBaggageItemBaggageSubItemsBaggageSubContentVisualizes]
         self.extra_content_visualizes = extra_content_visualizes  # type: list[any]
         self.is_struct = is_struct  # type: bool
+        # PTC
         self.ptc = ptc  # type: str
         self.title = title  # type: str
 
@@ -13628,7 +13639,9 @@ class FlightListingSearchResponseBodyModuleFlightListFlightRuleListChangeRuleIte
 
 class FlightListingSearchResponseBodyModuleFlightListFlightRuleListChangeRuleItemRefundSubItems(TeaModel):
     def __init__(self, is_struct=None, ptc=None, refund_sub_contents=None, title=None):
+        # isStruct : true
         self.is_struct = is_struct  # type: bool
+        # PTC
         self.ptc = ptc  # type: str
         self.refund_sub_contents = refund_sub_contents  # type: list[FlightListingSearchResponseBodyModuleFlightListFlightRuleListChangeRuleItemRefundSubItemsRefundSubContents]
         self.title = title  # type: str
@@ -13897,6 +13910,7 @@ class FlightListingSearchResponseBodyModuleFlightListFlightRuleListRefundRuleIte
 class FlightListingSearchResponseBodyModuleFlightListFlightRuleListRefundRuleItemRefundSubItems(TeaModel):
     def __init__(self, is_struct=None, ptc=None, refund_sub_contents=None, title=None):
         self.is_struct = is_struct  # type: bool
+        # PTC
         self.ptc = ptc  # type: str
         self.refund_sub_contents = refund_sub_contents  # type: list[FlightListingSearchResponseBodyModuleFlightListFlightRuleListRefundRuleItemRefundSubItemsRefundSubContents]
         self.title = title  # type: str
@@ -14549,6 +14563,7 @@ class FlightListingSearchResponseBody(TeaModel):
     def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
         self.code = code  # type: str
         self.message = message  # type: str
+        # module
         self.module = module  # type: FlightListingSearchResponseBodyModule
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
@@ -17139,6 +17154,7 @@ class FlightOtaSearchResponseBodyModuleFlightListCabinInfoListFlightRuleListBagg
         self.baggage_sub_content_visualizes = baggage_sub_content_visualizes  # type: list[FlightOtaSearchResponseBodyModuleFlightListCabinInfoListFlightRuleListBaggageItemBaggageSubItemsBaggageSubContentVisualizes]
         self.extra_content_visualizes = extra_content_visualizes  # type: list[any]
         self.is_struct = is_struct  # type: bool
+        # PTC
         self.ptc = ptc  # type: str
         self.title = title  # type: str
 
@@ -17432,6 +17448,7 @@ class FlightOtaSearchResponseBodyModuleFlightListCabinInfoListFlightRuleListChan
 class FlightOtaSearchResponseBodyModuleFlightListCabinInfoListFlightRuleListChangeRuleItemRefundSubItems(TeaModel):
     def __init__(self, is_struct=None, ptc=None, refund_sub_contents=None, title=None):
         self.is_struct = is_struct  # type: bool
+        # PTC
         self.ptc = ptc  # type: str
         self.refund_sub_contents = refund_sub_contents  # type: list[FlightOtaSearchResponseBodyModuleFlightListCabinInfoListFlightRuleListChangeRuleItemRefundSubItemsRefundSubContents]
         self.title = title  # type: str
@@ -17700,6 +17717,7 @@ class FlightOtaSearchResponseBodyModuleFlightListCabinInfoListFlightRuleListRefu
 class FlightOtaSearchResponseBodyModuleFlightListCabinInfoListFlightRuleListRefundRuleItemRefundSubItems(TeaModel):
     def __init__(self, is_struct=None, ptc=None, refund_sub_contents=None, title=None):
         self.is_struct = is_struct  # type: bool
+        # PTC
         self.ptc = ptc  # type: str
         self.refund_sub_contents = refund_sub_contents  # type: list[FlightOtaSearchResponseBodyModuleFlightListCabinInfoListFlightRuleListRefundRuleItemRefundSubItemsRefundSubContents]
         self.title = title  # type: str
@@ -18412,6 +18430,7 @@ class FlightOtaSearchResponseBodyModuleFlightListFlightRuleListBaggageItemBaggag
         self.baggage_sub_content_visualizes = baggage_sub_content_visualizes  # type: list[FlightOtaSearchResponseBodyModuleFlightListFlightRuleListBaggageItemBaggageSubItemsBaggageSubContentVisualizes]
         self.extra_content_visualizes = extra_content_visualizes  # type: list[any]
         self.is_struct = is_struct  # type: bool
+        # PTC
         self.ptc = ptc  # type: str
         self.title = title  # type: str
 
@@ -18704,7 +18723,9 @@ class FlightOtaSearchResponseBodyModuleFlightListFlightRuleListChangeRuleItemRef
 
 class FlightOtaSearchResponseBodyModuleFlightListFlightRuleListChangeRuleItemRefundSubItems(TeaModel):
     def __init__(self, is_struct=None, ptc=None, refund_sub_contents=None, title=None):
+        # isStruct : true
         self.is_struct = is_struct  # type: bool
+        # PTC
         self.ptc = ptc  # type: str
         self.refund_sub_contents = refund_sub_contents  # type: list[FlightOtaSearchResponseBodyModuleFlightListFlightRuleListChangeRuleItemRefundSubItemsRefundSubContents]
         self.title = title  # type: str
@@ -18973,6 +18994,7 @@ class FlightOtaSearchResponseBodyModuleFlightListFlightRuleListRefundRuleItemRef
 class FlightOtaSearchResponseBodyModuleFlightListFlightRuleListRefundRuleItemRefundSubItems(TeaModel):
     def __init__(self, is_struct=None, ptc=None, refund_sub_contents=None, title=None):
         self.is_struct = is_struct  # type: bool
+        # PTC
         self.ptc = ptc  # type: str
         self.refund_sub_contents = refund_sub_contents  # type: list[FlightOtaSearchResponseBodyModuleFlightListFlightRuleListRefundRuleItemRefundSubItemsRefundSubContents]
         self.title = title  # type: str
