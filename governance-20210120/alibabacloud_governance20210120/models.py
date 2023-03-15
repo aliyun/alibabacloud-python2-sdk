@@ -44,7 +44,7 @@ class EnrollAccountRequestBaselineItems(TeaModel):
 
 class EnrollAccountRequest(TeaModel):
     def __init__(self, account_name_prefix=None, account_uid=None, baseline_id=None, baseline_items=None,
-                 display_name=None, folder_id=None, payer_account_uid=None, region_id=None):
+                 display_name=None, folder_id=None, payer_account_uid=None, region_id=None, resell_account_type=None):
         self.account_name_prefix = account_name_prefix  # type: str
         self.account_uid = account_uid  # type: long
         self.baseline_id = baseline_id  # type: str
@@ -54,6 +54,7 @@ class EnrollAccountRequest(TeaModel):
         self.payer_account_uid = payer_account_uid  # type: long
         # RegionId
         self.region_id = region_id  # type: str
+        self.resell_account_type = resell_account_type  # type: str
 
     def validate(self):
         if self.baseline_items:
@@ -85,6 +86,8 @@ class EnrollAccountRequest(TeaModel):
             result['PayerAccountUid'] = self.payer_account_uid
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resell_account_type is not None:
+            result['ResellAccountType'] = self.resell_account_type
         return result
 
     def from_map(self, m=None):
@@ -108,6 +111,8 @@ class EnrollAccountRequest(TeaModel):
             self.payer_account_uid = m.get('PayerAccountUid')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResellAccountType') is not None:
+            self.resell_account_type = m.get('ResellAccountType')
         return self
 
 

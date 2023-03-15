@@ -49,6 +49,8 @@ class Client(OpenApiClient):
             query['PayerAccountUid'] = request.payer_account_uid
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resell_account_type):
+            query['ResellAccountType'] = request.resell_account_type
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
