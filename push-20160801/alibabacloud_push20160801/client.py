@@ -243,6 +243,17 @@ class Client(OpenApiClient):
         return self.check_certificate_with_options(request, runtime)
 
     def check_device_with_options(self, request, runtime):
+        """
+        @deprecated
+        
+
+        @param request: CheckDeviceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CheckDeviceResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.app_key):
@@ -269,6 +280,15 @@ class Client(OpenApiClient):
         )
 
     def check_device(self, request):
+        """
+        @deprecated
+        
+
+        @param request: CheckDeviceRequest
+
+        @return: CheckDeviceResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.check_device_with_options(request, runtime)
 
@@ -367,6 +387,17 @@ class Client(OpenApiClient):
         return self.continuously_push_with_options(request, runtime)
 
     def list_summary_apps_with_options(self, runtime):
+        """
+        @deprecated
+        
+
+        @param request: ListSummaryAppsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListSummaryAppsResponse
+        Deprecated
+        """
         req = open_api_models.OpenApiRequest()
         params = open_api_models.Params(
             action='ListSummaryApps',
@@ -385,6 +416,13 @@ class Client(OpenApiClient):
         )
 
     def list_summary_apps(self):
+        """
+        @deprecated
+        
+
+        @return: ListSummaryAppsResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_summary_apps_with_options(runtime)
 
@@ -461,6 +499,10 @@ class Client(OpenApiClient):
             query['AndroidBigTitle'] = request.android_big_title
         if not UtilClient.is_unset(request.android_ext_parameters):
             query['AndroidExtParameters'] = request.android_ext_parameters
+        if not UtilClient.is_unset(request.android_huawei_receipt_id):
+            query['AndroidHuaweiReceiptId'] = request.android_huawei_receipt_id
+        if not UtilClient.is_unset(request.android_huawei_target_user_type):
+            query['AndroidHuaweiTargetUserType'] = request.android_huawei_target_user_type
         if not UtilClient.is_unset(request.android_image_url):
             query['AndroidImageUrl'] = request.android_image_url
         if not UtilClient.is_unset(request.android_inbox_body):
@@ -469,6 +511,8 @@ class Client(OpenApiClient):
             query['AndroidMessageHuaweiCategory'] = request.android_message_huawei_category
         if not UtilClient.is_unset(request.android_message_huawei_urgency):
             query['AndroidMessageHuaweiUrgency'] = request.android_message_huawei_urgency
+        if not UtilClient.is_unset(request.android_message_vivo_category):
+            query['AndroidMessageVivoCategory'] = request.android_message_vivo_category
         if not UtilClient.is_unset(request.android_music):
             query['AndroidMusic'] = request.android_music
         if not UtilClient.is_unset(request.android_notification_bar_priority):
