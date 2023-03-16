@@ -414,6 +414,8 @@ class Client(OpenApiClient):
     def delete_dbfs_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.force):
+            query['Force'] = request.force
         if not UtilClient.is_unset(request.fs_id):
             query['FsId'] = request.fs_id
         if not UtilClient.is_unset(request.region_id):
@@ -685,6 +687,32 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_service_linked_role_with_options(request, runtime)
 
+    def get_snapshot_link_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetSnapshotLink',
+            version='2020-04-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dbfs20200418_models.GetSnapshotLinkResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_snapshot_link(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_snapshot_link_with_options(request, runtime)
+
     def list_auto_snapshot_policies_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -952,6 +980,46 @@ class Client(OpenApiClient):
     def list_snapshot(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_snapshot_with_options(request, runtime)
+
+    def list_snapshot_links_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.filter_key):
+            query['FilterKey'] = request.filter_key
+        if not UtilClient.is_unset(request.filter_value):
+            query['FilterValue'] = request.filter_value
+        if not UtilClient.is_unset(request.fs_ids):
+            query['FsIds'] = request.fs_ids
+        if not UtilClient.is_unset(request.link_ids):
+            query['LinkIds'] = request.link_ids
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListSnapshotLinks',
+            version='2020-04-18',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dbfs20200418_models.ListSnapshotLinksResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_snapshot_links(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_snapshot_links_with_options(request, runtime)
 
     def list_tag_keys_with_options(self, request, runtime):
         UtilClient.validate_model(request)
