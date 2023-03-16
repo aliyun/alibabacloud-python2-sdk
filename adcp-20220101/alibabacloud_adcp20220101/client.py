@@ -404,11 +404,15 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.detach_cluster_from_hub_with_options(request, runtime)
 
-    def grant_user_permissions_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
+    def grant_user_permissions_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = adcp_20220101_models.GrantUserPermissionsShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.permissions):
+            request.permissions_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.permissions, 'Permissions', 'json')
         query = {}
-        if not UtilClient.is_unset(request.permissions):
-            query['Permissions'] = request.permissions
+        if not UtilClient.is_unset(request.permissions_shrink):
+            query['Permissions'] = request.permissions_shrink
         if not UtilClient.is_unset(request.user_id):
             query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
