@@ -478,7 +478,9 @@ class AddProjectMemberToRoleResponse(TeaModel):
 
 class AddToMetaCategoryRequest(TeaModel):
     def __init__(self, category_id=None, table_guid=None):
+        # The ID of the category.
         self.category_id = category_id  # type: long
+        # The GUID of the metatable.
         self.table_guid = table_guid  # type: str
 
     def validate(self):
@@ -508,11 +510,17 @@ class AddToMetaCategoryRequest(TeaModel):
 class AddToMetaCategoryResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_message=None, http_status_code=None, request_id=None,
                  success=None):
+        # Indicates whether the metatable was added to the specified category.
         self.data = data  # type: bool
+        # The error code returned.
         self.error_code = error_code  # type: str
+        # The error message returned.
         self.error_message = error_message  # type: str
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -2393,10 +2401,15 @@ class CreateDataServiceApiResponse(TeaModel):
 
 class CreateDataServiceApiAuthorityRequest(TeaModel):
     def __init__(self, api_id=None, authorized_project_id=None, end_time=None, project_id=None, tenant_id=None):
+        # The ID of the API.
         self.api_id = api_id  # type: long
+        # The ID of the workspace to which the access permissions on the API are granted.
         self.authorized_project_id = authorized_project_id  # type: long
+        # The end time of the validity period of the access permissions. The time must be a UNIX timestamp. Unit: seconds. Example: 1600531564, which indicates 2020-09-20 00:06:04 (UTC+8).
         self.end_time = end_time  # type: long
+        # The ID of the workspace.
         self.project_id = project_id  # type: long
+        # The ID of the tenant.
         self.tenant_id = tenant_id  # type: long
 
     def validate(self):
@@ -2437,7 +2450,9 @@ class CreateDataServiceApiAuthorityRequest(TeaModel):
 
 class CreateDataServiceApiAuthorityResponseBody(TeaModel):
     def __init__(self, request_id=None, success=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the authorization was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -2505,10 +2520,15 @@ class CreateDataServiceApiAuthorityResponse(TeaModel):
 
 class CreateDataServiceFolderRequest(TeaModel):
     def __init__(self, folder_name=None, group_id=None, parent_id=None, project_id=None, tenant_id=None):
+        # The name of the folder.
         self.folder_name = folder_name  # type: str
+        # The ID of the desired workflow to which the folder belongs.
         self.group_id = group_id  # type: str
+        # The ID of the desired parent folder of the folder. The ID of the root folder in a workflow is 0. The ID of the folder created by users in a workflow is greater than 0.
         self.parent_id = parent_id  # type: long
+        # The ID of the workspace.
         self.project_id = project_id  # type: long
+        # The ID of the tenant.
         self.tenant_id = tenant_id  # type: long
 
     def validate(self):
@@ -2549,7 +2569,9 @@ class CreateDataServiceFolderRequest(TeaModel):
 
 class CreateDataServiceFolderResponseBody(TeaModel):
     def __init__(self, folder_id=None, request_id=None):
+        # The ID of the created folder.
         self.folder_id = folder_id  # type: long
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4179,8 +4201,11 @@ class CreateManualDagResponse(TeaModel):
 
 class CreateMetaCategoryRequest(TeaModel):
     def __init__(self, comment=None, name=None, parent_id=None):
+        # The remarks of the category.
         self.comment = comment  # type: str
+        # The name of the category.
         self.name = name  # type: str
+        # The ID of the parent category.
         self.parent_id = parent_id  # type: long
 
     def validate(self):
@@ -4213,6 +4238,7 @@ class CreateMetaCategoryRequest(TeaModel):
 
 class CreateMetaCategoryResponseBodyData(TeaModel):
     def __init__(self, category_id=None):
+        # The ID of the category.
         self.category_id = category_id  # type: long
 
     def validate(self):
@@ -4238,11 +4264,17 @@ class CreateMetaCategoryResponseBodyData(TeaModel):
 class CreateMetaCategoryResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_message=None, http_status_code=None, request_id=None,
                  success=None):
+        # The information about the category.
         self.data = data  # type: CreateMetaCategoryResponseBodyData
+        # The error code returned.
         self.error_code = error_code  # type: str
+        # The error message returned.
         self.error_message = error_message  # type: str
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -7712,7 +7744,9 @@ class DeleteFolderResponse(TeaModel):
 
 class DeleteFromMetaCategoryRequest(TeaModel):
     def __init__(self, category_id=None, table_guid=None):
+        # The ID of the category.
         self.category_id = category_id  # type: long
+        # The GUID of the metatable.
         self.table_guid = table_guid  # type: str
 
     def validate(self):
@@ -7742,11 +7776,17 @@ class DeleteFromMetaCategoryRequest(TeaModel):
 class DeleteFromMetaCategoryResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_message=None, http_status_code=None, request_id=None,
                  success=None):
+        # Indicates whether the metatable was removed from the specified category.
         self.data = data  # type: bool
+        # The error code returned.
         self.error_code = error_code  # type: str
+        # The error message returned.
         self.error_message = error_message  # type: str
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -7830,6 +7870,7 @@ class DeleteFromMetaCategoryResponse(TeaModel):
 
 class DeleteMetaCategoryRequest(TeaModel):
     def __init__(self, category_id=None):
+        # The ID of the category.
         self.category_id = category_id  # type: long
 
     def validate(self):
@@ -7855,11 +7896,17 @@ class DeleteMetaCategoryRequest(TeaModel):
 class DeleteMetaCategoryResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_message=None, http_status_code=None, request_id=None,
                  success=None):
+        # The business data returned.
         self.data = data  # type: bool
+        # The error code returned.
         self.error_code = error_code  # type: str
+        # The error message returned.
         self.error_message = error_message  # type: str
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -11468,8 +11515,11 @@ class GetBaselineConfigResponse(TeaModel):
 
 class GetBaselineKeyPathRequest(TeaModel):
     def __init__(self, baseline_id=None, bizdate=None, in_group_id=None):
+        # The ID of the baseline.
         self.baseline_id = baseline_id  # type: long
+        # The data timestamp of the baseline instance. Specify the time in the ISO 8601 standard in the yyyy-MM-dd\"T\"HH:mm:ssZ format. The time must be in UTC.
         self.bizdate = bizdate  # type: str
+        # The ID of the scheduling cycle of the baseline instance. For a baseline instance that is scheduled by day, the value of this parameter is 1. For a baseline instance that is scheduled by hour, the value of this parameter ranges from 1 to 24.
         self.in_group_id = in_group_id  # type: int
 
     def validate(self):
@@ -11502,23 +11552,22 @@ class GetBaselineKeyPathRequest(TeaModel):
 
 class GetBaselineKeyPathResponseBodyDataRuns(TeaModel):
     def __init__(self, abs_time=None, begin_cast=None, begin_running_time=None, begin_wait_res_time=None,
-                 begin_wait_time_time=None, bizdate=None, cyc_time=None, end_cast=None, finish_time=None, in_group_id=None,
-                 instance_id=None, node_id=None, node_name=None, owner=None, project_id=None, status=None):
+                 begin_wait_time_time=None, end_cast=None, finish_time=None, status=None):
+        # The timestamp obtained by adding the predicted time when the instance started to run to the historical average running duration of the instance.
         self.abs_time = abs_time  # type: long
+        # The timestamp of the predicted time when the instance started to run.
         self.begin_cast = begin_cast  # type: long
+        # The timestamp of the actual time when the instance started to run.
         self.begin_running_time = begin_running_time  # type: long
+        # The timestamp when the instance started to wait for resources.
         self.begin_wait_res_time = begin_wait_res_time  # type: long
+        # The timestamp when the instance started to wait for the scheduling time.
         self.begin_wait_time_time = begin_wait_time_time  # type: long
-        self.bizdate = bizdate  # type: long
-        self.cyc_time = cyc_time  # type: long
+        # The timestamp of the predicted time when the instance finished running.
         self.end_cast = end_cast  # type: long
+        # The timestamp of the actual time when the instance finished running.
         self.finish_time = finish_time  # type: long
-        self.in_group_id = in_group_id  # type: int
-        self.instance_id = instance_id  # type: long
-        self.node_id = node_id  # type: long
-        self.node_name = node_name  # type: str
-        self.owner = owner  # type: str
-        self.project_id = project_id  # type: long
+        # The status of the instance. Valid values: NOT_RUN, WAIT_TIME, WAIT_RESOURCE, RUNNING, CHECKING, CHECKING_CONDITION, FAILURE, and SUCCESS. The value NOT_RUN indicates that the instance is not run. The value WAIT_TIME indicates that the instance is waiting to be run. The value WAIT_RESOURCE indicates that the instance is waiting for resources. The value RUNNING indicates that the instance is running. The value CHECKING indicates that data quality is being checked for the instance. The value CHECKING_CONDITION indicates that branch conditions are being checked for the instance. The value FAILURE indicates that the instance fails to run. The value SUCCESS indicates that the instance is run.
         self.status = status  # type: str
 
     def validate(self):
@@ -11540,26 +11589,10 @@ class GetBaselineKeyPathResponseBodyDataRuns(TeaModel):
             result['BeginWaitResTime'] = self.begin_wait_res_time
         if self.begin_wait_time_time is not None:
             result['BeginWaitTimeTime'] = self.begin_wait_time_time
-        if self.bizdate is not None:
-            result['Bizdate'] = self.bizdate
-        if self.cyc_time is not None:
-            result['CycTime'] = self.cyc_time
         if self.end_cast is not None:
             result['EndCast'] = self.end_cast
         if self.finish_time is not None:
             result['FinishTime'] = self.finish_time
-        if self.in_group_id is not None:
-            result['InGroupId'] = self.in_group_id
-        if self.instance_id is not None:
-            result['InstanceId'] = self.instance_id
-        if self.node_id is not None:
-            result['NodeId'] = self.node_id
-        if self.node_name is not None:
-            result['NodeName'] = self.node_name
-        if self.owner is not None:
-            result['Owner'] = self.owner
-        if self.project_id is not None:
-            result['ProjectId'] = self.project_id
         if self.status is not None:
             result['Status'] = self.status
         return result
@@ -11576,26 +11609,10 @@ class GetBaselineKeyPathResponseBodyDataRuns(TeaModel):
             self.begin_wait_res_time = m.get('BeginWaitResTime')
         if m.get('BeginWaitTimeTime') is not None:
             self.begin_wait_time_time = m.get('BeginWaitTimeTime')
-        if m.get('Bizdate') is not None:
-            self.bizdate = m.get('Bizdate')
-        if m.get('CycTime') is not None:
-            self.cyc_time = m.get('CycTime')
         if m.get('EndCast') is not None:
             self.end_cast = m.get('EndCast')
         if m.get('FinishTime') is not None:
             self.finish_time = m.get('FinishTime')
-        if m.get('InGroupId') is not None:
-            self.in_group_id = m.get('InGroupId')
-        if m.get('InstanceId') is not None:
-            self.instance_id = m.get('InstanceId')
-        if m.get('NodeId') is not None:
-            self.node_id = m.get('NodeId')
-        if m.get('NodeName') is not None:
-            self.node_name = m.get('NodeName')
-        if m.get('Owner') is not None:
-            self.owner = m.get('Owner')
-        if m.get('ProjectId') is not None:
-            self.project_id = m.get('ProjectId')
         if m.get('Status') is not None:
             self.status = m.get('Status')
         return self
@@ -11603,10 +11620,14 @@ class GetBaselineKeyPathResponseBodyDataRuns(TeaModel):
 
 class GetBaselineKeyPathResponseBodyDataTopics(TeaModel):
     def __init__(self, add_time=None, instance_id=None, topic_id=None, topic_name=None):
+        # The timestamp when the event was found.
         self.add_time = add_time  # type: long
+        # The ID of the instance.
         self.instance_id = instance_id  # type: long
+        # The ID of the event.
         self.topic_id = topic_id  # type: long
-        self.topic_name = topic_name  # type: long
+        # The name of the event.
+        self.topic_name = topic_name  # type: str
 
     def validate(self):
         pass
@@ -11643,15 +11664,25 @@ class GetBaselineKeyPathResponseBodyDataTopics(TeaModel):
 class GetBaselineKeyPathResponseBodyData(TeaModel):
     def __init__(self, bizdate=None, in_group_id=None, instance_id=None, node_id=None, node_name=None, owner=None,
                  prg_type=None, project_id=None, runs=None, topics=None):
+        # The data timestamp of the baseline instance.
         self.bizdate = bizdate  # type: long
+        # The ID of the scheduling cycle of the instance. Valid values: 1 to 288.
         self.in_group_id = in_group_id  # type: int
+        # The ID of the instance.
         self.instance_id = instance_id  # type: long
+        # The ID of the node.
         self.node_id = node_id  # type: long
+        # The name of the node.
         self.node_name = node_name  # type: str
+        # The ID of the Alibaba Cloud account used by the node owner.
         self.owner = owner  # type: str
+        # The type of the node. Valid values: 23, 10, 6, and 99. The value 23 indicates that the node is a Data Integration node. The value 10 indicates that the node is a MaxCompute SQL node. The value 6 indicates that the node is a Shell node. The value 99 indicates that the node is a zero load node.
         self.prg_type = prg_type  # type: int
+        # The ID of the workspace to which the node belongs.
         self.project_id = project_id  # type: long
+        # The running records of the instance.
         self.runs = runs  # type: list[GetBaselineKeyPathResponseBodyDataRuns]
+        # The information about the events that are associated with the instance.
         self.topics = topics  # type: list[GetBaselineKeyPathResponseBodyDataTopics]
 
     def validate(self):
@@ -11730,11 +11761,17 @@ class GetBaselineKeyPathResponseBodyData(TeaModel):
 class GetBaselineKeyPathResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_message=None, http_status_code=None, request_id=None,
                  success=None):
+        # The information about the key path.
         self.data = data  # type: list[GetBaselineKeyPathResponseBodyData]
+        # The error code returned.
         self.error_code = error_code  # type: str
+        # The error message returned.
         self.error_message = error_message  # type: str
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The ID of the request. You can use the ID to troubleshoot issues.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -11826,8 +11863,11 @@ class GetBaselineKeyPathResponse(TeaModel):
 
 class GetBaselineStatusRequest(TeaModel):
     def __init__(self, baseline_id=None, bizdate=None, in_group_id=None):
+        # The ID of the baseline.
         self.baseline_id = baseline_id  # type: long
+        # The data timestamp of the baseline instance. Specify the time in the ISO 8601 standard in the yyyy-MM-dd\"T\"HH:mm:ssZ format. The time must be in UTC.
         self.bizdate = bizdate  # type: str
+        # The ID of the scheduling cycle of the baseline instance. For a baseline instance that is scheduled by day, the value of this parameter is 1. For a baseline instance that is scheduled by hour, the value of this parameter ranges from 1 to 24.
         self.in_group_id = in_group_id  # type: int
 
     def validate(self):
@@ -11861,13 +11901,21 @@ class GetBaselineStatusRequest(TeaModel):
 class GetBaselineStatusResponseBodyDataBlockInstance(TeaModel):
     def __init__(self, end_cast=None, finish_time=None, instance_id=None, node_id=None, node_name=None, owner=None,
                  project_id=None, status=None):
+        # The timestamp of the predicted time when the instance finished running.
         self.end_cast = end_cast  # type: long
+        # The timestamp of the actual time when the instance finished running.
         self.finish_time = finish_time  # type: long
+        # The ID of the instance.
         self.instance_id = instance_id  # type: long
+        # The ID of the node.
         self.node_id = node_id  # type: long
+        # The name of the node.
         self.node_name = node_name  # type: str
+        # The ID of the Alibaba Cloud account used by the node owner.
         self.owner = owner  # type: str
+        # The ID of the workspace to which the node belongs.
         self.project_id = project_id  # type: long
+        # The status of the instance. Valid values: NOT_RUN, WAIT_TIME, WAIT_RESOURCE, RUNNING, CHECKING, CHECKING_CONDITION, FAILURE, and SUCCESS. The value NOT_RUN indicates that the instance is not run. The value WAIT_TIME indicates that the instance is waiting to be run. The value WAIT_RESOURCE indicates that the instance is waiting for resources. The value RUNNING indicates that the instance is running. The value CHECKING indicates that data quality is being checked for the instance. The value CHECKING_CONDITION indicates that branch conditions are being checked for the instance. The value FAILURE indicates that the instance fails to run. The value SUCCESS indicates that the instance is run.
         self.status = status  # type: str
 
     def validate(self):
@@ -11921,13 +11969,21 @@ class GetBaselineStatusResponseBodyDataBlockInstance(TeaModel):
 class GetBaselineStatusResponseBodyDataLastInstance(TeaModel):
     def __init__(self, end_cast=None, finish_time=None, instance_id=None, node_id=None, node_name=None, owner=None,
                  project_id=None, status=None):
+        # The timestamp of the predicted time when the instance finished running.
         self.end_cast = end_cast  # type: long
+        # The timestamp of the actual time when the instance finished running.
         self.finish_time = finish_time  # type: long
+        # The ID of the instance.
         self.instance_id = instance_id  # type: long
+        # The ID of the node.
         self.node_id = node_id  # type: long
+        # The name of the node.
         self.node_name = node_name  # type: str
+        # The ID of the Alibaba Cloud account used by the node owner.
         self.owner = owner  # type: str
+        # The ID of the workspace to which the node belongs.
         self.project_id = project_id  # type: long
+        # The status of the instance. Valid values: NOT_RUN, WAIT_TIME, WAIT_RESOURCE, RUNNING, CHECKING, CHECKING_CONDITION, FAILURE, and SUCCESS. The value NOT_RUN indicates that the instance is not run. The value WAIT_TIME indicates that the instance is waiting to be run. The value WAIT_RESOURCE indicates that the instance is waiting for resources. The value RUNNING indicates that the instance is running. The value CHECKING indicates that data quality is being checked for the instance. The value CHECKING_CONDITION indicates that branch conditions are being checked for the instance. The value FAILURE indicates that the instance fails to run. The value SUCCESS indicates that the instance is run.
         self.status = status  # type: str
 
     def validate(self):
@@ -11982,21 +12038,37 @@ class GetBaselineStatusResponseBodyData(TeaModel):
     def __init__(self, baseline_id=None, baseline_name=None, bizdate=None, block_instance=None, buffer=None,
                  end_cast=None, exp_time=None, finish_status=None, finish_time=None, in_group_id=None, last_instance=None,
                  owner=None, priority=None, project_id=None, sla_time=None, status=None):
+        # The ID of the baseline.
         self.baseline_id = baseline_id  # type: long
+        # The name of the baseline.
         self.baseline_name = baseline_name  # type: str
+        # The data timestamp of the baseline instance.
         self.bizdate = bizdate  # type: long
+        # The information about the key instance.
         self.block_instance = block_instance  # type: GetBaselineStatusResponseBodyDataBlockInstance
+        # The margin of the baseline instance. Unit: seconds.
         self.buffer = buffer  # type: float
+        # The timestamp of the predicted time when the baseline instance finished running.
         self.end_cast = end_cast  # type: long
+        # The timestamp of the alerting time of the baseline instance.
         self.exp_time = exp_time  # type: long
+        # The status of the baseline instance. Valid values: UNFINISH and FINISH. The value UNFINISH indicates that the baseline instance is still running. The value FINISH indicates that the baseline instance finishes running.
         self.finish_status = finish_status  # type: str
+        # The timestamp of the actual time when the baseline instance finished running. This parameter is returned if the value of the FinishStatus parameter is FINISH.
         self.finish_time = finish_time  # type: long
+        # The ID of the scheduling cycle of the baseline instance. For a baseline instance that is scheduled by day, the value of this parameter is 1. For a baseline instance that is scheduled by hour, the value of this parameter ranges from 1 to 24.
         self.in_group_id = in_group_id  # type: int
+        # The information about the last generated instance.
         self.last_instance = last_instance  # type: GetBaselineStatusResponseBodyDataLastInstance
+        # The ID of the Alibaba Cloud account used by the baseline owner. Multiple IDs are separated by commas (,).
         self.owner = owner  # type: str
+        # The priority of the baseline. Valid values: 1, 2, 5, 7, and 8.
         self.priority = priority  # type: int
+        # The ID of the workspace to which the baseline belongs.
         self.project_id = project_id  # type: long
+        # The timestamp of the committed completion time of the baseline instance.
         self.sla_time = sla_time  # type: long
+        # The status of the baseline. Valid values: ERROR, SAFE, DANGEROUS, and OVER. The value ERROR indicates that no nodes are associated with the baseline, or all nodes associated with the baseline are suspended. The value SAFE indicates that nodes finish running before the alerting time. The value DANGEROUS indicates that nodes are still running after the alerting time but before the committed completion time. The value OVER indicates that nodes are still running after the committed completion time.
         self.status = status  # type: str
 
     def validate(self):
@@ -12087,11 +12159,17 @@ class GetBaselineStatusResponseBodyData(TeaModel):
 class GetBaselineStatusResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_message=None, http_status_code=None, request_id=None,
                  success=None):
+        # The details of the baseline instance.
         self.data = data  # type: GetBaselineStatusResponseBodyData
+        # The error code returned.
         self.error_code = error_code  # type: str
+        # The error message returned.
         self.error_message = error_message  # type: str
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The ID of the request. You can use the ID to troubleshoot issues.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -13276,8 +13354,11 @@ class GetDagResponse(TeaModel):
 
 class GetDataServiceApiRequest(TeaModel):
     def __init__(self, api_id=None, project_id=None, tenant_id=None):
+        # The ID of the DataService Studio API.
         self.api_id = api_id  # type: long
+        # The ID of the workspace.
         self.project_id = project_id  # type: long
+        # The ID of the tenant.
         self.tenant_id = tenant_id  # type: long
 
     def validate(self):
@@ -13310,8 +13391,11 @@ class GetDataServiceApiRequest(TeaModel):
 
 class GetDataServiceApiResponseBodyDataRegistrationDetailsRegistrationErrorCodes(TeaModel):
     def __init__(self, error_code=None, error_message=None, error_solution=None):
+        # The error code returned.
         self.error_code = error_code  # type: str
+        # The error message returned.
         self.error_message = error_message  # type: str
+        # The solution used to fix the error.
         self.error_solution = error_solution  # type: str
 
     def validate(self):
@@ -13346,14 +13430,37 @@ class GetDataServiceApiResponseBodyDataRegistrationDetailsRegistrationRequestPar
     def __init__(self, column_name=None, default_value=None, example_value=None, is_required_parameter=None,
                  parameter_data_type=None, parameter_description=None, parameter_name=None, parameter_operator=None,
                  parameter_position=None):
+        # The name of the associated field. This parameter is supported only if the API is generated in wizard mode.
         self.column_name = column_name  # type: str
+        # The default value.
         self.default_value = default_value  # type: str
+        # The sample value.
         self.example_value = example_value  # type: str
+        # Indicates whether the parameter is required.
         self.is_required_parameter = is_required_parameter  # type: bool
+        # The data type of the parameter. Valid values: 0, 1, 2, 3, 4, and 5. The value 0 indicates the STRING data type, the value 1 indicates the INT data type, the value 2 indicates the LONG data type, the value 3 indicates the FLOAT data type, the value 4 indicates the DOUBLE data type, and the value 5 indicates the BOOLEAN data type.
         self.parameter_data_type = parameter_data_type  # type: int
+        # The description.
         self.parameter_description = parameter_description  # type: str
+        # The name of the parameter.
         self.parameter_name = parameter_name  # type: str
+        # The operator used for the value of the parameter. Valid values:
+        # 
+        # *   0: indicates that the operator is Equal.
+        # *   1: indicates that the operator is Like.
+        # *   2: indicates that the operator is Const.
+        # *   3: indicates that the operator is In.
+        # 
+        # APIs generated in wizard mode support the Equal, Like, and In operators. APIs generated in script mode support the Equal operator. APIs generated by registration support the Equal and Const operators.
         self.parameter_operator = parameter_operator  # type: int
+        # The position of the parameter. Valid values:
+        # 
+        # *   0: indicates that the parameter is in the URL path of the request.
+        # *   1: indicates that the parameter is in the Query parameter of the request URL.
+        # *   2: indicates that the parameter is in the request header.
+        # *   3: indicates that the parameter is in the request body.
+        # 
+        # APIs generated in wizard or script mode support only the Query position. APIs generated by registration whose request method is GET or DELETE support the Query and Head positions. APIs generated by registration whose request method is PUT or POST support the Query, Head, and Body positions.
         self.parameter_position = parameter_position  # type: int
 
     def validate(self):
@@ -13412,13 +13519,26 @@ class GetDataServiceApiResponseBodyDataRegistrationDetails(TeaModel):
     def __init__(self, failed_result_sample=None, registration_error_codes=None,
                  registration_request_parameters=None, service_content_type=None, service_host=None, service_path=None,
                  service_request_body_description=None, successful_result_sample=None):
+        # The sample error response of the API.
         self.failed_result_sample = failed_result_sample  # type: str
+        # The error codes returned for the API generated by registration.
         self.registration_error_codes = registration_error_codes  # type: list[GetDataServiceApiResponseBodyDataRegistrationDetailsRegistrationErrorCodes]
+        # The request parameters of the API generated by registration.
         self.registration_request_parameters = registration_request_parameters  # type: list[GetDataServiceApiResponseBodyDataRegistrationDetailsRegistrationRequestParameters]
+        # The format in which the response of the API request is returned. Valid values:
+        # 
+        # *   0: indicates the JSON format.
+        # *   1: indicates the XML format.
+        # 
+        # APIs generated in wizard or script mode support the JSON format. APIs generated by registration support the JSON and XML formats.
         self.service_content_type = service_content_type  # type: int
+        # The address of the backend service.
         self.service_host = service_host  # type: str
+        # The path of the backend service.
         self.service_path = service_path  # type: str
+        # The description of the request body initiated to call the backend service.
         self.service_request_body_description = service_request_body_description  # type: str
+        # Sample success responses
         self.successful_result_sample = successful_result_sample  # type: str
 
     def validate(self):
@@ -13488,7 +13608,9 @@ class GetDataServiceApiResponseBodyDataRegistrationDetails(TeaModel):
 
 class GetDataServiceApiResponseBodyDataScriptDetailsScriptConnection(TeaModel):
     def __init__(self, connection_id=None, table_name=None):
+        # The ID of the data source.
         self.connection_id = connection_id  # type: long
+        # The name of the table in the data source.
         self.table_name = table_name  # type: str
 
     def validate(self):
@@ -13519,14 +13641,23 @@ class GetDataServiceApiResponseBodyDataScriptDetailsScriptRequestParameters(TeaM
     def __init__(self, column_name=None, default_value=None, example_value=None, is_required_parameter=None,
                  parameter_data_type=None, parameter_description=None, parameter_name=None, parameter_operator=None,
                  parameter_position=None):
+        # The name of the associated field. This parameter is supported only if the API is generated in wizard mode.
         self.column_name = column_name  # type: str
+        # The default value.
         self.default_value = default_value  # type: str
+        # The sample value.
         self.example_value = example_value  # type: str
+        # Indicates whether the parameter is required.
         self.is_required_parameter = is_required_parameter  # type: bool
+        # The data type of the parameter. Valid values: 0, 1, 2, 3, 4, and 5. The value 0 indicates the STRING data type, the value 1 indicates the INT data type, the value 2 indicates the LONG data type, the value 3 indicates the FLOAT data type, the value 4 indicates the DOUBLE data type, and the value 5 indicates the BOOLEAN data type.
         self.parameter_data_type = parameter_data_type  # type: int
+        # The description.
         self.parameter_description = parameter_description  # type: str
+        # The name of the parameter.
         self.parameter_name = parameter_name  # type: str
+        # The operator used for the value of the parameter. Valid values: 0, 1, 2, and 3. The value 0 indicates that the operator is Equal, the value 1 indicates that the operator is Like, the value 2 indicates that the operator is Const, and the value 3 indicates that the operator is In. APIs generated in wizard mode support the Equal, Like, and In operators. APIs generated in script mode support the Equal operator. APIs generated by registration support the Equal and Const operators.
         self.parameter_operator = parameter_operator  # type: int
+        # The position of the parameter. Valid values: 0, 1, 2, and 3. The value 0 indicates that the parameter is in the URL path of the request, the value 1 indicates that the parameter is in the Query parameter of the request URL, the value 2 indicates that the parameter is in the request header, and the value 3 indicates that the parameter is in the request body. APIs generated in wizard or script mode support only the Query position. APIs generated by registration whose request method is GET or DELETE support the Query and Head positions. APIs generated by registration whose request method is PUT or POST support the Query, Head, and Body positions.
         self.parameter_position = parameter_position  # type: int
 
     def validate(self):
@@ -13584,10 +13715,15 @@ class GetDataServiceApiResponseBodyDataScriptDetailsScriptRequestParameters(TeaM
 class GetDataServiceApiResponseBodyDataScriptDetailsScriptResponseParameters(TeaModel):
     def __init__(self, column_name=None, example_value=None, parameter_data_type=None, parameter_description=None,
                  parameter_name=None):
+        # The name of the associated field. This parameter is supported only if the API is generated in wizard mode.
         self.column_name = column_name  # type: str
+        # The sample value.
         self.example_value = example_value  # type: str
+        # The data type of the parameter. Valid values: 0, 1, 2, 3, 4, and 5. The value 0 indicates the STRING data type, the value 1 indicates the INT data type, the value 2 indicates the LONG data type, the value 3 indicates the FLOAT data type, the value 4 indicates the DOUBLE data type, and the value 5 indicates the BOOLEAN data type.
         self.parameter_data_type = parameter_data_type  # type: int
+        # The description.
         self.parameter_description = parameter_description  # type: str
+        # The name of the parameter.
         self.parameter_name = parameter_name  # type: str
 
     def validate(self):
@@ -13629,10 +13765,15 @@ class GetDataServiceApiResponseBodyDataScriptDetailsScriptResponseParameters(Tea
 class GetDataServiceApiResponseBodyDataScriptDetails(TeaModel):
     def __init__(self, is_paged_response=None, script=None, script_connection=None, script_request_parameters=None,
                  script_response_parameters=None):
+        # Indicates whether the entries were returned by page.
         self.is_paged_response = is_paged_response  # type: bool
+        # The SQL script.
         self.script = script  # type: str
+        # The data source information of the API generated in script mode.
         self.script_connection = script_connection  # type: GetDataServiceApiResponseBodyDataScriptDetailsScriptConnection
+        # The request parameters of the API generated in script mode.
         self.script_request_parameters = script_request_parameters  # type: list[GetDataServiceApiResponseBodyDataScriptDetailsScriptRequestParameters]
+        # The response parameters of the API generated in script mode.
         self.script_response_parameters = script_response_parameters  # type: list[GetDataServiceApiResponseBodyDataScriptDetailsScriptResponseParameters]
 
     def validate(self):
@@ -13693,7 +13834,9 @@ class GetDataServiceApiResponseBodyDataScriptDetails(TeaModel):
 
 class GetDataServiceApiResponseBodyDataWizardDetailsWizardConnection(TeaModel):
     def __init__(self, connection_id=None, table_name=None):
+        # The ID of the data source.
         self.connection_id = connection_id  # type: long
+        # The name of the table in the data source.
         self.table_name = table_name  # type: str
 
     def validate(self):
@@ -13724,14 +13867,23 @@ class GetDataServiceApiResponseBodyDataWizardDetailsWizardRequestParameters(TeaM
     def __init__(self, column_name=None, default_value=None, example_value=None, is_required_parameter=None,
                  parameter_data_type=None, parameter_description=None, parameter_name=None, parameter_operator=None,
                  parameter_position=None):
+        # The name of the associated field. This parameter is supported only if the API is generated in wizard mode.
         self.column_name = column_name  # type: str
+        # The default value.
         self.default_value = default_value  # type: str
+        # The sample value.
         self.example_value = example_value  # type: str
+        # Indicates whether the parameter is required.
         self.is_required_parameter = is_required_parameter  # type: bool
+        # The data type of the parameter. Valid values: 0, 1, 2, 3, 4, and 5. The value 0 indicates the STRING data type, the value 1 indicates the INT data type, the value 2 indicates the LONG data type, the value 3 indicates the FLOAT data type, the value 4 indicates the DOUBLE data type, and the value 5 indicates the BOOLEAN data type.
         self.parameter_data_type = parameter_data_type  # type: int
+        # The description.
         self.parameter_description = parameter_description  # type: str
+        # The name of the parameter.
         self.parameter_name = parameter_name  # type: str
+        # The operator used for the value of the parameter. Valid values: 0, 1, 2, and 3. The value 0 indicates that the operator is Equal, the value 1 indicates that the operator is Like, the value 2 indicates that the operator is Const, and the value 3 indicates that the operator is In. APIs generated in wizard mode support the Equal, Like, and In operators. APIs generated in script mode support the Equal operator. APIs generated by registration support the Equal and Const operators.
         self.parameter_operator = parameter_operator  # type: int
+        # The position of the parameter. Valid values: 0, 1, 2, and 3. The value 0 indicates that the parameter is in the URL path of the request, the value 1 indicates that the parameter is in the Query parameter of the request URL, the value 2 indicates that the parameter is in the request header, and the value 3 indicates that the parameter is in the request body. APIs generated in wizard or script mode support only the Query position. APIs generated by registration whose request method is GET or DELETE support the Query and Head positions. APIs generated by registration whose request method is PUT or POST support the Query, Head, and Body positions.
         self.parameter_position = parameter_position  # type: int
 
     def validate(self):
@@ -13789,10 +13941,15 @@ class GetDataServiceApiResponseBodyDataWizardDetailsWizardRequestParameters(TeaM
 class GetDataServiceApiResponseBodyDataWizardDetailsWizardResponseParameters(TeaModel):
     def __init__(self, column_name=None, example_value=None, parameter_data_type=None, parameter_description=None,
                  parameter_name=None):
+        # The name of the associated field. This parameter is supported only if the API is generated in wizard mode.
         self.column_name = column_name  # type: str
+        # The sample value.
         self.example_value = example_value  # type: str
+        # The data type of the parameter. Valid values: 0, 1, 2, 3, 4, and 5. The value 0 indicates the STRING data type, the value 1 indicates the INT data type, the value 2 indicates the LONG data type, the value 3 indicates the FLOAT data type, the value 4 indicates the DOUBLE data type, and the value 5 indicates the BOOLEAN data type.
         self.parameter_data_type = parameter_data_type  # type: int
+        # The description.
         self.parameter_description = parameter_description  # type: str
+        # The name of the parameter.
         self.parameter_name = parameter_name  # type: str
 
     def validate(self):
@@ -13834,9 +13991,13 @@ class GetDataServiceApiResponseBodyDataWizardDetailsWizardResponseParameters(Tea
 class GetDataServiceApiResponseBodyDataWizardDetails(TeaModel):
     def __init__(self, is_paged_response=None, wizard_connection=None, wizard_request_parameters=None,
                  wizard_response_parameters=None):
+        # Indicates whether the entries were returned by page.
         self.is_paged_response = is_paged_response  # type: bool
+        # The data source information of the API generated in wizard mode.
         self.wizard_connection = wizard_connection  # type: GetDataServiceApiResponseBodyDataWizardDetailsWizardConnection
+        # The request parameters of the API generated in wizard mode.
         self.wizard_request_parameters = wizard_request_parameters  # type: list[GetDataServiceApiResponseBodyDataWizardDetailsWizardRequestParameters]
+        # The response parameters of the API generated in wizard mode.
         self.wizard_response_parameters = wizard_response_parameters  # type: list[GetDataServiceApiResponseBodyDataWizardDetailsWizardResponseParameters]
 
     def validate(self):
@@ -13896,27 +14057,49 @@ class GetDataServiceApiResponseBodyData(TeaModel):
                  description=None, folder_id=None, group_id=None, modified_time=None, operator_id=None, project_id=None,
                  protocols=None, registration_details=None, request_method=None, response_content_type=None,
                  script_details=None, status=None, tenant_id=None, timeout=None, visible_range=None, wizard_details=None):
+        # The ID of the DataService Studio API.
         self.api_id = api_id  # type: long
+        # The type of the API. Valid values: 0, 1, and 2. The value 0 indicates that the API is generated in wizard mode. The value 1 indicates that the API is generated in script mode. The value 2 indicates that the API is generated by registration.
         self.api_mode = api_mode  # type: int
+        # The name of the API.
         self.api_name = api_name  # type: str
+        # The path of the API.
         self.api_path = api_path  # type: str
+        # The creation time.
         self.created_time = created_time  # type: str
+        # The ID of the Alibaba Cloud account used by the creator of the API.
         self.creator_id = creator_id  # type: str
+        # The description.
         self.description = description  # type: str
+        # The ID of the folder.
         self.folder_id = folder_id  # type: long
+        # The ID of the group.
         self.group_id = group_id  # type: str
+        # The time when the API was last modified.
         self.modified_time = modified_time  # type: str
+        # The ID of the Alibaba Cloud account used by the user who last modified the API.
         self.operator_id = operator_id  # type: str
+        # The ID of the workspace.
         self.project_id = project_id  # type: long
+        # The list of fields.
         self.protocols = protocols  # type: list[int]
+        # The details of the API generated by registration. This parameter is returned only if the API is generated by registration.
         self.registration_details = registration_details  # type: GetDataServiceApiResponseBodyDataRegistrationDetails
+        # The request method of the API. Valid values: 0, 1, 2, and 3. The value 0 indicates the GET method, the value 1 indicates the POST method, the value 2 indicates the PUT method, and the value 3 indicates the DELETE method. APIs generated in wizard or script mode support the GET and POST methods. APIs generated by registration support the GET, POST, PUT, and DELETE methods.
         self.request_method = request_method  # type: int
+        # The format in which the response of the API request is returned. Valid values: 0 and 1. The value 0 indicates the JSON format. The value 1 indicates the XML format. APIs generated in wizard or script mode support the JSON format. APIs generated by registration support the JSON and XML formats.
         self.response_content_type = response_content_type  # type: int
+        # The details of the API generated in script mode. This parameter is returned only if the API is generated in script mode.
         self.script_details = script_details  # type: GetDataServiceApiResponseBodyDataScriptDetails
+        # The status of the API. Valid values: 0 and 1. The value 0 indicates that the API is not published. The value 1 indicates that the API is published.
         self.status = status  # type: int
+        # The ID of the tenant.
         self.tenant_id = tenant_id  # type: long
+        # The timeout period of the API request. Unit: milliseconds.
         self.timeout = timeout  # type: int
+        # The scope in which the API is visible. Valid values: 0 and 1. The value 0 indicates that the API is visible to the members in a specific workspace. The value 1 indicates that the API is visible only to the API creator.
         self.visible_range = visible_range  # type: int
+        # The details of the API generated in wizard mode. This parameter is returned only if the API is generated in wizard mode.
         self.wizard_details = wizard_details  # type: GetDataServiceApiResponseBodyDataWizardDetails
 
     def validate(self):
@@ -14034,11 +14217,17 @@ class GetDataServiceApiResponseBodyData(TeaModel):
 class GetDataServiceApiResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_message=None, http_status_code=None, request_id=None,
                  success=None):
+        # The data returned.
         self.data = data  # type: GetDataServiceApiResponseBodyData
+        # The error code returned.
         self.error_code = error_code  # type: str
+        # The error message returned.
         self.error_message = error_message  # type: str
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -14813,8 +15002,11 @@ class GetDataServiceGroupResponse(TeaModel):
 
 class GetDataServicePublishedApiRequest(TeaModel):
     def __init__(self, api_id=None, project_id=None, tenant_id=None):
+        # The ID of the API.
         self.api_id = api_id  # type: long
+        # The ID of the workspace.
         self.project_id = project_id  # type: long
+        # The ID of the tenant.
         self.tenant_id = tenant_id  # type: long
 
     def validate(self):
@@ -14847,8 +15039,11 @@ class GetDataServicePublishedApiRequest(TeaModel):
 
 class GetDataServicePublishedApiResponseBodyDataRegistrationDetailsRegistrationErrorCodes(TeaModel):
     def __init__(self, error_code=None, error_message=None, error_solution=None):
+        # The error code returned.
         self.error_code = error_code  # type: str
+        # The error message returned.
         self.error_message = error_message  # type: str
+        # The solution used to fix the error.
         self.error_solution = error_solution  # type: str
 
     def validate(self):
@@ -14883,13 +15078,21 @@ class GetDataServicePublishedApiResponseBodyDataRegistrationDetailsRegistrationR
     def __init__(self, default_value=None, example_value=None, is_required_parameter=None,
                  parameter_data_type=None, parameter_description=None, parameter_name=None, parameter_operator=None,
                  parameter_position=None):
+        # The default value.
         self.default_value = default_value  # type: str
+        # The sample value.
         self.example_value = example_value  # type: str
+        # Indicates whether the parameter is required.
         self.is_required_parameter = is_required_parameter  # type: bool
+        # The data type of the parameter. Valid values: 0, 1, 2, 3, 4, and 5. The value 0 indicates the STRING data type, the value 1 indicates the INT data type, the value 2 indicates the LONG data type, the value 3 indicates the FLOAT data type, the value 4 indicates the DOUBLE data type, and the value 5 indicates the BOOLEAN data type.
         self.parameter_data_type = parameter_data_type  # type: int
+        # The description.
         self.parameter_description = parameter_description  # type: str
+        # The name of the parameter.
         self.parameter_name = parameter_name  # type: str
+        # The operator used for the value of the parameter. Valid values: 0, 1, 2, and 3. The value 0 indicates that the operator is Equal, the value 1 indicates that the operator is Like, the value 2 indicates that the operator is Const, and the value 3 indicates that the operator is In. APIs generated in wizard mode support the Equal, Like, and In operators. APIs generated in script mode support the Equal operator. APIs generated by registration support the Equal and Const operators.
         self.parameter_operator = parameter_operator  # type: int
+        # The position of the parameter. Valid values: 0, 1, 2, and 3. The value 0 indicates that the parameter is in the URL path of the request, the value 1 indicates that the parameter is in the Query parameter of the request URL, the value 2 indicates that the parameter is in the request header, and the value 3 indicates that the parameter is in the request body. APIs generated in wizard or script mode support only the Query position. APIs generated by registration whose request method is GET or DELETE support the Query and Head positions. APIs generated by registration whose request method is PUT or POST support the Query, Head, and Body positions.
         self.parameter_position = parameter_position  # type: int
 
     def validate(self):
@@ -14944,13 +15147,21 @@ class GetDataServicePublishedApiResponseBodyDataRegistrationDetails(TeaModel):
     def __init__(self, failed_result_sample=None, registration_error_codes=None,
                  registration_request_parameters=None, service_content_type=None, service_host=None, service_path=None,
                  service_request_body_description=None, successful_result_sample=None):
+        # The sample error response of the API.
         self.failed_result_sample = failed_result_sample  # type: str
+        # The error codes returned for the API generated by registration.
         self.registration_error_codes = registration_error_codes  # type: list[GetDataServicePublishedApiResponseBodyDataRegistrationDetailsRegistrationErrorCodes]
+        # The request parameters of the API generated by registration.
         self.registration_request_parameters = registration_request_parameters  # type: list[GetDataServicePublishedApiResponseBodyDataRegistrationDetailsRegistrationRequestParameters]
+        # The format in which the response of the API request is returned. Valid values: 0 and 1. The value 0 indicates the JSON format. The value 1 indicates the XML format. APIs generated in wizard or script mode support the JSON format. APIs generated by registration support the JSON and XML formats.
         self.service_content_type = service_content_type  # type: int
+        # The address of the backend service.
         self.service_host = service_host  # type: str
+        # The path of the backend service.
         self.service_path = service_path  # type: str
+        # The description of the request body initiated to call the backend service.
         self.service_request_body_description = service_request_body_description  # type: str
+        # The sample success response of the API.
         self.successful_result_sample = successful_result_sample  # type: str
 
     def validate(self):
@@ -15020,7 +15231,9 @@ class GetDataServicePublishedApiResponseBodyDataRegistrationDetails(TeaModel):
 
 class GetDataServicePublishedApiResponseBodyDataScriptDetailsScriptConnection(TeaModel):
     def __init__(self, connection_id=None, table_name=None):
+        # The ID of the data source.
         self.connection_id = connection_id  # type: long
+        # The name of the table in the data source.
         self.table_name = table_name  # type: str
 
     def validate(self):
@@ -15049,8 +15262,11 @@ class GetDataServicePublishedApiResponseBodyDataScriptDetailsScriptConnection(Te
 
 class GetDataServicePublishedApiResponseBodyDataScriptDetailsScriptErrorCodes(TeaModel):
     def __init__(self, error_code=None, error_message=None, error_solution=None):
+        # The error code returned.
         self.error_code = error_code  # type: str
+        # The error message returned.
         self.error_message = error_message  # type: str
+        # The solution used to fix the error.
         self.error_solution = error_solution  # type: str
 
     def validate(self):
@@ -15085,13 +15301,42 @@ class GetDataServicePublishedApiResponseBodyDataScriptDetailsScriptRequestParame
     def __init__(self, default_value=None, example_value=None, is_required_parameter=None,
                  parameter_data_type=None, parameter_description=None, parameter_name=None, parameter_operator=None,
                  parameter_position=None):
+        # The default value.
         self.default_value = default_value  # type: str
+        # The sample value.
         self.example_value = example_value  # type: str
+        # Indicates whether the parameter is required.
         self.is_required_parameter = is_required_parameter  # type: bool
+        # The data type of the parameter. Valid values:
+        # 
+        # *   0: indicates the STRING data type.
+        # *   1: indicates the INT data type.
+        # *   2: indicates the LONG data type.
+        # *   3: indicates the FLOAT data type.
+        # *   4: indicates the DOUBLE data type.
+        # *   5: indicates the BOOLEAN data type.
         self.parameter_data_type = parameter_data_type  # type: int
+        # The description.
         self.parameter_description = parameter_description  # type: str
+        # The name of the parameter.
         self.parameter_name = parameter_name  # type: str
+        # The operator used for the value of the parameter. Valid values:
+        # 
+        # *   0: indicates that the operator is Equal.
+        # *   1: indicates that the operator is Like.
+        # *   2: indicates that the operator is Const.
+        # *   3: indicates that the operator is In.
+        # 
+        # APIs generated in wizard mode support the Equal, Like, and In operators. APIs generated in script mode support the Equal operator. APIs generated by registration support the Equal and Const operators.
         self.parameter_operator = parameter_operator  # type: int
+        # The position of the parameter. Valid values:
+        # 
+        # *   0: indicates that the parameter is in the URL path of the request.
+        # *   1: indicates that the parameter is in the Query parameter of the request URL.
+        # *   2: indicates that the parameter is in the request header.
+        # *   3: indicates that the parameter is in the request body.
+        # 
+        # APIs generated in wizard or script mode support only the Query position. APIs generated by registration whose request method is GET or DELETE support the Query and Head positions. APIs generated by registration whose request method is PUT or POST support the Query, Head, and Body positions.
         self.parameter_position = parameter_position  # type: int
 
     def validate(self):
@@ -15145,9 +15390,13 @@ class GetDataServicePublishedApiResponseBodyDataScriptDetailsScriptRequestParame
 class GetDataServicePublishedApiResponseBodyDataScriptDetailsScriptResponseParameters(TeaModel):
     def __init__(self, example_value=None, parameter_data_type=None, parameter_description=None,
                  parameter_name=None):
+        # The sample value.
         self.example_value = example_value  # type: str
+        # The data type of the parameter. Valid values: 0, 1, 2, 3, 4, and 5. The value 0 indicates the STRING data type, the value 1 indicates the INT data type, the value 2 indicates the LONG data type, the value 3 indicates the FLOAT data type, the value 4 indicates the DOUBLE data type, and the value 5 indicates the BOOLEAN data type.
         self.parameter_data_type = parameter_data_type  # type: int
+        # The description.
         self.parameter_description = parameter_description  # type: str
+        # The name of the parameter.
         self.parameter_name = parameter_name  # type: str
 
     def validate(self):
@@ -15186,13 +15435,21 @@ class GetDataServicePublishedApiResponseBodyDataScriptDetails(TeaModel):
     def __init__(self, failed_result_sample=None, is_paged_response=None, script=None, script_connection=None,
                  script_error_codes=None, script_request_parameters=None, script_response_parameters=None,
                  successful_result_sample=None):
+        # The sample error response of the API.
         self.failed_result_sample = failed_result_sample  # type: str
+        # Indicates whether the entries were returned by page.
         self.is_paged_response = is_paged_response  # type: bool
+        # The SQL script.
         self.script = script  # type: str
+        # The data source information of the API generated in script mode.
         self.script_connection = script_connection  # type: GetDataServicePublishedApiResponseBodyDataScriptDetailsScriptConnection
+        # The error codes returned for the API generated in script mode.
         self.script_error_codes = script_error_codes  # type: list[GetDataServicePublishedApiResponseBodyDataScriptDetailsScriptErrorCodes]
+        # The request parameters of the API generated in script mode.
         self.script_request_parameters = script_request_parameters  # type: list[GetDataServicePublishedApiResponseBodyDataScriptDetailsScriptRequestParameters]
+        # The response parameters of the API generated in script mode.
         self.script_response_parameters = script_response_parameters  # type: list[GetDataServicePublishedApiResponseBodyDataScriptDetailsScriptResponseParameters]
+        # The sample success response of the API.
         self.successful_result_sample = successful_result_sample  # type: str
 
     def validate(self):
@@ -15274,7 +15531,9 @@ class GetDataServicePublishedApiResponseBodyDataScriptDetails(TeaModel):
 
 class GetDataServicePublishedApiResponseBodyDataWizardDetailsWizardConnection(TeaModel):
     def __init__(self, connection_id=None, table_name=None):
+        # The ID of the data source.
         self.connection_id = connection_id  # type: long
+        # The name of the table in the data source.
         self.table_name = table_name  # type: str
 
     def validate(self):
@@ -15303,8 +15562,11 @@ class GetDataServicePublishedApiResponseBodyDataWizardDetailsWizardConnection(Te
 
 class GetDataServicePublishedApiResponseBodyDataWizardDetailsWizardErrorCodes(TeaModel):
     def __init__(self, error_code=None, error_message=None, error_solution=None):
+        # The error code returned.
         self.error_code = error_code  # type: str
+        # The error message returned.
         self.error_message = error_message  # type: str
+        # The solution used to fix the error.
         self.error_solution = error_solution  # type: str
 
     def validate(self):
@@ -15339,13 +15601,21 @@ class GetDataServicePublishedApiResponseBodyDataWizardDetailsWizardRequestParame
     def __init__(self, default_value=None, example_value=None, is_required_parameter=None,
                  parameter_data_type=None, parameter_description=None, parameter_name=None, parameter_operator=None,
                  parameter_position=None):
+        # The default value.
         self.default_value = default_value  # type: str
+        # The sample value.
         self.example_value = example_value  # type: str
+        # Indicates whether the parameter is required.
         self.is_required_parameter = is_required_parameter  # type: bool
+        # The data type of the parameter. Valid values: 0, 1, 2, 3, 4, and 5. The value 0 indicates the STRING data type, the value 1 indicates the INT data type, the value 2 indicates the LONG data type, the value 3 indicates the FLOAT data type, the value 4 indicates the DOUBLE data type, and the value 5 indicates the BOOLEAN data type.
         self.parameter_data_type = parameter_data_type  # type: int
+        # The description.
         self.parameter_description = parameter_description  # type: str
+        # The name of the parameter.
         self.parameter_name = parameter_name  # type: str
+        # The operator used for the value of the parameter. Valid values: 0, 1, 2, and 3. The value 0 indicates that the operator is Equal, the value 1 indicates that the operator is Like, the value 2 indicates that the operator is Const, and the value 3 indicates that the operator is In. APIs generated in wizard mode support the Equal, Like, and In operators. APIs generated in script mode support the Equal operator. APIs generated by registration support the Equal and Const operators.
         self.parameter_operator = parameter_operator  # type: int
+        # The position of the parameter. Valid values: 0, 1, 2, and 3. The value 0 indicates that the parameter is in the URL path of the request, the value 1 indicates that the parameter is in the Query parameter of the request URL, the value 2 indicates that the parameter is in the request header, and the value 3 indicates that the parameter is in the request body. APIs generated in wizard or script mode support only the Query position. APIs generated by registration whose request method is GET or DELETE support the Query and Head positions. APIs generated by registration whose request method is PUT or POST support the Query, Head, and Body positions.
         self.parameter_position = parameter_position  # type: int
 
     def validate(self):
@@ -15399,9 +15669,13 @@ class GetDataServicePublishedApiResponseBodyDataWizardDetailsWizardRequestParame
 class GetDataServicePublishedApiResponseBodyDataWizardDetailsWizardResponseParameters(TeaModel):
     def __init__(self, example_value=None, parameter_data_type=None, parameter_description=None,
                  parameter_name=None):
+        # The sample value.
         self.example_value = example_value  # type: str
+        # The data type of the parameter. Valid values: 0, 1, 2, 3, 4, and 5. The value 0 indicates the STRING data type, the value 1 indicates the INT data type, the value 2 indicates the LONG data type, the value 3 indicates the FLOAT data type, the value 4 indicates the DOUBLE data type, and the value 5 indicates the BOOLEAN data type.
         self.parameter_data_type = parameter_data_type  # type: int
+        # The description.
         self.parameter_description = parameter_description  # type: str
+        # The name of the parameter.
         self.parameter_name = parameter_name  # type: str
 
     def validate(self):
@@ -15439,12 +15713,19 @@ class GetDataServicePublishedApiResponseBodyDataWizardDetailsWizardResponseParam
 class GetDataServicePublishedApiResponseBodyDataWizardDetails(TeaModel):
     def __init__(self, failed_result_sample=None, is_paged_response=None, successful_result_sample=None,
                  wizard_connection=None, wizard_error_codes=None, wizard_request_parameters=None, wizard_response_parameters=None):
+        # The sample error response of the API.
         self.failed_result_sample = failed_result_sample  # type: str
+        # Indicates whether the entries were returned by page.
         self.is_paged_response = is_paged_response  # type: bool
+        # The sample success response of the API.
         self.successful_result_sample = successful_result_sample  # type: str
+        # The data source information of the API generated in wizard mode.
         self.wizard_connection = wizard_connection  # type: GetDataServicePublishedApiResponseBodyDataWizardDetailsWizardConnection
+        # The error codes returned for the API generated in wizard mode.
         self.wizard_error_codes = wizard_error_codes  # type: list[GetDataServicePublishedApiResponseBodyDataWizardDetailsWizardErrorCodes]
+        # The request parameters of the API generated in wizard mode.
         self.wizard_request_parameters = wizard_request_parameters  # type: list[GetDataServicePublishedApiResponseBodyDataWizardDetailsWizardRequestParameters]
+        # The response parameters of the API generated in wizard mode.
         self.wizard_response_parameters = wizard_response_parameters  # type: list[GetDataServicePublishedApiResponseBodyDataWizardDetailsWizardResponseParameters]
 
     def validate(self):
@@ -15525,26 +15806,47 @@ class GetDataServicePublishedApiResponseBodyData(TeaModel):
                  description=None, group_id=None, modified_time=None, operator_id=None, project_id=None, protocols=None,
                  registration_details=None, request_method=None, response_content_type=None, script_details=None, status=None,
                  tenant_id=None, timeout=None, visible_range=None, wizard_details=None):
+        # The ID of the DataService Studio API.
         self.api_id = api_id  # type: long
+        # The type of the API. Valid values: 0, 1, and 2. The value 0 indicates that the API is generated in wizard mode. The value 1 indicates that the API is generated in script mode. The value 2 indicates that the API is generated by registration.
         self.api_mode = api_mode  # type: int
+        # The name of the API.
         self.api_name = api_name  # type: str
+        # The path of the API.
         self.api_path = api_path  # type: str
+        # The creation time.
         self.created_time = created_time  # type: str
+        # The ID of the Alibaba Cloud account used by the creator of the API.
         self.creator_id = creator_id  # type: str
+        # The description.
         self.description = description  # type: str
+        # The ID of the group.
         self.group_id = group_id  # type: str
+        # The time when the API was last modified.
         self.modified_time = modified_time  # type: str
+        # The ID of the Alibaba Cloud account used by the user who last modified the API.
         self.operator_id = operator_id  # type: str
+        # The ID of the workspace.
         self.project_id = project_id  # type: long
+        # The list of fields.
         self.protocols = protocols  # type: list[int]
+        # The details of the API generated by registration. This parameter is returned only if the API is generated by registration.
         self.registration_details = registration_details  # type: GetDataServicePublishedApiResponseBodyDataRegistrationDetails
+        # The request method of the API. Valid values: 0, 1, 2, and 3. The value 0 indicates the GET method, the value 1 indicates the POST method, the value 2 indicates the PUT method, and the value 3 indicates the DELETE method. APIs generated in wizard or script mode support the GET and POST methods. APIs generated by registration support the GET, POST, PUT, and DELETE methods.
         self.request_method = request_method  # type: int
+        # The format in which the response of the API request is returned. Valid values: 0 and 1. The value 0 indicates the JSON format. The value 1 indicates the XML format. APIs generated in wizard or script mode support the JSON format. APIs generated by registration support the JSON and XML formats.
         self.response_content_type = response_content_type  # type: int
+        # The details of the API generated in script mode. This parameter is returned only if the API is generated in script mode.
         self.script_details = script_details  # type: GetDataServicePublishedApiResponseBodyDataScriptDetails
+        # The status of the API. Valid values: 0 and 1. The value 0 indicates that the API is not published. The value 1 indicates that the API is published.
         self.status = status  # type: int
+        # The ID of the tenant.
         self.tenant_id = tenant_id  # type: long
+        # The timeout period of the API request. Unit: milliseconds.
         self.timeout = timeout  # type: int
+        # The scope in which the API is visible. Valid values: 0 and 1. The value 0 indicates that the API is visible to the members in a specific workspace. The value 1 indicates that the API is visible only to the API creator.
         self.visible_range = visible_range  # type: int
+        # The details of the API generated in wizard mode. This parameter is returned only if the API is generated in wizard mode.
         self.wizard_details = wizard_details  # type: GetDataServicePublishedApiResponseBodyDataWizardDetails
 
     def validate(self):
@@ -15658,11 +15960,17 @@ class GetDataServicePublishedApiResponseBodyData(TeaModel):
 class GetDataServicePublishedApiResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_message=None, http_status_code=None, request_id=None,
                  success=None):
+        # The latest information of the API in the published state.
         self.data = data  # type: GetDataServicePublishedApiResponseBodyData
+        # The error code returned.
         self.error_code = error_code  # type: str
+        # The error message returned.
         self.error_message = error_message  # type: str
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -20507,14 +20815,23 @@ class GetMetaCollectionDetailResponse(TeaModel):
 class GetMetaColumnLineageRequest(TeaModel):
     def __init__(self, cluster_id=None, column_guid=None, column_name=None, data_source_type=None,
                  database_name=None, direction=None, page_num=None, page_size=None, table_name=None):
+        # The ID of the E-MapReduce (EMR) cluster. Configure this parameter only when you query data in an EMR compute engine instance.
         self.cluster_id = cluster_id  # type: str
+        # The GUID of the field.
         self.column_guid = column_guid  # type: str
+        # The name of the field.
         self.column_name = column_name  # type: str
+        # The type of the data source. Valid values: odps and emr.
         self.data_source_type = data_source_type  # type: str
+        # The name of the database.
         self.database_name = database_name  # type: str
+        # Specifies whether to query the ancestor or descendant lineage of the field. The value up indicates the ancestor lineage. The value down indicates the descendant lineage.
         self.direction = direction  # type: str
+        # The number of the page to return.
         self.page_num = page_num  # type: int
+        # The number of entries to return on each page. Default value: 10. Maximum value: 100.
         self.page_size = page_size  # type: int
+        # The name of the metatable.
         self.table_name = table_name  # type: str
 
     def validate(self):
@@ -20571,10 +20888,15 @@ class GetMetaColumnLineageRequest(TeaModel):
 
 class GetMetaColumnLineageResponseBodyDataDataEntityList(TeaModel):
     def __init__(self, cluster_id=None, column_guid=None, column_name=None, database_name=None, table_name=None):
+        # The ID of the EMR cluster.
         self.cluster_id = cluster_id  # type: str
+        # The GUID of the field.
         self.column_guid = column_guid  # type: str
+        # The name of the field.
         self.column_name = column_name  # type: str
+        # The name of the database.
         self.database_name = database_name  # type: str
+        # The name of the metatable.
         self.table_name = table_name  # type: str
 
     def validate(self):
@@ -20615,9 +20937,13 @@ class GetMetaColumnLineageResponseBodyDataDataEntityList(TeaModel):
 
 class GetMetaColumnLineageResponseBodyData(TeaModel):
     def __init__(self, data_entity_list=None, page_num=None, page_size=None, total_count=None):
+        # The list of metatables in the compute engine instance.
         self.data_entity_list = data_entity_list  # type: list[GetMetaColumnLineageResponseBodyDataDataEntityList]
+        # The page number of the returned page.
         self.page_num = page_num  # type: int
+        # The number of entries returned per page. Default value: 10. Maximum value: 100.
         self.page_size = page_size  # type: int
+        # The total number of fields.
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -20663,11 +20989,17 @@ class GetMetaColumnLineageResponseBodyData(TeaModel):
 class GetMetaColumnLineageResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_message=None, http_status_code=None, request_id=None,
                  success=None):
+        # The business data returned.
         self.data = data  # type: GetMetaColumnLineageResponseBodyData
+        # The error code returned.
         self.error_code = error_code  # type: str
+        # The error message returned.
         self.error_message = error_message  # type: str
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -22141,12 +22473,19 @@ class GetMetaTableColumnResponse(TeaModel):
 class GetMetaTableFullInfoRequest(TeaModel):
     def __init__(self, cluster_id=None, data_source_type=None, database_name=None, page_num=None, page_size=None,
                  table_guid=None, table_name=None):
+        # The ID of the E-MapReduce (EMR) cluster. You can log on to the EMR console to obtain the ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The type of the data source. Only emr is supported.
         self.data_source_type = data_source_type  # type: str
+        # The name of the metadatabase of the EMR cluster. You can call the [ListMetaDB](~~185662~~) operation to query the name of the metadatabase.
         self.database_name = database_name  # type: str
+        # The number of the page to return.
         self.page_num = page_num  # type: int
+        # The number of entries to return on each page. Default value: 10. Maximum value: 100.
         self.page_size = page_size  # type: int
+        # The GUID of the metatable. You can call the [GetMetaDBTableList](~~173916~~) operation to query the GUID of the metatable.
         self.table_guid = table_guid  # type: str
+        # The name of the metatable in the EMR cluster. You can call the [GetMetaDBTableList](~~173916~~) operation to query the name of the metatable.
         self.table_name = table_name  # type: str
 
     def validate(self):
@@ -22196,14 +22535,32 @@ class GetMetaTableFullInfoRequest(TeaModel):
 class GetMetaTableFullInfoResponseBodyDataColumnList(TeaModel):
     def __init__(self, caption=None, column_guid=None, column_name=None, column_type=None, comment=None,
                  is_foreign_key=None, is_partition_column=None, is_primary_key=None, position=None):
+        # The description of the field.
         self.caption = caption  # type: str
+        # The GUID of the field.
         self.column_guid = column_guid  # type: str
+        # The name of the field.
         self.column_name = column_name  # type: str
+        # The data type of the field.
         self.column_type = column_type  # type: str
+        # The remarks of the field.
         self.comment = comment  # type: str
+        # Indicates whether the field is a foreign key. Valid values:
+        # 
+        # *   true: The field is a foreign key.
+        # *   false: The field is not a foreign key.
         self.is_foreign_key = is_foreign_key  # type: bool
+        # Indicates whether the field is a partition field. Valid values:
+        # 
+        # *   true: The field is a partition field.
+        # *   false: The field is not a partition field.
         self.is_partition_column = is_partition_column  # type: bool
+        # Indicates whether the field is the primary key. Valid values:
+        # 
+        # *   true: The field is the primary key.
+        # *   false: The field is not the primary key.
         self.is_primary_key = is_primary_key  # type: bool
+        # The ordinal number of the field.
         self.position = position  # type: int
 
     def validate(self):
@@ -22263,27 +22620,56 @@ class GetMetaTableFullInfoResponseBodyData(TeaModel):
                  database_name=None, env_type=None, is_visible=None, last_access_time=None, last_ddl_time=None,
                  last_modify_time=None, life_cycle=None, location=None, owner_id=None, partition_keys=None, project_id=None,
                  project_name=None, schema=None, table_guid=None, table_name=None, tenant_id=None, total_column_count=None):
+        # The ID of the EMR cluster.
         self.cluster_id = cluster_id  # type: str
+        # The fields in the metatable.
         self.column_list = column_list  # type: list[GetMetaTableFullInfoResponseBodyDataColumnList]
+        # The remarks of the metatable.
         self.comment = comment  # type: str
+        # The time when the metatable was created. You can convert the timestamp to the related date based on the time zone that you use.
         self.create_time = create_time  # type: long
+        # The amount of storage resources that are consumed by the metatable. Unit: bytes.
         self.data_size = data_size  # type: long
+        # The name of the database.
         self.database_name = database_name  # type: str
+        # The type of the environment in which the metatable resides. Valid values:
+        # 
+        # *   0: indicates that the metatable resides in the development environment.
+        # *   1: indicates that the metatable resides in the production environment.
         self.env_type = env_type  # type: int
+        # The scope in which the metatable is visible. Valid values:
+        # 
+        # *   0: indicates that the metatable is visible to workspace members.
+        # *   1: indicates that the metatable is visible to users within a tenant.
+        # *   2: indicates that the metatable is visible to all tenants.
+        # *   3: indicates that the metatable is visible only to the metatable owner.
         self.is_visible = is_visible  # type: int
+        # The time when the metatable was last accessed. You can convert the timestamp to the related date based on the time zone that you use.
         self.last_access_time = last_access_time  # type: long
+        # The time when the schema of the metatable was last changed. You can convert the timestamp to the related date based on the time zone that you use.
         self.last_ddl_time = last_ddl_time  # type: long
+        # The time when the metatable was last updated. You can convert the timestamp to the related date based on the time zone that you use.
         self.last_modify_time = last_modify_time  # type: long
+        # The lifecycle of the metatable. Unit: days.
         self.life_cycle = life_cycle  # type: int
+        # The storage path of the Hive metatable.
         self.location = location  # type: str
+        # The ID of the metatable owner.
         self.owner_id = owner_id  # type: str
+        # The partition key.
         self.partition_keys = partition_keys  # type: str
+        # The ID of the workspace to which the metatable belongs.
         self.project_id = project_id  # type: long
+        # The name of the workspace to which the metatable belongs.
         self.project_name = project_name  # type: str
         self.schema = schema  # type: str
+        # The GUID of the metatable.
         self.table_guid = table_guid  # type: str
+        # The name of the metatable.
         self.table_name = table_name  # type: str
+        # The ID of the tenant.
         self.tenant_id = tenant_id  # type: long
+        # The total number of fields.
         self.total_column_count = total_column_count  # type: long
 
     def validate(self):
@@ -22401,11 +22787,17 @@ class GetMetaTableFullInfoResponseBodyData(TeaModel):
 class GetMetaTableFullInfoResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_message=None, http_status_code=None, request_id=None,
                  success=None):
+        # The business data returned.
         self.data = data  # type: GetMetaTableFullInfoResponseBodyData
+        # The error code returned.
         self.error_code = error_code  # type: str
+        # The error message returned.
         self.error_message = error_message  # type: str
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The ID of the request. You can use the ID to query logs and troubleshoot issues.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -22491,7 +22883,9 @@ class GetMetaTableFullInfoResponse(TeaModel):
 
 class GetMetaTableIntroWikiRequest(TeaModel):
     def __init__(self, table_guid=None, wiki_version=None):
+        # The GUID of the metatable.
         self.table_guid = table_guid  # type: str
+        # The version of the instructions.
         self.wiki_version = wiki_version  # type: long
 
     def validate(self):
@@ -22521,11 +22915,17 @@ class GetMetaTableIntroWikiRequest(TeaModel):
 class GetMetaTableIntroWikiResponseBodyData(TeaModel):
     def __init__(self, content=None, create_time=None, creator=None, creator_name=None, modified_time=None,
                  version=None):
+        # The description of the metatable.
         self.content = content  # type: str
+        # The time when the metatable was created.
         self.create_time = create_time  # type: long
+        # The creator of the metatable.
         self.creator = creator  # type: str
+        # The name of the user who created the metatable.
         self.creator_name = creator_name  # type: str
+        # The time when the metatable was modified.
         self.modified_time = modified_time  # type: long
+        # The version number.
         self.version = version  # type: long
 
     def validate(self):
@@ -22571,11 +22971,17 @@ class GetMetaTableIntroWikiResponseBodyData(TeaModel):
 class GetMetaTableIntroWikiResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_message=None, http_status_code=None, request_id=None,
                  success=None):
+        # The business data returned.
         self.data = data  # type: GetMetaTableIntroWikiResponseBodyData
+        # The error code returned.
         self.error_code = error_code  # type: str
+        # The error message returned.
         self.error_message = error_message  # type: str
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -30519,15 +30925,25 @@ class ListBaselineConfigsResponse(TeaModel):
 class ListBaselineStatusesRequest(TeaModel):
     def __init__(self, baseline_types=None, bizdate=None, finish_status=None, owner=None, page_number=None,
                  page_size=None, priority=None, search_text=None, status=None, topic_id=None):
+        # The type of the baseline. Valid values: DAILY and HOURLY. The value DAILY indicates that the baseline is scheduled by day. The value HOURLY indicates that the baseline is scheduled by hour. Multiple types are separated by commas (,).
         self.baseline_types = baseline_types  # type: str
+        # The data timestamp of the baseline instance. Specify the time in the ISO 8601 standard in the yyyy-MM-dd\"T\"HH:mm:ssZ format. The time must be in UTC.
         self.bizdate = bizdate  # type: str
+        # The status of the baseline instance. Valid values: UNFINISH and FINISH. The value UNFINISH indicates that the baseline instance is still running. The value FINISH indicates that the baseline instance finishes running. Multiple states are separated by commas (,).
         self.finish_status = finish_status  # type: str
+        # The ID of the Alibaba Cloud account used by the baseline owner.
         self.owner = owner  # type: str
+        # The number of the page to return. Valid values: 1 to 30. Default value: 1.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page. Default value: 10. Maximum value: 100.
         self.page_size = page_size  # type: int
+        # The priority of the baseline. Valid values: 1, 3, 5, 7, and 8. Multiple priorities are separated by commas (,).
         self.priority = priority  # type: str
+        # The keyword of the baseline name used to search for the baseline.
         self.search_text = search_text  # type: str
+        # The status of the baseline. Valid values: ERROR, SAFE, DANGEROUS, and OVER. The value ERROR indicates that no nodes are associated with the baseline, or all nodes associated with the baseline are suspended. The value SAFE indicates that nodes finish running before the alerting time. The value DANGEROUS indicates that nodes are still running after the alerting time but before the committed completion time. The value OVER indicates that nodes are still running after the committed completion time. Multiple states are separated by commas (,).
         self.status = status  # type: str
+        # The ID of the event.
         self.topic_id = topic_id  # type: long
 
     def validate(self):
@@ -30590,19 +31006,33 @@ class ListBaselineStatusesResponseBodyDataBaselineStatuses(TeaModel):
     def __init__(self, baseline_id=None, baseline_name=None, bizdate=None, buffer=None, end_cast=None, exp_time=None,
                  finish_status=None, finish_time=None, in_group_id=None, owner=None, priority=None, project_id=None, sla_time=None,
                  status=None):
+        # The ID of the baseline.
         self.baseline_id = baseline_id  # type: long
+        # The name of the baseline.
         self.baseline_name = baseline_name  # type: str
+        # The data timestamp of the baseline instance.
         self.bizdate = bizdate  # type: long
+        # The margin of the baseline instance. Unit: seconds.
         self.buffer = buffer  # type: long
+        # The predicted time when the baseline instance finished running.
         self.end_cast = end_cast  # type: long
+        # The alerting time of the baseline instance.
         self.exp_time = exp_time  # type: long
+        # The status of the baseline instance. Valid values: UNFINISH and FINISH. The value UNFINISH indicates that the baseline instance is still running. The value FINISH indicates that the baseline instance finishes running.
         self.finish_status = finish_status  # type: str
+        # The timestamp of the actual time when the baseline instance finished running. This parameter is returned if the value of the FinishStatus parameter is FINISH.
         self.finish_time = finish_time  # type: long
+        # The ID of the scheduling cycle of the baseline instance. For a baseline instance that is scheduled by day, the value of this parameter is 1. For a baseline instance that is scheduled by hour, the value of this parameter ranges from 1 to 24.
         self.in_group_id = in_group_id  # type: int
+        # The ID of the Alibaba Cloud account used by the baseline owner. Multiple IDs are separated by commas (,).
         self.owner = owner  # type: str
+        # The priority of the baseline. Valid values: 1, 3, 5, 7, and 8.
         self.priority = priority  # type: int
+        # The ID of the workspace to which the baseline belongs.
         self.project_id = project_id  # type: long
+        # The actual time when the baseline instance finished running.
         self.sla_time = sla_time  # type: long
+        # The status of the baseline. Valid values: ERROR, SAFE, DANGEROUS, and OVER. The value ERROR indicates that no nodes are associated with the baseline, or all nodes associated with the baseline are suspended. The value SAFE indicates that nodes finish running before the alerting time. The value DANGEROUS indicates that nodes are still running after the alerting time but before the committed completion time. The value OVER indicates that nodes are still running after the committed completion time.
         self.status = status  # type: str
 
     def validate(self):
@@ -30679,9 +31109,13 @@ class ListBaselineStatusesResponseBodyDataBaselineStatuses(TeaModel):
 
 class ListBaselineStatusesResponseBodyData(TeaModel):
     def __init__(self, baseline_statuses=None, page_number=None, page_size=None, total_count=None):
+        # The list of baseline instances.
         self.baseline_statuses = baseline_statuses  # type: list[ListBaselineStatusesResponseBodyDataBaselineStatuses]
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The total number of baseline instances.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -30727,11 +31161,17 @@ class ListBaselineStatusesResponseBodyData(TeaModel):
 class ListBaselineStatusesResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_message=None, http_status_code=None, request_id=None,
                  success=None):
+        # The list of baseline instances returned.
         self.data = data  # type: ListBaselineStatusesResponseBodyData
+        # The error code returned.
         self.error_code = error_code  # type: str
+        # The error message returned.
         self.error_message = error_message  # type: str
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The ID of the request. You can use the ID to troubleshoot issues.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -32374,10 +32814,15 @@ class ListDagsResponse(TeaModel):
 
 class ListDataServiceApiAuthoritiesRequest(TeaModel):
     def __init__(self, api_name_keyword=None, page_number=None, page_size=None, project_id=None, tenant_id=None):
+        # The keyword in the name of the API. The keyword can be used to search for the API whose name contains the keyword.
         self.api_name_keyword = api_name_keyword  # type: str
+        # The number of the page to return. Pages start from page 1. Default value: 1.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page. Default value: 10. Maximum value: 100.
         self.page_size = page_size  # type: int
+        # The ID of the workspace.
         self.project_id = project_id  # type: long
+        # The ID of the tenant.
         self.tenant_id = tenant_id  # type: long
 
     def validate(self):
@@ -32418,9 +32863,13 @@ class ListDataServiceApiAuthoritiesRequest(TeaModel):
 
 class ListDataServiceApiAuthoritiesResponseBodyDataApiAuthorizationListAuthorizationRecords(TeaModel):
     def __init__(self, created_time=None, creator_id=None, end_time=None, project_id=None):
+        # The time when the access permissions on the API were granted to other users.
         self.created_time = created_time  # type: str
+        # The ID of the Alibaba Cloud account used by the user who granted other users the access permissions on the API.
         self.creator_id = creator_id  # type: str
+        # The end time of the validity period of the authorization.
         self.end_time = end_time  # type: str
+        # The ID of the workspace to which the access permissions on the API are granted.
         self.project_id = project_id  # type: long
 
     def validate(self):
@@ -32458,16 +32907,27 @@ class ListDataServiceApiAuthoritiesResponseBodyDataApiAuthorizationListAuthoriza
 class ListDataServiceApiAuthoritiesResponseBodyDataApiAuthorizationList(TeaModel):
     def __init__(self, api_id=None, api_name=None, api_path=None, api_status=None, authorization_records=None,
                  created_time=None, creator_id=None, group_id=None, modified_time=None, project_id=None, tenant_id=None):
+        # The ID of the API.
         self.api_id = api_id  # type: long
+        # The name of the API.
         self.api_name = api_name  # type: str
+        # The path of the API.
         self.api_path = api_path  # type: str
+        # The status of the API. Valid values: 0 and 1. The value 0 indicates that the API is not published. The value 1 indicates that the API is published.
         self.api_status = api_status  # type: int
+        # The authorization records.
         self.authorization_records = authorization_records  # type: list[ListDataServiceApiAuthoritiesResponseBodyDataApiAuthorizationListAuthorizationRecords]
+        # The time when the API was created.
         self.created_time = created_time  # type: str
+        # The ID of the Alibaba Cloud account used by the API owner.
         self.creator_id = creator_id  # type: str
+        # The ID of the group.
         self.group_id = group_id  # type: str
+        # The time when the API was last updated.
         self.modified_time = modified_time  # type: str
+        # The ID of the workspace.
         self.project_id = project_id  # type: long
+        # The ID of the tenant.
         self.tenant_id = tenant_id  # type: long
 
     def validate(self):
@@ -32540,9 +33000,13 @@ class ListDataServiceApiAuthoritiesResponseBodyDataApiAuthorizationList(TeaModel
 
 class ListDataServiceApiAuthoritiesResponseBodyData(TeaModel):
     def __init__(self, api_authorization_list=None, page_number=None, page_size=None, total_count=None):
+        # The APIs on which other users are granted the access permissions and the authorization records.
         self.api_authorization_list = api_authorization_list  # type: list[ListDataServiceApiAuthoritiesResponseBodyDataApiAuthorizationList]
+        # The page number of the returned page. The value of this parameter is the same as that of the PageNumber parameter in the request.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page. Default value: 10. Maximum value: 100.
         self.page_size = page_size  # type: int
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -32588,11 +33052,17 @@ class ListDataServiceApiAuthoritiesResponseBodyData(TeaModel):
 class ListDataServiceApiAuthoritiesResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_message=None, http_status_code=None, request_id=None,
                  success=None):
+        # The APIs on which other users are granted the access permissions.
         self.data = data  # type: ListDataServiceApiAuthoritiesResponseBodyData
+        # The error code returned.
         self.error_code = error_code  # type: str
+        # The error message returned.
         self.error_message = error_message  # type: str
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -34610,10 +35080,15 @@ class ListDataServiceFoldersResponse(TeaModel):
 
 class ListDataServiceGroupsRequest(TeaModel):
     def __init__(self, group_name_keyword=None, page_number=None, page_size=None, project_id=None, tenant_id=None):
+        # The keyword of a business process name. The keyword is used to search for business processes whose names contain this keyword.
         self.group_name_keyword = group_name_keyword  # type: str
+        # The number of the page to return. Pages start from page 1. Default value: 1.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page. Default value: 10. Maximum value: 100.
         self.page_size = page_size  # type: int
+        # The ID of the workspace.
         self.project_id = project_id  # type: long
+        # The ID of the tenant.
         self.tenant_id = tenant_id  # type: long
 
     def validate(self):
@@ -34655,14 +35130,23 @@ class ListDataServiceGroupsRequest(TeaModel):
 class ListDataServiceGroupsResponseBodyGroupPagingResultGroups(TeaModel):
     def __init__(self, api_gateway_group_id=None, created_time=None, creator_id=None, description=None,
                  group_id=None, group_name=None, modified_time=None, project_id=None, tenant_id=None):
+        # The ID of the API group that is associated with the business process in the API Gateway console.
         self.api_gateway_group_id = api_gateway_group_id  # type: str
+        # The time when the business process was created.
         self.created_time = created_time  # type: str
+        # The user identifier (UID) of the creator of the business process. The value of this parameter may be empty for creators of some existing business processes.
         self.creator_id = creator_id  # type: str
+        # The description of the business process.
         self.description = description  # type: str
+        # The ID of the business process.
         self.group_id = group_id  # type: str
+        # The name of the business process.
         self.group_name = group_name  # type: str
+        # The time when the business process was modified.
         self.modified_time = modified_time  # type: str
+        # The ID of the workspace.
         self.project_id = project_id  # type: long
+        # The ID of the tenant.
         self.tenant_id = tenant_id  # type: long
 
     def validate(self):
@@ -34719,9 +35203,13 @@ class ListDataServiceGroupsResponseBodyGroupPagingResultGroups(TeaModel):
 
 class ListDataServiceGroupsResponseBodyGroupPagingResult(TeaModel):
     def __init__(self, groups=None, page_number=None, page_size=None, total_count=None):
+        # The business processes.
         self.groups = groups  # type: list[ListDataServiceGroupsResponseBodyGroupPagingResultGroups]
+        # The page number of the returned page. The value of this parameter is the same as that of the PageNumber parameter in the request.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page. Default value: 10. Maximum value: 100.
         self.page_size = page_size  # type: int
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -34766,7 +35254,9 @@ class ListDataServiceGroupsResponseBodyGroupPagingResult(TeaModel):
 
 class ListDataServiceGroupsResponseBody(TeaModel):
     def __init__(self, group_paging_result=None, request_id=None):
+        # The paging result for the business processes.
         self.group_paging_result = group_paging_result  # type: ListDataServiceGroupsResponseBodyGroupPagingResult
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -51795,9 +52285,16 @@ class TestDataServiceApiResponse(TeaModel):
 
 class TestNetworkConnectionRequest(TeaModel):
     def __init__(self, datasource_name=None, env_type=None, project_id=None, resource_group=None):
+        # The name of the data source.
         self.datasource_name = datasource_name  # type: str
+        # The environment to which the data source belongs. Valid values:
+        # 
+        # *   0: development environment
+        # *   1: production environment
         self.env_type = env_type  # type: str
+        # The ID of the DataWorks workspace to which the data source belongs. You can call the [ListProjects](~~178393~~) operation to query the ID of the workspace.
         self.project_id = project_id  # type: long
+        # The identifier of the resource group. You can call the [ListResourceGroups](~~173913~~) operation to query the identifier of the resource group.
         self.resource_group = resource_group  # type: str
 
     def validate(self):
@@ -51834,7 +52331,12 @@ class TestNetworkConnectionRequest(TeaModel):
 
 class TestNetworkConnectionResponseBodyTaskList(TeaModel):
     def __init__(self, connect_message=None, connect_status=None):
+        # The reason why the data source and resource group failed the connectivity test. If data source and the resource group passed the connectivity test, this parameter is left empty.
         self.connect_message = connect_message  # type: str
+        # The result of the connectivity test. Valid values:
+        # 
+        # *   true: The data source and the resource group passed the connectivity test.
+        # *   false: The data source and the resource group failed the connectivity test. You can troubleshoot issues based on the ConnectMessage parameter.
         self.connect_status = connect_status  # type: bool
 
     def validate(self):
@@ -51863,8 +52365,14 @@ class TestNetworkConnectionResponseBodyTaskList(TeaModel):
 
 class TestNetworkConnectionResponseBody(TeaModel):
     def __init__(self, request_id=None, success=None, task_list=None):
+        # The ID of the request. You can locate logs and troubleshoot issues based on the ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true: The request was successful.
+        # *   false: The request failed.
         self.success = success  # type: bool
+        # The information about the connectivity test.
         self.task_list = task_list  # type: TestNetworkConnectionResponseBodyTaskList
 
     def validate(self):
@@ -53184,9 +53692,39 @@ class UpdateConnectionResponse(TeaModel):
 
 class UpdateDIProjectConfigRequest(TeaModel):
     def __init__(self, destination_type=None, project_config=None, project_id=None, source_type=None):
+        # The type of the destinations of the synchronization solutions. This parameter cannot be left empty.
+        # 
+        # Valid values: analyticdb_for_mysql, odps, elasticsearch, holo, mysql, and polardb.
         self.destination_type = destination_type  # type: str
+        # The new default global configuration of synchronization solutions. The value indicates the processing rules of different types of DDL messages. The value must be in the JSON format. Example:
+        # 
+        # {"RENAMECOLUMN":"WARNING","DROPTABLE":"WARNING","CREATETABLE":"WARNING","MODIFYCOLUMN":"WARNING","TRUNCATETABLE":"WARNING","DROPCOLUMN":"WARNING","ADDCOLUMN":"WARNING","RENAMETABLE":"WARNING"}
+        # 
+        # Field description:
+        # 
+        # *   RENAMECOLUMN: renames a column.
+        # *   DROPTABLE: deletes a table.
+        # *   CREATETABLE: creates a table.
+        # *   MODIFYCOLUMN: changes the data type of a column.
+        # *   TRUNCATETABLE: clears a table.
+        # *   DROPCOLUMN: deletes a column.
+        # *   ADDCOLUMN: creates a column.
+        # *   RENAMETABLE: renames a table.
+        # 
+        # DataWorks processes a DDL message of a specific type based on the following rules:
+        # 
+        # *   WARNING: ignores the message and records an alert in real-time synchronization logs. The alert contains information about the situation that the message is ignored because of an execution error.
+        # *   IGNORE: discards the message and does not send it to the destination.
+        # *   CRITICAL: terminates the real-time synchronization node and sets the node status to Failed.
+        # *   NORMAL: sends the message to the destination to process the message. Each destination processes DDL messages based on its own business logic. If DataWorks adopts the NORMAL policy, DataWorks only forwards DDL messages.
         self.project_config = project_config  # type: str
+        # The ID of the DataWorks workspace. You can log on to the [DataWorks console](https://workbench.data.aliyun.com/console) and go to the Workspace Management page to obtain the workspace ID.
         self.project_id = project_id  # type: long
+        # The type of the sources of the synchronization solutions.
+        # 
+        # Valid values: oracle, mysql, polardb, datahub, drds, and analyticdb_for_mysql.
+        # 
+        # If you do not configure this parameter, DataWorks applies the default global configuration to all sources.
         self.source_type = source_type  # type: str
 
     def validate(self):
@@ -53223,6 +53761,10 @@ class UpdateDIProjectConfigRequest(TeaModel):
 
 class UpdateDIProjectConfigResponseBodyData(TeaModel):
     def __init__(self, status=None):
+        # Indicates whether the default global configuration of synchronization solutions was modified. Valid values:
+        # 
+        # *   success: The default global configuration of synchronization solutions was modified.
+        # *   fail: The default global configuration of synchronization solutions failed to be modified.
         self.status = status  # type: str
 
     def validate(self):
@@ -53247,8 +53789,14 @@ class UpdateDIProjectConfigResponseBodyData(TeaModel):
 
 class UpdateDIProjectConfigResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None, success=None):
+        # The information about the modification.
         self.data = data  # type: UpdateDIProjectConfigResponseBodyData
+        # The ID of the request. You can use the ID to locate logs and troubleshoot issues.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true: The request was successful.
+        # *   false: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -54626,8 +55174,11 @@ class UpdateIDEEventResultResponse(TeaModel):
 
 class UpdateMetaCategoryRequest(TeaModel):
     def __init__(self, category_id=None, comment=None, name=None):
+        # The ID of the category.
         self.category_id = category_id  # type: long
+        # The remarks of the category.
         self.comment = comment  # type: str
+        # The name of the category.
         self.name = name  # type: str
 
     def validate(self):
@@ -54661,11 +55212,17 @@ class UpdateMetaCategoryRequest(TeaModel):
 class UpdateMetaCategoryResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_message=None, http_status_code=None, request_id=None,
                  success=None):
+        # Indicates whether the category was updated.
         self.data = data  # type: bool
+        # The error code returned.
         self.error_code = error_code  # type: str
+        # The error message returned.
         self.error_message = error_message  # type: str
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -55046,7 +55603,9 @@ class UpdateMetaTableResponse(TeaModel):
 
 class UpdateMetaTableIntroWikiRequest(TeaModel):
     def __init__(self, content=None, table_guid=None):
+        # The details of the instructions on how to use the metatable.
         self.content = content  # type: str
+        # The GUID of the metatable. Specify the GUID in the format of odps.{projectName}.{tableName}.
         self.table_guid = table_guid  # type: str
 
     def validate(self):
@@ -55075,7 +55634,9 @@ class UpdateMetaTableIntroWikiRequest(TeaModel):
 
 class UpdateMetaTableIntroWikiResponseBody(TeaModel):
     def __init__(self, request_id=None, update_result=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The updated instructions.
         self.update_result = update_result  # type: bool
 
     def validate(self):
@@ -55366,10 +55927,14 @@ class UpdateNodeRunModeResponse(TeaModel):
 
 class UpdateQualityFollowerRequest(TeaModel):
     def __init__(self, alarm_mode=None, follower=None, follower_id=None, project_id=None, project_name=None):
+        # The notification method. Valid values: 1, 2, 4, and 5. 1 indicates that the notification is sent by email. 2 indicates that the notification is sent by email and text message. 4 indicates that the notification is sent by a DingTalk chatbot. 5 indicates that the notification is sent by a DingTalk chatbot to all members in a DingTalk group.
         self.alarm_mode = alarm_mode  # type: int
+        # The name of the subscriber.
         self.follower = follower  # type: str
+        # The ID of the subscription relationship.
         self.follower_id = follower_id  # type: long
         self.project_id = project_id  # type: long
+        # The name of the computing engine instance or data source.
         self.project_name = project_name  # type: str
 
     def validate(self):
@@ -55411,11 +55976,17 @@ class UpdateQualityFollowerRequest(TeaModel):
 class UpdateQualityFollowerResponseBody(TeaModel):
     def __init__(self, data=None, error_code=None, error_message=None, http_status_code=None, request_id=None,
                  success=None):
+        # Indicates whether the subscription relationship is updated.
         self.data = data  # type: bool
+        # The error code returned.
         self.error_code = error_code  # type: str
+        # The error message returned.
         self.error_message = error_message  # type: str
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request is successful.
         self.success = success  # type: bool
 
     def validate(self):
