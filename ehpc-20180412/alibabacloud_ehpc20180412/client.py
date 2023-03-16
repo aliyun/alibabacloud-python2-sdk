@@ -3512,6 +3512,7 @@ class Client(OpenApiClient):
 
     def submit_job_with_options(self, request, runtime):
         """
+        ## Description
         Before you submit a job in a cluster, you must upload a job file to the cluster, for example, job.sh. For more information, see [CreateJobFile](~~159049~~).
         
 
@@ -3544,6 +3545,7 @@ class Client(OpenApiClient):
 
     def submit_job(self, request):
         """
+        ## Description
         Before you submit a job in a cluster, you must upload a job file to the cluster, for example, job.sh. For more information, see [CreateJobFile](~~159049~~).
         
 
