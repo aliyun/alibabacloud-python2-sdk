@@ -2688,6 +2688,90 @@ class Client(OpenApiClient):
         headers = btrip_open_20220520_models.InvoiceModifyHeaders()
         return self.invoice_modify_with_options(request, headers, runtime)
 
+    def invoice_rule_add_with_options(self, tmp_req, headers, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = btrip_open_20220520_models.InvoiceRuleAddShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.entities):
+            request.entities_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.entities, 'entities', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.entities_shrink):
+            body['entities'] = request.entities_shrink
+        if not UtilClient.is_unset(request.third_part_id):
+            body['third_part_id'] = request.third_part_id
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_acs_btrip_corp_token):
+            real_headers['x-acs-btrip-corp-token'] = UtilClient.to_jsonstring(headers.x_acs_btrip_corp_token)
+        req = open_api_models.OpenApiRequest(
+            headers=real_headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='InvoiceRuleAdd',
+            version='2022-05-20',
+            protocol='HTTPS',
+            pathname='/invoice/v1/invoice-rule',
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            btrip_open_20220520_models.InvoiceRuleAddResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def invoice_rule_add(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = btrip_open_20220520_models.InvoiceRuleAddHeaders()
+        return self.invoice_rule_add_with_options(request, headers, runtime)
+
+    def invoice_rule_delete_with_options(self, tmp_req, headers, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = btrip_open_20220520_models.InvoiceRuleDeleteShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.entities):
+            request.entities_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.entities, 'entities', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.del_all):
+            query['del_all'] = request.del_all
+        if not UtilClient.is_unset(request.entities_shrink):
+            query['entities'] = request.entities_shrink
+        if not UtilClient.is_unset(request.third_part_id):
+            query['third_part_id'] = request.third_part_id
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_acs_btrip_corp_token):
+            real_headers['x-acs-btrip-corp-token'] = UtilClient.to_jsonstring(headers.x_acs_btrip_corp_token)
+        req = open_api_models.OpenApiRequest(
+            headers=real_headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='InvoiceRuleDelete',
+            version='2022-05-20',
+            protocol='HTTPS',
+            pathname='/invoice/v1/invoice-rule',
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            btrip_open_20220520_models.InvoiceRuleDeleteResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def invoice_rule_delete(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = btrip_open_20220520_models.InvoiceRuleDeleteHeaders()
+        return self.invoice_rule_delete_with_options(request, headers, runtime)
+
     def invoice_rule_save_with_options(self, tmp_req, headers, runtime):
         UtilClient.validate_model(tmp_req)
         request = btrip_open_20220520_models.InvoiceRuleSaveShrinkRequest()

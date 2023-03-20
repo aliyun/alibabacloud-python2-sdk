@@ -29204,6 +29204,509 @@ class InvoiceModifyResponse(TeaModel):
         return self
 
 
+class InvoiceRuleAddHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_acs_btrip_corp_token=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_acs_btrip_corp_token = x_acs_btrip_corp_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(InvoiceRuleAddHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_acs_btrip_corp_token is not None:
+            result['x-acs-btrip-corp-token'] = self.x_acs_btrip_corp_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('x-acs-btrip-corp-token') is not None:
+            self.x_acs_btrip_corp_token = m.get('x-acs-btrip-corp-token')
+        return self
+
+
+class InvoiceRuleAddRequestEntities(TeaModel):
+    def __init__(self, entity_id=None, entity_name=None, entity_type=None):
+        self.entity_id = entity_id  # type: str
+        self.entity_name = entity_name  # type: str
+        self.entity_type = entity_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(InvoiceRuleAddRequestEntities, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.entity_id is not None:
+            result['entity_id'] = self.entity_id
+        if self.entity_name is not None:
+            result['entity_name'] = self.entity_name
+        if self.entity_type is not None:
+            result['entity_type'] = self.entity_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('entity_id') is not None:
+            self.entity_id = m.get('entity_id')
+        if m.get('entity_name') is not None:
+            self.entity_name = m.get('entity_name')
+        if m.get('entity_type') is not None:
+            self.entity_type = m.get('entity_type')
+        return self
+
+
+class InvoiceRuleAddRequest(TeaModel):
+    def __init__(self, entities=None, third_part_id=None):
+        self.entities = entities  # type: list[InvoiceRuleAddRequestEntities]
+        self.third_part_id = third_part_id  # type: str
+
+    def validate(self):
+        if self.entities:
+            for k in self.entities:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(InvoiceRuleAddRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['entities'] = []
+        if self.entities is not None:
+            for k in self.entities:
+                result['entities'].append(k.to_map() if k else None)
+        if self.third_part_id is not None:
+            result['third_part_id'] = self.third_part_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.entities = []
+        if m.get('entities') is not None:
+            for k in m.get('entities'):
+                temp_model = InvoiceRuleAddRequestEntities()
+                self.entities.append(temp_model.from_map(k))
+        if m.get('third_part_id') is not None:
+            self.third_part_id = m.get('third_part_id')
+        return self
+
+
+class InvoiceRuleAddShrinkRequest(TeaModel):
+    def __init__(self, entities_shrink=None, third_part_id=None):
+        self.entities_shrink = entities_shrink  # type: str
+        self.third_part_id = third_part_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(InvoiceRuleAddShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.entities_shrink is not None:
+            result['entities'] = self.entities_shrink
+        if self.third_part_id is not None:
+            result['third_part_id'] = self.third_part_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('entities') is not None:
+            self.entities_shrink = m.get('entities')
+        if m.get('third_part_id') is not None:
+            self.third_part_id = m.get('third_part_id')
+        return self
+
+
+class InvoiceRuleAddResponseBodyModule(TeaModel):
+    def __init__(self, add_num=None, selected_user_num=None):
+        self.add_num = add_num  # type: int
+        self.selected_user_num = selected_user_num  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(InvoiceRuleAddResponseBodyModule, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.add_num is not None:
+            result['add_num'] = self.add_num
+        if self.selected_user_num is not None:
+            result['selected_user_num'] = self.selected_user_num
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('add_num') is not None:
+            self.add_num = m.get('add_num')
+        if m.get('selected_user_num') is not None:
+            self.selected_user_num = m.get('selected_user_num')
+        return self
+
+
+class InvoiceRuleAddResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+        self.module = module  # type: InvoiceRuleAddResponseBodyModule
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+        # traceId
+        self.trace_id = trace_id  # type: str
+
+    def validate(self):
+        if self.module:
+            self.module.validate()
+
+    def to_map(self):
+        _map = super(InvoiceRuleAddResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
+        if self.module is not None:
+            result['module'] = self.module.to_map()
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.success is not None:
+            result['success'] = self.success
+        if self.trace_id is not None:
+            result['traceId'] = self.trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('module') is not None:
+            temp_model = InvoiceRuleAddResponseBodyModule()
+            self.module = temp_model.from_map(m['module'])
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('traceId') is not None:
+            self.trace_id = m.get('traceId')
+        return self
+
+
+class InvoiceRuleAddResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: InvoiceRuleAddResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(InvoiceRuleAddResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = InvoiceRuleAddResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class InvoiceRuleDeleteHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_acs_btrip_corp_token=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_acs_btrip_corp_token = x_acs_btrip_corp_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(InvoiceRuleDeleteHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_acs_btrip_corp_token is not None:
+            result['x-acs-btrip-corp-token'] = self.x_acs_btrip_corp_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('x-acs-btrip-corp-token') is not None:
+            self.x_acs_btrip_corp_token = m.get('x-acs-btrip-corp-token')
+        return self
+
+
+class InvoiceRuleDeleteRequestEntities(TeaModel):
+    def __init__(self, entity_id=None, entity_type=None):
+        self.entity_id = entity_id  # type: str
+        self.entity_type = entity_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(InvoiceRuleDeleteRequestEntities, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.entity_id is not None:
+            result['entity_id'] = self.entity_id
+        if self.entity_type is not None:
+            result['entity_type'] = self.entity_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('entity_id') is not None:
+            self.entity_id = m.get('entity_id')
+        if m.get('entity_type') is not None:
+            self.entity_type = m.get('entity_type')
+        return self
+
+
+class InvoiceRuleDeleteRequest(TeaModel):
+    def __init__(self, del_all=None, entities=None, third_part_id=None):
+        self.del_all = del_all  # type: bool
+        self.entities = entities  # type: list[InvoiceRuleDeleteRequestEntities]
+        self.third_part_id = third_part_id  # type: str
+
+    def validate(self):
+        if self.entities:
+            for k in self.entities:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(InvoiceRuleDeleteRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.del_all is not None:
+            result['del_all'] = self.del_all
+        result['entities'] = []
+        if self.entities is not None:
+            for k in self.entities:
+                result['entities'].append(k.to_map() if k else None)
+        if self.third_part_id is not None:
+            result['third_part_id'] = self.third_part_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('del_all') is not None:
+            self.del_all = m.get('del_all')
+        self.entities = []
+        if m.get('entities') is not None:
+            for k in m.get('entities'):
+                temp_model = InvoiceRuleDeleteRequestEntities()
+                self.entities.append(temp_model.from_map(k))
+        if m.get('third_part_id') is not None:
+            self.third_part_id = m.get('third_part_id')
+        return self
+
+
+class InvoiceRuleDeleteShrinkRequest(TeaModel):
+    def __init__(self, del_all=None, entities_shrink=None, third_part_id=None):
+        self.del_all = del_all  # type: bool
+        self.entities_shrink = entities_shrink  # type: str
+        self.third_part_id = third_part_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(InvoiceRuleDeleteShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.del_all is not None:
+            result['del_all'] = self.del_all
+        if self.entities_shrink is not None:
+            result['entities'] = self.entities_shrink
+        if self.third_part_id is not None:
+            result['third_part_id'] = self.third_part_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('del_all') is not None:
+            self.del_all = m.get('del_all')
+        if m.get('entities') is not None:
+            self.entities_shrink = m.get('entities')
+        if m.get('third_part_id') is not None:
+            self.third_part_id = m.get('third_part_id')
+        return self
+
+
+class InvoiceRuleDeleteResponseBodyModule(TeaModel):
+    def __init__(self, remove_num=None, selected_user_num=None):
+        self.remove_num = remove_num  # type: int
+        self.selected_user_num = selected_user_num  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(InvoiceRuleDeleteResponseBodyModule, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.remove_num is not None:
+            result['remove_num'] = self.remove_num
+        if self.selected_user_num is not None:
+            result['selected_user_num'] = self.selected_user_num
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('remove_num') is not None:
+            self.remove_num = m.get('remove_num')
+        if m.get('selected_user_num') is not None:
+            self.selected_user_num = m.get('selected_user_num')
+        return self
+
+
+class InvoiceRuleDeleteResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+        self.module = module  # type: InvoiceRuleDeleteResponseBodyModule
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+        # traceId
+        self.trace_id = trace_id  # type: str
+
+    def validate(self):
+        if self.module:
+            self.module.validate()
+
+    def to_map(self):
+        _map = super(InvoiceRuleDeleteResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
+        if self.module is not None:
+            result['module'] = self.module.to_map()
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.success is not None:
+            result['success'] = self.success
+        if self.trace_id is not None:
+            result['traceId'] = self.trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('module') is not None:
+            temp_model = InvoiceRuleDeleteResponseBodyModule()
+            self.module = temp_model.from_map(m['module'])
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('traceId') is not None:
+            self.trace_id = m.get('traceId')
+        return self
+
+
+class InvoiceRuleDeleteResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: InvoiceRuleDeleteResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(InvoiceRuleDeleteResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = InvoiceRuleDeleteResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class InvoiceRuleSaveHeaders(TeaModel):
     def __init__(self, common_headers=None, x_acs_btrip_so_corp_token=None):
         self.common_headers = common_headers  # type: dict[str, str]
