@@ -158,7 +158,7 @@ class PredictModelRequest(TeaModel):
 class PredictModelResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None):
         self.code = code  # type: int
-        self.data = data  # type: str
+        self.data = data  # type: dict[str, any]
         self.message = message  # type: str
         # Id of the request
         self.request_id = request_id  # type: str
