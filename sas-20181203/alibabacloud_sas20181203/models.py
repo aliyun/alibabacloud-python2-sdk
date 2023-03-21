@@ -29,8 +29,11 @@ class QueryIncidentTracingSubNodesCountRequest(TeaModel):
 
 class AddCheckInstanceResultWhiteListRequest(TeaModel):
     def __init__(self, check_group_id=None, check_id=None, instance_ids=None):
+        # The ID of the group to which the check item belongs.
         self.check_group_id = check_group_id  # type: str
+        # The ID of the check item.
         self.check_id = check_id  # type: long
+        # The instance IDs of assets.
         self.instance_ids = instance_ids  # type: list[str]
 
     def validate(self):
@@ -63,7 +66,9 @@ class AddCheckInstanceResultWhiteListRequest(TeaModel):
 
 class AddCheckInstanceResultWhiteListResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # The adding result.
         self.data = data  # type: dict[str, any]
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -131,6 +136,7 @@ class AddCheckInstanceResultWhiteListResponse(TeaModel):
 
 class AddCheckResultWhiteListRequest(TeaModel):
     def __init__(self, check_ids=None):
+        # The IDs of the check items.
         self.check_ids = check_ids  # type: list[long]
 
     def validate(self):
@@ -155,7 +161,9 @@ class AddCheckResultWhiteListRequest(TeaModel):
 
 class AddCheckResultWhiteListResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # The data returned.
         self.data = data  # type: dict[str, any]
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -836,7 +844,11 @@ class AddPrivateRegistryResponse(TeaModel):
 
 class AddTagWithUuidRequest(TeaModel):
     def __init__(self, tag_name=None, uuid_list=None):
+        # The name of the tag.
         self.tag_name = tag_name  # type: str
+        # The UUIDs of the servers. Separate multiple UUIDs with commas (,).
+        # 
+        # > You can call the [DescribeCloudCenterInstances](~~DescribeCloudCenterInstances~~) operation to query the UUIDs of servers.
         self.uuid_list = uuid_list  # type: str
 
     def validate(self):
@@ -865,6 +877,7 @@ class AddTagWithUuidRequest(TeaModel):
 
 class AddTagWithUuidResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1747,9 +1760,6 @@ class BindAuthToMachineResponse(TeaModel):
 
 class CancelOnceTaskRequest(TeaModel):
     def __init__(self, task_id=None):
-        # The ID of the task.
-        # 
-        # >  You can call the [GenerateOnceTask](~~GenerateOnceTask~~) operation to query the IDs of tasks.
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -1774,7 +1784,6 @@ class CancelOnceTaskRequest(TeaModel):
 
 class CancelOnceTaskResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1838,9 +1847,20 @@ class CancelOnceTaskResponse(TeaModel):
 
 class ChangeCheckConfigRequest(TeaModel):
     def __init__(self, end_time=None, region_id=None, standard_ids=None, start_time=None):
+        # The end time of the check. The value specifies a point in time in a day. The time period that is specified by the start time and end time must be one of the following time periods:
+        # 
+        # *   **00:00 to 06:00:** If you set the StartTime parameter to 0, you must set the EndTime parameter to 6.
+        # *   **06:00 to 12:00**: If you set the StartTime parameter to 6, you must set the EndTime parameter to 12.
+        # *   **12:00 to 18:00**: If you set the StartTime parameter to 12, you must set the EndTime parameter to 18.
+        # *  **18:00 to 24:00:** If you set the StartTime parameter to 18, you must set the EndTime parameter to 24.
         self.end_time = end_time  # type: int
+        # The region ID of the bastion host to query.
+        # 
+        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
+        # An array that consists of the information about the check item.
         self.standard_ids = standard_ids  # type: list[long]
+        # The start time of the check. The value specifies a point in time in a day.
         self.start_time = start_time  # type: int
 
     def validate(self):
@@ -1877,6 +1897,7 @@ class ChangeCheckConfigRequest(TeaModel):
 
 class ChangeCheckConfigResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1934,6 +1955,182 @@ class ChangeCheckConfigResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ChangeCheckConfigResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ChangeCheckCustomConfigRequestCustomConfigs(TeaModel):
+    def __init__(self, name=None, operation=None, value=None):
+        self.name = name  # type: str
+        self.operation = operation  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ChangeCheckCustomConfigRequestCustomConfigs, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.operation is not None:
+            result['Operation'] = self.operation
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('Operation') is not None:
+            self.operation = m.get('Operation')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class ChangeCheckCustomConfigRequest(TeaModel):
+    def __init__(self, check_id=None, custom_configs=None, region_id=None):
+        self.check_id = check_id  # type: long
+        self.custom_configs = custom_configs  # type: list[ChangeCheckCustomConfigRequestCustomConfigs]
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        if self.custom_configs:
+            for k in self.custom_configs:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ChangeCheckCustomConfigRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.check_id is not None:
+            result['CheckId'] = self.check_id
+        result['CustomConfigs'] = []
+        if self.custom_configs is not None:
+            for k in self.custom_configs:
+                result['CustomConfigs'].append(k.to_map() if k else None)
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CheckId') is not None:
+            self.check_id = m.get('CheckId')
+        self.custom_configs = []
+        if m.get('CustomConfigs') is not None:
+            for k in m.get('CustomConfigs'):
+                temp_model = ChangeCheckCustomConfigRequestCustomConfigs()
+                self.custom_configs.append(temp_model.from_map(k))
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class ChangeCheckCustomConfigResponseBodyIllegalCustomConfigs(TeaModel):
+    def __init__(self, name=None):
+        self.name = name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ChangeCheckCustomConfigResponseBodyIllegalCustomConfigs, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.name is not None:
+            result['Name'] = self.name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        return self
+
+
+class ChangeCheckCustomConfigResponseBody(TeaModel):
+    def __init__(self, illegal_custom_configs=None, request_id=None):
+        self.illegal_custom_configs = illegal_custom_configs  # type: list[ChangeCheckCustomConfigResponseBodyIllegalCustomConfigs]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.illegal_custom_configs:
+            for k in self.illegal_custom_configs:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ChangeCheckCustomConfigResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['IllegalCustomConfigs'] = []
+        if self.illegal_custom_configs is not None:
+            for k in self.illegal_custom_configs:
+                result['IllegalCustomConfigs'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.illegal_custom_configs = []
+        if m.get('IllegalCustomConfigs') is not None:
+            for k in m.get('IllegalCustomConfigs'):
+                temp_model = ChangeCheckCustomConfigResponseBodyIllegalCustomConfigs()
+                self.illegal_custom_configs.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ChangeCheckCustomConfigResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ChangeCheckCustomConfigResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ChangeCheckCustomConfigResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ChangeCheckCustomConfigResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -2050,11 +2247,11 @@ class CheckSecurityEventIdRequest(TeaModel):
     def __init__(self, security_event_ids=None, uuid=None):
         # The IDs of alert events. You can specify up to 100 IDs. If you do not specify this parameter, the value of the response parameter **Data** is **false**. The value false indicates that no alert events are generated on the server.
         # 
-        # >  You can call the [DescribeAlarmEventList](~~DescribeAlarmEventList~~) operation to query the IDs of alert events.
+        # > You can call the [DescribeAlarmEventList](~~DescribeAlarmEventList~~) operation to query the IDs of alert events.
         self.security_event_ids = security_event_ids  # type: list[str]
         # The UUID of the server.
         # 
-        # >  You can call the [DescribeCloudCenterInstances](~~DescribeCloudCenterInstances~~) operation to query the UUIDs of servers.
+        # > You can call the [DescribeCloudCenterInstances](~~DescribeCloudCenterInstances~~) operation to query the UUIDs of servers.
         self.uuid = uuid  # type: str
 
     def validate(self):
@@ -2085,7 +2282,7 @@ class CheckSecurityEventIdResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
         # Indicates whether the alert events are generated on the server. Valid values:
         # 
-        # *   **true**: yes
+        # *   **true**\
         # *   **false**: no
         self.data = data  # type: bool
         # The ID of the request, which is used to locate and troubleshoot issues.
@@ -2156,10 +2353,6 @@ class CheckSecurityEventIdResponse(TeaModel):
 
 class CheckUserHasEcsRequest(TeaModel):
     def __init__(self, lang=None):
-        # The language of the content within the request and response. Default value: **zh**. Valid values:
-        # 
-        # *   **zh**: Chinese
-        # *   **en**: English
         self.lang = lang  # type: str
 
     def validate(self):
@@ -2184,21 +2377,10 @@ class CheckUserHasEcsRequest(TeaModel):
 
 class CheckUserHasEcsResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        # The status code returned. The status code **200** indicates that the request is successful. Other status codes indicate that the request fails. You can identify the cause of the failure based on the status code.
         self.code = code  # type: str
-        # Indicates whether ECS instances exist. Valid values:
-        # 
-        # *   **true**: yes
-        # *   **false**: no
         self.data = data  # type: bool
-        # The error message returned.
         self.message = message  # type: str
-        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
-        # The status of the request. Valid values:
-        # 
-        # *   **true**: The request is successful.
-        # *   **false**: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -2397,44 +2579,13 @@ class ConfirmVirusEventsResponse(TeaModel):
 class CreateAntiBruteForceRuleRequest(TeaModel):
     def __init__(self, default_rule=None, fail_count=None, forbidden_time=None, name=None, resource_owner_id=None,
                  source_ip=None, span=None, uuid_list=None):
-        # Specifies whether to set the defense rule as the default rule. Valid values:
-        # 
-        # *   **true**: yes
-        # *   **false**: no
-        # 
-        # >  If no defense rule is created for a server, the default rule is applied to the server.
         self.default_rule = default_rule  # type: bool
-        # The maximum number of failed logon attempts from an account. Valid values: 2, 3, 4, 5, 10, 50, 80, and 100.
         self.fail_count = fail_count  # type: int
-        # The period of time during which logons from an account are not allowed. Unit: minutes. Valid values:
-        # 
-        # *   **5**: 5 minutes
-        # *   **15**: 15 minutes
-        # *   **30**: 30 minutes
-        # *   **60**: 1 hour
-        # *   **120**: 2 hours
-        # *   **360**: 6 hours
-        # *   **720**: 12 hours
-        # *   **1440**: 24 hours
-        # *   **10080**: 7 days
-        # *   **52560000**: permanent
         self.forbidden_time = forbidden_time  # type: int
-        # The name of the defense rule.
         self.name = name  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The source IP address of the request.
         self.source_ip = source_ip  # type: str
-        # The maximum period of time during which failed logon attempts from an account can occur. Unit: minutes. Valid values:
-        # 
-        # *   **1**\
-        # *   **2**\
-        # *   **5**\
-        # *   **10**\
-        # *   **15**\
-        # 
-        # >  To configure a defense rule, you must specify the Span, FailCount, and ForbiddenTime parameters. If the number of failed logon attempts from an account within the minutes specified by Span exceeds the value specified by FailCount, the account cannot be used for logons within the minutes specified by ForbiddenTime.
         self.span = span  # type: int
-        # The UUIDs of the servers to which you want to apply the defense rule.
         self.uuid_list = uuid_list  # type: list[str]
 
     def validate(self):
@@ -2487,7 +2638,6 @@ class CreateAntiBruteForceRuleRequest(TeaModel):
 
 class CreateAntiBruteForceRuleResponseBodyCreateAntiBruteForceRule(TeaModel):
     def __init__(self, rule_id=None):
-        # The ID of the defense rule.
         self.rule_id = rule_id  # type: long
 
     def validate(self):
@@ -2512,9 +2662,7 @@ class CreateAntiBruteForceRuleResponseBodyCreateAntiBruteForceRule(TeaModel):
 
 class CreateAntiBruteForceRuleResponseBody(TeaModel):
     def __init__(self, create_anti_brute_force_rule=None, request_id=None):
-        # The information about the defense rule.
         self.create_anti_brute_force_rule = create_anti_brute_force_rule  # type: CreateAntiBruteForceRuleResponseBodyCreateAntiBruteForceRule
-        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2584,10 +2732,44 @@ class CreateAntiBruteForceRuleResponse(TeaModel):
 
 class CreateBackupPolicyRequest(TeaModel):
     def __init__(self, name=None, policy=None, policy_region_id=None, policy_version=None, uuid_list=None):
+        # The name of the anti-ransomware policy.
         self.name = name  # type: str
+        # *   **IsDefault**: the type of the anti-ransomware policy. Valid values:
+        # 
+        #     *   **1**: recommended policy
+        #     *   **0**: custom policy
+        # 
+        # *   **Include**: the format of the files that you want to protect. If you want to protect the files in all formats, set this field to \[].
+        # 
+        # *   **Source**: the directory that you want to protect. If you want to protect all directories, set this field to \[].
+        # 
+        # *   **ExcludeSystemPath**: specifies whether to exclude a specific directory from the anti-ransomware policy. If you want to exclude a directory, set this field to **true**. If you do not want to exclude a directory, leave this field empty.
+        # 
+        # *   **Exclude**: the directory that you want to exclude from the anti-ransomware policy. If you do not want to exclude a directory, set this field to \[].
+        # 
+        # *   **Schedule**: the start time and interval of a data backup task. We recommend that you specify a start time that begins during off-peak hours but does not start on the hour. Examples:
+        # 
+        #     *   If you set this field to I|1583216092|P21D, the data backup task starts from 2020-03-03 14:14:52, and the task is run at an interval of three weeks.
+        #     *   If you set this field to I|1583216092|PT24H, the data backup task starts from 2020-03-03 14:14:52, and the task is run at an interval of 24 hours.
+        # 
+        # *   **Retention**: the period during which backup data is retained. Unit: days. If you set this field to 7, backup data is retained for a week. If you set this field to 365, backup data is retained for a year. If you set this field to -1, backup data is permanently retained.
+        # 
+        # *   **SpeedLimiter**: the limit on the network bandwidth for data backup tasks. If you set this field to 0:24:30720, the maximum bandwidth for a data backup task is 30 MB/s from 00:00 to 24:00.
+        # 
+        # *   **UseVss**: specifies whether to enable the VSS feature. The feature is available only for Windows servers. Valid values:
+        # 
+        #     *   **true**: yes
+        #     *   **false**: no
+        # 
+        # >  The VSS feature is available only if you create the anti-ransomware policy for Windows servers. After you enable the feature, the number of backup failures due to running processes is significantly reduced. We recommend that you enable the VSS feature. After you enable the feature, the data of disks that are in the exFAT and FAT32 formats cannot be backed up.
         self.policy = policy  # type: dict[str, any]
+        # The region ID of the server that is not deployed on Alibaba Cloud.
+        # 
+        # >  We recommend that you specify the ID of the supported region that is the nearest to the location of the server. You can call the [DescribeSupportRegion](~~DescribeSupportRegion~~) operation to query the supported regions of the anti-ransomware feature.
         self.policy_region_id = policy_region_id  # type: str
+        # The version of the anti-ransomware policy. Set the value to **2.0.0**.
         self.policy_version = policy_version  # type: str
+        # The UUIDs of the servers that you want to protect.
         self.uuid_list = uuid_list  # type: list[str]
 
     def validate(self):
@@ -2628,10 +2810,44 @@ class CreateBackupPolicyRequest(TeaModel):
 
 class CreateBackupPolicyShrinkRequest(TeaModel):
     def __init__(self, name=None, policy_shrink=None, policy_region_id=None, policy_version=None, uuid_list=None):
+        # The name of the anti-ransomware policy.
         self.name = name  # type: str
+        # *   **IsDefault**: the type of the anti-ransomware policy. Valid values:
+        # 
+        #     *   **1**: recommended policy
+        #     *   **0**: custom policy
+        # 
+        # *   **Include**: the format of the files that you want to protect. If you want to protect the files in all formats, set this field to \[].
+        # 
+        # *   **Source**: the directory that you want to protect. If you want to protect all directories, set this field to \[].
+        # 
+        # *   **ExcludeSystemPath**: specifies whether to exclude a specific directory from the anti-ransomware policy. If you want to exclude a directory, set this field to **true**. If you do not want to exclude a directory, leave this field empty.
+        # 
+        # *   **Exclude**: the directory that you want to exclude from the anti-ransomware policy. If you do not want to exclude a directory, set this field to \[].
+        # 
+        # *   **Schedule**: the start time and interval of a data backup task. We recommend that you specify a start time that begins during off-peak hours but does not start on the hour. Examples:
+        # 
+        #     *   If you set this field to I|1583216092|P21D, the data backup task starts from 2020-03-03 14:14:52, and the task is run at an interval of three weeks.
+        #     *   If you set this field to I|1583216092|PT24H, the data backup task starts from 2020-03-03 14:14:52, and the task is run at an interval of 24 hours.
+        # 
+        # *   **Retention**: the period during which backup data is retained. Unit: days. If you set this field to 7, backup data is retained for a week. If you set this field to 365, backup data is retained for a year. If you set this field to -1, backup data is permanently retained.
+        # 
+        # *   **SpeedLimiter**: the limit on the network bandwidth for data backup tasks. If you set this field to 0:24:30720, the maximum bandwidth for a data backup task is 30 MB/s from 00:00 to 24:00.
+        # 
+        # *   **UseVss**: specifies whether to enable the VSS feature. The feature is available only for Windows servers. Valid values:
+        # 
+        #     *   **true**: yes
+        #     *   **false**: no
+        # 
+        # >  The VSS feature is available only if you create the anti-ransomware policy for Windows servers. After you enable the feature, the number of backup failures due to running processes is significantly reduced. We recommend that you enable the VSS feature. After you enable the feature, the data of disks that are in the exFAT and FAT32 formats cannot be backed up.
         self.policy_shrink = policy_shrink  # type: str
+        # The region ID of the server that is not deployed on Alibaba Cloud.
+        # 
+        # >  We recommend that you specify the ID of the supported region that is the nearest to the location of the server. You can call the [DescribeSupportRegion](~~DescribeSupportRegion~~) operation to query the supported regions of the anti-ransomware feature.
         self.policy_region_id = policy_region_id  # type: str
+        # The version of the anti-ransomware policy. Set the value to **2.0.0**.
         self.policy_version = policy_version  # type: str
+        # The UUIDs of the servers that you want to protect.
         self.uuid_list = uuid_list  # type: list[str]
 
     def validate(self):
@@ -2672,7 +2888,14 @@ class CreateBackupPolicyShrinkRequest(TeaModel):
 
 class CreateBackupPolicyResponseBodyBackupPolicy(TeaModel):
     def __init__(self, id=None, status=None):
+        # The ID of the anti-ransomware policy.
         self.id = id  # type: str
+        # The status of the anti-ransomware policy. Valid values:
+        # 
+        # *   **enabled**\
+        # *   **disabled**\
+        # 
+        # >  After you create an anti-ransomware policy, the policy is enabled by default.
         self.status = status  # type: str
 
     def validate(self):
@@ -2701,7 +2924,9 @@ class CreateBackupPolicyResponseBodyBackupPolicy(TeaModel):
 
 class CreateBackupPolicyResponseBody(TeaModel):
     def __init__(self, backup_policy=None, request_id=None):
+        # The information about the anti-ransomware policy.
         self.backup_policy = backup_policy  # type: CreateBackupPolicyResponseBodyBackupPolicy
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3053,39 +3278,15 @@ class CreateCustomBlockRecordResponse(TeaModel):
 class CreateCycleTaskRequest(TeaModel):
     def __init__(self, enable=None, first_date_str=None, interval_period=None, param=None, period_unit=None,
                  source=None, target_end_time=None, target_start_time=None, task_name=None, task_type=None):
-        # Specifies whether to enable the task. Valid values:
-        # 
-        # *   **1**: yes
-        # *   **0**: no
         self.enable = enable  # type: int
-        # The first time when the task is performed.
         self.first_date_str = first_date_str  # type: long
-        # The interval of the task.
         self.interval_period = interval_period  # type: int
-        # The additional information.
         self.param = param  # type: str
-        # The unit of the scan interval. Valid values:
-        # 
-        # *   **day**: days
-        # *   **hour**: hours
         self.period_unit = period_unit  # type: str
-        # The additional source for the task.
         self.source = source  # type: str
-        # The time when the task ends. Unit: hours.
         self.target_end_time = target_end_time  # type: int
-        # The time when the task is started. Unit: hours.
         self.target_start_time = target_start_time  # type: int
-        # The name of the task. Valid values:
-        # 
-        # *   **VIRUS_VUL_SCHEDULE_SCAN**: virus scan task
-        # *   **IMAGE_SCAN**: image scan task
-        # *   **EMG_VUL_SCHEDULE_SCAN**: urgent vulnerability scan task
         self.task_name = task_name  # type: str
-        # The type of the task. Valid values:
-        # 
-        # *   **VIRUS_VUL_SCHEDULE_SCAN**: virus scan task
-        # *   **IMAGE_SCAN**: image scan task
-        # *   **EMG_VUL_SCHEDULE_SCAN**: urgent vulnerability scan task
         self.task_type = task_type  # type: str
 
     def validate(self):
@@ -3146,7 +3347,6 @@ class CreateCycleTaskRequest(TeaModel):
 
 class CreateCycleTaskResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3363,20 +3563,20 @@ class CreateFileDetectUploadUrlRequest(TeaModel):
     def __init__(self, hash_key_context_list=None, hash_key_list=None, type=None):
         # The hash values of files.
         # 
-        # >  You must specify at least one of the **HashKeyList** and **HashKeyContextList** parameters.
+        # > You must specify at least one of the **HashKeyList** and **HashKeyContextList** parameters.
         self.hash_key_context_list = hash_key_context_list  # type: list[CreateFileDetectUploadUrlRequestHashKeyContextList]
-        # The identifier of the file. Only MD5 hash values are supported.
+        # The identifiers of files. Only MD5 hash values are supported.
         # 
-        # >  You must specify at least one of the **HashKeyList** and **HashKeyContextList** parameters.
+        # > You must specify at least one of the **HashKeyList** and **HashKeyContextList** parameters.
         self.hash_key_list = hash_key_list  # type: list[str]
         # The type of the file. Valid values:
         # 
-        # *   **0**: unknown files
-        # *   **1**: binary files
-        # *   **2**: webshell files
-        # *   **4**: script files
+        # *   **0**: unknown file
+        # *   **1**: binary file
+        # *   **2**: webshell file
+        # *   **4**: script file
         # 
-        # >  If you do not know the type of the file, set this parameter to **0**.
+        # > If you do not know the type of the file, set this parameter to **0**.
         self.type = type  # type: int
 
     def validate(self):
@@ -3421,7 +3621,7 @@ class CreateFileDetectUploadUrlResponseBodyUploadUrlListContext(TeaModel):
         self.access_id = access_id  # type: str
         # The key of the file that is used after the file is uploaded to the OSS bucket.
         self.oss_key = oss_key  # type: str
-        # The policy that poses limits on file upload. For example, the policy limits the size of the file.
+        # The policy that poses limits on file upload. For example, the policy can limit the size of the file.
         self.policy = policy  # type: str
         # The signature that is used to upload the file.
         self.signature = signature  # type: str
@@ -4023,9 +4223,10 @@ class CreateHoneypotNodeResponse(TeaModel):
 
 
 class CreateHoneypotPresetRequest(TeaModel):
-    def __init__(self, honeypot_image_name=None, meta=None, node_id=None, preset_name=None):
+    def __init__(self, honeypot_image_name=None, lang=None, meta=None, node_id=None, preset_name=None):
         # The name of the honeypot image.
         self.honeypot_image_name = honeypot_image_name  # type: str
+        self.lang = lang  # type: str
         # The custom configurations of the honeypot template. The value is a JSON string that contains the following fields:
         # 
         # *   **portrait_option**: Social Source Tracing
@@ -4050,6 +4251,8 @@ class CreateHoneypotPresetRequest(TeaModel):
         result = dict()
         if self.honeypot_image_name is not None:
             result['HoneypotImageName'] = self.honeypot_image_name
+        if self.lang is not None:
+            result['Lang'] = self.lang
         if self.meta is not None:
             result['Meta'] = self.meta
         if self.node_id is not None:
@@ -4062,6 +4265,8 @@ class CreateHoneypotPresetRequest(TeaModel):
         m = m or dict()
         if m.get('HoneypotImageName') is not None:
             self.honeypot_image_name = m.get('HoneypotImageName')
+        if m.get('Lang') is not None:
+            self.lang = m.get('Lang')
         if m.get('Meta') is not None:
             self.meta = m.get('Meta')
         if m.get('NodeId') is not None:
@@ -4851,21 +5056,52 @@ class CreateJenkinsImageRegistryRequest(TeaModel):
     def __init__(self, domain_name=None, extra_param=None, net_type=None, password=None, persistence_day=None,
                  protocol_type=None, region_id=None, registry_host_ip=None, registry_name=None, registry_type=None,
                  registry_version=None, source_ip=None, trans_per_hour=None, user_name=None, vpc_id=None, white_list=None):
+        # The domain name of the image repository.
         self.domain_name = domain_name  # type: str
+        # The additional parameters of the image repository. The value of this parameter contains the following fields:
+        # 
+        # *   **namespace**: the namespace
+        # *   **authToken**: the authorization token
         self.extra_param = extra_param  # type: str
+        # The network type. Valid values:
+        # 
+        # *   **1**: Internet
+        # *   **2**: Virtual Private Cloud (VPC)
         self.net_type = net_type  # type: int
+        # The password.
         self.password = password  # type: str
+        # The number of days during which assets can be retained.
         self.persistence_day = persistence_day  # type: int
+        # The type of the protocol. Valid values:
+        # 
+        # *   **1**: HTTP
+        # *   **2**: HTTPS
         self.protocol_type = protocol_type  # type: int
+        # The region ID of the image repository.
         self.region_id = region_id  # type: str
+        # The IP address of the image repository.
         self.registry_host_ip = registry_host_ip  # type: str
+        # The alias of the image repository.
         self.registry_name = registry_name  # type: str
+        # The type of the image repository. Valid values:
+        # 
+        # *   **CI/CD**: Jenkins
         self.registry_type = registry_type  # type: str
+        # The version of the image repository. Default value: -. Valid values:
+        # 
+        # *   **-**: the default version
+        # *   **V1**: V1.0
+        # *   **V2**: V2.0
         self.registry_version = registry_version  # type: str
+        # The source IP address of the request.
         self.source_ip = source_ip  # type: str
+        # The number of images that can be scanned per hour.
         self.trans_per_hour = trans_per_hour  # type: int
+        # The username.
         self.user_name = user_name  # type: str
+        # The ID of the VPC.
         self.vpc_id = vpc_id  # type: str
+        # The whitelist of IP addresses.
         self.white_list = white_list  # type: str
 
     def validate(self):
@@ -4953,23 +5189,49 @@ class CreateJenkinsImageRegistryResponseBodyData(TeaModel):
                  password=None, persistence_day=None, protocol_type=None, region_id=None, registry_host_ip=None,
                  registry_name=None, registry_type=None, token=None, trans_per_hour=None, user_name=None, vpc_id=None,
                  white_list=None):
+        # The blacklist.
         self.black_list = black_list  # type: str
+        # The domain name of the image repository.
         self.domain_name = domain_name  # type: str
+        # The creation time. The time is in the yyyy-MM-dd HH:mm:ss format.
         self.gmt_create = gmt_create  # type: str
+        # The update time. The time is in the yyyy-MM-dd HH:mm:ss format.
         self.gmt_modified = gmt_modified  # type: str
+        # The ID of the image repository.
         self.id = id  # type: long
+        # The network type. Valid values:
+        # 
+        # *   **1**: Internet
+        # *   **2**: VPC
         self.net_type = net_type  # type: int
+        # The password.
         self.password = password  # type: str
+        # The number of days during which assets can be retained.
         self.persistence_day = persistence_day  # type: int
+        # The type of the protocol. Valid values:
+        # 
+        # *   **1**: HTTP
+        # *   **2**: HTTPS
         self.protocol_type = protocol_type  # type: int
+        # The region ID of the image repository.
         self.region_id = region_id  # type: str
+        # The IP address of the image repository.
         self.registry_host_ip = registry_host_ip  # type: str
+        # The alias of the image repository.
         self.registry_name = registry_name  # type: str
+        # The type of the image repository. Valid values:
+        # 
+        # *   **CI/CD**: Jenkins
         self.registry_type = registry_type  # type: str
+        # The authentication token of the user.
         self.token = token  # type: str
+        # The number of images that can be scanned per hour.
         self.trans_per_hour = trans_per_hour  # type: int
+        # The username.
         self.user_name = user_name  # type: str
+        # The ID of the VPC.
         self.vpc_id = vpc_id  # type: str
+        # The whitelist.
         self.white_list = white_list  # type: str
 
     def validate(self):
@@ -5062,9 +5324,13 @@ class CreateJenkinsImageRegistryResponseBodyData(TeaModel):
 
 class CreateJenkinsImageRegistryResponseBody(TeaModel):
     def __init__(self, data=None, http_status_code=None, request_id=None, time_cost=None):
+        # The result of creating the image repository.
         self.data = data  # type: CreateJenkinsImageRegistryResponseBodyData
+        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The time consumed. Unit: seconds.
         self.time_cost = time_cost  # type: long
 
     def validate(self):
@@ -6033,34 +6299,12 @@ class CreateUniBackupPolicyResponse(TeaModel):
 class CreateUniRestorePlanRequest(TeaModel):
     def __init__(self, database=None, instance_uuid=None, policy_id=None, reset_scn=None, reset_time=None,
                  restore_info=None, time_point=None):
-        # The name of the database.
         self.database = database  # type: str
-        # The UUID of the Hybrid Backup Recovery (HBR) agent that is used to restore the data of the database on your server.
-        # 
-        # >  You can call the [DescribeUniBackupDatabase](~~DescribeUniBackupDatabase~~) operation to query the UUID.
         self.instance_uuid = instance_uuid  # type: str
-        # The ID of the anti-ransomware policy.
-        # 
-        # >  You can call the [DescribeUniBackupPolicies](~~DescribeUniBackupPolicies~~) operation to query the ID.
         self.policy_id = policy_id  # type: long
-        # The identifier of the point in time for restoration in the backup version that you want to use. The database is an Oracle database.****\
-        # 
-        # >  You can call the [DescribeUniRecoverableList](~~DescribeUniRecoverableList~~) operation to query the value.
         self.reset_scn = reset_scn  # type: str
-        # The point in time for restoration in the backup version that you want to use. The database is an Oracle database.****\
-        # 
-        # >  You can call the [DescribeUniRecoverableList](~~DescribeUniRecoverableList~~) operation to query the value.
         self.reset_time = reset_time  # type: str
-        # The information about the database. This parameter is available when the database is a Microsoft SQL Server (MSSQL) database. The value is a JSON string. Valid values:
-        # 
-        # *   **name**: the name of the database
-        # *   **files**: the path to the database files
-        # 
-        # >  You can call the [DescribeUniRecoverableList](~~DescribeUniRecoverableList~~) operation to query the information.
         self.restore_info = restore_info  # type: str
-        # The point in time to which you want to restore data.
-        # 
-        # >  You can call the [DescribeRestorePlans](~~DescribeRestorePlans~~) operation to query the point in time.
         self.time_point = time_point  # type: long
 
     def validate(self):
@@ -6109,7 +6353,6 @@ class CreateUniRestorePlanRequest(TeaModel):
 
 class CreateUniRestorePlanResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -6531,9 +6774,23 @@ class DeleteBackupPolicyResponse(TeaModel):
 
 class DeleteBackupPolicyMachineRequest(TeaModel):
     def __init__(self, policy_id=None, policy_version=None, uuid=None, uuid_list=None):
+        # The ID of the anti-ransomware policy.
+        # >  You can call the [DescribeBackupPolicies](~~DescribeBackupPolicies~~) operation to query the **Id** of anti-ransomware policies.
         self.policy_id = policy_id  # type: long
+        # The version of the anti-ransomware policy. Valid values:
+        # 
+        # *   **1.0.0**\
+        # *   **2.0.0**\
+        # 
+        # >  You can call the [DescribeBackupPolicies](~~DescribeBackupPolicies~~) operation to query the versions of anti-ransomware policies.
         self.policy_version = policy_version  # type: str
+        # The UUID of the server to which the anti-ransomware policy is applied.
+        # 
+        # >  You must specify at least one of the `UuidList` and `Uuid` parameters.
         self.uuid = uuid  # type: str
+        # The UUIDs of the servers to which the anti-ransomware policy is applied.
+        # 
+        # >  You must specify at least one of the `UuidList` and `Uuid` parameters.
         self.uuid_list = uuid_list  # type: list[str]
 
     def validate(self):
@@ -6570,6 +6827,7 @@ class DeleteBackupPolicyMachineRequest(TeaModel):
 
 class DeleteBackupPolicyMachineResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -6722,9 +6980,6 @@ class DeleteClientUserDefineRuleResponse(TeaModel):
 
 class DeleteCustomBlockRecordRequest(TeaModel):
     def __init__(self, id=None, resource_owner_id=None):
-        # The ID of the record that you want to delete.
-        # 
-        # > You can call the [DescribeCustomBlockRecords](~~DescribeCustomBlockRecords~~) operation to query the ID.
         self.id = id  # type: long
         self.resource_owner_id = resource_owner_id  # type: long
 
@@ -6754,7 +7009,6 @@ class DeleteCustomBlockRecordRequest(TeaModel):
 
 class DeleteCustomBlockRecordResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -6909,7 +7163,11 @@ class DeleteCycleTaskResponse(TeaModel):
 
 class DeleteGroupRequest(TeaModel):
     def __init__(self, group_id=None, source_ip=None):
+        # The ID of the server group that you want to delete.
+        # 
+        # >  To delete a server group, you must provide the ID of the server group. You can call the [DescribeAllGroups](~~DescribeAllGroups~~) operation to query the ID.
         self.group_id = group_id  # type: long
+        # The source IP address of the request.
         self.source_ip = source_ip  # type: str
 
     def validate(self):
@@ -6938,7 +7196,9 @@ class DeleteGroupRequest(TeaModel):
 
 class DeleteGroupResponseBody(TeaModel):
     def __init__(self, code=None, request_id=None):
+        # The status code returned. The status code **200** indicates that the request was successful. Other status codes indicate that the request failed. You can identify the cause of the failure based on the status code.
         self.code = code  # type: str
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -7005,11 +7265,12 @@ class DeleteGroupResponse(TeaModel):
 
 
 class DeleteHoneypotRequest(TeaModel):
-    def __init__(self, honeypot_id=None):
+    def __init__(self, honeypot_id=None, lang=None):
         # The ID of the honeypot.
         # 
         # >  You can call the [ListHoneypot](~~ListHoneypot~~) operation to query the IDs of honeypots.
         self.honeypot_id = honeypot_id  # type: str
+        self.lang = lang  # type: str
 
     def validate(self):
         pass
@@ -7022,12 +7283,16 @@ class DeleteHoneypotRequest(TeaModel):
         result = dict()
         if self.honeypot_id is not None:
             result['HoneypotId'] = self.honeypot_id
+        if self.lang is not None:
+            result['Lang'] = self.lang
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('HoneypotId') is not None:
             self.honeypot_id = m.get('HoneypotId')
+        if m.get('Lang') is not None:
+            self.lang = m.get('Lang')
         return self
 
 
@@ -7123,10 +7388,8 @@ class DeleteHoneypotResponse(TeaModel):
 
 
 class DeleteHoneypotNodeRequest(TeaModel):
-    def __init__(self, node_id=None):
-        # The ID of the management node.
-        # 
-        # >  You can call the [ListHoneypotNode](~~ListHoneypotNode~~) operation to obtain the IDs of management nodes.
+    def __init__(self, lang=None, node_id=None):
+        self.lang = lang  # type: str
         self.node_id = node_id  # type: str
 
     def validate(self):
@@ -7138,12 +7401,16 @@ class DeleteHoneypotNodeRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.lang is not None:
+            result['Lang'] = self.lang
         if self.node_id is not None:
             result['NodeId'] = self.node_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Lang') is not None:
+            self.lang = m.get('Lang')
         if m.get('NodeId') is not None:
             self.node_id = m.get('NodeId')
         return self
@@ -7151,18 +7418,10 @@ class DeleteHoneypotNodeRequest(TeaModel):
 
 class DeleteHoneypotNodeResponseBody(TeaModel):
     def __init__(self, code=None, http_status_code=None, message=None, request_id=None, success=None):
-        # The status code returned. The status code **200** indicates that the request was successful. Other status codes indicate that the request failed. You can identify the cause of the failure based on the status code.
         self.code = code  # type: str
-        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
-        # The message returned.
         self.message = message  # type: str
-        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
-        # Indicates whether the request was successful. Valid values:
-        # 
-        # *   **true**: The request was successful.
-        # *   **false**: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -7241,11 +7500,9 @@ class DeleteHoneypotNodeResponse(TeaModel):
 
 
 class DeleteHoneypotPresetRequest(TeaModel):
-    def __init__(self, honeypot_preset_id=None):
-        # The ID of the honeypot template.
-        # 
-        # >  You can call the [ListHoneypotPreset](~~ListHoneypotPreset~~) operation to query the IDs of honeypot templates.
+    def __init__(self, honeypot_preset_id=None, lang=None):
         self.honeypot_preset_id = honeypot_preset_id  # type: str
+        self.lang = lang  # type: str
 
     def validate(self):
         pass
@@ -7258,29 +7515,25 @@ class DeleteHoneypotPresetRequest(TeaModel):
         result = dict()
         if self.honeypot_preset_id is not None:
             result['HoneypotPresetId'] = self.honeypot_preset_id
+        if self.lang is not None:
+            result['Lang'] = self.lang
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('HoneypotPresetId') is not None:
             self.honeypot_preset_id = m.get('HoneypotPresetId')
+        if m.get('Lang') is not None:
+            self.lang = m.get('Lang')
         return self
 
 
 class DeleteHoneypotPresetResponseBody(TeaModel):
     def __init__(self, code=None, http_status_code=None, message=None, request_id=None, success=None):
-        # The status code returned. The status code **200** indicates that the request was successful. Other status codes indicate that the request failed. You can identify the cause of the failure based on the status code.
         self.code = code  # type: str
-        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
-        # The message returned.
         self.message = message  # type: str
-        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
-        # Indicates whether the request was successful. Valid values:
-        # 
-        # *   **true**: The request was successful.
-        # *   **false**: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -7359,10 +7612,8 @@ class DeleteHoneypotPresetResponse(TeaModel):
 
 
 class DeleteHoneypotProbeRequest(TeaModel):
-    def __init__(self, probe_id=None):
-        # The ID of the probe.
-        # 
-        # >  You can call the [ListHoneypotProbe](~~ListHoneypotProbe~~) operation to query the IDs of probes.
+    def __init__(self, lang=None, probe_id=None):
+        self.lang = lang  # type: str
         self.probe_id = probe_id  # type: str
 
     def validate(self):
@@ -7374,12 +7625,16 @@ class DeleteHoneypotProbeRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.lang is not None:
+            result['Lang'] = self.lang
         if self.probe_id is not None:
             result['ProbeId'] = self.probe_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Lang') is not None:
+            self.lang = m.get('Lang')
         if m.get('ProbeId') is not None:
             self.probe_id = m.get('ProbeId')
         return self
@@ -7387,18 +7642,10 @@ class DeleteHoneypotProbeRequest(TeaModel):
 
 class DeleteHoneypotProbeResponseBody(TeaModel):
     def __init__(self, code=None, http_status_code=None, message=None, request_id=None, success=None):
-        # The status code returned. The status code **200** indicates that the request was successful. Other status codes indicate that the request failed. You can identify the cause of the failure based on the status code.
         self.code = code  # type: str
-        # The HTTP status code returned.
         self.http_status_code = http_status_code  # type: int
-        # The message returned.
         self.message = message  # type: str
-        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
-        # Indicates whether the request was successful. Valid values:
-        # 
-        # *   **true**: The request was successful.
-        # *   **false**: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -7478,9 +7725,6 @@ class DeleteHoneypotProbeResponse(TeaModel):
 
 class DeleteInstallCodeRequest(TeaModel):
     def __init__(self, captcha_code=None):
-        # The installation command.
-        # 
-        # >  You can call the [DescribeInstallCodes](~~DescribeInstallCodes~~) operation to query installation commands.
         self.captcha_code = captcha_code  # type: str
 
     def validate(self):
@@ -7505,7 +7749,6 @@ class DeleteInstallCodeRequest(TeaModel):
 
 class DeleteInstallCodeResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -7753,34 +7996,8 @@ class DeleteInterceptionTargetResponse(TeaModel):
 
 class DeleteLoginBaseConfigRequest(TeaModel):
     def __init__(self, config=None, target=None, type=None):
-        # The configuration item that you want to delete. The items vary based on the type of logon configurations. Valid values:
-        # 
-        # *   **login\_common_ip**: approved logon IP addresses
-        # 
-        # Example: {"ip":"10.23.23.23"}.
-        # 
-        # *   **login\_common_time**: approved logon time ranges
-        # 
-        # Example: {"startTime":"06:00:00","endTime":"16:00:00"}.
-        # 
-        # *   **login\_common_account**: approved logon accounts
-        # 
-        # Example: {"account":"test_account\_001"}.
-        # 
-        # *   **login\_common_location**: approved logon locations
-        # 
-        # Example: {"location":"Shanghai"}.
         self.config = config  # type: str
-        # The UUID of the server whose logon configurations you want to delete.
-        # 
-        # > You can call the [DescribeCloudCenterInstances](~~DescribeCloudCenterInstances~~) operation to query the UUIDs of servers.
         self.target = target  # type: str
-        # The type of logon configurations to delete. Valid values:
-        # 
-        # *   **login\_common_ip**: approved logon IP addresses
-        # *   **login\_common_time**: approved logon time ranges
-        # *   **login\_common_account**: approved logon accounts
-        # *   **login\_common_location**: approved logon locations
         self.type = type  # type: str
 
     def validate(self):
@@ -7813,7 +8030,6 @@ class DeleteLoginBaseConfigRequest(TeaModel):
 
 class DeleteLoginBaseConfigResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -7877,6 +8093,9 @@ class DeleteLoginBaseConfigResponse(TeaModel):
 
 class DeletePrivateRegistryRequest(TeaModel):
     def __init__(self, registry_id=None):
+        # The ID of the image repository.
+        # 
+        # > You can call the [PageImageRegistry](~~PageImageRegistry~~) operation to query the IDs of image repositories.
         self.registry_id = registry_id  # type: long
 
     def validate(self):
@@ -7901,7 +8120,12 @@ class DeletePrivateRegistryRequest(TeaModel):
 
 class DeletePrivateRegistryResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**: The request was successful.
+        # *   **false**: The request failed.
         self.data = data  # type: bool
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -8352,13 +8576,7 @@ class DeleteTagWithUuidResponse(TeaModel):
 
 class DeleteUniBackupPolicyRequest(TeaModel):
     def __init__(self, policy_id=None, policy_ids=None):
-        # The ID of the anti-ransomware policy.
-        # 
-        # >  You can call the [DescribeUniBackupPolicies](~~DescribeUniBackupPolicies~~) operation to query the IDs of anti-ransomware policies. You must specify at least one of the PolicyId parameter and the **PolicyIds** parameter.
         self.policy_id = policy_id  # type: long
-        # The IDs of anti-ransomware policies.
-        # 
-        # >  You can call the [DescribeUniBackupPolicies](~~DescribeUniBackupPolicies~~) operation to query the IDs of anti-ransomware policies. You must specify at least one of the **PolicyId** parameter and the PolicyIds parameter.
         self.policy_ids = policy_ids  # type: str
 
     def validate(self):
@@ -8387,7 +8605,6 @@ class DeleteUniBackupPolicyRequest(TeaModel):
 
 class DeleteUniBackupPolicyResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -9304,74 +9521,25 @@ class DescribeAffectedMaliciousFileImagesRequest(TeaModel):
                  image_digest=None, image_layer=None, image_tag=None, lang=None, levels=None, malicious_md_5=None, namespace=None,
                  page_size=None, pod=None, repo_id=None, repo_instance_id=None, repo_name=None, repo_namespace=None,
                  repo_region_id=None, scan_range=None):
-        # The ID of the container cluster.
-        # 
-        # >  You can call the [DescribeGroupedContainerInstances](~~DescribeGroupedContainerInstances~~) operation to query the IDs of container clusters.
         self.cluster_id = cluster_id  # type: str
-        # The name of the cluster.
         self.cluster_name = cluster_name  # type: str
-        # The ID of the container.
         self.container_id = container_id  # type: str
-        # The number of the page to return. Pages start from page **1**. Default value: **1**.
         self.current_page = current_page  # type: int
-        # The name of the container image.
         self.image = image  # type: str
-        # The image digest.
         self.image_digest = image_digest  # type: str
-        # The image layer.
         self.image_layer = image_layer  # type: str
-        # The tag that is added to the image.
         self.image_tag = image_tag  # type: str
-        # The language of the content within the request and the response. Valid values:
-        # 
-        # *   **zh**: Chinese
-        # *   **en**: English
         self.lang = lang  # type: str
-        # The severity of the malicious image sample. Separate multiple severities with commas (,). Valid values: serious suspicious remind
         self.levels = levels  # type: str
-        # The MD5 hash value of the malicious image sample.
-        # 
-        # >  You can call the [DescribeGroupedMaliciousFiles](~~DescribeGroupedMaliciousFiles~~) operation to query the MD5 hash values of malicious image samples.
         self.malicious_md_5 = malicious_md_5  # type: str
-        # The namespace.
         self.namespace = namespace  # type: str
-        # The number of entries to return on each page. Default value: **20**.
         self.page_size = page_size  # type: str
-        # The pod.
         self.pod = pod  # type: str
-        # The ID of the image repository.
-        # 
-        # >  You can call the [ListRepository](~~ListRepository~~) operation to query the IDs of image repositories from the value of the **RepoId** response parameter.
         self.repo_id = repo_id  # type: str
-        # The ID of the container image.
-        # 
-        # >  You can call the [ListRepository](~~ListRepository~~) operation to query the IDs of container images from the value of the **InstanceId** response parameter.
         self.repo_instance_id = repo_instance_id  # type: str
-        # The name of the image repository.
-        # 
-        # >  Fuzzy match is supported.
         self.repo_name = repo_name  # type: str
-        # The namespace to which the image repository belongs.
-        # 
-        # >  Fuzzy match is supported.
         self.repo_namespace = repo_namespace  # type: str
-        # The region ID of the image repository. Valid values:
-        # 
-        # *   **cn-beijing**: China (Beijing)
-        # *   **cn-zhangjiakou**: China (Zhangjiakou)
-        # *   **cn-hangzhou**: China (Hangzhou)
-        # *   **cn-shanghai**: China (Shanghai)
-        # *   **cn-shenzhen**: China (Shenzhen)
-        # *   **cn-hongkong**: China (Hong Kong)
-        # *   **ap-southeast-1**: Singapore
-        # *   **ap-southeast-5**: Indonesia (Jakarta)
-        # *   **us-east-1**: US (Virginia)
-        # *   **us-west-1**: US (Silicon Valley)
-        # *   **eu-central-1**: Germany (Frankfurt)
-        # *   **eu-west-1**: UK (London)
-        # *   **ap-south-1**: India (Mumbai)
         self.repo_region_id = repo_region_id  # type: str
-        # The types of the assets that you want to scan.
         self.scan_range = scan_range  # type: list[str]
 
     def validate(self):
@@ -9477,63 +9645,31 @@ class DescribeAffectedMaliciousFileImagesResponseBodyAffectedMaliciousFileImages
                  level=None, malicious_md_5=None, namespace=None, pod=None, repo_id=None, repo_instance_id=None,
                  repo_name=None, repo_region_id=None, status=None, tag=None, target_id=None, target_name=None,
                  target_type=None, uuid=None):
-        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
-        # The name of the cluster.
         self.cluster_name = cluster_name  # type: str
-        # The ID of the container.
         self.container_id = container_id  # type: str
-        # The image digest.
         self.digest = digest  # type: str
-        # The URL to download the malicious image sample.
         self.download_url = download_url  # type: str
-        # The path to the image file.
         self.file_path = file_path  # type: str
-        # The timestamp of the first scan.
         self.first_scan_timestamp = first_scan_timestamp  # type: long
-        # The text that is highlighted.
         self.high_light = high_light  # type: str
-        # The name of the image.
         self.image = image  # type: str
-        # The UUID of the image.
         self.image_uuid = image_uuid  # type: str
         self.instance_name = instance_name  # type: str
         self.internet_ip = internet_ip  # type: str
         self.intranet_ip = intranet_ip  # type: str
-        # The timestamp of the last scan.
         self.latest_scan_timestamp = latest_scan_timestamp  # type: long
-        # The timestamp of the last verification.
         self.latest_verify_timestamp = latest_verify_timestamp  # type: long
-        # The image layer.
         self.layer = layer  # type: str
-        # The severity of the malicious image sample. Valid values:
-        # 
-        # *   **serious**\
-        # *   **suspicious**\
-        # *   **remind**\
         self.level = level  # type: str
-        # The MD5 hash value of the malicious image sample.
         self.malicious_md_5 = malicious_md_5  # type: str
-        # The namespace to which the image repository belongs.
         self.namespace = namespace  # type: str
-        # The pod.
         self.pod = pod  # type: str
-        # The ID of the image repository.
         self.repo_id = repo_id  # type: str
-        # The ID of the container image.
         self.repo_instance_id = repo_instance_id  # type: str
-        # The name of the image repository.
         self.repo_name = repo_name  # type: str
-        # The region ID of the image repository.
         self.repo_region_id = repo_region_id  # type: str
-        # The handling status of the malicious image sample. Valid values:
-        # 
-        # *   **0**: unhandled
-        # *   **1**: handled
-        # *   **2**: verifying
-        # *   **3**: added to the whitelist
         self.status = status  # type: int
-        # The tag that is added to the image.
         self.tag = tag  # type: str
         self.target_id = target_id  # type: str
         self.target_name = target_name  # type: str
@@ -9678,13 +9814,9 @@ class DescribeAffectedMaliciousFileImagesResponseBodyAffectedMaliciousFileImages
 
 class DescribeAffectedMaliciousFileImagesResponseBodyPageInfo(TeaModel):
     def __init__(self, count=None, current_page=None, page_size=None, total_count=None):
-        # The number of images that have malicious image samples returned on the current page.
         self.count = count  # type: int
-        # The page number of the returned page. Pages start from page **1**. Default value: **1**.
         self.current_page = current_page  # type: int
-        # The number of entries returned per page. Default value: **20**.
         self.page_size = page_size  # type: int
-        # The total number of images that have malicious image samples.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -9721,11 +9853,8 @@ class DescribeAffectedMaliciousFileImagesResponseBodyPageInfo(TeaModel):
 
 class DescribeAffectedMaliciousFileImagesResponseBody(TeaModel):
     def __init__(self, affected_malicious_file_images_response=None, page_info=None, request_id=None):
-        # An array consisting of the images that have malicious image samples.
         self.affected_malicious_file_images_response = affected_malicious_file_images_response  # type: list[DescribeAffectedMaliciousFileImagesResponseBodyAffectedMaliciousFileImagesResponse]
-        # The pagination information.
         self.page_info = page_info  # type: DescribeAffectedMaliciousFileImagesResponseBodyPageInfo
-        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -9996,18 +10125,9 @@ class DescribeAgentInstallStatusResponse(TeaModel):
 
 class DescribeAlarmEventDetailRequest(TeaModel):
     def __init__(self, alarm_unique_info=None, from_=None, lang=None, source_ip=None):
-        # The unique ID of the alert event.
-        # 
-        # >  To query the details of an alert event, you must specify the unique ID of the alert event. You can call the [DescribeAlarmEventList](~~DescribeAlarmEventList~~) operation to query the unique IDs of alert events.
         self.alarm_unique_info = alarm_unique_info  # type: str
-        # The ID of the request source. Set the value to **sas**.
         self.from_ = from_  # type: str
-        # The language of the content within the request and response. Default value: **zh**. Valid values:
-        # 
-        # *   **zh**: Chinese
-        # *   **en**: English
         self.lang = lang  # type: str
-        # The source IP address of the request.
         self.source_ip = source_ip  # type: str
 
     def validate(self):
@@ -10044,14 +10164,8 @@ class DescribeAlarmEventDetailRequest(TeaModel):
 
 class DescribeAlarmEventDetailResponseBodyDataCauseDetailsValue(TeaModel):
     def __init__(self, name=None, type=None, value=None):
-        # The name of the field that displays tracing information.
         self.name = name  # type: str
-        # The type of the field that displays tracing information. Valid values:
-        # 
-        # *   **text**\
-        # *   **html**\
         self.type = type  # type: str
-        # The value of the field that displays tracing information.
         self.value = value  # type: str
 
     def validate(self):
@@ -10084,9 +10198,7 @@ class DescribeAlarmEventDetailResponseBodyDataCauseDetailsValue(TeaModel):
 
 class DescribeAlarmEventDetailResponseBodyDataCauseDetails(TeaModel):
     def __init__(self, key=None, value=None):
-        # The key that is used to trace the alert event.
         self.key = key  # type: str
-        # An array consisting of the value that is used to trace the alert event.
         self.value = value  # type: list[DescribeAlarmEventDetailResponseBodyDataCauseDetailsValue]
 
     def validate(self):
@@ -10128,95 +10240,32 @@ class DescribeAlarmEventDetailResponseBodyData(TeaModel):
                  internet_ip=None, intranet_ip=None, k_8s_cluster_id=None, k_8s_cluster_name=None, k_8s_namespace=None,
                  k_8s_node_id=None, k_8s_node_name=None, k_8s_pod_name=None, level=None, solution=None, start_time=None,
                  type=None, uuid=None):
-        # The name of the alert event.
         self.alarm_event_alias_name = alarm_event_alias_name  # type: str
-        # The description of the alert event.
         self.alarm_event_desc = alarm_event_desc  # type: str
-        # The unique ID of the alert event.
-        # 
-        # >  To query the details about an alert event, you must specify the unique ID of the alert event. You can call the [DescribeAlarmEventList](~~DescribeAlarmEventList~~) operation to query the unique IDs of alert events.
         self.alarm_unique_info = alarm_unique_info  # type: str
-        # The name of the container application.
         self.app_name = app_name  # type: str
-        # Indicates whether the online handling of the alert event is supported. Valid values:
-        # 
-        # *   **true**: yes
-        # *   **false**: no
         self.can_be_deal_on_line = can_be_deal_on_line  # type: bool
-        # Indicates whether you can cancel marking the alert event as a false positive. Valid values:
-        # 
-        # *   **true**: yes
-        # *   **false**: no
         self.can_cancel_fault = can_cancel_fault  # type: bool
-        # An array consisting of the cause of the alert event, which can be used to trace the alert event.
         self.cause_details = cause_details  # type: list[DescribeAlarmEventDetailResponseBodyDataCauseDetails]
-        # Indicates whether the Safeguard Mode For Major Activities mode is enabled.
         self.contain_hw_mode = contain_hw_mode  # type: bool
-        # The ID of the container application.
         self.container_id = container_id  # type: str
-        # The ID of the image to which the container belongs.
         self.container_image_id = container_image_id  # type: str
-        # The name of the image to which the container belongs.
         self.container_image_name = container_image_name  # type: str
-        # The data source of the alert event.
         self.data_source = data_source  # type: str
-        # The timestamp when the alert event ends. Unit: milliseconds.
         self.end_time = end_time  # type: long
-        # The name of the instance.
         self.instance_name = instance_name  # type: str
-        # The public IP address of the associated instance.
         self.internet_ip = internet_ip  # type: str
-        # The private IP address of the associated instance.
         self.intranet_ip = intranet_ip  # type: str
-        # The ID of the Kubernetes cluster.
         self.k_8s_cluster_id = k_8s_cluster_id  # type: str
-        # The name of the Kubernetes cluster.
         self.k_8s_cluster_name = k_8s_cluster_name  # type: str
-        # The namespace of the Kubernetes cluster.
         self.k_8s_namespace = k_8s_namespace  # type: str
-        # The ID of the Kubernetes cluster node.
         self.k_8s_node_id = k_8s_node_id  # type: str
-        # The name of the Kubernetes cluster node.
         self.k_8s_node_name = k_8s_node_name  # type: str
-        # The name of the Kubernetes pod.
         self.k_8s_pod_name = k_8s_pod_name  # type: str
-        # The severity of the alert event. Valid values:
-        # 
-        # *   **serious**\
-        # *   **suspicious**\
-        # *   **remind**\
         self.level = level  # type: str
-        # The solution to the alert event.
         self.solution = solution  # type: str
-        # The timestamp when the alert event starts. Unit: milliseconds.
         self.start_time = start_time  # type: long
-        # The alert type of the alert event. Valid values:
-        # 
-        # *   Suspicious process
-        # *   Webshell
-        # *   Unusual logon
-        # *   Exception
-        # *   Sensitive file tampering
-        # *   Malicious process (cloud threat detection)
-        # *   Suspicious network connection
-        # *   Other
-        # *   Abnormal account
-        # *   Application intrusion event
-        # *   Cloud threat detection
-        # *   Precise defense
-        # *   Application whitelist
-        # *   Persistent webshell
-        # *   Web application threat detection
-        # *   Malicious script
-        # *   Threat intelligence
-        # *   Malicious network activity
-        # *   Cluster exception
-        # *   Webshell (on-premises threat detection)
-        # *   Vulnerability exploitation
-        # *   Malicious process (on-premises threat detection)
-        # *   Trusted exception
         self.type = type  # type: str
-        # The instance UUID of the asset.
         self.uuid = uuid  # type: str
 
     def validate(self):
@@ -10353,9 +10402,7 @@ class DescribeAlarmEventDetailResponseBodyData(TeaModel):
 
 class DescribeAlarmEventDetailResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
-        # The details about the alert event.
         self.data = data  # type: DescribeAlarmEventDetailResponseBodyData
-        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -10423,475 +10470,12 @@ class DescribeAlarmEventDetailResponse(TeaModel):
         return self
 
 
-class DescribeAlarmEventListRequest(TeaModel):
-    def __init__(self, alarm_event_name=None, alarm_event_type=None, current_page=None, dealed=None, from_=None,
-                 group_id=None, id=None, lang=None, levels=None, operate_error_code_list=None, operate_time_end=None,
-                 operate_time_start=None, page_size=None, remark=None, sort_column=None, sort_type=None, source_ip=None, tactic_id=None,
-                 time_end=None, time_start=None, unique_info=None, uuids=None):
-        self.alarm_event_name = alarm_event_name  # type: str
-        self.alarm_event_type = alarm_event_type  # type: str
-        self.current_page = current_page  # type: int
-        self.dealed = dealed  # type: str
-        self.from_ = from_  # type: str
-        self.group_id = group_id  # type: str
-        self.id = id  # type: long
-        self.lang = lang  # type: str
-        self.levels = levels  # type: str
-        self.operate_error_code_list = operate_error_code_list  # type: list[str]
-        self.operate_time_end = operate_time_end  # type: str
-        self.operate_time_start = operate_time_start  # type: str
-        self.page_size = page_size  # type: str
-        self.remark = remark  # type: str
-        self.sort_column = sort_column  # type: str
-        self.sort_type = sort_type  # type: str
-        self.source_ip = source_ip  # type: str
-        self.tactic_id = tactic_id  # type: str
-        self.time_end = time_end  # type: str
-        self.time_start = time_start  # type: str
-        self.unique_info = unique_info  # type: str
-        self.uuids = uuids  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DescribeAlarmEventListRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.alarm_event_name is not None:
-            result['AlarmEventName'] = self.alarm_event_name
-        if self.alarm_event_type is not None:
-            result['AlarmEventType'] = self.alarm_event_type
-        if self.current_page is not None:
-            result['CurrentPage'] = self.current_page
-        if self.dealed is not None:
-            result['Dealed'] = self.dealed
-        if self.from_ is not None:
-            result['From'] = self.from_
-        if self.group_id is not None:
-            result['GroupId'] = self.group_id
-        if self.id is not None:
-            result['Id'] = self.id
-        if self.lang is not None:
-            result['Lang'] = self.lang
-        if self.levels is not None:
-            result['Levels'] = self.levels
-        if self.operate_error_code_list is not None:
-            result['OperateErrorCodeList'] = self.operate_error_code_list
-        if self.operate_time_end is not None:
-            result['OperateTimeEnd'] = self.operate_time_end
-        if self.operate_time_start is not None:
-            result['OperateTimeStart'] = self.operate_time_start
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
-        if self.remark is not None:
-            result['Remark'] = self.remark
-        if self.sort_column is not None:
-            result['SortColumn'] = self.sort_column
-        if self.sort_type is not None:
-            result['SortType'] = self.sort_type
-        if self.source_ip is not None:
-            result['SourceIp'] = self.source_ip
-        if self.tactic_id is not None:
-            result['TacticId'] = self.tactic_id
-        if self.time_end is not None:
-            result['TimeEnd'] = self.time_end
-        if self.time_start is not None:
-            result['TimeStart'] = self.time_start
-        if self.unique_info is not None:
-            result['UniqueInfo'] = self.unique_info
-        if self.uuids is not None:
-            result['Uuids'] = self.uuids
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('AlarmEventName') is not None:
-            self.alarm_event_name = m.get('AlarmEventName')
-        if m.get('AlarmEventType') is not None:
-            self.alarm_event_type = m.get('AlarmEventType')
-        if m.get('CurrentPage') is not None:
-            self.current_page = m.get('CurrentPage')
-        if m.get('Dealed') is not None:
-            self.dealed = m.get('Dealed')
-        if m.get('From') is not None:
-            self.from_ = m.get('From')
-        if m.get('GroupId') is not None:
-            self.group_id = m.get('GroupId')
-        if m.get('Id') is not None:
-            self.id = m.get('Id')
-        if m.get('Lang') is not None:
-            self.lang = m.get('Lang')
-        if m.get('Levels') is not None:
-            self.levels = m.get('Levels')
-        if m.get('OperateErrorCodeList') is not None:
-            self.operate_error_code_list = m.get('OperateErrorCodeList')
-        if m.get('OperateTimeEnd') is not None:
-            self.operate_time_end = m.get('OperateTimeEnd')
-        if m.get('OperateTimeStart') is not None:
-            self.operate_time_start = m.get('OperateTimeStart')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
-        if m.get('Remark') is not None:
-            self.remark = m.get('Remark')
-        if m.get('SortColumn') is not None:
-            self.sort_column = m.get('SortColumn')
-        if m.get('SortType') is not None:
-            self.sort_type = m.get('SortType')
-        if m.get('SourceIp') is not None:
-            self.source_ip = m.get('SourceIp')
-        if m.get('TacticId') is not None:
-            self.tactic_id = m.get('TacticId')
-        if m.get('TimeEnd') is not None:
-            self.time_end = m.get('TimeEnd')
-        if m.get('TimeStart') is not None:
-            self.time_start = m.get('TimeStart')
-        if m.get('UniqueInfo') is not None:
-            self.unique_info = m.get('UniqueInfo')
-        if m.get('Uuids') is not None:
-            self.uuids = m.get('Uuids')
-        return self
-
-
-class DescribeAlarmEventListResponseBodyPageInfo(TeaModel):
-    def __init__(self, count=None, current_page=None, page_size=None, total_count=None):
-        self.count = count  # type: int
-        self.current_page = current_page  # type: int
-        self.page_size = page_size  # type: int
-        self.total_count = total_count  # type: int
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DescribeAlarmEventListResponseBodyPageInfo, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.count is not None:
-            result['Count'] = self.count
-        if self.current_page is not None:
-            result['CurrentPage'] = self.current_page
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
-        if self.total_count is not None:
-            result['TotalCount'] = self.total_count
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Count') is not None:
-            self.count = m.get('Count')
-        if m.get('CurrentPage') is not None:
-            self.current_page = m.get('CurrentPage')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
-        if m.get('TotalCount') is not None:
-            self.total_count = m.get('TotalCount')
-        return self
-
-
-class DescribeAlarmEventListResponseBodySuspEventsTacticItems(TeaModel):
-    def __init__(self, tactic_display_name=None, tactic_id=None):
-        self.tactic_display_name = tactic_display_name  # type: str
-        self.tactic_id = tactic_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DescribeAlarmEventListResponseBodySuspEventsTacticItems, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.tactic_display_name is not None:
-            result['TacticDisplayName'] = self.tactic_display_name
-        if self.tactic_id is not None:
-            result['TacticId'] = self.tactic_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('TacticDisplayName') is not None:
-            self.tactic_display_name = m.get('TacticDisplayName')
-        if m.get('TacticId') is not None:
-            self.tactic_id = m.get('TacticId')
-        return self
-
-
-class DescribeAlarmEventListResponseBodySuspEvents(TeaModel):
-    def __init__(self, alarm_event_name=None, alarm_event_name_original=None, alarm_event_type=None,
-                 alarm_unique_info=None, can_be_deal_on_line=None, can_cancel_fault=None, data_source=None, dealed=None,
-                 description=None, end_time=None, gmt_modified=None, has_trace_info=None, instance_id=None, instance_name=None,
-                 internet_ip=None, intranet_ip=None, level=None, operate_error_code=None, operate_time=None, sale_version=None,
-                 security_event_ids=None, solution=None, stages=None, start_time=None, suspicious_event_count=None, tactic_items=None,
-                 uuid=None):
-        self.alarm_event_name = alarm_event_name  # type: str
-        self.alarm_event_name_original = alarm_event_name_original  # type: str
-        self.alarm_event_type = alarm_event_type  # type: str
-        self.alarm_unique_info = alarm_unique_info  # type: str
-        self.can_be_deal_on_line = can_be_deal_on_line  # type: bool
-        self.can_cancel_fault = can_cancel_fault  # type: bool
-        self.data_source = data_source  # type: str
-        self.dealed = dealed  # type: bool
-        self.description = description  # type: str
-        self.end_time = end_time  # type: long
-        self.gmt_modified = gmt_modified  # type: long
-        self.has_trace_info = has_trace_info  # type: bool
-        self.instance_id = instance_id  # type: str
-        self.instance_name = instance_name  # type: str
-        self.internet_ip = internet_ip  # type: str
-        self.intranet_ip = intranet_ip  # type: str
-        self.level = level  # type: str
-        self.operate_error_code = operate_error_code  # type: str
-        self.operate_time = operate_time  # type: long
-        self.sale_version = sale_version  # type: str
-        self.security_event_ids = security_event_ids  # type: str
-        self.solution = solution  # type: str
-        self.stages = stages  # type: str
-        self.start_time = start_time  # type: long
-        self.suspicious_event_count = suspicious_event_count  # type: int
-        self.tactic_items = tactic_items  # type: list[DescribeAlarmEventListResponseBodySuspEventsTacticItems]
-        self.uuid = uuid  # type: str
-
-    def validate(self):
-        if self.tactic_items:
-            for k in self.tactic_items:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super(DescribeAlarmEventListResponseBodySuspEvents, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.alarm_event_name is not None:
-            result['AlarmEventName'] = self.alarm_event_name
-        if self.alarm_event_name_original is not None:
-            result['AlarmEventNameOriginal'] = self.alarm_event_name_original
-        if self.alarm_event_type is not None:
-            result['AlarmEventType'] = self.alarm_event_type
-        if self.alarm_unique_info is not None:
-            result['AlarmUniqueInfo'] = self.alarm_unique_info
-        if self.can_be_deal_on_line is not None:
-            result['CanBeDealOnLine'] = self.can_be_deal_on_line
-        if self.can_cancel_fault is not None:
-            result['CanCancelFault'] = self.can_cancel_fault
-        if self.data_source is not None:
-            result['DataSource'] = self.data_source
-        if self.dealed is not None:
-            result['Dealed'] = self.dealed
-        if self.description is not None:
-            result['Description'] = self.description
-        if self.end_time is not None:
-            result['EndTime'] = self.end_time
-        if self.gmt_modified is not None:
-            result['GmtModified'] = self.gmt_modified
-        if self.has_trace_info is not None:
-            result['HasTraceInfo'] = self.has_trace_info
-        if self.instance_id is not None:
-            result['InstanceId'] = self.instance_id
-        if self.instance_name is not None:
-            result['InstanceName'] = self.instance_name
-        if self.internet_ip is not None:
-            result['InternetIp'] = self.internet_ip
-        if self.intranet_ip is not None:
-            result['IntranetIp'] = self.intranet_ip
-        if self.level is not None:
-            result['Level'] = self.level
-        if self.operate_error_code is not None:
-            result['OperateErrorCode'] = self.operate_error_code
-        if self.operate_time is not None:
-            result['OperateTime'] = self.operate_time
-        if self.sale_version is not None:
-            result['SaleVersion'] = self.sale_version
-        if self.security_event_ids is not None:
-            result['SecurityEventIds'] = self.security_event_ids
-        if self.solution is not None:
-            result['Solution'] = self.solution
-        if self.stages is not None:
-            result['Stages'] = self.stages
-        if self.start_time is not None:
-            result['StartTime'] = self.start_time
-        if self.suspicious_event_count is not None:
-            result['SuspiciousEventCount'] = self.suspicious_event_count
-        result['TacticItems'] = []
-        if self.tactic_items is not None:
-            for k in self.tactic_items:
-                result['TacticItems'].append(k.to_map() if k else None)
-        if self.uuid is not None:
-            result['Uuid'] = self.uuid
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('AlarmEventName') is not None:
-            self.alarm_event_name = m.get('AlarmEventName')
-        if m.get('AlarmEventNameOriginal') is not None:
-            self.alarm_event_name_original = m.get('AlarmEventNameOriginal')
-        if m.get('AlarmEventType') is not None:
-            self.alarm_event_type = m.get('AlarmEventType')
-        if m.get('AlarmUniqueInfo') is not None:
-            self.alarm_unique_info = m.get('AlarmUniqueInfo')
-        if m.get('CanBeDealOnLine') is not None:
-            self.can_be_deal_on_line = m.get('CanBeDealOnLine')
-        if m.get('CanCancelFault') is not None:
-            self.can_cancel_fault = m.get('CanCancelFault')
-        if m.get('DataSource') is not None:
-            self.data_source = m.get('DataSource')
-        if m.get('Dealed') is not None:
-            self.dealed = m.get('Dealed')
-        if m.get('Description') is not None:
-            self.description = m.get('Description')
-        if m.get('EndTime') is not None:
-            self.end_time = m.get('EndTime')
-        if m.get('GmtModified') is not None:
-            self.gmt_modified = m.get('GmtModified')
-        if m.get('HasTraceInfo') is not None:
-            self.has_trace_info = m.get('HasTraceInfo')
-        if m.get('InstanceId') is not None:
-            self.instance_id = m.get('InstanceId')
-        if m.get('InstanceName') is not None:
-            self.instance_name = m.get('InstanceName')
-        if m.get('InternetIp') is not None:
-            self.internet_ip = m.get('InternetIp')
-        if m.get('IntranetIp') is not None:
-            self.intranet_ip = m.get('IntranetIp')
-        if m.get('Level') is not None:
-            self.level = m.get('Level')
-        if m.get('OperateErrorCode') is not None:
-            self.operate_error_code = m.get('OperateErrorCode')
-        if m.get('OperateTime') is not None:
-            self.operate_time = m.get('OperateTime')
-        if m.get('SaleVersion') is not None:
-            self.sale_version = m.get('SaleVersion')
-        if m.get('SecurityEventIds') is not None:
-            self.security_event_ids = m.get('SecurityEventIds')
-        if m.get('Solution') is not None:
-            self.solution = m.get('Solution')
-        if m.get('Stages') is not None:
-            self.stages = m.get('Stages')
-        if m.get('StartTime') is not None:
-            self.start_time = m.get('StartTime')
-        if m.get('SuspiciousEventCount') is not None:
-            self.suspicious_event_count = m.get('SuspiciousEventCount')
-        self.tactic_items = []
-        if m.get('TacticItems') is not None:
-            for k in m.get('TacticItems'):
-                temp_model = DescribeAlarmEventListResponseBodySuspEventsTacticItems()
-                self.tactic_items.append(temp_model.from_map(k))
-        if m.get('Uuid') is not None:
-            self.uuid = m.get('Uuid')
-        return self
-
-
-class DescribeAlarmEventListResponseBody(TeaModel):
-    def __init__(self, page_info=None, request_id=None, susp_events=None):
-        self.page_info = page_info  # type: DescribeAlarmEventListResponseBodyPageInfo
-        self.request_id = request_id  # type: str
-        self.susp_events = susp_events  # type: list[DescribeAlarmEventListResponseBodySuspEvents]
-
-    def validate(self):
-        if self.page_info:
-            self.page_info.validate()
-        if self.susp_events:
-            for k in self.susp_events:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super(DescribeAlarmEventListResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.page_info is not None:
-            result['PageInfo'] = self.page_info.to_map()
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        result['SuspEvents'] = []
-        if self.susp_events is not None:
-            for k in self.susp_events:
-                result['SuspEvents'].append(k.to_map() if k else None)
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('PageInfo') is not None:
-            temp_model = DescribeAlarmEventListResponseBodyPageInfo()
-            self.page_info = temp_model.from_map(m['PageInfo'])
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        self.susp_events = []
-        if m.get('SuspEvents') is not None:
-            for k in m.get('SuspEvents'):
-                temp_model = DescribeAlarmEventListResponseBodySuspEvents()
-                self.susp_events.append(temp_model.from_map(k))
-        return self
-
-
-class DescribeAlarmEventListResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.status_code = status_code  # type: int
-        self.body = body  # type: DescribeAlarmEventListResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(DescribeAlarmEventListResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.status_code is not None:
-            result['statusCode'] = self.status_code
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('statusCode') is not None:
-            self.status_code = m.get('statusCode')
-        if m.get('body') is not None:
-            temp_model = DescribeAlarmEventListResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
 class DescribeAlarmEventStackInfoRequest(TeaModel):
     def __init__(self, event_name=None, lang=None, source_ip=None, unique_info=None, uuid=None):
-        # The name of the event.
-        # 
-        # >  You can call the [DescribeSuspEvents](~~DescribeSuspEvents~~) operation to query the names of events.
         self.event_name = event_name  # type: str
-        # The language of the content within the request and response. Default value: **zh**. Valid values:
-        # 
-        # *   **zh**: Chinese
-        # *   **en**: English
         self.lang = lang  # type: str
-        # The source IP address of the request.
         self.source_ip = source_ip  # type: str
-        # The ID of the alert event.
         self.unique_info = unique_info  # type: str
-        # The UUID of the server to query.
-        # 
-        # >  You can call the [DescribeSuspEvents](~~DescribeSuspEvents~~) operation to query the UUIDs of servers.
         self.uuid = uuid  # type: str
 
     def validate(self):
@@ -10932,9 +10516,7 @@ class DescribeAlarmEventStackInfoRequest(TeaModel):
 
 class DescribeAlarmEventStackInfoResponseBody(TeaModel):
     def __init__(self, request_id=None, stack_info=None):
-        # The ID of the request.
         self.request_id = request_id  # type: str
-        # The stack information of the alert details.
         self.stack_info = stack_info  # type: str
 
     def validate(self):
@@ -11789,7 +11371,13 @@ class DescribeAntiBruteForceRulesResponse(TeaModel):
 
 class DescribeAppVulScanCycleResponseBody(TeaModel):
     def __init__(self, cycle=None, request_id=None):
+        # The scan cycle for application vulnerabilities.
+        # 
+        # *   1week
+        # *   2weeks
+        # *   3days
         self.cycle = cycle  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -12149,12 +11737,7 @@ class DescribeAssetDetailByUuidResponse(TeaModel):
 
 class DescribeAssetDetailByUuidsRequest(TeaModel):
     def __init__(self, lang=None, uuids=None):
-        # The language of the content within the request and response. Default value: **zh**. Valid values:
-        # 
-        # *   **zh**: Chinese
-        # *   **en**: English
         self.lang = lang  # type: str
-        # The UUIDs of the ECS instances. Separate multiple UUIDs with commas (,).
         self.uuids = uuids  # type: str
 
     def validate(self):
@@ -12185,50 +11768,20 @@ class DescribeAssetDetailByUuidsResponseBodyAssetList(TeaModel):
     def __init__(self, asset_type=None, client_status=None, flag=None, instance_id=None, instance_name=None,
                  internet_ip=None, intranet_ip=None, ip=None, os=None, os_name=None, region=None, region_id=None,
                  region_name=None, uuid=None, vpc_instance_id=None):
-        # The type of the asset.
-        # 
-        # The value is fixed as **0**, which indicates ECS instances.
         self.asset_type = asset_type  # type: str
-        # The status of the Security Center agent. Valid values:
-        # 
-        # *   **online**\
-        # *   **offline**\
         self.client_status = client_status  # type: str
-        # The type of the asset by source. Valid values:
-        # 
-        # *   **0**: The asset is provided by Alibaba Cloud.
-        # *   **1**: The asset is not provided by Alibaba Cloud.
-        # *   **2**: The asset resides in a data center.
-        # *   **3**, **4**, **5**, and **7**: other cloud asset.
-        # *   **8**: light-weight assets.
         self.flag = flag  # type: int
-        # The ID of the ECS instance.
         self.instance_id = instance_id  # type: str
-        # The name of the ECS instance.
         self.instance_name = instance_name  # type: str
-        # The public IP address of the ECS instance.
         self.internet_ip = internet_ip  # type: str
-        # The private IP address of the ECS instance.
         self.intranet_ip = intranet_ip  # type: str
-        # The IP address of the ECS instance.
-        # 
-        # >  If the ECS instance has a public IP address, the value of this parameter is the public IP address of the ECS instance. If the ECS instance does not have a public IP address, the value of this parameter is the private IP address of the ECS instance.
         self.ip = ip  # type: str
-        # The operating system of the ECS instance.
         self.os = os  # type: str
-        # The name of the operating system run by the ECS instance.
         self.os_name = os_name  # type: str
-        # The region in which the ECS instance resides.
         self.region = region  # type: str
-        # The region in which the ECS instance resides.
-        # 
-        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
-        # The name of the region in which the ECS instance resides.
         self.region_name = region_name  # type: str
-        # The UUID of the ECS instance.
         self.uuid = uuid  # type: str
-        # The ID of the virtual private cloud (VPC).
         self.vpc_instance_id = vpc_instance_id  # type: str
 
     def validate(self):
@@ -12309,9 +11862,7 @@ class DescribeAssetDetailByUuidsResponseBodyAssetList(TeaModel):
 
 class DescribeAssetDetailByUuidsResponseBody(TeaModel):
     def __init__(self, asset_list=None, request_id=None):
-        # An array that consists of the details of the ECS instances.
         self.asset_list = asset_list  # type: list[DescribeAssetDetailByUuidsResponseBodyAssetList]
-        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -12387,8 +11938,11 @@ class DescribeAssetDetailByUuidsResponse(TeaModel):
 
 class DescribeAssetSummaryResponseBodyAssetsSummary(TeaModel):
     def __init__(self, total_asset_all_region=None, total_core_all_region=None, total_core_num=None):
+        # The total number of protected assets in all regions.
         self.total_asset_all_region = total_asset_all_region  # type: int
+        # The total number of cores of protected assets in all regions.
         self.total_core_all_region = total_core_all_region  # type: int
+        # The total number of cores of protected assets in the current region.
         self.total_core_num = total_core_num  # type: int
 
     def validate(self):
@@ -12421,7 +11975,9 @@ class DescribeAssetSummaryResponseBodyAssetsSummary(TeaModel):
 
 class DescribeAssetSummaryResponseBody(TeaModel):
     def __init__(self, assets_summary=None, request_id=None):
+        # The statistical information about the assets.
         self.assets_summary = assets_summary  # type: DescribeAssetSummaryResponseBodyAssetsSummary
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -12492,10 +12048,36 @@ class DescribeAssetSummaryResponse(TeaModel):
 class DescribeAssetsSecurityEventSummaryRequest(TeaModel):
     def __init__(self, cluster_id=None, container_field_name=None, container_field_value=None,
                  resource_owner_id=None, source_ip=None):
+        # The ID of the cluster to which the container belongs.
+        # 
+        # > You can call the [DescribeGroupedContainerInstances](~~DescribeGroupedContainerInstances~~) operation to query the IDs of clusters.
         self.cluster_id = cluster_id  # type: str
+        # The key of the condition that is used to query on containers. Valid values:
+        # 
+        # *   **instanceId**: the ID of the container instance
+        # *   **clusterId**: the ID of the cluster
+        # *   **regionId**: the region ID of the container
+        # *   **clusterName**: the name of the cluster
+        # *   **image**: the name of the image
+        # *   **imageRepoName**: the name of the image repository
+        # *   **imageRepoNamespace**: the namespace to which the image repository belongs
+        # *   **imageRepoTag**: the tag that is added to the image repository
+        # *   **imageDigest**: the digest of the image
+        # *   **ClusterType**: the type of the cluster
+        # *   **hostIp**: the public IP address
+        # *   **pod**: the pod
+        # *   **podIp**: the IP address of the pod
+        # *   **containerId**: the ID of the container
+        # *   **vulStatus**: whether vulnerabilities are detected on the container
+        # *   **alarmStatus**: whether alerts are generated for the container
+        # *   **riskStatus**: whether risks are detected on the container
+        # *   **riskLevel**: the risk level of the container
+        # *   **containerScope**: the type of the container
         self.container_field_name = container_field_name  # type: str
+        # The value of the condition that is used to query on containers.
         self.container_field_value = container_field_value  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The source IP address of the request.
         self.source_ip = source_ip  # type: str
 
     def validate(self):
@@ -12536,8 +12118,19 @@ class DescribeAssetsSecurityEventSummaryRequest(TeaModel):
 
 class DescribeAssetsSecurityEventSummaryResponseBodyAssets(TeaModel):
     def __init__(self, asset_type=None, risk_count=None, total_count=None):
+        # The type of the asset. Valid values:
+        # 
+        # *   **namespace**: namespace
+        # *   **clusters**: cluster
+        # *   **applications**: application
+        # *   **pods**: container group
+        # *   **containers**: container
+        # *   **images**: image
+        # *   **hosts**: node
         self.asset_type = asset_type  # type: str
+        # The number of assets that are at risk.
         self.risk_count = risk_count  # type: long
+        # The total number of assets.
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -12570,7 +12163,9 @@ class DescribeAssetsSecurityEventSummaryResponseBodyAssets(TeaModel):
 
 class DescribeAssetsSecurityEventSummaryResponseBody(TeaModel):
     def __init__(self, assets=None, request_id=None):
+        # An array that consists of risk information about containers.
         self.assets = assets  # type: list[DescribeAssetsSecurityEventSummaryResponseBodyAssets]
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -12789,9 +12384,7 @@ class DescribeAttackAnalysisDataResponse(TeaModel):
 
 class DescribeAutoDelConfigResponseBody(TeaModel):
     def __init__(self, days=None, request_id=None):
-        # The number of days during which a detected vulnerability is retained before the vulnerability is automatically deleted.
         self.days = days  # type: int
-        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -12859,9 +12452,18 @@ class DescribeAutoDelConfigResponse(TeaModel):
 
 class DescribeBackUpExportInfoRequest(TeaModel):
     def __init__(self, current_page=None, export_type=None, lang=None, page_size=None):
+        # The number of the page to return.
         self.current_page = current_page  # type: int
+        # The type of archived information. Valid values:
+        # 
+        # *   **suspiciousExport**: alert event
         self.export_type = export_type  # type: str
+        # The language of the content within the request and response. Valid values:
+        # 
+        # *   **zh**: Chinese
+        # *   **en**: English
         self.lang = lang  # type: str
+        # The number of entries to return on each page. Default value: 20.
         self.page_size = page_size  # type: int
 
     def validate(self):
@@ -12899,14 +12501,27 @@ class DescribeBackUpExportInfoRequest(TeaModel):
 class DescribeBackUpExportInfoResponseBodyData(TeaModel):
     def __init__(self, current_count=None, file_name=None, gmt_create=None, id=None, link=None, message=None,
                  progress=None, status=None, total_count=None):
+        # The number of exported entries.
         self.current_count = current_count  # type: int
+        # The name of the file.
         self.file_name = file_name  # type: str
+        # The time when the export task was created.
         self.gmt_create = gmt_create  # type: long
+        # The ID of the export task.
         self.id = id  # type: long
+        # The URL at which you can download the archived information.
         self.link = link  # type: str
+        # The error message that is returned when the export task fails.
         self.message = message  # type: str
+        # The progress percentage of the export task.
         self.progress = progress  # type: int
+        # The status of the export task. Valid values:
+        # 
+        # *   **init**: The task is being initialized.
+        # *   **exporting**: The task is in progress.
+        # *   **success**: The task is complete.
         self.status = status  # type: str
+        # The total number of entries in the file.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -12963,9 +12578,13 @@ class DescribeBackUpExportInfoResponseBodyData(TeaModel):
 
 class DescribeBackUpExportInfoResponseBodyPageInfo(TeaModel):
     def __init__(self, count=None, current_page=None, page_size=None, total_count=None):
+        # The number of entries returned on the current page.
         self.count = count  # type: int
+        # The page number of the returned page.
         self.current_page = current_page  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -13002,8 +12621,11 @@ class DescribeBackUpExportInfoResponseBodyPageInfo(TeaModel):
 
 class DescribeBackUpExportInfoResponseBody(TeaModel):
     def __init__(self, data=None, page_info=None, request_id=None):
+        # The data returned.
         self.data = data  # type: list[DescribeBackUpExportInfoResponseBodyData]
+        # The pagination information.
         self.page_info = page_info  # type: DescribeBackUpExportInfoResponseBodyPageInfo
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -13086,6 +12708,8 @@ class DescribeBackUpExportInfoResponse(TeaModel):
 
 class DescribeBackupClientsRequest(TeaModel):
     def __init__(self, support_region_id=None):
+        # The region in which the anti-ransomware feature is supported.
+        # > You can call the [DescribeSupportRegion](~~DescribeSupportRegion~~) operation to query the regions in which the anti-ransomware feature is supported.
         self.support_region_id = support_region_id  # type: str
 
     def validate(self):
@@ -13110,10 +12734,24 @@ class DescribeBackupClientsRequest(TeaModel):
 
 class DescribeBackupClientsResponseBodyClients(TeaModel):
     def __init__(self, client_id=None, client_status=None, client_version=None, instance_id=None, uuid=None):
+        # The ID of the anti-ransomware agent.
         self.client_id = client_id  # type: str
+        # The status of the anti-ransomware agent.
+        # 
+        # Valid values:
+        # 
+        # *   **INSTALLING**: The agent is being installed.
+        # *   **ONLINE**: The agent is online.
+        # *   **UNINSTALLING**: The agent is being uninstalled.
+        # *   **NOT_INSTALLED**: The agent is not installed.
+        # *   **ACTIVATED**: The agent is enabled.
+        # *   **CLIENT\_CONNECTION_ERROR**: A connection error occurs on the agent.
         self.client_status = client_status  # type: str
+        # The version of the anti-ransomware agent.
         self.client_version = client_version  # type: str
+        # The ID of the ECS instance on which the anti-ransomware agent is installed.
         self.instance_id = instance_id  # type: str
+        # The UUID of the Elastic Compute Service (ECS) instance on which the anti-ransomware agent is installed.
         self.uuid = uuid  # type: str
 
     def validate(self):
@@ -13154,7 +12792,9 @@ class DescribeBackupClientsResponseBodyClients(TeaModel):
 
 class DescribeBackupClientsResponseBody(TeaModel):
     def __init__(self, clients=None, request_id=None):
+        # An array that consists of the information about the anti-ransomware agent.
         self.clients = clients  # type: list[DescribeBackupClientsResponseBodyClients]
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -13688,10 +13328,19 @@ class DescribeBackupMachineStatusResponse(TeaModel):
 
 class DescribeBackupPoliciesRequest(TeaModel):
     def __init__(self, current_page=None, machine_remark=None, name=None, page_size=None, status=None):
+        # The number of the page to return. Default value: 1.
         self.current_page = current_page  # type: int
+        # The information that you want to use to identify the servers protected by the anti-ransomware policy. You can enter the IP address or ID of a server.
         self.machine_remark = machine_remark  # type: str
+        # The name of the anti-ransomware policy that you want to query.
         self.name = name  # type: str
+        # The number of entries to return on each page. Default value: 10.
         self.page_size = page_size  # type: int
+        # The status of the anti-ransomware policy. Valid values:
+        # 
+        # *   **enabled**: The anti-ransomware policy is manually enabled.
+        # *   **disabled**: The anti-ransomware policy is manually disabled. After an anti-ransomware policy is disabled, the data backup task that is running based on the policy stops.
+        # *   **closed**: The anti-ransomware policy automatically stops because the anti-ransomware capacity is insufficient.
         self.status = status  # type: str
 
     def validate(self):
@@ -13732,9 +13381,13 @@ class DescribeBackupPoliciesRequest(TeaModel):
 
 class DescribeBackupPoliciesResponseBodyPageInfo(TeaModel):
     def __init__(self, count=None, current_page=None, page_size=None, total_count=None):
+        # The number of entries returned on the current page.
         self.count = count  # type: int
+        # The page number of the returned page.
         self.current_page = current_page  # type: int
+        # The number of entries returned per page. Default value: 10.
         self.page_size = page_size  # type: int
+        # The total number of anti-ransomware policies returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -13774,22 +13427,87 @@ class DescribeBackupPoliciesResponseBodyPolicies(TeaModel):
                  health_client_count=None, health_client_uuid_list=None, id=None, name=None, policy=None, policy_region_id=None,
                  policy_version=None, remarked_uuid_list=None, server_type=None, service_error_count=None,
                  service_error_uuid_list=None, status=None, upgrade_status=None, uuid_list=None):
+        # The number of the servers on which the anti-ransomware agent is in an abnormal state.
         self.client_error_count = client_error_count  # type: int
+        # The UUIDs of the servers on which the anti-ransomware agent is in an **abnormal** state.
         self.client_error_uuid_list = client_error_uuid_list  # type: list[str]
+        # The status of the anti-ransomware agent. Valid values:
+        # 
+        # *   **running**: normal
+        # *   **exception**: abnormal
         self.client_status = client_status  # type: str
+        # The number of the servers on which the anti-ransomware agent is in a normal state.
         self.health_client_count = health_client_count  # type: int
+        # The UUIDs of the servers on which the anti-ransomware agent is in a **normal** state.
         self.health_client_uuid_list = health_client_uuid_list  # type: list[str]
+        # The ID of the anti-ransomware policy.
         self.id = id  # type: long
+        # The name of the anti-ransomware policy.
         self.name = name  # type: str
+        # The configurations of the anti-ransomware policy. The value of this parameter is in the JSON format and contains the following fields:
+        # 
+        # *   **IsDefault**: the type of the anti-ransomware policy. Valid values:
+        # 
+        #     *   **1**: recommended policy
+        #     *   **0**: custom policy
+        # 
+        # *   **Include**: the format of the files that are protected. If the value of this field is \[], all formats of files are protected.
+        # 
+        # *   **Source**: the directory that is protected. If the value of this field is \[], all directories are protected.
+        # 
+        # *   **ExcludeSystemPath**: indicates whether a specified directory is excluded from the anti-ransomware policy. If the value of this field is **true**, the directory is excluded. If this field is left empty, no directories are excluded.
+        # 
+        # *   **Exclude**: the directory that is excluded from the anti-ransomware policy. If no directory is specified, the value of this field is \[].
+        # 
+        # *   **Schedule**: the start time and interval of a data backup task. A start time that begins during off-peak hours but does not start on the hour is recommended. Examples:
+        # 
+        #     *   If the value of this field is I|1583216092|P21D, the data backup task starts from 2020-03-03 14:14:52, and the task is run at an interval of three weeks.
+        #     *   If the value of this field is I|1583216092|PT24H, the data backup task starts from 2020-03-03 14:14:52, and the task is run at an interval of 24 hours.
+        # 
+        # *   **Retention**: the period during which backup data is retained. Unit: days. If the value of this field is 7, backup data is retained for a week. If the value of this field is 365, backup data is retained for a year. If the value of this field is -1, backup data is permanently retained.
+        # 
+        # *   **SpeedLimiter**: the limit on the network bandwidth for data backup tasks. If the value of this field is 0:24:30720, the maximum bandwidth for a data backup task is 30 MB/s from 00:00 to 24:00.
+        # 
+        # *   **UseVss**: indicates whether the VSS feature is enabled. The feature is available only for Windows servers. Valid values:
+        # 
+        #     *   **true**: yes
+        #     *   **false**: no
+        # 
+        # >  The VSS feature is available only if you create the anti-ransomware policy for Windows servers. After you enable the feature, the number of backup failures due to running processes is significantly reduced. We recommend that you enable the VSS feature. After you enable the feature, the data of disks that are in the exFAT and FAT32 formats cannot be backed up.
         self.policy = policy  # type: str
+        # The ID of the region that you specified for data backup when you installed the anti-ransomware agent for the server not deployed on Alibaba Cloud.
         self.policy_region_id = policy_region_id  # type: str
+        # The version of the anti-ransomware policy. Valid values:
+        # 
+        # *   1.0.0
+        # *   2.0.0
         self.policy_version = policy_version  # type: str
+        # The UUIDs that are returned based on the value of the MachineRemark request parameter.
         self.remarked_uuid_list = remarked_uuid_list  # type: list[str]
+        # The type of the server. Valid values:
+        # 
+        # *   **OUT_CLOUD**: server not deployed on Alibaba Cloud
+        # *   **ALIYUN**: Elastic Compute Service (ECS) instance
+        # *   **TRIPARTITE**: simple application server
         self.server_type = server_type  # type: str
+        # The number of servers on which data backup is exceptional.
         self.service_error_count = service_error_count  # type: int
+        # The UUIDs of the servers on which data backup is exceptional.
         self.service_error_uuid_list = service_error_uuid_list  # type: list[str]
+        # The status of the anti-ransomware policy. Valid values:
+        # 
+        # *   **enabled**: The anti-ransomware policy is manually enabled.
+        # *   **disabled**: The anti-ransomware policy is manually disabled. After an anti-ransomware policy is disabled, the data backup task that is running based on the policy stops.
+        # *   **closed**: The anti-ransomware policy automatically stops because the anti-ransomware capacity is insufficient.
         self.status = status  # type: str
+        # The upgrade status of the anti-ransomware policy. Valid values:
+        # 
+        # *   **NotUpgraded**\
+        # *   **Upgrading**\
+        # *   **UpgradeFailed**\
+        # *   **UpgradeSuccess**\
         self.upgrade_status = upgrade_status  # type: str
+        # The UUIDs of the servers to which the anti-ransomware policy is applied.
         self.uuid_list = uuid_list  # type: list[str]
 
     def validate(self):
@@ -13878,8 +13596,11 @@ class DescribeBackupPoliciesResponseBodyPolicies(TeaModel):
 
 class DescribeBackupPoliciesResponseBody(TeaModel):
     def __init__(self, page_info=None, policies=None, request_id=None):
+        # The pagination information.
         self.page_info = page_info  # type: DescribeBackupPoliciesResponseBodyPageInfo
+        # An array that consists of the anti-ransomware policies returned.
         self.policies = policies  # type: list[DescribeBackupPoliciesResponseBodyPolicies]
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -14215,7 +13936,7 @@ class DescribeBackupRestoreCountResponse(TeaModel):
 
 class DescribeBruteForceRecordsRequest(TeaModel):
     def __init__(self, block_ip=None, current_page=None, page_size=None, resource_owner_id=None, status=None):
-        # The IP address that is blocked by the defense rule.
+        # The IP address that is blocked.
         self.block_ip = block_ip  # type: str
         # The number of the page to return.
         self.current_page = current_page  # type: int
@@ -14270,11 +13991,11 @@ class DescribeBruteForceRecordsResponseBodyMachineList(TeaModel):
                  internet_ip=None, intranet_ip=None, port=None, rule_name=None, source=None, status=None, uuid=None):
         # The timestamp when the block action on the IP address becomes invalid.
         self.block_expire_date = block_expire_date  # type: long
-        # The IP address that is blocked.
+        # The blocked IP address.
         self.block_ip = block_ip  # type: str
-        # The error code returned when the defense rule fails to block an IP address.
+        # The error code returned when the defense rule fails to block the IP address.
         self.error_code = error_code  # type: str
-        # The primary key ID of the database.
+        # The ID of the primary key in the table of records on the blocked IP address.
         self.id = id  # type: long
         # The name of the server.
         self.instance_name = instance_name  # type: str
@@ -14624,7 +14345,6 @@ class DescribeBruteForceSummaryResponse(TeaModel):
 
 class DescribeCheckEcsWarningsRequest(TeaModel):
     def __init__(self, source_ip=None):
-        # The source IP address of the request.
         self.source_ip = source_ip  # type: str
 
     def validate(self):
@@ -14649,23 +14369,9 @@ class DescribeCheckEcsWarningsRequest(TeaModel):
 
 class DescribeCheckEcsWarningsResponseBody(TeaModel):
     def __init__(self, can_try=None, request_id=None, sas_version=None, weak_password_count=None):
-        # Indicates whether you use the free trial of Security Center. Valid values:
-        # 
-        # *   **0**: no
-        # *   **1**: yes
         self.can_try = can_try  # type: str
-        # The ID of the request.
         self.request_id = request_id  # type: str
-        # The edition of Security Center that you use. Valid values:
-        # 
-        # *   **1**: Basic edition
-        # *   **2** or **3**: Enterprise edition
-        # *   **5**: Advanced edition
-        # *   **6**: Anti-virus edition
-        # 
-        # >  Both the value 2 and the value 3 indicate the Enterprise edition.
         self.sas_version = sas_version  # type: str
-        # The number of weak passwords that can cause high risks to your assets.
         self.weak_password_count = weak_password_count  # type: str
 
     def validate(self):
@@ -15076,16 +14782,8 @@ class DescribeCheckFixDetailsResponse(TeaModel):
 
 class DescribeCheckWarningDetailRequest(TeaModel):
     def __init__(self, check_warning_id=None, lang=None, source_ip=None):
-        # The ID of the alert that is triggered by the check item.
-        # 
-        # >  To query the details about a specified check item, you must provide the ID of the alert that is triggered by the check item. You can call the [DescribeCheckWarnings](~~DescribeCheckWarnings~~) operation to query the IDs of alerts.
         self.check_warning_id = check_warning_id  # type: long
-        # The language of the content within the request and the response. Valid values:
-        # 
-        # *   **zh**: Chinese
-        # *   **en**: English
         self.lang = lang  # type: str
-        # The source IP address of the request.
         self.source_ip = source_ip  # type: str
 
     def validate(self):
@@ -15119,25 +14817,13 @@ class DescribeCheckWarningDetailRequest(TeaModel):
 class DescribeCheckWarningDetailResponseBody(TeaModel):
     def __init__(self, advice=None, check_id=None, description=None, item=None, level=None, prompt=None,
                  request_id=None, type=None):
-        # The suggestion for the management of the risk item.
         self.advice = advice  # type: str
-        # The ID of the check item.
         self.check_id = check_id  # type: long
-        # The additional information about the risk item.
         self.description = description  # type: str
-        # The name of the check item.
         self.item = item  # type: str
-        # The risk level of the check item. Valid values:
-        # 
-        # *   **high**: The item is a high-risk item and is highlighted in red.
-        # *   **medium**: The item is a medium-risk item and is highlighted in orange.
-        # *   **low**: The item is a low-risk item and is highlighted in gray.
         self.level = level  # type: str
-        # The prompt for the risk item.
         self.prompt = prompt  # type: str
-        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
-        # The type of the check item. Valid values:
         self.type = type  # type: str
 
     def validate(self):
@@ -15229,26 +14915,9 @@ class DescribeCheckWarningDetailResponse(TeaModel):
 
 class DescribeCheckWarningMachinesRequest(TeaModel):
     def __init__(self, check_id=None, lang=None, risk_id=None, status=None):
-        # The ID of the check item.
-        # 
-        # > You can call the [DescribeCheckWarningSummary](~~116179~~) operation to query the IDs of check items.
         self.check_id = check_id  # type: long
-        # The language of the content within the request and response. Default value: **zh**. Valid values:
-        # 
-        # *   **zh**: Chinese
-        # *   **en**: English
         self.lang = lang  # type: str
-        # The ID of the baseline.
-        # 
-        # > You can call the [DescribeCheckWarningSummary](~~116179~~) operation to query the IDs of baselines.
         self.risk_id = risk_id  # type: long
-        # The status of the check item.
-        # 
-        # > This parameter indicates the status of the check item. Valid values:
-        # 
-        # *   1: failed
-        # 
-        # *   3: passed
         self.status = status  # type: int
 
     def validate(self):
@@ -15286,22 +14955,12 @@ class DescribeCheckWarningMachinesRequest(TeaModel):
 class DescribeCheckWarningMachinesResponseBodyMachines(TeaModel):
     def __init__(self, bind=None, instance_id=None, instance_name=None, internet_ip=None, intranet_ip=None,
                  region_id=None, uuid=None):
-        # Indicates whether Security Center is authorized to protect the asset. Valid values:
-        # 
-        # *   **true**: yes
-        # *   **false**: no
         self.bind = bind  # type: bool
-        # The ID of the server.
         self.instance_id = instance_id  # type: str
-        # The name of the server.
         self.instance_name = instance_name  # type: str
-        # The public IP address of the server.
         self.internet_ip = internet_ip  # type: str
-        # The private IP address of the server.
         self.intranet_ip = intranet_ip  # type: str
-        # The ID of the region in which the server resides.
         self.region_id = region_id  # type: str
-        # The UUID of the server.
         self.uuid = uuid  # type: str
 
     def validate(self):
@@ -15350,11 +15009,8 @@ class DescribeCheckWarningMachinesResponseBodyMachines(TeaModel):
 
 class DescribeCheckWarningMachinesResponseBody(TeaModel):
     def __init__(self, count=None, machines=None, request_id=None):
-        # The number of the servers.
         self.count = count  # type: int
-        # An array consisting of the servers on which the same risk item is detected.
         self.machines = machines  # type: list[DescribeCheckWarningMachinesResponseBodyMachines]
-        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -16666,17 +16322,8 @@ class DescribeCloudCenterInstancesResponse(TeaModel):
 
 class DescribeCloudProductFieldStatisticsResponseBodyGroupedFields(TeaModel):
     def __init__(self, category_count=None, instance_count=None, risk_instance_count=None):
-        # The statistics of the numbers of assets of different types. **MachineType** indicates the type of the assets. **Count** indicates the number of assets that belong to the type.
-        # Valid values of **MachineType**:
-        # 
-        # *   **1**: a Server Load Balancer (SLB) instance
-        # *   **2**: a Network Address Translation (NAT) gateway
-        # *   **3**: an ApsaraDB RDS instance
-        # *   **4**: an ApsaraDB for MongoDB instance
         self.category_count = category_count  # type: str
-        # The total number of cloud services that are protected by Security Center.
         self.instance_count = instance_count  # type: int
-        # The number of cloud services that are at risk.
         self.risk_instance_count = risk_instance_count  # type: int
 
     def validate(self):
@@ -16709,9 +16356,7 @@ class DescribeCloudProductFieldStatisticsResponseBodyGroupedFields(TeaModel):
 
 class DescribeCloudProductFieldStatisticsResponseBody(TeaModel):
     def __init__(self, grouped_fields=None, request_id=None):
-        # The statistics of cloud services.
         self.grouped_fields = grouped_fields  # type: DescribeCloudProductFieldStatisticsResponseBodyGroupedFields
-        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -16781,18 +16426,8 @@ class DescribeCloudProductFieldStatisticsResponse(TeaModel):
 
 class DescribeClusterBasicInfoRequest(TeaModel):
     def __init__(self, cluster_id=None, target_type=None, type=None):
-        # The ID of the cluster that you want to query.
-        # 
-        # > You can call the [DescribeGroupedContainerInstances](~~DescribeGroupedContainerInstances~~) operation to query the IDs of clusters.
         self.cluster_id = cluster_id  # type: str
-        # The dimension from which you want to configure the feature. Valid values:
-        # 
-        # *   **Cluster**: the ID of the cluster
         self.target_type = target_type  # type: str
-        # The type of the feature. Valid values:
-        # 
-        # *   **containerNetwork**: container network topology
-        # *   **interceptionSwitch**: cluster microsegmentation
         self.type = type  # type: str
 
     def validate(self):
@@ -16826,37 +16461,14 @@ class DescribeClusterBasicInfoRequest(TeaModel):
 class DescribeClusterBasicInfoResponseBodyClusterInfo(TeaModel):
     def __init__(self, cluster_id=None, cluster_name=None, cluster_type=None, create_time=None,
                  current_version=None, instance_count=None, region_id=None, state=None, target_result=None):
-        # The ID of cluster.
         self.cluster_id = cluster_id  # type: str
-        # The name of the cluster.
         self.cluster_name = cluster_name  # type: str
-        # The type of the cluster. Valid values:
-        # 
-        # *   **ManagedKubernetes**: managed Kubernetes cluster
-        # *   **NotManagedKubernetes**: non-managed Kubernetes cluster
-        # *   **PrivateKubernetes**: private cluster
-        # *   **kubernetes**: dedicated Kubernetes cluster
-        # *   **ask**: dedicated ASK cluster
         self.cluster_type = cluster_type  # type: str
-        # The timestamp when the cluster was created. Unit: milliseconds.
         self.create_time = create_time  # type: long
-        # The version of the cluster.
         self.current_version = current_version  # type: str
-        # The number of instances in the cluster.
         self.instance_count = instance_count  # type: int
-        # The ID of the region in which the cluster is deployed.
         self.region_id = region_id  # type: str
-        # The status of the cluster. Valid values:
-        # 
-        # *   **unavailable**\
-        # *   **Available**\
-        # *   **Creating**\
-        # *   **CreateFailed**\
         self.state = state  # type: str
-        # Indicates whether the cluster is enabled. Valid values:
-        # 
-        # *   **true**: The cluster is enabled.
-        # *   **false**: The cluster is disabled.
         self.target_result = target_result  # type: bool
 
     def validate(self):
@@ -16913,9 +16525,7 @@ class DescribeClusterBasicInfoResponseBodyClusterInfo(TeaModel):
 
 class DescribeClusterBasicInfoResponseBody(TeaModel):
     def __init__(self, cluster_info=None, request_id=None):
-        # The detailed information about the cluster.
         self.cluster_info = cluster_info  # type: DescribeClusterBasicInfoResponseBodyClusterInfo
-        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -17837,80 +17447,7 @@ class DescribeCommonOverallConfigResponse(TeaModel):
 
 class DescribeCommonOverallConfigListRequest(TeaModel):
     def __init__(self, source_ip=None, type_list=None):
-        # The source IP address of the request.
         self.source_ip = source_ip  # type: str
-        # The type of the feature in proactive defense. Valid values:
-        # 
-        # *   **kdump_switch**: Active defense experience optimization
-        # *   **threat_detect**: Dynamic adaptive threat detection capability
-        # *   **suspicious_aggregation**: Alert Association
-        # *   **alidetect**: File Test
-        # *   **USER-ENABLE-SWITCH-TYPE\_38857**: Entrance service execution high-risk operation (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_50858**: Web service performs high-risk operations (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_50859**: Entrance service execution suspicious operation (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_50862**: Cloud Assistant Advanced Protection (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_50867**: Create malicious files (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_50868**: Create suspicious files (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_64025**: Ingress service execute command \[enhanced mode] (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_51229**: Browser service execution a high-risk operation (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_51230**: Entrance service execution suspicious operation (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_51232**: System processes execution high-risk operations (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_51233**: Java service execution high-risk operations (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_51234**: Office components execution high-risk operations (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_51235**: Web service performs high-risk operations (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_52820**: Create malicious files (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_52826**: Entrance service execution high-risk operation (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_55251**: Database services execution high-risk operations (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_63725**: Ingress service implants suspicious script/binary file (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_3277**: Suspicious process startup (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_50983**: obfuscated command (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_51200**: Command line download and run malicious files (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_71131**: Ingress service executes sequence of suspicious behavior (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_51225**: Powershell executes high-risk commands (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_51226**: Powershell execute suspicious command (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_52821**: Suspicious process startup (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_57242**: Malicious command execution (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_57340**: Command line download and run malicious files (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_39659**: Sensitive Registry Key Protection (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_52816**: high-risk account manipulation behavior (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_54365**: Create service autorun item (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_54366**: Create high-risk autorun item (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_54367**: Create scheduled task autorun item (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_54368**: Create registry autorun item (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_54369**: Create WMI autorun item (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_50869**: Unauthorized execution of high-risk orders (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_53272**: Exploiting Kernel Vulnerabilities to Elevate Privileges (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_54395**: Unauthorized reading and writing of sensitive files (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_57897**: suspected privilege escalation (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_52825**: Unauthorized execution of high-risk orders (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_5507**: malicious drivers (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_50876**: Against security software (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_53168**: process debugging (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_54699**: Hijack dynamic link library (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_62981**: Bypassing security monitoring (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_52815**: Load high-risk drivers (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_52823**: Running high-risk ARK tools (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_54373**: Against security software (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_54374**: Intrusion trace cleanup (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_54265**: Hijacking the PAM Module (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_54953**: Hashdump Attack (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_54383**: MimiKatz Credential Stealing (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_54384**: Hashdump Attack (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_50861**: Information detection (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_52818**: Information detection (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_54034**: Intranet scan (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_51228**: High-risk lateral penetration tools (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_50870**: Rebound Shell (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_50873**: WebShell execute command
-        # *   **USER-ENABLE-SWITCH-TYPE\_51236**: Rebound Shell (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_50877**: Malicious soft communication (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_50884**: Suspicious worm script behavior (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_50885**: malicious script behavior (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_51201**: ransomware (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_51202**: Suspected Extortion (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_52827**: ransomware (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_52828**: Suspected Extortion (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_52829**: delete system backup behavior (Windows)
         self.type_list = type_list  # type: list[str]
 
     def validate(self):
@@ -17939,85 +17476,8 @@ class DescribeCommonOverallConfigListRequest(TeaModel):
 
 class DescribeCommonOverallConfigListResponseBodyOverallList(TeaModel):
     def __init__(self, config=None, total_count=None, type=None):
-        # The status of the feature. Valid values:
-        # 
-        # *   **off**: disabled
-        # *   **on**: enabled
         self.config = config  # type: str
-        # The total number of entries returned.
         self.total_count = total_count  # type: int
-        # The type of the feature in proactive defense. Valid values:
-        # 
-        # *   **kdump_switch**: Active defense experience optimization
-        # *   **threat_detect**: Dynamic adaptive threat detection capability
-        # *   **suspicious_aggregation**: Alert Association
-        # *   **alidetect**: File Test
-        # *   **USER-ENABLE-SWITCH-TYPE\_38857**: Entrance service execution high-risk operation (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_50858**: Web service performs high-risk operations (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_50859**: Entrance service execution suspicious operation (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_50862**: Cloud Assistant Advanced Protection (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_50867**: Create malicious files (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_50868**: Create suspicious files (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_64025**: Ingress service execute command \[enhanced mode] (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_51229**: Browser service execution a high-risk operation (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_51230**: Entrance service execution suspicious operation (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_51232**: System processes execution high-risk operations (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_51233**: Java service execution high-risk operations (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_51234**: Office components execution high-risk operations (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_51235**: Web service performs high-risk operations (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_52820**: Create malicious files (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_52826**: Entrance service execution high-risk operation (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_55251**: Database services execution high-risk operations (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_63725**: Ingress service implants suspicious script/binary file (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_3277**: Suspicious process startup (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_50983**: obfuscated command (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_51200**: Command line download and run malicious files (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_71131**: Ingress service executes sequence of suspicious behavior (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_51225**: Powershell executes high-risk commands (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_51226**: Powershell execute suspicious command (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_52821**: Suspicious process startup (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_57242**: Malicious command execution (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_57340**: Command line download and run malicious files (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_39659**: Sensitive Registry Key Protection (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_52816**: high-risk account manipulation behavior (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_54365**: Create service autorun item (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_54366**: Create high-risk autorun item (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_54367**: Create scheduled task autorun item (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_54368**: Create registry autorun item (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_54369**: Create WMI autorun item (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_50869**: Unauthorized execution of high-risk orders (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_53272**: Exploiting Kernel Vulnerabilities to Elevate Privileges (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_54395**: Unauthorized reading and writing of sensitive files (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_57897**: suspected privilege escalation (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_52825**: Unauthorized execution of high-risk orders (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_5507**: malicious drivers (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_50876**: Against security software (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_53168**: process debugging (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_54699**: Hijack dynamic link library (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_62981**: Bypassing security monitoring (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_52815**: Load high-risk drivers (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_52823**: Running high-risk ARK tools (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_54373**: Against security software (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_54374**: Intrusion trace cleanup (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_54265**: Hijacking the PAM Module (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_54953**: Hashdump Attack (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_54383**: MimiKatz Credential Stealing (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_54384**: Hashdump Attack (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_50861**: Information detection (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_52818**: Information detection (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_54034**: Intranet scan (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_51228**: High-risk lateral penetration tools (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_50870**: Rebound Shell (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_50873**: WebShell execute command
-        # *   **USER-ENABLE-SWITCH-TYPE\_51236**: Rebound Shell (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_50877**: Malicious soft communication (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_50884**: Suspicious worm script behavior (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_50885**: malicious script behavior (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_51201**: ransomware (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_51202**: Suspected Extortion (Linux)
-        # *   **USER-ENABLE-SWITCH-TYPE\_52827**: ransomware (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_52828**: Suspected Extortion (Windows)
-        # *   **USER-ENABLE-SWITCH-TYPE\_52829**: delete system backup behavior (Windows)
         self.type = type  # type: str
 
     def validate(self):
@@ -18050,9 +17510,7 @@ class DescribeCommonOverallConfigListResponseBodyOverallList(TeaModel):
 
 class DescribeCommonOverallConfigListResponseBody(TeaModel):
     def __init__(self, overall_list=None, request_id=None):
-        # An array that consists of the configurations of features.
         self.overall_list = overall_list  # type: list[DescribeCommonOverallConfigListResponseBodyOverallList]
-        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -18642,9 +18100,29 @@ class DescribeContainerCriteriaResponse(TeaModel):
 
 class DescribeContainerInstancesRequest(TeaModel):
     def __init__(self, criteria=None, current_page=None, logical_exp=None, page_size=None):
+        # The search conditions that are used to filter containers. The value of this parameter is in the JSON format and is case-sensitive. The value contains the following fields:
+        # 
+        # *   **name**: the search condition.
+        # 
+        # *   **name**: the value of the search condition.
+        # 
+        # *   **logicalExp**: the logical relationship among multiple search conditions. Valid values:
+        # 
+        #     *   **OR**: Search conditions are evaluated by using a logical **OR**.
+        #     *   **AND**: Search conditions are evaluated by using a logical **AND**.
+        # 
+        # > You can use search conditions such as the container ID, cluster ID, cluster name, cluster type, risk level, and region. You can call the [DescribeContainerCriteria](~~DescribeContainerCriteria~~) operation to query the supported search conditions.
         self.criteria = criteria  # type: str
+        # The number of the page to return. Default value: **1**.
         self.current_page = current_page  # type: int
+        # The logical operator that you want to use to evaluate multiple search conditions. Valid values:
+        # 
+        # *   **OR**: Search conditions are evaluated by using a logical **OR**.
+        # *   **AND**: Search conditions are evaluated by using a logical **AND**.
         self.logical_exp = logical_exp  # type: str
+        # The number of entries to return on each page. Default value: 20. If you leave this parameter empty, 20 entries are returned on each page.
+        # 
+        # > We recommend that you do not leave this parameter empty.
         self.page_size = page_size  # type: int
 
     def validate(self):
@@ -18685,34 +18163,75 @@ class DescribeContainerInstancesResponseBodyContainerInstanceList(TeaModel):
                  image_digest=None, image_id=None, image_repo_name=None, image_repo_namespace=None, image_repo_tag=None,
                  image_uuid=None, instance_id=None, namespace=None, node_info=None, node_name=None, pod=None, pod_ip=None,
                  region_id=None, risk_count=None, risk_status=None, update_mark=None, vul_count=None, vul_status=None):
+        # The number of alerts.
         self.alarm_count = alarm_count  # type: int
+        # Indicates whether alerts are generated for the container. Valid values:
+        # 
+        # *   **YES**\
+        # *   **NO**\
         self.alarm_status = alarm_status  # type: str
+        # The name of the application.
         self.app_name = app_name  # type: str
+        # The ID of cluster.
         self.cluster_id = cluster_id  # type: str
+        # The name of the cluster.
         self.cluster_name = cluster_name  # type: str
+        # The ID of the container.
         self.container_id = container_id  # type: str
+        # The timestamp when the cluster was created. Unit: milliseconds.
         self.create_timestamp = create_timestamp  # type: long
+        # The number of baseline risks.
         self.hc_count = hc_count  # type: int
+        # Indicates whether baseline risks are detected. Valid values:
+        # 
+        # *   **NO**\
+        # *   **YES**\
         self.hc_status = hc_status  # type: str
+        # The IP address of the server.
         self.host_ip = host_ip  # type: str
+        # The image of the container.
         self.image = image  # type: str
+        # The digest value of the image.
         self.image_digest = image_digest  # type: str
+        # The ID of the image.
         self.image_id = image_id  # type: str
+        # The name of the image repository.
         self.image_repo_name = image_repo_name  # type: str
+        # The namespace to which the image repository belongs.
         self.image_repo_namespace = image_repo_namespace  # type: str
+        # The tag that is added to the image.
         self.image_repo_tag = image_repo_tag  # type: str
+        # The UUID of the image.
         self.image_uuid = image_uuid  # type: str
+        # The instance ID of the asset.
         self.instance_id = instance_id  # type: str
+        # The namespace.
         self.namespace = namespace  # type: str
+        # The node information.
         self.node_info = node_info  # type: str
+        # The name of the node.
         self.node_name = node_name  # type: str
+        # The pod.
         self.pod = pod  # type: str
+        # The IP address of the pod.
         self.pod_ip = pod_ip  # type: str
+        # The region ID of the container.
         self.region_id = region_id  # type: str
+        # The number of risks.
         self.risk_count = risk_count  # type: str
+        # Indicates whether risks exist. Valid values:
+        # 
+        # *   **NO**\
+        # *   **YES**\
         self.risk_status = risk_status  # type: str
+        # The update identifier of the container.
         self.update_mark = update_mark  # type: str
+        # The number of vulnerabilities that are detected in the container cluster.
         self.vul_count = vul_count  # type: int
+        # Indicates whether vulnerabilities are detected in the container. Valid values:
+        # 
+        # *   **YES**\
+        # *   **NO**\
         self.vul_status = vul_status  # type: str
 
     def validate(self):
@@ -18849,9 +18368,13 @@ class DescribeContainerInstancesResponseBodyContainerInstanceList(TeaModel):
 
 class DescribeContainerInstancesResponseBodyPageInfo(TeaModel):
     def __init__(self, count=None, current_page=None, page_size=None, total_count=None):
+        # The number of entries returned on the current page.
         self.count = count  # type: int
+        # The page number of the returned page.
         self.current_page = current_page  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -18888,8 +18411,11 @@ class DescribeContainerInstancesResponseBodyPageInfo(TeaModel):
 
 class DescribeContainerInstancesResponseBody(TeaModel):
     def __init__(self, container_instance_list=None, page_info=None, request_id=None):
+        # An array that consists of the information about containers.
         self.container_instance_list = container_instance_list  # type: list[DescribeContainerInstancesResponseBodyContainerInstanceList]
+        # The pagination information.
         self.page_info = page_info  # type: DescribeContainerInstancesResponseBodyPageInfo
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -18972,6 +18498,9 @@ class DescribeContainerInstancesResponse(TeaModel):
 
 class DescribeContainerStatisticsRequest(TeaModel):
     def __init__(self, cluster_id=None):
+        # The ID of the container cluster.
+        # 
+        # >  You can call the [DescribeGroupedContainerInstances](~~DescribeGroupedContainerInstances~~) operation to query the IDs of container clusters.
         self.cluster_id = cluster_id  # type: str
 
     def validate(self):
@@ -18997,11 +18526,17 @@ class DescribeContainerStatisticsRequest(TeaModel):
 class DescribeContainerStatisticsResponseBodyData(TeaModel):
     def __init__(self, remind_alarm_count=None, serious_alarm_count=None, suspicious_alarm_count=None,
                  total_alarm_count=None, total_node=None, has_risk_node=None):
+        # The number of alerts whose risk level is **Reminder**.
         self.remind_alarm_count = remind_alarm_count  # type: int
+        # The number of alerts whose risk level is **Urgent**.
         self.serious_alarm_count = serious_alarm_count  # type: int
+        # The number of alerts whose risk level is **Suspicious**.
         self.suspicious_alarm_count = suspicious_alarm_count  # type: int
+        # The total number of alerts that are generated in the current container cluster.
         self.total_alarm_count = total_alarm_count  # type: int
+        # The total number of nodes in the current container cluster.
         self.total_node = total_node  # type: int
+        # The number of nodes on which alerts are generated in the current container cluster.
         self.has_risk_node = has_risk_node  # type: int
 
     def validate(self):
@@ -19046,7 +18581,9 @@ class DescribeContainerStatisticsResponseBodyData(TeaModel):
 
 class DescribeContainerStatisticsResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # The alert statistics of container assets.
         self.data = data  # type: DescribeContainerStatisticsResponseBodyData
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -19307,7 +18844,9 @@ class DescribeCountNotScannedImageResponse(TeaModel):
 
 class DescribeCountScannedImageResponseBody(TeaModel):
     def __init__(self, request_id=None, scanned_count=None):
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
+        # The number of images that are scanned.
         self.scanned_count = scanned_count  # type: int
 
     def validate(self):
@@ -19524,10 +19063,18 @@ class DescribeCriteriaResponse(TeaModel):
 
 class DescribeCustomBlockRecordsRequest(TeaModel):
     def __init__(self, block_ip=None, current_page=None, page_size=None, resource_owner_id=None, status=None):
+        # The IP address that you want to block by using the defense rule.
         self.block_ip = block_ip  # type: str
+        # The number of the page to return. Default value: **1**.
         self.current_page = current_page  # type: int
+        # The number of entries to return on each page. Default value: **20**.
         self.page_size = page_size  # type: int
         self.resource_owner_id = resource_owner_id  # type: long
+        # The status of the defense rule. Valid values:
+        # 
+        # *   **0**: invalid
+        # *   **1**: enabled
+        # *   **2**: failed
         self.status = status  # type: int
 
     def validate(self):
@@ -19568,9 +19115,13 @@ class DescribeCustomBlockRecordsRequest(TeaModel):
 
 class DescribeCustomBlockRecordsResponseBodyPageInfo(TeaModel):
     def __init__(self, count=None, current_page=None, page_size=None, total_count=None):
+        # The number of entries returned on the current page.
         self.count = count  # type: int
+        # The page number of the returned page.
         self.current_page = current_page  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -19607,7 +19158,11 @@ class DescribeCustomBlockRecordsResponseBodyPageInfo(TeaModel):
 
 class DescribeCustomBlockRecordsResponseBodyRecordListTargetList(TeaModel):
     def __init__(self, target=None, target_type=None):
+        # The ID of the server.
         self.target = target  # type: str
+        # The type of the query condition. Valid values:
+        # 
+        # *   **uuid**: the ID of an asset
         self.target_type = target_type  # type: str
 
     def validate(self):
@@ -19637,14 +19192,30 @@ class DescribeCustomBlockRecordsResponseBodyRecordListTargetList(TeaModel):
 class DescribeCustomBlockRecordsResponseBodyRecordList(TeaModel):
     def __init__(self, block_expire_date=None, block_ip=None, bound=None, enable_count=None, id=None,
                  server_count=None, source=None, status=None, target_list=None):
+        # The timestamp when the defense rule expires.
         self.block_expire_date = block_expire_date  # type: long
+        # The blocked IP address.
         self.block_ip = block_ip  # type: str
+        # The direction of the traffic that is sent by the blocked IP address. Valid values:
+        # 
+        # *   **in**: inbound
+        # *   **out**: outbound
         self.bound = bound  # type: str
+        # The number of servers to which the defense rule is applied.
         self.enable_count = enable_count  # type: int
+        # The ID of the defense rule.
         self.id = id  # type: long
+        # The total number of servers on which the IP address is blocked.
         self.server_count = server_count  # type: int
+        # The source of the defense rule. Valid values:
         self.source = source  # type: str
+        # The status of the defense rule. Valid values:
+        # 
+        # *   **0**: invalid
+        # *   **1**: enabled
+        # *   **2**: failed
         self.status = status  # type: int
+        # An array consisting of the servers to which the defense rule is applied.
         self.target_list = target_list  # type: list[DescribeCustomBlockRecordsResponseBodyRecordListTargetList]
 
     def validate(self):
@@ -19709,8 +19280,11 @@ class DescribeCustomBlockRecordsResponseBodyRecordList(TeaModel):
 
 class DescribeCustomBlockRecordsResponseBody(TeaModel):
     def __init__(self, page_info=None, record_list=None, request_id=None):
+        # The pagination information.
         self.page_info = page_info  # type: DescribeCustomBlockRecordsResponseBodyPageInfo
+        # An array that consists of the defense rules.
         self.record_list = record_list  # type: list[DescribeCustomBlockRecordsResponseBodyRecordList]
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -19795,19 +19369,19 @@ class DescribeCycleTaskListRequest(TeaModel):
     def __init__(self, current_page=None, page_size=None, task_name=None, task_type=None):
         # The number of the page to return.
         self.current_page = current_page  # type: int
-        # The number of entries to return on each page. Default value: 20.
+        # The number of entries to return on each page.
         self.page_size = page_size  # type: int
         # The name of the task. Valid values:
         # 
-        # *   **VIRUS_VUL_SCHEDULE_SCAN**: virus scan task
+        # *   **VIRUS\_VUL\_SCHEDULE_SCAN**: virus scan task
         # *   **IMAGE_SCAN**: image scan task
-        # *   **EMG_VUL_SCHEDULE_SCAN**: urgent vulnerability scan task
+        # *   **EMG\_VUL\_SCHEDULE_SCAN**: urgent vulnerability scan task
         self.task_name = task_name  # type: str
         # The type of the task. Valid values:
         # 
-        # *   **VIRUS_VUL_SCHEDULE_SCAN**: virus scan task
+        # *   **VIRUS\_VUL\_SCHEDULE_SCAN**: virus scan task
         # *   **IMAGE_SCAN**: image scan task
-        # *   **EMG_VUL_SCHEDULE_SCAN**: urgent vulnerability scan task
+        # *   **EMG\_VUL\_SCHEDULE_SCAN**: urgent vulnerability scan task
         self.task_type = task_type  # type: str
 
     def validate(self):
@@ -19853,11 +19427,11 @@ class DescribeCycleTaskListResponseBodyCycleScheduleResponseList(TeaModel):
         # *   **1**: yes
         # *   **0**: no
         self.enable = enable  # type: int
-        # The time when the task first run.
+        # The first time when the task starts.
         self.first_date_str = first_date_str  # type: long
         # The interval of the task.
         self.interval_period = interval_period  # type: int
-        # The ID of the task when the task last run.
+        # The ID of the task when the task last runs.
         self.last_task_id = last_task_id  # type: str
         # The next time when the task starts. The value is a UNIX timestamp. Unit: milliseconds.
         self.next_start_time_str = next_start_time_str  # type: long
@@ -19870,7 +19444,7 @@ class DescribeCycleTaskListResponseBodyCycleScheduleResponseList(TeaModel):
         self.period_unit = period_unit  # type: str
         # The period of time before the task ends. Unit: hours.
         self.target_end_time = target_end_time  # type: int
-        # The period of time before the next task starts. Unit: hours.
+        # The period of time before the task starts for the next time. Unit: hours.
         self.target_start_time = target_start_time  # type: int
         # The name of the task.
         self.task_name = task_name  # type: str
@@ -21082,7 +20656,7 @@ class DescribeEventLevelCountRequest(TeaModel):
         # The type of the query condition. Valid values:
         # 
         # *   **containerId**: the ID of the container
-        # *   **uuid**: the ID of the asset
+        # *   **uuid**: the UUID of the asset
         self.target_type = target_type  # type: str
 
     def validate(self):
@@ -21166,7 +20740,7 @@ class DescribeEventLevelCountResponseBody(TeaModel):
     def __init__(self, code=None, event_levels=None, message=None, request_id=None, success=None):
         # The status code returned. The status code **200** indicates that the request was successful. Other status codes indicate that the request failed. You can identify the cause of the failure based on the status code.
         self.code = code  # type: str
-        # The statistics of alerts events by risk level.
+        # The statistics of alerts by risk level.
         self.event_levels = event_levels  # type: DescribeEventLevelCountResponseBodyEventLevels
         # The error message returned.
         self.message = message  # type: str
@@ -21375,7 +20949,9 @@ class DescribeEventOnStageResponse(TeaModel):
 
 class DescribeExcludeSystemPathRequest(TeaModel):
     def __init__(self, current_page=None, page_size=None):
+        # The number of the page to return. Default value: 1.
         self.current_page = current_page  # type: int
+        # The number of entries to return on each page.
         self.page_size = page_size  # type: int
 
     def validate(self):
@@ -21404,7 +20980,12 @@ class DescribeExcludeSystemPathRequest(TeaModel):
 
 class DescribeExcludeSystemPathResponseBodyExcludePaths(TeaModel):
     def __init__(self, os=None, path=None):
+        # The operating system of the server. Valid values:
+        # 
+        # *   **linux**: Linux
+        # *   **windows**: Windows
         self.os = os  # type: str
+        # The absolute path to the directory.
         self.path = path  # type: str
 
     def validate(self):
@@ -21433,9 +21014,13 @@ class DescribeExcludeSystemPathResponseBodyExcludePaths(TeaModel):
 
 class DescribeExcludeSystemPathResponseBodyPageInfo(TeaModel):
     def __init__(self, count=None, current_page=None, page_size=None, total_count=None):
+        # The number of entries returned on the current page.
         self.count = count  # type: int
+        # The page number of the returned page.
         self.current_page = current_page  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -21472,8 +21057,11 @@ class DescribeExcludeSystemPathResponseBodyPageInfo(TeaModel):
 
 class DescribeExcludeSystemPathResponseBody(TeaModel):
     def __init__(self, exclude_paths=None, page_info=None, request_id=None):
+        # An array consisting of the directories that are excluded.
         self.exclude_paths = exclude_paths  # type: list[DescribeExcludeSystemPathResponseBodyExcludePaths]
+        # The pagination information.
         self.page_info = page_info  # type: DescribeExcludeSystemPathResponseBodyPageInfo
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -22580,25 +22168,15 @@ class DescribeExposedStatisticsResponseBody(TeaModel):
     def __init__(self, exposed_asap_vul_count=None, exposed_component_count=None, exposed_instance_count=None,
                  exposed_ip_count=None, exposed_later_vul_count=None, exposed_nntf_vul_count=None, exposed_port_count=None,
                  exposed_week_password_machine_count=None, gateway_asset_count=None, request_id=None):
-        # The total number of high-risk vulnerabilities that are exposed on the Internet and can be exploited by attackers.
         self.exposed_asap_vul_count = exposed_asap_vul_count  # type: int
-        # The total number of system components that are exposed on the Internet. The components include OpenSSL and OpenSSH.
         self.exposed_component_count = exposed_component_count  # type: int
-        # The total number of servers that are exposed on the Internet.
         self.exposed_instance_count = exposed_instance_count  # type: int
-        # The total number of IP addresses that are exposed on the Internet.
         self.exposed_ip_count = exposed_ip_count  # type: int
-        # The total number of medium-risk vulnerabilities that are exposed on the Internet and can be exploited by attackers.
         self.exposed_later_vul_count = exposed_later_vul_count  # type: int
-        # The total number of low-risk vulnerabilities that are exposed on the Internet and can be exploited by attackers.
         self.exposed_nntf_vul_count = exposed_nntf_vul_count  # type: int
-        # The total number of ports that are exposed on the Internet.
         self.exposed_port_count = exposed_port_count  # type: int
-        # The total number of system keys that are detected on your servers and are exposed on the Internet.
         self.exposed_week_password_machine_count = exposed_week_password_machine_count  # type: int
-        # The total number of gateway assets that are exposed on the Internet. The gateway assets include NAT gateways and Server Load Balancer (SLB) instances.
         self.gateway_asset_count = gateway_asset_count  # type: int
-        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -23351,10 +22929,6 @@ class DescribeFrontVulPatchListResponse(TeaModel):
 
 class DescribeGroupStructRequest(TeaModel):
     def __init__(self, lang=None):
-        # The language of the content within the request and response. Default value: **zh**. Valid values:
-        # 
-        # *   **zh**: Chinese
-        # *   **en**: English
         self.lang = lang  # type: str
 
     def validate(self):
@@ -23380,26 +22954,14 @@ class DescribeGroupStructRequest(TeaModel):
 class DescribeGroupStructResponseBody(TeaModel):
     def __init__(self, group_father=None, group_flag=None, group_id=None, group_index=None, group_level=None,
                  group_name=None, groups=None, machine_num=None, request_id=None):
-        # The parent node of the group.
         self.group_father = group_father  # type: int
-        # The type of the server group. Valid values:
-        # 
-        # *   **0**: the default group
-        # *   **1**: other groups
         self.group_flag = group_flag  # type: int
-        # The ID of the server group.
         self.group_id = group_id  # type: long
-        # The sequence number.
         self.group_index = group_index  # type: int
-        # The level of the application group.
         self.group_level = group_level  # type: int
-        # The name of the server group.
         self.group_name = group_name  # type: str
-        # An array that consists of child groups.
         self.groups = groups  # type: list[str]
-        # The number of servers in the group.
         self.machine_num = machine_num  # type: int
-        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -24573,7 +24135,7 @@ class DescribeGroupedVulRequest(TeaModel):
 
 class DescribeGroupedVulResponseBodyGroupedVulItems(TeaModel):
     def __init__(self, alias_name=None, asap_count=None, gmt_last=None, handled_count=None, later_count=None,
-                 name=None, nntf_count=None, tags=None, total_fix_count=None, type=None):
+                 name=None, nntf_count=None, rasp_defend=None, tags=None, total_fix_count=None, type=None):
         self.alias_name = alias_name  # type: str
         self.asap_count = asap_count  # type: int
         self.gmt_last = gmt_last  # type: long
@@ -24581,6 +24143,7 @@ class DescribeGroupedVulResponseBodyGroupedVulItems(TeaModel):
         self.later_count = later_count  # type: int
         self.name = name  # type: str
         self.nntf_count = nntf_count  # type: int
+        self.rasp_defend = rasp_defend  # type: int
         self.tags = tags  # type: str
         self.total_fix_count = total_fix_count  # type: long
         self.type = type  # type: str
@@ -24608,6 +24171,8 @@ class DescribeGroupedVulResponseBodyGroupedVulItems(TeaModel):
             result['Name'] = self.name
         if self.nntf_count is not None:
             result['NntfCount'] = self.nntf_count
+        if self.rasp_defend is not None:
+            result['RaspDefend'] = self.rasp_defend
         if self.tags is not None:
             result['Tags'] = self.tags
         if self.total_fix_count is not None:
@@ -24632,6 +24197,8 @@ class DescribeGroupedVulResponseBodyGroupedVulItems(TeaModel):
             self.name = m.get('Name')
         if m.get('NntfCount') is not None:
             self.nntf_count = m.get('NntfCount')
+        if m.get('RaspDefend') is not None:
+            self.rasp_defend = m.get('RaspDefend')
         if m.get('Tags') is not None:
             self.tags = m.get('Tags')
         if m.get('TotalFixCount') is not None:
@@ -24860,6 +24427,30 @@ class DescribeHcExportInfoResponse(TeaModel):
         return self
 
 
+class DescribeHoneyPotAuthRequest(TeaModel):
+    def __init__(self, lang=None):
+        self.lang = lang  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeHoneyPotAuthRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.lang is not None:
+            result['Lang'] = self.lang
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Lang') is not None:
+            self.lang = m.get('Lang')
+        return self
+
+
 class DescribeHoneyPotAuthResponseBody(TeaModel):
     def __init__(self, honey_pot_auth_count=None, honey_pot_count=None, request_id=None):
         self.honey_pot_auth_count = honey_pot_auth_count  # type: long
@@ -24934,8 +24525,9 @@ class DescribeHoneyPotAuthResponse(TeaModel):
 
 
 class DescribeHoneyPotSuspStatisticsRequest(TeaModel):
-    def __init__(self, from_=None, statistics_days=None, statistics_key_type=None):
+    def __init__(self, from_=None, lang=None, statistics_days=None, statistics_key_type=None):
         self.from_ = from_  # type: str
+        self.lang = lang  # type: str
         self.statistics_days = statistics_days  # type: int
         self.statistics_key_type = statistics_key_type  # type: str
 
@@ -24950,6 +24542,8 @@ class DescribeHoneyPotSuspStatisticsRequest(TeaModel):
         result = dict()
         if self.from_ is not None:
             result['From'] = self.from_
+        if self.lang is not None:
+            result['Lang'] = self.lang
         if self.statistics_days is not None:
             result['StatisticsDays'] = self.statistics_days
         if self.statistics_key_type is not None:
@@ -24960,6 +24554,8 @@ class DescribeHoneyPotSuspStatisticsRequest(TeaModel):
         m = m or dict()
         if m.get('From') is not None:
             self.from_ = m.get('From')
+        if m.get('Lang') is not None:
+            self.lang = m.get('Lang')
         if m.get('StatisticsDays') is not None:
             self.statistics_days = m.get('StatisticsDays')
         if m.get('StatisticsKeyType') is not None:
@@ -25094,21 +24690,9 @@ class DescribeHoneyPotSuspStatisticsResponse(TeaModel):
 
 class DescribeImageRequest(TeaModel):
     def __init__(self, image_instance_id=None, image_region_id=None, image_repo_id=None, image_tag=None):
-        # The instance ID of the image.
-        # 
-        # >  You can call the [DescribeImageInstances](~~DescribeImageInstances~~) operation to query the IDs of instances.
         self.image_instance_id = image_instance_id  # type: str
-        # The region ID of the image.
-        # 
-        # >  You can call the [DescribeImageInstances](~~DescribeImageInstances~~) operation to query the IDs of regions.
         self.image_region_id = image_region_id  # type: str
-        # The ID of the image repository.
-        # 
-        # >  You can call the [DescribeImageInstances](~~DescribeImageInstances~~) operation to query the IDs of image repositories.
         self.image_repo_id = image_repo_id  # type: str
-        # The tag that is added to the image.
-        # 
-        # >  You can call the [DescribeImageInstances](~~DescribeImageInstances~~) operation to query tags.
         self.image_tag = image_tag  # type: str
 
     def validate(self):
@@ -25145,7 +24729,6 @@ class DescribeImageRequest(TeaModel):
 
 class DescribeImageResponseBodyData(TeaModel):
     def __init__(self, digest=None):
-        # The digest value of the image.
         self.digest = digest  # type: str
 
     def validate(self):
@@ -25170,9 +24753,7 @@ class DescribeImageResponseBodyData(TeaModel):
 
 class DescribeImageResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
-        # The information about the image digest.
         self.data = data  # type: DescribeImageResponseBodyData
-        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -25760,14 +25341,8 @@ class DescribeImageBaselineCheckSummaryResponse(TeaModel):
 
 class DescribeImageBaselineDetailRequest(TeaModel):
     def __init__(self, baseline_item_key=None, image_uuid=None, lang=None):
-        # The information about the baseline.
         self.baseline_item_key = baseline_item_key  # type: str
-        # The UUID of the image.
         self.image_uuid = image_uuid  # type: str
-        # The language of the content within the request and response. Default value: **zh**. Valid values:
-        # 
-        # *   **zh**: Chinese
-        # *   **en**: English
         self.lang = lang  # type: str
 
     def validate(self):
@@ -25801,27 +25376,14 @@ class DescribeImageBaselineDetailRequest(TeaModel):
 class DescribeImageBaselineDetailResponseBodyBaselineDetail(TeaModel):
     def __init__(self, advice=None, baseline_class_alias=None, baseline_item_alias=None, baseline_item_key=None,
                  baseline_name_alias=None, description=None, level=None, prompt=None, result_id=None):
-        # The suggestion for the management of the risk item.
         self.advice = advice  # type: str
-        # The alias of the baseline type.
         self.baseline_class_alias = baseline_class_alias  # type: str
-        # The alias of the baseline check item.
         self.baseline_item_alias = baseline_item_alias  # type: str
-        # The key of the baseline check item.
         self.baseline_item_key = baseline_item_key  # type: str
-        # The alias of the baseline.
         self.baseline_name_alias = baseline_name_alias  # type: str
-        # The description of the risk item.
         self.description = description  # type: str
-        # The risk level of the baseline check item. Valid values:
-        # 
-        # *   **high**\
-        # *   **medium**\
-        # *   **low**\
         self.level = level  # type: str
-        # The issue that is detected by using the baseline.
         self.prompt = prompt  # type: str
-        # The ID of the asynchronous request.
         self.result_id = result_id  # type: str
 
     def validate(self):
@@ -25878,9 +25440,7 @@ class DescribeImageBaselineDetailResponseBodyBaselineDetail(TeaModel):
 
 class DescribeImageBaselineDetailResponseBody(TeaModel):
     def __init__(self, baseline_detail=None, request_id=None):
-        # The details about the image baseline.
         self.baseline_detail = baseline_detail  # type: DescribeImageBaselineDetailResponseBodyBaselineDetail
-        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -25951,14 +25511,31 @@ class DescribeImageBaselineDetailResponse(TeaModel):
 class DescribeImageBaselineItemListRequest(TeaModel):
     def __init__(self, baseline_class_key=None, baseline_name_key=None, current_page=None, image_uuid=None,
                  lang=None, page_size=None, scan_range=None, status=None, uuids=None):
+        # The key of the baseline type.
         self.baseline_class_key = baseline_class_key  # type: str
+        # The key of the baseline name.
         self.baseline_name_key = baseline_name_key  # type: str
+        # The number of the page to return.
         self.current_page = current_page  # type: int
+        # The UUID of the image.
         self.image_uuid = image_uuid  # type: str
+        # The language of the content within the request and response. Default value: **zh**. Valid values:
+        # 
+        # *   **zh**: Chinese
+        # *   **en**: English
         self.lang = lang  # type: str
+        # The number of entries to return on each page.
         self.page_size = page_size  # type: int
+        # The types of the assets that are scanned.
         self.scan_range = scan_range  # type: list[str]
+        # The status of the baseline risk item. Valid values:
+        # 
+        # *   **0**: unfixed
+        # *   **1**: fixed
+        # *   **2**: pending verification
+        # *   **3**: fixing failed
         self.status = status  # type: str
+        # The UUIDs of images.
         self.uuids = uuids  # type: list[str]
 
     def validate(self):
@@ -26016,13 +25593,29 @@ class DescribeImageBaselineItemListRequest(TeaModel):
 class DescribeImageBaselineItemListResponseBodyBaselineItemInfos(TeaModel):
     def __init__(self, baseline_class_alias=None, baseline_class_key=None, baseline_item_alias=None,
                  baseline_item_key=None, baseline_name_alias=None, baseline_name_key=None, status=None, white_list=None):
+        # The alias of the baseline type.
         self.baseline_class_alias = baseline_class_alias  # type: str
+        # The key of the baseline type.
         self.baseline_class_key = baseline_class_key  # type: str
+        # The alias of the baseline check item.
         self.baseline_item_alias = baseline_item_alias  # type: str
+        # The key of the baseline check item.
         self.baseline_item_key = baseline_item_key  # type: str
+        # The alias of the baseline.
         self.baseline_name_alias = baseline_name_alias  # type: str
+        # The key of the baseline name.
         self.baseline_name_key = baseline_name_key  # type: str
+        # The status of the baseline risk item. Valid values:
+        # 
+        # *   **0**: unfixed
+        # *   **1**: fixed
+        # *   **2**: pending verification
+        # *   **3**: fixing failed
         self.status = status  # type: int
+        # Indicates whether the baseline check item is added to the whitelist. Valid values:
+        # 
+        # *   **0**: no
+        # *   **1**: yes
         self.white_list = white_list  # type: int
 
     def validate(self):
@@ -26075,9 +25668,13 @@ class DescribeImageBaselineItemListResponseBodyBaselineItemInfos(TeaModel):
 
 class DescribeImageBaselineItemListResponseBodyPageInfo(TeaModel):
     def __init__(self, count=None, current_page=None, page_size=None, total_count=None):
+        # The number of entries returned on the current page.
         self.count = count  # type: int
+        # The page number of the returned page.
         self.current_page = current_page  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -26114,8 +25711,11 @@ class DescribeImageBaselineItemListResponseBodyPageInfo(TeaModel):
 
 class DescribeImageBaselineItemListResponseBody(TeaModel):
     def __init__(self, baseline_item_infos=None, page_info=None, request_id=None):
+        # An array that consists of baseline check items.
         self.baseline_item_infos = baseline_item_infos  # type: list[DescribeImageBaselineItemListResponseBodyBaselineItemInfos]
+        # The pagination information.
         self.page_info = page_info  # type: DescribeImageBaselineItemListResponseBodyPageInfo
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -26568,7 +26168,7 @@ class DescribeImageFixTaskRequest(TeaModel):
 class DescribeImageFixTaskResponseBodyBuildTasks(TeaModel):
     def __init__(self, build_task_id=None, finish_time=None, fix_time=None, new_tag=None, new_uuid=None,
                  old_tag=None, old_uuid=None, region_id=None, repo_name=None, repo_namespace=None, status=None,
-                 task_type=None):
+                 task_type=None, vul_alias=None):
         self.build_task_id = build_task_id  # type: str
         self.finish_time = finish_time  # type: str
         self.fix_time = fix_time  # type: str
@@ -26581,6 +26181,7 @@ class DescribeImageFixTaskResponseBodyBuildTasks(TeaModel):
         self.repo_namespace = repo_namespace  # type: str
         self.status = status  # type: int
         self.task_type = task_type  # type: str
+        self.vul_alias = vul_alias  # type: str
 
     def validate(self):
         pass
@@ -26615,6 +26216,8 @@ class DescribeImageFixTaskResponseBodyBuildTasks(TeaModel):
             result['Status'] = self.status
         if self.task_type is not None:
             result['TaskType'] = self.task_type
+        if self.vul_alias is not None:
+            result['VulAlias'] = self.vul_alias
         return result
 
     def from_map(self, m=None):
@@ -26643,6 +26246,8 @@ class DescribeImageFixTaskResponseBodyBuildTasks(TeaModel):
             self.status = m.get('Status')
         if m.get('TaskType') is not None:
             self.task_type = m.get('TaskType')
+        if m.get('VulAlias') is not None:
+            self.vul_alias = m.get('VulAlias')
         return self
 
 
@@ -26902,10 +26507,11 @@ class DescribeImageGroupedVulListRequest(TeaModel):
 
 
 class DescribeImageGroupedVulListResponseBodyGroupedVulItems(TeaModel):
-    def __init__(self, alias_name=None, asap_count=None, gmt_last=None, last_scan_time=None, later_count=None,
-                 name=None, nntf_count=None, status=None, tags=None, type=None):
+    def __init__(self, alias_name=None, asap_count=None, can_fix=None, gmt_last=None, last_scan_time=None,
+                 later_count=None, name=None, nntf_count=None, status=None, tags=None, type=None):
         self.alias_name = alias_name  # type: str
         self.asap_count = asap_count  # type: int
+        self.can_fix = can_fix  # type: str
         self.gmt_last = gmt_last  # type: long
         self.last_scan_time = last_scan_time  # type: long
         self.later_count = later_count  # type: int
@@ -26928,6 +26534,8 @@ class DescribeImageGroupedVulListResponseBodyGroupedVulItems(TeaModel):
             result['AliasName'] = self.alias_name
         if self.asap_count is not None:
             result['AsapCount'] = self.asap_count
+        if self.can_fix is not None:
+            result['CanFix'] = self.can_fix
         if self.gmt_last is not None:
             result['GmtLast'] = self.gmt_last
         if self.last_scan_time is not None:
@@ -26952,6 +26560,8 @@ class DescribeImageGroupedVulListResponseBodyGroupedVulItems(TeaModel):
             self.alias_name = m.get('AliasName')
         if m.get('AsapCount') is not None:
             self.asap_count = m.get('AsapCount')
+        if m.get('CanFix') is not None:
+            self.can_fix = m.get('CanFix')
         if m.get('GmtLast') is not None:
             self.gmt_last = m.get('GmtLast')
         if m.get('LastScanTime') is not None:
@@ -27296,10 +26906,34 @@ class DescribeImageInfoListResponse(TeaModel):
 
 class DescribeImageInstancesRequest(TeaModel):
     def __init__(self, criteria=None, current_page=None, logical_exp=None, page_size=None, scanned=None):
+        # The search condition that is used to filter the server. The value of this parameter is in the JSON format and contains the following fields:
+        # 
+        # *   **name**: the search condition
+        # 
+        # *   **name**: the value of the search condition
+        # 
+        # *   **logicalExp**: the logical relation for multiple search conditions Valid values:
+        # 
+        #     *   **OR**: The search conditions use a logical **OR**.
+        #     *   **AND**: The search conditions use a logical **AND**.
+        # 
+        # > You can call the [DescribeImageCriteria](~~DescribeImageCriteria~~) operation to query the supported search conditions.
         self.criteria = criteria  # type: str
+        # The number of the page to return. Pages start from page **1**. Default value: **1**.
         self.current_page = current_page  # type: int
+        # The logical relationship that you want to use to evaluate multiple search conditions. Valid values:
+        # 
+        # *   **OR**: The search conditions are evaluated by using a logical **OR**.
+        # *   **AND**: The search conditions are evaluated by using a logical **AND**.
         self.logical_exp = logical_exp  # type: str
+        # The number of entries to return on each page. Default value: 20. If you leave this parameter empty, 20 entries are returned on each page.
+        # 
+        # > : We recommend that you do not leave this parameter empty.
         self.page_size = page_size  # type: int
+        # Specifies whether the image is scanned. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.scanned = scanned  # type: bool
 
     def validate(self):
@@ -27344,32 +26978,103 @@ class DescribeImageInstancesResponseBodyImageInstanceList(TeaModel):
                  instance_id=None, region_id=None, registry_type=None, repo_id=None, repo_name=None, repo_namespace=None,
                  repo_type=None, risk_status=None, sca_progress=None, sca_result=None, sca_status=None, status=None, tag=None,
                  uuid=None, vul_count=None, vul_status=None):
+        # The number of alerts that are generated on the image.
         self.alarm_count = alarm_count  # type: int
+        # Indicates whether alerts are generated for the image. Valid values:
+        # 
+        # *   **YES**\
+        # *   **NO**\
         self.alarm_status = alarm_status  # type: str
+        # Indicates whether the image was deployed. Valid values:
+        # 
+        # *   **0**: The image was not deployed.
+        # *   **1**: The image was deployed.
         self.deployed = deployed  # type: int
+        # The digest value of the image.
         self.digest = digest  # type: str
+        # The address of the image.
         self.endpoints = endpoints  # type: str
+        # The number of baseline risks.
         self.hc_count = hc_count  # type: int
+        # Indicates whether the image baseline risks exist. Valid values:
+        # 
+        # *   **NO**\
+        # *   **YES**\
         self.hc_status = hc_status  # type: str
+        # The timestamp when the image was created. Unit: milliseconds.
         self.image_create = image_create  # type: str
+        # The ID of the image.
         self.image_id = image_id  # type: str
+        # The size of the image. Unit: MB.
         self.image_size = image_size  # type: str
+        # The timestamp when the image was updated. Unit: milliseconds.
         self.image_update = image_update  # type: str
+        # The ID of the image instance.
         self.instance_id = instance_id  # type: str
+        # The region ID of the image.
         self.region_id = region_id  # type: str
+        # The type of the image. Valid values:
+        # 
+        # *   **acr**\
+        # *   **harbor**\
+        # *   **quay**\
+        # *   **CI/CD**\
         self.registry_type = registry_type  # type: str
+        # The ID of the image repository.
         self.repo_id = repo_id  # type: str
+        # The name of the image repository.
         self.repo_name = repo_name  # type: str
+        # The namespace to which the image repository belongs.
         self.repo_namespace = repo_namespace  # type: str
+        # The type of the repository. Valid values:
+        # 
+        # *   **private**\
+        # *   **public**\
         self.repo_type = repo_type  # type: str
+        # Indicates whether risks exist. Valid values:
+        # 
+        # *   **NO**: No risks exist.
+        # *   **YES**: Risks exist.
         self.risk_status = risk_status  # type: str
+        # The scan progress of the image. Valid values: 0 to 100.
         self.sca_progress = sca_progress  # type: int
+        # The error code of the image scan result. Valid values:
+        # 
+        # *   **TASK_NOT_EXISTS**: The image scan task does not exist.
+        # *   **TASK_NOT_SUPPORT_REGION**: The image scan task cannot be performed in the current region.
+        # *   **forbid_create_repeat_task**: The image scan task already exists.
         self.sca_result = sca_result  # type: str
+        # The scan status of the image. Valid values:
+        # 
+        # *   **INIT**: The image scan task is to be started.
+        # *   **START**: The image scan task is started.
+        # *   **MESSAGE_SEND**: The message about the image scan task is sent.
+        # *   **START_RUN**: The image scan task is started.
+        # *   **DOWNLOAD**: The image scan result is downloaded.
+        # *   **PRE_ANALYZER**: The image scan task is being processed.
+        # *   **WEB_SHELL_ANALYZER**: The WebShell analysis is complete.
+        # *   **CVE_ANALYZER**: The CVE analysis is complete.
+        # *   **BIN_ANALYZER**: The binary analysis of the image is complete.
+        # *   **OTHER_ANALYZER**: The extended analysis of the image is complete.
+        # *   **SUCCESS**: The image scan task is complete.
+        # *   **PRE_ANALYZER_SUCCESS**: The image scan task is processed.
+        # *   **FAIL**: The image scan task fails.
+        # *   **TIMEOUT**: The image scan task times out.
         self.sca_status = sca_status  # type: str
+        # The status of the image. Valid values:
+        # 
+        # *   **NORMAL**: The image is normal.
         self.status = status  # type: str
+        # The tag of the image.
         self.tag = tag  # type: str
+        # The UUID of the server.
         self.uuid = uuid  # type: str
+        # The number of vulnerabilities in the image.
         self.vul_count = vul_count  # type: int
+        # Indicates whether vulnerabilities exist in the image. Valid values:
+        # 
+        # *   **YES**\
+        # *   **NO**\
         self.vul_status = vul_status  # type: str
 
     def validate(self):
@@ -27498,9 +27203,13 @@ class DescribeImageInstancesResponseBodyImageInstanceList(TeaModel):
 
 class DescribeImageInstancesResponseBodyPageInfo(TeaModel):
     def __init__(self, count=None, current_page=None, page_size=None, total_count=None):
+        # The number of images returned on the current page.
         self.count = count  # type: int
+        # The page number of the returned page.
         self.current_page = current_page  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The total number of returned entries.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -27537,8 +27246,11 @@ class DescribeImageInstancesResponseBodyPageInfo(TeaModel):
 
 class DescribeImageInstancesResponseBody(TeaModel):
     def __init__(self, image_instance_list=None, page_info=None, request_id=None):
+        # An array that consists of the information about the image.
         self.image_instance_list = image_instance_list  # type: list[DescribeImageInstancesResponseBodyImageInstanceList]
+        # The pagination information.
         self.page_info = page_info  # type: DescribeImageInstancesResponseBodyPageInfo
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -28712,9 +28424,29 @@ class DescribeImageRepoCriteriaResponse(TeaModel):
 
 class DescribeImageRepoDetailListRequest(TeaModel):
     def __init__(self, criteria=None, current_page=None, logical_exp=None, page_size=None):
+        # The search conditions for assets. The value of this parameter is in the JSON format and contains the following fields:
+        # 
+        # *   **name**: the search condition.
+        # 
+        # *   **name**: the value of the search condition.
+        # 
+        # *   **logicalExp**: the logical relation for multiple search conditions. Valid values:
+        # 
+        #     *   **OR**: The search conditions use a logical **OR**.
+        #     *   **AND**: The search conditions use a logical **AND**.
+        # 
+        # > You can call the [DescribeImageRepoCriteria](~~DescribeImageRepoCriteria~~) operation to query the supported search conditions.
         self.criteria = criteria  # type: str
+        # The number of the page to return. Default value: **1**.
         self.current_page = current_page  # type: int
+        # The logical relationship that you want to use to evaluate multiple search conditions. Valid values:
+        # 
+        # *   **OR**: Search conditions are evaluated by using a logical **OR**.
+        # *   **AND**: Search conditions are evaluated by using a logical **AND**.
         self.logical_exp = logical_exp  # type: str
+        # The number of entries to return on each page. Default value: 20. If you leave this parameter empty, 20 entries are returned on each page.
+        # 
+        # > We recommend that you do not leave this parameter empty.
         self.page_size = page_size  # type: int
 
     def validate(self):
@@ -28753,20 +28485,52 @@ class DescribeImageRepoDetailListResponseBodyImageRepoResponses(TeaModel):
     def __init__(self, alarm_count=None, alarm_status=None, endpoints=None, hc_count=None, hc_status=None,
                  image_count=None, instance_id=None, region_id=None, registry_type=None, repo_id=None, repo_name=None,
                  repo_namespace=None, risk_status=None, vul_count=None, vul_status=None):
+        # The number of alerts that are generated for the image repository.
         self.alarm_count = alarm_count  # type: int
+        # Indicates whether alerts are generated for the image repository. Valid values:
+        # 
+        # *   **YES**\
+        # *   **NO**\
         self.alarm_status = alarm_status  # type: str
+        # The address of the image repository.
         self.endpoints = endpoints  # type: str
+        # The number of baseline risk items on the image repository.
         self.hc_count = hc_count  # type: int
+        # Indicates whether baseline risk items are detected on the image repository. Valid values:
+        # 
+        # *   **NO**\
+        # *   **YES**\
         self.hc_status = hc_status  # type: str
+        # The number of images.
         self.image_count = image_count  # type: int
+        # The ID of the image.
         self.instance_id = instance_id  # type: str
+        # The region ID of the image.
         self.region_id = region_id  # type: str
+        # The type of the image repository. Valid values:
+        # 
+        # *   **acr**\
+        # *   **harbor**\
+        # *   **quay**\
+        # *   **CI/CD**\
         self.registry_type = registry_type  # type: str
+        # The ID of the image repository.
         self.repo_id = repo_id  # type: str
+        # The name of the image repository.
         self.repo_name = repo_name  # type: str
+        # The namespace to which the image repository belongs.
         self.repo_namespace = repo_namespace  # type: str
+        # Indicates whether the image repository is at risk. Valid values:
+        # 
+        # *   **YES**\
+        # *   **NO**\
         self.risk_status = risk_status  # type: str
+        # The number of vulnerabilities detected on the image repository.
         self.vul_count = vul_count  # type: int
+        # Indicates whether vulnerabilities are detected on the image repository. Valid values:
+        # 
+        # *   **YES**\
+        # *   **NO**\
         self.vul_status = vul_status  # type: str
 
     def validate(self):
@@ -28847,9 +28611,13 @@ class DescribeImageRepoDetailListResponseBodyImageRepoResponses(TeaModel):
 
 class DescribeImageRepoDetailListResponseBodyPageInfo(TeaModel):
     def __init__(self, count=None, current_page=None, page_size=None, total_count=None):
+        # The number of entries returned on the current page.
         self.count = count  # type: int
+        # The page number of the returned page.
         self.current_page = current_page  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The total number of image repositories.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -28886,8 +28654,11 @@ class DescribeImageRepoDetailListResponseBodyPageInfo(TeaModel):
 
 class DescribeImageRepoDetailListResponseBody(TeaModel):
     def __init__(self, image_repo_responses=None, page_info=None, request_id=None):
+        # An array that consists of the information about image repositories.
         self.image_repo_responses = image_repo_responses  # type: list[DescribeImageRepoDetailListResponseBodyImageRepoResponses]
+        # The pagination information.
         self.page_info = page_info  # type: DescribeImageRepoDetailListResponseBodyPageInfo
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -29721,150 +29492,13 @@ class DescribeImageSensitiveFileByKeyResponse(TeaModel):
 class DescribeImageSensitiveFileListRequest(TeaModel):
     def __init__(self, criteria=None, criteria_type=None, current_page=None, image_uuid=None, lang=None,
                  page_size=None, risk_level=None, scan_range=None):
-        # The value of the sensitive file type.
         self.criteria = criteria  # type: str
-        # The query type of sensitive files. Valid values:
-        # 
-        # *   **SensitiveFileKey**: the alert type for sensitive files. Valid values:
-        # 
-        #     *   **npm_token**: npm access token
-        #     *   **ftp_cfg**: FTP configuration
-        #     *   **google\_oauth_key**: Google OAuth key
-        #     *   **planetscale_passwd**: PlanetScale password
-        #     *   **github\_ssh_key**: GitHub SSH key
-        #     *   **msbuild\_publish_profile**: MSBuild publish profile
-        #     *   **fastly\_cdn_token**: Fastly CDN token
-        #     *   **ssh\_private_key**: SSH private key
-        #     *   **aws_cli**: AWS CLI credential
-        #     *   **cpanel_proftpd**: cPanel ProFTPD credential
-        #     *   **postgresql_passwd**: PostgreSQL password file
-        #     *   **discord\_client_cred**: Discord client credential
-        #     *   **rails_database**: Rails database configuration
-        #     *   **aws\_access_key**: AWS access key
-        #     *   **esmtp_cfg** :configuration of Extended Simple Mail Transfer Protocol (ESMTP)
-        #     *   **docker\_registry_cfg**: configuration of a Docker image repository
-        #     *   **pem**: Privacy-Enhanced Mail (PEM)
-        #     *   **common_cred**: common credential
-        #     *   **sftp_cfg**: SFTP connection configuration
-        #     *   **grafana_token**: Grafana token
-        #     *   **slack_token**: Slack token
-        #     *   **ec\_private_key**: EC private key
-        #     *   **pypi_token**: upload token for the Python Package Index (PyPI)
-        #     *   **finicity_token**: Finicity token
-        #     *   **k8s\_client_key**: Kubernetes private key
-        #     *   **git_cfg**: Git configuration
-        #     *   **django_key**: Django key
-        #     *   **jenkins_ssh**: Jenkins SSH configuration file
-        #     *   **openssh\_private_key**: OpenSSL private key
-        #     *   **square_oauth**: OAuth credential for Square
-        #     *   **typeform_token**: Typeform token
-        #     *   **common\_database_cfg**: general database connection configuration
-        #     *   **wordpress\_database_cfg**: WordPress database configuration
-        #     *   **googlecloud\_api_key**: API key for Google Cloud
-        #     *   **vscode_sftp**: VSCode SFTP configuration
-        #     *   **apache_htpasswd**: Apache htpasswd
-        #     *   **planetscale_token**: PlanetScale token
-        #     *   **contentful\_preview_token**: preview token for Contentful
-        #     *   **php\_database_cfg**: database password for a PHP application
-        #     *   **atom\_remote_sync**: Atom remote synchronization configuration
-        #     *   **aws\_session_token**: AWS session token
-        #     *   **atom\_sftp_cfg**: Atom SFTP configuration
-        #     *   **tencentcloud_ak**: Asana client key
-        #     *   **tencentcloud_ak**: secret ID of a third-party cloud
-        #     *   **rsa\_private_key**: RSA private key
-        #     *   **github\_personal_token**: personal access token for GitHub
-        #     *   **pgp**: Pretty Good Privacy (PGP) encrypted file
-        #     *   **stripe_skpk**: Stripe secret key
-        #     *   **square_token**: Square access token
-        #     *   **rails_carrierwave**: file upload credential for Rails Carrierwave
-        #     *   **dbeaver\_database_cfg**: DBeaver database configuration
-        #     *   **robomongo_cred**: credential for RoboMongo
-        #     *   **github\_oauth_token**: OAuth access token for GitHub
-        #     *   **pulumi_token**: Pulumi token
-        #     *   **ventrilo_voip**: configuration of a Ventrilo VoIP server
-        #     *   **macos_keychain**: macOS keychain
-        #     *   **amazon\_mws_token**: Amazon MWS token
-        #     *   **dynatrace_token**: Dynatrace token
-        #     *   **java_keystore**: Java KeyStore (JKS)
-        #     *   **microsoft_sdf**: Microsoft SQL Server Compact Edition (CE) database
-        #     *   **kubernetes\_dashboard_cred**: user credential for Kubernetes Dashboard
-        #     *   **atlassian_token**: Atlassian token
-        #     *   **rdp**: remote desktop protocol (RDP)
-        #     *   **mailgun_key**: Mailgun webhook signing key
-        #     *   **mailchimp\_api_key**: API key for Mailchimp
-        #     *   **netrc_cfg**: .netrc configuration file
-        #     *   **openvpn_cfg**: OpenVPN configuration
-        #     *   **github\_refresh_token**: GitHub refresh token
-        #     *   **salesforce**: Salesforce credential
-        #     *   **salesforce**: Sendinblue credential
-        #     *   **pkcs\_private_key**: PKCS#12 key
-        #     *   **rubyonrails_passwd**: Ruby on Rails password file
-        #     *   **filezilla_ftp**: FileZilla FTP configuration
-        #     *   **databricks_token**: Databricks token
-        #     *   **gitLab\_personal_toke**: personal access token for GitLab
-        #     *   **rails\_master_key**: Rails master key
-        #     *   **sqlite**: SQLite3 or SQLite database
-        #     *   **firefox_logins**: Firefox logon configuration
-        #     *   **mailgun\_private_token**: Mailgun private token
-        #     *   **joomla_cfg**: Joomla configuration
-        #     *   **hashicorp\_terraform_token**: HashiCorp Terraform token
-        #     *   **jetbrains_ides**: JetBrains IDEs configuration
-        #     *   **heroku\_api_key**: Heroku API key
-        #     *   **messagebird_token**: MessageBird token
-        #     *   **messagebird_token**: MessageBird token
-        #     *   **hashicorp\_vault_token**: HashiCorp Vault token
-        #     *   **pgp\_private_key**: PGP private key
-        #     *   **sshpasswd**: SSH password
-        #     *   **huaweicloud_ak**: secret access key of a third-party cloud
-        #     *   **aws_s3cmd**: AWS S3cmd configuration
-        #     *   **php_config**: PHP configuration
-        #     *   **common\_private_key**: private key of a common type
-        #     *   **microsoft_mdf**: Microsoft SQL Server database
-        #     *   **mediawiki_cfg**: MediaWiki configuration
-        #     *   **jenkins_cred**: Jenkins credential
-        #     *   **rubygems_cred**: RubyGems credential
-        #     *   **clojars_token**: Clojars token
-        #     *   **phoenix\_web_passwd**: Phoenix web credential
-        #     *   **puttygen\_private_key**: PuTTYgen private key
-        #     *   **google\_oauth_token**: Google OAuth access token
-        #     *   **rubyonrails_cfg**: Ruby On Rails database configuration
-        #     *   **lob\_api_key**: Lob API key
-        #     *   **pkcs_cred**: PKCS#12 certificate
-        #     *   **otr\_private_key**: Off-the-Record Messaging (OTR) private key
-        #     *   **contentful\_delivery_token**: delivery token for Contentful
-        #     *   **digital\_ocean_tugboat**: DigitalOcean Tugboat configuration
-        #     *   **dsa\_private_key**: Digital Signature Algorithm (DSA) private key
-        #     *   **rails\_app_token**: Rails app token
-        #     *   **git_cred**: Git user credential
-        #     *   **newrelic\_api_key**: User API key for New Relic
-        #     *   **github_hub**: hub configuration for storing GitHub tokens
-        #     *   **rubygem**: RubyGem token
-        # 
-        # *   **SensitiveFileName**: the name of the alert type for sensitive files.
         self.criteria_type = criteria_type  # type: str
-        # The number of the page to return. Pages start from page **1**. Default value: **1**.
         self.current_page = current_page  # type: int
-        # The UUID of the image.
-        # 
-        # >  You can call the [DescribeGroupedContainerInstances](~~DescribeGroupedContainerInstances~~) operation to query the UUIDs of images from the value of the **ImageUuid** response parameter.
         self.image_uuid = image_uuid  # type: str
-        # The language of the content within the request and response. Default value: **zh**. Valid values:
-        # 
-        # *   **zh**: Chinese
-        # *   **en**: English
         self.lang = lang  # type: str
-        # The number of entries to return on each page. Default value: 20.
         self.page_size = page_size  # type: int
-        # The risk level. Valid values:
-        # 
-        # *   **high**\
-        # *   **medium**\
-        # *   **low**\
         self.risk_level = risk_level  # type: str
-        # An array that consists of the types of the assets that you want to scan. Valid values:
-        # 
-        # *   **image**\
-        # *   **container**\
         self.scan_range = scan_range  # type: list[str]
 
     def validate(self):
@@ -29918,150 +29552,13 @@ class DescribeImageSensitiveFileListRequest(TeaModel):
 class DescribeImageSensitiveFileListShrinkRequest(TeaModel):
     def __init__(self, criteria=None, criteria_type=None, current_page=None, image_uuid=None, lang=None,
                  page_size=None, risk_level=None, scan_range_shrink=None):
-        # The value of the sensitive file type.
         self.criteria = criteria  # type: str
-        # The query type of sensitive files. Valid values:
-        # 
-        # *   **SensitiveFileKey**: the alert type for sensitive files. Valid values:
-        # 
-        #     *   **npm_token**: npm access token
-        #     *   **ftp_cfg**: FTP configuration
-        #     *   **google\_oauth_key**: Google OAuth key
-        #     *   **planetscale_passwd**: PlanetScale password
-        #     *   **github\_ssh_key**: GitHub SSH key
-        #     *   **msbuild\_publish_profile**: MSBuild publish profile
-        #     *   **fastly\_cdn_token**: Fastly CDN token
-        #     *   **ssh\_private_key**: SSH private key
-        #     *   **aws_cli**: AWS CLI credential
-        #     *   **cpanel_proftpd**: cPanel ProFTPD credential
-        #     *   **postgresql_passwd**: PostgreSQL password file
-        #     *   **discord\_client_cred**: Discord client credential
-        #     *   **rails_database**: Rails database configuration
-        #     *   **aws\_access_key**: AWS access key
-        #     *   **esmtp_cfg** :configuration of Extended Simple Mail Transfer Protocol (ESMTP)
-        #     *   **docker\_registry_cfg**: configuration of a Docker image repository
-        #     *   **pem**: Privacy-Enhanced Mail (PEM)
-        #     *   **common_cred**: common credential
-        #     *   **sftp_cfg**: SFTP connection configuration
-        #     *   **grafana_token**: Grafana token
-        #     *   **slack_token**: Slack token
-        #     *   **ec\_private_key**: EC private key
-        #     *   **pypi_token**: upload token for the Python Package Index (PyPI)
-        #     *   **finicity_token**: Finicity token
-        #     *   **k8s\_client_key**: Kubernetes private key
-        #     *   **git_cfg**: Git configuration
-        #     *   **django_key**: Django key
-        #     *   **jenkins_ssh**: Jenkins SSH configuration file
-        #     *   **openssh\_private_key**: OpenSSL private key
-        #     *   **square_oauth**: OAuth credential for Square
-        #     *   **typeform_token**: Typeform token
-        #     *   **common\_database_cfg**: general database connection configuration
-        #     *   **wordpress\_database_cfg**: WordPress database configuration
-        #     *   **googlecloud\_api_key**: API key for Google Cloud
-        #     *   **vscode_sftp**: VSCode SFTP configuration
-        #     *   **apache_htpasswd**: Apache htpasswd
-        #     *   **planetscale_token**: PlanetScale token
-        #     *   **contentful\_preview_token**: preview token for Contentful
-        #     *   **php\_database_cfg**: database password for a PHP application
-        #     *   **atom\_remote_sync**: Atom remote synchronization configuration
-        #     *   **aws\_session_token**: AWS session token
-        #     *   **atom\_sftp_cfg**: Atom SFTP configuration
-        #     *   **tencentcloud_ak**: Asana client key
-        #     *   **tencentcloud_ak**: secret ID of a third-party cloud
-        #     *   **rsa\_private_key**: RSA private key
-        #     *   **github\_personal_token**: personal access token for GitHub
-        #     *   **pgp**: Pretty Good Privacy (PGP) encrypted file
-        #     *   **stripe_skpk**: Stripe secret key
-        #     *   **square_token**: Square access token
-        #     *   **rails_carrierwave**: file upload credential for Rails Carrierwave
-        #     *   **dbeaver\_database_cfg**: DBeaver database configuration
-        #     *   **robomongo_cred**: credential for RoboMongo
-        #     *   **github\_oauth_token**: OAuth access token for GitHub
-        #     *   **pulumi_token**: Pulumi token
-        #     *   **ventrilo_voip**: configuration of a Ventrilo VoIP server
-        #     *   **macos_keychain**: macOS keychain
-        #     *   **amazon\_mws_token**: Amazon MWS token
-        #     *   **dynatrace_token**: Dynatrace token
-        #     *   **java_keystore**: Java KeyStore (JKS)
-        #     *   **microsoft_sdf**: Microsoft SQL Server Compact Edition (CE) database
-        #     *   **kubernetes\_dashboard_cred**: user credential for Kubernetes Dashboard
-        #     *   **atlassian_token**: Atlassian token
-        #     *   **rdp**: remote desktop protocol (RDP)
-        #     *   **mailgun_key**: Mailgun webhook signing key
-        #     *   **mailchimp\_api_key**: API key for Mailchimp
-        #     *   **netrc_cfg**: .netrc configuration file
-        #     *   **openvpn_cfg**: OpenVPN configuration
-        #     *   **github\_refresh_token**: GitHub refresh token
-        #     *   **salesforce**: Salesforce credential
-        #     *   **salesforce**: Sendinblue credential
-        #     *   **pkcs\_private_key**: PKCS#12 key
-        #     *   **rubyonrails_passwd**: Ruby on Rails password file
-        #     *   **filezilla_ftp**: FileZilla FTP configuration
-        #     *   **databricks_token**: Databricks token
-        #     *   **gitLab\_personal_toke**: personal access token for GitLab
-        #     *   **rails\_master_key**: Rails master key
-        #     *   **sqlite**: SQLite3 or SQLite database
-        #     *   **firefox_logins**: Firefox logon configuration
-        #     *   **mailgun\_private_token**: Mailgun private token
-        #     *   **joomla_cfg**: Joomla configuration
-        #     *   **hashicorp\_terraform_token**: HashiCorp Terraform token
-        #     *   **jetbrains_ides**: JetBrains IDEs configuration
-        #     *   **heroku\_api_key**: Heroku API key
-        #     *   **messagebird_token**: MessageBird token
-        #     *   **messagebird_token**: MessageBird token
-        #     *   **hashicorp\_vault_token**: HashiCorp Vault token
-        #     *   **pgp\_private_key**: PGP private key
-        #     *   **sshpasswd**: SSH password
-        #     *   **huaweicloud_ak**: secret access key of a third-party cloud
-        #     *   **aws_s3cmd**: AWS S3cmd configuration
-        #     *   **php_config**: PHP configuration
-        #     *   **common\_private_key**: private key of a common type
-        #     *   **microsoft_mdf**: Microsoft SQL Server database
-        #     *   **mediawiki_cfg**: MediaWiki configuration
-        #     *   **jenkins_cred**: Jenkins credential
-        #     *   **rubygems_cred**: RubyGems credential
-        #     *   **clojars_token**: Clojars token
-        #     *   **phoenix\_web_passwd**: Phoenix web credential
-        #     *   **puttygen\_private_key**: PuTTYgen private key
-        #     *   **google\_oauth_token**: Google OAuth access token
-        #     *   **rubyonrails_cfg**: Ruby On Rails database configuration
-        #     *   **lob\_api_key**: Lob API key
-        #     *   **pkcs_cred**: PKCS#12 certificate
-        #     *   **otr\_private_key**: Off-the-Record Messaging (OTR) private key
-        #     *   **contentful\_delivery_token**: delivery token for Contentful
-        #     *   **digital\_ocean_tugboat**: DigitalOcean Tugboat configuration
-        #     *   **dsa\_private_key**: Digital Signature Algorithm (DSA) private key
-        #     *   **rails\_app_token**: Rails app token
-        #     *   **git_cred**: Git user credential
-        #     *   **newrelic\_api_key**: User API key for New Relic
-        #     *   **github_hub**: hub configuration for storing GitHub tokens
-        #     *   **rubygem**: RubyGem token
-        # 
-        # *   **SensitiveFileName**: the name of the alert type for sensitive files.
         self.criteria_type = criteria_type  # type: str
-        # The number of the page to return. Pages start from page **1**. Default value: **1**.
         self.current_page = current_page  # type: int
-        # The UUID of the image.
-        # 
-        # >  You can call the [DescribeGroupedContainerInstances](~~DescribeGroupedContainerInstances~~) operation to query the UUIDs of images from the value of the **ImageUuid** response parameter.
         self.image_uuid = image_uuid  # type: str
-        # The language of the content within the request and response. Default value: **zh**. Valid values:
-        # 
-        # *   **zh**: Chinese
-        # *   **en**: English
         self.lang = lang  # type: str
-        # The number of entries to return on each page. Default value: 20.
         self.page_size = page_size  # type: int
-        # The risk level. Valid values:
-        # 
-        # *   **high**\
-        # *   **medium**\
-        # *   **low**\
         self.risk_level = risk_level  # type: str
-        # An array that consists of the types of the assets that you want to scan. Valid values:
-        # 
-        # *   **image**\
-        # *   **container**\
         self.scan_range_shrink = scan_range_shrink  # type: str
 
     def validate(self):
@@ -30114,15 +29611,10 @@ class DescribeImageSensitiveFileListShrinkRequest(TeaModel):
 
 class DescribeImageSensitiveFileListResponseBodyPageInfo(TeaModel):
     def __init__(self, count=None, current_page=None, last_row_key=None, page_size=None, total_count=None):
-        # The number of entries returned on the current page.
         self.count = count  # type: int
-        # The page number of the returned page.
         self.current_page = current_page  # type: int
-        # The key of the last data entry.
         self.last_row_key = last_row_key  # type: str
-        # The number of entries returned per page. Default value: 20.
         self.page_size = page_size  # type: int
-        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -30164,134 +29656,11 @@ class DescribeImageSensitiveFileListResponseBodyPageInfo(TeaModel):
 class DescribeImageSensitiveFileListResponseBodySensitiveFileList(TeaModel):
     def __init__(self, count=None, first_scan_time=None, last_scan_time=None, risk_level=None,
                  sensitive_file_key=None, sensitive_file_name=None):
-        # The number of scans that are performed on the sensitive file.
         self.count = count  # type: int
-        # The timestamp when the first scan was performed. Unit: milliseconds.
         self.first_scan_time = first_scan_time  # type: long
-        # The timestamp when the last scan was performed. Unit: milliseconds.
         self.last_scan_time = last_scan_time  # type: long
-        # The risk level. Valid values:
-        # 
-        # *   **high**\
-        # *   **medium**\
-        # *   **low**\
         self.risk_level = risk_level  # type: str
-        # The alert type for the sensitive file. Valid values:
-        # 
-        # *   **npm_token**: npm access token
-        # *   **ftp_cfg**: FTP configuration
-        # *   **google\_oauth_key**: Google OAuth key
-        # *   **planetscale_passwd**: PlanetScale password
-        # *   **github\_ssh_key**: GitHub SSH key
-        # *   **msbuild\_publish_profile**: MSBuild publish profile
-        # *   **fastly\_cdn_token**: Fastly CDN token
-        # *   **ssh\_private_key**: SSH private key
-        # *   **aws_cli**: AWS CLI credential
-        # *   **cpanel_proftpd**: cPanel ProFTPD credential
-        # *   **postgresql_passwd**: PostgreSQL password file
-        # *   **discord\_client_cred**: Discord client credential
-        # *   **rails_database**: Rails database configuration
-        # *   **aws\_access_key**: AWS access key
-        # *   **esmtp_cfg** :configuration of ESMTP
-        # *   **docker\_registry_cfg**: configuration of a Docker image repository
-        # *   **pem**: PEM
-        # *   **common_cred**: common credential
-        # *   **sftp_cfg**: SFTP connection configuration
-        # *   **grafana_token**: Grafana token
-        # *   **slack_token**: Slack token
-        # *   **ec\_private_key**: EC private key
-        # *   **pypi_token**: upload token for the PyPI
-        # *   **finicity_token**: Finicity token
-        # *   **k8s\_client_key**: Kubernetes private key
-        # *   **git_cfg**: Git configuration
-        # *   **django_key**: Django key
-        # *   **jenkins_ssh**: Jenkins SSH configuration file
-        # *   **openssh\_private_key**: OpenSSL private key
-        # *   **square_oauth**: OAuth credential for Square
-        # *   **typeform_token**: Typeform token
-        # *   **common\_database_cfg**: general database connection configuration
-        # *   **wordpress\_database_cfg**: WordPress database configuration
-        # *   **googlecloud\_api_key**: API key for Google Cloud
-        # *   **vscode_sftp**: VSCode SFTP configuration
-        # *   **apache_htpasswd**: Apache htpasswd
-        # *   **planetscale_token**: PlanetScale token
-        # *   **contentful\_preview_token**: preview token for Contentful
-        # *   **php\_database_cfg**: database password for a PHP application
-        # *   **atom\_remote_sync**: Atom remote synchronization configuration
-        # *   **aws\_session_token**: AWS session token
-        # *   **atom\_sftp_cfg**: Atom SFTP configuration
-        # *   **tencentcloud_ak**: Asana client key
-        # *   **tencentcloud_ak**: secret ID of a third-party cloud
-        # *   **rsa\_private_key**: RSA private key
-        # *   **github\_personal_token**: personal access token for GitHub
-        # *   **pgp**: PGP encrypted file
-        # *   **stripe_skpk**: Stripe secret key
-        # *   **square_token**: Square access token
-        # *   **rails_carrierwave**: file upload credential for Rails Carrierwave
-        # *   **dbeaver\_database_cfg**: DBeaver database configuration
-        # *   **robomongo_cred**: credential for RoboMongo
-        # *   **github\_oauth_token**: OAuth access token for GitHub
-        # *   **pulumi_token**: Pulumi token
-        # *   **ventrilo_voip**: configuration of a Ventrilo VoIP server
-        # *   **macos_keychain**: macOS keychain
-        # *   **amazon\_mws_token**: Amazon MWS token
-        # *   **dynatrace_token**: Dynatrace token
-        # *   **java_keystore**: JKS
-        # *   **microsoft_sdf**: Microsoft SQL Server CE database
-        # *   **kubernetes\_dashboard_cred**: user credential for Kubernetes Dashboard
-        # *   **atlassian_token**: Atlassian token
-        # *   **rdp**: RDP
-        # *   **mailgun_key**: Mailgun webhook signing key
-        # *   **mailchimp\_api_key**: API key for Mailchimp
-        # *   **netrc_cfg**: .netrc configuration file
-        # *   **openvpn_cfg**: OpenVPN configuration
-        # *   **github\_refresh_token**: GitHub refresh token
-        # *   **salesforce**: Salesforce credential
-        # *   **salesforce**: Sendinblue credential
-        # *   **pkcs\_private_key**: PKCS#12 key
-        # *   **rubyonrails_passwd**: Ruby on Rails password file
-        # *   **filezilla_ftp**: FileZilla FTP configuration
-        # *   **databricks_token**: Databricks token
-        # *   **gitLab\_personal_toke**: personal access token for GitLab
-        # *   **rails\_master_key**: Rails master key
-        # *   **sqlite**: SQLite3 or SQLite database
-        # *   **firefox_logins**: Firefox logon configuration
-        # *   **mailgun\_private_token**: Mailgun private token
-        # *   **joomla_cfg**: Joomla configuration
-        # *   **hashicorp\_terraform_token**: HashiCorp Terraform token
-        # *   **jetbrains_ides**: JetBrains IDEs configuration
-        # *   **heroku\_api_key**: Heroku API key
-        # *   **messagebird_token**: MessageBird token
-        # *   **messagebird_token**: MessageBird token
-        # *   **hashicorp\_vault_token**: HashiCorp Vault token
-        # *   **pgp\_private_key**: PGP private key
-        # *   **sshpasswd**: SSH password
-        # *   **huaweicloud_ak**: secret access key of a third-party cloud
-        # *   **aws_s3cmd**: AWS S3cmd configuration
-        # *   **php_config**: PHP configuration
-        # *   **common\_private_key**: private key of a common type
-        # *   **microsoft_mdf**: Microsoft SQL Server database
-        # *   **mediawiki_cfg**: MediaWiki configuration
-        # *   **jenkins_cred**: Jenkins credential
-        # *   **rubygems_cred**: RubyGems credential
-        # *   **clojars_token**: Clojars token
-        # *   **phoenix\_web_passwd**: Phoenix web credential
-        # *   **puttygen\_private_key**: PuTTYgen private key
-        # *   **google\_oauth_token**: Google OAuth access token
-        # *   **rubyonrails_cfg**: Ruby On Rails database configuration
-        # *   **lob\_api_key**: Lob API key
-        # *   **pkcs_cred**: PKCS#12 certificate
-        # *   **otr\_private_key**: OTR private key
-        # *   **contentful\_delivery_token**: delivery token for Contentful
-        # *   **digital\_ocean_tugboat**: DigitalOcean Tugboat configuration
-        # *   **dsa\_private_key**: Digital DSA private key
-        # *   **rails\_app_token**: Rails app token
-        # *   **git_cred**: Git user credential
-        # *   **newrelic\_api_key**: User API key for New Relic
-        # *   **github_hub**: hub configuration for storing GitHub tokens
-        # *   **rubygem**: RubyGem token
         self.sensitive_file_key = sensitive_file_key  # type: str
-        # The name of the alert type for the sensitive file.
         self.sensitive_file_name = sensitive_file_name  # type: str
 
     def validate(self):
@@ -30337,22 +29706,12 @@ class DescribeImageSensitiveFileListResponseBodySensitiveFileList(TeaModel):
 class DescribeImageSensitiveFileListResponseBody(TeaModel):
     def __init__(self, code=None, http_status_code=None, message=None, page_info=None, request_id=None,
                  sensitive_file_list=None, success=None):
-        # The status code returned. The status code **200** indicates that the request was successful. Other status codes indicate that the request failed. You can identify the cause of the failure based on the status code.
         self.code = code  # type: str
-        # The HTTP status code.
         self.http_status_code = http_status_code  # type: int
-        # The error message returned.
         self.message = message  # type: str
-        # The pagination information.
         self.page_info = page_info  # type: DescribeImageSensitiveFileListResponseBodyPageInfo
-        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
-        # An array that consists of the information about the sensitive files.
         self.sensitive_file_list = sensitive_file_list  # type: list[DescribeImageSensitiveFileListResponseBodySensitiveFileList]
-        # Indicates whether the request was successful. Valid values:
-        # 
-        # *   **true**: The request was successful.
-        # *   **false**: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -32122,19 +31481,8 @@ class DescribeLatestScanTaskResponse(TeaModel):
 
 class DescribeLogMetaRequest(TeaModel):
     def __init__(self, from_=None, lang=None, source_ip=None):
-        # The ID of the request source. Default value: **aegis**. Valid values:
-        # 
-        # *   **aegis**: Server Guard
-        # *   **sas**: Security Center
-        # 
-        # >  If you use Server Guard, set the value to **aegis**. If you use Security Center, set the value to **sas**.
         self.from_ = from_  # type: str
-        # The language of the content within the request and response. Default value: **zh**. Valid values:
-        # 
-        # *   **zh**: Chinese
-        # *   **en**: English
         self.lang = lang  # type: str
-        # The source IP address of the request.
         self.source_ip = source_ip  # type: str
 
     def validate(self):
@@ -32168,36 +31516,16 @@ class DescribeLogMetaRequest(TeaModel):
 class DescribeLogMetaResponseBodyLogMetaList(TeaModel):
     def __init__(self, category=None, hot_ttl=None, log_desc=None, log_store=None, project=None, status=None,
                  topic=None, ttl=None, user_log_store=None, user_project=None, user_region=None):
-        # The category of logs. Valid values:
-        # 
-        # *   **host**: host logs
-        # *   **network**: network logs
-        # *   **security**: security logs
         self.category = category  # type: str
-        # The time period after which logs in hot storage are moved to cold storage. Unit: days.
-        # 
-        # >  If the value is **-1**, logs that are stored in hot storage are not moved to cold storage.
         self.hot_ttl = hot_ttl  # type: int
-        # The name of the log type.
         self.log_desc = log_desc  # type: str
-        # The name of the dedicated Logstore in which logs are stored.
         self.log_store = log_store  # type: str
-        # The name of the project.
         self.project = project  # type: str
-        # The status of the log analysis feature. Valid values:
-        # 
-        # *   **disabled**\
-        # *   **enabled**\
         self.status = status  # type: str
-        # The topic of logs that are delivered.
         self.topic = topic  # type: str
-        # The number of days during which logs can be retained.
         self.ttl = ttl  # type: int
-        # The name of the dedicated Logstore in which user logs are stored.
         self.user_log_store = user_log_store  # type: str
-        # The name of the dedicated project in which logs are stored.
         self.user_project = user_project  # type: str
-        # The ID of the region.
         self.user_region = user_region  # type: str
 
     def validate(self):
@@ -32262,11 +31590,8 @@ class DescribeLogMetaResponseBodyLogMetaList(TeaModel):
 
 class DescribeLogMetaResponseBody(TeaModel):
     def __init__(self, log_meta_list=None, request_id=None, total_count=None):
-        # An array that consists of the configurations of the log analysis feature.
         self.log_meta_list = log_meta_list  # type: list[DescribeLogMetaResponseBodyLogMetaList]
-        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
-        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -34086,10 +33411,17 @@ class DescribeOnceTaskLeafRecordPageRequest(TeaModel):
 
 
 class DescribeOnceTaskLeafRecordPageResponseBodyOnceTasksTaskImageInfo(TeaModel):
-    def __init__(self, digest=None, image=None, pod=None, region_id=None, repo_id=None, repo_name=None,
+    def __init__(self, app_name=None, cluster_id=None, cluster_name=None, digest=None, image=None,
+                 node_instance_id=None, node_ip=None, node_name=None, pod=None, region_id=None, repo_id=None, repo_name=None,
                  repo_namespace=None, repo_region_id=None, tag=None):
+        self.app_name = app_name  # type: str
+        self.cluster_id = cluster_id  # type: str
+        self.cluster_name = cluster_name  # type: str
         self.digest = digest  # type: str
         self.image = image  # type: str
+        self.node_instance_id = node_instance_id  # type: str
+        self.node_ip = node_ip  # type: str
+        self.node_name = node_name  # type: str
         self.pod = pod  # type: str
         self.region_id = region_id  # type: str
         self.repo_id = repo_id  # type: str
@@ -34107,10 +33439,22 @@ class DescribeOnceTaskLeafRecordPageResponseBodyOnceTasksTaskImageInfo(TeaModel)
             return _map
 
         result = dict()
+        if self.app_name is not None:
+            result['AppName'] = self.app_name
+        if self.cluster_id is not None:
+            result['ClusterId'] = self.cluster_id
+        if self.cluster_name is not None:
+            result['ClusterName'] = self.cluster_name
         if self.digest is not None:
             result['Digest'] = self.digest
         if self.image is not None:
             result['Image'] = self.image
+        if self.node_instance_id is not None:
+            result['NodeInstanceId'] = self.node_instance_id
+        if self.node_ip is not None:
+            result['NodeIp'] = self.node_ip
+        if self.node_name is not None:
+            result['NodeName'] = self.node_name
         if self.pod is not None:
             result['Pod'] = self.pod
         if self.region_id is not None:
@@ -34129,10 +33473,22 @@ class DescribeOnceTaskLeafRecordPageResponseBodyOnceTasksTaskImageInfo(TeaModel)
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AppName') is not None:
+            self.app_name = m.get('AppName')
+        if m.get('ClusterId') is not None:
+            self.cluster_id = m.get('ClusterId')
+        if m.get('ClusterName') is not None:
+            self.cluster_name = m.get('ClusterName')
         if m.get('Digest') is not None:
             self.digest = m.get('Digest')
         if m.get('Image') is not None:
             self.image = m.get('Image')
+        if m.get('NodeInstanceId') is not None:
+            self.node_instance_id = m.get('NodeInstanceId')
+        if m.get('NodeIp') is not None:
+            self.node_ip = m.get('NodeIp')
+        if m.get('NodeName') is not None:
+            self.node_name = m.get('NodeName')
         if m.get('Pod') is not None:
             self.pod = m.get('Pod')
         if m.get('RegionId') is not None:
@@ -44423,13 +43779,15 @@ class DescribeSuspEventQuaraFilesRequest(TeaModel):
 
 class DescribeSuspEventQuaraFilesResponseBodyQuaraFiles(TeaModel):
     def __init__(self, event_name=None, event_type=None, id=None, instance_id=None, instance_name=None,
-                 internet_ip=None, ip=None, link=None, md_5=None, modify_time=None, path=None, status=None, tag=None, uuid=None):
+                 internet_ip=None, intranet_ip=None, ip=None, link=None, md_5=None, modify_time=None, path=None, status=None,
+                 tag=None, uuid=None):
         self.event_name = event_name  # type: str
         self.event_type = event_type  # type: str
         self.id = id  # type: int
         self.instance_id = instance_id  # type: str
         self.instance_name = instance_name  # type: str
         self.internet_ip = internet_ip  # type: str
+        self.intranet_ip = intranet_ip  # type: str
         self.ip = ip  # type: str
         self.link = link  # type: str
         self.md_5 = md_5  # type: str
@@ -44460,6 +43818,8 @@ class DescribeSuspEventQuaraFilesResponseBodyQuaraFiles(TeaModel):
             result['InstanceName'] = self.instance_name
         if self.internet_ip is not None:
             result['InternetIp'] = self.internet_ip
+        if self.intranet_ip is not None:
+            result['IntranetIp'] = self.intranet_ip
         if self.ip is not None:
             result['Ip'] = self.ip
         if self.link is not None:
@@ -44492,6 +43852,8 @@ class DescribeSuspEventQuaraFilesResponseBodyQuaraFiles(TeaModel):
             self.instance_name = m.get('InstanceName')
         if m.get('InternetIp') is not None:
             self.internet_ip = m.get('InternetIp')
+        if m.get('IntranetIp') is not None:
+            self.intranet_ip = m.get('IntranetIp')
         if m.get('Ip') is not None:
             self.ip = m.get('Ip')
         if m.get('Link') is not None:
@@ -48456,10 +47818,10 @@ class DescribeVersionConfigRequest(TeaModel):
 class DescribeVersionConfigResponseBody(TeaModel):
     def __init__(self, allow_partial_buy=None, app_white_list=None, app_white_list_auth_count=None,
                  asset_level=None, highest_version=None, honeypot_capacity=None, image_scan_capacity=None, instance_id=None,
-                 is_new_container_version=None, is_over_balance=None, is_trial_version=None, last_trail_end_time=None, mvauth_count=None,
-                 mvunused_auth_count=None, open_time=None, release_time=None, request_id=None, sas_log=None, sas_screen=None,
-                 sls_capacity=None, threat_analysis_capacity=None, user_defined_alarms=None, version=None, vm_cores=None,
-                 web_lock=None, web_lock_auth_count=None):
+                 is_new_container_version=None, is_new_multi_version=None, is_over_balance=None, is_trial_version=None,
+                 last_trail_end_time=None, mvauth_count=None, mvunused_auth_count=None, open_time=None, release_time=None,
+                 request_id=None, sas_log=None, sas_screen=None, sls_capacity=None, threat_analysis_capacity=None,
+                 user_defined_alarms=None, version=None, vm_cores=None, web_lock=None, web_lock_auth_count=None):
         self.allow_partial_buy = allow_partial_buy  # type: int
         self.app_white_list = app_white_list  # type: int
         self.app_white_list_auth_count = app_white_list_auth_count  # type: long
@@ -48469,6 +47831,7 @@ class DescribeVersionConfigResponseBody(TeaModel):
         self.image_scan_capacity = image_scan_capacity  # type: long
         self.instance_id = instance_id  # type: str
         self.is_new_container_version = is_new_container_version  # type: bool
+        self.is_new_multi_version = is_new_multi_version  # type: bool
         self.is_over_balance = is_over_balance  # type: bool
         self.is_trial_version = is_trial_version  # type: int
         self.last_trail_end_time = last_trail_end_time  # type: long
@@ -48514,6 +47877,8 @@ class DescribeVersionConfigResponseBody(TeaModel):
             result['InstanceId'] = self.instance_id
         if self.is_new_container_version is not None:
             result['IsNewContainerVersion'] = self.is_new_container_version
+        if self.is_new_multi_version is not None:
+            result['IsNewMultiVersion'] = self.is_new_multi_version
         if self.is_over_balance is not None:
             result['IsOverBalance'] = self.is_over_balance
         if self.is_trial_version is not None:
@@ -48570,6 +47935,8 @@ class DescribeVersionConfigResponseBody(TeaModel):
             self.instance_id = m.get('InstanceId')
         if m.get('IsNewContainerVersion') is not None:
             self.is_new_container_version = m.get('IsNewContainerVersion')
+        if m.get('IsNewMultiVersion') is not None:
+            self.is_new_multi_version = m.get('IsNewMultiVersion')
         if m.get('IsOverBalance') is not None:
             self.is_over_balance = m.get('IsOverBalance')
         if m.get('IsTrialVersion') is not None:
@@ -48643,6 +48010,30 @@ class DescribeVersionConfigResponse(TeaModel):
         if m.get('body') is not None:
             temp_model = DescribeVersionConfigResponseBody()
             self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeVpcHoneyPotCriteriaRequest(TeaModel):
+    def __init__(self, lang=None):
+        self.lang = lang  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeVpcHoneyPotCriteriaRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.lang is not None:
+            result['Lang'] = self.lang
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Lang') is not None:
+            self.lang = m.get('Lang')
         return self
 
 
@@ -50411,8 +49802,8 @@ class DescribeVulListResponseBodyVulRecords(TeaModel):
     def __init__(self, alias_name=None, auth_version=None, bind=None, extend_content_json=None, first_ts=None,
                  group_id=None, instance_id=None, instance_name=None, internet_ip=None, intranet_ip=None, last_ts=None,
                  modify_ts=None, name=None, necessity=None, online=None, os_name=None, os_version=None, primary_id=None,
-                 region_id=None, related=None, repair_ts=None, result_code=None, result_message=None, status=None, tag=None,
-                 type=None, uuid=None):
+                 rasp_defend=None, rasp_status=None, region_id=None, related=None, repair_ts=None, result_code=None,
+                 result_message=None, status=None, tag=None, type=None, uuid=None):
         self.alias_name = alias_name  # type: str
         self.auth_version = auth_version  # type: str
         self.bind = bind  # type: bool
@@ -50431,6 +49822,8 @@ class DescribeVulListResponseBodyVulRecords(TeaModel):
         self.os_name = os_name  # type: str
         self.os_version = os_version  # type: str
         self.primary_id = primary_id  # type: long
+        self.rasp_defend = rasp_defend  # type: int
+        self.rasp_status = rasp_status  # type: int
         self.region_id = region_id  # type: str
         self.related = related  # type: str
         self.repair_ts = repair_ts  # type: long
@@ -50487,6 +49880,10 @@ class DescribeVulListResponseBodyVulRecords(TeaModel):
             result['OsVersion'] = self.os_version
         if self.primary_id is not None:
             result['PrimaryId'] = self.primary_id
+        if self.rasp_defend is not None:
+            result['RaspDefend'] = self.rasp_defend
+        if self.rasp_status is not None:
+            result['RaspStatus'] = self.rasp_status
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         if self.related is not None:
@@ -50546,6 +49943,10 @@ class DescribeVulListResponseBodyVulRecords(TeaModel):
             self.os_version = m.get('OsVersion')
         if m.get('PrimaryId') is not None:
             self.primary_id = m.get('PrimaryId')
+        if m.get('RaspDefend') is not None:
+            self.rasp_defend = m.get('RaspDefend')
+        if m.get('RaspStatus') is not None:
+            self.rasp_status = m.get('RaspStatus')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         if m.get('Related') is not None:
@@ -56772,9 +56173,10 @@ class GetCheckConfigResponse(TeaModel):
 
 
 class GetCheckDetailRequest(TeaModel):
-    def __init__(self, check_id=None, lang=None):
+    def __init__(self, check_id=None, lang=None, region_id=None):
         self.check_id = check_id  # type: long
         self.lang = lang  # type: str
+        self.region_id = region_id  # type: str
 
     def validate(self):
         pass
@@ -56789,6 +56191,8 @@ class GetCheckDetailRequest(TeaModel):
             result['CheckId'] = self.check_id
         if self.lang is not None:
             result['Lang'] = self.lang
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
         return result
 
     def from_map(self, m=None):
@@ -56797,6 +56201,8 @@ class GetCheckDetailRequest(TeaModel):
             self.check_id = m.get('CheckId')
         if m.get('Lang') is not None:
             self.lang = m.get('Lang')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
         return self
 
 
@@ -56829,6 +56235,50 @@ class GetCheckDetailResponseBodyAssistInfo(TeaModel):
             self.link = m.get('Link')
         if m.get('Type') is not None:
             self.type = m.get('Type')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class GetCheckDetailResponseBodyCustomConfigs(TeaModel):
+    def __init__(self, default_value=None, name=None, show_name=None, type_define=None, value=None):
+        self.default_value = default_value  # type: str
+        self.name = name  # type: str
+        self.show_name = show_name  # type: str
+        self.type_define = type_define  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetCheckDetailResponseBodyCustomConfigs, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.default_value is not None:
+            result['DefaultValue'] = self.default_value
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.show_name is not None:
+            result['ShowName'] = self.show_name
+        if self.type_define is not None:
+            result['TypeDefine'] = self.type_define
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DefaultValue') is not None:
+            self.default_value = m.get('DefaultValue')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('ShowName') is not None:
+            self.show_name = m.get('ShowName')
+        if m.get('TypeDefine') is not None:
+            self.type_define = m.get('TypeDefine')
         if m.get('Value') is not None:
             self.value = m.get('Value')
         return self
@@ -56903,8 +56353,9 @@ class GetCheckDetailResponseBodySolution(TeaModel):
 
 
 class GetCheckDetailResponseBody(TeaModel):
-    def __init__(self, assist_info=None, description=None, request_id=None, solution=None):
+    def __init__(self, assist_info=None, custom_configs=None, description=None, request_id=None, solution=None):
         self.assist_info = assist_info  # type: GetCheckDetailResponseBodyAssistInfo
+        self.custom_configs = custom_configs  # type: list[GetCheckDetailResponseBodyCustomConfigs]
         self.description = description  # type: GetCheckDetailResponseBodyDescription
         self.request_id = request_id  # type: str
         self.solution = solution  # type: GetCheckDetailResponseBodySolution
@@ -56912,6 +56363,10 @@ class GetCheckDetailResponseBody(TeaModel):
     def validate(self):
         if self.assist_info:
             self.assist_info.validate()
+        if self.custom_configs:
+            for k in self.custom_configs:
+                if k:
+                    k.validate()
         if self.description:
             self.description.validate()
         if self.solution:
@@ -56925,6 +56380,10 @@ class GetCheckDetailResponseBody(TeaModel):
         result = dict()
         if self.assist_info is not None:
             result['AssistInfo'] = self.assist_info.to_map()
+        result['CustomConfigs'] = []
+        if self.custom_configs is not None:
+            for k in self.custom_configs:
+                result['CustomConfigs'].append(k.to_map() if k else None)
         if self.description is not None:
             result['Description'] = self.description.to_map()
         if self.request_id is not None:
@@ -56938,6 +56397,11 @@ class GetCheckDetailResponseBody(TeaModel):
         if m.get('AssistInfo') is not None:
             temp_model = GetCheckDetailResponseBodyAssistInfo()
             self.assist_info = temp_model.from_map(m['AssistInfo'])
+        self.custom_configs = []
+        if m.get('CustomConfigs') is not None:
+            for k in m.get('CustomConfigs'):
+                temp_model = GetCheckDetailResponseBodyCustomConfigs()
+                self.custom_configs.append(temp_model.from_map(k))
         if m.get('Description') is not None:
             temp_model = GetCheckDetailResponseBodyDescription()
             self.description = temp_model.from_map(m['Description'])
@@ -59010,7 +58474,8 @@ class GetFileDetectResultResponse(TeaModel):
 
 
 class GetHoneypotNodeRequest(TeaModel):
-    def __init__(self, node_id=None):
+    def __init__(self, lang=None, node_id=None):
+        self.lang = lang  # type: str
         self.node_id = node_id  # type: str
 
     def validate(self):
@@ -59022,12 +58487,16 @@ class GetHoneypotNodeRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.lang is not None:
+            result['Lang'] = self.lang
         if self.node_id is not None:
             result['NodeId'] = self.node_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Lang') is not None:
+            self.lang = m.get('Lang')
         if m.get('NodeId') is not None:
             self.node_id = m.get('NodeId')
         return self
@@ -59437,7 +58906,8 @@ class GetHoneypotPresetResponse(TeaModel):
 
 
 class GetHoneypotProbeRequest(TeaModel):
-    def __init__(self, probe_id=None):
+    def __init__(self, lang=None, probe_id=None):
+        self.lang = lang  # type: str
         self.probe_id = probe_id  # type: str
 
     def validate(self):
@@ -59449,12 +58919,16 @@ class GetHoneypotProbeRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.lang is not None:
+            result['Lang'] = self.lang
         if self.probe_id is not None:
             result['ProbeId'] = self.probe_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Lang') is not None:
+            self.lang = m.get('Lang')
         if m.get('ProbeId') is not None:
             self.probe_id = m.get('ProbeId')
         return self
@@ -60298,13 +59772,38 @@ class GetInterceptionRuleDetailResponse(TeaModel):
         return self
 
 
+class GetInterceptionSummaryRequest(TeaModel):
+    def __init__(self, cluster_id=None):
+        self.cluster_id = cluster_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetInterceptionSummaryRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cluster_id is not None:
+            result['ClusterId'] = self.cluster_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClusterId') is not None:
+            self.cluster_id = m.get('ClusterId')
+        return self
+
+
 class GetInterceptionSummaryResponseBodyInterceptionSummary(TeaModel):
     def __init__(self, close_cluster_count=None, close_rule_count=None, cluster_count=None,
-                 open_cluster_count=None, open_rule_count=None, risk_count_180day=None, risk_count_30day=None, risk_count_today=None,
-                 rule_count=None):
+                 interception_count_in_days=None, open_cluster_count=None, open_rule_count=None, risk_count_180day=None,
+                 risk_count_30day=None, risk_count_today=None, rule_count=None):
         self.close_cluster_count = close_cluster_count  # type: int
         self.close_rule_count = close_rule_count  # type: int
         self.cluster_count = cluster_count  # type: int
+        self.interception_count_in_days = interception_count_in_days  # type: int
         self.open_cluster_count = open_cluster_count  # type: int
         self.open_rule_count = open_rule_count  # type: int
         self.risk_count_180day = risk_count_180day  # type: long
@@ -60327,6 +59826,8 @@ class GetInterceptionSummaryResponseBodyInterceptionSummary(TeaModel):
             result['CloseRuleCount'] = self.close_rule_count
         if self.cluster_count is not None:
             result['ClusterCount'] = self.cluster_count
+        if self.interception_count_in_days is not None:
+            result['InterceptionCountInDays'] = self.interception_count_in_days
         if self.open_cluster_count is not None:
             result['OpenClusterCount'] = self.open_cluster_count
         if self.open_rule_count is not None:
@@ -60349,6 +59850,8 @@ class GetInterceptionSummaryResponseBodyInterceptionSummary(TeaModel):
             self.close_rule_count = m.get('CloseRuleCount')
         if m.get('ClusterCount') is not None:
             self.cluster_count = m.get('ClusterCount')
+        if m.get('InterceptionCountInDays') is not None:
+            self.interception_count_in_days = m.get('InterceptionCountInDays')
         if m.get('OpenClusterCount') is not None:
             self.open_cluster_count = m.get('OpenClusterCount')
         if m.get('OpenRuleCount') is not None:
@@ -63916,19 +63419,21 @@ class ListCheckItemWarningSummaryResponse(TeaModel):
 
 class ListCheckResultRequest(TeaModel):
     def __init__(self, check_key=None, current_page=None, instance_ids=None, instance_types=None, lang=None,
-                 page_size=None, requirement_ids=None, risk_levels=None, sort_types=None, standard_ids=None, statuses=None,
-                 vendors=None):
+                 page_size=None, region_id=None, requirement_ids=None, risk_levels=None, sort_types=None, standard_ids=None,
+                 statuses=None, types=None, vendors=None):
         self.check_key = check_key  # type: str
         self.current_page = current_page  # type: int
         self.instance_ids = instance_ids  # type: list[str]
         self.instance_types = instance_types  # type: list[str]
         self.lang = lang  # type: str
         self.page_size = page_size  # type: int
+        self.region_id = region_id  # type: str
         self.requirement_ids = requirement_ids  # type: list[long]
         self.risk_levels = risk_levels  # type: list[str]
         self.sort_types = sort_types  # type: list[str]
         self.standard_ids = standard_ids  # type: list[long]
         self.statuses = statuses  # type: list[str]
+        self.types = types  # type: list[str]
         self.vendors = vendors  # type: list[str]
 
     def validate(self):
@@ -63952,6 +63457,8 @@ class ListCheckResultRequest(TeaModel):
             result['Lang'] = self.lang
         if self.page_size is not None:
             result['PageSize'] = self.page_size
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
         if self.requirement_ids is not None:
             result['RequirementIds'] = self.requirement_ids
         if self.risk_levels is not None:
@@ -63962,6 +63469,8 @@ class ListCheckResultRequest(TeaModel):
             result['StandardIds'] = self.standard_ids
         if self.statuses is not None:
             result['Statuses'] = self.statuses
+        if self.types is not None:
+            result['Types'] = self.types
         if self.vendors is not None:
             result['Vendors'] = self.vendors
         return result
@@ -63980,6 +63489,8 @@ class ListCheckResultRequest(TeaModel):
             self.lang = m.get('Lang')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
         if m.get('RequirementIds') is not None:
             self.requirement_ids = m.get('RequirementIds')
         if m.get('RiskLevels') is not None:
@@ -63990,6 +63501,8 @@ class ListCheckResultRequest(TeaModel):
             self.standard_ids = m.get('StandardIds')
         if m.get('Statuses') is not None:
             self.statuses = m.get('Statuses')
+        if m.get('Types') is not None:
+            self.types = m.get('Types')
         if m.get('Vendors') is not None:
             self.vendors = m.get('Vendors')
         return self
@@ -65702,13 +65215,12 @@ class ListHoneypotResponse(TeaModel):
 
 
 class ListHoneypotAlarmEventsRequest(TeaModel):
-    def __init__(self, current_page=None, dealed=None, dst_ip=None, page_size=None, request_id=None,
-                 risk_level_list=None, src_ip=None):
+    def __init__(self, current_page=None, dealed=None, dst_ip=None, page_size=None, risk_level_list=None,
+                 src_ip=None):
         self.current_page = current_page  # type: int
         self.dealed = dealed  # type: str
         self.dst_ip = dst_ip  # type: str
         self.page_size = page_size  # type: int
-        self.request_id = request_id  # type: str
         self.risk_level_list = risk_level_list  # type: list[str]
         self.src_ip = src_ip  # type: str
 
@@ -65729,8 +65241,6 @@ class ListHoneypotAlarmEventsRequest(TeaModel):
             result['DstIp'] = self.dst_ip
         if self.page_size is not None:
             result['PageSize'] = self.page_size
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
         if self.risk_level_list is not None:
             result['RiskLevelList'] = self.risk_level_list
         if self.src_ip is not None:
@@ -65747,8 +65257,6 @@ class ListHoneypotAlarmEventsRequest(TeaModel):
             self.dst_ip = m.get('DstIp')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
         if m.get('RiskLevelList') is not None:
             self.risk_level_list = m.get('RiskLevelList')
         if m.get('SrcIp') is not None:
@@ -67257,8 +66765,12 @@ class ListImageRiskResponse(TeaModel):
 
 
 class ListInstanceCatalogRequest(TeaModel):
-    def __init__(self, lang=None):
+    def __init__(self, lang=None, region_id=None, requirement_ids=None, standard_ids=None, types=None):
         self.lang = lang  # type: str
+        self.region_id = region_id  # type: str
+        self.requirement_ids = requirement_ids  # type: list[long]
+        self.standard_ids = standard_ids  # type: list[long]
+        self.types = types  # type: list[str]
 
     def validate(self):
         pass
@@ -67271,12 +66783,28 @@ class ListInstanceCatalogRequest(TeaModel):
         result = dict()
         if self.lang is not None:
             result['Lang'] = self.lang
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.requirement_ids is not None:
+            result['RequirementIds'] = self.requirement_ids
+        if self.standard_ids is not None:
+            result['StandardIds'] = self.standard_ids
+        if self.types is not None:
+            result['Types'] = self.types
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('Lang') is not None:
             self.lang = m.get('Lang')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('RequirementIds') is not None:
+            self.requirement_ids = m.get('RequirementIds')
+        if m.get('StandardIds') is not None:
+            self.standard_ids = m.get('StandardIds')
+        if m.get('Types') is not None:
+            self.types = m.get('Types')
         return self
 
 
@@ -67456,12 +66984,13 @@ class ListInstanceCatalogResponse(TeaModel):
 
 class ListInterceptionHistoryRequest(TeaModel):
     def __init__(self, cluster_id=None, current_page=None, end_time=None, history_name=None,
-                 interception_types=None, page_size=None, start_time=None):
+                 interception_types=None, lang=None, page_size=None, start_time=None):
         self.cluster_id = cluster_id  # type: str
         self.current_page = current_page  # type: int
         self.end_time = end_time  # type: long
         self.history_name = history_name  # type: str
         self.interception_types = interception_types  # type: list[int]
+        self.lang = lang  # type: str
         self.page_size = page_size  # type: int
         self.start_time = start_time  # type: long
 
@@ -67484,6 +67013,8 @@ class ListInterceptionHistoryRequest(TeaModel):
             result['HistoryName'] = self.history_name
         if self.interception_types is not None:
             result['InterceptionTypes'] = self.interception_types
+        if self.lang is not None:
+            result['Lang'] = self.lang
         if self.page_size is not None:
             result['PageSize'] = self.page_size
         if self.start_time is not None:
@@ -67502,6 +67033,8 @@ class ListInterceptionHistoryRequest(TeaModel):
             self.history_name = m.get('HistoryName')
         if m.get('InterceptionTypes') is not None:
             self.interception_types = m.get('InterceptionTypes')
+        if m.get('Lang') is not None:
+            self.lang = m.get('Lang')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
         if m.get('StartTime') is not None:
@@ -67792,111 +67325,6 @@ class ListInterceptionHistoryResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListInterceptionHistoryResponseBody()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class ListInterceptionImageResponseBodyImageList(TeaModel):
-    def __init__(self, image_name=None, image_uuid=None):
-        self.image_name = image_name  # type: str
-        self.image_uuid = image_uuid  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ListInterceptionImageResponseBodyImageList, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.image_name is not None:
-            result['ImageName'] = self.image_name
-        if self.image_uuid is not None:
-            result['ImageUuid'] = self.image_uuid
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('ImageName') is not None:
-            self.image_name = m.get('ImageName')
-        if m.get('ImageUuid') is not None:
-            self.image_uuid = m.get('ImageUuid')
-        return self
-
-
-class ListInterceptionImageResponseBody(TeaModel):
-    def __init__(self, image_list=None, request_id=None):
-        self.image_list = image_list  # type: list[ListInterceptionImageResponseBodyImageList]
-        self.request_id = request_id  # type: str
-
-    def validate(self):
-        if self.image_list:
-            for k in self.image_list:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super(ListInterceptionImageResponseBody, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        result['ImageList'] = []
-        if self.image_list is not None:
-            for k in self.image_list:
-                result['ImageList'].append(k.to_map() if k else None)
-        if self.request_id is not None:
-            result['RequestId'] = self.request_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        self.image_list = []
-        if m.get('ImageList') is not None:
-            for k in m.get('ImageList'):
-                temp_model = ListInterceptionImageResponseBodyImageList()
-                self.image_list.append(temp_model.from_map(k))
-        if m.get('RequestId') is not None:
-            self.request_id = m.get('RequestId')
-        return self
-
-
-class ListInterceptionImageResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.status_code = status_code  # type: int
-        self.body = body  # type: ListInterceptionImageResponseBody
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(ListInterceptionImageResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.status_code is not None:
-            result['statusCode'] = self.status_code
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('statusCode') is not None:
-            self.status_code = m.get('statusCode')
-        if m.get('body') is not None:
-            temp_model = ListInterceptionImageResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -69204,6 +68632,30 @@ class ListPrivateRegistryListResponse(TeaModel):
         if m.get('body') is not None:
             temp_model = ListPrivateRegistryListResponseBody()
             self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListPrivateRegistryTypeRequest(TeaModel):
+    def __init__(self, lang=None):
+        self.lang = lang  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListPrivateRegistryTypeRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.lang is not None:
+            result['Lang'] = self.lang
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Lang') is not None:
+            self.lang = m.get('Lang')
         return self
 
 
@@ -81662,9 +81114,10 @@ class UninstallUniBackupAgentResponse(TeaModel):
 
 
 class UpdateHoneypotRequest(TeaModel):
-    def __init__(self, honeypot_id=None, honeypot_name=None, meta=None):
+    def __init__(self, honeypot_id=None, honeypot_name=None, lang=None, meta=None):
         self.honeypot_id = honeypot_id  # type: str
         self.honeypot_name = honeypot_name  # type: str
+        self.lang = lang  # type: str
         self.meta = meta  # type: str
 
     def validate(self):
@@ -81680,6 +81133,8 @@ class UpdateHoneypotRequest(TeaModel):
             result['HoneypotId'] = self.honeypot_id
         if self.honeypot_name is not None:
             result['HoneypotName'] = self.honeypot_name
+        if self.lang is not None:
+            result['Lang'] = self.lang
         if self.meta is not None:
             result['Meta'] = self.meta
         return result
@@ -81690,6 +81145,8 @@ class UpdateHoneypotRequest(TeaModel):
             self.honeypot_id = m.get('HoneypotId')
         if m.get('HoneypotName') is not None:
             self.honeypot_name = m.get('HoneypotName')
+        if m.get('Lang') is not None:
+            self.lang = m.get('Lang')
         if m.get('Meta') is not None:
             self.meta = m.get('Meta')
         return self
@@ -81963,9 +81420,10 @@ class UpdateHoneypotNodeResponse(TeaModel):
 
 
 class UpdateHoneypotPresetRequest(TeaModel):
-    def __init__(self, honeypot_image_name=None, honeypot_preset_id=None, meta=None, preset_name=None):
+    def __init__(self, honeypot_image_name=None, honeypot_preset_id=None, lang=None, meta=None, preset_name=None):
         self.honeypot_image_name = honeypot_image_name  # type: str
         self.honeypot_preset_id = honeypot_preset_id  # type: str
+        self.lang = lang  # type: str
         self.meta = meta  # type: str
         self.preset_name = preset_name  # type: str
 
@@ -81982,6 +81440,8 @@ class UpdateHoneypotPresetRequest(TeaModel):
             result['HoneypotImageName'] = self.honeypot_image_name
         if self.honeypot_preset_id is not None:
             result['HoneypotPresetId'] = self.honeypot_preset_id
+        if self.lang is not None:
+            result['Lang'] = self.lang
         if self.meta is not None:
             result['Meta'] = self.meta
         if self.preset_name is not None:
@@ -81994,6 +81454,8 @@ class UpdateHoneypotPresetRequest(TeaModel):
             self.honeypot_image_name = m.get('HoneypotImageName')
         if m.get('HoneypotPresetId') is not None:
             self.honeypot_preset_id = m.get('HoneypotPresetId')
+        if m.get('Lang') is not None:
+            self.lang = m.get('Lang')
         if m.get('Meta') is not None:
             self.meta = m.get('Meta')
         if m.get('PresetName') is not None:
@@ -82085,9 +81547,10 @@ class UpdateHoneypotPresetResponse(TeaModel):
 
 
 class UpdateHoneypotProbeRequest(TeaModel):
-    def __init__(self, arp=None, display_name=None, ping=None, probe_id=None, service_ip_list=None):
+    def __init__(self, arp=None, display_name=None, lang=None, ping=None, probe_id=None, service_ip_list=None):
         self.arp = arp  # type: bool
         self.display_name = display_name  # type: str
+        self.lang = lang  # type: str
         self.ping = ping  # type: bool
         self.probe_id = probe_id  # type: str
         self.service_ip_list = service_ip_list  # type: list[str]
@@ -82105,6 +81568,8 @@ class UpdateHoneypotProbeRequest(TeaModel):
             result['Arp'] = self.arp
         if self.display_name is not None:
             result['DisplayName'] = self.display_name
+        if self.lang is not None:
+            result['Lang'] = self.lang
         if self.ping is not None:
             result['Ping'] = self.ping
         if self.probe_id is not None:
@@ -82119,6 +81584,8 @@ class UpdateHoneypotProbeRequest(TeaModel):
             self.arp = m.get('Arp')
         if m.get('DisplayName') is not None:
             self.display_name = m.get('DisplayName')
+        if m.get('Lang') is not None:
+            self.lang = m.get('Lang')
         if m.get('Ping') is not None:
             self.ping = m.get('Ping')
         if m.get('ProbeId') is not None:
