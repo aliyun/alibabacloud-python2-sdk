@@ -1559,6 +1559,10 @@ class Client(OpenApiClient):
     def list_agent_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.agent_name):
+            query['AgentName'] = request.agent_name
+        if not UtilClient.is_unset(request.goods_codes):
+            query['GoodsCodes'] = request.goods_codes
         if not UtilClient.is_unset(request.page_number):
             query['PageNumber'] = request.page_number
         if not UtilClient.is_unset(request.page_size):

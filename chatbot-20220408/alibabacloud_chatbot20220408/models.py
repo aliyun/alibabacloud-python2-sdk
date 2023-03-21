@@ -6319,6 +6319,7 @@ class InitIMConnectResponseBody(TeaModel):
         self.code = code  # type: str
         self.data = data  # type: str
         self.message = message  # type: str
+        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -6495,7 +6496,9 @@ class LinkInstanceCategoryResponse(TeaModel):
 
 
 class ListAgentRequest(TeaModel):
-    def __init__(self, page_number=None, page_size=None):
+    def __init__(self, agent_name=None, goods_codes=None, page_number=None, page_size=None):
+        self.agent_name = agent_name  # type: str
+        self.goods_codes = goods_codes  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
 
@@ -6508,6 +6511,10 @@ class ListAgentRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.agent_name is not None:
+            result['AgentName'] = self.agent_name
+        if self.goods_codes is not None:
+            result['GoodsCodes'] = self.goods_codes
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
@@ -6516,6 +6523,10 @@ class ListAgentRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AgentName') is not None:
+            self.agent_name = m.get('AgentName')
+        if m.get('GoodsCodes') is not None:
+            self.goods_codes = m.get('GoodsCodes')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
@@ -6524,10 +6535,11 @@ class ListAgentRequest(TeaModel):
 
 
 class ListAgentResponseBodyData(TeaModel):
-    def __init__(self, agent_id=None, agent_key=None, agent_name=None):
+    def __init__(self, agent_id=None, agent_key=None, agent_name=None, instance_infos=None):
         self.agent_id = agent_id  # type: long
         self.agent_key = agent_key  # type: str
         self.agent_name = agent_name  # type: str
+        self.instance_infos = instance_infos  # type: dict[str, any]
 
     def validate(self):
         pass
@@ -6544,6 +6556,8 @@ class ListAgentResponseBodyData(TeaModel):
             result['AgentKey'] = self.agent_key
         if self.agent_name is not None:
             result['AgentName'] = self.agent_name
+        if self.instance_infos is not None:
+            result['InstanceInfos'] = self.instance_infos
         return result
 
     def from_map(self, m=None):
@@ -6554,6 +6568,8 @@ class ListAgentResponseBodyData(TeaModel):
             self.agent_key = m.get('AgentKey')
         if m.get('AgentName') is not None:
             self.agent_name = m.get('AgentName')
+        if m.get('InstanceInfos') is not None:
+            self.instance_infos = m.get('InstanceInfos')
         return self
 
 
