@@ -556,6 +556,30 @@ class CreateAppInstanceGroupRequestNodePool(TeaModel):
         return self
 
 
+class CreateAppInstanceGroupRequestRuntimePolicy(TeaModel):
+    def __init__(self, session_type=None):
+        self.session_type = session_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateAppInstanceGroupRequestRuntimePolicy, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.session_type is not None:
+            result['SessionType'] = self.session_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('SessionType') is not None:
+            self.session_type = m.get('SessionType')
+        return self
+
+
 class CreateAppInstanceGroupRequestUserInfo(TeaModel):
     def __init__(self, type=None):
         self.type = type  # type: str
@@ -583,8 +607,8 @@ class CreateAppInstanceGroupRequestUserInfo(TeaModel):
 class CreateAppInstanceGroupRequest(TeaModel):
     def __init__(self, app_center_image_id=None, app_instance_group_name=None, auto_pay=None, auto_renew=None,
                  biz_region_id=None, charge_resource_mode=None, charge_type=None, network=None, node_pool=None, period=None,
-                 period_unit=None, pre_open_app_id=None, product_type=None, promotion_id=None, session_timeout=None,
-                 user_info=None, users=None):
+                 period_unit=None, pre_open_app_id=None, product_type=None, promotion_id=None, runtime_policy=None,
+                 session_timeout=None, user_info=None, users=None):
         self.app_center_image_id = app_center_image_id  # type: str
         self.app_instance_group_name = app_instance_group_name  # type: str
         self.auto_pay = auto_pay  # type: bool
@@ -599,6 +623,7 @@ class CreateAppInstanceGroupRequest(TeaModel):
         self.pre_open_app_id = pre_open_app_id  # type: str
         self.product_type = product_type  # type: str
         self.promotion_id = promotion_id  # type: str
+        self.runtime_policy = runtime_policy  # type: CreateAppInstanceGroupRequestRuntimePolicy
         self.session_timeout = session_timeout  # type: int
         self.user_info = user_info  # type: CreateAppInstanceGroupRequestUserInfo
         self.users = users  # type: list[str]
@@ -608,6 +633,8 @@ class CreateAppInstanceGroupRequest(TeaModel):
             self.network.validate()
         if self.node_pool:
             self.node_pool.validate()
+        if self.runtime_policy:
+            self.runtime_policy.validate()
         if self.user_info:
             self.user_info.validate()
 
@@ -645,6 +672,8 @@ class CreateAppInstanceGroupRequest(TeaModel):
             result['ProductType'] = self.product_type
         if self.promotion_id is not None:
             result['PromotionId'] = self.promotion_id
+        if self.runtime_policy is not None:
+            result['RuntimePolicy'] = self.runtime_policy.to_map()
         if self.session_timeout is not None:
             result['SessionTimeout'] = self.session_timeout
         if self.user_info is not None:
@@ -685,6 +714,9 @@ class CreateAppInstanceGroupRequest(TeaModel):
             self.product_type = m.get('ProductType')
         if m.get('PromotionId') is not None:
             self.promotion_id = m.get('PromotionId')
+        if m.get('RuntimePolicy') is not None:
+            temp_model = CreateAppInstanceGroupRequestRuntimePolicy()
+            self.runtime_policy = temp_model.from_map(m['RuntimePolicy'])
         if m.get('SessionTimeout') is not None:
             self.session_timeout = m.get('SessionTimeout')
         if m.get('UserInfo') is not None:
@@ -699,7 +731,7 @@ class CreateAppInstanceGroupShrinkRequest(TeaModel):
     def __init__(self, app_center_image_id=None, app_instance_group_name=None, auto_pay=None, auto_renew=None,
                  biz_region_id=None, charge_resource_mode=None, charge_type=None, network_shrink=None, node_pool_shrink=None,
                  period=None, period_unit=None, pre_open_app_id=None, product_type=None, promotion_id=None,
-                 session_timeout=None, user_info_shrink=None, users=None):
+                 runtime_policy_shrink=None, session_timeout=None, user_info_shrink=None, users=None):
         self.app_center_image_id = app_center_image_id  # type: str
         self.app_instance_group_name = app_instance_group_name  # type: str
         self.auto_pay = auto_pay  # type: bool
@@ -714,6 +746,7 @@ class CreateAppInstanceGroupShrinkRequest(TeaModel):
         self.pre_open_app_id = pre_open_app_id  # type: str
         self.product_type = product_type  # type: str
         self.promotion_id = promotion_id  # type: str
+        self.runtime_policy_shrink = runtime_policy_shrink  # type: str
         self.session_timeout = session_timeout  # type: int
         self.user_info_shrink = user_info_shrink  # type: str
         self.users = users  # type: list[str]
@@ -755,6 +788,8 @@ class CreateAppInstanceGroupShrinkRequest(TeaModel):
             result['ProductType'] = self.product_type
         if self.promotion_id is not None:
             result['PromotionId'] = self.promotion_id
+        if self.runtime_policy_shrink is not None:
+            result['RuntimePolicy'] = self.runtime_policy_shrink
         if self.session_timeout is not None:
             result['SessionTimeout'] = self.session_timeout
         if self.user_info_shrink is not None:
@@ -793,6 +828,8 @@ class CreateAppInstanceGroupShrinkRequest(TeaModel):
             self.product_type = m.get('ProductType')
         if m.get('PromotionId') is not None:
             self.promotion_id = m.get('PromotionId')
+        if m.get('RuntimePolicy') is not None:
+            self.runtime_policy_shrink = m.get('RuntimePolicy')
         if m.get('SessionTimeout') is not None:
             self.session_timeout = m.get('SessionTimeout')
         if m.get('UserInfo') is not None:
