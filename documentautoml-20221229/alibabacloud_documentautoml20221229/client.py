@@ -99,6 +99,8 @@ class Client(OpenApiClient):
     def predict_template_model_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.binary_to_text):
+            query['BinaryToText'] = request.binary_to_text
         if not UtilClient.is_unset(request.content):
             query['Content'] = request.content
         if not UtilClient.is_unset(request.task_id):

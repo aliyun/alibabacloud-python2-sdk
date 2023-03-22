@@ -235,7 +235,8 @@ class PredictModelResponse(TeaModel):
 
 
 class PredictTemplateModelRequest(TeaModel):
-    def __init__(self, content=None, task_id=None):
+    def __init__(self, binary_to_text=None, content=None, task_id=None):
+        self.binary_to_text = binary_to_text  # type: bool
         self.content = content  # type: str
         self.task_id = task_id  # type: long
 
@@ -248,6 +249,8 @@ class PredictTemplateModelRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.binary_to_text is not None:
+            result['BinaryToText'] = self.binary_to_text
         if self.content is not None:
             result['Content'] = self.content
         if self.task_id is not None:
@@ -256,6 +259,8 @@ class PredictTemplateModelRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('BinaryToText') is not None:
+            self.binary_to_text = m.get('BinaryToText')
         if m.get('Content') is not None:
             self.content = m.get('Content')
         if m.get('TaskId') is not None:
