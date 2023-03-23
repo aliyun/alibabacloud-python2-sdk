@@ -152,6 +152,8 @@ class Client(OpenApiClient):
     def create_tensorboard_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         body = {}
+        if not UtilClient.is_unset(request.cpu):
+            body['Cpu'] = request.cpu
         if not UtilClient.is_unset(request.data_source_id):
             body['DataSourceId'] = request.data_source_id
         if not UtilClient.is_unset(request.data_source_type):
@@ -164,6 +166,8 @@ class Client(OpenApiClient):
             body['JobId'] = request.job_id
         if not UtilClient.is_unset(request.max_running_time_minutes):
             body['MaxRunningTimeMinutes'] = request.max_running_time_minutes
+        if not UtilClient.is_unset(request.memory):
+            body['Memory'] = request.memory
         if not UtilClient.is_unset(request.options):
             body['Options'] = request.options
         if not UtilClient.is_unset(request.source_id):

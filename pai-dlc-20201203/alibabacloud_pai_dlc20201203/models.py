@@ -661,6 +661,155 @@ class ExtraPodSpec(TeaModel):
         return self
 
 
+class FreeResourceClusterControlItem(TeaModel):
+    def __init__(self, cluster_id=None, cluster_name=None, cross_clusters=None, enable_free_resource=None,
+                 free_resource_cluster_control_id=None, gmt_create_time=None, gmt_modify_time=None, region_id=None):
+        self.cluster_id = cluster_id  # type: str
+        self.cluster_name = cluster_name  # type: str
+        self.cross_clusters = cross_clusters  # type: bool
+        self.enable_free_resource = enable_free_resource  # type: bool
+        self.free_resource_cluster_control_id = free_resource_cluster_control_id  # type: str
+        self.gmt_create_time = gmt_create_time  # type: str
+        self.gmt_modify_time = gmt_modify_time  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FreeResourceClusterControlItem, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cluster_id is not None:
+            result['ClusterID'] = self.cluster_id
+        if self.cluster_name is not None:
+            result['ClusterName'] = self.cluster_name
+        if self.cross_clusters is not None:
+            result['CrossClusters'] = self.cross_clusters
+        if self.enable_free_resource is not None:
+            result['EnableFreeResource'] = self.enable_free_resource
+        if self.free_resource_cluster_control_id is not None:
+            result['FreeResourceClusterControlId'] = self.free_resource_cluster_control_id
+        if self.gmt_create_time is not None:
+            result['GmtCreateTime'] = self.gmt_create_time
+        if self.gmt_modify_time is not None:
+            result['GmtModifyTime'] = self.gmt_modify_time
+        if self.region_id is not None:
+            result['RegionID'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClusterID') is not None:
+            self.cluster_id = m.get('ClusterID')
+        if m.get('ClusterName') is not None:
+            self.cluster_name = m.get('ClusterName')
+        if m.get('CrossClusters') is not None:
+            self.cross_clusters = m.get('CrossClusters')
+        if m.get('EnableFreeResource') is not None:
+            self.enable_free_resource = m.get('EnableFreeResource')
+        if m.get('FreeResourceClusterControlId') is not None:
+            self.free_resource_cluster_control_id = m.get('FreeResourceClusterControlId')
+        if m.get('GmtCreateTime') is not None:
+            self.gmt_create_time = m.get('GmtCreateTime')
+        if m.get('GmtModifyTime') is not None:
+            self.gmt_modify_time = m.get('GmtModifyTime')
+        if m.get('RegionID') is not None:
+            self.region_id = m.get('RegionID')
+        return self
+
+
+class FreeResourceDetail(TeaModel):
+    def __init__(self, amount=None, resource_type=None):
+        self.amount = amount  # type: int
+        self.resource_type = resource_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FreeResourceDetail, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.amount is not None:
+            result['Amount'] = self.amount
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Amount') is not None:
+            self.amount = m.get('Amount')
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
+        return self
+
+
+class FreeResourceItem(TeaModel):
+    def __init__(self, available_number=None, cluster_id=None, cluster_name=None, free_resource_id=None,
+                 gmt_create_time=None, gmt_modify_time=None, region_id=None, resource_type=None):
+        self.available_number = available_number  # type: long
+        self.cluster_id = cluster_id  # type: str
+        self.cluster_name = cluster_name  # type: str
+        self.free_resource_id = free_resource_id  # type: str
+        self.gmt_create_time = gmt_create_time  # type: str
+        self.gmt_modify_time = gmt_modify_time  # type: str
+        self.region_id = region_id  # type: str
+        self.resource_type = resource_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FreeResourceItem, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.available_number is not None:
+            result['AvailableNumber'] = self.available_number
+        if self.cluster_id is not None:
+            result['ClusterID'] = self.cluster_id
+        if self.cluster_name is not None:
+            result['ClusterName'] = self.cluster_name
+        if self.free_resource_id is not None:
+            result['FreeResourceId'] = self.free_resource_id
+        if self.gmt_create_time is not None:
+            result['GmtCreateTime'] = self.gmt_create_time
+        if self.gmt_modify_time is not None:
+            result['GmtModifyTime'] = self.gmt_modify_time
+        if self.region_id is not None:
+            result['RegionID'] = self.region_id
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AvailableNumber') is not None:
+            self.available_number = m.get('AvailableNumber')
+        if m.get('ClusterID') is not None:
+            self.cluster_id = m.get('ClusterID')
+        if m.get('ClusterName') is not None:
+            self.cluster_name = m.get('ClusterName')
+        if m.get('FreeResourceId') is not None:
+            self.free_resource_id = m.get('FreeResourceId')
+        if m.get('GmtCreateTime') is not None:
+            self.gmt_create_time = m.get('GmtCreateTime')
+        if m.get('GmtModifyTime') is not None:
+            self.gmt_modify_time = m.get('GmtModifyTime')
+        if m.get('RegionID') is not None:
+            self.region_id = m.get('RegionID')
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
+        return self
+
+
 class GPUDetail(TeaModel):
     def __init__(self, gpu=None, gputype=None, gputype_full_name=None):
         self.gpu = gpu  # type: str
@@ -692,6 +841,45 @@ class GPUDetail(TeaModel):
             self.gputype = m.get('GPUType')
         if m.get('GPUTypeFullName') is not None:
             self.gputype_full_name = m.get('GPUTypeFullName')
+        return self
+
+
+class ImageConfig(TeaModel):
+    def __init__(self, auth=None, docker_registry=None, password=None, username=None):
+        self.auth = auth  # type: str
+        self.docker_registry = docker_registry  # type: str
+        self.password = password  # type: str
+        self.username = username  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ImageConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth is not None:
+            result['Auth'] = self.auth
+        if self.docker_registry is not None:
+            result['DockerRegistry'] = self.docker_registry
+        if self.password is not None:
+            result['Password'] = self.password
+        if self.username is not None:
+            result['Username'] = self.username
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Auth') is not None:
+            self.auth = m.get('Auth')
+        if m.get('DockerRegistry') is not None:
+            self.docker_registry = m.get('DockerRegistry')
+        if m.get('Password') is not None:
+            self.password = m.get('Password')
+        if m.get('Username') is not None:
+            self.username = m.get('Username')
         return self
 
 
@@ -790,10 +978,13 @@ class JobDebuggerConfig(TeaModel):
 
 
 class JobElasticSpec(TeaModel):
-    def __init__(self, aimaster_type=None, enable_elastic_training=None, max_parallelism=None,
-                 min_parallelism=None):
+    def __init__(self, aimaster_docker_image=None, aimaster_type=None, enable_aimaster=None,
+                 enable_elastic_training=None, enable_ps_job_elastic_worker=None, max_parallelism=None, min_parallelism=None):
+        self.aimaster_docker_image = aimaster_docker_image  # type: str
         self.aimaster_type = aimaster_type  # type: str
+        self.enable_aimaster = enable_aimaster  # type: bool
         self.enable_elastic_training = enable_elastic_training  # type: bool
+        self.enable_ps_job_elastic_worker = enable_ps_job_elastic_worker  # type: bool
         self.max_parallelism = max_parallelism  # type: int
         self.min_parallelism = min_parallelism  # type: int
 
@@ -806,10 +997,16 @@ class JobElasticSpec(TeaModel):
             return _map
 
         result = dict()
+        if self.aimaster_docker_image is not None:
+            result['AIMasterDockerImage'] = self.aimaster_docker_image
         if self.aimaster_type is not None:
             result['AIMasterType'] = self.aimaster_type
+        if self.enable_aimaster is not None:
+            result['EnableAIMaster'] = self.enable_aimaster
         if self.enable_elastic_training is not None:
             result['EnableElasticTraining'] = self.enable_elastic_training
+        if self.enable_ps_job_elastic_worker is not None:
+            result['EnablePsJobElasticWorker'] = self.enable_ps_job_elastic_worker
         if self.max_parallelism is not None:
             result['MaxParallelism'] = self.max_parallelism
         if self.min_parallelism is not None:
@@ -818,10 +1015,16 @@ class JobElasticSpec(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AIMasterDockerImage') is not None:
+            self.aimaster_docker_image = m.get('AIMasterDockerImage')
         if m.get('AIMasterType') is not None:
             self.aimaster_type = m.get('AIMasterType')
+        if m.get('EnableAIMaster') is not None:
+            self.enable_aimaster = m.get('EnableAIMaster')
         if m.get('EnableElasticTraining') is not None:
             self.enable_elastic_training = m.get('EnableElasticTraining')
+        if m.get('EnablePsJobElasticWorker') is not None:
+            self.enable_ps_job_elastic_worker = m.get('EnablePsJobElasticWorker')
         if m.get('MaxParallelism') is not None:
             self.max_parallelism = m.get('MaxParallelism')
         if m.get('MinParallelism') is not None:
@@ -902,8 +1105,8 @@ class JobItem(TeaModel):
                  envs=None, gmt_create_time=None, gmt_failed_time=None, gmt_finish_time=None, gmt_running_time=None,
                  gmt_stopped_time=None, gmt_submitted_time=None, gmt_successed_time=None, job_id=None, job_specs=None, job_type=None,
                  priority=None, reason_code=None, reason_message=None, resource_id=None, resource_level=None,
-                 resource_name=None, settings=None, status=None, thirdparty_lib_dir=None, thirdparty_libs=None, user_command=None,
-                 user_id=None, workspace_id=None, workspace_name=None):
+                 resource_name=None, settings=None, status=None, sub_status=None, thirdparty_lib_dir=None, thirdparty_libs=None,
+                 user_command=None, user_id=None, workspace_id=None, workspace_name=None):
         self.code_source = code_source  # type: JobItemCodeSource
         self.data_sources = data_sources  # type: list[JobItemDataSources]
         self.display_name = display_name  # type: str
@@ -928,6 +1131,7 @@ class JobItem(TeaModel):
         self.resource_name = resource_name  # type: str
         self.settings = settings  # type: JobSettings
         self.status = status  # type: str
+        self.sub_status = sub_status  # type: str
         self.thirdparty_lib_dir = thirdparty_lib_dir  # type: str
         self.thirdparty_libs = thirdparty_libs  # type: list[str]
         self.user_command = user_command  # type: str
@@ -1007,6 +1211,8 @@ class JobItem(TeaModel):
             result['Settings'] = self.settings.to_map()
         if self.status is not None:
             result['Status'] = self.status
+        if self.sub_status is not None:
+            result['SubStatus'] = self.sub_status
         if self.thirdparty_lib_dir is not None:
             result['ThirdpartyLibDir'] = self.thirdparty_lib_dir
         if self.thirdparty_libs is not None:
@@ -1079,6 +1285,8 @@ class JobItem(TeaModel):
             self.settings = temp_model.from_map(m['Settings'])
         if m.get('Status') is not None:
             self.status = m.get('Status')
+        if m.get('SubStatus') is not None:
+            self.sub_status = m.get('SubStatus')
         if m.get('ThirdpartyLibDir') is not None:
             self.thirdparty_lib_dir = m.get('ThirdpartyLibDir')
         if m.get('ThirdpartyLibs') is not None:
@@ -1095,9 +1303,10 @@ class JobItem(TeaModel):
 
 
 class JobSettings(TeaModel):
-    def __init__(self, business_user_id=None, caller=None, enable_error_monitoring_in_aimaster=None,
-                 enable_oss_append=None, enable_rdma=None, enable_tide_resource=None, error_monitoring_args=None, pipeline_id=None,
-                 tags=None):
+    def __init__(self, advanced_settings=None, business_user_id=None, caller=None,
+                 enable_error_monitoring_in_aimaster=None, enable_oss_append=None, enable_rdma=None, enable_tide_resource=None,
+                 error_monitoring_args=None, oversold_type=None, pipeline_id=None, tags=None):
+        self.advanced_settings = advanced_settings  # type: dict[str, any]
         self.business_user_id = business_user_id  # type: str
         self.caller = caller  # type: str
         self.enable_error_monitoring_in_aimaster = enable_error_monitoring_in_aimaster  # type: bool
@@ -1105,6 +1314,7 @@ class JobSettings(TeaModel):
         self.enable_rdma = enable_rdma  # type: bool
         self.enable_tide_resource = enable_tide_resource  # type: bool
         self.error_monitoring_args = error_monitoring_args  # type: str
+        self.oversold_type = oversold_type  # type: str
         self.pipeline_id = pipeline_id  # type: str
         self.tags = tags  # type: dict[str, str]
 
@@ -1117,6 +1327,8 @@ class JobSettings(TeaModel):
             return _map
 
         result = dict()
+        if self.advanced_settings is not None:
+            result['AdvancedSettings'] = self.advanced_settings
         if self.business_user_id is not None:
             result['BusinessUserId'] = self.business_user_id
         if self.caller is not None:
@@ -1131,6 +1343,8 @@ class JobSettings(TeaModel):
             result['EnableTideResource'] = self.enable_tide_resource
         if self.error_monitoring_args is not None:
             result['ErrorMonitoringArgs'] = self.error_monitoring_args
+        if self.oversold_type is not None:
+            result['OversoldType'] = self.oversold_type
         if self.pipeline_id is not None:
             result['PipelineId'] = self.pipeline_id
         if self.tags is not None:
@@ -1139,6 +1353,8 @@ class JobSettings(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AdvancedSettings') is not None:
+            self.advanced_settings = m.get('AdvancedSettings')
         if m.get('BusinessUserId') is not None:
             self.business_user_id = m.get('BusinessUserId')
         if m.get('Caller') is not None:
@@ -1153,6 +1369,8 @@ class JobSettings(TeaModel):
             self.enable_tide_resource = m.get('EnableTideResource')
         if m.get('ErrorMonitoringArgs') is not None:
             self.error_monitoring_args = m.get('ErrorMonitoringArgs')
+        if m.get('OversoldType') is not None:
+            self.oversold_type = m.get('OversoldType')
         if m.get('PipelineId') is not None:
             self.pipeline_id = m.get('PipelineId')
         if m.get('Tags') is not None:
@@ -1161,11 +1379,12 @@ class JobSettings(TeaModel):
 
 
 class JobSpec(TeaModel):
-    def __init__(self, ecs_spec=None, extra_pod_spec=None, image=None, pod_count=None, resource_config=None,
-                 type=None, use_spot_instance=None):
+    def __init__(self, ecs_spec=None, extra_pod_spec=None, image=None, image_config=None, pod_count=None,
+                 resource_config=None, type=None, use_spot_instance=None):
         self.ecs_spec = ecs_spec  # type: str
         self.extra_pod_spec = extra_pod_spec  # type: ExtraPodSpec
         self.image = image  # type: str
+        self.image_config = image_config  # type: ImageConfig
         self.pod_count = pod_count  # type: long
         self.resource_config = resource_config  # type: ResourceConfig
         self.type = type  # type: str
@@ -1174,6 +1393,8 @@ class JobSpec(TeaModel):
     def validate(self):
         if self.extra_pod_spec:
             self.extra_pod_spec.validate()
+        if self.image_config:
+            self.image_config.validate()
         if self.resource_config:
             self.resource_config.validate()
 
@@ -1189,6 +1410,8 @@ class JobSpec(TeaModel):
             result['ExtraPodSpec'] = self.extra_pod_spec.to_map()
         if self.image is not None:
             result['Image'] = self.image
+        if self.image_config is not None:
+            result['ImageConfig'] = self.image_config.to_map()
         if self.pod_count is not None:
             result['PodCount'] = self.pod_count
         if self.resource_config is not None:
@@ -1208,6 +1431,9 @@ class JobSpec(TeaModel):
             self.extra_pod_spec = temp_model.from_map(m['ExtraPodSpec'])
         if m.get('Image') is not None:
             self.image = m.get('Image')
+        if m.get('ImageConfig') is not None:
+            temp_model = ImageConfig()
+            self.image_config = temp_model.from_map(m['ImageConfig'])
         if m.get('PodCount') is not None:
             self.pod_count = m.get('PodCount')
         if m.get('ResourceConfig') is not None:
@@ -2253,15 +2479,17 @@ class CreateJobResponse(TeaModel):
 
 
 class CreateTensorboardRequest(TeaModel):
-    def __init__(self, data_source_id=None, data_source_type=None, data_sources=None, display_name=None,
-                 job_id=None, max_running_time_minutes=None, options=None, source_id=None, source_type=None,
+    def __init__(self, cpu=None, data_source_id=None, data_source_type=None, data_sources=None, display_name=None,
+                 job_id=None, max_running_time_minutes=None, memory=None, options=None, source_id=None, source_type=None,
                  summary_path=None, summary_relative_path=None, uri=None, workspace_id=None):
+        self.cpu = cpu  # type: long
         self.data_source_id = data_source_id  # type: str
         self.data_source_type = data_source_type  # type: str
         self.data_sources = data_sources  # type: list[DataSourceItem]
         self.display_name = display_name  # type: str
         self.job_id = job_id  # type: str
         self.max_running_time_minutes = max_running_time_minutes  # type: long
+        self.memory = memory  # type: long
         self.options = options  # type: str
         self.source_id = source_id  # type: str
         self.source_type = source_type  # type: str
@@ -2282,6 +2510,8 @@ class CreateTensorboardRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.cpu is not None:
+            result['Cpu'] = self.cpu
         if self.data_source_id is not None:
             result['DataSourceId'] = self.data_source_id
         if self.data_source_type is not None:
@@ -2296,6 +2526,8 @@ class CreateTensorboardRequest(TeaModel):
             result['JobId'] = self.job_id
         if self.max_running_time_minutes is not None:
             result['MaxRunningTimeMinutes'] = self.max_running_time_minutes
+        if self.memory is not None:
+            result['Memory'] = self.memory
         if self.options is not None:
             result['Options'] = self.options
         if self.source_id is not None:
@@ -2314,6 +2546,8 @@ class CreateTensorboardRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Cpu') is not None:
+            self.cpu = m.get('Cpu')
         if m.get('DataSourceId') is not None:
             self.data_source_id = m.get('DataSourceId')
         if m.get('DataSourceType') is not None:
@@ -2329,6 +2563,8 @@ class CreateTensorboardRequest(TeaModel):
             self.job_id = m.get('JobId')
         if m.get('MaxRunningTimeMinutes') is not None:
             self.max_running_time_minutes = m.get('MaxRunningTimeMinutes')
+        if m.get('Memory') is not None:
+            self.memory = m.get('Memory')
         if m.get('Options') is not None:
             self.options = m.get('Options')
         if m.get('SourceId') is not None:
@@ -2657,7 +2893,7 @@ class GetJobResponseBodyDataSources(TeaModel):
 
 class GetJobResponseBodyPodsHistoryPods(TeaModel):
     def __init__(self, gmt_create_time=None, gmt_finish_time=None, gmt_start_time=None, ip=None, pod_id=None,
-                 pod_uid=None, status=None, type=None):
+                 pod_uid=None, resource_type=None, status=None, sub_status=None, type=None):
         self.gmt_create_time = gmt_create_time  # type: str
         self.gmt_finish_time = gmt_finish_time  # type: str
         self.gmt_start_time = gmt_start_time  # type: str
@@ -2667,7 +2903,9 @@ class GetJobResponseBodyPodsHistoryPods(TeaModel):
         self.pod_id = pod_id  # type: str
         # Pod UId
         self.pod_uid = pod_uid  # type: str
+        self.resource_type = resource_type  # type: str
         self.status = status  # type: str
+        self.sub_status = sub_status  # type: str
         self.type = type  # type: str
 
     def validate(self):
@@ -2691,8 +2929,12 @@ class GetJobResponseBodyPodsHistoryPods(TeaModel):
             result['PodId'] = self.pod_id
         if self.pod_uid is not None:
             result['PodUid'] = self.pod_uid
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
         if self.status is not None:
             result['Status'] = self.status
+        if self.sub_status is not None:
+            result['SubStatus'] = self.sub_status
         if self.type is not None:
             result['Type'] = self.type
         return result
@@ -2711,8 +2953,12 @@ class GetJobResponseBodyPodsHistoryPods(TeaModel):
             self.pod_id = m.get('PodId')
         if m.get('PodUid') is not None:
             self.pod_uid = m.get('PodUid')
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
         if m.get('Status') is not None:
             self.status = m.get('Status')
+        if m.get('SubStatus') is not None:
+            self.sub_status = m.get('SubStatus')
         if m.get('Type') is not None:
             self.type = m.get('Type')
         return self
@@ -2720,7 +2966,7 @@ class GetJobResponseBodyPodsHistoryPods(TeaModel):
 
 class GetJobResponseBodyPods(TeaModel):
     def __init__(self, gmt_create_time=None, gmt_finish_time=None, gmt_start_time=None, history_pods=None, ip=None,
-                 pod_id=None, pod_uid=None, status=None, type=None):
+                 pod_id=None, pod_uid=None, resource_type=None, status=None, sub_status=None, type=None):
         self.gmt_create_time = gmt_create_time  # type: str
         self.gmt_finish_time = gmt_finish_time  # type: str
         self.gmt_start_time = gmt_start_time  # type: str
@@ -2729,7 +2975,9 @@ class GetJobResponseBodyPods(TeaModel):
         self.pod_id = pod_id  # type: str
         # Pod UId
         self.pod_uid = pod_uid  # type: str
+        self.resource_type = resource_type  # type: str
         self.status = status  # type: str
+        self.sub_status = sub_status  # type: str
         self.type = type  # type: str
 
     def validate(self):
@@ -2760,8 +3008,12 @@ class GetJobResponseBodyPods(TeaModel):
             result['PodId'] = self.pod_id
         if self.pod_uid is not None:
             result['PodUid'] = self.pod_uid
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
         if self.status is not None:
             result['Status'] = self.status
+        if self.sub_status is not None:
+            result['SubStatus'] = self.sub_status
         if self.type is not None:
             result['Type'] = self.type
         return result
@@ -2785,8 +3037,12 @@ class GetJobResponseBodyPods(TeaModel):
             self.pod_id = m.get('PodId')
         if m.get('PodUid') is not None:
             self.pod_uid = m.get('PodUid')
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
         if m.get('Status') is not None:
             self.status = m.get('Status')
+        if m.get('SubStatus') is not None:
+            self.sub_status = m.get('SubStatus')
         if m.get('Type') is not None:
             self.type = m.get('Type')
         return self
@@ -2797,9 +3053,9 @@ class GetJobResponseBody(TeaModel):
                  elastic_spec=None, enabled_debugger=None, envs=None, gmt_create_time=None, gmt_failed_time=None,
                  gmt_finish_time=None, gmt_running_time=None, gmt_stopped_time=None, gmt_submitted_time=None,
                  gmt_successed_time=None, job_id=None, job_specs=None, job_type=None, pods=None, priority=None, reason_code=None,
-                 reason_message=None, request_id=None, resource_id=None, resource_level=None, settings=None, status=None,
-                 thirdparty_lib_dir=None, thirdparty_libs=None, user_command=None, user_id=None, workspace_id=None,
-                 workspace_name=None):
+                 reason_message=None, request_id=None, resource_id=None, resource_level=None, restart_times=None, settings=None,
+                 status=None, sub_status=None, thirdparty_lib_dir=None, thirdparty_libs=None, user_command=None,
+                 user_id=None, workspace_id=None, workspace_name=None):
         self.cluster_id = cluster_id  # type: str
         self.code_source = code_source  # type: GetJobResponseBodyCodeSource
         self.data_sources = data_sources  # type: list[GetJobResponseBodyDataSources]
@@ -2825,8 +3081,10 @@ class GetJobResponseBody(TeaModel):
         self.request_id = request_id  # type: str
         self.resource_id = resource_id  # type: str
         self.resource_level = resource_level  # type: str
+        self.restart_times = restart_times  # type: str
         self.settings = settings  # type: JobSettings
         self.status = status  # type: str
+        self.sub_status = sub_status  # type: str
         self.thirdparty_lib_dir = thirdparty_lib_dir  # type: str
         self.thirdparty_libs = thirdparty_libs  # type: list[str]
         self.user_command = user_command  # type: str
@@ -2916,10 +3174,14 @@ class GetJobResponseBody(TeaModel):
             result['ResourceId'] = self.resource_id
         if self.resource_level is not None:
             result['ResourceLevel'] = self.resource_level
+        if self.restart_times is not None:
+            result['RestartTimes'] = self.restart_times
         if self.settings is not None:
             result['Settings'] = self.settings.to_map()
         if self.status is not None:
             result['Status'] = self.status
+        if self.sub_status is not None:
+            result['SubStatus'] = self.sub_status
         if self.thirdparty_lib_dir is not None:
             result['ThirdpartyLibDir'] = self.thirdparty_lib_dir
         if self.thirdparty_libs is not None:
@@ -2997,11 +3259,15 @@ class GetJobResponseBody(TeaModel):
             self.resource_id = m.get('ResourceId')
         if m.get('ResourceLevel') is not None:
             self.resource_level = m.get('ResourceLevel')
+        if m.get('RestartTimes') is not None:
+            self.restart_times = m.get('RestartTimes')
         if m.get('Settings') is not None:
             temp_model = JobSettings()
             self.settings = temp_model.from_map(m['Settings'])
         if m.get('Status') is not None:
             self.status = m.get('Status')
+        if m.get('SubStatus') is not None:
+            self.sub_status = m.get('SubStatus')
         if m.get('ThirdpartyLibDir') is not None:
             self.thirdparty_lib_dir = m.get('ThirdpartyLibDir')
         if m.get('ThirdpartyLibs') is not None:
@@ -3094,7 +3360,7 @@ class GetJobEventsResponseBody(TeaModel):
     def __init__(self, events=None, job_id=None, request_id=None):
         self.events = events  # type: list[str]
         self.job_id = job_id  # type: str
-        self.request_id = request_id  # type: int
+        self.request_id = request_id  # type: str
 
     def validate(self):
         pass
