@@ -169,6 +169,7 @@ class CreateClientCertificateResponseBody(TeaModel):
         self.identifier = identifier  # type: str
         # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
+        # The serial number of the server certificate.
         self.serial_number = serial_number  # type: str
         # The content of the client certificate.
         self.x_509certificate = x_509certificate  # type: str
@@ -422,6 +423,7 @@ class CreateClientCertificateWithCsrResponseBody(TeaModel):
         self.identifier = identifier  # type: str
         # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
+        # The serial number of the server certificate.
         self.serial_number = serial_number  # type: str
         # The content of the client certificate.
         self.x_509certificate = x_509certificate  # type: str
@@ -497,6 +499,354 @@ class CreateClientCertificateWithCsrResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateClientCertificateWithCsrResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CreateCustomCertificateRequestApiPassthroughExtensionsKeyUsage(TeaModel):
+    def __init__(self, content_commitment=None, data_encipherment=None, decipher_only=None, digital_signature=None,
+                 encipher_only=None, key_agreement=None, key_encipherment=None, non_repudiation=None):
+        self.content_commitment = content_commitment  # type: bool
+        self.data_encipherment = data_encipherment  # type: bool
+        self.decipher_only = decipher_only  # type: bool
+        self.digital_signature = digital_signature  # type: bool
+        self.encipher_only = encipher_only  # type: bool
+        self.key_agreement = key_agreement  # type: bool
+        self.key_encipherment = key_encipherment  # type: bool
+        self.non_repudiation = non_repudiation  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateCustomCertificateRequestApiPassthroughExtensionsKeyUsage, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.content_commitment is not None:
+            result['ContentCommitment'] = self.content_commitment
+        if self.data_encipherment is not None:
+            result['DataEncipherment'] = self.data_encipherment
+        if self.decipher_only is not None:
+            result['DecipherOnly'] = self.decipher_only
+        if self.digital_signature is not None:
+            result['DigitalSignature'] = self.digital_signature
+        if self.encipher_only is not None:
+            result['EncipherOnly'] = self.encipher_only
+        if self.key_agreement is not None:
+            result['KeyAgreement'] = self.key_agreement
+        if self.key_encipherment is not None:
+            result['KeyEncipherment'] = self.key_encipherment
+        if self.non_repudiation is not None:
+            result['NonRepudiation'] = self.non_repudiation
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ContentCommitment') is not None:
+            self.content_commitment = m.get('ContentCommitment')
+        if m.get('DataEncipherment') is not None:
+            self.data_encipherment = m.get('DataEncipherment')
+        if m.get('DecipherOnly') is not None:
+            self.decipher_only = m.get('DecipherOnly')
+        if m.get('DigitalSignature') is not None:
+            self.digital_signature = m.get('DigitalSignature')
+        if m.get('EncipherOnly') is not None:
+            self.encipher_only = m.get('EncipherOnly')
+        if m.get('KeyAgreement') is not None:
+            self.key_agreement = m.get('KeyAgreement')
+        if m.get('KeyEncipherment') is not None:
+            self.key_encipherment = m.get('KeyEncipherment')
+        if m.get('NonRepudiation') is not None:
+            self.non_repudiation = m.get('NonRepudiation')
+        return self
+
+
+class CreateCustomCertificateRequestApiPassthroughExtensionsSubjectAlternativeNames(TeaModel):
+    def __init__(self, type=None, value=None):
+        self.type = type  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateCustomCertificateRequestApiPassthroughExtensionsSubjectAlternativeNames, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.type is not None:
+            result['Type'] = self.type
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class CreateCustomCertificateRequestApiPassthroughExtensions(TeaModel):
+    def __init__(self, extended_key_usages=None, key_usage=None, subject_alternative_names=None):
+        self.extended_key_usages = extended_key_usages  # type: list[str]
+        self.key_usage = key_usage  # type: CreateCustomCertificateRequestApiPassthroughExtensionsKeyUsage
+        self.subject_alternative_names = subject_alternative_names  # type: list[CreateCustomCertificateRequestApiPassthroughExtensionsSubjectAlternativeNames]
+
+    def validate(self):
+        if self.key_usage:
+            self.key_usage.validate()
+        if self.subject_alternative_names:
+            for k in self.subject_alternative_names:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(CreateCustomCertificateRequestApiPassthroughExtensions, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.extended_key_usages is not None:
+            result['ExtendedKeyUsages'] = self.extended_key_usages
+        if self.key_usage is not None:
+            result['KeyUsage'] = self.key_usage.to_map()
+        result['SubjectAlternativeNames'] = []
+        if self.subject_alternative_names is not None:
+            for k in self.subject_alternative_names:
+                result['SubjectAlternativeNames'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ExtendedKeyUsages') is not None:
+            self.extended_key_usages = m.get('ExtendedKeyUsages')
+        if m.get('KeyUsage') is not None:
+            temp_model = CreateCustomCertificateRequestApiPassthroughExtensionsKeyUsage()
+            self.key_usage = temp_model.from_map(m['KeyUsage'])
+        self.subject_alternative_names = []
+        if m.get('SubjectAlternativeNames') is not None:
+            for k in m.get('SubjectAlternativeNames'):
+                temp_model = CreateCustomCertificateRequestApiPassthroughExtensionsSubjectAlternativeNames()
+                self.subject_alternative_names.append(temp_model.from_map(k))
+        return self
+
+
+class CreateCustomCertificateRequestApiPassthroughSubject(TeaModel):
+    def __init__(self, common_name=None, country=None, locality=None, organization=None, organization_unit=None,
+                 state=None):
+        self.common_name = common_name  # type: str
+        self.country = country  # type: str
+        self.locality = locality  # type: str
+        self.organization = organization  # type: str
+        self.organization_unit = organization_unit  # type: str
+        self.state = state  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateCustomCertificateRequestApiPassthroughSubject, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_name is not None:
+            result['CommonName'] = self.common_name
+        if self.country is not None:
+            result['Country'] = self.country
+        if self.locality is not None:
+            result['Locality'] = self.locality
+        if self.organization is not None:
+            result['Organization'] = self.organization
+        if self.organization_unit is not None:
+            result['OrganizationUnit'] = self.organization_unit
+        if self.state is not None:
+            result['State'] = self.state
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CommonName') is not None:
+            self.common_name = m.get('CommonName')
+        if m.get('Country') is not None:
+            self.country = m.get('Country')
+        if m.get('Locality') is not None:
+            self.locality = m.get('Locality')
+        if m.get('Organization') is not None:
+            self.organization = m.get('Organization')
+        if m.get('OrganizationUnit') is not None:
+            self.organization_unit = m.get('OrganizationUnit')
+        if m.get('State') is not None:
+            self.state = m.get('State')
+        return self
+
+
+class CreateCustomCertificateRequestApiPassthrough(TeaModel):
+    def __init__(self, extensions=None, subject=None):
+        self.extensions = extensions  # type: CreateCustomCertificateRequestApiPassthroughExtensions
+        self.subject = subject  # type: CreateCustomCertificateRequestApiPassthroughSubject
+
+    def validate(self):
+        if self.extensions:
+            self.extensions.validate()
+        if self.subject:
+            self.subject.validate()
+
+    def to_map(self):
+        _map = super(CreateCustomCertificateRequestApiPassthrough, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.extensions is not None:
+            result['Extensions'] = self.extensions.to_map()
+        if self.subject is not None:
+            result['Subject'] = self.subject.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Extensions') is not None:
+            temp_model = CreateCustomCertificateRequestApiPassthroughExtensions()
+            self.extensions = temp_model.from_map(m['Extensions'])
+        if m.get('Subject') is not None:
+            temp_model = CreateCustomCertificateRequestApiPassthroughSubject()
+            self.subject = temp_model.from_map(m['Subject'])
+        return self
+
+
+class CreateCustomCertificateRequest(TeaModel):
+    def __init__(self, api_passthrough=None, csr=None, immediately=None, parent_identifier=None, validity=None):
+        self.api_passthrough = api_passthrough  # type: CreateCustomCertificateRequestApiPassthrough
+        self.csr = csr  # type: str
+        self.immediately = immediately  # type: int
+        self.parent_identifier = parent_identifier  # type: str
+        self.validity = validity  # type: str
+
+    def validate(self):
+        if self.api_passthrough:
+            self.api_passthrough.validate()
+
+    def to_map(self):
+        _map = super(CreateCustomCertificateRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.api_passthrough is not None:
+            result['ApiPassthrough'] = self.api_passthrough.to_map()
+        if self.csr is not None:
+            result['Csr'] = self.csr
+        if self.immediately is not None:
+            result['Immediately'] = self.immediately
+        if self.parent_identifier is not None:
+            result['ParentIdentifier'] = self.parent_identifier
+        if self.validity is not None:
+            result['Validity'] = self.validity
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ApiPassthrough') is not None:
+            temp_model = CreateCustomCertificateRequestApiPassthrough()
+            self.api_passthrough = temp_model.from_map(m['ApiPassthrough'])
+        if m.get('Csr') is not None:
+            self.csr = m.get('Csr')
+        if m.get('Immediately') is not None:
+            self.immediately = m.get('Immediately')
+        if m.get('ParentIdentifier') is not None:
+            self.parent_identifier = m.get('ParentIdentifier')
+        if m.get('Validity') is not None:
+            self.validity = m.get('Validity')
+        return self
+
+
+class CreateCustomCertificateResponseBody(TeaModel):
+    def __init__(self, certificate=None, certificate_chain=None, identifier=None, request_id=None,
+                 serial_number=None):
+        self.certificate = certificate  # type: str
+        self.certificate_chain = certificate_chain  # type: str
+        self.identifier = identifier  # type: str
+        self.request_id = request_id  # type: str
+        self.serial_number = serial_number  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateCustomCertificateResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.certificate is not None:
+            result['Certificate'] = self.certificate
+        if self.certificate_chain is not None:
+            result['CertificateChain'] = self.certificate_chain
+        if self.identifier is not None:
+            result['Identifier'] = self.identifier
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.serial_number is not None:
+            result['SerialNumber'] = self.serial_number
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Certificate') is not None:
+            self.certificate = m.get('Certificate')
+        if m.get('CertificateChain') is not None:
+            self.certificate_chain = m.get('CertificateChain')
+        if m.get('Identifier') is not None:
+            self.identifier = m.get('Identifier')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('SerialNumber') is not None:
+            self.serial_number = m.get('SerialNumber')
+        return self
+
+
+class CreateCustomCertificateResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateCustomCertificateResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateCustomCertificateResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateCustomCertificateResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -915,6 +1265,7 @@ class CreateServerCertificateResponseBody(TeaModel):
         self.identifier = identifier  # type: str
         # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
+        # The serial number of the server certificate.
         self.serial_number = serial_number  # type: str
         # The content of the server certificate.
         self.x_509certificate = x_509certificate  # type: str
@@ -1163,6 +1514,7 @@ class CreateServerCertificateWithCsrResponseBody(TeaModel):
         self.identifier = identifier  # type: str
         # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
+        # The serial number of the server certificate.
         self.serial_number = serial_number  # type: str
         # The content of the server certificate.
         self.x_509certificate = x_509certificate  # type: str
@@ -1243,8 +1595,9 @@ class CreateServerCertificateWithCsrResponse(TeaModel):
 
 
 class CreateSubCACertificateRequest(TeaModel):
-    def __init__(self, algorithm=None, common_name=None, country_code=None, locality=None, organization=None,
-                 organization_unit=None, parent_identifier=None, state=None, years=None):
+    def __init__(self, algorithm=None, common_name=None, country_code=None, extended_key_usages=None, locality=None,
+                 organization=None, organization_unit=None, parent_identifier=None, path_len_constraint=None, state=None,
+                 years=None):
         # The type of the key algorithm of the intermediate CA. The key algorithm is in the `<Encryption algorithm>_<Key length>` format. Valid values:
         # 
         # *   **RSA\_1024**: The signature algorithm is Sha256WithRSA.
@@ -1263,6 +1616,7 @@ class CreateSubCACertificateRequest(TeaModel):
         # 
         # For more information about country codes, see the **"Country codes"** section of the [Manage company profiles](~~198289~~) topic.
         self.country_code = country_code  # type: str
+        self.extended_key_usages = extended_key_usages  # type: list[str]
         # The name of the city in which the organization is located. The value can contain letters.
         self.locality = locality  # type: str
         # The name of the organization that is associated with the intermediate CA certificate. You can enter the name of your enterprise or company. The value can contain letters.
@@ -1273,6 +1627,7 @@ class CreateSubCACertificateRequest(TeaModel):
         # 
         # >  You can call the [DescribeCACertificateList](~~328095~~) operation to query the unique identifiers of all CA certificates.
         self.parent_identifier = parent_identifier  # type: str
+        self.path_len_constraint = path_len_constraint  # type: int
         # The name of the province, municipality, or autonomous region in which the organization is located. The value can contain letters.
         self.state = state  # type: str
         # The validity period of the intermediate CA certificate. Unit: years.
@@ -1297,6 +1652,8 @@ class CreateSubCACertificateRequest(TeaModel):
             result['CommonName'] = self.common_name
         if self.country_code is not None:
             result['CountryCode'] = self.country_code
+        if self.extended_key_usages is not None:
+            result['ExtendedKeyUsages'] = self.extended_key_usages
         if self.locality is not None:
             result['Locality'] = self.locality
         if self.organization is not None:
@@ -1305,6 +1662,8 @@ class CreateSubCACertificateRequest(TeaModel):
             result['OrganizationUnit'] = self.organization_unit
         if self.parent_identifier is not None:
             result['ParentIdentifier'] = self.parent_identifier
+        if self.path_len_constraint is not None:
+            result['PathLenConstraint'] = self.path_len_constraint
         if self.state is not None:
             result['State'] = self.state
         if self.years is not None:
@@ -1319,6 +1678,8 @@ class CreateSubCACertificateRequest(TeaModel):
             self.common_name = m.get('CommonName')
         if m.get('CountryCode') is not None:
             self.country_code = m.get('CountryCode')
+        if m.get('ExtendedKeyUsages') is not None:
+            self.extended_key_usages = m.get('ExtendedKeyUsages')
         if m.get('Locality') is not None:
             self.locality = m.get('Locality')
         if m.get('Organization') is not None:
@@ -1327,6 +1688,8 @@ class CreateSubCACertificateRequest(TeaModel):
             self.organization_unit = m.get('OrganizationUnit')
         if m.get('ParentIdentifier') is not None:
             self.parent_identifier = m.get('ParentIdentifier')
+        if m.get('PathLenConstraint') is not None:
+            self.path_len_constraint = m.get('PathLenConstraint')
         if m.get('State') is not None:
             self.state = m.get('State')
         if m.get('Years') is not None:
@@ -1958,7 +2321,7 @@ class DescribeCACertificateListResponseBodyCertificateList(TeaModel):
         # *   **OU**: the name of the department or branch in the organization
         # *   **L**: the name of the city in which the organization is located
         # 
-        # \<props="china">- **ST**: the name of the province, municipality, or autonomous region in which the organization is located \<props="intl">- **ST**: the name of the province or state in which the organization is located
+        # <props="china">- **ST**: the name of the province, municipality, or autonomous region in which the organization is located</props> <props="intl">- **ST**: the name of the province or state in which the organization is located</props>
         # 
         # *   **CN**: the common name or abbreviation of the organization
         self.subject_dn = subject_dn  # type: str
