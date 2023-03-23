@@ -752,14 +752,12 @@ class Client(OpenApiClient):
         headers = {}
         return self.delete_machine_group_with_options(project, machine_group, headers, runtime)
 
-    def delete_project_with_options(self, request, headers, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.project):
-            query['project'] = request.project
+    def delete_project_with_options(self, project, headers, runtime):
+        host_map = {}
+        host_map['project'] = project
         req = open_api_models.OpenApiRequest(
-            headers=headers,
-            query=OpenApiUtilClient.query(query)
+            host_map=host_map,
+            headers=headers
         )
         params = open_api_models.Params(
             action='DeleteProject',
@@ -777,10 +775,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def delete_project(self, request):
+    def delete_project(self, project):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_project_with_options(request, headers, runtime)
+        return self.delete_project_with_options(project, headers, runtime)
 
     def delete_project_policy_with_options(self, project, headers, runtime):
         host_map = {}
@@ -1288,12 +1286,14 @@ class Client(OpenApiClient):
         headers = {}
         return self.get_machine_group_with_options(project, machine_group, headers, runtime)
 
-    def get_project_with_options(self, project, headers, runtime):
-        host_map = {}
-        host_map['project'] = project
+    def get_project_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.project):
+            query['project'] = request.project
         req = open_api_models.OpenApiRequest(
-            host_map=host_map,
-            headers=headers
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GetProject',
@@ -1311,10 +1311,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def get_project(self, project):
+    def get_project(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_project_with_options(project, headers, runtime)
+        return self.get_project_with_options(request, headers, runtime)
 
     def get_project_logs_with_options(self, project, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2421,17 +2421,16 @@ class Client(OpenApiClient):
         headers = {}
         return self.update_oss_shipper_with_options(project, logstore, shipper_name, request, headers, runtime)
 
-    def update_project_with_options(self, request, headers, runtime):
+    def update_project_with_options(self, project, request, headers, runtime):
         UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.project):
-            query['project'] = request.project
+        host_map = {}
+        host_map['project'] = project
         body = {}
         if not UtilClient.is_unset(request.description):
             body['description'] = request.description
         req = open_api_models.OpenApiRequest(
+            host_map=host_map,
             headers=headers,
-            query=OpenApiUtilClient.query(query),
             body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
@@ -2450,10 +2449,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def update_project(self, request):
+    def update_project(self, project, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_project_with_options(request, headers, runtime)
+        return self.update_project_with_options(project, request, headers, runtime)
 
     def update_rds_external_store_with_options(self, project, external_store_name, request, headers, runtime):
         UtilClient.validate_model(request)

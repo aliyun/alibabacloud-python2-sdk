@@ -286,66 +286,6 @@ class SavedSearch(TeaModel):
         return self
 
 
-class Alert(TeaModel):
-    def __init__(self, configuration=None, description=None, display_name=None, name=None, schedule=None, state=None,
-                 type=None):
-        self.configuration = configuration  # type: Configuration
-        self.description = description  # type: str
-        self.display_name = display_name  # type: str
-        self.name = name  # type: str
-        self.schedule = schedule  # type: Schedule
-        self.state = state  # type: str
-        self.type = type  # type: str
-
-    def validate(self):
-        if self.configuration:
-            self.configuration.validate()
-        if self.schedule:
-            self.schedule.validate()
-
-    def to_map(self):
-        _map = super(Alert, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.configuration is not None:
-            result['configuration'] = self.configuration.to_map()
-        if self.description is not None:
-            result['description'] = self.description
-        if self.display_name is not None:
-            result['displayName'] = self.display_name
-        if self.name is not None:
-            result['name'] = self.name
-        if self.schedule is not None:
-            result['schedule'] = self.schedule.to_map()
-        if self.state is not None:
-            result['state'] = self.state
-        if self.type is not None:
-            result['type'] = self.type
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('configuration') is not None:
-            temp_model = Configuration()
-            self.configuration = temp_model.from_map(m['configuration'])
-        if m.get('description') is not None:
-            self.description = m.get('description')
-        if m.get('displayName') is not None:
-            self.display_name = m.get('displayName')
-        if m.get('name') is not None:
-            self.name = m.get('name')
-        if m.get('schedule') is not None:
-            temp_model = Schedule()
-            self.schedule = temp_model.from_map(m['schedule'])
-        if m.get('state') is not None:
-            self.state = m.get('state')
-        if m.get('type') is not None:
-            self.type = m.get('type')
-        return self
-
-
 class Chart(TeaModel):
     def __init__(self, action=None, display=None, search=None, title=None, type=None):
         self.action = action  # type: dict[str, any]
@@ -387,432 +327,6 @@ class Chart(TeaModel):
             self.title = m.get('title')
         if m.get('type') is not None:
             self.type = m.get('type')
-        return self
-
-
-class ConfigurationAnnotations(TeaModel):
-    def __init__(self, key=None, value=None):
-        self.key = key  # type: str
-        self.value = value  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ConfigurationAnnotations, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.key is not None:
-            result['key'] = self.key
-        if self.value is not None:
-            result['value'] = self.value
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('key') is not None:
-            self.key = m.get('key')
-        if m.get('value') is not None:
-            self.value = m.get('value')
-        return self
-
-
-class ConfigurationGroupConfiguration(TeaModel):
-    def __init__(self, fields=None, type=None):
-        self.fields = fields  # type: list[str]
-        self.type = type  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ConfigurationGroupConfiguration, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.fields is not None:
-            result['fields'] = self.fields
-        if self.type is not None:
-            result['type'] = self.type
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('fields') is not None:
-            self.fields = m.get('fields')
-        if m.get('type') is not None:
-            self.type = m.get('type')
-        return self
-
-
-class ConfigurationJoinConfigurations(TeaModel):
-    def __init__(self, condition=None, type=None):
-        self.condition = condition  # type: str
-        self.type = type  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ConfigurationJoinConfigurations, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.condition is not None:
-            result['condition'] = self.condition
-        if self.type is not None:
-            result['type'] = self.type
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('condition') is not None:
-            self.condition = m.get('condition')
-        if m.get('type') is not None:
-            self.type = m.get('type')
-        return self
-
-
-class ConfigurationLabels(TeaModel):
-    def __init__(self, key=None, value=None):
-        self.key = key  # type: str
-        self.value = value  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ConfigurationLabels, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.key is not None:
-            result['key'] = self.key
-        if self.value is not None:
-            result['value'] = self.value
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('key') is not None:
-            self.key = m.get('key')
-        if m.get('value') is not None:
-            self.value = m.get('value')
-        return self
-
-
-class ConfigurationPolicyConfiguration(TeaModel):
-    def __init__(self, action_policy_id=None, alert_policy_id=None, repeat_interval=None, use_default=None):
-        self.action_policy_id = action_policy_id  # type: str
-        self.alert_policy_id = alert_policy_id  # type: str
-        self.repeat_interval = repeat_interval  # type: str
-        self.use_default = use_default  # type: bool
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ConfigurationPolicyConfiguration, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.action_policy_id is not None:
-            result['actionPolicyId'] = self.action_policy_id
-        if self.alert_policy_id is not None:
-            result['alertPolicyId'] = self.alert_policy_id
-        if self.repeat_interval is not None:
-            result['repeatInterval'] = self.repeat_interval
-        if self.use_default is not None:
-            result['useDefault'] = self.use_default
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('actionPolicyId') is not None:
-            self.action_policy_id = m.get('actionPolicyId')
-        if m.get('alertPolicyId') is not None:
-            self.alert_policy_id = m.get('alertPolicyId')
-        if m.get('repeatInterval') is not None:
-            self.repeat_interval = m.get('repeatInterval')
-        if m.get('useDefault') is not None:
-            self.use_default = m.get('useDefault')
-        return self
-
-
-class ConfigurationQueryList(TeaModel):
-    def __init__(self, power_sql_mode=None, project=None, query=None, region=None, role_arn=None, start=None,
-                 store=None, store_type=None, time_span_type=None):
-        self.power_sql_mode = power_sql_mode  # type: str
-        self.project = project  # type: str
-        self.query = query  # type: str
-        self.region = region  # type: str
-        self.role_arn = role_arn  # type: str
-        self.start = start  # type: str
-        self.store = store  # type: str
-        self.store_type = store_type  # type: str
-        self.time_span_type = time_span_type  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ConfigurationQueryList, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.power_sql_mode is not None:
-            result['powerSqlMode'] = self.power_sql_mode
-        if self.project is not None:
-            result['project'] = self.project
-        if self.query is not None:
-            result['query'] = self.query
-        if self.region is not None:
-            result['region'] = self.region
-        if self.role_arn is not None:
-            result['roleArn'] = self.role_arn
-        if self.start is not None:
-            result['start'] = self.start
-        if self.store is not None:
-            result['store'] = self.store
-        if self.store_type is not None:
-            result['storeType'] = self.store_type
-        if self.time_span_type is not None:
-            result['timeSpanType'] = self.time_span_type
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('powerSqlMode') is not None:
-            self.power_sql_mode = m.get('powerSqlMode')
-        if m.get('project') is not None:
-            self.project = m.get('project')
-        if m.get('query') is not None:
-            self.query = m.get('query')
-        if m.get('region') is not None:
-            self.region = m.get('region')
-        if m.get('roleArn') is not None:
-            self.role_arn = m.get('roleArn')
-        if m.get('start') is not None:
-            self.start = m.get('start')
-        if m.get('store') is not None:
-            self.store = m.get('store')
-        if m.get('storeType') is not None:
-            self.store_type = m.get('storeType')
-        if m.get('timeSpanType') is not None:
-            self.time_span_type = m.get('timeSpanType')
-        return self
-
-
-class ConfigurationSeverityConfigurationsEvalCondition(TeaModel):
-    def __init__(self, condition=None, count_condition=None):
-        self.condition = condition  # type: str
-        self.count_condition = count_condition  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ConfigurationSeverityConfigurationsEvalCondition, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.condition is not None:
-            result['condition'] = self.condition
-        if self.count_condition is not None:
-            result['countCondition'] = self.count_condition
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('condition') is not None:
-            self.condition = m.get('condition')
-        if m.get('countCondition') is not None:
-            self.count_condition = m.get('countCondition')
-        return self
-
-
-class ConfigurationSeverityConfigurations(TeaModel):
-    def __init__(self, eval_condition=None, severity=None):
-        self.eval_condition = eval_condition  # type: ConfigurationSeverityConfigurationsEvalCondition
-        self.severity = severity  # type: long
-
-    def validate(self):
-        if self.eval_condition:
-            self.eval_condition.validate()
-
-    def to_map(self):
-        _map = super(ConfigurationSeverityConfigurations, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.eval_condition is not None:
-            result['evalCondition'] = self.eval_condition.to_map()
-        if self.severity is not None:
-            result['severity'] = self.severity
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('evalCondition') is not None:
-            temp_model = ConfigurationSeverityConfigurationsEvalCondition()
-            self.eval_condition = temp_model.from_map(m['evalCondition'])
-        if m.get('severity') is not None:
-            self.severity = m.get('severity')
-        return self
-
-
-class Configuration(TeaModel):
-    def __init__(self, annotations=None, auto_annotation=None, dashboard=None, group_configuration=None,
-                 join_configurations=None, labels=None, no_data_fire=None, no_data_severity=None, policy_configuration=None,
-                 query_list=None, send_resolved=None, severity_configurations=None, tags=None, threshold=None, type=None,
-                 version=None):
-        self.annotations = annotations  # type: list[ConfigurationAnnotations]
-        self.auto_annotation = auto_annotation  # type: bool
-        self.dashboard = dashboard  # type: str
-        self.group_configuration = group_configuration  # type: ConfigurationGroupConfiguration
-        self.join_configurations = join_configurations  # type: list[ConfigurationJoinConfigurations]
-        self.labels = labels  # type: list[ConfigurationLabels]
-        self.no_data_fire = no_data_fire  # type: bool
-        self.no_data_severity = no_data_severity  # type: long
-        self.policy_configuration = policy_configuration  # type: ConfigurationPolicyConfiguration
-        self.query_list = query_list  # type: ConfigurationQueryList
-        self.send_resolved = send_resolved  # type: bool
-        self.severity_configurations = severity_configurations  # type: list[ConfigurationSeverityConfigurations]
-        self.tags = tags  # type: list[str]
-        self.threshold = threshold  # type: long
-        self.type = type  # type: str
-        self.version = version  # type: str
-
-    def validate(self):
-        if self.annotations:
-            for k in self.annotations:
-                if k:
-                    k.validate()
-        if self.group_configuration:
-            self.group_configuration.validate()
-        if self.join_configurations:
-            for k in self.join_configurations:
-                if k:
-                    k.validate()
-        if self.labels:
-            for k in self.labels:
-                if k:
-                    k.validate()
-        if self.policy_configuration:
-            self.policy_configuration.validate()
-        if self.query_list:
-            self.query_list.validate()
-        if self.severity_configurations:
-            for k in self.severity_configurations:
-                if k:
-                    k.validate()
-
-    def to_map(self):
-        _map = super(Configuration, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        result['annotations'] = []
-        if self.annotations is not None:
-            for k in self.annotations:
-                result['annotations'].append(k.to_map() if k else None)
-        if self.auto_annotation is not None:
-            result['autoAnnotation'] = self.auto_annotation
-        if self.dashboard is not None:
-            result['dashboard'] = self.dashboard
-        if self.group_configuration is not None:
-            result['groupConfiguration'] = self.group_configuration.to_map()
-        result['joinConfigurations'] = []
-        if self.join_configurations is not None:
-            for k in self.join_configurations:
-                result['joinConfigurations'].append(k.to_map() if k else None)
-        result['labels'] = []
-        if self.labels is not None:
-            for k in self.labels:
-                result['labels'].append(k.to_map() if k else None)
-        if self.no_data_fire is not None:
-            result['noDataFire'] = self.no_data_fire
-        if self.no_data_severity is not None:
-            result['noDataSeverity'] = self.no_data_severity
-        if self.policy_configuration is not None:
-            result['policyConfiguration'] = self.policy_configuration.to_map()
-        if self.query_list is not None:
-            result['queryList'] = self.query_list.to_map()
-        if self.send_resolved is not None:
-            result['sendResolved'] = self.send_resolved
-        result['severityConfigurations'] = []
-        if self.severity_configurations is not None:
-            for k in self.severity_configurations:
-                result['severityConfigurations'].append(k.to_map() if k else None)
-        if self.tags is not None:
-            result['tags'] = self.tags
-        if self.threshold is not None:
-            result['threshold'] = self.threshold
-        if self.type is not None:
-            result['type'] = self.type
-        if self.version is not None:
-            result['version'] = self.version
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        self.annotations = []
-        if m.get('annotations') is not None:
-            for k in m.get('annotations'):
-                temp_model = ConfigurationAnnotations()
-                self.annotations.append(temp_model.from_map(k))
-        if m.get('autoAnnotation') is not None:
-            self.auto_annotation = m.get('autoAnnotation')
-        if m.get('dashboard') is not None:
-            self.dashboard = m.get('dashboard')
-        if m.get('groupConfiguration') is not None:
-            temp_model = ConfigurationGroupConfiguration()
-            self.group_configuration = temp_model.from_map(m['groupConfiguration'])
-        self.join_configurations = []
-        if m.get('joinConfigurations') is not None:
-            for k in m.get('joinConfigurations'):
-                temp_model = ConfigurationJoinConfigurations()
-                self.join_configurations.append(temp_model.from_map(k))
-        self.labels = []
-        if m.get('labels') is not None:
-            for k in m.get('labels'):
-                temp_model = ConfigurationLabels()
-                self.labels.append(temp_model.from_map(k))
-        if m.get('noDataFire') is not None:
-            self.no_data_fire = m.get('noDataFire')
-        if m.get('noDataSeverity') is not None:
-            self.no_data_severity = m.get('noDataSeverity')
-        if m.get('policyConfiguration') is not None:
-            temp_model = ConfigurationPolicyConfiguration()
-            self.policy_configuration = temp_model.from_map(m['policyConfiguration'])
-        if m.get('queryList') is not None:
-            temp_model = ConfigurationQueryList()
-            self.query_list = temp_model.from_map(m['queryList'])
-        if m.get('sendResolved') is not None:
-            self.send_resolved = m.get('sendResolved')
-        self.severity_configurations = []
-        if m.get('severityConfigurations') is not None:
-            for k in m.get('severityConfigurations'):
-                temp_model = ConfigurationSeverityConfigurations()
-                self.severity_configurations.append(temp_model.from_map(k))
-        if m.get('tags') is not None:
-            self.tags = m.get('tags')
-        if m.get('threshold') is not None:
-            self.threshold = m.get('threshold')
-        if m.get('type') is not None:
-            self.type = m.get('type')
-        if m.get('version') is not None:
-            self.version = m.get('version')
         return self
 
 
@@ -865,30 +379,6 @@ class Dashboard(TeaModel):
             self.description = m.get('description')
         if m.get('displayName') is not None:
             self.display_name = m.get('displayName')
-        return self
-
-
-class EtlFunctionConfig(TeaModel):
-    def __init__(self, function_provider=None):
-        self.function_provider = function_provider  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(EtlFunctionConfig, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.function_provider is not None:
-            result['functionProvider'] = self.function_provider
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('functionProvider') is not None:
-            self.function_provider = m.get('functionProvider')
         return self
 
 
@@ -1116,40 +606,6 @@ class EtlJob(TeaModel):
         return self
 
 
-class EtlLogConfig(TeaModel):
-    def __init__(self, endpoint=None, logstore_name=None, project_name=None):
-        self.endpoint = endpoint  # type: str
-        self.logstore_name = logstore_name  # type: str
-        self.project_name = project_name  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(EtlLogConfig, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.endpoint is not None:
-            result['endpoint'] = self.endpoint
-        if self.logstore_name is not None:
-            result['logstoreName'] = self.logstore_name
-        if self.project_name is not None:
-            result['projectName'] = self.project_name
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('endpoint') is not None:
-            self.endpoint = m.get('endpoint')
-        if m.get('logstoreName') is not None:
-            self.logstore_name = m.get('logstoreName')
-        if m.get('projectName') is not None:
-            self.project_name = m.get('projectName')
-        return self
-
-
 class EtlMeta(TeaModel):
     def __init__(self, enable=None, etl_meta_key=None, etl_meta_name=None, etl_meta_tag=None, etl_meta_value=None):
         self.enable = enable  # type: bool
@@ -1191,75 +647,6 @@ class EtlMeta(TeaModel):
             self.etl_meta_tag = m.get('etlMetaTag')
         if m.get('etlMetaValue') is not None:
             self.etl_meta_value = m.get('etlMetaValue')
-        return self
-
-
-class EtlSourceConfig(TeaModel):
-    def __init__(self, logstore_name=None):
-        self.logstore_name = logstore_name  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(EtlSourceConfig, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.logstore_name is not None:
-            result['logstoreName'] = self.logstore_name
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('logstoreName') is not None:
-            self.logstore_name = m.get('logstoreName')
-        return self
-
-
-class EtlTriggerConfig(TeaModel):
-    def __init__(self, max_retry_time=None, role_arn=None, starting_position=None, starting_unixtime=None,
-                 trigger_interval=None):
-        self.max_retry_time = max_retry_time  # type: int
-        self.role_arn = role_arn  # type: str
-        self.starting_position = starting_position  # type: str
-        self.starting_unixtime = starting_unixtime  # type: long
-        self.trigger_interval = trigger_interval  # type: int
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(EtlTriggerConfig, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.max_retry_time is not None:
-            result['maxRetryTime'] = self.max_retry_time
-        if self.role_arn is not None:
-            result['roleArn'] = self.role_arn
-        if self.starting_position is not None:
-            result['startingPosition'] = self.starting_position
-        if self.starting_unixtime is not None:
-            result['startingUnixtime'] = self.starting_unixtime
-        if self.trigger_interval is not None:
-            result['triggerInterval'] = self.trigger_interval
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('maxRetryTime') is not None:
-            self.max_retry_time = m.get('maxRetryTime')
-        if m.get('roleArn') is not None:
-            self.role_arn = m.get('roleArn')
-        if m.get('startingPosition') is not None:
-            self.starting_position = m.get('startingPosition')
-        if m.get('startingUnixtime') is not None:
-            self.starting_unixtime = m.get('startingUnixtime')
-        if m.get('triggerInterval') is not None:
-            self.trigger_interval = m.get('triggerInterval')
         return self
 
 
@@ -1688,7 +1075,7 @@ class MachineGroup(TeaModel):
 
 class Project(TeaModel):
     def __init__(self, create_time=None, last_modify_time=None, project_desc=None, project_name=None,
-                 project_owner=None, project_status=None, region=None):
+                 project_owner=None, project_status=None, region=None, resource_group_id=None):
         self.create_time = create_time  # type: str
         self.last_modify_time = last_modify_time  # type: str
         self.project_desc = project_desc  # type: str
@@ -1696,6 +1083,7 @@ class Project(TeaModel):
         self.project_owner = project_owner  # type: str
         self.project_status = project_status  # type: str
         self.region = region  # type: str
+        self.resource_group_id = resource_group_id  # type: str
 
     def validate(self):
         pass
@@ -1720,6 +1108,8 @@ class Project(TeaModel):
             result['projectStatus'] = self.project_status
         if self.region is not None:
             result['region'] = self.region
+        if self.resource_group_id is not None:
+            result['resourceGroupId'] = self.resource_group_id
         return result
 
     def from_map(self, m=None):
@@ -1738,56 +1128,8 @@ class Project(TeaModel):
             self.project_status = m.get('projectStatus')
         if m.get('region') is not None:
             self.region = m.get('region')
-        return self
-
-
-class Schedule(TeaModel):
-    def __init__(self, cron_expression=None, day_of_week=None, hour=None, interval=None, run_immediately=None,
-                 type=None):
-        self.cron_expression = cron_expression  # type: str
-        self.day_of_week = day_of_week  # type: long
-        self.hour = hour  # type: long
-        self.interval = interval  # type: str
-        self.run_immediately = run_immediately  # type: bool
-        self.type = type  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(Schedule, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.cron_expression is not None:
-            result['cronExpression'] = self.cron_expression
-        if self.day_of_week is not None:
-            result['dayOfWeek'] = self.day_of_week
-        if self.hour is not None:
-            result['hour'] = self.hour
-        if self.interval is not None:
-            result['interval'] = self.interval
-        if self.run_immediately is not None:
-            result['runImmediately'] = self.run_immediately
-        if self.type is not None:
-            result['type'] = self.type
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('cronExpression') is not None:
-            self.cron_expression = m.get('cronExpression')
-        if m.get('dayOfWeek') is not None:
-            self.day_of_week = m.get('dayOfWeek')
-        if m.get('hour') is not None:
-            self.hour = m.get('hour')
-        if m.get('interval') is not None:
-            self.interval = m.get('interval')
-        if m.get('runImmediately') is not None:
-            self.run_immediately = m.get('runImmediately')
-        if m.get('type') is not None:
-            self.type = m.get('type')
+        if m.get('resourceGroupId') is not None:
+            self.resource_group_id = m.get('resourceGroupId')
         return self
 
 
@@ -3519,30 +2861,6 @@ class DeleteMachineGroupResponse(TeaModel):
         return self
 
 
-class DeleteProjectRequest(TeaModel):
-    def __init__(self, project=None):
-        self.project = project  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(DeleteProjectRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.project is not None:
-            result['project'] = self.project
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('project') is not None:
-            self.project = m.get('project')
-        return self
-
-
 class DeleteProjectResponse(TeaModel):
     def __init__(self, headers=None, status_code=None):
         self.headers = headers  # type: dict[str, str]
@@ -4616,13 +3934,13 @@ class GetLoggingResponse(TeaModel):
 class GetLogsRequest(TeaModel):
     def __init__(self, from_=None, line=None, offset=None, power_sql=None, query=None, reverse=None, to=None,
                  topic=None):
-        self.from_ = from_  # type: long
+        self.from_ = from_  # type: int
         self.line = line  # type: long
         self.offset = offset  # type: long
         self.power_sql = power_sql  # type: bool
         self.query = query  # type: str
         self.reverse = reverse  # type: bool
-        self.to = to  # type: long
+        self.to = to  # type: int
         self.topic = topic  # type: str
 
     def validate(self):
@@ -4745,6 +4063,30 @@ class GetMachineGroupResponse(TeaModel):
         if m.get('body') is not None:
             temp_model = MachineGroup()
             self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetProjectRequest(TeaModel):
+    def __init__(self, project=None):
+        self.project = project  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetProjectRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.project is not None:
+            result['project'] = self.project
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('project') is not None:
+            self.project = m.get('project')
         return self
 
 
@@ -7781,9 +7123,8 @@ class UpdateOssShipperResponse(TeaModel):
 
 
 class UpdateProjectRequest(TeaModel):
-    def __init__(self, description=None, project=None):
+    def __init__(self, description=None):
         self.description = description  # type: str
-        self.project = project  # type: str
 
     def validate(self):
         pass
@@ -7796,16 +7137,12 @@ class UpdateProjectRequest(TeaModel):
         result = dict()
         if self.description is not None:
             result['description'] = self.description
-        if self.project is not None:
-            result['project'] = self.project
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('description') is not None:
             self.description = m.get('description')
-        if m.get('project') is not None:
-            self.project = m.get('project')
         return self
 
 
