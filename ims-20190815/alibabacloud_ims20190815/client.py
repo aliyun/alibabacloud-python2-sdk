@@ -31,6 +31,16 @@ class Client(OpenApiClient):
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
     def add_client_id_to_oidcprovider_with_options(self, request, runtime):
+        """
+        This topic provides an example on how to add the client ID `598469743454717***` to the OIDC IdP named `TestOIDCProvider`.
+        
+
+        @param request: AddClientIdToOIDCProviderRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: AddClientIdToOIDCProviderResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_id):
@@ -57,10 +67,28 @@ class Client(OpenApiClient):
         )
 
     def add_client_id_to_oidcprovider(self, request):
+        """
+        This topic provides an example on how to add the client ID `598469743454717***` to the OIDC IdP named `TestOIDCProvider`.
+        
+
+        @param request: AddClientIdToOIDCProviderRequest
+
+        @return: AddClientIdToOIDCProviderResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.add_client_id_to_oidcprovider_with_options(request, runtime)
 
     def add_fingerprint_to_oidcprovider_with_options(self, request, runtime):
+        """
+        This topic provides an example on how to add the fingerprint `902ef2deeb3c5b13ea4c3d5193629309e231***` to the OIDC IdP named `TestOIDCProvider`.
+        
+
+        @param request: AddFingerprintToOIDCProviderRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: AddFingerprintToOIDCProviderResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.fingerprint):
@@ -87,6 +115,14 @@ class Client(OpenApiClient):
         )
 
     def add_fingerprint_to_oidcprovider(self, request):
+        """
+        This topic provides an example on how to add the fingerprint `902ef2deeb3c5b13ea4c3d5193629309e231***` to the OIDC IdP named `TestOIDCProvider`.
+        
+
+        @param request: AddFingerprintToOIDCProviderRequest
+
+        @return: AddFingerprintToOIDCProviderResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.add_fingerprint_to_oidcprovider_with_options(request, runtime)
 
@@ -155,6 +191,16 @@ class Client(OpenApiClient):
         return self.bind_mfadevice_with_options(request, runtime)
 
     def change_password_with_options(self, request, runtime):
+        """
+        >  This operation is available only for RAM users. Before you call this operation, make sure that `AllowUserToChangePassword` in [SetSecurityPreference](~~43765~~) is set to `True`. The value True indicates that RAM users can change their passwords.
+        
+
+        @param request: ChangePasswordRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ChangePasswordResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.new_password):
@@ -181,6 +227,14 @@ class Client(OpenApiClient):
         )
 
     def change_password(self, request):
+        """
+        >  This operation is available only for RAM users. Before you call this operation, make sure that `AllowUserToChangePassword` in [SetSecurityPreference](~~43765~~) is set to `True`. The value True indicates that RAM users can change their passwords.
+        
+
+        @param request: ChangePasswordRequest
+
+        @return: ChangePasswordResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.change_password_with_options(request, runtime)
 
@@ -353,6 +407,22 @@ class Client(OpenApiClient):
         return self.create_login_profile_with_options(request, runtime)
 
     def create_oidcprovider_with_options(self, request, runtime):
+        """
+        This topic provides an example on how to create an IdP named `TestOIDCProvider` to configure a trust relationship between the external IdP Okta and Alibaba Cloud.
+        ## Prerequisites
+        Before you call this operation, make sure that the information such as the URL of the issuer, the fingerprints of HTTPS certificates, and the client IDs are obtained from an external IdP, such as Google G Suite or Okta.
+        ## Limits
+        - You can create a maximum of 100 OIDC IdPs in an Alibaba Cloud account.
+        - You can add a maximum of 20 client IDs to an OIDC IdP.
+        - You can add a maximum of five fingerprints to an OIDC IdP.
+        
+
+        @param request: CreateOIDCProviderRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateOIDCProviderResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_ids):
@@ -385,6 +455,20 @@ class Client(OpenApiClient):
         )
 
     def create_oidcprovider(self, request):
+        """
+        This topic provides an example on how to create an IdP named `TestOIDCProvider` to configure a trust relationship between the external IdP Okta and Alibaba Cloud.
+        ## Prerequisites
+        Before you call this operation, make sure that the information such as the URL of the issuer, the fingerprints of HTTPS certificates, and the client IDs are obtained from an external IdP, such as Google G Suite or Okta.
+        ## Limits
+        - You can create a maximum of 100 OIDC IdPs in an Alibaba Cloud account.
+        - You can add a maximum of 20 client IDs to an OIDC IdP.
+        - You can add a maximum of five fingerprints to an OIDC IdP.
+        
+
+        @param request: CreateOIDCProviderRequest
+
+        @return: CreateOIDCProviderResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_oidcprovider_with_options(request, runtime)
 
@@ -421,6 +505,16 @@ class Client(OpenApiClient):
         return self.create_samlprovider_with_options(request, runtime)
 
     def create_user_with_options(self, request, runtime):
+        """
+        This topic provides an example on how to create a RAM user named `test`.
+        
+
+        @param request: CreateUserRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateUserResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.comments):
@@ -455,6 +549,14 @@ class Client(OpenApiClient):
         )
 
     def create_user(self, request):
+        """
+        This topic provides an example on how to create a RAM user named `test`.
+        
+
+        @param request: CreateUserRequest
+
+        @return: CreateUserResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_user_with_options(request, runtime)
 
@@ -575,6 +677,16 @@ class Client(OpenApiClient):
         return self.delete_application_with_options(request, runtime)
 
     def delete_group_with_options(self, request, runtime):
+        """
+        Before you delete a RAM user group, make sure that no policies are attached to the group and no RAM users are included in the group.
+        
+
+        @param request: DeleteGroupRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteGroupResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.group_name):
@@ -599,6 +711,14 @@ class Client(OpenApiClient):
         )
 
     def delete_group(self, request):
+        """
+        Before you delete a RAM user group, make sure that no policies are attached to the group and no RAM users are included in the group.
+        
+
+        @param request: DeleteGroupRequest
+
+        @return: DeleteGroupResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_group_with_options(request, runtime)
 
@@ -631,6 +751,16 @@ class Client(OpenApiClient):
         return self.delete_login_profile_with_options(request, runtime)
 
     def delete_oidcprovider_with_options(self, request, runtime):
+        """
+        This topic provides an example on how to remove the OIDC IdP named `TestOIDCProvider`.
+        
+
+        @param request: DeleteOIDCProviderRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteOIDCProviderResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.oidcprovider_name):
@@ -655,6 +785,14 @@ class Client(OpenApiClient):
         )
 
     def delete_oidcprovider(self, request):
+        """
+        This topic provides an example on how to remove the OIDC IdP named `TestOIDCProvider`.
+        
+
+        @param request: DeleteOIDCProviderRequest
+
+        @return: DeleteOIDCProviderResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_oidcprovider_with_options(request, runtime)
 
@@ -1049,6 +1187,16 @@ class Client(OpenApiClient):
         return self.get_login_profile_with_options(request, runtime)
 
     def get_oidcprovider_with_options(self, request, runtime):
+        """
+        This topic provides an example on how to query the information about an OIDC IdP named `TestOIDCProvider`.
+        
+
+        @param request: GetOIDCProviderRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetOIDCProviderResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.oidcprovider_name):
@@ -1073,6 +1221,14 @@ class Client(OpenApiClient):
         )
 
     def get_oidcprovider(self, request):
+        """
+        This topic provides an example on how to query the information about an OIDC IdP named `TestOIDCProvider`.
+        
+
+        @param request: GetOIDCProviderRequest
+
+        @return: GetOIDCProviderResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_oidcprovider_with_options(request, runtime)
 
@@ -1149,6 +1305,16 @@ class Client(OpenApiClient):
         return self.get_security_preference_with_options(runtime)
 
     def get_user_with_options(self, request, runtime):
+        """
+        This topic provides an example to show how to query the information about a RAM user named `test@example.onaliyun.com`.
+        
+
+        @param request: GetUserRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetUserResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.user_access_key_id):
@@ -1177,6 +1343,14 @@ class Client(OpenApiClient):
         )
 
     def get_user(self, request):
+        """
+        This topic provides an example to show how to query the information about a RAM user named `test@example.onaliyun.com`.
+        
+
+        @param request: GetUserRequest
+
+        @return: GetUserResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_user_with_options(request, runtime)
 
@@ -1367,6 +1541,16 @@ class Client(OpenApiClient):
         return self.list_groups_for_user_with_options(request, runtime)
 
     def list_oidcproviders_with_options(self, request, runtime):
+        """
+        This topic provides an example on how to query all OIDC IdPs within your Alibaba Cloud account. The response shows that your Alibaba Cloud account has only one OIDC IdP named `TestOIDCProvider`.
+        
+
+        @param request: ListOIDCProvidersRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListOIDCProvidersResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.marker):
@@ -1393,6 +1577,14 @@ class Client(OpenApiClient):
         )
 
     def list_oidcproviders(self, request):
+        """
+        This topic provides an example on how to query all OIDC IdPs within your Alibaba Cloud account. The response shows that your Alibaba Cloud account has only one OIDC IdP named `TestOIDCProvider`.
+        
+
+        @param request: ListOIDCProvidersRequest
+
+        @return: ListOIDCProvidersResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_oidcproviders_with_options(request, runtime)
 
@@ -1455,6 +1647,19 @@ class Client(OpenApiClient):
         return self.list_samlproviders_with_options(request, runtime)
 
     def list_tag_resources_with_options(self, request, runtime):
+        """
+        You must specify at least one of the following parameters or parameter pairs in a request to determine a query object:
+        *   `ResourceId.N`
+        *   `Tag.N.Key`
+        *   `Tag.N.Key` and `Tag.N.Value`
+        
+
+        @param request: ListTagResourcesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListTagResourcesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.next_token):
@@ -1489,10 +1694,33 @@ class Client(OpenApiClient):
         )
 
     def list_tag_resources(self, request):
+        """
+        You must specify at least one of the following parameters or parameter pairs in a request to determine a query object:
+        *   `ResourceId.N`
+        *   `Tag.N.Key`
+        *   `Tag.N.Key` and `Tag.N.Value`
+        
+
+        @param request: ListTagResourcesRequest
+
+        @return: ListTagResourcesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_tag_resources_with_options(request, runtime)
 
     def list_user_basic_infos_with_options(self, request, runtime):
+        """
+        You can call the following API operations to query the information about all RAM users:
+        *   ListUsers: queries the details of all RAM users.
+        *   ListUserBasicInfos: queries the basic information about all RAM users. The basic information includes only the logon names (`UserPrincipalName`), display names (`DisplayName`), and user IDs (`UserId`).
+        
+
+        @param request: ListUserBasicInfosRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListUserBasicInfosResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.marker):
@@ -1521,10 +1749,32 @@ class Client(OpenApiClient):
         )
 
     def list_user_basic_infos(self, request):
+        """
+        You can call the following API operations to query the information about all RAM users:
+        *   ListUsers: queries the details of all RAM users.
+        *   ListUserBasicInfos: queries the basic information about all RAM users. The basic information includes only the logon names (`UserPrincipalName`), display names (`DisplayName`), and user IDs (`UserId`).
+        
+
+        @param request: ListUserBasicInfosRequest
+
+        @return: ListUserBasicInfosResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_user_basic_infos_with_options(request, runtime)
 
     def list_users_with_options(self, request, runtime):
+        """
+        You can call the following API operations to query the information about all RAM users:
+        *   ListUsers: queries the details of all RAM users.
+        *   ListUserBasicInfos: queries the basic information about all RAM users. The basic information includes only the logon names (`UserPrincipalName`), display names (`DisplayName`), and user IDs (`UserId`).
+        
+
+        @param request: ListUsersRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListUsersResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.marker):
@@ -1553,6 +1803,16 @@ class Client(OpenApiClient):
         )
 
     def list_users(self, request):
+        """
+        You can call the following API operations to query the information about all RAM users:
+        *   ListUsers: queries the details of all RAM users.
+        *   ListUserBasicInfos: queries the basic information about all RAM users. The basic information includes only the logon names (`UserPrincipalName`), display names (`DisplayName`), and user IDs (`UserId`).
+        
+
+        @param request: ListUsersRequest
+
+        @return: ListUsersResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_users_with_options(request, runtime)
 
@@ -1619,6 +1879,16 @@ class Client(OpenApiClient):
         return self.list_virtual_mfadevices_with_options(request, runtime)
 
     def remove_client_id_from_oidcprovider_with_options(self, request, runtime):
+        """
+        This topic provides an example on how to remove the client ID `498469743454717***` from the OIDC IdP named `TestOIDCProvider`.
+        
+
+        @param request: RemoveClientIdFromOIDCProviderRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RemoveClientIdFromOIDCProviderResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_id):
@@ -1645,10 +1915,28 @@ class Client(OpenApiClient):
         )
 
     def remove_client_id_from_oidcprovider(self, request):
+        """
+        This topic provides an example on how to remove the client ID `498469743454717***` from the OIDC IdP named `TestOIDCProvider`.
+        
+
+        @param request: RemoveClientIdFromOIDCProviderRequest
+
+        @return: RemoveClientIdFromOIDCProviderResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.remove_client_id_from_oidcprovider_with_options(request, runtime)
 
     def remove_fingerprint_from_oidcprovider_with_options(self, request, runtime):
+        """
+        This topic provides an example on how to remove the fingerprint `6938fd4d98bab03faadb97b34396831e3780***` from the OIDC IdP named `TestOIDCProvider`.
+        
+
+        @param request: RemoveFingerprintFromOIDCProviderRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RemoveFingerprintFromOIDCProviderResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.fingerprint):
@@ -1675,6 +1963,14 @@ class Client(OpenApiClient):
         )
 
     def remove_fingerprint_from_oidcprovider(self, request):
+        """
+        This topic provides an example on how to remove the fingerprint `6938fd4d98bab03faadb97b34396831e3780***` from the OIDC IdP named `TestOIDCProvider`.
+        
+
+        @param request: RemoveFingerprintFromOIDCProviderRequest
+
+        @return: RemoveFingerprintFromOIDCProviderResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.remove_fingerprint_from_oidcprovider_with_options(request, runtime)
 
@@ -1784,8 +2080,22 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.set_password_policy_with_options(request, runtime)
 
-    def set_security_preference_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
+    def set_security_preference_with_options(self, tmp_req, runtime):
+        """
+        This topic provides an example on how to enable multi-factor authentication (MFA) only for RAM users who initiated unusual logons.
+        
+
+        @param tmp_req: SetSecurityPreferenceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: SetSecurityPreferenceResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = ims_20190815_models.SetSecurityPreferenceShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.verification_types):
+            request.verification_types_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.verification_types, 'VerificationTypes', 'json')
         query = {}
         if not UtilClient.is_unset(request.allow_user_to_change_password):
             query['AllowUserToChangePassword'] = request.allow_user_to_change_password
@@ -1805,6 +2115,8 @@ class Client(OpenApiClient):
             query['MFAOperationForLogin'] = request.mfaoperation_for_login
         if not UtilClient.is_unset(request.operation_for_risk_login):
             query['OperationForRiskLogin'] = request.operation_for_risk_login
+        if not UtilClient.is_unset(request.verification_types_shrink):
+            query['VerificationTypes'] = request.verification_types_shrink
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1825,6 +2137,14 @@ class Client(OpenApiClient):
         )
 
     def set_security_preference(self, request):
+        """
+        This topic provides an example on how to enable multi-factor authentication (MFA) only for RAM users who initiated unusual logons.
+        
+
+        @param request: SetSecurityPreferenceRequest
+
+        @return: SetSecurityPreferenceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.set_security_preference_with_options(request, runtime)
 
@@ -2103,6 +2423,16 @@ class Client(OpenApiClient):
         return self.update_login_profile_with_options(request, runtime)
 
     def update_oidcprovider_with_options(self, request, runtime):
+        """
+        This topic provides an example on how to change the description of the OIDC IdP named `TestOIDCProvider` to `This is a new OIDC Provider.`
+        
+
+        @param request: UpdateOIDCProviderRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateOIDCProviderResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_ids):
@@ -2131,10 +2461,28 @@ class Client(OpenApiClient):
         )
 
     def update_oidcprovider(self, request):
+        """
+        This topic provides an example on how to change the description of the OIDC IdP named `TestOIDCProvider` to `This is a new OIDC Provider.`
+        
+
+        @param request: UpdateOIDCProviderRequest
+
+        @return: UpdateOIDCProviderResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.update_oidcprovider_with_options(request, runtime)
 
     def update_samlprovider_with_options(self, request, runtime):
+        """
+        This topic provides an example on how to change the description of an IdP named `test-provider` to `This is a new provider.`
+        
+
+        @param request: UpdateSAMLProviderRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateSAMLProviderResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.new_description):
@@ -2163,10 +2511,28 @@ class Client(OpenApiClient):
         )
 
     def update_samlprovider(self, request):
+        """
+        This topic provides an example on how to change the description of an IdP named `test-provider` to `This is a new provider.`
+        
+
+        @param request: UpdateSAMLProviderRequest
+
+        @return: UpdateSAMLProviderResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.update_samlprovider_with_options(request, runtime)
 
     def update_user_with_options(self, request, runtime):
+        """
+        This topic provides an example to show how to modify the name of a RAM user from `test@example.onaliyun.com` to `new@example.onaliyun.com`.
+        
+
+        @param request: UpdateUserRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateUserResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.new_comments):
@@ -2203,5 +2569,13 @@ class Client(OpenApiClient):
         )
 
     def update_user(self, request):
+        """
+        This topic provides an example to show how to modify the name of a RAM user from `test@example.onaliyun.com` to `new@example.onaliyun.com`.
+        
+
+        @param request: UpdateUserRequest
+
+        @return: UpdateUserResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.update_user_with_options(request, runtime)
