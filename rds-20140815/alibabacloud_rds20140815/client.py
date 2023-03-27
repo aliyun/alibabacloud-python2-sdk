@@ -209,7 +209,7 @@ class Client(OpenApiClient):
 
     def allocate_instance_public_connection_with_options(self, request, runtime):
         """
-        > An RDS instance is only allowed to apply for one external network connection address.
+        You can apply for only one public endpoint for an instance.
         
 
         @param request: AllocateInstancePublicConnectionRequest
@@ -259,7 +259,7 @@ class Client(OpenApiClient):
 
     def allocate_instance_public_connection(self, request):
         """
-        > An RDS instance is only allowed to apply for one external network connection address.
+        You can apply for only one public endpoint for an instance.
         
 
         @param request: AllocateInstancePublicConnectionRequest
@@ -748,7 +748,7 @@ class Client(OpenApiClient):
         *   The original instance does not have ongoing migration tasks.
         *   The log backup feature is enabled for the original instance to support point-in-time recovery.
         *   If you want to clone the original instance by using backup sets, the original instance must have at least one backup set.
-        > ApsaraDB RDS allows you to create a cloned instance by using the credentials of your RAM user. Make sure that your RAM user is granted the permissions that are required to clone an instance. For more information, see [Use RAM to manage ApsaraDB for RDS permissions](~~58932~~).
+        > ApsaraDB RDS allows you to create a cloned instance by using the credentials of your RAM user. Make sure that your RAM user is granted the permissions that are required to clone an instance. For more information, see [Use RAM to manage ApsaraDB RDS permissions](~~58932~~).
         Take note of the following information:
         *   The new instance has the same IP address whitelist, SQL Explorer (SQL Audit), alert threshold, backup, and parameter settings as the original instance.
         *   The account information and data of the new instance are the same as the account information and data that are indicated by the backup file or point in time used for restoration of the original instance.
@@ -844,7 +844,7 @@ class Client(OpenApiClient):
         *   The original instance does not have ongoing migration tasks.
         *   The log backup feature is enabled for the original instance to support point-in-time recovery.
         *   If you want to clone the original instance by using backup sets, the original instance must have at least one backup set.
-        > ApsaraDB RDS allows you to create a cloned instance by using the credentials of your RAM user. Make sure that your RAM user is granted the permissions that are required to clone an instance. For more information, see [Use RAM to manage ApsaraDB for RDS permissions](~~58932~~).
+        > ApsaraDB RDS allows you to create a cloned instance by using the credentials of your RAM user. Make sure that your RAM user is granted the permissions that are required to clone an instance. For more information, see [Use RAM to manage ApsaraDB RDS permissions](~~58932~~).
         Take note of the following information:
         *   The new instance has the same IP address whitelist, SQL Explorer (SQL Audit), alert threshold, backup, and parameter settings as the original instance.
         *   The account information and data of the new instance are the same as the account information and data that are indicated by the backup file or point in time used for restoration of the original instance.
@@ -1023,14 +1023,14 @@ class Client(OpenApiClient):
 
     def copy_database_between_instances_with_options(self, request, runtime):
         """
-        You can also call the CopyDatabaseBetweenInstances operation to restore specific databases to an existing instance by point in time or backup file. For more information, see [Restore the data of an ApsaraDB RDS for SQL Server instance](~~95722~~).
+        You can also call this operation to restore specific databases to an existing instance by point in time or backup set. For more information, see [Restore the data of an ApsaraDB RDS for SQL Server instance](~~95722~~).
         Before you call this operation, make sure that the following requirements are met:
         *   The source and destination instances belong to the same account.
         *   The source and destination instances run the same version of database engine.
-        *   The source and destination instances are in the same region and can belong to different zones. The network types must be the same.
+        *   The source and destination instances reside in the same region and use the same network type. Their zones can be different.
         *   The source and destination instances do not have databases whose names are the same.
-        *   The available storage space of the destination instance is larger than the size of the databases to be copied.
-        > The CopyDatabaseBetweenInstances operation is applicable only to ApsaraDB RDS for SQL Server instances that run SQL Server 2012 or SQL Server 2016. You can restore specific databases or tables of an ApsaraDB RDS for MySQL instance to the original instance or a new instance. For more information, see [Restore individual databases and tables of an ApsaraDB RDS for MySQL instance](~~103175~~).
+        *   The available storage of the destination instance is larger than the total size of the databases that you want to replicate from the source instance.
+        > This operation is supported only for instances that run SQL Server 2012 and later.
         
 
         @param request: CopyDatabaseBetweenInstancesRequest
@@ -1076,14 +1076,14 @@ class Client(OpenApiClient):
 
     def copy_database_between_instances(self, request):
         """
-        You can also call the CopyDatabaseBetweenInstances operation to restore specific databases to an existing instance by point in time or backup file. For more information, see [Restore the data of an ApsaraDB RDS for SQL Server instance](~~95722~~).
+        You can also call this operation to restore specific databases to an existing instance by point in time or backup set. For more information, see [Restore the data of an ApsaraDB RDS for SQL Server instance](~~95722~~).
         Before you call this operation, make sure that the following requirements are met:
         *   The source and destination instances belong to the same account.
         *   The source and destination instances run the same version of database engine.
-        *   The source and destination instances are in the same region and can belong to different zones. The network types must be the same.
+        *   The source and destination instances reside in the same region and use the same network type. Their zones can be different.
         *   The source and destination instances do not have databases whose names are the same.
-        *   The available storage space of the destination instance is larger than the size of the databases to be copied.
-        > The CopyDatabaseBetweenInstances operation is applicable only to ApsaraDB RDS for SQL Server instances that run SQL Server 2012 or SQL Server 2016. You can restore specific databases or tables of an ApsaraDB RDS for MySQL instance to the original instance or a new instance. For more information, see [Restore individual databases and tables of an ApsaraDB RDS for MySQL instance](~~103175~~).
+        *   The available storage of the destination instance is larger than the total size of the databases that you want to replicate from the source instance.
+        > This operation is supported only for instances that run SQL Server 2012 and later.
         
 
         @param request: CopyDatabaseBetweenInstancesRequest
@@ -1096,11 +1096,11 @@ class Client(OpenApiClient):
     def create_account_with_options(self, request, runtime):
         """
         Before you call this operation, make sure that the following requirements are met:
-        *   The instance is in the running state.
-        *   The database is in the running state.
-        *   The number of accounts that are created on the instance does not exceed the maximum number of accounts for an instance. For more information about the maximum number of accounts, see [Limits](~~41872~~).
+        *   The instance is in the Running state.
+        *   The database is in the Running state.
+        *   The number of accounts that are created on the instance does not exceed the upper limit. For more information, see [Limits](~~41872~~).
         >
-        *   This operation is supported for instances that run MySQL, MariaDB TX, PostgreSQL, and SQL Server. However, if the instance runs SQL Server 2017 or SQL Server 2019 on RDS Cluster Edition, this operation is not supported.
+        *   This operation is supported for instances that run MySQL, MariaDB, PostgreSQL, and SQL Server. However, if the instance runs SQL Server 2017 or SQL Server 2019 on RDS Cluster Edition, this operation is not supported.
         *   You can create multiple privileged accounts and standard accounts on an instance that runs PostgreSQL.
         
 
@@ -1152,11 +1152,11 @@ class Client(OpenApiClient):
     def create_account(self, request):
         """
         Before you call this operation, make sure that the following requirements are met:
-        *   The instance is in the running state.
-        *   The database is in the running state.
-        *   The number of accounts that are created on the instance does not exceed the maximum number of accounts for an instance. For more information about the maximum number of accounts, see [Limits](~~41872~~).
+        *   The instance is in the Running state.
+        *   The database is in the Running state.
+        *   The number of accounts that are created on the instance does not exceed the upper limit. For more information, see [Limits](~~41872~~).
         >
-        *   This operation is supported for instances that run MySQL, MariaDB TX, PostgreSQL, and SQL Server. However, if the instance runs SQL Server 2017 or SQL Server 2019 on RDS Cluster Edition, this operation is not supported.
+        *   This operation is supported for instances that run MySQL, MariaDB, PostgreSQL, and SQL Server. However, if the instance runs SQL Server 2017 or SQL Server 2019 on RDS Cluster Edition, this operation is not supported.
         *   You can create multiple privileged accounts and standard accounts on an instance that runs PostgreSQL.
         
 
@@ -1459,6 +1459,8 @@ class Client(OpenApiClient):
             query['PayType'] = request.pay_type
         if not UtilClient.is_unset(request.period):
             query['Period'] = request.period
+        if not UtilClient.is_unset(request.port):
+            query['Port'] = request.port
         if not UtilClient.is_unset(request.private_ip_address):
             query['PrivateIpAddress'] = request.private_ip_address
         if not UtilClient.is_unset(request.region_id):
@@ -1678,6 +1680,17 @@ class Client(OpenApiClient):
         return self.create_dbinstance_endpoint_address_with_options(request, runtime)
 
     def create_dbinstance_for_rebuild_with_options(self, request, runtime):
+        """
+        *Before you call this operation, make sure that you understand the billing methods and pricing of ApsaraDB RDS. For more information, see [Pricing, billable items, and billing methods](~~45020~~).**\
+        You can call this operation only for instances that are moved to the recycle bin. For more information about instances that can be moved to the recycle bin, see [Recycle bin](~~96065~~).
+        
+
+        @param request: CreateDBInstanceForRebuildRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateDBInstanceForRebuildResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -1742,6 +1755,15 @@ class Client(OpenApiClient):
         )
 
     def create_dbinstance_for_rebuild(self, request):
+        """
+        *Before you call this operation, make sure that you understand the billing methods and pricing of ApsaraDB RDS. For more information, see [Pricing, billable items, and billing methods](~~45020~~).**\
+        You can call this operation only for instances that are moved to the recycle bin. For more information about instances that can be moved to the recycle bin, see [Recycle bin](~~96065~~).
+        
+
+        @param request: CreateDBInstanceForRebuildRequest
+
+        @return: CreateDBInstanceForRebuildResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_dbinstance_for_rebuild_with_options(request, runtime)
 
@@ -1886,7 +1908,7 @@ class Client(OpenApiClient):
         If you want to perform data management tasks such as data change and schema design, use Data Management (DMS). For more information, see [List of operations by function of DMS](~~97965~~).
         Before you call this operation, make sure that the following requirements are met:
         *   The instance is in the Running state.
-        *   The maximum number of databases for the instance is not reached. You can call the [DescribeDBInstanceAttribute](~~26231~~) operation to query the maximum number of databases.
+        *   The maximum number of databases that can be created on an instance is not reached. You can call the [DescribeDBInstanceAttribute](~~26231~~) operation to query the maximum number of databases that can be created on an instance.
         *   The instance is not a read-only instance.
         > This operation is not supported for instances that run PostgreSQL with local SSDs or SQL Server 2017 (cluster edition). You can execute the CREATE DATABASE statement to create a database.
         
@@ -1941,7 +1963,7 @@ class Client(OpenApiClient):
         If you want to perform data management tasks such as data change and schema design, use Data Management (DMS). For more information, see [List of operations by function of DMS](~~97965~~).
         Before you call this operation, make sure that the following requirements are met:
         *   The instance is in the Running state.
-        *   The maximum number of databases for the instance is not reached. You can call the [DescribeDBInstanceAttribute](~~26231~~) operation to query the maximum number of databases.
+        *   The maximum number of databases that can be created on an instance is not reached. You can call the [DescribeDBInstanceAttribute](~~26231~~) operation to query the maximum number of databases that can be created on an instance.
         *   The instance is not a read-only instance.
         > This operation is not supported for instances that run PostgreSQL with local SSDs or SQL Server 2017 (cluster edition). You can execute the CREATE DATABASE statement to create a database.
         
@@ -2849,12 +2871,12 @@ class Client(OpenApiClient):
 
     def delete_backup_with_options(self, request, runtime):
         """
-        Only the backup sets of the instance itself are deleted. The backup sets of the associated instances such as read-only, disaster recovery, and clone instances are not deleted.
+        You can call this operation to delete backup sets of the instance itself. Backup sets of the associated instances such as read-only, disaster recovery, and cloned instances are not deleted.
         Before you call this operation, make sure that the following requirements are met:
-        *   The instance is in the running state.
-        *   The instance is of the High-availability Edition and runs MySQL or PostgreSQL.
-        *   If log backups are disabled, RDS instance does not support data restoration by time. You can delete data backup sets which are retained for more than seven days.
-        *   If log backups are enabled and the retention period of log backups is less than the retention period of data backups, the data backup sets that exceed the retention period of log backups can be deleted.
+        *   The instance is in the Running state.
+        *   The instance runs MySQL or PostgreSQL on RDS High-availability Edition.
+        *   If the log backup feature is disabled, instances cannot be restored by point in time. You can delete backup sets that are retained for more than seven days.
+        *   If the log backup feature is enabled and the log backup retention period is shorter than the data backup retention period, you can delete the data backup files that are retained for a period longer than the log backup retention period.
         
 
         @param request: DeleteBackupRequest
@@ -2898,12 +2920,12 @@ class Client(OpenApiClient):
 
     def delete_backup(self, request):
         """
-        Only the backup sets of the instance itself are deleted. The backup sets of the associated instances such as read-only, disaster recovery, and clone instances are not deleted.
+        You can call this operation to delete backup sets of the instance itself. Backup sets of the associated instances such as read-only, disaster recovery, and cloned instances are not deleted.
         Before you call this operation, make sure that the following requirements are met:
-        *   The instance is in the running state.
-        *   The instance is of the High-availability Edition and runs MySQL or PostgreSQL.
-        *   If log backups are disabled, RDS instance does not support data restoration by time. You can delete data backup sets which are retained for more than seven days.
-        *   If log backups are enabled and the retention period of log backups is less than the retention period of data backups, the data backup sets that exceed the retention period of log backups can be deleted.
+        *   The instance is in the Running state.
+        *   The instance runs MySQL or PostgreSQL on RDS High-availability Edition.
+        *   If the log backup feature is disabled, instances cannot be restored by point in time. You can delete backup sets that are retained for more than seven days.
+        *   If the log backup feature is enabled and the log backup retention period is shorter than the data backup retention period, you can delete the data backup files that are retained for a period longer than the log backup retention period.
         
 
         @param request: DeleteBackupRequest
@@ -3755,6 +3777,64 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_action_event_policy_with_options(request, runtime)
 
+    def describe_active_operation_tasks_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.allow_cancel):
+            query['AllowCancel'] = request.allow_cancel
+        if not UtilClient.is_unset(request.allow_change):
+            query['AllowChange'] = request.allow_change
+        if not UtilClient.is_unset(request.change_level):
+            query['ChangeLevel'] = request.change_level
+        if not UtilClient.is_unset(request.db_type):
+            query['DbType'] = request.db_type
+        if not UtilClient.is_unset(request.ins_name):
+            query['InsName'] = request.ins_name
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.product_id):
+            query['ProductId'] = request.product_id
+        if not UtilClient.is_unset(request.region):
+            query['Region'] = request.region
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
+        if not UtilClient.is_unset(request.task_type):
+            query['TaskType'] = request.task_type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeActiveOperationTasks',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.DescribeActiveOperationTasksResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_active_operation_tasks(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_active_operation_tasks_with_options(request, runtime)
+
     def describe_analyticdb_by_primary_dbinstance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -4269,10 +4349,10 @@ class Client(OpenApiClient):
 
     def describe_binlog_files_with_options(self, request, runtime):
         """
-        If the return value of the **DownloadLink** parameter is NULL for a log backup file, ApsaraDB RDS does not provide a URL from which you can download the file.
-        *   If the return value of the **DownloadLink** parameter is not NULL for a log backup file, ApsaraDB RDS provides a URL from which you can download the file. The expiration time of the provided URL is specified by the **LinkExpiredTime** parameter. You must download the file before the expiration time.
-        *   This operation returns SQL log entries that are generated over a specified time range. The beginning of the time range must be later than or equal to the time that is specified by the LogEndTime parameter. In addition, the end of the time range must be earlier than or equal to the time that is specified by the LogBeginTime parameter.
-        >  This operation is not supported for instances that run SQL Server.
+        If the return value of the **DownloadLink** parameter is NULL, ApsaraDB RDS does not provide a URL for you to download binary log files.
+        *   If the return value of the **DownloadLink** parameter is not NULL, ApsaraDB RDS provides a URL for you to download binary log files. The expiration time of the URL is specified by the **LinkExpiredTime** parameter. You must download the binary log files before the expiration time.
+        *   Each binary log file that is returned by this operation contains the log entries that are generated over the time range specified by the StartTime and EndTime parameters.
+        > This operation is not supported for instances that run SQL Server.
         
 
         @param request: DescribeBinlogFilesRequest
@@ -4322,10 +4402,10 @@ class Client(OpenApiClient):
 
     def describe_binlog_files(self, request):
         """
-        If the return value of the **DownloadLink** parameter is NULL for a log backup file, ApsaraDB RDS does not provide a URL from which you can download the file.
-        *   If the return value of the **DownloadLink** parameter is not NULL for a log backup file, ApsaraDB RDS provides a URL from which you can download the file. The expiration time of the provided URL is specified by the **LinkExpiredTime** parameter. You must download the file before the expiration time.
-        *   This operation returns SQL log entries that are generated over a specified time range. The beginning of the time range must be later than or equal to the time that is specified by the LogEndTime parameter. In addition, the end of the time range must be earlier than or equal to the time that is specified by the LogBeginTime parameter.
-        >  This operation is not supported for instances that run SQL Server.
+        If the return value of the **DownloadLink** parameter is NULL, ApsaraDB RDS does not provide a URL for you to download binary log files.
+        *   If the return value of the **DownloadLink** parameter is not NULL, ApsaraDB RDS provides a URL for you to download binary log files. The expiration time of the URL is specified by the **LinkExpiredTime** parameter. You must download the binary log files before the expiration time.
+        *   Each binary log file that is returned by this operation contains the log entries that are generated over the time range specified by the StartTime and EndTime parameters.
+        > This operation is not supported for instances that run SQL Server.
         
 
         @param request: DescribeBinlogFilesRequest
@@ -5398,7 +5478,7 @@ class Client(OpenApiClient):
     def describe_dbinstance_performance_with_options(self, request, runtime):
         """
         You can query the performance of an instance over a specific time range based on its performance metrics. Performance metrics are generated by using one of the following methods based on the database engine and version, RDS edition, [monitoring frequency](~~26200~~) ([ModifyDBInstanceMonitor](~~26282~~)), and query time range:
-        *   For instances that do not run MySQL on RDS High-availability Edition with standard SSDs or enhanced SSDs (ESSDs) and those that do not run MariaDB TX:
+        *   For instances that do not run MySQL on RDS High-availability Edition with standard SSDs or enhanced SSDs (ESSDs) and those that do not run MariaDB:
         *   5-second monitoring frequency
         *   If the query time range is greater than seven days, performance metrics are collected at 1-day intervals.
         *   If the query time range is greater than one day but less than or equal to seven days, performance metrics are collected at 1-hour intervals.
@@ -5412,7 +5492,7 @@ class Client(OpenApiClient):
         *   If the query time range is greater than 30 days, performance metrics are collected at 1-day intervals.
         *   If the query time range is greater than seven days but less than or equal to 30 days, performance metrics are collected at 1-hour intervals.
         *   If the query time range is less than or equal to seven days, performance metrics are collected at 5-minute intervals.
-        *   For instances that are running MySQL on RDS High-availability Edition with standard SSDs or ESSDs and those that are running MariaDB TX:
+        *   For instances that are running MySQL on RDS High-availability Edition with standard SSDs or ESSDs and those that are running MariaDB:
         *   If the query time range is greater than 30 days, performance metrics are collected at 1-day intervals.
         *   If the query time range is greater than seven days but less than or equal to 30 days, performance metrics are collected at 1-hour intervals.
         *   If the query time range is less than or equal to seven days, performance metrics are collected at 1-minute intervals.
@@ -5469,7 +5549,7 @@ class Client(OpenApiClient):
     def describe_dbinstance_performance(self, request):
         """
         You can query the performance of an instance over a specific time range based on its performance metrics. Performance metrics are generated by using one of the following methods based on the database engine and version, RDS edition, [monitoring frequency](~~26200~~) ([ModifyDBInstanceMonitor](~~26282~~)), and query time range:
-        *   For instances that do not run MySQL on RDS High-availability Edition with standard SSDs or enhanced SSDs (ESSDs) and those that do not run MariaDB TX:
+        *   For instances that do not run MySQL on RDS High-availability Edition with standard SSDs or enhanced SSDs (ESSDs) and those that do not run MariaDB:
         *   5-second monitoring frequency
         *   If the query time range is greater than seven days, performance metrics are collected at 1-day intervals.
         *   If the query time range is greater than one day but less than or equal to seven days, performance metrics are collected at 1-hour intervals.
@@ -5483,7 +5563,7 @@ class Client(OpenApiClient):
         *   If the query time range is greater than 30 days, performance metrics are collected at 1-day intervals.
         *   If the query time range is greater than seven days but less than or equal to 30 days, performance metrics are collected at 1-hour intervals.
         *   If the query time range is less than or equal to seven days, performance metrics are collected at 5-minute intervals.
-        *   For instances that are running MySQL on RDS High-availability Edition with standard SSDs or ESSDs and those that are running MariaDB TX:
+        *   For instances that are running MySQL on RDS High-availability Edition with standard SSDs or ESSDs and those that are running MariaDB:
         *   If the query time range is greater than 30 days, performance metrics are collected at 1-day intervals.
         *   If the query time range is greater than seven days but less than or equal to 30 days, performance metrics are collected at 1-hour intervals.
         *   If the query time range is less than or equal to seven days, performance metrics are collected at 1-minute intervals.
@@ -5741,8 +5821,7 @@ class Client(OpenApiClient):
         """
         You can use one of the following methods to check the response:
         *   Method 1: Use the **MaxResults** parameter to specify the number of entries per page. Then, use the **NextToken** parameter to specify the token that is used to display the next page. The **NextToken** parameter is set to the value that is returned from the most recent call of the **DescribeDBInstances** operation for the **NextToken** parameter.
-        **\
-        **Note**The first time you call the DescribeDBInstances operation to perform a paged query, you need only to specify the **MaxResults** parameter. In this case, the operation returns the data of the first page and the value of the **NextToken** parameter.
+        > The first time you call the DescribeDBInstances operation to perform a paged query, you need only to specify the **MaxResults** parameter. In this case, the operation returns the data of the first page and the value of the **NextToken** parameter.
         *   Method 2: Use the **PageSize** parameter to specify the number of entries per page. Then, use the **PageNumber** parameter to display the next page.
         > You can use only one of the preceding methods. If a large number of entries are returned, we recommend that you use Method 1 to increase the query speed.
         
@@ -5840,8 +5919,7 @@ class Client(OpenApiClient):
         """
         You can use one of the following methods to check the response:
         *   Method 1: Use the **MaxResults** parameter to specify the number of entries per page. Then, use the **NextToken** parameter to specify the token that is used to display the next page. The **NextToken** parameter is set to the value that is returned from the most recent call of the **DescribeDBInstances** operation for the **NextToken** parameter.
-        **\
-        **Note**The first time you call the DescribeDBInstances operation to perform a paged query, you need only to specify the **MaxResults** parameter. In this case, the operation returns the data of the first page and the value of the **NextToken** parameter.
+        > The first time you call the DescribeDBInstances operation to perform a paged query, you need only to specify the **MaxResults** parameter. In this case, the operation returns the data of the first page and the value of the **NextToken** parameter.
         *   Method 2: Use the **PageSize** parameter to specify the number of entries per page. Then, use the **PageNumber** parameter to display the next page.
         > You can use only one of the preceding methods. If a large number of entries are returned, we recommend that you use Method 1 to increase the query speed.
         
@@ -7945,6 +8023,7 @@ class Client(OpenApiClient):
 
     def describe_rds_resource_settings_with_options(self, request, runtime):
         """
+        @deprecated
         This operation is phased out.
         
 
@@ -7953,6 +8032,7 @@ class Client(OpenApiClient):
         @param runtime: runtime options for this request RuntimeOptions
 
         @return: DescribeRdsResourceSettingsResponse
+        Deprecated
         """
         UtilClient.validate_model(request)
         query = {}
@@ -7985,12 +8065,14 @@ class Client(OpenApiClient):
 
     def describe_rds_resource_settings(self, request):
         """
+        @deprecated
         This operation is phased out.
         
 
         @param request: DescribeRdsResourceSettingsRequest
 
         @return: DescribeRdsResourceSettingsResponse
+        Deprecated
         """
         runtime = util_models.RuntimeOptions()
         return self.describe_rds_resource_settings_with_options(request, runtime)
@@ -9361,8 +9443,8 @@ class Client(OpenApiClient):
 
     def grant_account_privilege_with_options(self, request, runtime):
         """
-        Each account can be granted permissions on one or more databases. Before you call this operation, make sure that the instance is in the running state.
-        > This operation is not supported for instances that run SQL Server 2017 (cluster edition) or PostgreSQL with local SSDs.
+        Each account can be granted permissions on one or more databases. Before you call this operation, make sure that the instance is in the Running state.
+        > This operation is not supported for instances that run SQL Server 2017 on RDS Cluster Edition or run PostgreSQL with local SSDs.
         
 
         @param request: GrantAccountPrivilegeRequest
@@ -9404,8 +9486,8 @@ class Client(OpenApiClient):
 
     def grant_account_privilege(self, request):
         """
-        Each account can be granted permissions on one or more databases. Before you call this operation, make sure that the instance is in the running state.
-        > This operation is not supported for instances that run SQL Server 2017 (cluster edition) or PostgreSQL with local SSDs.
+        Each account can be granted permissions on one or more databases. Before you call this operation, make sure that the instance is in the Running state.
+        > This operation is not supported for instances that run SQL Server 2017 on RDS Cluster Edition or run PostgreSQL with local SSDs.
         
 
         @param request: GrantAccountPrivilegeRequest
@@ -10255,6 +10337,48 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.modify_action_event_policy_with_options(request, runtime)
 
+    def modify_active_operation_tasks_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.ids):
+            query['Ids'] = request.ids
+        if not UtilClient.is_unset(request.immediate_start):
+            query['ImmediateStart'] = request.immediate_start
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.switch_time):
+            query['SwitchTime'] = request.switch_time
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyActiveOperationTasks',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.ModifyActiveOperationTasksResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_active_operation_tasks(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_active_operation_tasks_with_options(request, runtime)
+
     def modify_backup_policy_with_options(self, request, runtime):
         """
         Before you call this operation, make sure that the following requirements are met:
@@ -10583,9 +10707,9 @@ class Client(OpenApiClient):
 
     def modify_dbinstance_connection_string_with_options(self, request, runtime):
         """
-        ApsaraDB RDS provides the internal and public endpoints. ApsaraDB RDS also allows hybrid access by using both a Virtual Private Cloud (VPC) endpoint and a classic network endpoint.
-        > *   You can change only the prefix of an endpoint.
-        > *   The read/write splitting endpoint cannot be changed.
+        ApsaraDB RDS provides the internal and public endpoints. ApsaraDB RDS also allows hybrid access by using both a virtual private cloud (VPC) endpoint and a classic network endpoint.
+        > * You can change only the prefix of an endpoint.
+        > * The read/write splitting endpoint cannot be changed.
         
 
         @param request: ModifyDBInstanceConnectionStringRequest
@@ -10637,9 +10761,9 @@ class Client(OpenApiClient):
 
     def modify_dbinstance_connection_string(self, request):
         """
-        ApsaraDB RDS provides the internal and public endpoints. ApsaraDB RDS also allows hybrid access by using both a Virtual Private Cloud (VPC) endpoint and a classic network endpoint.
-        > *   You can change only the prefix of an endpoint.
-        > *   The read/write splitting endpoint cannot be changed.
+        ApsaraDB RDS provides the internal and public endpoints. ApsaraDB RDS also allows hybrid access by using both a virtual private cloud (VPC) endpoint and a classic network endpoint.
+        > * You can change only the prefix of an endpoint.
+        > * The read/write splitting endpoint cannot be changed.
         
 
         @param request: ModifyDBInstanceConnectionStringRequest
@@ -11267,7 +11391,7 @@ class Client(OpenApiClient):
         The following requirements must be met:
         *   The instance belongs to the current account.
         *   The instance uses one of the most recent instance types. For more information, see [Instance types](~~26312~~).
-        > You cannot directly change the billing method of an instance that uses a phased-out instance type from pay-as-you-go to subscription. If you want to change the billing method of an instance that uses a phased-out instance type from pay-as-you-go to subscription, you must change the instance type of the instance to one of the most recent instance types. Then, you can change the billing method of the instance from pay-as-you-go to subscription. To change the instance type of an instance, you can change the instance specifications of the instance. For more information, see [Change the specifications of an ApsaraDB RDS instance](~~26178~~).
+        > You cannot directly change the billing method of an instance that uses a phased-out instance type from pay-as-you-go to subscription. If you want to change the billing method of an instance that uses a phased-out instance type from pay-as-you-go to subscription, you must change the instance type of the instance to one of the most recent instance types. Then, you can change the billing method of the instance from pay-as-you-go to subscription. To change the instance type of an instance, you can change the instance specifications of the instance. For more information, see [Change the specifications of an ApsaraDB RDS instance](~~96061~~).
         *   The instance uses the pay-as-you-go billing method and is in the Running state.
         *   Your Alibaba Cloud account has no unpaid orders for the instance for which you want to change the billing method.
         
@@ -11315,7 +11439,7 @@ class Client(OpenApiClient):
         The following requirements must be met:
         *   The instance belongs to the current account.
         *   The instance uses one of the most recent instance types. For more information, see [Instance types](~~26312~~).
-        > You cannot directly change the billing method of an instance that uses a phased-out instance type from pay-as-you-go to subscription. If you want to change the billing method of an instance that uses a phased-out instance type from pay-as-you-go to subscription, you must change the instance type of the instance to one of the most recent instance types. Then, you can change the billing method of the instance from pay-as-you-go to subscription. To change the instance type of an instance, you can change the instance specifications of the instance. For more information, see [Change the specifications of an ApsaraDB RDS instance](~~26178~~).
+        > You cannot directly change the billing method of an instance that uses a phased-out instance type from pay-as-you-go to subscription. If you want to change the billing method of an instance that uses a phased-out instance type from pay-as-you-go to subscription, you must change the instance type of the instance to one of the most recent instance types. Then, you can change the billing method of the instance from pay-as-you-go to subscription. To change the instance type of an instance, you can change the instance specifications of the instance. For more information, see [Change the specifications of an ApsaraDB RDS instance](~~96061~~).
         *   The instance uses the pay-as-you-go billing method and is in the Running state.
         *   Your Alibaba Cloud account has no unpaid orders for the instance for which you want to change the billing method.
         
@@ -12345,9 +12469,9 @@ class Client(OpenApiClient):
 
     def modify_instance_cross_backup_policy_with_options(self, request, runtime):
         """
-        Before you call this operation, make sure that the source instance runs one of the following database engines:
-        *   MySQL. For more information, see [Enable cross-region backups for an ApsaraDB RDS for MySQL instance](~~120824~~).
-        *   SQL Server. For more information, see [Enable cross-region backups for an ApsaraDB RDS for SQL Server instance](~~187923~~).
+        Before you call this operation, make sure that the instance runs one of the following database engines:
+        *   MySQL. For more information, see [Back up an ApsaraDB RDS for MySQL instance across regions](~~120824~~).
+        *   SQL Server. For more information, see [Back up an ApsaraDB RDS for SQL Server instance across regions](~~187923~~).
         *   PostgreSQL. For more information, see [Enable cross-region backups for an ApsaraDB RDS for PostgreSQL instance](~~206671~~).
         
 
@@ -12402,9 +12526,9 @@ class Client(OpenApiClient):
 
     def modify_instance_cross_backup_policy(self, request):
         """
-        Before you call this operation, make sure that the source instance runs one of the following database engines:
-        *   MySQL. For more information, see [Enable cross-region backups for an ApsaraDB RDS for MySQL instance](~~120824~~).
-        *   SQL Server. For more information, see [Enable cross-region backups for an ApsaraDB RDS for SQL Server instance](~~187923~~).
+        Before you call this operation, make sure that the instance runs one of the following database engines:
+        *   MySQL. For more information, see [Back up an ApsaraDB RDS for MySQL instance across regions](~~120824~~).
+        *   SQL Server. For more information, see [Back up an ApsaraDB RDS for SQL Server instance across regions](~~187923~~).
         *   PostgreSQL. For more information, see [Enable cross-region backups for an ApsaraDB RDS for PostgreSQL instance](~~206671~~).
         
 
@@ -13791,7 +13915,7 @@ class Client(OpenApiClient):
 
     def restart_dbinstance_with_options(self, request, runtime):
         """
-        If a large number of transactions need to be submitted or rolled back, the restart process may be delayed for a minute.
+        If a large number of transactions need to be submitted or rolled back, the restart process may be delayed for about 1 minute.\\
         Before you call this operation, make sure that the following requirements are met:
         *   The instance is in the running state.
         *   The instance does not have ongoing backup tasks.
@@ -13838,7 +13962,7 @@ class Client(OpenApiClient):
 
     def restart_dbinstance(self, request):
         """
-        If a large number of transactions need to be submitted or rolled back, the restart process may be delayed for a minute.
+        If a large number of transactions need to be submitted or rolled back, the restart process may be delayed for about 1 minute.\\
         Before you call this operation, make sure that the following requirements are met:
         *   The instance is in the running state.
         *   The instance does not have ongoing backup tasks.
@@ -13941,12 +14065,12 @@ class Client(OpenApiClient):
         """
         ApsaraDB RDS for MySQL supports the restoration of individual databases and tables. If you delete databases or tables from an instance, you can restore the databases or tables by using a backup file. For more information, see [Restore individual databases and tables of an ApsaraDB RDS for MySQL instance](~~103175~~).
         Before you call this operation, make sure that the following requirements are met:
-        *   Your RDS instance is in the Running state.
+        *   The instance is in the Running state.
         *   The instance does not have ongoing migration tasks.
         *   If you want to restore data to a specific point in time, the log backup feature is enabled for the instance. For more information, see [Back up an ApsaraDB RDS for MySQL instance](~~98818~~).
         *   The restoration of individual databases or tables is enabled, and new backups are created. For more information, see [Restore individual databases and tables of an ApsaraDB RDS for MySQL instance](~~103175~~).
         *   The names that you want to use for the restored tables do not exist in the instance.
-        >  This operation is supported only by instances that run MySQL.
+        > This operation is supported only by instances that run MySQL.
         
 
         @param request: RestoreTableRequest
@@ -14000,12 +14124,12 @@ class Client(OpenApiClient):
         """
         ApsaraDB RDS for MySQL supports the restoration of individual databases and tables. If you delete databases or tables from an instance, you can restore the databases or tables by using a backup file. For more information, see [Restore individual databases and tables of an ApsaraDB RDS for MySQL instance](~~103175~~).
         Before you call this operation, make sure that the following requirements are met:
-        *   Your RDS instance is in the Running state.
+        *   The instance is in the Running state.
         *   The instance does not have ongoing migration tasks.
         *   If you want to restore data to a specific point in time, the log backup feature is enabled for the instance. For more information, see [Back up an ApsaraDB RDS for MySQL instance](~~98818~~).
         *   The restoration of individual databases or tables is enabled, and new backups are created. For more information, see [Restore individual databases and tables of an ApsaraDB RDS for MySQL instance](~~103175~~).
         *   The names that you want to use for the restored tables do not exist in the instance.
-        >  This operation is supported only by instances that run MySQL.
+        > This operation is supported only by instances that run MySQL.
         
 
         @param request: RestoreTableRequest
@@ -14400,9 +14524,9 @@ class Client(OpenApiClient):
     def switch_dbinstance_vpc_with_options(self, request, runtime):
         """
         The instance must run one of the following database engines:
-        *   MySQL with local SSDs, standard SSDs, or enhanced SSDs (ESSDs)
+        *   MySQL with local SSDs, standard SSDs, or enhanced ESSDs (ESSDs)
         *   SQL Server with standard SSDs or ESSDs
-        *   MariaDB TX with standard SSDs or ESSDs
+        *   MariaDB with standard SSDs or ESSDs
         *   PostgreSQL with standard SSDs or ESSDs
         For more information about the impact of VPC and vSwitch changes, see [Switch an ApsaraDB RDS for MySQL instance to a new VPC and a new vSwitch](~~137567~~).
         
@@ -14447,9 +14571,9 @@ class Client(OpenApiClient):
     def switch_dbinstance_vpc(self, request):
         """
         The instance must run one of the following database engines:
-        *   MySQL with local SSDs, standard SSDs, or enhanced SSDs (ESSDs)
+        *   MySQL with local SSDs, standard SSDs, or enhanced ESSDs (ESSDs)
         *   SQL Server with standard SSDs or ESSDs
-        *   MariaDB TX with standard SSDs or ESSDs
+        *   MariaDB with standard SSDs or ESSDs
         *   PostgreSQL with standard SSDs or ESSDs
         For more information about the impact of VPC and vSwitch changes, see [Switch an ApsaraDB RDS for MySQL instance to a new VPC and a new vSwitch](~~137567~~).
         
@@ -14993,15 +15117,14 @@ class Client(OpenApiClient):
 
     def upgrade_dbinstance_major_version_with_options(self, request, runtime):
         """
-        During an upgrade, ApsaraDB RDS retains the original RDS instance and creates an RDS instance that runs the new major engine version. You start to be *charged** for the new RDS instance based on the **pay-as-you-go** billing method after the instance is created. The new instance **does not inherit the reduced price that is offered to the original instance**. Before you call this operation, make sure that you fully understand the [billing methods and pricing](~~45020~~) of ApsaraDB RDS. You can decide whether to upgrade the major engine version based on your business requirements.
+        During an upgrade, ApsaraDB RDS retains the original instance and creates an instance that runs the new major engine version. You start to be *charged** for the new instance based on the **pay-as-you-go** billing method after the instance is created. The new instance **does not inherit the reduced price that is offered to the original instance**. Before you call this operation, make sure that you fully understand the billing methods and pricing of ApsaraDB RDS. You can decide whether to upgrade the major engine version based on your business requirements. For more information, see [Billable items, billing methods, and pricing](~~45020~~).
         Before you upgrade the major engine version, you must call the [UpgradeDBInstanceMajorVersionPrecheck](~~330050~~) operation to perform an upgrade check and then call the [DescribeUpgradeMajorVersionPrecheckTask](~~330088~~) operation to query the upgrade check report. You can call the UpgradeDBInstanceMajorVersion operation only when the check result is **Success**.
         Before you call this operation, make sure that the following requirements are met:
-        *   The original instance must run PostgreSQL 13, PostgreSQL 12, PostgreSQL 11, PostgreSQL 10, or PostgreSQL 9.4.
-        *   The original instance must run RDS High-availability Edition or RDS Basic Edition.
-        *   The original RDS instance must reside in a virtual private cloud (VPC). If the original instance resides in the classic network, you must migrate the instance to a VPC before you call this operation. For more information about how to view or change the network type of an instance, see [Change the network type of an ApsaraDB RDS for PostgreSQL instance](~~96761~~).
-        *   The original instance cannot be a read-only instance and cannot be created in a dedicated cluster.
-        *   The ID of the original instance cannot start with pg-cn.
-        An upgrade brings impacts, such as a transient connection that lasts a few minutes. We recommend that you perform an upgrade during off-peak hours. Before you perform an upgrade, we recommend that you read [Upgrade the major engine version of an ApsaraDB RDS for PostgreSQL instance](~~203309~~).
+        *   The original instance runs PostgreSQL 14, PostgreSQL 13, PostgreSQL 12, PostgreSQL 11, PostgreSQL 10, or PostgreSQL 9.4.
+        *   The instance runs RDS High-availability Edition or RDS Basic Edition.
+        *   The original instance resides in a virtual private cloud (VPC). If the original instance resides in the classic network, you must migrate the instance to a VPC before you call this operation. For more information about how to view or change the network type of an instance, see [Change the network type of an ApsaraDB RDS for PostgreSQL instance](~~96761~~).
+        *   The original instance is not a read-only instance and is not created in a dedicated cluster.
+        An upgrade causes impacts such as a transient connection that lasts a few minutes. We recommend that you perform an upgrade during off-peak hours. Before you perform an upgrade, we recommend that you read the description in [Upgrade the major engine version of an ApsaraDB RDS for PostgreSQL instance](~~203309~~).
         
 
         @param request: UpgradeDBInstanceMajorVersionRequest
@@ -15073,15 +15196,14 @@ class Client(OpenApiClient):
 
     def upgrade_dbinstance_major_version(self, request):
         """
-        During an upgrade, ApsaraDB RDS retains the original RDS instance and creates an RDS instance that runs the new major engine version. You start to be *charged** for the new RDS instance based on the **pay-as-you-go** billing method after the instance is created. The new instance **does not inherit the reduced price that is offered to the original instance**. Before you call this operation, make sure that you fully understand the [billing methods and pricing](~~45020~~) of ApsaraDB RDS. You can decide whether to upgrade the major engine version based on your business requirements.
+        During an upgrade, ApsaraDB RDS retains the original instance and creates an instance that runs the new major engine version. You start to be *charged** for the new instance based on the **pay-as-you-go** billing method after the instance is created. The new instance **does not inherit the reduced price that is offered to the original instance**. Before you call this operation, make sure that you fully understand the billing methods and pricing of ApsaraDB RDS. You can decide whether to upgrade the major engine version based on your business requirements. For more information, see [Billable items, billing methods, and pricing](~~45020~~).
         Before you upgrade the major engine version, you must call the [UpgradeDBInstanceMajorVersionPrecheck](~~330050~~) operation to perform an upgrade check and then call the [DescribeUpgradeMajorVersionPrecheckTask](~~330088~~) operation to query the upgrade check report. You can call the UpgradeDBInstanceMajorVersion operation only when the check result is **Success**.
         Before you call this operation, make sure that the following requirements are met:
-        *   The original instance must run PostgreSQL 13, PostgreSQL 12, PostgreSQL 11, PostgreSQL 10, or PostgreSQL 9.4.
-        *   The original instance must run RDS High-availability Edition or RDS Basic Edition.
-        *   The original RDS instance must reside in a virtual private cloud (VPC). If the original instance resides in the classic network, you must migrate the instance to a VPC before you call this operation. For more information about how to view or change the network type of an instance, see [Change the network type of an ApsaraDB RDS for PostgreSQL instance](~~96761~~).
-        *   The original instance cannot be a read-only instance and cannot be created in a dedicated cluster.
-        *   The ID of the original instance cannot start with pg-cn.
-        An upgrade brings impacts, such as a transient connection that lasts a few minutes. We recommend that you perform an upgrade during off-peak hours. Before you perform an upgrade, we recommend that you read [Upgrade the major engine version of an ApsaraDB RDS for PostgreSQL instance](~~203309~~).
+        *   The original instance runs PostgreSQL 14, PostgreSQL 13, PostgreSQL 12, PostgreSQL 11, PostgreSQL 10, or PostgreSQL 9.4.
+        *   The instance runs RDS High-availability Edition or RDS Basic Edition.
+        *   The original instance resides in a virtual private cloud (VPC). If the original instance resides in the classic network, you must migrate the instance to a VPC before you call this operation. For more information about how to view or change the network type of an instance, see [Change the network type of an ApsaraDB RDS for PostgreSQL instance](~~96761~~).
+        *   The original instance is not a read-only instance and is not created in a dedicated cluster.
+        An upgrade causes impacts such as a transient connection that lasts a few minutes. We recommend that you perform an upgrade during off-peak hours. Before you perform an upgrade, we recommend that you read the description in [Upgrade the major engine version of an ApsaraDB RDS for PostgreSQL instance](~~203309~~).
         
 
         @param request: UpgradeDBInstanceMajorVersionRequest
