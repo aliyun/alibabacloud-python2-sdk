@@ -33290,13 +33290,7 @@ class DescribeDisksResponse(TeaModel):
 
 class DescribeDisksFullStatusRequestEventTime(TeaModel):
     def __init__(self, end=None, start=None):
-        # The end of the time range in which to query occurred events.
-        # 
-        # The time follows the [ISO 8601](~~25696~~) standard in the `yyyy-MM-ddTHH:mm:ssZ` format. The time is specified in UTC.
         self.end = end  # type: str
-        # The start of the time range in which to query occurred events.
-        # 
-        # The time follows the [ISO 8601](~~25696~~) standard in the `yyyy-MM-ddTHH:mm:ssZ` format. The time specified in UTC.
         self.start = start  # type: str
 
     def validate(self):
@@ -33325,11 +33319,7 @@ class DescribeDisksFullStatusRequestEventTime(TeaModel):
 
 class DescribeDisksFullStatusRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
-        # The key of tag N added to the EBS device. A key-value pair consists of a key specified by the Tag.N.Key parameter and a value specified by the `Tag.N.Value` parameter. The two parameters are associated with each other. Valid values of N: 1 to 20.
-        # 
-        # If a single tag is specified to query resources, up to 1,000 resources that have this tag added are returned. If multiple tags are specified to query resources, up to 1,000 resources that have all these tags added are returned.
         self.key = key  # type: str
-        # The value of tag N added to the EBS device. A key-value pair consists of a key specified by the `Tag.N.Key` parameter and a value specified by the Tag.N.Value parameter. The two parameters are associated with each other. Valid values of N: 1 to 20.
         self.value = value  # type: str
 
     def validate(self):
@@ -33361,51 +33351,19 @@ class DescribeDisksFullStatusRequest(TeaModel):
                  owner_account=None, owner_id=None, page_number=None, page_size=None, region_id=None, resource_group_id=None,
                  resource_owner_account=None, resource_owner_id=None, status=None, tag=None):
         self.event_time = event_time  # type: DescribeDisksFullStatusRequestEventTime
-        # The ID of EBS device N. Valid values of N: 1 to 100.
         self.disk_id = disk_id  # type: list[str]
-        # The ID of the event. Valid values of N: 1 to 100.
         self.event_id = event_id  # type: list[str]
-        # The event type. Valid values:
-        # 
-        # *   Degraded: The performance of the EBS device is degraded.
-        # *   SeverelyDegraded: The performance of the EBS device is severely degraded.
-        # *   Stalled: The performance of the EBS device is severely affected.
-        # *   ErrorDetected: The local disk is damaged.
         self.event_type = event_type  # type: str
-        # The health status of the EBS device. Valid values:
-        # 
-        # *   Impaired: The EBS device is damaged.
-        # *   Warning: The performance of the EBS device may be degraded.
-        # *   Initializing: The disk is being initialized.
-        # *   InsufficientData: The status cannot be determined due to insufficient data.
-        # *   NotApplicable: The EBS device cannot be used.
         self.health_status = health_status  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The number of the page to return. The value must be a positive integer.
-        # 
-        # Default value: 1.
         self.page_number = page_number  # type: int
-        # The number of entries to return on each page. Valid values: 1 to 100.
-        # 
-        # Default value: 10.
         self.page_size = page_size  # type: int
-        # The region ID of the EBS device. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
-        # The ID of the resource group to which the EBS device belongs. When you use this property to query resources, the number of resources that are contained in the specified resource group cannot exceed 1,000.
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The lifecycle status of the EBS device. For more information, see [Disk status](~~25689~~). Valid values:
-        # 
-        # *   In_use: The disk is in use.
-        # *   Available: The disk can be attached.
-        # *   Attaching: The disk is being attached.
-        # *   Detaching: The disk is being detached.
-        # *   Creating: The disk is being created.
-        # *   ReIniting: The disk is being initialized.
         self.status = status  # type: str
-        # The tags of the instance.
         self.tag = tag  # type: list[DescribeDisksFullStatusRequestTag]
 
     def validate(self):
@@ -33497,14 +33455,7 @@ class DescribeDisksFullStatusRequest(TeaModel):
 
 class DescribeDisksFullStatusResponseBodyDiskFullStatusSetDiskFullStatusTypeDiskEventSetDiskEventTypeEventType(TeaModel):
     def __init__(self, code=None, name=None):
-        # The code of the event type.
         self.code = code  # type: int
-        # The name of the event type. Valid values:
-        # 
-        # *   Degraded: The performance of the EBS device was degraded.
-        # *   SeverelyDegraded: The performance of the EBS device was severely degraded.
-        # *   Stalled: The performance of the EBS device was severely affected.
-        # *   ErrorDetected: The local disk was damaged.
         self.name = name  # type: str
 
     def validate(self):
@@ -33533,15 +33484,10 @@ class DescribeDisksFullStatusResponseBodyDiskFullStatusSetDiskFullStatusTypeDisk
 
 class DescribeDisksFullStatusResponseBodyDiskFullStatusSetDiskFullStatusTypeDiskEventSetDiskEventType(TeaModel):
     def __init__(self, event_end_time=None, event_id=None, event_time=None, event_type=None, impact_level=None):
-        # The time when the event ended.
         self.event_end_time = event_end_time  # type: str
-        # The ID of the event.
         self.event_id = event_id  # type: str
-        # The time when the event occurred.
         self.event_time = event_time  # type: str
-        # The type of the event.
         self.event_type = event_type  # type: DescribeDisksFullStatusResponseBodyDiskFullStatusSetDiskFullStatusTypeDiskEventSetDiskEventTypeEventType
-        # The impact level of the event.
         self.impact_level = impact_level  # type: str
 
     def validate(self):
@@ -33616,9 +33562,7 @@ class DescribeDisksFullStatusResponseBodyDiskFullStatusSetDiskFullStatusTypeDisk
 
 class DescribeDisksFullStatusResponseBodyDiskFullStatusSetDiskFullStatusTypeHealthStatus(TeaModel):
     def __init__(self, code=None, name=None):
-        # The code of the health status of the EBS device.
         self.code = code  # type: int
-        # The name of the health status of the EBS device.
         self.name = name  # type: str
 
     def validate(self):
@@ -33647,9 +33591,7 @@ class DescribeDisksFullStatusResponseBodyDiskFullStatusSetDiskFullStatusTypeHeal
 
 class DescribeDisksFullStatusResponseBodyDiskFullStatusSetDiskFullStatusTypeStatus(TeaModel):
     def __init__(self, code=None, name=None):
-        # The code of the lifecycle status of the EBS device.
         self.code = code  # type: int
-        # The name of the lifecycle status of the EBS device.
         self.name = name  # type: str
 
     def validate(self):
@@ -33679,21 +33621,11 @@ class DescribeDisksFullStatusResponseBodyDiskFullStatusSetDiskFullStatusTypeStat
 class DescribeDisksFullStatusResponseBodyDiskFullStatusSetDiskFullStatusType(TeaModel):
     def __init__(self, device=None, disk_event_set=None, disk_id=None, health_status=None, instance_id=None,
                  status=None):
-        # The name of the EBS device that is attached to an instance. Example: /dev/xvdb.
-        # 
-        # This parameter has a value only when the value of `Status` is `In_use`.
-        # 
-        # > This parameter will be deprecated in the future. To ensure future compatibility, we recommend that you do not use this parameter.
         self.device = device  # type: str
-        # The events about the EBS device.
         self.disk_event_set = disk_event_set  # type: DescribeDisksFullStatusResponseBodyDiskFullStatusSetDiskFullStatusTypeDiskEventSet
-        # The ID of EBS device N.
         self.disk_id = disk_id  # type: str
-        # The health status of the EBS device.
         self.health_status = health_status  # type: DescribeDisksFullStatusResponseBodyDiskFullStatusSetDiskFullStatusTypeHealthStatus
-        # The ID of the instance that you query.
         self.instance_id = instance_id  # type: str
-        # The lifecycle status of the EBS device.
         self.status = status  # type: DescribeDisksFullStatusResponseBodyDiskFullStatusSetDiskFullStatusTypeStatus
 
     def validate(self):
@@ -33779,15 +33711,10 @@ class DescribeDisksFullStatusResponseBodyDiskFullStatusSet(TeaModel):
 class DescribeDisksFullStatusResponseBody(TeaModel):
     def __init__(self, disk_full_status_set=None, page_number=None, page_size=None, request_id=None,
                  total_count=None):
-        # The collection of full status information of the EBS devices.
         self.disk_full_status_set = disk_full_status_set  # type: DescribeDisksFullStatusResponseBodyDiskFullStatusSet
-        # The page number of the returned page.
         self.page_number = page_number  # type: int
-        # The number of entries returned per page.
         self.page_size = page_size  # type: int
-        # The ID of the request.
         self.request_id = request_id  # type: str
-        # The total number of EBS devices for which full status information is returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -37673,9 +37600,7 @@ class DescribeImagePipelineExecutionsResponse(TeaModel):
 
 class DescribeImagePipelinesRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
-        # The key of tag N of the image template. Valid values of N: 1 to 20.
         self.key = key  # type: str
-        # The value of tag N of the image template. Valid values of N: 1 to 20.
         self.value = value  # type: str
 
     def validate(self):
@@ -37706,23 +37631,13 @@ class DescribeImagePipelinesRequest(TeaModel):
     def __init__(self, image_pipeline_id=None, max_results=None, name=None, next_token=None, owner_account=None,
                  owner_id=None, region_id=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None,
                  tag=None):
-        # The IDs of the image templates. You can specify at most 20 IDs.
         self.image_pipeline_id = image_pipeline_id  # type: list[str]
-        # The maximum number of entries to return on each page. Valid values: 1 to 500.
-        # 
-        # Default value: 50.
         self.max_results = max_results  # type: int
-        # The name of the image template.
         self.name = name  # type: str
-        # The query token. Set the value to the `NextToken` value returned in the last call to the DescribeImagePipelines operation. Leave this parameter empty the first time you call this operation.
         self.next_token = next_token  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The region ID of the image template. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
-        # The ID of the resource group. If this parameter is specified to query resources, up to 1,000 resources that belong to the specified resource group can be displayed in the response.
-        # 
-        # > Resources in the default resource group are displayed in the response regardless of how this parameter is set.
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -37822,9 +37737,7 @@ class DescribeImagePipelinesResponseBodyImagePipelineImagePipelineSetAddAccounts
 
 class DescribeImagePipelinesResponseBodyImagePipelineImagePipelineSetTagsTag(TeaModel):
     def __init__(self, tag_key=None, tag_value=None):
-        # The tag key of the image template.
         self.tag_key = tag_key  # type: str
-        # The tag value of the image template.
         self.tag_value = tag_value  # type: str
 
     def validate(self):
@@ -37912,45 +37825,22 @@ class DescribeImagePipelinesResponseBodyImagePipelineImagePipelineSet(TeaModel):
                  creation_time=None, delete_instance_on_failure=None, description=None, image_name=None, image_pipeline_id=None,
                  instance_type=None, internet_max_bandwidth_out=None, name=None, resource_group_id=None, system_disk_size=None,
                  tags=None, to_region_ids=None, v_switch_id=None):
-        # The IDs of Alibaba Cloud accounts to which to share the created image.
         self.add_accounts = add_accounts  # type: DescribeImagePipelinesResponseBodyImagePipelineImagePipelineSetAddAccounts
-        # The source image.
-        # 
-        # *   When `BaseImageType` is set to IMAGE, the value of this parameter is the ID of a custom image.
-        # *   When `BaseImageType` is set to IMAGE_FAMILY, the value of this parameter is the name of an image family.
         self.base_image = base_image  # type: str
-        # The type of the source image. Valid values:
-        # 
-        # *   IMAGE: custom image
-        # *   IMAGE_FAMILY: image family
         self.base_image_type = base_image_type  # type: str
-        # The content of the image template.
         self.build_content = build_content  # type: str
-        # The time when the image template was created.
         self.creation_time = creation_time  # type: str
-        # Indicates whether to release the intermediate instance when the image fails to be created.
         self.delete_instance_on_failure = delete_instance_on_failure  # type: bool
-        # The description of the image template.
         self.description = description  # type: str
-        # The name prefix of the created image.
         self.image_name = image_name  # type: str
-        # The ID of the image template.
         self.image_pipeline_id = image_pipeline_id  # type: str
-        # The instance type of the intermediate instance.
         self.instance_type = instance_type  # type: str
-        # The size of the outbound public bandwidth for the intermediate instance. Unit: Mbit/s.
         self.internet_max_bandwidth_out = internet_max_bandwidth_out  # type: int
-        # The name of the image template.
         self.name = name  # type: str
-        # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
-        # The system disk size of the intermediate instance. Unit: GiB.
         self.system_disk_size = system_disk_size  # type: int
-        # The tags of the image template.
         self.tags = tags  # type: DescribeImagePipelinesResponseBodyImagePipelineImagePipelineSetTags
-        # The IDs of regions to which to distribute the created image.
         self.to_region_ids = to_region_ids  # type: DescribeImagePipelinesResponseBodyImagePipelineImagePipelineSetToRegionIds
-        # The ID of the vSwitch.
         self.v_switch_id = v_switch_id  # type: str
 
     def validate(self):
@@ -38079,15 +37969,10 @@ class DescribeImagePipelinesResponseBodyImagePipeline(TeaModel):
 
 class DescribeImagePipelinesResponseBody(TeaModel):
     def __init__(self, image_pipeline=None, max_results=None, next_token=None, request_id=None, total_count=None):
-        # Details of the image templates.
         self.image_pipeline = image_pipeline  # type: DescribeImagePipelinesResponseBodyImagePipeline
-        # The maximum number of entries returned per page.
         self.max_results = max_results  # type: int
-        # The query token returned in this call. For information about how to use this return value, see the "Description" section in this topic.
         self.next_token = next_token  # type: str
-        # The ID of the request.
         self.request_id = request_id  # type: str
-        # The total number of image templates returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -38496,8 +38381,15 @@ class DescribeImageSupportInstanceTypesRequestFilter(TeaModel):
 
 
 class DescribeImageSupportInstanceTypesRequest(TeaModel):
-    def __init__(self, filter=None, image_id=None, owner_id=None, region_id=None, resource_owner_account=None,
-                 resource_owner_id=None):
+    def __init__(self, action_type=None, filter=None, image_id=None, owner_id=None, region_id=None,
+                 resource_owner_account=None, resource_owner_id=None):
+        # The scenario in which the instance type is used. Default value: CreateEcs. Valid values:
+        # 
+        # *   CreateEcs: instance creation
+        # *   Upgrade: instance type upgrade
+        # *   Downgrade: instance type downgrade
+        # *   RenewDowngrade: renewal and configuration downgrade
+        self.action_type = action_type  # type: str
         # The list of filters to querying resources.
         self.filter = filter  # type: list[DescribeImageSupportInstanceTypesRequestFilter]
         # The ID of the image.
@@ -38520,6 +38412,8 @@ class DescribeImageSupportInstanceTypesRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.action_type is not None:
+            result['ActionType'] = self.action_type
         result['Filter'] = []
         if self.filter is not None:
             for k in self.filter:
@@ -38538,6 +38432,8 @@ class DescribeImageSupportInstanceTypesRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('ActionType') is not None:
+            self.action_type = m.get('ActionType')
         self.filter = []
         if m.get('Filter') is not None:
             for k in m.get('Filter'):
@@ -42983,27 +42879,15 @@ class DescribeInstanceRamRoleResponse(TeaModel):
 class DescribeInstanceStatusRequest(TeaModel):
     def __init__(self, cluster_id=None, instance_id=None, owner_account=None, owner_id=None, page_number=None,
                  page_size=None, region_id=None, resource_owner_account=None, resource_owner_id=None, zone_id=None):
-        # The cluster ID of the instance.
         self.cluster_id = cluster_id  # type: str
-        # The IDs of the instances.
         self.instance_id = instance_id  # type: list[str]
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The number of the page to return.
-        # 
-        # Pages start from page 1.
-        # 
-        # Default value: 1.
         self.page_number = page_number  # type: int
-        # The number of entries to return on each page. Valid values: 1 to 50.
-        # 
-        # Default value: 10.
         self.page_size = page_size  # type: int
-        # The region ID of the instance. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The zone ID of the instance. You can call the [DescribeZones](~~25610~~) operation to query the most recent zone list.
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -43064,15 +42948,7 @@ class DescribeInstanceStatusRequest(TeaModel):
 
 class DescribeInstanceStatusResponseBodyInstanceStatusesInstanceStatus(TeaModel):
     def __init__(self, instance_id=None, status=None):
-        # The ID of instance.
         self.instance_id = instance_id  # type: str
-        # The state of the instance. Valid values:
-        # 
-        # * Pending: The instance is being created.
-        # * Running: The instance is running.
-        # * Starting: The instance is being started.
-        # * Stopping: The instance is being stopped.
-        # * Stopped: The instance is stopped.
         self.status = status  # type: str
 
     def validate(self):
@@ -43133,15 +43009,10 @@ class DescribeInstanceStatusResponseBodyInstanceStatuses(TeaModel):
 
 class DescribeInstanceStatusResponseBody(TeaModel):
     def __init__(self, instance_statuses=None, page_number=None, page_size=None, request_id=None, total_count=None):
-        # The status information of the instances.
         self.instance_statuses = instance_statuses  # type: DescribeInstanceStatusResponseBodyInstanceStatuses
-        # The page number of the returned page.
         self.page_number = page_number  # type: int
-        # The number of entries returned per page.
         self.page_size = page_size  # type: int
-        # The ID of the request.
         self.request_id = request_id  # type: str
-        # The total number of instances.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -43610,168 +43481,44 @@ class DescribeInstanceTypesRequest(TeaModel):
                  minimum_primary_eni_queue_number=None, minimum_queue_pair_number=None, minimum_secondary_eni_queue_number=None, next_token=None,
                  nvme_support=None, owner_account=None, owner_id=None, physical_processor_model=None,
                  resource_owner_account=None, resource_owner_id=None):
-        # The CPU architecture. Valid values:
-        # 
-        # *   X86
-        # *   ARM
         self.cpu_architecture = cpu_architecture  # type: str
-        # The GPU model.
-        # 
-        # > Fuzzy match is supported. For example, if an instance type provides NVIDIA V100 GPUs and you set this parameter to NVIDIA, information about the instance type is queried.
         self.gpuspec = gpuspec  # type: str
-        # The category of the instance type. Valid values:
-        # 
-        # *   General-purpose: general-purpose instance type
-        # *   Compute-optimized: compute-optimized instance type
-        # *   Memory-optimized: memory-optimized instance type
-        # *   Big data: big data instance type
-        # *   Local SSDs: instance type with local SSDs
-        # *   High Clock Speed: instance type with high clock speeds
-        # *   Enhanced: enhanced instance type
-        # *   Shared: shared instance type
-        # *   Compute-optimized with GPU: GPU-accelerated compute-optimized instance type
-        # *   Visual Compute-optimized: visual compute-optimized instance type
-        # *   Heterogeneous Service: heterogeneous service instance type
-        # *   Compute-optimized with FPGA: FPGA-accelerated compute-optimized instance type
-        # *   Compute-optimized with NPU: NPU-accelerated compute-optimized instance type
-        # *   ECS Bare Metal: ECS Bare Metal Instance type
-        # *   Super Computing Cluster: Super Computing Cluster (SCC) instance type
         self.instance_category = instance_category  # type: str
-        # The level of the instance family. Valid values:
-        # 
-        # *   EntryLevel: entry level (shared)
-        # *   EnterpriseLevel: enterprise level
-        # *   CreditEntryLevel: credit-based entry level
         self.instance_family_level = instance_family_level  # type: str
-        # The instance family to which the instance type belongs. For information about the valid values of this parameter, see [DescribeInstanceTypeFamilies](~~25621~~).
-        # 
-        # For more information about instance families, see [Instance families](~~25378~~).
         self.instance_type_family = instance_type_family  # type: str
-        # Instance type N. Valid values of N: 1 to 10. If this parameter is empty, information about all instance types is queried.
         self.instance_types = instance_types  # type: list[str]
-        # The category of local disks. For more information, see [Local disks](~~63138#section_n2w\_8yc\_5u1~~). Valid values:
-        # 
-        # *   local_hdd_pro: local Serial Advanced Technology Attachment (SATA) HDDs, which are used by d1ne or d1 instances
-        # *   local_ssd_pro: local Non-Volatile Memory Express (NVMe) SSDs, which are used by i2, i2g, i1, ga1, or gn5 instances
         self.local_storage_category = local_storage_category  # type: str
-        # The maximum number of entries to return on each page. Maximum value: 1600.
-        # 
-        # Default value: 1600.
         self.max_results = max_results  # type: long
-        # The maximum number of vCPUs. The value must be a positive integer.
-        # 
-        # > If an instance type has more vCPUs than the specified value, information about the instance type is not queried.
         self.maximum_cpu_core_count = maximum_cpu_core_count  # type: int
-        # The maximum clock speed.
-        # 
-        # > If an instance type uses processors that have a higher clock speed than the specified value, information about the instance type is not queried.
         self.maximum_cpu_speed_frequency = maximum_cpu_speed_frequency  # type: float
-        # The maximum turbo frequency.
-        # 
-        # > If an instance type uses processors that deliver a higher turbo frequency than the specified value, information about the instance type is not queried.
         self.maximum_cpu_turbo_frequency = maximum_cpu_turbo_frequency  # type: float
-        # The maximum number of GPUs. The value must be a positive integer.
-        # 
-        # > If an instance type provides more GPUs than the specified value, information about the instance type is not queried.
         self.maximum_gpuamount = maximum_gpuamount  # type: int
-        # The maximum memory size. Unit: GiB.
-        # 
-        # > If the memory size of an instance type is larger than the specified value, information about the instance type is not queried.
         self.maximum_memory_size = maximum_memory_size  # type: float
-        # The minimum baseline CPU performance (overall baseline performance of all vCPUs) per t5 or t6 burstable instance.
-        # 
-        # > If a t5 or t6 instance type provides baseline CPU performance that is lower than the specified value, information about the instance type is not queried.
         self.minimum_baseline_credit = minimum_baseline_credit  # type: int
-        # The minimum number of vCPUs. The value must be a positive integer.
-        # 
-        # > If an instance type has fewer vCPUs than the specified value, information about the instance type is not queried.
         self.minimum_cpu_core_count = minimum_cpu_core_count  # type: int
-        # The minimum clock speed.
-        # 
-        # > If an instance type uses processors that have a lower clock speed than the specified value, information about the instance type is not queried.
         self.minimum_cpu_speed_frequency = minimum_cpu_speed_frequency  # type: float
-        # The minimum turbo frequency.
-        # 
-        # > If an instance type uses processors that deliver a lower turbo frequency than the specified value, information about the instance type is not queried.
         self.minimum_cpu_turbo_frequency = minimum_cpu_turbo_frequency  # type: float
-        # The minimum number of cloud disks.
-        # 
-        # > If an instance type supports fewer cloud disks than the specified value, information about the instance type is not queried.
         self.minimum_disk_quantity = minimum_disk_quantity  # type: int
-        # The minimum number of IPv6 addresses per ENI.
-        # 
-        # > If an instance type supports fewer IPv6 addresses per ENI than the specified value, information about the instance type is not queried.
         self.minimum_eni_ipv_6address_quantity = minimum_eni_ipv_6address_quantity  # type: int
-        # The minimum number of IPv4 addresses per ENI.
-        # 
-        # > If an instance type supports fewer IPv4 addresses per ENI than the specified value, information about the instance type is not queried.
         self.minimum_eni_private_ip_address_quantity = minimum_eni_private_ip_address_quantity  # type: int
-        # The minimum number of elastic network interfaces (ENIs).
-        # 
-        # > If an instance type supports fewer ENIs than the specified value, information about the instance type is not queried.
         self.minimum_eni_quantity = minimum_eni_quantity  # type: int
-        # The minimum number of ERIs.
-        # 
-        # > If an instance type supports fewer ERIs than the specified value, information about the instance type is not queried.
         self.minimum_eri_quantity = minimum_eri_quantity  # type: int
-        # The minimum number of GPUs. The value must be a positive integer.
-        # 
-        # > If an instance type provides fewer GPUs than the specified value, information about the instance type is not queried.
         self.minimum_gpuamount = minimum_gpuamount  # type: int
-        # The minimum initial CPU credits per t5 or t6 burstable instance.
-        # 
-        # > If a t5 or t6 instance type provides less initial vCPU credits than the specified value, information about the instance type is not queried.
         self.minimum_initial_credit = minimum_initial_credit  # type: int
-        # The minimum inbound internal bandwidth. Unit: Kbit/s.
-        # 
-        # > If an instance type provides an inbound internal bandwidth that is lower than the specified value, information about the instance type is not queried.
         self.minimum_instance_bandwidth_rx = minimum_instance_bandwidth_rx  # type: int
-        # The minimum outbound internal bandwidth. Unit: Kbit/s.
-        # 
-        # > If an instance type provides an outbound internal bandwidth that is lower than the specified value, information about the instance type is not queried.
         self.minimum_instance_bandwidth_tx = minimum_instance_bandwidth_tx  # type: int
-        # The minimum inbound packet forwarding rate over the internal network. Unit: pps.
-        # 
-        # > If an instance type provides an inbound packet forwarding rate over the internal network that is lower than the specified value, information about the instance type is not queried.
         self.minimum_instance_pps_rx = minimum_instance_pps_rx  # type: long
-        # The minimum outbound packet forwarding rate over the internal network. Unit: pps.
-        # 
-        # > If an instance type provides an outbound packet forwarding rate over the internal network that is lower than the specified value, information about the instance type is not queried.
         self.minimum_instance_pps_tx = minimum_instance_pps_tx  # type: long
-        # The minimum number of local disks.
-        # 
-        # > If an instance type supports fewer local disks than the specified value, information about the instance type is not queried.
         self.minimum_local_storage_amount = minimum_local_storage_amount  # type: int
-        # The capacity of each local disk. Unit: GiB.
         self.minimum_local_storage_capacity = minimum_local_storage_capacity  # type: long
-        # The minimum memory size. Unit: GiB.
-        # 
-        # > If the memory size of an instance type is smaller than the specified value, information about the instance type is not queried.
         self.minimum_memory_size = minimum_memory_size  # type: float
-        # The minimum default number of queues per primary network interface controller (NIC).
-        # 
-        # > If an instance type supports fewer queues per primary NIC than the specified value, information about the instance type is not queried.
         self.minimum_primary_eni_queue_number = minimum_primary_eni_queue_number  # type: int
-        # The minimum number of queue pair (QP) queues per elastic RDMA interface (ERI).
-        # 
-        # > If an instance type supports fewer QP queues per ERI than the specified value, information about the instance type is not queried.
         self.minimum_queue_pair_number = minimum_queue_pair_number  # type: int
-        # The minimum default number of queues per secondary NIC.
-        # 
-        # > If an instance type supports fewer queues per secondary NIC than the specified value, information about the instance type is not queried.
         self.minimum_secondary_eni_queue_number = minimum_secondary_eni_queue_number  # type: int
-        # The query token. Set the value to the NextToken value returned in the previous call to the DescribeInstanceTypes operation. Leave this parameter empty the first time you call this operation.
         self.next_token = next_token  # type: str
-        # Specifies whether cloud disks can be attached by using the NVMe protocol. Valid values:
-        # 
-        # *   required: Cloud disks can be attached by using the NVMe protocol.
-        # *   unsupported: Cloud disk cannot be attached by using the NVMe protocol.
         self.nvme_support = nvme_support  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The CPU model.
-        # 
-        # > Fuzzy match is supported. For example, if an instance type uses Intel Xeon (Ice Lake) Platinum 8369B processors and you set this parameter to Intel, information about the instance type is queried.
         self.physical_processor_model = physical_processor_model  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -43958,7 +43705,6 @@ class DescribeInstanceTypesRequest(TeaModel):
 
 class DescribeInstanceTypesResponseBodyInstanceTypesInstanceTypeNetworkCardsNetworkCardInfo(TeaModel):
     def __init__(self, network_card_index=None):
-        # The index of the NIC.
         self.network_card_index = network_card_index  # type: int
 
     def validate(self):
@@ -44023,119 +43769,43 @@ class DescribeInstanceTypesResponseBodyInstanceTypesInstanceType(TeaModel):
                  local_storage_category=None, maximum_queue_number_per_eni=None, memory_size=None, network_card_quantity=None,
                  network_cards=None, network_encryption_support=None, nvme_support=None, physical_processor_model=None,
                  primary_eni_queue_number=None, queue_pair_number=None, secondary_eni_queue_number=None, total_eni_queue_quantity=None):
-        # The baseline CPU performance (overall baseline performance of all vCPUs) per t5 or t6 burstable instance.
         self.baseline_credit = baseline_credit  # type: int
-        # The CPU architecture. Valid values:
-        # 
-        # *   X86
-        # *   ARM
         self.cpu_architecture = cpu_architecture  # type: str
-        # The number of vCPUs.
         self.cpu_core_count = cpu_core_count  # type: int
-        # The CPU base frequency. Unit: GHz.
         self.cpu_speed_frequency = cpu_speed_frequency  # type: float
-        # The CPU turbo frequency. Unit: GHz.
         self.cpu_turbo_frequency = cpu_turbo_frequency  # type: float
-        # The maximum number of cloud disks.
         self.disk_quantity = disk_quantity  # type: int
-        # The maximum number of IPv6 addresses per ENI.
         self.eni_ipv_6address_quantity = eni_ipv_6address_quantity  # type: int
-        # The maximum number of IPv4 addresses per ENI.
         self.eni_private_ip_address_quantity = eni_private_ip_address_quantity  # type: int
-        # The maximum number of ENIs.
         self.eni_quantity = eni_quantity  # type: int
-        # The maximum number of NICs, including the primary NIC, ENIs, and trunk NICs.
-        # 
-        # > This parameter is in invitational preview and is unavailable to general users.
         self.eni_total_quantity = eni_total_quantity  # type: int
-        # Indicates whether NICs on instances of the instance type support trunking.
-        # 
-        # > This parameter is in invitational preview and is unavailable to general users.
         self.eni_trunk_supported = eni_trunk_supported  # type: bool
-        # The number of ERIs.
-        # 
-        # > This parameter is in invitational preview and is unavailable to general users.
         self.eri_quantity = eri_quantity  # type: int
-        # The number of GPUs.
         self.gpuamount = gpuamount  # type: int
-        # The amount of GPU memory per GPU. Unit: GiB.
         self.gpumemory_size = gpumemory_size  # type: float
-        # The GPU model.
         self.gpuspec = gpuspec  # type: str
-        # The initial vCPU credits per t5 or t6 burstable instance.
         self.initial_credit = initial_credit  # type: int
-        # The maximum inbound internal bandwidth. Unit: Kbit/s.
         self.instance_bandwidth_rx = instance_bandwidth_rx  # type: int
-        # The maximum outbound internal bandwidth. Unit: Kbit/s.
         self.instance_bandwidth_tx = instance_bandwidth_tx  # type: int
-        # The category of the instance type. Valid values:
-        # 
-        # *   General-purpose: general-purpose instance type
-        # *   Compute-optimized: compute-optimized instance type
-        # *   Memory-optimized: memory-optimized instance type
-        # *   Big data: big data instance type
-        # *   Local SSDs: instance type with local SSDs
-        # *   High Clock Speed: instance type with high clock speeds
-        # *   Enhanced: enhanced instance type
-        # *   Shared: shared instance type
-        # *   Compute-optimized with GPU: GPU-accelerated compute-optimized instance type
-        # *   Visual Compute-optimized: visual compute-optimized instance type
-        # *   Heterogeneous Service: heterogeneous service instance type
-        # *   Compute-optimized with FPGA: FPGA-accelerated compute-optimized instance type
-        # *   Compute-optimized with NPU: NPU-accelerated compute-optimized instance type
-        # *   ECS Bare Metal: ECS Bare Metal Instance type
-        # *   Super Computing Cluster: SCC instance type
         self.instance_category = instance_category  # type: str
-        # The level of the instance family. Valid values:
-        # 
-        # *   EntryLevel: entry level (shared).
-        # *   EnterpriseLevel: enterprise level.
-        # *   CreditEntryLevel: credit-based entry level. For more information, see [Overview](~~59977~~).
         self.instance_family_level = instance_family_level  # type: str
-        # The inbound packet forwarding rate over the internal network. Unit: pps.
         self.instance_pps_rx = instance_pps_rx  # type: long
-        # The outbound packet forwarding rate over the internal network. Unit: pps.
         self.instance_pps_tx = instance_pps_tx  # type: long
-        # The instance family.
         self.instance_type_family = instance_type_family  # type: str
-        # The ID of the instance type.
         self.instance_type_id = instance_type_id  # type: str
-        # The number of local disks.
         self.local_storage_amount = local_storage_amount  # type: int
-        # The capacity of each local disk. Unit: GiB.
         self.local_storage_capacity = local_storage_capacity  # type: long
-        # The category of local disks. For more information, see [Local disks](~~63138~~). Valid values:
-        # 
-        # *   local_hdd_pro: local SATA HDDs, which are used by d1ne or d1 instances
-        # *   local_ssd_pro: local NVMe SSDs, which are used by i2, i2g, i1, ga1, or gn5 instances
         self.local_storage_category = local_storage_category  # type: str
-        # The maximum number of queues per ENI (including primary ENI and secondary ENI).
         self.maximum_queue_number_per_eni = maximum_queue_number_per_eni  # type: int
-        # The memory size. Unit: GiB.
         self.memory_size = memory_size  # type: float
-        # The number of NICs.
         self.network_card_quantity = network_card_quantity  # type: int
-        # Details about NICs.
         self.network_cards = network_cards  # type: DescribeInstanceTypesResponseBodyInstanceTypesInstanceTypeNetworkCards
-        # Indicates whether to allow network traffic transmitted over virtual private clouds (VPCs) to be encrypted. Valid values:
-        # 
-        # *   true: allows network traffic transmitted over VPCs to be encrypted.
-        # *   false: does not allow network traffic transmitted over VPCs to be encrypted.
         self.network_encryption_support = network_encryption_support  # type: bool
-        # Indicates whether cloud disks can be attached by using the NVMe protocol. Valid values:
-        # 
-        # *   required: Cloud disks can be attached by using the NVMe protocol.
-        # *   unsupported: Cloud disk cannot be attached by using the NVMe protocol.
         self.nvme_support = nvme_support  # type: str
-        # The CPU model.
         self.physical_processor_model = physical_processor_model  # type: str
-        # The default number of queues per primary NIC.
         self.primary_eni_queue_number = primary_eni_queue_number  # type: int
-        # The maximum number of QP queues per ERI.
         self.queue_pair_number = queue_pair_number  # type: int
-        # The default number of queues per secondary ENI.
         self.secondary_eni_queue_number = secondary_eni_queue_number  # type: int
-        # The maximum number of queues on ENIs that the instance type supports.
         self.total_eni_queue_quantity = total_eni_queue_quantity  # type: int
 
     def validate(self):
@@ -44342,11 +44012,8 @@ class DescribeInstanceTypesResponseBodyInstanceTypes(TeaModel):
 
 class DescribeInstanceTypesResponseBody(TeaModel):
     def __init__(self, instance_types=None, next_token=None, request_id=None):
-        # Details about the instance types.
         self.instance_types = instance_types  # type: DescribeInstanceTypesResponseBodyInstanceTypes
-        # The query token returned in this call.
         self.next_token = next_token  # type: str
-        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -47366,15 +47033,7 @@ class DescribeInstancesFullStatusResponse(TeaModel):
 
 class DescribeInvocationResultsRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
-        # The key of tag N of the command task. Valid values of N: 1 to 20. The tag key cannot be an empty string.
-        # 
-        # If a single tag is specified to query resources, up to 1,000 resources that have this tag added can be displayed in the response. If multiple tags are specified to query resources, up to 1,000 resources that have all these tags added can be displayed in the response. To query more than 1,000 resources that have specified tags added, call the [ListTagResources](~~110425~~) operation.
-        # 
-        # The tag key can be up to 64 characters in length and cannot start with `acs:` or `aliyun`. It cannot contain `http://` or `https://`.
         self.key = key  # type: str
-        # The value of tag N of the command task. Valid values of N: 1 to 20. The tag value can be an empty string.
-        # 
-        # The tag value can be up to 128 characters in length and cannot contain `http://` or `https://`.
         self.value = value  # type: str
 
     def validate(self):
@@ -47406,56 +47065,20 @@ class DescribeInvocationResultsRequest(TeaModel):
                  invoke_id=None, invoke_record_status=None, owner_account=None, owner_id=None, page_number=None,
                  page_size=None, region_id=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None,
                  tag=None):
-        # The ID of the command.
         self.command_id = command_id  # type: str
-        # The encoding method of the `Output` response parameter. Valid values:
-        # 
-        # *   PlainText: returns the original command content and command output.
-        # *   Base64: returns the Base64-encoded command content and command output.
-        # 
-        # Default value: Base64.
         self.content_encoding = content_encoding  # type: str
-        # Specifies whether to return the results of historical scheduled executions. Valid values:
-        # 
-        # *   true: returns the results of historical scheduled executions. When this parameter is set to true, the `InvokeId` parameter must be set to the ID of a scheduled task.
-        # *   false: does not return the results of historical scheduled executions.
-        # 
-        # Default value: false.
         self.include_history = include_history  # type: bool
-        # The ID of the instance.
         self.instance_id = instance_id  # type: str
-        # The ID of the command task. You can call the [DescribeInvocations](~~64840~~) operation to query the command task IDs.
         self.invoke_id = invoke_id  # type: str
-        # The execution state of the command. Valid values:
-        # 
-        # *   Running
-        # *   Finished
-        # *   Failed
-        # *   Stopped
-        # 
-        # > To ensure compatibility, we recommend that you use the `InvocationStatus` parameter instead of the InvokeRecordStatus parameter.
         self.invoke_record_status = invoke_record_status  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The page number of the page to return.
-        # 
-        # Pages start from page 1.
-        # 
-        # Default value: 1.
         self.page_number = page_number  # type: long
-        # The number of entries to return on each page.
-        # 
-        # Maximum value: 50.
-        # 
-        # Default value: 10.
         self.page_size = page_size  # type: long
-        # The region ID of the command. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
-        # The ID of the resource group. After you set this parameter, command execution results in the specified resource group are queried.
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The list of tags.
         self.tag = tag  # type: list[DescribeInvocationResultsRequestTag]
 
     def validate(self):
@@ -47544,9 +47167,7 @@ class DescribeInvocationResultsRequest(TeaModel):
 
 class DescribeInvocationResultsResponseBodyInvocationInvocationResultsInvocationResultTagsTag(TeaModel):
     def __init__(self, tag_key=None, tag_value=None):
-        # The tag key of the command task.
         self.tag_key = tag_key  # type: str
-        # The tag value of the command task.
         self.tag_value = tag_value  # type: str
 
     def validate(self):
@@ -47609,116 +47230,23 @@ class DescribeInvocationResultsResponseBodyInvocationInvocationResultsInvocation
     def __init__(self, command_id=None, container_id=None, container_name=None, dropped=None, error_code=None,
                  error_info=None, exit_code=None, finished_time=None, instance_id=None, invocation_status=None, invoke_id=None,
                  invoke_record_status=None, output=None, repeats=None, start_time=None, stop_time=None, tags=None, username=None):
-        # The ID of the command.
         self.command_id = command_id  # type: str
-        # The ID of the container.
         self.container_id = container_id  # type: str
-        # The name of the container.
         self.container_name = container_name  # type: str
-        # The size of the text that is truncated and discarded when the `Output` value exceeds 24 KB in size.
         self.dropped = dropped  # type: int
-        # The error code returned when the command cannot be sent or run. Valid values:
-        # 
-        # *   If this parameter is empty, the command is run normally.
-        # *   InstanceNotExists: The instance does not exist or has been released.
-        # *   InstanceReleased: The instance was released while the command was being run.
-        # *   InstanceNotRunning: The instance was not running while the command was being run.
-        # *   CommandNotApplicable: The command is not applicable to the specified instance.
-        # *   AccountNotExists: The specified account does not exist.
-        # *   DirectoryNotExists: The specified directory does not exist.
-        # *   BadCronExpression: The cron expression used to specify a schedule is invalid.
-        # *   ClientNotRunning: The Cloud Assistant client is not running.
-        # *   ClientNotResponse: The Cloud Assistant client does not respond.
-        # *   ClientIsUpgrading: The Cloud Assistant client is being upgraded.
-        # *   ClientNeedUpgrade: The Cloud Assistant client needs to be upgraded.
-        # *   DeliveryTimeout: The request to send the command timed out.
-        # *   ExecutionTimeout: The execution timed out.
-        # *   ExecutionException: An exception occurred while the command was being run.
-        # *   ExecutionInterrupted: The execution was interrupted.
-        # *   ExitCodeNonzero: The execution is complete, but the exit code is not 0.
         self.error_code = error_code  # type: str
-        # The error message returned when the command cannot be sent or run. Valid values:
-        # 
-        # *   If this parameter is empty, the command is run normally.
-        # *   the specified instance does not exists
-        # *   the instance has released when create task
-        # *   the instance is not running when create task
-        # *   the command is not applicable
-        # *   the specified account does not exists
-        # *   the specified directory does not exists
-        # *   the cron job expression is invalid
-        # *   the aliyun service is not running on the instance
-        # *   the aliyun service in the instance does not response
-        # *   the aliyun service in the instance is upgrading now
-        # *   the aliyun service in the instance need upgrade
-        # *   the command delivery has been timeout
-        # *   the command execution has been timeout
-        # *   the command execution got an exception
-        # *   the command execution has been interrupted
-        # *   the command execution exit code is not zero
         self.error_info = error_info  # type: str
-        # The exit code of the command execution.
-        # 
-        # *   For Linux instances, the value is the exit code of the shell command.
-        # *   For Windows instances, the value is the exit code of the batch or PowerShell command.
         self.exit_code = exit_code  # type: long
-        # The end time of the execution. If an execution times out, the end time of the execution is subject to the value of the TimedOut parameter specified in the [CreateCommand](~~64844~~) operation.
         self.finished_time = finished_time  # type: str
-        # The ID of the instance
         self.instance_id = instance_id  # type: str
-        # The execution state on a single instance. Valid values:
-        # 
-        # *   Pending: The command is being verified or sent.
-        # 
-        # *   Invalid: The specified command type or parameter is invalid.
-        # 
-        # *   Aborted: The command failed to be sent. To send a command to an instance, make sure that the instance is in the Running state and the command is sent to the instance within 1 minute.
-        # 
-        # *   Running: The command is being run on the instance.
-        # 
-        # *   Success:
-        # 
-        #     *   Command that is set to run only once: The execution is complete, and the exit code is 0.
-        #     *   Command that is set to run on a schedule: The last execution succeeds, the exit code is 0, and the specified cycle ends.
-        # 
-        # *   Failed:
-        # 
-        #     *   Command that is set to run only once: The execution is complete, but the exit code is not 0.
-        #     *   Command that is set to run on a schedule: The last execution is complete, the exit code is not 0, and the specified cycle is about to end.
-        # 
-        # *   Error: The execution cannot proceed due to an exception.
-        # 
-        # *   Timeout: The execution times out.
-        # 
-        # *   Cancelled: The execution is canceled, and the command is not run.
-        # 
-        # *   Stopping: The running command is being stopped.
-        # 
-        # *   Terminated: The command is terminated while it is being run.
-        # 
-        # *   Scheduled:
-        # 
-        #     *   Command that is set to run only once: The command is not applicable.
-        #     *   Command that is set to run on a schedule: The command is waiting to be run.
         self.invocation_status = invocation_status  # type: str
-        # The ID of the command task.
         self.invoke_id = invoke_id  # type: str
-        # The execution state of the command.
         self.invoke_record_status = invoke_record_status  # type: str
-        # The command output.
         self.output = output  # type: str
-        # The number of times that the command is run on the instance.
-        # 
-        # *   If the command is set to run only once on the instance, the value is 0 or 1.
-        # *   If the command is set to run on a schedule on the instance, the value is the number of times that the command is run.
         self.repeats = repeats  # type: int
-        # The time when the command started to be run on the instance.
         self.start_time = start_time  # type: str
-        # The time when the command stopped being run on the instance. If you call the `StopInvocation` operation to manually stop the execution, the value is the time when you called the operation.
         self.stop_time = stop_time  # type: str
-        # The tags of the command task.
         self.tags = tags  # type: DescribeInvocationResultsResponseBodyInvocationInvocationResultsInvocationResultTags
-        # The username that was used to run the command on the instance.
         self.username = username  # type: str
 
     def validate(self):
@@ -47845,13 +47373,9 @@ class DescribeInvocationResultsResponseBodyInvocationInvocationResults(TeaModel)
 
 class DescribeInvocationResultsResponseBodyInvocation(TeaModel):
     def __init__(self, invocation_results=None, page_number=None, page_size=None, total_count=None):
-        # The execution results.
         self.invocation_results = invocation_results  # type: DescribeInvocationResultsResponseBodyInvocationInvocationResults
-        # The page number of the returned page.
         self.page_number = page_number  # type: long
-        # The number of entries returned per page.
         self.page_size = page_size  # type: long
-        # The total number of the commands.
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -47890,9 +47414,7 @@ class DescribeInvocationResultsResponseBodyInvocation(TeaModel):
 
 class DescribeInvocationResultsResponseBody(TeaModel):
     def __init__(self, invocation=None, request_id=None):
-        # Details of the execution results.
         self.invocation = invocation  # type: DescribeInvocationResultsResponseBodyInvocation
-        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -50691,15 +50213,7 @@ class DescribeLimitationResponse(TeaModel):
 
 class DescribeManagedInstancesRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
-        # The key of tag N of the managed instance. Valid values of N: 1 to 20. The tag key cannot be an empty string.
-        # 
-        # If a single tag is specified to query resources, up to 1,000 resources that have this tag added can be displayed in the response. If multiple tags are specified to query resources, up to 1,000 resources that have all these tags added can be displayed in the response. To query more than 1,000 resources that have specified tags added, call the [ListTagResources](~~110425~~) operation.
-        # 
-        # The tag key can be up to 64 characters in length and cannot start with `acs:` or `aliyun`. It cannot contain `http://` or `https://`.
         self.key = key  # type: str
-        # The value of tag N of the managed instance. Valid values of N: 1 to 20. The tag value can be an empty string.
-        # 
-        # It can be up to 128 characters in length and cannot contain `http://` or `https://`.
         self.value = value  # type: str
 
     def validate(self):
@@ -50730,40 +50244,18 @@ class DescribeManagedInstancesRequest(TeaModel):
     def __init__(self, activation_id=None, instance_id=None, instance_ip=None, instance_name=None, os_type=None,
                  owner_account=None, owner_id=None, page_number=None, page_size=None, region_id=None, resource_owner_account=None,
                  resource_owner_id=None, tag=None):
-        # The ID of the activation code.
         self.activation_id = activation_id  # type: str
-        # The ID of managed instance N. Valid values of N: 1 to 50.
         self.instance_id = instance_id  # type: list[str]
-        # The internal or public IP address of the managed instance.
         self.instance_ip = instance_ip  # type: str
-        # The name of the managed instance.
         self.instance_name = instance_name  # type: str
-        # The operating system type of the managed instance. Valid values:
-        # 
-        # *   windows
-        # *   linux
         self.os_type = os_type  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The number of the page to return.
-        # 
-        # Pages start from page 1.
-        # 
-        # Default value: 1.
         self.page_number = page_number  # type: long
-        # The number of entries to return on each page.
-        # 
-        # Maximum value: 50.
-        # 
-        # Default value: 10.
         self.page_size = page_size  # type: long
-        # The region ID of the managed instance. The following regions are supported: China (Qingdao), China (Beijing), China (Zhangjiakou), China (Hohhot), China (Hangzhou), China (Shanghai), China (Shenzhen), China (Heyuan), and China (Hong Kong).
-        # 
-        # You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The tags of the managed instance.
         self.tag = tag  # type: list[DescribeManagedInstancesRequestTag]
 
     def validate(self):
@@ -50844,15 +50336,7 @@ class DescribeManagedInstancesRequest(TeaModel):
 
 class DescribeManagedInstancesResponseBodyInstancesTags(TeaModel):
     def __init__(self, tag_key=None, tag_value=None):
-        # The tag key of the managed instance. Up to 20 tag keys can be returned for each managed instance. The tag key cannot be an empty string.
-        # 
-        # If a single tag is specified to query resources, up to 1,000 resources that have this tag added can be displayed in the response. If multiple tags are specified to query resources, up to 1,000 resources that have all these tags added can be displayed in the response. To query more than 1,000 resources that have specified tags added, call the [ListTagResources](~~110425~~) operation.
-        # 
-        # The tag key can be up to 64 characters in length and cannot start with `acs:` or `aliyun`. It cannot contain `http://` or `https://`.
         self.tag_key = tag_key  # type: str
-        # The tag value of the managed instance. Up to 20 tag values can be returned for each managed instance. The tag value can be an empty string.
-        # 
-        # It can be up to 128 characters in length and cannot contain `http://` or `https://`.
         self.tag_value = tag_value  # type: str
 
     def validate(self):
@@ -50883,38 +50367,20 @@ class DescribeManagedInstancesResponseBodyInstances(TeaModel):
     def __init__(self, activation_id=None, agent_version=None, connected=None, hostname=None, instance_id=None,
                  instance_name=None, internet_ip=None, intranet_ip=None, invocation_count=None, last_invoked_time=None,
                  machine_id=None, os_type=None, os_version=None, registration_time=None, tags=None):
-        # The ID of the activation code.
         self.activation_id = activation_id  # type: str
-        # The version number of the Cloud Assistant client.
         self.agent_version = agent_version  # type: str
-        # Indicates whether the managed instance is connected. Valid values:
-        # 
-        # *   true: The managed instance is connected and you can manage the instance by using Cloud Assistant.
-        # *   false: The managed instance is not connected because the managed instance is down or because the Cloud Assistant client is not installed correctly.
         self.connected = connected  # type: bool
-        # The hostname of the managed instance.
         self.hostname = hostname  # type: str
-        # The ID of the managed instance.
         self.instance_id = instance_id  # type: str
-        # The name of the managed instance.
         self.instance_name = instance_name  # type: str
-        # The public IP address of the managed instance.
         self.internet_ip = internet_ip  # type: str
-        # The internal IP address of the managed instance.
         self.intranet_ip = intranet_ip  # type: str
-        # The number of times that Cloud Assistant tasks were executed on the managed instance.
         self.invocation_count = invocation_count  # type: long
-        # The last Cloud Assistant task execution time.
         self.last_invoked_time = last_invoked_time  # type: str
-        # The machine code of the managed instance.
         self.machine_id = machine_id  # type: str
-        # The operating system type of the managed instance.
         self.os_type = os_type  # type: str
-        # The version information of the operating system.
         self.os_version = os_version  # type: str
-        # The time when the managed instance was registered.
         self.registration_time = registration_time  # type: str
-        # The tags of the managed instance.
         self.tags = tags  # type: list[DescribeManagedInstancesResponseBodyInstancesTags]
 
     def validate(self):
@@ -51003,15 +50469,10 @@ class DescribeManagedInstancesResponseBodyInstances(TeaModel):
 
 class DescribeManagedInstancesResponseBody(TeaModel):
     def __init__(self, instances=None, page_number=None, page_size=None, request_id=None, total_count=None):
-        # Details about the managed instances.
         self.instances = instances  # type: list[DescribeManagedInstancesResponseBodyInstances]
-        # The page number of the returned page.
         self.page_number = page_number  # type: long
-        # The number of entries returned per page.
         self.page_size = page_size  # type: long
-        # The ID of the request.
         self.request_id = request_id  # type: str
-        # The total number of managed instances returned.
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -52438,25 +51899,12 @@ class DescribeNetworkInterfacePermissionsRequest(TeaModel):
     def __init__(self, network_interface_id=None, network_interface_permission_id=None, owner_account=None,
                  owner_id=None, page_number=None, page_size=None, region_id=None, resource_owner_account=None,
                  resource_owner_id=None):
-        # The ID of the ENI. You must specify `NetworkInterfaceId` or `NetworkInterfacePermissionId.N` to determine the query range.
         self.network_interface_id = network_interface_id  # type: str
-        # The IDs of ENI permissions. You can specify up to 100 ENI permission IDs.
         self.network_interface_permission_id = network_interface_permission_id  # type: list[str]
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The number of the page to return.
-        # 
-        # Pages start from page 1.
-        # 
-        # Default value: 1.
         self.page_number = page_number  # type: int
-        # The number of entries to return on each page.
-        # 
-        # Maximum value: 100.
-        # 
-        # Default value: 10.
         self.page_size = page_size  # type: int
-        # The region ID of the ENI permission. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -52516,22 +51964,11 @@ class DescribeNetworkInterfacePermissionsRequest(TeaModel):
 class DescribeNetworkInterfacePermissionsResponseBodyNetworkInterfacePermissionsNetworkInterfacePermission(TeaModel):
     def __init__(self, account_id=None, network_interface_id=None, network_interface_permission_id=None,
                  permission=None, permission_state=None, service_name=None):
-        # The ID of the Alibaba Cloud partner (a certified ISV) or individual user.
         self.account_id = account_id  # type: long
-        # The ID of the ENI.
         self.network_interface_id = network_interface_id  # type: str
-        # The ID of the ENI permission.
         self.network_interface_permission_id = network_interface_permission_id  # type: str
-        # The ENI permission.
         self.permission = permission  # type: str
-        # The state of the ENI permission. Valid values:
-        # 
-        # *   Pending: The permission is being granted.
-        # *   Granted: The permission is granted.
-        # *   Revoking: The permission is being revoked.
-        # *   Revoked: The permission is revoked.
         self.permission_state = permission_state  # type: str
-        # The name of the Alibaba Cloud service.
         self.service_name = service_name  # type: str
 
     def validate(self):
@@ -52609,15 +52046,10 @@ class DescribeNetworkInterfacePermissionsResponseBodyNetworkInterfacePermissions
 class DescribeNetworkInterfacePermissionsResponseBody(TeaModel):
     def __init__(self, network_interface_permissions=None, page_number=None, page_size=None, request_id=None,
                  total_count=None):
-        # Details about the ENI permissions.
         self.network_interface_permissions = network_interface_permissions  # type: DescribeNetworkInterfacePermissionsResponseBodyNetworkInterfacePermissions
-        # The page number of the returned page.
         self.page_number = page_number  # type: int
-        # The number of entries returned per page.
         self.page_size = page_size  # type: int
-        # The ID of the request.
         self.request_id = request_id  # type: str
-        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -52699,11 +52131,7 @@ class DescribeNetworkInterfacePermissionsResponse(TeaModel):
 
 class DescribeNetworkInterfacesRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
-        # The key of tag N of the ENI. Valid values of N: 1 to 20.
         self.key = key  # type: str
-        # The value of tag N of the ENI. Valid values of N: 1 to 20.
-        # 
-        # Up to 1,000 resources that match the tags specified can be returned in the response. If the total number of resources that match the tags exceed 1,000, we recommend that you call the [ListTagResources](~~110425~~) operation.
         self.value = value  # type: str
 
     def validate(self):
@@ -52736,84 +52164,28 @@ class DescribeNetworkInterfacesRequest(TeaModel):
                  primary_ip_address=None, private_ip_address=None, region_id=None, resource_group_id=None,
                  resource_owner_account=None, resource_owner_id=None, security_group_id=None, service_managed=None, status=None, tag=None,
                  type=None, v_switch_id=None, vpc_id=None):
-        # The ID of the instance to which the ENI is bound.
         self.instance_id = instance_id  # type: str
-        # IPv6 address N of the ENI. You can specify multiple IPv6 addresses. Valid values of N: 1 to 100.
         self.ipv_6address = ipv_6address  # type: list[str]
-        # The maximum number of entries to return on each page. Valid values: 10 to 500.
-        # 
-        # Default values:
-        # 
-        # *   If this parameter is not specified or if this parameter is set to a value smaller than 10, the default value is 10.
-        # *   If this parameter is set to a value greater than 500, the default value is 500.
         self.max_results = max_results  # type: int
-        # The ID of the ENI N. Valid values of N: 1 to 100.
         self.network_interface_id = network_interface_id  # type: list[str]
-        # The name of the ENI.
         self.network_interface_name = network_interface_name  # type: str
-        # The query token. Set the value to the `NextToken` value returned in the last call to the Describedisks operation.
-        # 
-        # For more information about how to check the responses returned by this operation, see the preceding "Description" section.
         self.next_token = next_token  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The number of the page to return.
-        # 
-        # Pages start from page 1.
-        # 
-        # Default value: 1.
-        # 
-        # > This parameter will be removed in the future. We recommend that you use the NextToken and MaxResults parameters for a paged query.
         self.page_number = page_number  # type: int
-        # The number of entries to return on each page.
-        # 
-        # Maximum value: 1000.
-        # 
-        # Default value: 10.
-        # 
-        # > This parameter will be removed in the future. We recommend that you use the NextToken and MaxResults parameters for a paged query.
         self.page_size = page_size  # type: int
-        # The primary private IPv4 address of the ENI.
         self.primary_ip_address = primary_ip_address  # type: str
-        # Secondary private IPv4 address N of the ENI. Valid values of N: 1 to 100.
         self.private_ip_address = private_ip_address  # type: list[str]
-        # The region ID of the ENI. You can call the [DescribeRegions](~~25609~~) operation to query the most recent list of regions.
         self.region_id = region_id  # type: str
-        # The ID of the resource group. When you use this property to filter resources, the number of resources that are contained in the specified resource group cannot exceed 1,000.
-        # 
-        # > Resources in the default resource group are displayed in the response regardless of how this parameter is set.
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The ID of the security group to which the secondary ENI belongs.
-        # 
-        # *   To query the details of secondary ENIs based on the ID of a security group, specify this parameter.
-        # *   To query the details of primary ENIs based on the ID of a security group, call the [DescribeInstances](~~25506~~) operation and specify the `SecurityGroupId` parameter.
         self.security_group_id = security_group_id  # type: str
-        # Indicates whether the user of the ENI is an Alibaba Cloud service or a distributor.
         self.service_managed = service_managed  # type: bool
-        # The state of the ENI. Valid values:
-        # 
-        # *   Available: The ENI is available.
-        # *   Attaching: The ENI is being bound to an instance.
-        # *   InUse: The ENI is in use.
-        # *   Detaching: The ENI is being unbound from an instance.
-        # *   Deleting: The ENI is being deleted.
-        # 
-        # This parameter is empty by default, which indicates that all states are queried.
         self.status = status  # type: str
-        # The tags of the ENI.
         self.tag = tag  # type: list[DescribeNetworkInterfacesRequestTag]
-        # The type of the ENI. Valid values:
-        # 
-        # *   Primary
-        # *   Secondary
-        # 
-        # This parameter is empty by default, which indicates that both primary and secondary ENIs are queried.
         self.type = type  # type: str
-        # The ID of the vSwitch to which the ENI belongs.
         self.v_switch_id = v_switch_id  # type: str
-        # The ID of the virtual private cloud (VPC) to which the ENI belongs.
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
@@ -52934,9 +52306,7 @@ class DescribeNetworkInterfacesRequest(TeaModel):
 
 class DescribeNetworkInterfacesResponseBodyNetworkInterfaceSetsNetworkInterfaceSetAssociatedPublicIp(TeaModel):
     def __init__(self, allocation_id=None, public_ip_address=None):
-        # > This parameter is in invitational preview and is unavailable to the public.
         self.allocation_id = allocation_id  # type: str
-        # The EIP of the ENI.
         self.public_ip_address = public_ip_address  # type: str
 
     def validate(self):
@@ -52966,12 +52336,9 @@ class DescribeNetworkInterfacesResponseBodyNetworkInterfaceSetsNetworkInterfaceS
 class DescribeNetworkInterfacesResponseBodyNetworkInterfaceSetsNetworkInterfaceSetAttachment(TeaModel):
     def __init__(self, device_index=None, instance_id=None, network_card_index=None,
                  trunk_network_interface_id=None):
-        # > This parameter is in invitational preview and is unavailable to the public.
         self.device_index = device_index  # type: int
-        # > This parameter is in invitational preview and is unavailable to the public.
         self.instance_id = instance_id  # type: str
         self.network_card_index = network_card_index  # type: int
-        # > This parameter is in invitational preview and is unavailable to the public.
         self.trunk_network_interface_id = trunk_network_interface_id  # type: str
 
     def validate(self):
@@ -53120,7 +52487,6 @@ class DescribeNetworkInterfacesResponseBodyNetworkInterfaceSetsNetworkInterfaceS
 
 class DescribeNetworkInterfacesResponseBodyNetworkInterfaceSetsNetworkInterfaceSetIpv6SetsIpv6Set(TeaModel):
     def __init__(self, ipv_6address=None):
-        # The IPv6 address assigned to the ENI.
         self.ipv_6address = ipv_6address  # type: str
 
     def validate(self):
@@ -53177,9 +52543,7 @@ class DescribeNetworkInterfacesResponseBodyNetworkInterfaceSetsNetworkInterfaceS
 
 class DescribeNetworkInterfacesResponseBodyNetworkInterfaceSetsNetworkInterfaceSetPrivateIpSetsPrivateIpSetAssociatedPublicIp(TeaModel):
     def __init__(self, allocation_id=None, public_ip_address=None):
-        # > This parameter is in invitational preview and is unavailable to the public.
         self.allocation_id = allocation_id  # type: str
-        # The EIP of the ENI.
         self.public_ip_address = public_ip_address  # type: str
 
     def validate(self):
@@ -53208,14 +52572,8 @@ class DescribeNetworkInterfacesResponseBodyNetworkInterfaceSetsNetworkInterfaceS
 
 class DescribeNetworkInterfacesResponseBodyNetworkInterfaceSetsNetworkInterfaceSetPrivateIpSetsPrivateIpSet(TeaModel):
     def __init__(self, associated_public_ip=None, primary=None, private_ip_address=None):
-        # The elastic IP address (EIP) associated with the ENI.
         self.associated_public_ip = associated_public_ip  # type: DescribeNetworkInterfacesResponseBodyNetworkInterfaceSetsNetworkInterfaceSetPrivateIpSetsPrivateIpSetAssociatedPublicIp
-        # Indicates whether the IP address is the primary private IP address. Valid values:
-        # 
-        # *   true: The IP address is the primary private IP address.
-        # *   false: The IP address is the secondary private IP address.
         self.primary = primary  # type: bool
-        # The private IP address of the instance to which the ENI is bound.
         self.private_ip_address = private_ip_address  # type: str
 
     def validate(self):
@@ -53306,9 +52664,7 @@ class DescribeNetworkInterfacesResponseBodyNetworkInterfaceSetsNetworkInterfaceS
 
 class DescribeNetworkInterfacesResponseBodyNetworkInterfaceSetsNetworkInterfaceSetTagsTag(TeaModel):
     def __init__(self, tag_key=None, tag_value=None):
-        # The key of the tag.
         self.tag_key = tag_key  # type: str
-        # The value of the tag.
         self.tag_value = tag_value  # type: str
 
     def validate(self):
@@ -53374,69 +52730,32 @@ class DescribeNetworkInterfacesResponseBodyNetworkInterfaceSetsNetworkInterfaceS
                  private_ip_address=None, private_ip_sets=None, queue_number=None, queue_pair_number=None, resource_group_id=None,
                  security_group_ids=None, service_id=None, service_managed=None, status=None, tags=None, type=None, v_switch_id=None,
                  vpc_id=None, zone_id=None):
-        # Details about the EIP that is associated with the secondary private IP address of the ENI.
         self.associated_public_ip = associated_public_ip  # type: DescribeNetworkInterfacesResponseBodyNetworkInterfaceSetsNetworkInterfaceSetAssociatedPublicIp
-        # > This parameter is in invitational preview and is unavailable to the public.
         self.attachment = attachment  # type: DescribeNetworkInterfacesResponseBodyNetworkInterfaceSetsNetworkInterfaceSetAttachment
-        # The time when the ENI was created.
         self.creation_time = creation_time  # type: str
-        # The description of the ENI.
         self.description = description  # type: str
-        # The ID of the ECS instance to which the ENI is bound.
-        # 
-        # > If the ENI is managed and controlled by other Alibaba Cloud services, no instance ID is returned.
         self.instance_id = instance_id  # type: str
         self.ipv_4prefix_sets = ipv_4prefix_sets  # type: DescribeNetworkInterfacesResponseBodyNetworkInterfaceSetsNetworkInterfaceSetIpv4PrefixSets
         self.ipv_6prefix_sets = ipv_6prefix_sets  # type: DescribeNetworkInterfacesResponseBodyNetworkInterfaceSetsNetworkInterfaceSetIpv6PrefixSets
-        # The IPv6 addresses assigned to the ENI.
         self.ipv_6sets = ipv_6sets  # type: DescribeNetworkInterfacesResponseBodyNetworkInterfaceSetsNetworkInterfaceSetIpv6Sets
-        # The media access control (MAC) address of the ENI.
         self.mac_address = mac_address  # type: str
-        # The ID of the ENI.
         self.network_interface_id = network_interface_id  # type: str
-        # The name of the ENI.
         self.network_interface_name = network_interface_name  # type: str
-        # The communication mode of the ENI. Valid values:
-        # 
-        # *   Standard: the TCP communication mode is used.
-        # *   HighPerformance: enables Elastic RDMA Interface (ERI) and uses the remote direct memory access (RDMA) communication mode.
-        # 
-        # > The NetworkInterfaceTrafficMode parameter can be set to HighPerformance only when the instance to which the ENI is bound belongs to the c7re RDMA-enhanced instance family and is located within Beijing Zone K.
         self.network_interface_traffic_mode = network_interface_traffic_mode  # type: str
-        # The ID of the account to which the ENI belongs.
         self.owner_id = owner_id  # type: str
-        # The private IP address of the ENI.
         self.private_ip_address = private_ip_address  # type: str
-        # Details about the private IP addresses.
         self.private_ip_sets = private_ip_sets  # type: DescribeNetworkInterfacesResponseBodyNetworkInterfaceSetsNetworkInterfaceSetPrivateIpSets
-        # The number of queues supported by the ENI.
-        # 
-        # *   If the ENI is a secondary ENI in the InUse state and the number of queues supported by this ENI has never been modified, the default number of queues per secondary ENI that the instance type supports is returned.
-        # *   If the number of queues supported by the secondary ENI has been modified, the new number of queues is returned.
-        # *   If the ENI is a secondary ENI in the Available state and the number of queues supported by this ENI has never been modified, an empty value is returned.
-        # *   If the ENI is a primary ENI, the default number of queues per primary ENI that the instance type supports is returned.
         self.queue_number = queue_number  # type: int
-        # > This parameter is in invitational preview and is unavailable to the public.
         self.queue_pair_number = queue_pair_number  # type: int
-        # The ID of your Alibaba Cloud resource group.
         self.resource_group_id = resource_group_id  # type: str
-        # The IDs of the security groups to which the ENI belongs.
         self.security_group_ids = security_group_ids  # type: DescribeNetworkInterfacesResponseBodyNetworkInterfaceSetsNetworkInterfaceSetSecurityGroupIds
-        # The ID of the distributor to which the ENI belongs.
         self.service_id = service_id  # type: long
-        # Indicates whether the user of the ENI is an Alibaba Cloud service or a distributor.
         self.service_managed = service_managed  # type: bool
-        # The state of the ENI.
         self.status = status  # type: str
-        # The tags of the ENI.
         self.tags = tags  # type: DescribeNetworkInterfacesResponseBodyNetworkInterfaceSetsNetworkInterfaceSetTags
-        # The type of the ENI.
         self.type = type  # type: str
-        # The ID of the vSwitch to which the ENI is connected.
         self.v_switch_id = v_switch_id  # type: str
-        # The ID of the VPC to which the ENI belongs.
         self.vpc_id = vpc_id  # type: str
-        # The ID of the zone in which the instance resides.
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -53621,23 +52940,11 @@ class DescribeNetworkInterfacesResponseBodyNetworkInterfaceSets(TeaModel):
 class DescribeNetworkInterfacesResponseBody(TeaModel):
     def __init__(self, network_interface_sets=None, next_token=None, page_number=None, page_size=None,
                  request_id=None, total_count=None):
-        # Details about the ENIs.
         self.network_interface_sets = network_interface_sets  # type: DescribeNetworkInterfacesResponseBodyNetworkInterfaceSets
-        # The query token returned in this call.
         self.next_token = next_token  # type: str
-        # The page number of the returned page.
-        # 
-        # > This parameter will be removed in the future. We recommend that you use the NextToken and MaxResults parameters for a paged query.
         self.page_number = page_number  # type: int
-        # The page number of the returned page.
-        # 
-        # > This parameter will be removed in the future. We recommend that you use the NextToken and MaxResults parameters for a paged query.
         self.page_size = page_size  # type: int
-        # The ID of the request.
         self.request_id = request_id  # type: str
-        # The total number of ENIs.
-        # 
-        # > If you specify the `MaxResults` and `NextToken` parameters to perform a paged query, the value of the `TotalCount` response parameter is invalid.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -54278,19 +53585,11 @@ class DescribePhysicalConnectionsResponse(TeaModel):
 class DescribePrefixListAssociationsRequest(TeaModel):
     def __init__(self, max_results=None, next_token=None, owner_account=None, owner_id=None, prefix_list_id=None,
                  region_id=None, resource_owner_account=None, resource_owner_id=None):
-        # The maximum number of entries to return on each page.
-        # 
-        # Maximum value: 100.
-        # 
-        # Default value: 10.
         self.max_results = max_results  # type: int
-        # The query token. Set the value to the `NextToken` value returned in the last call to this operation. Leave this parameter empty the first time you call this operation.
         self.next_token = next_token  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The ID of the prefix list.
         self.prefix_list_id = prefix_list_id  # type: str
-        # The region ID of the prefix list. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -54345,9 +53644,7 @@ class DescribePrefixListAssociationsRequest(TeaModel):
 
 class DescribePrefixListAssociationsResponseBodyPrefixListAssociationsPrefixListAssociation(TeaModel):
     def __init__(self, resource_id=None, resource_type=None):
-        # Indicates the ID of a resource.
         self.resource_id = resource_id  # type: str
-        # The type of the resource.
         self.resource_type = resource_type  # type: str
 
     def validate(self):
@@ -54408,11 +53705,8 @@ class DescribePrefixListAssociationsResponseBodyPrefixListAssociations(TeaModel)
 
 class DescribePrefixListAssociationsResponseBody(TeaModel):
     def __init__(self, next_token=None, prefix_list_associations=None, request_id=None):
-        # The query token that is returned in this call. If the return value is empty, no more data is returned.
         self.next_token = next_token  # type: str
-        # Details about the resources that are associated with the prefix list.
         self.prefix_list_associations = prefix_list_associations  # type: DescribePrefixListAssociationsResponseBodyPrefixListAssociations
-        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -54714,28 +54008,13 @@ class DescribePrefixListAttributesResponse(TeaModel):
 class DescribePrefixListsRequest(TeaModel):
     def __init__(self, address_family=None, max_results=None, next_token=None, owner_account=None, owner_id=None,
                  prefix_list_id=None, prefix_list_name=None, region_id=None, resource_owner_account=None, resource_owner_id=None):
-        # The IP address family of the prefix list. Valid values:
-        # 
-        # *   IPv4
-        # *   IPv6
-        # 
-        # This parameter is empty by default, which indicates that all prefix lists are queried.
         self.address_family = address_family  # type: str
-        # The number of entries to return on each page.
-        # 
-        # Maximum value: 100.
-        # 
-        # Default value: 10.
         self.max_results = max_results  # type: int
-        # The query token. Set the value to the `NextToken` value returned in the previous call to the DescribePrefixLists operation. Leave this parameter empty the first time you call this operation.
         self.next_token = next_token  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The IDs of prefix list.
         self.prefix_list_id = prefix_list_id  # type: list[str]
-        # The name of the prefix list.
         self.prefix_list_name = prefix_list_name  # type: str
-        # The region ID. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -54799,22 +54078,12 @@ class DescribePrefixListsRequest(TeaModel):
 class DescribePrefixListsResponseBodyPrefixListsPrefixList(TeaModel):
     def __init__(self, address_family=None, association_count=None, creation_time=None, description=None,
                  max_entries=None, prefix_list_id=None, prefix_list_name=None):
-        # The IP address family of the prefix list. Valid values:
-        # 
-        # *   IPv4
-        # *   IPv6
         self.address_family = address_family  # type: str
-        # The number of associated resources.
         self.association_count = association_count  # type: int
-        # The time when the prefix list was created.
         self.creation_time = creation_time  # type: str
-        # The description of the prefix list.
         self.description = description  # type: str
-        # The maximum number of entries that the prefix list can contain.
         self.max_entries = max_entries  # type: int
-        # The ID of the prefix list.
         self.prefix_list_id = prefix_list_id  # type: str
-        # The name of the prefix list.
         self.prefix_list_name = prefix_list_name  # type: str
 
     def validate(self):
@@ -54895,11 +54164,8 @@ class DescribePrefixListsResponseBodyPrefixLists(TeaModel):
 
 class DescribePrefixListsResponseBody(TeaModel):
     def __init__(self, next_token=None, prefix_lists=None, request_id=None):
-        # The query token returned in this call. If the return value is empty, no more data is returned.
         self.next_token = next_token  # type: str
-        # Details about the prefix lists.
         self.prefix_lists = prefix_lists  # type: DescribePrefixListsResponseBodyPrefixLists
-        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -54973,43 +54239,8 @@ class DescribePrefixListsResponse(TeaModel):
 
 class DescribePriceRequestDataDisk(TeaModel):
     def __init__(self, category=None, performance_level=None, size=None):
-        # The category of data disk N. Valid values:
-        # 
-        # *   cloud: basic disk
-        # *   cloud_efficiency: ultra disk
-        # *   cloud_ssd: standard SSD
-        # *   ephemeral_ssd: local SSD
-        # *   cloud_essd: ESSD
-        # 
-        # Valid values of N: 1 to 16.
         self.category = category  # type: str
-        # The performance level of data disk N when the disk is an ESSD. This parameter is valid only when the `DataDisk.N.Category` parameter is set to cloud_essd. Default value: PL1. Valid values:
-        # 
-        # *   PL0
-        # *   PL1
-        # *   PL2
-        # *   PL3
-        # 
-        # Valid values of N: 1 to 16.
         self.performance_level = performance_level  # type: str
-        # The size of data disk N. Unit: GiB. Valid values:
-        # 
-        # *   Valid values if you set DataDisk.N.Category to cloud: 5 to 2000.
-        # 
-        # *   Valid values if you set DataDisk.N.Category to cloud_efficiency: 20 to 32768.
-        # 
-        # *   Valid values when DataDisk.N.Category is set to cloud_ssd: 20 to 32768.
-        # 
-        # *   Valid values when DataDisk.N.Category is set to cloud_essd: depend on the `DataDisk.N.PerformanceLevel` value.
-        # 
-        #     *   Valid values when DataDisk.N.PerformanceLevel is set to PL0: 40 to 32768.
-        #     *   Valid values when DataDisk.N.PerformanceLevel is set to PL1: 20 to 32768.
-        #     *   Valid values when DataDisk.N.PerformanceLevel is set to PL2: 461 to 32768.
-        #     *   Valid values when DataDisk.N.PerformanceLevel is set to PL3: 1261 to 32768.
-        # 
-        # *   Valid values when DataDisk.N.Category is set to ephemeral_ssd: 5 to 800.
-        # 
-        # Valid values of N: 1 to 16.
         self.size = size  # type: long
 
     def validate(self):
@@ -55066,28 +54297,8 @@ class DescribePriceRequestSchedulerOptions(TeaModel):
 
 class DescribePriceRequestSystemDisk(TeaModel):
     def __init__(self, category=None, performance_level=None, size=None):
-        # The category of the system disk. Valid values:
-        # 
-        # *   cloud: basic disk
-        # *   cloud_efficiency: ultra disk
-        # *   cloud_ssd: standard SSD
-        # *   ephemeral_ssd: local SSD
-        # *   cloud_essd: enhanced SSD (ESSD)
-        # 
-        # Description of the default values:
-        # 
-        # *   When the InstanceType parameter is set to a retired instance type and the `IoOptimized` parameter is set to `none`, the default value of this parameter is `cloud`.
-        # *   In other cases, the default value of this parameter is `cloud_efficiency`.
-        # 
-        # > When you query the prices of system disks, you must also specify the `ImageId` parameter.
         self.category = category  # type: str
-        # The performance level of the system disk when the disk is an ESSD. This parameter is valid only when the `SystemDiskCategory` parameter is set to cloud_essd. Default value: PL1. Valid values:
-        # 
-        # PL0 PL1 PL2 PL3
         self.performance_level = performance_level  # type: str
-        # The size of the system disk. Unit: GiB. Valid values: 20 to 500.
-        # 
-        # Default value: 20 or the image size, whichever is greater.
         self.size = size  # type: int
 
     def validate(self):
@@ -55128,137 +54339,33 @@ class DescribePriceRequest(TeaModel):
         self.data_disk = data_disk  # type: list[DescribePriceRequestDataDisk]
         self.scheduler_options = scheduler_options  # type: DescribePriceRequestSchedulerOptions
         self.system_disk = system_disk  # type: DescribePriceRequestSystemDisk
-        # The number of ECS instances. You can specify this parameter when you want to query the prices of multiple instances that have specific specifications. Valid values: 1 to 1000.
-        # 
-        # Default value: 1.
         self.amount = amount  # type: int
-        # The total number of times that the elasticity assurance can be applied. Set the value to Unlimited. This value indicates that the elasticity assurance can be applied an unlimited number of times within its effective duration.
-        # 
-        # Default value: Unlimited.
         self.assurance_times = assurance_times  # type: str
-        # The storage capacity. Unit: GiB.
         self.capacity = capacity  # type: int
-        # The dedicated host type. You can call the [DescribeDedicatedHostTypes](~~134240~~) operation to query the most recent list of dedicated host types.
         self.dedicated_host_type = dedicated_host_type  # type: str
-        # The ID of the image. Images contain the runtime environment to load when instances start. You can call the [DescribeImages](~~25534~~) operation to query the available images. If you do not specify this parameter, the system queries the prices of Linux images.
         self.image_id = image_id  # type: str
-        # The total number of instances for which to reserve the capacity of an instance type.
-        # 
-        # Valid values: 1 to 1000.
         self.instance_amount = instance_amount  # type: int
-        # The total number of vCPUs supported by the elasticity assurance. When you call this API operation, the system calculates the number of instances that an elasticity assurance must support based on your specified InstanceType value and rounds the calculated value up.
-        # 
-        # > When you call this API operation to query the price of an elasticity assurance, you can only specify either InstanceCoreCpuCount or InstanceAmount.
         self.instance_cpu_core_count = instance_cpu_core_count  # type: int
-        # The network type of the instance. Valid values:
-        # 
-        # *   classic: classic network
-        # *   vpc: Virtual Private Cloud (VPC)
-        # 
-        # Default value: vpc.
         self.instance_network_type = instance_network_type  # type: str
-        # The instance type of the instance. When the `ResourceType` parameter is set to `instance`, you must specify the InstanceType parameter. For more information, see [Instance families](~~25378~~) or call the [DescribeInstanceTypes](~~25620~~) operation to query the most recent instance type list.
         self.instance_type = instance_type  # type: str
-        # The instance type. You can select only a single instance type when you configure an elasticity assurance in unlimited mode.
         self.instance_type_list = instance_type_list  # type: list[str]
-        # The billing method for network usage. Valid values:
-        # 
-        # *   PayByBandwidth: pay-by-bandwidth
-        # *   PayByTraffic: pay-by-traffic
-        # 
-        # Default value: PayByTraffic.
         self.internet_charge_type = internet_charge_type  # type: str
-        # The maximum outbound public bandwidth. Unit: Mbit/s. Valid values: 0 to 100.
-        # 
-        # Default value: 0.
         self.internet_max_bandwidth_out = internet_max_bandwidth_out  # type: int
-        # Specifies whether the instance is I/O optimized. Valid values:
-        # 
-        # *   none: The instance is not I/O optimized.
-        # *   optimized: The instance is I/O optimized.
-        # 
-        # If the instance type specified by the InstanceType parameter belongs to [Generation I instance families](~~55263~~), the default value of IoOptimized is none.
-        # 
-        # If the instance type specified by the InstanceType parameter does not belong to [Generation I instance families](~~55263~~), the default value of IoOptimized is optimized.
         self.io_optimized = io_optimized  # type: str
-        # The Internet service provider (ISP). Valid values:
-        # 
-        # *   cmcc: China Mobile
-        # *   telecom: China Telecom
-        # *   unicom: China Unicom
-        # *   multiCarrier: multi-line ISP
         self.isp = isp  # type: str
-        # The payment option of the reserved instance. Valid values:
-        # 
-        # *   No Upfront
-        # *   Partial Upfront
-        # *   All Upfront
         self.offering_type = offering_type  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The billing duration of the ECS instance. Valid values:
-        # 
-        # *   Valid values when PriceUnit is set to Month: 1, 2, 3, 4, 5, 6, 7, 8, and 9.
-        # *   Valid values when PriceUnit is set to Year: 1, 2, 3, 4, and 5.
-        # *   Valid value when PriceUnit is set to Hour: 1.
-        # *   Valid values when PriceUnit is set to Week: 1, 2, 3, and 4.
-        # 
-        # Default value: 1.
         self.period = period  # type: int
-        # The operating system of the image used by the instance. Valid values:
-        # 
-        # *   Windows: Windows Server operating systems
-        # *   Linux: Linux and UNIX-like operating systems
         self.platform = platform  # type: str
-        # The pricing unit of the ECS resource. Default value: Hour. Valid values:
-        # 
-        # *   Month
-        # *   Year
-        # *   Hour
-        # *   Week
         self.price_unit = price_unit  # type: str
-        # The ID of the region. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The type of the resource. Valid values:
-        # 
-        # *   instance: queries the most recent prices of ECS instances. When this parameter is set to `instance`, you must specify the `InstanceType` parameter.
-        # *   disk: queries the most recent prices of cloud disks. When this parameter is set to `disk`, you must specify both the `DataDisk.1.Category` and `DataDisk.1.Size` parameters.
-        # *   bandwidth: queries the most recent prices for network usage.
-        # *   ddh: queries the most recent prices of dedicated hosts.
-        # *   ElasticityAssurance: queries the most recent prices of elasticity assurances. When this parameter is set to `ElasticityAssurance`, you must specify the `InstanceType` parameter.
-        # *   CapacityReservation: queries the most recent prices of capacity reservations. When this parameter is set to `CapacityReservation`, you must specify the `InstanceType` parameter.
-        # 
-        # Default value: instance.
         self.resource_type = resource_type  # type: str
-        # The scope of the reserved instance. Valid values:
-        # 
-        # *   Region: regional
-        # *   Zone: zonal
-        # 
-        # Default value: Region.
         self.scope = scope  # type: str
-        # The protection period of the preemptible instance. Unit: hours. Valid values: 0, 1, 2, 3, 4, 5, and 6
-        # 
-        # *   The following protection periods are unavailable: 2, 3, 4, 5, and 6 hours. If you want to set this parameter to one of these values, [submit a ticket](https://smartservice.console.aliyun.com/service/create-ticket) and enter the following information: - The specifications and number of the resources. Example: ecs.g6.8xlarge 1000. - The region where the resources reside. Example: China (Beijing). - The period of time during which the resources are used every day. Example: 1:00 to 4: 00 every day.
-        # *   If this parameter is set to 0, no protection period is configured for the preemptible instance.
-        # 
-        # Default value: 1.
         self.spot_duration = spot_duration  # type: int
-        # The preemption policy for the pay-as-you-go instance. Valid values:
-        # 
-        # *   NoSpot: The instance is a regular pay-as-you-go instance.
-        # *   SpotWithPriceLimit: The instance is a preemptible instance with a user-defined maximum hourly price.
-        # *   SpotAsPriceGo: The instance is a preemptible instance for which the market price is automatically used as the bidding price. The market price can be up to the pay-as-you-go price.
-        # 
-        # Default value: NoSpot.
-        # 
-        # > This parameter is valid only when the `PriceUnit` parameter is set to Hour and the `Period` parameter is set to 1. The default value of the `PriceUnit` parameter is `Hour` and the default value of the `Period` parameter is `1`. Therefore, you do not need to set the `PriceUnit` and `Period` parameters when you set the SpotStrategy parameter.
         self.spot_strategy = spot_strategy  # type: str
-        # The ID of the zone.
-        # 
-        # > Prices of preemptible instances vary based on zones. When you query the price of a preemptible instance, specify the ZoneId parameter.
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -55417,9 +54524,7 @@ class DescribePriceRequest(TeaModel):
 
 class DescribePriceResponseBodyPriceInfoPriceDetailInfosResourcePriceModelSubRulesRule(TeaModel):
     def __init__(self, description=None, rule_id=None):
-        # The description of the pricing rule.
         self.description = description  # type: str
-        # The ID of the pricing rule.
         self.rule_id = rule_id  # type: long
 
     def validate(self):
@@ -55480,15 +54585,10 @@ class DescribePriceResponseBodyPriceInfoPriceDetailInfosResourcePriceModelSubRul
 
 class DescribePriceResponseBodyPriceInfoPriceDetailInfosResourcePriceModel(TeaModel):
     def __init__(self, discount_price=None, original_price=None, resource=None, sub_rules=None, trade_price=None):
-        # The discount.
         self.discount_price = discount_price  # type: float
-        # The original price.
         self.original_price = original_price  # type: float
-        # The name of the resource.
         self.resource = resource  # type: str
-        # Details about the pricing rules.
         self.sub_rules = sub_rules  # type: DescribePriceResponseBodyPriceInfoPriceDetailInfosResourcePriceModelSubRules
-        # The transaction price.
         self.trade_price = trade_price  # type: float
 
     def validate(self):
@@ -55564,23 +54664,11 @@ class DescribePriceResponseBodyPriceInfoPriceDetailInfos(TeaModel):
 class DescribePriceResponseBodyPriceInfoPrice(TeaModel):
     def __init__(self, currency=None, detail_infos=None, discount_price=None, original_price=None,
                  reserved_instance_hour_price=None, trade_price=None):
-        # The currency unit.
-        # 
-        # Alibaba Cloud China site (aliyun.com): CNY
-        # 
-        # Alibaba Cloud International site (alibabacloud.com): USD
         self.currency = currency  # type: str
-        # Details about the price.
-        # 
-        # > This parameter is in invitational preview and unavailable.
         self.detail_infos = detail_infos  # type: DescribePriceResponseBodyPriceInfoPriceDetailInfos
-        # The discount.
         self.discount_price = discount_price  # type: float
-        # The original price.
         self.original_price = original_price  # type: float
-        # The hourly price of the reserved instance for which the No Upfront or Partial Upfront payment option is used.
         self.reserved_instance_hour_price = reserved_instance_hour_price  # type: float
-        # The transaction price, which is equal to the original price minus the discount.
         self.trade_price = trade_price  # type: float
 
     def validate(self):
@@ -55627,9 +54715,7 @@ class DescribePriceResponseBodyPriceInfoPrice(TeaModel):
 
 class DescribePriceResponseBodyPriceInfoRulesRule(TeaModel):
     def __init__(self, description=None, rule_id=None):
-        # The description of the promotion rule.
         self.description = description  # type: str
-        # The ID of the promotion rule.
         self.rule_id = rule_id  # type: long
 
     def validate(self):
@@ -55690,9 +54776,7 @@ class DescribePriceResponseBodyPriceInfoRules(TeaModel):
 
 class DescribePriceResponseBodyPriceInfo(TeaModel):
     def __init__(self, price=None, rules=None):
-        # The price.
         self.price = price  # type: DescribePriceResponseBodyPriceInfoPrice
-        # Details about the promotion rules.
         self.rules = rules  # type: DescribePriceResponseBodyPriceInfoRules
 
     def validate(self):
@@ -55726,9 +54810,7 @@ class DescribePriceResponseBodyPriceInfo(TeaModel):
 
 class DescribePriceResponseBody(TeaModel):
     def __init__(self, price_info=None, request_id=None):
-        # Details about the prices and promotion rules.
         self.price_info = price_info  # type: DescribePriceResponseBodyPriceInfo
-        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -56561,39 +55643,15 @@ class DescribeRegionsResponse(TeaModel):
 class DescribeRenewalPriceRequest(TeaModel):
     def __init__(self, expected_renew_day=None, owner_account=None, owner_id=None, period=None, price_unit=None,
                  region_id=None, resource_id=None, resource_owner_account=None, resource_owner_id=None, resource_type=None):
-        # The synchronized expiration date. If you set this parameter, the price for renewing a specified instance to the specified synchronized expiration date is queried. Valid values: 1 to 28.
-        # 
-        # For information about how to synchronize the expiration dates of instances, see [Synchronize the expiration dates of instances](~~108486~~).
-        # 
-        # > The renewal period-related parameter pair (`Period` and `PeriodUnit`) and the `ExpectedRenewDay` parameter are mutually exclusive.
         self.expected_renew_day = expected_renew_day  # type: int
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The renewal period. Valid values:
-        # 
-        # *   Valid values when `PriceUnit` is set to `Month`: 1, 2, 3, 4, 5, 6, 7, 8, and 9.
-        # *   Valid values when `PriceUnit` is set to `Year`: 1, 2, 3.
-        # 
-        # Default value: 1.
-        # 
-        # > The renewal period-related parameter pair (`Period` and `PeriodUnit`) and the `ExpectedRenewDay` parameter are mutually exclusive.
         self.period = period  # type: int
-        # The unit of the renewal period. Valid values:
-        # 
-        # *   Month
-        # *   Year
-        # 
-        # Default value: Month.
         self.price_unit = price_unit  # type: str
-        # The region ID of the instance. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
-        # The ID of the resource. When the `ResourceType` parameter is set to`  instance `, `ResourceId` is interpreted as `InstanceId`.
         self.resource_id = resource_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The type of the resource. Set the value to instance.
-        # 
-        # Default value: instance.
         self.resource_type = resource_type  # type: str
 
     def validate(self):
@@ -56654,9 +55712,7 @@ class DescribeRenewalPriceRequest(TeaModel):
 
 class DescribeRenewalPriceResponseBodyPriceInfoPriceDetailInfosResourcePriceModelSubRulesRule(TeaModel):
     def __init__(self, description=None, rule_id=None):
-        # The description of the pricing rule.
         self.description = description  # type: str
-        # The ID of the pricing rule.
         self.rule_id = rule_id  # type: long
 
     def validate(self):
@@ -56717,15 +55773,10 @@ class DescribeRenewalPriceResponseBodyPriceInfoPriceDetailInfosResourcePriceMode
 
 class DescribeRenewalPriceResponseBodyPriceInfoPriceDetailInfosResourcePriceModel(TeaModel):
     def __init__(self, discount_price=None, original_price=None, resource=None, sub_rules=None, trade_price=None):
-        # The discount.
         self.discount_price = discount_price  # type: float
-        # The original price.
         self.original_price = original_price  # type: float
-        # The name of the resource that corresponds to the price.
         self.resource = resource  # type: str
-        # Details about the pricing rules.
         self.sub_rules = sub_rules  # type: DescribeRenewalPriceResponseBodyPriceInfoPriceDetailInfosResourcePriceModelSubRules
-        # The transaction price.
         self.trade_price = trade_price  # type: float
 
     def validate(self):
@@ -56800,19 +55851,10 @@ class DescribeRenewalPriceResponseBodyPriceInfoPriceDetailInfos(TeaModel):
 
 class DescribeRenewalPriceResponseBodyPriceInfoPrice(TeaModel):
     def __init__(self, currency=None, detail_infos=None, discount_price=None, original_price=None, trade_price=None):
-        # The currency unit.
-        # 
-        # Alibaba Cloud China site (aliyun.com): CNY.
-        # 
-        # Alibaba Cloud International site (alibabacloud.com): USD.
         self.currency = currency  # type: str
-        # Details about the resource prices.
         self.detail_infos = detail_infos  # type: DescribeRenewalPriceResponseBodyPriceInfoPriceDetailInfos
-        # The discount.
         self.discount_price = discount_price  # type: float
-        # The original price.
         self.original_price = original_price  # type: float
-        # The transaction price, which is equal to the original price minus the discount.
         self.trade_price = trade_price  # type: float
 
     def validate(self):
@@ -56855,9 +55897,7 @@ class DescribeRenewalPriceResponseBodyPriceInfoPrice(TeaModel):
 
 class DescribeRenewalPriceResponseBodyPriceInfoRulesRule(TeaModel):
     def __init__(self, description=None, rule_id=None):
-        # The description of the promotion rule.
         self.description = description  # type: str
-        # The ID of the promotion rule.
         self.rule_id = rule_id  # type: long
 
     def validate(self):
@@ -56918,9 +55958,7 @@ class DescribeRenewalPriceResponseBodyPriceInfoRules(TeaModel):
 
 class DescribeRenewalPriceResponseBodyPriceInfo(TeaModel):
     def __init__(self, price=None, rules=None):
-        # The price.
         self.price = price  # type: DescribeRenewalPriceResponseBodyPriceInfoPrice
-        # Details about the promotion rules.
         self.rules = rules  # type: DescribeRenewalPriceResponseBodyPriceInfoRules
 
     def validate(self):
@@ -56954,9 +55992,7 @@ class DescribeRenewalPriceResponseBodyPriceInfo(TeaModel):
 
 class DescribeRenewalPriceResponseBody(TeaModel):
     def __init__(self, price_info=None, request_id=None):
-        # Details about the prices and discount rules.
         self.price_info = price_info  # type: DescribeRenewalPriceResponseBodyPriceInfo
-        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -59286,34 +58322,13 @@ class DescribeRouterInterfacesResponse(TeaModel):
 class DescribeSecurityGroupAttributeRequest(TeaModel):
     def __init__(self, direction=None, nic_type=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None, security_group_id=None):
-        # The direction in which the security group rule is applied. Valid values:
-        # 
-        # *   egress: outbound
-        # *   ingress: inbound
-        # *   all: outbound and inbound
-        # 
-        # Default value: all.
         self.direction = direction  # type: str
-        # The network interface type of the security group rule.
-        # 
-        # *   Default value for rules of security groups in the classic network: internet. Valid values for rules of security groups in the classic network:
-        # 
-        #     *   internet
-        #     *   intranet
-        # 
-        #     > You can query security group rules of only one network interface type in a single call. To query security group rules of both network interface types, call the operation twice.
-        # 
-        # *   When the security group is in a virtual private cloud (VPC), set the value to intranet. This is also the default value.
-        # 
-        #     > If you set this parameter to internet or leave this parameter empty, the intranet value is automatically used.
         self.nic_type = nic_type  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The region ID of the security group. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The ID of the security group.
         self.security_group_id = security_group_id  # type: str
 
     def validate(self):
@@ -59371,53 +58386,29 @@ class DescribeSecurityGroupAttributeResponseBodyPermissionsPermission(TeaModel):
                  policy=None, port_range=None, priority=None, security_group_rule_id=None, source_cidr_ip=None,
                  source_group_id=None, source_group_name=None, source_group_owner_account=None, source_port_range=None,
                  source_prefix_list_id=None, source_prefix_list_name=None):
-        # The time when the security group rule was created. The time is displayed in UTC.
         self.create_time = create_time  # type: str
-        # The description of the security group.
         self.description = description  # type: str
-        # The destination CIDR blocks for outbound access control.
         self.dest_cidr_ip = dest_cidr_ip  # type: str
-        # The ID of the destination security group for outbound access control.
         self.dest_group_id = dest_group_id  # type: str
-        # The name of the destination security group.
         self.dest_group_name = dest_group_name  # type: str
-        # The Alibaba Cloud account that manages the destination security group.
         self.dest_group_owner_account = dest_group_owner_account  # type: str
-        # The ID of the destination prefix list for outbound access control.
         self.dest_prefix_list_id = dest_prefix_list_id  # type: str
-        # The name of the destination prefix list.
         self.dest_prefix_list_name = dest_prefix_list_name  # type: str
-        # The direction in which the security group rule is applied.
         self.direction = direction  # type: str
-        # The transport layer protocol.
         self.ip_protocol = ip_protocol  # type: str
-        # The destination IPv6 CIDR block.
         self.ipv_6dest_cidr_ip = ipv_6dest_cidr_ip  # type: str
-        # The source IPv6 CIDR block.
         self.ipv_6source_cidr_ip = ipv_6source_cidr_ip  # type: str
-        # The type of the network.
         self.nic_type = nic_type  # type: str
-        # The access control policy.
         self.policy = policy  # type: str
-        # The port range.
         self.port_range = port_range  # type: str
-        # The priority of the rule.
         self.priority = priority  # type: str
-        # The ID of the security group rule.
         self.security_group_rule_id = security_group_rule_id  # type: str
-        # The source CIDR block for inbound access control.
         self.source_cidr_ip = source_cidr_ip  # type: str
-        # The source security group for inbound access control.
         self.source_group_id = source_group_id  # type: str
-        # The name of the source security group.
         self.source_group_name = source_group_name  # type: str
-        # The Alibaba Cloud account that manages the source security group.
         self.source_group_owner_account = source_group_owner_account  # type: str
-        # The source port number range.
         self.source_port_range = source_port_range  # type: str
-        # The ID of the source prefix list for inbound access control.
         self.source_prefix_list_id = source_prefix_list_id  # type: str
-        # The name of the source prefix list.
         self.source_prefix_list_name = source_prefix_list_name  # type: str
 
     def validate(self):
@@ -59567,24 +58558,13 @@ class DescribeSecurityGroupAttributeResponseBodyPermissions(TeaModel):
 class DescribeSecurityGroupAttributeResponseBody(TeaModel):
     def __init__(self, description=None, inner_access_policy=None, permissions=None, region_id=None,
                  request_id=None, security_group_id=None, security_group_name=None, vpc_id=None):
-        # The description of the security group.
         self.description = description  # type: str
-        # The access control policy of the security group. Valid values:
-        # 
-        # *   Accept: All instances in the security group can communicate with each other.
-        # *   drop: All instances in the security group are isolated from each other.
         self.inner_access_policy = inner_access_policy  # type: str
-        # Details about the security group rules.
         self.permissions = permissions  # type: DescribeSecurityGroupAttributeResponseBodyPermissions
-        # The region ID of the security group.
         self.region_id = region_id  # type: str
-        # The ID of the request.
         self.request_id = request_id  # type: str
-        # The ID of the destination security group.
         self.security_group_id = security_group_id  # type: str
-        # The name of the destination security group.
         self.security_group_name = security_group_name  # type: str
-        # The ID of the VPC. If a VPC ID is returned, the network type of the security group is VPC. If no VPC ID is returned, the network type of the security group is classic network.
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
@@ -61604,25 +60584,15 @@ class DescribeSnapshotGroupsResponse(TeaModel):
 class DescribeSnapshotLinksRequest(TeaModel):
     def __init__(self, disk_ids=None, instance_id=None, owner_account=None, owner_id=None, page_number=None,
                  page_size=None, region_id=None, resource_owner_account=None, resource_owner_id=None, snapshot_link_ids=None):
-        # The IDs of disks. The value is a JSON array that consists of up to 100 disk IDs. Separate the disk IDs with commas (,).
         self.disk_ids = disk_ids  # type: str
-        # The ID of the instance.
         self.instance_id = instance_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The number of the page to return. Pages start from page 1.
-        # 
-        # Default value: 1
         self.page_number = page_number  # type: int
-        # The number of entries to return on each page. Valid values: 1 to 100.
-        # 
-        # Default value: 10.
         self.page_size = page_size  # type: int
-        # The region ID of the disk. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The IDs of snapshot chains. The value is a JSON array that consists of up to 100 snapshot chain IDs. Separate the snapshot chain IDs with commas (,).
         self.snapshot_link_ids = snapshot_link_ids  # type: str
 
     def validate(self):
@@ -61685,37 +60655,17 @@ class DescribeSnapshotLinksResponseBodySnapshotLinksSnapshotLink(TeaModel):
     def __init__(self, category=None, instance_id=None, instance_name=None, instant_access=None, region_id=None,
                  snapshot_link_id=None, source_disk_id=None, source_disk_name=None, source_disk_size=None, source_disk_type=None,
                  total_count=None, total_size=None):
-        # The category of the snapshot.
-        # 
-        # > This parameter will be removed in the future. We recommend that you use the `InstantAccess` parameter to ensure future compatibility.
         self.category = category  # type: str
-        # The ID of the instance.
         self.instance_id = instance_id  # type: str
-        # The name of the instance.
         self.instance_name = instance_name  # type: str
-        # Indicates whether the instant access feature was enabled. Valid values:
-        # 
-        # *   true: The instant access feature was enabled. This feature can be enabled only for enhanced SSDs (ESSDs).
-        # *   false: The instant access feature was disabled. The snapshot is a normal snapshot for which the instant access feature was disabled.
         self.instant_access = instant_access  # type: bool
-        # The ID of the region where the source disk of the snapshot chain is located.
         self.region_id = region_id  # type: str
-        # The ID of the snapshot chain.
         self.snapshot_link_id = snapshot_link_id  # type: str
-        # The ID of the source disk. This parameter is retained even if the source disk is deleted.
         self.source_disk_id = source_disk_id  # type: str
-        # The name of the source disk.
         self.source_disk_name = source_disk_name  # type: str
-        # The size of the source disk. Unit: GiB.
         self.source_disk_size = source_disk_size  # type: int
-        # The type of the source disk. Valid values:
-        # 
-        # *   system: system disk
-        # *   data: data disk
         self.source_disk_type = source_disk_type  # type: str
-        # The total number of snapshots.
         self.total_count = total_count  # type: int
-        # The total size of all snapshots in the snapshot chain. Unit: bytes.
         self.total_size = total_size  # type: long
 
     def validate(self):
@@ -61816,15 +60766,10 @@ class DescribeSnapshotLinksResponseBodySnapshotLinks(TeaModel):
 
 class DescribeSnapshotLinksResponseBody(TeaModel):
     def __init__(self, page_number=None, page_size=None, request_id=None, snapshot_links=None, total_count=None):
-        # The page number of the returned page.
         self.page_number = page_number  # type: int
-        # The number of entries returned per page.
         self.page_size = page_size  # type: int
-        # The ID of the request.
         self.request_id = request_id  # type: str
-        # Details about the snapshot chains.
         self.snapshot_links = snapshot_links  # type: DescribeSnapshotLinksResponseBodySnapshotLinks
-        # The total number of snapshot chains.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -63516,53 +62461,19 @@ class DescribeSpotPriceHistoryRequest(TeaModel):
     def __init__(self, end_time=None, instance_type=None, io_optimized=None, network_type=None, ostype=None,
                  offset=None, owner_account=None, owner_id=None, region_id=None, resource_owner_account=None,
                  resource_owner_id=None, spot_duration=None, start_time=None, zone_id=None):
-        # The end of the time range to query. Specify the time in the [ISO 8601](~~25696~~) standard in the `yyyy-MM-ddTHH:mm:ssZ` format. The time must be in UTC.
-        # 
-        # This parameter is empty by default. If this parameter is empty, the current time is used.
         self.end_time = end_time  # type: str
-        # The instance type of the preemptible instance.
         self.instance_type = instance_type  # type: str
-        # Specifies whether the instance is I/O optimized. Valid values:
-        # 
-        # *   optimized: The instance is I/O optimized.
-        # *   none: The instance is not I/O optimized.
-        # 
-        # For instances of generation I instance families, the default value is none.
-        # 
-        # For instances of other instance families, the default value is optimized.
         self.io_optimized = io_optimized  # type: str
-        # The network type of the preemptible instance. Valid values:
-        # 
-        # *   classic: classic network
-        # *   vpc: Virtual Private Cloud (VPC)
         self.network_type = network_type  # type: str
-        # The type of the operating system platform. Valid values:
-        # 
-        # *   linux
-        # *   windows
         self.ostype = ostype  # type: str
-        # The line from which the next query starts.
-        # 
-        # Default value: 0.
         self.offset = offset  # type: int
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The region ID of the preemptible instance. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The protection period of the preemptible instance. Unit: hours. Valid values: 0, 1, 2, 3, 4, 5, and 6.
-        # 
-        # *   The following protection periods are available in invitational preview: 2, 3, 4, 5, and 6 hours. If you want to set this parameter to one of these values, submit a ticket.
-        # *   If this parameter is set to 0, no protection period is configured for the preemptible instance.
-        # 
-        # Default value: 1.
         self.spot_duration = spot_duration  # type: int
-        # The beginning of the time range to query. Specify the time in the [ISO 8601](~~25696~~) standard in the `yyyy-MM-ddTHH:mm:ssZ` format. The time must be in UTC. The specified time can be up to 30 days earlier than the specified EndTime value.
-        # 
-        # This parameter is empty by default. If this parameter is empty, the time that is 3 hours earlier than the specified EndTime value is used.
         self.start_time = start_time  # type: str
-        # The zone ID of the preemptible instance.
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -63640,19 +62551,12 @@ class DescribeSpotPriceHistoryRequest(TeaModel):
 class DescribeSpotPriceHistoryResponseBodySpotPricesSpotPriceType(TeaModel):
     def __init__(self, instance_type=None, io_optimized=None, network_type=None, origin_price=None, spot_price=None,
                  timestamp=None, zone_id=None):
-        # The instance type of the preemptible instance.
         self.instance_type = instance_type  # type: str
-        # Indicates whether the preemptible instance is I/O optimized.
         self.io_optimized = io_optimized  # type: str
-        # The network type of the preemptible instance.
         self.network_type = network_type  # type: str
-        # The price for a pay-as-you-go instance that has the same configurations as the preemptible instance.
         self.origin_price = origin_price  # type: float
-        # The spot price (market price) of the preemptible instance.
         self.spot_price = spot_price  # type: float
-        # The time that corresponds to the queried spot price. The time is in the `yyyy-MM-ddTHH:mm:ssZ` format.
         self.timestamp = timestamp  # type: str
-        # The zone ID of the preemptible instance.
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -63733,17 +62637,9 @@ class DescribeSpotPriceHistoryResponseBodySpotPrices(TeaModel):
 
 class DescribeSpotPriceHistoryResponseBody(TeaModel):
     def __init__(self, currency=None, next_offset=None, request_id=None, spot_prices=None):
-        # The currency unit of the price.
-        # 
-        # Alibaba Cloud China site (aliyun.com): CNY.
-        # 
-        # Alibaba Cloud International site (alibabacloud.com): USD.
         self.currency = currency  # type: str
-        # The start line of the next page. It is the value of the `Offset` request parameter.
         self.next_offset = next_offset  # type: int
-        # The ID of the request.
         self.request_id = request_id  # type: str
-        # Details about the price history of the preemptible instance.
         self.spot_prices = spot_prices  # type: DescribeSpotPriceHistoryResponseBodySpotPrices
 
     def validate(self):
@@ -64529,27 +63425,16 @@ class DescribeStorageSetsRequest(TeaModel):
     def __init__(self, client_token=None, owner_account=None, owner_id=None, page_number=None, page_size=None,
                  region_id=None, resource_owner_account=None, resource_owner_id=None, storage_set_ids=None,
                  storage_set_name=None, zone_id=None):
-        # The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must make sure that it is unique among different requests. The value of **ClientToken** can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).
         self.client_token = client_token  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The number of the page to return. Pages start from page 1.
-        # 
-        # Default value: 1.
         self.page_number = page_number  # type: int
-        # The number of entries to return on each page. Maximum value: 100.
-        # 
-        # Default value: 10.
         self.page_size = page_size  # type: int
-        # The region ID of the storage set. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The IDs of storage sets. The value is a JSON array that consists of up to 100 storage set IDs. Separate the IDs with commas (,).
         self.storage_set_ids = storage_set_ids  # type: str
-        # The name of the storage set.
         self.storage_set_name = storage_set_name  # type: str
-        # The zone ID of the storage set. You can call the [DescribeZones](~~25610~~) operation to query the most recent zone list.
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -64615,19 +63500,12 @@ class DescribeStorageSetsRequest(TeaModel):
 class DescribeStorageSetsResponseBodyStorageSetsStorageSet(TeaModel):
     def __init__(self, creation_time=None, description=None, region_id=None, storage_set_id=None,
                  storage_set_name=None, storage_set_partition_number=None, zone_id=None):
-        # The time when the storage set was created.
         self.creation_time = creation_time  # type: str
-        # The description of the storage set.
         self.description = description  # type: str
-        # The ID of the region to which the storage set belongs.
         self.region_id = region_id  # type: str
-        # The ID of the storage set.
         self.storage_set_id = storage_set_id  # type: str
-        # The name of the storage set.
         self.storage_set_name = storage_set_name  # type: str
-        # The maximum number of partitions supported by the storage set.
         self.storage_set_partition_number = storage_set_partition_number  # type: int
-        # The ID of the zone to which the storage set belongs.
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -64708,15 +63586,10 @@ class DescribeStorageSetsResponseBodyStorageSets(TeaModel):
 
 class DescribeStorageSetsResponseBody(TeaModel):
     def __init__(self, page_number=None, page_size=None, request_id=None, storage_sets=None, total_count=None):
-        # The page number of the returned page.
         self.page_number = page_number  # type: int
-        # The number of entries returned per page.
         self.page_size = page_size  # type: int
-        # The ID of the request.
         self.request_id = request_id  # type: str
-        # Details about the storage sets. The value of this parameter is an array that consists of StorageSet data.
         self.storage_sets = storage_sets  # type: DescribeStorageSetsResponseBodyStorageSets
-        # The total number of storage sets.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -64798,9 +63671,7 @@ class DescribeStorageSetsResponse(TeaModel):
 
 class DescribeTagsRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
-        # The key of tag N of the resource. Valid values of N: 1 to 20. The tag key cannot be an empty string. The tag key can be up to 64 characters in length and cannot start with `acs:` or `aliyun`. It cannot contain `http://` or `https://`.
         self.key = key  # type: str
-        # The value of tag N of the resource. Valid values of N: 1 to 20. The tag value can be an empty string. The tag value can be up to 128 characters in length and cannot start with `acs:` or `aliyun`. It cannot contain `http://` or `https://`.
         self.value = value  # type: str
 
     def validate(self):
@@ -64830,45 +63701,15 @@ class DescribeTagsRequestTag(TeaModel):
 class DescribeTagsRequest(TeaModel):
     def __init__(self, category=None, owner_id=None, page_number=None, page_size=None, region_id=None,
                  resource_id=None, resource_owner_account=None, resource_owner_id=None, resource_type=None, tag=None):
-        # > This parameter will be removed in the future. We recommend that you use other parameters to ensure future compatibility.
         self.category = category  # type: str
         self.owner_id = owner_id  # type: long
-        # The number of the page to return.
-        # 
-        # Pages start from page 1.
-        # 
-        # Default value: 1.
         self.page_number = page_number  # type: int
-        # The number of entries to return on each page.
-        # 
-        # Maximum value: 100.
-        # 
-        # Default value: 50.
         self.page_size = page_size  # type: int
-        # The ID of the region. You can call the [DescribeRegions](~~25609~~) operation to query the most recent list of regions.
         self.region_id = region_id  # type: str
-        # The ID of the resource. For example, when ResourceType is set to instance, this parameter is interpreted as the ID of the instance (InstanceId).
         self.resource_id = resource_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The type of the resource to which the tag is added. Valid values:
-        # 
-        # *   instance: Elastic Compute Service (ECS) instance
-        # *   disk: disk
-        # *   snapshot: snapshot
-        # *   image: image
-        # *   securitygroup: security group
-        # *   volume: storage volume
-        # *   eni: elastic network interface (ENI)
-        # *   ddh: dedicated host
-        # *   keypair: SSH key pair
-        # *   launchtemplate: launch template
-        # *   reservedinstance: reserved instance
-        # *   snapshotpolicy: automatic snapshot policy
-        # 
-        # All values must be lowercase.
         self.resource_type = resource_type  # type: str
-        # The list of tags.
         self.tag = tag  # type: list[DescribeTagsRequestTag]
 
     def validate(self):
@@ -64938,29 +63779,17 @@ class DescribeTagsRequest(TeaModel):
 class DescribeTagsResponseBodyTagsTagResourceTypeCount(TeaModel):
     def __init__(self, ddh=None, disk=None, eni=None, image=None, instance=None, key_pair=None, launch_template=None,
                  reserved_instance=None, securitygroup=None, snapshot=None, snapshot_policy=None, volume=None):
-        # The number of dedicated hosts to which the tag is added.
         self.ddh = ddh  # type: int
-        # The number of disks to which the tag is added.
         self.disk = disk  # type: int
-        # The number of ENIs to which the tag is added.
         self.eni = eni  # type: int
-        # The number of images to which the tag is added.
         self.image = image  # type: int
-        # The number of instances to which the tag is added.
         self.instance = instance  # type: int
-        # The number of key pairs to which the tag is added.
         self.key_pair = key_pair  # type: int
-        # The number of launch templates to which the tag is added.
         self.launch_template = launch_template  # type: int
-        # The number of reserved instances to which the tag is added.
         self.reserved_instance = reserved_instance  # type: int
-        # The number of security groups to which the tag is added.
         self.securitygroup = securitygroup  # type: int
-        # The number of snapshots to which the tag is added.
         self.snapshot = snapshot  # type: int
-        # The number of automatic snapshot policies to which the tag is added.
         self.snapshot_policy = snapshot_policy  # type: int
-        # The number of storage volumes to which the tag is added.
         self.volume = volume  # type: int
 
     def validate(self):
@@ -65029,11 +63858,8 @@ class DescribeTagsResponseBodyTagsTagResourceTypeCount(TeaModel):
 
 class DescribeTagsResponseBodyTagsTag(TeaModel):
     def __init__(self, resource_type_count=None, tag_key=None, tag_value=None):
-        # The number of resource types.
         self.resource_type_count = resource_type_count  # type: DescribeTagsResponseBodyTagsTagResourceTypeCount
-        # The key of the tag.
         self.tag_key = tag_key  # type: str
-        # The value of the tag.
         self.tag_value = tag_value  # type: str
 
     def validate(self):
@@ -65100,15 +63926,10 @@ class DescribeTagsResponseBodyTags(TeaModel):
 
 class DescribeTagsResponseBody(TeaModel):
     def __init__(self, page_number=None, page_size=None, request_id=None, tags=None, total_count=None):
-        # The page number of the returned page.
         self.page_number = page_number  # type: int
-        # The number of entries returned per page.
         self.page_size = page_size  # type: int
-        # The ID of the request.
         self.request_id = request_id  # type: str
-        # The tags that match all the filter conditions.
         self.tags = tags  # type: DescribeTagsResponseBodyTags
-        # The total number of tags.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -65192,11 +64013,9 @@ class DescribeTaskAttributeRequest(TeaModel):
     def __init__(self, owner_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None,
                  task_id=None):
         self.owner_id = owner_id  # type: long
-        # The region ID of the task. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The ID of the task. You can call the [DescribeTasks](~~25622~~) operation to query the list of task IDs.
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -65237,9 +64056,7 @@ class DescribeTaskAttributeRequest(TeaModel):
 
 class DescribeTaskAttributeResponseBodyOperationProgressSetOperationProgressRelatedItemSetRelatedItem(TeaModel):
     def __init__(self, name=None, value=None):
-        # The name of the related item.
         self.name = name  # type: str
-        # The value of the related item.
         self.value = value  # type: str
 
     def validate(self):
@@ -65300,13 +64117,9 @@ class DescribeTaskAttributeResponseBodyOperationProgressSetOperationProgressRela
 
 class DescribeTaskAttributeResponseBodyOperationProgressSetOperationProgress(TeaModel):
     def __init__(self, error_code=None, error_msg=None, operation_status=None, related_item_set=None):
-        # The error code.
         self.error_code = error_code  # type: str
-        # The error message.
         self.error_msg = error_msg  # type: str
-        # The status of the operation.
         self.operation_status = operation_status  # type: str
-        # An array consisting of RelatedItem data.
         self.related_item_set = related_item_set  # type: DescribeTaskAttributeResponseBodyOperationProgressSetOperationProgressRelatedItemSet
 
     def validate(self):
@@ -65379,34 +64192,18 @@ class DescribeTaskAttributeResponseBody(TeaModel):
     def __init__(self, creation_time=None, failed_count=None, finished_time=None, operation_progress_set=None,
                  region_id=None, request_id=None, success_count=None, support_cancel=None, task_action=None, task_id=None,
                  task_process=None, task_status=None, total_count=None):
-        # The time when the task was created.
         self.creation_time = creation_time  # type: str
-        # The number of failed tasks.
         self.failed_count = failed_count  # type: int
-        # The time when the task was complete.
         self.finished_time = finished_time  # type: str
-        # An array consisting of OperationProgress data of each subtask.
         self.operation_progress_set = operation_progress_set  # type: DescribeTaskAttributeResponseBodyOperationProgressSet
-        # The region ID of the task.
         self.region_id = region_id  # type: str
-        # The ID of the request.
         self.request_id = request_id  # type: str
-        # The number of completed tasks.
         self.success_count = success_count  # type: int
-        # Indicates whether the task can be canceled ([CancelTask](https://www.alibabacloud.com/help/en/elastic-compute-service/latest/canceltask)). Valid values: 
-        # 
-        # - true: The task can be canceled.
-        # - false: The task cannot be canceled.
         self.support_cancel = support_cancel  # type: str
-        # The operation name of the task.
         self.task_action = task_action  # type: str
-        # The ID of the task.
         self.task_id = task_id  # type: str
-        # The progress of the task.
         self.task_process = task_process  # type: str
-        # The status of the task.
         self.task_status = task_status  # type: str
-        # The total number of tasks.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -68228,14 +67025,11 @@ class DescribeZonesResponse(TeaModel):
 class DetachClassicLinkVpcRequest(TeaModel):
     def __init__(self, instance_id=None, owner_id=None, region_id=None, resource_owner_account=None,
                  resource_owner_id=None, vpc_id=None):
-        # The ID of the classic network-type instance.
         self.instance_id = instance_id  # type: str
         self.owner_id = owner_id  # type: long
-        # The region ID of the classic network-type instance. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The ID of the VPC to which the instance is linked.
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
@@ -68280,7 +67074,6 @@ class DetachClassicLinkVpcRequest(TeaModel):
 
 class DetachClassicLinkVpcResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -68477,12 +67270,9 @@ class DetachDiskResponse(TeaModel):
 class DetachInstanceRamRoleRequest(TeaModel):
     def __init__(self, instance_ids=None, owner_id=None, ram_role_name=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None):
-        # The IDs of instances from which you want to detach an instance RAM role. It can be a JSON array that consists of up to 100 instance IDs. Separate multiple instance IDs with commas (,).
         self.instance_ids = instance_ids  # type: str
         self.owner_id = owner_id  # type: long
-        # The name of the instance RAM role to be detached. You can call the [ListRoles](~~28713~~) operation provided by RAM to query the instance RAM roles that you have created.
         self.ram_role_name = ram_role_name  # type: str
-        # The region ID of the instances. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -68529,9 +67319,7 @@ class DetachInstanceRamRoleRequest(TeaModel):
 
 class DetachInstanceRamRoleResponseBodyDetachInstanceRamRoleResultsDetachInstanceRamRoleResultInstanceRamRoleSetsInstanceRamRoleSet(TeaModel):
     def __init__(self, instance_id=None, ram_role_name=None):
-        # The ID of the instance from which the RAM role was detached.
         self.instance_id = instance_id  # type: str
-        # The name of the instance RAM role.
         self.ram_role_name = ram_role_name  # type: str
 
     def validate(self):
@@ -68592,15 +67380,10 @@ class DetachInstanceRamRoleResponseBodyDetachInstanceRamRoleResultsDetachInstanc
 
 class DetachInstanceRamRoleResponseBodyDetachInstanceRamRoleResultsDetachInstanceRamRoleResult(TeaModel):
     def __init__(self, code=None, instance_id=None, instance_ram_role_sets=None, message=None, success=None):
-        # The code that indicates whether the instance RAM role was detached. If 200 is returned, the instance RAM role was detached. If any other value is returned, the instance RAM role failed to be detached. For more information, see the "Error codes" section.
         self.code = code  # type: str
-        # The ID of the instance from which you attempted to detach the instance RAM role.
         self.instance_id = instance_id  # type: str
-        # The details about the instance RAM roles of the instances.
         self.instance_ram_role_sets = instance_ram_role_sets  # type: DetachInstanceRamRoleResponseBodyDetachInstanceRamRoleResultsDetachInstanceRamRoleResultInstanceRamRoleSets
-        # The message that indicates whether the instance RAM role was detached. If success is returned, the instance RAM role was detached. If any other value is returned, the instance RAM role failed to be detached. For more information, see the "Error codes" section.
         self.message = message  # type: str
-        # Indicates whether the RAM role was detached.
         self.success = success  # type: bool
 
     def validate(self):
@@ -68676,15 +67459,10 @@ class DetachInstanceRamRoleResponseBodyDetachInstanceRamRoleResults(TeaModel):
 class DetachInstanceRamRoleResponseBody(TeaModel):
     def __init__(self, detach_instance_ram_role_results=None, fail_count=None, ram_role_name=None, request_id=None,
                  total_count=None):
-        # Details about the results of detaching the instance RAM role from the instances.
         self.detach_instance_ram_role_results = detach_instance_ram_role_results  # type: DetachInstanceRamRoleResponseBodyDetachInstanceRamRoleResults
-        # The number of the instances from which the RAM role failed to be detached.
         self.fail_count = fail_count  # type: int
-        # The name of the instance RAM role.
         self.ram_role_name = ram_role_name  # type: str
-        # The ID of the request.
         self.request_id = request_id  # type: str
-        # The total number of the instances from which you detached the RAM role.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -68767,12 +67545,9 @@ class DetachInstanceRamRoleResponse(TeaModel):
 class DetachKeyPairRequest(TeaModel):
     def __init__(self, instance_ids=None, key_pair_name=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None):
-        # The IDs of instances from which you want to unbind the SSH key pair. The value can be a JSON array that consists of up to 50 instance IDs. Separate multiple instance IDs with commas (,).
         self.instance_ids = instance_ids  # type: str
-        # The names of SSH key pairs.
         self.key_pair_name = key_pair_name  # type: str
         self.owner_id = owner_id  # type: long
-        # The region ID of the SSH key pair. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -68819,13 +67594,9 @@ class DetachKeyPairRequest(TeaModel):
 
 class DetachKeyPairResponseBodyResultsResult(TeaModel):
     def __init__(self, code=None, instance_id=None, message=None, success=None):
-        # The operation status code returned. 200 indicates that the operation was successful.
         self.code = code  # type: str
-        # The ID of the instance.
         self.instance_id = instance_id  # type: str
-        # The result of the operation. For example, when the value of `Code` is 200, the value of `Message` is `successful`.
         self.message = message  # type: str
-        # Indicates whether the operation was successful.
         self.success = success  # type: str
 
     def validate(self):
@@ -68894,15 +67665,10 @@ class DetachKeyPairResponseBodyResults(TeaModel):
 
 class DetachKeyPairResponseBody(TeaModel):
     def __init__(self, fail_count=None, key_pair_name=None, request_id=None, results=None, total_count=None):
-        # The number of instances from which the SSH key pair failed to be unbound.
         self.fail_count = fail_count  # type: str
-        # The names of the key pairs.
         self.key_pair_name = key_pair_name  # type: str
-        # The ID of the request.
         self.request_id = request_id  # type: str
-        # The result set of the unbind operation.
         self.results = results  # type: DetachKeyPairResponseBodyResults
-        # The total number of instances from which you attempted to unbind the SSH key pair.
         self.total_count = total_count  # type: str
 
     def validate(self):
@@ -68985,19 +67751,13 @@ class DetachKeyPairResponse(TeaModel):
 class DetachNetworkInterfaceRequest(TeaModel):
     def __init__(self, instance_id=None, network_interface_id=None, owner_account=None, owner_id=None,
                  region_id=None, resource_owner_account=None, resource_owner_id=None, trunk_network_instance_id=None):
-        # The ID of the instance
         self.instance_id = instance_id  # type: str
-        # The ID of the ENI.
         self.network_interface_id = network_interface_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The region ID of the ENI. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The ID of the trunk ENI.
-        # 
-        # >  This parameter is unavailable for use.
         self.trunk_network_instance_id = trunk_network_instance_id  # type: str
 
     def validate(self):
@@ -69050,7 +67810,6 @@ class DetachNetworkInterfaceRequest(TeaModel):
 
 class DetachNetworkInterfaceResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -69115,13 +67874,9 @@ class DetachNetworkInterfaceResponse(TeaModel):
 class DisableActivationRequest(TeaModel):
     def __init__(self, activation_id=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None):
-        # The ID of the activation code.
         self.activation_id = activation_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The region ID of the activation code. The following regions are supported: China (Qingdao), China (Beijing), China (Zhangjiakou), China (Hohhot), China (Hangzhou), China (Shanghai), China (Shenzhen), China (Heyuan), and China (Hong Kong).
-        # 
-        # You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -69170,25 +67925,15 @@ class DisableActivationResponseBodyActivation(TeaModel):
     def __init__(self, activation_id=None, creation_time=None, deregistered_count=None, description=None,
                  disabled=None, instance_count=None, instance_name=None, ip_address_range=None, registered_count=None,
                  time_to_live_in_hours=None):
-        # The ID of the activation code.
         self.activation_id = activation_id  # type: str
-        # The time when the activation code was created.
         self.creation_time = creation_time  # type: str
-        # The number of instances that were deregistered.
         self.deregistered_count = deregistered_count  # type: int
-        # The description of the activation code.
         self.description = description  # type: str
-        # Indicates whether the activation code is disabled.
         self.disabled = disabled  # type: bool
-        # The maximum number of times that the activation code can be used to register managed instances.
         self.instance_count = instance_count  # type: int
-        # The default instance name prefix.
         self.instance_name = instance_name  # type: str
-        # The IP addresses of hosts that are allowed to use the activation code.
         self.ip_address_range = ip_address_range  # type: str
-        # The number of instances that were registered.
         self.registered_count = registered_count  # type: int
-        # The validity period of the activation code. Unit: hours.
         self.time_to_live_in_hours = time_to_live_in_hours  # type: long
 
     def validate(self):
@@ -69249,9 +67994,7 @@ class DisableActivationResponseBodyActivation(TeaModel):
 
 class DisableActivationResponseBody(TeaModel):
     def __init__(self, activation=None, request_id=None):
-        # Details about the activation code and its usage information.
         self.activation = activation  # type: DisableActivationResponseBodyActivation
-        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -70137,18 +68880,10 @@ class ExportSnapshotResponse(TeaModel):
 class GetInstanceConsoleOutputRequest(TeaModel):
     def __init__(self, instance_id=None, owner_account=None, owner_id=None, region_id=None, remove_symbols=None,
                  resource_owner_account=None, resource_owner_id=None):
-        # The ID of the instance.
         self.instance_id = instance_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The region ID of the instance. You can call the [DescribeRegions](~~25609~~) operation to query the most recent list of regions.
         self.region_id = region_id  # type: str
-        # Specifies whether to remove symbols from the returned command output. Valid values:
-        # 
-        # *   true: removes the symbols
-        # *   false: does not remove the symbols
-        # 
-        # Default value: false.
         self.remove_symbols = remove_symbols  # type: bool
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -70199,13 +68934,9 @@ class GetInstanceConsoleOutputRequest(TeaModel):
 
 class GetInstanceConsoleOutputResponseBody(TeaModel):
     def __init__(self, console_output=None, instance_id=None, last_update_time=None, request_id=None):
-        # The Base64-encoded command output of the instance.
         self.console_output = console_output  # type: str
-        # The ID of the instance.
         self.instance_id = instance_id  # type: str
-        # The time when the instance was last started, restarted, or shut down. The time follows the [ISO 8601](~~25696~~) standard in the yyyy-MM-ddTHH:mm:ssZ format. The time is displayed in UTC.
         self.last_update_time = last_update_time  # type: str
-        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -70282,17 +69013,12 @@ class GetInstanceConsoleOutputResponse(TeaModel):
 class GetInstanceScreenshotRequest(TeaModel):
     def __init__(self, instance_id=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None, wake_up=None):
-        # The ID of the instance.
         self.instance_id = instance_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The region ID of the instance. You can call the [DescribeRegions](~~25609~~) operation to query the most recent list of regions.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # Specifies whether to wake up hibernating instances.
-        # 
-        # Default value: false.
         self.wake_up = wake_up  # type: bool
 
     def validate(self):
@@ -70341,11 +69067,8 @@ class GetInstanceScreenshotRequest(TeaModel):
 
 class GetInstanceScreenshotResponseBody(TeaModel):
     def __init__(self, instance_id=None, request_id=None, screenshot=None):
-        # The ID of the instance
         self.instance_id = instance_id  # type: str
-        # The ID of the request.
         self.request_id = request_id  # type: str
-        # The JPG-formatted instance screenshot, which is encoded in Base64.
         self.screenshot = screenshot  # type: str
 
     def validate(self):
@@ -70806,9 +69529,7 @@ class ImportImageResponse(TeaModel):
 
 class ImportKeyPairRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
-        # The key of tag N of the key pair. Valid values of N: 1 to 20. The tag key cannot be an empty string. The tag key can be up to 128 characters in length. The tag key cannot start with `acs:` or `aliyun` or contain `http://` or `https://`.
         self.key = key  # type: str
-        # The value of tag N of the key pair. Valid values of N: 1 to 20. The tag value can be an empty string. It can be up to 128 characters in length and cannot start with `acs:` or contain `http://` or `https://`.
         self.value = value  # type: str
 
     def validate(self):
@@ -70838,18 +69559,13 @@ class ImportKeyPairRequestTag(TeaModel):
 class ImportKeyPairRequest(TeaModel):
     def __init__(self, key_pair_name=None, owner_id=None, public_key_body=None, region_id=None,
                  resource_group_id=None, resource_owner_account=None, resource_owner_id=None, tag=None):
-        # The name of the key pair. The name must be unique. The name must be 2 to 128 characters in length and can contain letters, digits, colons (:), underscores (\_), and hyphens (-). It must start with a letter and cannot start with http:// or https://. It can contain letters, digits, colons (:), underscores (\_), and hyphens (-).
         self.key_pair_name = key_pair_name  # type: str
         self.owner_id = owner_id  # type: long
-        # The public key of the key pair.
         self.public_key_body = public_key_body  # type: str
-        # The ID of the region. You can call the [DescribeRegions](~~25609~~) operation to query the most recent list of regions.
         self.region_id = region_id  # type: str
-        # The ID of the resource group to which the key pair belongs.
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The tags to add to the key pair.
         self.tag = tag  # type: list[ImportKeyPairRequestTag]
 
     def validate(self):
@@ -70910,11 +69626,8 @@ class ImportKeyPairRequest(TeaModel):
 
 class ImportKeyPairResponseBody(TeaModel):
     def __init__(self, key_pair_finger_print=None, key_pair_name=None, request_id=None):
-        # The fingerprint of the key pair. The message-digest algorithm 5 (MD5) is used based on the public key fingerprint format defined in RFC 4716.
         self.key_pair_finger_print = key_pair_finger_print  # type: str
-        # The name of the key pair.
         self.key_pair_name = key_pair_name  # type: str
-        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -71120,9 +69833,11 @@ class ImportSnapshotResponse(TeaModel):
 class InstallCloudAssistantRequest(TeaModel):
     def __init__(self, instance_id=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None):
+        # The IDs of instances. You can specify up to 50 instance IDs in a single request.
         self.instance_id = instance_id  # type: list[str]
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID of the instance. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -71169,6 +69884,7 @@ class InstallCloudAssistantRequest(TeaModel):
 
 class InstallCloudAssistantResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -71232,15 +69948,7 @@ class InstallCloudAssistantResponse(TeaModel):
 
 class InvokeCommandRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
-        # The keys of tags of the command. You can specify up to 20 tag keys for the command. The tag key cannot be an empty string.
-        # 
-        # If you specify a tag to query resources, up to 1,000 resources that have the specified tag can be displayed in the response. If you specify multiple tags to query resources, up to 1,000 resources that have all specified tags can be displayed in the response. To query more than 1,000 resources that have the specified tags, call the [ListTagResources](~~110425~~) operation.
-        # 
-        # The tag key can be up to 64 characters in length and cannot start with `acs:` or `aliyun`. The tag key cannot contain `http://` or `https://`.
         self.key = key  # type: str
-        # The values of the tags of the command. You can specify up to 20 tag values for the command. The tag value can be an empty string.
-        # 
-        # The tag value can be up to 128 characters in length and cannot contain `http://` or `https://`.
         self.value = value  # type: str
 
     def validate(self):
@@ -71272,135 +69980,23 @@ class InvokeCommandRequest(TeaModel):
                  owner_account=None, owner_id=None, parameters=None, region_id=None, repeat_mode=None, resource_group_id=None,
                  resource_owner_account=None, resource_owner_id=None, tag=None, timed=None, timeout=None, username=None,
                  windows_password_name=None):
-        # The ID of the command. You can call the [DescribeCommands](~~64843~~) operation to query all available command IDs.
-        # 
-        # >  Common Cloud Assistant commands can be run based on the names. For more information, see [View and run common Cloud Assistant commands](~~429635~~).
         self.command_id = command_id  # type: str
-        # The ID of the container. Only 64-bit hexadecimal strings are supported. You can use container IDs that are prefixed with `docker://`, `containerd://`, or `cri-o://` to specify container runtimes.
-        # 
-        # Note:
-        # 
-        # *   If you specify this parameter, Cloud Assistant runs scripts in the specified container of the instance.
-        # 
-        # *   If you specify this parameter, scripts can be run only on Linux instances on which the Cloud Assistant client of version 2.2.3.344 or later is installed.
-        # 
-        #     *   For information about how to view the version of the Cloud Assistant client, see [Install the Cloud Assistant client](~~64921~~).
-        #     *   For information about how to update the version of the Cloud Assistant client, see [Upgrade or disable upgrades for the Cloud Assistant client](~~134383~~).
-        # 
-        # *   If you specify this parameter, the `Username` parameter that is specified in a request to call this operation and the `WorkingDir` parameter that is specified in a request to call the [CreateCommand](~~64844~~) operation do not take effect. You can run the command in the default working directory of the container only by using the default user of the container. For more information, see [Use Cloud Assistant to run commands in containers](~~456641~~).
-        # 
-        # *   If you specify this parameter, only shell scripts can be run in Linux containers. You cannot specify a script interpreter by adding a command in a format that is similar to `#!/usr/bin/python` at the beginning of a script. For more information, see [Use Cloud Assistant to run commands in containers](~~456641~~).
         self.container_id = container_id  # type: str
-        # The name of the container.
-        # 
-        # Note:
-        # 
-        # *   If you specify this parameter, Cloud Assistant runs scripts in the specified container of the instance.
-        # 
-        # *   If you specify this parameter, scripts can be run only on Linux instances on which the Cloud Assistant client of version 2.2.3.344 or later is installed.
-        # 
-        #     *   For information about how to view the version of the Cloud Assistant client, see [Install the Cloud Assistant client](~~64921~~).
-        #     *   For information about how to update the version of the Cloud Assistant client, see [Upgrade or disable upgrades for the Cloud Assistant client](~~134383~~).
-        # 
-        # *   If you specify this parameter, the `Username` parameter that is specified in a request to call this operation and the `WorkingDir` parameter that is specified in a request to call the [CreateCommand](~~64844~~) operation do not take effect. You can run the command in the default working directory of the container only by using the default user of the container. For more information, see [Use Cloud Assistant to run commands in containers](~~456641~~).
-        # 
-        # *   If you specify this parameter, only shell scripts can be run in Linux containers. You cannot specify a script interpreter by adding a command in a format that is similar to `#!/usr/bin/python` at the beginning of a script. For more information, see [Use Cloud Assistant to run commands in containers](~~456641~~).
         self.container_name = container_name  # type: str
-        # The schedule on which you want to run the command. When you set the `Timed` parameter to `true`, you must specify this parameter. You can run a command at a fixed interval based on a rate expression, run the command only once at a specified time, or run the command at specific times based on a cron expression.
-        # 
-        # *   To run a command at a fixed interval, use a rate expression to specify the interval. You can specify an interval in seconds, minutes, hours, or days. This option is suitable when tasks need to be executed at a fixed interval. Specify the interval in the following format: `rate(<Execution interval value><Execution interval unit>)`. For example, specify `rate(5m)` to run the command every 5 minutes. Take note of the following limits when you specify an interval:
-        # 
-        #     *   The specified interval can range from 60 seconds to seven days and must be longer than the timeout period of the scheduled task.
-        #     *   The interval is the amount of time that elapsed between two consecutive executions. The interval is irrelevant to the amount of time that is required to run the command once. For example, you set the interval to 5 minutes, and the amount of time that is required to run the command once is 2 minutes to run the command each time. Each time the command is run, the system waits 3 minutes before the system reruns the command.
-        #     *   A task is not immediately executed after it is created. For example, you set the interval to 5 minutes and create a task to run the command. The task runs 5 minutes after it is created.
-        # 
-        # *   To run a command only once at a specified time, specify a point in time and a time zone. Specify the point in time in the following format: `at(yyyy-MM-dd HH:mm:ss <Time zone>)`, which indicates `at(Year-Month-Day Hour:Minute:Second <Time zone>)`. If you do not specify a time zone, the default time zone UTC is used. You can specify the time zone in the following formats:
-        # 
-        #     *   The name of the time zone. Examples: `Asia/Shanghai` and `America/Los_Angeles`.
-        #     *   The time offset from GMT. Examples: `GMT+8:00` (UTC+8) and `GMT-7:00` (UTC-7). If you use the GMT format, do not pad leading zeros to the hour value.
-        #     *   The abbreviation of the time zone. Only UTC is supported.
-        # 
-        #     For example, to run a command only once at 13:15:30 on June 6, 2022 (Shanghai time), set the time to `at(2022-06-06 13:15:30 Asia/Shanghai)`. To run a command only once at 13:15:30 on June 6, 2022 (UTC-7), set the time to `at(2022-06-06 13:15:30 GMT-7:00)`.
-        # 
-        # *   To run a command at specific times, specify a cron expression. Specify the time in the following format: `<Cron expression> <Time zone>`, where the cron expression is in the `<seconds> <minutes> <hours> <day of the month> <month> <day of the week> <year (optional)>` format. The system calculates the execution times of the command based on the specified cron expression and time zone and runs the command as scheduled. If you do not specify a time zone, the system time zone of the instance on which you want to run the command is used. For more information about cron expressions, see [Cron expressions](~~64769~~). You can specify the time zone in the following formats:
-        # 
-        #     *   The name of the time zone. Examples: `Asia/Shanghai` and `America/Los_Angeles`.
-        #     *   The time offset from GMT. Examples: `GMT+8:00` (UTC+8) and `GMT-7:00` (UTC-7). If you use the GMT format, do not pad leading zeros to the hour value.
-        #     *   The abbreviation of the time zone. Only UTC is supported.
-        # 
-        #     For example, to run a command at 10:15:00 every day in 2022 (Shanghai time), set the time to `0 15 10 ? * * 2022 Asia/Shanghai`. To run a command every 30 minutes from 10:00:00 to 11:30:00 every day in 2022 (UTC+8), set the time to `0 0/30 10-11 * * ? 2022 GMT +8:00`. To run a command every 5 minutes from 14:00:00 to 14:55:00 every October every two years starting from 2022 (UTC), set the time to `0 0/5 14 * 10 ? 2022/2 UTC`.
-        # 
-        #     **\
-        # 
-        #     **Note** The interval is at least 10 seconds and cannot be shorter than the timeout period of scheduled executions.
         self.frequency = frequency  # type: str
-        # The IDs of the instances on which you want to run the command. You can specify up to 50 instance IDs in each request.
         self.instance_id = instance_id  # type: list[str]
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The key-value pairs of the custom parameters that are passed in when the custom parameter feature is enabled. Number of custom parameters: 0 to 10.
-        # 
-        # *   Each key in a Map collection cannot be an empty string and can be up to 64 characters in length.
-        # *   Values in a Map collection can be empty strings.
-        # *   The size of the command after Base64 encoding, including the custom parameters and the original command content, cannot exceed 18 KB.
-        # *   The custom parameter names that are specified by the Parameters parameter must be included in the custom parameter names that you specified when you created the command. You can use empty strings to represent the parameters that are not passed in.
-        # 
-        # If you want to disable the custom parameter feature, you can leave this parameter empty.
         self.parameters = parameters  # type: dict[str, any]
-        # The region ID. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
-        # Specifies how to run the command. Valid values:
-        # 
-        # *   Once: immediately runs the command.
-        # *   Period: runs the command on a schedule. If you set this parameter to `Period`, you must set the `Timed` parameter to true and specify the `Frequency` parameter.
-        # *   NextRebootOnly: automatically runs the command the next time the instance starts.
-        # *   EveryReboot: automatically runs the command every time the instance starts.
-        # 
-        # Default value:
-        # 
-        # *   If you set the `Timed` parameter to false and do not specify the `Frequency` parameter, the default value of the RepeatMode parameter is `Once`.
-        # *   If you set the `Timed` parameter to true and specify the `Frequency` parameter, `Period` is used as the value of the RepeatMode parameter regardless of whether you specify the RepeatMode parameter.
-        # 
-        # Note:
-        # 
-        # *   If you set the RepeatMode parameter to `Period`, `NextRebootOnly`, or `EveryReboot`, you can call the [StopInvocation](~~64838~~) operation to stop the pending or scheduled execution of the command.
-        # *   If you set the RepeatMode parameter to `Period` or `EveryReboot`, you can call the [DescribeInvocationResults](~~64845~~) operation and set the `IncludeHistory` parameter to true to view the results of previous scheduled executions.
         self.repeat_mode = repeat_mode  # type: str
-        # The ID of the resource group to which you want to assign the command executions. Take note of the following items when you set this parameter:
-        # 
-        # *   The instances that are specified by the InstanceId parameter must belong to the specified resource group.
-        # *   You can specify this parameter to call the [DescribeInvocations](~~64840~~) or [DescribeInvocationResults](~~64845~~) operation to query execution results in the specified resource group.
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The tags that you want to add.
         self.tag = tag  # type: list[InvokeCommandRequestTag]
-        # Specifies whether to run the command on a schedule. Valid values:
-        # 
-        # *   true: runs the command on the schedule that is specified by the `Frequency` parameter. The execution results of a command do not affect the next command execution.
-        # *   false: runs the command only once.
-        # 
-        # Default value: false.
         self.timed = timed  # type: bool
-        # The timeout period for the command execution. Unit: seconds.
-        # 
-        # *   The timeout period cannot be less than 10 seconds.
-        # *   If a command cannot be run because the process slows down or because a specific module or the Cloud Assistant client does not exist, a timeout error occurs. When an execution times out, the command process is forcibly terminated.
-        # *   If you do not specify this parameter, the timeout period that is specified when the command is created prevails and
-        # *   is used as the timeout period for the execution. The timeout period of the command is not modified.
         self.timeout = timeout  # type: long
-        # The username that you use to run the command on instances.
-        # 
-        # *   For Linux instances, the root username is used.
-        # *   For Windows instances, the System username is used.
-        # 
-        # You can also specify other usernames that already exist on the instances to run the command. To ensure security, we recommend that you run Cloud Assistant commands as a regular user. For more information, see [Run Cloud Assistant commands as a regular user](~~203771~~).
         self.username = username  # type: str
-        # The name of the password that you use to run the command on Windows instances.
-        # 
-        # If you do not want to use the default username System to run the command on Windows instances, you must specify the WindowsPasswordName and `Username` parameters. The password is stored in plaintext in the parameter repository of Operation Orchestration Service (OOS) to mitigate the risk of password leaks. Only the name of the password is passed in by using the WindowsPasswordName parameter. For more information, see [Manage encryption parameters](~~186828~~) and [Run Cloud Assistant commands as a regular user](~~203771~~).
-        # 
-        # >  If you use the root username for Linux instances or the System username for Windows instances to run the command, you do not need to specify the WindowsPasswordName parameter.
         self.windows_password_name = windows_password_name  # type: str
 
     def validate(self):
@@ -71501,15 +70097,7 @@ class InvokeCommandRequest(TeaModel):
 
 class InvokeCommandShrinkRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
-        # The keys of tags of the command. You can specify up to 20 tag keys for the command. The tag key cannot be an empty string.
-        # 
-        # If you specify a tag to query resources, up to 1,000 resources that have the specified tag can be displayed in the response. If you specify multiple tags to query resources, up to 1,000 resources that have all specified tags can be displayed in the response. To query more than 1,000 resources that have the specified tags, call the [ListTagResources](~~110425~~) operation.
-        # 
-        # The tag key can be up to 64 characters in length and cannot start with `acs:` or `aliyun`. The tag key cannot contain `http://` or `https://`.
         self.key = key  # type: str
-        # The values of the tags of the command. You can specify up to 20 tag values for the command. The tag value can be an empty string.
-        # 
-        # The tag value can be up to 128 characters in length and cannot contain `http://` or `https://`.
         self.value = value  # type: str
 
     def validate(self):
@@ -71541,135 +70129,23 @@ class InvokeCommandShrinkRequest(TeaModel):
                  owner_account=None, owner_id=None, parameters_shrink=None, region_id=None, repeat_mode=None,
                  resource_group_id=None, resource_owner_account=None, resource_owner_id=None, tag=None, timed=None, timeout=None,
                  username=None, windows_password_name=None):
-        # The ID of the command. You can call the [DescribeCommands](~~64843~~) operation to query all available command IDs.
-        # 
-        # >  Common Cloud Assistant commands can be run based on the names. For more information, see [View and run common Cloud Assistant commands](~~429635~~).
         self.command_id = command_id  # type: str
-        # The ID of the container. Only 64-bit hexadecimal strings are supported. You can use container IDs that are prefixed with `docker://`, `containerd://`, or `cri-o://` to specify container runtimes.
-        # 
-        # Note:
-        # 
-        # *   If you specify this parameter, Cloud Assistant runs scripts in the specified container of the instance.
-        # 
-        # *   If you specify this parameter, scripts can be run only on Linux instances on which the Cloud Assistant client of version 2.2.3.344 or later is installed.
-        # 
-        #     *   For information about how to view the version of the Cloud Assistant client, see [Install the Cloud Assistant client](~~64921~~).
-        #     *   For information about how to update the version of the Cloud Assistant client, see [Upgrade or disable upgrades for the Cloud Assistant client](~~134383~~).
-        # 
-        # *   If you specify this parameter, the `Username` parameter that is specified in a request to call this operation and the `WorkingDir` parameter that is specified in a request to call the [CreateCommand](~~64844~~) operation do not take effect. You can run the command in the default working directory of the container only by using the default user of the container. For more information, see [Use Cloud Assistant to run commands in containers](~~456641~~).
-        # 
-        # *   If you specify this parameter, only shell scripts can be run in Linux containers. You cannot specify a script interpreter by adding a command in a format that is similar to `#!/usr/bin/python` at the beginning of a script. For more information, see [Use Cloud Assistant to run commands in containers](~~456641~~).
         self.container_id = container_id  # type: str
-        # The name of the container.
-        # 
-        # Note:
-        # 
-        # *   If you specify this parameter, Cloud Assistant runs scripts in the specified container of the instance.
-        # 
-        # *   If you specify this parameter, scripts can be run only on Linux instances on which the Cloud Assistant client of version 2.2.3.344 or later is installed.
-        # 
-        #     *   For information about how to view the version of the Cloud Assistant client, see [Install the Cloud Assistant client](~~64921~~).
-        #     *   For information about how to update the version of the Cloud Assistant client, see [Upgrade or disable upgrades for the Cloud Assistant client](~~134383~~).
-        # 
-        # *   If you specify this parameter, the `Username` parameter that is specified in a request to call this operation and the `WorkingDir` parameter that is specified in a request to call the [CreateCommand](~~64844~~) operation do not take effect. You can run the command in the default working directory of the container only by using the default user of the container. For more information, see [Use Cloud Assistant to run commands in containers](~~456641~~).
-        # 
-        # *   If you specify this parameter, only shell scripts can be run in Linux containers. You cannot specify a script interpreter by adding a command in a format that is similar to `#!/usr/bin/python` at the beginning of a script. For more information, see [Use Cloud Assistant to run commands in containers](~~456641~~).
         self.container_name = container_name  # type: str
-        # The schedule on which you want to run the command. When you set the `Timed` parameter to `true`, you must specify this parameter. You can run a command at a fixed interval based on a rate expression, run the command only once at a specified time, or run the command at specific times based on a cron expression.
-        # 
-        # *   To run a command at a fixed interval, use a rate expression to specify the interval. You can specify an interval in seconds, minutes, hours, or days. This option is suitable when tasks need to be executed at a fixed interval. Specify the interval in the following format: `rate(<Execution interval value><Execution interval unit>)`. For example, specify `rate(5m)` to run the command every 5 minutes. Take note of the following limits when you specify an interval:
-        # 
-        #     *   The specified interval can range from 60 seconds to seven days and must be longer than the timeout period of the scheduled task.
-        #     *   The interval is the amount of time that elapsed between two consecutive executions. The interval is irrelevant to the amount of time that is required to run the command once. For example, you set the interval to 5 minutes, and the amount of time that is required to run the command once is 2 minutes to run the command each time. Each time the command is run, the system waits 3 minutes before the system reruns the command.
-        #     *   A task is not immediately executed after it is created. For example, you set the interval to 5 minutes and create a task to run the command. The task runs 5 minutes after it is created.
-        # 
-        # *   To run a command only once at a specified time, specify a point in time and a time zone. Specify the point in time in the following format: `at(yyyy-MM-dd HH:mm:ss <Time zone>)`, which indicates `at(Year-Month-Day Hour:Minute:Second <Time zone>)`. If you do not specify a time zone, the default time zone UTC is used. You can specify the time zone in the following formats:
-        # 
-        #     *   The name of the time zone. Examples: `Asia/Shanghai` and `America/Los_Angeles`.
-        #     *   The time offset from GMT. Examples: `GMT+8:00` (UTC+8) and `GMT-7:00` (UTC-7). If you use the GMT format, do not pad leading zeros to the hour value.
-        #     *   The abbreviation of the time zone. Only UTC is supported.
-        # 
-        #     For example, to run a command only once at 13:15:30 on June 6, 2022 (Shanghai time), set the time to `at(2022-06-06 13:15:30 Asia/Shanghai)`. To run a command only once at 13:15:30 on June 6, 2022 (UTC-7), set the time to `at(2022-06-06 13:15:30 GMT-7:00)`.
-        # 
-        # *   To run a command at specific times, specify a cron expression. Specify the time in the following format: `<Cron expression> <Time zone>`, where the cron expression is in the `<seconds> <minutes> <hours> <day of the month> <month> <day of the week> <year (optional)>` format. The system calculates the execution times of the command based on the specified cron expression and time zone and runs the command as scheduled. If you do not specify a time zone, the system time zone of the instance on which you want to run the command is used. For more information about cron expressions, see [Cron expressions](~~64769~~). You can specify the time zone in the following formats:
-        # 
-        #     *   The name of the time zone. Examples: `Asia/Shanghai` and `America/Los_Angeles`.
-        #     *   The time offset from GMT. Examples: `GMT+8:00` (UTC+8) and `GMT-7:00` (UTC-7). If you use the GMT format, do not pad leading zeros to the hour value.
-        #     *   The abbreviation of the time zone. Only UTC is supported.
-        # 
-        #     For example, to run a command at 10:15:00 every day in 2022 (Shanghai time), set the time to `0 15 10 ? * * 2022 Asia/Shanghai`. To run a command every 30 minutes from 10:00:00 to 11:30:00 every day in 2022 (UTC+8), set the time to `0 0/30 10-11 * * ? 2022 GMT +8:00`. To run a command every 5 minutes from 14:00:00 to 14:55:00 every October every two years starting from 2022 (UTC), set the time to `0 0/5 14 * 10 ? 2022/2 UTC`.
-        # 
-        #     **\
-        # 
-        #     **Note** The interval is at least 10 seconds and cannot be shorter than the timeout period of scheduled executions.
         self.frequency = frequency  # type: str
-        # The IDs of the instances on which you want to run the command. You can specify up to 50 instance IDs in each request.
         self.instance_id = instance_id  # type: list[str]
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The key-value pairs of the custom parameters that are passed in when the custom parameter feature is enabled. Number of custom parameters: 0 to 10.
-        # 
-        # *   Each key in a Map collection cannot be an empty string and can be up to 64 characters in length.
-        # *   Values in a Map collection can be empty strings.
-        # *   The size of the command after Base64 encoding, including the custom parameters and the original command content, cannot exceed 18 KB.
-        # *   The custom parameter names that are specified by the Parameters parameter must be included in the custom parameter names that you specified when you created the command. You can use empty strings to represent the parameters that are not passed in.
-        # 
-        # If you want to disable the custom parameter feature, you can leave this parameter empty.
         self.parameters_shrink = parameters_shrink  # type: str
-        # The region ID. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
-        # Specifies how to run the command. Valid values:
-        # 
-        # *   Once: immediately runs the command.
-        # *   Period: runs the command on a schedule. If you set this parameter to `Period`, you must set the `Timed` parameter to true and specify the `Frequency` parameter.
-        # *   NextRebootOnly: automatically runs the command the next time the instance starts.
-        # *   EveryReboot: automatically runs the command every time the instance starts.
-        # 
-        # Default value:
-        # 
-        # *   If you set the `Timed` parameter to false and do not specify the `Frequency` parameter, the default value of the RepeatMode parameter is `Once`.
-        # *   If you set the `Timed` parameter to true and specify the `Frequency` parameter, `Period` is used as the value of the RepeatMode parameter regardless of whether you specify the RepeatMode parameter.
-        # 
-        # Note:
-        # 
-        # *   If you set the RepeatMode parameter to `Period`, `NextRebootOnly`, or `EveryReboot`, you can call the [StopInvocation](~~64838~~) operation to stop the pending or scheduled execution of the command.
-        # *   If you set the RepeatMode parameter to `Period` or `EveryReboot`, you can call the [DescribeInvocationResults](~~64845~~) operation and set the `IncludeHistory` parameter to true to view the results of previous scheduled executions.
         self.repeat_mode = repeat_mode  # type: str
-        # The ID of the resource group to which you want to assign the command executions. Take note of the following items when you set this parameter:
-        # 
-        # *   The instances that are specified by the InstanceId parameter must belong to the specified resource group.
-        # *   You can specify this parameter to call the [DescribeInvocations](~~64840~~) or [DescribeInvocationResults](~~64845~~) operation to query execution results in the specified resource group.
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The tags that you want to add.
         self.tag = tag  # type: list[InvokeCommandShrinkRequestTag]
-        # Specifies whether to run the command on a schedule. Valid values:
-        # 
-        # *   true: runs the command on the schedule that is specified by the `Frequency` parameter. The execution results of a command do not affect the next command execution.
-        # *   false: runs the command only once.
-        # 
-        # Default value: false.
         self.timed = timed  # type: bool
-        # The timeout period for the command execution. Unit: seconds.
-        # 
-        # *   The timeout period cannot be less than 10 seconds.
-        # *   If a command cannot be run because the process slows down or because a specific module or the Cloud Assistant client does not exist, a timeout error occurs. When an execution times out, the command process is forcibly terminated.
-        # *   If you do not specify this parameter, the timeout period that is specified when the command is created prevails and
-        # *   is used as the timeout period for the execution. The timeout period of the command is not modified.
         self.timeout = timeout  # type: long
-        # The username that you use to run the command on instances.
-        # 
-        # *   For Linux instances, the root username is used.
-        # *   For Windows instances, the System username is used.
-        # 
-        # You can also specify other usernames that already exist on the instances to run the command. To ensure security, we recommend that you run Cloud Assistant commands as a regular user. For more information, see [Run Cloud Assistant commands as a regular user](~~203771~~).
         self.username = username  # type: str
-        # The name of the password that you use to run the command on Windows instances.
-        # 
-        # If you do not want to use the default username System to run the command on Windows instances, you must specify the WindowsPasswordName and `Username` parameters. The password is stored in plaintext in the parameter repository of Operation Orchestration Service (OOS) to mitigate the risk of password leaks. Only the name of the password is passed in by using the WindowsPasswordName parameter. For more information, see [Manage encryption parameters](~~186828~~) and [Run Cloud Assistant commands as a regular user](~~203771~~).
-        # 
-        # >  If you use the root username for Linux instances or the System username for Windows instances to run the command, you do not need to specify the WindowsPasswordName parameter.
         self.windows_password_name = windows_password_name  # type: str
 
     def validate(self):
@@ -71770,9 +70246,7 @@ class InvokeCommandShrinkRequest(TeaModel):
 
 class InvokeCommandResponseBody(TeaModel):
     def __init__(self, invoke_id=None, request_id=None):
-        # The ID of the command execution.
         self.invoke_id = invoke_id  # type: str
-        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -71843,28 +70317,11 @@ class JoinResourceGroupRequest(TeaModel):
                  resource_owner_account=None, resource_owner_id=None, resource_type=None):
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The region ID of the resource. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
-        # The ID of the resource group to which you want to assign the resource.
         self.resource_group_id = resource_group_id  # type: str
-        # The ID of the resource. The value of this parameter varies based on the resource type. For example, when ResourceType is set to instance, the ResourceId refers to InstanceId.
         self.resource_id = resource_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The type of the ECS resource. Valid values:
-        # 
-        # *   instance: instance
-        # *   disk: Elastic Block Storage device
-        # *   snapshot: snapshot
-        # *   image: image
-        # *   securitygroup: security group
-        # *   ddh: dedicated host
-        # *   ddhcluster: dedicated host cluster
-        # *   eni: ENI
-        # *   keypair: SSH key pair
-        # *   launchtemplate: launch template
-        # 
-        # These values are case-sensitive.
         self.resource_type = resource_type  # type: str
 
     def validate(self):
@@ -71917,7 +70374,6 @@ class JoinResourceGroupRequest(TeaModel):
 
 class JoinResourceGroupResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -71982,24 +70438,13 @@ class JoinResourceGroupResponse(TeaModel):
 class JoinSecurityGroupRequest(TeaModel):
     def __init__(self, instance_id=None, network_interface_id=None, owner_account=None, owner_id=None,
                  region_id=None, resource_owner_account=None, resource_owner_id=None, security_group_id=None):
-        # The ID of the instance.
-        # 
-        # > If this parameter is specified, the `NetworkInterfaceId` parameter cannot be specified.
         self.instance_id = instance_id  # type: str
-        # The ID of the ENI.
-        # 
-        # > If this parameter is specified, the `InstanceId` parameter cannot be specified.
         self.network_interface_id = network_interface_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The region ID of the instance or ENI. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
-        # 
-        # *   You do not need to specify a region ID when you add an instance to a security group.
-        # *   You must specify a region ID when you add an ENI to a security group.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The ID of the security group to which you want to add the instance or ENI. You can call the [DescribeSecurityGroups](~~25556~~) operation to query available security groups.
         self.security_group_id = security_group_id  # type: str
 
     def validate(self):
@@ -72052,7 +70497,6 @@ class JoinSecurityGroupRequest(TeaModel):
 
 class JoinSecurityGroupResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -72252,29 +70696,12 @@ class LeaveSecurityGroupResponse(TeaModel):
 class ListPluginStatusRequest(TeaModel):
     def __init__(self, instance_id=None, name=None, owner_account=None, owner_id=None, page_number=None,
                  page_size=None, region_id=None, resource_owner_account=None, resource_owner_id=None):
-        # The IDs of ECS instances. You can specify up to 50 instance IDs in each request.
         self.instance_id = instance_id  # type: list[str]
-        # The name of the Cloud Assistant plug-in. The name supports all character sets and must be 1 to 255 characters in length.
-        # 
-        # * If this parameter is not specified, the states of all Cloud Assistant plug-ins that are installed on the specified ECS instances are queried.
-        # 
-        #     > If this parameter is not specified, only a single instance ID can be specified.
-        # 
-        # * If this parameter is specified, the state of the specified Cloud Assistant plug-in is queried.
         self.name = name  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The number of the page to return.
-        # 
-        # *   Pages start from page 1.
-        # *   Default value: 1.
         self.page_number = page_number  # type: long
-        # The number of entries to return on each page.
-        # 
-        # *   Maximum value: 50.
-        # *   Default value: 10.
         self.page_size = page_size  # type: long
-        # The region ID of the ECS instance. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -72334,23 +70761,10 @@ class ListPluginStatusRequest(TeaModel):
 class ListPluginStatusResponseBodyInstancePluginStatusSetInstancePluginStatusPluginStatusSetPluginStatus(TeaModel):
     def __init__(self, first_heartbeat_time=None, last_heartbeat_time=None, plugin_name=None, plugin_status=None,
                  plugin_version=None):
-        # The first time when Cloud Assistant reported the state of the plug-in.
         self.first_heartbeat_time = first_heartbeat_time  # type: str
-        # The last time when Cloud Assistant reported the state of the plug-in.
         self.last_heartbeat_time = last_heartbeat_time  # type: str
-        # The name of the plug-in.
         self.plugin_name = plugin_name  # type: str
-        # The state of the Cloud Assistant plug-in. Valid values:
-        # 
-        # * NotInstalled: The plug-in is not installed.
-        # * Installed: The one-time plug-in is installed.
-        # * Running: The long-running plug-in is running.
-        # * Stopped: The long-running plug-in is not running.
-        # * Crashed: The plug-in is abnormal.
-        # * Removed: The plug-in is uninstalled.
-        # * Unknown: The state of the plug-in is unknown.
         self.plugin_status = plugin_status  # type: str
-        # The version of the plug-in
         self.plugin_version = plugin_version  # type: str
 
     def validate(self):
@@ -72423,9 +70837,7 @@ class ListPluginStatusResponseBodyInstancePluginStatusSetInstancePluginStatusPlu
 
 class ListPluginStatusResponseBodyInstancePluginStatusSetInstancePluginStatus(TeaModel):
     def __init__(self, instance_id=None, plugin_status_set=None):
-        # The ID of the ECS instance.
         self.instance_id = instance_id  # type: str
-        # Details about the Cloud Assistant plug-in.
         self.plugin_status_set = plugin_status_set  # type: ListPluginStatusResponseBodyInstancePluginStatusSetInstancePluginStatusPluginStatusSet
 
     def validate(self):
@@ -72489,15 +70901,10 @@ class ListPluginStatusResponseBodyInstancePluginStatusSet(TeaModel):
 class ListPluginStatusResponseBody(TeaModel):
     def __init__(self, instance_plugin_status_set=None, page_number=None, page_size=None, request_id=None,
                  total_count=None):
-        # The states of the Cloud Assistant plug-ins on the ECS instances.
         self.instance_plugin_status_set = instance_plugin_status_set  # type: ListPluginStatusResponseBodyInstancePluginStatusSet
-        # The page number of the returned page.
         self.page_number = page_number  # type: long
-        # The number of entries returned per page.
         self.page_size = page_size  # type: long
-        # The ID of the request.
         self.request_id = request_id  # type: str
-        # The total number of entries returned.
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -72579,24 +70986,7 @@ class ListPluginStatusResponse(TeaModel):
 
 class ListTagResourcesRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
-        # The key of tag N used for exact search of ECS resources. The tag key must be 1 to 128 characters in length. Valid values of N: 1 to 20.
-        # 
-        # Methods of using the `Tag.N` parameter pair (Tag.N.Key and Tag.N.Value):
-        # 
-        # *   Method 1: Use this parameter pair for exact search of ECS resources that have specified tags added. Each tag is a key-value pair.
-        # 
-        #     *   If you specify only `Tag.N.Key`, all ECS resources whose tags contain the specified tag key are returned.
-        #     *   If you specify only `Tag.N.Value`, the `InvalidParameter.TagValue` error is returned.
-        #     *   If you specify multiple tag key-value pairs, only the ECS resources that have all these tag key-value pairs added are returned.
-        # 
-        # *   Method 2: Use this parameter pair to query resource information of a non-default resource group. Set `Tag.1.Key` to `acs:rm:rgId` and `Tag.1.Value` to the ID of a resource group.
-        # 
-        #     *   If you set `Tag.1.Key` to `acs:rm:rgId`, you must set `Tag.1.Value` to the ID of a non-default resource group. If you set Tag.1.Value to the ID of the default resource group, an error message is returned.
-        #     *   If you set `Tag.1.Key` to `acs:rm:rgId`, you cannot specify other Tag.N parameter pairs. If you specify multiple `Tag.N` parameter pairs to query resource groups and resources at the same time, an error message is returned.
         self.key = key  # type: str
-        # The value of tag N used for exact search of ECS resources. The tag value must be 1 to 128 characters in length. Valid values of N: 1 to 20.
-        # 
-        # > When Tag.1.Key is set to `acs:rm:rgId`, you can set Tag.1.Value only to the ID of a non-default resource group.
         self.value = value  # type: str
 
     def validate(self):
@@ -72625,18 +71015,7 @@ class ListTagResourcesRequestTag(TeaModel):
 
 class ListTagResourcesRequestTagFilter(TeaModel):
     def __init__(self, tag_key=None, tag_values=None):
-        # The key of tag N used for fuzzy search of ECS resources. The tag key must be 1 to 128 characters in length. Valid values of N: 1 to 5.
-        # 
-        # The `TagFilter.N` parameter pair (TagFilter.N.TagKey and TagFilter.N.TagValues.N) is used for fuzzy search of ECS resources that have specified tags added. In the specified tags, a single tag key may correspond to one or more tag values. Fuzzy search may have a latency of 2 seconds. A fuzzy search can return a result set of entries about up to 5,000 resources.
-        # 
-        # *   When you use `TagFilter.N.TagKey` for fuzzy search of ECS resources, you must leave `TagFilter.N.TagValues.N` empty. For example, to query ECS resources whose tags contain the `environment` tag key, you can set `TagFilter.1.TagKey` to `env*` for prefix search, `*env*` for infix search, or `env` for exact search, but you must leave `TagFilter.1.TagValues` empty.
-        # *   When you use `TagFilter.N.TagValues.N` for fuzzy search of ECS resources, you must set `TagFilter.N.TagKey` to an exact value. For example, to query ECS resources that have a tag consisting of the `env` tag key and the `product` tag value, you must set `TagFilter.1.TagKey` to `env` and can set `TagFilter.1.TagValues.1` to `proc*` for prefix search, to `*proc*` for infix search, or to `proc` for exact search. Only one of the preceding search methods can be used for each tag key (`TagFilter.N.TagKey`). If multiple search methods are configured for a tag key, the first search method prevails.
-        # *   If you specify multiple tag keys, only the ECS resources that have all the specified tag keys added are returned.
-        # *   If you specify a tag key that corresponds to multiple tag values, all the ECS resources that have one or more of these tag key-value pairs added are returned.
-        # 
-        # > The `TagFilter.N` parameter pair (TagFilter.N.TagKey and TagFilter.N.TagValues.N) cannot be used together with the `Tag.N` parameter pair (Tag.N.Key and Tag.N.Value). Otherwise, an error message is returned.
         self.tag_key = tag_key  # type: str
-        # The value of tag N used for fuzzy search of ECS resources. The tag value must be 1 to 128 characters in length. Valid values of N: 1 to 5. For more information, see the description of `TagFilter.N.TagKey`.
         self.tag_values = tag_values  # type: list[str]
 
     def validate(self):
@@ -72666,39 +71045,15 @@ class ListTagResourcesRequestTagFilter(TeaModel):
 class ListTagResourcesRequest(TeaModel):
     def __init__(self, next_token=None, owner_account=None, owner_id=None, region_id=None, resource_id=None,
                  resource_owner_account=None, resource_owner_id=None, resource_type=None, tag=None, tag_filter=None):
-        # The token used to start the next query.
         self.next_token = next_token  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The region ID of the resource. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
-        # The ID of resource N. Valid values of N: 1 to 50.
         self.resource_id = resource_id  # type: list[str]
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The type of the resource. Valid values:
-        # 
-        # *   instance: ECS instance
-        # *   disk: disk
-        # *   snapshot: snapshot
-        # *   image: image
-        # *   securitygroup: security group
-        # *   volume: storage volume
-        # *   eni: elastic network interface (ENI)
-        # *   ddh: dedicated host
-        # *   ddhcluster: dedicated host cluster
-        # *   keypair: SSH key pair
-        # *   launchtemplate: launch template
-        # *   reservedinstance: reserved instance
-        # *   snapshotpolicy: automatic snapshot policy
-        # *   elasticityassurance: elasticity assurance
-        # *   capacityreservation: capacity reservation
-        # *   command: Cloud Assistant command.
-        # *   invocation: Cloud Assistant command execution result
         self.resource_type = resource_type  # type: str
-        # The tags that are added to the resources.
         self.tag = tag  # type: list[ListTagResourcesRequestTag]
-        # The regular expression used to filter tags.
         self.tag_filter = tag_filter  # type: list[ListTagResourcesRequestTagFilter]
 
     def validate(self):
@@ -72776,31 +71131,9 @@ class ListTagResourcesRequest(TeaModel):
 
 class ListTagResourcesResponseBodyTagResourcesTagResource(TeaModel):
     def __init__(self, resource_id=None, resource_type=None, tag_key=None, tag_value=None):
-        # The ID of the resource.
         self.resource_id = resource_id  # type: str
-        # The type of the resource. Valid values:
-        # 
-        # *   instance: ECS instance
-        # *   disk: disk
-        # *   snapshot: snapshot
-        # *   image: image
-        # *   securitygroup: security group
-        # *   volume: storage volume
-        # *   eni: ENI
-        # *   ddh: dedicated host
-        # *   ddhcluster: dedicated host cluster
-        # *   keypair: SSH key pair
-        # *   launchtemplate: launch template
-        # *   reservedinstance: reserved instance
-        # *   snapshotpolicy: automatic snapshot policy
-        # *   elasticityassurance: elasticity assurance
-        # *   capacityreservation: capacity reservation
-        # *   command: Cloud Assistant command.
-        # *   invocation: Cloud Assistant command execution result
         self.resource_type = resource_type  # type: str
-        # The tag key.
         self.tag_key = tag_key  # type: str
-        # The tag value.
         self.tag_value = tag_value  # type: str
 
     def validate(self):
@@ -72869,11 +71202,8 @@ class ListTagResourcesResponseBodyTagResources(TeaModel):
 
 class ListTagResourcesResponseBody(TeaModel):
     def __init__(self, next_token=None, request_id=None, tag_resources=None):
-        # The token used to start the next query.
         self.next_token = next_token  # type: str
-        # The ID of the request.
         self.request_id = request_id  # type: str
-        # Details about the resources and tags, including resource IDs, resource types, and tag key-value pairs.
         self.tag_resources = tag_resources  # type: ListTagResourcesResponseBodyTagResources
 
     def validate(self):
@@ -72947,20 +71277,10 @@ class ListTagResourcesResponse(TeaModel):
 
 class ModifyAutoProvisioningGroupRequestLaunchTemplateConfig(TeaModel):
     def __init__(self, instance_type=None, max_price=None, priority=None, v_switch_id=None, weighted_capacity=None):
-        # The instance type in the extended configuration. Valid values of N: 1 to 20. For more information about the valid values of this parameter, see [Instance families](~~25378~~).
         self.instance_type = instance_type  # type: str
-        # The highest price of preemptible instances that is specified in the extended configuration.
         self.max_price = max_price  # type: float
-        # The priority of the extended configuration. A value of 0 indicates the highest priority. The value must be greater than 0.
         self.priority = priority  # type: int
-        # The ID of the vSwitch in extended configuration. The zone of the instances created from the extended configuration is determined by the vSwitch.
         self.v_switch_id = v_switch_id  # type: str
-        # The weight of the instance type in the extended configuration. A greater weight indicates that a single instance has more computing power and that fewer instances are required. The value must be greater than 0.
-        # 
-        # The weight is calculated based on the computing power of the instance type and the minimum computing power of a single instance in the cluster to be created by the auto provisioning group. For example, assume that the minimum computing power of a single instance is 8 vCPUs and 60 GiB of memory.
-        # 
-        # *   For an instance type with 8 vCPUs and 60 GiB of memory, you can set the weight to 1.
-        # *   For an instance type with 16 vCPUs and 120 GiB of memory, you can set the weight to 2.
         self.weighted_capacity = weighted_capacity  # type: float
 
     def validate(self):
@@ -73005,44 +71325,20 @@ class ModifyAutoProvisioningGroupRequest(TeaModel):
                  owner_account=None, owner_id=None, pay_as_you_go_target_capacity=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None, spot_target_capacity=None,
                  terminate_instances_with_expiration=None, total_target_capacity=None):
-        # The ID of the auto provisioning group.
         self.auto_provisioning_group_id = auto_provisioning_group_id  # type: str
-        # The name of the auto provisioning group. The name must be 2 to 128 characters in length. It must start with a letter and cannot start with `http://` or `https://`. It can contain letters, digits, colons (`:`), underscores (`_`), and hyphens (`-`).
         self.auto_provisioning_group_name = auto_provisioning_group_name  # type: str
-        # The type of supplemental instances. When the sum of the PayAsYouGoTargetCapacity and SpotTargetCapacity values is smaller than the TotalTargetCapacity value, the auto provisioning group creates instances of the specified billing method to meet the target capacity. Valid values:
-        # 
-        # *   PayAsYouGo: pay-as-you-go instances.
-        # *   Spot: preemptible instances.
         self.default_target_capacity_type = default_target_capacity_type  # type: str
-        # Specifies whether to release the removed instances when the real-time capacity of the auto provisioning group exceeds the target capacity and a scale-in event is triggered. Valid values:
-        # 
-        # *   termination: releases the removed instances.
-        # *   no-termination: only removes the instances from the auto provisioning group but does not release them.
         self.excess_capacity_termination_policy = excess_capacity_termination_policy  # type: str
-        # The extended configurations.
         self.launch_template_config = launch_template_config  # type: list[ModifyAutoProvisioningGroupRequestLaunchTemplateConfig]
-        # The maximum price of preemptible instances in the auto provisioning group.
-        # 
-        # > When both the MaxSpotPrice and LaunchTemplateConfig.N.MaxPrice parameters are specified, the smaller one of the two parameter values is used. The LaunchTemplateConfig.N.MaxPrice parameter is set when the auto provisioning group is created, and cannot be modified.
         self.max_spot_price = max_spot_price  # type: float
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The target capacity of pay-as-you-go instances in the auto provisioning group. The value must be smaller than the TotalTargetCapacity value.
         self.pay_as_you_go_target_capacity = pay_as_you_go_target_capacity  # type: str
-        # The region ID of the auto provisioning group. You can call the [DescribeRegions](~~25609~~) operation to query the most recent list of regions.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The target capacity of preemptible instances in the auto provisioning group. The value must be smaller than the TotalTargetCapacity value.
         self.spot_target_capacity = spot_target_capacity  # type: str
-        # Specifies whether to release instances in the auto provisioning group when the auto provisioning group expires. Valid values:
-        # 
-        # *   true: releases instances in the auto provisioning group.
-        # *   false: only removes instances from the auto provisioning group but does not release them.
         self.terminate_instances_with_expiration = terminate_instances_with_expiration  # type: bool
-        # The total target capacity of the auto provisioning group. The value must be a positive integer.
-        # 
-        # The total target capacity of the auto provisioning group must be greater than or equal to the sum of the target capacity of pay-as-you-go instances specified by the PayAsYouGoTargetCapacity parameter and the target capacity of preemptible instances specified by the SpotTargetCapacity parameter.
         self.total_target_capacity = total_target_capacity  # type: str
 
     def validate(self):
@@ -73131,7 +71427,6 @@ class ModifyAutoProvisioningGroupRequest(TeaModel):
 
 class ModifyAutoProvisioningGroupResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -73342,49 +71637,17 @@ class ModifyAutoSnapshotPolicyExRequest(TeaModel):
     def __init__(self, copied_snapshots_retention_days=None, enable_cross_region_copy=None, owner_id=None,
                  resource_owner_account=None, resource_owner_id=None, target_copy_regions=None, auto_snapshot_policy_id=None,
                  auto_snapshot_policy_name=None, region_id=None, repeat_weekdays=None, retention_days=None, time_points=None):
-        # The retention period of the snapshot copy in the destination region. Unit: days. Valid values:
-        # 
-        # *   \-1: The snapshot is permanently retained.
-        # *   1 to 65535: The automatic snapshot is retained for the specified number of days.
-        # 
-        # Default value: -1.
         self.copied_snapshots_retention_days = copied_snapshots_retention_days  # type: int
-        # Specifies whether to enable cross-region replication for the automatic snapshot.
-        # 
-        # *   true: enables cross-region replication for the automatic snapshot.
-        # *   false: disables cross-region replication for the automatic snapshot.
         self.enable_cross_region_copy = enable_cross_region_copy  # type: bool
         self.owner_id = owner_id  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The destination region to which to copy the snapshot. You can specify only a single destination region.
         self.target_copy_regions = target_copy_regions  # type: str
-        # The ID of the automatic snapshot policy. You can call the [DescribeAutoSnapshotPolicyEx](~~25530~~) operation to query available automatic snapshot policies.
         self.auto_snapshot_policy_id = auto_snapshot_policy_id  # type: str
-        # The name of the automatic snapshot policy. If this parameter is not specified, the original name of the automatic snapshot policy is retained.
         self.auto_snapshot_policy_name = auto_snapshot_policy_name  # type: str
-        # The region ID of the automatic snapshot policy to be modified. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
-        # The days of the week on which to create automatic snapshots. Valid values are 1 to 7, which correspond to the days of the week. For example, a value of 1 indicates Monday.
-        # 
-        # To schedule multiple automatic snapshots to be created in a week, you can specify multiple days.
-        # 
-        # *   You can specify up to seven days over a one-week period.
-        # *   You must set this parameter to a JSON array such as `["1", "2" ... "7"]`. Separate the values in the array with commas (,).
         self.repeat_weekdays = repeat_weekdays  # type: str
-        # The retention period of the automatic snapshot. Unit: days. Valid values:
-        # 
-        # *   \-1: The automatic snapshot is permanently retained.
-        # *   1 to 65536: The auto snapshot is retained for the specified number of days.
-        # 
-        # Default value: -1.
         self.retention_days = retention_days  # type: int
-        # The points in time of the day at which to create automatic snapshots. The time must be in UTC+8. Unit: hours. Valid values are 0 to 23, which correspond to the 24 points in time on the hour from 00:00:00 to 23:00:00. For example, a value of 1 indicates 01:00:00.
-        # 
-        # To schedule multiple automatic snapshots to be created in a day, you can specify multiple hours.
-        # 
-        # *   You can specify up to 24 points in time.
-        # *   You must set this parameter to a JSON array such as `["0", "1", ... "23"]`. Separate the points in time with commas (,).
         self.time_points = time_points  # type: str
 
     def validate(self):
@@ -73453,7 +71716,6 @@ class ModifyAutoSnapshotPolicyExRequest(TeaModel):
 
 class ModifyAutoSnapshotPolicyExResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -73635,9 +71897,7 @@ class ModifyBandwidthPackageSpecResponse(TeaModel):
 
 class ModifyCapacityReservationRequestPrivatePoolOptions(TeaModel):
     def __init__(self, id=None, name=None):
-        # The ID of the capacity reservation.
         self.id = id  # type: str
-        # The name of the capacity reservation. The name must be 2 to 128 characters in length. It must start with a letter but cannot start with http:// or https://. The name can contain letters, digits, colons (:), underscores (\_), and hyphens (-).
         self.name = name  # type: str
 
     def validate(self):
@@ -73669,35 +71929,16 @@ class ModifyCapacityReservationRequest(TeaModel):
                  instance_amount=None, owner_account=None, owner_id=None, platform=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None, start_time=None):
         self.private_pool_options = private_pool_options  # type: ModifyCapacityReservationRequestPrivatePoolOptions
-        # The description of the capacity reservation. The description must be 2 to 256 characters in length and cannot start with `http://` or `https://`.
         self.description = description  # type: str
-        # The expiration time of the capacity reservation. This parameter takes effect only when `EndTimeType` is set to Limited. Specify the time in the ISO 8601 standard in the `yyyy-MM-ddTHH:mm:ssZ` format. The time must be in UTC. For more information, see [ISO 8601](~~25696~~).
         self.end_time = end_time  # type: str
-        # The release mode of the capacity reservation. Valid values:
-        # 
-        # *   Limited: The capacity reservation is released at the specified time. You must also specify the `EndTime` parameter.
-        # *   Unlimited: You must manually release the capacity reservation. You can release capacity reservations at any time.
         self.end_time_type = end_time_type  # type: str
-        # The total number of instances reserved by the capacity reservation. Valid values: the number of created instances to 1000.
-        # 
-        # >  When you increase the number of instances reserved, the increase may fail due to insufficient resources.
         self.instance_amount = instance_amount  # type: int
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The operating system type of the instance reserved. Valid values:
-        # 
-        # *   Windows: Windows Server operating systems
-        # *   Linux: Linux and Unix-like operating systems
-        # 
-        # >  This parameter is unavailable.
         self.platform = platform  # type: str
-        # The region ID of the capacity reservation. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The effective mode of the capacity reservation. The capacity reservation can be set only to take effect immediately. You do not need to pass in a value for the parameter.
-        # 
-        # >  The capacity reservation takes effect immediately when this parameter is left empty.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -73768,7 +72009,6 @@ class ModifyCapacityReservationRequest(TeaModel):
 
 class ModifyCapacityReservationResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -73834,34 +72074,16 @@ class ModifyCommandRequest(TeaModel):
     def __init__(self, command_content=None, command_id=None, description=None, name=None, owner_account=None,
                  owner_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None, timeout=None,
                  working_dir=None):
-        # The content of the command. The command content can be plaintext or Base64-encoded. When you call this operation, take note of the following items:
-        # 
-        # *   The Base64-encoded command content cannot exceed 16 KB in size.
-        # 
-        # *   If the command content is Base64-encoded, set `ContentEncoding` to Base64.
-        # 
-        # *   When `EnableParameter` is set to true, the custom parameter feature is enabled and you can configure custom parameters based on the following rules:
-        # 
-        #     *   Define custom parameters in the `{{}}` format. Within `{{}}`, the spaces and line feeds before and after the parameter names are ignored.
-        #     *   The number of custom parameters cannot exceed 20.
-        #     *   A custom parameter name can contain only letters, digits, underscores (\_), and hyphens (-). The name is case-insensitive.
-        #     *   Each custom parameter name cannot exceed 64 bytes in length.
         self.command_content = command_content  # type: str
-        # The ID of the command. You can call the [DescribeCommands](~~64843~~) operation to query all available command IDs.
         self.command_id = command_id  # type: str
-        # The description of the command. The description supports all character sets and can be up to 512 characters in length.
         self.description = description  # type: str
-        # The name of the command. The name supports all character sets and can be up to 128 characters in length.
         self.name = name  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The ID of the region. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The maximum timeout period for command execution. Unit: seconds. When a command cannot run within the specified time range, the command times out. When a command execution times out, the Cloud Assistant client forcefully terminates the command process by canceling the process ID (PID) of the command.
         self.timeout = timeout  # type: long
-        # The working directory of the command on the Elastic Compute Service (ECS) instance.
         self.working_dir = working_dir  # type: str
 
     def validate(self):
@@ -73926,7 +72148,6 @@ class ModifyCommandRequest(TeaModel):
 
 class ModifyCommandResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -73990,9 +72211,7 @@ class ModifyCommandResponse(TeaModel):
 
 class ModifyDedicatedHostAttributeRequestNetworkAttributes(TeaModel):
     def __init__(self, slb_udp_timeout=None, udp_timeout=None):
-        # The timeout period for a UDP session between a Server Load Balancer (SLB) instance and the dedicated host. Unit: seconds. Valid values: 15 to 310.
         self.slb_udp_timeout = slb_udp_timeout  # type: int
-        # The timeout period for a UDP session between a user and an Alibaba Cloud service on the dedicated host. Unit: seconds. Valid values: 15 to 310.
         self.udp_timeout = udp_timeout  # type: int
 
     def validate(self):
@@ -74025,37 +72244,15 @@ class ModifyDedicatedHostAttributeRequest(TeaModel):
                  description=None, owner_account=None, owner_id=None, region_id=None, resource_owner_account=None,
                  resource_owner_id=None):
         self.network_attributes = network_attributes  # type: ModifyDedicatedHostAttributeRequestNetworkAttributes
-        # The policy for migrating the instances deployed on the dedicated host when the dedicated host fails or needs to be repaired online. Valid values:
-        # 
-        # *   Migrate: The instances are migrated to another physical machine and then restarted.
-        # *   Stop: The instances are stopped. If the dedicated host cannot be repaired, the instances are migrated to another physical machine and then restarted.
-        # 
-        # If the dedicated host has cloud disks attached, the default value is Migrate.
-        # 
-        # If the dedicated host has local disks attached, the default value is Stop.
         self.action_on_maintenance = action_on_maintenance  # type: str
-        # Specifies whether to add the dedicated host to the resource pool for automatic deployment. If you do not specify the **DedicatedHostId** parameter when you create an instance on a dedicated host, Alibaba Cloud automatically selects a dedicated host from the resource pool to host the instance. Valid values:
-        # 
-        # *   on: adds the dedicated host to the resource pool for automatic deployment.
-        # *   off: does not add the dedicated host to the resource pool for automatic deployment.
-        # 
-        # For information about automatic deployment, see [Features](~~118938~~).
         self.auto_placement = auto_placement  # type: str
-        # The CPU overcommit ratio. You can configure CPU overcommit ratios only for the following dedicated host types: g6s, c6s, and r6s. Valid values: 1 to 5.
-        # 
-        # The CPU overcommit ratio affects the number of available vCPUs on a dedicated host. You can use the following formula to calculate the number of available vCPUs on a dedicated host: Number of available vCPUs = Number of physical CPU cores × 2 × CPU overcommit ratio. For example, the number of physical CPU cores on each g6s dedicated host is 52. If you change the CPU overcommit ratio of a g6s dedicated host to 4, the number of available vCPUs on the dedicated host is 416. For scenarios that have minimal requirements for CPU stability or where CPU load is not heavy, such as development and test environments, you can increase the number of available vCPUs on a dedicated host by increasing the CPU overcommit ratio. This way, you can deploy more ECS instances of the same specifications on the dedicated host and reduce the unit deployment cost.
         self.cpu_over_commit_ratio = cpu_over_commit_ratio  # type: float
-        # The ID of the dedicated host cluster to which the dedicated host belongs.
         self.dedicated_host_cluster_id = dedicated_host_cluster_id  # type: str
-        # The ID of the dedicated host.
         self.dedicated_host_id = dedicated_host_id  # type: str
-        # The name of the dedicated host. The name must be 2 to 128 characters in length. It must start with a letter and cannot start with http:// or https://. The name can contain digits, letters, colons (:), underscores (\_), and hyphens (-).
         self.dedicated_host_name = dedicated_host_name  # type: str
-        # The description of the dedicated host. The description must be 2 to 256 characters in length and cannot start with `http://` or `https://`.
         self.description = description  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The region ID of the dedicated host. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -74132,7 +72329,6 @@ class ModifyDedicatedHostAttributeRequest(TeaModel):
 
 class ModifyDedicatedHostAttributeResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -74197,18 +72393,10 @@ class ModifyDedicatedHostAttributeResponse(TeaModel):
 class ModifyDedicatedHostAutoReleaseTimeRequest(TeaModel):
     def __init__(self, auto_release_time=None, dedicated_host_id=None, owner_account=None, owner_id=None,
                  region_id=None, resource_owner_account=None, resource_owner_id=None):
-        # The automatic release time of the dedicated host. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
-        # 
-        # *   The scheduled release time must be at least 30 minutes from the current time.
-        # *   The scheduled release time can be at most 3 years from the current time.
-        # *   If the value of the seconds (ss) is not 00, it is automatically set to 00.
-        # *   If you do not specify the `AutoReleaseTime` parameter, automatic release is disabled. The dedicated host will not be released at the scheduled time.
         self.auto_release_time = auto_release_time  # type: str
-        # The ID of the dedicated host.
         self.dedicated_host_id = dedicated_host_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The region ID of the dedicated host. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -74259,7 +72447,6 @@ class ModifyDedicatedHostAutoReleaseTimeRequest(TeaModel):
 
 class ModifyDedicatedHostAutoReleaseTimeResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -74325,54 +72512,14 @@ class ModifyDedicatedHostAutoRenewAttributeRequest(TeaModel):
     def __init__(self, auto_renew=None, auto_renew_with_ecs=None, dedicated_host_ids=None, duration=None,
                  owner_account=None, owner_id=None, period_unit=None, region_id=None, renewal_status=None,
                  resource_owner_account=None, resource_owner_id=None):
-        # Specifies whether to automatically renew the subscription dedicated host. Valid values:
-        # 
-        # *   true: automatically renews the subscription dedicated host.
-        # *   false: does not automatically renew the subscription dedicated host.
-        # 
-        # Default value: false.
         self.auto_renew = auto_renew  # type: bool
-        # Specifies whether to automatically renew the subscription dedicated host along with the subscription ECS instances hosted on it.
-        # 
-        # If auto-renewal is enabled for the subscription ECS instances hosted on your subscription dedicated host, you can specify this parameter to automatically renew the dedicated host along with the subscription ECS instances. When the subscription ECS instances hosted on your dedicated host are automatically renewed, the dedicated host is also automatically renewed if the expiration time of the dedicated host is earlier than the expiration time of the renewed instances.
-        # 
-        # When the dedicated host is configured to be automatically renewed along with the subscription ECS instances hosted on it, the dedicated host determines the expiration time of the renewed instances, and selects a minimum value from the valid values of the Duration parameter so that the dedicated host is renewed by a duration that expires later than the expiration time of the renewed instances. For more information about supported renewal durations, see the descriptions of the `PeriodUnit` and `Duration` parameters.
-        # 
-        # For example, assume that you have a subscription dedicated host that expires on January 15 of the current year. Subscription ECS instances hosted on the dedicated host have the auto-renewal feature enabled, and are automatically renewed to November 15 of the same year. The expiration time of the dedicated host is earlier than the expiration time of the ECS instances by 10 months. In this case, the dedicated host selects a renewal duration of 12 months, which is the minimum value of the `Duration` parameter (`PeriodUnit=Month`) that allows the dedicated host to expire later than the ECS instances.
-        # 
-        # Valid values:
-        # 
-        # *   AutoRenewWithEcs: automatically renews the subscription dedicated host along with the subscription ECS instances hosted on it.
-        # *   StopRenewWithEcs: does not automatically renew the subscription dedicated host along with the subscription ECS instances hosted on it.
-        # *   NoOperation: does not change the current settings for the dedicated host.
-        # 
-        # >  If you set this parameter to AutoRenewWithEcs, make sure that `AutoRenew` is set to true to enable auto-renewal for the dedicated host. Otherwise, only the parameter value is changed. The dedicated host is not automatically renewed along with the subscription ECS instances hosted on it.
-        # 
-        # Default value: NoOperation.
         self.auto_renew_with_ecs = auto_renew_with_ecs  # type: str
-        # The IDs of the dedicated hosts. You can specify up to 100 subscription dedicated host IDs. Separate multiple IDs with commas (,).
         self.dedicated_host_ids = dedicated_host_ids  # type: str
-        # The renewal duration of the dedicated host. Valid values:
-        # 
-        # *   When the PeriodUnit parameter is set to Week, the valid values of the Duration parameter are 1, 2, and 3.
-        # *   When the PeriodUnit parameter is set to Month, the valid values of the Duration parameter are 1, 2, 3, 6, and 12.
         self.duration = duration  # type: int
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The unit of the renewal duration. Valid values:
-        # 
-        # *   Week
-        # *   Month
-        # 
-        # Default value: Month.
         self.period_unit = period_unit  # type: str
-        # The region ID of the dedicated host.
         self.region_id = region_id  # type: str
-        # Specifies whether to automatically renew the subscription dedicated host. The `RenewalStatus` parameter takes precedence over the `AutoRenew` parameter. Valid values:
-        # 
-        # *   AutoRenewal: automatically renews the subscription dedicated host.
-        # *   Normal: does not automatically renew the subscription dedicated host, but notifications for renewal are sent.
-        # *   NotRenewal: does not automatically renew the subscription dedicated host, and no expiration notification is sent. Notifications for renewal are automatically sent three days before the expiration time of the subscription dedicated host. You can change the value of this parameter from NotRenewal to Normal for the dedicated host and manually renew it by calling the [RenewDedicatedHosts](~~134250~~) operation. Alternatively, you can renew it by setting this parameter to AutoRenewal.
         self.renewal_status = renewal_status  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -74439,7 +72586,6 @@ class ModifyDedicatedHostAutoRenewAttributeRequest(TeaModel):
 
 class ModifyDedicatedHostAutoRenewAttributeResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -74628,52 +72774,16 @@ class ModifyDedicatedHostsChargeTypeRequest(TeaModel):
     def __init__(self, auto_pay=None, client_token=None, dedicated_host_charge_type=None, dedicated_host_ids=None,
                  detail_fee=None, dry_run=None, owner_account=None, owner_id=None, period=None, period_unit=None,
                  region_id=None, resource_owner_account=None, resource_owner_id=None):
-        # Specifies whether to enable automatic payment. Valid values:
-        # 
-        # *   true: enables automatic payment. Make sure that your account balance is sufficient. Otherwise, your order becomes invalid and must be canceled.
-        # *   false: An order is generated but no payment is made.
-        # 
-        # Default value: true.
-        # 
-        # >  If your account balance is insufficient, you can set the `AutoPay` parameter to `false` to generate an unpaid order. Then, you can pay for the order.
         self.auto_pay = auto_pay  # type: bool
-        # The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must make sure that the value is unique among different requests. The `ClientToken` value can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).
         self.client_token = client_token  # type: str
-        # The new billing method for the dedicated host. Valid values:
-        # 
-        # *   PrePaid: changes the billing method from pay-as-you-go to subscription.
-        # *   PostPaid: changes the billing method from subscription to pay-as-you-go.
-        # 
-        # Default value: PrePaid.
         self.dedicated_host_charge_type = dedicated_host_charge_type  # type: str
-        # The IDs of dedicated hosts. The value can be a JSON array that consists of up to 20 dedicated host IDs. Separate the dedicated host IDs with commas (,).
         self.dedicated_host_ids = dedicated_host_ids  # type: str
-        # Specifies whether to return the billing details of the order when the billing method is changed from subscription to pay-as-you-go.
-        # 
-        # Default value: false.
         self.detail_fee = detail_fee  # type: bool
-        # Specifies whether to check the validity of the request without actually making the request. Valid values:
-        # 
-        # *   true: The validity of the request is checked but the request is not made. Check items include whether your AccessKey pair is valid, whether RAM users are granted required permissions, and whether the required parameters are specified. If the check fails, the corresponding error is returned. If the check succeeds, the `DryRunOperation` error code is returned.
-        # *   false: The validity of the request is checked. If the check succeeds, a 2XX HTTP status code is returned, and the request is made.
-        # 
-        # Default value: false.
         self.dry_run = dry_run  # type: bool
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The renewal duration of the subscription dedicated host. Valid values:
-        # 
-        # *   When `PeriodUnit` is set to Week, valid values of `Period` are 1, 2, 3, and 4.
-        # *   When `PeriodUnit` is set to Month, valid values of `Period` are 1, 2, 3, 4, 5, 6, 7, 8, 9, 12, 24, 36, 48, and 60.
         self.period = period  # type: int
-        # The unit of the renewal duration (`Period`). Valid values:
-        # 
-        # *   Week
-        # *   Month
-        # 
-        # Default value: Month.
         self.period_unit = period_unit  # type: str
-        # The region ID of the dedicated host. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -74748,15 +72858,8 @@ class ModifyDedicatedHostsChargeTypeRequest(TeaModel):
 
 class ModifyDedicatedHostsChargeTypeResponseBodyFeeOfInstancesFeeOfInstance(TeaModel):
     def __init__(self, currency=None, fee=None, instance_id=None):
-        # The unit of currency for the bill.
-        # 
-        # Alibaba Cloud China site (aliyun.com): CNY.
-        # 
-        # Alibaba Cloud International site (alibabacloud.com): USD.
         self.currency = currency  # type: str
-        # The cost value.
         self.fee = fee  # type: str
-        # The ID of the dedicated host.
         self.instance_id = instance_id  # type: str
 
     def validate(self):
@@ -74821,11 +72924,8 @@ class ModifyDedicatedHostsChargeTypeResponseBodyFeeOfInstances(TeaModel):
 
 class ModifyDedicatedHostsChargeTypeResponseBody(TeaModel):
     def __init__(self, fee_of_instances=None, order_id=None, request_id=None):
-        # Details about the charges for the order.
         self.fee_of_instances = fee_of_instances  # type: ModifyDedicatedHostsChargeTypeResponseBodyFeeOfInstances
-        # The ID of the order.
         self.order_id = order_id  # type: str
-        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -74902,22 +73002,61 @@ class ModifyDemandRequest(TeaModel):
                  end_time=None, instance_charge_type=None, instance_type=None, owner_account=None, owner_id=None,
                  period=None, period_unit=None, region_id=None, resource_owner_account=None, resource_owner_id=None,
                  start_time=None, zone_id=None):
+        # The number of instances. Valid values: 1 to 100000.
         self.amount = amount  # type: int
+        # The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must make sure that it is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).
         self.client_token = client_token  # type: str
+        # The description of the demand. The description must be 2 to 256 characters in length. It cannot start with http:// or https://.
         self.demand_description = demand_description  # type: str
+        # The ID of the demand that you want to modify.
         self.demand_id = demand_id  # type: str
+        # The name of the demand. The name must be 2 to 128 characters in length. The name must start with a letter but cannot start with `http://` or `https://`. The name can contain letters, digits, colons (:), underscores (\_), periods (.), and hyphens (-).
+        # 
+        # The default value is the instance type name.
         self.demand_name = demand_name  # type: str
+        # The end time of the subscription period. Specify the time in the [ISO 8601](~~25696~~) standard in the yyyy-MM-dd HH:mm:ss format. The time must be in UTC.
+        # 
+        # If the value of seconds (ss) is not 00, the time is automatically set to the beginning of the specified minute (mm).
+        # 
+        # The value of EndTime must be later than the value of Starttime.
+        # 
+        # Typically, the interval between the two times cannot be more than 10 days.
         self.end_time = end_time  # type: str
+        # The billing method of the instance. Default value: PostPaid. Valid values:
+        # 
+        # *   PrePaid: subscription
+        # *   PostPaid: pay-as-you-go
         self.instance_charge_type = instance_charge_type  # type: str
+        # The instance type. For more information, see [Instance families](~~25378~~) or call the [DescribeInstanceTypes](~~25620~~) operation to query the performance data of the filed instance type, or see [Select instance types](~~58291~~) to learn how to select instance types.
         self.instance_type = instance_type  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The subscription period of the resource. Unit: month. You must specify the parameter. This parameter is valid only when `InstanceChargeType` is set to PrePaid. Valid values:
+        # 
+        # *   Valid values when PeriodUnit is set to Week: 1, 2, 3, and 4.
+        # *   Valid values when PeriodUnit is set to Month: 1, 2, 3, 4, 5, 6, 7, 8, 9, 12, 24, 36, 48, and 60.
         self.period = period  # type: int
+        # The unit of the subscription period of the resource. Default value: Month. Valid values:
+        # 
+        # *   Day
+        # *   Week
+        # *   Month
         self.period_unit = period_unit  # type: str
+        # The region ID of the instance. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The start time of the subscription period. Specify the time in the [ISO 8601](~~25696~~) standard in the yyyy-MM-dd HH:mm:ss format. The time must be in UTC.
+        # 
+        # If the value of seconds (ss) is not 00, the time is automatically set to the beginning of the specified minute (mm).
+        # 
+        # The value of EndTime must be later than the value of Starttime.
+        # 
+        # Typically, the interval between the two times cannot be more than 10 days.
         self.start_time = start_time  # type: str
+        # The zone ID of the instance. You can call the [DescribeZones](~~25610~~) operation to query the most recent zone list.
+        # 
+        # This parameter is empty by default. If you do not specify a zone, the system randomly selects one.
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -75006,6 +73145,7 @@ class ModifyDemandRequest(TeaModel):
 
 class ModifyDemandResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -75070,15 +73210,11 @@ class ModifyDemandResponse(TeaModel):
 class ModifyDeploymentSetAttributeRequest(TeaModel):
     def __init__(self, deployment_set_id=None, deployment_set_name=None, description=None, owner_account=None,
                  owner_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None):
-        # The ID of the deployment set.
         self.deployment_set_id = deployment_set_id  # type: str
-        # The new name of the deployment set. The name must be 2 to 128 characters in length. It must start with a letter and cannot start with http:// or https://. It can contain letters, digits, colons (:), underscores (\_), and hyphens (-).
         self.deployment_set_name = deployment_set_name  # type: str
-        # The new description of the deployment set. The description must be 2 to 256 characters in length and cannot start with http:// or https://.
         self.description = description  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The region ID of the deployment set. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -75133,7 +73269,6 @@ class ModifyDeploymentSetAttributeRequest(TeaModel):
 
 class ModifyDeploymentSetAttributeResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -75198,17 +73333,11 @@ class ModifyDeploymentSetAttributeResponse(TeaModel):
 class ModifyDiagnosticMetricSetRequest(TeaModel):
     def __init__(self, description=None, metric_ids=None, metric_set_id=None, metric_set_name=None, region_id=None,
                  resource_type=None):
-        # The new description of the diagnostic metric set.
         self.description = description  # type: str
-        # The IDs of diagnostic metrics.
         self.metric_ids = metric_ids  # type: list[str]
-        # The ID of the diagnostic metric set.
         self.metric_set_id = metric_set_id  # type: str
-        # The new name of the diagnostic metric set.
         self.metric_set_name = metric_set_name  # type: str
-        # The region ID of the diagnostic metric set. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
-        # The type of the resource.
         self.resource_type = resource_type  # type: str
 
     def validate(self):
@@ -75253,7 +73382,6 @@ class ModifyDiagnosticMetricSetRequest(TeaModel):
 
 class ModifyDiagnosticMetricSetResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -75496,25 +73624,13 @@ class ModifyDiskAttributeResponse(TeaModel):
 class ModifyDiskChargeTypeRequest(TeaModel):
     def __init__(self, auto_pay=None, client_token=None, disk_charge_type=None, disk_ids=None, instance_id=None,
                  owner_account=None, owner_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None):
-        # Specifies whether to automatically complete the payment. Valid values:
-        # 
-        # *   true: The payment is automatically completed. Maintain a sufficient account balance. Otherwise, your order becomes invalid and is canceled.
-        # *   false: An order is generated but no payment is made. If your account balance is insufficient, you can set the AutoPay parameter to false to generate an unpaid order. Then, you can log on to the ECS console to pay for the order.
         self.auto_pay = auto_pay  # type: bool
-        # The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must make sure that it is unique among different requests. The **ClientToken** value can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).
         self.client_token = client_token  # type: str
-        # The new billing method of the disk. Default value: PrePaid. Valid values:
-        # 
-        # *   PrePaid: changes the billing method from pay-as-you-go to subscription.
-        # *   PostPaid: changes the billing method from subscription to pay-as-you-go.
         self.disk_charge_type = disk_charge_type  # type: str
-        # The IDs of disks. The value is a JSON array that consists of up to 16 disk IDs. Separate the disk IDs with commas (,).
         self.disk_ids = disk_ids  # type: str
-        # The ID of the instance to which the disk is attached.
         self.instance_id = instance_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The region ID of the instance. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -75577,9 +73693,7 @@ class ModifyDiskChargeTypeRequest(TeaModel):
 
 class ModifyDiskChargeTypeResponseBody(TeaModel):
     def __init__(self, order_id=None, request_id=None):
-        # The ID of the order.
         self.order_id = order_id  # type: str
-        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -75648,12 +73762,41 @@ class ModifyDiskChargeTypeResponse(TeaModel):
 class ModifyDiskSpecRequest(TeaModel):
     def __init__(self, disk_category=None, disk_id=None, dry_run=None, owner_account=None, owner_id=None,
                  performance_level=None, provisioned_iops=None, resource_owner_account=None, resource_owner_id=None):
+        # The new category of the disk. Valid values:
+        # 
+        # *   cloud_essd: ESSD
+        # *   cloud_ssd: standard SSD
+        # *   cloud_efficiency: ultra disk
+        # 
+        # This parameter is empty by default, which indicates that the disk category is not changed.
+        # 
+        # >  The preceding values are listed in descending order of disk performance. The disk cannot be downgraded if it is a subscription disk.
         self.disk_category = disk_category  # type: str
+        # The ID of the disk.
         self.disk_id = disk_id  # type: str
+        # Specifies whether to check the validity of the request without actually making the request. Valid values:
+        # 
+        # *   true: The validity of the request is checked but the request is not made. Check items include the required parameters, request format, service limits, and available ECS resources. If the check fails, the corresponding error message is returned. If the check succeeds, the `DryRunOperation` error code is returned.
+        # *   false: The validity of the request is checked. If the check succeeds, a 2xx HTTP status code is returned and the request is made.
+        # 
+        # Default value: false.
         self.dry_run = dry_run  # type: bool
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The new performance level of the ESSD. Valid values:
+        # 
+        # *   PL0: A single ESSD can deliver up to 10,000 random read/write IOPS.
+        # *   PL1: A single ESSD can deliver up to 50,000 random read/write IOPS.
+        # *   PL2: A single ESSD can deliver up to 100,000 random read/write IOPS.
+        # *   PL3: A single ESSD can deliver up to 1,000,000 random read/write IOPS.
+        # 
+        # Default value: PL1.
         self.performance_level = performance_level  # type: str
+        # 是否修改ESSD AutoPL云盘预配置读写IOPS。取值范围：0~min{50000, 1000*容量-基准性能}。
+        # 
+        # 基准性能=min{1,800+50*容量, 50,000}
+        # 
+        # > 当DiskCategory取值为cloud_auto时才支持设置该参数。更多信息，请参见[ESSD AutoPL云盘](~~368372~~)和[修改ESSD AutoPL云盘预配置信息](~~413275~~)。
         self.provisioned_iops = provisioned_iops  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -75712,8 +73855,15 @@ class ModifyDiskSpecRequest(TeaModel):
 
 class ModifyDiskSpecResponseBody(TeaModel):
     def __init__(self, order_id=None, request_id=None, task_id=None):
+        # The ID of the order.
+        # 
+        # >  This parameter is returned only when the category of a subscription disk or the performance level of a subscription ESSD is modified.
         self.order_id = order_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The task ID of changing the disk category.
+        # 
+        # >  If you only modify the performance level of an ESSD, this parameter is not returned.
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -76325,21 +74475,12 @@ class ModifyHaVipAttributeResponse(TeaModel):
 class ModifyHpcClusterAttributeRequest(TeaModel):
     def __init__(self, client_token=None, description=None, hpc_cluster_id=None, name=None, owner_account=None,
                  owner_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None):
-        # The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must ensure that it is unique among different requests. The **ClientToken** value must contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotency](~~25693~~).
         self.client_token = client_token  # type: str
-        # The description of the HPC cluster. The description must be 2 to 256 characters in length and cannot start with http:// or https://.
-        # 
-        # This parameter is empty by default.
         self.description = description  # type: str
-        # The ID of the HPC cluster.
         self.hpc_cluster_id = hpc_cluster_id  # type: str
-        # The name of the HPC cluster. The name must be 2 to 128 characters in length. It must start with a letter but cannot start with http:// or https://. It can contain letters, digits, underscores (\_), and hyphens (-).
-        # 
-        # This parameter is empty by default.
         self.name = name  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The region ID of the HPC cluster. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -76398,7 +74539,6 @@ class ModifyHpcClusterAttributeRequest(TeaModel):
 
 class ModifyHpcClusterAttributeResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -76462,6 +74602,10 @@ class ModifyHpcClusterAttributeResponse(TeaModel):
 
 class ModifyImageAttributeRequestFeatures(TeaModel):
     def __init__(self, nvme_support=None):
+        # Specifies whether to support the Non-Volatile Memory Express (NVMe) protocol. Valid values:
+        # 
+        # *   supported: The custom image supports the NVMe protocol. Instances created from this image also support the NVMe protocol.
+        # *   unsupported: The custom image does not support the NVMe protocol. Instances created from this image do not support the NVMe protocol.
         self.nvme_support = nvme_support  # type: str
 
     def validate(self):
@@ -76488,18 +74632,49 @@ class ModifyImageAttributeRequest(TeaModel):
     def __init__(self, boot_mode=None, description=None, features=None, image_family=None, image_id=None,
                  image_name=None, license_type=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None, status=None):
+        # The new boot mode of the custom image. Valid values:
+        # 
+        # *   BIOS
+        # *   UEFI
+        # 
+        # >  You must know which boot modes the specified image supports. When you use this parameter to change the boot mode of the image, specify a boot mode supported by the image to ensure that instances which use this image can start normally.
         self.boot_mode = boot_mode  # type: str
+        # The new description of the custom image. The description must be 2 to 256 characters in length and cannot start with http:// or https://.
+        # 
+        # This parameter is empty by default, which indicates that the original description is retained.
         self.description = description  # type: str
+        # The attributes of the custom image.
         self.features = features  # type: ModifyImageAttributeRequestFeatures
+        # The new name of the image family. The name must be 2 to 128 characters in length. It must start with a letter and cannot start with acs: or aliyun. It cannot contain http:// or https://. It can contain letters, digits, periods (.), colons (:), underscores (\_), and hyphens (-).
+        # 
+        # This parameter is empty by default.
         self.image_family = image_family  # type: str
+        # The ID of the custom image.
         self.image_id = image_id  # type: str
+        # The new name of the custom image. The name must be 2 to 128 characters in length. It must start with a letter and cannot start with acs: or aliyun. It cannot contain http:// or https://. It can contain letters, digits, periods (.), colons (:), underscores (\_), and hyphens (-).
+        # 
+        # This parameter is empty by default, which indicates that the original name is retained.
         self.image_name = image_name  # type: str
+        # The type of the license to use to activate the operating system after the source image is imported. Valid values:
+        # 
+        # *   Auto: ECS checks the operating system of the source image and allocates a license to the operating system. ECS first checks whether the operating system distribution specified by `Platform` has a license allocated through an official Alibaba Cloud channel. If yes, the allocated license is used. If not, the license that comes with the source operating system is used.
+        # *   Aliyun: The license allocated through an official Alibaba Cloud channel is used for the operating system distribution specified by `Platform`.
+        # *   BYOL: The license that comes with the source operating system is used. In this case, make sure that your license key can be used in Alibaba Cloud.
+        # 
+        # Default value: Auto.
         self.license_type = license_type  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID of the custom image. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The new state of the custom image. Valid values:
+        # 
+        # *   Deprecated: puts the image into the Deprecated state. If the custom image is shared, you must unshare it before you can put it into the Deprecated state. Images in the Deprecated state cannot be shared or copied, but can be used to create instances or replace system disks.
+        # *   Available: puts the image into the Available state. You can restore an image from the Deprecated state to the Available state.
+        # 
+        # >  If you want to roll back a custom image in the image family to a previous version, you can put the latest available custom image into the Deprecated state. An instance family cannot be used to create instances if no custom images are in the Available state within the instance family. Proceed with caution if only a single custom image is in the Available state within the image family.
         self.status = status  # type: str
 
     def validate(self):
@@ -76574,6 +74749,7 @@ class ModifyImageAttributeRequest(TeaModel):
 
 class ModifyImageAttributeResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -77054,9 +75230,7 @@ class ModifyInstanceAttachmentAttributesResponse(TeaModel):
 
 class ModifyInstanceAttributeRequestRemoteConnectionOptions(TeaModel):
     def __init__(self, password=None, type=None):
-        # > This parameter is in invitational preview and unavailable for general users.
         self.password = password  # type: str
-        # > This parameter is in invitational preview and unavailable for general users.
         self.type = type  # type: str
 
     def validate(self):
@@ -77088,66 +75262,22 @@ class ModifyInstanceAttributeRequest(TeaModel):
                  enable_jumbo_frame=None, host_name=None, instance_id=None, instance_name=None, network_interface_queue_number=None,
                  owner_account=None, owner_id=None, password=None, recyclable=None, remote_connection_options=None,
                  resource_owner_account=None, resource_owner_id=None, security_group_ids=None, user_data=None):
-        # The performance mode of the burstable instance. Valid values:
-        # 
-        # *   Standard: standard mode
-        # *   Unlimited: unlimited mode
-        # 
-        # For more information about the performance modes of burstable instances, see [Burstable instances](~~59977~~).
         self.credit_specification = credit_specification  # type: str
-        # The release protection attribute of the instance. This parameter specifies whether you can use the ECS console or call the [DeleteInstance](~~25507~~) operation to release the instance.
-        # 
-        # > This parameter is applicable to only pay-as-you-go instances. It can protect instances against manual releases, but not against automatic releases.
         self.deletion_protection = deletion_protection  # type: bool
-        # The description of the instance. The description must be 2 to 256 characters in length and cannot start with `http://` or `https://`.
-        # 
-        # This parameter is empty by default.
         self.description = description  # type: str
         self.enable_jumbo_frame = enable_jumbo_frame  # type: bool
-        # The hostname of the instance. Take note of the following items:
-        # 
-        # *   When you modify the hostname of an instance, the instance must not be in the Creating (Pending) or Starting (Starting) state. Otherwise, the new hostname and the configurations in `/etc/hosts` cannot take effect. You can call the [DescribeInstances](~~25506~~) operation to query the state of the instance.
-        # *   After the hostname is modified, you must call the [RebootInstance](~~25502~~) operation to restart the instance for the new hostname to take effect.
-        # 
-        # The following limits apply to the hostnames of instances that run different operating systems:
-        # 
-        # *   For Windows Server, the hostname must be 2 to 15 characters in length and can contain letters, digits, and hyphens (-). It cannot start or end with a hyphen (-), contain consecutive hyphens (-), or contain only digits.
-        # *   For other operating systems such as Linux, the hostname must be 2 to 64 characters in length. You can use periods (.) to separate a hostname into multiple segments. Each segment can contain letters, digits, and hyphens (-). The hostname cannot contain consecutive periods (.) or hyphens (-). It cannot start or end with a period (.) or a hyphen (-).
         self.host_name = host_name  # type: str
-        # The ID of the instance.
         self.instance_id = instance_id  # type: str
-        # The name of the instance. The name must be 2 to 128 characters in length. It must start with a letter and cannot start with `http://` or `https://`. It can contain letters, digits, colons (:), underscores (\_), and hyphens (-).
         self.instance_name = instance_name  # type: str
-        # The number of queues supported by the primary ENI.
         self.network_interface_queue_number = network_interface_queue_number  # type: int
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The password of the instance. The password must be 8 to 30 characters in length and contain at least three of the following character types: uppercase letters, lowercase letters, digits, and special characters. Special characters include:
-        # 
-        #     ()`~!@#$%^&*-_+=|{}[]:;\"<>,.?/\
-        # 
-        # The password of a Windows instance cannot start with a forward slash (/).
-        # 
-        # > If the `Password` parameter is specified, we recommend that you send requests over HTTPS to prevent password leaks.
         self.password = password  # type: str
-        # > This parameter is in invitational preview and unavailable for general users.
         self.recyclable = recyclable  # type: bool
-        # > This parameter is in invitational preview and unavailable for general users.
         self.remote_connection_options = remote_connection_options  # type: ModifyInstanceAttributeRequestRemoteConnectionOptions
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The IDs of replacement security groups.
-        # 
-        # *   All security group IDs must be unique.
-        # *   The instance is moved from the current security groups to the replacement security groups. If you want the instance to remain in the current security groups, you must add the IDs of the current security groups to the list.
-        # *   You can move the instance to security groups of a different type. However, the list cannot contain the IDs of both basic and advanced security groups.
-        # *   The specified security group and instance must belong to the same virtual private cloud (VPC).
-        # *   The valid values of N are based on the maximum number of security groups to which the instance can belong. For more information, see [Limits](~~25412#SecurityGroupQuota1~~).
-        # *   New security groups become valid for corresponding instances after a short latency.
         self.security_group_ids = security_group_ids  # type: list[str]
-        # The user data of the instance. User data must be encoded in Base64.
-        # 
-        # The size of the user data cannot exceed 16 KB before it is encoded in Base64. We recommend that you do not pass in confidential information such as passwords and private keys in the plaintext format. If you must pass in confidential information, we recommend that you encrypt and Base64-encode the information before you pass it in. Then you can decode and decrypt the information in the same way within the instance.
         self.user_data = user_data  # type: str
 
     def validate(self):
@@ -77238,7 +75368,6 @@ class ModifyInstanceAttributeRequest(TeaModel):
 
 class ModifyInstanceAttributeResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -77303,19 +75432,10 @@ class ModifyInstanceAttributeResponse(TeaModel):
 class ModifyInstanceAutoReleaseTimeRequest(TeaModel):
     def __init__(self, auto_release_time=None, instance_id=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None):
-        # The time scheduled for the instance to be automatically released. Specify the time in the [ISO 8601](~~25696~~) standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
-        # 
-        # *   If the value of the field `ss` is not `00`, the field is automatically set to the start time of the current minute (`mm`).
-        # *   The release time must be at least 30 minutes later than the current time.
-        # *   The release time must be at most three years from the current time.
-        # 
-        # If `AutoReleaseTime` is not specified, the automatic release feature is disabled and the ECS instance will not be automatically released.
         self.auto_release_time = auto_release_time  # type: str
-        # The ID of the ECS instance to be automatically released.
         self.instance_id = instance_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The region ID of the instance. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -77366,7 +75486,6 @@ class ModifyInstanceAutoReleaseTimeRequest(TeaModel):
 
 class ModifyInstanceAutoReleaseTimeResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -77588,54 +75707,17 @@ class ModifyInstanceChargeTypeRequest(TeaModel):
     def __init__(self, auto_pay=None, client_token=None, dry_run=None, include_data_disks=None,
                  instance_charge_type=None, instance_ids=None, is_detail_fee=None, owner_account=None, owner_id=None, period=None,
                  period_unit=None, region_id=None, resource_owner_account=None, resource_owner_id=None):
-        # Specifies whether to enable automatic payment. Valid values:
-        # 
-        # *   true: enables automatic payment. Make sure that you have a sufficient balance in your account. Otherwise, your order becomes invalid and is canceled.
-        # *   false: An order is generated but no payment is made.
-        # 
-        # Default value: true.
-        # 
-        # >  If your account balance is insufficient, you can set the AutoPay parameter to false to generate an unpaid order. Then, you can log on to the ECS console to pay for the order.
         self.auto_pay = auto_pay  # type: bool
-        # The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must make sure that it is unique among different requests. The **ClientToken** value can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).
         self.client_token = client_token  # type: str
-        # Specifies whether to check the validity of the request without actually making the request. Valid values:
-        # 
-        # *   true: The validity of the request is checked but the request is not made. Check items include whether your AccessKey pair is valid, whether RAM users are granted required permissions, and whether the required parameters are specified. If the check fails, the corresponding error is returned. If the check succeeds, the `DryRunOperation` error code is returned.
-        # *   false: The validity of the request is checked. If the check succeeds, a 2XX HTTP status code is returned and the request is made.
-        # 
-        # Default value: false.
         self.dry_run = dry_run  # type: bool
-        # Specifies whether to change the billing method of all data disks attached to the instance from pay-as-you-go to subscription.
-        # 
-        # Default value: false.
         self.include_data_disks = include_data_disks  # type: bool
-        # The new billing method. Valid values:
-        # 
-        # *   PrePaid: the subscription billing method
-        # *   PostPaid: the pay-as-you-go billing method
-        # 
-        # Default value: PrePaid.
         self.instance_charge_type = instance_charge_type  # type: str
-        # The IDs of instances. The value can be a JSON array that consists of up to 20 instance IDs. Separate multiple instance IDs with commas (,).
         self.instance_ids = instance_ids  # type: str
-        # Specifies whether to return cost details of the order when the billing method is changed from subscription to pay-as-you-go.
-        # 
-        # Default value: false.
         self.is_detail_fee = is_detail_fee  # type: bool
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The renewal period of the subscription instance. If the instance is hosted on a dedicated host, the renewal period of the instance cannot exceed the subscription duration of the dedicated host. Valid values:
-        # 
-        # Valid values when the `PeriodUnit` parameter is set to Month: `1, 2, 3, 4, 5, 6, 7, 8, 9, and 12`.
         self.period = period  # type: int
-        # The unit of the renewal period (`Period`). Valid values:
-        # 
-        # Month
-        # 
-        # Default value: Month.
         self.period_unit = period_unit  # type: str
-        # The ID of the region in which the instance is located. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -77714,15 +75796,8 @@ class ModifyInstanceChargeTypeRequest(TeaModel):
 
 class ModifyInstanceChargeTypeResponseBodyFeeOfInstancesFeeOfInstance(TeaModel):
     def __init__(self, currency=None, fee=None, instance_id=None):
-        # The unit of currency for the bill.
-        # 
-        # Alibaba Cloud China site (aliyun.com): CNY.
-        # 
-        # Alibaba Cloud International site (alibabacloud.com): USD.
         self.currency = currency  # type: str
-        # The cost value.
         self.fee = fee  # type: str
-        # The ID of the instance.
         self.instance_id = instance_id  # type: str
 
     def validate(self):
@@ -77787,11 +75862,8 @@ class ModifyInstanceChargeTypeResponseBodyFeeOfInstances(TeaModel):
 
 class ModifyInstanceChargeTypeResponseBody(TeaModel):
     def __init__(self, fee_of_instances=None, order_id=None, request_id=None):
-        # Details about the charges for the order.
         self.fee_of_instances = fee_of_instances  # type: ModifyInstanceChargeTypeResponseBodyFeeOfInstances
-        # The ID of the order.
         self.order_id = order_id  # type: str
-        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -78088,9 +76160,7 @@ class ModifyInstanceDeploymentResponse(TeaModel):
 
 class ModifyInstanceMaintenanceAttributesRequestMaintenanceWindow(TeaModel):
     def __init__(self, end_time=None, start_time=None):
-        # The end time of the maintenance window. The time must be on the hour at exactly 0 minute and 0 second. The StartTime and EndTime parameters must be specified at the same time. The EndTime value must be 1 to 23 hours later than the StartTime value. Specify the time in the `HH:mm:ss` format. The time must be in UTC+8. Set the value of N to 1.
         self.end_time = end_time  # type: str
-        # The start time of the maintenance window. The time must be on the hour at exactly 0 minute and 0 second. The StartTime and EndTime parameters must be specified at the same time. The EndTime value must be 1 to 23 hours later than the StartTime value. Specify the time in the `HH:mm:ss` format. The time must be in UTC+8. Set the value of N to 1.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -78121,26 +76191,12 @@ class ModifyInstanceMaintenanceAttributesRequest(TeaModel):
     def __init__(self, action_on_maintenance=None, instance_id=None, maintenance_window=None,
                  notify_on_maintenance=None, owner_account=None, owner_id=None, region_id=None, resource_owner_account=None,
                  resource_owner_id=None):
-        # The maintenance action. Valid values:
-        # 
-        # *   Stop: stops the instance.
-        # *   AutoRecover: automatically recovers the instance.
-        # *   AutoRedeploy: redeploys the instance, which may damage the data of the local disks (if any).
         self.action_on_maintenance = action_on_maintenance  # type: str
-        # The ID of instance N. Valid values of N: 1 to 100.
         self.instance_id = instance_id  # type: list[str]
-        # The maintenance windows.
         self.maintenance_window = maintenance_window  # type: list[ModifyInstanceMaintenanceAttributesRequestMaintenanceWindow]
-        # Specifies whether to send an event notification before maintenance. Valid values:
-        # 
-        # *   True: sends an event notification.
-        # *   False: does not send an event notification.
-        # 
-        # Default value: false.
         self.notify_on_maintenance = notify_on_maintenance  # type: bool
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The region ID of the instance. You can call the [DescribeRegions](~~25609~~) operation to query the most recent list of regions.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -78207,7 +76263,6 @@ class ModifyInstanceMaintenanceAttributesRequest(TeaModel):
 
 class ModifyInstanceMaintenanceAttributesResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -78272,31 +76327,12 @@ class ModifyInstanceMaintenanceAttributesResponse(TeaModel):
 class ModifyInstanceMetadataOptionsRequest(TeaModel):
     def __init__(self, http_endpoint=None, http_put_response_hop_limit=None, http_tokens=None, instance_id=None,
                  instance_metadata_tags=None, owner_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None):
-        # Specifies whether to enable the access channel for instance metadata. Valid values:
-        # 
-        # *   enabled: enables the access channel for instance metadata.
-        # *   disabled: disables the access channel for instance metadata.
-        # 
-        # Default value: enabled.
-        # 
-        # > For more information about instance metadata, see [Overview of ECS instance metadata](~~49122~~).
         self.http_endpoint = http_endpoint  # type: str
-        # > This parameter is in invitational preview and is unavailable to general users.
         self.http_put_response_hop_limit = http_put_response_hop_limit  # type: int
-        # Specifies whether to forcefully use the security-enhanced mode (IMDSv2) to access instance metadata. Valid values:
-        # 
-        # *   optional: does not forcefully use the security-enhanced mode (IMDSv2).
-        # *   required: forcefully uses the security-enhanced mode (IMDSv2). After you set this parameter to required, you cannot access instance metadata in normal mode.
-        # 
-        # Default value: optional.
-        # 
-        # > For more information about the modes of accessing instance metadata, see [Access mode of instance metadata](~~150575~~).
         self.http_tokens = http_tokens  # type: str
-        # The ID of the instance.
         self.instance_id = instance_id  # type: str
         self.instance_metadata_tags = instance_metadata_tags  # type: str
         self.owner_id = owner_id  # type: long
-        # The region ID of the instance. You can call the [DescribeRegions](~~25609~~) operation to query the most recent list of regions.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -78355,7 +76391,6 @@ class ModifyInstanceMetadataOptionsRequest(TeaModel):
 
 class ModifyInstanceMetadataOptionsResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -78608,10 +76643,6 @@ class ModifyInstanceNetworkSpecResponse(TeaModel):
 
 class ModifyInstanceSpecRequestSystemDisk(TeaModel):
     def __init__(self, category=None):
-        # The new category of the system disk. This parameter is valid only when you upgrade an instance from a retired instance type to an available instance type or when you upgrade a non-I/O optimized instance to an I/O optimized instance. For more information, see [Retired instance types](~~55263~~) and [Instance families](~~25378~~). Valid values:
-        # 
-        # *   cloud_efficiency: ultra disk
-        # *   cloud_ssd: standard SSD
         self.category = category  # type: str
 
     def validate(self):
@@ -78636,11 +76667,8 @@ class ModifyInstanceSpecRequestSystemDisk(TeaModel):
 
 class ModifyInstanceSpecRequestTemporary(TeaModel):
     def __init__(self, end_time=None, internet_max_bandwidth_out=None, start_time=None):
-        # > This parameter is in invitational preview and is unavailable to general users.
         self.end_time = end_time  # type: str
-        # > This parameter is in invitational preview and is unavailable to general users.
         self.internet_max_bandwidth_out = internet_max_bandwidth_out  # type: int
-        # > This parameter is in invitational preview and is unavailable to general users.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -78677,39 +76705,12 @@ class ModifyInstanceSpecRequest(TeaModel):
                  internet_max_bandwidth_out=None, owner_account=None, owner_id=None, resource_owner_account=None, resource_owner_id=None):
         self.system_disk = system_disk  # type: ModifyInstanceSpecRequestSystemDisk
         self.temporary = temporary  # type: ModifyInstanceSpecRequestTemporary
-        # Specifies whether to support cross-cluster instance type upgrades.
-        # 
-        # Default value: false.
-        # 
-        # When `AllowMigrateAcrossZone` is set to true and you upgrade the instance configurations based on the returned information, take note of the following items:
-        # 
-        # Instances of the classic network type:
-        # 
-        # *   For retired instance types, when a non-I/O optimized instance is upgraded to an I/O optimized instance, the private IP address, disk device names, and software license codes of the instance are changed. For more information, see [Retired instance types](~~55263~~). For Linux instances, basic disks (`cloud`) are identified by the prefix **xvd** such as **xvda and xvdb**. Ultra disks (`cloud_efficiency`) and standard SSDs (`cloud_ssd`) are identified by the prefix **vd** such as **vda and vdb**.
-        # *   For instance families that are available for purchase, when the instance type of an instance is changed, the private IP address of the instance is also changed. For more information, see [Instance families](~~25378~~).
-        # 
-        # Instances of the Virtual Private Cloud (VPC) type: For [retired instance types](~~55263~~), when a non-I/O optimized instance is upgraded to an I/O optimized instance, the disk device names and software license codes of the instance are changed. For Linux instances, basic disks (`cloud`) are identified by the prefix **xvd** such as **xvda and xvdb**. Ultra disks (`cloud_efficiency`) and standard SSDs (`cloud_ssd`) are identified by the prefix **vd** such as **vda and vdb**.
         self.allow_migrate_across_zone = allow_migrate_across_zone  # type: bool
-        # Specifies whether to submit an asynchronous request.
-        # 
-        # Default value: false.
         self.async = async  # type: bool
-        # The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must make sure that it is unique among different requests. The **ClientToken** value can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).
         self.client_token = client_token  # type: str
-        # The ID of the instance.
         self.instance_id = instance_id  # type: str
-        # The new instance type. For more information, see [Instance families](~~25378~~) or call the [DescribeInstanceTypes](~~25620~~) operation to query the most recent list of instance types.
         self.instance_type = instance_type  # type: str
-        # The maximum inbound public bandwidth. Unit: Mbit/s. Valid values:
-        # 
-        # *   When the purchased outbound public bandwidth is less than or equal to 10 Mbit/s, the valid values of this parameter are 1 to 10 and the default value is 10.
-        # *   When the purchased outbound public bandwidth is greater than 10 Mbit/s, the valid values of this parameter are 1 to the `InternetMaxBandwidthOut` value and the default value is the `InternetMaxBandwidthOut` value.
-        # 
-        # > When the **pay-by-traffic** billing method for network usage is used, the maximum inbound and outbound bandwidths are used as the upper limits of bandwidths instead of guaranteed performance specifications. In scenarios where demand outstrips resource supplies, these maximum bandwidth values may not be reached. If you want guaranteed bandwidths for your instance, use the **pay-by-bandwidth** billing method for network usage.
         self.internet_max_bandwidth_in = internet_max_bandwidth_in  # type: int
-        # The maximum outbound public bandwidth. Unit: Mbit/s. Valid values: 0 to 100.
-        # 
-        # > When the **pay-by-traffic** billing method for network usage is used, the maximum inbound and outbound bandwidths are used as the upper limits of bandwidths instead of guaranteed performance specifications. In scenarios where demand outstrips resource supplies, these maximum bandwidth values may not be reached. If you want guaranteed bandwidths for your instance, use the **pay-by-bandwidth** billing method for network usage.
         self.internet_max_bandwidth_out = internet_max_bandwidth_out  # type: int
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -78791,7 +76792,6 @@ class ModifyInstanceSpecRequest(TeaModel):
 
 class ModifyInstanceSpecResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -79407,34 +77407,15 @@ class ModifyNetworkInterfaceAttributeRequest(TeaModel):
     def __init__(self, description=None, network_interface_id=None, network_interface_name=None,
                  owner_account=None, owner_id=None, queue_number=None, region_id=None, resource_owner_account=None,
                  resource_owner_id=None, security_group_id=None):
-        # The description of the ENI. The description must be 2 to 255 characters in length and cannot start with http:// or https://.
-        # 
-        # This parameter is empty by default.
         self.description = description  # type: str
-        # The ID of the ENI.
         self.network_interface_id = network_interface_id  # type: str
-        # The name of the ENI. The name must be 2 to 128 characters in length. It must start with a letter and cannot start with http:// or https://. It can contain letters, digits, colons (:), underscores (\_), and hyphens (-).
-        # 
-        # This parameter is empty by default.
         self.network_interface_name = network_interface_name  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The number of queues per ENI. Valid values: 1 to 2048.
-        # 
-        # *   You can modify the number of queues supported only by the secondary ENI.
-        # *   You can modify the number of queues supported by the secondary ENI only when the ENI is in the `Available` state, or the secondary ENI is bound (`InUse`) to an instance that is in the `Stopped` state.
-        # *   The number of queues supported by the secondary ENI cannot exceed the maximum number of queues that the instance allows for each ENI. The total number of queues for all ENIs on the instance cannot exceed the queue quota that the instance allows. To obtain information about the maximum number of queues per ENI and the queue quota for an instance type, you can call the [DescribeInstanceTypes](~~25620~~) operation to query the `MaximumQueueNumberPerEni` and `TotalEniQueueQuantity` values.
         self.queue_number = queue_number  # type: int
-        # The region ID of the ENI. You can call the [DescribeRegions](~~25609~~) operation to query thecurrent list of regions.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The list of security group IDs. You can specify up to 5 security group IDs.
-        # 
-        # - You can modify only the security groups to which the secondary ENI is added.
-        # - After you specify a security group, the secondary ENI is added to the specified security group and removed from the existing security group.
-        # 
-        # >  After you modify the security group, the modification takes effect after a short delay.
         self.security_group_id = security_group_id  # type: list[str]
 
     def validate(self):
@@ -79495,7 +77476,6 @@ class ModifyNetworkInterfaceAttributeRequest(TeaModel):
 
 class ModifyNetworkInterfaceAttributeResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -79724,15 +77704,7 @@ class ModifyPhysicalConnectionAttributeResponse(TeaModel):
 
 class ModifyPrefixListRequestAddEntry(TeaModel):
     def __init__(self, cidr=None, description=None):
-        # The CIDR block of entry N to be added to the prefix list. Valid values of N: 0 to 200.
-        # 
-        # Take note of the following items when you add the entries:
-        # 
-        # *   The number of entries in the prefix list cannot be greater than the maximum number of entries allowed for the prefix list. You can call the [DescribePrefixListAttributes](~~205872~~) operation to query the maximum number of entries in a specific prefix list.
-        # *   You cannot specify duplicate CIDR blocks.
-        # *   The CIDR blocks cannot be the same as the `RemoveEntry.N.Cidr` values.
         self.cidr = cidr  # type: str
-        # The description in entry N. The description must be 2 to 32 characters in length and cannot start with `http://` or `https://`. Valid values of N: 0 to 200.
         self.description = description  # type: str
 
     def validate(self):
@@ -79761,12 +77733,6 @@ class ModifyPrefixListRequestAddEntry(TeaModel):
 
 class ModifyPrefixListRequestRemoveEntry(TeaModel):
     def __init__(self, cidr=None):
-        # The CIDR block of entry N to be deleted from the prefix list. Valid values of N: 0 to 200.
-        # 
-        # Take note of the following items when you delete the entries:
-        # 
-        # *   You cannot specify duplicate CIDR blocks.
-        # *   The CIDR blocks cannot be the same as the `AddEntry.N.Cidr` values.
         self.cidr = cidr  # type: str
 
     def validate(self):
@@ -79792,19 +77758,13 @@ class ModifyPrefixListRequestRemoveEntry(TeaModel):
 class ModifyPrefixListRequest(TeaModel):
     def __init__(self, add_entry=None, description=None, owner_account=None, owner_id=None, prefix_list_id=None,
                  prefix_list_name=None, region_id=None, remove_entry=None, resource_owner_account=None, resource_owner_id=None):
-        # The entries that to be added to the prefix list.
         self.add_entry = add_entry  # type: list[ModifyPrefixListRequestAddEntry]
-        # The description of the prefix list. The description must be 2 to 256 characters in length and cannot start with `http://` or `https://`.
         self.description = description  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The ID of the prefix list.
         self.prefix_list_id = prefix_list_id  # type: str
-        # The name of the prefix list. The name must be 2 to 128 characters in length. It must start with a letter and cannot start with `http://`, `https://`, `com.aliyun`, or `com.alibabacloud`. It can contain letters, digits, colons (:), underscores (\_), periods (.), and hyphens (-).
         self.prefix_list_name = prefix_list_name  # type: str
-        # The region ID of the prefix list. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
-        # The entries that to be deleted from the prefix list.
         self.remove_entry = remove_entry  # type: list[ModifyPrefixListRequestRemoveEntry]
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -79884,7 +77844,6 @@ class ModifyPrefixListRequest(TeaModel):
 
 class ModifyPrefixListResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -79948,10 +77907,6 @@ class ModifyPrefixListResponse(TeaModel):
 
 class ModifyPrepayInstanceSpecRequestSystemDisk(TeaModel):
     def __init__(self, category=None):
-        # The new category of the system disk. This parameter is valid only if you upgrade an instance from a retired instance type to an available instance type or if you upgrade a non-I/O optimized instance to an I/O optimized instance. For more information, see [Retired instance types](~~55263~~) and [Overview of instance families](~~25378~~). Valid values:
-        # 
-        # *   cloud_efficiency: ultra disk
-        # *   cloud_ssd: standard SSD
         self.category = category  # type: str
 
     def validate(self):
@@ -79980,64 +77935,17 @@ class ModifyPrepayInstanceSpecRequest(TeaModel):
                  reboot_time=None, reboot_when_finished=None, region_id=None, resource_owner_account=None,
                  resource_owner_id=None):
         self.system_disk = system_disk  # type: ModifyPrepayInstanceSpecRequestSystemDisk
-        # Specifies whether to enable automatic payment when you upgrade the instance type. Valid values:
-        # 
-        # *   true: enables automatic payment.
-        # 
-        #     **\
-        # 
-        #     **Note** Make sure that your Alibaba Cloud account has sufficient balance. Otherwise, your order becomes invalid and is canceled. If your account balance is insufficient, you can set the `AutoPay` parameter to `false` to generate an unpaid order. Then, you can log on to the ECS console to pay for the order.
-        # 
-        # *   false: An order is generated but no payment is made.
-        # 
-        # Default value: true.
-        # 
-        # If you set the `OperatorType` parameter to `downgrade`, the `AutoPay` parameter is ignored.
         self.auto_pay = auto_pay  # type: bool
-        # The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but make sure that the token is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).
         self.client_token = client_token  # type: str
-        # The end time of the temporary change. Specify the time in the [ISO 8601](~~25696~~) standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         self.end_time = end_time  # type: str
-        # The ID of the instance.
         self.instance_id = instance_id  # type: str
-        # The new instance type. For information about supported instance types, see [Overview of instance families](~~25378~~) or call the [DescribeInstanceTypes](~~25620~~) operation.
         self.instance_type = instance_type  # type: str
-        # Specifies whether to support cross-cluster instance type upgrades.
-        # 
-        # Default value: false.
-        # 
-        # If you set the `MigrateAcrossZone` parameter to `true` and you upgrade the instance based on the returned information, take note of the following items:
-        # 
-        # Instances of the classic network type:
-        # 
-        # *   For [retired instance types](~~55263~~), the private IP address, disk device names, and software license codes of a non-I/O optimized instance change when you upgrade the instance to an I/O optimized instance. For Linux instances, basic disks (cloud) are identified by the prefix xvd. Ultra disks (cloud_efficiency) and standard SSDs (cloud_ssd) are identified by the prefix vd.
-        # *   For [instance families that can be purchased](~~25378~~), the private IP address of the instance changes when you change the instance type of the instance.
-        # 
-        # Instances of the virtual private cloud (VPC) type: For retired instance types, the disk device names and software license codes of a non-I/O optimized instance change when you upgrade the instance to an I/O optimized instance. For Linux instances, basic disks (cloud) are identified by the prefix xvd. Ultra disks (cloud_efficiency) and standard SSDs (cloud_ssd) are identified by the prefix vd.
         self.migrate_across_zone = migrate_across_zone  # type: bool
-        # The type of the operation. Valid values:
-        # 
-        # >  This parameter is optional. The system can automatically determine whether the operation is an upgrade or a downgrade. If you want to specify this parameter, you can refer to the following valid values of the parameter.
-        # 
-        # *   upgrade: upgrades the instance type. Make sure that the balance in your account is sufficient.
-        # *   downgrade: downgrades the instance type. When the new instance type that is specified by the `InstanceType` parameter has lower specifications than the current instance type, set the `OperatorType` parameter to downgrade.
-        # 
-        # >  You can refer to the preceding usage notes on how to upgrade or downgrade the instance type.
         self.operator_type = operator_type  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The restart time of the instance. Specify the time in the [ISO 8601](~~25696~~) standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         self.reboot_time = reboot_time  # type: str
-        # Specifies whether to immediately restart the instance after you change the instance type. Valid values:
-        # 
-        # *   true: immediately restarts the instance.
-        # *   false: does not immediately restart the instance.
-        # 
-        # Default value: false.
-        # 
-        # >  If the instance is in the **Stopping** state, the instance status remains unchanged and no operations are performed regardless of whether you set the `RebootWhenFinished` parameter to true.
         self.reboot_when_finished = reboot_when_finished  # type: bool
-        # The region ID of the instance. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -80122,9 +78030,7 @@ class ModifyPrepayInstanceSpecRequest(TeaModel):
 
 class ModifyPrepayInstanceSpecResponseBody(TeaModel):
     def __init__(self, order_id=None, request_id=None):
-        # The ID of the order.
         self.order_id = order_id  # type: str
-        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -80193,17 +78099,11 @@ class ModifyPrepayInstanceSpecResponse(TeaModel):
 class ModifyReservedInstanceAttributeRequest(TeaModel):
     def __init__(self, description=None, owner_account=None, owner_id=None, region_id=None,
                  reserved_instance_id=None, reserved_instance_name=None, resource_owner_account=None, resource_owner_id=None):
-        # The new description of the reserved instance. The description must be 2 to 256 characters in length. It cannot start with `http://` or `https://`.
-        # 
-        # This parameter is empty by default.
         self.description = description  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The region ID of the reserved instance.
         self.region_id = region_id  # type: str
-        # The ID of the reserved instance.
         self.reserved_instance_id = reserved_instance_id  # type: str
-        # The new name of the reserved instance. The name must be 2 to 128 characters in length. It must start with a letter and cannot start with `http://` or `https://`. It can contain letters, digits, colons (:), underscores (\_), and hyphens (-).
         self.reserved_instance_name = reserved_instance_name  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -80258,13 +78158,9 @@ class ModifyReservedInstanceAttributeRequest(TeaModel):
 
 class ModifyReservedInstanceAttributeResponseBody(TeaModel):
     def __init__(self, code=None, http_status_code=None, message=None, request_id=None):
-        # The error code.
         self.code = code  # type: str
-        # The HTTP status code.
         self.http_status_code = http_status_code  # type: int
-        # The error message for this instance operation. The return value Success indicates that this operation is successful. For more information, see the "Error codes" section of this topic.
         self.message = message  # type: str
-        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -81287,22 +79183,13 @@ class ModifySecurityGroupEgressRuleResponse(TeaModel):
 class ModifySecurityGroupPolicyRequest(TeaModel):
     def __init__(self, client_token=None, inner_access_policy=None, owner_account=None, owner_id=None,
                  region_id=None, resource_owner_account=None, resource_owner_id=None, security_group_id=None):
-        # The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must make sure that it is unique among different requests. The **ClientToken** value can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).
         self.client_token = client_token  # type: str
-        # The internal access policy of the security group. Valid values:
-        # 
-        # *   Accept: All instances in the security group can communicate with each other.
-        # *   Drop: All instances in the security group are isolated from each other.
-        # 
-        # These values are case-insensitive.
         self.inner_access_policy = inner_access_policy  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The region ID of the security group. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The ID of the security group.
         self.security_group_id = security_group_id  # type: str
 
     def validate(self):
@@ -81355,7 +79242,6 @@ class ModifySecurityGroupPolicyRequest(TeaModel):
 
 class ModifySecurityGroupPolicyResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -82778,9 +80664,7 @@ class ModifyVpcAttributeResponse(TeaModel):
 
 class PurchaseReservedInstancesOfferingRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
-        # The key of tag N of the reserved instance. Valid values of N: 1 to 20. The tag value cannot be an empty string. The tag key can be up to 128 characters in length and cannot contain `http://` or `https://`. It cannot start with `acs:` or `aliyun`.
         self.key = key  # type: str
-        # The value of tag N of the reserved instance. Valid values of N: 1 to 20. The tag value cannot be an empty string. The tag value can be up to 128 characters in length and cannot contain `http://` or `https://`. It cannot start with `acs:` or `aliyun`.
         self.value = value  # type: str
 
     def validate(self):
@@ -82812,77 +80696,25 @@ class PurchaseReservedInstancesOfferingRequest(TeaModel):
                  instance_amount=None, instance_type=None, offering_type=None, owner_account=None, owner_id=None, period=None,
                  period_unit=None, platform=None, region_id=None, reserved_instance_name=None, resource_group_id=None,
                  resource_owner_account=None, resource_owner_id=None, scope=None, tag=None, zone_id=None):
-        # Specifies whether to enable auto-renewal for the reserved instance. Valid values:
-        # 
-        # true: enables auto-renewal for the reserved instance. false: disables auto-renewal for the reserved instance. This is the default value.
         self.auto_renew = auto_renew  # type: bool
-        # The auto-renewal term of the reserved instance. Unit: months. This parameter takes effect only if you set the AutoRenew parameter to true.
-        # 
-        # Valid values: 1, 12, 36, and 60.
-        # 
-        # Default value if you set the PeriodUnit parameter to Month: 1.
-        # 
-        # Default value if you set the PeriodUnit parameter to Year: 12.
         self.auto_renew_period = auto_renew_period  # type: int
-        # The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests. **The token can contain only ASCII characters and cannot exceed 64 characters in length.** For more information, see [How to ensure idempotence](~~25693~~).
         self.client_token = client_token  # type: str
-        # The description of the reserved instance. The description must be 2 to 256 characters in length and cannot start with [http:// or https://](http://https://。).
-        # 
-        # By default, this parameter is left empty.
         self.description = description  # type: str
-        # The number of pay-as-you-go instances of the same instance type to which the reserved instance can be matched at the same time. Valid values: 1 to 50.
-        # 
-        # For example, if you set the InstanceAmount parameter to 3 and the InstanceType parameter to ecs.g5.large, the reserved instance can be matched to three ecs.g5.large pay-as-you-go instances at the same time.
         self.instance_amount = instance_amount  # type: int
-        # The type of the reserved instance. For more information, see [Instance families](~~25378~~).
         self.instance_type = instance_type  # type: str
-        # The payment option of the reserved instance. Valid values:
-        # 
-        # *   No Upfront
-        # *   Partial Upfront
-        # *   All Upfront
-        # 
-        # Default value: All Upfront.
         self.offering_type = offering_type  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The term of the reserved instance.
-        # 
-        # Valid values: 1 and 3.
-        # 
-        # Default value: 1.
         self.period = period  # type: int
-        # The unit of the term of the reserved instance.
-        # 
-        # Valid value: Year.
-        # 
-        # Default value: Year.
         self.period_unit = period_unit  # type: str
-        # The operating system of the image that is used by the instance. Valid values:
-        # 
-        # *   Windows: Windows Server operating system
-        # *   Linux: Linux and UNIX-like operating system
-        # 
-        # Default value: Linux.
         self.platform = platform  # type: str
-        # The region ID of the reserved instance. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
-        # The name of the reserved instance. The name must be 2 to 128 characters in length. The name must start with a letter and cannot start with http:// or https://. It can contain letters, digits, colons (:), underscores (\_), and hyphens (-).
         self.reserved_instance_name = reserved_instance_name  # type: str
-        # The ID of the resource group to which the reserved instance belongs.
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The scope of the reserved instance. Valid values:
-        # 
-        # *   Region: regional
-        # *   Zone: zonal
-        # 
-        # Default value: Region.
         self.scope = scope  # type: str
-        # The tags of the reserved instance.
         self.tag = tag  # type: list[PurchaseReservedInstancesOfferingRequestTag]
-        # The zone ID of the instance. If you set the `Scope` parameter to `Zone`, you must specify this parameter. You can call the [DescribeZones](~~25610~~) operation to query the most recent list of zones.
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -83015,9 +80847,7 @@ class PurchaseReservedInstancesOfferingResponseBodyReservedInstanceIdSets(TeaMod
 
 class PurchaseReservedInstancesOfferingResponseBody(TeaModel):
     def __init__(self, request_id=None, reserved_instance_id_sets=None):
-        # The ID of the request.
         self.request_id = request_id  # type: str
-        # The IDs of the reserved instances.
         self.reserved_instance_id_sets = reserved_instance_id_sets  # type: PurchaseReservedInstancesOfferingResponseBodyReservedInstanceIdSets
 
     def validate(self):
@@ -83695,12 +81525,35 @@ class RebootInstanceResponse(TeaModel):
 class RebootInstancesRequest(TeaModel):
     def __init__(self, batch_optimization=None, dry_run=None, force_reboot=None, instance_id=None,
                  owner_account=None, owner_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None):
+        # The batch operation mode. Valid values:
+        # 
+        # *   AllTogether: In this mode, if all instances are restarted, a success message is returned. If an instance fails the verification, all instances fail to restart and an error message is returned.
+        # *   SuccessFirst: In this mode, each instance is restarted separately. The response contains the operation results for each instance.
+        # 
+        # Default value: AllTogether.
         self.batch_optimization = batch_optimization  # type: str
+        # Specifies whether to perform a dry run. Valid Values:
+        # 
+        # *   true: performs a dry run. The system checks the required parameters, request syntax, and instance status. If the request fails the dry run, an error message is returned. If the request passes the dry run, `DRYRUN.SUCCESS` is returned.
+        # 
+        # > If you set `BatchOptimization` to `SuccessFirst` and `DryRun` to true, only `DRYRUN.SUCCESS` is returned regardless of whether the request passes the dry run.
+        # 
+        # *   false: performs a dry run and sends the request. If the request passes the dry run, the operation is performed.
+        # 
+        # Default value: false.
         self.dry_run = dry_run  # type: bool
+        # Specifies whether to forcefully restart the instance. Valid values:
+        # 
+        # *   true: forcefully restarts the instance. This operation is equivalent to the power-off operation in common scenarios. Cache data that is not written to storage devices on the instance will be lost.
+        # *   false: normally restarts the instance.
+        # 
+        # Default value: false.
         self.force_reboot = force_reboot  # type: bool
+        # The IDs of the instances. A maximum of 100 instance IDs can be specified.
         self.instance_id = instance_id  # type: list[str]
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID of the instance. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -83759,10 +81612,15 @@ class RebootInstancesRequest(TeaModel):
 
 class RebootInstancesResponseBodyInstanceResponsesInstanceResponse(TeaModel):
     def __init__(self, code=None, current_status=None, instance_id=None, message=None, previous_status=None):
+        # The error code returned for the instance operation. A return value of 200 indicates success. For more information, see the "Error codes" section in this topic.
         self.code = code  # type: str
+        # The current state of the instance.
         self.current_status = current_status  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # The error message for this instance operation. The return value Success indicates that this operation is successful. For more information, see the "Error codes" section in this topic.
         self.message = message  # type: str
+        # The state of the instance before the operation is called.
         self.previous_status = previous_status  # type: str
 
     def validate(self):
@@ -83835,7 +81693,9 @@ class RebootInstancesResponseBodyInstanceResponses(TeaModel):
 
 class RebootInstancesResponseBody(TeaModel):
     def __init__(self, instance_responses=None, request_id=None):
+        # Details about the responses returned for the instances, which contains the state of each instance before and after the operation is called and the operation results.
         self.instance_responses = instance_responses  # type: RebootInstancesResponseBodyInstanceResponses
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -84142,13 +82002,7 @@ class RedeployDedicatedHostResponse(TeaModel):
 class RedeployInstanceRequest(TeaModel):
     def __init__(self, force_stop=None, instance_id=None, owner_account=None, owner_id=None,
                  resource_owner_account=None, resource_owner_id=None):
-        # Specifies whether to forcibly stop the instance that is in the Running state.
-        # 
-        # Default value: false.
-        # 
-        # > A forcible stop is equivalent to a power outage and unsaved data may be lost. We recommend that you redeploy instances that are in the Stopped state.
         self.force_stop = force_stop  # type: bool
-        # The ID of the instance that is in the Running or Stopped state.
         self.instance_id = instance_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -84197,11 +82051,7 @@ class RedeployInstanceRequest(TeaModel):
 
 class RedeployInstanceResponseBody(TeaModel):
     def __init__(self, request_id=None, task_id=None):
-        # The ID of the request.
         self.request_id = request_id  # type: str
-        # The ID of the redeployment task.
-        # 
-        # You can call the [DescribeTasks](~~25622~~) operation to query the redeployment result.
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -84269,7 +82119,6 @@ class RedeployInstanceResponse(TeaModel):
 
 class ReleaseCapacityReservationRequestPrivatePoolOptions(TeaModel):
     def __init__(self, id=None):
-        # The ID of the capacity reservation.
         self.id = id  # type: str
 
     def validate(self):
@@ -84296,11 +82145,9 @@ class ReleaseCapacityReservationRequest(TeaModel):
     def __init__(self, private_pool_options=None, dry_run=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None):
         self.private_pool_options = private_pool_options  # type: ReleaseCapacityReservationRequestPrivatePoolOptions
-        # Specifies whether to perform a dry run. Set the value to false. false: does not perform a dry run and sends the request. The operation is performed.
         self.dry_run = dry_run  # type: bool
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The region ID of the capacity reservation. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -84353,7 +82200,6 @@ class ReleaseCapacityReservationRequest(TeaModel):
 
 class ReleaseCapacityReservationResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -84643,13 +82489,9 @@ class ReleaseEipAddressResponse(TeaModel):
 
 class ReleasePublicIpAddressRequest(TeaModel):
     def __init__(self, dry_run=None, instance_id=None, public_ip_address=None, region_id=None):
-        # > This parameter is unavailable.
         self.dry_run = dry_run  # type: bool
-        # The ID of the instance.
         self.instance_id = instance_id  # type: str
-        # The public IP address of the instance.
         self.public_ip_address = public_ip_address  # type: str
-        # The region ID of the instance.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -84686,9 +82528,7 @@ class ReleasePublicIpAddressRequest(TeaModel):
 
 class ReleasePublicIpAddressResponseBody(TeaModel):
     def __init__(self, remain_times=None, request_id=None):
-        # > This parameter is unavailable.
         self.remain_times = remain_times  # type: str
-        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -85163,12 +83003,29 @@ class RenewDedicatedHostsResponse(TeaModel):
 class RenewInstanceRequest(TeaModel):
     def __init__(self, client_token=None, expected_renew_day=None, instance_id=None, owner_account=None,
                  owner_id=None, period=None, period_unit=None, resource_owner_account=None, resource_owner_id=None):
+        # The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must ensure that it is unique among different requests. **The token can only contain ASCII characters and cannot exceed 64 characters in length.** For more information, see [How to ensure idempotence](~~25693~~).
         self.client_token = client_token  # type: str
+        # The synchronized expiration date. Set the value to a synchronized expiration date that you specified. Otherwise, the call fails. If you specify this parameter, your instance is renewed to the synchronized expiration date. Valid values: 1 to 28.
+        # 
+        # For information about how to synchronize the expiration dates of instances, see [Synchronize the expiration dates of subscription instances](~~108486~~).
+        # 
+        # >  The renewal period-related parameter pair (`Period` and `PeriodUnit`) and the `ExpectedRenewDay` parameter are mutually exclusive.
         self.expected_renew_day = expected_renew_day  # type: int
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The renewal period of the subscription instance. If you specify the `DedicatedHostId` parameter, the value of the Period parameter must not exceed the subscription period of the specified dedicated host.
+        # 
+        # Valid values if you set the PeriodUnit parameter to Month: 1, 2, 3, 4, 5, 6, 7, 8, 9, and 12.
+        # 
+        # >  The renewal period-related parameter pair (`Period` and `PeriodUnit`) and the `ExpectedRenewDay` parameter are mutually exclusive.
         self.period = period  # type: int
+        # The unit of the renewal period. Valid value:
+        # 
+        # Month.
+        # 
+        # Default value: Month.
         self.period_unit = period_unit  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -85227,7 +83084,9 @@ class RenewInstanceRequest(TeaModel):
 
 class RenewInstanceResponseBody(TeaModel):
     def __init__(self, order_id=None, request_id=None):
+        # The ID of the order.
         self.order_id = order_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -85731,18 +83590,50 @@ class ReportInstancesStatusRequest(TeaModel):
     def __init__(self, description=None, device=None, disk_id=None, end_time=None, instance_id=None,
                  issue_category=None, owner_account=None, owner_id=None, reason=None, region_id=None, resource_owner_account=None,
                  resource_owner_id=None, start_time=None):
+        # The description of the exception.
         self.description = description  # type: str
+        # The device names of disks on an instance that have the exception. You can specify to 100 device names in a single request.
+        # 
+        # If you are using an ECS bare metal instance, enter the slot numbers of disks on the instance.
+        # 
+        # > For ECS bare metal instances, this parameter is required when the value of the `Reason` parameter is `abnormal-local-disk` or `abnormal-cloud-disk` or when the value of the `IssueCategory` parameter is `hardware-disk-error`.
         self.device = device  # type: list[str]
+        # The IDs of disks on an instance that have the exception. You can specify up to 100 disk IDs in a single request. If you are using an ECS bare metal instance, enter the serial numbers of disks on the instance.
+        # 
+        # > This parameter is required when the value of the `Reason` parameter is `abnormal-local-disk` or `abnormal-cloud-disk` or when the value of the `IssueCategory` parameter is `hardware-disk-error`.
         self.disk_id = disk_id  # type: list[str]
+        # The end time of the instance exception. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         self.end_time = end_time  # type: str
+        # The IDs of instances. You can specify up to 100 instance IDs in a single request.
         self.instance_id = instance_id  # type: list[str]
+        # The category of the exception. This parameter is applicable only to ECS bare metal instances. Valid values:
+        # 
+        # *   hardware-cpu-error: CPU failure
+        # *   hardware-motherboard-error: motherboard failure
+        # *   hardware-mem-error: memory failure
+        # *   hardware-power-error: power failure
+        # *   hardware-disk-error: disk failure
+        # *   hardware-networkcard-error: network interface controller (NIC) failure
+        # *   hardware-raidcard-error: SAS/RAID card failure
+        # *   hardware-fan-error: fan failure
+        # *   others: other failures
         self.issue_category = issue_category  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The impact of the exception on the instance. Valid values:
+        # 
+        # *   instance-hang: The instance is unavailable or cannot be connected.
+        # *   instance-stuck-in-status: The instance is stuck in a state such as Starting or Stopping.
+        # *   abnormal-network: The instance has a network exception.
+        # *   abnormal-local-disk: A local disk attached to the instance has an exception.
+        # *   abnormal-cloud-disk: A disk or a Shared Block Storage device attached to the instance has an exception.
+        # *   others: other exception types. If the impact is not of the preceding types, you can set `Reason` to others and specify the `Description` parameter.
         self.reason = reason  # type: str
+        # The region ID of the instance. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The start time of the instance exception. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -85815,6 +83706,7 @@ class ReportInstancesStatusRequest(TeaModel):
 
 class ReportInstancesStatusResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -85996,9 +83888,7 @@ class ResetDiskResponse(TeaModel):
 
 class ResetDisksRequestDisk(TeaModel):
     def __init__(self, disk_id=None, snapshot_id=None):
-        # The IDs of the disks that you want to roll back. You can specify up to 10 disk IDs.
         self.disk_id = disk_id  # type: str
-        # The IDs of the disk snapshots that are contained in the instance snapshot. You can specify up to 10 disk snapshot IDs.
         self.snapshot_id = snapshot_id  # type: str
 
     def validate(self):
@@ -86028,18 +83918,10 @@ class ResetDisksRequestDisk(TeaModel):
 class ResetDisksRequest(TeaModel):
     def __init__(self, disk=None, dry_run=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None):
-        # The disks that you want to roll back.
         self.disk = disk  # type: list[ResetDisksRequestDisk]
-        # Specifies whether to perform a dry run. Valid values:
-        # 
-        # *   true: performs a dry run. The system checks the required parameters, request format, and resource status limits. If the request fails the dry run, an error code is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.
-        # *   false: performs a dry run and sends the request. If the request passes the dry run, the operation is performed.
-        # 
-        # Default value: false.
         self.dry_run = dry_run  # type: bool
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The region ID of the disks that you want to roll back. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -86098,9 +83980,7 @@ class ResetDisksRequest(TeaModel):
 
 class ResetDisksResponseBodyOperationProgressSetOperationProgressRelatedItemSetRelatedItem(TeaModel):
     def __init__(self, name=None, value=None):
-        # The name of the resource.
         self.name = name  # type: str
-        # The ID of the resource.
         self.value = value  # type: str
 
     def validate(self):
@@ -86161,17 +84041,9 @@ class ResetDisksResponseBodyOperationProgressSetOperationProgressRelatedItemSet(
 
 class ResetDisksResponseBodyOperationProgressSetOperationProgress(TeaModel):
     def __init__(self, error_code=None, error_msg=None, operation_status=None, related_item_set=None):
-        # The error code that is returned if the request failed. This parameter is empty if the operation is successful.
-        # 
-        # For information about error codes and error messages, see [Service error codes](https://error-center.alibabacloud.com/status/product/Ecs).
         self.error_code = error_code  # type: str
-        # The error message that is returned if the request failed. This parameter is empty if the operation is successful.
-        # 
-        # For information about error codes and error messages, see [Service error codes](https://error-center.alibabacloud.com/status/product/Ecs).
         self.error_msg = error_msg  # type: str
-        # Indicates whether the operation is successful. If the operation is successful, Success is returned. If the operation failed, an error code and an error message are returned.
         self.operation_status = operation_status  # type: str
-        # The information about the resources.
         self.related_item_set = related_item_set  # type: ResetDisksResponseBodyOperationProgressSetOperationProgressRelatedItemSet
 
     def validate(self):
@@ -86242,9 +84114,7 @@ class ResetDisksResponseBodyOperationProgressSet(TeaModel):
 
 class ResetDisksResponseBody(TeaModel):
     def __init__(self, operation_progress_set=None, request_id=None):
-        # The information about the rollback operations on one or more disks.
         self.operation_progress_set = operation_progress_set  # type: ResetDisksResponseBodyOperationProgressSet
-        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -87197,7 +85067,15 @@ class RevokeSecurityGroupEgressResponse(TeaModel):
 
 class RunCommandRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of tag N of the command. You can specify up to 20 tag keys for the command. The tag key cannot be an empty string.
+        # 
+        # If you specify a tag to query resources, up to 1,000 resources that have the specified tag can be displayed in the response. If you specify multiple tags to query resources, up to 1,000 resources that have all specified tags can be displayed in the response. To query more than 1,000 resources that have the specified tags, call the [ListTagResources](~~110425~~) operation.
+        # 
+        # The tag key can be up to 64 characters in length and cannot start with `acs:` or `aliyun`. It cannot contain `http://` or `https://`.
         self.key = key  # type: str
+        # The value of tag N of the command. You can specify up to 20 tag values for the command. The tag value can be an empty string.
+        # 
+        # The tag value can be up to 128 characters in length and cannot contain `http://` or `https://`.
         self.value = value  # type: str
 
     def validate(self):
@@ -87230,30 +85108,196 @@ class RunCommandRequest(TeaModel):
                  owner_account=None, owner_id=None, parameters=None, region_id=None, repeat_mode=None, resource_group_id=None,
                  resource_owner_account=None, resource_owner_id=None, tag=None, timed=None, timeout=None, type=None, username=None,
                  windows_password_name=None, working_dir=None):
+        # The content of the command. The command content can be plaintext or Base64-encoded. Take note of the following items:
+        # 
+        # *   If you want to retain the command, make sure that the Base64-encoded command content does not exceed 18 KB in size. If you do not want to retain the command, make sure that the Base64-encoded command content does not exceed 24 KB in size. You can use the `KeepCommand` parameter to specify whether to retain the command.
+        # 
+        # *   If the command content is Base64-encoded, set the `ContentEncoding` parameter to Base64.
+        # 
+        # *   If you set the `EnableParameter` parameter to true, the custom parameter feature is enabled and you can specify custom parameters based on the following rules:
+        # 
+        #     *   Specify custom parameters in the `{{}}` format. Within `{{}}`, the spaces and line feeds before and after the parameter names are ignored.
+        #     *   You can specify up to 20 custom parameters.
+        #     *   A custom parameter name can contain only letters, digits, underscores (\_), and hyphens (-). The name is not case-sensitive.
+        #     *   Each custom parameter name cannot exceed 64 bytes in length.
+        # 
+        # *   You can specify built-in environment parameters as custom parameters. Then, Cloud Assistant automatically specifies the parameters when you run the command. You can specify the following built-in environment parameters:
+        # 
+        #     *   `{{ACS::RegionId}}`: the ID of the region.
+        # 
+        #     *   `{{ACS::AccountId}}`: the UID of the Alibaba Cloud account.
+        # 
+        #     *   `{{ACS::InstanceId}}`: the ID of the instance. If you want to run the command on multiple instances and specify `{{ACS::InstanceId}}` as a built-in environment parameter, make sure that the version of the Cloud Assistant client is not earlier than the following versions:
+        # 
+        #         *   Linux: 2.2.3.309
+        #         *   Windows: 2.1.3.309
+        # 
+        #     *   `{{ACS::InstanceName}}`: the name of the instance. If you want to run the command on multiple instances and specify `{{ACS::InstanceName}}` as a built-in environment parameter, make sure that the version of the Cloud Assistant client is not earlier than the following versions:
+        # 
+        #         *   Linux: 2.2.3.344
+        #         *   Windows: 2.1.3.344
+        # 
+        #     *   `{{ACS::InvokeId}}`: the ID of the command task. If you want to specify `{{ACS::InvokeId}}` as a built-in environment parameter, make sure that the version of the Cloud Assistant client is not earlier than the following versions:
+        # 
+        #         *   Linux: 2.2.3.309
+        #         *   Windows: 2.1.3.309
+        # 
+        #     *   `{{ACS::CommandId}}`: the ID of the command. If you want to specify `{{ACS::CommandId}}` as a built-in environment parameter, make sure that the version of the Cloud Assistant client is not earlier than the following versions:
+        # 
+        #         *   Linux: 2.2.3.309
+        #         *   Windows: 2.1.3.309
         self.command_content = command_content  # type: str
+        # The ID of the container. Only 64-bit hexadecimal strings are supported. Container IDs that are prefixed with `docker://`, `containerd://`, or `cri-o://` can specify container runtimes.
+        # 
+        # Take note of the following items:
+        # 
+        # *   If you specify this parameter, Cloud Assistant runs scripts in the specified container of the instance.
+        # *   If you specify this parameter, scripts can be run only on Linux instances on which the Cloud Assistant client of version 2.2.3.344 or later is installed.
+        # *   If you specify this parameter, the specified `Username` and `WorkingDir` parameters do not take effect. You can run the command in the default working directory of the container by using only the default user of the container. For more information, see [Use Cloud Assistant to run commands in containers](~~456641~~).
+        # *   If you specify this parameter, only shell scripts can be run in Linux containers. You cannot specify a script interpreter by adding a command in a format that is similar to `#!/usr/bin/python` at the beginning of a script. For more information, see [Use Cloud Assistant to run commands in containers](~~456641~~).
         self.container_id = container_id  # type: str
+        # The name of the container.
+        # 
+        # Take note of the following items:
+        # 
+        # *   If you specify this parameter, Cloud Assistant runs scripts in the specified container of the instance.
+        # *   If you specify this parameter, scripts can be run only on Linux instances on which the Cloud Assistant client of version 2.2.3.344 or later is installed.
+        # *   If you specify this parameter, the specified `Username` and `WorkingDir` parameters do not take effect. You can run the command in the default working directory of the container by using only the default user of the container. For more information, see [Use Cloud Assistant to run commands in containers](~~456641~~).
+        # *   If you specify this parameter, only shell scripts can be run in Linux containers. You cannot specify a script interpreter by adding a command in a format that is similar to `#!/usr/bin/python` at the beginning of a script. For more information, see [Use Cloud Assistant to run commands in containers](~~456641~~).
         self.container_name = container_name  # type: str
+        # The encoding mode of the command content that is specified by the `CommandContent` parameter. The valid values are not case-sensitive. Valid values:
+        # 
+        # *   PlainText: The command content is not encoded.
+        # *   Base64: The command content is encoded in Base64.
+        # 
+        # Default value: PlainText. If an invalid value is specified for this parameter, PlainText is used.
         self.content_encoding = content_encoding  # type: str
+        # The description of the command. The description supports all character sets and can be up to 512 characters in length.
         self.description = description  # type: str
+        # Specifies whether to include custom parameters in the command.
+        # 
+        # Default value: false
         self.enable_parameter = enable_parameter  # type: bool
+        # The schedule based on which the command is run. When you set the `Timed` parameter to `true`, you must specify this parameter. You can run a command at a fixed interval based on a rate expression, run the command only once at a specific time, or run the command at specific times based on a cron expression.
+        # 
+        # *   To run a command at a fixed interval, use a rate expression to specify the interval. You can specify the interval in seconds, minutes, hours, or days. This option is suitable for scenarios in which tasks need to be executed at a fixed interval. Specify the interval in the following format: `rate(<Execution interval value><Execution interval unit>)`. For example, specify `rate(5m)` to run the command every 5 minutes. When you specify an interval, take note of the following limits:
+        # 
+        #     *   The specified interval can range from 60 seconds to 7 days and must be longer than the timeout period of the scheduled task.
+        #     *   The interval is the amount of time that elapsed between two consecutive executions. The interval is irrelevant to the amount of time that is required to run the command once. For example, you set the interval to 5 minutes, and the amount of time that is required to run the command once is 2 minutes. Each time the command is run, the system waits 3 minutes before the system reruns the command.
+        #     *   A task is not immediately run after it is created. For example, you set the interval to 5 minutes and create a task to run the command. The task runs 5 minutes after it is created.
+        # 
+        # *   To run a command only once at a specific time, specify a point in time and a time zone. Specify the point in time in the `at(yyyy-MM-dd HH:mm:ss <Time zone>)` format, which indicates `at(Year-Month-Day Hour:Minute:Second <Time zone>)`. If you do not specify a time zone, the default time zone UTC is used. You can specify the time zone in the following formats:
+        # 
+        #     *   The name of the time zone. Examples: `Asia/Shanghai` and `America/Los_Angeles`.
+        #     *   The time offset from GMT. Examples: `GMT+8:00` (UTC+8) and `GMT-7:00` (UTC-7). If you use the GMT format, do not add leading zeros to the hour value.
+        #     *   The abbreviation of the time zone. Only UTC is supported.
+        # 
+        #     For example, to specify a command that runs only once at 13:15:30 on June 6, 2022 (Shanghai time), set the time to `at(2022-06-06 13:15:30 Asia/Shanghai)`. To specify a command that runs only once at 13:15:30 on June 6, 2022 (UTC-7), set the time to `at(2022-06-06 13:15:30 GMT-7:00)`.
+        # 
+        # *   To run a command at specific times, specify a cron expression. Specify the time in the `<Cron expression> <Time zone>` format. The cron expression is in the `<seconds> <minutes> <hours> <day of the month> <month> <day of the week> <year (optional)>` format. The system calculates the execution times of the command based on the specified cron expression and time zone and runs the command as scheduled. If you do not specify a time zone, the system time zone of the instance on which you want to run the command is used. For more information about cron expressions, see [Cron expressions](~~64769~~). You can specify the time zone in the following formats:
+        # 
+        #     *   The name of the time zone. Examples: `Asia/Shanghai` and `America/Los_Angeles`.
+        #     *   The time offset from GMT. Examples: `GMT+8:00` (UTC+8) and `GMT-7:00` (UTC-7). If you use the GMT format, do not add leading zeros to the hour value.
+        #     *   The abbreviation of the time zone. Only UTC is supported.
+        # 
+        #     For example, to specify a command that runs at 10:15:00 every day in 2022 (Shanghai time), set the time to `0 15 10 ? * * 2022 Asia/Shanghai`. To specify a command that runs every 30 minutes from 10:00:00 to 11:30:00 every day in 2022 (UTC+8), set the time to `0 0/30 10-11 * * ? 2022 GMT +8:00`. To specify a command to run every 5 minutes from 14:00:00 to 14:55:00 every October every two years starting from 2022 (UTC), set the time to `0 0/5 14 * 10 ? 2022/2 UTC`.
+        # 
+        #     **\
+        # 
+        #     **Note**The interval must be at least 10 seconds and cannot be shorter than the timeout period of scheduled executions.
         self.frequency = frequency  # type: str
+        # The ID of instance N on which you want to run the command. Valid values of N: 1 to 50.
+        # 
+        # If one of the specified instances does not meet the conditions for running the command, the call fails. To ensure that the call is successful, specify only the IDs of instances that meet the conditions.
         self.instance_id = instance_id  # type: list[str]
+        # Specifies whether to retain the command after the command is run. Valid values:
+        # 
+        # *   true: retains the command. You can call the InvokeCommand operation to rerun the command. The retained command counts against the quota of Cloud Assistant commands.
+        # *   false: does not retain the command. The command is automatically deleted after it is run and does not count against the quota of Cloud Assistant commands.
+        # 
+        # Default value: false
         self.keep_command = keep_command  # type: bool
+        # The name of the command. The name supports all character sets and can be up to 128 characters in length.
         self.name = name  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The key-value pairs of the custom parameters that are passed in when the command includes custom parameters. For example, the command content is `echo {{name}}`, and you can use the `Parameter` parameter to pass in the `{"name":"Jack"}` key-value pair. The `name` key of the custom parameter is automatically replaced by the paired Jack value to generate a new command. As a result, the `echo Jack` command is run.
+        # 
+        # You can specify up to 10 custom parameters. Take note of the following items:
+        # 
+        # *   The key cannot be an empty string. It can be up to 64 characters in length.
+        # *   The value can be an empty string.
+        # *   If you want to retain the command, make sure that the size of the command after Base64 encoding, including custom parameters and original command content, does not exceed 18 KB. If you do not want to retain the command, make sure that the size of the command after Base64-encoding does not exceed 24 KB. You can use the `KeepCommand` parameter to specify whether to retain the command.
+        # *   The custom parameter names that are specified by the Parameters parameter must be included in the custom parameter names that you specify when you created the command. You can use empty strings to represent the parameters that are not passed in.
+        # 
+        # By default, this parameter is left empty. If you want to disable the custom parameter feature, you can leave this parameter empty.
         self.parameters = parameters  # type: dict[str, any]
+        # The ID of the region. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
+        # Specifies the mode in which you want to run the command. Valid values:
+        # 
+        # *   Once: immediately runs the command.
+        # *   Period: runs the command based on a schedule. If you set this parameter to `Period`, you must set the `Timed` parameter to true and specify the `Frequency` parameter.
+        # *   NextRebootOnly: automatically runs the command the next time the instance is started.
+        # *   EveryReboot: automatically runs the command every time the instance is started.
+        # 
+        # Default value:
+        # 
+        # *   If you set the `Timed` parameter to false and do not specify the `Frequency` parameter, the default value of the RepeatMode parameter is `Once`.
+        # *   If you set the `Timed` parameter to true and specify the `Frequency` parameter, `Period` is used as the value of the RepeatMode parameter regardless of whether you specify the RepeatMode parameter.
+        # 
+        # Take note of the following items:
+        # 
+        # *   If you set this parameter to `Period`, `NextRebootOnly`, or `EveryReboot`, you can call the [StopInvocation](~~64838~~) operation to stop the pending or scheduled execution of the command.
+        # *   If you set this parameter to `Period` or `EveryReboot`, you can call the [DescribeInvocationResults](~~64845~~) operation and set the `IncludeHistory` parameter to true to view the results of previous scheduled executions.
         self.repeat_mode = repeat_mode  # type: str
+        # The ID of the resource group to which you want to assign the command executions. When you specify this parameter, take note of the following items:
+        # 
+        # *   The instances that are specified by the InstanceId parameter must belong to the specified resource group.
+        # *   You can specify this parameter to call the [DescribeInvocations](~~64840~~) or [DescribeInvocationResults](~~64845~~) operation to query execution results in the specified resource group.
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The tags that you want to add to the command.
         self.tag = tag  # type: list[RunCommandRequestTag]
+        # Specifies whether to run the command based on a schedule. Valid values:
+        # 
+        # *   true: runs the command based on the schedule that is specified by the `Frequency` parameter. The results of a command execution do not affect the next command execution.
+        # *   false: runs the command only once.
+        # 
+        # Default value: false.
         self.timed = timed  # type: bool
+        # The timeout period for the command execution. Unit: seconds.
+        # 
+        # A timeout error occurs when a command cannot be run because the command process slows down or because a specific module or the Cloud Assistant client does not exist. When an execution times out, the command process is forcibly terminated.
+        # 
+        # Default value: 60.
         self.timeout = timeout  # type: long
+        # The language type of the command. Valid values:
+        # 
+        # *   RunBatScript: batch command, applicable to Windows instances
+        # *   RunPowerShellScript: PowerShell command, applicable to Windows instances
+        # *   RunShellScript: shell command, applicable to Linux instances
         self.type = type  # type: str
+        # The username that you use to run the command on instances.
+        # 
+        # *   For Linux instances, the root username is used.
+        # *   For Windows instances, the System username is used.
+        # 
+        # You can also specify other usernames that already exist on the instances to run the command. For security purposes, we recommend that you run Cloud Assistant commands as a regular user. For more information, see [Run Cloud Assistant commands as a regular user](~~203771~~).
         self.username = username  # type: str
+        # The name of the password that you use to run the command on Windows instances.
+        # 
+        # If you do not want to use the default username System to run the command on Windows instances, you must specify the WindowsPasswordName and `Username` parameters. The password is stored in plaintext in the parameter repository of Operation Orchestration Service (OOS) to reduce the risk of password leaks. Only the name of the password is passed in by using the WindowsPasswordName parameter. For more information, see [Encrypt parameters](~~186828~~) and [Configure a regular user to run Cloud Assistant commands](~~203771~~).
+        # 
+        # > If you use the root username for Linux instances or the System username for Windows instances to run the command, you do not need to specify the WindowsPasswordName parameter.
         self.windows_password_name = windows_password_name  # type: str
+        # The working directory of the command on the instance.
+        # 
+        # Default values:
+        # 
+        # *   For Linux instances, the default value is `/root`, which is the home directory of the administrator (the root user).
+        # *   For Windows instances, the default value is the directory where the Cloud Assistant client process resides. Example: `C:\Windows\System32`.
         self.working_dir = working_dir  # type: str
 
     def validate(self):
@@ -87382,7 +85426,15 @@ class RunCommandRequest(TeaModel):
 
 class RunCommandShrinkRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of tag N of the command. You can specify up to 20 tag keys for the command. The tag key cannot be an empty string.
+        # 
+        # If you specify a tag to query resources, up to 1,000 resources that have the specified tag can be displayed in the response. If you specify multiple tags to query resources, up to 1,000 resources that have all specified tags can be displayed in the response. To query more than 1,000 resources that have the specified tags, call the [ListTagResources](~~110425~~) operation.
+        # 
+        # The tag key can be up to 64 characters in length and cannot start with `acs:` or `aliyun`. It cannot contain `http://` or `https://`.
         self.key = key  # type: str
+        # The value of tag N of the command. You can specify up to 20 tag values for the command. The tag value can be an empty string.
+        # 
+        # The tag value can be up to 128 characters in length and cannot contain `http://` or `https://`.
         self.value = value  # type: str
 
     def validate(self):
@@ -87415,30 +85467,196 @@ class RunCommandShrinkRequest(TeaModel):
                  owner_account=None, owner_id=None, parameters_shrink=None, region_id=None, repeat_mode=None,
                  resource_group_id=None, resource_owner_account=None, resource_owner_id=None, tag=None, timed=None, timeout=None,
                  type=None, username=None, windows_password_name=None, working_dir=None):
+        # The content of the command. The command content can be plaintext or Base64-encoded. Take note of the following items:
+        # 
+        # *   If you want to retain the command, make sure that the Base64-encoded command content does not exceed 18 KB in size. If you do not want to retain the command, make sure that the Base64-encoded command content does not exceed 24 KB in size. You can use the `KeepCommand` parameter to specify whether to retain the command.
+        # 
+        # *   If the command content is Base64-encoded, set the `ContentEncoding` parameter to Base64.
+        # 
+        # *   If you set the `EnableParameter` parameter to true, the custom parameter feature is enabled and you can specify custom parameters based on the following rules:
+        # 
+        #     *   Specify custom parameters in the `{{}}` format. Within `{{}}`, the spaces and line feeds before and after the parameter names are ignored.
+        #     *   You can specify up to 20 custom parameters.
+        #     *   A custom parameter name can contain only letters, digits, underscores (\_), and hyphens (-). The name is not case-sensitive.
+        #     *   Each custom parameter name cannot exceed 64 bytes in length.
+        # 
+        # *   You can specify built-in environment parameters as custom parameters. Then, Cloud Assistant automatically specifies the parameters when you run the command. You can specify the following built-in environment parameters:
+        # 
+        #     *   `{{ACS::RegionId}}`: the ID of the region.
+        # 
+        #     *   `{{ACS::AccountId}}`: the UID of the Alibaba Cloud account.
+        # 
+        #     *   `{{ACS::InstanceId}}`: the ID of the instance. If you want to run the command on multiple instances and specify `{{ACS::InstanceId}}` as a built-in environment parameter, make sure that the version of the Cloud Assistant client is not earlier than the following versions:
+        # 
+        #         *   Linux: 2.2.3.309
+        #         *   Windows: 2.1.3.309
+        # 
+        #     *   `{{ACS::InstanceName}}`: the name of the instance. If you want to run the command on multiple instances and specify `{{ACS::InstanceName}}` as a built-in environment parameter, make sure that the version of the Cloud Assistant client is not earlier than the following versions:
+        # 
+        #         *   Linux: 2.2.3.344
+        #         *   Windows: 2.1.3.344
+        # 
+        #     *   `{{ACS::InvokeId}}`: the ID of the command task. If you want to specify `{{ACS::InvokeId}}` as a built-in environment parameter, make sure that the version of the Cloud Assistant client is not earlier than the following versions:
+        # 
+        #         *   Linux: 2.2.3.309
+        #         *   Windows: 2.1.3.309
+        # 
+        #     *   `{{ACS::CommandId}}`: the ID of the command. If you want to specify `{{ACS::CommandId}}` as a built-in environment parameter, make sure that the version of the Cloud Assistant client is not earlier than the following versions:
+        # 
+        #         *   Linux: 2.2.3.309
+        #         *   Windows: 2.1.3.309
         self.command_content = command_content  # type: str
+        # The ID of the container. Only 64-bit hexadecimal strings are supported. Container IDs that are prefixed with `docker://`, `containerd://`, or `cri-o://` can specify container runtimes.
+        # 
+        # Take note of the following items:
+        # 
+        # *   If you specify this parameter, Cloud Assistant runs scripts in the specified container of the instance.
+        # *   If you specify this parameter, scripts can be run only on Linux instances on which the Cloud Assistant client of version 2.2.3.344 or later is installed.
+        # *   If you specify this parameter, the specified `Username` and `WorkingDir` parameters do not take effect. You can run the command in the default working directory of the container by using only the default user of the container. For more information, see [Use Cloud Assistant to run commands in containers](~~456641~~).
+        # *   If you specify this parameter, only shell scripts can be run in Linux containers. You cannot specify a script interpreter by adding a command in a format that is similar to `#!/usr/bin/python` at the beginning of a script. For more information, see [Use Cloud Assistant to run commands in containers](~~456641~~).
         self.container_id = container_id  # type: str
+        # The name of the container.
+        # 
+        # Take note of the following items:
+        # 
+        # *   If you specify this parameter, Cloud Assistant runs scripts in the specified container of the instance.
+        # *   If you specify this parameter, scripts can be run only on Linux instances on which the Cloud Assistant client of version 2.2.3.344 or later is installed.
+        # *   If you specify this parameter, the specified `Username` and `WorkingDir` parameters do not take effect. You can run the command in the default working directory of the container by using only the default user of the container. For more information, see [Use Cloud Assistant to run commands in containers](~~456641~~).
+        # *   If you specify this parameter, only shell scripts can be run in Linux containers. You cannot specify a script interpreter by adding a command in a format that is similar to `#!/usr/bin/python` at the beginning of a script. For more information, see [Use Cloud Assistant to run commands in containers](~~456641~~).
         self.container_name = container_name  # type: str
+        # The encoding mode of the command content that is specified by the `CommandContent` parameter. The valid values are not case-sensitive. Valid values:
+        # 
+        # *   PlainText: The command content is not encoded.
+        # *   Base64: The command content is encoded in Base64.
+        # 
+        # Default value: PlainText. If an invalid value is specified for this parameter, PlainText is used.
         self.content_encoding = content_encoding  # type: str
+        # The description of the command. The description supports all character sets and can be up to 512 characters in length.
         self.description = description  # type: str
+        # Specifies whether to include custom parameters in the command.
+        # 
+        # Default value: false
         self.enable_parameter = enable_parameter  # type: bool
+        # The schedule based on which the command is run. When you set the `Timed` parameter to `true`, you must specify this parameter. You can run a command at a fixed interval based on a rate expression, run the command only once at a specific time, or run the command at specific times based on a cron expression.
+        # 
+        # *   To run a command at a fixed interval, use a rate expression to specify the interval. You can specify the interval in seconds, minutes, hours, or days. This option is suitable for scenarios in which tasks need to be executed at a fixed interval. Specify the interval in the following format: `rate(<Execution interval value><Execution interval unit>)`. For example, specify `rate(5m)` to run the command every 5 minutes. When you specify an interval, take note of the following limits:
+        # 
+        #     *   The specified interval can range from 60 seconds to 7 days and must be longer than the timeout period of the scheduled task.
+        #     *   The interval is the amount of time that elapsed between two consecutive executions. The interval is irrelevant to the amount of time that is required to run the command once. For example, you set the interval to 5 minutes, and the amount of time that is required to run the command once is 2 minutes. Each time the command is run, the system waits 3 minutes before the system reruns the command.
+        #     *   A task is not immediately run after it is created. For example, you set the interval to 5 minutes and create a task to run the command. The task runs 5 minutes after it is created.
+        # 
+        # *   To run a command only once at a specific time, specify a point in time and a time zone. Specify the point in time in the `at(yyyy-MM-dd HH:mm:ss <Time zone>)` format, which indicates `at(Year-Month-Day Hour:Minute:Second <Time zone>)`. If you do not specify a time zone, the default time zone UTC is used. You can specify the time zone in the following formats:
+        # 
+        #     *   The name of the time zone. Examples: `Asia/Shanghai` and `America/Los_Angeles`.
+        #     *   The time offset from GMT. Examples: `GMT+8:00` (UTC+8) and `GMT-7:00` (UTC-7). If you use the GMT format, do not add leading zeros to the hour value.
+        #     *   The abbreviation of the time zone. Only UTC is supported.
+        # 
+        #     For example, to specify a command that runs only once at 13:15:30 on June 6, 2022 (Shanghai time), set the time to `at(2022-06-06 13:15:30 Asia/Shanghai)`. To specify a command that runs only once at 13:15:30 on June 6, 2022 (UTC-7), set the time to `at(2022-06-06 13:15:30 GMT-7:00)`.
+        # 
+        # *   To run a command at specific times, specify a cron expression. Specify the time in the `<Cron expression> <Time zone>` format. The cron expression is in the `<seconds> <minutes> <hours> <day of the month> <month> <day of the week> <year (optional)>` format. The system calculates the execution times of the command based on the specified cron expression and time zone and runs the command as scheduled. If you do not specify a time zone, the system time zone of the instance on which you want to run the command is used. For more information about cron expressions, see [Cron expressions](~~64769~~). You can specify the time zone in the following formats:
+        # 
+        #     *   The name of the time zone. Examples: `Asia/Shanghai` and `America/Los_Angeles`.
+        #     *   The time offset from GMT. Examples: `GMT+8:00` (UTC+8) and `GMT-7:00` (UTC-7). If you use the GMT format, do not add leading zeros to the hour value.
+        #     *   The abbreviation of the time zone. Only UTC is supported.
+        # 
+        #     For example, to specify a command that runs at 10:15:00 every day in 2022 (Shanghai time), set the time to `0 15 10 ? * * 2022 Asia/Shanghai`. To specify a command that runs every 30 minutes from 10:00:00 to 11:30:00 every day in 2022 (UTC+8), set the time to `0 0/30 10-11 * * ? 2022 GMT +8:00`. To specify a command to run every 5 minutes from 14:00:00 to 14:55:00 every October every two years starting from 2022 (UTC), set the time to `0 0/5 14 * 10 ? 2022/2 UTC`.
+        # 
+        #     **\
+        # 
+        #     **Note**The interval must be at least 10 seconds and cannot be shorter than the timeout period of scheduled executions.
         self.frequency = frequency  # type: str
+        # The ID of instance N on which you want to run the command. Valid values of N: 1 to 50.
+        # 
+        # If one of the specified instances does not meet the conditions for running the command, the call fails. To ensure that the call is successful, specify only the IDs of instances that meet the conditions.
         self.instance_id = instance_id  # type: list[str]
+        # Specifies whether to retain the command after the command is run. Valid values:
+        # 
+        # *   true: retains the command. You can call the InvokeCommand operation to rerun the command. The retained command counts against the quota of Cloud Assistant commands.
+        # *   false: does not retain the command. The command is automatically deleted after it is run and does not count against the quota of Cloud Assistant commands.
+        # 
+        # Default value: false
         self.keep_command = keep_command  # type: bool
+        # The name of the command. The name supports all character sets and can be up to 128 characters in length.
         self.name = name  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The key-value pairs of the custom parameters that are passed in when the command includes custom parameters. For example, the command content is `echo {{name}}`, and you can use the `Parameter` parameter to pass in the `{"name":"Jack"}` key-value pair. The `name` key of the custom parameter is automatically replaced by the paired Jack value to generate a new command. As a result, the `echo Jack` command is run.
+        # 
+        # You can specify up to 10 custom parameters. Take note of the following items:
+        # 
+        # *   The key cannot be an empty string. It can be up to 64 characters in length.
+        # *   The value can be an empty string.
+        # *   If you want to retain the command, make sure that the size of the command after Base64 encoding, including custom parameters and original command content, does not exceed 18 KB. If you do not want to retain the command, make sure that the size of the command after Base64-encoding does not exceed 24 KB. You can use the `KeepCommand` parameter to specify whether to retain the command.
+        # *   The custom parameter names that are specified by the Parameters parameter must be included in the custom parameter names that you specify when you created the command. You can use empty strings to represent the parameters that are not passed in.
+        # 
+        # By default, this parameter is left empty. If you want to disable the custom parameter feature, you can leave this parameter empty.
         self.parameters_shrink = parameters_shrink  # type: str
+        # The ID of the region. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
+        # Specifies the mode in which you want to run the command. Valid values:
+        # 
+        # *   Once: immediately runs the command.
+        # *   Period: runs the command based on a schedule. If you set this parameter to `Period`, you must set the `Timed` parameter to true and specify the `Frequency` parameter.
+        # *   NextRebootOnly: automatically runs the command the next time the instance is started.
+        # *   EveryReboot: automatically runs the command every time the instance is started.
+        # 
+        # Default value:
+        # 
+        # *   If you set the `Timed` parameter to false and do not specify the `Frequency` parameter, the default value of the RepeatMode parameter is `Once`.
+        # *   If you set the `Timed` parameter to true and specify the `Frequency` parameter, `Period` is used as the value of the RepeatMode parameter regardless of whether you specify the RepeatMode parameter.
+        # 
+        # Take note of the following items:
+        # 
+        # *   If you set this parameter to `Period`, `NextRebootOnly`, or `EveryReboot`, you can call the [StopInvocation](~~64838~~) operation to stop the pending or scheduled execution of the command.
+        # *   If you set this parameter to `Period` or `EveryReboot`, you can call the [DescribeInvocationResults](~~64845~~) operation and set the `IncludeHistory` parameter to true to view the results of previous scheduled executions.
         self.repeat_mode = repeat_mode  # type: str
+        # The ID of the resource group to which you want to assign the command executions. When you specify this parameter, take note of the following items:
+        # 
+        # *   The instances that are specified by the InstanceId parameter must belong to the specified resource group.
+        # *   You can specify this parameter to call the [DescribeInvocations](~~64840~~) or [DescribeInvocationResults](~~64845~~) operation to query execution results in the specified resource group.
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The tags that you want to add to the command.
         self.tag = tag  # type: list[RunCommandShrinkRequestTag]
+        # Specifies whether to run the command based on a schedule. Valid values:
+        # 
+        # *   true: runs the command based on the schedule that is specified by the `Frequency` parameter. The results of a command execution do not affect the next command execution.
+        # *   false: runs the command only once.
+        # 
+        # Default value: false.
         self.timed = timed  # type: bool
+        # The timeout period for the command execution. Unit: seconds.
+        # 
+        # A timeout error occurs when a command cannot be run because the command process slows down or because a specific module or the Cloud Assistant client does not exist. When an execution times out, the command process is forcibly terminated.
+        # 
+        # Default value: 60.
         self.timeout = timeout  # type: long
+        # The language type of the command. Valid values:
+        # 
+        # *   RunBatScript: batch command, applicable to Windows instances
+        # *   RunPowerShellScript: PowerShell command, applicable to Windows instances
+        # *   RunShellScript: shell command, applicable to Linux instances
         self.type = type  # type: str
+        # The username that you use to run the command on instances.
+        # 
+        # *   For Linux instances, the root username is used.
+        # *   For Windows instances, the System username is used.
+        # 
+        # You can also specify other usernames that already exist on the instances to run the command. For security purposes, we recommend that you run Cloud Assistant commands as a regular user. For more information, see [Run Cloud Assistant commands as a regular user](~~203771~~).
         self.username = username  # type: str
+        # The name of the password that you use to run the command on Windows instances.
+        # 
+        # If you do not want to use the default username System to run the command on Windows instances, you must specify the WindowsPasswordName and `Username` parameters. The password is stored in plaintext in the parameter repository of Operation Orchestration Service (OOS) to reduce the risk of password leaks. Only the name of the password is passed in by using the WindowsPasswordName parameter. For more information, see [Encrypt parameters](~~186828~~) and [Configure a regular user to run Cloud Assistant commands](~~203771~~).
+        # 
+        # > If you use the root username for Linux instances or the System username for Windows instances to run the command, you do not need to specify the WindowsPasswordName parameter.
         self.windows_password_name = windows_password_name  # type: str
+        # The working directory of the command on the instance.
+        # 
+        # Default values:
+        # 
+        # *   For Linux instances, the default value is `/root`, which is the home directory of the administrator (the root user).
+        # *   For Windows instances, the default value is the directory where the Cloud Assistant client process resides. Example: `C:\Windows\System32`.
         self.working_dir = working_dir  # type: str
 
     def validate(self):
@@ -87567,8 +85785,11 @@ class RunCommandShrinkRequest(TeaModel):
 
 class RunCommandResponseBody(TeaModel):
     def __init__(self, command_id=None, invoke_id=None, request_id=None):
+        # The ID of the command.
         self.command_id = command_id  # type: str
+        # The ID of the command execution.
         self.invoke_id = invoke_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -87990,6 +86211,30 @@ class RunInstancesRequestDataDisk(TeaModel):
         return self
 
 
+class RunInstancesRequestImageOptions(TeaModel):
+    def __init__(self, login_as_non_root=None):
+        self.login_as_non_root = login_as_non_root  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RunInstancesRequestImageOptions, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.login_as_non_root is not None:
+            result['LoginAsNonRoot'] = self.login_as_non_root
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('LoginAsNonRoot') is not None:
+            self.login_as_non_root = m.get('LoginAsNonRoot')
+        return self
+
+
 class RunInstancesRequestNetworkInterface(TeaModel):
     def __init__(self, description=None, instance_type=None, ipv_6address=None, ipv_6address_count=None,
                  network_card_index=None, network_interface_name=None, network_interface_traffic_mode=None, primary_ip_address=None,
@@ -88136,16 +86381,16 @@ class RunInstancesRequest(TeaModel):
                  data_disk=None, dedicated_host_id=None, deletion_protection=None, deployment_set_group_no=None,
                  deployment_set_id=None, description=None, dry_run=None, host_name=None, host_names=None, hpc_cluster_id=None,
                  http_endpoint=None, http_put_response_hop_limit=None, http_tokens=None, image_family=None, image_id=None,
-                 instance_charge_type=None, instance_name=None, instance_type=None, internet_charge_type=None,
-                 internet_max_bandwidth_in=None, internet_max_bandwidth_out=None, io_optimized=None, ipv_6address=None,
-                 ipv_6address_count=None, isp=None, key_pair_name=None, launch_template_id=None, launch_template_name=None,
-                 launch_template_version=None, min_amount=None, network_interface=None, network_interface_queue_number=None,
-                 network_options=None, owner_account=None, owner_id=None, password=None, password_inherit=None, period=None,
-                 period_unit=None, private_ip_address=None, ram_role_name=None, region_id=None, resource_group_id=None,
-                 resource_owner_account=None, resource_owner_id=None, security_enhancement_strategy=None, security_group_id=None,
-                 security_group_ids=None, spot_duration=None, spot_interruption_behavior=None, spot_price_limit=None,
-                 spot_strategy=None, storage_set_id=None, storage_set_partition_number=None, tag=None, tenancy=None,
-                 unique_suffix=None, user_data=None, v_switch_id=None, zone_id=None):
+                 image_options=None, instance_charge_type=None, instance_name=None, instance_type=None,
+                 internet_charge_type=None, internet_max_bandwidth_in=None, internet_max_bandwidth_out=None, io_optimized=None,
+                 ipv_6address=None, ipv_6address_count=None, isp=None, key_pair_name=None, launch_template_id=None,
+                 launch_template_name=None, launch_template_version=None, min_amount=None, network_interface=None,
+                 network_interface_queue_number=None, network_options=None, owner_account=None, owner_id=None, password=None,
+                 password_inherit=None, period=None, period_unit=None, private_ip_address=None, ram_role_name=None, region_id=None,
+                 resource_group_id=None, resource_owner_account=None, resource_owner_id=None, security_enhancement_strategy=None,
+                 security_group_id=None, security_group_ids=None, spot_duration=None, spot_interruption_behavior=None,
+                 spot_price_limit=None, spot_strategy=None, storage_set_id=None, storage_set_partition_number=None, tag=None,
+                 tenancy=None, unique_suffix=None, user_data=None, v_switch_id=None, zone_id=None):
         self.cpu_options = cpu_options  # type: RunInstancesRequestCpuOptions
         self.hibernation_options = hibernation_options  # type: RunInstancesRequestHibernationOptions
         self.private_pool_options = private_pool_options  # type: RunInstancesRequestPrivatePoolOptions
@@ -88175,6 +86420,7 @@ class RunInstancesRequest(TeaModel):
         self.http_tokens = http_tokens  # type: str
         self.image_family = image_family  # type: str
         self.image_id = image_id  # type: str
+        self.image_options = image_options  # type: RunInstancesRequestImageOptions
         self.instance_charge_type = instance_charge_type  # type: str
         self.instance_name = instance_name  # type: str
         self.instance_type = instance_type  # type: str
@@ -88242,6 +86488,8 @@ class RunInstancesRequest(TeaModel):
             for k in self.data_disk:
                 if k:
                     k.validate()
+        if self.image_options:
+            self.image_options.validate()
         if self.network_interface:
             for k in self.network_interface:
                 if k:
@@ -88321,6 +86569,8 @@ class RunInstancesRequest(TeaModel):
             result['ImageFamily'] = self.image_family
         if self.image_id is not None:
             result['ImageId'] = self.image_id
+        if self.image_options is not None:
+            result['ImageOptions'] = self.image_options.to_map()
         if self.instance_charge_type is not None:
             result['InstanceChargeType'] = self.instance_charge_type
         if self.instance_name is not None:
@@ -88489,6 +86739,9 @@ class RunInstancesRequest(TeaModel):
             self.image_family = m.get('ImageFamily')
         if m.get('ImageId') is not None:
             self.image_id = m.get('ImageId')
+        if m.get('ImageOptions') is not None:
+            temp_model = RunInstancesRequestImageOptions()
+            self.image_options = temp_model.from_map(m['ImageOptions'])
         if m.get('InstanceChargeType') is not None:
             self.instance_charge_type = m.get('InstanceChargeType')
         if m.get('InstanceName') is not None:
@@ -89807,44 +88060,15 @@ class StopInstanceResponse(TeaModel):
 class StopInstancesRequest(TeaModel):
     def __init__(self, batch_optimization=None, dry_run=None, force_stop=None, instance_id=None, owner_account=None,
                  owner_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None, stopped_mode=None):
-        # The batch operation mode. Valid values:
-        # 
-        # *   AllTogether: In this mode, if all instances are stopped, a success message is returned. If an instance fails the verification, all instances fail to stop and an error message is returned.
-        # *   SuccessFirst: In this mode, each instance is separately stopped. The response contains the operation results for each instance.
-        # 
-        # Default value: AllTogether.
         self.batch_optimization = batch_optimization  # type: str
-        # Specifies whether to check the validity of the request without actually making the request. Valid values:
-        # 
-        # *   true: The validity of the request is checked, but the request is not made. Check items include the request format, instance status, and whether the required parameters are specified. If the check fails, the corresponding error message is returned. If the check succeeds, `DRYRUN.SUCCESS` is returned.
-        # 
-        #     > If you set `BatchOptimization` to `SuccessFirst` and `DryRun` to true, only `DRYRUN.SUCCESS` is returned regardless of whether the check succeeds.
-        # 
-        # *   false: The validity of the request is checked, and the request is made if the check succeeds.
-        # 
-        # Default value: false.
         self.dry_run = dry_run  # type: bool
-        # Specifies whether to forcibly stop the instance. Valid values:
-        # 
-        # *   true: forcibly stops the instance. This operation is equivalent to the typical power-off operation. Cache data that is not written to storage in the instance will be lost.
-        # *   false: normally stops the instance.
-        # 
-        # Default value: false.
         self.force_stop = force_stop  # type: bool
-        # The list of instance ID.
         self.instance_id = instance_id  # type: list[str]
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The region ID of the instance. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The stop mode of the pay-as-you-go instance. Valid values:
-        # 
-        # *   StopCharging: economical mode. For information about how `StopCharging` takes effect, see the "Prerequisites" section in [Economical mode](~~63353~~).
-        # *   KeepCharging: standard mode. After the instances are stopped in standard mode, you continue to be charged for them.
-        # 
-        # Default value: If the prerequisites required for enabling the economical mode are met and you have enabled this mode in the ECS console, the default value is `StopCharging`. For more information, see "Enable the economical mode" in [Economical mode](~~63353#default~~). Otherwise, the default value is `KeepCharging`.
         self.stopped_mode = stopped_mode  # type: str
 
     def validate(self):
@@ -89905,15 +88129,10 @@ class StopInstancesRequest(TeaModel):
 
 class StopInstancesResponseBodyInstanceResponsesInstanceResponse(TeaModel):
     def __init__(self, code=None, current_status=None, instance_id=None, message=None, previous_status=None):
-        # The error code of the instance operation result. The return value 200 indicates success. For more information, see the "Error codes" section in this topic.
         self.code = code  # type: str
-        # The current state of the instance.
         self.current_status = current_status  # type: str
-        # The ID of instance N.
         self.instance_id = instance_id  # type: str
-        # The error message for instance operation. The return value Success indicates operation success. For more information, see the "Error codes" section in this topic.
         self.message = message  # type: str
-        # The state of the instance before the operation is called.
         self.previous_status = previous_status  # type: str
 
     def validate(self):
@@ -89986,9 +88205,7 @@ class StopInstancesResponseBodyInstanceResponses(TeaModel):
 
 class StopInstancesResponseBody(TeaModel):
     def __init__(self, instance_responses=None, request_id=None):
-        # Details about instance-specific responses, which contain the states of each instance before and after the operation is called and the results of the operation.
         self.instance_responses = instance_responses  # type: StopInstancesResponseBodyInstanceResponses
-        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -90578,11 +88795,15 @@ class TerminateVirtualBorderRouterResponse(TeaModel):
 class UnassignIpv6AddressesRequest(TeaModel):
     def __init__(self, ipv_6address=None, ipv_6prefix=None, network_interface_id=None, owner_account=None,
                  owner_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None):
+        # The IPv6 addresses to unassign. You can specify up to 10 IPv6 addresses in a single request.
         self.ipv_6address = ipv_6address  # type: list[str]
+        # > This parameter is in invitational preview and is unavailable for general users.
         self.ipv_6prefix = ipv_6prefix  # type: list[str]
+        # The ID of the ENI.
         self.network_interface_id = network_interface_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID of the ENI. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -90637,6 +88858,7 @@ class UnassignIpv6AddressesRequest(TeaModel):
 
 class UnassignIpv6AddressesResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -90702,10 +88924,13 @@ class UnassignPrivateIpAddressesRequest(TeaModel):
     def __init__(self, ipv_4prefix=None, network_interface_id=None, owner_account=None, owner_id=None,
                  private_ip_address=None, region_id=None, resource_owner_account=None, resource_owner_id=None):
         self.ipv_4prefix = ipv_4prefix  # type: list[str]
+        # The ID of the ENI.
         self.network_interface_id = network_interface_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The secondary private IP addresses to unassign.
         self.private_ip_address = private_ip_address  # type: list[str]
+        # The region ID of the ENI. You can call the [DescribeRegions](~~25609~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -90760,6 +88985,7 @@ class UnassignPrivateIpAddressesRequest(TeaModel):
 
 class UnassignPrivateIpAddressesResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
