@@ -1,3 +1,6 @@
+2023-03-28 Version: 2.2.21
+- Move the TemplateBody parameter of ValidateTemplate to the request body to support larger template size.
+
 2023-03-15 Version: 2.2.20
 - Add GetTemplateRecommendParameters  interface to SDK.
 
