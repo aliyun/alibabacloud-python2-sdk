@@ -1881,8 +1881,8 @@ class CleanDistDataResponse(TeaModel):
 
 class CreateARMServerInstancesRequest(TeaModel):
     def __init__(self, amount=None, auto_renew=None, ens_region_id=None, frequency=None, image_id=None,
-                 instance_type=None, key_pair_name=None, pay_type=None, period=None, period_unit=None, resolution=None,
-                 server_type=None):
+                 instance_type=None, key_pair_name=None, name_space=None, pay_type=None, period=None, period_unit=None,
+                 resolution=None, server_type=None):
         self.amount = amount  # type: int
         self.auto_renew = auto_renew  # type: bool
         self.ens_region_id = ens_region_id  # type: str
@@ -1890,6 +1890,7 @@ class CreateARMServerInstancesRequest(TeaModel):
         self.image_id = image_id  # type: str
         self.instance_type = instance_type  # type: str
         self.key_pair_name = key_pair_name  # type: str
+        self.name_space = name_space  # type: str
         self.pay_type = pay_type  # type: str
         self.period = period  # type: int
         self.period_unit = period_unit  # type: str
@@ -1919,6 +1920,8 @@ class CreateARMServerInstancesRequest(TeaModel):
             result['InstanceType'] = self.instance_type
         if self.key_pair_name is not None:
             result['KeyPairName'] = self.key_pair_name
+        if self.name_space is not None:
+            result['NameSpace'] = self.name_space
         if self.pay_type is not None:
             result['PayType'] = self.pay_type
         if self.period is not None:
@@ -1947,6 +1950,8 @@ class CreateARMServerInstancesRequest(TeaModel):
             self.instance_type = m.get('InstanceType')
         if m.get('KeyPairName') is not None:
             self.key_pair_name = m.get('KeyPairName')
+        if m.get('NameSpace') is not None:
+            self.name_space = m.get('NameSpace')
         if m.get('PayType') is not None:
             self.pay_type = m.get('PayType')
         if m.get('Period') is not None:
@@ -7460,12 +7465,13 @@ class DescribeARMServerInstancesResponseBodyServersAICInstances(TeaModel):
 
 
 class DescribeARMServerInstancesResponseBodyServers(TeaModel):
-    def __init__(self, aicinstances=None, creation_time=None, ens_region_id=None, expired_time=None, server_id=None,
-                 spec_name=None, state=None, status=None):
+    def __init__(self, aicinstances=None, creation_time=None, ens_region_id=None, expired_time=None, namespace=None,
+                 server_id=None, spec_name=None, state=None, status=None):
         self.aicinstances = aicinstances  # type: list[DescribeARMServerInstancesResponseBodyServersAICInstances]
         self.creation_time = creation_time  # type: str
         self.ens_region_id = ens_region_id  # type: str
         self.expired_time = expired_time  # type: str
+        self.namespace = namespace  # type: str
         self.server_id = server_id  # type: str
         self.spec_name = spec_name  # type: str
         self.state = state  # type: str
@@ -7493,6 +7499,8 @@ class DescribeARMServerInstancesResponseBodyServers(TeaModel):
             result['EnsRegionId'] = self.ens_region_id
         if self.expired_time is not None:
             result['ExpiredTime'] = self.expired_time
+        if self.namespace is not None:
+            result['Namespace'] = self.namespace
         if self.server_id is not None:
             result['ServerId'] = self.server_id
         if self.spec_name is not None:
@@ -7516,6 +7524,8 @@ class DescribeARMServerInstancesResponseBodyServers(TeaModel):
             self.ens_region_id = m.get('EnsRegionId')
         if m.get('ExpiredTime') is not None:
             self.expired_time = m.get('ExpiredTime')
+        if m.get('Namespace') is not None:
+            self.namespace = m.get('Namespace')
         if m.get('ServerId') is not None:
             self.server_id = m.get('ServerId')
         if m.get('SpecName') is not None:
