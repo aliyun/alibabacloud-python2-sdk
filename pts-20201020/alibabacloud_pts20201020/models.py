@@ -3317,6 +3317,35 @@ class GetPtsSceneResponseBodySceneGlobalParameterList(TeaModel):
         return self
 
 
+class GetPtsSceneResponseBodySceneHeaders(TeaModel):
+    def __init__(self, name=None, value=None):
+        self.name = name  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetPtsSceneResponseBodySceneHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
 class GetPtsSceneResponseBodySceneLoadConfigApiLoadConfigList(TeaModel):
     def __init__(self, api_id=None, rps_begin=None, rps_limit=None):
         self.api_id = api_id  # type: str
@@ -3890,12 +3919,13 @@ class GetPtsSceneResponseBodySceneRelationList(TeaModel):
 
 class GetPtsSceneResponseBodyScene(TeaModel):
     def __init__(self, advance_setting=None, create_time=None, file_parameter_list=None,
-                 global_parameter_list=None, load_config=None, modified_time=None, relation_list=None, scene_id=None, scene_name=None,
-                 status=None):
+                 global_parameter_list=None, headers=None, load_config=None, modified_time=None, relation_list=None, scene_id=None,
+                 scene_name=None, status=None):
         self.advance_setting = advance_setting  # type: GetPtsSceneResponseBodySceneAdvanceSetting
         self.create_time = create_time  # type: str
         self.file_parameter_list = file_parameter_list  # type: list[GetPtsSceneResponseBodySceneFileParameterList]
         self.global_parameter_list = global_parameter_list  # type: list[GetPtsSceneResponseBodySceneGlobalParameterList]
+        self.headers = headers  # type: list[GetPtsSceneResponseBodySceneHeaders]
         self.load_config = load_config  # type: GetPtsSceneResponseBodySceneLoadConfig
         self.modified_time = modified_time  # type: str
         self.relation_list = relation_list  # type: list[GetPtsSceneResponseBodySceneRelationList]
@@ -3912,6 +3942,10 @@ class GetPtsSceneResponseBodyScene(TeaModel):
                     k.validate()
         if self.global_parameter_list:
             for k in self.global_parameter_list:
+                if k:
+                    k.validate()
+        if self.headers:
+            for k in self.headers:
                 if k:
                     k.validate()
         if self.load_config:
@@ -3939,6 +3973,10 @@ class GetPtsSceneResponseBodyScene(TeaModel):
         if self.global_parameter_list is not None:
             for k in self.global_parameter_list:
                 result['GlobalParameterList'].append(k.to_map() if k else None)
+        result['Headers'] = []
+        if self.headers is not None:
+            for k in self.headers:
+                result['Headers'].append(k.to_map() if k else None)
         if self.load_config is not None:
             result['LoadConfig'] = self.load_config.to_map()
         if self.modified_time is not None:
@@ -3972,6 +4010,11 @@ class GetPtsSceneResponseBodyScene(TeaModel):
             for k in m.get('GlobalParameterList'):
                 temp_model = GetPtsSceneResponseBodySceneGlobalParameterList()
                 self.global_parameter_list.append(temp_model.from_map(k))
+        self.headers = []
+        if m.get('Headers') is not None:
+            for k in m.get('Headers'):
+                temp_model = GetPtsSceneResponseBodySceneHeaders()
+                self.headers.append(temp_model.from_map(k))
         if m.get('LoadConfig') is not None:
             temp_model = GetPtsSceneResponseBodySceneLoadConfig()
             self.load_config = temp_model.from_map(m['LoadConfig'])
