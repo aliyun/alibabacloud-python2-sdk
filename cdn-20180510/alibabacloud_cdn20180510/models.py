@@ -25690,9 +25690,6 @@ class PushObjectCacheResponse(TeaModel):
 
 class RefreshObjectCachesRequest(TeaModel):
     def __init__(self, object_path=None, object_type=None, owner_id=None, security_token=None):
-        # The URLs from which content is refreshed. Format: **Accelerated domain name**/**Paths or directories of files that you want to refresh**.
-        # 
-        # Separate multiple URLs with line feed characters (\n) or a pair of carriage return and line feed characters (\r\n).
         self.object_path = object_path  # type: str
         # The type of the object that you want to refresh. Valid values:
         # 
