@@ -729,6 +729,8 @@ class Client(OpenApiClient):
     def delete_stack_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.delete_options):
+            query['DeleteOptions'] = request.delete_options
         if not UtilClient.is_unset(request.ram_role_name):
             query['RamRoleName'] = request.ram_role_name
         if not UtilClient.is_unset(request.region_id):
