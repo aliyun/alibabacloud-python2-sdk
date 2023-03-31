@@ -718,6 +718,8 @@ class Client(OpenApiClient):
             body['Protocols'] = request.protocols
         if not UtilClient.is_unset(request.registration_details):
             body['RegistrationDetails'] = request.registration_details
+        if not UtilClient.is_unset(request.request_content_type):
+            body['RequestContentType'] = request.request_content_type
         if not UtilClient.is_unset(request.request_method):
             body['RequestMethod'] = request.request_method
         if not UtilClient.is_unset(request.resource_group_id):
