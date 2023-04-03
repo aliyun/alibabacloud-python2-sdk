@@ -31,6 +31,17 @@ class Client(OpenApiClient):
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
     def add_custom_line_with_options(self, request, runtime):
+        """
+        In each CIDR block, the end IP address must be greater than or equal to the start IP address.
+        The CIDR blocks that are specified for all custom lines of a domain name cannot intersect.
+        
+
+        @param request: AddCustomLineRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: AddCustomLineResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.domain_name):
@@ -61,6 +72,15 @@ class Client(OpenApiClient):
         )
 
     def add_custom_line(self, request):
+        """
+        In each CIDR block, the end IP address must be greater than or equal to the start IP address.
+        The CIDR blocks that are specified for all custom lines of a domain name cannot intersect.
+        
+
+        @param request: AddCustomLineRequest
+
+        @return: AddCustomLineResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.add_custom_line_with_options(request, runtime)
 
@@ -221,6 +241,16 @@ class Client(OpenApiClient):
         return self.add_dns_gtm_address_pool_with_options(request, runtime)
 
     def add_dns_gtm_monitor_with_options(self, request, runtime):
+        """
+        **\
+        
+
+        @param request: AddDnsGtmMonitorRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: AddDnsGtmMonitorResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.addr_pool_id):
@@ -259,10 +289,29 @@ class Client(OpenApiClient):
         )
 
     def add_dns_gtm_monitor(self, request):
+        """
+        **\
+        
+
+        @param request: AddDnsGtmMonitorRequest
+
+        @return: AddDnsGtmMonitorResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.add_dns_gtm_monitor_with_options(request, runtime)
 
     def add_domain_with_options(self, request, runtime):
+        """
+        You can check whether a domain name is valid based on the following topic:
+        [Domain name validity](https://www.alibabacloud.com/help/zh/doc-detail/67788.htm)
+        
+
+        @param request: AddDomainRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: AddDomainResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.domain_name):
@@ -293,6 +342,15 @@ class Client(OpenApiClient):
         )
 
     def add_domain(self, request):
+        """
+        You can check whether a domain name is valid based on the following topic:
+        [Domain name validity](https://www.alibabacloud.com/help/zh/doc-detail/67788.htm)
+        
+
+        @param request: AddDomainRequest
+
+        @return: AddDomainResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.add_domain_with_options(request, runtime)
 
@@ -633,6 +691,16 @@ class Client(OpenApiClient):
         return self.change_domain_group_with_options(request, runtime)
 
     def change_domain_of_dns_product_with_options(self, request, runtime):
+        """
+        >  You can call this operation to change the domain name for an Alibaba Cloud DNS instance to which a domain name is bound. You can also call this operation to bind a domain name to an Alibaba Cloud DNS instance to which no domain name is bound. If you need to unbind a domain name from an Alibaba Cloud DNS instance, you can call this operation. In this case, the NewDomain parameter must not be specified.
+        
+
+        @param request: ChangeDomainOfDnsProductRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ChangeDomainOfDnsProductResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.force):
@@ -665,6 +733,14 @@ class Client(OpenApiClient):
         )
 
     def change_domain_of_dns_product(self, request):
+        """
+        >  You can call this operation to change the domain name for an Alibaba Cloud DNS instance to which a domain name is bound. You can also call this operation to bind a domain name to an Alibaba Cloud DNS instance to which no domain name is bound. If you need to unbind a domain name from an Alibaba Cloud DNS instance, you can call this operation. In this case, the NewDomain parameter must not be specified.
+        
+
+        @param request: ChangeDomainOfDnsProductRequest
+
+        @return: ChangeDomainOfDnsProductResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.change_domain_of_dns_product_with_options(request, runtime)
 
@@ -883,6 +959,17 @@ class Client(OpenApiClient):
         return self.delete_dns_gtm_address_pool_with_options(request, runtime)
 
     def delete_domain_with_options(self, request, runtime):
+        """
+        Given the unique nature of a HiChina domain name, you are not allowed to delete the HiChina domain name by calling the Alibaba Cloud DNS API.
+        *   If the system prompts that a domain name does not exist, it is an unregistered domain name, it does not exist under the account, or its format in the request parameters is incorrect.
+        
+
+        @param request: DeleteDomainRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteDomainResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.domain_name):
@@ -909,10 +996,29 @@ class Client(OpenApiClient):
         )
 
     def delete_domain(self, request):
+        """
+        Given the unique nature of a HiChina domain name, you are not allowed to delete the HiChina domain name by calling the Alibaba Cloud DNS API.
+        *   If the system prompts that a domain name does not exist, it is an unregistered domain name, it does not exist under the account, or its format in the request parameters is incorrect.
+        
+
+        @param request: DeleteDomainRequest
+
+        @return: DeleteDomainResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_domain_with_options(request, runtime)
 
     def delete_domain_group_with_options(self, request, runtime):
+        """
+        >  A domain name group can be deleted only when it contains no domain names. The default group cannot be deleted.
+        
+
+        @param request: DeleteDomainGroupRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteDomainGroupResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.group_id):
@@ -939,6 +1045,14 @@ class Client(OpenApiClient):
         )
 
     def delete_domain_group(self, request):
+        """
+        >  A domain name group can be deleted only when it contains no domain names. The default group cannot be deleted.
+        
+
+        @param request: DeleteDomainGroupRequest
+
+        @return: DeleteDomainGroupResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_domain_group_with_options(request, runtime)
 
@@ -1065,6 +1179,16 @@ class Client(OpenApiClient):
         return self.delete_gtm_recovery_plan_with_options(request, runtime)
 
     def delete_sub_domain_records_with_options(self, request, runtime):
+        """
+        If the DNS records to be deleted contain locked DNS records, locked DNS records will not be deleted.
+        
+
+        @param request: DeleteSubDomainRecordsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteSubDomainRecordsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.domain_name):
@@ -1097,6 +1221,14 @@ class Client(OpenApiClient):
         )
 
     def delete_sub_domain_records(self, request):
+        """
+        If the DNS records to be deleted contain locked DNS records, locked DNS records will not be deleted.
+        
+
+        @param request: DeleteSubDomainRecordsRequest
+
+        @return: DeleteSubDomainRecordsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_sub_domain_records_with_options(request, runtime)
 
@@ -1133,6 +1265,16 @@ class Client(OpenApiClient):
         return self.describe_batch_result_count_with_options(request, runtime)
 
     def describe_batch_result_detail_with_options(self, request, runtime):
+        """
+        Before you call this operation, make sure that the batch tasks have been executed.
+        
+
+        @param request: DescribeBatchResultDetailRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeBatchResultDetailResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.batch_type):
@@ -1167,6 +1309,14 @@ class Client(OpenApiClient):
         )
 
     def describe_batch_result_detail(self, request):
+        """
+        Before you call this operation, make sure that the batch tasks have been executed.
+        
+
+        @param request: DescribeBatchResultDetailRequest
+
+        @return: DescribeBatchResultDetailResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_batch_result_detail_with_options(request, runtime)
 
@@ -1815,6 +1965,16 @@ class Client(OpenApiClient):
         return self.describe_dns_product_instance_with_options(request, runtime)
 
     def describe_dns_product_instances_with_options(self, request, runtime):
+        """
+        >  If the response parameters of an Alibaba Cloud DNS instance do not contain domain names, no domain names are bound to the instance.
+        
+
+        @param request: DescribeDnsProductInstancesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDnsProductInstancesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.domain_type):
@@ -1849,6 +2009,14 @@ class Client(OpenApiClient):
         )
 
     def describe_dns_product_instances(self, request):
+        """
+        >  If the response parameters of an Alibaba Cloud DNS instance do not contain domain names, no domain names are bound to the instance.
+        
+
+        @param request: DescribeDnsProductInstancesRequest
+
+        @return: DescribeDnsProductInstancesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_dns_product_instances_with_options(request, runtime)
 
@@ -2127,6 +2295,16 @@ class Client(OpenApiClient):
         return self.describe_domain_groups_with_options(request, runtime)
 
     def describe_domain_info_with_options(self, request, runtime):
+        """
+        In this example, the domain name is bound to an Alibaba Cloud DNS instance of Enterprise Ultimate Edition. For more information about valid lines, see the return values of the RecordLines parameter.
+        
+
+        @param request: DescribeDomainInfoRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDomainInfoResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.domain_name):
@@ -2155,6 +2333,14 @@ class Client(OpenApiClient):
         )
 
     def describe_domain_info(self, request):
+        """
+        In this example, the domain name is bound to an Alibaba Cloud DNS instance of Enterprise Ultimate Edition. For more information about valid lines, see the return values of the RecordLines parameter.
+        
+
+        @param request: DescribeDomainInfoRequest
+
+        @return: DescribeDomainInfoResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_domain_info_with_options(request, runtime)
 
@@ -2201,6 +2387,16 @@ class Client(OpenApiClient):
         return self.describe_domain_logs_with_options(request, runtime)
 
     def describe_domain_ns_with_options(self, request, runtime):
+        """
+        >  This operation queries the authoritative server of the registry to obtain the name servers of a domain name. If the domain name is in the serverHold or clientHold state, an exception may occur.
+        
+
+        @param request: DescribeDomainNsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDomainNsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.domain_name):
@@ -2227,6 +2423,14 @@ class Client(OpenApiClient):
         )
 
     def describe_domain_ns(self, request):
+        """
+        >  This operation queries the authoritative server of the registry to obtain the name servers of a domain name. If the domain name is in the serverHold or clientHold state, an exception may occur.
+        
+
+        @param request: DescribeDomainNsRequest
+
+        @return: DescribeDomainNsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_domain_ns_with_options(request, runtime)
 
@@ -2263,6 +2467,18 @@ class Client(OpenApiClient):
         return self.describe_domain_record_info_with_options(request, runtime)
 
     def describe_domain_records_with_options(self, request, runtime):
+        """
+        You can specify the DomainName, PageNumber, and PageSize parameters to query the DNS records of a domain name.
+        *   You can also specify the RRKeyWord, TypeKeyWord, or ValueKeyWord parameter to query the DNS records that contain the specified keyword.
+        *   By default, the DNS records are sorted in reverse chronological order based on the time when they were added.
+        
+
+        @param request: DescribeDomainRecordsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDomainRecordsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.direction):
@@ -2315,10 +2531,74 @@ class Client(OpenApiClient):
         )
 
     def describe_domain_records(self, request):
+        """
+        You can specify the DomainName, PageNumber, and PageSize parameters to query the DNS records of a domain name.
+        *   You can also specify the RRKeyWord, TypeKeyWord, or ValueKeyWord parameter to query the DNS records that contain the specified keyword.
+        *   By default, the DNS records are sorted in reverse chronological order based on the time when they were added.
+        
+
+        @param request: DescribeDomainRecordsRequest
+
+        @return: DescribeDomainRecordsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_domain_records_with_options(request, runtime)
 
+    def describe_domain_resolve_statistics_summary_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.direction):
+            query['Direction'] = request.direction
+        if not UtilClient.is_unset(request.end_date):
+            query['EndDate'] = request.end_date
+        if not UtilClient.is_unset(request.keyword):
+            query['Keyword'] = request.keyword
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.search_mode):
+            query['SearchMode'] = request.search_mode
+        if not UtilClient.is_unset(request.start_date):
+            query['StartDate'] = request.start_date
+        if not UtilClient.is_unset(request.threshold):
+            query['Threshold'] = request.threshold
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDomainResolveStatisticsSummary',
+            version='2015-01-09',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            alidns_20150109_models.DescribeDomainResolveStatisticsSummaryResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_domain_resolve_statistics_summary(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_domain_resolve_statistics_summary_with_options(request, runtime)
+
     def describe_domain_statistics_with_options(self, request, runtime):
+        """
+        Real-time data is collected per hour.
+        
+
+        @param request: DescribeDomainStatisticsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDomainStatisticsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.domain_name):
@@ -2351,6 +2631,14 @@ class Client(OpenApiClient):
         )
 
     def describe_domain_statistics(self, request):
+        """
+        Real-time data is collected per hour.
+        
+
+        @param request: DescribeDomainStatisticsRequest
+
+        @return: DescribeDomainStatisticsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_domain_statistics_with_options(request, runtime)
 
@@ -2397,6 +2685,19 @@ class Client(OpenApiClient):
         return self.describe_domain_statistics_summary_with_options(request, runtime)
 
     def describe_domains_with_options(self, request, runtime):
+        """
+        You can specify the PageNumber and PageSize parameters to query domain names.
+        *   You can specify the KeyWord parameter to query domain names that contain the specified keyword.
+        *   By default, the domain names in a list are sorted in descending order of the time they were added.
+        *   You can specify the GroupId parameter. If you do not specify this parameter, all domain names are queried by default.
+        
+
+        @param request: DescribeDomainsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDomainsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.group_id):
@@ -2435,6 +2736,17 @@ class Client(OpenApiClient):
         )
 
     def describe_domains(self, request):
+        """
+        You can specify the PageNumber and PageSize parameters to query domain names.
+        *   You can specify the KeyWord parameter to query domain names that contain the specified keyword.
+        *   By default, the domain names in a list are sorted in descending order of the time they were added.
+        *   You can specify the GroupId parameter. If you do not specify this parameter, all domain names are queried by default.
+        
+
+        @param request: DescribeDomainsRequest
+
+        @return: DescribeDomainsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_domains_with_options(request, runtime)
 
@@ -3560,7 +3872,65 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_record_logs_with_options(request, runtime)
 
+    def describe_record_resolve_statistics_summary_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.direction):
+            query['Direction'] = request.direction
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.domain_type):
+            query['DomainType'] = request.domain_type
+        if not UtilClient.is_unset(request.end_date):
+            query['EndDate'] = request.end_date
+        if not UtilClient.is_unset(request.keyword):
+            query['Keyword'] = request.keyword
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.search_mode):
+            query['SearchMode'] = request.search_mode
+        if not UtilClient.is_unset(request.start_date):
+            query['StartDate'] = request.start_date
+        if not UtilClient.is_unset(request.threshold):
+            query['Threshold'] = request.threshold
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeRecordResolveStatisticsSummary',
+            version='2015-01-09',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            alidns_20150109_models.DescribeRecordResolveStatisticsSummaryResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_record_resolve_statistics_summary(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_record_resolve_statistics_summary_with_options(request, runtime)
+
     def describe_record_statistics_with_options(self, request, runtime):
+        """
+        Real-time data is collected per hour.
+        
+
+        @param request: DescribeRecordStatisticsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeRecordStatisticsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.domain_name):
@@ -3595,6 +3965,14 @@ class Client(OpenApiClient):
         )
 
     def describe_record_statistics(self, request):
+        """
+        Real-time data is collected per hour.
+        
+
+        @param request: DescribeRecordStatisticsRequest
+
+        @return: DescribeRecordStatisticsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_record_statistics_with_options(request, runtime)
 
@@ -3885,6 +4263,19 @@ class Client(OpenApiClient):
         return self.get_txt_record_for_verify_with_options(request, runtime)
 
     def list_tag_resources_with_options(self, request, runtime):
+        """
+        You can specify ResourceId.N or Tag.N that consists of Tag.N.Key and Tag.N.Value in the request to specify the object to be queried.
+        *   Tag.N is a resource tag that consists of a key-value pair. If you specify only Tag.N.Key, all tag values that are assigned to the specified key are returned. If you specify only Tag.N.Value, an error message is returned.
+        *   If you specify Tag.N and ResourceId.N to filter tags, ResourceId.N must match all specified key-value pairs.
+        *   If you specify multiple key-value pairs, resources that contain these key-value pairs are returned.
+        
+
+        @param request: ListTagResourcesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListTagResourcesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.lang):
@@ -3917,10 +4308,32 @@ class Client(OpenApiClient):
         )
 
     def list_tag_resources(self, request):
+        """
+        You can specify ResourceId.N or Tag.N that consists of Tag.N.Key and Tag.N.Value in the request to specify the object to be queried.
+        *   Tag.N is a resource tag that consists of a key-value pair. If you specify only Tag.N.Key, all tag values that are assigned to the specified key are returned. If you specify only Tag.N.Value, an error message is returned.
+        *   If you specify Tag.N and ResourceId.N to filter tags, ResourceId.N must match all specified key-value pairs.
+        *   If you specify multiple key-value pairs, resources that contain these key-value pairs are returned.
+        
+
+        @param request: ListTagResourcesRequest
+
+        @return: ListTagResourcesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_tag_resources_with_options(request, runtime)
 
     def modify_hichina_domain_dnswith_options(self, request, runtime):
+        """
+        If the operation succeeds, the name of the DNS server changes to that of an Alibaba Cloud DNS server (ending with hichina.com).
+        >  Before you call this operation, make sure that your domain name has been registered with Alibaba Cloud and the DNS server in use is not an Alibaba Cloud DNS server.
+        
+
+        @param request: ModifyHichinaDomainDNSRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyHichinaDomainDNSResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.domain_name):
@@ -3949,6 +4362,15 @@ class Client(OpenApiClient):
         )
 
     def modify_hichina_domain_dns(self, request):
+        """
+        If the operation succeeds, the name of the DNS server changes to that of an Alibaba Cloud DNS server (ending with hichina.com).
+        >  Before you call this operation, make sure that your domain name has been registered with Alibaba Cloud and the DNS server in use is not an Alibaba Cloud DNS server.
+        
+
+        @param request: ModifyHichinaDomainDNSRequest
+
+        @return: ModifyHichinaDomainDNSResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_hichina_domain_dnswith_options(request, runtime)
 
@@ -4303,6 +4725,16 @@ class Client(OpenApiClient):
         return self.set_dnsslbstatus_with_options(request, runtime)
 
     def set_dns_gtm_access_mode_with_options(self, request, runtime):
+        """
+        ***\
+        
+
+        @param request: SetDnsGtmAccessModeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: SetDnsGtmAccessModeResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.access_mode):
@@ -4331,6 +4763,14 @@ class Client(OpenApiClient):
         )
 
     def set_dns_gtm_access_mode(self, request):
+        """
+        ***\
+        
+
+        @param request: SetDnsGtmAccessModeRequest
+
+        @return: SetDnsGtmAccessModeResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.set_dns_gtm_access_mode_with_options(request, runtime)
 
@@ -4731,6 +5171,17 @@ class Client(OpenApiClient):
         return self.update_app_key_state_with_options(request, runtime)
 
     def update_custom_line_with_options(self, request, runtime):
+        """
+        In each CIDR block, the end IP address must be greater than or equal to the start IP address.
+        The CIDR blocks that are specified for all custom lines of a domain name cannot intersect.
+        
+
+        @param request: UpdateCustomLineRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateCustomLineResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.ip_segment):
@@ -4761,6 +5212,15 @@ class Client(OpenApiClient):
         )
 
     def update_custom_line(self, request):
+        """
+        In each CIDR block, the end IP address must be greater than or equal to the start IP address.
+        The CIDR blocks that are specified for all custom lines of a domain name cannot intersect.
+        
+
+        @param request: UpdateCustomLineRequest
+
+        @return: UpdateCustomLineResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.update_custom_line_with_options(request, runtime)
 
