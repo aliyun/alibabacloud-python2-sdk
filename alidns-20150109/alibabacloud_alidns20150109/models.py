@@ -22319,10 +22319,11 @@ class DescribeRecordResolveStatisticsSummaryRequest(TeaModel):
 
 
 class DescribeRecordResolveStatisticsSummaryResponseBodyStatistics(TeaModel):
-    def __init__(self, count=None, domain_name=None, domain_type=None):
+    def __init__(self, count=None, domain_name=None, domain_type=None, sub_domain=None):
         self.count = count  # type: str
         self.domain_name = domain_name  # type: str
         self.domain_type = domain_type  # type: str
+        self.sub_domain = sub_domain  # type: str
 
     def validate(self):
         pass
@@ -22339,6 +22340,8 @@ class DescribeRecordResolveStatisticsSummaryResponseBodyStatistics(TeaModel):
             result['DomainName'] = self.domain_name
         if self.domain_type is not None:
             result['DomainType'] = self.domain_type
+        if self.sub_domain is not None:
+            result['SubDomain'] = self.sub_domain
         return result
 
     def from_map(self, m=None):
@@ -22349,6 +22352,8 @@ class DescribeRecordResolveStatisticsSummaryResponseBodyStatistics(TeaModel):
             self.domain_name = m.get('DomainName')
         if m.get('DomainType') is not None:
             self.domain_type = m.get('DomainType')
+        if m.get('SubDomain') is not None:
+            self.sub_domain = m.get('SubDomain')
         return self
 
 
