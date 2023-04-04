@@ -4780,6 +4780,52 @@ class Client(OpenApiClient):
         headers = {}
         return self.update_flow_tag_group_with_options(organization_id, id, request, headers, runtime)
 
+    def update_group_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_token):
+            query['accessToken'] = request.access_token
+        if not UtilClient.is_unset(request.organization_id):
+            query['organizationId'] = request.organization_id
+        body = {}
+        if not UtilClient.is_unset(request.avatar_url):
+            body['avatarUrl'] = request.avatar_url
+        if not UtilClient.is_unset(request.description):
+            body['description'] = request.description
+        if not UtilClient.is_unset(request.name):
+            body['name'] = request.name
+        if not UtilClient.is_unset(request.path):
+            body['path'] = request.path
+        if not UtilClient.is_unset(request.path_with_namespace):
+            body['pathWithNamespace'] = request.path_with_namespace
+        if not UtilClient.is_unset(request.visibility_level):
+            body['visibilityLevel'] = request.visibility_level
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateGroup',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/groups/modify',
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.UpdateGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_group(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_group_with_options(request, headers, runtime)
+
     def update_group_member_with_options(self, group_id, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}

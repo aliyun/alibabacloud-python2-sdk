@@ -28183,6 +28183,232 @@ class UpdateFlowTagGroupResponse(TeaModel):
         return self
 
 
+class UpdateGroupRequest(TeaModel):
+    def __init__(self, access_token=None, avatar_url=None, description=None, name=None, path=None,
+                 path_with_namespace=None, visibility_level=None, organization_id=None):
+        self.access_token = access_token  # type: str
+        self.avatar_url = avatar_url  # type: str
+        self.description = description  # type: str
+        self.name = name  # type: str
+        self.path = path  # type: str
+        self.path_with_namespace = path_with_namespace  # type: str
+        self.visibility_level = visibility_level  # type: int
+        self.organization_id = organization_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateGroupRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_token is not None:
+            result['accessToken'] = self.access_token
+        if self.avatar_url is not None:
+            result['avatarUrl'] = self.avatar_url
+        if self.description is not None:
+            result['description'] = self.description
+        if self.name is not None:
+            result['name'] = self.name
+        if self.path is not None:
+            result['path'] = self.path
+        if self.path_with_namespace is not None:
+            result['pathWithNamespace'] = self.path_with_namespace
+        if self.visibility_level is not None:
+            result['visibilityLevel'] = self.visibility_level
+        if self.organization_id is not None:
+            result['organizationId'] = self.organization_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('accessToken') is not None:
+            self.access_token = m.get('accessToken')
+        if m.get('avatarUrl') is not None:
+            self.avatar_url = m.get('avatarUrl')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('path') is not None:
+            self.path = m.get('path')
+        if m.get('pathWithNamespace') is not None:
+            self.path_with_namespace = m.get('pathWithNamespace')
+        if m.get('visibilityLevel') is not None:
+            self.visibility_level = m.get('visibilityLevel')
+        if m.get('organizationId') is not None:
+            self.organization_id = m.get('organizationId')
+        return self
+
+
+class UpdateGroupResponseBodyResult(TeaModel):
+    def __init__(self, avatar_url=None, description=None, id=None, name=None, name_with_namespace=None,
+                 owner_id=None, parent_id=None, path=None, path_with_namespace=None, type=None, visibility_level=None,
+                 web_url=None):
+        self.avatar_url = avatar_url  # type: str
+        self.description = description  # type: str
+        self.id = id  # type: long
+        self.name = name  # type: str
+        self.name_with_namespace = name_with_namespace  # type: str
+        self.owner_id = owner_id  # type: long
+        self.parent_id = parent_id  # type: long
+        self.path = path  # type: str
+        self.path_with_namespace = path_with_namespace  # type: str
+        self.type = type  # type: str
+        self.visibility_level = visibility_level  # type: int
+        self.web_url = web_url  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateGroupResponseBodyResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.avatar_url is not None:
+            result['avatarUrl'] = self.avatar_url
+        if self.description is not None:
+            result['description'] = self.description
+        if self.id is not None:
+            result['id'] = self.id
+        if self.name is not None:
+            result['name'] = self.name
+        if self.name_with_namespace is not None:
+            result['nameWithNamespace'] = self.name_with_namespace
+        if self.owner_id is not None:
+            result['ownerId'] = self.owner_id
+        if self.parent_id is not None:
+            result['parentId'] = self.parent_id
+        if self.path is not None:
+            result['path'] = self.path
+        if self.path_with_namespace is not None:
+            result['pathWithNamespace'] = self.path_with_namespace
+        if self.type is not None:
+            result['type'] = self.type
+        if self.visibility_level is not None:
+            result['visibilityLevel'] = self.visibility_level
+        if self.web_url is not None:
+            result['webUrl'] = self.web_url
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('avatarUrl') is not None:
+            self.avatar_url = m.get('avatarUrl')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('nameWithNamespace') is not None:
+            self.name_with_namespace = m.get('nameWithNamespace')
+        if m.get('ownerId') is not None:
+            self.owner_id = m.get('ownerId')
+        if m.get('parentId') is not None:
+            self.parent_id = m.get('parentId')
+        if m.get('path') is not None:
+            self.path = m.get('path')
+        if m.get('pathWithNamespace') is not None:
+            self.path_with_namespace = m.get('pathWithNamespace')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('visibilityLevel') is not None:
+            self.visibility_level = m.get('visibilityLevel')
+        if m.get('webUrl') is not None:
+            self.web_url = m.get('webUrl')
+        return self
+
+
+class UpdateGroupResponseBody(TeaModel):
+    def __init__(self, error_code=None, error_message=None, request_id=None, result=None, success=None):
+        self.error_code = error_code  # type: str
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.result = result  # type: UpdateGroupResponseBodyResult
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.result:
+            self.result.validate()
+
+    def to_map(self):
+        _map = super(UpdateGroupResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_code is not None:
+            result['errorCode'] = self.error_code
+        if self.error_message is not None:
+            result['errorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.result is not None:
+            result['result'] = self.result.to_map()
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('errorCode') is not None:
+            self.error_code = m.get('errorCode')
+        if m.get('errorMessage') is not None:
+            self.error_message = m.get('errorMessage')
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('result') is not None:
+            temp_model = UpdateGroupResponseBodyResult()
+            self.result = temp_model.from_map(m['result'])
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class UpdateGroupResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UpdateGroupResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdateGroupResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UpdateGroupResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class UpdateGroupMemberRequest(TeaModel):
     def __init__(self, access_token=None, aliyun_pk=None, access_level=None, member_type=None, organization_id=None):
         self.access_token = access_token  # type: str
