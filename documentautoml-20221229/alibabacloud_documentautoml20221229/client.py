@@ -45,9 +45,12 @@ class Client(OpenApiClient):
             query['ServiceName'] = request.service_name
         if not UtilClient.is_unset(request.service_version):
             query['ServiceVersion'] = request.service_version
+        body = {}
+        if not UtilClient.is_unset(request.body):
+            body['Body'] = request.body
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query),
-            body=request.body
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='CreateModelAsyncPredict',
@@ -106,9 +109,12 @@ class Client(OpenApiClient):
             query['ClassifierId'] = request.classifier_id
         if not UtilClient.is_unset(request.content):
             query['Content'] = request.content
+        body = {}
+        if not UtilClient.is_unset(request.body):
+            body['Body'] = request.body
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query),
-            body=request.body
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='PredictClassifierModel',
@@ -141,9 +147,12 @@ class Client(OpenApiClient):
             query['ModelId'] = request.model_id
         if not UtilClient.is_unset(request.model_version):
             query['ModelVersion'] = request.model_version
+        body = {}
+        if not UtilClient.is_unset(request.body):
+            body['Body'] = request.body
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query),
-            body=request.body
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='PredictModel',
@@ -174,9 +183,12 @@ class Client(OpenApiClient):
             query['Content'] = request.content
         if not UtilClient.is_unset(request.task_id):
             query['TaskId'] = request.task_id
+        body = {}
+        if not UtilClient.is_unset(request.body):
+            body['Body'] = request.body
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query),
-            body=request.body
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='PredictTemplateModel',

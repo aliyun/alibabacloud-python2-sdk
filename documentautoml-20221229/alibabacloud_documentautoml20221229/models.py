@@ -4,15 +4,15 @@ from Tea.model import TeaModel
 
 
 class CreateModelAsyncPredictRequest(TeaModel):
-    def __init__(self, binary_to_text=None, content=None, model_id=None, model_version=None, service_name=None,
-                 service_version=None, body=None):
+    def __init__(self, binary_to_text=None, body=None, content=None, model_id=None, model_version=None,
+                 service_name=None, service_version=None):
         self.binary_to_text = binary_to_text  # type: bool
+        self.body = body  # type: str
         self.content = content  # type: str
         self.model_id = model_id  # type: long
         self.model_version = model_version  # type: str
         self.service_name = service_name  # type: str
         self.service_version = service_version  # type: str
-        self.body = body  # type: str
 
     def validate(self):
         pass
@@ -25,6 +25,8 @@ class CreateModelAsyncPredictRequest(TeaModel):
         result = dict()
         if self.binary_to_text is not None:
             result['BinaryToText'] = self.binary_to_text
+        if self.body is not None:
+            result['Body'] = self.body
         if self.content is not None:
             result['Content'] = self.content
         if self.model_id is not None:
@@ -35,14 +37,14 @@ class CreateModelAsyncPredictRequest(TeaModel):
             result['ServiceName'] = self.service_name
         if self.service_version is not None:
             result['ServiceVersion'] = self.service_version
-        if self.body is not None:
-            result['body'] = self.body
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('BinaryToText') is not None:
             self.binary_to_text = m.get('BinaryToText')
+        if m.get('Body') is not None:
+            self.body = m.get('Body')
         if m.get('Content') is not None:
             self.content = m.get('Content')
         if m.get('ModelId') is not None:
@@ -53,8 +55,6 @@ class CreateModelAsyncPredictRequest(TeaModel):
             self.service_name = m.get('ServiceName')
         if m.get('ServiceVersion') is not None:
             self.service_version = m.get('ServiceVersion')
-        if m.get('body') is not None:
-            self.body = m.get('body')
         return self
 
 
@@ -241,11 +241,11 @@ class GetModelAsyncPredictResponse(TeaModel):
 
 
 class PredictClassifierModelRequest(TeaModel):
-    def __init__(self, auto_prediction=None, classifier_id=None, content=None, body=None):
+    def __init__(self, auto_prediction=None, body=None, classifier_id=None, content=None):
         self.auto_prediction = auto_prediction  # type: bool
+        self.body = body  # type: str
         self.classifier_id = classifier_id  # type: long
         self.content = content  # type: str
-        self.body = body  # type: str
 
     def validate(self):
         pass
@@ -258,24 +258,24 @@ class PredictClassifierModelRequest(TeaModel):
         result = dict()
         if self.auto_prediction is not None:
             result['AutoPrediction'] = self.auto_prediction
+        if self.body is not None:
+            result['Body'] = self.body
         if self.classifier_id is not None:
             result['ClassifierId'] = self.classifier_id
         if self.content is not None:
             result['Content'] = self.content
-        if self.body is not None:
-            result['body'] = self.body
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('AutoPrediction') is not None:
             self.auto_prediction = m.get('AutoPrediction')
+        if m.get('Body') is not None:
+            self.body = m.get('Body')
         if m.get('ClassifierId') is not None:
             self.classifier_id = m.get('ClassifierId')
         if m.get('Content') is not None:
             self.content = m.get('Content')
-        if m.get('body') is not None:
-            self.body = m.get('body')
         return self
 
 
@@ -359,12 +359,12 @@ class PredictClassifierModelResponse(TeaModel):
 
 
 class PredictModelRequest(TeaModel):
-    def __init__(self, binary_to_text=None, content=None, model_id=None, model_version=None, body=None):
+    def __init__(self, binary_to_text=None, body=None, content=None, model_id=None, model_version=None):
         self.binary_to_text = binary_to_text  # type: bool
+        self.body = body  # type: str
         self.content = content  # type: str
         self.model_id = model_id  # type: long
         self.model_version = model_version  # type: str
-        self.body = body  # type: str
 
     def validate(self):
         pass
@@ -377,28 +377,28 @@ class PredictModelRequest(TeaModel):
         result = dict()
         if self.binary_to_text is not None:
             result['BinaryToText'] = self.binary_to_text
+        if self.body is not None:
+            result['Body'] = self.body
         if self.content is not None:
             result['Content'] = self.content
         if self.model_id is not None:
             result['ModelId'] = self.model_id
         if self.model_version is not None:
             result['ModelVersion'] = self.model_version
-        if self.body is not None:
-            result['body'] = self.body
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('BinaryToText') is not None:
             self.binary_to_text = m.get('BinaryToText')
+        if m.get('Body') is not None:
+            self.body = m.get('Body')
         if m.get('Content') is not None:
             self.content = m.get('Content')
         if m.get('ModelId') is not None:
             self.model_id = m.get('ModelId')
         if m.get('ModelVersion') is not None:
             self.model_version = m.get('ModelVersion')
-        if m.get('body') is not None:
-            self.body = m.get('body')
         return self
 
 
@@ -482,11 +482,11 @@ class PredictModelResponse(TeaModel):
 
 
 class PredictTemplateModelRequest(TeaModel):
-    def __init__(self, binary_to_text=None, content=None, task_id=None, body=None):
+    def __init__(self, binary_to_text=None, body=None, content=None, task_id=None):
         self.binary_to_text = binary_to_text  # type: bool
+        self.body = body  # type: str
         self.content = content  # type: str
         self.task_id = task_id  # type: long
-        self.body = body  # type: str
 
     def validate(self):
         pass
@@ -499,24 +499,24 @@ class PredictTemplateModelRequest(TeaModel):
         result = dict()
         if self.binary_to_text is not None:
             result['BinaryToText'] = self.binary_to_text
+        if self.body is not None:
+            result['Body'] = self.body
         if self.content is not None:
             result['Content'] = self.content
         if self.task_id is not None:
             result['TaskId'] = self.task_id
-        if self.body is not None:
-            result['body'] = self.body
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('BinaryToText') is not None:
             self.binary_to_text = m.get('BinaryToText')
+        if m.get('Body') is not None:
+            self.body = m.get('Body')
         if m.get('Content') is not None:
             self.content = m.get('Content')
         if m.get('TaskId') is not None:
             self.task_id = m.get('TaskId')
-        if m.get('body') is not None:
-            self.body = m.get('body')
         return self
 
 
