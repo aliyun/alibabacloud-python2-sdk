@@ -806,6 +806,42 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.delete_authorization_rule_with_options(request, runtime)
 
+    def delete_authorization_rules_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.authorization_rule_ids):
+            query['AuthorizationRuleIds'] = request.authorization_rule_ids
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dry_run):
+            query['DryRun'] = request.dry_run
+        if not UtilClient.is_unset(request.io_tcloud_connector_id):
+            query['IoTCloudConnectorId'] = request.io_tcloud_connector_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteAuthorizationRules',
+            version='2021-05-13',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            io_tcc20210513_models.DeleteAuthorizationRulesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_authorization_rules(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_authorization_rules_with_options(request, runtime)
+
     def delete_connection_pool_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1565,6 +1601,10 @@ class Client(OpenApiClient):
             query['DestinationPort'] = request.destination_port
         if not UtilClient.is_unset(request.destination_type):
             query['DestinationType'] = request.destination_type
+        if not UtilClient.is_unset(request.fuzzy_authorization_rule_name):
+            query['FuzzyAuthorizationRuleName'] = request.fuzzy_authorization_rule_name
+        if not UtilClient.is_unset(request.fuzzy_destination):
+            query['FuzzyDestination'] = request.fuzzy_destination
         if not UtilClient.is_unset(request.io_tcloud_connector_id):
             query['IoTCloudConnectorId'] = request.io_tcloud_connector_id
         if not UtilClient.is_unset(request.max_results):
@@ -1943,48 +1983,6 @@ class Client(OpenApiClient):
     def list_group_ip_mapping_rules(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_group_ip_mapping_rules_with_options(request, runtime)
-
-    def list_io_tcloud_connector_access_session_logs_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.destinations):
-            query['Destinations'] = request.destinations
-        if not UtilClient.is_unset(request.end_time):
-            query['EndTime'] = request.end_time
-        if not UtilClient.is_unset(request.io_tcloud_connector_id):
-            query['IoTCloudConnectorId'] = request.io_tcloud_connector_id
-        if not UtilClient.is_unset(request.max_results):
-            query['MaxResults'] = request.max_results
-        if not UtilClient.is_unset(request.next_token):
-            query['NextToken'] = request.next_token
-        if not UtilClient.is_unset(request.region_id):
-            query['RegionId'] = request.region_id
-        if not UtilClient.is_unset(request.source_ips):
-            query['SourceIps'] = request.source_ips
-        if not UtilClient.is_unset(request.start_time):
-            query['StartTime'] = request.start_time
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='ListIoTCloudConnectorAccessSessionLogs',
-            version='2021-05-13',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            io_tcc20210513_models.ListIoTCloudConnectorAccessSessionLogsResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def list_io_tcloud_connector_access_session_logs(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.list_io_tcloud_connector_access_session_logs_with_options(request, runtime)
 
     def list_io_tcloud_connector_available_zones_with_options(self, request, runtime):
         UtilClient.validate_model(request)
