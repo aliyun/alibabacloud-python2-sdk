@@ -436,8 +436,6 @@ class Client(OpenApiClient):
             query['AcceptLanguage'] = request.accept_language
         if not UtilClient.is_unset(request.cluster_type):
             query['ClusterType'] = request.cluster_type
-        if not UtilClient.is_unset(request.id):
-            query['Id'] = request.id
         if not UtilClient.is_unset(request.origin_instance_address):
             query['OriginInstanceAddress'] = request.origin_instance_address
         if not UtilClient.is_unset(request.origin_instance_name):

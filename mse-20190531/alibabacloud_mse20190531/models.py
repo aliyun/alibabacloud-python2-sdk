@@ -1612,13 +1612,13 @@ class AddGatewayRouteRequestDirectResponseJSON(TeaModel):
 class AddGatewayRouteRequestFallbackServices(TeaModel):
     def __init__(self, agreement_type=None, group_name=None, name=None, namespace=None, percent=None,
                  service_id=None, service_port=None, source_type=None, version=None):
-        # The type of the protocol. Valid values:
+        # The type of the protocol.
         self.agreement_type = agreement_type  # type: str
         # The name of the group to which the service belongs.
         self.group_name = group_name  # type: str
         # The name.
         self.name = name  # type: str
-        # The namespace in which the service resides.
+        # The namespace to which the service belongs.
         self.namespace = namespace  # type: str
         # The weight in the form of a percentage value.
         self.percent = percent  # type: int
@@ -1962,9 +1962,9 @@ class AddGatewayRouteRequestServicesHttpDubboTranscoderMothedMapList(TeaModel):
         # 
         # *   ALL_PATCH
         self.http_mothed = http_mothed  # type: str
-        # The path that is used to match a method.
+        # The path used for method matching.
         self.mothedpath = mothedpath  # type: str
-        # The information of parameter mappings.
+        # The information about parameter mappings.
         self.param_maps_list = param_maps_list  # type: list[AddGatewayRouteRequestServicesHttpDubboTranscoderMothedMapListParamMapsList]
         # The pass-through type of the header.
         # 
@@ -2030,7 +2030,7 @@ class AddGatewayRouteRequestServicesHttpDubboTranscoderMothedMapList(TeaModel):
 class AddGatewayRouteRequestServicesHttpDubboTranscoder(TeaModel):
     def __init__(self, dubbo_service_group=None, dubbo_service_name=None, dubbo_service_version=None,
                  mothed_map_list=None):
-        # The service group.
+        # The name of the service group.
         self.dubbo_service_group = dubbo_service_group  # type: str
         # The name of the Dubbo service.
         self.dubbo_service_name = dubbo_service_name  # type: str
@@ -2082,7 +2082,7 @@ class AddGatewayRouteRequestServicesHttpDubboTranscoder(TeaModel):
 class AddGatewayRouteRequestServices(TeaModel):
     def __init__(self, agreement_type=None, group_name=None, http_dubbo_transcoder=None, name=None, namespace=None,
                  percent=None, service_id=None, service_port=None, source_type=None, version=None):
-        # The type of the protocol. Valid values:
+        # The type of the protocol.
         self.agreement_type = agreement_type  # type: str
         # The name of the group to which the service belongs.
         self.group_name = group_name  # type: str
@@ -2090,7 +2090,7 @@ class AddGatewayRouteRequestServices(TeaModel):
         self.http_dubbo_transcoder = http_dubbo_transcoder  # type: AddGatewayRouteRequestServicesHttpDubboTranscoder
         # The name.
         self.name = name  # type: str
-        # The namespace in which the service resides.
+        # The namespace to which the service belongs.
         self.namespace = namespace  # type: str
         # The weight in the form of a percentage value.
         self.percent = percent  # type: int
@@ -2172,6 +2172,42 @@ class AddGatewayRouteRequest(TeaModel):
         # *   en: English
         self.accept_language = accept_language  # type: str
         # The destination service type.
+        # 
+        # Valid values
+        # 
+        # <!-- -->
+        # 
+        # :
+        # 
+        # *   VersionOriented
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        # *   Multiple
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        # *   Single
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        # *   Mock\"\"
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        # *   Redirect
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
         self.destination_type = destination_type  # type: str
         # The mock response configuration.
         self.direct_response_json = direct_response_json  # type: AddGatewayRouteRequestDirectResponseJSON
@@ -2191,19 +2227,15 @@ class AddGatewayRouteRequest(TeaModel):
         self.gateway_unique_id = gateway_unique_id  # type: str
         # The name of the route.
         self.name = name  # type: str
-        # Routing policy Json string.
         self.policies = policies  # type: str
         # The matching rule.
         self.predicates = predicates  # type: AddGatewayRouteRequestPredicates
         # The configuration of the redirection.
         self.redirect_json = redirect_json  # type: AddGatewayRouteRequestRedirectJSON
-        # The sequence number of the route. A small value indicates a high priority.
+        # The sequence number of the route. (A small value indicates a high priority.)
         self.route_order = route_order  # type: int
-        # RouteType: 
-        # 
-        # Op: Control routing.
         self.route_type = route_type  # type: str
-        # The services.
+        # The list of services.
         self.services = services  # type: list[AddGatewayRouteRequestServices]
 
     def validate(self):
@@ -2327,6 +2359,42 @@ class AddGatewayRouteShrinkRequest(TeaModel):
         # *   en: English
         self.accept_language = accept_language  # type: str
         # The destination service type.
+        # 
+        # Valid values
+        # 
+        # <!-- -->
+        # 
+        # :
+        # 
+        # *   VersionOriented
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        # *   Multiple
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        # *   Single
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        # *   Mock\"\"
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        # *   Redirect
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
         self.destination_type = destination_type  # type: str
         # The mock response configuration.
         self.direct_response_jsonshrink = direct_response_jsonshrink  # type: str
@@ -2346,19 +2414,15 @@ class AddGatewayRouteShrinkRequest(TeaModel):
         self.gateway_unique_id = gateway_unique_id  # type: str
         # The name of the route.
         self.name = name  # type: str
-        # Routing policy Json string.
         self.policies = policies  # type: str
         # The matching rule.
         self.predicates_shrink = predicates_shrink  # type: str
         # The configuration of the redirection.
         self.redirect_jsonshrink = redirect_jsonshrink  # type: str
-        # The sequence number of the route. A small value indicates a high priority.
+        # The sequence number of the route. (A small value indicates a high priority.)
         self.route_order = route_order  # type: int
-        # RouteType: 
-        # 
-        # Op: Control routing.
         self.route_type = route_type  # type: str
-        # The services.
+        # The list of services.
         self.services_shrink = services_shrink  # type: str
 
     def validate(self):
@@ -2450,7 +2514,7 @@ class AddGatewayRouteResponseBody(TeaModel):
                  success=None):
         # The status code returned.
         self.code = code  # type: int
-        # The returned data.
+        # The data returned.
         self.data = data  # type: long
         self.error_code = error_code  # type: str
         # The HTTP status code returned.
@@ -2872,7 +2936,7 @@ class AddGatewaySlbResponse(TeaModel):
 
 
 class AddMigrationTaskRequest(TeaModel):
-    def __init__(self, accept_language=None, cluster_type=None, id=None, origin_instance_address=None,
+    def __init__(self, accept_language=None, cluster_type=None, origin_instance_address=None,
                  origin_instance_name=None, origin_instance_namespace=None, project_desc=None, request_pars=None,
                  target_cluster_name=None, target_cluster_url=None, target_instance_id=None):
         # The language of the response. Valid values:
@@ -2886,8 +2950,6 @@ class AddMigrationTaskRequest(TeaModel):
         # *   ZooKeeper
         # *   Eureka
         self.cluster_type = cluster_type  # type: str
-        # The ID of the task. You do not need to configure this parameter.
-        self.id = id  # type: str
         # The source instance node address.
         self.origin_instance_address = origin_instance_address  # type: str
         # The name of the source instance.
@@ -2918,8 +2980,6 @@ class AddMigrationTaskRequest(TeaModel):
             result['AcceptLanguage'] = self.accept_language
         if self.cluster_type is not None:
             result['ClusterType'] = self.cluster_type
-        if self.id is not None:
-            result['Id'] = self.id
         if self.origin_instance_address is not None:
             result['OriginInstanceAddress'] = self.origin_instance_address
         if self.origin_instance_name is not None:
@@ -2944,8 +3004,6 @@ class AddMigrationTaskRequest(TeaModel):
             self.accept_language = m.get('AcceptLanguage')
         if m.get('ClusterType') is not None:
             self.cluster_type = m.get('ClusterType')
-        if m.get('Id') is not None:
-            self.id = m.get('Id')
         if m.get('OriginInstanceAddress') is not None:
             self.origin_instance_address = m.get('OriginInstanceAddress')
         if m.get('OriginInstanceName') is not None:
@@ -2966,19 +3024,15 @@ class AddMigrationTaskRequest(TeaModel):
 
 
 class AddMigrationTaskResponseBodyData(TeaModel):
-    def __init__(self, cluster_type=None, gmt_create=None, gmt_modified=None, id=None, origin_instance_address=None,
-                 origin_instance_name=None, origin_instance_namespace=None, project_desc=None, target_cluster_name=None,
-                 target_cluster_url=None, target_instance_id=None, user_id=None):
+    def __init__(self, cluster_type=None, id=None, origin_instance_address=None, origin_instance_name=None,
+                 origin_instance_namespace=None, project_desc=None, target_cluster_name=None, target_cluster_url=None,
+                 target_instance_id=None, user_id=None):
         # The type of the instance.
         # 
         # *   Nacos-Ans
         # *   ZooKeeper
         # *   Eureka
         self.cluster_type = cluster_type  # type: str
-        # The creation time.
-        self.gmt_create = gmt_create  # type: str
-        # The update time.
-        self.gmt_modified = gmt_modified  # type: str
         # The ID of the task.
         self.id = id  # type: str
         # The source instance node address.
@@ -3009,10 +3063,6 @@ class AddMigrationTaskResponseBodyData(TeaModel):
         result = dict()
         if self.cluster_type is not None:
             result['ClusterType'] = self.cluster_type
-        if self.gmt_create is not None:
-            result['GmtCreate'] = self.gmt_create
-        if self.gmt_modified is not None:
-            result['GmtModified'] = self.gmt_modified
         if self.id is not None:
             result['Id'] = self.id
         if self.origin_instance_address is not None:
@@ -3037,10 +3087,6 @@ class AddMigrationTaskResponseBodyData(TeaModel):
         m = m or dict()
         if m.get('ClusterType') is not None:
             self.cluster_type = m.get('ClusterType')
-        if m.get('GmtCreate') is not None:
-            self.gmt_create = m.get('GmtCreate')
-        if m.get('GmtModified') is not None:
-            self.gmt_modified = m.get('GmtModified')
         if m.get('Id') is not None:
             self.id = m.get('Id')
         if m.get('OriginInstanceAddress') is not None:
@@ -3063,13 +3109,11 @@ class AddMigrationTaskResponseBodyData(TeaModel):
 
 
 class AddMigrationTaskResponseBody(TeaModel):
-    def __init__(self, data=None, error_code=None, http_code=None, message=None, request_id=None, success=None):
+    def __init__(self, data=None, error_code=None, message=None, request_id=None, success=None):
         # The data structure.
         self.data = data  # type: AddMigrationTaskResponseBodyData
         # The error code returned if the request failed.
         self.error_code = error_code  # type: str
-        # The HTTP status code returned.
-        self.http_code = http_code  # type: str
         # The message returned.
         self.message = message  # type: str
         # The ID of the request.
@@ -3094,8 +3138,6 @@ class AddMigrationTaskResponseBody(TeaModel):
             result['Data'] = self.data.to_map()
         if self.error_code is not None:
             result['ErrorCode'] = self.error_code
-        if self.http_code is not None:
-            result['HttpCode'] = self.http_code
         if self.message is not None:
             result['Message'] = self.message
         if self.request_id is not None:
@@ -3111,8 +3153,6 @@ class AddMigrationTaskResponseBody(TeaModel):
             self.data = temp_model.from_map(m['Data'])
         if m.get('ErrorCode') is not None:
             self.error_code = m.get('ErrorCode')
-        if m.get('HttpCode') is not None:
-            self.http_code = m.get('HttpCode')
         if m.get('Message') is not None:
             self.message = m.get('Message')
         if m.get('RequestId') is not None:
@@ -38691,26 +38731,26 @@ class UpdateConfigRequest(TeaModel):
         self.autopurge_purge_interval = autopurge_purge_interval  # type: str
         # A reserved parameter.
         self.autopurge_snap_retain_count = autopurge_snap_retain_count  # type: str
-        # The ID of the instance.
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
-        # Specifies whether to enable RAM authorization for a configuration center. This parameter is valid for Nacos instances. Valid values:
+        # Specifies whether to enable Resource Access Management (RAM) authentication for a configuration center. This parameter is valid for Nacos instances. Valid values:
         # 
-        # *   `true`: enabled
-        # *   `false`: disabled
+        # *   `true`: enabled.
+        # *   `false`: disabled.
         # 
-        # > Before you configure this parameter, you must call the QueryConfig operation to obtain the ConfigAuthSupported parameter value to check whether the instance supports this feature.
+        # > Before you configure this parameter, you must call the QueryConfig operation to obtain the ConfigAuthSupported parameter value to check whether the instance supports the RAM authentication feature.
         self.config_auth_enabled = config_auth_enabled  # type: bool
         # Specifies whether to enable configuration encryption for a configuration center. This parameter is valid for Nacos instances. Valid values:
         # 
-        # *   `true`: enabled
-        # *   `false`: disabled
+        # *   `true`: enabled.
+        # *   `false`: disabled.
         # 
-        # > Before you configure this parameter, you must call the QueryConfig operation to obtain the ConfigSecretSupported parameter value to check whether the instance supports this feature.
+        # > Before you configure this parameter, you must call the QueryConfig operation to obtain the ConfigSecretSupported parameter value to check whether the instance supports configuration encryption.
         self.config_secret_enabled = config_secret_enabled  # type: bool
         # The format of the configuration. Supported formats include TEXT, JSON, XML, and HTML.
         self.config_type = config_type  # type: str
         self.eureka_supported = eureka_supported  # type: bool
-        # Specifies whether to enable the time to live (TTL) configuration.
+        # Specifies whether to enable the time to live (TTL) configuration. This parameter is valid for ZooKeeper instances.
         self.extended_types_enable = extended_types_enable  # type: str
         # The maximum connection duration of the instance. This parameter is valid for ZooKeeper instances. Unit: seconds.
         self.init_limit = init_limit  # type: str
@@ -38720,10 +38760,10 @@ class UpdateConfigRequest(TeaModel):
         self.jute_maxbuffer = jute_maxbuffer  # type: str
         # Specifies whether to enable Mesh Configuration Protocol (MCP). This parameter is valid for Nacos instances. Valid values:
         # 
-        # *   `true`: enabled
-        # *   `false`: disabled
+        # *   `true`: enabled.
+        # *   `false`: disabled.
         # 
-        # > Before you configure this parameter, you must call the QueryConfig operation to obtain the MCPSupported parameter value to check whether the instance supports this feature.
+        # > Before you configure this parameter, you must call the QueryConfig operation to obtain the MCPSupported parameter value to check whether the instance supports MCP.
         self.mcpenabled = mcpenabled  # type: bool
         # The number of connections between a client and a server. This parameter is valid for ZooKeeper instances.\
         # If this parameter is set to 0, no limits are imposed on the number of connections.
@@ -38732,12 +38772,12 @@ class UpdateConfigRequest(TeaModel):
         self.max_session_timeout = max_session_timeout  # type: str
         # The minimum timeout period. This parameter is valid for ZooKeeper instances. Unit: seconds.
         self.min_session_timeout = min_session_timeout  # type: str
-        # Specifies whether to enable RAM authorization for a registry. This parameter is valid for Nacos instances. Valid values:
+        # Specifies whether to enable RAM authentication for a registry. This parameter is valid for Nacos instances. Valid values:
         # 
-        # *   `true`: enabled
-        # *   `false`: disabled
+        # *   `true`: enabled.
+        # *   `false`: disabled.
         # 
-        # > Before you configure this parameter, you must call the QueryConfig operation to obtain the NamingAuthSupporte parameter value to check whether the instance supports this feature.
+        # > Before you configure this parameter, you must call the QueryConfig operation to obtain the NamingAuthSupporte parameter value to check whether the instance supports the RAM authentication feature.
         self.naming_auth_enabled = naming_auth_enabled  # type: bool
         # Specifies whether to enable super permissions. This parameter is valid for ZooKeeper instances. Valid values:
         # 
