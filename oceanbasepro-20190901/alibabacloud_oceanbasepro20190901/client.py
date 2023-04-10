@@ -365,6 +365,8 @@ class Client(OpenApiClient):
         body = {}
         if not UtilClient.is_unset(request.description):
             body['Description'] = request.description
+        if not UtilClient.is_unset(request.encryption_type):
+            body['EncryptionType'] = request.encryption_type
         if not UtilClient.is_unset(request.instance_id):
             body['InstanceId'] = request.instance_id
         if not UtilClient.is_unset(request.roles):
@@ -1965,6 +1967,68 @@ class Client(OpenApiClient):
     def modify_instance_name(self, request):
         runtime = util_models.RuntimeOptions()
         return self.modify_instance_name_with_options(request, runtime)
+
+    def modify_instance_node_num_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.instance_id):
+            body['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.node_num):
+            body['NodeNum'] = request.node_num
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ModifyInstanceNodeNum',
+            version='2019-09-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ocean_base_pro_20190901_models.ModifyInstanceNodeNumResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_instance_node_num(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_instance_node_num_with_options(request, runtime)
+
+    def modify_instance_spec_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.disk_size):
+            body['DiskSize'] = request.disk_size
+        if not UtilClient.is_unset(request.instance_class):
+            body['InstanceClass'] = request.instance_class
+        if not UtilClient.is_unset(request.instance_id):
+            body['InstanceId'] = request.instance_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ModifyInstanceSpec',
+            version='2019-09-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ocean_base_pro_20190901_models.ModifyInstanceSpecResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_instance_spec(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_instance_spec_with_options(request, runtime)
 
     def modify_instance_tags_with_options(self, request, runtime):
         UtilClient.validate_model(request)
