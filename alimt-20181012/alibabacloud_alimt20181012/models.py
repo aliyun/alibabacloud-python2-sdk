@@ -1578,6 +1578,202 @@ class GetTitleIntelligenceResponse(TeaModel):
         return self
 
 
+class GetTranslateImageBatchResultRequest(TeaModel):
+    def __init__(self, task_id=None):
+        self.task_id = task_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetTranslateImageBatchResultRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
+        return self
+
+
+class GetTranslateImageBatchResultResponseBodyDataResult(TeaModel):
+    def __init__(self, code=None, final_image_url=None, in_painting_url=None, message=None, source_image_url=None,
+                 success=None, template_json=None):
+        self.code = code  # type: int
+        self.final_image_url = final_image_url  # type: str
+        self.in_painting_url = in_painting_url  # type: str
+        self.message = message  # type: str
+        self.source_image_url = source_image_url  # type: str
+        self.success = success  # type: bool
+        self.template_json = template_json  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetTranslateImageBatchResultResponseBodyDataResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.final_image_url is not None:
+            result['FinalImageUrl'] = self.final_image_url
+        if self.in_painting_url is not None:
+            result['InPaintingUrl'] = self.in_painting_url
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.source_image_url is not None:
+            result['SourceImageUrl'] = self.source_image_url
+        if self.success is not None:
+            result['Success'] = self.success
+        if self.template_json is not None:
+            result['TemplateJson'] = self.template_json
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('FinalImageUrl') is not None:
+            self.final_image_url = m.get('FinalImageUrl')
+        if m.get('InPaintingUrl') is not None:
+            self.in_painting_url = m.get('InPaintingUrl')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('SourceImageUrl') is not None:
+            self.source_image_url = m.get('SourceImageUrl')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('TemplateJson') is not None:
+            self.template_json = m.get('TemplateJson')
+        return self
+
+
+class GetTranslateImageBatchResultResponseBodyData(TeaModel):
+    def __init__(self, result=None, status=None):
+        self.result = result  # type: list[GetTranslateImageBatchResultResponseBodyDataResult]
+        self.status = status  # type: str
+
+    def validate(self):
+        if self.result:
+            for k in self.result:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GetTranslateImageBatchResultResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Result'] = []
+        if self.result is not None:
+            for k in self.result:
+                result['Result'].append(k.to_map() if k else None)
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.result = []
+        if m.get('Result') is not None:
+            for k in m.get('Result'):
+                temp_model = GetTranslateImageBatchResultResponseBodyDataResult()
+                self.result.append(temp_model.from_map(k))
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class GetTranslateImageBatchResultResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None):
+        self.code = code  # type: int
+        self.data = data  # type: GetTranslateImageBatchResultResponseBodyData
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(GetTranslateImageBatchResultResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = GetTranslateImageBatchResultResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class GetTranslateImageBatchResultResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetTranslateImageBatchResultResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetTranslateImageBatchResultResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetTranslateImageBatchResultResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class GetTranslateReportRequest(TeaModel):
     def __init__(self, api_name=None, begin_time=None, end_time=None, group=None):
         self.api_name = api_name  # type: str
@@ -2660,6 +2856,160 @@ class TranslateImageResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = TranslateImageResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class TranslateImageBatchRequest(TeaModel):
+    def __init__(self, custom_task_id=None, ext=None, field=None, image_urls=None, source_language=None,
+                 target_language=None):
+        self.custom_task_id = custom_task_id  # type: str
+        self.ext = ext  # type: str
+        self.field = field  # type: str
+        self.image_urls = image_urls  # type: str
+        self.source_language = source_language  # type: str
+        self.target_language = target_language  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(TranslateImageBatchRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.custom_task_id is not None:
+            result['CustomTaskId'] = self.custom_task_id
+        if self.ext is not None:
+            result['Ext'] = self.ext
+        if self.field is not None:
+            result['Field'] = self.field
+        if self.image_urls is not None:
+            result['ImageUrls'] = self.image_urls
+        if self.source_language is not None:
+            result['SourceLanguage'] = self.source_language
+        if self.target_language is not None:
+            result['TargetLanguage'] = self.target_language
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CustomTaskId') is not None:
+            self.custom_task_id = m.get('CustomTaskId')
+        if m.get('Ext') is not None:
+            self.ext = m.get('Ext')
+        if m.get('Field') is not None:
+            self.field = m.get('Field')
+        if m.get('ImageUrls') is not None:
+            self.image_urls = m.get('ImageUrls')
+        if m.get('SourceLanguage') is not None:
+            self.source_language = m.get('SourceLanguage')
+        if m.get('TargetLanguage') is not None:
+            self.target_language = m.get('TargetLanguage')
+        return self
+
+
+class TranslateImageBatchResponseBodyData(TeaModel):
+    def __init__(self, task_id=None):
+        self.task_id = task_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(TranslateImageBatchResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.task_id is not None:
+            result['TaskId'] = self.task_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('TaskId') is not None:
+            self.task_id = m.get('TaskId')
+        return self
+
+
+class TranslateImageBatchResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None):
+        self.code = code  # type: int
+        self.data = data  # type: TranslateImageBatchResponseBodyData
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(TranslateImageBatchResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = TranslateImageBatchResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class TranslateImageBatchResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: TranslateImageBatchResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(TranslateImageBatchResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = TranslateImageBatchResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
