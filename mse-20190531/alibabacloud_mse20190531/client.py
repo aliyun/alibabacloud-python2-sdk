@@ -2303,7 +2303,21 @@ class Client(OpenApiClient):
         @return: FetchLosslessRuleListResponse
         """
         UtilClient.validate_model(request)
-        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        query = {}
+        if not UtilClient.is_unset(request.accept_language):
+            query['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.app_name):
+            query['AppName'] = request.app_name
+        if not UtilClient.is_unset(request.namespace):
+            query['Namespace'] = request.namespace
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2312,7 +2326,7 @@ class Client(OpenApiClient):
             version='2019-05-31',
             protocol='HTTPS',
             pathname='/',
-            method='GET',
+            method='POST',
             auth_type='AK',
             style='RPC',
             req_body_type='formData',
@@ -4850,10 +4864,6 @@ class Client(OpenApiClient):
             query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.related):
             query['Related'] = request.related
-        if not UtilClient.is_unset(request.shutdown_wait_seconds):
-            query['ShutdownWaitSeconds'] = request.shutdown_wait_seconds
-        if not UtilClient.is_unset(request.source):
-            query['Source'] = request.source
         if not UtilClient.is_unset(request.warmup_time):
             query['WarmupTime'] = request.warmup_time
         req = open_api_models.OpenApiRequest(
