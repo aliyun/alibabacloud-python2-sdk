@@ -774,6 +774,8 @@ class Client(OpenApiClient):
     def list_order_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.credential_no):
+            query['CredentialNo'] = request.credential_no
         if not UtilClient.is_unset(request.end_date):
             query['EndDate'] = request.end_date
         if not UtilClient.is_unset(request.order_id):

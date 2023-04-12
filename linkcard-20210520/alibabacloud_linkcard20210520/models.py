@@ -3345,7 +3345,8 @@ class GetOperateResultRequest(TeaModel):
 
 
 class GetOperateResultResponseBodyData(TeaModel):
-    def __init__(self, operate_type=None, result=None, status=None):
+    def __init__(self, execute_result=None, operate_type=None, result=None, status=None):
+        self.execute_result = execute_result  # type: str
         self.operate_type = operate_type  # type: str
         self.result = result  # type: bool
         self.status = status  # type: str
@@ -3359,6 +3360,8 @@ class GetOperateResultResponseBodyData(TeaModel):
             return _map
 
         result = dict()
+        if self.execute_result is not None:
+            result['ExecuteResult'] = self.execute_result
         if self.operate_type is not None:
             result['OperateType'] = self.operate_type
         if self.result is not None:
@@ -3369,6 +3372,8 @@ class GetOperateResultResponseBodyData(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('ExecuteResult') is not None:
+            self.execute_result = m.get('ExecuteResult')
         if m.get('OperateType') is not None:
             self.operate_type = m.get('OperateType')
         if m.get('Result') is not None:
@@ -4828,8 +4833,9 @@ class ListDirectionalDetailResponse(TeaModel):
 
 
 class ListOrderRequest(TeaModel):
-    def __init__(self, end_date=None, order_id=None, order_status=None, order_type=None, page_no=None,
-                 page_size=None, start_date=None):
+    def __init__(self, credential_no=None, end_date=None, order_id=None, order_status=None, order_type=None,
+                 page_no=None, page_size=None, start_date=None):
+        self.credential_no = credential_no  # type: str
         self.end_date = end_date  # type: str
         self.order_id = order_id  # type: str
         self.order_status = order_status  # type: str
@@ -4847,6 +4853,8 @@ class ListOrderRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.credential_no is not None:
+            result['CredentialNo'] = self.credential_no
         if self.end_date is not None:
             result['EndDate'] = self.end_date
         if self.order_id is not None:
@@ -4865,6 +4873,8 @@ class ListOrderRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('CredentialNo') is not None:
+            self.credential_no = m.get('CredentialNo')
         if m.get('EndDate') is not None:
             self.end_date = m.get('EndDate')
         if m.get('OrderId') is not None:
