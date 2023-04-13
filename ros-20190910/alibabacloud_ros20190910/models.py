@@ -1106,11 +1106,11 @@ class CreateStackRequestTags(TeaModel):
 
 
 class CreateStackRequest(TeaModel):
-    def __init__(self, client_token=None, create_option=None, deletion_protection=None, disable_rollback=None,
-                 notification_urls=None, parallelism=None, parameters=None, ram_role_name=None, region_id=None,
-                 resource_group_id=None, stack_name=None, stack_policy_body=None, stack_policy_url=None, tags=None,
-                 template_body=None, template_id=None, template_scratch_id=None, template_scratch_region_id=None,
-                 template_url=None, template_version=None, timeout_in_minutes=None):
+    def __init__(self, client_token=None, create_option=None, create_options=None, deletion_protection=None,
+                 disable_rollback=None, notification_urls=None, parallelism=None, parameters=None, ram_role_name=None,
+                 region_id=None, resource_group_id=None, stack_name=None, stack_policy_body=None, stack_policy_url=None,
+                 tags=None, template_body=None, template_id=None, template_scratch_id=None,
+                 template_scratch_region_id=None, template_url=None, template_version=None, timeout_in_minutes=None):
         # The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must make sure that the value is unique among different requests. The token can be up to 64 characters in length, and can contain letters, digits, hyphens (-), and underscores (\_).
         # 
         # For more information, see [Ensure idempotence](~~134212~~).
@@ -1121,6 +1121,7 @@ class CreateStackRequest(TeaModel):
         # *   AbandonStackOnCreationComplete: deletes the stack, but retains its resources after the stack is created. In this case, your stack quota in ROS is not consumed. If the stack fails to be created, the stack is retained.
         # *   AbandonStackOnCreationRollbackComplete: deletes the stack when its resources are rolled back after the stack fails to be created. In this case, your stack quota in ROS is not consumed. In other rollback scenarios, the stack is retained.
         self.create_option = create_option  # type: str
+        self.create_options = create_options  # type: list[str]
         # Specifies whether to enable deletion protection for the stack. Default value: Disabled. Valid values:
         # 
         # *   Enabled: enables deletion protection.
@@ -1228,6 +1229,8 @@ class CreateStackRequest(TeaModel):
             result['ClientToken'] = self.client_token
         if self.create_option is not None:
             result['CreateOption'] = self.create_option
+        if self.create_options is not None:
+            result['CreateOptions'] = self.create_options
         if self.deletion_protection is not None:
             result['DeletionProtection'] = self.deletion_protection
         if self.disable_rollback is not None:
@@ -1278,6 +1281,8 @@ class CreateStackRequest(TeaModel):
             self.client_token = m.get('ClientToken')
         if m.get('CreateOption') is not None:
             self.create_option = m.get('CreateOption')
+        if m.get('CreateOptions') is not None:
+            self.create_options = m.get('CreateOptions')
         if m.get('DeletionProtection') is not None:
             self.deletion_protection = m.get('DeletionProtection')
         if m.get('DisableRollback') is not None:
@@ -14175,8 +14180,10 @@ class ListStacksRequestTag(TeaModel):
 
 
 class ListStacksRequest(TeaModel):
-    def __init__(self, page_number=None, page_size=None, parent_stack_id=None, region_id=None,
-                 resource_group_id=None, show_nested_stack=None, stack_id=None, stack_ids=None, stack_name=None, status=None, tag=None):
+    def __init__(self, end_time=None, page_number=None, page_size=None, parent_stack_id=None, region_id=None,
+                 resource_group_id=None, show_nested_stack=None, stack_id=None, stack_ids=None, stack_name=None, start_time=None,
+                 status=None, tag=None):
+        self.end_time = end_time  # type: str
         # The number of the page to return.
         # 
         # Pages start from page 1.
@@ -14211,6 +14218,7 @@ class ListStacksRequest(TeaModel):
         self.stack_ids = stack_ids  # type: list[str]
         # The name of stack N.
         self.stack_name = stack_name  # type: list[str]
+        self.start_time = start_time  # type: str
         # The state N of the stack.
         self.status = status  # type: list[str]
         # The tags.
@@ -14228,6 +14236,8 @@ class ListStacksRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
@@ -14246,6 +14256,8 @@ class ListStacksRequest(TeaModel):
             result['StackIds'] = self.stack_ids
         if self.stack_name is not None:
             result['StackName'] = self.stack_name
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
         if self.status is not None:
             result['Status'] = self.status
         result['Tag'] = []
@@ -14256,6 +14268,8 @@ class ListStacksRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
@@ -14274,6 +14288,8 @@ class ListStacksRequest(TeaModel):
             self.stack_ids = m.get('StackIds')
         if m.get('StackName') is not None:
             self.stack_name = m.get('StackName')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         if m.get('Status') is not None:
             self.status = m.get('Status')
         self.tag = []
@@ -16158,21 +16174,18 @@ class ListTemplatesResponse(TeaModel):
 
 class MoveResourceGroupRequest(TeaModel):
     def __init__(self, new_resource_group_id=None, region_id=None, resource_id=None, resource_type=None):
-        # The ID of the destination resource group.
-        # 
-        # For more information about resource groups, see [What is a resource group?](~~94475~~)
+        # The ID of the resource group to which you want to move the resource. For more information about resource groups, see the "Resource Group" section of the [What is Resource Management?](~~94475~~) topic.
         self.new_resource_group_id = new_resource_group_id  # type: str
-        # The region ID of the resource.
-        # 
-        # You can call the [DescribeRegions](~~131035~~) operation to query region IDs.
+        # The region ID of the resource.\
+        # You can call the [DescribeRegions](~~131035~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         # The ID of the resource.
         self.resource_id = resource_id  # type: str
         # The type of the resource. Valid values:
         # 
-        # *   stack
-        # *   stackgroup
-        # *   template
+        # *   stack: stack
+        # *   stackgroup: stack group
+        # *   template: template
         self.resource_type = resource_type  # type: str
 
     def validate(self):
