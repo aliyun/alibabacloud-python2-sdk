@@ -929,8 +929,8 @@ class AddGatewayRequestTag(TeaModel):
 class AddGatewayRequest(TeaModel):
     def __init__(self, accept_language=None, enable_hardware_acceleration=None, enable_sls=None,
                  enable_xtrace=None, enterprise_security_group=None, internet_slb_spec=None, name=None, region=None, replica=None,
-                 resource_group_id=None, slb_spec=None, spec=None, tag=None, v_switch_id=None, v_switch_id_2=None, vpc=None,
-                 xtrace_ratio=None):
+                 request_pars=None, resource_group_id=None, slb_spec=None, spec=None, tag=None, v_switch_id=None,
+                 v_switch_id_2=None, vpc=None, xtrace_ratio=None):
         # The language of the response. Valid values:
         # 
         # *   zh: Chinese
@@ -959,6 +959,7 @@ class AddGatewayRequest(TeaModel):
         self.region = region  # type: str
         # The number of nodes.
         self.replica = replica  # type: int
+        self.request_pars = request_pars  # type: str
         # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
         # The specifications of the internal-facing Server Load Balancer (SLB) instance. Valid values:
@@ -1018,6 +1019,8 @@ class AddGatewayRequest(TeaModel):
             result['Region'] = self.region
         if self.replica is not None:
             result['Replica'] = self.replica
+        if self.request_pars is not None:
+            result['RequestPars'] = self.request_pars
         if self.resource_group_id is not None:
             result['ResourceGroupId'] = self.resource_group_id
         if self.slb_spec is not None:
@@ -1058,6 +1061,8 @@ class AddGatewayRequest(TeaModel):
             self.region = m.get('Region')
         if m.get('Replica') is not None:
             self.replica = m.get('Replica')
+        if m.get('RequestPars') is not None:
+            self.request_pars = m.get('RequestPars')
         if m.get('ResourceGroupId') is not None:
             self.resource_group_id = m.get('ResourceGroupId')
         if m.get('SlbSpec') is not None:
