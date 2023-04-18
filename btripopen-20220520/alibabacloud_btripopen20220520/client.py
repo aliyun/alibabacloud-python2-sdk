@@ -33,8 +33,6 @@ class Client(OpenApiClient):
     def access_token_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
-        if not UtilClient.is_unset(request.app_key):
-            query['app_key'] = request.app_key
         if not UtilClient.is_unset(request.app_secret):
             query['app_secret'] = request.app_secret
         req = open_api_models.OpenApiRequest(

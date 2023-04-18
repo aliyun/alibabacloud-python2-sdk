@@ -4,8 +4,7 @@ from Tea.model import TeaModel
 
 
 class AccessTokenRequest(TeaModel):
-    def __init__(self, app_key=None, app_secret=None):
-        self.app_key = app_key  # type: str
+    def __init__(self, app_secret=None):
         self.app_secret = app_secret  # type: str
 
     def validate(self):
@@ -17,16 +16,12 @@ class AccessTokenRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.app_key is not None:
-            result['app_key'] = self.app_key
         if self.app_secret is not None:
             result['app_secret'] = self.app_secret
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('app_key') is not None:
-            self.app_key = m.get('app_key')
         if m.get('app_secret') is not None:
             self.app_secret = m.get('app_secret')
         return self
