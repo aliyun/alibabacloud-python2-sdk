@@ -468,8 +468,10 @@ class AddressGetHeaders(TeaModel):
 
 
 class AddressGetRequest(TeaModel):
-    def __init__(self, action_type=None, itinerary_id=None, phone=None, sub_corp_id=None, type=None, user_id=None):
+    def __init__(self, action_type=None, car_scenes_code=None, itinerary_id=None, phone=None, sub_corp_id=None,
+                 type=None, user_id=None):
         self.action_type = action_type  # type: int
+        self.car_scenes_code = car_scenes_code  # type: str
         self.itinerary_id = itinerary_id  # type: str
         self.phone = phone  # type: str
         self.sub_corp_id = sub_corp_id  # type: str
@@ -487,6 +489,8 @@ class AddressGetRequest(TeaModel):
         result = dict()
         if self.action_type is not None:
             result['action_type'] = self.action_type
+        if self.car_scenes_code is not None:
+            result['car_scenes_code'] = self.car_scenes_code
         if self.itinerary_id is not None:
             result['itinerary_id'] = self.itinerary_id
         if self.phone is not None:
@@ -503,6 +507,8 @@ class AddressGetRequest(TeaModel):
         m = m or dict()
         if m.get('action_type') is not None:
             self.action_type = m.get('action_type')
+        if m.get('car_scenes_code') is not None:
+            self.car_scenes_code = m.get('car_scenes_code')
         if m.get('itinerary_id') is not None:
             self.itinerary_id = m.get('itinerary_id')
         if m.get('phone') is not None:
@@ -34583,37 +34589,123 @@ class InsInvoiceScanQueryRequest(TeaModel):
         return self
 
 
+class InsInvoiceScanQueryResponseBodyModuleItemsInvoiceDetails(TeaModel):
+    def __init__(self, amount=None, index=None, item_name=None, quantity=None, specification=None, tax=None,
+                 tax_rate=None, unit=None, unit_price=None):
+        self.amount = amount  # type: str
+        self.index = index  # type: str
+        self.item_name = item_name  # type: str
+        self.quantity = quantity  # type: str
+        self.specification = specification  # type: str
+        self.tax = tax  # type: str
+        self.tax_rate = tax_rate  # type: str
+        self.unit = unit  # type: str
+        self.unit_price = unit_price  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(InsInvoiceScanQueryResponseBodyModuleItemsInvoiceDetails, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.amount is not None:
+            result['amount'] = self.amount
+        if self.index is not None:
+            result['index'] = self.index
+        if self.item_name is not None:
+            result['item_name'] = self.item_name
+        if self.quantity is not None:
+            result['quantity'] = self.quantity
+        if self.specification is not None:
+            result['specification'] = self.specification
+        if self.tax is not None:
+            result['tax'] = self.tax
+        if self.tax_rate is not None:
+            result['tax_rate'] = self.tax_rate
+        if self.unit is not None:
+            result['unit'] = self.unit
+        if self.unit_price is not None:
+            result['unit_price'] = self.unit_price
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('amount') is not None:
+            self.amount = m.get('amount')
+        if m.get('index') is not None:
+            self.index = m.get('index')
+        if m.get('item_name') is not None:
+            self.item_name = m.get('item_name')
+        if m.get('quantity') is not None:
+            self.quantity = m.get('quantity')
+        if m.get('specification') is not None:
+            self.specification = m.get('specification')
+        if m.get('tax') is not None:
+            self.tax = m.get('tax')
+        if m.get('tax_rate') is not None:
+            self.tax_rate = m.get('tax_rate')
+        if m.get('unit') is not None:
+            self.unit = m.get('unit')
+        if m.get('unit_price') is not None:
+            self.unit_price = m.get('unit_price')
+        return self
+
+
 class InsInvoiceScanQueryResponseBodyModuleItems(TeaModel):
-    def __init__(self, amount_with_tax=None, amount_without_tax=None, bill_date=None, cost_center=None,
-                 department=None, insurance_company=None, insurance_order_id=None, insurance_type=None, invoice_code=None,
-                 invoice_day=None, invoice_no=None, order_id=None, oss_url=None, passenger=None, project=None,
-                 purchaser_name=None, purchaser_tax_no=None, real_invoice_title=None, seller_name=None, seller_tax_no=None,
-                 tax_amount=None, tax_rate=None):
+    def __init__(self, amount_with_tax=None, amount_without_tax=None, bill_date=None, check_code=None,
+                 cost_center=None, department=None, drawer=None, id=None, insurance_company=None, insurance_order_id=None,
+                 insurance_type=None, invoice_code=None, invoice_day=None, invoice_details=None, invoice_location=None,
+                 invoice_no=None, invoice_title=None, order_id=None, oss_url=None, passenger=None, password_area=None,
+                 project=None, purchaser_bank_account_info=None, purchaser_contact_info=None, purchaser_name=None,
+                 purchaser_tax_no=None, recipient=None, remarks=None, reviewer=None, seller_bank_account_info=None,
+                 seller_contact_info=None, seller_name=None, seller_tax_no=None, smart_check_code=None, tax_amount=None, tax_rate=None,
+                 total_amount_in_words=None):
         self.amount_with_tax = amount_with_tax  # type: str
         self.amount_without_tax = amount_without_tax  # type: str
         self.bill_date = bill_date  # type: str
+        self.check_code = check_code  # type: str
         self.cost_center = cost_center  # type: str
         self.department = department  # type: str
+        self.drawer = drawer  # type: str
+        self.id = id  # type: str
         self.insurance_company = insurance_company  # type: str
         self.insurance_order_id = insurance_order_id  # type: str
         self.insurance_type = insurance_type  # type: str
         self.invoice_code = invoice_code  # type: str
         self.invoice_day = invoice_day  # type: str
+        self.invoice_details = invoice_details  # type: list[InsInvoiceScanQueryResponseBodyModuleItemsInvoiceDetails]
+        self.invoice_location = invoice_location  # type: str
         self.invoice_no = invoice_no  # type: str
+        self.invoice_title = invoice_title  # type: str
         self.order_id = order_id  # type: long
         self.oss_url = oss_url  # type: str
         self.passenger = passenger  # type: str
+        self.password_area = password_area  # type: str
         self.project = project  # type: str
+        self.purchaser_bank_account_info = purchaser_bank_account_info  # type: str
+        self.purchaser_contact_info = purchaser_contact_info  # type: str
         self.purchaser_name = purchaser_name  # type: str
         self.purchaser_tax_no = purchaser_tax_no  # type: str
-        self.real_invoice_title = real_invoice_title  # type: str
+        self.recipient = recipient  # type: str
+        self.remarks = remarks  # type: str
+        self.reviewer = reviewer  # type: str
+        self.seller_bank_account_info = seller_bank_account_info  # type: str
+        self.seller_contact_info = seller_contact_info  # type: str
         self.seller_name = seller_name  # type: str
         self.seller_tax_no = seller_tax_no  # type: str
+        self.smart_check_code = smart_check_code  # type: str
         self.tax_amount = tax_amount  # type: str
         self.tax_rate = tax_rate  # type: str
+        self.total_amount_in_words = total_amount_in_words  # type: str
 
     def validate(self):
-        pass
+        if self.invoice_details:
+            for k in self.invoice_details:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(InsInvoiceScanQueryResponseBodyModuleItems, self).to_map()
@@ -34627,10 +34719,16 @@ class InsInvoiceScanQueryResponseBodyModuleItems(TeaModel):
             result['amount_without_tax'] = self.amount_without_tax
         if self.bill_date is not None:
             result['bill_date'] = self.bill_date
+        if self.check_code is not None:
+            result['check_code'] = self.check_code
         if self.cost_center is not None:
             result['cost_center'] = self.cost_center
         if self.department is not None:
             result['department'] = self.department
+        if self.drawer is not None:
+            result['drawer'] = self.drawer
+        if self.id is not None:
+            result['id'] = self.id
         if self.insurance_company is not None:
             result['insurance_company'] = self.insurance_company
         if self.insurance_order_id is not None:
@@ -34641,30 +34739,56 @@ class InsInvoiceScanQueryResponseBodyModuleItems(TeaModel):
             result['invoice_code'] = self.invoice_code
         if self.invoice_day is not None:
             result['invoice_day'] = self.invoice_day
+        result['invoice_details'] = []
+        if self.invoice_details is not None:
+            for k in self.invoice_details:
+                result['invoice_details'].append(k.to_map() if k else None)
+        if self.invoice_location is not None:
+            result['invoice_location'] = self.invoice_location
         if self.invoice_no is not None:
             result['invoice_no'] = self.invoice_no
+        if self.invoice_title is not None:
+            result['invoice_title'] = self.invoice_title
         if self.order_id is not None:
             result['order_id'] = self.order_id
         if self.oss_url is not None:
             result['oss_url'] = self.oss_url
         if self.passenger is not None:
             result['passenger'] = self.passenger
+        if self.password_area is not None:
+            result['password_area'] = self.password_area
         if self.project is not None:
             result['project'] = self.project
+        if self.purchaser_bank_account_info is not None:
+            result['purchaser_bank_account_info'] = self.purchaser_bank_account_info
+        if self.purchaser_contact_info is not None:
+            result['purchaser_contact_info'] = self.purchaser_contact_info
         if self.purchaser_name is not None:
             result['purchaser_name'] = self.purchaser_name
         if self.purchaser_tax_no is not None:
             result['purchaser_tax_no'] = self.purchaser_tax_no
-        if self.real_invoice_title is not None:
-            result['real_invoice_title'] = self.real_invoice_title
+        if self.recipient is not None:
+            result['recipient'] = self.recipient
+        if self.remarks is not None:
+            result['remarks'] = self.remarks
+        if self.reviewer is not None:
+            result['reviewer'] = self.reviewer
+        if self.seller_bank_account_info is not None:
+            result['seller_bank_account_info'] = self.seller_bank_account_info
+        if self.seller_contact_info is not None:
+            result['seller_contact_info'] = self.seller_contact_info
         if self.seller_name is not None:
             result['seller_name'] = self.seller_name
         if self.seller_tax_no is not None:
             result['seller_tax_no'] = self.seller_tax_no
+        if self.smart_check_code is not None:
+            result['smart_check_code'] = self.smart_check_code
         if self.tax_amount is not None:
             result['tax_amount'] = self.tax_amount
         if self.tax_rate is not None:
             result['tax_rate'] = self.tax_rate
+        if self.total_amount_in_words is not None:
+            result['total_amount_in_words'] = self.total_amount_in_words
         return result
 
     def from_map(self, m=None):
@@ -34675,10 +34799,16 @@ class InsInvoiceScanQueryResponseBodyModuleItems(TeaModel):
             self.amount_without_tax = m.get('amount_without_tax')
         if m.get('bill_date') is not None:
             self.bill_date = m.get('bill_date')
+        if m.get('check_code') is not None:
+            self.check_code = m.get('check_code')
         if m.get('cost_center') is not None:
             self.cost_center = m.get('cost_center')
         if m.get('department') is not None:
             self.department = m.get('department')
+        if m.get('drawer') is not None:
+            self.drawer = m.get('drawer')
+        if m.get('id') is not None:
+            self.id = m.get('id')
         if m.get('insurance_company') is not None:
             self.insurance_company = m.get('insurance_company')
         if m.get('insurance_order_id') is not None:
@@ -34689,30 +34819,57 @@ class InsInvoiceScanQueryResponseBodyModuleItems(TeaModel):
             self.invoice_code = m.get('invoice_code')
         if m.get('invoice_day') is not None:
             self.invoice_day = m.get('invoice_day')
+        self.invoice_details = []
+        if m.get('invoice_details') is not None:
+            for k in m.get('invoice_details'):
+                temp_model = InsInvoiceScanQueryResponseBodyModuleItemsInvoiceDetails()
+                self.invoice_details.append(temp_model.from_map(k))
+        if m.get('invoice_location') is not None:
+            self.invoice_location = m.get('invoice_location')
         if m.get('invoice_no') is not None:
             self.invoice_no = m.get('invoice_no')
+        if m.get('invoice_title') is not None:
+            self.invoice_title = m.get('invoice_title')
         if m.get('order_id') is not None:
             self.order_id = m.get('order_id')
         if m.get('oss_url') is not None:
             self.oss_url = m.get('oss_url')
         if m.get('passenger') is not None:
             self.passenger = m.get('passenger')
+        if m.get('password_area') is not None:
+            self.password_area = m.get('password_area')
         if m.get('project') is not None:
             self.project = m.get('project')
+        if m.get('purchaser_bank_account_info') is not None:
+            self.purchaser_bank_account_info = m.get('purchaser_bank_account_info')
+        if m.get('purchaser_contact_info') is not None:
+            self.purchaser_contact_info = m.get('purchaser_contact_info')
         if m.get('purchaser_name') is not None:
             self.purchaser_name = m.get('purchaser_name')
         if m.get('purchaser_tax_no') is not None:
             self.purchaser_tax_no = m.get('purchaser_tax_no')
-        if m.get('real_invoice_title') is not None:
-            self.real_invoice_title = m.get('real_invoice_title')
+        if m.get('recipient') is not None:
+            self.recipient = m.get('recipient')
+        if m.get('remarks') is not None:
+            self.remarks = m.get('remarks')
+        if m.get('reviewer') is not None:
+            self.reviewer = m.get('reviewer')
+        if m.get('seller_bank_account_info') is not None:
+            self.seller_bank_account_info = m.get('seller_bank_account_info')
+        if m.get('seller_contact_info') is not None:
+            self.seller_contact_info = m.get('seller_contact_info')
         if m.get('seller_name') is not None:
             self.seller_name = m.get('seller_name')
         if m.get('seller_tax_no') is not None:
             self.seller_tax_no = m.get('seller_tax_no')
+        if m.get('smart_check_code') is not None:
+            self.smart_check_code = m.get('smart_check_code')
         if m.get('tax_amount') is not None:
             self.tax_amount = m.get('tax_amount')
         if m.get('tax_rate') is not None:
             self.tax_rate = m.get('tax_rate')
+        if m.get('total_amount_in_words') is not None:
+            self.total_amount_in_words = m.get('total_amount_in_words')
         return self
 
 
@@ -45615,7 +45772,8 @@ class TrainTicketScanQueryRequest(TeaModel):
 class TrainTicketScanQueryResponseBodyModuleItems(TeaModel):
     def __init__(self, arr_station=None, bill_date=None, coach_name=None, cost_center=None, dep_station=None,
                  dep_time=None, department=None, id=None, invoice_title=None, order_id=None, oss_url=None, passenger=None,
-                 price=None, project=None, seat=None, seat_no=None, serial_number=None, tax_amount=None, tax_rate=None):
+                 price=None, project=None, seat=None, seat_no=None, serial_number=None, tax_amount=None, tax_rate=None,
+                 ticket_no=None, train_no=None):
         self.arr_station = arr_station  # type: str
         self.bill_date = bill_date  # type: str
         self.coach_name = coach_name  # type: str
@@ -45635,6 +45793,8 @@ class TrainTicketScanQueryResponseBodyModuleItems(TeaModel):
         self.serial_number = serial_number  # type: str
         self.tax_amount = tax_amount  # type: str
         self.tax_rate = tax_rate  # type: str
+        self.ticket_no = ticket_no  # type: str
+        self.train_no = train_no  # type: str
 
     def validate(self):
         pass
@@ -45683,6 +45843,10 @@ class TrainTicketScanQueryResponseBodyModuleItems(TeaModel):
             result['tax_amount'] = self.tax_amount
         if self.tax_rate is not None:
             result['tax_rate'] = self.tax_rate
+        if self.ticket_no is not None:
+            result['ticket_no'] = self.ticket_no
+        if self.train_no is not None:
+            result['train_no'] = self.train_no
         return result
 
     def from_map(self, m=None):
@@ -45725,6 +45889,10 @@ class TrainTicketScanQueryResponseBodyModuleItems(TeaModel):
             self.tax_amount = m.get('tax_amount')
         if m.get('tax_rate') is not None:
             self.tax_rate = m.get('tax_rate')
+        if m.get('ticket_no') is not None:
+            self.ticket_no = m.get('ticket_no')
+        if m.get('train_no') is not None:
+            self.train_no = m.get('train_no')
         return self
 
 
