@@ -120,6 +120,184 @@ class AdjustJMeterSceneSpeedResponse(TeaModel):
         return self
 
 
+class AdjustPtsSceneSpeedRequestApiSpeedList(TeaModel):
+    def __init__(self, api_id=None, speed=None):
+        self.api_id = api_id  # type: str
+        self.speed = speed  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(AdjustPtsSceneSpeedRequestApiSpeedList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.api_id is not None:
+            result['ApiId'] = self.api_id
+        if self.speed is not None:
+            result['Speed'] = self.speed
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ApiId') is not None:
+            self.api_id = m.get('ApiId')
+        if m.get('Speed') is not None:
+            self.speed = m.get('Speed')
+        return self
+
+
+class AdjustPtsSceneSpeedRequest(TeaModel):
+    def __init__(self, api_speed_list=None, scene_id=None):
+        self.api_speed_list = api_speed_list  # type: list[AdjustPtsSceneSpeedRequestApiSpeedList]
+        self.scene_id = scene_id  # type: str
+
+    def validate(self):
+        if self.api_speed_list:
+            for k in self.api_speed_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(AdjustPtsSceneSpeedRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['ApiSpeedList'] = []
+        if self.api_speed_list is not None:
+            for k in self.api_speed_list:
+                result['ApiSpeedList'].append(k.to_map() if k else None)
+        if self.scene_id is not None:
+            result['SceneId'] = self.scene_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.api_speed_list = []
+        if m.get('ApiSpeedList') is not None:
+            for k in m.get('ApiSpeedList'):
+                temp_model = AdjustPtsSceneSpeedRequestApiSpeedList()
+                self.api_speed_list.append(temp_model.from_map(k))
+        if m.get('SceneId') is not None:
+            self.scene_id = m.get('SceneId')
+        return self
+
+
+class AdjustPtsSceneSpeedShrinkRequest(TeaModel):
+    def __init__(self, api_speed_list_shrink=None, scene_id=None):
+        self.api_speed_list_shrink = api_speed_list_shrink  # type: str
+        self.scene_id = scene_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(AdjustPtsSceneSpeedShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.api_speed_list_shrink is not None:
+            result['ApiSpeedList'] = self.api_speed_list_shrink
+        if self.scene_id is not None:
+            result['SceneId'] = self.scene_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ApiSpeedList') is not None:
+            self.api_speed_list_shrink = m.get('ApiSpeedList')
+        if m.get('SceneId') is not None:
+            self.scene_id = m.get('SceneId')
+        return self
+
+
+class AdjustPtsSceneSpeedResponseBody(TeaModel):
+    def __init__(self, code=None, http_status_code=None, message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.http_status_code = http_status_code  # type: int
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(AdjustPtsSceneSpeedResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class AdjustPtsSceneSpeedResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: AdjustPtsSceneSpeedResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(AdjustPtsSceneSpeedResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = AdjustPtsSceneSpeedResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CreatePtsSceneRequest(TeaModel):
     def __init__(self, scene=None):
         self.scene = scene  # type: str
@@ -1882,6 +2060,264 @@ class GetOpenJMeterSceneResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetOpenJMeterSceneResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetPtsDebugSampleLogsRequest(TeaModel):
+    def __init__(self, page_number=None, page_size=None, plan_id=None):
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.plan_id = plan_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetPtsDebugSampleLogsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.plan_id is not None:
+            result['PlanId'] = self.plan_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('PlanId') is not None:
+            self.plan_id = m.get('PlanId')
+        return self
+
+
+class GetPtsDebugSampleLogsResponseBodySamplingLogs(TeaModel):
+    def __init__(self, chain_id=None, chain_name=None, check_result=None, export_config=None, export_content=None,
+                 http_request_body=None, http_request_headers=None, http_request_method=None, http_request_url=None,
+                 http_response_body=None, http_response_fail_msg=None, http_response_headers=None, http_response_status=None,
+                 http_start_time=None, http_timing=None, import_content=None, node_id=None, rt=None, timestamp=None):
+        self.chain_id = chain_id  # type: str
+        self.chain_name = chain_name  # type: str
+        self.check_result = check_result  # type: str
+        self.export_config = export_config  # type: str
+        self.export_content = export_content  # type: str
+        self.http_request_body = http_request_body  # type: str
+        self.http_request_headers = http_request_headers  # type: str
+        self.http_request_method = http_request_method  # type: str
+        self.http_request_url = http_request_url  # type: str
+        self.http_response_body = http_response_body  # type: str
+        self.http_response_fail_msg = http_response_fail_msg  # type: str
+        self.http_response_headers = http_response_headers  # type: str
+        self.http_response_status = http_response_status  # type: str
+        self.http_start_time = http_start_time  # type: long
+        self.http_timing = http_timing  # type: str
+        self.import_content = import_content  # type: str
+        self.node_id = node_id  # type: str
+        self.rt = rt  # type: str
+        self.timestamp = timestamp  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetPtsDebugSampleLogsResponseBodySamplingLogs, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.chain_id is not None:
+            result['ChainId'] = self.chain_id
+        if self.chain_name is not None:
+            result['ChainName'] = self.chain_name
+        if self.check_result is not None:
+            result['CheckResult'] = self.check_result
+        if self.export_config is not None:
+            result['ExportConfig'] = self.export_config
+        if self.export_content is not None:
+            result['ExportContent'] = self.export_content
+        if self.http_request_body is not None:
+            result['HttpRequestBody'] = self.http_request_body
+        if self.http_request_headers is not None:
+            result['HttpRequestHeaders'] = self.http_request_headers
+        if self.http_request_method is not None:
+            result['HttpRequestMethod'] = self.http_request_method
+        if self.http_request_url is not None:
+            result['HttpRequestUrl'] = self.http_request_url
+        if self.http_response_body is not None:
+            result['HttpResponseBody'] = self.http_response_body
+        if self.http_response_fail_msg is not None:
+            result['HttpResponseFailMsg'] = self.http_response_fail_msg
+        if self.http_response_headers is not None:
+            result['HttpResponseHeaders'] = self.http_response_headers
+        if self.http_response_status is not None:
+            result['HttpResponseStatus'] = self.http_response_status
+        if self.http_start_time is not None:
+            result['HttpStartTime'] = self.http_start_time
+        if self.http_timing is not None:
+            result['HttpTiming'] = self.http_timing
+        if self.import_content is not None:
+            result['ImportContent'] = self.import_content
+        if self.node_id is not None:
+            result['NodeId'] = self.node_id
+        if self.rt is not None:
+            result['Rt'] = self.rt
+        if self.timestamp is not None:
+            result['Timestamp'] = self.timestamp
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ChainId') is not None:
+            self.chain_id = m.get('ChainId')
+        if m.get('ChainName') is not None:
+            self.chain_name = m.get('ChainName')
+        if m.get('CheckResult') is not None:
+            self.check_result = m.get('CheckResult')
+        if m.get('ExportConfig') is not None:
+            self.export_config = m.get('ExportConfig')
+        if m.get('ExportContent') is not None:
+            self.export_content = m.get('ExportContent')
+        if m.get('HttpRequestBody') is not None:
+            self.http_request_body = m.get('HttpRequestBody')
+        if m.get('HttpRequestHeaders') is not None:
+            self.http_request_headers = m.get('HttpRequestHeaders')
+        if m.get('HttpRequestMethod') is not None:
+            self.http_request_method = m.get('HttpRequestMethod')
+        if m.get('HttpRequestUrl') is not None:
+            self.http_request_url = m.get('HttpRequestUrl')
+        if m.get('HttpResponseBody') is not None:
+            self.http_response_body = m.get('HttpResponseBody')
+        if m.get('HttpResponseFailMsg') is not None:
+            self.http_response_fail_msg = m.get('HttpResponseFailMsg')
+        if m.get('HttpResponseHeaders') is not None:
+            self.http_response_headers = m.get('HttpResponseHeaders')
+        if m.get('HttpResponseStatus') is not None:
+            self.http_response_status = m.get('HttpResponseStatus')
+        if m.get('HttpStartTime') is not None:
+            self.http_start_time = m.get('HttpStartTime')
+        if m.get('HttpTiming') is not None:
+            self.http_timing = m.get('HttpTiming')
+        if m.get('ImportContent') is not None:
+            self.import_content = m.get('ImportContent')
+        if m.get('NodeId') is not None:
+            self.node_id = m.get('NodeId')
+        if m.get('Rt') is not None:
+            self.rt = m.get('Rt')
+        if m.get('Timestamp') is not None:
+            self.timestamp = m.get('Timestamp')
+        return self
+
+
+class GetPtsDebugSampleLogsResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, page_number=None, page_size=None, request_id=None,
+                 sampling_logs=None, success=None, total_count=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.request_id = request_id  # type: str
+        self.sampling_logs = sampling_logs  # type: list[GetPtsDebugSampleLogsResponseBodySamplingLogs]
+        self.success = success  # type: bool
+        self.total_count = total_count  # type: long
+
+    def validate(self):
+        if self.sampling_logs:
+            for k in self.sampling_logs:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GetPtsDebugSampleLogsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        result['SamplingLogs'] = []
+        if self.sampling_logs is not None:
+            for k in self.sampling_logs:
+                result['SamplingLogs'].append(k.to_map() if k else None)
+        if self.success is not None:
+            result['Success'] = self.success
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        self.sampling_logs = []
+        if m.get('SamplingLogs') is not None:
+            for k in m.get('SamplingLogs'):
+                temp_model = GetPtsDebugSampleLogsResponseBodySamplingLogs()
+                self.sampling_logs.append(temp_model.from_map(k))
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class GetPtsDebugSampleLogsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetPtsDebugSampleLogsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetPtsDebugSampleLogsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetPtsDebugSampleLogsResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
