@@ -2,8 +2,8 @@
 # This file is auto-generated, don't edit it. Thanks.
 from __future__ import unicode_literals
 
-from Tea.core import TeaCore
 from Tea.converter import TeaConverter
+from Tea.core import TeaCore
 
 from alibabacloud_tea_openapi.client import Client as OpenApiClient
 from alibabacloud_tea_openapi import models as open_api_models
@@ -87,37 +87,21 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
-    def create_quota(self, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.create_quota_with_options(request, headers, runtime)
-
-    def create_quota_with_options(self, request, headers, runtime):
+    def create_package_with_options(self, project_name, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
-        if not UtilClient.is_unset(request.region):
-            query['region'] = request.region
-        if not UtilClient.is_unset(request.tenant_id):
-            query['tenantId'] = request.tenant_id
-        body = {}
-        if not UtilClient.is_unset(request.nickname):
-            body['Nickname'] = request.nickname
-        if not UtilClient.is_unset(request.parameters):
-            body['Parameters'] = request.parameters
-        if not UtilClient.is_unset(request.tag):
-            body['Tag'] = request.tag
-        if not UtilClient.is_unset(request.type):
-            body['Type'] = request.type
+        if not UtilClient.is_unset(request.is_install):
+            query['isInstall'] = request.is_install
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query),
-            body=OpenApiUtilClient.parse_to_map(body)
+            body=request.body
         )
         params = open_api_models.Params(
-            action='CreateQuota',
+            action='CreatePackage',
             version='2022-01-04',
             protocol='HTTPS',
-            pathname='/api/v1/quotas',
+            pathname='/api/v1/projects/%s/packages' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(project_name)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -125,18 +109,137 @@ class Client(OpenApiClient):
             body_type='json'
         )
         return TeaCore.from_map(
-            max_compute_20220104_models.CreateQuotaResponse(),
+            max_compute_20220104_models.CreatePackageResponse(),
             self.call_api(params, req, runtime)
         )
 
-    def delete_quota(self, nickname, request):
+    def create_package(self, project_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_quota_with_options(nickname, request, headers, runtime)
+        return self.create_package_with_options(project_name, request, headers, runtime)
 
-    def delete_quota_with_options(self, nickname, request, headers, runtime):
+    def create_project_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
-        nickname = OpenApiUtilClient.get_encode_param(nickname)
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=request.body
+        )
+        params = open_api_models.Params(
+            action='CreateProject',
+            version='2022-01-04',
+            protocol='HTTPS',
+            pathname='/api/v1/projects',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            max_compute_20220104_models.CreateProjectResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_project(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_project_with_options(request, headers, runtime)
+
+    def create_quota_plan_with_options(self, nickname, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.region):
+            query['region'] = request.region
+        if not UtilClient.is_unset(request.tenant_id):
+            query['tenantId'] = request.tenant_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=request.body
+        )
+        params = open_api_models.Params(
+            action='CreateQuotaPlan',
+            version='2022-01-04',
+            protocol='HTTPS',
+            pathname='/api/v1/quotas/%s/plans' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(nickname)),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            max_compute_20220104_models.CreateQuotaPlanResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_quota_plan(self, nickname, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_quota_plan_with_options(nickname, request, headers, runtime)
+
+    def create_quota_schedule_with_options(self, nickname, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.region):
+            query['region'] = request.region
+        if not UtilClient.is_unset(request.tenant_id):
+            query['tenantId'] = request.tenant_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=request.body
+        )
+        params = open_api_models.Params(
+            action='CreateQuotaSchedule',
+            version='2022-01-04',
+            protocol='HTTPS',
+            pathname='/api/v1/quotas/%s/schedule' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(nickname)),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            max_compute_20220104_models.CreateQuotaScheduleResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_quota_schedule(self, nickname, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_quota_schedule_with_options(nickname, request, headers, runtime)
+
+    def create_role_with_options(self, project_name, request, headers, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=request.body
+        )
+        params = open_api_models.Params(
+            action='CreateRole',
+            version='2022-01-04',
+            protocol='HTTPS',
+            pathname='/api/v1/projects/%s/roles' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(project_name)),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            max_compute_20220104_models.CreateRoleResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_role(self, project_name, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_role_with_options(project_name, request, headers, runtime)
+
+    def delete_quota_plan_with_options(self, nickname, plan_name, request, headers, runtime):
+        UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.region):
             query['region'] = request.region
@@ -147,10 +250,10 @@ class Client(OpenApiClient):
             query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
-            action='DeleteQuota',
+            action='DeleteQuotaPlan',
             version='2022-01-04',
             protocol='HTTPS',
-            pathname='/api/v1/quotas/%s' % TeaConverter.to_unicode(nickname),
+            pathname='/api/v1/quotas/%s/plans/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(nickname)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(plan_name))),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -158,19 +261,75 @@ class Client(OpenApiClient):
             body_type='json'
         )
         return TeaCore.from_map(
-            max_compute_20220104_models.DeleteQuotaResponse(),
+            max_compute_20220104_models.DeleteQuotaPlanResponse(),
             self.call_api(params, req, runtime)
         )
 
-    def get_quota(self, nickname, request):
+    def delete_quota_plan(self, nickname, plan_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_quota_with_options(nickname, request, headers, runtime)
+        return self.delete_quota_plan_with_options(nickname, plan_name, request, headers, runtime)
+
+    def get_package_with_options(self, project_name, package_name, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.source_project):
+            query['sourceProject'] = request.source_project
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetPackage',
+            version='2022-01-04',
+            protocol='HTTPS',
+            pathname='/api/v1/projects/%s/packages/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(project_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(package_name))),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            max_compute_20220104_models.GetPackageResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_package(self, project_name, package_name, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_package_with_options(project_name, package_name, request, headers, runtime)
+
+    def get_project_with_options(self, project_name, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='GetProject',
+            version='2022-01-04',
+            protocol='HTTPS',
+            pathname='/api/v1/projects/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(project_name)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            max_compute_20220104_models.GetProjectResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_project(self, project_name):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_project_with_options(project_name, headers, runtime)
 
     def get_quota_with_options(self, nickname, request, headers, runtime):
         UtilClient.validate_model(request)
-        nickname = OpenApiUtilClient.get_encode_param(nickname)
         query = {}
+        if not UtilClient.is_unset(request.ak_proven):
+            query['AkProven'] = request.ak_proven
         if not UtilClient.is_unset(request.mock):
             query['mock'] = request.mock
         if not UtilClient.is_unset(request.region):
@@ -185,7 +344,7 @@ class Client(OpenApiClient):
             action='GetQuota',
             version='2022-01-04',
             protocol='HTTPS',
-            pathname='/api/v1/quotas/%s' % TeaConverter.to_unicode(nickname),
+            pathname='/api/v1/quotas/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(nickname)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -197,10 +356,309 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_quotas(self, request):
+    def get_quota(self, nickname, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_quotas_with_options(request, headers, runtime)
+        return self.get_quota_with_options(nickname, request, headers, runtime)
+
+    def get_quota_plan_with_options(self, nickname, plan_name, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.region):
+            query['region'] = request.region
+        if not UtilClient.is_unset(request.tenant_id):
+            query['tenantId'] = request.tenant_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetQuotaPlan',
+            version='2022-01-04',
+            protocol='HTTPS',
+            pathname='/api/v1/quotas/%s/plans/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(nickname)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(plan_name))),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            max_compute_20220104_models.GetQuotaPlanResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_quota_plan(self, nickname, plan_name, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_quota_plan_with_options(nickname, plan_name, request, headers, runtime)
+
+    def get_quota_schedule_with_options(self, nickname, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.region):
+            query['region'] = request.region
+        if not UtilClient.is_unset(request.tenant_id):
+            query['tenantId'] = request.tenant_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetQuotaSchedule',
+            version='2022-01-04',
+            protocol='HTTPS',
+            pathname='/api/v1/quotas/%s/schedule' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(nickname)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            max_compute_20220104_models.GetQuotaScheduleResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_quota_schedule(self, nickname, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_quota_schedule_with_options(nickname, request, headers, runtime)
+
+    def get_role_acl_with_options(self, project_name, role_name, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='GetRoleAcl',
+            version='2022-01-04',
+            protocol='HTTPS',
+            pathname='/api/v1/projects/%s/roles/%s/roleAcl' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(project_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(role_name))),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            max_compute_20220104_models.GetRoleAclResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_role_acl(self, project_name, role_name):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_role_acl_with_options(project_name, role_name, headers, runtime)
+
+    def get_role_acl_on_object_with_options(self, project_name, role_name, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.object_name):
+            query['objectName'] = request.object_name
+        if not UtilClient.is_unset(request.object_type):
+            query['objectType'] = request.object_type
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetRoleAclOnObject',
+            version='2022-01-04',
+            protocol='HTTPS',
+            pathname='/api/v1/projects/%s/roles/%s/acl' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(project_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(role_name))),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            max_compute_20220104_models.GetRoleAclOnObjectResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_role_acl_on_object(self, project_name, role_name, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_role_acl_on_object_with_options(project_name, role_name, request, headers, runtime)
+
+    def get_role_policy_with_options(self, project_name, role_name, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='GetRolePolicy',
+            version='2022-01-04',
+            protocol='HTTPS',
+            pathname='/api/v1/projects/%s/roles/%s/policy' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(project_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(role_name))),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            max_compute_20220104_models.GetRolePolicyResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_role_policy(self, project_name, role_name):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_role_policy_with_options(project_name, role_name, headers, runtime)
+
+    def get_trusted_projects_with_options(self, project_name, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='GetTrustedProjects',
+            version='2022-01-04',
+            protocol='HTTPS',
+            pathname='/api/v1/projects/%s/trustedProjects' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(project_name)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            max_compute_20220104_models.GetTrustedProjectsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_trusted_projects(self, project_name):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_trusted_projects_with_options(project_name, headers, runtime)
+
+    def list_functions_with_options(self, project_name, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.marker):
+            query['marker'] = request.marker
+        if not UtilClient.is_unset(request.max_item):
+            query['maxItem'] = request.max_item
+        if not UtilClient.is_unset(request.prefix):
+            query['prefix'] = request.prefix
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListFunctions',
+            version='2022-01-04',
+            protocol='HTTPS',
+            pathname='/api/v1/projects/%s/functions' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(project_name)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            max_compute_20220104_models.ListFunctionsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_functions(self, project_name, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_functions_with_options(project_name, request, headers, runtime)
+
+    def list_packages_with_options(self, project_name, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='ListPackages',
+            version='2022-01-04',
+            protocol='HTTPS',
+            pathname='/api/v1/projects/%s/packages' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(project_name)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            max_compute_20220104_models.ListPackagesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_packages(self, project_name):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_packages_with_options(project_name, headers, runtime)
+
+    def list_project_users_with_options(self, project_name, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='ListProjectUsers',
+            version='2022-01-04',
+            protocol='HTTPS',
+            pathname='/api/v1/projects/%s/users' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(project_name)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            max_compute_20220104_models.ListProjectUsersResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_project_users(self, project_name):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_project_users_with_options(project_name, headers, runtime)
+
+    def list_projects_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.marker):
+            query['marker'] = request.marker
+        if not UtilClient.is_unset(request.max_item):
+            query['maxItem'] = request.max_item
+        if not UtilClient.is_unset(request.prefix):
+            query['prefix'] = request.prefix
+        if not UtilClient.is_unset(request.quota_name):
+            query['quotaName'] = request.quota_name
+        if not UtilClient.is_unset(request.quota_nick_name):
+            query['quotaNickName'] = request.quota_nick_name
+        if not UtilClient.is_unset(request.region):
+            query['region'] = request.region
+        if not UtilClient.is_unset(request.sale_tags):
+            query['saleTags'] = request.sale_tags
+        if not UtilClient.is_unset(request.tenant_id):
+            query['tenantId'] = request.tenant_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListProjects',
+            version='2022-01-04',
+            protocol='HTTPS',
+            pathname='/api/v1/projects',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            max_compute_20220104_models.ListProjectsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_projects(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_projects_with_options(request, headers, runtime)
 
     def list_quotas_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -215,6 +673,8 @@ class Client(OpenApiClient):
             query['productId'] = request.product_id
         if not UtilClient.is_unset(request.region):
             query['region'] = request.region
+        if not UtilClient.is_unset(request.sale_tags):
+            query['saleTags'] = request.sale_tags
         if not UtilClient.is_unset(request.tenant_id):
             query['tenantId'] = request.tenant_id
         req = open_api_models.OpenApiRequest(
@@ -237,14 +697,13 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_quota(self, nickname, request):
+    def list_quotas(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_quota_with_options(nickname, request, headers, runtime)
+        return self.list_quotas_with_options(request, headers, runtime)
 
-    def update_quota_with_options(self, nickname, request, headers, runtime):
+    def list_quotas_plans_with_options(self, nickname, request, headers, runtime):
         UtilClient.validate_model(request)
-        nickname = OpenApiUtilClient.get_encode_param(nickname)
         query = {}
         if not UtilClient.is_unset(request.region):
             query['region'] = request.region
@@ -252,6 +711,249 @@ class Client(OpenApiClient):
             query['tenantId'] = request.tenant_id
         req = open_api_models.OpenApiRequest(
             headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListQuotasPlans',
+            version='2022-01-04',
+            protocol='HTTPS',
+            pathname='/api/v1/quotas/%s/plans' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(nickname)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            max_compute_20220104_models.ListQuotasPlansResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_quotas_plans(self, nickname, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_quotas_plans_with_options(nickname, request, headers, runtime)
+
+    def list_resources_with_options(self, project_name, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.marker):
+            query['marker'] = request.marker
+        if not UtilClient.is_unset(request.max_item):
+            query['maxItem'] = request.max_item
+        if not UtilClient.is_unset(request.name):
+            query['name'] = request.name
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListResources',
+            version='2022-01-04',
+            protocol='HTTPS',
+            pathname='/api/v1/projects/%s/resources' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(project_name)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            max_compute_20220104_models.ListResourcesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_resources(self, project_name, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_resources_with_options(project_name, request, headers, runtime)
+
+    def list_roles_with_options(self, project_name, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='ListRoles',
+            version='2022-01-04',
+            protocol='HTTPS',
+            pathname='/api/v1/projects/%s/roles' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(project_name)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            max_compute_20220104_models.ListRolesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_roles(self, project_name):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_roles_with_options(project_name, headers, runtime)
+
+    def list_tables_with_options(self, project_name, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.marker):
+            query['marker'] = request.marker
+        if not UtilClient.is_unset(request.max_item):
+            query['maxItem'] = request.max_item
+        if not UtilClient.is_unset(request.prefix):
+            query['prefix'] = request.prefix
+        if not UtilClient.is_unset(request.type):
+            query['type'] = request.type
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListTables',
+            version='2022-01-04',
+            protocol='HTTPS',
+            pathname='/api/v1/projects/%s/tables' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(project_name)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            max_compute_20220104_models.ListTablesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_tables(self, project_name, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_tables_with_options(project_name, request, headers, runtime)
+
+    def list_users_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.page_number):
+            query['pageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['pageSize'] = request.page_size
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListUsers',
+            version='2022-01-04',
+            protocol='HTTPS',
+            pathname='/api/v1/users',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            max_compute_20220104_models.ListUsersResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_users(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_users_with_options(request, headers, runtime)
+
+    def list_users_by_role_with_options(self, project_name, role_name, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='ListUsersByRole',
+            version='2022-01-04',
+            protocol='HTTPS',
+            pathname='/api/v1/projects/%s/roles/%s/users' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(project_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(role_name))),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            max_compute_20220104_models.ListUsersByRoleResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_users_by_role(self, project_name, role_name):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_users_by_role_with_options(project_name, role_name, headers, runtime)
+
+    def update_package_with_options(self, project_name, package_name, request, headers, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=request.body
+        )
+        params = open_api_models.Params(
+            action='UpdatePackage',
+            version='2022-01-04',
+            protocol='HTTPS',
+            pathname='/api/v1/projects/%s/packages/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(project_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(package_name))),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            max_compute_20220104_models.UpdatePackageResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_package(self, project_name, package_name, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_package_with_options(project_name, package_name, request, headers, runtime)
+
+    def update_project_ip_white_list_with_options(self, project_name, request, headers, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=request.body
+        )
+        params = open_api_models.Params(
+            action='UpdateProjectIpWhiteList',
+            version='2022-01-04',
+            protocol='HTTPS',
+            pathname='/api/v1/projects/%s/ipWhiteList' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(project_name)),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            max_compute_20220104_models.UpdateProjectIpWhiteListResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_project_ip_white_list(self, project_name, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_project_ip_white_list_with_options(project_name, request, headers, runtime)
+
+    def update_quota_with_options(self, nickname, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.region):
+            query['region'] = request.region
+        if not UtilClient.is_unset(request.tenant_id):
+            query['tenantId'] = request.tenant_id
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.ak_proven):
+            real_headers['AkProven'] = UtilClient.to_jsonstring(headers.ak_proven)
+        req = open_api_models.OpenApiRequest(
+            headers=real_headers,
             query=OpenApiUtilClient.query(query),
             body=request.body
         )
@@ -259,26 +961,25 @@ class Client(OpenApiClient):
             action='UpdateQuota',
             version='2022-01-04',
             protocol='HTTPS',
-            pathname='/api/v1/quotas/%s' % TeaConverter.to_unicode(nickname),
+            pathname='/api/v1/quotas/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(nickname)),
             method='PUT',
             auth_type='AK',
             style='ROA',
             req_body_type='json',
-            body_type='string'
+            body_type='json'
         )
         return TeaCore.from_map(
             max_compute_20220104_models.UpdateQuotaResponse(),
             self.call_api(params, req, runtime)
         )
 
-    def update_sub_quotas(self, nickname, request):
+    def update_quota(self, nickname, request):
         runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.update_sub_quotas_with_options(nickname, request, headers, runtime)
+        headers = max_compute_20220104_models.UpdateQuotaHeaders()
+        return self.update_quota_with_options(nickname, request, headers, runtime)
 
-    def update_sub_quotas_with_options(self, nickname, request, headers, runtime):
+    def update_quota_plan_with_options(self, nickname, plan_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        nickname = OpenApiUtilClient.get_encode_param(nickname)
         query = {}
         if not UtilClient.is_unset(request.region):
             query['region'] = request.region
@@ -290,17 +991,55 @@ class Client(OpenApiClient):
             body=request.body
         )
         params = open_api_models.Params(
-            action='UpdateSubQuotas',
+            action='UpdateQuotaPlan',
             version='2022-01-04',
             protocol='HTTPS',
-            pathname='/api/v1/quotas/%s/subquotas' % TeaConverter.to_unicode(nickname),
+            pathname='/api/v1/quotas/%s/plans/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(nickname)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(plan_name))),
             method='PUT',
             auth_type='AK',
             style='ROA',
             req_body_type='json',
-            body_type='string'
+            body_type='json'
         )
         return TeaCore.from_map(
-            max_compute_20220104_models.UpdateSubQuotasResponse(),
+            max_compute_20220104_models.UpdateQuotaPlanResponse(),
             self.call_api(params, req, runtime)
         )
+
+    def update_quota_plan(self, nickname, plan_name, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_quota_plan_with_options(nickname, plan_name, request, headers, runtime)
+
+    def update_quota_schedule_with_options(self, nickname, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.region):
+            query['region'] = request.region
+        if not UtilClient.is_unset(request.tenant_id):
+            query['tenantId'] = request.tenant_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=request.body
+        )
+        params = open_api_models.Params(
+            action='UpdateQuotaSchedule',
+            version='2022-01-04',
+            protocol='HTTPS',
+            pathname='/api/v1/quotas/%s/schedule' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(nickname)),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            max_compute_20220104_models.UpdateQuotaScheduleResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_quota_schedule(self, nickname, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_quota_schedule_with_options(nickname, request, headers, runtime)
