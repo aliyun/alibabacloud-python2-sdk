@@ -89,6 +89,40 @@ class Client(OpenApiClient):
         headers = {}
         return self.change_resource_group_with_options(request, headers, runtime)
 
+    def consumer_group_heart_beat_with_options(self, project, logstore, consumer_group, request, headers, runtime):
+        UtilClient.validate_model(request)
+        host_map = {}
+        host_map['project'] = project
+        query = {}
+        if not UtilClient.is_unset(request.consumer):
+            query['consumer'] = request.consumer
+        req = open_api_models.OpenApiRequest(
+            host_map=host_map,
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=request.body
+        )
+        params = open_api_models.Params(
+            action='ConsumerGroupHeartBeat',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/logstores/%s/consumergroups/%s?type=heartbeat' % (TeaConverter.to_unicode(logstore), TeaConverter.to_unicode(consumer_group)),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='array'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.ConsumerGroupHeartBeatResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def consumer_group_heart_beat(self, project, logstore, consumer_group, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.consumer_group_heart_beat_with_options(project, logstore, consumer_group, request, headers, runtime)
+
     def create_consumer_group_with_options(self, project, logstore, request, headers, runtime):
         UtilClient.validate_model(request)
         host_map = {}
@@ -1286,14 +1320,12 @@ class Client(OpenApiClient):
         headers = {}
         return self.get_machine_group_with_options(project, machine_group, headers, runtime)
 
-    def get_project_with_options(self, request, headers, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.project):
-            query['project'] = request.project
+    def get_project_with_options(self, project, headers, runtime):
+        host_map = {}
+        host_map['project'] = project
         req = open_api_models.OpenApiRequest(
-            headers=headers,
-            query=OpenApiUtilClient.query(query)
+            host_map=host_map,
+            headers=headers
         )
         params = open_api_models.Params(
             action='GetProject',
@@ -1311,10 +1343,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def get_project(self, request):
+    def get_project(self, project):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_project_with_options(request, headers, runtime)
+        return self.get_project_with_options(project, headers, runtime)
 
     def get_project_logs_with_options(self, project, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1663,7 +1695,7 @@ class Client(OpenApiClient):
         headers = {}
         return self.list_machines_with_options(project, machine_group, request, headers, runtime)
 
-    def list_project_with_options(self, request, headers, runtime):
+    def list_project_with_options(self, resource_group_id, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.offset):
@@ -1692,10 +1724,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def list_project(self, request):
+    def list_project(self, resource_group_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_project_with_options(request, headers, runtime)
+        return self.list_project_with_options(resource_group_id, request, headers, runtime)
 
     def list_saved_search_with_options(self, project, request, headers, runtime):
         UtilClient.validate_model(request)

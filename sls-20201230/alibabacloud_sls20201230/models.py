@@ -1074,16 +1074,16 @@ class MachineGroup(TeaModel):
 
 
 class Project(TeaModel):
-    def __init__(self, create_time=None, last_modify_time=None, project_desc=None, project_name=None,
-                 project_owner=None, project_status=None, region=None, resource_group_id=None):
+    def __init__(self, create_time=None, description=None, last_modify_time=None, owner=None, project_name=None,
+                 region=None, resource_group_id=None, status=None):
         self.create_time = create_time  # type: str
+        self.description = description  # type: str
         self.last_modify_time = last_modify_time  # type: str
-        self.project_desc = project_desc  # type: str
+        self.owner = owner  # type: str
         self.project_name = project_name  # type: str
-        self.project_owner = project_owner  # type: str
-        self.project_status = project_status  # type: str
         self.region = region  # type: str
         self.resource_group_id = resource_group_id  # type: str
+        self.status = status  # type: str
 
     def validate(self):
         pass
@@ -1096,40 +1096,40 @@ class Project(TeaModel):
         result = dict()
         if self.create_time is not None:
             result['createTime'] = self.create_time
+        if self.description is not None:
+            result['description'] = self.description
         if self.last_modify_time is not None:
             result['lastModifyTime'] = self.last_modify_time
-        if self.project_desc is not None:
-            result['projectDesc'] = self.project_desc
+        if self.owner is not None:
+            result['owner'] = self.owner
         if self.project_name is not None:
             result['projectName'] = self.project_name
-        if self.project_owner is not None:
-            result['projectOwner'] = self.project_owner
-        if self.project_status is not None:
-            result['projectStatus'] = self.project_status
         if self.region is not None:
             result['region'] = self.region
         if self.resource_group_id is not None:
             result['resourceGroupId'] = self.resource_group_id
+        if self.status is not None:
+            result['status'] = self.status
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('createTime') is not None:
             self.create_time = m.get('createTime')
+        if m.get('description') is not None:
+            self.description = m.get('description')
         if m.get('lastModifyTime') is not None:
             self.last_modify_time = m.get('lastModifyTime')
-        if m.get('projectDesc') is not None:
-            self.project_desc = m.get('projectDesc')
+        if m.get('owner') is not None:
+            self.owner = m.get('owner')
         if m.get('projectName') is not None:
             self.project_name = m.get('projectName')
-        if m.get('projectOwner') is not None:
-            self.project_owner = m.get('projectOwner')
-        if m.get('projectStatus') is not None:
-            self.project_status = m.get('projectStatus')
         if m.get('region') is not None:
             self.region = m.get('region')
         if m.get('resourceGroupId') is not None:
             self.resource_group_id = m.get('resourceGroupId')
+        if m.get('status') is not None:
+            self.status = m.get('status')
         return self
 
 
@@ -1367,6 +1367,71 @@ class ChangeResourceGroupResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('statusCode') is not None:
             self.status_code = m.get('statusCode')
+        return self
+
+
+class ConsumerGroupHeartBeatRequest(TeaModel):
+    def __init__(self, body=None, consumer=None):
+        self.body = body  # type: list[int]
+        self.consumer = consumer  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ConsumerGroupHeartBeatRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.body is not None:
+            result['body'] = self.body
+        if self.consumer is not None:
+            result['consumer'] = self.consumer
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('body') is not None:
+            self.body = m.get('body')
+        if m.get('consumer') is not None:
+            self.consumer = m.get('consumer')
+        return self
+
+
+class ConsumerGroupHeartBeatResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: list[int]
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+
+    def to_map(self):
+        _map = super(ConsumerGroupHeartBeatResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            self.body = m.get('body')
         return self
 
 
@@ -4063,30 +4128,6 @@ class GetMachineGroupResponse(TeaModel):
         if m.get('body') is not None:
             temp_model = MachineGroup()
             self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class GetProjectRequest(TeaModel):
-    def __init__(self, project=None):
-        self.project = project  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(GetProjectRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.project is not None:
-            result['project'] = self.project
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('project') is not None:
-            self.project = m.get('project')
         return self
 
 
