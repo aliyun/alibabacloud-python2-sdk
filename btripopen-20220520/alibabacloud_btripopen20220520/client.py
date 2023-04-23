@@ -950,6 +950,36 @@ class Client(OpenApiClient):
         headers = btrip_open_20220520_models.CarOrderQueryHeaders()
         return self.car_order_query_with_options(request, headers, runtime)
 
+    def car_scene_query_with_options(self, headers, runtime):
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_acs_btrip_corp_token):
+            real_headers['x-acs-btrip-corp-token'] = UtilClient.to_jsonstring(headers.x_acs_btrip_corp_token)
+        req = open_api_models.OpenApiRequest(
+            headers=real_headers
+        )
+        params = open_api_models.Params(
+            action='CarSceneQuery',
+            version='2022-05-20',
+            protocol='HTTPS',
+            pathname='/car/v1/scenes',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            btrip_open_20220520_models.CarSceneQueryResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def car_scene_query(self):
+        runtime = util_models.RuntimeOptions()
+        headers = btrip_open_20220520_models.CarSceneQueryHeaders()
+        return self.car_scene_query_with_options(headers, runtime)
+
     def city_search_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
