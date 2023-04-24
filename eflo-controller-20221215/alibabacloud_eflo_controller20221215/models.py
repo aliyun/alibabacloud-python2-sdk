@@ -1353,14 +1353,15 @@ class DescribeNodeResponseBodyNetworks(TeaModel):
 
 class DescribeNodeResponseBody(TeaModel):
     def __init__(self, cluster_id=None, cluster_name=None, create_time=None, expired_time=None, hostname=None,
-                 image_id=None, machine_type=None, networks=None, node_group_id=None, node_group_name=None, node_id=None,
-                 operating_state=None, request_id=None, sn=None, zone_id=None):
+                 image_id=None, image_name=None, machine_type=None, networks=None, node_group_id=None, node_group_name=None,
+                 node_id=None, operating_state=None, request_id=None, sn=None, zone_id=None):
         self.cluster_id = cluster_id  # type: str
         self.cluster_name = cluster_name  # type: str
         self.create_time = create_time  # type: str
         self.expired_time = expired_time  # type: str
         self.hostname = hostname  # type: str
         self.image_id = image_id  # type: str
+        self.image_name = image_name  # type: str
         self.machine_type = machine_type  # type: str
         self.networks = networks  # type: list[DescribeNodeResponseBodyNetworks]
         self.node_group_id = node_group_id  # type: str
@@ -1395,6 +1396,8 @@ class DescribeNodeResponseBody(TeaModel):
             result['Hostname'] = self.hostname
         if self.image_id is not None:
             result['ImageId'] = self.image_id
+        if self.image_name is not None:
+            result['ImageName'] = self.image_name
         if self.machine_type is not None:
             result['MachineType'] = self.machine_type
         result['Networks'] = []
@@ -1431,6 +1434,8 @@ class DescribeNodeResponseBody(TeaModel):
             self.hostname = m.get('Hostname')
         if m.get('ImageId') is not None:
             self.image_id = m.get('ImageId')
+        if m.get('ImageName') is not None:
+            self.image_name = m.get('ImageName')
         if m.get('MachineType') is not None:
             self.machine_type = m.get('MachineType')
         self.networks = []
