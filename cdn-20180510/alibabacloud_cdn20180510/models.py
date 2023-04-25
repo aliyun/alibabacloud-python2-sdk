@@ -1088,7 +1088,7 @@ class BatchStartCdnDomainResponse(TeaModel):
 
 class BatchStopCdnDomainRequest(TeaModel):
     def __init__(self, domain_names=None, owner_id=None, security_token=None):
-        # You can specify one or more domain names and separate them with commas (,).
+        # The names of the accelerated domain names. You can specify one or more domain names in each request. Separate multiple domain names with commas (,).
         self.domain_names = domain_names  # type: str
         self.owner_id = owner_id  # type: long
         self.security_token = security_token  # type: str
@@ -1582,22 +1582,22 @@ class CreateCdnSubTaskRequest(TeaModel):
     def __init__(self, domain_name=None, report_ids=None):
         # The domain names to be tracked. Separate multiple domain names with commas (,). You can specify up to 500 domain names. If you want to specify more than 500 domain names, [submit a ticket](https://workorder-intl.console.aliyun.com/?spm=5176.2020520001.aliyun_topbar.18.dbd44bd3e4f845#/ticket/createIndex).
         # 
-        # >  If you do not specify a domain name, the custom operations reports are created for all domain names that belong to your Alibaba Cloud account.
+        # > If you do not specify a domain name, the custom operations report is created for all domain names that belong to your Alibaba Cloud account.
         self.domain_name = domain_name  # type: str
         # The IDs of the metrics that you want to include in the report. Separate multiple IDs with commas (,). Valid values:
         # 
         # *   **1**: frequently requested URLs (ranked by the number of requests)
         # *   **3**: frequently requested URLs (ranked by the amount of network traffic)
-        # *   **5**: frequently used referer headers (ranked by the number of requests)
-        # *   **7**: frequently used referer headers (ranked by the amount of network traffic)
-        # *   **9**: frequently requested back-to-origin URLs (ranked by the number of requests)
-        # *   **11**: frequently requested back-to-origin URLs (ranked by the amount of network traffic)
+        # *   **5**: frequently used Referer headers (ranked by the number of requests)
+        # *   **7**: frequently used Referer headers (ranked by the amount of network traffic)
+        # *   **9**: frequently requested URLs that are redirected to the origin (ranked by the number of requests)
+        # *   **11**: frequently requested URLs that are redirected to the origin (ranked by the amount of network traffic)
         # *   **13**: top client IP addresses (ranked by the number of requests)
         # *   **15**: top client IP addresses (ranked by the amount of network traffic)
         # *   **17**: domain names ranked by the amount of network traffic
         # *   **19**: page views and unique visitors
         # *   **21**: regions from which requests are initiated
-        # *   **23**: distribution of Internet service providers (ISPs)
+        # *   **23**: Internet service providers (ISPs)
         self.report_ids = report_ids  # type: str
 
     def validate(self):
@@ -1899,32 +1899,32 @@ class CreateRealTimeLogDeliveryResponse(TeaModel):
 class CreateUsageDetailDataExportTaskRequest(TeaModel):
     def __init__(self, domain_names=None, end_time=None, group=None, language=None, start_time=None, task_name=None,
                  type=None):
-        # The accelerated domain names based on which the resource usage details are generated. If you do not specify a domain name group, resource usage details are exported based on this parameter.
+        # The domain names. If you do not specify the Group parameter, resource usage details of these domain names are exported.
         # 
-        # If you do not set this parameter, resource usage details are exported based on user accounts.
+        # If you do not specify this parameter, resource usage details are exported based on accounts.
         self.domain_names = domain_names  # type: str
         # The end of the time range to query.
         # 
-        # Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC+0.
+        # Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         # 
-        # >  The end time must be later than the start time.
+        # > The end time must be later than the start time.
         self.end_time = end_time  # type: str
-        # The group of accelerated domain names based on which the resource usage details are generated. If you set this parameter, ignore the **DomainNames** parameter.
+        # The domain name group. If you specify this parameter, the **DomainNames** parameter is ignored.
         self.group = group  # type: str
-        # The language of the exported file. Valid values:
+        # The language in which you want to export the file. Valid values:
         # 
         # *   **zh-cn**: Chinese. This is the default value.
         # *   **en-us**: English
         self.language = language  # type: str
         # The beginning of the time range to query.
         # 
-        # Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC+0.
+        # Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         self.start_time = start_time  # type: str
         # The name of the task.
         self.task_name = task_name  # type: str
-        # The type of content based on which the data is generated. Valid values:
+        # The type of resource usage data to query. Valid values:
         # 
-        # *   **flow**: network traffic and bandwidth
+        # *   **flow**: traffic and bandwidth
         # *   **vas**: requests
         self.type = type  # type: str
 
@@ -1974,11 +1974,11 @@ class CreateUsageDetailDataExportTaskRequest(TeaModel):
 
 class CreateUsageDetailDataExportTaskResponseBody(TeaModel):
     def __init__(self, end_time=None, request_id=None, start_time=None, task_id=None):
-        # The end of the time range that was queried.
+        # The end of the time range for which the data was queried.
         self.end_time = end_time  # type: str
         # The ID of the request.
         self.request_id = request_id  # type: str
-        # The beginning of the time range that was queried.
+        # The beginning of the time range for which the data was queried.
         self.start_time = start_time  # type: str
         # The ID of the task.
         self.task_id = task_id  # type: str
@@ -2058,16 +2058,16 @@ class CreateUserUsageDataExportTaskRequest(TeaModel):
     def __init__(self, end_time=None, language=None, start_time=None, task_name=None):
         # The end of the time range to query. The end time must be later than the start time.
         # 
-        # Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC+0.
+        # Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         self.end_time = end_time  # type: str
-        # The language of the exported file.
+        # The language in which you want to export the file. Default value: zh-cn. Valid values:
         # 
-        # *   **zh-cn**: Chinese. This is the default value.
-        # *   **en-us**: English.
+        # *   **zh-cn**: Chinese
+        # *   **en-us**: English
         self.language = language  # type: str
-        # The start of the time range to query. The time interval at which the specified data is collected is five minutes.
+        # The start of the time range to query. The data is collected every 5 minutes.
         # 
-        # Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC+0.
+        # Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         self.start_time = start_time  # type: str
         # The name of the task.
         self.task_name = task_name  # type: str
@@ -2106,11 +2106,11 @@ class CreateUserUsageDataExportTaskRequest(TeaModel):
 
 class CreateUserUsageDataExportTaskResponseBody(TeaModel):
     def __init__(self, end_time=None, request_id=None, start_time=None, task_id=None):
-        # The end of the time range where the QPS data was queried.
+        # The end of the time range during which data was queried.
         self.end_time = end_time  # type: str
         # The ID of the request.
         self.request_id = request_id  # type: str
-        # The beginning of the time range that was queried.
+        # The start of the time range during which data was queried.
         self.start_time = start_time  # type: str
         # The ID of the task.
         self.task_id = task_id  # type: str
@@ -3928,12 +3928,12 @@ class DescribeCdnDomainByCertificateRequest(TeaModel):
     def __init__(self, sslpub=None, sslstatus=None):
         # The public key of the SSL certificate. You must encode the public key in Base64 and then call the encodeURIComponent function to encode the public key again.
         # 
-        # The public key must be in the PEM format.
+        # The public key must be in the Privacy-Enhanced Mail (PEM) format.
         self.sslpub = sslpub  # type: str
         # Specifies whether the domain name list to return contains only domain names with HTTPS enabled or disabled.
         # 
-        # - true: The domain name list contains only domain names with HTTPS enabled.
-        # - false: The domain name list contains only domain names with HTTPS disabled.
+        # *   true: The list contains only domain names with HTTPS enabled.
+        # *   false: The list contains only domain names with HTTPS disabled.
         self.sslstatus = sslstatus  # type: bool
 
     def validate(self):
@@ -3968,24 +3968,24 @@ class DescribeCdnDomainByCertificateResponseBodyCertInfosCertInfo(TeaModel):
         # *   **yes**: The SSL certificate is obsolete.
         # *   **no**: The SSL certificate is working as expected.
         self.cert_ca_is_legacy = cert_ca_is_legacy  # type: str
-        # The time when the SSL certificate expires.
+        # The time at which the certificate expires.
         self.cert_expire_time = cert_expire_time  # type: str
         # Indicates whether the SSL certificate is expired. Valid values:
         # 
         # *   **yes**: The SSL certificate is expired.
         # *   **no**: The SSL certificate is not expired.
         self.cert_expired = cert_expired  # type: str
-        # The time when the SSL certificate became effective.
+        # The time at which the certificate became effective.
         self.cert_start_time = cert_start_time  # type: str
         # The name of the SSL certificate owner.
         self.cert_subject_common_name = cert_subject_common_name  # type: str
-        # The type of the certificate. Valid responses: **RSA**, **DSA**, and **ECDSA**.
+        # The type of the certificate. Valid values: **RSA**, **DSA**, and **ECDSA**.
         self.cert_type = cert_type  # type: str
-        # If a value is returned, the value matches the SSL certificate. Multiple domain names are separated with commas (,).
+        # If a value is returned, the value matches the SSL certificate. Multiple domain names are separated by commas (,).
         self.domain_list = domain_list  # type: str
-        # The domain names (DNS fields) that match the SSL certificate. Multiple domain names are separated with commas (,).
+        # The domain names (DNS fields) that match the SSL certificate. Multiple domain names are separated by commas (,).
         self.domain_names = domain_names  # type: str
-        # The certificate authority that issued the SSL certificate.
+        # The certificate authority (CA) that issued the certificate.
         self.issuer = issuer  # type: str
 
     def validate(self):
@@ -4074,7 +4074,7 @@ class DescribeCdnDomainByCertificateResponseBodyCertInfos(TeaModel):
 
 class DescribeCdnDomainByCertificateResponseBody(TeaModel):
     def __init__(self, cert_infos=None, request_id=None):
-        # The information about the SSL certificate.
+        # The certificate information.
         self.cert_infos = cert_infos  # type: DescribeCdnDomainByCertificateResponseBodyCertInfos
         # The ID of the request.
         self.request_id = request_id  # type: str
@@ -4726,13 +4726,13 @@ class DescribeCdnDomainDetailResponse(TeaModel):
 
 class DescribeCdnDomainLogsRequest(TeaModel):
     def __init__(self, domain_name=None, end_time=None, page_number=None, page_size=None, start_time=None):
-        # The accelerated domain name. You can specify only one domain name.
+        # The domain name. You can specify only one domain name.
         self.domain_name = domain_name  # type: str
         # The end of the time range to query.
         # 
-        # Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC+0.
+        # Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         # 
-        # >  The end time must be later than the start time.
+        # > The end time must be later than the start time.
         self.end_time = end_time  # type: str
         # The number of the page to return. Pages start from page **1**.
         self.page_number = page_number  # type: long
@@ -4740,7 +4740,7 @@ class DescribeCdnDomainLogsRequest(TeaModel):
         self.page_size = page_size  # type: long
         # The beginning of the time range to query.
         # 
-        # Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC+0.
+        # Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -4781,7 +4781,7 @@ class DescribeCdnDomainLogsRequest(TeaModel):
 
 class DescribeCdnDomainLogsResponseBodyDomainLogDetailsDomainLogDetailLogInfosLogInfoDetail(TeaModel):
     def __init__(self, end_time=None, log_name=None, log_path=None, log_size=None, start_time=None):
-        # The end of the time range where the QPS data was queried.
+        # The end of the time range during which data was queried.
         self.end_time = end_time  # type: str
         # The name of the log file.
         self.log_name = log_name  # type: str
@@ -4789,7 +4789,7 @@ class DescribeCdnDomainLogsResponseBodyDomainLogDetailsDomainLogDetailLogInfosLo
         self.log_path = log_path  # type: str
         # The size of the log file.
         self.log_size = log_size  # type: long
-        # The start of the time range that was queried.
+        # The start of the time range during which data was queried.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -4903,9 +4903,9 @@ class DescribeCdnDomainLogsResponseBodyDomainLogDetailsDomainLogDetail(TeaModel)
         self.domain_name = domain_name  # type: str
         # The total number of entries returned on the current page.
         self.log_count = log_count  # type: long
-        # The detailed log information, which is indicated by the LogInfoDetail parameter.
+        # A set of LogInfoDetail data.
         self.log_infos = log_infos  # type: DescribeCdnDomainLogsResponseBodyDomainLogDetailsDomainLogDetailLogInfos
-        # The detailed log information, which is indicated by the PageInfoDetail parameter.
+        # A set of PageInfoDetail data.
         self.page_infos = page_infos  # type: DescribeCdnDomainLogsResponseBodyDomainLogDetailsDomainLogDetailPageInfos
 
     def validate(self):
@@ -4979,7 +4979,7 @@ class DescribeCdnDomainLogsResponseBodyDomainLogDetails(TeaModel):
 
 class DescribeCdnDomainLogsResponseBody(TeaModel):
     def __init__(self, domain_log_details=None, request_id=None):
-        # The detailed log information, which is indicated by the DomainLogDetail parameter.
+        # A set of DomainLogDetail data.
         self.domain_log_details = domain_log_details  # type: DescribeCdnDomainLogsResponseBodyDomainLogDetails
         # The ID of the request.
         self.request_id = request_id  # type: str
@@ -5261,11 +5261,11 @@ class DescribeCdnDomainStagingConfigResponse(TeaModel):
 
 class DescribeCdnHttpsDomainListRequest(TeaModel):
     def __init__(self, keyword=None, page_number=None, page_size=None):
-        # The keyword used for search.
+        # The keyword that is used to search for certificates.
         self.keyword = keyword  # type: str
         # The number of the page to return. Valid values: **1** to **100000**.
         self.page_number = page_number  # type: int
-        # The maximum number of entries to return on each page. Default value: **20**.
+        # The number of entries to return on each page. Default value: **20**.
         self.page_size = page_size  # type: int
 
     def validate(self):
@@ -5299,28 +5299,28 @@ class DescribeCdnHttpsDomainListRequest(TeaModel):
 class DescribeCdnHttpsDomainListResponseBodyCertInfosCertInfo(TeaModel):
     def __init__(self, cert_common_name=None, cert_expire_time=None, cert_name=None, cert_start_time=None,
                  cert_status=None, cert_type=None, cert_update_time=None, domain_name=None):
-        # The Common Name on the SSL certificate.
+        # The returned primary domain name of the certificate.
         self.cert_common_name = cert_common_name  # type: str
-        # The time when the SSL certificate expires.
+        # The time at which the certificate expires.
         self.cert_expire_time = cert_expire_time  # type: str
-        # The name of the SSL certificate.
+        # The name of the certificate.
         self.cert_name = cert_name  # type: str
-        # The time when the SSL certificate became effective.
+        # The time at which the certificate became effective.
         self.cert_start_time = cert_start_time  # type: str
-        # The status of the SSL certificate. Valid values:
+        # The status of the certificate.
         # 
-        # *   **ok**: The SSL certificate is working as expected.
-        # *   **mismatch**: The SSL certificate does not match the specified domain name.
-        # *   **expired**: The SSL certificate has expired.
-        # *   **expire_soon**: The SSL certificate will expire soon.
+        # *   **ok**: The certificate is working as expected.
+        # *   **mismatch**: The certificate does not match the specified domain name.
+        # *   **expired**: The certificate has expired.
+        # *   **expire_soon**: The certificate will expire soon.
         self.cert_status = cert_status  # type: str
-        # The type of the SSL certificate. Valid values:
+        # The type of the certificate.
         # 
-        # *   **free**: a free SSL certificate.
-        # *   **cas**: an SSL certificate purchased from Alibaba Cloud SSL Certificates Service.
-        # *   **upload**: a user uploaded certificate.
+        # *   **free**: a free certificate.
+        # *   **cas**: a certificate that is purchased from Alibaba Cloud SSL Certificates Service.
+        # *   **upload**: a certificate that is uploaded by the user.
         self.cert_type = cert_type  # type: str
-        # The time when the certificate was renewed.
+        # The time at which the certificate was updated.
         self.cert_update_time = cert_update_time  # type: str
         # The accelerated domain name.
         self.domain_name = domain_name  # type: str
@@ -5407,7 +5407,7 @@ class DescribeCdnHttpsDomainListResponseBodyCertInfos(TeaModel):
 
 class DescribeCdnHttpsDomainListResponseBody(TeaModel):
     def __init__(self, cert_infos=None, request_id=None, total_count=None):
-        # The information about the SSL certificate.
+        # The information about the certificate.
         self.cert_infos = cert_infos  # type: DescribeCdnHttpsDomainListResponseBodyCertInfos
         # The ID of the request.
         self.request_id = request_id  # type: str
@@ -6694,13 +6694,13 @@ class DescribeCdnSubListResponse(TeaModel):
 
 class DescribeCdnUserBillHistoryRequest(TeaModel):
     def __init__(self, end_time=None, start_time=None):
-        # The end of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC+0.
+        # The end of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         # 
-        # The end of the time range to query. The end time must be later than the start time.
+        # The end time must be later than the start time.
         self.end_time = end_time  # type: str
-        # The beginning of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC+0.
+        # The beginning of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         # 
-        # The minimum data collection interval is 5 minutes.
+        # The minimum data granularity is 5 minutes.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -6733,8 +6733,8 @@ class DescribeCdnUserBillHistoryResponseBodyBillHistoryDataBillHistoryDataItemBi
         self.bandwidth = bandwidth  # type: float
         # The billable region. Valid values:
         # 
-        # *   **CN**: mainland China
-        # *   **OverSeas**: regions outside mainland China
+        # *   **CN**: Chinese mainland
+        # *   **OverSeas**: outside the Chinese mainland
         # *   **AP1**: Asia Pacific 1
         # *   **AP2**: Asia Pacific 2
         # *   **AP3**: Asia Pacific 3
@@ -6743,7 +6743,7 @@ class DescribeCdnUserBillHistoryResponseBodyBillHistoryDataBillHistoryDataItemBi
         # *   **EU**: Europe
         # *   **MEAA**: Middle East and Africa
         self.cdn_region = cdn_region  # type: str
-        # The billable item. Valid values:
+        # The billing method. Valid values:
         # 
         # *   **StaticHttp**: static HTTP requests
         # *   **DynamicHttp**: dynamic HTTP requests
@@ -6826,7 +6826,7 @@ class DescribeCdnUserBillHistoryResponseBodyBillHistoryDataBillHistoryDataItem(T
     def __init__(self, bill_time=None, bill_type=None, billing_data=None, dimension=None):
         # The beginning of the time range that was queried.
         self.bill_time = bill_time  # type: str
-        # The billing method.
+        # The metering method.
         self.bill_type = bill_type  # type: str
         # The billable items.
         self.billing_data = billing_data  # type: DescribeCdnUserBillHistoryResponseBodyBillHistoryDataBillHistoryDataItemBillingData
@@ -7205,17 +7205,13 @@ class DescribeCdnUserBillPredictionResponse(TeaModel):
 
 class DescribeCdnUserBillTypeRequest(TeaModel):
     def __init__(self, end_time=None, start_time=None):
-        # The end of the time range that was queried.
+        # The end of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         # 
-        # Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
-        # 
-        # Example: 2016-10-20T04:00:00Z.
+        # The end time must be later than the start time.
         self.end_time = end_time  # type: str
-        # The start of the time range that was queried.
+        # The beginning of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         # 
-        # Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
-        # 
-        # Example: 2016-10-20T04:00:00Z.
+        # The minimum data granularity is 5 minutes.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -7245,11 +7241,41 @@ class DescribeCdnUserBillTypeRequest(TeaModel):
 class DescribeCdnUserBillTypeResponseBodyBillTypeDataBillTypeDataItem(TeaModel):
     def __init__(self, bill_type=None, billing_cycle=None, dimension=None, end_time=None, product=None,
                  start_time=None):
+        # The metering method.
+        # 
+        # > If the metering method is suffixed with \*\*\_overseas\*\*, the billable region is outside the Chinese mainland. For example, "BillType": "month_avg_day_bandwidth_overseas" indicates that the metering method is pay by average daily peak bandwidth per month in a billable region outside the Chinese mainland.
+        # 
+        # Valid values:
+        # 
+        # *   hour_flow: pay by hourly data transfer
+        # *   day_bandwidth: pay by daily bandwidth
+        # *   month\_95: pay by monthly 95th percentile bandwidth
+        # *   month_avg_day_bandwidth: pay by average daily peak bandwidth per month
+        # *   month\_4th_day_bandwidth: pay by monthly 4th peak bandwidth
+        # *   month_avg_day\_95: pay by average daily 95th percentile bandwidth per month
+        # *   month\_95\_night_half: pay by 95th percentile bandwidth with 50% off from 00:00 to 08:00
+        # *   hour_vas: pay by value-added services per hour
+        # *   quic_hour_count: pay by hourly QUIC requests
+        # *   day_count: pay by daily requests
+        # *   hour_count: pay by hourly requests
+        # *   day\_95: pay by daily 95th percentile bandwidth
         self.bill_type = bill_type  # type: str
+        # The billing cycle.
         self.billing_cycle = billing_cycle  # type: str
+        # The dimension. Valid values:
+        # 
+        # *   flow: traffic and bandwidth
+        # *   vas: value-added services (HTTPS and requests for dynamic content)
+        # *   quic: the number of QUIC requests
+        # *   websocket: the WebSocket communications protocol
+        # *   rtlog2sls: log entries delivered to Log Service in real time
+        # *   stationflow: traffic over the internal network
         self.dimension = dimension  # type: str
+        # The time when the metering method ended.
         self.end_time = end_time  # type: str
+        # The name of the product.
         self.product = product  # type: str
+        # The time when the metering method started.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -7326,6 +7352,7 @@ class DescribeCdnUserBillTypeResponseBodyBillTypeData(TeaModel):
 
 class DescribeCdnUserBillTypeResponseBody(TeaModel):
     def __init__(self, bill_type_data=None, request_id=None):
+        # Details about the metering methods returned.
         self.bill_type_data = bill_type_data  # type: DescribeCdnUserBillTypeResponseBodyBillTypeData
         # The ID of the request.
         self.request_id = request_id  # type: str
@@ -8453,7 +8480,7 @@ class DescribeCdnWafDomainResponse(TeaModel):
 
 class DescribeCertificateInfoByIDRequest(TeaModel):
     def __init__(self, cert_id=None):
-        # The ID of the SSL certificate. You can query only one certificate in each call.
+        # The ID of the certificate. You can query only one certificate in each call.
         self.cert_id = cert_id  # type: str
 
     def validate(self):
@@ -8479,7 +8506,7 @@ class DescribeCertificateInfoByIDRequest(TeaModel):
 class DescribeCertificateInfoByIDResponseBodyCertInfosCertInfo(TeaModel):
     def __init__(self, cert_expire_time=None, cert_id=None, cert_name=None, cert_type=None, create_time=None,
                  domain_list=None, https_crt=None):
-        # The expiration time of the certificate.
+        # The time at which the certificate expires.
         self.cert_expire_time = cert_expire_time  # type: str
         # The ID of the certificate.
         self.cert_id = cert_id  # type: str
@@ -8487,13 +8514,13 @@ class DescribeCertificateInfoByIDResponseBodyCertInfosCertInfo(TeaModel):
         self.cert_name = cert_name  # type: str
         # The type of the certificate.
         # 
-        # *   free: a free certificate.
-        # *   cas: a certificate purchased by using Certificate Management Service.
-        # *   upload: a user-uploaded certificate.
+        # *   free: a free certificate
+        # *   cas: a certificate purchased by using Certificate Management Service
+        # *   upload: a user-uploaded certificate
         self.cert_type = cert_type  # type: str
         # The time when the certificate became effective.
         self.create_time = create_time  # type: str
-        # A list of domain names that use the certificate.
+        # The domain names that use the certificate.
         self.domain_list = domain_list  # type: str
         # The content of the certificate.
         self.https_crt = https_crt  # type: str
@@ -8992,27 +9019,27 @@ class DescribeDomainAverageResponseTimeResponse(TeaModel):
 class DescribeDomainBpsDataRequest(TeaModel):
     def __init__(self, domain_name=None, end_time=None, interval=None, isp_name_en=None, location_name_en=None,
                  start_time=None):
-        # You can specify multiple domain names and separate them with commas (,). You can specify at most 500 domain names in each call.  
+        # The accelerated domain name. You can specify up to 500 domain names in each request. Separate multiple domain names with commas (,).
         # 
-        # By default, this operation queries the bandwidth values during back-to-origin routing for all accelerated domain names that belong to your Alibaba Cloud account.
+        # By default, this operation queries bandwidth data for all accelerated domain names that belong to your Alibaba Cloud account.
         self.domain_name = domain_name  # type: str
-        # The end of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.  
+        # The end of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         # 
-        # >  The end time must be later than the start time.
+        # > The end time must be later than the start time.
         self.end_time = end_time  # type: str
-        # The time interval between the data entries. Unit: seconds. 
+        # The time granularity of the data entries. Unit: seconds.
         # 
-        # The time granularity varies with the time range to query. Supported values: 300 (5 minutes), 3600 (1 hour), and 86400 (1 day). For more information, see **Usage notes**.
+        # The time granularity varies with the maximum time range per query. Valid values: 300 (5 minutes), 3600 (1 hour), and 86400 (1 day). For more information, see **Usage notes**.
         self.interval = interval  # type: str
-        # The name of the Internet service provider (ISP) for your Alibaba Cloud CDN service. You can call the [DescribeCdnRegionAndIsp](https://www.alibabacloud.com/help/en/alibaba-cloud-cdn/latest/describecdnregionandisp) operation to query ISP names.  
+        # The name of the Internet service provider (ISP). You can call the [DescribeCdnRegionAndIsp](~~91077~~) operation to query ISP names.
         # 
-        # If you do not set this parameter, all ISPs are queried.
+        # If you do not set this parameter, data of all ISPs is queried.
         self.isp_name_en = isp_name_en  # type: str
-        # The name of the region. You can call the [DescribeCdnRegionAndIsp](https://www.alibabacloud.com/help/en/alibaba-cloud-cdn/latest/describecdnregionandisp) operation to query the most recent region list.  
+        # The name of the region. You can call the [DescribeCdnRegionAndIsp](~~91077~~) operation to query regions.
         # 
-        # If you do not set this parameter, the bandwidth monitoring data of the accelerated domain names in all regions is returned.
+        # If you do not specify a region, data in all regions is queried.
         self.location_name_en = location_name_en  # type: str
-        # The start of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
+        # The beginning of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -9058,19 +9085,19 @@ class DescribeDomainBpsDataRequest(TeaModel):
 class DescribeDomainBpsDataResponseBodyBpsDataPerIntervalDataModule(TeaModel):
     def __init__(self, domestic_value=None, https_domestic_value=None, https_overseas_value=None, https_value=None,
                  overseas_value=None, time_stamp=None, value=None):
-        # The bandwidth values in the Chinese mainland. When the bandwidth data is queried by ISP, no value is returned.
+        # The bandwidth value in the Chinese mainland. When the bandwidth data is queried by ISP, this parameter is empty.
         self.domestic_value = domestic_value  # type: str
-        # The bandwidth values for HTTPS requests in the Chinese mainland. When the bandwidth data is queried by ISP, no value is returned.
+        # The bandwidth data for HTTPS requests in the Chinese mainland. When the bandwidth data is queried by ISP, this parameter is empty.
         self.https_domestic_value = https_domestic_value  # type: str
-        # The bandwidth values for HTTPS requests in regions outside the Chinese mainland. When the bandwidth data is queried by ISP, no value is returned.
+        # The bandwidth data for HTTPS requests in regions outside the Chinese mainland. When the bandwidth data is queried by ISP, this parameter is empty.
         self.https_overseas_value = https_overseas_value  # type: str
-        # The bandwidth values for HTTPS requests. Unit: bit/s.
+        # The bandwidth value for HTTPS requests. Unit: bit/s.
         self.https_value = https_value  # type: str
-        # The bandwidth values in regions outside the Chinese mainland. When the bandwidth data is queried by ISP, no value is returned.
+        # The bandwidth data in regions outside the Chinese mainland. When the bandwidth data is queried by ISP, this parameter is empty.
         self.overseas_value = overseas_value  # type: str
         # The timestamp of the data returned.
         self.time_stamp = time_stamp  # type: str
-        # The bandwidth value. Unit: bit/s.
+        # The bandwidth. Unit: bit/s.
         self.value = value  # type: str
 
     def validate(self):
@@ -9152,21 +9179,21 @@ class DescribeDomainBpsDataResponseBodyBpsDataPerInterval(TeaModel):
 class DescribeDomainBpsDataResponseBody(TeaModel):
     def __init__(self, bps_data_per_interval=None, data_interval=None, domain_name=None, end_time=None,
                  isp_name_en=None, location_name_en=None, request_id=None, start_time=None):
-        # The bandwidth values collected at each interval.
+        # The list of bandwidth data entries returned at each interval.
         self.bps_data_per_interval = bps_data_per_interval  # type: DescribeDomainBpsDataResponseBodyBpsDataPerInterval
-        # The time interval between the returned entries. Unit: seconds.
+        # The time interval between the data entries returned. Unit: seconds.
         self.data_interval = data_interval  # type: str
         # The accelerated domain name.
         self.domain_name = domain_name  # type: str
-        # The end of the time range that was queried.
+        # The end of the time range during which data was queried.
         self.end_time = end_time  # type: str
-        # The name of the ISP for your Alibaba Cloud CDN service.
+        # The name of the ISP.
         self.isp_name_en = isp_name_en  # type: str
         # The name of the region.
         self.location_name_en = location_name_en  # type: str
         # The ID of the request.
         self.request_id = request_id  # type: str
-        # The beginning of the time range that was queried.
+        # The start of the time range during which data was queried.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -9261,23 +9288,23 @@ class DescribeDomainBpsDataResponse(TeaModel):
 class DescribeDomainBpsDataByLayerRequest(TeaModel):
     def __init__(self, domain_name=None, end_time=None, interval=None, isp_name_en=None, layer=None,
                  location_name_en=None, start_time=None):
-        # You can specify multiple domain names and separate them with commas (,). You can specify at most 500 domain names in each call.
+        # The accelerated domain name. You can specify up to 500 domain names in each request. Separate multiple domain names with commas (,).
         # 
-        # >  If you do not specify an accelerated domain name, the bandwidth data of all the accelerated domain names that belong to your Alibaba Cloud account is queried.
+        # > If you do not specify this parameter, the bandwidth data about all accelerated domain names that belong to your Alibaba Cloud account is queried.
         self.domain_name = domain_name  # type: str
         # The end of the time range to query.
         # 
         # Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         # 
-        # >  The end time must be later than the start time.
+        # > The end time must be later than the start time.
         self.end_time = end_time  # type: str
-        # The time interval between the data entries. Unit: seconds.
+        # The time granularity of the data entries. Unit: seconds.
         # 
-        # The time granularity varies with the time range to query. Supported values: 300 (5 minutes), 3600 (1 hour), and 86400 (1 day). For more information, see **Usage notes**.
+        # The time granularity varies with the maximum time range per query. Valid values: 300 (5 minutes), 3600 (1 hour), and 86400 (1 day). For more information, see **Usage notes**.
         self.interval = interval  # type: str
-        # The name of the Internet service provider (ISP). You can call the [DescribeCdnRegionAndIsp](~~91077~~) operation to query the most recent ISP list. If you do not specify an ISP, data of all ISPs is queried.
+        # The name of the Internet service provider (ISP). You can call the [DescribeCdnRegionAndIsp](~~DescribeCdnRegionAndIsp~~) operation to query ISPs. If you do not specify an ISP, data of all ISPs is queried.
         self.isp_name_en = isp_name_en  # type: str
-        # The layers at which you want to query the bandwidth data. Valid values:
+        # The layer at which you want to query the bandwidth data. Valid values:
         # 
         # *   Network layer: **IPv4** and **IPv6**.
         # *   Application layer: **http**, **https**, and **quic**.
@@ -9285,7 +9312,7 @@ class DescribeDomainBpsDataByLayerRequest(TeaModel):
         # 
         # Default value: **all**.
         self.layer = layer  # type: str
-        # The name of the region. You can call the [DescribeCdnRegionAndIsp](~~91077~~) operation to query the most recent region list. If you do not specify a region, data in all regions is queried.
+        # The name of the region. You can call the [DescribeCdnRegionAndIsp](~~DescribeCdnRegionAndIsp~~) operation to query regions. If you do not specify a region, data in all regions is queried.
         self.location_name_en = location_name_en  # type: str
         # The beginning of the time range to query.
         # 
@@ -9338,7 +9365,7 @@ class DescribeDomainBpsDataByLayerRequest(TeaModel):
 
 class DescribeDomainBpsDataByLayerResponseBodyBpsDataIntervalDataModule(TeaModel):
     def __init__(self, time_stamp=None, traffic_value=None, value=None):
-        # The timestamp of the data returned.
+        # The timestamp of the returned data.
         self.time_stamp = time_stamp  # type: str
         # The total amount of network traffic. Unit: bytes.
         self.traffic_value = traffic_value  # type: str
@@ -9407,7 +9434,7 @@ class DescribeDomainBpsDataByLayerResponseBodyBpsDataInterval(TeaModel):
 
 class DescribeDomainBpsDataByLayerResponseBody(TeaModel):
     def __init__(self, bps_data_interval=None, data_interval=None, request_id=None):
-        # The number of bytes per second collected at each time interval.
+        # The data returned at each time interval.
         self.bps_data_interval = bps_data_interval  # type: DescribeDomainBpsDataByLayerResponseBodyBpsDataInterval
         # The time interval between the data entries. Unit: seconds.
         self.data_interval = data_interval  # type: str
@@ -9485,19 +9512,19 @@ class DescribeDomainBpsDataByLayerResponse(TeaModel):
 
 class DescribeDomainBpsDataByTimeStampRequest(TeaModel):
     def __init__(self, domain_name=None, isp_names=None, location_names=None, time_point=None):
-        # The accelerated domain name. You can specify only one domain name in each query.
+        # The accelerated domain name. You can specify only one domain name in each request.
         self.domain_name = domain_name  # type: str
-        # The names of the Internet service providers (ISPs). Separate multiple ISP names with commas (,).
+        # The names of the Internet service providers (ISPs). Separate multiple ISPs with commas (,).
         # 
         # You can call the [DescribeCdnRegionAndIsp](~~91077~~) operation to query regions.
         self.isp_names = isp_names  # type: str
-        # The names of the regions. Separate multiple regions with commas (,).
+        # The regions. Separate multiple regions with commas (,).
         # 
         # You can call the [DescribeCdnRegionAndIsp](~~91077~~) operation to query regions.
         self.location_names = location_names  # type: str
-        # The beginning of the time range that was queried. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC+0.
+        # The point in time to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         # 
-        # The data is collected at an interval of five minutes.
+        # > The data is collected every 5 minutes.
         self.time_point = time_point  # type: str
 
     def validate(self):
@@ -9536,11 +9563,11 @@ class DescribeDomainBpsDataByTimeStampResponseBodyBpsDataListBpsDataModel(TeaMod
     def __init__(self, bps=None, isp_name=None, location_name=None, time_stamp=None):
         # The bandwidth value.
         self.bps = bps  # type: long
-        # The name of the ISP for your Content Delivery Network (CDN) service.
+        # The name of the ISP.
         self.isp_name = isp_name  # type: str
         # The name of the region.
         self.location_name = location_name  # type: str
-        # The timestamp of the data.
+        # The timestamp of the data returned.
         self.time_stamp = time_stamp  # type: str
 
     def validate(self):
@@ -9609,13 +9636,13 @@ class DescribeDomainBpsDataByTimeStampResponseBodyBpsDataList(TeaModel):
 
 class DescribeDomainBpsDataByTimeStampResponseBody(TeaModel):
     def __init__(self, bps_data_list=None, domain_name=None, request_id=None, time_stamp=None):
-        # A list of bandwidth values queried by ISP and region.
+        # A list of bandwidth values by ISP and region.
         self.bps_data_list = bps_data_list  # type: DescribeDomainBpsDataByTimeStampResponseBodyBpsDataList
         # The accelerated domain name.
         self.domain_name = domain_name  # type: str
         # The ID of the request.
         self.request_id = request_id  # type: str
-        # The timestamp of the data.
+        # The point in time.
         self.time_stamp = time_stamp  # type: str
 
     def validate(self):
@@ -10201,6 +10228,7 @@ class DescribeDomainCertificateInfoResponse(TeaModel):
 
 class DescribeDomainCnameRequest(TeaModel):
     def __init__(self, domain_name=None):
+        # The accelerated domain name that you want to query. Separate multiple domain names with commas (,). This parameter cannot be left empty.
         self.domain_name = domain_name  # type: str
 
     def validate(self):
@@ -10225,8 +10253,14 @@ class DescribeDomainCnameRequest(TeaModel):
 
 class DescribeDomainCnameResponseBodyCnameDatasData(TeaModel):
     def __init__(self, cname=None, domain=None, status=None):
+        # The CNAME assigned to the domain name by Alibaba Cloud CDN.
         self.cname = cname  # type: str
+        # The accelerated domain name.
         self.domain = domain  # type: str
+        # The CNAME detection result. Valid values:
+        # 
+        # *   0: The DNS can detect the CNAME assigned to the domain name.
+        # *   Value other than 0: The DNS cannot detect the CNAME assigned to the domain name.
         self.status = status  # type: int
 
     def validate(self):
@@ -10291,7 +10325,9 @@ class DescribeDomainCnameResponseBodyCnameDatas(TeaModel):
 
 class DescribeDomainCnameResponseBody(TeaModel):
     def __init__(self, cname_datas=None, request_id=None):
+        # Details about the CNAME detection results.
         self.cname_datas = cname_datas  # type: DescribeDomainCnameResponseBodyCnameDatas
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -10734,21 +10770,21 @@ class DescribeDomainDetailDataByLayerResponse(TeaModel):
 
 class DescribeDomainHitRateDataRequest(TeaModel):
     def __init__(self, domain_name=None, end_time=None, interval=None, start_time=None):
-        # You can specify multiple domain names and separate them with commas (,). You can specify at most 500 domain names in each call.
+        # The accelerated domain name. You can specify up to 500 domain names in each request. Separate multiple domain names with commas (,).
         # 
-        # By default, this operation queries the byte hit ratios of all accelerated domain names that belong to your Alibaba Cloud account.
+        # By default, this operation queries the byte hit ratios for all accelerated domain names that belong to your Alibaba Cloud account.
         self.domain_name = domain_name  # type: str
         # The end of the time range to query.
         # 
         # Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         # 
-        # >  The end time must be later than the start time.
+        # > The end time must be later than the start time.
         self.end_time = end_time  # type: str
-        # The time interval between the data entries. Unit: seconds.
+        # The time granularity of the data entries. Unit: seconds.
         # 
-        # The time granularity varies with the time range to query. Supported values: 300 (5 minutes), 3600 (1 hour), and 86400 (1 day). For more information, see **Usage notes**.
+        # The time granularity varies with the maximum time range per query. Valid values: 300 (5 minutes), 3600 (1 hour), and 86400 (1 day). For more information, see **Usage notes**.
         self.interval = interval  # type: str
-        # The start of the time range to query.
+        # The beginning of the time range to query.
         # 
         # Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         self.start_time = start_time  # type: str
@@ -10861,13 +10897,13 @@ class DescribeDomainHitRateDataResponseBody(TeaModel):
         self.data_interval = data_interval  # type: str
         # The accelerated domain name.
         self.domain_name = domain_name  # type: str
-        # The end of the time range that was queried.
+        # The end of the time range during which data was queried.
         self.end_time = end_time  # type: str
         # The byte hit ratio at each time interval. The byte hit ratio is measured in percentage.
         self.hit_rate_interval = hit_rate_interval  # type: DescribeDomainHitRateDataResponseBodyHitRateInterval
         # The ID of the request.
         self.request_id = request_id  # type: str
-        # The beginning of the time range that was queried.
+        # The start of the time range during which data was queried.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -11249,27 +11285,27 @@ class DescribeDomainHttpCodeDataResponse(TeaModel):
 class DescribeDomainHttpCodeDataByLayerRequest(TeaModel):
     def __init__(self, domain_name=None, end_time=None, interval=None, isp_name_en=None, layer=None,
                  location_name_en=None, start_time=None):
-        # The accelerated domain name. You can specify multiple domain names and separate them with commas (,). You can specify at most 500 domain names in each call.
+        # The accelerated domain name. You can specify up to 500 domain names in each request. Separate multiple domain names with commas (,).
         # 
-        # If you do not specify a domain name, data of all domain names is queried.
+        # If you do not specify this parameter, data of all accelerated domain names under your account is queried.
         self.domain_name = domain_name  # type: str
         # The end of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         # 
-        # >  The end time must be later than the start time.
+        # > The end time must be later than the start time.
         self.end_time = end_time  # type: str
-        # The time interval between the data entries. Unit: seconds.
+        # The time granularity of the data entries. Unit: seconds.
         # 
-        # The time granularity varies with the time range to query. Supported values: 300 (5 minutes), 3600 (1 hour), and 86400 (1 day). For more information, see **Usage notes**.
+        # The time granularity varies with the maximum time range per query. Valid values: 300 (5 minutes), 3600 (1 hour), and 86400 (1 day). For more information, see **Usage notes**.
         self.interval = interval  # type: str
-        # The name of the Internet service provider (ISP) for your Alibaba Cloud CDN service. You can call the [DescribeCdnRegionAndIsp](~~91077~~) operation to query ISP names.
+        # The name of the Internet service provider (ISP). You can call the [DescribeCdnRegionAndIsp](~~91077~~) operation to query ISP names.
         # 
         # If you do not specify an ISP, data of all ISPs is queried.
         self.isp_name_en = isp_name_en  # type: str
         # The protocol by which you want to query HTTP status codes. The network layer supports **IPv4** and **IPv6**. The application layer supports **http**, **https**, and **quic**. You can also set the value to **all**.
         # 
-        # The default value is **all**.
+        # Default value: **all**\
         self.layer = layer  # type: str
-        # The name of the region. You can call the [DescribeCdnRegionAndIsp](~~91077~~) operation to query the most recent region list.
+        # The name of the region. You can call the [DescribeCdnRegionAndIsp](~~91077~~) operation to query regions.
         # 
         # If you do not specify a region, data in all regions is queried.
         self.location_name_en = location_name_en  # type: str
@@ -11324,7 +11360,7 @@ class DescribeDomainHttpCodeDataByLayerResponseBodyHttpCodeDataIntervalDataModul
     def __init__(self, time_stamp=None, total_value=None, value=None):
         # The timestamp of the data returned.
         self.time_stamp = time_stamp  # type: str
-        # The total number of times that HTTP status codes were returned at each time interval.
+        # The total number of times that HTTP status codes were returned.
         self.total_value = total_value  # type: str
         # The number of times that the HTTP status code was returned.
         self.value = value  # type: str
@@ -11393,7 +11429,7 @@ class DescribeDomainHttpCodeDataByLayerResponseBody(TeaModel):
     def __init__(self, data_interval=None, http_code_data_interval=None, request_id=None):
         # The time interval between the data entries returned. Unit: seconds.
         self.data_interval = data_interval  # type: str
-        # The number of HTTP status codes returned at each time interval.
+        # The statistics of HTTP status codes returned at each time interval.
         self.http_code_data_interval = http_code_data_interval  # type: DescribeDomainHttpCodeDataByLayerResponseBodyHttpCodeDataInterval
         # The ID of the request.
         self.request_id = request_id  # type: str
@@ -11732,10 +11768,28 @@ class DescribeDomainISPDataResponse(TeaModel):
 
 class DescribeDomainMax95BpsDataRequest(TeaModel):
     def __init__(self, cycle=None, domain_name=None, end_time=None, start_time=None, time_point=None):
+        # The cycle to query the 95th percentile bandwidth data. Default value: **day**. Valid values:
+        # 
+        # *   **day**: queries the 95th percentile bandwidth data by day.
+        # *   **month**: queries the 95th percentile bandwidth data by month.
         self.cycle = cycle  # type: str
+        # The accelerated domain name. If you do not specify this parameter, data of all accelerated domain names under your account is queried.
+        # 
+        # > You cannot specify multiple domain names at a time.
         self.domain_name = domain_name  # type: str
+        # The end of the time range to query.
+        # 
+        # Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
+        # 
+        # > The end time must be later than the start time.
         self.end_time = end_time  # type: str
+        # The beginning of the time range to query.
+        # 
+        # Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         self.start_time = start_time  # type: str
+        # The beginning of the time range to query.
+        # 
+        # Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         self.time_point = time_point  # type: str
 
     def validate(self):
@@ -11774,21 +11828,99 @@ class DescribeDomainMax95BpsDataRequest(TeaModel):
         return self
 
 
-class DescribeDomainMax95BpsDataResponseBody(TeaModel):
-    def __init__(self, domain_name=None, domestic_max_95bps=None, end_time=None, max_95bps=None,
-                 overseas_max_95bps=None, request_id=None, start_time=None):
-        # The accelerated domain name.
-        self.domain_name = domain_name  # type: str
-        self.domestic_max_95bps = domestic_max_95bps  # type: str
-        self.end_time = end_time  # type: str
-        self.max_95bps = max_95bps  # type: str
-        self.overseas_max_95bps = overseas_max_95bps  # type: str
-        # The ID of the request.
-        self.request_id = request_id  # type: str
-        self.start_time = start_time  # type: str
+class DescribeDomainMax95BpsDataResponseBodyDetailDataMax95Detail(TeaModel):
+    def __init__(self, area=None, max_95bps=None, max_95bps_peak_time=None, time_stamp=None):
+        self.area = area  # type: str
+        self.max_95bps = max_95bps  # type: float
+        self.max_95bps_peak_time = max_95bps_peak_time  # type: str
+        self.time_stamp = time_stamp  # type: str
 
     def validate(self):
         pass
+
+    def to_map(self):
+        _map = super(DescribeDomainMax95BpsDataResponseBodyDetailDataMax95Detail, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.area is not None:
+            result['Area'] = self.area
+        if self.max_95bps is not None:
+            result['Max95Bps'] = self.max_95bps
+        if self.max_95bps_peak_time is not None:
+            result['Max95BpsPeakTime'] = self.max_95bps_peak_time
+        if self.time_stamp is not None:
+            result['TimeStamp'] = self.time_stamp
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Area') is not None:
+            self.area = m.get('Area')
+        if m.get('Max95Bps') is not None:
+            self.max_95bps = m.get('Max95Bps')
+        if m.get('Max95BpsPeakTime') is not None:
+            self.max_95bps_peak_time = m.get('Max95BpsPeakTime')
+        if m.get('TimeStamp') is not None:
+            self.time_stamp = m.get('TimeStamp')
+        return self
+
+
+class DescribeDomainMax95BpsDataResponseBodyDetailData(TeaModel):
+    def __init__(self, max_95detail=None):
+        self.max_95detail = max_95detail  # type: list[DescribeDomainMax95BpsDataResponseBodyDetailDataMax95Detail]
+
+    def validate(self):
+        if self.max_95detail:
+            for k in self.max_95detail:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeDomainMax95BpsDataResponseBodyDetailData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Max95Detail'] = []
+        if self.max_95detail is not None:
+            for k in self.max_95detail:
+                result['Max95Detail'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.max_95detail = []
+        if m.get('Max95Detail') is not None:
+            for k in m.get('Max95Detail'):
+                temp_model = DescribeDomainMax95BpsDataResponseBodyDetailDataMax95Detail()
+                self.max_95detail.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeDomainMax95BpsDataResponseBody(TeaModel):
+    def __init__(self, detail_data=None, domain_name=None, domestic_max_95bps=None, end_time=None, max_95bps=None,
+                 overseas_max_95bps=None, request_id=None, start_time=None):
+        self.detail_data = detail_data  # type: DescribeDomainMax95BpsDataResponseBodyDetailData
+        # The accelerated domain name.
+        self.domain_name = domain_name  # type: str
+        # The 95th percentile bandwidth in the Chinese mainland.
+        self.domestic_max_95bps = domestic_max_95bps  # type: str
+        # The end of the time range for which the data was queried.
+        self.end_time = end_time  # type: str
+        # The 95th percentile bandwidth.
+        self.max_95bps = max_95bps  # type: str
+        # The 95th percentile bandwidth outside the Chinese mainland.
+        self.overseas_max_95bps = overseas_max_95bps  # type: str
+        # The ID of the request.
+        self.request_id = request_id  # type: str
+        # The beginning of the time range for which the data was queried.
+        self.start_time = start_time  # type: str
+
+    def validate(self):
+        if self.detail_data:
+            self.detail_data.validate()
 
     def to_map(self):
         _map = super(DescribeDomainMax95BpsDataResponseBody, self).to_map()
@@ -11796,6 +11928,8 @@ class DescribeDomainMax95BpsDataResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.detail_data is not None:
+            result['DetailData'] = self.detail_data.to_map()
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
         if self.domestic_max_95bps is not None:
@@ -11814,6 +11948,9 @@ class DescribeDomainMax95BpsDataResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('DetailData') is not None:
+            temp_model = DescribeDomainMax95BpsDataResponseBodyDetailData()
+            self.detail_data = temp_model.from_map(m['DetailData'])
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
         if m.get('DomesticMax95Bps') is not None:
@@ -12174,23 +12311,19 @@ class DescribeDomainPathDataRequest(TeaModel):
     def __init__(self, domain_name=None, end_time=None, page_number=None, page_size=None, path=None, start_time=None):
         # The accelerated domain name.
         # 
-        # >  You can specify only one domain name in each call.
+        # > You can specify only one domain name in each call.
         self.domain_name = domain_name  # type: str
         # The end of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC. The interval between the start time and end time must be less than 30 days. Example: 2016-10-21T04:00:00Z.
         self.end_time = end_time  # type: str
         # The number of the page to return. Pages start from page **1**.
         self.page_number = page_number  # type: int
-        # The number of entries to return on each page.
-        # 
-        # Valid values: integers from **1** to **1000**.
+        # The number of entries to return on each page. Valid values: integers from **1** to **1000**.
         self.page_size = page_size  # type: int
         # The paths that you want to query. Separate paths with forward slashes (/). If you do not set this parameter, all paths are queried. If you set the value to a directory, it must end with a forward slash (/).
         # 
-        # >  Fuzzy match is not supported. If you want data to be collected based on a directory, you can specify a specific directory, for example, directory/path/. In this case, bandwidth data is collected based on directory/path/.
+        # > Fuzzy match is not supported. If you want data to be collected based on a directory, you can specify a specific directory, for example, directory/path/. In this case, bandwidth data is collected based on directory/path/.
         self.path = path  # type: str
-        # Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
-        # 
-        # Example: 2016-10-20T04:00:00Z.
+        # Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC. Example: 2016-10-20T04:00:00Z.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -12235,7 +12368,7 @@ class DescribeDomainPathDataRequest(TeaModel):
 
 class DescribeDomainPathDataResponseBodyPathDataPerIntervalUsageData(TeaModel):
     def __init__(self, acc=None, path=None, time=None, traffic=None):
-        # The number of visits to the specified path.
+        # The number of visits to the URL.
         self.acc = acc  # type: int
         # The path.
         self.path = path  # type: str
@@ -12311,21 +12444,21 @@ class DescribeDomainPathDataResponseBodyPathDataPerInterval(TeaModel):
 class DescribeDomainPathDataResponseBody(TeaModel):
     def __init__(self, data_interval=None, domain_name=None, end_time=None, page_number=None, page_size=None,
                  path_data_per_interval=None, start_time=None, total_count=None):
-        # The time interval between the data entries. Unit: seconds.
+        # The time interval. Unit: seconds.
         self.data_interval = data_interval  # type: str
         # The accelerated domain name.
         self.domain_name = domain_name  # type: str
-        # The end of the time range that was queried.
+        # The end of the time range during which data was queried.
         self.end_time = end_time  # type: str
         # The page number of the returned page. Pages start from page **1**.
         self.page_number = page_number  # type: int
-        # The number of entries returned on each page.
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
         # A list of bandwidth values collected at each time interval.
         self.path_data_per_interval = path_data_per_interval  # type: DescribeDomainPathDataResponseBodyPathDataPerInterval
-        # The start of the time range that was queried.
+        # The start of the time range during which data was queried.
         self.start_time = start_time  # type: str
-        # The total count.
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -12619,21 +12752,21 @@ class DescribeDomainPvDataResponse(TeaModel):
 class DescribeDomainQpsDataRequest(TeaModel):
     def __init__(self, domain_name=None, end_time=None, interval=None, isp_name_en=None, location_name_en=None,
                  start_time=None):
-        # You can specify multiple domain names and separate them with commas (,). You can specify at most 500 domain names in each call.
+        # The accelerated domain name. You can specify up to 500 domain names in each request. Separate multiple domain names with commas (,).
         # 
-        # By default, this operation queries the number of queries per second for all accelerated domain names that belong to your Alibaba Cloud account.
+        # By default, this operation queries QPS data for all accelerated domain names that belong to your Alibaba Cloud account.
         self.domain_name = domain_name  # type: str
         # The end of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         # 
         # The end time must be later than the start time.
         self.end_time = end_time  # type: str
-        # The time interval between the data entries. Unit: seconds.
+        # The time granularity of the data entries. Unit: seconds.
         # 
-        # The time granularity varies with the time range to query. Supported values: 300 (5 minutes), 3600 (1 hour), and 86400 (1 day). For more information, see **Usage notes**.
+        # The time granularity varies with the maximum time range per query. Valid values: 300 (5 minutes), 3600 (1 hour), and 86400 (1 day). For more information, see **Usage notes**.
         self.interval = interval  # type: str
-        # The name of the Internet service provider (ISP) for your Alibaba Cloud CDN service. You can call the [DescribeCdnRegionAndIsp](~~91077~~) operation to query ISPs. If you do not set this parameter, all ISPs are queried.
+        # The name of the Internet service provider (ISP) for your Alibaba Cloud CDN service. You can call the [DescribeCdnRegionAndIsp](~~91077~~) operation to query ISPs. If you do not specify an ISP, data of all ISPs is queried.
         self.isp_name_en = isp_name_en  # type: str
-        # The name of the region. You can call the [DescribeCdnRegionAndIsp](~~91077~~) operation to query the most recent region list. If you do not set this parameter, all regions are queried.
+        # The name of the region. You can call the [DescribeCdnRegionAndIsp](~~91077~~) operation to query regions. If you do not specify a region, data in all regions is queried.
         self.location_name_en = location_name_en  # type: str
         # The beginning of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         self.start_time = start_time  # type: str
@@ -12690,23 +12823,23 @@ class DescribeDomainQpsDataResponseBodyQpsDataIntervalDataModule(TeaModel):
         self.acc_value = acc_value  # type: str
         # The number of queries per second in the Chinese mainland.
         self.domestic_value = domestic_value  # type: str
-        # The number of HTTPS requests sent to L1 edge nodes in the Chinese mainland.
+        # The number of HTTPS requests sent to POPs in the Chinese mainland.
         self.https_acc_domestic_value = https_acc_domestic_value  # type: str
-        # The number of HTTPS requests sent to L1 edge nodes outside the Chinese mainland.
+        # The number of HTTPS requests sent to POPs outside the Chinese mainland.
         self.https_acc_overseas_value = https_acc_overseas_value  # type: str
-        # The total number of HTTPS requests sent to L1 edge nodes.
+        # The number of HTTPS requests sent to POPs.
         self.https_acc_value = https_acc_value  # type: str
-        # The number of queries per second that is calculated based on the HTTPS requests sent to L1 edge nodes in the Chinese mainland.
+        # The number of queries per second that is calculated based on the HTTPS requests sent to POPs in the Chinese mainland.
         self.https_domestic_value = https_domestic_value  # type: str
-        # The number of queries per second that is calculated based on the HTTPS requests sent to L1 edge nodes outside the Chinese mainland.
+        # The number of queries per second that is calculated based on the HTTPS requests sent to POPs outside the Chinese mainland.
         self.https_overseas_value = https_overseas_value  # type: str
-        # The number of queries per second that is calculated based on the HTTPS requests sent to L1 edge nodes.
+        # The number of queries per second that is calculated based on the HTTPS requests sent to points of presence (POPs).
         self.https_value = https_value  # type: str
         # The number of queries per second outside the Chinese mainland.
         self.overseas_value = overseas_value  # type: str
         # The timestamp of the data returned.
         self.time_stamp = time_stamp  # type: str
-        # The total number of queries per second.
+        # The total QPS.
         self.value = value  # type: str
 
     def validate(self):
@@ -12816,13 +12949,13 @@ class DescribeDomainQpsDataResponseBody(TeaModel):
         self.data_interval = data_interval  # type: str
         # The accelerated domain name.
         self.domain_name = domain_name  # type: str
-        # The end of the time range that was queried.
+        # The end of the time range during which data was queried.
         self.end_time = end_time  # type: str
-        # The number of queries per second at each time interval.
+        # The list of QPS records at each interval.
         self.qps_data_interval = qps_data_interval  # type: DescribeDomainQpsDataResponseBodyQpsDataInterval
         # The ID of the request.
         self.request_id = request_id  # type: str
-        # The beginning of the time range that was queried.
+        # The start of the time range during which data was queried.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -12909,17 +13042,17 @@ class DescribeDomainQpsDataResponse(TeaModel):
 class DescribeDomainQpsDataByLayerRequest(TeaModel):
     def __init__(self, domain_name=None, end_time=None, interval=None, isp_name_en=None, layer=None,
                  location_name_en=None, start_time=None):
-        # You can specify multiple domain names and separate them with commas (,). You can specify at most 500 domain names in each call.
+        # The accelerated domain name. You can specify a maximum of 500 domain names in a request. Separate multiple domain names with commas (,).
         # 
-        # By default, this operation queries the number of queries per second for all accelerated domain names that belong to your Alibaba Cloud account.
+        # By default, this operation queries the QPS of all accelerated domain names that belong to your Alibaba Cloud account.
         self.domain_name = domain_name  # type: str
-        # The end of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
+        # The end of the time range to query. Specify the time in the yyyy-MM-ddTHH:mm:ssZ format in the ISO 8601 standard. The time is displayed in UTC.
         # 
-        # >  The end time must be later than the start time.
+        # > The end time must be later than the start time.
         self.end_time = end_time  # type: str
-        # The time interval between the data entries. Unit: seconds.
+        # The time interval between the data entries to return. Unit: seconds.
         # 
-        # The time granularity varies with the time range to query. Supported values: 300 (5 minutes), 3600 (1 hour), and 86400 (1 day). For more information, see **Usage notes**.
+        # The time granularity varies with the maximum time range per query. Valid values: 300 (5 minutes), 3600 (1 hour), and 86400 (1 day). For more information, see **Description**.
         self.interval = interval  # type: str
         # The name of the Internet service provider (ISP) for your Alibaba Cloud CDN service. You can call the [DescribeCdnRegionAndIsp](~~91077~~) operation to query ISPs. If you do not set this parameter, all ISPs are queried.
         self.isp_name_en = isp_name_en  # type: str
@@ -12931,7 +13064,7 @@ class DescribeDomainQpsDataByLayerRequest(TeaModel):
         self.layer = layer  # type: str
         # The name of the region. You can call the [DescribeCdnRegionAndIsp](~~91077~~) operation to query the most recent region list. If you do not set this parameter, all regions are queried.
         self.location_name_en = location_name_en  # type: str
-        # The beginning of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
+        # The beginning of the time range to query. Specify the time in the yyyy-MM-ddTHH:mm:ssZ format in the ISO 8601 standard. The time is displayed in UTC.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -12983,7 +13116,7 @@ class DescribeDomainQpsDataByLayerResponseBodyQpsDataIntervalDataModule(TeaModel
                  overseas_value=None, time_stamp=None, value=None):
         # The number of requests in the Chinese mainland.
         self.acc_domestic_value = acc_domestic_value  # type: str
-        # The number of requests in the Chinese mainland.
+        # The number of requests outside the Chinese mainland.
         self.acc_overseas_value = acc_overseas_value  # type: str
         # The total number of requests.
         self.acc_value = acc_value  # type: str
@@ -12991,9 +13124,9 @@ class DescribeDomainQpsDataByLayerResponseBodyQpsDataIntervalDataModule(TeaModel
         self.domestic_value = domestic_value  # type: str
         # The number of queries per second outside the Chinese mainland.
         self.overseas_value = overseas_value  # type: str
-        # The timestamp of the data returned.
+        # The timestamp of the returned data.
         self.time_stamp = time_stamp  # type: str
-        # The total number of queries per second in all regions.
+        # The total number of queries per second.
         self.value = value  # type: str
 
     def validate(self):
@@ -13079,15 +13212,15 @@ class DescribeDomainQpsDataByLayerResponseBody(TeaModel):
         self.data_interval = data_interval  # type: str
         # The accelerated domain name.
         self.domain_name = domain_name  # type: str
-        # The end of the time range that was queried.
+        # The end of the time range during which data was queried.
         self.end_time = end_time  # type: str
         # The layer at which the data was collected.
         self.layer = layer  # type: str
-        # The number of queries per second at each time interval.
+        # The number of queries per second at each interval.
         self.qps_data_interval = qps_data_interval  # type: DescribeDomainQpsDataByLayerResponseBodyQpsDataInterval
         # The ID of the request.
         self.request_id = request_id  # type: str
-        # The beginning of the time range that was queried.
+        # The start of the time range during which data was queried.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -13177,23 +13310,23 @@ class DescribeDomainQpsDataByLayerResponse(TeaModel):
 
 class DescribeDomainRealTimeBpsDataRequest(TeaModel):
     def __init__(self, domain_name=None, end_time=None, isp_name_en=None, location_name_en=None, start_time=None):
-        # The accelerated domain names. You can specify multiple accelerated domain names and separate them with commas (,).
+        # The accelerated domain name. Separate multiple accelerated domain names with commas (,).
         # 
-        # >  You can specify at most 500 accelerated domain names in each call.
+        # > You can specify up to 500 domain names in each request.
         self.domain_name = domain_name  # type: str
         # The end of the time range to query.
         # 
         # Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         # 
-        # >  The end time must be later than the start time.
+        # > The end time must be later than the start time.
         self.end_time = end_time  # type: str
-        # The name of the Internet service provider (ISP) for your Alibaba Cloud CDN service.
+        # The name of the Internet service provider (ISP).
         # 
-        # You can call the [DescribeCdnRegionAndIsp](~~91077~~) operation to query the most recent ISP list. If you do not set this parameter, all ISPs are queried.
+        # You can call the [DescribeCdnRegionAndIsp](~~91077~~) operation to query ISPs. If you do not set this parameter, all ISPs are queried.
         self.isp_name_en = isp_name_en  # type: str
         # The name of the region.
         # 
-        # You can call the [DescribeCdnRegionAndIsp](~~91077~~) operation to query the most recent region list. If you do not set this parameter, all regions are queried.
+        # You can call the [DescribeCdnRegionAndIsp](~~91077~~) operation to query regions. If you do not set this parameter, all regions are queried.
         self.location_name_en = location_name_en  # type: str
         # The beginning of the time range to query.
         # 
@@ -13240,7 +13373,7 @@ class DescribeDomainRealTimeBpsDataResponseBodyDataBpsModel(TeaModel):
     def __init__(self, bps=None, time_stamp=None):
         # The bandwidth. Unit: bit/s.
         self.bps = bps  # type: float
-        # The timestamp of the data entry. The time follows the ISO 8601 standard. The time is displayed in UTC.
+        # The timestamp of the data returned. The time follows the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time is displayed in UTC.
         self.time_stamp = time_stamp  # type: str
 
     def validate(self):
@@ -13301,7 +13434,7 @@ class DescribeDomainRealTimeBpsDataResponseBodyData(TeaModel):
 
 class DescribeDomainRealTimeBpsDataResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
-        # The response parameters.
+        # The data returned.
         self.data = data  # type: DescribeDomainRealTimeBpsDataResponseBodyData
         # The ID of the request.
         self.request_id = request_id  # type: str
@@ -13373,13 +13506,17 @@ class DescribeDomainRealTimeBpsDataResponse(TeaModel):
 
 class DescribeDomainRealTimeByteHitRateDataRequest(TeaModel):
     def __init__(self, domain_name=None, end_time=None, start_time=None):
-        # You can specify multiple domain names and separate them with commas (,). You can specify at most 100 domain names in each call.
+        # The accelerated domain name. You can specify up to 100 domain names in each call. Separate multiple domain names with commas (,).
         self.domain_name = domain_name  # type: str
-        # The end of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.  
+        # The end of the time range to query.
         # 
-        # >  The end time must be later than the start time.
+        # Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
+        # 
+        # > The end time must be later than the start time.
         self.end_time = end_time  # type: str
-        # The beginning of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
+        # The beginning of the time range to query.
+        # 
+        # Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -13475,7 +13612,7 @@ class DescribeDomainRealTimeByteHitRateDataResponseBodyData(TeaModel):
 
 class DescribeDomainRealTimeByteHitRateDataResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
-        # The response parameters.
+        # The data returned.
         self.data = data  # type: DescribeDomainRealTimeByteHitRateDataResponseBodyData
         # The ID of the request.
         self.request_id = request_id  # type: str
@@ -13705,19 +13842,19 @@ class DescribeDomainRealTimeDetailDataResponse(TeaModel):
 
 class DescribeDomainRealTimeHttpCodeDataRequest(TeaModel):
     def __init__(self, domain_name=None, end_time=None, isp_name_en=None, location_name_en=None, start_time=None):
-        # The accelerated domain names. You can specify multiple accelerated domain names and separate them with commas (,).
+        # The accelerated domain name. You can specify multiple accelerated domain names and separate them with commas (,).
         # 
-        # >  You can specify at most 100 accelerated domain names in each call.
+        # > You can specify up to 100 accelerated domain names in each request.
         self.domain_name = domain_name  # type: str
         # The end of the time range to query.
         # 
         # Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         # 
-        # >  The end time must be later than the start time.
+        # > The end time must be later than the start time.
         self.end_time = end_time  # type: str
-        # The name of the Internet service provider (ISP) for your Alibaba Cloud CDN service. You can call the [DescribeCdnRegionAndIsp](~~91077~~) operation to query ISP names.
+        # The name of the Internet service provider (ISP). You can call the [DescribeCdnRegionAndIsp](~~91077~~) operation to query ISP names.
         self.isp_name_en = isp_name_en  # type: str
-        # The name of the region. If you do not set this parameter, all regions are queried. You can call the [DescribeCdnRegionAndIsp](~~91077~~) operation to query the most recent region list.
+        # The name of the region. You can call the [DescribeCdnRegionAndIsp](~~91077~~) operation to query regions. If you do not specify a region, all regions are queried.
         self.location_name_en = location_name_en  # type: str
         # The beginning of the time range to query.
         # 
@@ -13762,9 +13899,9 @@ class DescribeDomainRealTimeHttpCodeDataRequest(TeaModel):
 
 class DescribeDomainRealTimeHttpCodeDataResponseBodyRealTimeHttpCodeDataUsageDataValueRealTimeCodeProportionData(TeaModel):
     def __init__(self, code=None, count=None, proportion=None):
-        # The HTTP status code.
+        # The HTTP status code returned.
         self.code = code  # type: str
-        # The total number of HTTP status codes returned.
+        # The total number of entries.
         self.count = count  # type: str
         # The proportion of the HTTP status code.
         self.proportion = proportion  # type: str
@@ -13899,17 +14036,17 @@ class DescribeDomainRealTimeHttpCodeDataResponseBody(TeaModel):
                  request_id=None, start_time=None):
         # The time interval between the data entries returned. Unit: seconds.
         # 
-        # The time granularity varies with the time range to query. Supported values: 60 (1 minute), 300 (5 minutes), and 3600(1 hour). For more information, see the usage notes.
+        # Depending on the maximum time range per query, the value is 60 (1 minute), 300 (5 minutes), or 3600 (1 hour). For more information, see the "Time granularity" section in Usage notes.
         self.data_interval = data_interval  # type: str
         # The accelerated domain name.
         self.domain_name = domain_name  # type: str
-        # The end of the time range that was queried.
+        # The end of the time range during which data was queried.
         self.end_time = end_time  # type: str
         # The proportions of HTTP status codes at each time interval.
         self.real_time_http_code_data = real_time_http_code_data  # type: DescribeDomainRealTimeHttpCodeDataResponseBodyRealTimeHttpCodeData
         # The ID of the request.
         self.request_id = request_id  # type: str
-        # The beginning of the time range that was queried.
+        # The start of the time range during which data was queried.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -13995,23 +14132,23 @@ class DescribeDomainRealTimeHttpCodeDataResponse(TeaModel):
 
 class DescribeDomainRealTimeQpsDataRequest(TeaModel):
     def __init__(self, domain_name=None, end_time=None, isp_name_en=None, location_name_en=None, start_time=None):
-        # The accelerated domain names. You can specify multiple accelerated domain names and separate them with commas (,).
+        # The accelerated domain name. Separate multiple accelerated domain names with commas (,).
         # 
-        # >  You can specify at most 500 accelerated domain names in each call.
+        # > You can specify up to 500 domain names in each request.
         self.domain_name = domain_name  # type: str
         # The end of the time range to query.
         # 
         # Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         # 
-        # >  The end time must be later than the start time.
+        # > The end time must be later than the start time.
         self.end_time = end_time  # type: str
-        # The name of the Internet service provider (ISP) for your Alibaba Cloud CDN service.
+        # The name of the Internet service provider (ISP).
         # 
-        # If you do not set this parameter, all ISPs are queried. You can call the [DescribeCdnRegionAndIsp](~~91077~~) operation to query ISP names.
+        # If you do not set this parameter, data of all ISPs is queried. You can call the [DescribeCdnRegionAndIsp](~~91077~~) operation to query ISP names.
         self.isp_name_en = isp_name_en  # type: str
         # The name of the region.
         # 
-        # If you do not set this parameter, all regions are queried. You can call the [DescribeCdnRegionAndIsp](~~91077~~) operation to query the most recent region list.
+        # If you do not set this parameter, data in all regions is queried. You can call the [DescribeCdnRegionAndIsp](~~91077~~) operation to query regions.
         self.location_name_en = location_name_en  # type: str
         # The beginning of the time range to query.
         # 
@@ -14058,7 +14195,7 @@ class DescribeDomainRealTimeQpsDataResponseBodyDataQpsModel(TeaModel):
     def __init__(self, qps=None, time_stamp=None):
         # The number of queries per second.
         self.qps = qps  # type: float
-        # The timestamp of the data returned. The time follows the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time is displayed in UTC.
+        # The timestamp of the data returned. The time follows the yyyy-MM-ddTHH:mm:ssZ format in the ISO 8601 standard and is in UTC.
         self.time_stamp = time_stamp  # type: str
 
     def validate(self):
@@ -14119,7 +14256,7 @@ class DescribeDomainRealTimeQpsDataResponseBodyData(TeaModel):
 
 class DescribeDomainRealTimeQpsDataResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
-        # The response parameters.
+        # The data entries returned.
         self.data = data  # type: DescribeDomainRealTimeQpsDataResponseBodyData
         # The ID of the request.
         self.request_id = request_id  # type: str
@@ -14365,13 +14502,15 @@ class DescribeDomainRealTimeReqHitRateDataResponse(TeaModel):
 
 class DescribeDomainRealTimeSrcBpsDataRequest(TeaModel):
     def __init__(self, domain_name=None, end_time=None, start_time=None):
-        # You can specify multiple domain names and separate them with commas (,). You can specify at most 100 domain names in each call.
+        # The accelerated domain name. You can specify up to 100 domain names in each request. Separate multiple domain names with commas (,).
         self.domain_name = domain_name  # type: str
         # The end of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         # 
-        # >  The end time must be later than the start time.
+        # > The end time must be later than the start time.
         self.end_time = end_time  # type: str
-        # The start of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
+        # The beginning of the time range to query.
+        # 
+        # Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -14404,7 +14543,7 @@ class DescribeDomainRealTimeSrcBpsDataRequest(TeaModel):
 
 class DescribeDomainRealTimeSrcBpsDataResponseBodyRealTimeSrcBpsDataPerIntervalDataModule(TeaModel):
     def __init__(self, time_stamp=None, value=None):
-        # The timestamp of the data returned.
+        # The timestamp of the returned data.
         self.time_stamp = time_stamp  # type: str
         # The bandwidth during back-to-origin routing. Unit: bit/s.
         self.value = value  # type: str
@@ -14470,17 +14609,17 @@ class DescribeDomainRealTimeSrcBpsDataResponseBody(TeaModel):
                  real_time_src_bps_data_per_interval=None, request_id=None, start_time=None):
         # The time interval between the data entries returned. Unit: seconds.
         # 
-        # The time granularity varies with the time range to query. Supported values: 60 (1 minute), 300 (5 minutes), and 3600(1 hour). For more information, see **Usage notes**.
+        # The time granularity varies with the maximum time range per query. Valid values: 60 (1 minute), 300 (5 minutes), and 3600(1 hour). For more information, see **Usage notes**.
         self.data_interval = data_interval  # type: str
         # The accelerated domain name.
         self.domain_name = domain_name  # type: str
-        # The end of the time range to query.
+        # The end of the time range during which data was queried.
         self.end_time = end_time  # type: str
-        # The back-to-origin bandwidth information at each interval.
+        # The origin bandwidth data at each interval.
         self.real_time_src_bps_data_per_interval = real_time_src_bps_data_per_interval  # type: DescribeDomainRealTimeSrcBpsDataResponseBodyRealTimeSrcBpsDataPerInterval
         # The ID of the request.
         self.request_id = request_id  # type: str
-        # The beginning of the time range to query.
+        # The start of the time range during which data was queried.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -14566,17 +14705,17 @@ class DescribeDomainRealTimeSrcBpsDataResponse(TeaModel):
 
 class DescribeDomainRealTimeSrcHttpCodeDataRequest(TeaModel):
     def __init__(self, domain_name=None, end_time=None, isp_name_en=None, location_name_en=None, start_time=None):
-        # You can specify multiple domain names and separate them with commas (,). You can specify at most 100 domain names in each call.
+        # The accelerated domain name. You can specify up to 100 domain names in each call. Separate multiple domain names with commas (,).
         self.domain_name = domain_name  # type: str
         # The end of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         # 
-        # >  The end time must be later than the start time.
+        # > The end time must be later than the start time.
         self.end_time = end_time  # type: str
-        # The name of the Internet Service Provider (ISP). You can call the [DescribeCdnRegionAndIsp](~~91077~~) operation to query ISPs. If you do not set this parameter, all ISPs are queried.
+        # The name of the Internet service provider (ISP). You can call the [DescribeCdnRegionAndIsp](~~91077~~) operation to query ISPs. If you leave this parameter empty, all ISPs are queried.
         self.isp_name_en = isp_name_en  # type: str
-        # The name of the region. You can call the [DescribeCdnRegionAndIsp](~~91077~~) operation to query regions. If you do not set this parameter, all regions are queried.
+        # The name of the region. You can call the [DescribeCdnRegionAndIsp](~~91077~~) operation to query regions. If you leave this parameter empty, all regions are queried.
         self.location_name_en = location_name_en  # type: str
-        # The start of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
+        # The beginning of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -14617,9 +14756,9 @@ class DescribeDomainRealTimeSrcHttpCodeDataRequest(TeaModel):
 
 class DescribeDomainRealTimeSrcHttpCodeDataResponseBodyRealTimeSrcHttpCodeDataUsageDataValueRealTimeSrcCodeProportionData(TeaModel):
     def __init__(self, code=None, count=None, proportion=None):
-        # The HTTP status code.
+        # The HTTP status code returned.
         self.code = code  # type: str
-        # The total number of HTTP status codes returned.
+        # The count of each HTTP status code.
         self.count = count  # type: str
         # The proportion of the HTTP status code.
         self.proportion = proportion  # type: str
@@ -14686,9 +14825,9 @@ class DescribeDomainRealTimeSrcHttpCodeDataResponseBodyRealTimeSrcHttpCodeDataUs
 
 class DescribeDomainRealTimeSrcHttpCodeDataResponseBodyRealTimeSrcHttpCodeDataUsageData(TeaModel):
     def __init__(self, time_stamp=None, value=None):
-        # The timestamp of the data returned.
+        # The timestamp of the returned data.
         self.time_stamp = time_stamp  # type: str
-        # The proportions of HTTP status codes.
+        # The proportions of the HTTP status codes.
         self.value = value  # type: DescribeDomainRealTimeSrcHttpCodeDataResponseBodyRealTimeSrcHttpCodeDataUsageDataValue
 
     def validate(self):
@@ -14756,13 +14895,13 @@ class DescribeDomainRealTimeSrcHttpCodeDataResponseBody(TeaModel):
         self.data_interval = data_interval  # type: str
         # The accelerated domain name.
         self.domain_name = domain_name  # type: str
-        # The end of the time range that was queried.
+        # The end of the time range during which data was queried.
         self.end_time = end_time  # type: str
         # The proportions of HTTP status codes at each time interval.
         self.real_time_src_http_code_data = real_time_src_http_code_data  # type: DescribeDomainRealTimeSrcHttpCodeDataResponseBodyRealTimeSrcHttpCodeData
         # The ID of the request.
         self.request_id = request_id  # type: str
-        # The beginning of the time range that was queried.
+        # The start of the time range during which data was queried.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -14848,15 +14987,15 @@ class DescribeDomainRealTimeSrcHttpCodeDataResponse(TeaModel):
 
 class DescribeDomainRealTimeSrcTrafficDataRequest(TeaModel):
     def __init__(self, domain_name=None, end_time=None, start_time=None):
-        # You can specify multiple domain names and separate them with commas (,). You can specify at most 100 domain names in each call.
+        # The accelerated domain name. You can specify up to 100 domain names in each call. Separate multiple domain names with commas (,).
         self.domain_name = domain_name  # type: str
         # The end of the time range to query.
         # 
         # Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         # 
-        # >  The end time must be later than the start time.
+        # > The end time must be later than the start time.
         self.end_time = end_time  # type: str
-        # The beginning of the time range to query.
+        # The start of the time range to query.
         # 
         # Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         self.start_time = start_time  # type: str
@@ -14893,7 +15032,7 @@ class DescribeDomainRealTimeSrcTrafficDataResponseBodyRealTimeSrcTrafficDataPerI
     def __init__(self, time_stamp=None, value=None):
         # The timestamp of the data returned.
         self.time_stamp = time_stamp  # type: str
-        # The amount of back-to-origin network traffic.
+        # The amount of traffic.
         self.value = value  # type: str
 
     def validate(self):
@@ -14957,17 +15096,17 @@ class DescribeDomainRealTimeSrcTrafficDataResponseBody(TeaModel):
                  real_time_src_traffic_data_per_interval=None, request_id=None, start_time=None):
         # The time interval between the data entries returned. Unit: seconds.
         # 
-        # The time granularity varies with the time range to query. Supported values: 60, (1 minute), 300 (5 minutes), and 3600 (1 hour). For more information, see the usage notes.
+        # Depending on the maximum time range per query, the value is 60 (1 minute), 300 (5 minutes), or 3600 (1 hour). For more information, see the "Time granularity" section in Usage notes.
         self.data_interval = data_interval  # type: str
         # The accelerated domain name.
         self.domain_name = domain_name  # type: str
-        # The end of the time range that was queried.
+        # The end of the time range for which the data was queried.
         self.end_time = end_time  # type: str
-        # The amount of back-to-origin network traffic that was collected at each interval.
+        # The amount of back-to-origin traffic returned at each interval.
         self.real_time_src_traffic_data_per_interval = real_time_src_traffic_data_per_interval  # type: DescribeDomainRealTimeSrcTrafficDataResponseBodyRealTimeSrcTrafficDataPerInterval
         # The ID of the request.
         self.request_id = request_id  # type: str
-        # The beginning of the time range that was queried.
+        # The start of the time range for which the data was queried.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -15053,15 +15192,15 @@ class DescribeDomainRealTimeSrcTrafficDataResponse(TeaModel):
 
 class DescribeDomainRealTimeTrafficDataRequest(TeaModel):
     def __init__(self, domain_name=None, end_time=None, isp_name_en=None, location_name_en=None, start_time=None):
-        # You can specify multiple domain names and separate them with commas (,). You can specify at most 100 domain names in each call.
+        # The accelerated domain name. You can specify up to 100 domain names in each call. Separate multiple domain names with commas (,).
         self.domain_name = domain_name  # type: str
         # The end of the time range to query.
         # 
         # Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         # 
-        # >  The end time must be later than the start time.
+        # > The end time must be later than the start time.
         self.end_time = end_time  # type: str
-        # The name of the ISP for your Alibaba Cloud CDN service.
+        # The name of the Internet service provider (ISP).
         # 
         # You can call the [DescribeCdnRegionAndIsp](~~91077~~) operation to query the most recent region list. If you do not set this parameter, all regions are queried.
         self.isp_name_en = isp_name_en  # type: str
@@ -15112,9 +15251,9 @@ class DescribeDomainRealTimeTrafficDataRequest(TeaModel):
 
 class DescribeDomainRealTimeTrafficDataResponseBodyRealTimeTrafficDataPerIntervalDataModule(TeaModel):
     def __init__(self, time_stamp=None, value=None):
-        # The timestamp of the data returned.
+        # The timestamp of the returned data.
         self.time_stamp = time_stamp  # type: str
-        # The amount of network traffic.
+        # The traffic value at each time interval.
         self.value = value  # type: str
 
     def validate(self):
@@ -15178,17 +15317,17 @@ class DescribeDomainRealTimeTrafficDataResponseBody(TeaModel):
                  real_time_traffic_data_per_interval=None, request_id=None, start_time=None):
         # The time interval between the data entries returned. Unit: seconds.
         # 
-        # The time granularity varies with the time range to query. Supported values: 60 (1 minute), 300 (5 minutes), and 3600(1 hour). For more information, see the usage notes.
+        # Depending on the maximum time range per query, the value is 60 (1 minute), 300 (5 minutes), or 3600 (1 hour). For more information, see the "Time granularity" section in Usage notes.
         self.data_interval = data_interval  # type: str
         # The accelerated domain name.
         self.domain_name = domain_name  # type: str
-        # The end of the time range that was queried.
+        # The end of the time range during which data was queried.
         self.end_time = end_time  # type: str
-        # The amount of network traffic at each time interval. Unit: bytes.
+        # The network traffic returned at each time interval. Unit: bytes.
         self.real_time_traffic_data_per_interval = real_time_traffic_data_per_interval  # type: DescribeDomainRealTimeTrafficDataResponseBodyRealTimeTrafficDataPerInterval
         # The ID of the request.
         self.request_id = request_id  # type: str
-        # The beginning of the time range that was queried.
+        # The start of the time range during which data was queried.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -15653,21 +15792,21 @@ class DescribeDomainRegionDataResponse(TeaModel):
 
 class DescribeDomainReqHitRateDataRequest(TeaModel):
     def __init__(self, domain_name=None, end_time=None, interval=None, start_time=None):
-        # You can specify multiple domain names and separate them with commas (,). You can specify at most 500 domain names in each call.
+        # The accelerated domain name. You can specify up to 500 domain names in each request. Separate multiple domain names with commas (,).
         # 
-        # By default, this operation queries the bandwidth values of back-to-origin requests for all accelerated domain names that belong to your Alibaba Cloud account.
+        # By default, this operation queries the request hit ratio for all accelerated domain names that belong to your Alibaba Cloud account.
         self.domain_name = domain_name  # type: str
         # The end of the time range to query.
         # 
         # Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         # 
-        # >  The end time must be later than the start time.
+        # > The end time must be later than the start time.
         self.end_time = end_time  # type: str
-        # The time interval between the data entries. Unit: seconds.
+        # The time granularity of the data entries. Unit: seconds.
         # 
-        # The time granularity varies with the time range to query. Supported values: 300 (5 minutes), 3600 (1 hour), and 86400 (1 day). For more information, see **Usage notes**.
+        # The time granularity varies with the maximum time range per query. Valid values: 300 (5 minutes), 3600 (1 hour), and 86400 (1 day). For more information, see **Usage notes**.
         self.interval = interval  # type: str
-        # The start of the time range to query.
+        # The beginning of the time range to query.
         # 
         # Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         self.start_time = start_time  # type: str
@@ -15708,9 +15847,9 @@ class DescribeDomainReqHitRateDataResponseBodyReqHitRateIntervalDataModule(TeaMo
     def __init__(self, https_value=None, time_stamp=None, value=None):
         # The hit ratio of HTTPS requests.
         self.https_value = https_value  # type: str
-        # The timestamp of the data returned.
+        # The timestamp of the returned data.
         self.time_stamp = time_stamp  # type: str
-        # The byte hit ratio.
+        # The request hit ratio.
         self.value = value  # type: str
 
     def validate(self):
@@ -15780,13 +15919,13 @@ class DescribeDomainReqHitRateDataResponseBody(TeaModel):
         self.data_interval = data_interval  # type: str
         # The accelerated domain name.
         self.domain_name = domain_name  # type: str
-        # The end of the time range that was queried.
+        # The end of the time range during which data was queried.
         self.end_time = end_time  # type: str
-        # The request hit ratio at each time interval. The hit ratio is measured in percentage.
+        # The request hit ratio data at each time interval. The hit ratio is measured in percentage.
         self.req_hit_rate_interval = req_hit_rate_interval  # type: DescribeDomainReqHitRateDataResponseBodyReqHitRateInterval
         # The ID of the request.
         self.request_id = request_id  # type: str
-        # The beginning of the time range that was queried.
+        # The start of the time range during which data was queried.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -15872,21 +16011,21 @@ class DescribeDomainReqHitRateDataResponse(TeaModel):
 
 class DescribeDomainSrcBpsDataRequest(TeaModel):
     def __init__(self, domain_name=None, end_time=None, interval=None, start_time=None):
-        # You can specify multiple domain names and separate them with commas (,). You can specify at most 500 domain names in each call.
+        # The accelerated domain name. You can specify up to 500 domain names in each call. Separate multiple domain names with commas (,).
         # 
-        # By default, this operation queries the bandwidth values during back-to-origin routing for all accelerated domain names that belong to your Alibaba Cloud account.
+        # By default, this operation queries the geographic distribution of users for all accelerated domain names.
         self.domain_name = domain_name  # type: str
         # The end of the time range to query.
         # 
         # Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         # 
-        # >  The end time must be later than the start time.
+        # > The end time must be later than the start time.
         self.end_time = end_time  # type: str
         # The time interval between the data entries. Unit: seconds.
         # 
-        # The time granularity varies with the time range to query. Supported values: 300 (5 minutes), 3600 (1 hour), and 86400 (1 day). For more information, see **Usage notes**.
+        # The time granularity varies with the maximum time range per query. Valid values: 300 (5 minutes), 3600 (1 hour), and 86400 (1 day). For more information, see **Description**.
         self.interval = interval  # type: str
-        # The start of the time range to query.
+        # The beginning of the time range to query.
         # 
         # Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         self.start_time = start_time  # type: str
@@ -15925,11 +16064,11 @@ class DescribeDomainSrcBpsDataRequest(TeaModel):
 
 class DescribeDomainSrcBpsDataResponseBodySrcBpsDataPerIntervalDataModule(TeaModel):
     def __init__(self, https_value=None, time_stamp=None, value=None):
-        # The bandwidth values of HTTPS requests.
+        # The bandwidth values of origin HTTPS requests.
         self.https_value = https_value  # type: str
-        # The timestamp of the data returned.
+        # The timestamp of the returned data.
         self.time_stamp = time_stamp  # type: str
-        # The bandwidth value.
+        # The traffic value at each time interval.
         self.value = value  # type: str
 
     def validate(self):
@@ -15999,13 +16138,13 @@ class DescribeDomainSrcBpsDataResponseBody(TeaModel):
         self.data_interval = data_interval  # type: str
         # The accelerated domain name.
         self.domain_name = domain_name  # type: str
-        # The end of the time range that was queried.
+        # The end of the time range during which data was queried.
         self.end_time = end_time  # type: str
         # The ID of the request.
         self.request_id = request_id  # type: str
-        # The bandwidth value at each time interval. Unit: bit/s.
+        # The origin bandwidth data at each time interval. Unit: bit/s.
         self.src_bps_data_per_interval = src_bps_data_per_interval  # type: DescribeDomainSrcBpsDataResponseBodySrcBpsDataPerInterval
-        # The beginning of the time range that was queried.
+        # The start of the time range during which data was queried.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -16091,21 +16230,17 @@ class DescribeDomainSrcBpsDataResponse(TeaModel):
 
 class DescribeDomainSrcHttpCodeDataRequest(TeaModel):
     def __init__(self, domain_name=None, end_time=None, interval=None, start_time=None):
-        # You can specify multiple domain names and separate them with commas (,). You can specify at most 500 domain names in each call.
+        # The accelerated domain name. You can specify a maximum of 500 domain names in a request. Separate multiple domain names with commas (,).
         self.domain_name = domain_name  # type: str
-        # The end of the time range to query.
+        # The end of the time range to query. Specify the time in the yyyy-MM-ddTHH:mm:ssZ format in the ISO 8601 standard. The time is displayed in UTC.
         # 
-        # Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC. The time must be in UTC.
-        # 
-        # >  The end time must be later than the start time.
+        # > The end time must be later than the start time.
         self.end_time = end_time  # type: str
-        # The time interval between the data entries. Unit: seconds.
+        # The time interval between the data entries to return. Unit: seconds.
         # 
-        # The time granularity varies with the time range to query. Supported values: 300 (5 minutes), 3600 (1 hour), and 86400 (1 day). For more information, see **Usage notes**.
+        # The time granularity varies with the maximum time range per query. Valid values: 300 (5 minutes), 3600 (1 hour), and 86400 (1 day). For more information, see **Description**.
         self.interval = interval  # type: str
-        # The start of the time range to query.
-        # 
-        # Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
+        # The beginning of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -16142,9 +16277,9 @@ class DescribeDomainSrcHttpCodeDataRequest(TeaModel):
 
 class DescribeDomainSrcHttpCodeDataResponseBodyHttpCodeDataUsageDataValueCodeProportionData(TeaModel):
     def __init__(self, code=None, count=None, proportion=None):
-        # The HTTP status code.
+        # The HTTP status code returned.
         self.code = code  # type: str
-        # The total number of HTTP status codes returned.
+        # The total number of entries.
         self.count = count  # type: str
         # The proportion of the HTTP status code.
         self.proportion = proportion  # type: str
@@ -16211,9 +16346,9 @@ class DescribeDomainSrcHttpCodeDataResponseBodyHttpCodeDataUsageDataValue(TeaMod
 
 class DescribeDomainSrcHttpCodeDataResponseBodyHttpCodeDataUsageData(TeaModel):
     def __init__(self, time_stamp=None, value=None):
-        # The timestamp of the data returned.
+        # The timestamp of the returned data.
         self.time_stamp = time_stamp  # type: str
-        # The proportions of HTTP status codes.
+        # The proportions of the HTTP status codes.
         self.value = value  # type: DescribeDomainSrcHttpCodeDataResponseBodyHttpCodeDataUsageDataValue
 
     def validate(self):
@@ -16281,13 +16416,13 @@ class DescribeDomainSrcHttpCodeDataResponseBody(TeaModel):
         self.data_interval = data_interval  # type: str
         # The accelerated domain name.
         self.domain_name = domain_name  # type: str
-        # The end of the time range that was queried.
+        # The end of the time range during which data was queried.
         self.end_time = end_time  # type: str
         # The proportions of HTTP status codes at each time interval.
         self.http_code_data = http_code_data  # type: DescribeDomainSrcHttpCodeDataResponseBodyHttpCodeData
         # The ID of the request.
         self.request_id = request_id  # type: str
-        # The beginning of the time range that was queried.
+        # The start of the time range during which data was queried.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -16373,21 +16508,21 @@ class DescribeDomainSrcHttpCodeDataResponse(TeaModel):
 
 class DescribeDomainSrcQpsDataRequest(TeaModel):
     def __init__(self, domain_name=None, end_time=None, interval=None, start_time=None):
-        # You can specify multiple domain names and separate them with commas (,). You can specify at most 500 domain names in each call.
+        # The accelerated domain name. You can specify multiple domain names in each request. Separate multiple domain names with commas (,).
         # 
-        # By default, this operation queries the number of back-to-origin requests per second for all accelerated domain names that belong to your Alibaba Cloud account.
+        # By default, this operation queries QPS data for all accelerated domain names that belong to your Alibaba Cloud account.
         self.domain_name = domain_name  # type: str
         # The end of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         # 
-        # >  The end time must be later than the start time.
+        # > The end time must be later than the start time.
         self.end_time = end_time  # type: str
-        # The time granularity of the data entries. Unit: seconds.
+        # The time interval between the data entries. Unit: seconds.
         # 
-        # The time granularity varies with the time range to query. Supported values: 300 (5 minutes), 3600 (1 hour), and 86400 (1 day). For more information, see **Usage notes**.
+        # The time granularity varies with the maximum time range per query. Valid values: 300 (5 minutes), 3600 (1 hour), and 86400 (1 day). For more information, see **Usage notes**.
         self.interval = interval  # type: str
-        # The start of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
+        # The beginning of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         # 
-        # If you do not set this parameter, data collected within the last 24 hours is queried.
+        # If you leave this parameter empty, data collected in the last 24 hours is queried.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -16426,7 +16561,7 @@ class DescribeDomainSrcQpsDataResponseBodySrcQpsDataPerIntervalDataModule(TeaMod
     def __init__(self, time_stamp=None, value=None):
         # The timestamp of the data returned.
         self.time_stamp = time_stamp  # type: str
-        # The number of back-to-origin requests per second.
+        # The QPS value.
         self.value = value  # type: str
 
     def validate(self):
@@ -16492,13 +16627,13 @@ class DescribeDomainSrcQpsDataResponseBody(TeaModel):
         self.data_interval = data_interval  # type: str
         # The accelerated domain name.
         self.domain_name = domain_name  # type: str
-        # The end of the time range that was queried.
+        # The end of the time range during which data was queried.
         self.end_time = end_time  # type: str
         # The ID of the request.
         self.request_id = request_id  # type: str
         # The back-to-origin bandwidth information at each interval.
         self.src_qps_data_per_interval = src_qps_data_per_interval  # type: DescribeDomainSrcQpsDataResponseBodySrcQpsDataPerInterval
-        # The beginning of the time range that was queried.
+        # The start of the time range during which data was queried.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -17160,21 +17295,21 @@ class DescribeDomainSrcTopUrlVisitResponse(TeaModel):
 
 class DescribeDomainSrcTrafficDataRequest(TeaModel):
     def __init__(self, domain_name=None, end_time=None, interval=None, start_time=None):
-        # You can specify multiple domain names and separate them with commas (,). You can specify at most 500 domain names in each call.
+        # The accelerated domain name. You can specify up to 500 domain names in each request. Separate multiple domain names with commas (,).
         # 
-        # By default, this operation queries back-to-origin network traffic for all accelerated domain names that belong to your Alibaba Cloud account.
+        # By default, this operation queries the origin traffic for all accelerated domain names that belong to your Alibaba Cloud account.
         self.domain_name = domain_name  # type: str
         # The end of the time range to query.
         # 
         # Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         # 
-        # >  The end time must be later than the start time.
+        # > The end time must be later than the start time.
         self.end_time = end_time  # type: str
-        # The time interval between the data entries. Unit: seconds.
+        # The time granularity of the data entries. Unit: seconds.
         # 
-        # The time granularity varies with the time range to query. Supported values: 300 (5 minutes), 3600 (1 hour), and 86400 (1 day). For more information, see **Usage notes**.
+        # The time granularity varies with the maximum time range per query. Valid values: 300 (5 minutes), 3600 (1 hour), and 86400 (1 day). For more information, see **Usage notes**.
         self.interval = interval  # type: str
-        # The start of the time range to query.
+        # The beginning of the time range to query.
         # 
         # Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         self.start_time = start_time  # type: str
@@ -17213,11 +17348,11 @@ class DescribeDomainSrcTrafficDataRequest(TeaModel):
 
 class DescribeDomainSrcTrafficDataResponseBodySrcTrafficDataPerIntervalDataModule(TeaModel):
     def __init__(self, https_value=None, time_stamp=None, value=None):
-        # The amount of traffic generated by back-to-origin HTTPS requests.
+        # The amount of traffic generated by origin HTTPS requests.
         self.https_value = https_value  # type: str
-        # The timestamp of the data returned.
+        # The timestamp of the returned data.
         self.time_stamp = time_stamp  # type: str
-        # The amount of network traffic.
+        # The traffic value at each time interval.
         self.value = value  # type: str
 
     def validate(self):
@@ -17287,13 +17422,13 @@ class DescribeDomainSrcTrafficDataResponseBody(TeaModel):
         self.data_interval = data_interval  # type: str
         # The accelerated domain name.
         self.domain_name = domain_name  # type: str
-        # The end of the time range that was queried.
+        # The end of the time range during which data was queried.
         self.end_time = end_time  # type: str
         # The ID of the request.
         self.request_id = request_id  # type: str
-        # The amount of back-to-origin network traffic at each time interval. Unit: bytes.
+        # The amount of origin traffic returned at each time interval. Unit: bytes.
         self.src_traffic_data_per_interval = src_traffic_data_per_interval  # type: DescribeDomainSrcTrafficDataResponseBodySrcTrafficDataPerInterval
-        # The beginning of the time range that was queried.
+        # The start of the time range during which data was queried.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -17780,20 +17915,24 @@ class DescribeDomainTopReferVisitResponse(TeaModel):
 
 class DescribeDomainTopUrlVisitRequest(TeaModel):
     def __init__(self, domain_name=None, end_time=None, sort_by=None, start_time=None):
-        # The accelerated domain name for which you want to query data. If you do not set this parameter, frequently requested URLs of all accelerated domain names of your Alibaba Cloud account are queried.
+        # The accelerated domain name that you want to query.
         self.domain_name = domain_name  # type: str
-        # The end of the time range to query. The time follows the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time is displayed in UTC.
+        # The end of the time range to query.
         # 
-        # >  The end time must be later than the start time. The difference between the end time and the start time cannot exceed seven days.
+        # Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
+        # 
+        # > The end time must be later than the start time. The maximum time range that can be specified is seven days.
         self.end_time = end_time  # type: str
-        # The method that is used to sort the returned URLs.**** Valid values:
+        # The method that is used to sort the returned URLs. Default value: **pv**. Valid values:
         # 
-        # *   **traf**: network traffic
-        # *   **pv**: by the number of page views. This is the default value.
+        # *   **traf**: by network traffic
+        # *   **pv**: by the number of page views
         self.sort_by = sort_by  # type: str
-        # The start of the time range to query. The time follows the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time is displayed in UTC.
+        # The start of the time range to query.
         # 
-        # If you want to query data within a specific day, we recommend that you set the value in the yyyy-MM-ddT16:00:00Z format.
+        # Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
+        # 
+        # If you want to query data of a specific day, we recommend that you set the value in the yyyy-MM-ddT16:00:00Z format.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -17830,15 +17969,15 @@ class DescribeDomainTopUrlVisitRequest(TeaModel):
 
 class DescribeDomainTopUrlVisitResponseBodyAllUrlListUrlList(TeaModel):
     def __init__(self, flow=None, flow_proportion=None, url_detail=None, visit_data=None, visit_proportion=None):
-        # The amount of network traffic. (Unit: bytes)
+        # The amount of network traffic. Unit: bytes.
         self.flow = flow  # type: str
-        # The proportion of the amount of network traffic consumed for visiting the web page.
+        # The proportion of network traffic consumed to access the URL.
         self.flow_proportion = flow_proportion  # type: float
         # The complete URL.
         self.url_detail = url_detail  # type: str
-        # The number of visits to the specified path.
+        # The number of visits to the URL.
         self.visit_data = visit_data  # type: str
-        # The proportion of visits to the web page.
+        # The proportion of visits to the URL.
         self.visit_proportion = visit_proportion  # type: float
 
     def validate(self):
@@ -17911,15 +18050,15 @@ class DescribeDomainTopUrlVisitResponseBodyAllUrlList(TeaModel):
 
 class DescribeDomainTopUrlVisitResponseBodyUrl200ListUrlList(TeaModel):
     def __init__(self, flow=None, flow_proportion=None, url_detail=None, visit_data=None, visit_proportion=None):
-        # The amount of network traffic. (Unit: bytes)
+        # The amount of network traffic. Unit: bytes.
         self.flow = flow  # type: str
-        # The proportion of the amount of network traffic consumed for visiting the web page.
+        # The proportion of network traffic consumed to access the URL.
         self.flow_proportion = flow_proportion  # type: float
         # The complete URL.
         self.url_detail = url_detail  # type: str
-        # The number of visits to the specified path.
+        # The number of visits to the URL.
         self.visit_data = visit_data  # type: str
-        # The proportion of visits to the web page.
+        # The proportion of visits to the URL.
         self.visit_proportion = visit_proportion  # type: float
 
     def validate(self):
@@ -17992,15 +18131,15 @@ class DescribeDomainTopUrlVisitResponseBodyUrl200List(TeaModel):
 
 class DescribeDomainTopUrlVisitResponseBodyUrl300ListUrlList(TeaModel):
     def __init__(self, flow=None, flow_proportion=None, url_detail=None, visit_data=None, visit_proportion=None):
-        # The amount of network traffic. (Unit: bytes)
+        # The amount of network traffic. Unit: bytes.
         self.flow = flow  # type: str
-        # The proportion of the amount of network traffic consumed for visiting the web page.
+        # The proportion of network traffic consumed to access the URL.
         self.flow_proportion = flow_proportion  # type: float
         # The complete URL.
         self.url_detail = url_detail  # type: str
         # The number of visits to the URL.
         self.visit_data = visit_data  # type: str
-        # The proportion of visits to the web page.
+        # The proportion of visits to the URL.
         self.visit_proportion = visit_proportion  # type: float
 
     def validate(self):
@@ -18073,15 +18212,15 @@ class DescribeDomainTopUrlVisitResponseBodyUrl300List(TeaModel):
 
 class DescribeDomainTopUrlVisitResponseBodyUrl400ListUrlList(TeaModel):
     def __init__(self, flow=None, flow_proportion=None, url_detail=None, visit_data=None, visit_proportion=None):
-        # The amount of network traffic. (Unit: bytes)
+        # The amount of network traffic. Unit: bytes.
         self.flow = flow  # type: str
-        # The proportion of the amount of network traffic consumed for visiting the web page.
+        # The proportion of network traffic consumed to access the URL.
         self.flow_proportion = flow_proportion  # type: float
         # The complete URL.
         self.url_detail = url_detail  # type: str
         # The number of visits to the URL.
         self.visit_data = visit_data  # type: str
-        # The proportion of visits to the web page.
+        # The proportion of visits to the URL.
         self.visit_proportion = visit_proportion  # type: float
 
     def validate(self):
@@ -18154,15 +18293,15 @@ class DescribeDomainTopUrlVisitResponseBodyUrl400List(TeaModel):
 
 class DescribeDomainTopUrlVisitResponseBodyUrl500ListUrlList(TeaModel):
     def __init__(self, flow=None, flow_proportion=None, url_detail=None, visit_data=None, visit_proportion=None):
-        # The amount of network traffic. (Unit: bytes)
+        # The amount of network traffic. Unit: bytes.
         self.flow = flow  # type: str
-        # The proportion of the amount of network traffic consumed for visiting the web page.
+        # The proportion of network traffic consumed to access the URL.
         self.flow_proportion = flow_proportion  # type: float
         # The complete URL.
         self.url_detail = url_detail  # type: str
         # The number of visits to the URL.
         self.visit_data = visit_data  # type: str
-        # The proportion of visits to the web page.
+        # The proportion of visits to the URL.
         self.visit_proportion = visit_proportion  # type: float
 
     def validate(self):
@@ -18242,7 +18381,7 @@ class DescribeDomainTopUrlVisitResponseBody(TeaModel):
         self.domain_name = domain_name  # type: str
         # The ID of the request.
         self.request_id = request_id  # type: str
-        # The start of the time range that was queried.
+        # The start of the time range during which data was queried.
         self.start_time = start_time  # type: str
         # A list of URLs for which 2xx status codes were returned.
         self.url_200list = url_200list  # type: DescribeDomainTopUrlVisitResponseBodyUrl200List
@@ -18357,31 +18496,27 @@ class DescribeDomainTopUrlVisitResponse(TeaModel):
 class DescribeDomainTrafficDataRequest(TeaModel):
     def __init__(self, domain_name=None, end_time=None, interval=None, isp_name_en=None, location_name_en=None,
                  start_time=None):
-        # You can specify multiple domain names and separate them with commas (,). You can specify at most 500 domain names in each call.
+        # The accelerated domain name. You can specify up to 500 domain names in each request. Separate multiple domain names with commas (,).
         # 
-        # By default, this operation queries the monitoring data of network traffic for all accelerated domain names that belong to your Alibaba Cloud account.
+        # By default, this operation queries the network traffic for all accelerated domain names that belong to your Alibaba Cloud account.
         self.domain_name = domain_name  # type: str
-        # The end of the time range to query.
+        # The end of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         # 
-        # Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
-        # 
-        # >  The end time must be later than the start time.
+        # > The end time must be later than the start time.
         self.end_time = end_time  # type: str
-        # The time interval between the data entries. Unit: seconds.
+        # The time granularity of the data entries. Unit: seconds.
         # 
-        # The time granularity varies with the time range to query. Supported values: 300 (5 minutes), 3600 (1 hour), and 86400 (1 day). For more information, see **Usage notes**.
+        # The time granularity varies with the maximum time range per query. Valid values: 300 (5 minutes), 3600 (1 hour), and 86400 (1 day). For more information, see **Usage notes**.
         self.interval = interval  # type: str
-        # The name of the Internet service provider (ISP) for your Alibaba Cloud CDN service. You can call the [DescribeCdnRegionAndIsp](~~91077~~) operation to query ISP names.
+        # The name of the Internet service provider (ISP). You can call the [DescribeCdnRegionAndIsp](~~DescribeCdnRegionAndIsp~~) operation to query ISPs.
         # 
-        # If you do not specify an ISP, monitoring data of all ISPs is queried.
+        # If you do not specify an ISP, data of all ISPs is queried.
         self.isp_name_en = isp_name_en  # type: str
-        # The name of the region. You can call the [DescribeCdnRegionAndIsp](~~91077~~) operation to query the most recent region list.
+        # The name of the region. You can call the [DescribeCdnRegionAndIsp](~~DescribeCdnRegionAndIsp~~) operation to query regions.
         # 
-        # If you do not specify a region, monitoring data in all regions is queried.
+        # If you do not specify a region, data in all regions is queried.
         self.location_name_en = location_name_en  # type: str
-        # The start of the time range to query.
-        # 
-        # Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
+        # The beginning of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -18429,17 +18564,17 @@ class DescribeDomainTrafficDataResponseBodyTrafficDataPerIntervalDataModule(TeaM
                  overseas_value=None, time_stamp=None, value=None):
         # The amount of network traffic in the Chinese mainland.
         self.domestic_value = domestic_value  # type: str
-        # The amount of HTTPS network traffic on L1 edge nodes in the Chinese mainland.
+        # The amount of HTTPS traffic on points of presence (POPs) in the Chinese mainland.
         self.https_domestic_value = https_domestic_value  # type: str
-        # The amount of HTTPS network traffic on L1 edge nodes outside the Chinese mainland.
+        # The amount of HTTPS traffic on POPs outside the Chinese mainland.
         self.https_overseas_value = https_overseas_value  # type: str
-        # The total amount of HTTPS network traffic on L1 edge nodes.
+        # The total amount of HTTPS traffic on POPs.
         self.https_value = https_value  # type: str
         # The amount of network traffic outside the Chinese mainland.
         self.overseas_value = overseas_value  # type: str
-        # The timestamp of the data returned.
+        # The timestamp of the returned data.
         self.time_stamp = time_stamp  # type: str
-        # The total amount of network traffic.
+        # The total volume of traffic.
         self.value = value  # type: str
 
     def validate(self):
@@ -18525,11 +18660,11 @@ class DescribeDomainTrafficDataResponseBody(TeaModel):
         self.data_interval = data_interval  # type: str
         # The accelerated domain name.
         self.domain_name = domain_name  # type: str
-        # The end of the time range that was queried.
+        # The end of the time range during which data was queried.
         self.end_time = end_time  # type: str
         # The ID of the request.
         self.request_id = request_id  # type: str
-        # The beginning of the time range that was queried.
+        # The start of the time range during which data was queried.
         self.start_time = start_time  # type: str
         # The amount of network traffic at each time interval. Unit: bytes.
         self.traffic_data_per_interval = traffic_data_per_interval  # type: DescribeDomainTrafficDataResponseBodyTrafficDataPerInterval
@@ -18618,9 +18753,9 @@ class DescribeDomainTrafficDataResponse(TeaModel):
 class DescribeDomainUsageDataRequest(TeaModel):
     def __init__(self, area=None, data_protocol=None, domain_name=None, end_time=None, field=None, interval=None,
                  start_time=None, type=None):
-        # The ID of the billable region. Valid values:
+        # The billable region. Default value: CN. Valid values:
         # 
-        # *   **CN** (default): the Chinese mainland
+        # *   **CN**: Chinese mainland
         # *   **OverSeas**: outside the Chinese mainland
         # *   **AP1**: Asia Pacific 1
         # *   **AP2**: Asia Pacific 2
@@ -18629,50 +18764,50 @@ class DescribeDomainUsageDataRequest(TeaModel):
         # *   **SA**: South America
         # *   **EU**: Europe
         # *   **MEAA**: Middle East and Africa
-        # *   **all**: all billable regions
-        # 
-        # >  For more information about billable regions, see [Billable regions](~~142221~~).
+        # *   **all**: all the preceding billable regions
         self.area = area  # type: str
-        # The protocol by which the data is queried. Valid values:
+        # The protocol of the data that you want to query. Default value: all. Valid values:
         # 
         # *   **http**: HTTP
         # *   **https**: HTTPS
         # *   **quic**: QUIC
-        # *   **all** (default): HTTP, HTTPS, and QUIC
+        # *   **all**: HTTP, HTTPS, and QUIC
         self.data_protocol = data_protocol  # type: str
-        # The accelerated domain name. You can query the resource usage data for a maximum of 100 domain names in each call. Separate domain names with commas (,).
+        # The accelerated domain name. You can specify up to 100 domain names in each request. Separate multiple domain names with commas (,).
         # 
-        # >  If you do not set this parameter, the usage data of all accelerated domain names within your Alibaba Cloud account is returned.
+        # > If you leave this parameter empty, the usage data of all accelerated domain names in your Alibaba Cloud account is returned.
         self.domain_name = domain_name  # type: str
         # The end of the time range to query.
         # 
         # Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         # 
-        # >  The end time must be later than the start time. The maximum time range that can be queried is 31 days.
+        # > The end time must be later than the start time. The maximum time range that can be specified is 31 days.
         self.end_time = end_time  # type: str
-        # The type of data to be queried. Valid values:
+        # The type of data that you want to query. Valid values:
         # 
         # *   **bps**: bandwidth
-        # *   **traf**: network traffic
+        # *   **traf**: traffic
         # *   **acc**: requests
         # 
-        # >  **acc** does not support the **Area** parameter.
+        # > If you set this parameter to **acc**, the **Area** parameter is not supported.
         self.field = field  # type: str
-        # The time interval between the data entries. Unit: seconds.
+        # The time interval between the data entries to return. Unit: seconds. Valid values: **300** (5 minutes), **3600** (1 hour), and **86400** (1 day).
         # 
-        # The time granularity varies with the time range to query. Supported values: 300 (5 minutes), 3600 (1 hour), and 86400 (1 day). For more information, see **Usage notes**.
+        # *   If **Interval** is set to **300**, you can query usage data in the last six months. The maximum time range per query that can be specified is three days.
+        # *   If **Interval** is set to **3600** or **86400**, you can query usage data of the previous year.
+        # *   If you do not set the **Interval** parameter, the maximum time range that you can query is one month. If you specify a time range of 1 to 3 days, the time interval between the entries that are returned is 1 hour. If you specify a time range of at least 4 days, the time interval between the entries that are returned is 1 day.
         self.interval = interval  # type: str
         # The beginning of the time range to query.
         # 
         # Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         # 
-        # >  The data is collected every 5 minutes.
+        # > Data is collected every 5 minutes.
         self.start_time = start_time  # type: str
-        # The type of content based on which the data is queried. Valid values:
+        # The type of content that you want to query. Default value: all. Valid values:
         # 
         # *   **static**: static content
         # *   **dynamic**: dynamic content
-        # *   **all** (default): both static and dynamic content
+        # *   **all**: both static and dynamic content
         self.type = type  # type: str
 
     def validate(self):
@@ -18725,19 +18860,17 @@ class DescribeDomainUsageDataRequest(TeaModel):
 
 class DescribeDomainUsageDataResponseBodyUsageDataPerIntervalDataModule(TeaModel):
     def __init__(self, peak_time=None, special_value=None, time_stamp=None, value=None):
-        # If the **Field** parameter in the request is set to **bps**, this parameter returns the time of the peak bandwidth value. Otherwise, this parameter returns the same value as the **TimeStamp** parameter.
+        # The time of the peak bandwidth value if the **Field** parameter in the request is set to **bps**. Otherwise, this parameter returns the same value as the **TimeStamp** parameter.
         self.peak_time = peak_time  # type: str
         # The data usage in a specific scenario.
         # 
-        # >  Indicates the data usage in a specific scenario. If no special billable item is specified, ignore this parameter.
+        # > SpecialValue indicates the data usage in a specific scenario. If no special billable item is specified, ignore this parameter.
         self.special_value = special_value  # type: str
         # The timestamp of the data returned.
         # 
-        # >  The **TimeStamp** parameter may return multiple values.
+        # > **TimeStamp** indicates the timestamp of the returned data at each interval.
         self.time_stamp = time_stamp  # type: str
-        # The usage.
-        # 
-        # >  Usage data includes network traffic (measured in bytes), bandwidth values (measured in bits/s), and the number of requests.
+        # The amount of resource usage.
         self.value = value  # type: str
 
     def validate(self):
@@ -18807,21 +18940,21 @@ class DescribeDomainUsageDataResponseBodyUsageDataPerInterval(TeaModel):
 class DescribeDomainUsageDataResponseBody(TeaModel):
     def __init__(self, area=None, data_interval=None, domain_name=None, end_time=None, request_id=None,
                  start_time=None, type=None, usage_data_per_interval=None):
-        # The billable region where the usage information was collected.
+        # The billable region where the data was collected.
         self.area = area  # type: str
-        # The time interval between the data entries. Unit: seconds.
+        # The time interval between the data entries returned. Unit: seconds.
         self.data_interval = data_interval  # type: str
         # The accelerated domain name.
         self.domain_name = domain_name  # type: str
-        # The end of the time range that was queried.
+        # The end of the time range during which data was queried.
         self.end_time = end_time  # type: str
         # The ID of the request.
         self.request_id = request_id  # type: str
-        # The beginning of the time range that was queried.
+        # The start of the time range during which data was queried.
         self.start_time = start_time  # type: str
-        # The type of content based on which the usage information was collected.
+        # The type of content.
         self.type = type  # type: str
-        # The network traffic that was collected at each interval.
+        # The resource usage that was collected at each interval.
         self.usage_data_per_interval = usage_data_per_interval  # type: DescribeDomainUsageDataResponseBodyUsageDataPerInterval
 
     def validate(self):
@@ -19018,7 +19151,7 @@ class DescribeDomainUvDataResponseBodyUvDataInterval(TeaModel):
 class DescribeDomainUvDataResponseBody(TeaModel):
     def __init__(self, data_interval=None, domain_name=None, end_time=None, request_id=None, start_time=None,
                  uv_data_interval=None):
-        # The time interval between the data entries. Unit: seconds.
+        # The time interval. Unit: seconds.
         self.data_interval = data_interval  # type: str
         # The accelerated domain name.
         self.domain_name = domain_name  # type: str
@@ -19427,13 +19560,17 @@ class DescribeDomainsUsageByDayRequest(TeaModel):
     def __init__(self, domain_name=None, end_time=None, start_time=None):
         # The accelerated domain name. You can specify only one domain name.
         # 
-        # If you do not specify an accelerated domain name, the monitoring data of all accelerated domain names that belong to your account is queried.
+        # If you do not specify an accelerated domain name, the data of all accelerated domain names that belong to your account is queried.
         self.domain_name = domain_name  # type: str
-        # The end of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC+0.
+        # The end of the time range to query.
         # 
-        # >  The end time must be later than the start time.
+        # Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
+        # 
+        # > The end time must be later than the start time.
         self.end_time = end_time  # type: str
-        # The start of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC+0.
+        # The beginning of the time range to query.
+        # 
+        # Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -19467,7 +19604,7 @@ class DescribeDomainsUsageByDayRequest(TeaModel):
 class DescribeDomainsUsageByDayResponseBodyUsageByDaysUsageByDay(TeaModel):
     def __init__(self, bytes_hit_rate=None, max_bps=None, max_bps_time=None, max_src_bps=None,
                  max_src_bps_time=None, qps=None, request_hit_rate=None, time_stamp=None, total_access=None, total_traffic=None):
-        # The cache hit ratio that is calculated based on bytes. The cache hit ratio is measured in percentage.
+        # The byte hit ratio. The byte hit ratio is measured in percentage.
         self.bytes_hit_rate = bytes_hit_rate  # type: str
         # The peak bandwidth value. Unit: bit/s.
         self.max_bps = max_bps  # type: str
@@ -19579,7 +19716,7 @@ class DescribeDomainsUsageByDayResponseBodyUsageByDays(TeaModel):
 class DescribeDomainsUsageByDayResponseBodyUsageTotal(TeaModel):
     def __init__(self, bytes_hit_rate=None, max_bps=None, max_bps_time=None, max_src_bps=None,
                  max_src_bps_time=None, request_hit_rate=None, total_access=None, total_traffic=None):
-        # The cache hit ratio that is calculated based on bytes. The cache hit ratio is measured in percentage.
+        # The byte hit ratio. The byte hit ratio is measured in percentage.
         self.bytes_hit_rate = bytes_hit_rate  # type: str
         # The peak bandwidth value. Unit: bit/s.
         self.max_bps = max_bps  # type: str
@@ -19591,7 +19728,7 @@ class DescribeDomainsUsageByDayResponseBodyUsageTotal(TeaModel):
         self.max_src_bps_time = max_src_bps_time  # type: str
         # The cache hit ratio that is calculated based on requests. The cache hit ratio is measured in percentage.
         self.request_hit_rate = request_hit_rate  # type: str
-        # The total number of requests.
+        # The total amount of requests.
         self.total_access = total_access  # type: str
         # The total amount of network traffic. Unit: bytes.
         self.total_traffic = total_traffic  # type: str
@@ -19647,15 +19784,15 @@ class DescribeDomainsUsageByDayResponseBodyUsageTotal(TeaModel):
 class DescribeDomainsUsageByDayResponseBody(TeaModel):
     def __init__(self, data_interval=None, domain_name=None, end_time=None, request_id=None, start_time=None,
                  usage_by_days=None, usage_total=None):
-        # The time interval between the data entries. Unit: seconds.
+        # The time interval between the data entries returned. Unit: seconds.
         self.data_interval = data_interval  # type: str
-        # The information about the accelerated domain name.
+        # The accelerated domain name.
         self.domain_name = domain_name  # type: str
-        # The end of the time range that was queried.
+        # The end of the time range during which data was queried.
         self.end_time = end_time  # type: str
         # The ID of the request.
         self.request_id = request_id  # type: str
-        # The start of the time range that was queried.
+        # The start of the time range during which data was queried.
         self.start_time = start_time  # type: str
         # The monitoring data collected at each time interval.
         self.usage_by_days = usage_by_days  # type: DescribeDomainsUsageByDayResponseBodyUsageByDays
@@ -20954,21 +21091,21 @@ class DescribeRangeDataByLocateAndIspServiceRequest(TeaModel):
         self.domain_names = domain_names  # type: str
         # The end of the time range to query.
         # 
-        # Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC+0.
+        # Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         # 
-        # >  The end time must be later than the start time. The interval between the end time and the start time cannot exceed 1 hour.
+        # > The end time must be later than the start time. The maximum time range that can be specified is 1 hour.
         self.end_time = end_time  # type: str
         # The name of the ISP. You can specify only one ISP name in each call.
         # 
         # You can call the [DescribeCdnRegionAndIsp](~~91077~~) operation to query ISPs.
         self.isp_names = isp_names  # type: str
-        # The names of the regions. Separate regions with commas (,).
+        # The names of the regions. Separate multiple region names with commas (,).
         # 
         # You can call the [DescribeCdnRegionAndIsp](~~91077~~) operation to query the most recent region list.
         self.location_names = location_names  # type: str
         # The beginning of the time range to query.
         # 
-        # Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC+0.
+        # Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -21009,9 +21146,7 @@ class DescribeRangeDataByLocateAndIspServiceRequest(TeaModel):
 
 class DescribeRangeDataByLocateAndIspServiceResponseBody(TeaModel):
     def __init__(self, json_result=None, request_id=None):
-        # The response parameters in the JSON format.
-        # 
-        # These parameters indicate the following information in sequence: UNIX time, region, ISP, distribution of HTTP status codes, response time, bandwidth (bit/s), average response rate, page views, cache hit ratio, and request hit ratio.
+        # The response parameters in the JSON format. These parameters indicate the following information in sequence: UNIX time, region, ISP, distribution of HTTP status codes, response time, bandwidth (bit/s), average response rate, page views, cache hit ratio, and request hit ratio.
         self.json_result = json_result  # type: str
         # The ID of the request.
         self.request_id = request_id  # type: str
@@ -25574,26 +25709,27 @@ class PushObjectCacheRequest(TeaModel):
                  with_header=None):
         # The accelerated region where content is to be prefetched. Valid values:
         # 
-        # *   **domestic**: **Chinese Mainland Only**\
-        # *   **overseas**: **Global (Excluding the Chinese Mainland)**\
+        # *   **domestic****: Chinese mainland**\
+        # *   **overseas****: regions outside the Chinese mainland**\
         # 
-        # If you do not set this parameter, content in the accelerated region of the domain name is prefetched. Content is prefetched based on the following rules:
+        # If you do not set this parameter, content in the accelerated region of the domain name is prefetched.
         # 
-        # *   If the accelerated region is set to ****Chinese Mainland Only****, content in regions in the Chinese mainland is prefetched.
+        # *   If the accelerated region is set to **Mainland China Only**, content in regions in the Chinese mainland is prefetched.
         # *   If the accelerated region is set to **Global**, content in all regions is prefetched.
-        # *   If the accelerated region is set to **Global (Excluding the Chinese Mainland)**, content in regions outside the Chinese mainland is prefetched.
+        # *   If the accelerated region is set to **Global (Excluding Mainland China)**, content in regions outside the Chinese mainland is prefetched.
         self.area = area  # type: str
         # Specifies whether to prefetch content to POPs. Valid values:
         # 
-        # *   **true**: prefetch content to L2 edge nodes.
-        # *   **false**: prefetch content to regular edge nodes. Regular edge nodes can be L2 edge nodes or L3 edge nodes. Default value: **false**.
+        # *   **true**: prefetches content to POPs.
+        # *   **false**: prefetches content to regular POPs. Regular POPs can be L2 POPs or L3 POPs. Default value: **false**.
         self.l_2preload = l_2preload  # type: bool
         # The URLs based on which content is prefetched. Format: **accelerated domain name/files to be prefetched**.
         # 
-        # >  Separate URLs with line feeds (\n or \r\n). Each object path can be up to 1,024 characters in length.
+        # > Separate URLs with line feeds (\n or \r\n). Each object path can be up to 1,024 characters in length.
         self.object_path = object_path  # type: str
         self.owner_id = owner_id  # type: long
         self.security_token = security_token  # type: str
+        # The custom header for prefetch in the JSON format.
         self.with_header = with_header  # type: str
 
     def validate(self):
@@ -25712,7 +25848,7 @@ class PushObjectCacheResponse(TeaModel):
 class RefreshObjectCachesRequest(TeaModel):
     def __init__(self, object_path=None, object_type=None, owner_id=None, security_token=None):
         self.object_path = object_path  # type: str
-        # The type of the object that you want to refresh. Valid values:
+        # The type of the object that you want to refresh. Default value: File. Valid values:
         # 
         # *   **File**: refreshes one or more files.
         # *   **Directory**: refreshes the files in one or more directories.
