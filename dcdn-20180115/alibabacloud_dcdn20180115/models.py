@@ -1630,13 +1630,13 @@ class CreateDcdnDeliverTaskRequest(TeaModel):
         self.deliver = deliver  # type: str
         # The domain names to be tracked. Separate multiple domain names with commas (,). You can specify up to 500 domain names. If you want to specify more than 500 domain names, [submit a ticket](https://workorder-intl.console.aliyun.com/?spm=5176.2020520001.aliyun_topbar.18.dbd44bd3e4f845#/ticket/createIndex).
         # 
-        # >  If you do not specify a domain name, the custom operations reports are created for all domain names that belong to your Alibaba Cloud account.
+        # > If you do not specify a domain name, the tracking task is created for all domain names that belong to your Alibaba Cloud account.
         self.domain_name = domain_name  # type: str
         # The name of the tracking task.
         self.name = name  # type: str
         # The operations reports that are tracked by the task. The data must be escaped in JSON.
         self.reports = reports  # type: str
-        # The parameters of the tracking task. The settings must be escaped in JSON.
+        # The parameters that specify the time interval at which the tracking task sends operations reports. The settings must be escaped in JSON.
         self.schedule = schedule  # type: str
 
     def validate(self):
@@ -1677,7 +1677,7 @@ class CreateDcdnDeliverTaskRequest(TeaModel):
 
 class CreateDcdnDeliverTaskResponseBody(TeaModel):
     def __init__(self, deliver_id=None, request_id=None):
-        # The ID of the change tracking task.
+        # The ID of the tracking task.
         self.deliver_id = deliver_id  # type: str
         # The ID of the request.
         self.request_id = request_id  # type: str
@@ -4119,7 +4119,7 @@ class DescribeDcdnBgpTrafficDataRequest(TeaModel):
         self.end_time = end_time  # type: str
         # The data collection interval. Unit: seconds. Valid values: 300 and 3600. Default value: 300. The default value of 300 seconds is equal to 5 minutes. The value of this parameter varies based on the time range from the specified start time to the specified end time.
         self.interval = interval  # type: str
-        # The ISPs. If you need to specify multiple ISPs, separate them with commas (,). If you specify multiple ISPs, the data for the ISPs is aggregated. If you do not specify this parameter, the operation returns the data for all the ISPs.
+        # The ISP. Separate multiple ISPs with commas (,). If you specify multiple ISPs, the data for the ISPs is aggregated. If you do not specify this parameter, the operation returns the data for all the ISPs.
         # 
         # Valid values:
         # 
@@ -4172,7 +4172,7 @@ class DescribeDcdnBgpTrafficDataResponseBodyBgpDataInterval(TeaModel):
         self.in_ = in_  # type: long
         # The outbound traffic. Unit: bytes.
         self.out = out  # type: long
-        # The timestamp of the returned data.
+        # The timestamp of the data returned.
         self.time_stamp = time_stamp  # type: str
 
     def validate(self):
@@ -4205,7 +4205,7 @@ class DescribeDcdnBgpTrafficDataResponseBodyBgpDataInterval(TeaModel):
 
 class DescribeDcdnBgpTrafficDataResponseBody(TeaModel):
     def __init__(self, bgp_data_interval=None, end_time=None, request_id=None, start_time=None):
-        # The BGP traffic data that is collected for each interval.
+        # The BGP traffic at each time interval.
         self.bgp_data_interval = bgp_data_interval  # type: list[DescribeDcdnBgpTrafficDataResponseBodyBgpDataInterval]
         # The end of the time range during which data was queried.
         self.end_time = end_time  # type: str
@@ -5420,7 +5420,12 @@ class DescribeDcdnDomainBpsDataByLayerRequest(TeaModel):
 
 
 class DescribeDcdnDomainBpsDataByLayerResponseBodyBpsDataIntervalDataModule(TeaModel):
-    def __init__(self, time_stamp=None, traffic_value=None, value=None):
+    def __init__(self, dynamic_traffic_value=None, dynamic_value=None, static_traffic_value=None,
+                 static_value=None, time_stamp=None, traffic_value=None, value=None):
+        self.dynamic_traffic_value = dynamic_traffic_value  # type: str
+        self.dynamic_value = dynamic_value  # type: str
+        self.static_traffic_value = static_traffic_value  # type: str
+        self.static_value = static_value  # type: str
         # The timestamp of the data returned.
         self.time_stamp = time_stamp  # type: str
         # The total amount of network traffic. Unit: bytes.
@@ -5437,6 +5442,14 @@ class DescribeDcdnDomainBpsDataByLayerResponseBodyBpsDataIntervalDataModule(TeaM
             return _map
 
         result = dict()
+        if self.dynamic_traffic_value is not None:
+            result['DynamicTrafficValue'] = self.dynamic_traffic_value
+        if self.dynamic_value is not None:
+            result['DynamicValue'] = self.dynamic_value
+        if self.static_traffic_value is not None:
+            result['StaticTrafficValue'] = self.static_traffic_value
+        if self.static_value is not None:
+            result['StaticValue'] = self.static_value
         if self.time_stamp is not None:
             result['TimeStamp'] = self.time_stamp
         if self.traffic_value is not None:
@@ -5447,6 +5460,14 @@ class DescribeDcdnDomainBpsDataByLayerResponseBodyBpsDataIntervalDataModule(TeaM
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('DynamicTrafficValue') is not None:
+            self.dynamic_traffic_value = m.get('DynamicTrafficValue')
+        if m.get('DynamicValue') is not None:
+            self.dynamic_value = m.get('DynamicValue')
+        if m.get('StaticTrafficValue') is not None:
+            self.static_traffic_value = m.get('StaticTrafficValue')
+        if m.get('StaticValue') is not None:
+            self.static_value = m.get('StaticValue')
         if m.get('TimeStamp') is not None:
             self.time_stamp = m.get('TimeStamp')
         if m.get('TrafficValue') is not None:
@@ -17253,6 +17274,7 @@ class DescribeDcdnIpaUserDomainsResponse(TeaModel):
 
 class DescribeDcdnL2VipsRequest(TeaModel):
     def __init__(self, domain_name=None):
+        # The domain name. You can specify only one domain name in each request. If you do not specify this parameter, the origin CIDR blocks of all domain names in your account in the whitelist are returned.
         self.domain_name = domain_name  # type: str
 
     def validate(self):
@@ -17277,8 +17299,11 @@ class DescribeDcdnL2VipsRequest(TeaModel):
 
 class DescribeDcdnL2VipsResponseBody(TeaModel):
     def __init__(self, domain_name=None, request_id=None, vips=None):
+        # The accelerated domain name.
         self.domain_name = domain_name  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The virtual IP addresses (VIPs).
         self.vips = vips  # type: list[str]
 
     def validate(self):
@@ -21882,15 +21907,17 @@ class DescribeDcdnUserQuotaRequest(TeaModel):
 
 
 class DescribeDcdnUserQuotaResponseBody(TeaModel):
-    def __init__(self, block_quota=None, block_remain=None, domain_quota=None, preload_quota=None,
-                 preload_remain=None, refresh_dir_quota=None, refresh_dir_remain=None, refresh_url_quota=None,
-                 refresh_url_remain=None, request_id=None):
+    def __init__(self, block_quota=None, block_remain=None, domain_quota=None, ignore_params_quota=None,
+                 ignore_params_remain=None, preload_quota=None, preload_remain=None, refresh_dir_quota=None, refresh_dir_remain=None,
+                 refresh_url_quota=None, refresh_url_remain=None, request_id=None):
         # The maximum number of URLs that can be blocked.
         self.block_quota = block_quota  # type: int
         # The remaining number of URLs that can be blocked.
         self.block_remain = block_remain  # type: int
         # The maximum number of accelerated domains.
         self.domain_quota = domain_quota  # type: int
+        self.ignore_params_quota = ignore_params_quota  # type: int
+        self.ignore_params_remain = ignore_params_remain  # type: int
         # The maximum number of URLs that can be prefetched.
         self.preload_quota = preload_quota  # type: int
         # The remaining number of URLs that can be prefetched.
@@ -21921,6 +21948,10 @@ class DescribeDcdnUserQuotaResponseBody(TeaModel):
             result['BlockRemain'] = self.block_remain
         if self.domain_quota is not None:
             result['DomainQuota'] = self.domain_quota
+        if self.ignore_params_quota is not None:
+            result['IgnoreParamsQuota'] = self.ignore_params_quota
+        if self.ignore_params_remain is not None:
+            result['IgnoreParamsRemain'] = self.ignore_params_remain
         if self.preload_quota is not None:
             result['PreloadQuota'] = self.preload_quota
         if self.preload_remain is not None:
@@ -21945,6 +21976,10 @@ class DescribeDcdnUserQuotaResponseBody(TeaModel):
             self.block_remain = m.get('BlockRemain')
         if m.get('DomainQuota') is not None:
             self.domain_quota = m.get('DomainQuota')
+        if m.get('IgnoreParamsQuota') is not None:
+            self.ignore_params_quota = m.get('IgnoreParamsQuota')
+        if m.get('IgnoreParamsRemain') is not None:
+            self.ignore_params_remain = m.get('IgnoreParamsRemain')
         if m.get('PreloadQuota') is not None:
             self.preload_quota = m.get('PreloadQuota')
         if m.get('PreloadRemain') is not None:
@@ -28671,7 +28706,7 @@ class OpenDcdnServiceRequest(TeaModel):
         self.bill_type = bill_type  # type: str
         self.owner_id = owner_id  # type: long
         self.security_token = security_token  # type: str
-        # The metering method of WebSocket. Default value: off. Valid values:
+        # The metering method of WebSocket. Valid values:
         # 
         # *   **websockettraffic**: pay-by-data-transfer
         # *   **websocketbps**: pay-by-bandwidth

@@ -826,7 +826,7 @@ class Client(OpenApiClient):
 
     def create_dcdn_deliver_task_with_options(self, request, runtime):
         """
-        >  You can call this operation up to three times per second per account.
+        > You can call this operation up to three times per second per account.
         
 
         @param request: CreateDcdnDeliverTaskRequest
@@ -868,7 +868,7 @@ class Client(OpenApiClient):
 
     def create_dcdn_deliver_task(self, request):
         """
-        >  You can call this operation up to three times per second per account.
+        > You can call this operation up to three times per second per account.
         
 
         @param request: CreateDcdnDeliverTaskRequest
@@ -1914,10 +1914,10 @@ class Client(OpenApiClient):
 
     def describe_dcdn_bgp_traffic_data_with_options(self, request, runtime):
         """
-        If you do not set the StartTime or EndTime parameter, the request returns the data collected in the last 24 hours. If you set both the StartTime and EndTime parameters, the request returns the data collected within the specified time range. You must set both parameters or leave both of them empty.
+        If you do not set the StartTime or EndTime parameter, the request returns the data collected in the last 24 hours. If you set both these parameters, the request returns the data collected within the specified time range. You must set both parameters or leave both parameters empty.
         *   If you specify multiple Internet service providers (ISPs), the data for the ISPs is aggregated.
         *   You can query data in the last 90 days.
-        *   The maximum time range from the start time to the end time is 31 days. The start time is specified by the StartTime parameter and the end time is specified by the EndTime parameter.
+        *   The maximum time range that you can specify is 31 days. StartTime specifies the start time and EndTime specifies the end time of the time range.
         *   If the time range from the start time to the end time is 72 hours or shorter, you can specify the interval as 5 minutes. If the time range is longer than 72 hours, you must specify the interval as 1 hour.
         *   You can call this operation up to five times per second per account.
         
@@ -1959,10 +1959,10 @@ class Client(OpenApiClient):
 
     def describe_dcdn_bgp_traffic_data(self, request):
         """
-        If you do not set the StartTime or EndTime parameter, the request returns the data collected in the last 24 hours. If you set both the StartTime and EndTime parameters, the request returns the data collected within the specified time range. You must set both parameters or leave both of them empty.
+        If you do not set the StartTime or EndTime parameter, the request returns the data collected in the last 24 hours. If you set both these parameters, the request returns the data collected within the specified time range. You must set both parameters or leave both parameters empty.
         *   If you specify multiple Internet service providers (ISPs), the data for the ISPs is aggregated.
         *   You can query data in the last 90 days.
-        *   The maximum time range from the start time to the end time is 31 days. The start time is specified by the StartTime parameter and the end time is specified by the EndTime parameter.
+        *   The maximum time range that you can specify is 31 days. StartTime specifies the start time and EndTime specifies the end time of the time range.
         *   If the time range from the start time to the end time is 72 hours or shorter, you can specify the interval as 5 minutes. If the time range is longer than 72 hours, you must specify the interval as 1 hour.
         *   You can call this operation up to five times per second per account.
         
@@ -8340,9 +8340,8 @@ class Client(OpenApiClient):
 
     def open_dcdn_service_with_options(self, request, runtime):
         """
-        >
-        *   DCDN can be activated only once per Alibaba Cloud account. The Alibaba Cloud account must pass real-name verification.
-        *   You can call this operation up to five times per second per account.
+        >    DCDN can be activated only once per Alibaba Cloud account. The Alibaba Cloud account must pass real-name verification.
+        >*   You can call this operation up to 5 times per second per account.
         
 
         @param request: OpenDcdnServiceRequest
@@ -8382,9 +8381,8 @@ class Client(OpenApiClient):
 
     def open_dcdn_service(self, request):
         """
-        >
-        *   DCDN can be activated only once per Alibaba Cloud account. The Alibaba Cloud account must pass real-name verification.
-        *   You can call this operation up to five times per second per account.
+        >    DCDN can be activated only once per Alibaba Cloud account. The Alibaba Cloud account must pass real-name verification.
+        >*   You can call this operation up to 5 times per second per account.
         
 
         @param request: OpenDcdnServiceRequest
