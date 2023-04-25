@@ -221,6 +221,18 @@ class Client(OpenApiClient):
         return self.create_post_pay_order_with_options(request, runtime)
 
     def create_pre_pay_order_with_options(self, request, runtime):
+        """
+        The maximum traffic for the instance. We recommend that you do not configure this parameter.
+        *   You must configure at least one of the **IoMax** and **IoMaxSpec** parameters. If both parameters are configured, the value of the **IoMaxSpec** parameter takes effect. We recommend that you configure only the **IoMaxSpec** parameter.
+        *   For more information about the valid values, see [Billing](~~84737~~).
+        
+
+        @param request: CreatePrePayOrderRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreatePrePayOrderResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.deploy_type):
@@ -267,6 +279,16 @@ class Client(OpenApiClient):
         )
 
     def create_pre_pay_order(self, request):
+        """
+        The maximum traffic for the instance. We recommend that you do not configure this parameter.
+        *   You must configure at least one of the **IoMax** and **IoMaxSpec** parameters. If both parameters are configured, the value of the **IoMaxSpec** parameter takes effect. We recommend that you configure only the **IoMaxSpec** parameter.
+        *   For more information about the valid values, see [Billing](~~84737~~).
+        
+
+        @param request: CreatePrePayOrderRequest
+
+        @return: CreatePrePayOrderResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_pre_pay_order_with_options(request, runtime)
 
@@ -306,17 +328,25 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_sasl_user_with_options(request, runtime)
 
-    def create_topic_with_options(self, tmp_req, runtime):
-        UtilClient.validate_model(tmp_req)
-        request = alikafka_20190916_models.CreateTopicShrinkRequest()
-        OpenApiUtilClient.convert(tmp_req, request)
-        if not UtilClient.is_unset(tmp_req.config):
-            request.config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.config, 'Config', 'json')
+    def create_topic_with_options(self, request, runtime):
+        """
+        The description of the topic.
+        *   The description can contain only letters, digits, hyphens (-), and underscores (\\_).
+        *   The description must be 3 to 64 characters in length.
+        
+
+        @param request: CreateTopicRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateTopicResponse
+        """
+        UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.compact_topic):
             query['CompactTopic'] = request.compact_topic
-        if not UtilClient.is_unset(request.config_shrink):
-            query['Config'] = request.config_shrink
+        if not UtilClient.is_unset(request.config):
+            query['Config'] = request.config
         if not UtilClient.is_unset(request.instance_id):
             query['InstanceId'] = request.instance_id
         if not UtilClient.is_unset(request.local_topic):
@@ -355,6 +385,16 @@ class Client(OpenApiClient):
         )
 
     def create_topic(self, request):
+        """
+        The description of the topic.
+        *   The description can contain only letters, digits, hyphens (-), and underscores (\\_).
+        *   The description must be 3 to 64 characters in length.
+        
+
+        @param request: CreateTopicRequest
+
+        @return: CreateTopicResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_topic_with_options(request, runtime)
 
@@ -987,6 +1027,16 @@ class Client(OpenApiClient):
         return self.modify_topic_remark_with_options(request, runtime)
 
     def release_instance_with_options(self, request, runtime):
+        """
+        The region ID of the instance.
+        
+
+        @param request: ReleaseInstanceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ReleaseInstanceResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.force_delete_instance):
@@ -1015,6 +1065,14 @@ class Client(OpenApiClient):
         )
 
     def release_instance(self, request):
+        """
+        The region ID of the instance.
+        
+
+        @param request: ReleaseInstanceRequest
+
+        @return: ReleaseInstanceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.release_instance_with_options(request, runtime)
 
@@ -1194,7 +1252,61 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.update_allowed_ip_with_options(request, runtime)
 
+    def update_consumer_offset_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = alikafka_20190916_models.UpdateConsumerOffsetShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.offsets):
+            request.offsets_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.offsets, 'Offsets', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.consumer_id):
+            query['ConsumerId'] = request.consumer_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.offsets_shrink):
+            query['Offsets'] = request.offsets_shrink
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.reset_type):
+            query['ResetType'] = request.reset_type
+        if not UtilClient.is_unset(request.time):
+            query['Time'] = request.time
+        if not UtilClient.is_unset(request.topic):
+            query['Topic'] = request.topic
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateConsumerOffset',
+            version='2019-09-16',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            alikafka_20190916_models.UpdateConsumerOffsetResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_consumer_offset(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_consumer_offset_with_options(request, runtime)
+
     def update_instance_config_with_options(self, request, runtime):
+        """
+        The region ID of the instance.
+        
+
+        @param request: UpdateInstanceConfigRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateInstanceConfigResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.config):
@@ -1223,10 +1335,34 @@ class Client(OpenApiClient):
         )
 
     def update_instance_config(self, request):
+        """
+        The region ID of the instance.
+        
+
+        @param request: UpdateInstanceConfigRequest
+
+        @return: UpdateInstanceConfigResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.update_instance_config_with_options(request, runtime)
 
     def upgrade_instance_version_with_options(self, request, runtime):
+        """
+        ## *Permissions**\
+        A RAM user must be granted the required permissions before the RAM user call the **UpgradeInstanceVersion** operation. For information about how to grant permissions, see [RAM policies](~~185815~~).
+        |API|Action|Resource|
+        |---|---|---|
+        |UpgradeInstanceVersion|UpdateInstance|acs:alikafka:*:*:{instanceId}|
+        ## **QPS limits**\
+        You can send a maximum of two queries per second (QPS).
+        
+
+        @param request: UpgradeInstanceVersionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpgradeInstanceVersionResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.instance_id):
@@ -1255,10 +1391,34 @@ class Client(OpenApiClient):
         )
 
     def upgrade_instance_version(self, request):
+        """
+        ## *Permissions**\
+        A RAM user must be granted the required permissions before the RAM user call the **UpgradeInstanceVersion** operation. For information about how to grant permissions, see [RAM policies](~~185815~~).
+        |API|Action|Resource|
+        |---|---|---|
+        |UpgradeInstanceVersion|UpdateInstance|acs:alikafka:*:*:{instanceId}|
+        ## **QPS limits**\
+        You can send a maximum of two queries per second (QPS).
+        
+
+        @param request: UpgradeInstanceVersionRequest
+
+        @return: UpgradeInstanceVersionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.upgrade_instance_version_with_options(request, runtime)
 
     def upgrade_post_pay_order_with_options(self, request, runtime):
+        """
+        Before you call this operation, make sure that you understand the billing method and pricing of pay-as-you-go Message Queue for Apache Kafka instances. For more information, see [Billing](~~84737~~).
+        
+
+        @param request: UpgradePostPayOrderRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpgradePostPayOrderResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.disk_size):
@@ -1301,10 +1461,30 @@ class Client(OpenApiClient):
         )
 
     def upgrade_post_pay_order(self, request):
+        """
+        Before you call this operation, make sure that you understand the billing method and pricing of pay-as-you-go Message Queue for Apache Kafka instances. For more information, see [Billing](~~84737~~).
+        
+
+        @param request: UpgradePostPayOrderRequest
+
+        @return: UpgradePostPayOrderResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.upgrade_post_pay_order_with_options(request, runtime)
 
     def upgrade_pre_pay_order_with_options(self, request, runtime):
+        """
+        The size of the disk.
+        *   The disk size that you specify must be greater than or equal to the current disk size of the instance.
+        *   For more information about the valid values, see [Billing overview](~~84737~~).
+        
+
+        @param request: UpgradePrePayOrderRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpgradePrePayOrderResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.disk_size):
@@ -1347,5 +1527,15 @@ class Client(OpenApiClient):
         )
 
     def upgrade_pre_pay_order(self, request):
+        """
+        The size of the disk.
+        *   The disk size that you specify must be greater than or equal to the current disk size of the instance.
+        *   For more information about the valid values, see [Billing overview](~~84737~~).
+        
+
+        @param request: UpgradePrePayOrderRequest
+
+        @return: UpgradePrePayOrderResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.upgrade_pre_pay_order_with_options(request, runtime)
