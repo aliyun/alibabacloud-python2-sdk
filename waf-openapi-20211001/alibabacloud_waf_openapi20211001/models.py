@@ -4,9 +4,22 @@ from Tea.model import TeaModel
 
 
 class ClearMajorProtectionBlackIpRequest(TeaModel):
-    def __init__(self, instance_id=None, rule_id=None, template_id=None):
+    def __init__(self, instance_id=None, region_id=None, resource_manager_resource_group_id=None, rule_id=None,
+                 template_id=None):
+        # The ID of the Web Application Firewall (WAF) instance.
+        # 
+        # >  You can call the [DescribeInstance](~~433756~~) operation to obtain the ID of the WAF instance.
         self.instance_id = instance_id  # type: str
+        # The region where the WAF instance resides. Valid values:
+        # 
+        # *   **cn-hangzhou:** the Chinese mainland.
+        # *   **ap-southeast-1:** outside the Chinese mainland.
+        self.region_id = region_id  # type: str
+        # The ID of the Alibaba Cloud resource group.
+        self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
+        # The ID of the IP address blacklist rule for major event protection.
         self.rule_id = rule_id  # type: long
+        # The ID of the IP address blacklist rule template for major event protection.
         self.template_id = template_id  # type: long
 
     def validate(self):
@@ -20,6 +33,10 @@ class ClearMajorProtectionBlackIpRequest(TeaModel):
         result = dict()
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_manager_resource_group_id is not None:
+            result['ResourceManagerResourceGroupId'] = self.resource_manager_resource_group_id
         if self.rule_id is not None:
             result['RuleId'] = self.rule_id
         if self.template_id is not None:
@@ -30,6 +47,10 @@ class ClearMajorProtectionBlackIpRequest(TeaModel):
         m = m or dict()
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceManagerResourceGroupId') is not None:
+            self.resource_manager_resource_group_id = m.get('ResourceManagerResourceGroupId')
         if m.get('RuleId') is not None:
             self.rule_id = m.get('RuleId')
         if m.get('TemplateId') is not None:
@@ -39,6 +60,7 @@ class ClearMajorProtectionBlackIpRequest(TeaModel):
 
 class ClearMajorProtectionBlackIpResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -101,11 +123,25 @@ class ClearMajorProtectionBlackIpResponse(TeaModel):
 
 
 class CreateDefenseResourceGroupRequest(TeaModel):
-    def __init__(self, add_list=None, description=None, group_name=None, instance_id=None):
+    def __init__(self, add_list=None, description=None, group_name=None, instance_id=None, region_id=None,
+                 resource_manager_resource_group_id=None):
+        # The protected objects that you want to add to the protected object group. You can add multiple protected objects to a protected object group at the same time. You can specify multiple protected objects. Separate them with commas (,).
         self.add_list = add_list  # type: str
+        # The description of the protected object group.
         self.description = description  # type: str
+        # The name of the protected object group that you want to create.
         self.group_name = group_name  # type: str
+        # The ID of the Web Application Firewall (WAF) instance.
+        # 
+        # >  You can call the [DescribeInstance](~~433756~~) operation to obtain the ID of the WAF instance.
         self.instance_id = instance_id  # type: str
+        # The region where the WAF instance resides. Valid values:
+        # 
+        # *   **cn-hangzhou:** the Chinese mainland.
+        # *   **ap-southeast-1:** outside the Chinese mainland.
+        self.region_id = region_id  # type: str
+        # The ID of the resource group.
+        self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
 
     def validate(self):
         pass
@@ -124,6 +160,10 @@ class CreateDefenseResourceGroupRequest(TeaModel):
             result['GroupName'] = self.group_name
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_manager_resource_group_id is not None:
+            result['ResourceManagerResourceGroupId'] = self.resource_manager_resource_group_id
         return result
 
     def from_map(self, m=None):
@@ -136,11 +176,16 @@ class CreateDefenseResourceGroupRequest(TeaModel):
             self.group_name = m.get('GroupName')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceManagerResourceGroupId') is not None:
+            self.resource_manager_resource_group_id = m.get('ResourceManagerResourceGroupId')
         return self
 
 
 class CreateDefenseResourceGroupResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -203,10 +248,37 @@ class CreateDefenseResourceGroupResponse(TeaModel):
 
 
 class CreateDefenseRuleRequest(TeaModel):
-    def __init__(self, defense_scene=None, instance_id=None, rules=None, template_id=None):
+    def __init__(self, defense_scene=None, instance_id=None, region_id=None,
+                 resource_manager_resource_group_id=None, rules=None, template_id=None):
+        # The module to which the protection rule that you want to create belongs.
+        # 
+        # *   **waf_group:** the basic protection rule module.
+        # *   **antiscan:** the scan protection module.
+        # *   **ip_blacklist:** the IP address blacklist module.
+        # *   **custom_acl:** the custom rule module.
+        # *   **whitelist:** the whitelist module.
+        # *   **region_block:** the region blacklist module.
+        # *   **custom_response:** the custom response module.
+        # *   **cc:** the HTTP flood protection module.
+        # *   **tamperproof:** the website tamper-proofing module.
+        # *   **dlp:** the data leakage prevention module.
         self.defense_scene = defense_scene  # type: str
+        # The ID of the Web Application Firewall (WAF) instance.
+        # 
+        # >  You can call the [DescribeInstance](~~433756~~) operation to obtain the ID of the WAF instance.
         self.instance_id = instance_id  # type: str
+        # The region where the WAF instance resides. Valid values:
+        # 
+        # *   **cn-hangzhou:** the Chinese mainland.
+        # *   **ap-southeast-1:** outside the Chinese mainland.
+        self.region_id = region_id  # type: str
+        # The ID of the resource group.
+        self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
+        # The configurations of the protection rule. Specify a string that contains multiple parameters in the JSON format.
+        # 
+        # >  The parameters vary based on the value of the **DefenseScene** parameter.**** For more information, see the "**Protection rule parameters**" section in this topic.
         self.rules = rules  # type: str
+        # The ID of the protection rule template for which you want to create a protection rule.
         self.template_id = template_id  # type: long
 
     def validate(self):
@@ -222,6 +294,10 @@ class CreateDefenseRuleRequest(TeaModel):
             result['DefenseScene'] = self.defense_scene
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_manager_resource_group_id is not None:
+            result['ResourceManagerResourceGroupId'] = self.resource_manager_resource_group_id
         if self.rules is not None:
             result['Rules'] = self.rules
         if self.template_id is not None:
@@ -234,6 +310,10 @@ class CreateDefenseRuleRequest(TeaModel):
             self.defense_scene = m.get('DefenseScene')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceManagerResourceGroupId') is not None:
+            self.resource_manager_resource_group_id = m.get('ResourceManagerResourceGroupId')
         if m.get('Rules') is not None:
             self.rules = m.get('Rules')
         if m.get('TemplateId') is not None:
@@ -243,6 +323,7 @@ class CreateDefenseRuleRequest(TeaModel):
 
 class CreateDefenseRuleResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -305,14 +386,36 @@ class CreateDefenseRuleResponse(TeaModel):
 
 
 class CreateDefenseTemplateRequest(TeaModel):
-    def __init__(self, defense_scene=None, description=None, instance_id=None, template_name=None,
-                 template_origin=None, template_status=None, template_type=None):
+    def __init__(self, defense_scene=None, description=None, instance_id=None, region_id=None,
+                 resource_manager_resource_group_id=None, template_name=None, template_origin=None, template_status=None, template_type=None):
+        # The scenario in which you want to use the protection rule template. For more information, see the description of the **DefenseScene** parameter in the [CreateDefenseRule](~~CreateDefenseRule~~) topic.
         self.defense_scene = defense_scene  # type: str
+        # The description of the protection rule template.
         self.description = description  # type: str
+        # The ID of the Web Application Firewall (WAF) instance.
+        # 
+        # >  You can call the [DescribeInstance](~~433756~~) operation to obtain the ID of the WAF instance.
         self.instance_id = instance_id  # type: str
+        # The region where the WAF instance resides. Valid values:
+        # 
+        # *   **cn-hangzhou:** the Chinese mainland.
+        # *   **ap-southeast-1:** outside the Chinese mainland.
+        self.region_id = region_id  # type: str
+        # The ID of the Alibaba Cloud resource group.
+        self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
+        # The name of the protection rule template.
         self.template_name = template_name  # type: str
+        # The origin of the protection rule template that you want to create. Set the value to **custom**. The value specifies that the protection rule template is a custom template.
         self.template_origin = template_origin  # type: str
+        # The status of the protection rule template. Valid values:
+        # 
+        # *   **0:** disabled.
+        # *   **1:** enabled.
         self.template_status = template_status  # type: int
+        # The type of the protection rule template. Valid values:
+        # 
+        # *   **user_default:** default template.
+        # *   **user_custom:** custom template.
         self.template_type = template_type  # type: str
 
     def validate(self):
@@ -330,6 +433,10 @@ class CreateDefenseTemplateRequest(TeaModel):
             result['Description'] = self.description
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_manager_resource_group_id is not None:
+            result['ResourceManagerResourceGroupId'] = self.resource_manager_resource_group_id
         if self.template_name is not None:
             result['TemplateName'] = self.template_name
         if self.template_origin is not None:
@@ -348,6 +455,10 @@ class CreateDefenseTemplateRequest(TeaModel):
             self.description = m.get('Description')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceManagerResourceGroupId') is not None:
+            self.resource_manager_resource_group_id = m.get('ResourceManagerResourceGroupId')
         if m.get('TemplateName') is not None:
             self.template_name = m.get('TemplateName')
         if m.get('TemplateOrigin') is not None:
@@ -361,7 +472,9 @@ class CreateDefenseTemplateRequest(TeaModel):
 
 class CreateDefenseTemplateResponseBody(TeaModel):
     def __init__(self, request_id=None, template_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The ID of the protection rule template.
         self.template_id = template_id  # type: long
 
     def validate(self):
@@ -430,20 +543,38 @@ class CreateDefenseTemplateResponse(TeaModel):
 class CreateDomainRequestListen(TeaModel):
     def __init__(self, cert_id=None, cipher_suite=None, custom_ciphers=None, enable_tlsv_3=None, exclusive_ip=None,
                  focus_https=None, http_2enabled=None, http_ports=None, https_ports=None, ipv_6enabled=None,
-                 protection_resource=None, tlsversion=None, xff_header_mode=None, xff_headers=None):
+                 protection_resource=None, sm2access_only=None, sm2cert_id=None, sm2enabled=None, tlsversion=None, xff_header_mode=None,
+                 xff_headers=None):
+        # $.parameters[3].schema.properties.TLSVersion.example
         self.cert_id = cert_id  # type: str
+        # $.parameters[3].schema.properties.EnableTLSv3.example
         self.cipher_suite = cipher_suite  # type: int
+        # $.parameters[3].schema.properties.EnableTLSv3.enumValueTitles
         self.custom_ciphers = custom_ciphers  # type: list[str]
+        # $.parameters[3].schema.properties.EnableTLSv3.description
         self.enable_tlsv_3 = enable_tlsv_3  # type: bool
+        # $.parameters[3].schema.properties.CustomCiphers.example
         self.exclusive_ip = exclusive_ip  # type: bool
+        # $.parameters[3].schema.properties.CipherSuite.example
         self.focus_https = focus_https  # type: bool
+        # $.parameters[3].schema.properties.TLSVersion.description
         self.http_2enabled = http_2enabled  # type: bool
+        # $.parameters[3].schema.properties.CertId.example
         self.http_ports = http_ports  # type: list[int]
+        # $.parameters[3].schema.properties.Http2Enabled.enumValueTitles
         self.https_ports = https_ports  # type: list[int]
+        # $.parameters[3].schema.properties.CustomCiphers.items.enumValueTitles
         self.ipv_6enabled = ipv_6enabled  # type: bool
+        # $.parameters[3].schema.properties.CustomCiphers.description
         self.protection_resource = protection_resource  # type: str
+        self.sm2access_only = sm2access_only  # type: bool
+        self.sm2cert_id = sm2cert_id  # type: str
+        self.sm2enabled = sm2enabled  # type: bool
+        # $.parameters[3].schema.properties.TLSVersion.enumValueTitles
         self.tlsversion = tlsversion  # type: str
+        # $.parameters[3].schema.properties.CipherSuite.enumValueTitles
         self.xff_header_mode = xff_header_mode  # type: int
+        # $.parameters[3].schema.properties.CustomCiphers.items.description
         self.xff_headers = xff_headers  # type: list[str]
 
     def validate(self):
@@ -477,6 +608,12 @@ class CreateDomainRequestListen(TeaModel):
             result['IPv6Enabled'] = self.ipv_6enabled
         if self.protection_resource is not None:
             result['ProtectionResource'] = self.protection_resource
+        if self.sm2access_only is not None:
+            result['SM2AccessOnly'] = self.sm2access_only
+        if self.sm2cert_id is not None:
+            result['SM2CertId'] = self.sm2cert_id
+        if self.sm2enabled is not None:
+            result['SM2Enabled'] = self.sm2enabled
         if self.tlsversion is not None:
             result['TLSVersion'] = self.tlsversion
         if self.xff_header_mode is not None:
@@ -509,6 +646,12 @@ class CreateDomainRequestListen(TeaModel):
             self.ipv_6enabled = m.get('IPv6Enabled')
         if m.get('ProtectionResource') is not None:
             self.protection_resource = m.get('ProtectionResource')
+        if m.get('SM2AccessOnly') is not None:
+            self.sm2access_only = m.get('SM2AccessOnly')
+        if m.get('SM2CertId') is not None:
+            self.sm2cert_id = m.get('SM2CertId')
+        if m.get('SM2Enabled') is not None:
+            self.sm2enabled = m.get('SM2Enabled')
         if m.get('TLSVersion') is not None:
             self.tlsversion = m.get('TLSVersion')
         if m.get('XffHeaderMode') is not None:
@@ -520,7 +663,9 @@ class CreateDomainRequestListen(TeaModel):
 
 class CreateDomainRequestRedirectRequestHeaders(TeaModel):
     def __init__(self, key=None, value=None):
+        # $.parameters[3].schema.properties.XffHeaders.items.enumValueTitles
         self.key = key  # type: str
+        # $.parameters[3].schema.properties.XffHeaders.description
         self.value = value  # type: str
 
     def validate(self):
@@ -551,20 +696,44 @@ class CreateDomainRequestRedirect(TeaModel):
     def __init__(self, backends=None, cname_enabled=None, connect_timeout=None, focus_http_backend=None,
                  keepalive=None, keepalive_requests=None, keepalive_timeout=None, loadbalance=None, read_timeout=None,
                  request_headers=None, retry=None, routing_rules=None, sni_enabled=None, sni_host=None, write_timeout=None):
+        # $.parameters[3].schema.properties.FocusHttps.description
         self.backends = backends  # type: list[str]
+        # 是否开启公共云容灾。取值：
+        # 
+        # - **true**：表示开启公共云容灾。
+        # 
+        # - **false**（默认）：表示不开启公共云容灾。
         self.cname_enabled = cname_enabled  # type: bool
+        # $.parameters[3].schema.properties.XffHeaders.example
         self.connect_timeout = connect_timeout  # type: int
+        # $.parameters[3].schema.properties.XffHeaderMode.description
         self.focus_http_backend = focus_http_backend  # type: bool
+        # $.parameters[3].schema.properties.IPv6Enabled.example
         self.keepalive = keepalive  # type: bool
+        # $.parameters[3].schema.properties.ProtectionResource.description
         self.keepalive_requests = keepalive_requests  # type: int
+        # $.parameters[3].schema.properties.ProtectionResource.example
         self.keepalive_timeout = keepalive_timeout  # type: int
+        # $.parameters[3].schema.properties.FocusHttps.enumValueTitles
         self.loadbalance = loadbalance  # type: str
+        # $.parameters[3].schema.properties.XffHeaders.enumValueTitles
         self.read_timeout = read_timeout  # type: int
+        # $.parameters[3].schema.properties.XffHeaders.items.description
         self.request_headers = request_headers  # type: list[CreateDomainRequestRedirectRequestHeaders]
+        # $.parameters[3].schema.properties.IPv6Enabled.enumValueTitles
         self.retry = retry  # type: bool
+        # 混合云转发规则。使用JSON数组转化的字符串格式表示。JSON数组中的每个元素是一个结构体，包含以下字段：
+        # - **rs**：Array类型 | 表示回源IP地址或者回源CNAME列表
+        # 
+        # - **location**：String类型 | 表示防护节点名称
+        # 
+        # - **locationId**：Long类型 | 表示防护节点ID
         self.routing_rules = routing_rules  # type: str
+        # $.parameters[3].schema.properties.XffHeaderMode.example
         self.sni_enabled = sni_enabled  # type: bool
+        # $.parameters[3].schema.properties.XffHeaderMode.enumValueTitles
         self.sni_host = sni_host  # type: str
+        # $.parameters[3].schema.properties.IPv6Enabled.description
         self.write_timeout = write_timeout  # type: int
 
     def validate(self):
@@ -652,13 +821,23 @@ class CreateDomainRequestRedirect(TeaModel):
 
 
 class CreateDomainRequest(TeaModel):
-    def __init__(self, access_type=None, domain=None, instance_id=None, listen=None, redirect=None, region_id=None):
+    def __init__(self, access_type=None, domain=None, instance_id=None, listen=None, redirect=None, region_id=None,
+                 resource_manager_resource_group_id=None, source_ip=None):
+        # $.parameters[3].schema.properties.ExclusiveIp.description
         self.access_type = access_type  # type: str
+        # $.parameters[3].schema.properties.Http2Enabled.description
         self.domain = domain  # type: str
+        # $.parameters[3].schema.properties.HttpPorts.enumValueTitles
         self.instance_id = instance_id  # type: str
+        # $.parameters[3].schema.properties.Http2Enabled.example
         self.listen = listen  # type: CreateDomainRequestListen
+        # $.parameters[3].schema.properties.CustomCiphers.enumValueTitles
         self.redirect = redirect  # type: CreateDomainRequestRedirect
+        # $.parameters[3].schema.properties.ProtectionResource.enumValueTitles
         self.region_id = region_id  # type: str
+        self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
+        # $.parameters[3].schema.properties.ExclusiveIp.example
+        self.source_ip = source_ip  # type: str
 
     def validate(self):
         if self.listen:
@@ -684,6 +863,10 @@ class CreateDomainRequest(TeaModel):
             result['Redirect'] = self.redirect.to_map()
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_manager_resource_group_id is not None:
+            result['ResourceManagerResourceGroupId'] = self.resource_manager_resource_group_id
+        if self.source_ip is not None:
+            result['SourceIp'] = self.source_ip
         return result
 
     def from_map(self, m=None):
@@ -702,18 +885,31 @@ class CreateDomainRequest(TeaModel):
             self.redirect = temp_model.from_map(m['Redirect'])
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceManagerResourceGroupId') is not None:
+            self.resource_manager_resource_group_id = m.get('ResourceManagerResourceGroupId')
+        if m.get('SourceIp') is not None:
+            self.source_ip = m.get('SourceIp')
         return self
 
 
 class CreateDomainShrinkRequest(TeaModel):
     def __init__(self, access_type=None, domain=None, instance_id=None, listen_shrink=None, redirect_shrink=None,
-                 region_id=None):
+                 region_id=None, resource_manager_resource_group_id=None, source_ip=None):
+        # $.parameters[3].schema.properties.ExclusiveIp.description
         self.access_type = access_type  # type: str
+        # $.parameters[3].schema.properties.Http2Enabled.description
         self.domain = domain  # type: str
+        # $.parameters[3].schema.properties.HttpPorts.enumValueTitles
         self.instance_id = instance_id  # type: str
+        # $.parameters[3].schema.properties.Http2Enabled.example
         self.listen_shrink = listen_shrink  # type: str
+        # $.parameters[3].schema.properties.CustomCiphers.enumValueTitles
         self.redirect_shrink = redirect_shrink  # type: str
+        # $.parameters[3].schema.properties.ProtectionResource.enumValueTitles
         self.region_id = region_id  # type: str
+        self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
+        # $.parameters[3].schema.properties.ExclusiveIp.example
+        self.source_ip = source_ip  # type: str
 
     def validate(self):
         pass
@@ -736,6 +932,10 @@ class CreateDomainShrinkRequest(TeaModel):
             result['Redirect'] = self.redirect_shrink
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_manager_resource_group_id is not None:
+            result['ResourceManagerResourceGroupId'] = self.resource_manager_resource_group_id
+        if self.source_ip is not None:
+            result['SourceIp'] = self.source_ip
         return result
 
     def from_map(self, m=None):
@@ -752,12 +952,18 @@ class CreateDomainShrinkRequest(TeaModel):
             self.redirect_shrink = m.get('Redirect')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceManagerResourceGroupId') is not None:
+            self.resource_manager_resource_group_id = m.get('ResourceManagerResourceGroupId')
+        if m.get('SourceIp') is not None:
+            self.source_ip = m.get('SourceIp')
         return self
 
 
 class CreateDomainResponseBodyDomainInfo(TeaModel):
     def __init__(self, cname=None, domain=None):
+        # $.parameters[3].schema.enumValueTitles
         self.cname = cname  # type: str
+        # $.parameters[4].schema.properties.Backends.items.description
         self.domain = domain  # type: str
 
     def validate(self):
@@ -786,7 +992,9 @@ class CreateDomainResponseBodyDomainInfo(TeaModel):
 
 class CreateDomainResponseBody(TeaModel):
     def __init__(self, domain_info=None, request_id=None):
+        # $.parameters[3].schema.example
         self.domain_info = domain_info  # type: CreateDomainResponseBodyDomainInfo
+        # $.parameters[3].schema.description
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -855,13 +1063,28 @@ class CreateDomainResponse(TeaModel):
 
 
 class CreateMajorProtectionBlackIpRequest(TeaModel):
-    def __init__(self, description=None, expired_time=None, instance_id=None, ip_list=None, rule_id=None,
-                 template_id=None):
+    def __init__(self, description=None, expired_time=None, instance_id=None, ip_list=None, region_id=None,
+                 resource_manager_resource_group_id=None, rule_id=None, template_id=None):
+        # The description of the IP address blacklist.
         self.description = description  # type: str
+        # The time after which the IP address blacklist becomes invalid. Unit: seconds.
+        # 
+        # >  If you set the value to **0**, the blacklist is permanently valid.
         self.expired_time = expired_time  # type: long
+        # The ID of the Web Application Firewall (WAF) instance.
         self.instance_id = instance_id  # type: str
+        # The IP addresses that you want to add to the IP address blacklist. CIDR blocks and IP addresses are supported. IPv4 and IPv6 addresses are supported. Separate the CIDR blocks or IP addresses with commas (,). For more information, see [Protection for major events](~~425591~~).
         self.ip_list = ip_list  # type: str
+        # The region where the WAF instance resides. Valid values:
+        # 
+        # *   **cn-hangzhou:** the Chinese mainland.
+        # *   **ap-southeast-1:** outside the Chinese mainland.
+        self.region_id = region_id  # type: str
+        # The ID of the resource group.
+        self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
+        # The ID of the IP address blacklist rule for major event protection.
         self.rule_id = rule_id  # type: long
+        # The ID of the major event protection template.
         self.template_id = template_id  # type: long
 
     def validate(self):
@@ -881,6 +1104,10 @@ class CreateMajorProtectionBlackIpRequest(TeaModel):
             result['InstanceId'] = self.instance_id
         if self.ip_list is not None:
             result['IpList'] = self.ip_list
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_manager_resource_group_id is not None:
+            result['ResourceManagerResourceGroupId'] = self.resource_manager_resource_group_id
         if self.rule_id is not None:
             result['RuleId'] = self.rule_id
         if self.template_id is not None:
@@ -897,6 +1124,10 @@ class CreateMajorProtectionBlackIpRequest(TeaModel):
             self.instance_id = m.get('InstanceId')
         if m.get('IpList') is not None:
             self.ip_list = m.get('IpList')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceManagerResourceGroupId') is not None:
+            self.resource_manager_resource_group_id = m.get('ResourceManagerResourceGroupId')
         if m.get('RuleId') is not None:
             self.rule_id = m.get('RuleId')
         if m.get('TemplateId') is not None:
@@ -906,6 +1137,7 @@ class CreateMajorProtectionBlackIpRequest(TeaModel):
 
 class CreateMajorProtectionBlackIpResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -968,9 +1200,20 @@ class CreateMajorProtectionBlackIpResponse(TeaModel):
 
 
 class DeleteDefenseResourceGroupRequest(TeaModel):
-    def __init__(self, group_name=None, instance_id=None):
+    def __init__(self, group_name=None, instance_id=None, region_id=None, resource_manager_resource_group_id=None):
+        # The name of the protected object group that you want to delete.
         self.group_name = group_name  # type: str
+        # The ID of the Web Application Firewall (WAF) instance.
+        # 
+        # >  You can call the [DescribeInstance](~~433756~~) operation to obtain the ID of the WAF instance.
         self.instance_id = instance_id  # type: str
+        # The region where the WAF instance resides. Valid values:
+        # 
+        # *   **cn-hangzhou:** the Chinese mainland.
+        # *   **ap-southeast-1:** outside the Chinese mainland.
+        self.region_id = region_id  # type: str
+        # The ID of the resource group.
+        self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
 
     def validate(self):
         pass
@@ -985,6 +1228,10 @@ class DeleteDefenseResourceGroupRequest(TeaModel):
             result['GroupName'] = self.group_name
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_manager_resource_group_id is not None:
+            result['ResourceManagerResourceGroupId'] = self.resource_manager_resource_group_id
         return result
 
     def from_map(self, m=None):
@@ -993,11 +1240,16 @@ class DeleteDefenseResourceGroupRequest(TeaModel):
             self.group_name = m.get('GroupName')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceManagerResourceGroupId') is not None:
+            self.resource_manager_resource_group_id = m.get('ResourceManagerResourceGroupId')
         return self
 
 
 class DeleteDefenseResourceGroupResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1060,9 +1312,22 @@ class DeleteDefenseResourceGroupResponse(TeaModel):
 
 
 class DeleteDefenseRuleRequest(TeaModel):
-    def __init__(self, instance_id=None, rule_ids=None, template_id=None):
+    def __init__(self, instance_id=None, region_id=None, resource_manager_resource_group_id=None, rule_ids=None,
+                 template_id=None):
+        # The ID of the Web Application Firewall (WAF) instance.
+        # 
+        # >  You can call the [DescribeInstance](~~433756~~) operation to obtain the ID of the WAF instance.
         self.instance_id = instance_id  # type: str
+        # The region where the WAF instance resides. Valid values:
+        # 
+        # *   **cn-hangzhou:** the Chinese mainland.
+        # *   **ap-southeast-1:** outside the Chinese mainland.
+        self.region_id = region_id  # type: str
+        # The ID of the resource group.
+        self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
+        # The IDs of the protection rules that you want to delete. Separate the IDs with commas (,).
         self.rule_ids = rule_ids  # type: str
+        # The ID of the protection rule template to which the protection rule that you want to delete belongs.
         self.template_id = template_id  # type: long
 
     def validate(self):
@@ -1076,6 +1341,10 @@ class DeleteDefenseRuleRequest(TeaModel):
         result = dict()
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_manager_resource_group_id is not None:
+            result['ResourceManagerResourceGroupId'] = self.resource_manager_resource_group_id
         if self.rule_ids is not None:
             result['RuleIds'] = self.rule_ids
         if self.template_id is not None:
@@ -1086,6 +1355,10 @@ class DeleteDefenseRuleRequest(TeaModel):
         m = m or dict()
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceManagerResourceGroupId') is not None:
+            self.resource_manager_resource_group_id = m.get('ResourceManagerResourceGroupId')
         if m.get('RuleIds') is not None:
             self.rule_ids = m.get('RuleIds')
         if m.get('TemplateId') is not None:
@@ -1095,6 +1368,7 @@ class DeleteDefenseRuleRequest(TeaModel):
 
 class DeleteDefenseRuleResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1157,8 +1431,19 @@ class DeleteDefenseRuleResponse(TeaModel):
 
 
 class DeleteDefenseTemplateRequest(TeaModel):
-    def __init__(self, instance_id=None, template_id=None):
+    def __init__(self, instance_id=None, region_id=None, resource_manager_resource_group_id=None, template_id=None):
+        # The ID of the Web Application Firewall (WAF) instance.
+        # 
+        # >  You can call the [DescribeInstance](~~433756~~) operation to obtain the ID of the WAF instance.
         self.instance_id = instance_id  # type: str
+        # The region where the WAF instance resides. Valid values:
+        # 
+        # *   **cn-hangzhou:** the Chinese mainland.
+        # *   **ap-southeast-1:** outside the Chinese mainland.
+        self.region_id = region_id  # type: str
+        # The ID of the resource group.
+        self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
+        # The ID of the protection rule template that you want to delete.
         self.template_id = template_id  # type: long
 
     def validate(self):
@@ -1172,6 +1457,10 @@ class DeleteDefenseTemplateRequest(TeaModel):
         result = dict()
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_manager_resource_group_id is not None:
+            result['ResourceManagerResourceGroupId'] = self.resource_manager_resource_group_id
         if self.template_id is not None:
             result['TemplateId'] = self.template_id
         return result
@@ -1180,6 +1469,10 @@ class DeleteDefenseTemplateRequest(TeaModel):
         m = m or dict()
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceManagerResourceGroupId') is not None:
+            self.resource_manager_resource_group_id = m.get('ResourceManagerResourceGroupId')
         if m.get('TemplateId') is not None:
             self.template_id = m.get('TemplateId')
         return self
@@ -1187,6 +1480,7 @@ class DeleteDefenseTemplateRequest(TeaModel):
 
 class DeleteDefenseTemplateResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1249,11 +1543,28 @@ class DeleteDefenseTemplateResponse(TeaModel):
 
 
 class DeleteDomainRequest(TeaModel):
-    def __init__(self, access_type=None, domain=None, instance_id=None, region_id=None):
+    def __init__(self, access_type=None, domain=None, domain_id=None, instance_id=None, region_id=None,
+                 source_ip=None):
+        # The mode in which the domain name is added to WAF. Valid values:
+        # 
+        # *   **share:** CNAME record mode. This is the default value.
+        # *   **hybrid_cloud_cname:** hybrid cloud reverse proxy mode.
         self.access_type = access_type  # type: str
+        # The domain name that you want to delete.
         self.domain = domain  # type: str
+        # The ID of the domain name.
+        self.domain_id = domain_id  # type: str
+        # The ID of the WAF instance.
+        # 
+        # >  You can call the [DescribeInstance](~~433756~~) operation to obtain the ID of the WAF instance.
         self.instance_id = instance_id  # type: str
+        # The region where the WAF instance resides. Valid values:
+        # 
+        # *   **cn-hangzhou:** the Chinese mainland.
+        # *   **ap-southeast-1:** outside the Chinese mainland.
         self.region_id = region_id  # type: str
+        # The source IP address of the request. The value of this parameter is specified by the system.
+        self.source_ip = source_ip  # type: str
 
     def validate(self):
         pass
@@ -1268,10 +1579,14 @@ class DeleteDomainRequest(TeaModel):
             result['AccessType'] = self.access_type
         if self.domain is not None:
             result['Domain'] = self.domain
+        if self.domain_id is not None:
+            result['DomainId'] = self.domain_id
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.source_ip is not None:
+            result['SourceIp'] = self.source_ip
         return result
 
     def from_map(self, m=None):
@@ -1280,15 +1595,20 @@ class DeleteDomainRequest(TeaModel):
             self.access_type = m.get('AccessType')
         if m.get('Domain') is not None:
             self.domain = m.get('Domain')
+        if m.get('DomainId') is not None:
+            self.domain_id = m.get('DomainId')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('SourceIp') is not None:
+            self.source_ip = m.get('SourceIp')
         return self
 
 
 class DeleteDomainResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1351,10 +1671,24 @@ class DeleteDomainResponse(TeaModel):
 
 
 class DeleteMajorProtectionBlackIpRequest(TeaModel):
-    def __init__(self, instance_id=None, ip_list=None, rule_id=None, template_id=None):
+    def __init__(self, instance_id=None, ip_list=None, region_id=None, resource_manager_resource_group_id=None,
+                 rule_id=None, template_id=None):
+        # The ID of the Web Application Firewall (WAF) instance.
+        # 
+        # >  You can call the [DescribeInstance](~~433756~~) operation to obtain the ID of the WAF instance.
         self.instance_id = instance_id  # type: str
+        # The IP address blacklist for major event protection that you want to delete. You can specify multiple CIDR blocks or IP addresses. IPv4 and IPv6 addresses are supported. Separate the CIDR blocks or IP addresses with commas (,). For more information, see [Protection for major events](~~425591~~).
         self.ip_list = ip_list  # type: str
+        # The region where the WAF instance resides. Valid values:
+        # 
+        # *   **cn-hangzhou:** the Chinese mainland.
+        # *   **ap-southeast-1:** outside the Chinese mainland.
+        self.region_id = region_id  # type: str
+        # The ID of the resource group.
+        self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
+        # The ID of the IP address blacklist rule for major event protection.
         self.rule_id = rule_id  # type: long
+        # The ID of the IP address blacklist rule template for major event protection.
         self.template_id = template_id  # type: long
 
     def validate(self):
@@ -1370,6 +1704,10 @@ class DeleteMajorProtectionBlackIpRequest(TeaModel):
             result['InstanceId'] = self.instance_id
         if self.ip_list is not None:
             result['IpList'] = self.ip_list
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_manager_resource_group_id is not None:
+            result['ResourceManagerResourceGroupId'] = self.resource_manager_resource_group_id
         if self.rule_id is not None:
             result['RuleId'] = self.rule_id
         if self.template_id is not None:
@@ -1382,6 +1720,10 @@ class DeleteMajorProtectionBlackIpRequest(TeaModel):
             self.instance_id = m.get('InstanceId')
         if m.get('IpList') is not None:
             self.ip_list = m.get('IpList')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceManagerResourceGroupId') is not None:
+            self.resource_manager_resource_group_id = m.get('ResourceManagerResourceGroupId')
         if m.get('RuleId') is not None:
             self.rule_id = m.get('RuleId')
         if m.get('TemplateId') is not None:
@@ -1391,6 +1733,7 @@ class DeleteMajorProtectionBlackIpRequest(TeaModel):
 
 class DeleteMajorProtectionBlackIpResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1453,9 +1796,20 @@ class DeleteMajorProtectionBlackIpResponse(TeaModel):
 
 
 class DescribeDefenseResourceGroupRequest(TeaModel):
-    def __init__(self, group_name=None, instance_id=None):
+    def __init__(self, group_name=None, instance_id=None, region_id=None, resource_manager_resource_group_id=None):
+        # The name of the protected object group whose information you want to query.
         self.group_name = group_name  # type: str
+        # The ID of the Web Application Firewall (WAF) instance.
+        # 
+        # >  You can call the [DescribeInstance](~~433756~~) operation to obtain the ID of the WAF instance.
         self.instance_id = instance_id  # type: str
+        # The region where the WAF instance resides. Valid values:
+        # 
+        # *   **cn-hangzhou:** the Chinese mainland.
+        # *   **ap-southeast-1:** outside the Chinese mainland.
+        self.region_id = region_id  # type: str
+        # The ID of the Alibaba Cloud resource group.
+        self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
 
     def validate(self):
         pass
@@ -1470,6 +1824,10 @@ class DescribeDefenseResourceGroupRequest(TeaModel):
             result['GroupName'] = self.group_name
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_manager_resource_group_id is not None:
+            result['ResourceManagerResourceGroupId'] = self.resource_manager_resource_group_id
         return result
 
     def from_map(self, m=None):
@@ -1478,15 +1836,24 @@ class DescribeDefenseResourceGroupRequest(TeaModel):
             self.group_name = m.get('GroupName')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceManagerResourceGroupId') is not None:
+            self.resource_manager_resource_group_id = m.get('ResourceManagerResourceGroupId')
         return self
 
 
 class DescribeDefenseResourceGroupResponseBodyGroup(TeaModel):
     def __init__(self, description=None, gmt_create=None, gmt_modified=None, group_name=None, resource_list=None):
+        # The description of the protected object group.
         self.description = description  # type: str
+        # The time when the protected object group was created.
         self.gmt_create = gmt_create  # type: long
+        # The most recent time when the protected object group was modified.
         self.gmt_modified = gmt_modified  # type: long
+        # The name of the protected object group.
         self.group_name = group_name  # type: str
+        # The protected objects in the protected object group. The protected objects are separated with commas (,).
         self.resource_list = resource_list  # type: str
 
     def validate(self):
@@ -1527,7 +1894,9 @@ class DescribeDefenseResourceGroupResponseBodyGroup(TeaModel):
 
 class DescribeDefenseResourceGroupResponseBody(TeaModel):
     def __init__(self, group=None, request_id=None):
+        # The information about the protected object group.
         self.group = group  # type: DescribeDefenseResourceGroupResponseBodyGroup
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1595,15 +1964,66 @@ class DescribeDefenseResourceGroupResponse(TeaModel):
         return self
 
 
-class DescribeDefenseResourcesRequest(TeaModel):
-    def __init__(self, instance_id=None, page_number=None, page_size=None, query=None):
-        self.instance_id = instance_id  # type: str
-        self.page_number = page_number  # type: int
-        self.page_size = page_size  # type: int
-        self.query = query  # type: str
+class DescribeDefenseResourcesRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
 
     def validate(self):
         pass
+
+    def to_map(self):
+        _map = super(DescribeDefenseResourcesRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class DescribeDefenseResourcesRequest(TeaModel):
+    def __init__(self, instance_id=None, page_number=None, page_size=None, query=None, region_id=None,
+                 resource_manager_resource_group_id=None, source_ip=None, tag=None):
+        # The ID of the Web Application Firewall (WAF) instance.
+        # 
+        # >  You can call the [DescribeInstance](~~433756~~) operation to obtain the ID of the WAF instance.
+        self.instance_id = instance_id  # type: str
+        # The number of the page to return. Default value: **1**.
+        self.page_number = page_number  # type: int
+        # The number of entries to return on each page. Default value: **10**.
+        self.page_size = page_size  # type: int
+        # The query conditions. Specify the value of this parameter as a string in the JSON format.
+        # 
+        # >  The results vary based on the query condition. For more information, see the "**Query parameters**" section in this topic.
+        self.query = query  # type: str
+        # The region where the WAF instance resides. Valid values:
+        # 
+        # *   **cn-hangzhou:** the Chinese mainland.
+        # *   **ap-southeast-1:** outside the Chinese mainland.
+        self.region_id = region_id  # type: str
+        # The ID of the resource group.
+        self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
+        # The source IP address of the request. The value of this parameter is specified by the system.
+        self.source_ip = source_ip  # type: str
+        self.tag = tag  # type: list[DescribeDefenseResourcesRequestTag]
+
+    def validate(self):
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(DescribeDefenseResourcesRequest, self).to_map()
@@ -1619,6 +2039,16 @@ class DescribeDefenseResourcesRequest(TeaModel):
             result['PageSize'] = self.page_size
         if self.query is not None:
             result['Query'] = self.query
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_manager_resource_group_id is not None:
+            result['ResourceManagerResourceGroupId'] = self.resource_manager_resource_group_id
+        if self.source_ip is not None:
+            result['SourceIp'] = self.source_ip
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m=None):
@@ -1631,22 +2061,47 @@ class DescribeDefenseResourcesRequest(TeaModel):
             self.page_size = m.get('PageSize')
         if m.get('Query') is not None:
             self.query = m.get('Query')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceManagerResourceGroupId') is not None:
+            self.resource_manager_resource_group_id = m.get('ResourceManagerResourceGroupId')
+        if m.get('SourceIp') is not None:
+            self.source_ip = m.get('SourceIp')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = DescribeDefenseResourcesRequestTag()
+                self.tag.append(temp_model.from_map(k))
         return self
 
 
 class DescribeDefenseResourcesResponseBodyResources(TeaModel):
     def __init__(self, custom_headers=None, description=None, detail=None, gmt_create=None, gmt_modified=None,
-                 pattern=None, product=None, resource=None, resource_group=None, resource_origin=None, xff_status=None):
+                 pattern=None, product=None, resource=None, resource_group=None, resource_manager_resource_group_id=None,
+                 resource_origin=None, xff_status=None):
+        # An array of custom XFF headers that are used to identify the originating IP addresses of clients. If the value of the XffStatus parameter is 1 and the CustomHeaders field is left empty, the first IP address in the XFF header is the originating IP address of the client.
         self.custom_headers = custom_headers  # type: list[str]
+        # The description of the protected object.
         self.description = description  # type: str
+        # The description of the protected object. Different key-value pairs in a map indicate different properties of the protected object.
         self.detail = detail  # type: dict[str, any]
+        # The creation time of the protected object. Unit: seconds.
         self.gmt_create = gmt_create  # type: long
+        # The most recent modification time of the protected object. Unit: seconds.
         self.gmt_modified = gmt_modified  # type: long
+        # The protection pattern.
         self.pattern = pattern  # type: str
+        # The name of the cloud service.
         self.product = product  # type: str
+        # The name of the protected object.
         self.resource = resource  # type: str
+        # The name of the protected object group to which the protected object belongs.
         self.resource_group = resource_group  # type: str
+        # The ID of the resource group.
+        self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
+        # The origin of the protected object.
         self.resource_origin = resource_origin  # type: str
+        # Indicates whether the X-Forwarded-For (XFF) header is used.
         self.xff_status = xff_status  # type: int
 
     def validate(self):
@@ -1676,6 +2131,8 @@ class DescribeDefenseResourcesResponseBodyResources(TeaModel):
             result['Resource'] = self.resource
         if self.resource_group is not None:
             result['ResourceGroup'] = self.resource_group
+        if self.resource_manager_resource_group_id is not None:
+            result['ResourceManagerResourceGroupId'] = self.resource_manager_resource_group_id
         if self.resource_origin is not None:
             result['ResourceOrigin'] = self.resource_origin
         if self.xff_status is not None:
@@ -1702,6 +2159,8 @@ class DescribeDefenseResourcesResponseBodyResources(TeaModel):
             self.resource = m.get('Resource')
         if m.get('ResourceGroup') is not None:
             self.resource_group = m.get('ResourceGroup')
+        if m.get('ResourceManagerResourceGroupId') is not None:
+            self.resource_manager_resource_group_id = m.get('ResourceManagerResourceGroupId')
         if m.get('ResourceOrigin') is not None:
             self.resource_origin = m.get('ResourceOrigin')
         if m.get('XffStatus') is not None:
@@ -1711,8 +2170,11 @@ class DescribeDefenseResourcesResponseBodyResources(TeaModel):
 
 class DescribeDefenseResourcesResponseBody(TeaModel):
     def __init__(self, request_id=None, resources=None, total_count=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # An array of protected objects.
         self.resources = resources  # type: list[DescribeDefenseResourcesResponseBodyResources]
+        # The total number of entries that are returned.
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -1791,9 +2253,22 @@ class DescribeDefenseResourcesResponse(TeaModel):
 
 
 class DescribeDefenseRuleRequest(TeaModel):
-    def __init__(self, instance_id=None, rule_id=None, template_id=None):
+    def __init__(self, instance_id=None, region_id=None, resource_manager_resource_group_id=None, rule_id=None,
+                 template_id=None):
+        # The ID of the Web Application Firewall (WAF) instance.
+        # 
+        # >  You can call the [DescribeInstance](~~433756~~) operation to obtain the ID of the WAF instance.
         self.instance_id = instance_id  # type: str
+        # The region where the WAF instance resides. Valid values:
+        # 
+        # *   **cn-hangzhou:** the Chinese mainland
+        # *   **ap-southeast-1:** outside the Chinese mainland.
+        self.region_id = region_id  # type: str
+        # The ID of the resource group.
+        self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
+        # The ID of the protection rule that you want to query.
         self.rule_id = rule_id  # type: long
+        # The ID of the protection rule template to which the protection rule that you want to query belongs.
         self.template_id = template_id  # type: long
 
     def validate(self):
@@ -1807,6 +2282,10 @@ class DescribeDefenseRuleRequest(TeaModel):
         result = dict()
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_manager_resource_group_id is not None:
+            result['ResourceManagerResourceGroupId'] = self.resource_manager_resource_group_id
         if self.rule_id is not None:
             result['RuleId'] = self.rule_id
         if self.template_id is not None:
@@ -1817,6 +2296,10 @@ class DescribeDefenseRuleRequest(TeaModel):
         m = m or dict()
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceManagerResourceGroupId') is not None:
+            self.resource_manager_resource_group_id = m.get('ResourceManagerResourceGroupId')
         if m.get('RuleId') is not None:
             self.rule_id = m.get('RuleId')
         if m.get('TemplateId') is not None:
@@ -1827,13 +2310,27 @@ class DescribeDefenseRuleRequest(TeaModel):
 class DescribeDefenseRuleResponseBodyRule(TeaModel):
     def __init__(self, config=None, defense_origin=None, defense_scene=None, gmt_modified=None, rule_id=None,
                  rule_name=None, status=None, template_id=None):
+        # The details of the protection rule. The value of this parameter is a string that contains multiple parameters in the JSON format. For more information, see the "**Protection rule parameters**" section in the [CreateDefenseRule](~~ID~~) topic.
         self.config = config  # type: str
+        # The origin of the protection rule. Valid values:
+        # 
+        # *   **custom:** The protection rule is created by the user.
+        # *   **system:** The protection rule is automatically generated by the system.
         self.defense_origin = defense_origin  # type: str
+        # The scenario in which the protection rule template is used. For more information, see the description of the **DefenseScene** parameter in the [CreateDefenseRule](~~ID~~) topic.
         self.defense_scene = defense_scene  # type: str
+        # The most recent time when the protection rule was modified.
         self.gmt_modified = gmt_modified  # type: long
+        # The ID of the protection rule.
         self.rule_id = rule_id  # type: long
+        # The name of the protection rule.
         self.rule_name = rule_name  # type: str
+        # The status of the protection rule. Valid values:
+        # 
+        # *   **0:** disabled.
+        # *   **1:** enabled.
         self.status = status  # type: int
+        # The ID of the protection rule template.
         self.template_id = template_id  # type: long
 
     def validate(self):
@@ -1886,7 +2383,9 @@ class DescribeDefenseRuleResponseBodyRule(TeaModel):
 
 class DescribeDefenseRuleResponseBody(TeaModel):
     def __init__(self, request_id=None, rule=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The configurations of the protection rule. The value of this parameter is a string that contains multiple parameters in the JSON format.
         self.rule = rule  # type: DescribeDefenseRuleResponseBodyRule
 
     def validate(self):
@@ -1955,11 +2454,31 @@ class DescribeDefenseRuleResponse(TeaModel):
 
 
 class DescribeDefenseRulesRequest(TeaModel):
-    def __init__(self, instance_id=None, page_number=None, page_size=None, query=None, rule_type=None):
+    def __init__(self, instance_id=None, page_number=None, page_size=None, query=None, region_id=None,
+                 resource_manager_resource_group_id=None, rule_type=None):
+        # The ID of the Web Application Firewall (WAF) instance.
+        # 
+        # >  You can call the [DescribeInstance](~~433756~~) operation to obtain the ID of the WAF instance.
         self.instance_id = instance_id  # type: str
+        # The number of the page to return. Default value: **1**.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page. Default value: **10**.
         self.page_size = page_size  # type: int
+        # The query conditions. Specify a string that contains multiple parameters in the JSON format.
+        # 
+        # >  The results vary based on the query conditions. For more information, see the "**Query parameters**" section in this topic.
         self.query = query  # type: str
+        # The region where the WAF instance resides. Valid values:
+        # 
+        # *   **cn-hangzhou:** the Chinese mainland.
+        # *   **ap-southeast-1:** outside the Chinese mainland.
+        self.region_id = region_id  # type: str
+        # The ID of the resource group.
+        self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
+        # The type of protection rule that you want to query. Valid values:
+        # 
+        # *   **whitelist:** whitelist rule.
+        # *   **defense:** defense rule. This is the default value.
         self.rule_type = rule_type  # type: str
 
     def validate(self):
@@ -1979,6 +2498,10 @@ class DescribeDefenseRulesRequest(TeaModel):
             result['PageSize'] = self.page_size
         if self.query is not None:
             result['Query'] = self.query
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_manager_resource_group_id is not None:
+            result['ResourceManagerResourceGroupId'] = self.resource_manager_resource_group_id
         if self.rule_type is not None:
             result['RuleType'] = self.rule_type
         return result
@@ -1993,6 +2516,10 @@ class DescribeDefenseRulesRequest(TeaModel):
             self.page_size = m.get('PageSize')
         if m.get('Query') is not None:
             self.query = m.get('Query')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceManagerResourceGroupId') is not None:
+            self.resource_manager_resource_group_id = m.get('ResourceManagerResourceGroupId')
         if m.get('RuleType') is not None:
             self.rule_type = m.get('RuleType')
         return self
@@ -2001,13 +2528,27 @@ class DescribeDefenseRulesRequest(TeaModel):
 class DescribeDefenseRulesResponseBodyRules(TeaModel):
     def __init__(self, config=None, defense_origin=None, defense_scene=None, gmt_modified=None, rule_id=None,
                  rule_name=None, status=None, template_id=None):
+        # The details of the protection rule. The value is a string that contains multiple parameters in the JSON format. For more information, see the "**Rule parameters**" section in the [CreateDefenseRule](~~CreateDefenseRule~~) topic.
         self.config = config  # type: str
+        # The origin of the protection rule. Valid values:
+        # 
+        # *   **custom:** The protection rule is created by the user.
+        # *   **system:** The protection rule is automatically generated by the system.
         self.defense_origin = defense_origin  # type: str
+        # The scenario in which the protection rule is used. For more information, see the description of the **DefenseScene** parameter in the [CreateDefenseRule](~~CreateDefenseRule~~) topic.
         self.defense_scene = defense_scene  # type: str
+        # The most recent time when the protection rule was modified.
         self.gmt_modified = gmt_modified  # type: long
+        # The ID of the protection rule.
         self.rule_id = rule_id  # type: long
+        # The name of the protection rule.
         self.rule_name = rule_name  # type: str
+        # The status of the protection rule. Valid values:
+        # 
+        # *   **0:** disabled.
+        # *   **1:** enabled.
         self.status = status  # type: int
+        # The ID of the protection rule template.
         self.template_id = template_id  # type: long
 
     def validate(self):
@@ -2060,8 +2601,11 @@ class DescribeDefenseRulesResponseBodyRules(TeaModel):
 
 class DescribeDefenseRulesResponseBody(TeaModel):
     def __init__(self, request_id=None, rules=None, total_count=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # An array of protection rules.
         self.rules = rules  # type: list[DescribeDefenseRulesResponseBodyRules]
+        # The total number of returned entries.
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -2140,8 +2684,19 @@ class DescribeDefenseRulesResponse(TeaModel):
 
 
 class DescribeDefenseTemplateRequest(TeaModel):
-    def __init__(self, instance_id=None, template_id=None):
+    def __init__(self, instance_id=None, region_id=None, resource_manager_resource_group_id=None, template_id=None):
+        # The ID of the Web Application Firewall (WAF) instance.
+        # 
+        # >  You can call the [DescribeInstance](~~433756~~) operation to obtain the ID of the WAF instance.
         self.instance_id = instance_id  # type: str
+        # The region where the WAF instance resides. Valid values:
+        # 
+        # *   **cn-hangzhou:** the Chinese mainland.
+        # *   **ap-southeast-1:** outside the Chinese mainland.
+        self.region_id = region_id  # type: str
+        # The ID of the resource group.
+        self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
+        # The ID of the protection rule template.
         self.template_id = template_id  # type: long
 
     def validate(self):
@@ -2155,6 +2710,10 @@ class DescribeDefenseTemplateRequest(TeaModel):
         result = dict()
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_manager_resource_group_id is not None:
+            result['ResourceManagerResourceGroupId'] = self.resource_manager_resource_group_id
         if self.template_id is not None:
             result['TemplateId'] = self.template_id
         return result
@@ -2163,6 +2722,10 @@ class DescribeDefenseTemplateRequest(TeaModel):
         m = m or dict()
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceManagerResourceGroupId') is not None:
+            self.resource_manager_resource_group_id = m.get('ResourceManagerResourceGroupId')
         if m.get('TemplateId') is not None:
             self.template_id = m.get('TemplateId')
         return self
@@ -2171,13 +2734,27 @@ class DescribeDefenseTemplateRequest(TeaModel):
 class DescribeDefenseTemplateResponseBodyTemplate(TeaModel):
     def __init__(self, defense_scene=None, description=None, gmt_modified=None, template_id=None,
                  template_name=None, template_origin=None, template_status=None, template_type=None):
+        # The scenario in which the protection rule template is used. For more information, see the description of the **DefenseScene** parameter in the [CreateDefenseRule](~~ID~~) topic.
         self.defense_scene = defense_scene  # type: str
+        # The description of the protection rule template.
         self.description = description  # type: str
+        # The most recent time when the protection rule template was modified.
         self.gmt_modified = gmt_modified  # type: long
+        # The ID of the protection rule template.
         self.template_id = template_id  # type: long
+        # The name of the protection rule template.
         self.template_name = template_name  # type: str
+        # The origin of the protection rule template. If the value of this parameter is custom, the protection rule template is created by the user.
         self.template_origin = template_origin  # type: str
+        # The status of the protection rule template. Valid values:
+        # 
+        # *   **0:** disabled.
+        # *   **1:** enabled.
         self.template_status = template_status  # type: int
+        # The type of the protection rule template. Valid values:
+        # 
+        # *   **user_default:** default template.
+        # *   **user_custom:** custom template.
         self.template_type = template_type  # type: str
 
     def validate(self):
@@ -2230,7 +2807,9 @@ class DescribeDefenseTemplateResponseBodyTemplate(TeaModel):
 
 class DescribeDefenseTemplateResponseBody(TeaModel):
     def __init__(self, request_id=None, template=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The information about the protection rule template.
         self.template = template  # type: DescribeDefenseTemplateResponseBodyTemplate
 
     def validate(self):
@@ -2299,9 +2878,11 @@ class DescribeDefenseTemplateResponse(TeaModel):
 
 
 class DescribeDomainDetailRequest(TeaModel):
-    def __init__(self, domain=None, instance_id=None):
+    def __init__(self, domain=None, instance_id=None, region_id=None, source_ip=None):
         self.domain = domain  # type: str
         self.instance_id = instance_id  # type: str
+        self.region_id = region_id  # type: str
+        self.source_ip = source_ip  # type: str
 
     def validate(self):
         pass
@@ -2316,6 +2897,10 @@ class DescribeDomainDetailRequest(TeaModel):
             result['Domain'] = self.domain
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.source_ip is not None:
+            result['SourceIp'] = self.source_ip
         return result
 
     def from_map(self, m=None):
@@ -2324,13 +2909,67 @@ class DescribeDomainDetailRequest(TeaModel):
             self.domain = m.get('Domain')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('SourceIp') is not None:
+            self.source_ip = m.get('SourceIp')
+        return self
+
+
+class DescribeDomainDetailResponseBodyCertDetail(TeaModel):
+    def __init__(self, common_name=None, end_time=None, id=None, name=None, sans=None, start_time=None):
+        self.common_name = common_name  # type: str
+        self.end_time = end_time  # type: long
+        self.id = id  # type: str
+        self.name = name  # type: str
+        self.sans = sans  # type: list[str]
+        self.start_time = start_time  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDomainDetailResponseBodyCertDetail, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_name is not None:
+            result['CommonName'] = self.common_name
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.sans is not None:
+            result['Sans'] = self.sans
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CommonName') is not None:
+            self.common_name = m.get('CommonName')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('Sans') is not None:
+            self.sans = m.get('Sans')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
         return self
 
 
 class DescribeDomainDetailResponseBodyListen(TeaModel):
     def __init__(self, cert_id=None, cipher_suite=None, custom_ciphers=None, enable_tlsv_3=None, exclusive_ip=None,
                  focus_https=None, http_2enabled=None, http_ports=None, https_ports=None, ipv_6enabled=None,
-                 protection_resource=None, tlsversion=None, xff_header_mode=None, xff_headers=None):
+                 protection_resource=None, sm2access_only=None, sm2cert_id=None, sm2enabled=None, tlsversion=None, xff_header_mode=None,
+                 xff_headers=None):
         self.cert_id = cert_id  # type: long
         self.cipher_suite = cipher_suite  # type: long
         self.custom_ciphers = custom_ciphers  # type: list[str]
@@ -2342,6 +2981,9 @@ class DescribeDomainDetailResponseBodyListen(TeaModel):
         self.https_ports = https_ports  # type: list[long]
         self.ipv_6enabled = ipv_6enabled  # type: bool
         self.protection_resource = protection_resource  # type: str
+        self.sm2access_only = sm2access_only  # type: bool
+        self.sm2cert_id = sm2cert_id  # type: bool
+        self.sm2enabled = sm2enabled  # type: bool
         self.tlsversion = tlsversion  # type: str
         self.xff_header_mode = xff_header_mode  # type: long
         self.xff_headers = xff_headers  # type: list[str]
@@ -2377,6 +3019,12 @@ class DescribeDomainDetailResponseBodyListen(TeaModel):
             result['IPv6Enabled'] = self.ipv_6enabled
         if self.protection_resource is not None:
             result['ProtectionResource'] = self.protection_resource
+        if self.sm2access_only is not None:
+            result['SM2AccessOnly'] = self.sm2access_only
+        if self.sm2cert_id is not None:
+            result['SM2CertId'] = self.sm2cert_id
+        if self.sm2enabled is not None:
+            result['SM2Enabled'] = self.sm2enabled
         if self.tlsversion is not None:
             result['TLSVersion'] = self.tlsversion
         if self.xff_header_mode is not None:
@@ -2409,6 +3057,12 @@ class DescribeDomainDetailResponseBodyListen(TeaModel):
             self.ipv_6enabled = m.get('IPv6Enabled')
         if m.get('ProtectionResource') is not None:
             self.protection_resource = m.get('ProtectionResource')
+        if m.get('SM2AccessOnly') is not None:
+            self.sm2access_only = m.get('SM2AccessOnly')
+        if m.get('SM2CertId') is not None:
+            self.sm2cert_id = m.get('SM2CertId')
+        if m.get('SM2Enabled') is not None:
+            self.sm2enabled = m.get('SM2Enabled')
         if m.get('TLSVersion') is not None:
             self.tlsversion = m.get('TLSVersion')
         if m.get('XffHeaderMode') is not None:
@@ -2574,20 +3228,77 @@ class DescribeDomainDetailResponseBodyRedirect(TeaModel):
         return self
 
 
+class DescribeDomainDetailResponseBodySM2CertDetail(TeaModel):
+    def __init__(self, common_name=None, end_time=None, id=None, name=None, sans=None, start_time=None):
+        self.common_name = common_name  # type: str
+        self.end_time = end_time  # type: long
+        self.id = id  # type: str
+        self.name = name  # type: str
+        self.sans = sans  # type: list[str]
+        self.start_time = start_time  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeDomainDetailResponseBodySM2CertDetail, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_name is not None:
+            result['CommonName'] = self.common_name
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.sans is not None:
+            result['Sans'] = self.sans
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CommonName') is not None:
+            self.common_name = m.get('CommonName')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('Sans') is not None:
+            self.sans = m.get('Sans')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        return self
+
+
 class DescribeDomainDetailResponseBody(TeaModel):
-    def __init__(self, cname=None, domain=None, listen=None, redirect=None, request_id=None, status=None):
+    def __init__(self, cert_detail=None, cname=None, domain=None, listen=None, redirect=None, request_id=None,
+                 resource_manager_resource_group_id=None, sm2cert_detail=None, status=None):
+        self.cert_detail = cert_detail  # type: DescribeDomainDetailResponseBodyCertDetail
         self.cname = cname  # type: str
         self.domain = domain  # type: str
         self.listen = listen  # type: DescribeDomainDetailResponseBodyListen
         self.redirect = redirect  # type: DescribeDomainDetailResponseBodyRedirect
         self.request_id = request_id  # type: str
+        self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
+        self.sm2cert_detail = sm2cert_detail  # type: DescribeDomainDetailResponseBodySM2CertDetail
         self.status = status  # type: long
 
     def validate(self):
+        if self.cert_detail:
+            self.cert_detail.validate()
         if self.listen:
             self.listen.validate()
         if self.redirect:
             self.redirect.validate()
+        if self.sm2cert_detail:
+            self.sm2cert_detail.validate()
 
     def to_map(self):
         _map = super(DescribeDomainDetailResponseBody, self).to_map()
@@ -2595,6 +3306,8 @@ class DescribeDomainDetailResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.cert_detail is not None:
+            result['CertDetail'] = self.cert_detail.to_map()
         if self.cname is not None:
             result['Cname'] = self.cname
         if self.domain is not None:
@@ -2605,12 +3318,19 @@ class DescribeDomainDetailResponseBody(TeaModel):
             result['Redirect'] = self.redirect.to_map()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.resource_manager_resource_group_id is not None:
+            result['ResourceManagerResourceGroupId'] = self.resource_manager_resource_group_id
+        if self.sm2cert_detail is not None:
+            result['SM2CertDetail'] = self.sm2cert_detail.to_map()
         if self.status is not None:
             result['Status'] = self.status
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('CertDetail') is not None:
+            temp_model = DescribeDomainDetailResponseBodyCertDetail()
+            self.cert_detail = temp_model.from_map(m['CertDetail'])
         if m.get('Cname') is not None:
             self.cname = m.get('Cname')
         if m.get('Domain') is not None:
@@ -2623,6 +3343,11 @@ class DescribeDomainDetailResponseBody(TeaModel):
             self.redirect = temp_model.from_map(m['Redirect'])
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('ResourceManagerResourceGroupId') is not None:
+            self.resource_manager_resource_group_id = m.get('ResourceManagerResourceGroupId')
+        if m.get('SM2CertDetail') is not None:
+            temp_model = DescribeDomainDetailResponseBodySM2CertDetail()
+            self.sm2cert_detail = temp_model.from_map(m['SM2CertDetail'])
         if m.get('Status') is not None:
             self.status = m.get('Status')
         return self
@@ -2667,16 +3392,62 @@ class DescribeDomainDetailResponse(TeaModel):
         return self
 
 
-class DescribeDomainsRequest(TeaModel):
-    def __init__(self, backend=None, domain=None, instance_id=None, page_number=None, page_size=None):
-        self.backend = backend  # type: str
-        self.domain = domain  # type: str
-        self.instance_id = instance_id  # type: str
-        self.page_number = page_number  # type: long
-        self.page_size = page_size  # type: long
+class DescribeDomainsRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        # 标签键。
+        self.key = key  # type: str
+        # 标签值
+        self.value = value  # type: str
 
     def validate(self):
         pass
+
+    def to_map(self):
+        _map = super(DescribeDomainsRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class DescribeDomainsRequest(TeaModel):
+    def __init__(self, backend=None, domain=None, instance_id=None, page_number=None, page_size=None, region_id=None,
+                 resource_manager_resource_group_id=None, source_ip=None, tag=None):
+        # An array of HTTPS listener ports.
+        self.backend = backend  # type: str
+        # The ID of the request.
+        self.domain = domain  # type: str
+        # The page number of the page to return. Default value: 1.
+        self.instance_id = instance_id  # type: str
+        # The HTTPS address of the origin server.
+        self.page_number = page_number  # type: long
+        # Queries the list of a domain name that is added to Web Application Firewall (WAF).
+        self.page_size = page_size  # type: long
+        self.region_id = region_id  # type: str
+        self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
+        # 请求源IP。无需填写，系统自动获取。
+        self.source_ip = source_ip  # type: str
+        # 资源的标签，最多支持20个子项。
+        self.tag = tag  # type: list[DescribeDomainsRequestTag]
+
+    def validate(self):
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(DescribeDomainsRequest, self).to_map()
@@ -2694,6 +3465,16 @@ class DescribeDomainsRequest(TeaModel):
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
             result['PageSize'] = self.page_size
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_manager_resource_group_id is not None:
+            result['ResourceManagerResourceGroupId'] = self.resource_manager_resource_group_id
+        if self.source_ip is not None:
+            result['SourceIp'] = self.source_ip
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m=None):
@@ -2708,6 +3489,17 @@ class DescribeDomainsRequest(TeaModel):
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceManagerResourceGroupId') is not None:
+            self.resource_manager_resource_group_id = m.get('ResourceManagerResourceGroupId')
+        if m.get('SourceIp') is not None:
+            self.source_ip = m.get('SourceIp')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = DescribeDomainsRequestTag()
+                self.tag.append(temp_model.from_map(k))
         return self
 
 
@@ -2835,11 +3627,14 @@ class DescribeDomainsResponseBodyDomainsListenPorts(TeaModel):
 
 
 class DescribeDomainsResponseBodyDomains(TeaModel):
-    def __init__(self, backeds=None, cname=None, domain=None, listen_ports=None, status=None):
+    def __init__(self, backeds=None, cname=None, domain=None, listen_ports=None,
+                 resource_manager_resource_group_id=None, status=None):
         self.backeds = backeds  # type: DescribeDomainsResponseBodyDomainsBackeds
         self.cname = cname  # type: str
         self.domain = domain  # type: str
         self.listen_ports = listen_ports  # type: DescribeDomainsResponseBodyDomainsListenPorts
+        # 阿里云资源组ID。
+        self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
         self.status = status  # type: int
 
     def validate(self):
@@ -2862,6 +3657,8 @@ class DescribeDomainsResponseBodyDomains(TeaModel):
             result['Domain'] = self.domain
         if self.listen_ports is not None:
             result['ListenPorts'] = self.listen_ports.to_map()
+        if self.resource_manager_resource_group_id is not None:
+            result['ResourceManagerResourceGroupId'] = self.resource_manager_resource_group_id
         if self.status is not None:
             result['Status'] = self.status
         return result
@@ -2878,6 +3675,8 @@ class DescribeDomainsResponseBodyDomains(TeaModel):
         if m.get('ListenPorts') is not None:
             temp_model = DescribeDomainsResponseBodyDomainsListenPorts()
             self.listen_ports = temp_model.from_map(m['ListenPorts'])
+        if m.get('ResourceManagerResourceGroupId') is not None:
+            self.resource_manager_resource_group_id = m.get('ResourceManagerResourceGroupId')
         if m.get('Status') is not None:
             self.status = m.get('Status')
         return self
@@ -2965,11 +3764,26 @@ class DescribeDomainsResponse(TeaModel):
 
 
 class DescribeFlowChartRequest(TeaModel):
-    def __init__(self, end_timestamp=None, instance_id=None, interval=None, resource=None, start_timestamp=None):
+    def __init__(self, end_timestamp=None, instance_id=None, interval=None, region_id=None, resource=None,
+                 resource_manager_resource_group_id=None, start_timestamp=None):
+        # The end of the time range to query. Unit: seconds. If you do not specify this parameter, the current time is used.
         self.end_timestamp = end_timestamp  # type: str
+        # The ID of the WAF instance.
+        # 
+        # >  You can call the [DescribeInstance](~~433756~~) operation to obtain the ID of the WAF instance.
         self.instance_id = instance_id  # type: str
+        # The time interval. Unit: seconds. The value must be an integral multiple of 60.
         self.interval = interval  # type: str
+        # The region where the WAF instance resides. Valid values:
+        # 
+        # *   **cn-hangzhou:** the Chinese mainland.
+        # *   **ap-southeast-1:** outside the Chinese mainland.
+        self.region_id = region_id  # type: str
+        # The protected object.
         self.resource = resource  # type: str
+        # The ID of the Alibaba Cloud resource group.
+        self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
+        # The beginning of the time range to query. Unit: seconds.
         self.start_timestamp = start_timestamp  # type: str
 
     def validate(self):
@@ -2987,8 +3801,12 @@ class DescribeFlowChartRequest(TeaModel):
             result['InstanceId'] = self.instance_id
         if self.interval is not None:
             result['Interval'] = self.interval
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
         if self.resource is not None:
             result['Resource'] = self.resource
+        if self.resource_manager_resource_group_id is not None:
+            result['ResourceManagerResourceGroupId'] = self.resource_manager_resource_group_id
         if self.start_timestamp is not None:
             result['StartTimestamp'] = self.start_timestamp
         return result
@@ -3001,8 +3819,12 @@ class DescribeFlowChartRequest(TeaModel):
             self.instance_id = m.get('InstanceId')
         if m.get('Interval') is not None:
             self.interval = m.get('Interval')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
         if m.get('Resource') is not None:
             self.resource = m.get('Resource')
+        if m.get('ResourceManagerResourceGroupId') is not None:
+            self.resource_manager_resource_group_id = m.get('ResourceManagerResourceGroupId')
         if m.get('StartTimestamp') is not None:
             self.start_timestamp = m.get('StartTimestamp')
         return self
@@ -3014,26 +3836,47 @@ class DescribeFlowChartResponseBodyFlowChart(TeaModel):
                  blacklist_reports_sum=None, cc_custom_block_sum=None, cc_custom_reports_sum=None, cc_system_blocks_sum=None,
                  cc_system_reports_sum=None, count=None, in_bytes=None, index=None, max_pv=None, out_bytes=None,
                  region_block_blocks_sum=None, region_block_reports_sum=None, waf_block_sum=None, waf_report_sum=None):
+        # The number of requests that are blocked by custom access control rules.
         self.acl_custom_block_sum = acl_custom_block_sum  # type: long
+        # The number of requests that are monitored by custom access control rules.
         self.acl_custom_reports_sum = acl_custom_reports_sum  # type: long
+        # The number of requests that are blocked by scan protection rules.
         self.anti_scan_block_sum = anti_scan_block_sum  # type: long
+        # The number of requests that are blocked by bot management rules.
         self.antibot_block_sum = antibot_block_sum  # type: long
+        # The number of requests that are monitored by bot management rules.
         self.antibot_report_sum = antibot_report_sum  # type: str
+        # The number of requests that are monitored by scan protection rules.
         self.antiscan_reports_sum = antiscan_reports_sum  # type: long
+        # The number of requests that are blocked by IP address blacklist rules.
         self.blacklist_block_sum = blacklist_block_sum  # type: str
+        # The number of requests that are monitored by the IP address blacklist module.
         self.blacklist_reports_sum = blacklist_reports_sum  # type: long
+        # The number of requests that are blocked by HTTP flood protection rules created by the user.
         self.cc_custom_block_sum = cc_custom_block_sum  # type: long
+        # The number of requests that are monitored by HTTP flood protection rules created by the user.
         self.cc_custom_reports_sum = cc_custom_reports_sum  # type: long
+        # The number of requests that are blocked by HTTP flood protection rules generated by the system.
         self.cc_system_blocks_sum = cc_system_blocks_sum  # type: long
+        # The number of requests that are monitored by HTTP flood protection rules generated by the system.
         self.cc_system_reports_sum = cc_system_reports_sum  # type: long
+        # The total number of requests.
         self.count = count  # type: long
+        # The total number of requests that are forwarded to WAF.
         self.in_bytes = in_bytes  # type: long
+        # The serial number of the time interval. The serial numbers are arranged in chronological order.
         self.index = index  # type: long
+        # The maximum number of requests.
         self.max_pv = max_pv  # type: long
+        # The total number of requests that are sent from WAF.
         self.out_bytes = out_bytes  # type: long
+        # The number of requests that are blocked by region blacklist rules.
         self.region_block_blocks_sum = region_block_blocks_sum  # type: long
+        # The number of requests that are monitored by region blacklist rules.
         self.region_block_reports_sum = region_block_reports_sum  # type: long
+        # The number of requests that are blocked by basic protection rules.
         self.waf_block_sum = waf_block_sum  # type: long
+        # The number of request that are monitored by basic protection rules.
         self.waf_report_sum = waf_report_sum  # type: str
 
     def validate(self):
@@ -3138,7 +3981,9 @@ class DescribeFlowChartResponseBodyFlowChart(TeaModel):
 
 class DescribeFlowChartResponseBody(TeaModel):
     def __init__(self, flow_chart=None, request_id=None):
+        # The array of the traffic statistics.
         self.flow_chart = flow_chart  # type: list[DescribeFlowChartResponseBodyFlowChart]
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3213,9 +4058,22 @@ class DescribeFlowChartResponse(TeaModel):
 
 
 class DescribeFlowTopResourceRequest(TeaModel):
-    def __init__(self, end_timestamp=None, instance_id=None, start_timestamp=None):
+    def __init__(self, end_timestamp=None, instance_id=None, region_id=None,
+                 resource_manager_resource_group_id=None, start_timestamp=None):
+        # The end of the time range to query. Unit: seconds. If you do not specify this parameter, the current time is used.
         self.end_timestamp = end_timestamp  # type: str
+        # The ID of the Web Application Firewall (WAF) instance.
+        # 
+        # >  You can call the [DescribeInstance](~~433756~~) operation to obtain the ID of the WAF instance.
         self.instance_id = instance_id  # type: str
+        # The region where the WAF instance resides. Valid values:
+        # 
+        # *   **cn-hangzhou:** the Chinese mainland.
+        # *   **ap-southeast-1:** outside the Chinese mainland.
+        self.region_id = region_id  # type: str
+        # The ID of the Alibaba Cloud resource group.
+        self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
+        # The beginning of the time range to query. Unit: seconds.
         self.start_timestamp = start_timestamp  # type: str
 
     def validate(self):
@@ -3231,6 +4089,10 @@ class DescribeFlowTopResourceRequest(TeaModel):
             result['EndTimestamp'] = self.end_timestamp
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_manager_resource_group_id is not None:
+            result['ResourceManagerResourceGroupId'] = self.resource_manager_resource_group_id
         if self.start_timestamp is not None:
             result['StartTimestamp'] = self.start_timestamp
         return result
@@ -3241,6 +4103,10 @@ class DescribeFlowTopResourceRequest(TeaModel):
             self.end_timestamp = m.get('EndTimestamp')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceManagerResourceGroupId') is not None:
+            self.resource_manager_resource_group_id = m.get('ResourceManagerResourceGroupId')
         if m.get('StartTimestamp') is not None:
             self.start_timestamp = m.get('StartTimestamp')
         return self
@@ -3248,7 +4114,9 @@ class DescribeFlowTopResourceRequest(TeaModel):
 
 class DescribeFlowTopResourceResponseBodyRuleHitsTopResource(TeaModel):
     def __init__(self, count=None, resource=None):
+        # The total number of requests received by the protected object in a specified time range.
         self.count = count  # type: long
+        # The protected object.
         self.resource = resource  # type: str
 
     def validate(self):
@@ -3277,7 +4145,9 @@ class DescribeFlowTopResourceResponseBodyRuleHitsTopResource(TeaModel):
 
 class DescribeFlowTopResourceResponseBody(TeaModel):
     def __init__(self, request_id=None, rule_hits_top_resource=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The array of the top 10 protected objects that receive requests.
         self.rule_hits_top_resource = rule_hits_top_resource  # type: list[DescribeFlowTopResourceResponseBodyRuleHitsTopResource]
 
     def validate(self):
@@ -3352,10 +4222,24 @@ class DescribeFlowTopResourceResponse(TeaModel):
 
 
 class DescribeFlowTopUrlRequest(TeaModel):
-    def __init__(self, end_timestamp=None, instance_id=None, resource=None, start_timestamp=None):
+    def __init__(self, end_timestamp=None, instance_id=None, region_id=None, resource=None,
+                 resource_manager_resource_group_id=None, start_timestamp=None):
+        # The end of the time range to query. Unit: seconds. If you do not specify this parameter, the current time is used.
         self.end_timestamp = end_timestamp  # type: str
+        # The ID of the Web Application Firewall (WAF) instance.
+        # 
+        # >  You can call the [DescribeInstance](~~433756~~) operation to obtain the ID of the WAF instance.
         self.instance_id = instance_id  # type: str
+        # The region where the WAF instance resides. Valid values:
+        # 
+        # *   **cn-hangzhou:** the Chinese mainland.
+        # *   **ap-southeast-1:** outside the Chinese mainland.
+        self.region_id = region_id  # type: str
+        # The protected object.
         self.resource = resource  # type: str
+        # The ID of the Alibaba Cloud resource group.
+        self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
+        # The beginning of the time range to query. Unit: seconds.
         self.start_timestamp = start_timestamp  # type: str
 
     def validate(self):
@@ -3371,8 +4255,12 @@ class DescribeFlowTopUrlRequest(TeaModel):
             result['EndTimestamp'] = self.end_timestamp
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
         if self.resource is not None:
             result['Resource'] = self.resource
+        if self.resource_manager_resource_group_id is not None:
+            result['ResourceManagerResourceGroupId'] = self.resource_manager_resource_group_id
         if self.start_timestamp is not None:
             result['StartTimestamp'] = self.start_timestamp
         return result
@@ -3383,8 +4271,12 @@ class DescribeFlowTopUrlRequest(TeaModel):
             self.end_timestamp = m.get('EndTimestamp')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
         if m.get('Resource') is not None:
             self.resource = m.get('Resource')
+        if m.get('ResourceManagerResourceGroupId') is not None:
+            self.resource_manager_resource_group_id = m.get('ResourceManagerResourceGroupId')
         if m.get('StartTimestamp') is not None:
             self.start_timestamp = m.get('StartTimestamp')
         return self
@@ -3392,7 +4284,9 @@ class DescribeFlowTopUrlRequest(TeaModel):
 
 class DescribeFlowTopUrlResponseBodyRuleHitsTopUrl(TeaModel):
     def __init__(self, count=None, url=None):
+        # The total number of requests that are initiated by using the URL.
         self.count = count  # type: long
+        # The URL that is used to initiate requests.
         self.url = url  # type: str
 
     def validate(self):
@@ -3421,7 +4315,9 @@ class DescribeFlowTopUrlResponseBodyRuleHitsTopUrl(TeaModel):
 
 class DescribeFlowTopUrlResponseBody(TeaModel):
     def __init__(self, request_id=None, rule_hits_top_url=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The array of the top 10 URLs that are used to initiate requests.
         self.rule_hits_top_url = rule_hits_top_url  # type: list[DescribeFlowTopUrlResponseBodyRuleHitsTopUrl]
 
     def validate(self):
@@ -3495,10 +4391,805 @@ class DescribeFlowTopUrlResponse(TeaModel):
         return self
 
 
-class DescribeInstanceRequest(TeaModel):
-    def __init__(self, region_id=None, resource_group_id=None):
+class DescribeHybridCloudGroupsRequest(TeaModel):
+    def __init__(self, cluster_id=None, cluster_proxy_type=None, group_name=None, group_type=None, instance_id=None,
+                 page_number=None, page_size=None, region_id=None, resource_manager_resource_group_id=None):
+        self.cluster_id = cluster_id  # type: long
+        self.cluster_proxy_type = cluster_proxy_type  # type: str
+        self.group_name = group_name  # type: int
+        self.group_type = group_type  # type: str
+        self.instance_id = instance_id  # type: str
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
         self.region_id = region_id  # type: str
-        self.resource_group_id = resource_group_id  # type: str
+        self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeHybridCloudGroupsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cluster_id is not None:
+            result['ClusterId'] = self.cluster_id
+        if self.cluster_proxy_type is not None:
+            result['ClusterProxyType'] = self.cluster_proxy_type
+        if self.group_name is not None:
+            result['GroupName'] = self.group_name
+        if self.group_type is not None:
+            result['GroupType'] = self.group_type
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_manager_resource_group_id is not None:
+            result['ResourceManagerResourceGroupId'] = self.resource_manager_resource_group_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClusterId') is not None:
+            self.cluster_id = m.get('ClusterId')
+        if m.get('ClusterProxyType') is not None:
+            self.cluster_proxy_type = m.get('ClusterProxyType')
+        if m.get('GroupName') is not None:
+            self.group_name = m.get('GroupName')
+        if m.get('GroupType') is not None:
+            self.group_type = m.get('GroupType')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceManagerResourceGroupId') is not None:
+            self.resource_manager_resource_group_id = m.get('ResourceManagerResourceGroupId')
+        return self
+
+
+class DescribeHybridCloudGroupsResponseBodyGroups(TeaModel):
+    def __init__(self, back_source_mark=None, continents_value=None, group_id=None, group_name=None,
+                 group_type=None, load_balance_ip=None, location_id=None, operator_value=None, ports=None,
+                 region_code_value=None, remark=None):
+        self.back_source_mark = back_source_mark  # type: str
+        self.continents_value = continents_value  # type: int
+        self.group_id = group_id  # type: int
+        self.group_name = group_name  # type: str
+        self.group_type = group_type  # type: str
+        self.load_balance_ip = load_balance_ip  # type: str
+        self.location_id = location_id  # type: long
+        self.operator_value = operator_value  # type: int
+        self.ports = ports  # type: str
+        self.region_code_value = region_code_value  # type: int
+        self.remark = remark  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeHybridCloudGroupsResponseBodyGroups, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.back_source_mark is not None:
+            result['BackSourceMark'] = self.back_source_mark
+        if self.continents_value is not None:
+            result['ContinentsValue'] = self.continents_value
+        if self.group_id is not None:
+            result['GroupId'] = self.group_id
+        if self.group_name is not None:
+            result['GroupName'] = self.group_name
+        if self.group_type is not None:
+            result['GroupType'] = self.group_type
+        if self.load_balance_ip is not None:
+            result['LoadBalanceIp'] = self.load_balance_ip
+        if self.location_id is not None:
+            result['LocationId'] = self.location_id
+        if self.operator_value is not None:
+            result['OperatorValue'] = self.operator_value
+        if self.ports is not None:
+            result['Ports'] = self.ports
+        if self.region_code_value is not None:
+            result['RegionCodeValue'] = self.region_code_value
+        if self.remark is not None:
+            result['Remark'] = self.remark
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BackSourceMark') is not None:
+            self.back_source_mark = m.get('BackSourceMark')
+        if m.get('ContinentsValue') is not None:
+            self.continents_value = m.get('ContinentsValue')
+        if m.get('GroupId') is not None:
+            self.group_id = m.get('GroupId')
+        if m.get('GroupName') is not None:
+            self.group_name = m.get('GroupName')
+        if m.get('GroupType') is not None:
+            self.group_type = m.get('GroupType')
+        if m.get('LoadBalanceIp') is not None:
+            self.load_balance_ip = m.get('LoadBalanceIp')
+        if m.get('LocationId') is not None:
+            self.location_id = m.get('LocationId')
+        if m.get('OperatorValue') is not None:
+            self.operator_value = m.get('OperatorValue')
+        if m.get('Ports') is not None:
+            self.ports = m.get('Ports')
+        if m.get('RegionCodeValue') is not None:
+            self.region_code_value = m.get('RegionCodeValue')
+        if m.get('Remark') is not None:
+            self.remark = m.get('Remark')
+        return self
+
+
+class DescribeHybridCloudGroupsResponseBody(TeaModel):
+    def __init__(self, groups=None, request_id=None, total_count=None):
+        self.groups = groups  # type: list[DescribeHybridCloudGroupsResponseBodyGroups]
+        self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        if self.groups:
+            for k in self.groups:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeHybridCloudGroupsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Groups'] = []
+        if self.groups is not None:
+            for k in self.groups:
+                result['Groups'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.groups = []
+        if m.get('Groups') is not None:
+            for k in m.get('Groups'):
+                temp_model = DescribeHybridCloudGroupsResponseBodyGroups()
+                self.groups.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class DescribeHybridCloudGroupsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeHybridCloudGroupsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeHybridCloudGroupsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeHybridCloudGroupsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeHybridCloudResourcesRequest(TeaModel):
+    def __init__(self, backend=None, cname_enabled=None, domain=None, instance_id=None, page_number=None,
+                 page_size=None, region_id=None, resource_manager_resource_group_id=None, source_ip=None):
+        self.backend = backend  # type: str
+        self.cname_enabled = cname_enabled  # type: bool
+        self.domain = domain  # type: str
+        self.instance_id = instance_id  # type: str
+        self.page_number = page_number  # type: long
+        self.page_size = page_size  # type: long
+        self.region_id = region_id  # type: str
+        self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
+        self.source_ip = source_ip  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeHybridCloudResourcesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.backend is not None:
+            result['Backend'] = self.backend
+        if self.cname_enabled is not None:
+            result['CnameEnabled'] = self.cname_enabled
+        if self.domain is not None:
+            result['Domain'] = self.domain
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_manager_resource_group_id is not None:
+            result['ResourceManagerResourceGroupId'] = self.resource_manager_resource_group_id
+        if self.source_ip is not None:
+            result['SourceIp'] = self.source_ip
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Backend') is not None:
+            self.backend = m.get('Backend')
+        if m.get('CnameEnabled') is not None:
+            self.cname_enabled = m.get('CnameEnabled')
+        if m.get('Domain') is not None:
+            self.domain = m.get('Domain')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceManagerResourceGroupId') is not None:
+            self.resource_manager_resource_group_id = m.get('ResourceManagerResourceGroupId')
+        if m.get('SourceIp') is not None:
+            self.source_ip = m.get('SourceIp')
+        return self
+
+
+class DescribeHybridCloudResourcesResponseBodyDomainsListen(TeaModel):
+    def __init__(self, cert_id=None, cipher_suite=None, custom_ciphers=None, enable_tlsv_3=None, exclusive_ip=None,
+                 focus_https=None, http_2enabled=None, http_ports=None, https_ports=None, ipv_6enabled=None,
+                 protection_resource=None, tlsversion=None, xff_header_mode=None, xff_headers=None):
+        self.cert_id = cert_id  # type: str
+        self.cipher_suite = cipher_suite  # type: int
+        self.custom_ciphers = custom_ciphers  # type: list[str]
+        self.enable_tlsv_3 = enable_tlsv_3  # type: bool
+        self.exclusive_ip = exclusive_ip  # type: bool
+        self.focus_https = focus_https  # type: bool
+        self.http_2enabled = http_2enabled  # type: bool
+        self.http_ports = http_ports  # type: list[long]
+        self.https_ports = https_ports  # type: list[long]
+        self.ipv_6enabled = ipv_6enabled  # type: bool
+        self.protection_resource = protection_resource  # type: str
+        self.tlsversion = tlsversion  # type: str
+        self.xff_header_mode = xff_header_mode  # type: int
+        self.xff_headers = xff_headers  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeHybridCloudResourcesResponseBodyDomainsListen, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cert_id is not None:
+            result['CertId'] = self.cert_id
+        if self.cipher_suite is not None:
+            result['CipherSuite'] = self.cipher_suite
+        if self.custom_ciphers is not None:
+            result['CustomCiphers'] = self.custom_ciphers
+        if self.enable_tlsv_3 is not None:
+            result['EnableTLSv3'] = self.enable_tlsv_3
+        if self.exclusive_ip is not None:
+            result['ExclusiveIp'] = self.exclusive_ip
+        if self.focus_https is not None:
+            result['FocusHttps'] = self.focus_https
+        if self.http_2enabled is not None:
+            result['Http2Enabled'] = self.http_2enabled
+        if self.http_ports is not None:
+            result['HttpPorts'] = self.http_ports
+        if self.https_ports is not None:
+            result['HttpsPorts'] = self.https_ports
+        if self.ipv_6enabled is not None:
+            result['Ipv6Enabled'] = self.ipv_6enabled
+        if self.protection_resource is not None:
+            result['ProtectionResource'] = self.protection_resource
+        if self.tlsversion is not None:
+            result['TLSVersion'] = self.tlsversion
+        if self.xff_header_mode is not None:
+            result['XffHeaderMode'] = self.xff_header_mode
+        if self.xff_headers is not None:
+            result['XffHeaders'] = self.xff_headers
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CertId') is not None:
+            self.cert_id = m.get('CertId')
+        if m.get('CipherSuite') is not None:
+            self.cipher_suite = m.get('CipherSuite')
+        if m.get('CustomCiphers') is not None:
+            self.custom_ciphers = m.get('CustomCiphers')
+        if m.get('EnableTLSv3') is not None:
+            self.enable_tlsv_3 = m.get('EnableTLSv3')
+        if m.get('ExclusiveIp') is not None:
+            self.exclusive_ip = m.get('ExclusiveIp')
+        if m.get('FocusHttps') is not None:
+            self.focus_https = m.get('FocusHttps')
+        if m.get('Http2Enabled') is not None:
+            self.http_2enabled = m.get('Http2Enabled')
+        if m.get('HttpPorts') is not None:
+            self.http_ports = m.get('HttpPorts')
+        if m.get('HttpsPorts') is not None:
+            self.https_ports = m.get('HttpsPorts')
+        if m.get('Ipv6Enabled') is not None:
+            self.ipv_6enabled = m.get('Ipv6Enabled')
+        if m.get('ProtectionResource') is not None:
+            self.protection_resource = m.get('ProtectionResource')
+        if m.get('TLSVersion') is not None:
+            self.tlsversion = m.get('TLSVersion')
+        if m.get('XffHeaderMode') is not None:
+            self.xff_header_mode = m.get('XffHeaderMode')
+        if m.get('XffHeaders') is not None:
+            self.xff_headers = m.get('XffHeaders')
+        return self
+
+
+class DescribeHybridCloudResourcesResponseBodyDomainsRedirectRequestHeaders(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeHybridCloudResourcesResponseBodyDomainsRedirectRequestHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class DescribeHybridCloudResourcesResponseBodyDomainsRedirect(TeaModel):
+    def __init__(self, backends=None, cname_enabled=None, connect_timeout=None, focus_http_backend=None,
+                 keepalive=None, keepalive_requests=None, keepalive_timeout=None, loadbalance=None, read_timeout=None,
+                 request_headers=None, retry=None, routing_rules=None, sni_enabled=None, sni_host=None, write_timeout=None):
+        self.backends = backends  # type: list[str]
+        self.cname_enabled = cname_enabled  # type: bool
+        self.connect_timeout = connect_timeout  # type: long
+        self.focus_http_backend = focus_http_backend  # type: bool
+        self.keepalive = keepalive  # type: bool
+        self.keepalive_requests = keepalive_requests  # type: long
+        self.keepalive_timeout = keepalive_timeout  # type: long
+        self.loadbalance = loadbalance  # type: str
+        self.read_timeout = read_timeout  # type: long
+        self.request_headers = request_headers  # type: list[DescribeHybridCloudResourcesResponseBodyDomainsRedirectRequestHeaders]
+        self.retry = retry  # type: bool
+        self.routing_rules = routing_rules  # type: str
+        self.sni_enabled = sni_enabled  # type: bool
+        self.sni_host = sni_host  # type: str
+        self.write_timeout = write_timeout  # type: long
+
+    def validate(self):
+        if self.request_headers:
+            for k in self.request_headers:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeHybridCloudResourcesResponseBodyDomainsRedirect, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.backends is not None:
+            result['Backends'] = self.backends
+        if self.cname_enabled is not None:
+            result['CnameEnabled'] = self.cname_enabled
+        if self.connect_timeout is not None:
+            result['ConnectTimeout'] = self.connect_timeout
+        if self.focus_http_backend is not None:
+            result['FocusHttpBackend'] = self.focus_http_backend
+        if self.keepalive is not None:
+            result['Keepalive'] = self.keepalive
+        if self.keepalive_requests is not None:
+            result['KeepaliveRequests'] = self.keepalive_requests
+        if self.keepalive_timeout is not None:
+            result['KeepaliveTimeout'] = self.keepalive_timeout
+        if self.loadbalance is not None:
+            result['Loadbalance'] = self.loadbalance
+        if self.read_timeout is not None:
+            result['ReadTimeout'] = self.read_timeout
+        result['RequestHeaders'] = []
+        if self.request_headers is not None:
+            for k in self.request_headers:
+                result['RequestHeaders'].append(k.to_map() if k else None)
+        if self.retry is not None:
+            result['Retry'] = self.retry
+        if self.routing_rules is not None:
+            result['RoutingRules'] = self.routing_rules
+        if self.sni_enabled is not None:
+            result['SniEnabled'] = self.sni_enabled
+        if self.sni_host is not None:
+            result['SniHost'] = self.sni_host
+        if self.write_timeout is not None:
+            result['WriteTimeout'] = self.write_timeout
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Backends') is not None:
+            self.backends = m.get('Backends')
+        if m.get('CnameEnabled') is not None:
+            self.cname_enabled = m.get('CnameEnabled')
+        if m.get('ConnectTimeout') is not None:
+            self.connect_timeout = m.get('ConnectTimeout')
+        if m.get('FocusHttpBackend') is not None:
+            self.focus_http_backend = m.get('FocusHttpBackend')
+        if m.get('Keepalive') is not None:
+            self.keepalive = m.get('Keepalive')
+        if m.get('KeepaliveRequests') is not None:
+            self.keepalive_requests = m.get('KeepaliveRequests')
+        if m.get('KeepaliveTimeout') is not None:
+            self.keepalive_timeout = m.get('KeepaliveTimeout')
+        if m.get('Loadbalance') is not None:
+            self.loadbalance = m.get('Loadbalance')
+        if m.get('ReadTimeout') is not None:
+            self.read_timeout = m.get('ReadTimeout')
+        self.request_headers = []
+        if m.get('RequestHeaders') is not None:
+            for k in m.get('RequestHeaders'):
+                temp_model = DescribeHybridCloudResourcesResponseBodyDomainsRedirectRequestHeaders()
+                self.request_headers.append(temp_model.from_map(k))
+        if m.get('Retry') is not None:
+            self.retry = m.get('Retry')
+        if m.get('RoutingRules') is not None:
+            self.routing_rules = m.get('RoutingRules')
+        if m.get('SniEnabled') is not None:
+            self.sni_enabled = m.get('SniEnabled')
+        if m.get('SniHost') is not None:
+            self.sni_host = m.get('SniHost')
+        if m.get('WriteTimeout') is not None:
+            self.write_timeout = m.get('WriteTimeout')
+        return self
+
+
+class DescribeHybridCloudResourcesResponseBodyDomains(TeaModel):
+    def __init__(self, cname=None, domain=None, id=None, listen=None, redirect=None,
+                 resource_manager_resource_group_id=None, status=None, uid=None):
+        self.cname = cname  # type: str
+        self.domain = domain  # type: str
+        self.id = id  # type: long
+        self.listen = listen  # type: DescribeHybridCloudResourcesResponseBodyDomainsListen
+        self.redirect = redirect  # type: DescribeHybridCloudResourcesResponseBodyDomainsRedirect
+        self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
+        self.status = status  # type: int
+        self.uid = uid  # type: str
+
+    def validate(self):
+        if self.listen:
+            self.listen.validate()
+        if self.redirect:
+            self.redirect.validate()
+
+    def to_map(self):
+        _map = super(DescribeHybridCloudResourcesResponseBodyDomains, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cname is not None:
+            result['Cname'] = self.cname
+        if self.domain is not None:
+            result['Domain'] = self.domain
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.listen is not None:
+            result['Listen'] = self.listen.to_map()
+        if self.redirect is not None:
+            result['Redirect'] = self.redirect.to_map()
+        if self.resource_manager_resource_group_id is not None:
+            result['ResourceManagerResourceGroupId'] = self.resource_manager_resource_group_id
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.uid is not None:
+            result['Uid'] = self.uid
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Cname') is not None:
+            self.cname = m.get('Cname')
+        if m.get('Domain') is not None:
+            self.domain = m.get('Domain')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('Listen') is not None:
+            temp_model = DescribeHybridCloudResourcesResponseBodyDomainsListen()
+            self.listen = temp_model.from_map(m['Listen'])
+        if m.get('Redirect') is not None:
+            temp_model = DescribeHybridCloudResourcesResponseBodyDomainsRedirect()
+            self.redirect = temp_model.from_map(m['Redirect'])
+        if m.get('ResourceManagerResourceGroupId') is not None:
+            self.resource_manager_resource_group_id = m.get('ResourceManagerResourceGroupId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('Uid') is not None:
+            self.uid = m.get('Uid')
+        return self
+
+
+class DescribeHybridCloudResourcesResponseBody(TeaModel):
+    def __init__(self, domains=None, request_id=None, total_count=None):
+        self.domains = domains  # type: list[DescribeHybridCloudResourcesResponseBodyDomains]
+        self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: long
+
+    def validate(self):
+        if self.domains:
+            for k in self.domains:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeHybridCloudResourcesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Domains'] = []
+        if self.domains is not None:
+            for k in self.domains:
+                result['Domains'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.domains = []
+        if m.get('Domains') is not None:
+            for k in m.get('Domains'):
+                temp_model = DescribeHybridCloudResourcesResponseBodyDomains()
+                self.domains.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class DescribeHybridCloudResourcesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeHybridCloudResourcesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeHybridCloudResourcesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeHybridCloudResourcesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeHybridCloudUserRequest(TeaModel):
+    def __init__(self, instance_id=None, region_id=None, resource_manager_resource_group_id=None):
+        self.instance_id = instance_id  # type: str
+        self.region_id = region_id  # type: str
+        self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeHybridCloudUserRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_manager_resource_group_id is not None:
+            result['ResourceManagerResourceGroupId'] = self.resource_manager_resource_group_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceManagerResourceGroupId') is not None:
+            self.resource_manager_resource_group_id = m.get('ResourceManagerResourceGroupId')
+        return self
+
+
+class DescribeHybridCloudUserResponseBodyUserInfo(TeaModel):
+    def __init__(self, http_ports=None, https_ports=None):
+        self.http_ports = http_ports  # type: str
+        self.https_ports = https_ports  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeHybridCloudUserResponseBodyUserInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.http_ports is not None:
+            result['HttpPorts'] = self.http_ports
+        if self.https_ports is not None:
+            result['HttpsPorts'] = self.https_ports
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('HttpPorts') is not None:
+            self.http_ports = m.get('HttpPorts')
+        if m.get('HttpsPorts') is not None:
+            self.https_ports = m.get('HttpsPorts')
+        return self
+
+
+class DescribeHybridCloudUserResponseBody(TeaModel):
+    def __init__(self, request_id=None, user_info=None):
+        self.request_id = request_id  # type: str
+        self.user_info = user_info  # type: DescribeHybridCloudUserResponseBodyUserInfo
+
+    def validate(self):
+        if self.user_info:
+            self.user_info.validate()
+
+    def to_map(self):
+        _map = super(DescribeHybridCloudUserResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.user_info is not None:
+            result['UserInfo'] = self.user_info.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('UserInfo') is not None:
+            temp_model = DescribeHybridCloudUserResponseBodyUserInfo()
+            self.user_info = temp_model.from_map(m['UserInfo'])
+        return self
+
+
+class DescribeHybridCloudUserResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeHybridCloudUserResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeHybridCloudUserResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeHybridCloudUserResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeInstanceRequest(TeaModel):
+    def __init__(self, region_id=None, resource_manager_resource_group_id=None):
+        # The region where the WAF instance resides. Valid values:
+        # 
+        # *   **cn-hangzhou:** the Chinese mainland
+        # *   **ap-southeast-1:** outside the Chinese mainland.
+        self.region_id = region_id  # type: str
+        # The ID of the resource group.
+        self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
 
     def validate(self):
         pass
@@ -3511,16 +5202,16 @@ class DescribeInstanceRequest(TeaModel):
         result = dict()
         if self.region_id is not None:
             result['RegionId'] = self.region_id
-        if self.resource_group_id is not None:
-            result['ResourceGroupId'] = self.resource_group_id
+        if self.resource_manager_resource_group_id is not None:
+            result['ResourceManagerResourceGroupId'] = self.resource_manager_resource_group_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
-        if m.get('ResourceGroupId') is not None:
-            self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('ResourceManagerResourceGroupId') is not None:
+            self.resource_manager_resource_group_id = m.get('ResourceManagerResourceGroupId')
         return self
 
 
@@ -3540,56 +5231,155 @@ class DescribeInstanceResponseBodyDetails(TeaModel):
                  vast_ip_blacklist_in_file_max_count=None, vast_ip_blacklist_in_operation_max_count=None, vast_ip_blacklist_max_count=None,
                  whitelist=None, whitelist_logical=None, whitelist_rule_condition=None,
                  whitelist_rule_in_template_max_count=None, whitelist_template_max_count=None):
+        # The maximum number of IP addresses that can be added to the match content of a match condition. For more information, see [Match conditions](~~374354~~).
         self.acl_rule_max_ip_count = acl_rule_max_ip_count  # type: long
+        # Indicates whether the scan protection module is supported. Valid values:
+        # 
+        # *   **true:** The scan protection module is supported.
+        # *   **false:** The scan protection module is not supported.
         self.anti_scan = anti_scan  # type: bool
+        # The maximum number of scan protection rule templates that can be configured.
         self.anti_scan_template_max_count = anti_scan_template_max_count  # type: long
+        # The maximum number of back-to-origin IP addresses that can be configured.
         self.backend_max_count = backend_max_count  # type: long
+        # Indicates whether the basic protection rule module is supported. Valid values:
+        # 
+        # *   **true:** The basic protection rule module is supported.
+        # *   **false:** The basic protection rule module is not supported.
         self.base_waf_group = base_waf_group  # type: bool
+        # The maximum number of protection rules that can be included in a basic protection rule template.
         self.base_waf_group_rule_in_template_max_count = base_waf_group_rule_in_template_max_count  # type: long
+        # The maximum number of basic protection rule templates that can be configured.
         self.base_waf_group_rule_template_max_count = base_waf_group_rule_template_max_count  # type: long
+        # Indicates whether the bot management module is supported. Valid values:
+        # 
+        # *   **true:** The bot management module is supported.
+        # *   **false:** The bot management module is not supported.
         self.bot = bot  # type: bool
+        # Indicates whether bot management for app protection is supported. Valid values:
+        # 
+        # *   **true:** Bot management for app protection is supported.
+        # *   **false:** Bot management for app protection is not supported.
         self.bot_app = bot_app  # type: str
+        # The maximum number of bot management rule templates that can be configured.
         self.bot_template_max_count = bot_template_max_count  # type: long
+        # Indicates whether bot management for website protection is supported. Valid values:
+        # 
+        # *   **true:** Bot management for website protection is supported.
+        # *   **false:** Bot management for website protection is not supported.
         self.bot_web = bot_web  # type: str
+        # The maximum number of CNAMEs that can be added.
         self.cname_resource_max_count = cname_resource_max_count  # type: long
+        # Indicates whether the custom response module is supported. Valid values:
+        # 
+        # *   **true:** The custom response module is supported.
+        # *   **false:** The custom response module is not supported.
         self.custom_response = custom_response  # type: bool
+        # The maximum number of rules that can be included in a custom response rule template.
         self.custom_response_rule_in_template_max_count = custom_response_rule_in_template_max_count  # type: long
+        # The maximum number of custom response rule templates that can be configured.
         self.custom_response_template_max_count = custom_response_template_max_count  # type: long
+        # Indicates whether the custom rule module is supported. Valid values:
+        # 
+        # *   **true:** The custom rule module is supported.
+        # *   **false:** The custom rule module is not supported.
         self.custom_rule = custom_rule  # type: bool
+        # The action that can be included in a custom rule.
         self.custom_rule_action = custom_rule_action  # type: str
+        # The match conditions that can be used in a custom rule. For more information, see **Match condition parameters** in the "**Parameters of custom rules (custom_acl)**" section in the [CreateDefenseRule](~~CreateDefenseRule~~) topic.
         self.custom_rule_condition = custom_rule_condition  # type: str
+        # The maximum number of rules that can be included in a custom rule template.
         self.custom_rule_in_template_max_count = custom_rule_in_template_max_count  # type: long
+        # The statistical object for rate limiting in a custom rule.
         self.custom_rule_ratelimitor = custom_rule_ratelimitor  # type: str
+        # The maximum number of custom rule templates that can be configured.
         self.custom_rule_template_max_count = custom_rule_template_max_count  # type: long
+        # The maximum number of protected object groups that can be configured.
         self.defense_group_max_count = defense_group_max_count  # type: long
+        # The maximum number of protected objects that can be included in a protected object group.
         self.defense_object_in_group_max_count = defense_object_in_group_max_count  # type: long
+        # The maximum number of protected objects to which a protection rule template can be applied.
         self.defense_object_in_template_max_count = defense_object_in_template_max_count  # type: long
+        # The maximum number of protected objects that can be configured.
         self.defense_object_max_count = defense_object_max_count  # type: long
+        # Indicates whether the data leakage prevention module is supported. Valid values:
+        # 
+        # *   **true:** The data leakage prevention module is supported.
+        # *   **false:** The data leakage prevention module is not supported.
         self.dlp = dlp  # type: bool
+        # The maximum number of rules that can be included in a data leakage prevention rule template.
         self.dlp_rule_in_template_max_count = dlp_rule_in_template_max_count  # type: long
+        # The maximum number of data leakage prevention rule templates that can be configured.
         self.dlp_template_max_count = dlp_template_max_count  # type: long
+        # Indicates whether exclusive IP addresses are supported. Valid values:
+        # 
+        # *   **true:** Exclusive IP addresses are supported.
+        # *   **false:** Exclusive IP addresses are not supported.
         self.exclusive_ip = exclusive_ip  # type: bool
+        # Indicates whether global server load balancing (GSLB) is supported. Valid values:
+        # 
+        # *   **true:** GSLB is supported.
+        # *   **false:** GSLB is not supported.
         self.gslb = gslb  # type: bool
+        # The HTTP port range that is supported. For more information, see [View supported ports](~~385578~~).
         self.http_ports = http_ports  # type: str
+        # The HTTPS port range that is supported. For more information, see [View supported ports](~~385578~~).
         self.https_ports = https_ports  # type: str
+        # Indicates whether the IP address blacklist module is supported. Valid values:
+        # 
+        # *   **true:** The IP address blacklist module is supported.
+        # *   **false:** The IP address blacklist module is not supported.
         self.ip_blacklist = ip_blacklist  # type: bool
+        # The maximum number of IP addresses that can be added to an IP address blacklist rule.
         self.ip_blacklist_ip_in_rule_max_count = ip_blacklist_ip_in_rule_max_count  # type: long
+        # The maximum number of rules that can be included in an IP address blacklist rule template.
         self.ip_blacklist_rule_in_template_max_count = ip_blacklist_rule_in_template_max_count  # type: long
+        # The maximum number of IP address blacklist rule templates that can be configured.
         self.ip_blacklist_template_max_count = ip_blacklist_template_max_count  # type: long
+        # Indicates whether IPv6 is supported. Valid values:
+        # 
+        # *   **true:** IPv6 is supported.
+        # *   **false:** IPv6 is not supported.
         self.ipv_6 = ipv_6  # type: bool
+        # Indicates whether the log collection feature is supported. Valid values:
+        # 
+        # *   **true:** The log collection feature is supported.
+        # *   **false:** The log collection feature is not supported.
         self.log_service = log_service  # type: bool
+        # Indicates whether major event protection is supported. Valid values:
+        # 
+        # *   **true:** Major event protection is supported.
+        # *   **false:** Major event protection is not supported.
         self.major_protection = major_protection  # type: bool
+        # The maximum number of major event protection rule templates that can be configured.
         self.major_protection_template_max_count = major_protection_template_max_count  # type: long
+        # Indicates whether the website tamper-proofing module is supported. Valid values:
+        # 
+        # *   **true:** The website tamper-proofing module is supported.
+        # *   **false:** The website tamper-proofing module is not supported.
         self.tamperproof = tamperproof  # type: bool
+        # The maximum number of rules that can be included in a website tamper-proofing rule template.
         self.tamperproof_rule_in_template_max_count = tamperproof_rule_in_template_max_count  # type: long
+        # The maximum number of website tamper-proofing rule templates that can be configured.
         self.tamperproof_template_max_count = tamperproof_template_max_count  # type: long
+        # The maximum number of IP addresses or CIDR blocks that can be added to an IP address blacklist in a batch.
         self.vast_ip_blacklist_in_file_max_count = vast_ip_blacklist_in_file_max_count  # type: long
+        # The maximum number of IP addresses or CIDR blocks that can be added to an IP address blacklist on a page.
         self.vast_ip_blacklist_in_operation_max_count = vast_ip_blacklist_in_operation_max_count  # type: long
+        # The maximum number of IP addresses or CIDR blocks that can be added to an IP address blacklist per Alibaba Cloud account.
         self.vast_ip_blacklist_max_count = vast_ip_blacklist_max_count  # type: long
+        # Indicates whether the whitelist module is supported. Valid values:
+        # 
+        # *   **true:** The whitelist module is supported.
+        # *   **false:** The whitelist module is not supported.
         self.whitelist = whitelist  # type: bool
+        # The logical operators that can be used in a whitelist rule. For more information, see **Match condition parameters** in the "**Parameters of whitelist rules (whitelist)**" section in the [CreateDefenseRule](~~CreateDefenseRule~~) topic.
         self.whitelist_logical = whitelist_logical  # type: str
+        # The match fields that can be used in a whitelist rule. For more information, see **Match condition parameters** in the "**Parameters of whitelist rules (whitelist)**" section in the [CreateDefenseRule](~~CreateDefenseRule~~) topic.
         self.whitelist_rule_condition = whitelist_rule_condition  # type: str
+        # The maximum number of rules that can be included in a whitelist rule template.
         self.whitelist_rule_in_template_max_count = whitelist_rule_in_template_max_count  # type: long
+        # The maximum number of whitelist rule templates that can be configured.
         self.whitelist_template_max_count = whitelist_template_max_count  # type: long
 
     def validate(self):
@@ -3815,15 +5605,40 @@ class DescribeInstanceResponseBodyDetails(TeaModel):
 class DescribeInstanceResponseBody(TeaModel):
     def __init__(self, details=None, edition=None, end_time=None, in_debt=None, instance_id=None, pay_type=None,
                  region_id=None, request_id=None, start_time=None, status=None):
+        # The details of the WAF instance.
         self.details = details  # type: DescribeInstanceResponseBodyDetails
+        # The edition of the WAF instance.
         self.edition = edition  # type: str
+        # The expiration time of the WAF instance.
         self.end_time = end_time  # type: long
+        # Indicates whether the WAF instance has overdue payments. Valid values:
+        # 
+        # *   **0:** The WAF instance has overdue payments.
+        # *   **1:** The WAF instance does not have overdue payments.
+        # 
+        # >  This parameter is returned only when the value of the **PayType** parameter is **POSTPAY**.
         self.in_debt = in_debt  # type: str
+        # The ID of the WAF instance.
         self.instance_id = instance_id  # type: str
+        # The billing method of the WAF instance. Valid values:
+        # 
+        # *   **POSTPAY:** The WAF instance uses the pay-as-you-go billing method.
+        # *   **PREPAY:** The WAF instance uses the subscription billing method.
         self.pay_type = pay_type  # type: str
+        # The region where the WAF instance resides. Valid values:
+        # 
+        # *   **cn-hangzhou:** the Chinese mainland
+        # *   **ap-southeast-1:** outside the Chinese mainland.
         self.region_id = region_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The purchase time of the WAF instance. The time is in the UNIX timestamp format. The time is displayed in UTC. Unit: milliseconds.
         self.start_time = start_time  # type: long
+        # The status of the WAF instance. Valid values:
+        # 
+        # *   **1:** The WAF instance is in a normal state.
+        # *   **2:** The WAF instance has expired.
+        # *   **3:** The WAF instance has been released.
         self.status = status  # type: int
 
     def validate(self):
@@ -3924,14 +5739,35 @@ class DescribeInstanceResponse(TeaModel):
 
 
 class DescribeMajorProtectionBlackIpsRequest(TeaModel):
-    def __init__(self, instance_id=None, ip_like=None, order_by=None, page_number=None, page_size=None, rule_id=None,
-                 template_id=None):
+    def __init__(self, instance_id=None, ip_like=None, order_by=None, page_number=None, page_size=None,
+                 region_id=None, resource_manager_resource_group_id=None, rule_id=None, template_id=None):
+        # The ID of the WAF instance.
+        # 
+        # >  You can call the [DescribeInstance](~~433756~~) operation to obtain the ID of the WAF instance.
         self.instance_id = instance_id  # type: str
+        # The IP address that you want to query. You can specify this parameter to query an IP address in the IP address blacklist for major event protection by using fuzzy matching.
         self.ip_like = ip_like  # type: str
+        # The method that you want to use to sort the IP addresses **in descending order**. Valid values:
+        # 
+        # *   **gmtModified:** sorts the IP addresses by most recent modification time.
+        # *   **ip:** sorts the IP addresses by IP address.
+        # *   **templateId:** sorts the IP addresses by template ID.
+        # *   **id:** sorts the IP addresses by primary key.
         self.order_by = order_by  # type: str
+        # The number of the page to return. Default value: **1**.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page. Default value: **10**.
         self.page_size = page_size  # type: int
+        # The region where the WAF instance resides. Valid values:
+        # 
+        # *   **cn-hangzhou:** the Chinese mainland.
+        # *   **ap-southeast-1:** outside the Chinese mainland.
+        self.region_id = region_id  # type: str
+        # The ID of the resource group.
+        self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
+        # The ID of the IP address blacklist rule for major event protection.
         self.rule_id = rule_id  # type: long
+        # The ID of the rule template for major event protection.
         self.template_id = template_id  # type: long
 
     def validate(self):
@@ -3953,6 +5789,10 @@ class DescribeMajorProtectionBlackIpsRequest(TeaModel):
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
             result['PageSize'] = self.page_size
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_manager_resource_group_id is not None:
+            result['ResourceManagerResourceGroupId'] = self.resource_manager_resource_group_id
         if self.rule_id is not None:
             result['RuleId'] = self.rule_id
         if self.template_id is not None:
@@ -3971,6 +5811,10 @@ class DescribeMajorProtectionBlackIpsRequest(TeaModel):
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceManagerResourceGroupId') is not None:
+            self.resource_manager_resource_group_id = m.get('ResourceManagerResourceGroupId')
         if m.get('RuleId') is not None:
             self.rule_id = m.get('RuleId')
         if m.get('TemplateId') is not None:
@@ -3981,11 +5825,19 @@ class DescribeMajorProtectionBlackIpsRequest(TeaModel):
 class DescribeMajorProtectionBlackIpsResponseBodyIpList(TeaModel):
     def __init__(self, description=None, expired_time=None, gmt_modified=None, ip=None, rule_id=None,
                  template_id=None):
+        # The description of the IP address in the blacklist.
         self.description = description  # type: str
+        # The time after which the IP address blacklist becomes invalid. Unit: seconds.
+        # 
+        # >  If the value of this parameter is **0**, the blacklist is permanently valid.
         self.expired_time = expired_time  # type: long
+        # The most recent time when the IP address blacklist was modified.
         self.gmt_modified = gmt_modified  # type: long
+        # The IP address in the IP address blacklist.
         self.ip = ip  # type: str
+        # The ID of the IP address blacklist rule for major event protection.
         self.rule_id = rule_id  # type: long
+        # The ID of the rule template for major event protection.
         self.template_id = template_id  # type: long
 
     def validate(self):
@@ -4030,8 +5882,11 @@ class DescribeMajorProtectionBlackIpsResponseBodyIpList(TeaModel):
 
 class DescribeMajorProtectionBlackIpsResponseBody(TeaModel):
     def __init__(self, ip_list=None, request_id=None, total_count=None):
+        # An array of IP addresses in the IP address blacklist.
         self.ip_list = ip_list  # type: list[DescribeMajorProtectionBlackIpsResponseBodyIpList]
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of IP addresses in the blacklist.
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -4110,11 +5965,26 @@ class DescribeMajorProtectionBlackIpsResponse(TeaModel):
 
 
 class DescribePeakTrendRequest(TeaModel):
-    def __init__(self, end_timestamp=None, instance_id=None, interval=None, resource=None, start_timestamp=None):
+    def __init__(self, end_timestamp=None, instance_id=None, interval=None, region_id=None, resource=None,
+                 resource_manager_resource_group_id=None, start_timestamp=None):
+        # The end of the time range to query. Unit: seconds. If you do not specify this parameter, the current time is used.
         self.end_timestamp = end_timestamp  # type: str
+        # The ID of the WAF instance.
+        # 
+        # >  You can call the [DescribeInstance](~~433756~~) operation to obtain the ID of the WAF instance.
         self.instance_id = instance_id  # type: str
+        # The time interval. Unit: seconds. The value must be an integral multiple of 60.
         self.interval = interval  # type: str
+        # The region where the WAF instance resides. Valid values:
+        # 
+        # *   **cn-hangzhou:** the Chinese mainland.
+        # *   **ap-southeast-1:** outside the Chinese mainland.
+        self.region_id = region_id  # type: str
+        # The protected object.
         self.resource = resource  # type: str
+        # The ID of the Alibaba Cloud resource group.
+        self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
+        # The beginning of the time range to query. Unit: seconds.
         self.start_timestamp = start_timestamp  # type: str
 
     def validate(self):
@@ -4132,8 +6002,12 @@ class DescribePeakTrendRequest(TeaModel):
             result['InstanceId'] = self.instance_id
         if self.interval is not None:
             result['Interval'] = self.interval
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
         if self.resource is not None:
             result['Resource'] = self.resource
+        if self.resource_manager_resource_group_id is not None:
+            result['ResourceManagerResourceGroupId'] = self.resource_manager_resource_group_id
         if self.start_timestamp is not None:
             result['StartTimestamp'] = self.start_timestamp
         return result
@@ -4146,8 +6020,12 @@ class DescribePeakTrendRequest(TeaModel):
             self.instance_id = m.get('InstanceId')
         if m.get('Interval') is not None:
             self.interval = m.get('Interval')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
         if m.get('Resource') is not None:
             self.resource = m.get('Resource')
+        if m.get('ResourceManagerResourceGroupId') is not None:
+            self.resource_manager_resource_group_id = m.get('ResourceManagerResourceGroupId')
         if m.get('StartTimestamp') is not None:
             self.start_timestamp = m.get('StartTimestamp')
         return self
@@ -4155,11 +6033,17 @@ class DescribePeakTrendRequest(TeaModel):
 
 class DescribePeakTrendResponseBodyFlowChart(TeaModel):
     def __init__(self, acl_sum=None, anti_scan_sum=None, cc_sum=None, count=None, index=None, waf_sum=None):
+        # The number of requests that are monitored or blocked by the custom rule (access control) module.
         self.acl_sum = acl_sum  # type: long
+        # The number of requests that are monitored or blocked by the scan protection module.
         self.anti_scan_sum = anti_scan_sum  # type: long
+        # The number of requests that are monitored or blocked by the HTTP flood protection module.
         self.cc_sum = cc_sum  # type: long
+        # The total number of requests.
         self.count = count  # type: long
+        # The serial number of the time interval. The serial numbers are arranged in chronological order.
         self.index = index  # type: long
+        # The number of requests that are monitored or blocked by the regular expression protection engine.
         self.waf_sum = waf_sum  # type: long
 
     def validate(self):
@@ -4204,7 +6088,9 @@ class DescribePeakTrendResponseBodyFlowChart(TeaModel):
 
 class DescribePeakTrendResponseBody(TeaModel):
     def __init__(self, flow_chart=None, request_id=None):
+        # An array of the QPS statistics of the WAF instance.
         self.flow_chart = flow_chart  # type: list[DescribePeakTrendResponseBodyFlowChart]
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4279,8 +6165,19 @@ class DescribePeakTrendResponse(TeaModel):
 
 
 class DescribeResourceLogStatusRequest(TeaModel):
-    def __init__(self, instance_id=None, resources=None):
+    def __init__(self, instance_id=None, region_id=None, resource_manager_resource_group_id=None, resources=None):
+        # The ID of the Web Application Firewall (WAF) instance.
+        # 
+        # >  You can call the [DescribeInstance](~~433756~~) operation to obtain the ID of the WAF instance.
         self.instance_id = instance_id  # type: str
+        # The region where the WAF instance resides. Valid values:
+        # 
+        # *   **cn-hangzhou:** the Chinese mainland
+        # *   **ap-southeast-1:** outside the Chinese mainland.
+        self.region_id = region_id  # type: str
+        # The ID of the resource group.
+        self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
+        # The protected object that you want to query. You can specify multiple protected objects. Separate the protected objects with commas (,).
         self.resources = resources  # type: str
 
     def validate(self):
@@ -4294,6 +6191,10 @@ class DescribeResourceLogStatusRequest(TeaModel):
         result = dict()
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_manager_resource_group_id is not None:
+            result['ResourceManagerResourceGroupId'] = self.resource_manager_resource_group_id
         if self.resources is not None:
             result['Resources'] = self.resources
         return result
@@ -4302,6 +6203,10 @@ class DescribeResourceLogStatusRequest(TeaModel):
         m = m or dict()
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceManagerResourceGroupId') is not None:
+            self.resource_manager_resource_group_id = m.get('ResourceManagerResourceGroupId')
         if m.get('Resources') is not None:
             self.resources = m.get('Resources')
         return self
@@ -4309,7 +6214,12 @@ class DescribeResourceLogStatusRequest(TeaModel):
 
 class DescribeResourceLogStatusResponseBodyResult(TeaModel):
     def __init__(self, resource=None, status=None):
+        # The protected object.
         self.resource = resource  # type: str
+        # Indicates whether the log collection feature is enabled for the protected object. Valid values:
+        # 
+        # *   **true:** The log collection feature is enabled.
+        # *   **false:** The log collection feature is disabled.
         self.status = status  # type: bool
 
     def validate(self):
@@ -4338,7 +6248,9 @@ class DescribeResourceLogStatusResponseBodyResult(TeaModel):
 
 class DescribeResourceLogStatusResponseBody(TeaModel):
     def __init__(self, request_id=None, result=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The returned result.
         self.result = result  # type: list[DescribeResourceLogStatusResponseBodyResult]
 
     def validate(self):
@@ -4413,9 +6325,21 @@ class DescribeResourceLogStatusResponse(TeaModel):
 
 
 class DescribeResourcePortRequest(TeaModel):
-    def __init__(self, instance_id=None, resource_instance_id=None):
+    def __init__(self, instance_id=None, region_id=None, resource_instance_id=None,
+                 resource_manager_resource_group_id=None):
+        # The ID of the WAF instance.
+        # 
+        # >  You can call the [DescribeInstance](~~433756~~) operation to obtain the ID of the WAF instance.
         self.instance_id = instance_id  # type: str
+        # The region where the WAF instance resides. Valid values:
+        # 
+        # *   **cn-hangzhou:** the Chinese mainland.
+        # *   **ap-southeast-1:** outside the Chinese mainland.
+        self.region_id = region_id  # type: str
+        # The ID of the cloud service instance.
         self.resource_instance_id = resource_instance_id  # type: str
+        # The ID of the Alibaba Cloud resource group.
+        self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
 
     def validate(self):
         pass
@@ -4428,22 +6352,32 @@ class DescribeResourcePortRequest(TeaModel):
         result = dict()
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
         if self.resource_instance_id is not None:
             result['ResourceInstanceId'] = self.resource_instance_id
+        if self.resource_manager_resource_group_id is not None:
+            result['ResourceManagerResourceGroupId'] = self.resource_manager_resource_group_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
         if m.get('ResourceInstanceId') is not None:
             self.resource_instance_id = m.get('ResourceInstanceId')
+        if m.get('ResourceManagerResourceGroupId') is not None:
+            self.resource_manager_resource_group_id = m.get('ResourceManagerResourceGroupId')
         return self
 
 
 class DescribeResourcePortResponseBody(TeaModel):
     def __init__(self, request_id=None, resource_ports=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # An array of HTTP and HTTPS listener ports that are added to the WAF instance.
         self.resource_ports = resource_ports  # type: list[str]
 
     def validate(self):
@@ -4510,13 +6444,31 @@ class DescribeResourcePortResponse(TeaModel):
 
 
 class DescribeResponseCodeTrendGraphRequest(TeaModel):
-    def __init__(self, end_timestamp=None, instance_id=None, interval=None, resource=None, start_timestamp=None,
-                 type=None):
+    def __init__(self, end_timestamp=None, instance_id=None, interval=None, region_id=None, resource=None,
+                 resource_manager_resource_group_id=None, start_timestamp=None, type=None):
+        # The end of the time range to query. Unit: seconds. If you do not specify this parameter, the current time is used.
         self.end_timestamp = end_timestamp  # type: str
+        # The ID of the WAF instance.
+        # 
+        # >  You can call the [DescribeInstance](~~433756~~) operation to obtain the ID of the WAF instance.
         self.instance_id = instance_id  # type: str
+        # The time interval. Unit: seconds. The value must be an integral multiple of 60.
         self.interval = interval  # type: str
+        # The ID of the region where the WAF instance resides. Valid values:
+        # 
+        # *   **cn-hangzhou:** the Chinese mainland.
+        # *   **ap-southeast-1:** outside the Chinese mainland.
+        self.region_id = region_id  # type: str
+        # The protected object.
         self.resource = resource  # type: str
+        # The ID of the resource group.
+        self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
+        # The beginning of the time range to query. Unit: seconds.
         self.start_timestamp = start_timestamp  # type: str
+        # The type of the error codes. Valid values:
+        # 
+        # *   **waf:** error codes that are returned to clients from WAF.
+        # *   **upstream:** error codes that are returned to WAF from the origin server.
         self.type = type  # type: str
 
     def validate(self):
@@ -4534,8 +6486,12 @@ class DescribeResponseCodeTrendGraphRequest(TeaModel):
             result['InstanceId'] = self.instance_id
         if self.interval is not None:
             result['Interval'] = self.interval
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
         if self.resource is not None:
             result['Resource'] = self.resource
+        if self.resource_manager_resource_group_id is not None:
+            result['ResourceManagerResourceGroupId'] = self.resource_manager_resource_group_id
         if self.start_timestamp is not None:
             result['StartTimestamp'] = self.start_timestamp
         if self.type is not None:
@@ -4550,8 +6506,12 @@ class DescribeResponseCodeTrendGraphRequest(TeaModel):
             self.instance_id = m.get('InstanceId')
         if m.get('Interval') is not None:
             self.interval = m.get('Interval')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
         if m.get('Resource') is not None:
             self.resource = m.get('Resource')
+        if m.get('ResourceManagerResourceGroupId') is not None:
+            self.resource_manager_resource_group_id = m.get('ResourceManagerResourceGroupId')
         if m.get('StartTimestamp') is not None:
             self.start_timestamp = m.get('StartTimestamp')
         if m.get('Type') is not None:
@@ -4561,10 +6521,15 @@ class DescribeResponseCodeTrendGraphRequest(TeaModel):
 
 class DescribeResponseCodeTrendGraphResponseBodyResponseCodes(TeaModel):
     def __init__(self, code_302pv=None, code_405pv=None, code_499pv=None, code_5xx_pv=None, index=None):
+        # The number of 302 error codes that are returned.
         self.code_302pv = code_302pv  # type: long
+        # The number of 405 error codes that are returned.
         self.code_405pv = code_405pv  # type: long
+        # The number of 499 error codes that are returned.
         self.code_499pv = code_499pv  # type: long
+        # The number of 5xx error codes that are returned.
         self.code_5xx_pv = code_5xx_pv  # type: long
+        # The serial number of the time interval. The serial numbers are arranged in chronological order.
         self.index = index  # type: long
 
     def validate(self):
@@ -4605,7 +6570,9 @@ class DescribeResponseCodeTrendGraphResponseBodyResponseCodes(TeaModel):
 
 class DescribeResponseCodeTrendGraphResponseBody(TeaModel):
     def __init__(self, request_id=None, response_codes=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The array of the statistics of the error codes.
         self.response_codes = response_codes  # type: list[DescribeResponseCodeTrendGraphResponseBodyResponseCodes]
 
     def validate(self):
@@ -4680,11 +6647,29 @@ class DescribeResponseCodeTrendGraphResponse(TeaModel):
 
 
 class DescribeRuleGroupsRequest(TeaModel):
-    def __init__(self, instance_id=None, page_number=None, page_size=None, search_type=None, search_value=None):
+    def __init__(self, instance_id=None, page_number=None, page_size=None, region_id=None,
+                 resource_manager_resource_group_id=None, search_type=None, search_value=None):
+        # The ID of the Web Application Firewall (WAF) instance.
+        # 
+        # >  You can call the [DescribeInstance](~~433756~~) operation to obtain the ID of the WAF instance.
         self.instance_id = instance_id  # type: str
+        # The number of the page to return. Default value: **1**.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page. Default value: **10**.
         self.page_size = page_size  # type: int
+        # The region where the WAF instance resides. Valid values:
+        # 
+        # *   **cn-hangzhou:** the Chinese mainland
+        # *   **ap-southeast-1:** outside the Chinese mainland.
+        self.region_id = region_id  # type: str
+        # The ID of the resource group.
+        self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
+        # The type of the query condition. Valid values:
+        # 
+        # *   **id:** queries regular expression rule groups by ID.
+        # *   **name:** queries regular expression rule groups by name.
         self.search_type = search_type  # type: str
+        # The query condition.
         self.search_value = search_value  # type: str
 
     def validate(self):
@@ -4702,6 +6687,10 @@ class DescribeRuleGroupsRequest(TeaModel):
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
             result['PageSize'] = self.page_size
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_manager_resource_group_id is not None:
+            result['ResourceManagerResourceGroupId'] = self.resource_manager_resource_group_id
         if self.search_type is not None:
             result['SearchType'] = self.search_type
         if self.search_value is not None:
@@ -4716,6 +6705,10 @@ class DescribeRuleGroupsRequest(TeaModel):
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceManagerResourceGroupId') is not None:
+            self.resource_manager_resource_group_id = m.get('ResourceManagerResourceGroupId')
         if m.get('SearchType') is not None:
             self.search_type = m.get('SearchType')
         if m.get('SearchValue') is not None:
@@ -4724,10 +6717,27 @@ class DescribeRuleGroupsRequest(TeaModel):
 
 
 class DescribeRuleGroupsResponseBodyRuleGroups(TeaModel):
-    def __init__(self, gmt_modified=None, rule_group_id=None, rule_group_name=None, rule_total_count=None):
+    def __init__(self, gmt_modified=None, is_subscribe=None, parent_rule_group_id=None, rule_group_id=None,
+                 rule_group_name=None, rule_total_count=None):
+        # The most recent time when the rule group was modified.
         self.gmt_modified = gmt_modified  # type: long
+        # Indicates whether the automatic update feature is enabled for the rule group.
+        # 
+        # *   1: The automatic update feature is enabled for the rule group.
+        # *   2: The automatic update feature is disabled for the rule group.
+        self.is_subscribe = is_subscribe  # type: int
+        # The ID of the rule group.
+        # 
+        # *   0: The rule group is created from scratch.
+        # *   1011: The rule group is a strict rule group.
+        # *   1012: The rule group is a medium rule group.
+        # *   1013: The rue group is a loose rule group.
+        self.parent_rule_group_id = parent_rule_group_id  # type: long
+        # The ID of the regular expression rule group.
         self.rule_group_id = rule_group_id  # type: long
+        # The name of the rule group.
         self.rule_group_name = rule_group_name  # type: str
+        # The number of built-in rules in the rule group.
         self.rule_total_count = rule_total_count  # type: int
 
     def validate(self):
@@ -4741,6 +6751,10 @@ class DescribeRuleGroupsResponseBodyRuleGroups(TeaModel):
         result = dict()
         if self.gmt_modified is not None:
             result['GmtModified'] = self.gmt_modified
+        if self.is_subscribe is not None:
+            result['IsSubscribe'] = self.is_subscribe
+        if self.parent_rule_group_id is not None:
+            result['ParentRuleGroupId'] = self.parent_rule_group_id
         if self.rule_group_id is not None:
             result['RuleGroupId'] = self.rule_group_id
         if self.rule_group_name is not None:
@@ -4753,6 +6767,10 @@ class DescribeRuleGroupsResponseBodyRuleGroups(TeaModel):
         m = m or dict()
         if m.get('GmtModified') is not None:
             self.gmt_modified = m.get('GmtModified')
+        if m.get('IsSubscribe') is not None:
+            self.is_subscribe = m.get('IsSubscribe')
+        if m.get('ParentRuleGroupId') is not None:
+            self.parent_rule_group_id = m.get('ParentRuleGroupId')
         if m.get('RuleGroupId') is not None:
             self.rule_group_id = m.get('RuleGroupId')
         if m.get('RuleGroupName') is not None:
@@ -4764,8 +6782,11 @@ class DescribeRuleGroupsResponseBodyRuleGroups(TeaModel):
 
 class DescribeRuleGroupsResponseBody(TeaModel):
     def __init__(self, request_id=None, rule_groups=None, total_count=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # An array of regular expression rule groups.
         self.rule_groups = rule_groups  # type: list[DescribeRuleGroupsResponseBodyRuleGroups]
+        # The total number of entries that are returned.
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -4844,11 +6865,32 @@ class DescribeRuleGroupsResponse(TeaModel):
 
 
 class DescribeRuleHitsTopClientIpRequest(TeaModel):
-    def __init__(self, end_timestamp=None, instance_id=None, resource=None, rule_type=None, start_timestamp=None):
+    def __init__(self, end_timestamp=None, instance_id=None, region_id=None, resource=None,
+                 resource_manager_resource_group_id=None, rule_type=None, start_timestamp=None):
+        # The end of the time range to query. Unit: seconds. If you do not specify this parameter, the current time is used.
         self.end_timestamp = end_timestamp  # type: str
+        # The ID of the Web Application Firewall (WAF) instance.
+        # 
+        # >  You can call the [DescribeInstance](~~433756~~) operation to obtain the ID of the WAF instance.
         self.instance_id = instance_id  # type: str
+        # The region where the WAF instance resides. Valid values:
+        # 
+        # *   **cn-hangzhou:** the Chinese mainland.
+        # *   **ap-southeast-1:** outside the Chinese mainland.
+        self.region_id = region_id  # type: str
+        # The protected object.
         self.resource = resource  # type: str
+        # The ID of the resource group.
+        self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
+        # The type of rules that are triggered by the protected object. By default, this parameter is not specified and all types of rules are queried.
+        # 
+        # *   **blacklist:** IP address blacklist rules.
+        # *   **custom:** custom rules.
+        # *   **antiscan:** scan protection rules.
+        # *   **cc_system:** HTTP flood protection rules.
+        # *   **region_block:** region blacklist rules.
         self.rule_type = rule_type  # type: str
+        # The beginning of the time range to query. Unit: seconds.
         self.start_timestamp = start_timestamp  # type: str
 
     def validate(self):
@@ -4864,8 +6906,12 @@ class DescribeRuleHitsTopClientIpRequest(TeaModel):
             result['EndTimestamp'] = self.end_timestamp
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
         if self.resource is not None:
             result['Resource'] = self.resource
+        if self.resource_manager_resource_group_id is not None:
+            result['ResourceManagerResourceGroupId'] = self.resource_manager_resource_group_id
         if self.rule_type is not None:
             result['RuleType'] = self.rule_type
         if self.start_timestamp is not None:
@@ -4878,8 +6924,12 @@ class DescribeRuleHitsTopClientIpRequest(TeaModel):
             self.end_timestamp = m.get('EndTimestamp')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
         if m.get('Resource') is not None:
             self.resource = m.get('Resource')
+        if m.get('ResourceManagerResourceGroupId') is not None:
+            self.resource_manager_resource_group_id = m.get('ResourceManagerResourceGroupId')
         if m.get('RuleType') is not None:
             self.rule_type = m.get('RuleType')
         if m.get('StartTimestamp') is not None:
@@ -4889,7 +6939,9 @@ class DescribeRuleHitsTopClientIpRequest(TeaModel):
 
 class DescribeRuleHitsTopClientIpResponseBodyRuleHitsTopClientIp(TeaModel):
     def __init__(self, client_ip=None, count=None):
+        # The IP address of the service client.
         self.client_ip = client_ip  # type: str
+        # The number of attacks that are initiated from the IP address.
         self.count = count  # type: long
 
     def validate(self):
@@ -4918,7 +6970,9 @@ class DescribeRuleHitsTopClientIpResponseBodyRuleHitsTopClientIp(TeaModel):
 
 class DescribeRuleHitsTopClientIpResponseBody(TeaModel):
     def __init__(self, request_id=None, rule_hits_top_client_ip=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The array of the top 10 IP addresses from which attacks are initiated.
         self.rule_hits_top_client_ip = rule_hits_top_client_ip  # type: list[DescribeRuleHitsTopClientIpResponseBodyRuleHitsTopClientIp]
 
     def validate(self):
@@ -4993,10 +7047,30 @@ class DescribeRuleHitsTopClientIpResponse(TeaModel):
 
 
 class DescribeRuleHitsTopResourceRequest(TeaModel):
-    def __init__(self, end_timestamp=None, instance_id=None, rule_type=None, start_timestamp=None):
+    def __init__(self, end_timestamp=None, instance_id=None, region_id=None,
+                 resource_manager_resource_group_id=None, rule_type=None, start_timestamp=None):
+        # The end of the time range to query. Unit: seconds. If you do not specify this parameter, the current time is used.
         self.end_timestamp = end_timestamp  # type: str
+        # The ID of the Web Application Firewall (WAF) instance.
+        # 
+        # >  You can call the [DescribeInstance](~~433756~~) operation to obtain the ID of the WAF instance.
         self.instance_id = instance_id  # type: str
+        # The region where the WAF instance resides. Valid values:
+        # 
+        # *   **cn-hangzhou:** the Chinese mainland.
+        # *   **ap-southeast-1:** outside the Chinese mainland.
+        self.region_id = region_id  # type: str
+        # The ID of the resource group.
+        self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
+        # The type of rules that are triggered by the protected object. By default, this parameter is not specified and all types of rules are queried.
+        # 
+        # *   **blacklist:** IP address blacklist rules.
+        # *   **custom:** custom rules.
+        # *   **antiscan:** scan protection rules.
+        # *   **cc_system:** HTTP flood protection rules.
+        # *   **region_block:** region blacklist rules.
         self.rule_type = rule_type  # type: str
+        # The beginning of the time range to query. Unit: seconds.
         self.start_timestamp = start_timestamp  # type: str
 
     def validate(self):
@@ -5012,6 +7086,10 @@ class DescribeRuleHitsTopResourceRequest(TeaModel):
             result['EndTimestamp'] = self.end_timestamp
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_manager_resource_group_id is not None:
+            result['ResourceManagerResourceGroupId'] = self.resource_manager_resource_group_id
         if self.rule_type is not None:
             result['RuleType'] = self.rule_type
         if self.start_timestamp is not None:
@@ -5024,6 +7102,10 @@ class DescribeRuleHitsTopResourceRequest(TeaModel):
             self.end_timestamp = m.get('EndTimestamp')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceManagerResourceGroupId') is not None:
+            self.resource_manager_resource_group_id = m.get('ResourceManagerResourceGroupId')
         if m.get('RuleType') is not None:
             self.rule_type = m.get('RuleType')
         if m.get('StartTimestamp') is not None:
@@ -5033,7 +7115,9 @@ class DescribeRuleHitsTopResourceRequest(TeaModel):
 
 class DescribeRuleHitsTopResourceResponseBodyRuleHitsTopResource(TeaModel):
     def __init__(self, count=None, resource=None):
+        # The number of requests that match protection rules.
         self.count = count  # type: long
+        # The protected object.
         self.resource = resource  # type: str
 
     def validate(self):
@@ -5062,7 +7146,9 @@ class DescribeRuleHitsTopResourceResponseBodyRuleHitsTopResource(TeaModel):
 
 class DescribeRuleHitsTopResourceResponseBody(TeaModel):
     def __init__(self, request_id=None, rule_hits_top_resource=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The array of the top 10 protected objects that trigger protection rules.
         self.rule_hits_top_resource = rule_hits_top_resource  # type: list[DescribeRuleHitsTopResourceResponseBodyRuleHitsTopResource]
 
     def validate(self):
@@ -5137,11 +7223,32 @@ class DescribeRuleHitsTopResourceResponse(TeaModel):
 
 
 class DescribeRuleHitsTopRuleIdRequest(TeaModel):
-    def __init__(self, end_timestamp=None, instance_id=None, resource=None, rule_type=None, start_timestamp=None):
+    def __init__(self, end_timestamp=None, instance_id=None, region_id=None, resource=None,
+                 resource_manager_resource_group_id=None, rule_type=None, start_timestamp=None):
+        # The end of the time range to query. Unit: seconds. If you do not specify this parameter, the current time is used.
         self.end_timestamp = end_timestamp  # type: str
+        # The ID of the Web Application Firewall (WAF) instance.
+        # 
+        # >  You can call the [DescribeInstance](~~433756~~) operation to query the ID of the WAF instance.
         self.instance_id = instance_id  # type: str
+        # The region where the WAF instance resides. Valid values:
+        # 
+        # *   **cn-hangzhou:** the Chinese mainland.
+        # *   **ap-southeast-1:** outside the Chinese mainland.
+        self.region_id = region_id  # type: str
+        # The protected object.
         self.resource = resource  # type: str
+        # The ID of the Alibaba Cloud resource group.
+        self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
+        # The type of rules that are triggered by the protected object. By default, this parameter is not specified and all types of rules are queried.
+        # 
+        # *   **blacklist:** IP address blacklist rules.
+        # *   **custom:** custom rules.
+        # *   **antiscan:** scan protection rules.
+        # *   **cc_system:** HTTP flood protection rules.
+        # *   **region_block:** region blacklist rules.
         self.rule_type = rule_type  # type: str
+        # The beginning of the time range to query. Unit: seconds.
         self.start_timestamp = start_timestamp  # type: str
 
     def validate(self):
@@ -5157,8 +7264,12 @@ class DescribeRuleHitsTopRuleIdRequest(TeaModel):
             result['EndTimestamp'] = self.end_timestamp
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
         if self.resource is not None:
             result['Resource'] = self.resource
+        if self.resource_manager_resource_group_id is not None:
+            result['ResourceManagerResourceGroupId'] = self.resource_manager_resource_group_id
         if self.rule_type is not None:
             result['RuleType'] = self.rule_type
         if self.start_timestamp is not None:
@@ -5171,8 +7282,12 @@ class DescribeRuleHitsTopRuleIdRequest(TeaModel):
             self.end_timestamp = m.get('EndTimestamp')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
         if m.get('Resource') is not None:
             self.resource = m.get('Resource')
+        if m.get('ResourceManagerResourceGroupId') is not None:
+            self.resource_manager_resource_group_id = m.get('ResourceManagerResourceGroupId')
         if m.get('RuleType') is not None:
             self.rule_type = m.get('RuleType')
         if m.get('StartTimestamp') is not None:
@@ -5182,8 +7297,11 @@ class DescribeRuleHitsTopRuleIdRequest(TeaModel):
 
 class DescribeRuleHitsTopRuleIdResponseBodyRuleHitsTopRuleId(TeaModel):
     def __init__(self, count=None, resource=None, rule_id=None):
+        # The number of requests that match the rule.
         self.count = count  # type: long
+        # The protected object.
         self.resource = resource  # type: str
+        # The ID of the rule.
         self.rule_id = rule_id  # type: str
 
     def validate(self):
@@ -5216,7 +7334,9 @@ class DescribeRuleHitsTopRuleIdResponseBodyRuleHitsTopRuleId(TeaModel):
 
 class DescribeRuleHitsTopRuleIdResponseBody(TeaModel):
     def __init__(self, request_id=None, rule_hits_top_rule_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The array of the IDs of the top 10 rules that are matched by requests.
         self.rule_hits_top_rule_id = rule_hits_top_rule_id  # type: list[DescribeRuleHitsTopRuleIdResponseBodyRuleHitsTopRuleId]
 
     def validate(self):
@@ -5291,10 +7411,19 @@ class DescribeRuleHitsTopRuleIdResponse(TeaModel):
 
 
 class DescribeRuleHitsTopTuleTypeRequest(TeaModel):
-    def __init__(self, end_timestamp=None, instance_id=None, resource=None, start_timestamp=None):
+    def __init__(self, end_timestamp=None, instance_id=None, region_id=None, resource=None, start_timestamp=None):
+        # cn-hangzhou
         self.end_timestamp = end_timestamp  # type: str
+        # The ID of the request.
         self.instance_id = instance_id  # type: str
+        # The array of the top 10 protection modules that are matched.
+        self.region_id = region_id  # type: str
+        # The result of the request.
         self.resource = resource  # type: str
+        # The ID of the region where the WAF instance resides. Valid values:
+        # 
+        # *   **cn-hangzhou**: the Chinese mainland.
+        # *   **ap-southeast-1**: outside the Chinese mainland.
         self.start_timestamp = start_timestamp  # type: str
 
     def validate(self):
@@ -5310,6 +7439,8 @@ class DescribeRuleHitsTopTuleTypeRequest(TeaModel):
             result['EndTimestamp'] = self.end_timestamp
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
         if self.resource is not None:
             result['Resource'] = self.resource
         if self.start_timestamp is not None:
@@ -5322,6 +7453,8 @@ class DescribeRuleHitsTopTuleTypeRequest(TeaModel):
             self.end_timestamp = m.get('EndTimestamp')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
         if m.get('Resource') is not None:
             self.resource = m.get('Resource')
         if m.get('StartTimestamp') is not None:
@@ -5360,7 +7493,9 @@ class DescribeRuleHitsTopTuleTypeResponseBodyRuleHitsTopTuleType(TeaModel):
 
 class DescribeRuleHitsTopTuleTypeResponseBody(TeaModel):
     def __init__(self, request_id=None, rule_hits_top_tule_type=None):
+        # The number of requests that match the rules of the protection module.
         self.request_id = request_id  # type: str
+        # The type of rules. For details, see the description of **RuleType** in [DescribeRuleHitsTopRuleId](~~DescribeRuleHitsTopRuleId~~).
         self.rule_hits_top_tule_type = rule_hits_top_tule_type  # type: list[DescribeRuleHitsTopTuleTypeResponseBodyRuleHitsTopTuleType]
 
     def validate(self):
@@ -5435,10 +7570,24 @@ class DescribeRuleHitsTopTuleTypeResponse(TeaModel):
 
 
 class DescribeRuleHitsTopUaRequest(TeaModel):
-    def __init__(self, end_timestamp=None, instance_id=None, resource=None, start_timestamp=None):
+    def __init__(self, end_timestamp=None, instance_id=None, region_id=None, resource=None,
+                 resource_manager_resource_group_id=None, start_timestamp=None):
+        # The end of the time range to query. Unit: seconds. If you do not specify this parameter, the current time is used.
         self.end_timestamp = end_timestamp  # type: str
+        # The ID of the Web Application Firewall (WAF) instance.
+        # 
+        # >  You can call the [DescribeInstance](~~433756~~) operation to obtain the ID of the WAF instance.
         self.instance_id = instance_id  # type: str
+        # The region where the WAF instance resides. Valid values:
+        # 
+        # *   **cn-hangzhou:** the Chinese mainland.
+        # *   **ap-southeast-1:** outside the Chinese mainland.
+        self.region_id = region_id  # type: str
+        # The protected object.
         self.resource = resource  # type: str
+        # The ID of the Alibaba Cloud resource group.
+        self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
+        # The beginning of the time range to query. Unit: seconds.
         self.start_timestamp = start_timestamp  # type: str
 
     def validate(self):
@@ -5454,8 +7603,12 @@ class DescribeRuleHitsTopUaRequest(TeaModel):
             result['EndTimestamp'] = self.end_timestamp
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
         if self.resource is not None:
             result['Resource'] = self.resource
+        if self.resource_manager_resource_group_id is not None:
+            result['ResourceManagerResourceGroupId'] = self.resource_manager_resource_group_id
         if self.start_timestamp is not None:
             result['StartTimestamp'] = self.start_timestamp
         return result
@@ -5466,8 +7619,12 @@ class DescribeRuleHitsTopUaRequest(TeaModel):
             self.end_timestamp = m.get('EndTimestamp')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
         if m.get('Resource') is not None:
             self.resource = m.get('Resource')
+        if m.get('ResourceManagerResourceGroupId') is not None:
+            self.resource_manager_resource_group_id = m.get('ResourceManagerResourceGroupId')
         if m.get('StartTimestamp') is not None:
             self.start_timestamp = m.get('StartTimestamp')
         return self
@@ -5475,7 +7632,9 @@ class DescribeRuleHitsTopUaRequest(TeaModel):
 
 class DescribeRuleHitsTopUaResponseBodyRuleHitsTopUa(TeaModel):
     def __init__(self, count=None, ua=None):
+        # The number of attacks that are initiated from the IP address.
         self.count = count  # type: long
+        # The user agent.
         self.ua = ua  # type: str
 
     def validate(self):
@@ -5504,7 +7663,9 @@ class DescribeRuleHitsTopUaResponseBodyRuleHitsTopUa(TeaModel):
 
 class DescribeRuleHitsTopUaResponseBody(TeaModel):
     def __init__(self, request_id=None, rule_hits_top_ua=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The array of the top 10 user agents that are used to initiate attacks.
         self.rule_hits_top_ua = rule_hits_top_ua  # type: list[DescribeRuleHitsTopUaResponseBodyRuleHitsTopUa]
 
     def validate(self):
@@ -5579,11 +7740,32 @@ class DescribeRuleHitsTopUaResponse(TeaModel):
 
 
 class DescribeRuleHitsTopUrlRequest(TeaModel):
-    def __init__(self, end_timestamp=None, instance_id=None, resource=None, rule_type=None, start_timestamp=None):
+    def __init__(self, end_timestamp=None, instance_id=None, region_id=None, resource=None,
+                 resource_manager_resource_group_id=None, rule_type=None, start_timestamp=None):
+        # The end of the time range to query. Unit: seconds. If you do not specify this parameter, the current time is used.
         self.end_timestamp = end_timestamp  # type: str
+        # The ID of the Web Application Firewall (WAF) instance.
+        # 
+        # >  You can call the [DescribeInstance](~~433756~~) operation to obtain the ID of the WAF instance.
         self.instance_id = instance_id  # type: str
+        # The region where the WAF instance resides. Valid values:
+        # 
+        # *   **cn-hangzhou:** the Chinese mainland.
+        # *   **ap-southeast-1:** outside the Chinese mainland.
+        self.region_id = region_id  # type: str
+        # The protected object.
         self.resource = resource  # type: str
+        # The ID of the resource group.
+        self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
+        # The type of rules that are triggered by the protected object. By default, this parameter is not specified and all types of rules are queried.
+        # 
+        # *   **blacklist:** IP address blacklist rules.
+        # *   **custom:** custom rules.
+        # *   **antiscan:** scan protection rules.
+        # *   **cc_system:** HTTP flood protection rules.
+        # *   **region_block:** region blacklist rules.
         self.rule_type = rule_type  # type: str
+        # The beginning of the time range to query. Unit: seconds.
         self.start_timestamp = start_timestamp  # type: str
 
     def validate(self):
@@ -5599,8 +7781,12 @@ class DescribeRuleHitsTopUrlRequest(TeaModel):
             result['EndTimestamp'] = self.end_timestamp
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
         if self.resource is not None:
             result['Resource'] = self.resource
+        if self.resource_manager_resource_group_id is not None:
+            result['ResourceManagerResourceGroupId'] = self.resource_manager_resource_group_id
         if self.rule_type is not None:
             result['RuleType'] = self.rule_type
         if self.start_timestamp is not None:
@@ -5613,8 +7799,12 @@ class DescribeRuleHitsTopUrlRequest(TeaModel):
             self.end_timestamp = m.get('EndTimestamp')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
         if m.get('Resource') is not None:
             self.resource = m.get('Resource')
+        if m.get('ResourceManagerResourceGroupId') is not None:
+            self.resource_manager_resource_group_id = m.get('ResourceManagerResourceGroupId')
         if m.get('RuleType') is not None:
             self.rule_type = m.get('RuleType')
         if m.get('StartTimestamp') is not None:
@@ -5624,7 +7814,9 @@ class DescribeRuleHitsTopUrlRequest(TeaModel):
 
 class DescribeRuleHitsTopUrlResponseBodyRuleHitsTopUrl(TeaModel):
     def __init__(self, count=None, url=None):
+        # The number of requests from the URL that match protection rules.
         self.count = count  # type: long
+        # The request URL.
         self.url = url  # type: str
 
     def validate(self):
@@ -5653,7 +7845,9 @@ class DescribeRuleHitsTopUrlResponseBodyRuleHitsTopUrl(TeaModel):
 
 class DescribeRuleHitsTopUrlResponseBody(TeaModel):
     def __init__(self, request_id=None, rule_hits_top_url=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The array of the top 10 URLs that trigger protection rules.
         self.rule_hits_top_url = rule_hits_top_url  # type: list[DescribeRuleHitsTopUrlResponseBodyRuleHitsTopUrl]
 
     def validate(self):
@@ -5728,9 +7922,25 @@ class DescribeRuleHitsTopUrlResponse(TeaModel):
 
 
 class DescribeTemplateResourcesRequest(TeaModel):
-    def __init__(self, instance_id=None, resource_type=None, template_id=None):
+    def __init__(self, instance_id=None, region_id=None, resource_manager_resource_group_id=None,
+                 resource_type=None, template_id=None):
+        # The ID of the Web Application Firewall (WAF) instance.
+        # 
+        # >  You can call the [DescribeInstance](~~433756~~) operation to obtain the ID of the WAF instance.
         self.instance_id = instance_id  # type: str
+        # The region where the WAF instance resides. Valid values:
+        # 
+        # *   **cn-hangzhou:** the Chinese mainland.
+        # *   **ap-southeast-1:** outside the Chinese mainland.
+        self.region_id = region_id  # type: str
+        # The ID of the Alibaba Cloud resource group.
+        self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
+        # The type of the protected resource. Valid values:
+        # 
+        # *   **single:** protected object.
+        # *   **group:** protected object group.
         self.resource_type = resource_type  # type: str
+        # The ID of the protection rule template.
         self.template_id = template_id  # type: long
 
     def validate(self):
@@ -5744,6 +7954,10 @@ class DescribeTemplateResourcesRequest(TeaModel):
         result = dict()
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_manager_resource_group_id is not None:
+            result['ResourceManagerResourceGroupId'] = self.resource_manager_resource_group_id
         if self.resource_type is not None:
             result['ResourceType'] = self.resource_type
         if self.template_id is not None:
@@ -5754,6 +7968,10 @@ class DescribeTemplateResourcesRequest(TeaModel):
         m = m or dict()
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceManagerResourceGroupId') is not None:
+            self.resource_manager_resource_group_id = m.get('ResourceManagerResourceGroupId')
         if m.get('ResourceType') is not None:
             self.resource_type = m.get('ResourceType')
         if m.get('TemplateId') is not None:
@@ -5763,7 +7981,9 @@ class DescribeTemplateResourcesRequest(TeaModel):
 
 class DescribeTemplateResourcesResponseBody(TeaModel):
     def __init__(self, request_id=None, resources=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # An array of protected objects or protected object groups that are associated to the protection rule template.
         self.resources = resources  # type: list[str]
 
     def validate(self):
@@ -5830,10 +8050,24 @@ class DescribeTemplateResourcesResponse(TeaModel):
 
 
 class DescribeVisitTopIpRequest(TeaModel):
-    def __init__(self, end_timestamp=None, instance_id=None, resource=None, start_timestamp=None):
+    def __init__(self, end_timestamp=None, instance_id=None, region_id=None, resource=None,
+                 resource_manager_resource_group_id=None, start_timestamp=None):
+        # The end of the time range to query. Unit: seconds. If you do not specify this parameter, the current time is used.
         self.end_timestamp = end_timestamp  # type: str
+        # The ID of the Web Application Firewall (WAF) instance.
+        # 
+        # >  You can call the [DescribeInstance](~~433756~~) operation to obtain the ID of the WAF instance.
         self.instance_id = instance_id  # type: str
+        # The region where the WAF instance resides. Valid values:
+        # 
+        # *   **cn-hangzhou:** the Chinese mainland.
+        # *   **ap-southeast-1:** outside the Chinese mainland.
+        self.region_id = region_id  # type: str
+        # The protected object.
         self.resource = resource  # type: str
+        # The ID of the Alibaba Cloud resource group.
+        self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
+        # The beginning of the time range to query. Unit: seconds.
         self.start_timestamp = start_timestamp  # type: str
 
     def validate(self):
@@ -5849,8 +8083,12 @@ class DescribeVisitTopIpRequest(TeaModel):
             result['EndTimestamp'] = self.end_timestamp
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
         if self.resource is not None:
             result['Resource'] = self.resource
+        if self.resource_manager_resource_group_id is not None:
+            result['ResourceManagerResourceGroupId'] = self.resource_manager_resource_group_id
         if self.start_timestamp is not None:
             result['StartTimestamp'] = self.start_timestamp
         return result
@@ -5861,8 +8099,12 @@ class DescribeVisitTopIpRequest(TeaModel):
             self.end_timestamp = m.get('EndTimestamp')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
         if m.get('Resource') is not None:
             self.resource = m.get('Resource')
+        if m.get('ResourceManagerResourceGroupId') is not None:
+            self.resource_manager_resource_group_id = m.get('ResourceManagerResourceGroupId')
         if m.get('StartTimestamp') is not None:
             self.start_timestamp = m.get('StartTimestamp')
         return self
@@ -5870,9 +8112,13 @@ class DescribeVisitTopIpRequest(TeaModel):
 
 class DescribeVisitTopIpResponseBodyTopIp(TeaModel):
     def __init__(self, area=None, count=None, ip=None, isp=None):
+        # The ordinal number of the area to which the IP address belongs.
         self.area = area  # type: str
+        # The total number of requests that are sent from the IP address.
         self.count = count  # type: long
+        # The IP address.
         self.ip = ip  # type: str
+        # The ISP.
         self.isp = isp  # type: str
 
     def validate(self):
@@ -5909,7 +8155,9 @@ class DescribeVisitTopIpResponseBodyTopIp(TeaModel):
 
 class DescribeVisitTopIpResponseBody(TeaModel):
     def __init__(self, request_id=None, top_ip=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The array of the top 10 IP addresses from which requests are sent.
         self.top_ip = top_ip  # type: list[DescribeVisitTopIpResponseBodyTopIp]
 
     def validate(self):
@@ -5984,9 +8232,10 @@ class DescribeVisitTopIpResponse(TeaModel):
 
 
 class DescribeVisitUasRequest(TeaModel):
-    def __init__(self, end_timestamp=None, instance_id=None, resource=None, start_timestamp=None):
+    def __init__(self, end_timestamp=None, instance_id=None, region_id=None, resource=None, start_timestamp=None):
         self.end_timestamp = end_timestamp  # type: str
         self.instance_id = instance_id  # type: str
+        self.region_id = region_id  # type: str
         self.resource = resource  # type: str
         self.start_timestamp = start_timestamp  # type: str
 
@@ -6003,6 +8252,8 @@ class DescribeVisitUasRequest(TeaModel):
             result['EndTimestamp'] = self.end_timestamp
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
         if self.resource is not None:
             result['Resource'] = self.resource
         if self.start_timestamp is not None:
@@ -6015,6 +8266,8 @@ class DescribeVisitUasRequest(TeaModel):
             self.end_timestamp = m.get('EndTimestamp')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
         if m.get('Resource') is not None:
             self.resource = m.get('Resource')
         if m.get('StartTimestamp') is not None:
@@ -6128,8 +8381,18 @@ class DescribeVisitUasResponse(TeaModel):
 
 
 class DescribeWafSourceIpSegmentRequest(TeaModel):
-    def __init__(self, instance_id=None):
+    def __init__(self, instance_id=None, region_id=None, resource_manager_resource_group_id=None):
+        # The ID of the WAF instance.
+        # 
+        # >  You can call the [DescribeInstance](~~433756~~) operation to obtain the ID of the WAF instance.
         self.instance_id = instance_id  # type: str
+        # The region where the WAF instance resides. Valid values:
+        # 
+        # *   **cn-hangzhou:** the Chinese mainland.
+        # *   **ap-southeast-1:** outside the Chinese mainland.
+        self.region_id = region_id  # type: str
+        # The ID of the Alibaba Cloud resource group.
+        self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
 
     def validate(self):
         pass
@@ -6142,18 +8405,28 @@ class DescribeWafSourceIpSegmentRequest(TeaModel):
         result = dict()
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_manager_resource_group_id is not None:
+            result['ResourceManagerResourceGroupId'] = self.resource_manager_resource_group_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceManagerResourceGroupId') is not None:
+            self.resource_manager_resource_group_id = m.get('ResourceManagerResourceGroupId')
         return self
 
 
 class DescribeWafSourceIpSegmentResponseBodyWafSourceIp(TeaModel):
     def __init__(self, ipv_4=None, ipv_6=None):
+        # An array of back-to-origin IPv4 CIDR blocks.
         self.ipv_4 = ipv_4  # type: list[str]
+        # An array of back-to-origin IPv6 CIDR blocks.
         self.ipv_6 = ipv_6  # type: list[str]
 
     def validate(self):
@@ -6182,7 +8455,9 @@ class DescribeWafSourceIpSegmentResponseBodyWafSourceIp(TeaModel):
 
 class DescribeWafSourceIpSegmentResponseBody(TeaModel):
     def __init__(self, request_id=None, waf_source_ip=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The back-to-origin CIDR blocks that are used by the protection cluster.
         self.waf_source_ip = waf_source_ip  # type: DescribeWafSourceIpSegmentResponseBodyWafSourceIp
 
     def validate(self):
@@ -6251,12 +8526,27 @@ class DescribeWafSourceIpSegmentResponse(TeaModel):
 
 
 class ModifyDefenseResourceGroupRequest(TeaModel):
-    def __init__(self, add_list=None, delete_list=None, description=None, group_name=None, instance_id=None):
+    def __init__(self, add_list=None, delete_list=None, description=None, group_name=None, instance_id=None,
+                 region_id=None, resource_manager_resource_group_id=None):
+        # The protected objects that you want to add to the protected object group. Separate the protected objects with commas (,). If you leave this parameter empty, no protected objects are added to the protected object group.
         self.add_list = add_list  # type: str
+        # The protected objects that you want to remove from the protected object group. Separate the protected objects with commas (,). If you leave this parameter empty, no protected objects are removed from the protected object group.
         self.delete_list = delete_list  # type: str
+        # The description of the protected object group.
         self.description = description  # type: str
+        # The name of the protected object group whose configurations you want to modify.
         self.group_name = group_name  # type: str
+        # The ID of the Web Application Firewall (WAF) instance.
+        # 
+        # >  You can call the [DescribeInstance](~~433756~~) operation to obtain the ID of the WAF instance.
         self.instance_id = instance_id  # type: str
+        # The region where the WAF instance resides. Valid values:
+        # 
+        # *   **cn-hangzhou:** the Chinese mainland.
+        # *   **ap-southeast-1:** outside the Chinese mainland.
+        self.region_id = region_id  # type: str
+        # The ID of the resource group.
+        self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
 
     def validate(self):
         pass
@@ -6277,6 +8567,10 @@ class ModifyDefenseResourceGroupRequest(TeaModel):
             result['GroupName'] = self.group_name
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_manager_resource_group_id is not None:
+            result['ResourceManagerResourceGroupId'] = self.resource_manager_resource_group_id
         return result
 
     def from_map(self, m=None):
@@ -6291,11 +8585,16 @@ class ModifyDefenseResourceGroupRequest(TeaModel):
             self.group_name = m.get('GroupName')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceManagerResourceGroupId') is not None:
+            self.resource_manager_resource_group_id = m.get('ResourceManagerResourceGroupId')
         return self
 
 
 class ModifyDefenseResourceGroupResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -6358,10 +8657,27 @@ class ModifyDefenseResourceGroupResponse(TeaModel):
 
 
 class ModifyDefenseRuleRequest(TeaModel):
-    def __init__(self, defense_scene=None, instance_id=None, rules=None, template_id=None):
+    def __init__(self, defense_scene=None, instance_id=None, region_id=None,
+                 resource_manager_resource_group_id=None, rules=None, template_id=None):
+        # The scenario in which you want to use the protection rule. For more information, see the description of the **DefenseScene** parameter in the [CreateDefenseRule](~~CreateDefenseRule~~) topic.
         self.defense_scene = defense_scene  # type: str
+        # The ID of the Web Application Firewall (WAF) instance.
+        # 
+        # >  You can call the [DescribeInstance](~~433756~~) operation to obtain the ID of the WAF instance.
         self.instance_id = instance_id  # type: str
+        # The region where the WAF instance resides. Valid values:
+        # 
+        # *   **cn-hangzhou:** the Chinese mainland.
+        # *   **ap-southeast-1:** outside the Chinese mainland.
+        self.region_id = region_id  # type: str
+        # The ID of the Alibaba Cloud resource group.
+        self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
+        # The details of the protection rule. Specify a string that contains multiple parameters in the JSON format. You must specify the ID and the new configurations of the protection rule.
+        # 
+        # *   **id:** The ID of the protection rule. Data type: long. You must specify this parameter.
+        # *   The protection rule configurations: The role of this parameter is the same as that of the **Rules** parameter in the **CreateDefenseRule** topic. For more information, see the "**Protection rule parameters**" section in the [CreateDefenseRule](~~CreateDefenseRule~~) topic.
         self.rules = rules  # type: str
+        # The ID of the protection rule template to which the protection rule whose configurations you want to modify belongs.
         self.template_id = template_id  # type: long
 
     def validate(self):
@@ -6377,6 +8693,10 @@ class ModifyDefenseRuleRequest(TeaModel):
             result['DefenseScene'] = self.defense_scene
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_manager_resource_group_id is not None:
+            result['ResourceManagerResourceGroupId'] = self.resource_manager_resource_group_id
         if self.rules is not None:
             result['Rules'] = self.rules
         if self.template_id is not None:
@@ -6389,6 +8709,10 @@ class ModifyDefenseRuleRequest(TeaModel):
             self.defense_scene = m.get('DefenseScene')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceManagerResourceGroupId') is not None:
+            self.resource_manager_resource_group_id = m.get('ResourceManagerResourceGroupId')
         if m.get('Rules') is not None:
             self.rules = m.get('Rules')
         if m.get('TemplateId') is not None:
@@ -6398,6 +8722,7 @@ class ModifyDefenseRuleRequest(TeaModel):
 
 class ModifyDefenseRuleResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -6460,10 +8785,27 @@ class ModifyDefenseRuleResponse(TeaModel):
 
 
 class ModifyDefenseRuleStatusRequest(TeaModel):
-    def __init__(self, instance_id=None, rule_id=None, rule_status=None, template_id=None):
+    def __init__(self, instance_id=None, region_id=None, resource_manager_resource_group_id=None, rule_id=None,
+                 rule_status=None, template_id=None):
+        # The ID of the Web Application Firewall (WAF) instance.
+        # 
+        # >  You can call the [DescribeInstance](~~433756~~) operation to obtain the ID of the WAF instance.
         self.instance_id = instance_id  # type: str
+        # The region where the WAF instance resides. Valid values:
+        # 
+        # *   **cn-hangzhou:** the Chinese mainland.
+        # *   **ap-southeast-1:** outside the Chinese mainland.
+        self.region_id = region_id  # type: str
+        # The ID of the resource group.
+        self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
+        # The ID of the protection rule whose status you want to change.
         self.rule_id = rule_id  # type: long
+        # The new status of the protection rule. Valid values:
+        # 
+        # *   **0:** disabled.
+        # *   **1:** enabled.
         self.rule_status = rule_status  # type: int
+        # The ID of the protection rule template to which the protection rule whose status you want to change belongs.
         self.template_id = template_id  # type: long
 
     def validate(self):
@@ -6477,6 +8819,10 @@ class ModifyDefenseRuleStatusRequest(TeaModel):
         result = dict()
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_manager_resource_group_id is not None:
+            result['ResourceManagerResourceGroupId'] = self.resource_manager_resource_group_id
         if self.rule_id is not None:
             result['RuleId'] = self.rule_id
         if self.rule_status is not None:
@@ -6489,6 +8835,10 @@ class ModifyDefenseRuleStatusRequest(TeaModel):
         m = m or dict()
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceManagerResourceGroupId') is not None:
+            self.resource_manager_resource_group_id = m.get('ResourceManagerResourceGroupId')
         if m.get('RuleId') is not None:
             self.rule_id = m.get('RuleId')
         if m.get('RuleStatus') is not None:
@@ -6500,6 +8850,7 @@ class ModifyDefenseRuleStatusRequest(TeaModel):
 
 class ModifyDefenseRuleStatusResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -6562,10 +8913,24 @@ class ModifyDefenseRuleStatusResponse(TeaModel):
 
 
 class ModifyDefenseTemplateRequest(TeaModel):
-    def __init__(self, description=None, instance_id=None, template_id=None, template_name=None):
+    def __init__(self, description=None, instance_id=None, region_id=None, resource_manager_resource_group_id=None,
+                 template_id=None, template_name=None):
+        # The description of the protection rule template whose configurations you want to modify.
         self.description = description  # type: str
+        # The ID of the WAF instance.
+        # 
+        # >  You can call the [DescribeInstance](~~433756~~) operation to obtain the ID of the WAF instance.
         self.instance_id = instance_id  # type: str
+        # The region where the WAF instance resides. Valid values:
+        # 
+        # *   **cn-hangzhou:** the Chinese mainland.
+        # *   **ap-southeast-1:** outside the Chinese mainland.
+        self.region_id = region_id  # type: str
+        # The ID of the resource group.
+        self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
+        # The ID of the protection rule template whose configurations you want to modify.
         self.template_id = template_id  # type: long
+        # The name of the protection rule template whose configurations you want to modify.
         self.template_name = template_name  # type: str
 
     def validate(self):
@@ -6581,6 +8946,10 @@ class ModifyDefenseTemplateRequest(TeaModel):
             result['Description'] = self.description
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_manager_resource_group_id is not None:
+            result['ResourceManagerResourceGroupId'] = self.resource_manager_resource_group_id
         if self.template_id is not None:
             result['TemplateId'] = self.template_id
         if self.template_name is not None:
@@ -6593,6 +8962,10 @@ class ModifyDefenseTemplateRequest(TeaModel):
             self.description = m.get('Description')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceManagerResourceGroupId') is not None:
+            self.resource_manager_resource_group_id = m.get('ResourceManagerResourceGroupId')
         if m.get('TemplateId') is not None:
             self.template_id = m.get('TemplateId')
         if m.get('TemplateName') is not None:
@@ -6602,6 +8975,7 @@ class ModifyDefenseTemplateRequest(TeaModel):
 
 class ModifyDefenseTemplateResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -6664,9 +9038,25 @@ class ModifyDefenseTemplateResponse(TeaModel):
 
 
 class ModifyDefenseTemplateStatusRequest(TeaModel):
-    def __init__(self, instance_id=None, template_id=None, template_status=None):
+    def __init__(self, instance_id=None, region_id=None, resource_manager_resource_group_id=None, template_id=None,
+                 template_status=None):
+        # The ID of the Web Application Firewall (WAF) instance.
+        # 
+        # >  You can call the [DescribeInstance](~~433756~~) operation to obtain the ID of the WAF instance.
         self.instance_id = instance_id  # type: str
+        # The region where the WAF instance resides. Valid values:
+        # 
+        # *   **cn-hangzhou:** the Chinese mainland.
+        # *   **ap-southeast-1:** outside the Chinese mainland.
+        self.region_id = region_id  # type: str
+        # The ID of the resource group.
+        self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
+        # The ID of the protection rule template whose status you want to change.
         self.template_id = template_id  # type: long
+        # The new status of the protection rule template. Valid values:
+        # 
+        # *   **0:** disabled.
+        # *   **1:** enabled.
         self.template_status = template_status  # type: int
 
     def validate(self):
@@ -6680,6 +9070,10 @@ class ModifyDefenseTemplateStatusRequest(TeaModel):
         result = dict()
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_manager_resource_group_id is not None:
+            result['ResourceManagerResourceGroupId'] = self.resource_manager_resource_group_id
         if self.template_id is not None:
             result['TemplateId'] = self.template_id
         if self.template_status is not None:
@@ -6690,6 +9084,10 @@ class ModifyDefenseTemplateStatusRequest(TeaModel):
         m = m or dict()
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceManagerResourceGroupId') is not None:
+            self.resource_manager_resource_group_id = m.get('ResourceManagerResourceGroupId')
         if m.get('TemplateId') is not None:
             self.template_id = m.get('TemplateId')
         if m.get('TemplateStatus') is not None:
@@ -6699,6 +9097,7 @@ class ModifyDefenseTemplateStatusRequest(TeaModel):
 
 class ModifyDefenseTemplateStatusResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -6763,20 +9162,70 @@ class ModifyDefenseTemplateStatusResponse(TeaModel):
 class ModifyDomainRequestListen(TeaModel):
     def __init__(self, cert_id=None, cipher_suite=None, custom_ciphers=None, enable_tlsv_3=None, exclusive_ip=None,
                  focus_https=None, http_2enabled=None, http_ports=None, https_ports=None, ipv_6enabled=None,
-                 protection_resource=None, tlsversion=None, xff_header_mode=None, xff_headers=None):
+                 protection_resource=None, sm2access_only=None, sm2cert_id=None, sm2enabled=None, tlsversion=None, xff_header_mode=None,
+                 xff_headers=None):
+        # The ID of the certificate that you want to add.
         self.cert_id = cert_id  # type: str
+        # The type of cipher suite that you want to add. This parameter is available only when you specify the **HttpsPorts** parameter. Valid values:
+        # 
+        # *   **1:** all cipher suites.
+        # *   **2:** strong cipher suites. You can select this value only when you set the **TLSVersion** parameter to **tlsv1.2**.
+        # *   **99:** custom cipher suites.
         self.cipher_suite = cipher_suite  # type: int
+        # The custom cipher suites that you want to add. This parameter is available only when you set the **CipherSuite** parameter to **99**.
         self.custom_ciphers = custom_ciphers  # type: list[str]
+        # Specifies whether to support TLS 1.3. This parameter is available only when you specify the **HttpsPorts** parameter. Valid values:
+        # 
+        # *   **true:** supports TLS 1.3.
+        # *   **false:** does not support TLS 1.3.
         self.enable_tlsv_3 = enable_tlsv_3  # type: bool
+        # Specifies whether to enable an exclusive IP address for the domain name. This parameter is available only when you set the **IPv6Enabled** parameter to false and the **ProtectionResource** parameter to **share**. Valid values:
+        # 
+        # *   **true:** enables an exclusive IP address for the domain name.
+        # *   **false:** does not enable an exclusive IP address for the domain name. This is the default value.
         self.exclusive_ip = exclusive_ip  # type: bool
+        # Specifies whether to enable HTTP to HTTPS redirection for the domain name. This parameter is available only when you specify the **HttpsPorts** parameter and leave the **HttpPorts** parameter empty. Valid values:
+        # 
+        # *   **true:** enables HTTP to HTTPS redirection.
+        # *   **false:** disables HTTP to HTTPS redirection.
         self.focus_https = focus_https  # type: bool
+        # Specifies whether to enable HTTP/2. This parameter is available only when you specify the **HttpsPorts** parameter. Valid values:
+        # 
+        # *   **true:** enables HTTP/2.
+        # *   **false:** disables HTTP/2. This is the default value.
         self.http_2enabled = http_2enabled  # type: bool
+        # An array of HTTP listener ports. Specify the value of this parameter in the \[port1,port2,...] format.
         self.http_ports = http_ports  # type: list[int]
+        # An array of HTTPS listener ports. Specify the value of this parameter in the \[port1,port2,...] format.
         self.https_ports = https_ports  # type: list[int]
+        # Specifies whether to enable IPv6. Valid values:
+        # 
+        # *   **true:** enables IPv6.
+        # *   **false:** disables IPv6. This is the default value.
         self.ipv_6enabled = ipv_6enabled  # type: bool
+        # The type of the protection resource that you want to use. Valid values:
+        # 
+        # *   **share:** shared cluster. This is the default value.
+        # *   **gslb:** shared cluster-based intelligent load balancing.
         self.protection_resource = protection_resource  # type: str
+        self.sm2access_only = sm2access_only  # type: bool
+        self.sm2cert_id = sm2cert_id  # type: str
+        self.sm2enabled = sm2enabled  # type: bool
+        # The version of the Transport Layer Security (TLS) protocol. This parameter is available only when you specify the **HttpsPorts** parameter. Valid values:
+        # 
+        # *   **tlsv1**\
+        # *   **tlsv1.1**\
+        # *   **tlsv1.2**\
         self.tlsversion = tlsversion  # type: str
+        # The method that you want WAF to use to obtain the actual IP address of a client. Valid values:
+        # 
+        # *   **0:** No Layer 7 proxies are deployed in front of WAF. This is the default value.
+        # *   **1:** WAF reads the first value of the X-Forwarded-For (XFF) header field as the actual IP address of the client.
+        # *   **2:** WAF reads the value of a custom header field as the actual IP address of the client.
         self.xff_header_mode = xff_header_mode  # type: int
+        # The custom header fields that you want to use to obtain the actual IP address of a client. Specify the value of this parameter in the \["header1","header2",...] format.
+        # 
+        # >  If you set the **XffHeaderMode** parameter to 2, this parameter is required.
         self.xff_headers = xff_headers  # type: list[str]
 
     def validate(self):
@@ -6810,6 +9259,12 @@ class ModifyDomainRequestListen(TeaModel):
             result['IPv6Enabled'] = self.ipv_6enabled
         if self.protection_resource is not None:
             result['ProtectionResource'] = self.protection_resource
+        if self.sm2access_only is not None:
+            result['SM2AccessOnly'] = self.sm2access_only
+        if self.sm2cert_id is not None:
+            result['SM2CertId'] = self.sm2cert_id
+        if self.sm2enabled is not None:
+            result['SM2Enabled'] = self.sm2enabled
         if self.tlsversion is not None:
             result['TLSVersion'] = self.tlsversion
         if self.xff_header_mode is not None:
@@ -6842,6 +9297,12 @@ class ModifyDomainRequestListen(TeaModel):
             self.ipv_6enabled = m.get('IPv6Enabled')
         if m.get('ProtectionResource') is not None:
             self.protection_resource = m.get('ProtectionResource')
+        if m.get('SM2AccessOnly') is not None:
+            self.sm2access_only = m.get('SM2AccessOnly')
+        if m.get('SM2CertId') is not None:
+            self.sm2cert_id = m.get('SM2CertId')
+        if m.get('SM2Enabled') is not None:
+            self.sm2enabled = m.get('SM2Enabled')
         if m.get('TLSVersion') is not None:
             self.tlsversion = m.get('TLSVersion')
         if m.get('XffHeaderMode') is not None:
@@ -6853,7 +9314,9 @@ class ModifyDomainRequestListen(TeaModel):
 
 class ModifyDomainRequestRedirectRequestHeaders(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the custom header field.
         self.key = key  # type: str
+        # The value of the custom header field.
         self.value = value  # type: str
 
     def validate(self):
@@ -6881,21 +9344,74 @@ class ModifyDomainRequestRedirectRequestHeaders(TeaModel):
 
 
 class ModifyDomainRequestRedirect(TeaModel):
-    def __init__(self, backends=None, connect_timeout=None, focus_http_backend=None, keepalive=None,
-                 keepalive_requests=None, keepalive_timeout=None, loadbalance=None, read_timeout=None, request_headers=None,
-                 retry=None, sni_enabled=None, sni_host=None, write_timeout=None):
+    def __init__(self, backends=None, cname_enabled=None, connect_timeout=None, focus_http_backend=None,
+                 keepalive=None, keepalive_requests=None, keepalive_timeout=None, loadbalance=None, read_timeout=None,
+                 request_headers=None, retry=None, routing_rules=None, sni_enabled=None, sni_host=None, write_timeout=None):
+        # An array of the IP addresses or domain names of the origin servers. You can specify only one type of address. If you use the domain name type, only IPv4 is supported.
+        # 
+        # *   If you use the IP address type, specify the value of this parameter in the \["ip1","ip2",...] format. You can add up to 20 IP addresses.
+        # *   If you use the domain name type, specify the value of this parameter in the \["domain"] format. You can add up to 20 domain names.
         self.backends = backends  # type: list[str]
+        # 是否开启公共云容灾。取值：
+        # 
+        # - **true**：表示开启公共云容灾。
+        # 
+        # - **false**（默认）：表示不开启公共云容灾。
+        self.cname_enabled = cname_enabled  # type: bool
+        # The connection timeout period. Unit: seconds. Valid values: 1 to 3600.
         self.connect_timeout = connect_timeout  # type: int
+        # Specifies whether to enable HTTPS to HTTP redirection for back-to-origin requests of the domain name. This parameter is available only when you specify the **HttpsPorts** parameter. Valid values:
+        # 
+        # *   **true:** enables HTTPS to HTTP redirection for back-to-origin requests of the domain name.
+        # *   **false:** disables HTTPS to HTTP redirection for back-to-origin requests of the domain name.
         self.focus_http_backend = focus_http_backend  # type: bool
+        # Specifies whether to enable the persistent connection feature. Valid values:
+        # 
+        # *   **true:** enables the persistent connection feature. This is the default value.
+        # *   **false:** disables the persistent connection feature.
         self.keepalive = keepalive  # type: bool
+        # The number of reused persistent connections. Valid values: 60 to 1000.
+        # 
+        # >  This parameter specifies the number of reused persistent connections when you enable the persistent connection feature.
         self.keepalive_requests = keepalive_requests  # type: int
+        # The timeout period of persistent connections that are in the Idle state. Unit: seconds. Valid values: 1 to 60. Default value: 15.
+        # 
+        # >  This parameter specifies the period of time during which a reused persistent connection is allowed to remain in the Idle state before the persistent connection is released.
         self.keepalive_timeout = keepalive_timeout  # type: int
+        # The load balancing algorithm that you want to use when WAF forwards requests to the origin server. Valid values:
+        # 
+        # *   **ip_hash:** the IP hash algorithm.
+        # *   **roundRobin:** the round-robin algorithm.
+        # *   **leastTime:** the least response time algorithm. You can select this value only when you set the **ProtectionResource** parameter to **gslb**.
         self.loadbalance = loadbalance  # type: str
+        # The read timeout period. Unit: seconds. Valid values: 1 to 3600.
         self.read_timeout = read_timeout  # type: int
+        # The key-value pairs that you want to use to mark the requests that pass through the WAF instance.
+        # 
+        # WAF automatically adds the key-value pairs to the request headers to identify the requests that pass through WAF.
         self.request_headers = request_headers  # type: list[ModifyDomainRequestRedirectRequestHeaders]
+        # Specifies whether WAF retries to forward requests when requests fail to be forwarded to the origin server. Valid values:
+        # 
+        # *   **true:** WAF retries to forward requests. This is the default value.
+        # *   **false:** WAF does not retry to forward requests.
         self.retry = retry  # type: bool
+        # 混合云转发规则。使用JSON数组转化的字符串格式表示。JSON数组中的每个元素是一个结构体，包含以下字段：
+        # - **rs**：Array类型 | 表示回源IP地址或者回源CNAME列表
+        # 
+        # - **location**：String类型 | 表示防护节点名称
+        # 
+        # - **locationId**：Long类型 | 表示防护节点ID
+        self.routing_rules = routing_rules  # type: str
+        # Specifies whether to enable origin Server Name Indication (SNI). This parameter is available only when you specify the **HttpsPorts** parameter. Valid values:
+        # 
+        # *   **true:** enables origin SNI.
+        # *   **false:** disables origin SNI. This is the default value.
         self.sni_enabled = sni_enabled  # type: bool
+        # The value of the custom SNI field. If you do not specify this parameter, the value of the **Host** field in the request header is automatically used. If you want WAF to use an SNI field value that is different from the value of the Host field in back-to-origin requests, you can specify a custom value for the SNI field.
+        # 
+        # >  If you set the **SniEnabled** parameter to true, this parameter is required.
         self.sni_host = sni_host  # type: str
+        # The write timeout period. Unit: seconds. Valid values: 1 to 3600.
         self.write_timeout = write_timeout  # type: int
 
     def validate(self):
@@ -6912,6 +9428,8 @@ class ModifyDomainRequestRedirect(TeaModel):
         result = dict()
         if self.backends is not None:
             result['Backends'] = self.backends
+        if self.cname_enabled is not None:
+            result['CnameEnabled'] = self.cname_enabled
         if self.connect_timeout is not None:
             result['ConnectTimeout'] = self.connect_timeout
         if self.focus_http_backend is not None:
@@ -6932,6 +9450,8 @@ class ModifyDomainRequestRedirect(TeaModel):
                 result['RequestHeaders'].append(k.to_map() if k else None)
         if self.retry is not None:
             result['Retry'] = self.retry
+        if self.routing_rules is not None:
+            result['RoutingRules'] = self.routing_rules
         if self.sni_enabled is not None:
             result['SniEnabled'] = self.sni_enabled
         if self.sni_host is not None:
@@ -6944,6 +9464,8 @@ class ModifyDomainRequestRedirect(TeaModel):
         m = m or dict()
         if m.get('Backends') is not None:
             self.backends = m.get('Backends')
+        if m.get('CnameEnabled') is not None:
+            self.cname_enabled = m.get('CnameEnabled')
         if m.get('ConnectTimeout') is not None:
             self.connect_timeout = m.get('ConnectTimeout')
         if m.get('FocusHttpBackend') is not None:
@@ -6965,6 +9487,8 @@ class ModifyDomainRequestRedirect(TeaModel):
                 self.request_headers.append(temp_model.from_map(k))
         if m.get('Retry') is not None:
             self.retry = m.get('Retry')
+        if m.get('RoutingRules') is not None:
+            self.routing_rules = m.get('RoutingRules')
         if m.get('SniEnabled') is not None:
             self.sni_enabled = m.get('SniEnabled')
         if m.get('SniHost') is not None:
@@ -6975,13 +9499,29 @@ class ModifyDomainRequestRedirect(TeaModel):
 
 
 class ModifyDomainRequest(TeaModel):
-    def __init__(self, access_type=None, domain=None, instance_id=None, listen=None, redirect=None, region_id=None):
+    def __init__(self, access_type=None, domain=None, instance_id=None, listen=None, redirect=None, region_id=None,
+                 source_ip=None):
+        # The mode in which you want to add the domain name to WAF. Set the value to share.
+        # 
+        # *   **share:** adds the domain name to WAF in CNAME record mode. This is the default value.
         self.access_type = access_type  # type: str
+        # The domain name whose access configurations you want to modify.
         self.domain = domain  # type: str
+        # The ID of the WAF instance.
+        # 
+        # >  You can call the [DescribeInstance](~~433756~~) operation to obtain the ID of the WAF instance.
         self.instance_id = instance_id  # type: str
+        # The configurations of the listeners.
         self.listen = listen  # type: ModifyDomainRequestListen
+        # The configurations of the forwarding rule.
         self.redirect = redirect  # type: ModifyDomainRequestRedirect
+        # The region where the WAF instance resides. Valid values:
+        # 
+        # *   **cn-hangzhou:** the Chinese mainland.
+        # *   **ap-southeast-1:** outside the Chinese mainland.
         self.region_id = region_id  # type: str
+        # The source IP address of the request. The value of this parameter is specified by the system.
+        self.source_ip = source_ip  # type: str
 
     def validate(self):
         if self.listen:
@@ -7007,6 +9547,8 @@ class ModifyDomainRequest(TeaModel):
             result['Redirect'] = self.redirect.to_map()
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.source_ip is not None:
+            result['SourceIp'] = self.source_ip
         return result
 
     def from_map(self, m=None):
@@ -7025,18 +9567,35 @@ class ModifyDomainRequest(TeaModel):
             self.redirect = temp_model.from_map(m['Redirect'])
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('SourceIp') is not None:
+            self.source_ip = m.get('SourceIp')
         return self
 
 
 class ModifyDomainShrinkRequest(TeaModel):
     def __init__(self, access_type=None, domain=None, instance_id=None, listen_shrink=None, redirect_shrink=None,
-                 region_id=None):
+                 region_id=None, source_ip=None):
+        # The mode in which you want to add the domain name to WAF. Set the value to share.
+        # 
+        # *   **share:** adds the domain name to WAF in CNAME record mode. This is the default value.
         self.access_type = access_type  # type: str
+        # The domain name whose access configurations you want to modify.
         self.domain = domain  # type: str
+        # The ID of the WAF instance.
+        # 
+        # >  You can call the [DescribeInstance](~~433756~~) operation to obtain the ID of the WAF instance.
         self.instance_id = instance_id  # type: str
+        # The configurations of the listeners.
         self.listen_shrink = listen_shrink  # type: str
+        # The configurations of the forwarding rule.
         self.redirect_shrink = redirect_shrink  # type: str
+        # The region where the WAF instance resides. Valid values:
+        # 
+        # *   **cn-hangzhou:** the Chinese mainland.
+        # *   **ap-southeast-1:** outside the Chinese mainland.
         self.region_id = region_id  # type: str
+        # The source IP address of the request. The value of this parameter is specified by the system.
+        self.source_ip = source_ip  # type: str
 
     def validate(self):
         pass
@@ -7059,6 +9618,8 @@ class ModifyDomainShrinkRequest(TeaModel):
             result['Redirect'] = self.redirect_shrink
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.source_ip is not None:
+            result['SourceIp'] = self.source_ip
         return result
 
     def from_map(self, m=None):
@@ -7075,13 +9636,19 @@ class ModifyDomainShrinkRequest(TeaModel):
             self.redirect_shrink = m.get('Redirect')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('SourceIp') is not None:
+            self.source_ip = m.get('SourceIp')
         return self
 
 
 class ModifyDomainResponseBodyDomainInfo(TeaModel):
-    def __init__(self, cname=None, domain=None):
+    def __init__(self, cname=None, domain=None, domain_id=None):
+        # The CNAME that is assigned by WAF to the domain name.
         self.cname = cname  # type: str
+        # The domain name whose access configurations you modified.
         self.domain = domain  # type: str
+        # The ID of the domain name.
+        self.domain_id = domain_id  # type: str
 
     def validate(self):
         pass
@@ -7096,6 +9663,8 @@ class ModifyDomainResponseBodyDomainInfo(TeaModel):
             result['Cname'] = self.cname
         if self.domain is not None:
             result['Domain'] = self.domain
+        if self.domain_id is not None:
+            result['DomainId'] = self.domain_id
         return result
 
     def from_map(self, m=None):
@@ -7104,12 +9673,16 @@ class ModifyDomainResponseBodyDomainInfo(TeaModel):
             self.cname = m.get('Cname')
         if m.get('Domain') is not None:
             self.domain = m.get('Domain')
+        if m.get('DomainId') is not None:
+            self.domain_id = m.get('DomainId')
         return self
 
 
 class ModifyDomainResponseBody(TeaModel):
     def __init__(self, domain_info=None, request_id=None):
+        # The information about the domain name.
         self.domain_info = domain_info  # type: ModifyDomainResponseBodyDomainInfo
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -7178,13 +9751,30 @@ class ModifyDomainResponse(TeaModel):
 
 
 class ModifyMajorProtectionBlackIpRequest(TeaModel):
-    def __init__(self, description=None, expired_time=None, instance_id=None, ip_list=None, rule_id=None,
-                 template_id=None):
+    def __init__(self, description=None, expired_time=None, instance_id=None, ip_list=None, region_id=None,
+                 resource_manager_resource_group_id=None, rule_id=None, template_id=None):
+        # The description of the IP address blacklist.
         self.description = description  # type: str
+        # The time after which the IP address blacklist becomes invalid. Unit: seconds.
+        # 
+        # >  If you set this parameter to **0**, the blacklist is permanently valid.
         self.expired_time = expired_time  # type: long
+        # The ID of the Web Application Firewall (WAF) instance.
+        # 
+        # >  You can call the [DescribeInstance](~~433756~~) operation to obtain the ID of the WAF instance.
         self.instance_id = instance_id  # type: str
+        # The IP addresses that you want to add to the IP address blacklist. You can specify multiple CIDR blocks or IP addresses. IPv4 and IPv6 addresses are supported. Separate the CIDR blocks or IP addresses with commas (,). For more information, see [Protection for major events](~~425591~~).
         self.ip_list = ip_list  # type: str
+        # The region where the WAF instance resides. Valid values:
+        # 
+        # *   **cn-hangzhou:** the Chinese mainland.
+        # *   **ap-southeast-1:** outside the Chinese mainland.
+        self.region_id = region_id  # type: str
+        # The ID of the resource group.
+        self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
+        # The ID of the IP address blacklist rule for major event protection.
         self.rule_id = rule_id  # type: long
+        # The ID of the IP address blacklist rule template for major event protection.
         self.template_id = template_id  # type: long
 
     def validate(self):
@@ -7204,6 +9794,10 @@ class ModifyMajorProtectionBlackIpRequest(TeaModel):
             result['InstanceId'] = self.instance_id
         if self.ip_list is not None:
             result['IpList'] = self.ip_list
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_manager_resource_group_id is not None:
+            result['ResourceManagerResourceGroupId'] = self.resource_manager_resource_group_id
         if self.rule_id is not None:
             result['RuleId'] = self.rule_id
         if self.template_id is not None:
@@ -7220,6 +9814,10 @@ class ModifyMajorProtectionBlackIpRequest(TeaModel):
             self.instance_id = m.get('InstanceId')
         if m.get('IpList') is not None:
             self.ip_list = m.get('IpList')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceManagerResourceGroupId') is not None:
+            self.resource_manager_resource_group_id = m.get('ResourceManagerResourceGroupId')
         if m.get('RuleId') is not None:
             self.rule_id = m.get('RuleId')
         if m.get('TemplateId') is not None:
@@ -7229,6 +9827,7 @@ class ModifyMajorProtectionBlackIpRequest(TeaModel):
 
 class ModifyMajorProtectionBlackIpResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -7291,9 +9890,25 @@ class ModifyMajorProtectionBlackIpResponse(TeaModel):
 
 
 class ModifyResourceLogStatusRequest(TeaModel):
-    def __init__(self, instance_id=None, resource=None, status=None):
+    def __init__(self, instance_id=None, region_id=None, resource=None, resource_manager_resource_group_id=None,
+                 status=None):
+        # The ID of the Web Application Firewall (WAF) instance.
+        # 
+        # >  You can call the [DescribeInstance](~~433756~~) operation to obtain the ID of the WAF instance.
         self.instance_id = instance_id  # type: str
+        # The region where the WAF instance resides. Valid values:
+        # 
+        # *   **cn-hangzhou:** the Chinese mainland.
+        # *   **ap-southeast-1:** outside the Chinese mainland.
+        self.region_id = region_id  # type: str
+        # The protected object on which you want to manage the log collection feature.
         self.resource = resource  # type: str
+        # The ID of the resource group.
+        self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
+        # Specifies whether to enable the log collection feature for the protected object. Valid values:
+        # 
+        # *   **true:** enables the log collection feature.
+        # *   **false:** disables the log collection feature.
         self.status = status  # type: bool
 
     def validate(self):
@@ -7307,8 +9922,12 @@ class ModifyResourceLogStatusRequest(TeaModel):
         result = dict()
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
         if self.resource is not None:
             result['Resource'] = self.resource
+        if self.resource_manager_resource_group_id is not None:
+            result['ResourceManagerResourceGroupId'] = self.resource_manager_resource_group_id
         if self.status is not None:
             result['Status'] = self.status
         return result
@@ -7317,8 +9936,12 @@ class ModifyResourceLogStatusRequest(TeaModel):
         m = m or dict()
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
         if m.get('Resource') is not None:
             self.resource = m.get('Resource')
+        if m.get('ResourceManagerResourceGroupId') is not None:
+            self.resource_manager_resource_group_id = m.get('ResourceManagerResourceGroupId')
         if m.get('Status') is not None:
             self.status = m.get('Status')
         return self
@@ -7326,7 +9949,12 @@ class ModifyResourceLogStatusRequest(TeaModel):
 
 class ModifyResourceLogStatusResponseBody(TeaModel):
     def __init__(self, request_id=None, status=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the log collection feature is enabled for the protected object. Valid values:
+        # 
+        # *   **true:** The log collection feature is enabled.
+        # *   **false:** The log collection feature is disabled.
         self.status = status  # type: bool
 
     def validate(self):
@@ -7393,13 +10021,28 @@ class ModifyResourceLogStatusResponse(TeaModel):
 
 
 class ModifyTemplateResourcesRequest(TeaModel):
-    def __init__(self, bind_resource_groups=None, bind_resources=None, instance_id=None, template_id=None,
-                 unbind_resource_groups=None, unbind_resources=None):
+    def __init__(self, bind_resource_groups=None, bind_resources=None, instance_id=None, region_id=None,
+                 resource_manager_resource_group_id=None, template_id=None, unbind_resource_groups=None, unbind_resources=None):
+        # The protected object groups that you want to associate with the protection rule template. Specify the value of this parameter in the \["group1","group2",...] format.
         self.bind_resource_groups = bind_resource_groups  # type: list[str]
+        # The protected objects that you want to associate with the protection rule template. Specify the value of this parameter in the \["XX1","XX2",...] format.
         self.bind_resources = bind_resources  # type: list[str]
+        # The ID of the Web Application Firewall (WAF) instance.
+        # 
+        # >  You can call the [DescribeInstance](~~433756~~) operation to obtain the ID of the WAF instance.
         self.instance_id = instance_id  # type: str
+        # The region where the WAF instance resides. Valid values:
+        # 
+        # *   **cn-hangzhou:** the Chinese mainland.
+        # *   **ap-southeast-1:** outside the Chinese mainland.
+        self.region_id = region_id  # type: str
+        # The ID of the Alibaba Cloud resource group.
+        self.resource_manager_resource_group_id = resource_manager_resource_group_id  # type: str
+        # The ID of the protection rule template.
         self.template_id = template_id  # type: long
+        # The protected object groups that you want to disassociate from the protection rule template. Specify the value of this parameter in the \["group1","group2",...] format.
         self.unbind_resource_groups = unbind_resource_groups  # type: list[str]
+        # The protected objects that you want to disassociate from the protection rule template. Specify the value of this parameter in the \["XX1","XX2",...] format.
         self.unbind_resources = unbind_resources  # type: list[str]
 
     def validate(self):
@@ -7417,6 +10060,10 @@ class ModifyTemplateResourcesRequest(TeaModel):
             result['BindResources'] = self.bind_resources
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_manager_resource_group_id is not None:
+            result['ResourceManagerResourceGroupId'] = self.resource_manager_resource_group_id
         if self.template_id is not None:
             result['TemplateId'] = self.template_id
         if self.unbind_resource_groups is not None:
@@ -7433,6 +10080,10 @@ class ModifyTemplateResourcesRequest(TeaModel):
             self.bind_resources = m.get('BindResources')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceManagerResourceGroupId') is not None:
+            self.resource_manager_resource_group_id = m.get('ResourceManagerResourceGroupId')
         if m.get('TemplateId') is not None:
             self.template_id = m.get('TemplateId')
         if m.get('UnbindResourceGroups') is not None:
@@ -7444,6 +10095,7 @@ class ModifyTemplateResourcesRequest(TeaModel):
 
 class ModifyTemplateResourcesResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
