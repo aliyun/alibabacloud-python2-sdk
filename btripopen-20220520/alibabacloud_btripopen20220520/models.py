@@ -8976,6 +8976,7 @@ class CorpTokenResponseBody(TeaModel):
         self.message = message  # type: str
         self.module = module  # type: CorpTokenResponseBodyModule
         self.request_id = request_id  # type: str
+        # 是否成功
         self.success = success  # type: bool
         # traceId
         self.trace_id = trace_id  # type: str
@@ -11483,7 +11484,6 @@ class EstimatedPriceQueryResponseBodyModuleTrafficFeeBtripRoutes(TeaModel):
                  itinerary_id=None, most_expensive=None, success=None):
         self.arr_city = arr_city  # type: str
         self.arr_date = arr_date  # type: long
-        # cheapest
         self.cheapest = cheapest  # type: EstimatedPriceQueryResponseBodyModuleTrafficFeeBtripRoutesCheapest
         self.dep_city = dep_city  # type: str
         self.dep_date = dep_date  # type: long
@@ -11604,6 +11604,7 @@ class EstimatedPriceQueryResponseBodyModuleTrafficFee(TeaModel):
 class EstimatedPriceQueryResponseBodyModule(TeaModel):
     def __init__(self, hotel_fee_detail=None, total_hotel_fee=None, traffic_fee=None):
         self.hotel_fee_detail = hotel_fee_detail  # type: list[EstimatedPriceQueryResponseBodyModuleHotelFeeDetail]
+        # 酒店费用总额，单位为元
         self.total_hotel_fee = total_hotel_fee  # type: long
         self.traffic_fee = traffic_fee  # type: EstimatedPriceQueryResponseBodyModuleTrafficFee
 
@@ -13617,17 +13618,29 @@ class FlightItineraryScanQueryResponseBodyModuleItemsFlights(TeaModel):
     def __init__(self, arrival_station=None, cabin_class=None, carrier=None, departure_station=None,
                  flight_date=None, flight_number=None, flight_time=None, free_baggage_allowance=None, index=None,
                  seat_class=None, valid_from_date=None, valid_to_date=None):
+        # 航班至
         self.arrival_station = arrival_station  # type: str
+        # 座位等级
         self.cabin_class = cabin_class  # type: str
+        # 承运人
         self.carrier = carrier  # type: str
+        # 航班从
         self.departure_station = departure_station  # type: str
+        # 日期
         self.flight_date = flight_date  # type: str
+        # 航班号
         self.flight_number = flight_number  # type: str
+        # 时间
         self.flight_time = flight_time  # type: str
+        # 免费行李
         self.free_baggage_allowance = free_baggage_allowance  # type: str
+        # 行号
         self.index = index  # type: str
+        # 客票级别
         self.seat_class = seat_class  # type: str
+        # 客票生效日期
         self.valid_from_date = valid_from_date  # type: str
+        # 有效截止日期
         self.valid_to_date = valid_to_date  # type: str
 
     def validate(self):
@@ -13699,29 +13712,36 @@ class FlightItineraryScanQueryResponseBodyModuleItems(TeaModel):
                  fuel_surcharge=None, id=None, insurance=None, invoice_title=None, issue_company=None, issue_date=None,
                  itinerary_num=None, order_id=None, oss_url=None, passenger_name=None, project=None, prompt_message=None,
                  tax_amount=None, tax_rate=None, ticket_no=None, ticket_price=None, total_price=None, validation_code=None):
+        # 销售单位代号
         self.agent_code = agent_code  # type: str
         self.bill_date = bill_date  # type: str
         self.build = build  # type: str
         self.cost_center = cost_center  # type: str
         self.department = department  # type: str
+        # 机票行程明细
         self.flights = flights  # type: list[FlightItineraryScanQueryResponseBodyModuleItemsFlights]
         self.fuel_surcharge = fuel_surcharge  # type: str
+        # UK
         self.id = id  # type: str
         self.insurance = insurance  # type: str
         self.invoice_title = invoice_title  # type: str
+        # 填开单位
         self.issue_company = issue_company  # type: str
+        # 填开日期
         self.issue_date = issue_date  # type: str
         self.itinerary_num = itinerary_num  # type: str
         self.order_id = order_id  # type: long
         self.oss_url = oss_url  # type: str
         self.passenger_name = passenger_name  # type: str
         self.project = project  # type: str
+        # 提示信息
         self.prompt_message = prompt_message  # type: str
         self.tax_amount = tax_amount  # type: str
         self.tax_rate = tax_rate  # type: str
         self.ticket_no = ticket_no  # type: str
         self.ticket_price = ticket_price  # type: str
         self.total_price = total_price  # type: str
+        # 验证码
         self.validation_code = validation_code  # type: str
 
     def validate(self):
@@ -31060,11 +31080,11 @@ class HotelOrderPayHeaders(TeaModel):
 
 
 class HotelOrderPayRequest(TeaModel):
-    def __init__(self, btrip_user_id=None, company_pay_fee=None, dis_order_id=None, person_pay_fee=None,
+    def __init__(self, btrip_order_id=None, btrip_user_id=None, company_pay_fee=None, person_pay_fee=None,
                  third_pay_account=None, third_trade_no=None, total_price=None):
+        self.btrip_order_id = btrip_order_id  # type: long
         self.btrip_user_id = btrip_user_id  # type: str
         self.company_pay_fee = company_pay_fee  # type: long
-        self.dis_order_id = dis_order_id  # type: str
         self.person_pay_fee = person_pay_fee  # type: long
         self.third_pay_account = third_pay_account  # type: str
         self.third_trade_no = third_trade_no  # type: str
@@ -31079,12 +31099,12 @@ class HotelOrderPayRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.btrip_order_id is not None:
+            result['btrip_order_id'] = self.btrip_order_id
         if self.btrip_user_id is not None:
             result['btrip_user_id'] = self.btrip_user_id
         if self.company_pay_fee is not None:
             result['company_pay_fee'] = self.company_pay_fee
-        if self.dis_order_id is not None:
-            result['dis_order_id'] = self.dis_order_id
         if self.person_pay_fee is not None:
             result['person_pay_fee'] = self.person_pay_fee
         if self.third_pay_account is not None:
@@ -31097,12 +31117,12 @@ class HotelOrderPayRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('btrip_order_id') is not None:
+            self.btrip_order_id = m.get('btrip_order_id')
         if m.get('btrip_user_id') is not None:
             self.btrip_user_id = m.get('btrip_user_id')
         if m.get('company_pay_fee') is not None:
             self.company_pay_fee = m.get('company_pay_fee')
-        if m.get('dis_order_id') is not None:
-            self.dis_order_id = m.get('dis_order_id')
         if m.get('person_pay_fee') is not None:
             self.person_pay_fee = m.get('person_pay_fee')
         if m.get('third_pay_account') is not None:
@@ -34828,11 +34848,11 @@ class InsInvoiceScanQueryResponseBodyModuleItems(TeaModel):
     def __init__(self, amount_with_tax=None, amount_without_tax=None, bill_date=None, check_code=None,
                  cost_center=None, department=None, drawer=None, id=None, insurance_company=None, insurance_order_id=None,
                  insurance_type=None, invoice_code=None, invoice_day=None, invoice_details=None, invoice_location=None,
-                 invoice_no=None, invoice_title=None, order_id=None, oss_url=None, passenger=None, password_area=None,
-                 project=None, purchaser_bank_account_info=None, purchaser_contact_info=None, purchaser_name=None,
-                 purchaser_tax_no=None, recipient=None, remarks=None, reviewer=None, seller_bank_account_info=None,
-                 seller_contact_info=None, seller_name=None, seller_tax_no=None, smart_check_code=None, tax_amount=None, tax_rate=None,
-                 total_amount_in_words=None):
+                 invoice_no=None, invoice_title=None, machine_code=None, order_id=None, oss_url=None, passenger=None,
+                 password_area=None, project=None, purchaser_bank_account_info=None, purchaser_contact_info=None,
+                 purchaser_name=None, purchaser_tax_no=None, recipient=None, remarks=None, reviewer=None,
+                 seller_bank_account_info=None, seller_contact_info=None, seller_name=None, seller_tax_no=None, smart_check_code=None,
+                 tax_amount=None, tax_rate=None, total_amount_in_words=None):
         self.amount_with_tax = amount_with_tax  # type: str
         self.amount_without_tax = amount_without_tax  # type: str
         self.bill_date = bill_date  # type: str
@@ -34850,6 +34870,7 @@ class InsInvoiceScanQueryResponseBodyModuleItems(TeaModel):
         self.invoice_location = invoice_location  # type: str
         self.invoice_no = invoice_no  # type: str
         self.invoice_title = invoice_title  # type: str
+        self.machine_code = machine_code  # type: str
         self.order_id = order_id  # type: long
         self.oss_url = oss_url  # type: str
         self.passenger = passenger  # type: str
@@ -34919,6 +34940,8 @@ class InsInvoiceScanQueryResponseBodyModuleItems(TeaModel):
             result['invoice_no'] = self.invoice_no
         if self.invoice_title is not None:
             result['invoice_title'] = self.invoice_title
+        if self.machine_code is not None:
+            result['machine_code'] = self.machine_code
         if self.order_id is not None:
             result['order_id'] = self.order_id
         if self.oss_url is not None:
@@ -35000,6 +35023,8 @@ class InsInvoiceScanQueryResponseBodyModuleItems(TeaModel):
             self.invoice_no = m.get('invoice_no')
         if m.get('invoice_title') is not None:
             self.invoice_title = m.get('invoice_title')
+        if m.get('machine_code') is not None:
+            self.machine_code = m.get('machine_code')
         if m.get('order_id') is not None:
             self.order_id = m.get('order_id')
         if m.get('oss_url') is not None:
@@ -37231,14 +37256,23 @@ class MonthBillGetRequest(TeaModel):
 class MonthBillGetResponseBodyModuleMonthAccountBillDetail(TeaModel):
     def __init__(self, car_amount=None, damage_amount=None, flight_amount=None, fu_point=None, hotel_amount=None,
                  ie_flight_amount=None, mail_bill_date=None, service_amount=None, train_amount=None):
+        # 用车金额（单位：元）
         self.car_amount = car_amount  # type: float
+        # 违约金金额（单位：元）
         self.damage_amount = damage_amount  # type: float
+        # 机票金额（单位：元）
         self.flight_amount = flight_amount  # type: float
+        # 福豆金额（单位：元）
         self.fu_point = fu_point  # type: float
+        # 酒店金额（单位：元）
         self.hotel_amount = hotel_amount  # type: float
+        # 国际机票金额（单位：元）
         self.ie_flight_amount = ie_flight_amount  # type: float
+        # 账期日：YYYYMMDD
         self.mail_bill_date = mail_bill_date  # type: long
+        # 服务费金额（单位：元）
         self.service_amount = service_amount  # type: float
+        # 火车票金额（单位：元）
         self.train_amount = train_amount  # type: float
 
     def validate(self):
@@ -37296,6 +37330,7 @@ class MonthBillGetResponseBodyModuleMonthAccountBillDetail(TeaModel):
 class MonthBillGetResponseBodyModule(TeaModel):
     def __init__(self, end_date=None, month_account_bill_detail=None, start_date=None, url=None):
         self.end_date = end_date  # type: str
+        # CorpMonthAccountBillFeeDetail
         self.month_account_bill_detail = month_account_bill_detail  # type: MonthBillGetResponseBodyModuleMonthAccountBillDetail
         self.start_date = start_date  # type: str
         self.url = url  # type: str
@@ -43970,7 +44005,9 @@ class TrainOrderQueryResponseBodyModuleOrderBaseInfo(TeaModel):
         self.corp_name = corp_name  # type: str
         self.depart_id = depart_id  # type: str
         self.depart_name = depart_name  # type: str
+        # 火车票超标审批id
         self.exceed_apply_id = exceed_apply_id  # type: str
+        # 火车票超标审批三方id
         self.exceed_third_part_apply_id = exceed_third_part_apply_id  # type: str
         self.gmt_create = gmt_create  # type: str
         self.gmt_modify = gmt_modify  # type: str
@@ -46598,8 +46635,8 @@ class VatInvoiceScanQueryResponseBodyModuleItems(TeaModel):
     def __init__(self, amount_with_tax=None, amount_without_tax=None, bill_date=None, check_code=None, drawer=None,
                  id=None, invoice_code=None, invoice_day=None, invoice_detail=None, invoice_details=None,
                  invoice_location=None, invoice_no=None, invoice_sub_task_id=None, invoice_type=None, invoice_type_desc=None,
-                 oss_url=None, password_area=None, purchaser_bank_account_info=None, purchaser_contact_info=None,
-                 purchaser_name=None, purchaser_tax_no=None, recipient=None, remarks=None, reviewer=None,
+                 machine_code=None, oss_url=None, password_area=None, purchaser_bank_account_info=None,
+                 purchaser_contact_info=None, purchaser_name=None, purchaser_tax_no=None, recipient=None, remarks=None, reviewer=None,
                  seller_bank_account_info=None, seller_contact_info=None, seller_name=None, seller_tax_no=None, smart_check_code=None,
                  tax_amount=None, tax_rate=None, total_amount_in_words=None):
         self.amount_with_tax = amount_with_tax  # type: str
@@ -46617,6 +46654,7 @@ class VatInvoiceScanQueryResponseBodyModuleItems(TeaModel):
         self.invoice_sub_task_id = invoice_sub_task_id  # type: long
         self.invoice_type = invoice_type  # type: int
         self.invoice_type_desc = invoice_type_desc  # type: str
+        self.machine_code = machine_code  # type: str
         self.oss_url = oss_url  # type: str
         self.password_area = password_area  # type: str
         self.purchaser_bank_account_info = purchaser_bank_account_info  # type: str
@@ -46679,6 +46717,8 @@ class VatInvoiceScanQueryResponseBodyModuleItems(TeaModel):
             result['invoice_type'] = self.invoice_type
         if self.invoice_type_desc is not None:
             result['invoice_type_desc'] = self.invoice_type_desc
+        if self.machine_code is not None:
+            result['machine_code'] = self.machine_code
         if self.oss_url is not None:
             result['oss_url'] = self.oss_url
         if self.password_area is not None:
@@ -46750,6 +46790,8 @@ class VatInvoiceScanQueryResponseBodyModuleItems(TeaModel):
             self.invoice_type = m.get('invoice_type')
         if m.get('invoice_type_desc') is not None:
             self.invoice_type_desc = m.get('invoice_type_desc')
+        if m.get('machine_code') is not None:
+            self.machine_code = m.get('machine_code')
         if m.get('oss_url') is not None:
             self.oss_url = m.get('oss_url')
         if m.get('password_area') is not None:
