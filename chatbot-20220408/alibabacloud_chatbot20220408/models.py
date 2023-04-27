@@ -583,12 +583,13 @@ class CancelPublishTaskResponse(TeaModel):
 
 class ChatRequest(TeaModel):
     def __init__(self, agent_key=None, instance_id=None, intent_name=None, knowledge_id=None, perspective=None,
-                 sender_id=None, sender_nick=None, session_id=None, utterance=None, vendor_param=None):
+                 sand_box=None, sender_id=None, sender_nick=None, session_id=None, utterance=None, vendor_param=None):
         self.agent_key = agent_key  # type: str
         self.instance_id = instance_id  # type: str
         self.intent_name = intent_name  # type: str
         self.knowledge_id = knowledge_id  # type: str
         self.perspective = perspective  # type: list[str]
+        self.sand_box = sand_box  # type: bool
         self.sender_id = sender_id  # type: str
         self.sender_nick = sender_nick  # type: str
         self.session_id = session_id  # type: str
@@ -614,6 +615,8 @@ class ChatRequest(TeaModel):
             result['KnowledgeId'] = self.knowledge_id
         if self.perspective is not None:
             result['Perspective'] = self.perspective
+        if self.sand_box is not None:
+            result['SandBox'] = self.sand_box
         if self.sender_id is not None:
             result['SenderId'] = self.sender_id
         if self.sender_nick is not None:
@@ -638,6 +641,8 @@ class ChatRequest(TeaModel):
             self.knowledge_id = m.get('KnowledgeId')
         if m.get('Perspective') is not None:
             self.perspective = m.get('Perspective')
+        if m.get('SandBox') is not None:
+            self.sand_box = m.get('SandBox')
         if m.get('SenderId') is not None:
             self.sender_id = m.get('SenderId')
         if m.get('SenderNick') is not None:
@@ -653,12 +658,14 @@ class ChatRequest(TeaModel):
 
 class ChatShrinkRequest(TeaModel):
     def __init__(self, agent_key=None, instance_id=None, intent_name=None, knowledge_id=None,
-                 perspective_shrink=None, sender_id=None, sender_nick=None, session_id=None, utterance=None, vendor_param=None):
+                 perspective_shrink=None, sand_box=None, sender_id=None, sender_nick=None, session_id=None, utterance=None,
+                 vendor_param=None):
         self.agent_key = agent_key  # type: str
         self.instance_id = instance_id  # type: str
         self.intent_name = intent_name  # type: str
         self.knowledge_id = knowledge_id  # type: str
         self.perspective_shrink = perspective_shrink  # type: str
+        self.sand_box = sand_box  # type: bool
         self.sender_id = sender_id  # type: str
         self.sender_nick = sender_nick  # type: str
         self.session_id = session_id  # type: str
@@ -684,6 +691,8 @@ class ChatShrinkRequest(TeaModel):
             result['KnowledgeId'] = self.knowledge_id
         if self.perspective_shrink is not None:
             result['Perspective'] = self.perspective_shrink
+        if self.sand_box is not None:
+            result['SandBox'] = self.sand_box
         if self.sender_id is not None:
             result['SenderId'] = self.sender_id
         if self.sender_nick is not None:
@@ -708,6 +717,8 @@ class ChatShrinkRequest(TeaModel):
             self.knowledge_id = m.get('KnowledgeId')
         if m.get('Perspective') is not None:
             self.perspective_shrink = m.get('Perspective')
+        if m.get('SandBox') is not None:
+            self.sand_box = m.get('SandBox')
         if m.get('SenderId') is not None:
             self.sender_id = m.get('SenderId')
         if m.get('SenderNick') is not None:
