@@ -250,6 +250,7 @@ class BeginSessionRequest(TeaModel):
 class BeginSessionResponseBody(TeaModel):
     def __init__(self, request_id=None, silence_reply_timeout=None, welcome_message=None):
         self.request_id = request_id  # type: str
+        # 静默超时时间
         self.silence_reply_timeout = silence_reply_timeout  # type: int
         self.welcome_message = welcome_message  # type: str
 
