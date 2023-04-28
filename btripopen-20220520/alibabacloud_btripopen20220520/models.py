@@ -97,6 +97,7 @@ class AccessTokenResponseBody(TeaModel):
         self.message = message  # type: str
         self.module = module  # type: AccessTokenResponseBodyModule
         self.request_id = request_id  # type: str
+        # 成功标识
         self.success = success  # type: bool
         # traceId
         self.trace_id = trace_id  # type: str
@@ -1580,15 +1581,16 @@ class ApplyAddRequest(TeaModel):
     def __init__(self, budget=None, budget_merge=None, corp_name=None, depart_id=None, depart_name=None,
                  extend_field=None, external_traveler_list=None, external_traveler_standard=None, flight_budget=None,
                  hotel_budget=None, hotel_share=None, international_flight_cabins=None, itinerary_list=None,
-                 itinerary_rule=None, itinerary_set_list=None, limit_traveler=None, status=None, thirdpart_apply_id=None,
-                 thirdpart_business_id=None, thirdpart_depart_id=None, together_book_rule=None, train_budget=None, traveler_list=None,
-                 traveler_standard=None, trip_cause=None, trip_day=None, trip_title=None, type=None, union_no=None, user_id=None,
-                 user_name=None, vehicle_budget=None):
+                 itinerary_rule=None, itinerary_set_list=None, limit_traveler=None, status=None, sub_corp_id=None,
+                 thirdpart_apply_id=None, thirdpart_business_id=None, thirdpart_depart_id=None, together_book_rule=None,
+                 train_budget=None, traveler_list=None, traveler_standard=None, trip_cause=None, trip_day=None, trip_title=None,
+                 type=None, union_no=None, user_id=None, user_name=None, vehicle_budget=None):
         self.budget = budget  # type: long
         self.budget_merge = budget_merge  # type: int
         self.corp_name = corp_name  # type: str
         self.depart_id = depart_id  # type: str
         self.depart_name = depart_name  # type: str
+        # 可将补充描述传入此字段，账单中将会体现此字段的值。可以用于企业的统计和对账
         self.extend_field = extend_field  # type: str
         self.external_traveler_list = external_traveler_list  # type: list[ApplyAddRequestExternalTravelerList]
         self.external_traveler_standard = external_traveler_standard  # type: ApplyAddRequestExternalTravelerStandard
@@ -1601,6 +1603,7 @@ class ApplyAddRequest(TeaModel):
         self.itinerary_set_list = itinerary_set_list  # type: list[ApplyAddRequestItinerarySetList]
         self.limit_traveler = limit_traveler  # type: int
         self.status = status  # type: int
+        self.sub_corp_id = sub_corp_id  # type: str
         self.thirdpart_apply_id = thirdpart_apply_id  # type: str
         self.thirdpart_business_id = thirdpart_business_id  # type: str
         self.thirdpart_depart_id = thirdpart_depart_id  # type: str
@@ -1689,6 +1692,8 @@ class ApplyAddRequest(TeaModel):
             result['limit_traveler'] = self.limit_traveler
         if self.status is not None:
             result['status'] = self.status
+        if self.sub_corp_id is not None:
+            result['sub_corp_id'] = self.sub_corp_id
         if self.thirdpart_apply_id is not None:
             result['thirdpart_apply_id'] = self.thirdpart_apply_id
         if self.thirdpart_business_id is not None:
@@ -1772,6 +1777,8 @@ class ApplyAddRequest(TeaModel):
             self.limit_traveler = m.get('limit_traveler')
         if m.get('status') is not None:
             self.status = m.get('status')
+        if m.get('sub_corp_id') is not None:
+            self.sub_corp_id = m.get('sub_corp_id')
         if m.get('thirdpart_apply_id') is not None:
             self.thirdpart_apply_id = m.get('thirdpart_apply_id')
         if m.get('thirdpart_business_id') is not None:
@@ -1816,14 +1823,16 @@ class ApplyAddShrinkRequest(TeaModel):
                  extend_field=None, external_traveler_list_shrink=None, external_traveler_standard_shrink=None,
                  flight_budget=None, hotel_budget=None, hotel_share_shrink=None, international_flight_cabins=None,
                  itinerary_list_shrink=None, itinerary_rule=None, itinerary_set_list_shrink=None, limit_traveler=None, status=None,
-                 thirdpart_apply_id=None, thirdpart_business_id=None, thirdpart_depart_id=None, together_book_rule=None,
-                 train_budget=None, traveler_list_shrink=None, traveler_standard_shrink=None, trip_cause=None, trip_day=None,
-                 trip_title=None, type=None, union_no=None, user_id=None, user_name=None, vehicle_budget=None):
+                 sub_corp_id=None, thirdpart_apply_id=None, thirdpart_business_id=None, thirdpart_depart_id=None,
+                 together_book_rule=None, train_budget=None, traveler_list_shrink=None, traveler_standard_shrink=None,
+                 trip_cause=None, trip_day=None, trip_title=None, type=None, union_no=None, user_id=None, user_name=None,
+                 vehicle_budget=None):
         self.budget = budget  # type: long
         self.budget_merge = budget_merge  # type: int
         self.corp_name = corp_name  # type: str
         self.depart_id = depart_id  # type: str
         self.depart_name = depart_name  # type: str
+        # 可将补充描述传入此字段，账单中将会体现此字段的值。可以用于企业的统计和对账
         self.extend_field = extend_field  # type: str
         self.external_traveler_list_shrink = external_traveler_list_shrink  # type: str
         self.external_traveler_standard_shrink = external_traveler_standard_shrink  # type: str
@@ -1836,6 +1845,7 @@ class ApplyAddShrinkRequest(TeaModel):
         self.itinerary_set_list_shrink = itinerary_set_list_shrink  # type: str
         self.limit_traveler = limit_traveler  # type: int
         self.status = status  # type: int
+        self.sub_corp_id = sub_corp_id  # type: str
         self.thirdpart_apply_id = thirdpart_apply_id  # type: str
         self.thirdpart_business_id = thirdpart_business_id  # type: str
         self.thirdpart_depart_id = thirdpart_depart_id  # type: str
@@ -1895,6 +1905,8 @@ class ApplyAddShrinkRequest(TeaModel):
             result['limit_traveler'] = self.limit_traveler
         if self.status is not None:
             result['status'] = self.status
+        if self.sub_corp_id is not None:
+            result['sub_corp_id'] = self.sub_corp_id
         if self.thirdpart_apply_id is not None:
             result['thirdpart_apply_id'] = self.thirdpart_apply_id
         if self.thirdpart_business_id is not None:
@@ -1963,6 +1975,8 @@ class ApplyAddShrinkRequest(TeaModel):
             self.limit_traveler = m.get('limit_traveler')
         if m.get('status') is not None:
             self.status = m.get('status')
+        if m.get('sub_corp_id') is not None:
+            self.sub_corp_id = m.get('sub_corp_id')
         if m.get('thirdpart_apply_id') is not None:
             self.thirdpart_apply_id = m.get('thirdpart_apply_id')
         if m.get('thirdpart_business_id') is not None:
@@ -2151,11 +2165,13 @@ class ApplyApproveHeaders(TeaModel):
 
 
 class ApplyApproveRequest(TeaModel):
-    def __init__(self, apply_id=None, note=None, operate_time=None, status=None, user_id=None, user_name=None):
+    def __init__(self, apply_id=None, note=None, operate_time=None, status=None, sub_corp_id=None, user_id=None,
+                 user_name=None):
         self.apply_id = apply_id  # type: str
         self.note = note  # type: str
         self.operate_time = operate_time  # type: str
         self.status = status  # type: int
+        self.sub_corp_id = sub_corp_id  # type: str
         self.user_id = user_id  # type: str
         self.user_name = user_name  # type: str
 
@@ -2176,6 +2192,8 @@ class ApplyApproveRequest(TeaModel):
             result['operate_time'] = self.operate_time
         if self.status is not None:
             result['status'] = self.status
+        if self.sub_corp_id is not None:
+            result['sub_corp_id'] = self.sub_corp_id
         if self.user_id is not None:
             result['user_id'] = self.user_id
         if self.user_name is not None:
@@ -2192,6 +2210,8 @@ class ApplyApproveRequest(TeaModel):
             self.operate_time = m.get('operate_time')
         if m.get('status') is not None:
             self.status = m.get('status')
+        if m.get('sub_corp_id') is not None:
+            self.sub_corp_id = m.get('sub_corp_id')
         if m.get('user_id') is not None:
             self.user_id = m.get('user_id')
         if m.get('user_name') is not None:
@@ -2612,7 +2632,7 @@ class ApplyListQueryHeaders(TeaModel):
 
 class ApplyListQueryRequest(TeaModel):
     def __init__(self, all_apply=None, depart_id=None, end_time=None, gmt_modified=None, only_shang_lv_apply=None,
-                 page=None, page_size=None, start_time=None, type=None, union_no=None, user_id=None):
+                 page=None, page_size=None, start_time=None, sub_corp_id=None, type=None, union_no=None, user_id=None):
         self.all_apply = all_apply  # type: bool
         self.depart_id = depart_id  # type: str
         self.end_time = end_time  # type: str
@@ -2621,6 +2641,7 @@ class ApplyListQueryRequest(TeaModel):
         self.page = page  # type: int
         self.page_size = page_size  # type: int
         self.start_time = start_time  # type: str
+        self.sub_corp_id = sub_corp_id  # type: str
         self.type = type  # type: int
         self.union_no = union_no  # type: str
         self.user_id = user_id  # type: str
@@ -2650,6 +2671,8 @@ class ApplyListQueryRequest(TeaModel):
             result['page_size'] = self.page_size
         if self.start_time is not None:
             result['start_time'] = self.start_time
+        if self.sub_corp_id is not None:
+            result['sub_corp_id'] = self.sub_corp_id
         if self.type is not None:
             result['type'] = self.type
         if self.union_no is not None:
@@ -2676,6 +2699,8 @@ class ApplyListQueryRequest(TeaModel):
             self.page_size = m.get('page_size')
         if m.get('start_time') is not None:
             self.start_time = m.get('start_time')
+        if m.get('sub_corp_id') is not None:
+            self.sub_corp_id = m.get('sub_corp_id')
         if m.get('type') is not None:
             self.type = m.get('type')
         if m.get('union_no') is not None:
@@ -3326,6 +3351,7 @@ class ApplyModifyRequestExternalTravelerStandard(TeaModel):
         self.first_discount = first_discount  # type: int
         self.flight_cabins = flight_cabins  # type: str
         self.hotel_citys = hotel_citys  # type: list[ApplyModifyRequestExternalTravelerStandardHotelCitys]
+        # 超级经济舱折扣。1到10的整数
         self.premium_economy_discount = premium_economy_discount  # type: int
         self.reserve_type = reserve_type  # type: int
         self.train_seats = train_seats  # type: str
@@ -3674,6 +3700,7 @@ class ApplyModifyRequestTravelerStandard(TeaModel):
         self.first_discount = first_discount  # type: int
         self.flight_cabins = flight_cabins  # type: str
         self.hotel_citys = hotel_citys  # type: list[ApplyModifyRequestTravelerStandardHotelCitys]
+        # 超级经济舱折扣。1到10的整数
         self.premium_economy_discount = premium_economy_discount  # type: int
         self.reserve_type = reserve_type  # type: int
         self.train_seats = train_seats  # type: str
@@ -3743,14 +3770,16 @@ class ApplyModifyRequest(TeaModel):
     def __init__(self, budget=None, budget_merge=None, corp_name=None, depart_id=None, depart_name=None,
                  extend_field=None, external_traveler_list=None, external_traveler_standard=None, flight_budget=None,
                  hotel_budget=None, hotel_share=None, itinerary_list=None, itinerary_rule=None, itinerary_set_list=None,
-                 limit_traveler=None, status=None, thirdpart_apply_id=None, thirdpart_business_id=None, thirdpart_depart_id=None,
-                 together_book_rule=None, train_budget=None, traveler_list=None, traveler_standard=None, trip_cause=None,
-                 trip_day=None, trip_title=None, union_no=None, user_id=None, user_name=None, vehicle_budget=None):
+                 limit_traveler=None, status=None, sub_corp_id=None, thirdpart_apply_id=None, thirdpart_business_id=None,
+                 thirdpart_depart_id=None, together_book_rule=None, train_budget=None, traveler_list=None, traveler_standard=None,
+                 trip_cause=None, trip_day=None, trip_title=None, union_no=None, user_id=None, user_name=None,
+                 vehicle_budget=None):
         self.budget = budget  # type: long
         self.budget_merge = budget_merge  # type: int
         self.corp_name = corp_name  # type: str
         self.depart_id = depart_id  # type: str
         self.depart_name = depart_name  # type: str
+        # 可将补充描述传入此字段，账单中将会体现此字段的值。可以用于企业的统计和对账
         self.extend_field = extend_field  # type: str
         self.external_traveler_list = external_traveler_list  # type: list[ApplyModifyRequestExternalTravelerList]
         self.external_traveler_standard = external_traveler_standard  # type: ApplyModifyRequestExternalTravelerStandard
@@ -3762,6 +3791,7 @@ class ApplyModifyRequest(TeaModel):
         self.itinerary_set_list = itinerary_set_list  # type: list[ApplyModifyRequestItinerarySetList]
         self.limit_traveler = limit_traveler  # type: int
         self.status = status  # type: int
+        self.sub_corp_id = sub_corp_id  # type: str
         self.thirdpart_apply_id = thirdpart_apply_id  # type: str
         self.thirdpart_business_id = thirdpart_business_id  # type: str
         self.thirdpart_depart_id = thirdpart_depart_id  # type: str
@@ -3847,6 +3877,8 @@ class ApplyModifyRequest(TeaModel):
             result['limit_traveler'] = self.limit_traveler
         if self.status is not None:
             result['status'] = self.status
+        if self.sub_corp_id is not None:
+            result['sub_corp_id'] = self.sub_corp_id
         if self.thirdpart_apply_id is not None:
             result['thirdpart_apply_id'] = self.thirdpart_apply_id
         if self.thirdpart_business_id is not None:
@@ -3926,6 +3958,8 @@ class ApplyModifyRequest(TeaModel):
             self.limit_traveler = m.get('limit_traveler')
         if m.get('status') is not None:
             self.status = m.get('status')
+        if m.get('sub_corp_id') is not None:
+            self.sub_corp_id = m.get('sub_corp_id')
         if m.get('thirdpart_apply_id') is not None:
             self.thirdpart_apply_id = m.get('thirdpart_apply_id')
         if m.get('thirdpart_business_id') is not None:
@@ -3967,15 +4001,16 @@ class ApplyModifyShrinkRequest(TeaModel):
     def __init__(self, budget=None, budget_merge=None, corp_name=None, depart_id=None, depart_name=None,
                  extend_field=None, external_traveler_list_shrink=None, external_traveler_standard_shrink=None,
                  flight_budget=None, hotel_budget=None, hotel_share_shrink=None, itinerary_list_shrink=None, itinerary_rule=None,
-                 itinerary_set_list_shrink=None, limit_traveler=None, status=None, thirdpart_apply_id=None, thirdpart_business_id=None,
-                 thirdpart_depart_id=None, together_book_rule=None, train_budget=None, traveler_list_shrink=None,
-                 traveler_standard_shrink=None, trip_cause=None, trip_day=None, trip_title=None, union_no=None, user_id=None, user_name=None,
-                 vehicle_budget=None):
+                 itinerary_set_list_shrink=None, limit_traveler=None, status=None, sub_corp_id=None, thirdpart_apply_id=None,
+                 thirdpart_business_id=None, thirdpart_depart_id=None, together_book_rule=None, train_budget=None,
+                 traveler_list_shrink=None, traveler_standard_shrink=None, trip_cause=None, trip_day=None, trip_title=None,
+                 union_no=None, user_id=None, user_name=None, vehicle_budget=None):
         self.budget = budget  # type: long
         self.budget_merge = budget_merge  # type: int
         self.corp_name = corp_name  # type: str
         self.depart_id = depart_id  # type: str
         self.depart_name = depart_name  # type: str
+        # 可将补充描述传入此字段，账单中将会体现此字段的值。可以用于企业的统计和对账
         self.extend_field = extend_field  # type: str
         self.external_traveler_list_shrink = external_traveler_list_shrink  # type: str
         self.external_traveler_standard_shrink = external_traveler_standard_shrink  # type: str
@@ -3987,6 +4022,7 @@ class ApplyModifyShrinkRequest(TeaModel):
         self.itinerary_set_list_shrink = itinerary_set_list_shrink  # type: str
         self.limit_traveler = limit_traveler  # type: int
         self.status = status  # type: int
+        self.sub_corp_id = sub_corp_id  # type: str
         self.thirdpart_apply_id = thirdpart_apply_id  # type: str
         self.thirdpart_business_id = thirdpart_business_id  # type: str
         self.thirdpart_depart_id = thirdpart_depart_id  # type: str
@@ -4043,6 +4079,8 @@ class ApplyModifyShrinkRequest(TeaModel):
             result['limit_traveler'] = self.limit_traveler
         if self.status is not None:
             result['status'] = self.status
+        if self.sub_corp_id is not None:
+            result['sub_corp_id'] = self.sub_corp_id
         if self.thirdpart_apply_id is not None:
             result['thirdpart_apply_id'] = self.thirdpart_apply_id
         if self.thirdpart_business_id is not None:
@@ -4107,6 +4145,8 @@ class ApplyModifyShrinkRequest(TeaModel):
             self.limit_traveler = m.get('limit_traveler')
         if m.get('status') is not None:
             self.status = m.get('status')
+        if m.get('sub_corp_id') is not None:
+            self.sub_corp_id = m.get('sub_corp_id')
         if m.get('thirdpart_apply_id') is not None:
             self.thirdpart_apply_id = m.get('thirdpart_apply_id')
         if m.get('thirdpart_business_id') is not None:
@@ -4293,9 +4333,10 @@ class ApplyQueryHeaders(TeaModel):
 
 
 class ApplyQueryRequest(TeaModel):
-    def __init__(self, apply_id=None, apply_show_id=None, thirdpart_apply_id=None, type=None):
+    def __init__(self, apply_id=None, apply_show_id=None, sub_corp_id=None, thirdpart_apply_id=None, type=None):
         self.apply_id = apply_id  # type: int
         self.apply_show_id = apply_show_id  # type: str
+        self.sub_corp_id = sub_corp_id  # type: str
         self.thirdpart_apply_id = thirdpart_apply_id  # type: str
         self.type = type  # type: int
 
@@ -4312,6 +4353,8 @@ class ApplyQueryRequest(TeaModel):
             result['apply_id'] = self.apply_id
         if self.apply_show_id is not None:
             result['apply_show_id'] = self.apply_show_id
+        if self.sub_corp_id is not None:
+            result['sub_corp_id'] = self.sub_corp_id
         if self.thirdpart_apply_id is not None:
             result['thirdpart_apply_id'] = self.thirdpart_apply_id
         if self.type is not None:
@@ -4324,6 +4367,8 @@ class ApplyQueryRequest(TeaModel):
             self.apply_id = m.get('apply_id')
         if m.get('apply_show_id') is not None:
             self.apply_show_id = m.get('apply_show_id')
+        if m.get('sub_corp_id') is not None:
+            self.sub_corp_id = m.get('sub_corp_id')
         if m.get('thirdpart_apply_id') is not None:
             self.thirdpart_apply_id = m.get('thirdpart_apply_id')
         if m.get('type') is not None:
@@ -4807,6 +4852,7 @@ class ApplyQueryResponseBodyModule(TeaModel):
         self.corp_name = corp_name  # type: str
         self.depart_id = depart_id  # type: str
         self.depart_name = depart_name  # type: str
+        # 补充描述，账单中将会体现此字段的值。可以用于企业的统计和对账
         self.extend_field = extend_field  # type: str
         self.external_traveler_list = external_traveler_list  # type: list[ApplyQueryResponseBodyModuleExternalTravelerList]
         self.flight_budget = flight_budget  # type: long
@@ -12763,7 +12809,9 @@ class FlightCreateOrderRequestTravelerInfoList(TeaModel):
         self.cert_type = cert_type  # type: str
         self.cert_valid_date = cert_valid_date  # type: str
         self.name = name  # type: str
+        # 国籍
         self.nationality = nationality  # type: str
+        # 国籍二字码
         self.nationality_code = nationality_code  # type: str
         self.out_user_id = out_user_id  # type: str
         self.phone = phone  # type: str
@@ -31082,6 +31130,7 @@ class HotelOrderPayHeaders(TeaModel):
 class HotelOrderPayRequest(TeaModel):
     def __init__(self, btrip_order_id=None, btrip_user_id=None, company_pay_fee=None, person_pay_fee=None,
                  third_pay_account=None, third_trade_no=None, total_price=None):
+        # 供应商订单号（取自创单返回的订单号）
         self.btrip_order_id = btrip_order_id  # type: long
         self.btrip_user_id = btrip_user_id  # type: str
         self.company_pay_fee = company_pay_fee  # type: long
@@ -34782,14 +34831,23 @@ class InsInvoiceScanQueryRequest(TeaModel):
 class InsInvoiceScanQueryResponseBodyModuleItemsInvoiceDetails(TeaModel):
     def __init__(self, amount=None, index=None, item_name=None, quantity=None, specification=None, tax=None,
                  tax_rate=None, unit=None, unit_price=None):
+        # 金额
         self.amount = amount  # type: str
+        # 行号
         self.index = index  # type: str
+        # 货物或应税劳务、服务名称
         self.item_name = item_name  # type: str
+        # 数量
         self.quantity = quantity  # type: str
+        # 规格型号
         self.specification = specification  # type: str
+        # 税额
         self.tax = tax  # type: str
+        # 税率
         self.tax_rate = tax_rate  # type: str
+        # 单位
         self.unit = unit  # type: str
+        # 单价
         self.unit_price = unit_price  # type: str
 
     def validate(self):
@@ -34856,40 +34914,57 @@ class InsInvoiceScanQueryResponseBodyModuleItems(TeaModel):
         self.amount_with_tax = amount_with_tax  # type: str
         self.amount_without_tax = amount_without_tax  # type: str
         self.bill_date = bill_date  # type: str
+        # 校验码
         self.check_code = check_code  # type: str
         self.cost_center = cost_center  # type: str
         self.department = department  # type: str
+        # 开票人
         self.drawer = drawer  # type: str
+        # 应用ID
         self.id = id  # type: str
         self.insurance_company = insurance_company  # type: str
         self.insurance_order_id = insurance_order_id  # type: str
         self.insurance_type = insurance_type  # type: str
         self.invoice_code = invoice_code  # type: str
         self.invoice_day = invoice_day  # type: str
+        # 发票明细
         self.invoice_details = invoice_details  # type: list[InsInvoiceScanQueryResponseBodyModuleItemsInvoiceDetails]
+        # 发票地区
         self.invoice_location = invoice_location  # type: str
         self.invoice_no = invoice_no  # type: str
+        # 发票抬头
         self.invoice_title = invoice_title  # type: str
+        # 机器码
         self.machine_code = machine_code  # type: str
         self.order_id = order_id  # type: long
         self.oss_url = oss_url  # type: str
         self.passenger = passenger  # type: str
+        # 密码区
         self.password_area = password_area  # type: str
         self.project = project  # type: str
+        # 购方银行信息
         self.purchaser_bank_account_info = purchaser_bank_account_info  # type: str
+        # 购方联系方式
         self.purchaser_contact_info = purchaser_contact_info  # type: str
         self.purchaser_name = purchaser_name  # type: str
         self.purchaser_tax_no = purchaser_tax_no  # type: str
+        # 收款人
         self.recipient = recipient  # type: str
+        # 备注
         self.remarks = remarks  # type: str
+        # 复核人
         self.reviewer = reviewer  # type: str
+        # 销售方银行信息
         self.seller_bank_account_info = seller_bank_account_info  # type: str
+        # 销售方联系方式
         self.seller_contact_info = seller_contact_info  # type: str
         self.seller_name = seller_name  # type: str
         self.seller_tax_no = seller_tax_no  # type: str
+        # 校验码
         self.smart_check_code = smart_check_code  # type: str
         self.tax_amount = tax_amount  # type: str
         self.tax_rate = tax_rate  # type: str
+        # 大写金额
         self.total_amount_in_words = total_amount_in_words  # type: str
 
     def validate(self):
@@ -40261,6 +40336,7 @@ class TicketChangingEnquiryResponseBodyModuleFlightInfoListCabinListChangeOtaIte
 class TicketChangingEnquiryResponseBodyModuleFlightInfoListCabinListChangeOtaItemRuleRqBaggageDetailsBaggageSubItems(TeaModel):
     def __init__(self, attributes=None, baggage_sub_content_visualizes=None, baggage_sub_contents=None,
                  content=None, is_struct=None, ptc=None, title=None):
+        # attributes
         self.attributes = attributes  # type: dict[str, any]
         self.baggage_sub_content_visualizes = baggage_sub_content_visualizes  # type: list[TicketChangingEnquiryResponseBodyModuleFlightInfoListCabinListChangeOtaItemRuleRqBaggageDetailsBaggageSubItemsBaggageSubContentVisualizes]
         self.baggage_sub_contents = baggage_sub_contents  # type: list[TicketChangingEnquiryResponseBodyModuleFlightInfoListCabinListChangeOtaItemRuleRqBaggageDetailsBaggageSubItemsBaggageSubContents]
@@ -46000,7 +46076,9 @@ class TrainTicketScanQueryResponseBodyModuleItems(TeaModel):
         self.serial_number = serial_number  # type: str
         self.tax_amount = tax_amount  # type: str
         self.tax_rate = tax_rate  # type: str
+        # 取票号
         self.ticket_no = ticket_no  # type: str
+        # 车次
         self.train_no = train_no  # type: str
 
     def validate(self):
@@ -46570,6 +46648,7 @@ class VatInvoiceScanQueryResponseBodyModuleItemsInvoiceDetails(TeaModel):
     def __init__(self, amount=None, index=None, item_name=None, quantity=None, specification=None, tax=None,
                  tax_rate=None, unit=None, unit_price=None):
         self.amount = amount  # type: str
+        # 行号
         self.index = index  # type: str
         self.item_name = item_name  # type: str
         self.quantity = quantity  # type: str
@@ -46654,6 +46733,7 @@ class VatInvoiceScanQueryResponseBodyModuleItems(TeaModel):
         self.invoice_sub_task_id = invoice_sub_task_id  # type: long
         self.invoice_type = invoice_type  # type: int
         self.invoice_type_desc = invoice_type_desc  # type: str
+        # 机器码
         self.machine_code = machine_code  # type: str
         self.oss_url = oss_url  # type: str
         self.password_area = password_area  # type: str
