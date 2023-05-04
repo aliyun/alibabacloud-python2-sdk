@@ -359,6 +359,46 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.bind_axn_extension_with_options(request, runtime)
 
+    def bind_batch_axg_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = dyplsapi_20170525_models.BindBatchAxgShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.axg_bind_list):
+            request.axg_bind_list_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.axg_bind_list, 'AxgBindList', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.axg_bind_list_shrink):
+            query['AxgBindList'] = request.axg_bind_list_shrink
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.pool_key):
+            query['PoolKey'] = request.pool_key
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='BindBatchAxg',
+            version='2017-05-25',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dyplsapi_20170525_models.BindBatchAxgResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def bind_batch_axg(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.bind_batch_axg_with_options(request, runtime)
+
     def buy_secret_no_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -586,6 +626,42 @@ class Client(OpenApiClient):
     def create_pick_up_waybill_pre_query(self, request):
         runtime = util_models.RuntimeOptions()
         return self.create_pick_up_waybill_pre_query_with_options(request, runtime)
+
+    def delete_axg_group_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.pool_key):
+            query['PoolKey'] = request.pool_key
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteAxgGroup',
+            version='2017-05-25',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dyplsapi_20170525_models.DeleteAxgGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_axg_group(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_axg_group_with_options(request, runtime)
 
     def delete_secret_blacklist_with_options(self, request, runtime):
         UtilClient.validate_model(request)

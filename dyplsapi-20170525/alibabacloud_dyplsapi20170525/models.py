@@ -1162,6 +1162,362 @@ class BindAxnExtensionResponse(TeaModel):
         return self
 
 
+class BindBatchAxgRequestAxgBindList(TeaModel):
+    def __init__(self, asrmodel_id=None, asrstatus=None, call_display_type=None, call_restrict=None,
+                 expect_city=None, expiration=None, group_id=None, is_recording_enabled=None, out_id=None, out_order_id=None,
+                 phone_no_a=None, phone_no_b=None, phone_no_x=None, ring_config=None):
+        self.asrmodel_id = asrmodel_id  # type: str
+        self.asrstatus = asrstatus  # type: bool
+        self.call_display_type = call_display_type  # type: int
+        self.call_restrict = call_restrict  # type: str
+        self.expect_city = expect_city  # type: str
+        self.expiration = expiration  # type: str
+        self.group_id = group_id  # type: str
+        self.is_recording_enabled = is_recording_enabled  # type: bool
+        self.out_id = out_id  # type: str
+        self.out_order_id = out_order_id  # type: str
+        self.phone_no_a = phone_no_a  # type: str
+        self.phone_no_b = phone_no_b  # type: str
+        self.phone_no_x = phone_no_x  # type: str
+        self.ring_config = ring_config  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BindBatchAxgRequestAxgBindList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.asrmodel_id is not None:
+            result['ASRModelId'] = self.asrmodel_id
+        if self.asrstatus is not None:
+            result['ASRStatus'] = self.asrstatus
+        if self.call_display_type is not None:
+            result['CallDisplayType'] = self.call_display_type
+        if self.call_restrict is not None:
+            result['CallRestrict'] = self.call_restrict
+        if self.expect_city is not None:
+            result['ExpectCity'] = self.expect_city
+        if self.expiration is not None:
+            result['Expiration'] = self.expiration
+        if self.group_id is not None:
+            result['GroupId'] = self.group_id
+        if self.is_recording_enabled is not None:
+            result['IsRecordingEnabled'] = self.is_recording_enabled
+        if self.out_id is not None:
+            result['OutId'] = self.out_id
+        if self.out_order_id is not None:
+            result['OutOrderId'] = self.out_order_id
+        if self.phone_no_a is not None:
+            result['PhoneNoA'] = self.phone_no_a
+        if self.phone_no_b is not None:
+            result['PhoneNoB'] = self.phone_no_b
+        if self.phone_no_x is not None:
+            result['PhoneNoX'] = self.phone_no_x
+        if self.ring_config is not None:
+            result['RingConfig'] = self.ring_config
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ASRModelId') is not None:
+            self.asrmodel_id = m.get('ASRModelId')
+        if m.get('ASRStatus') is not None:
+            self.asrstatus = m.get('ASRStatus')
+        if m.get('CallDisplayType') is not None:
+            self.call_display_type = m.get('CallDisplayType')
+        if m.get('CallRestrict') is not None:
+            self.call_restrict = m.get('CallRestrict')
+        if m.get('ExpectCity') is not None:
+            self.expect_city = m.get('ExpectCity')
+        if m.get('Expiration') is not None:
+            self.expiration = m.get('Expiration')
+        if m.get('GroupId') is not None:
+            self.group_id = m.get('GroupId')
+        if m.get('IsRecordingEnabled') is not None:
+            self.is_recording_enabled = m.get('IsRecordingEnabled')
+        if m.get('OutId') is not None:
+            self.out_id = m.get('OutId')
+        if m.get('OutOrderId') is not None:
+            self.out_order_id = m.get('OutOrderId')
+        if m.get('PhoneNoA') is not None:
+            self.phone_no_a = m.get('PhoneNoA')
+        if m.get('PhoneNoB') is not None:
+            self.phone_no_b = m.get('PhoneNoB')
+        if m.get('PhoneNoX') is not None:
+            self.phone_no_x = m.get('PhoneNoX')
+        if m.get('RingConfig') is not None:
+            self.ring_config = m.get('RingConfig')
+        return self
+
+
+class BindBatchAxgRequest(TeaModel):
+    def __init__(self, axg_bind_list=None, owner_id=None, pool_key=None, resource_owner_account=None,
+                 resource_owner_id=None):
+        self.axg_bind_list = axg_bind_list  # type: list[BindBatchAxgRequestAxgBindList]
+        self.owner_id = owner_id  # type: long
+        self.pool_key = pool_key  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+
+    def validate(self):
+        if self.axg_bind_list:
+            for k in self.axg_bind_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(BindBatchAxgRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['AxgBindList'] = []
+        if self.axg_bind_list is not None:
+            for k in self.axg_bind_list:
+                result['AxgBindList'].append(k.to_map() if k else None)
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.pool_key is not None:
+            result['PoolKey'] = self.pool_key
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.axg_bind_list = []
+        if m.get('AxgBindList') is not None:
+            for k in m.get('AxgBindList'):
+                temp_model = BindBatchAxgRequestAxgBindList()
+                self.axg_bind_list.append(temp_model.from_map(k))
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('PoolKey') is not None:
+            self.pool_key = m.get('PoolKey')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        return self
+
+
+class BindBatchAxgShrinkRequest(TeaModel):
+    def __init__(self, axg_bind_list_shrink=None, owner_id=None, pool_key=None, resource_owner_account=None,
+                 resource_owner_id=None):
+        self.axg_bind_list_shrink = axg_bind_list_shrink  # type: str
+        self.owner_id = owner_id  # type: long
+        self.pool_key = pool_key  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BindBatchAxgShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.axg_bind_list_shrink is not None:
+            result['AxgBindList'] = self.axg_bind_list_shrink
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.pool_key is not None:
+            result['PoolKey'] = self.pool_key
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AxgBindList') is not None:
+            self.axg_bind_list_shrink = m.get('AxgBindList')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('PoolKey') is not None:
+            self.pool_key = m.get('PoolKey')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        return self
+
+
+class BindBatchAxgResponseBodySecretBindListSecretBind(TeaModel):
+    def __init__(self, code=None, extension=None, group_id=None, message=None, phone_no_a=None, secret_no=None,
+                 subs_id=None):
+        self.code = code  # type: str
+        self.extension = extension  # type: str
+        self.group_id = group_id  # type: str
+        self.message = message  # type: str
+        self.phone_no_a = phone_no_a  # type: str
+        self.secret_no = secret_no  # type: str
+        self.subs_id = subs_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BindBatchAxgResponseBodySecretBindListSecretBind, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.extension is not None:
+            result['Extension'] = self.extension
+        if self.group_id is not None:
+            result['GroupId'] = self.group_id
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.phone_no_a is not None:
+            result['PhoneNoA'] = self.phone_no_a
+        if self.secret_no is not None:
+            result['SecretNo'] = self.secret_no
+        if self.subs_id is not None:
+            result['SubsId'] = self.subs_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Extension') is not None:
+            self.extension = m.get('Extension')
+        if m.get('GroupId') is not None:
+            self.group_id = m.get('GroupId')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('PhoneNoA') is not None:
+            self.phone_no_a = m.get('PhoneNoA')
+        if m.get('SecretNo') is not None:
+            self.secret_no = m.get('SecretNo')
+        if m.get('SubsId') is not None:
+            self.subs_id = m.get('SubsId')
+        return self
+
+
+class BindBatchAxgResponseBodySecretBindList(TeaModel):
+    def __init__(self, secret_bind=None):
+        self.secret_bind = secret_bind  # type: list[BindBatchAxgResponseBodySecretBindListSecretBind]
+
+    def validate(self):
+        if self.secret_bind:
+            for k in self.secret_bind:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(BindBatchAxgResponseBodySecretBindList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['SecretBind'] = []
+        if self.secret_bind is not None:
+            for k in self.secret_bind:
+                result['SecretBind'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.secret_bind = []
+        if m.get('SecretBind') is not None:
+            for k in m.get('SecretBind'):
+                temp_model = BindBatchAxgResponseBodySecretBindListSecretBind()
+                self.secret_bind.append(temp_model.from_map(k))
+        return self
+
+
+class BindBatchAxgResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, request_id=None, secret_bind_list=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.secret_bind_list = secret_bind_list  # type: BindBatchAxgResponseBodySecretBindList
+
+    def validate(self):
+        if self.secret_bind_list:
+            self.secret_bind_list.validate()
+
+    def to_map(self):
+        _map = super(BindBatchAxgResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.secret_bind_list is not None:
+            result['SecretBindList'] = self.secret_bind_list.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('SecretBindList') is not None:
+            temp_model = BindBatchAxgResponseBodySecretBindList()
+            self.secret_bind_list = temp_model.from_map(m['SecretBindList'])
+        return self
+
+
+class BindBatchAxgResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: BindBatchAxgResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(BindBatchAxgResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = BindBatchAxgResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class BuySecretNoRequest(TeaModel):
     def __init__(self, city=None, display_pool=None, owner_id=None, pool_key=None, resource_owner_account=None,
                  resource_owner_id=None, secret_no=None, spec_id=None):
@@ -2651,6 +3007,124 @@ class CreatePickUpWaybillPreQueryResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreatePickUpWaybillPreQueryResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DeleteAxgGroupRequest(TeaModel):
+    def __init__(self, group_id=None, owner_id=None, pool_key=None, resource_owner_account=None,
+                 resource_owner_id=None):
+        self.group_id = group_id  # type: long
+        self.owner_id = owner_id  # type: long
+        self.pool_key = pool_key  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteAxgGroupRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.group_id is not None:
+            result['GroupId'] = self.group_id
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.pool_key is not None:
+            result['PoolKey'] = self.pool_key
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('GroupId') is not None:
+            self.group_id = m.get('GroupId')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('PoolKey') is not None:
+            self.pool_key = m.get('PoolKey')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        return self
+
+
+class DeleteAxgGroupResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, request_id=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteAxgGroupResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DeleteAxgGroupResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteAxgGroupResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteAxgGroupResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteAxgGroupResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
