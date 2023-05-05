@@ -241,8 +241,9 @@ class GetModelAsyncPredictResponse(TeaModel):
 
 
 class PredictClassifierModelRequest(TeaModel):
-    def __init__(self, auto_prediction=None, body=None, classifier_id=None, content=None):
+    def __init__(self, auto_prediction=None, binary_to_text=None, body=None, classifier_id=None, content=None):
         self.auto_prediction = auto_prediction  # type: bool
+        self.binary_to_text = binary_to_text  # type: bool
         self.body = body  # type: str
         self.classifier_id = classifier_id  # type: long
         self.content = content  # type: str
@@ -258,6 +259,8 @@ class PredictClassifierModelRequest(TeaModel):
         result = dict()
         if self.auto_prediction is not None:
             result['AutoPrediction'] = self.auto_prediction
+        if self.binary_to_text is not None:
+            result['BinaryToText'] = self.binary_to_text
         if self.body is not None:
             result['Body'] = self.body
         if self.classifier_id is not None:
@@ -270,6 +273,8 @@ class PredictClassifierModelRequest(TeaModel):
         m = m or dict()
         if m.get('AutoPrediction') is not None:
             self.auto_prediction = m.get('AutoPrediction')
+        if m.get('BinaryToText') is not None:
+            self.binary_to_text = m.get('BinaryToText')
         if m.get('Body') is not None:
             self.body = m.get('Body')
         if m.get('ClassifierId') is not None:
