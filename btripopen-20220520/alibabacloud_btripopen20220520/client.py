@@ -114,6 +114,8 @@ class Client(OpenApiClient):
             query['phone'] = request.phone
         if not UtilClient.is_unset(request.sub_corp_id):
             query['sub_corp_id'] = request.sub_corp_id
+        if not UtilClient.is_unset(request.taobao_callback_url):
+            query['taobao_callback_url'] = request.taobao_callback_url
         if not UtilClient.is_unset(request.type):
             query['type'] = request.type
         if not UtilClient.is_unset(request.user_id):
