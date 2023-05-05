@@ -3,6 +3,7 @@
 from __future__ import unicode_literals
 
 from Tea.core import TeaCore
+from Tea.converter import TeaConverter
 
 from alibabacloud_tea_openapi.client import Client as OpenApiClient
 from alibabacloud_tea_openapi import models as open_api_models
@@ -3964,6 +3965,66 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = btrip_open_20220520_models.SyncThirdUserMappingHeaders()
         return self.sync_third_user_mapping_with_options(request, headers, runtime)
+
+    def t_baccount_info_query_with_options(self, user_id, headers, runtime):
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_acs_btrip_corp_token):
+            real_headers['x-acs-btrip-corp-token'] = UtilClient.to_jsonstring(headers.x_acs_btrip_corp_token)
+        req = open_api_models.OpenApiRequest(
+            headers=real_headers
+        )
+        params = open_api_models.Params(
+            action='TBAccountInfoQuery',
+            version='2022-05-20',
+            protocol='HTTPS',
+            pathname='/account/v1/tb-accounts/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(user_id)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            btrip_open_20220520_models.TBAccountInfoQueryResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def t_baccount_info_query(self, user_id):
+        runtime = util_models.RuntimeOptions()
+        headers = btrip_open_20220520_models.TBAccountInfoQueryHeaders()
+        return self.t_baccount_info_query_with_options(user_id, headers, runtime)
+
+    def t_baccount_unbind_with_options(self, user_id, headers, runtime):
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_acs_btrip_corp_token):
+            real_headers['x-acs-btrip-corp-token'] = UtilClient.to_jsonstring(headers.x_acs_btrip_corp_token)
+        req = open_api_models.OpenApiRequest(
+            headers=real_headers
+        )
+        params = open_api_models.Params(
+            action='TBAccountUnbind',
+            version='2022-05-20',
+            protocol='HTTPS',
+            pathname='/account/v1/tb-accounts/%s/action/unbind' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(user_id)),
+            method='PATCH',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            btrip_open_20220520_models.TBAccountUnbindResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def t_baccount_unbind(self, user_id):
+        runtime = util_models.RuntimeOptions()
+        headers = btrip_open_20220520_models.TBAccountUnbindHeaders()
+        return self.t_baccount_unbind_with_options(user_id, headers, runtime)
 
     def ticket_changing_apply_with_options(self, tmp_req, headers, runtime):
         UtilClient.validate_model(tmp_req)
