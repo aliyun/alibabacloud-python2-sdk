@@ -25478,9 +25478,38 @@ class ListMultiChannelRecordingsRequest(TeaModel):
         return self
 
 
+class ListMultiChannelRecordingsResponseBodyDataHoldTimeSegments(TeaModel):
+    def __init__(self, end_time=None, start_time=None):
+        self.end_time = end_time  # type: long
+        self.start_time = start_time  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListMultiChannelRecordingsResponseBodyDataHoldTimeSegments, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        return self
+
+
 class ListMultiChannelRecordingsResponseBodyData(TeaModel):
     def __init__(self, agent_channel_id=None, agent_id=None, agent_name=None, contact_id=None, duration=None,
-                 file_name=None, file_url=None, ram_id=None, skill_group_id=None, start_time=None):
+                 file_name=None, file_url=None, hold_time_segments=None, ram_id=None, skill_group_id=None, start_time=None):
         self.agent_channel_id = agent_channel_id  # type: str
         self.agent_id = agent_id  # type: str
         self.agent_name = agent_name  # type: str
@@ -25488,12 +25517,16 @@ class ListMultiChannelRecordingsResponseBodyData(TeaModel):
         self.duration = duration  # type: str
         self.file_name = file_name  # type: str
         self.file_url = file_url  # type: str
+        self.hold_time_segments = hold_time_segments  # type: list[ListMultiChannelRecordingsResponseBodyDataHoldTimeSegments]
         self.ram_id = ram_id  # type: str
         self.skill_group_id = skill_group_id  # type: str
         self.start_time = start_time  # type: long
 
     def validate(self):
-        pass
+        if self.hold_time_segments:
+            for k in self.hold_time_segments:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(ListMultiChannelRecordingsResponseBodyData, self).to_map()
@@ -25515,6 +25548,10 @@ class ListMultiChannelRecordingsResponseBodyData(TeaModel):
             result['FileName'] = self.file_name
         if self.file_url is not None:
             result['FileUrl'] = self.file_url
+        result['HoldTimeSegments'] = []
+        if self.hold_time_segments is not None:
+            for k in self.hold_time_segments:
+                result['HoldTimeSegments'].append(k.to_map() if k else None)
         if self.ram_id is not None:
             result['RamId'] = self.ram_id
         if self.skill_group_id is not None:
@@ -25539,6 +25576,11 @@ class ListMultiChannelRecordingsResponseBodyData(TeaModel):
             self.file_name = m.get('FileName')
         if m.get('FileUrl') is not None:
             self.file_url = m.get('FileUrl')
+        self.hold_time_segments = []
+        if m.get('HoldTimeSegments') is not None:
+            for k in m.get('HoldTimeSegments'):
+                temp_model = ListMultiChannelRecordingsResponseBodyDataHoldTimeSegments()
+                self.hold_time_segments.append(temp_model.from_map(k))
         if m.get('RamId') is not None:
             self.ram_id = m.get('RamId')
         if m.get('SkillGroupId') is not None:
