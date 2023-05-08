@@ -89,6 +89,40 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
+    def add_asset_selection_criteria_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.criteria):
+            query['Criteria'] = request.criteria
+        if not UtilClient.is_unset(request.criteria_operation):
+            query['CriteriaOperation'] = request.criteria_operation
+        if not UtilClient.is_unset(request.selection_key):
+            query['SelectionKey'] = request.selection_key
+        if not UtilClient.is_unset(request.target_operation_list):
+            query['TargetOperationList'] = request.target_operation_list
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='AddAssetSelectionCriteria',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.AddAssetSelectionCriteriaResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def add_asset_selection_criteria(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.add_asset_selection_criteria_with_options(request, runtime)
+
     def add_check_instance_result_white_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -765,6 +799,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_anti_brute_force_rule_with_options(request, runtime)
 
+    def create_asset_selection_config_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.business_type):
+            query['BusinessType'] = request.business_type
+        if not UtilClient.is_unset(request.target_type):
+            query['TargetType'] = request.target_type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateAssetSelectionConfig',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.CreateAssetSelectionConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_asset_selection_config(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_asset_selection_config_with_options(request, runtime)
+
     def create_backup_policy_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
         request = sas_20181203_models.CreateBackupPolicyShrinkRequest()
@@ -921,8 +985,7 @@ class Client(OpenApiClient):
 
     def create_file_detect_with_options(self, request, runtime):
         """
-        You can call this operation to push a file to the cloud for detection. Before you call this operation, make sure that the file is uploaded. You can call the CreateFileDetectUploadUrl operation to upload the file.
-        The HashKey parameter is included in all API operations that are related to the file detection feature. The parameter specifies the unique identifier of a file. Only MD5 hash values are supported. Before you call this operation, calculate the MD5 hash value of the file.
+        The identifier of the file. Only MD5 hash values are supported.
         
 
         @param request: CreateFileDetectRequest
@@ -962,8 +1025,7 @@ class Client(OpenApiClient):
 
     def create_file_detect(self, request):
         """
-        You can call this operation to push a file to the cloud for detection. Before you call this operation, make sure that the file is uploaded. You can call the CreateFileDetectUploadUrl operation to upload the file.
-        The HashKey parameter is included in all API operations that are related to the file detection feature. The parameter specifies the unique identifier of a file. Only MD5 hash values are supported. Before you call this operation, calculate the MD5 hash value of the file.
+        The identifier of the file. Only MD5 hash values are supported.
         
 
         @param request: CreateFileDetectRequest
@@ -1334,6 +1396,16 @@ class Client(OpenApiClient):
         return self.create_jenkins_image_registry_with_options(request, runtime)
 
     def create_or_update_asset_group_with_options(self, request, runtime):
+        """
+        The ID of the request, which is used to locate and troubleshoot issues.
+        
+
+        @param request: CreateOrUpdateAssetGroupRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateOrUpdateAssetGroupResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.group_id):
@@ -1362,6 +1434,14 @@ class Client(OpenApiClient):
         )
 
     def create_or_update_asset_group(self, request):
+        """
+        The ID of the request, which is used to locate and troubleshoot issues.
+        
+
+        @param request: CreateOrUpdateAssetGroupRequest
+
+        @return: CreateOrUpdateAssetGroupResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_or_update_asset_group_with_options(request, runtime)
 
@@ -1408,16 +1488,6 @@ class Client(OpenApiClient):
         return self.create_restore_job_with_options(request, runtime)
 
     def create_service_linked_role_with_options(self, request, runtime):
-        """
-        For more information about service-linked roles, see [Service-linked roles](~~160674~~).
-        
-
-        @param request: CreateServiceLinkedRoleRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: CreateServiceLinkedRoleResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.service_linked_role):
@@ -1442,14 +1512,6 @@ class Client(OpenApiClient):
         )
 
     def create_service_linked_role(self, request):
-        """
-        For more information about service-linked roles, see [Service-linked roles](~~160674~~).
-        
-
-        @param request: CreateServiceLinkedRoleRequest
-
-        @return: CreateServiceLinkedRoleResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.create_service_linked_role_with_options(request, runtime)
 
@@ -1825,7 +1887,7 @@ class Client(OpenApiClient):
 
     def delete_group_with_options(self, request, runtime):
         """
-        The *Default** server group that is provided by Security Center cannot be deleted. After you delete a group, the assets in this group are moved to the **Default** group.
+        200
         
 
         @param request: DeleteGroupRequest
@@ -1861,7 +1923,7 @@ class Client(OpenApiClient):
 
     def delete_group(self, request):
         """
-        The *Default** server group that is provided by Security Center cannot be deleted. After you delete a group, the assets in this group are moved to the **Default** group.
+        200
         
 
         @param request: DeleteGroupRequest
@@ -2228,6 +2290,16 @@ class Client(OpenApiClient):
         return self.delete_susp_event_node_with_options(request, runtime)
 
     def delete_tag_with_uuid_with_options(self, request, runtime):
+        """
+        The ID of the request, which is used to locate and troubleshoot issues.
+        
+
+        @param request: DeleteTagWithUuidRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteTagWithUuidResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.tag_name):
@@ -2254,6 +2326,14 @@ class Client(OpenApiClient):
         )
 
     def delete_tag_with_uuid(self, request):
+        """
+        The ID of the request, which is used to locate and troubleshoot issues.
+        
+
+        @param request: DeleteTagWithUuidRequest
+
+        @return: DeleteTagWithUuidResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_tag_with_uuid_with_options(request, runtime)
 
@@ -2694,6 +2774,8 @@ class Client(OpenApiClient):
             query['CurrentPage'] = request.current_page
         if not UtilClient.is_unset(request.id):
             query['Id'] = request.id
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
         if not UtilClient.is_unset(request.page_size):
             query['PageSize'] = request.page_size
         if not UtilClient.is_unset(request.resource_owner_id):
@@ -2965,7 +3047,7 @@ class Client(OpenApiClient):
 
     def describe_backup_clients_with_options(self, request, runtime):
         """
-        You can call the DescribeBackupClients operation to query the servers on which the anti-ransomware agent is installed in a specified region.
+        The data returned.
         
 
         @param request: DescribeBackupClientsRequest
@@ -2999,7 +3081,7 @@ class Client(OpenApiClient):
 
     def describe_backup_clients(self, request):
         """
-        You can call the DescribeBackupClients operation to query the servers on which the anti-ransomware agent is installed in a specified region.
+        The data returned.
         
 
         @param request: DescribeBackupClientsRequest
@@ -3142,6 +3224,16 @@ class Client(OpenApiClient):
         return self.describe_backup_policy_with_options(request, runtime)
 
     def describe_backup_restore_count_with_options(self, runtime):
+        """
+        The number of the restoration tasks that are in the *being restored** state.
+        
+
+        @param request: DescribeBackupRestoreCountRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeBackupRestoreCountResponse
+        """
         req = open_api_models.OpenApiRequest()
         params = open_api_models.Params(
             action='DescribeBackupRestoreCount',
@@ -3160,6 +3252,12 @@ class Client(OpenApiClient):
         )
 
     def describe_backup_restore_count(self):
+        """
+        The number of the restoration tasks that are in the *being restored** state.
+        
+
+        @return: DescribeBackupRestoreCountResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_backup_restore_count_with_options(runtime)
 
@@ -3418,6 +3516,8 @@ class Client(OpenApiClient):
             query['CheckId'] = request.check_id
         if not UtilClient.is_unset(request.check_type):
             query['CheckType'] = request.check_type
+        if not UtilClient.is_unset(request.container_name):
+            query['ContainerName'] = request.container_name
         if not UtilClient.is_unset(request.current_page):
             query['CurrentPage'] = request.current_page
         if not UtilClient.is_unset(request.lang):
@@ -3516,6 +3616,16 @@ class Client(OpenApiClient):
         return self.describe_client_conf_strategy_with_options(request, runtime)
 
     def describe_cloud_center_instances_with_options(self, request, runtime):
+        """
+        You can search for assets by using search conditions, such as the instance ID, instance name, virtual private cloud (VPC) ID, region, and public IP address. You can also configure a logical relationship between multiple search conditions to search for the assets that meet the search conditions.
+        
+
+        @param request: DescribeCloudCenterInstancesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeCloudCenterInstancesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.criteria):
@@ -3556,6 +3666,14 @@ class Client(OpenApiClient):
         )
 
     def describe_cloud_center_instances(self, request):
+        """
+        You can search for assets by using search conditions, such as the instance ID, instance name, virtual private cloud (VPC) ID, region, and public IP address. You can also configure a logical relationship between multiple search conditions to search for the assets that meet the search conditions.
+        
+
+        @param request: DescribeCloudCenterInstancesRequest
+
+        @return: DescribeCloudCenterInstancesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_cloud_center_instances_with_options(request, runtime)
 
@@ -3917,7 +4035,7 @@ class Client(OpenApiClient):
 
     def describe_container_statistics_with_options(self, request, runtime):
         """
-        Only users who created a Container Registry Enterprise Edition instance can call this operation.
+        The number of nodes on which alerts are generated in the current container cluster.
         
 
         @param request: DescribeContainerStatisticsRequest
@@ -3951,7 +4069,7 @@ class Client(OpenApiClient):
 
     def describe_container_statistics(self, request):
         """
-        Only users who created a Container Registry Enterprise Edition instance can call this operation.
+        The number of nodes on which alerts are generated in the current container cluster.
         
 
         @param request: DescribeContainerStatisticsRequest
@@ -4798,6 +4916,8 @@ class Client(OpenApiClient):
             query['NoPage'] = request.no_page
         if not UtilClient.is_unset(request.page_size):
             query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.sale_version_check_code):
+            query['SaleVersionCheckCode'] = request.sale_version_check_code
         if not UtilClient.is_unset(request.vendor):
             query['Vendor'] = request.vendor
         if not UtilClient.is_unset(request.vendors):
@@ -5854,6 +5974,16 @@ class Client(OpenApiClient):
         return self.describe_image_sensitive_file_list_with_options(request, runtime)
 
     def describe_image_statistics_with_options(self, runtime):
+        """
+        Queries the risk statistics of container images.
+        
+
+        @param request: DescribeImageStatisticsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeImageStatisticsResponse
+        """
         req = open_api_models.OpenApiRequest()
         params = open_api_models.Params(
             action='DescribeImageStatistics',
@@ -5872,10 +6002,26 @@ class Client(OpenApiClient):
         )
 
     def describe_image_statistics(self):
+        """
+        Queries the risk statistics of container images.
+        
+
+        @return: DescribeImageStatisticsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_image_statistics_with_options(runtime)
 
     def describe_image_vul_list_with_options(self, request, runtime):
+        """
+        To query the information about the recently detected image vulnerabilities, call the [PublicCreateImageScanTask](~~PublicCreateImageScanTask~~) operation. Wait 1 to 5 minutes until the call is successful and call the DescribeImageVulList operation.
+        
+
+        @param request: DescribeImageVulListRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeImageVulListResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.alias_name):
@@ -5954,6 +6100,14 @@ class Client(OpenApiClient):
         )
 
     def describe_image_vul_list(self, request):
+        """
+        To query the information about the recently detected image vulnerabilities, call the [PublicCreateImageScanTask](~~PublicCreateImageScanTask~~) operation. Wait 1 to 5 minutes until the call is successful and call the DescribeImageVulList operation.
+        
+
+        @param request: DescribeImageVulListRequest
+
+        @return: DescribeImageVulListResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_image_vul_list_with_options(request, runtime)
 
@@ -6012,6 +6166,16 @@ class Client(OpenApiClient):
         return self.describe_install_code_with_options(runtime)
 
     def describe_install_codes_with_options(self, runtime):
+        """
+        The ID of the server group to which the server belongs.
+        
+
+        @param request: DescribeInstallCodesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeInstallCodesResponse
+        """
         req = open_api_models.OpenApiRequest()
         params = open_api_models.Params(
             action='DescribeInstallCodes',
@@ -6030,6 +6194,12 @@ class Client(OpenApiClient):
         )
 
     def describe_install_codes(self):
+        """
+        The ID of the server group to which the server belongs.
+        
+
+        @return: DescribeInstallCodesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_install_codes_with_options(runtime)
 
@@ -7220,6 +7390,16 @@ class Client(OpenApiClient):
         return self.describe_quara_file_download_info_with_options(request, runtime)
 
     def describe_restore_jobs_with_options(self, request, runtime):
+        """
+        The name of the CSV file. The CSV file contains the files that fail to be restored.
+        
+
+        @param request: DescribeRestoreJobsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeRestoreJobsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.current_page):
@@ -7250,6 +7430,14 @@ class Client(OpenApiClient):
         )
 
     def describe_restore_jobs(self, request):
+        """
+        The name of the CSV file. The CSV file contains the files that fail to be restored.
+        
+
+        @param request: DescribeRestoreJobsRequest
+
+        @return: DescribeRestoreJobsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_restore_jobs_with_options(request, runtime)
 
@@ -7290,6 +7478,7 @@ class Client(OpenApiClient):
     def describe_risk_check_item_result_with_options(self, request, runtime):
         """
         @deprecated
+        This operation is phased out. You can use the ListCheckInstanceResult operation.
         
 
         @param request: DescribeRiskCheckItemResultRequest
@@ -7335,6 +7524,7 @@ class Client(OpenApiClient):
     def describe_risk_check_item_result(self, request):
         """
         @deprecated
+        This operation is phased out. You can use the ListCheckInstanceResult operation.
         
 
         @param request: DescribeRiskCheckItemResultRequest
@@ -7348,6 +7538,7 @@ class Client(OpenApiClient):
     def describe_risk_check_result_with_options(self, request, runtime):
         """
         @deprecated
+        This operation is phased out. You can use the ListCheckResult operation.
         
 
         @param request: DescribeRiskCheckResultRequest
@@ -7405,6 +7596,7 @@ class Client(OpenApiClient):
     def describe_risk_check_result(self, request):
         """
         @deprecated
+        This operation is phased out. You can use the ListCheckResult operation.
         
 
         @param request: DescribeRiskCheckResultRequest
@@ -7418,6 +7610,7 @@ class Client(OpenApiClient):
     def describe_risk_check_summary_with_options(self, request, runtime):
         """
         @deprecated
+        The number of detected risk items.
         
 
         @param request: DescribeRiskCheckSummaryRequest
@@ -7459,6 +7652,7 @@ class Client(OpenApiClient):
     def describe_risk_check_summary(self, request):
         """
         @deprecated
+        The number of detected risk items.
         
 
         @param request: DescribeRiskCheckSummaryRequest
@@ -7472,6 +7666,7 @@ class Client(OpenApiClient):
     def describe_risk_item_type_with_options(self, request, runtime):
         """
         @deprecated
+        This operation is phased out. You can use the ListCheckStandard operation instead.
         
 
         @param request: DescribeRiskItemTypeRequest
@@ -7511,6 +7706,7 @@ class Client(OpenApiClient):
     def describe_risk_item_type(self, request):
         """
         @deprecated
+        This operation is phased out. You can use the ListCheckStandard operation instead.
         
 
         @param request: DescribeRiskItemTypeRequest
@@ -7524,6 +7720,8 @@ class Client(OpenApiClient):
     def describe_risk_list_check_result_with_options(self, request, runtime):
         """
         @deprecated
+        The instance IDs of the cloud services that you want to query. Separate multiple IDs with commas (,).
+        > If you do not specify this parameter, an empty list is returned.
         
 
         @param request: DescribeRiskListCheckResultRequest
@@ -7569,6 +7767,8 @@ class Client(OpenApiClient):
     def describe_risk_list_check_result(self, request):
         """
         @deprecated
+        The instance IDs of the cloud services that you want to query. Separate multiple IDs with commas (,).
+        > If you do not specify this parameter, an empty list is returned.
         
 
         @param request: DescribeRiskListCheckResultRequest
@@ -7794,6 +7994,7 @@ class Client(OpenApiClient):
     def describe_security_check_schedule_config_with_options(self, request, runtime):
         """
         @deprecated
+        This operation is phased out. You can use the GetCheckConfig operation.
         
 
         @param request: DescribeSecurityCheckScheduleConfigRequest
@@ -7833,6 +8034,7 @@ class Client(OpenApiClient):
     def describe_security_check_schedule_config(self, request):
         """
         @deprecated
+        This operation is phased out. You can use the GetCheckConfig operation.
         
 
         @param request: DescribeSecurityCheckScheduleConfigRequest
@@ -9102,6 +9304,16 @@ class Client(OpenApiClient):
         return self.describe_vpc_honey_pot_criteria_with_options(request, runtime)
 
     def describe_vpc_honey_pot_list_with_options(self, request, runtime):
+        """
+        If you specify only the Action request parameter in your request, Security Center returns the list of all VPCs regardless of whether a honeypot is deployed on a VPC.
+        
+
+        @param request: DescribeVpcHoneyPotListRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeVpcHoneyPotListResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.current_page):
@@ -9136,6 +9348,14 @@ class Client(OpenApiClient):
         )
 
     def describe_vpc_honey_pot_list(self, request):
+        """
+        If you specify only the Action request parameter in your request, Security Center returns the list of all VPCs regardless of whether a honeypot is deployed on a VPC.
+        
+
+        @param request: DescribeVpcHoneyPotListRequest
+
+        @return: DescribeVpcHoneyPotListResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_vpc_honey_pot_list_with_options(request, runtime)
 
@@ -9258,6 +9478,16 @@ class Client(OpenApiClient):
         return self.describe_vul_details_with_options(request, runtime)
 
     def describe_vul_export_info_with_options(self, request, runtime):
+        """
+        If the value of ExportStatus is success, the URL at which you can download the exported Excel file is returned.
+        
+
+        @param request: DescribeVulExportInfoRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeVulExportInfoResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.export_id):
@@ -9282,6 +9512,14 @@ class Client(OpenApiClient):
         )
 
     def describe_vul_export_info(self, request):
+        """
+        If the value of ExportStatus is success, the URL at which you can download the exported Excel file is returned.
+        
+
+        @param request: DescribeVulExportInfoRequest
+
+        @return: DescribeVulExportInfoResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_vul_export_info_with_options(request, runtime)
 
@@ -10118,6 +10356,16 @@ class Client(OpenApiClient):
         return self.exec_strategy_with_options(request, runtime)
 
     def export_record_with_options(self, request, runtime):
+        """
+        The ID of the exported file.
+        
+
+        @param request: ExportRecordRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ExportRecordResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.export_type):
@@ -10146,6 +10394,14 @@ class Client(OpenApiClient):
         )
 
     def export_record(self, request):
+        """
+        The ID of the exported file.
+        
+
+        @param request: ExportRecordRequest
+
+        @return: ExportRecordResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.export_record_with_options(request, runtime)
 
@@ -10212,6 +10468,16 @@ class Client(OpenApiClient):
         return self.export_susp_events_with_options(request, runtime)
 
     def export_vul_with_options(self, request, runtime):
+        """
+        The ID of the exported file.
+        
+
+        @param request: ExportVulRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ExportVulResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.alias_name):
@@ -10254,6 +10520,14 @@ class Client(OpenApiClient):
         )
 
     def export_vul(self, request):
+        """
+        The ID of the exported file.
+        
+
+        @param request: ExportVulRequest
+
+        @return: ExportVulResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.export_vul_with_options(request, runtime)
 
@@ -10482,6 +10756,34 @@ class Client(OpenApiClient):
     def get_app_network(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_app_network_with_options(request, runtime)
+
+    def get_asset_selection_config_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.business_type):
+            query['BusinessType'] = request.business_type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetAssetSelectionConfig',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.GetAssetSelectionConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_asset_selection_config(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_asset_selection_config_with_options(request, runtime)
 
     def get_assets_property_detail_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -10954,6 +11256,16 @@ class Client(OpenApiClient):
         return self.get_file_detect_api_invoke_info_with_options(runtime)
 
     def get_file_detect_result_with_options(self, request, runtime):
+        """
+        The extended information about the file detection result.
+        
+
+        @param request: GetFileDetectResultRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetFileDetectResultResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.hash_key_list):
@@ -10982,6 +11294,14 @@ class Client(OpenApiClient):
         )
 
     def get_file_detect_result(self, request):
+        """
+        The extended information about the file detection result.
+        
+
+        @param request: GetFileDetectResultRequest
+
+        @return: GetFileDetectResultResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_file_detect_result_with_options(request, runtime)
 
@@ -11608,6 +11928,16 @@ class Client(OpenApiClient):
         return self.install_backup_client_with_options(request, runtime)
 
     def install_cloud_monitor_with_options(self, request, runtime):
+        """
+        > Before you call this operation, make sure that the Security Center agent on your servers is online and the servers can access Alibaba Cloud services.
+        
+
+        @param request: InstallCloudMonitorRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: InstallCloudMonitorResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.agent_access_key):
@@ -11640,6 +11970,14 @@ class Client(OpenApiClient):
         )
 
     def install_cloud_monitor(self, request):
+        """
+        > Before you call this operation, make sure that the Security Center agent on your servers is online and the servers can access Alibaba Cloud services.
+        
+
+        @param request: InstallCloudMonitorRequest
+
+        @return: InstallCloudMonitorResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.install_cloud_monitor_with_options(request, runtime)
 
@@ -11734,6 +12072,68 @@ class Client(OpenApiClient):
     def join_web_lock_process_white_list(self, request):
         runtime = util_models.RuntimeOptions()
         return self.join_web_lock_process_white_list_with_options(request, runtime)
+
+    def list_asset_selection_selected_target_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.selection_key):
+            query['SelectionKey'] = request.selection_key
+        if not UtilClient.is_unset(request.target_list):
+            query['TargetList'] = request.target_list
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListAssetSelectionSelectedTarget',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.ListAssetSelectionSelectedTargetResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_asset_selection_selected_target(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_asset_selection_selected_target_with_options(request, runtime)
+
+    def list_asset_selection_target_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.current_page):
+            query['CurrentPage'] = request.current_page
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.selection_key):
+            query['SelectionKey'] = request.selection_key
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListAssetSelectionTarget',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.ListAssetSelectionTargetResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_asset_selection_target(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_asset_selection_target_with_options(request, runtime)
 
     def list_available_honeypot_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -12671,6 +13071,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_private_registry_type_with_options(request, runtime)
 
+    def list_query_rasp_app_info_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.uuids):
+            query['Uuids'] = request.uuids
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListQueryRaspAppInfo',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.ListQueryRaspAppInfoResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_query_rasp_app_info(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_query_rasp_app_info_with_options(request, runtime)
+
     def list_rule_target_all_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -13032,6 +13462,17 @@ class Client(OpenApiClient):
         return self.modify_app_vul_scan_cycle_with_options(request, runtime)
 
     def modify_asset_group_with_options(self, request, runtime):
+        """
+        The ID of the new server group to which the servers belong.
+        >  You can call the [DescribeAllGroups](~~DescribeAllGroups~~) operation to query the IDs of server groups.
+        
+
+        @param request: ModifyAssetGroupRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyAssetGroupResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.group_id):
@@ -13060,6 +13501,15 @@ class Client(OpenApiClient):
         )
 
     def modify_asset_group(self, request):
+        """
+        The ID of the new server group to which the servers belong.
+        >  You can call the [DescribeAllGroups](~~DescribeAllGroups~~) operation to query the IDs of server groups.
+        
+
+        @param request: ModifyAssetGroupRequest
+
+        @return: ModifyAssetGroupResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_asset_group_with_options(request, runtime)
 
@@ -13874,6 +14324,16 @@ class Client(OpenApiClient):
         return self.modify_notice_config_with_options(request, runtime)
 
     def modify_open_log_shipper_with_options(self, request, runtime):
+        """
+        The ID of the request, which is used to locate and troubleshoot issues.
+        
+
+        @param request: ModifyOpenLogShipperRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyOpenLogShipperResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.from_):
@@ -13898,6 +14358,14 @@ class Client(OpenApiClient):
         )
 
     def modify_open_log_shipper(self, request):
+        """
+        The ID of the request, which is used to locate and troubleshoot issues.
+        
+
+        @param request: ModifyOpenLogShipperRequest
+
+        @return: ModifyOpenLogShipperResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_open_log_shipper_with_options(request, runtime)
 
@@ -13997,9 +14465,40 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.modify_push_all_task_with_options(request, runtime)
 
+    def modify_refresh_process_info_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.uuid):
+            query['Uuid'] = request.uuid
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyRefreshProcessInfo',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.ModifyRefreshProcessInfoResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_refresh_process_info(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_refresh_process_info_with_options(request, runtime)
+
     def modify_risk_check_status_with_options(self, request, runtime):
         """
         @deprecated
+        This operation is phased out. You can use the following operations:
+        \\-To **ignore a check item**, use the AddCheckResultWhiteList operation.
+        \\-To **cancel ignoring a check item**, use the RemoveCheckResultWhiteList operation.
         
 
         @param request: ModifyRiskCheckStatusRequest
@@ -14045,6 +14544,9 @@ class Client(OpenApiClient):
     def modify_risk_check_status(self, request):
         """
         @deprecated
+        This operation is phased out. You can use the following operations:
+        \\-To **ignore a check item**, use the AddCheckResultWhiteList operation.
+        \\-To **cancel ignoring a check item**, use the RemoveCheckResultWhiteList operation.
         
 
         @param request: ModifyRiskCheckStatusRequest
@@ -14058,6 +14560,9 @@ class Client(OpenApiClient):
     def modify_risk_single_result_status_with_options(self, request, runtime):
         """
         @deprecated
+        This operation is phased out. You can use the following operations:
+        \\-To **ignore a risk item**, use the AddCheckInstanceResultWhiteList operation.
+        \\-To **cancel ignoring a risk item**, use the RemoveCheckInstanceResultWhiteList operation.
         
 
         @param request: ModifyRiskSingleResultStatusRequest
@@ -14103,6 +14608,9 @@ class Client(OpenApiClient):
     def modify_risk_single_result_status(self, request):
         """
         @deprecated
+        This operation is phased out. You can use the following operations:
+        \\-To **ignore a risk item**, use the AddCheckInstanceResultWhiteList operation.
+        \\-To **cancel ignoring a risk item**, use the RemoveCheckInstanceResultWhiteList operation.
         
 
         @param request: ModifyRiskSingleResultStatusRequest
@@ -14116,6 +14624,7 @@ class Client(OpenApiClient):
     def modify_security_check_schedule_config_with_options(self, request, runtime):
         """
         @deprecated
+        The ID of the request, which is used to locate and troubleshoot issues.
         
 
         @param request: ModifySecurityCheckScheduleConfigRequest
@@ -14161,6 +14670,7 @@ class Client(OpenApiClient):
     def modify_security_check_schedule_config(self, request):
         """
         @deprecated
+        The ID of the request, which is used to locate and troubleshoot issues.
         
 
         @param request: ModifySecurityCheckScheduleConfigRequest
@@ -14614,6 +15124,16 @@ class Client(OpenApiClient):
         return self.modify_web_lock_create_config_with_options(request, runtime)
 
     def modify_web_lock_delete_config_with_options(self, request, runtime):
+        """
+        After you delete a directory that has web tamper proofing enabled on a server, files in the directory are no longer protected by web tamper proofing. The information about the websites that are hosted on the server may be maliciously modified by attackers. Proceed with caution.
+        
+
+        @param request: ModifyWebLockDeleteConfigRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyWebLockDeleteConfigResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.id):
@@ -14644,6 +15164,14 @@ class Client(OpenApiClient):
         )
 
     def modify_web_lock_delete_config(self, request):
+        """
+        After you delete a directory that has web tamper proofing enabled on a server, files in the directory are no longer protected by web tamper proofing. The information about the websites that are hosted on the server may be maliciously modified by attackers. Proceed with caution.
+        
+
+        @param request: ModifyWebLockDeleteConfigRequest
+
+        @return: ModifyWebLockDeleteConfigResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_web_lock_delete_config_with_options(request, runtime)
 
@@ -15378,6 +15906,19 @@ class Client(OpenApiClient):
         return self.pause_client_with_options(request, runtime)
 
     def public_create_image_scan_task_with_options(self, request, runtime):
+        """
+        The result of the image scan task. Valid values:
+        *   **SUCCESS**: The task is successful.
+        *   **TASK_NOT_SUPPORT_REGION**: The images are deployed in a region that is not supported by container image scan.
+        > For more information about the regions supported by container image scan, see the "Regions supported by container image scan" section in this topic.
+        
+
+        @param request: PublicCreateImageScanTaskRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: PublicCreateImageScanTaskResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.digests):
@@ -15418,6 +15959,17 @@ class Client(OpenApiClient):
         )
 
     def public_create_image_scan_task(self, request):
+        """
+        The result of the image scan task. Valid values:
+        *   **SUCCESS**: The task is successful.
+        *   **TASK_NOT_SUPPORT_REGION**: The images are deployed in a region that is not supported by container image scan.
+        > For more information about the regions supported by container image scan, see the "Regions supported by container image scan" section in this topic.
+        
+
+        @param request: PublicCreateImageScanTaskRequest
+
+        @return: PublicCreateImageScanTaskResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.public_create_image_scan_task_with_options(request, runtime)
 
@@ -16152,6 +16704,20 @@ class Client(OpenApiClient):
         return self.submit_check_with_options(runtime)
 
     def unbind_aegis_with_options(self, request, runtime):
+        """
+        If you no longer require protection for servers that are not deployed on Alibaba Cloud, you can call this operation to unbind the servers from Security Center. After you unbind a server that is not deployed on Alibaba Cloud from Security Center, the server no longer consumes the quota of protected servers or protected server vCPUs. This way, you can install the Security Center agent on other servers to meet your business requirements.
+        > You can unbind only the servers that are not deployed on Alibaba Cloud from Security Center. If you use an Alibaba Cloud Elastic Compute Service (ECS) instance, you do not need to unbind the ECS instance. If you uninstall the Security Center agent from an ECS instance, the ECS instance still exists as a disconnected server in the asset list of the Security Center console. The ECS instance is not removed from the asset list.
+        **Prerequisites**\
+        *   The server that you want to unbind from Security Center is not deployed on Alibaba Cloud and the Security Center agent is disabled for the server. In this case, the agent is in the Close state and Security Center does not protect the server. You can call the [PauseClient](~~PauseClient~~) operation to disable the agent.
+        *   The client protection feature is disabled for the server that you want to unbind from Security Center. For more information about how to disable the client protection feature, see [Use the client protection feature](https://www.alibabacloud.com/help/en/security-center/latest/local-file-detection-engine).
+        
+
+        @param request: UnbindAegisRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UnbindAegisResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.uuids):
@@ -16176,6 +16742,18 @@ class Client(OpenApiClient):
         )
 
     def unbind_aegis(self, request):
+        """
+        If you no longer require protection for servers that are not deployed on Alibaba Cloud, you can call this operation to unbind the servers from Security Center. After you unbind a server that is not deployed on Alibaba Cloud from Security Center, the server no longer consumes the quota of protected servers or protected server vCPUs. This way, you can install the Security Center agent on other servers to meet your business requirements.
+        > You can unbind only the servers that are not deployed on Alibaba Cloud from Security Center. If you use an Alibaba Cloud Elastic Compute Service (ECS) instance, you do not need to unbind the ECS instance. If you uninstall the Security Center agent from an ECS instance, the ECS instance still exists as a disconnected server in the asset list of the Security Center console. The ECS instance is not removed from the asset list.
+        **Prerequisites**\
+        *   The server that you want to unbind from Security Center is not deployed on Alibaba Cloud and the Security Center agent is disabled for the server. In this case, the agent is in the Close state and Security Center does not protect the server. You can call the [PauseClient](~~PauseClient~~) operation to disable the agent.
+        *   The client protection feature is disabled for the server that you want to unbind from Security Center. For more information about how to disable the client protection feature, see [Use the client protection feature](https://www.alibabacloud.com/help/en/security-center/latest/local-file-detection-engine).
+        
+
+        @param request: UnbindAegisRequest
+
+        @return: UnbindAegisResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.unbind_aegis_with_options(request, runtime)
 
@@ -16480,10 +17058,10 @@ class Client(OpenApiClient):
     def validate_hc_warnings_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.check_ids):
+            query['CheckIds'] = request.check_ids
         if not UtilClient.is_unset(request.risk_ids):
             query['RiskIds'] = request.risk_ids
-        if not UtilClient.is_unset(request.source_ip):
-            query['SourceIp'] = request.source_ip
         if not UtilClient.is_unset(request.uuids):
             query['Uuids'] = request.uuids
         req = open_api_models.OpenApiRequest(
