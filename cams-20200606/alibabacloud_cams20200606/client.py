@@ -500,7 +500,7 @@ class Client(OpenApiClient):
 
     def create_chatapp_migration_initiate_with_options(self, request, runtime):
         """
-        You can call this operation up to 10 times per second per account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        The status of the phone number.
         
 
         @param request: CreateChatappMigrationInitiateRequest
@@ -538,7 +538,7 @@ class Client(OpenApiClient):
 
     def create_chatapp_migration_initiate(self, request):
         """
-        You can call this operation up to 10 times per second per account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        The status of the phone number.
         
 
         @param request: CreateChatappMigrationInitiateRequest
@@ -550,8 +550,7 @@ class Client(OpenApiClient):
 
     def create_chatapp_template_with_options(self, tmp_req, runtime):
         """
-        ### QPS limit
-        You can call this operation up to five times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        The error message.
         
 
         @param tmp_req: CreateChatappTemplateRequest
@@ -609,8 +608,7 @@ class Client(OpenApiClient):
 
     def create_chatapp_template(self, request):
         """
-        ### QPS limit
-        You can call this operation up to five times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        The error message.
         
 
         @param request: CreateChatappTemplateRequest
@@ -676,8 +674,7 @@ class Client(OpenApiClient):
 
     def get_chatapp_template_detail_with_options(self, request, runtime):
         """
-        ### QPS limit
-        You can call this operation up to five times per second per account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        The type of the file attached in the Viber message template.
         
 
         @param request: GetChatappTemplateDetailRequest
@@ -721,8 +718,7 @@ class Client(OpenApiClient):
 
     def get_chatapp_template_detail(self, request):
         """
-        ### QPS limit
-        You can call this operation up to five times per second per account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        The type of the file attached in the Viber message template.
         
 
         @param request: GetChatappTemplateDetailRequest
@@ -734,7 +730,7 @@ class Client(OpenApiClient):
 
     def get_chatapp_upload_authorization_with_options(self, request, runtime):
         """
-        You can call this operation up to five times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        You can call this operation up to five times per second per account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
 
         @param request: GetChatappUploadAuthorizationRequest
@@ -768,7 +764,7 @@ class Client(OpenApiClient):
 
     def get_chatapp_upload_authorization(self, request):
         """
-        You can call this operation up to five times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        You can call this operation up to five times per second per account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
 
         @param request: GetChatappUploadAuthorizationRequest
@@ -832,7 +828,7 @@ class Client(OpenApiClient):
 
     def get_migration_verify_code_with_options(self, request, runtime):
         """
-        You can call this operation up to 10 times per second per account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        The ID of the phone number.
         
 
         @param request: GetMigrationVerifyCodeRequest
@@ -872,7 +868,7 @@ class Client(OpenApiClient):
 
     def get_migration_verify_code(self, request):
         """
-        You can call this operation up to 10 times per second per account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        The ID of the phone number.
         
 
         @param request: GetMigrationVerifyCodeRequest
@@ -932,7 +928,7 @@ class Client(OpenApiClient):
 
     def isv_get_app_id_with_options(self, request, runtime):
         """
-        You can call this operation up to 10 times per second per account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        The message ID.
         
 
         @param request: IsvGetAppIdRequest
@@ -966,7 +962,7 @@ class Client(OpenApiClient):
 
     def isv_get_app_id(self, request):
         """
-        You can call this operation up to 10 times per second per account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        The message ID.
         
 
         @param request: IsvGetAppIdRequest
@@ -1044,8 +1040,7 @@ class Client(OpenApiClient):
 
     def modify_chatapp_template_with_options(self, tmp_req, runtime):
         """
-        ### QPS limit
-        You can call this operation up to five times per second per account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        The name of the message template.
         
 
         @param tmp_req: ModifyChatappTemplateRequest
@@ -1101,8 +1096,7 @@ class Client(OpenApiClient):
 
     def modify_chatapp_template(self, request):
         """
-        ### QPS limit
-        You can call this operation up to five times per second per account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        The name of the message template.
         
 
         @param request: ModifyChatappTemplateRequest
@@ -1450,7 +1444,7 @@ class Client(OpenApiClient):
 
     def send_chatapp_message_with_options(self, tmp_req, runtime):
         """
-        You can call this operation up to 200 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        You can call this operation up to 200 times per second per account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
 
         @param tmp_req: SendChatappMessageRequest
@@ -1534,7 +1528,7 @@ class Client(OpenApiClient):
 
     def send_chatapp_message(self, request):
         """
-        You can call this operation up to 200 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        You can call this operation up to 200 times per second per account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
 
         @param request: SendChatappMessageRequest
@@ -1546,7 +1540,7 @@ class Client(OpenApiClient):
 
     def submit_isv_customer_terms_with_options(self, request, runtime):
         """
-        You can call this operation up to five times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        You can call this operation up to five times per second per account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
 
         @param request: SubmitIsvCustomerTermsRequest
@@ -1592,7 +1586,7 @@ class Client(OpenApiClient):
 
     def submit_isv_customer_terms(self, request):
         """
-        You can call this operation up to five times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        You can call this operation up to five times per second per account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
 
         @param request: SubmitIsvCustomerTermsRequest
@@ -1656,7 +1650,7 @@ class Client(OpenApiClient):
 
     def update_phone_webhook_with_options(self, request, runtime):
         """
-        You can call this operation up to 10 times per second per account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        The error message returned.
         
 
         @param request: UpdatePhoneWebhookRequest
@@ -1700,7 +1694,7 @@ class Client(OpenApiClient):
 
     def update_phone_webhook(self, request):
         """
-        You can call this operation up to 10 times per second per account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        The error message returned.
         
 
         @param request: UpdatePhoneWebhookRequest
