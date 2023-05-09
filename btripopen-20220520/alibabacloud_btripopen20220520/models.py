@@ -27347,6 +27347,268 @@ class HotelBillSettlementQueryResponse(TeaModel):
         return self
 
 
+class HotelCityCodeListHeaders(TeaModel):
+    def __init__(self, common_headers=None, x_acs_btrip_corp_token=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_acs_btrip_corp_token = x_acs_btrip_corp_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(HotelCityCodeListHeaders, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_acs_btrip_corp_token is not None:
+            result['x-acs-btrip-corp-token'] = self.x_acs_btrip_corp_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('x-acs-btrip-corp-token') is not None:
+            self.x_acs_btrip_corp_token = m.get('x-acs-btrip-corp-token')
+        return self
+
+
+class HotelCityCodeListRequest(TeaModel):
+    def __init__(self, country_code=None):
+        self.country_code = country_code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(HotelCityCodeListRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.country_code is not None:
+            result['country_code'] = self.country_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('country_code') is not None:
+            self.country_code = m.get('country_code')
+        return self
+
+
+class HotelCityCodeListResponseBodyModuleCitysDistricts(TeaModel):
+    def __init__(self, district_code=None, district_name=None):
+        self.district_code = district_code  # type: str
+        self.district_name = district_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(HotelCityCodeListResponseBodyModuleCitysDistricts, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.district_code is not None:
+            result['district_code'] = self.district_code
+        if self.district_name is not None:
+            result['district_name'] = self.district_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('district_code') is not None:
+            self.district_code = m.get('district_code')
+        if m.get('district_name') is not None:
+            self.district_name = m.get('district_name')
+        return self
+
+
+class HotelCityCodeListResponseBodyModuleCitys(TeaModel):
+    def __init__(self, city_code=None, city_name=None, districts=None):
+        self.city_code = city_code  # type: str
+        self.city_name = city_name  # type: str
+        self.districts = districts  # type: list[HotelCityCodeListResponseBodyModuleCitysDistricts]
+
+    def validate(self):
+        if self.districts:
+            for k in self.districts:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(HotelCityCodeListResponseBodyModuleCitys, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.city_code is not None:
+            result['city_code'] = self.city_code
+        if self.city_name is not None:
+            result['city_name'] = self.city_name
+        result['districts'] = []
+        if self.districts is not None:
+            for k in self.districts:
+                result['districts'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('city_code') is not None:
+            self.city_code = m.get('city_code')
+        if m.get('city_name') is not None:
+            self.city_name = m.get('city_name')
+        self.districts = []
+        if m.get('districts') is not None:
+            for k in m.get('districts'):
+                temp_model = HotelCityCodeListResponseBodyModuleCitysDistricts()
+                self.districts.append(temp_model.from_map(k))
+        return self
+
+
+class HotelCityCodeListResponseBodyModule(TeaModel):
+    def __init__(self, citys=None, provice_code=None, province_name=None):
+        self.citys = citys  # type: list[HotelCityCodeListResponseBodyModuleCitys]
+        self.provice_code = provice_code  # type: str
+        self.province_name = province_name  # type: str
+
+    def validate(self):
+        if self.citys:
+            for k in self.citys:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(HotelCityCodeListResponseBodyModule, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['citys'] = []
+        if self.citys is not None:
+            for k in self.citys:
+                result['citys'].append(k.to_map() if k else None)
+        if self.provice_code is not None:
+            result['provice_code'] = self.provice_code
+        if self.province_name is not None:
+            result['province_name'] = self.province_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.citys = []
+        if m.get('citys') is not None:
+            for k in m.get('citys'):
+                temp_model = HotelCityCodeListResponseBodyModuleCitys()
+                self.citys.append(temp_model.from_map(k))
+        if m.get('provice_code') is not None:
+            self.provice_code = m.get('provice_code')
+        if m.get('province_name') is not None:
+            self.province_name = m.get('province_name')
+        return self
+
+
+class HotelCityCodeListResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+        self.module = module  # type: list[HotelCityCodeListResponseBodyModule]
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+        self.trace_id = trace_id  # type: str
+
+    def validate(self):
+        if self.module:
+            for k in self.module:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(HotelCityCodeListResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
+        result['module'] = []
+        if self.module is not None:
+            for k in self.module:
+                result['module'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.success is not None:
+            result['success'] = self.success
+        if self.trace_id is not None:
+            result['traceId'] = self.trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        self.module = []
+        if m.get('module') is not None:
+            for k in m.get('module'):
+                temp_model = HotelCityCodeListResponseBodyModule()
+                self.module.append(temp_model.from_map(k))
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('traceId') is not None:
+            self.trace_id = m.get('traceId')
+        return self
+
+
+class HotelCityCodeListResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: HotelCityCodeListResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(HotelCityCodeListResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = HotelCityCodeListResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class HotelExceedApplyQueryHeaders(TeaModel):
     def __init__(self, common_headers=None, x_acs_btrip_so_corp_token=None):
         self.common_headers = common_headers  # type: dict[str, str]
