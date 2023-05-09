@@ -355,7 +355,8 @@ class CreateAppInstanceGroupRequestNetworkRoutes(TeaModel):
 
 
 class CreateAppInstanceGroupRequestNetwork(TeaModel):
-    def __init__(self, routes=None, strategy_type=None):
+    def __init__(self, ip_expire_minutes=None, routes=None, strategy_type=None):
+        self.ip_expire_minutes = ip_expire_minutes  # type: int
         self.routes = routes  # type: list[CreateAppInstanceGroupRequestNetworkRoutes]
         self.strategy_type = strategy_type  # type: str
 
@@ -371,6 +372,8 @@ class CreateAppInstanceGroupRequestNetwork(TeaModel):
             return _map
 
         result = dict()
+        if self.ip_expire_minutes is not None:
+            result['IpExpireMinutes'] = self.ip_expire_minutes
         result['Routes'] = []
         if self.routes is not None:
             for k in self.routes:
@@ -381,6 +384,8 @@ class CreateAppInstanceGroupRequestNetwork(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('IpExpireMinutes') is not None:
+            self.ip_expire_minutes = m.get('IpExpireMinutes')
         self.routes = []
         if m.get('Routes') is not None:
             for k in m.get('Routes'):
@@ -557,7 +562,9 @@ class CreateAppInstanceGroupRequestNodePool(TeaModel):
 
 
 class CreateAppInstanceGroupRequestRuntimePolicy(TeaModel):
-    def __init__(self, session_type=None):
+    def __init__(self, debug_mode=None, session_type=None):
+        self.debug_mode = debug_mode  # type: str
+        # 会话类型。
         self.session_type = session_type  # type: str
 
     def validate(self):
@@ -569,14 +576,71 @@ class CreateAppInstanceGroupRequestRuntimePolicy(TeaModel):
             return _map
 
         result = dict()
+        if self.debug_mode is not None:
+            result['DebugMode'] = self.debug_mode
         if self.session_type is not None:
             result['SessionType'] = self.session_type
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('DebugMode') is not None:
+            self.debug_mode = m.get('DebugMode')
         if m.get('SessionType') is not None:
             self.session_type = m.get('SessionType')
+        return self
+
+
+class CreateAppInstanceGroupRequestSecurityPolicy(TeaModel):
+    def __init__(self, reset_after_unbind=None, skip_user_auth_check=None):
+        self.reset_after_unbind = reset_after_unbind  # type: bool
+        self.skip_user_auth_check = skip_user_auth_check  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateAppInstanceGroupRequestSecurityPolicy, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.reset_after_unbind is not None:
+            result['ResetAfterUnbind'] = self.reset_after_unbind
+        if self.skip_user_auth_check is not None:
+            result['SkipUserAuthCheck'] = self.skip_user_auth_check
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ResetAfterUnbind') is not None:
+            self.reset_after_unbind = m.get('ResetAfterUnbind')
+        if m.get('SkipUserAuthCheck') is not None:
+            self.skip_user_auth_check = m.get('SkipUserAuthCheck')
+        return self
+
+
+class CreateAppInstanceGroupRequestStoragePolicy(TeaModel):
+    def __init__(self, storage_type_list=None):
+        self.storage_type_list = storage_type_list  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateAppInstanceGroupRequestStoragePolicy, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.storage_type_list is not None:
+            result['StorageTypeList'] = self.storage_type_list
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('StorageTypeList') is not None:
+            self.storage_type_list = m.get('StorageTypeList')
         return self
 
 
@@ -608,7 +672,7 @@ class CreateAppInstanceGroupRequest(TeaModel):
     def __init__(self, app_center_image_id=None, app_instance_group_name=None, auto_pay=None, auto_renew=None,
                  biz_region_id=None, charge_resource_mode=None, charge_type=None, network=None, node_pool=None, period=None,
                  period_unit=None, pre_open_app_id=None, product_type=None, promotion_id=None, runtime_policy=None,
-                 session_timeout=None, user_info=None, users=None):
+                 security_policy=None, session_timeout=None, storage_policy=None, user_info=None, users=None):
         self.app_center_image_id = app_center_image_id  # type: str
         self.app_instance_group_name = app_instance_group_name  # type: str
         self.auto_pay = auto_pay  # type: bool
@@ -624,7 +688,9 @@ class CreateAppInstanceGroupRequest(TeaModel):
         self.product_type = product_type  # type: str
         self.promotion_id = promotion_id  # type: str
         self.runtime_policy = runtime_policy  # type: CreateAppInstanceGroupRequestRuntimePolicy
+        self.security_policy = security_policy  # type: CreateAppInstanceGroupRequestSecurityPolicy
         self.session_timeout = session_timeout  # type: int
+        self.storage_policy = storage_policy  # type: CreateAppInstanceGroupRequestStoragePolicy
         self.user_info = user_info  # type: CreateAppInstanceGroupRequestUserInfo
         self.users = users  # type: list[str]
 
@@ -635,6 +701,10 @@ class CreateAppInstanceGroupRequest(TeaModel):
             self.node_pool.validate()
         if self.runtime_policy:
             self.runtime_policy.validate()
+        if self.security_policy:
+            self.security_policy.validate()
+        if self.storage_policy:
+            self.storage_policy.validate()
         if self.user_info:
             self.user_info.validate()
 
@@ -674,8 +744,12 @@ class CreateAppInstanceGroupRequest(TeaModel):
             result['PromotionId'] = self.promotion_id
         if self.runtime_policy is not None:
             result['RuntimePolicy'] = self.runtime_policy.to_map()
+        if self.security_policy is not None:
+            result['SecurityPolicy'] = self.security_policy.to_map()
         if self.session_timeout is not None:
             result['SessionTimeout'] = self.session_timeout
+        if self.storage_policy is not None:
+            result['StoragePolicy'] = self.storage_policy.to_map()
         if self.user_info is not None:
             result['UserInfo'] = self.user_info.to_map()
         if self.users is not None:
@@ -717,8 +791,14 @@ class CreateAppInstanceGroupRequest(TeaModel):
         if m.get('RuntimePolicy') is not None:
             temp_model = CreateAppInstanceGroupRequestRuntimePolicy()
             self.runtime_policy = temp_model.from_map(m['RuntimePolicy'])
+        if m.get('SecurityPolicy') is not None:
+            temp_model = CreateAppInstanceGroupRequestSecurityPolicy()
+            self.security_policy = temp_model.from_map(m['SecurityPolicy'])
         if m.get('SessionTimeout') is not None:
             self.session_timeout = m.get('SessionTimeout')
+        if m.get('StoragePolicy') is not None:
+            temp_model = CreateAppInstanceGroupRequestStoragePolicy()
+            self.storage_policy = temp_model.from_map(m['StoragePolicy'])
         if m.get('UserInfo') is not None:
             temp_model = CreateAppInstanceGroupRequestUserInfo()
             self.user_info = temp_model.from_map(m['UserInfo'])
@@ -731,7 +811,8 @@ class CreateAppInstanceGroupShrinkRequest(TeaModel):
     def __init__(self, app_center_image_id=None, app_instance_group_name=None, auto_pay=None, auto_renew=None,
                  biz_region_id=None, charge_resource_mode=None, charge_type=None, network_shrink=None, node_pool_shrink=None,
                  period=None, period_unit=None, pre_open_app_id=None, product_type=None, promotion_id=None,
-                 runtime_policy_shrink=None, session_timeout=None, user_info_shrink=None, users=None):
+                 runtime_policy_shrink=None, security_policy_shrink=None, session_timeout=None, storage_policy_shrink=None,
+                 user_info_shrink=None, users=None):
         self.app_center_image_id = app_center_image_id  # type: str
         self.app_instance_group_name = app_instance_group_name  # type: str
         self.auto_pay = auto_pay  # type: bool
@@ -747,7 +828,9 @@ class CreateAppInstanceGroupShrinkRequest(TeaModel):
         self.product_type = product_type  # type: str
         self.promotion_id = promotion_id  # type: str
         self.runtime_policy_shrink = runtime_policy_shrink  # type: str
+        self.security_policy_shrink = security_policy_shrink  # type: str
         self.session_timeout = session_timeout  # type: int
+        self.storage_policy_shrink = storage_policy_shrink  # type: str
         self.user_info_shrink = user_info_shrink  # type: str
         self.users = users  # type: list[str]
 
@@ -790,8 +873,12 @@ class CreateAppInstanceGroupShrinkRequest(TeaModel):
             result['PromotionId'] = self.promotion_id
         if self.runtime_policy_shrink is not None:
             result['RuntimePolicy'] = self.runtime_policy_shrink
+        if self.security_policy_shrink is not None:
+            result['SecurityPolicy'] = self.security_policy_shrink
         if self.session_timeout is not None:
             result['SessionTimeout'] = self.session_timeout
+        if self.storage_policy_shrink is not None:
+            result['StoragePolicy'] = self.storage_policy_shrink
         if self.user_info_shrink is not None:
             result['UserInfo'] = self.user_info_shrink
         if self.users is not None:
@@ -830,8 +917,12 @@ class CreateAppInstanceGroupShrinkRequest(TeaModel):
             self.promotion_id = m.get('PromotionId')
         if m.get('RuntimePolicy') is not None:
             self.runtime_policy_shrink = m.get('RuntimePolicy')
+        if m.get('SecurityPolicy') is not None:
+            self.security_policy_shrink = m.get('SecurityPolicy')
         if m.get('SessionTimeout') is not None:
             self.session_timeout = m.get('SessionTimeout')
+        if m.get('StoragePolicy') is not None:
+            self.storage_policy_shrink = m.get('StoragePolicy')
         if m.get('UserInfo') is not None:
             self.user_info_shrink = m.get('UserInfo')
         if m.get('Users') is not None:
@@ -939,6 +1030,108 @@ class CreateAppInstanceGroupResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateAppInstanceGroupResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CreateImageFromAppInstanceGroupRequest(TeaModel):
+    def __init__(self, app_center_image_name=None, app_instance_group_id=None, product_type=None):
+        self.app_center_image_name = app_center_image_name  # type: str
+        self.app_instance_group_id = app_instance_group_id  # type: str
+        self.product_type = product_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateImageFromAppInstanceGroupRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_center_image_name is not None:
+            result['AppCenterImageName'] = self.app_center_image_name
+        if self.app_instance_group_id is not None:
+            result['AppInstanceGroupId'] = self.app_instance_group_id
+        if self.product_type is not None:
+            result['ProductType'] = self.product_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppCenterImageName') is not None:
+            self.app_center_image_name = m.get('AppCenterImageName')
+        if m.get('AppInstanceGroupId') is not None:
+            self.app_instance_group_id = m.get('AppInstanceGroupId')
+        if m.get('ProductType') is not None:
+            self.product_type = m.get('ProductType')
+        return self
+
+
+class CreateImageFromAppInstanceGroupResponseBody(TeaModel):
+    def __init__(self, image_id=None, request_id=None):
+        self.image_id = image_id  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateImageFromAppInstanceGroupResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.image_id is not None:
+            result['ImageId'] = self.image_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ImageId') is not None:
+            self.image_id = m.get('ImageId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class CreateImageFromAppInstanceGroupResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateImageFromAppInstanceGroupResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateImageFromAppInstanceGroupResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateImageFromAppInstanceGroupResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -1476,7 +1669,8 @@ class GetAppInstanceGroupResponseBodyAppInstanceGroupModels(TeaModel):
     def __init__(self, amount=None, app_center_image_id=None, app_center_image_name=None,
                  app_instance_group_id=None, app_instance_group_name=None, app_instance_type=None, app_policy_id=None, apps=None,
                  charge_type=None, expired_time=None, gmt_create=None, node_pool=None, os_type=None, ota_info=None,
-                 product_type=None, region_id=None, resource_status=None, session_timeout=None, spec_id=None, status=None):
+                 product_type=None, region_id=None, resource_status=None, session_timeout=None, skip_user_auth_check=None,
+                 spec_id=None, status=None):
         self.amount = amount  # type: int
         self.app_center_image_id = app_center_image_id  # type: str
         self.app_center_image_name = app_center_image_name  # type: str
@@ -1495,6 +1689,7 @@ class GetAppInstanceGroupResponseBodyAppInstanceGroupModels(TeaModel):
         self.region_id = region_id  # type: str
         self.resource_status = resource_status  # type: str
         self.session_timeout = session_timeout  # type: str
+        self.skip_user_auth_check = skip_user_auth_check  # type: bool
         self.spec_id = spec_id  # type: str
         self.status = status  # type: str
 
@@ -1556,6 +1751,8 @@ class GetAppInstanceGroupResponseBodyAppInstanceGroupModels(TeaModel):
             result['ResourceStatus'] = self.resource_status
         if self.session_timeout is not None:
             result['SessionTimeout'] = self.session_timeout
+        if self.skip_user_auth_check is not None:
+            result['SkipUserAuthCheck'] = self.skip_user_auth_check
         if self.spec_id is not None:
             result['SpecId'] = self.spec_id
         if self.status is not None:
@@ -1607,6 +1804,8 @@ class GetAppInstanceGroupResponseBodyAppInstanceGroupModels(TeaModel):
             self.resource_status = m.get('ResourceStatus')
         if m.get('SessionTimeout') is not None:
             self.session_timeout = m.get('SessionTimeout')
+        if m.get('SkipUserAuthCheck') is not None:
+            self.skip_user_auth_check = m.get('SkipUserAuthCheck')
         if m.get('SpecId') is not None:
             self.spec_id = m.get('SpecId')
         if m.get('Status') is not None:
@@ -1845,6 +2044,129 @@ class GetConnectionTicketResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetConnectionTicketResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetDebugAppInstanceRequest(TeaModel):
+    def __init__(self, app_instance_group_id=None, product_type=None):
+        self.app_instance_group_id = app_instance_group_id  # type: str
+        self.product_type = product_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetDebugAppInstanceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_instance_group_id is not None:
+            result['AppInstanceGroupId'] = self.app_instance_group_id
+        if self.product_type is not None:
+            result['ProductType'] = self.product_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppInstanceGroupId') is not None:
+            self.app_instance_group_id = m.get('AppInstanceGroupId')
+        if m.get('ProductType') is not None:
+            self.product_type = m.get('ProductType')
+        return self
+
+
+class GetDebugAppInstanceResponseBody(TeaModel):
+    def __init__(self, app_id=None, app_instance_group_id=None, app_instance_id=None, app_version=None,
+                 auth_code=None, request_id=None, user_id=None):
+        self.app_id = app_id  # type: str
+        self.app_instance_group_id = app_instance_group_id  # type: str
+        self.app_instance_id = app_instance_id  # type: str
+        self.app_version = app_version  # type: str
+        self.auth_code = auth_code  # type: str
+        self.request_id = request_id  # type: str
+        self.user_id = user_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetDebugAppInstanceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_id is not None:
+            result['AppId'] = self.app_id
+        if self.app_instance_group_id is not None:
+            result['AppInstanceGroupId'] = self.app_instance_group_id
+        if self.app_instance_id is not None:
+            result['AppInstanceId'] = self.app_instance_id
+        if self.app_version is not None:
+            result['AppVersion'] = self.app_version
+        if self.auth_code is not None:
+            result['AuthCode'] = self.auth_code
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.user_id is not None:
+            result['UserId'] = self.user_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppId') is not None:
+            self.app_id = m.get('AppId')
+        if m.get('AppInstanceGroupId') is not None:
+            self.app_instance_group_id = m.get('AppInstanceGroupId')
+        if m.get('AppInstanceId') is not None:
+            self.app_instance_id = m.get('AppInstanceId')
+        if m.get('AppVersion') is not None:
+            self.app_version = m.get('AppVersion')
+        if m.get('AuthCode') is not None:
+            self.auth_code = m.get('AuthCode')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('UserId') is not None:
+            self.user_id = m.get('UserId')
+        return self
+
+
+class GetDebugAppInstanceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetDebugAppInstanceResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetDebugAppInstanceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetDebugAppInstanceResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -2603,10 +2925,13 @@ class ListAppInstanceGroupRequest(TeaModel):
 
 class ListAppInstanceGroupResponseBodyAppInstanceGroupModelsApps(TeaModel):
     def __init__(self, app_icon=None, app_id=None, app_name=None, app_version=None, app_version_name=None):
+        # 应用图标。
         self.app_icon = app_icon  # type: str
         self.app_id = app_id  # type: str
         self.app_name = app_name  # type: str
+        # 应用版本。
         self.app_version = app_version  # type: str
+        # 应用版本名称。
         self.app_version_name = app_version_name  # type: str
 
     def validate(self):
@@ -2879,14 +3204,17 @@ class ListAppInstanceGroupResponseBodyAppInstanceGroupModels(TeaModel):
     def __init__(self, amount=None, app_center_image_id=None, app_instance_group_id=None,
                  app_instance_group_name=None, app_instance_type=None, app_policy_id=None, apps=None, charge_resource_mode=None,
                  charge_type=None, expired_time=None, gmt_create=None, node_pool=None, os_type=None, ota_info=None,
-                 product_type=None, region_id=None, resource_status=None, session_timeout=None, spec_id=None, status=None):
+                 product_type=None, region_id=None, resource_status=None, session_timeout=None, skip_user_auth_check=None,
+                 spec_id=None, status=None):
         self.amount = amount  # type: int
         self.app_center_image_id = app_center_image_id  # type: str
         self.app_instance_group_id = app_instance_group_id  # type: str
         self.app_instance_group_name = app_instance_group_name  # type: str
         self.app_instance_type = app_instance_type  # type: str
+        # 策略ID。
         self.app_policy_id = app_policy_id  # type: str
         self.apps = apps  # type: list[ListAppInstanceGroupResponseBodyAppInstanceGroupModelsApps]
+        # 售卖模式。
         self.charge_resource_mode = charge_resource_mode  # type: str
         self.charge_type = charge_type  # type: str
         self.expired_time = expired_time  # type: str
@@ -2898,6 +3226,7 @@ class ListAppInstanceGroupResponseBodyAppInstanceGroupModels(TeaModel):
         self.region_id = region_id  # type: str
         self.resource_status = resource_status  # type: str
         self.session_timeout = session_timeout  # type: str
+        self.skip_user_auth_check = skip_user_auth_check  # type: bool
         self.spec_id = spec_id  # type: str
         self.status = status  # type: str
 
@@ -2959,6 +3288,8 @@ class ListAppInstanceGroupResponseBodyAppInstanceGroupModels(TeaModel):
             result['ResourceStatus'] = self.resource_status
         if self.session_timeout is not None:
             result['SessionTimeout'] = self.session_timeout
+        if self.skip_user_auth_check is not None:
+            result['SkipUserAuthCheck'] = self.skip_user_auth_check
         if self.spec_id is not None:
             result['SpecId'] = self.spec_id
         if self.status is not None:
@@ -3010,6 +3341,8 @@ class ListAppInstanceGroupResponseBodyAppInstanceGroupModels(TeaModel):
             self.resource_status = m.get('ResourceStatus')
         if m.get('SessionTimeout') is not None:
             self.session_timeout = m.get('SessionTimeout')
+        if m.get('SkipUserAuthCheck') is not None:
+            self.skip_user_auth_check = m.get('SkipUserAuthCheck')
         if m.get('SpecId') is not None:
             self.spec_id = m.get('SpecId')
         if m.get('Status') is not None:
@@ -3110,10 +3443,12 @@ class ListAppInstanceGroupResponse(TeaModel):
 
 
 class ListAppInstancesRequest(TeaModel):
-    def __init__(self, app_instance_group_id=None, app_instance_id=None, page_number=None, page_size=None,
-                 status=None):
+    def __init__(self, app_instance_group_id=None, app_instance_id=None, app_instance_id_list=None,
+                 include_deleted=None, page_number=None, page_size=None, status=None):
         self.app_instance_group_id = app_instance_group_id  # type: str
         self.app_instance_id = app_instance_id  # type: str
+        self.app_instance_id_list = app_instance_id_list  # type: list[str]
+        self.include_deleted = include_deleted  # type: bool
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
         self.status = status  # type: list[str]
@@ -3131,6 +3466,10 @@ class ListAppInstancesRequest(TeaModel):
             result['AppInstanceGroupId'] = self.app_instance_group_id
         if self.app_instance_id is not None:
             result['AppInstanceId'] = self.app_instance_id
+        if self.app_instance_id_list is not None:
+            result['AppInstanceIdList'] = self.app_instance_id_list
+        if self.include_deleted is not None:
+            result['IncludeDeleted'] = self.include_deleted
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
@@ -3145,6 +3484,10 @@ class ListAppInstancesRequest(TeaModel):
             self.app_instance_group_id = m.get('AppInstanceGroupId')
         if m.get('AppInstanceId') is not None:
             self.app_instance_id = m.get('AppInstanceId')
+        if m.get('AppInstanceIdList') is not None:
+            self.app_instance_id_list = m.get('AppInstanceIdList')
+        if m.get('IncludeDeleted') is not None:
+            self.include_deleted = m.get('IncludeDeleted')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
@@ -3154,11 +3497,41 @@ class ListAppInstancesRequest(TeaModel):
         return self
 
 
+class ListAppInstancesResponseBodyAppInstanceModelsBindInfo(TeaModel):
+    def __init__(self, end_user_id=None, usage_duration=None):
+        self.end_user_id = end_user_id  # type: str
+        self.usage_duration = usage_duration  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListAppInstancesResponseBodyAppInstanceModelsBindInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.end_user_id is not None:
+            result['EndUserId'] = self.end_user_id
+        if self.usage_duration is not None:
+            result['UsageDuration'] = self.usage_duration
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EndUserId') is not None:
+            self.end_user_id = m.get('EndUserId')
+        if m.get('UsageDuration') is not None:
+            self.usage_duration = m.get('UsageDuration')
+        return self
+
+
 class ListAppInstancesResponseBodyAppInstanceModels(TeaModel):
-    def __init__(self, app_instance_group_id=None, app_instance_id=None, gmt_create=None, gmt_modified=None,
-                 main_eth_public_ip=None, session_status=None, status=None):
+    def __init__(self, app_instance_group_id=None, app_instance_id=None, bind_info=None, gmt_create=None,
+                 gmt_modified=None, main_eth_public_ip=None, session_status=None, status=None):
         self.app_instance_group_id = app_instance_group_id  # type: str
         self.app_instance_id = app_instance_id  # type: str
+        self.bind_info = bind_info  # type: ListAppInstancesResponseBodyAppInstanceModelsBindInfo
         self.gmt_create = gmt_create  # type: str
         self.gmt_modified = gmt_modified  # type: str
         self.main_eth_public_ip = main_eth_public_ip  # type: str
@@ -3166,7 +3539,8 @@ class ListAppInstancesResponseBodyAppInstanceModels(TeaModel):
         self.status = status  # type: str
 
     def validate(self):
-        pass
+        if self.bind_info:
+            self.bind_info.validate()
 
     def to_map(self):
         _map = super(ListAppInstancesResponseBodyAppInstanceModels, self).to_map()
@@ -3178,6 +3552,8 @@ class ListAppInstancesResponseBodyAppInstanceModels(TeaModel):
             result['AppInstanceGroupId'] = self.app_instance_group_id
         if self.app_instance_id is not None:
             result['AppInstanceId'] = self.app_instance_id
+        if self.bind_info is not None:
+            result['BindInfo'] = self.bind_info.to_map()
         if self.gmt_create is not None:
             result['GmtCreate'] = self.gmt_create
         if self.gmt_modified is not None:
@@ -3196,6 +3572,9 @@ class ListAppInstancesResponseBodyAppInstanceModels(TeaModel):
             self.app_instance_group_id = m.get('AppInstanceGroupId')
         if m.get('AppInstanceId') is not None:
             self.app_instance_id = m.get('AppInstanceId')
+        if m.get('BindInfo') is not None:
+            temp_model = ListAppInstancesResponseBodyAppInstanceModelsBindInfo()
+            self.bind_info = temp_model.from_map(m['BindInfo'])
         if m.get('GmtCreate') is not None:
             self.gmt_create = m.get('GmtCreate')
         if m.get('GmtModified') is not None:
@@ -3304,9 +3683,12 @@ class ListAppInstancesResponse(TeaModel):
 class ListNodeInstanceTypeRequest(TeaModel):
     def __init__(self, biz_region_id=None, language=None, node_instance_type=None, os_type=None, page_number=None,
                  page_size=None, product_type=None):
+        # 资源所属的地域ID。关于支持的地域详情，请参见[使用限制](~~426036~~)。
         self.biz_region_id = biz_region_id  # type: str
+        # 语言类型。
         self.language = language  # type: str
         self.node_instance_type = node_instance_type  # type: str
+        # 支持的操作系统类型。
         self.os_type = os_type  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
@@ -3361,11 +3743,20 @@ class ListNodeInstanceTypeResponseBodyNodeInstanceTypeModels(TeaModel):
                  node_instance_type_family=None, node_type_name=None):
         self.cpu = cpu  # type: str
         self.gpu = gpu  # type: str
+        # 显卡内存大小，单位为MB。
         self.gpu_memory = gpu_memory  # type: long
+        # 最大并发会话数，即单个资源可同时连接的会话数。如果同时连接的会话数过多，可能导致应用的使用体验下降。取值范围因资源规格不同而不同。各资源规格对应的取值范围分别是：
+        # 
+        # - appstreaming.general.4c8g：1\~2；
+        # - appstreaming.general.8c16g：1\~4；
+        # - appstreaming.vgpu.8c16g.4g：1\~4；
+        # - appstreaming.vgpu.8c31g.16g：1\~4；
+        # - appstreaming.vgpu.14c93g.12g：1\~6；
         self.max_capacity = max_capacity  # type: int
         self.memory = memory  # type: long
         self.node_instance_type = node_instance_type  # type: str
         self.node_instance_type_family = node_instance_type_family  # type: str
+        # 资源规格名称。
         self.node_type_name = node_type_name  # type: str
 
     def validate(self):
@@ -4002,18 +4393,77 @@ class ModifyAppInstanceGroupAttributeRequestNodePool(TeaModel):
         return self
 
 
+class ModifyAppInstanceGroupAttributeRequestSecurityPolicy(TeaModel):
+    def __init__(self, reset_after_unbind=None, skip_user_auth_check=None):
+        self.reset_after_unbind = reset_after_unbind  # type: bool
+        self.skip_user_auth_check = skip_user_auth_check  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyAppInstanceGroupAttributeRequestSecurityPolicy, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.reset_after_unbind is not None:
+            result['ResetAfterUnbind'] = self.reset_after_unbind
+        if self.skip_user_auth_check is not None:
+            result['SkipUserAuthCheck'] = self.skip_user_auth_check
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ResetAfterUnbind') is not None:
+            self.reset_after_unbind = m.get('ResetAfterUnbind')
+        if m.get('SkipUserAuthCheck') is not None:
+            self.skip_user_auth_check = m.get('SkipUserAuthCheck')
+        return self
+
+
+class ModifyAppInstanceGroupAttributeRequestStoragePolicy(TeaModel):
+    def __init__(self, storage_type_list=None):
+        self.storage_type_list = storage_type_list  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyAppInstanceGroupAttributeRequestStoragePolicy, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.storage_type_list is not None:
+            result['StorageTypeList'] = self.storage_type_list
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('StorageTypeList') is not None:
+            self.storage_type_list = m.get('StorageTypeList')
+        return self
+
+
 class ModifyAppInstanceGroupAttributeRequest(TeaModel):
     def __init__(self, app_instance_group_id=None, app_instance_group_name=None, node_pool=None, product_type=None,
-                 session_timeout=None):
+                 security_policy=None, session_timeout=None, storage_policy=None):
         self.app_instance_group_id = app_instance_group_id  # type: str
         self.app_instance_group_name = app_instance_group_name  # type: str
         self.node_pool = node_pool  # type: ModifyAppInstanceGroupAttributeRequestNodePool
         self.product_type = product_type  # type: str
+        self.security_policy = security_policy  # type: ModifyAppInstanceGroupAttributeRequestSecurityPolicy
         self.session_timeout = session_timeout  # type: int
+        self.storage_policy = storage_policy  # type: ModifyAppInstanceGroupAttributeRequestStoragePolicy
 
     def validate(self):
         if self.node_pool:
             self.node_pool.validate()
+        if self.security_policy:
+            self.security_policy.validate()
+        if self.storage_policy:
+            self.storage_policy.validate()
 
     def to_map(self):
         _map = super(ModifyAppInstanceGroupAttributeRequest, self).to_map()
@@ -4029,8 +4479,12 @@ class ModifyAppInstanceGroupAttributeRequest(TeaModel):
             result['NodePool'] = self.node_pool.to_map()
         if self.product_type is not None:
             result['ProductType'] = self.product_type
+        if self.security_policy is not None:
+            result['SecurityPolicy'] = self.security_policy.to_map()
         if self.session_timeout is not None:
             result['SessionTimeout'] = self.session_timeout
+        if self.storage_policy is not None:
+            result['StoragePolicy'] = self.storage_policy.to_map()
         return result
 
     def from_map(self, m=None):
@@ -4044,19 +4498,27 @@ class ModifyAppInstanceGroupAttributeRequest(TeaModel):
             self.node_pool = temp_model.from_map(m['NodePool'])
         if m.get('ProductType') is not None:
             self.product_type = m.get('ProductType')
+        if m.get('SecurityPolicy') is not None:
+            temp_model = ModifyAppInstanceGroupAttributeRequestSecurityPolicy()
+            self.security_policy = temp_model.from_map(m['SecurityPolicy'])
         if m.get('SessionTimeout') is not None:
             self.session_timeout = m.get('SessionTimeout')
+        if m.get('StoragePolicy') is not None:
+            temp_model = ModifyAppInstanceGroupAttributeRequestStoragePolicy()
+            self.storage_policy = temp_model.from_map(m['StoragePolicy'])
         return self
 
 
 class ModifyAppInstanceGroupAttributeShrinkRequest(TeaModel):
     def __init__(self, app_instance_group_id=None, app_instance_group_name=None, node_pool_shrink=None,
-                 product_type=None, session_timeout=None):
+                 product_type=None, security_policy_shrink=None, session_timeout=None, storage_policy_shrink=None):
         self.app_instance_group_id = app_instance_group_id  # type: str
         self.app_instance_group_name = app_instance_group_name  # type: str
         self.node_pool_shrink = node_pool_shrink  # type: str
         self.product_type = product_type  # type: str
+        self.security_policy_shrink = security_policy_shrink  # type: str
         self.session_timeout = session_timeout  # type: int
+        self.storage_policy_shrink = storage_policy_shrink  # type: str
 
     def validate(self):
         pass
@@ -4075,8 +4537,12 @@ class ModifyAppInstanceGroupAttributeShrinkRequest(TeaModel):
             result['NodePool'] = self.node_pool_shrink
         if self.product_type is not None:
             result['ProductType'] = self.product_type
+        if self.security_policy_shrink is not None:
+            result['SecurityPolicy'] = self.security_policy_shrink
         if self.session_timeout is not None:
             result['SessionTimeout'] = self.session_timeout
+        if self.storage_policy_shrink is not None:
+            result['StoragePolicy'] = self.storage_policy_shrink
         return result
 
     def from_map(self, m=None):
@@ -4089,8 +4555,12 @@ class ModifyAppInstanceGroupAttributeShrinkRequest(TeaModel):
             self.node_pool_shrink = m.get('NodePool')
         if m.get('ProductType') is not None:
             self.product_type = m.get('ProductType')
+        if m.get('SecurityPolicy') is not None:
+            self.security_policy_shrink = m.get('SecurityPolicy')
         if m.get('SessionTimeout') is not None:
             self.session_timeout = m.get('SessionTimeout')
+        if m.get('StoragePolicy') is not None:
+            self.storage_policy_shrink = m.get('StoragePolicy')
         return self
 
 
@@ -4169,8 +4639,11 @@ class ModifyAppInstanceGroupAttributeResponse(TeaModel):
 
 class ModifyNodePoolAttributeRequestNodePoolStrategyRecurrenceSchedulesTimerPeriods(TeaModel):
     def __init__(self, amount=None, end_time=None, start_time=None):
+        # 资源数量。
         self.amount = amount  # type: int
+        # 结束时间。格式为HH:mm。
         self.end_time = end_time  # type: str
+        # 开始时间。格式为HH:mm。
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -4203,8 +4676,17 @@ class ModifyNodePoolAttributeRequestNodePoolStrategyRecurrenceSchedulesTimerPeri
 
 class ModifyNodePoolAttributeRequestNodePoolStrategyRecurrenceSchedules(TeaModel):
     def __init__(self, recurrence_type=None, recurrence_values=None, timer_periods=None):
+        # 策略执行周期的类型。必须同时指定`RecurrenceType`和`RecurrenceValues`。
         self.recurrence_type = recurrence_type  # type: str
+        # 策略执行周期的数值列表。
         self.recurrence_values = recurrence_values  # type: list[int]
+        # 策略执行周期的时间段列表。时间段设置要求：
+        # 
+        # - 最多可添加3个时间段。
+        # - 时间段之间不重叠。
+        # - 时间段之间的间隔大于或等于5分钟。
+        # - 单个时间段的时长大于或等于15分钟。
+        # - 所有时间段累计不跨天。
         self.timer_periods = timer_periods  # type: list[ModifyNodePoolAttributeRequestNodePoolStrategyRecurrenceSchedulesTimerPeriods]
 
     def validate(self):
@@ -4248,14 +4730,23 @@ class ModifyNodePoolAttributeRequestNodePoolStrategy(TeaModel):
                  scaling_down_after_idle_minutes=None, scaling_step=None, scaling_usage_threshold=None, strategy_disable_date=None,
                  strategy_enable_date=None, strategy_type=None, warm_up=None):
         self.max_scaling_amount = max_scaling_amount  # type: int
+        # 购买资源的数量。取值范围：1~100。
+        # 
+        # > 
+        # - 若为包年包月资源，则该参数不可修改。
+        # - 若为按量付费资源，则当弹性模式（`StrategyType`）为固定数量（`NODE_FIXED`）或自动扩缩容（`NODE_SCALING_BY_USAGE`）时该参数可修改。
         self.node_amount = node_amount  # type: int
+        # 策略执行周期列表。`StrategyType`（弹性模式）设为`NODE_SCALING_BY_SCHEDULE`（定时扩缩容）时，该字段必填。
         self.recurrence_schedules = recurrence_schedules  # type: list[ModifyNodePoolAttributeRequestNodePoolStrategyRecurrenceSchedules]
         self.scaling_down_after_idle_minutes = scaling_down_after_idle_minutes  # type: int
         self.scaling_step = scaling_step  # type: int
         self.scaling_usage_threshold = scaling_usage_threshold  # type: str
+        # 策略失效日期。格式为：yyyy-MM-dd。失效日期与生效日期的间隔必须介于7天到1年之间（含7天和1年）。`StrategyType`（弹性模式）设为`NODE_SCALING_BY_SCHEDULE`（定时扩缩容）时，该字段必填。
         self.strategy_disable_date = strategy_disable_date  # type: str
+        # 策略生效日期。格式为：yyyy-MM-dd。该日期必须大于或等于当前日期。`StrategyType`（弹性模式）设为`NODE_SCALING_BY_SCHEDULE`（定时扩缩容）时，该字段必填。
         self.strategy_enable_date = strategy_enable_date  # type: str
         self.strategy_type = strategy_type  # type: str
+        # 是否开启资源预热策略。`StrategyType`（弹性模式）设为`NODE_SCALING_BY_SCHEDULE`（定时扩缩容）时，该字段必填。
         self.warm_up = warm_up  # type: bool
 
     def validate(self):
@@ -4329,6 +4820,7 @@ class ModifyNodePoolAttributeRequest(TeaModel):
         self.node_capacity = node_capacity  # type: int
         self.node_pool_strategy = node_pool_strategy  # type: ModifyNodePoolAttributeRequestNodePoolStrategy
         self.pool_id = pool_id  # type: str
+        # 产品类型。
         self.product_type = product_type  # type: str
 
     def validate(self):
@@ -4376,6 +4868,7 @@ class ModifyNodePoolAttributeShrinkRequest(TeaModel):
         self.node_capacity = node_capacity  # type: int
         self.node_pool_strategy_shrink = node_pool_strategy_shrink  # type: str
         self.pool_id = pool_id  # type: str
+        # 产品类型。
         self.product_type = product_type  # type: str
 
     def validate(self):
