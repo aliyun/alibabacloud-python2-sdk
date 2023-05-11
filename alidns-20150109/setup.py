@@ -25,7 +25,7 @@ from setuptools import setup, find_packages
 """
 setup module for alibabacloud_alidns20150109_py2.
 
-Created on 04/04/2023
+Created on 11/05/2023
 
 @author: Alibaba Cloud SDK
 """
