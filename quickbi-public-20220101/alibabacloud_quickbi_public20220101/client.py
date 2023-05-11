@@ -31,6 +31,18 @@ class Client(OpenApiClient):
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
     def add_data_level_permission_rule_users_with_options(self, request, runtime):
+        """
+        Indicates whether the request is successful. Valid values:
+        *   true: The request was successful.
+        *   false: The request failed.
+        
+
+        @param request: AddDataLevelPermissionRuleUsersRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: AddDataLevelPermissionRuleUsersResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.add_user_model):
@@ -55,10 +67,30 @@ class Client(OpenApiClient):
         )
 
     def add_data_level_permission_rule_users(self, request):
+        """
+        Indicates whether the request is successful. Valid values:
+        *   true: The request was successful.
+        *   false: The request failed.
+        
+
+        @param request: AddDataLevelPermissionRuleUsersRequest
+
+        @return: AddDataLevelPermissionRuleUsersResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.add_data_level_permission_rule_users_with_options(request, runtime)
 
     def add_data_level_permission_white_list_with_options(self, request, runtime):
+        """
+        ROW_LEVEL
+        
+
+        @param request: AddDataLevelPermissionWhiteListRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: AddDataLevelPermissionWhiteListResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.cube_id):
@@ -91,6 +123,14 @@ class Client(OpenApiClient):
         )
 
     def add_data_level_permission_white_list(self, request):
+        """
+        ROW_LEVEL
+        
+
+        @param request: AddDataLevelPermissionWhiteListRequest
+
+        @return: AddDataLevelPermissionWhiteListResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.add_data_level_permission_white_list_with_options(request, runtime)
 
@@ -319,6 +359,34 @@ class Client(OpenApiClient):
     def add_workspace_users(self, request):
         runtime = util_models.RuntimeOptions()
         return self.add_workspace_users_with_options(request, runtime)
+
+    def allot_dataset_acceleration_task_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.cube_id):
+            query['CubeId'] = request.cube_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='AllotDatasetAccelerationTask',
+            version='2022-01-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            quickbi_public_20220101_models.AllotDatasetAccelerationTaskResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def allot_dataset_acceleration_task(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.allot_dataset_acceleration_task_with_options(request, runtime)
 
     def authorize_menu_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -659,6 +727,16 @@ class Client(OpenApiClient):
         return self.delay_ticket_expire_time_with_options(request, runtime)
 
     def delete_data_level_permission_rule_users_with_options(self, request, runtime):
+        """
+        {"ruleId":"a5bb24da-**-a891683e14da","cubeId":"7c7223ae-***-3c744528014b","delModel":{"userGroups":["0d5fb19b-***-1248fc27ca51","3d2c23d4-***-f6390f325c2d"],"users":["4334***358","Huang***3fa822"]}}
+        
+
+        @param request: DeleteDataLevelPermissionRuleUsersRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteDataLevelPermissionRuleUsersResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.delete_user_model):
@@ -683,10 +761,28 @@ class Client(OpenApiClient):
         )
 
     def delete_data_level_permission_rule_users(self, request):
+        """
+        {"ruleId":"a5bb24da-**-a891683e14da","cubeId":"7c7223ae-***-3c744528014b","delModel":{"userGroups":["0d5fb19b-***-1248fc27ca51","3d2c23d4-***-f6390f325c2d"],"users":["4334***358","Huang***3fa822"]}}
+        
+
+        @param request: DeleteDataLevelPermissionRuleUsersRequest
+
+        @return: DeleteDataLevelPermissionRuleUsersResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_data_level_permission_rule_users_with_options(request, runtime)
 
     def delete_data_level_rule_config_with_options(self, request, runtime):
+        """
+        The ID of the training dataset that you want to remove from the specified custom linguistic model.
+        
+
+        @param request: DeleteDataLevelRuleConfigRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteDataLevelRuleConfigResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.cube_id):
@@ -713,6 +809,14 @@ class Client(OpenApiClient):
         )
 
     def delete_data_level_rule_config(self, request):
+        """
+        The ID of the training dataset that you want to remove from the specified custom linguistic model.
+        
+
+        @param request: DeleteDataLevelRuleConfigRequest
+
+        @return: DeleteDataLevelRuleConfigResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_data_level_rule_config_with_options(request, runtime)
 
@@ -948,6 +1052,40 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_user_group_info_with_options(request, runtime)
 
+    def list_api_datasource_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.key_word):
+            query['KeyWord'] = request.key_word
+        if not UtilClient.is_unset(request.page_num):
+            query['PageNum'] = request.page_num
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.workspace_id):
+            query['WorkspaceId'] = request.workspace_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListApiDatasource',
+            version='2022-01-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            quickbi_public_20220101_models.ListApiDatasourceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_api_datasource(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_api_datasource_with_options(request, runtime)
+
     def list_by_user_group_id_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1005,6 +1143,16 @@ class Client(OpenApiClient):
         return self.list_collections_with_options(request, runtime)
 
     def list_cube_data_level_permission_config_with_options(self, request, runtime):
+        """
+        > : You can only Quick BI the new row-column permission model. If you are still using the old row-column permission model, migrate to the new row-column permission model before you call this operation. To migrate row-level permissions to the new row-level permission model, perform the following steps: Choose Organizations> Security Configurations> Upgrade Row-Level Permissions. On the Upgrade Row-Level Permissions page, click *Upgrade**.
+        
+
+        @param request: ListCubeDataLevelPermissionConfigRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListCubeDataLevelPermissionConfigResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.cube_id):
@@ -1031,6 +1179,14 @@ class Client(OpenApiClient):
         )
 
     def list_cube_data_level_permission_config(self, request):
+        """
+        > : You can only Quick BI the new row-column permission model. If you are still using the old row-column permission model, migrate to the new row-column permission model before you call this operation. To migrate row-level permissions to the new row-level permission model, perform the following steps: Choose Organizations> Security Configurations> Upgrade Row-Level Permissions. On the Upgrade Row-Level Permissions page, click *Upgrade**.
+        
+
+        @param request: ListCubeDataLevelPermissionConfigRequest
+
+        @return: ListCubeDataLevelPermissionConfigResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_cube_data_level_permission_config_with_options(request, runtime)
 
@@ -1256,7 +1412,49 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_user_groups_by_user_id_with_options(request, runtime)
 
+    def modify_api_datasource_parameters_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.api_id):
+            query['ApiId'] = request.api_id
+        if not UtilClient.is_unset(request.parameters):
+            query['Parameters'] = request.parameters
+        if not UtilClient.is_unset(request.workspace_id):
+            query['WorkspaceId'] = request.workspace_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyApiDatasourceParameters',
+            version='2022-01-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            quickbi_public_20220101_models.ModifyApiDatasourceParametersResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_api_datasource_parameters(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_api_datasource_parameters_with_options(request, runtime)
+
     def query_data_service_with_options(self, request, runtime):
+        """
+        f4cc43bc3**\
+        
+
+        @param request: QueryDataServiceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: QueryDataServiceResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.api_id):
@@ -1285,10 +1483,30 @@ class Client(OpenApiClient):
         )
 
     def query_data_service(self, request):
+        """
+        f4cc43bc3**\
+        
+
+        @param request: QueryDataServiceRequest
+
+        @return: QueryDataServiceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.query_data_service_with_options(request, runtime)
 
     def query_dataset_detail_info_with_options(self, request, runtime):
+        """
+        The execution result of the interface is returned. Valid values:
+        *   true: The request was successful.
+        *   false: The request fails.
+        
+
+        @param request: QueryDatasetDetailInfoRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: QueryDatasetDetailInfoResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dataset_id):
@@ -1313,6 +1531,16 @@ class Client(OpenApiClient):
         )
 
     def query_dataset_detail_info(self, request):
+        """
+        The execution result of the interface is returned. Valid values:
+        *   true: The request was successful.
+        *   false: The request fails.
+        
+
+        @param request: QueryDatasetDetailInfoRequest
+
+        @return: QueryDatasetDetailInfoResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.query_dataset_detail_info_with_options(request, runtime)
 
@@ -2083,6 +2311,18 @@ class Client(OpenApiClient):
         return self.set_data_level_permission_extra_config_with_options(request, runtime)
 
     def set_data_level_permission_rule_config_with_options(self, request, runtime):
+        """
+        Indicates whether the request is successful. Valid values:
+        *   true: The request was successful.
+        *   false: The request failed.
+        
+
+        @param request: SetDataLevelPermissionRuleConfigRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: SetDataLevelPermissionRuleConfigResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.rule_model):
@@ -2107,10 +2347,30 @@ class Client(OpenApiClient):
         )
 
     def set_data_level_permission_rule_config(self, request):
+        """
+        Indicates whether the request is successful. Valid values:
+        *   true: The request was successful.
+        *   false: The request failed.
+        
+
+        @param request: SetDataLevelPermissionRuleConfigRequest
+
+        @return: SetDataLevelPermissionRuleConfigResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.set_data_level_permission_rule_config_with_options(request, runtime)
 
     def set_data_level_permission_white_list_with_options(self, request, runtime):
+        """
+        > : You can only Quick BI the new row-column permission model. If you are still using the old row-column permission model, migrate to the new row-column permission model before you call this operation. To migrate row-level permissions to the new row-level permission model, perform the following steps: Choose Organizations> Security Configurations> Upgrade Row-Level Permissions. On the Upgrade Row-Level Permissions page, click *Upgrade**.
+        
+
+        @param request: SetDataLevelPermissionWhiteListRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: SetDataLevelPermissionWhiteListResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.white_list_model):
@@ -2135,10 +2395,30 @@ class Client(OpenApiClient):
         )
 
     def set_data_level_permission_white_list(self, request):
+        """
+        > : You can only Quick BI the new row-column permission model. If you are still using the old row-column permission model, migrate to the new row-column permission model before you call this operation. To migrate row-level permissions to the new row-level permission model, perform the following steps: Choose Organizations> Security Configurations> Upgrade Row-Level Permissions. On the Upgrade Row-Level Permissions page, click *Upgrade**.
+        
+
+        @param request: SetDataLevelPermissionWhiteListRequest
+
+        @return: SetDataLevelPermissionWhiteListResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.set_data_level_permission_white_list_with_options(request, runtime)
 
     def update_data_level_permission_status_with_options(self, request, runtime):
+        """
+        The execution result of the interface. Valid values:
+        *   true: The request was successful.
+        *   false: The request failed.
+        
+
+        @param request: UpdateDataLevelPermissionStatusRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateDataLevelPermissionStatusResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.cube_id):
@@ -2167,6 +2447,16 @@ class Client(OpenApiClient):
         )
 
     def update_data_level_permission_status(self, request):
+        """
+        The execution result of the interface. Valid values:
+        *   true: The request was successful.
+        *   false: The request failed.
+        
+
+        @param request: UpdateDataLevelPermissionStatusRequest
+
+        @return: UpdateDataLevelPermissionStatusResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.update_data_level_permission_status_with_options(request, runtime)
 
