@@ -2387,6 +2387,45 @@ class Client(OpenApiClient):
         headers = btrip_open_20220520_models.FlightSearchListHeaders()
         return self.flight_search_list_with_options(request, headers, runtime)
 
+    def group_corp_token_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_secret):
+            query['app_secret'] = request.app_secret
+        if not UtilClient.is_unset(request.corp_id):
+            query['corp_id'] = request.corp_id
+        if not UtilClient.is_unset(request.sub_corp_id):
+            query['sub_corp_id'] = request.sub_corp_id
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_acs_btrip_access_token):
+            real_headers['x-acs-btrip-access-token'] = UtilClient.to_jsonstring(headers.x_acs_btrip_access_token)
+        req = open_api_models.OpenApiRequest(
+            headers=real_headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GroupCorpToken',
+            version='2022-05-20',
+            protocol='HTTPS',
+            pathname='/btrip-open-auth/v1/group-corp-token/action/take',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            btrip_open_20220520_models.GroupCorpTokenResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def group_corp_token(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = btrip_open_20220520_models.GroupCorpTokenHeaders()
+        return self.group_corp_token_with_options(request, headers, runtime)
+
     def group_depart_save_with_options(self, tmp_req, headers, runtime):
         UtilClient.validate_model(tmp_req)
         request = btrip_open_20220520_models.GroupDepartSaveShrinkRequest()
