@@ -24843,49 +24843,78 @@ class DescribeGroupedVulRequest(TeaModel):
     def __init__(self, alias_name=None, asset_type=None, attach_types=None, container_field_name=None,
                  current_page=None, dealed=None, group_id=None, lang=None, necessity=None, page_size=None, search_tags=None,
                  target_type=None, type=None, uuids=None):
-        # $.parameters[10].schema.example
+        # The alias of the vulnerability.
         self.alias_name = alias_name  # type: str
+        # The type of the asset on which the vulnerability is detected. Separate multiple types with commas (,). Valid values:
+        # 
+        # *   **ECS**: Elastic Compute Service (ECS) instance
+        # *   **CONTAINER**: container
+        self.asset_type = asset_type  # type: str
+        # The type of the vulnerability. This parameter is valid only for application vulnerabilities. Valid values:
+        # 
+        # *   **sca**: vulnerability that is detected based on software component analysis
+        # *   **app**: application vulnerability
+        self.attach_types = attach_types  # type: str
+        # The key of the condition that is used to query containers. Valid values:
+        # 
+        # *   **instanceId**: the ID of the asset
+        # *   **appName**: the name of the application
+        # *   **clusterId**: the ID of the cluster
+        # *   **regionId**: the ID of the region
+        # *   **nodeName**: the name of the node
+        # *   **namespace**: the namespace
+        # *   **clusterName**: the name of the cluster
+        # *   **image**: the name of the image
+        # *   **imageRepoName**: the name of the image repository
+        # *   **imageRepoNamespace**: the namespace to which the image repository belongs
+        # *   **imageRepoTag**: the tag that is added to the image
+        # *   **imageDigest**: the digest of the image
+        self.container_field_name = container_field_name  # type: str
+        # The number of the page to return. Default value: **1**.
+        self.current_page = current_page  # type: int
         # Specifies whether the vulnerability is handled. Valid values:
         # 
-        # **y**: handled **n**: The vulnerability is not handled.
-        self.asset_type = asset_type  # type: str
+        # **y**: yes **n**: no
+        self.dealed = dealed  # type: str
+        # The ID of the asset group.
+        self.group_id = group_id  # type: str
+        # The language of the content within the request and response. Default value: **zh**. Valid values:
+        # 
+        # *   **zh**: Chinese
+        # *   **en**: English
+        self.lang = lang  # type: str
         # The priorities to fix the vulnerabilities. Separate multiple priorities with commas (,). Valid values:
         # 
         # *   **asap**: high
         # *   **later**: medium
         # *   **nntf**: low
-        self.attach_types = attach_types  # type: str
-        # The type of the vulnerability. Valid values:
+        self.necessity = necessity  # type: str
+        # The number of entries per page. Default value: 10.
+        self.page_size = page_size  # type: int
+        # The tag that is used to filter vulnerabilities. Valid values:
+        # 
+        # *   Restart required
+        # *   Remote utilization
+        # *   EXP exists
+        # *   Available
+        # *   Elevation of Privilege
+        # *   Code Execution
+        self.search_tags = search_tags  # type: str
+        # The query type for containers. Valid values:
+        # 
+        # *   **containerId**: the ID of the container
+        # *   **uuid**: the ID of the asset
+        self.target_type = target_type  # type: str
+        # The type of the vulnerabilities. Valid values:
         # 
         # *   **cve**: Linux software vulnerability
         # *   **sys**: Windows system vulnerability
         # *   **cms**: Web-CMS vulnerability
         # *   **app**: application vulnerability
-        # *   **emg**: urgent vulnerability
+        # *   **emg**: urgent vulnerabilities
         # *   **sca**: vulnerability that is detected based on software component analysis
-        self.container_field_name = container_field_name  # type: str
-        # $.parameters[11].schema.example
-        self.current_page = current_page  # type: int
-        # $.parameters[11].schema.description
-        self.dealed = dealed  # type: str
-        # The language of the content within the request and response. Default value: **zh**. Valid values:
-        # 
-        # *   **zh**: Chinese
-        # *   **en**: English
-        self.group_id = group_id  # type: str
-        # Code Execution
-        self.lang = lang  # type: str
-        # $.parameters[10].schema.enumValueTitles
-        self.necessity = necessity  # type: str
-        # $.parameters[11].schema.enumValueTitles
-        self.page_size = page_size  # type: int
-        # The alias of the vulnerability.
-        self.search_tags = search_tags  # type: str
-        # The UUID of the server. Separate multiple UUIDs with commas (,).
-        self.target_type = target_type  # type: str
-        # Queries vulnerabilities by group.
         self.type = type  # type: str
-        # $.parameters[10].schema.description
+        # The UUID of the server. Separate multiple UUIDs with commas (,).
         self.uuids = uuids  # type: str
 
     def validate(self):
@@ -24963,41 +24992,46 @@ class DescribeGroupedVulRequest(TeaModel):
 class DescribeGroupedVulResponseBodyGroupedVulItems(TeaModel):
     def __init__(self, alias_name=None, asap_count=None, gmt_last=None, handled_count=None, later_count=None,
                  name=None, nntf_count=None, rasp_defend=None, tags=None, total_fix_count=None, type=None):
-        # The number of handled vulnerabilities.
+        # The alias of the vulnerability.
         self.alias_name = alias_name  # type: str
+        # The number of vulnerabilities that have the **high** priority.
+        self.asap_count = asap_count  # type: int
+        # The timestamp when the vulnerability was last detected. Unit: milliseconds.
+        self.gmt_last = gmt_last  # type: long
+        # The number of handled vulnerabilities.
+        self.handled_count = handled_count  # type: int
+        # The number of vulnerabilities that have the **medium** priority.
+        self.later_count = later_count  # type: int
+        # The name of the vulnerability.
+        self.name = name  # type: str
+        # The number of vulnerabilities that have the **low** priority.
+        self.nntf_count = nntf_count  # type: int
+        # Indicates whether the application protection feature is supported.
+        # 
+        # *   **0**: no
+        # *   **1**: yes
+        # 
+        # > If this parameter is not returned, the application protection feature is not supported.
+        self.rasp_defend = rasp_defend  # type: int
         # The tag that is added to the vulnerability. Valid values:
         # 
         # *   Restart required
-        # *   Remote exploitation
-        # *   Exploit exists
-        # *   Exploitable
-        # *   Privilege escalation
-        # *   Code execution
-        self.asap_count = asap_count  # type: int
-        # An array that consists of the details about the vulnerability.
-        self.gmt_last = gmt_last  # type: long
-        # The total number of entries returned.
-        self.handled_count = handled_count  # type: int
-        # The number of vulnerabilities that have the **low** priority.
-        self.later_count = later_count  # type: int
-        # The timestamp when the vulnerability was last detected. Unit: milliseconds.
-        self.name = name  # type: str
-        # The ID of the request, which is used to locate and troubleshoot issues.
-        self.nntf_count = nntf_count  # type: int
-        # The number of entries returned per page. Default value: 10.
-        self.rasp_defend = rasp_defend  # type: int
+        # *   Remote utilization
+        # *   EXP exists
+        # *   Available
+        # *   Elevation of Privilege
+        # *   Code Execution
+        self.tags = tags  # type: str
+        # The total number of fixed vulnerabilities.
+        self.total_fix_count = total_fix_count  # type: long
         # The type of the vulnerability. Valid values:
         # 
         # *   **cve**: Linux software vulnerability
         # *   **sys**: Windows system vulnerability
         # *   **cms**: Web-CMS vulnerability
-        # *   **app**: application vulnerability
-        # *   **emg**: urgent vulnerability
+        # *   **app**: application vulnerabilitiy
+        # *   **emg**: urgent vulnerabilities
         # *   **sca**: vulnerability that is detected based on software component analysis
-        self.tags = tags  # type: str
-        # gmtLast
-        self.total_fix_count = total_fix_count  # type: long
-        # The page number of the returned page.
         self.type = type  # type: str
 
     def validate(self):
@@ -25062,24 +25096,15 @@ class DescribeGroupedVulResponseBodyGroupedVulItems(TeaModel):
 
 class DescribeGroupedVulResponseBody(TeaModel):
     def __init__(self, current_page=None, grouped_vul_items=None, page_size=None, request_id=None, total_count=None):
-        # The number of entries to return on each page. Default value: 10.
+        # The page number.
         self.current_page = current_page  # type: int
-        # The data returned.
+        # An array that consists of the details of the vulnerability.
         self.grouped_vul_items = grouped_vul_items  # type: list[DescribeGroupedVulResponseBodyGroupedVulItems]
-        # The tag that is used to search for the vulnerabilities. Valid values:
-        # 
-        # *   Restart required
-        # *   Remote exploitation
-        # *   Exploit exists
-        # *   Exploitable
-        # *   Privilege escalation
-        # *   Code execution
+        # The number of entries per page. Default value: 10.
         self.page_size = page_size  # type: int
-        # The ID of the asset group.
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
-        # The types of the vulnerabilities.
-        # 
-        # > This parameter is valid only for application vulnerabilities and vulnerabilities that are detected based on software component analysis.
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -53801,7 +53826,7 @@ class DescribeVulListRequest(TeaModel):
         # *   **later**: medium
         # *   **nntf**: low
         self.necessity = necessity  # type: str
-        # The number of entries to return on each page. Default value: **10**.
+        # The number of entries per page. Default value: **10**.
         self.page_size = page_size  # type: int
         # The remarks for the asset affected by the vulnerability. The value can be the private IP address, public IP address, or name of the asset.
         self.remark = remark  # type: str
@@ -53809,14 +53834,14 @@ class DescribeVulListRequest(TeaModel):
         # 
         # *   **cve**: Linux software vulnerability
         # *   **sys**: Windows system vulnerability
-        # *   **cms**: Web-CMS vulnerability
+        # *   **cms**: Web-CMS vulnerability.
         # *   **app**: application vulnerability that is detected by using web scanner
-        # *   **emg**: urgent vulnerability
+        # *   **emg**: urgent vulnerability.
         # *   **sca**: application vulnerability that is detected by using software component analysis
         self.type = type  # type: str
         # The UUIDs of the servers on which you want to query the vulnerabilities. Separate multiple UUIDs with commas (,).
         self.uuids = uuids  # type: str
-        # The IDs of the virtual private clouds (VPCs) in which the vulnerability is detected. Separate multiple IDs with commas (,).
+        # The ID of the virtual private cloud (VPC) in which the vulnerabilities are detected. Separate multiple IDs with commas (,).
         self.vpc_instance_ids = vpc_instance_ids  # type: str
 
     def validate(self):
@@ -53890,13 +53915,29 @@ class DescribeVulListRequest(TeaModel):
 class DescribeVulListResponseBodyVulRecordsExtendContentJsonNecessity(TeaModel):
     def __init__(self, assets_factor=None, cvss_factor=None, enviroment_factor=None, is_calc=None, status=None,
                  time_factor=None, total_score=None):
-        # The name of the operating system for your asset.
-        self.assets_factor = assets_factor  # type: str
-        # Indicates whether Security Center is authorized to protect the asset. Valid values:
+        # The asset importance score. Valid values:
         # 
-        # *   **true**: yes
-        # *   **false**: no
+        # *   **2**: an important asset
+        # *   **1**: a common asset
+        # *   **0**: a test asset
+        self.assets_factor = assets_factor  # type: str
+        # The Common Vulnerability Scoring System (CVSS) score.
         self.cvss_factor = cvss_factor  # type: str
+        # The environment score.
+        self.enviroment_factor = enviroment_factor  # type: str
+        # Indicates whether the score of urgency to fix a vulnerability is calculated. Valid values:
+        # 
+        # *   **0**: no
+        # *   **1**: yes
+        self.is_calc = is_calc  # type: str
+        # The status of the score of urgency to fix a vulnerability. Valid values:
+        # 
+        # *   **none**: No score is generated.
+        # *   **pending**: The score is pending calculation.
+        # *   **normal**: The calculation is normal.
+        self.status = status  # type: str
+        # The time score.
+        self.time_factor = time_factor  # type: str
         # The score of urgency to fix a vulnerability.
         # 
         # The following list describes scores and related fixing suggestions:
@@ -53904,21 +53945,6 @@ class DescribeVulListResponseBodyVulRecordsExtendContentJsonNecessity(TeaModel):
         # *   If the score is from **13.5 to 15**, the vulnerability is a high-risk vulnerability. You must fix the vulnerability at the earliest opportunity.
         # *   If the score is **greater than or equal to 7 but less than 13.5**, the vulnerability is a medium-risk vulnerability. You can fix the vulnerability at your convenience.
         # *   If the score is **less than 7**, the vulnerability is a low-risk vulnerability. You can ignore the vulnerability.
-        self.enviroment_factor = enviroment_factor  # type: str
-        # The Common Vulnerability Scoring System (CVSS) score.
-        self.is_calc = is_calc  # type: str
-        # The environment score.
-        self.status = status  # type: str
-        # Indicates whether the score of urgency to fix a vulnerability is calculated. Valid values:
-        # 
-        # *   **0**: no
-        # *   **1**: yes
-        self.time_factor = time_factor  # type: str
-        # The asset importance score. Valid values:
-        # 
-        # *   **2**: an important asset
-        # *   **1**: a common asset
-        # *   **0**: a test asset
         self.total_score = total_score  # type: str
 
     def validate(self):
@@ -53968,25 +53994,25 @@ class DescribeVulListResponseBodyVulRecordsExtendContentJsonNecessity(TeaModel):
 class DescribeVulListResponseBodyVulRecordsExtendContentJsonRpmEntityList(TeaModel):
     def __init__(self, container_name=None, full_version=None, image_name=None, match_detail=None, match_list=None,
                  name=None, path=None, pid=None, update_cmd=None, version=None):
-        # The command that is used to fix the vulnerability.
+        # The name of the init container.
         self.container_name = container_name  # type: str
-        # The reason why the vulnerability is detected.
+        # The full version number.
         self.full_version = full_version  # type: str
-        # The name of the container.
-        self.image_name = image_name  # type: str
-        # The path of the software that has the vulnerability.
-        self.match_detail = match_detail  # type: str
-        # The process ID.
-        self.match_list = match_list  # type: list[str]
-        # The rule that is used to detect the vulnerability.
-        self.name = name  # type: str
-        # The name of the RPM package.
-        self.path = path  # type: str
-        # The CVE list.
-        self.pid = pid  # type: str
-        # The rule that is used to detect the vulnerability.
-        self.update_cmd = update_cmd  # type: str
         # The name of the image.
+        self.image_name = image_name  # type: str
+        # The reason why the vulnerability is detected.
+        self.match_detail = match_detail  # type: str
+        # The rule that is used to detect the vulnerability.
+        self.match_list = match_list  # type: list[str]
+        # The name of the RPM package.
+        self.name = name  # type: str
+        # The path of the software that has the vulnerability.
+        self.path = path  # type: str
+        # The process ID.
+        self.pid = pid  # type: str
+        # The command that is used to fix the vulnerability.
+        self.update_cmd = update_cmd  # type: str
+        # The package version number of the software that has the vulnerability.
         self.version = version  # type: str
 
     def validate(self):
@@ -54048,31 +54074,45 @@ class DescribeVulListResponseBodyVulRecordsExtendContentJsonRpmEntityList(TeaMod
 class DescribeVulListResponseBodyVulRecordsExtendContentJson(TeaModel):
     def __init__(self, absolute_path=None, alias_name=None, description=None, ip=None, last_ts=None, necessity=None,
                  os=None, os_release=None, primary_id=None, rpm_entity_list=None, status=None, tag=None, cve_list=None):
-        # The complete version number.
-        self.absolute_path = absolute_path  # type: str
-        # The RPM Package Manager (RPM) packages.
-        self.alias_name = alias_name  # type: str
-        # The alias of the vulnerability.
-        self.description = description  # type: str
-        # The name of the operating system.
-        self.ip = ip  # type: str
-        # The release of the operating system.
-        self.last_ts = last_ts  # type: long
-        # The time score.
-        self.necessity = necessity  # type: DescribeVulListResponseBodyVulRecordsExtendContentJsonNecessity
-        # The timestamp when the vulnerability was last detected. Unit: milliseconds.
-        self.os = os  # type: str
         # The package path of the software that has the vulnerability.
-        self.os_release = os_release  # type: str
-        # The tag that is added to the vulnerability.
-        self.primary_id = primary_id  # type: long
-        # The package version number of the software that has the vulnerability.
-        self.rpm_entity_list = rpm_entity_list  # type: list[DescribeVulListResponseBodyVulRecordsExtendContentJsonRpmEntityList]
-        # The ID of the vulnerability.
-        self.status = status  # type: str
+        self.absolute_path = absolute_path  # type: str
+        # The alias of the vulnerability.
+        self.alias_name = alias_name  # type: str
         # The description of the vulnerability.
-        self.tag = tag  # type: str
+        self.description = description  # type: str
+        # The public IP address of the asset that is associated with the vulnerability.
+        self.ip = ip  # type: str
+        # The timestamp when the vulnerability was last detected. Unit: milliseconds.
+        self.last_ts = last_ts  # type: long
         # Indicates whether the vulnerability needs to be fixed.
+        self.necessity = necessity  # type: DescribeVulListResponseBodyVulRecordsExtendContentJsonNecessity
+        # The name of the operating system for your asset.
+        self.os = os  # type: str
+        # The release of the operating system.
+        self.os_release = os_release  # type: str
+        # The ID of the vulnerability.
+        self.primary_id = primary_id  # type: long
+        # The RPM Package Manager (RPM) packages.
+        self.rpm_entity_list = rpm_entity_list  # type: list[DescribeVulListResponseBodyVulRecordsExtendContentJsonRpmEntityList]
+        # The status of the vulnerability. Valid values:
+        # 
+        # *   **1**: unfixed
+        # *   **2**: fix failed
+        # *   3: rollback failed
+        # *   **4**: fixing
+        # *   **5**: being rolled back
+        # *   **6**: being verified
+        # *   **7**: fixed
+        # *   **8**: fixed and to be restarted
+        # *   **9**: rolled back
+        # *   **10**: ignored
+        # *   **11**: rolled back and to be restarted
+        # *   **12**: not found
+        # *   **20**: expired
+        self.status = status  # type: str
+        # The tag that is added to the vulnerability.
+        self.tag = tag  # type: str
+        # The CVE list.
         self.cve_list = cve_list  # type: list[str]
 
     def validate(self):
@@ -54160,55 +54200,8 @@ class DescribeVulListResponseBodyVulRecords(TeaModel):
                  modify_ts=None, name=None, necessity=None, online=None, os_name=None, os_version=None, primary_id=None,
                  rasp_defend=None, rasp_status=None, region_id=None, related=None, repair_ts=None, result_code=None,
                  result_message=None, status=None, tag=None, type=None, uuid=None):
-        # The status of the vulnerability. Valid values:
-        # 
-        # *   **1**: unfixed
-        # *   **2**: fix failed
-        # *   3: rollback failed
-        # *   **4**: fixing
-        # *   **5**: being rolled back
-        # *   **6**: being verified
-        # *   **7**: fixed
-        # *   **8**: fixed and to be restarted
-        # *   **9**: rolled back
-        # *   **10**: ignored
-        # *   **11**: rolled back and to be restarted
-        # *   **12**: not found
-        # *   **20**: expired
+        # The alias of the vulnerability.
         self.alias_name = alias_name  # type: str
-        self.auth_version = auth_version  # type: str
-        # CentOS 7.2 64-bit
-        self.bind = bind  # type: bool
-        # The public IP address of the asset that is associated with the vulnerability.
-        self.extend_content_json = extend_content_json  # type: DescribeVulListResponseBodyVulRecordsExtendContentJson
-        # The priority to fix the vulnerability. Valid values:
-        # 
-        # *   **asap**: high
-        # *   **later**: medium
-        # *   **nntf**: low
-        # 
-        # > We recommend that you fix the vulnerabilities that have the **high** priority at the earliest opportunity.
-        self.first_ts = first_ts  # type: long
-        # The name of the vulnerability.
-        self.group_id = group_id  # type: int
-        # The private IP address of the asset.
-        self.instance_id = instance_id  # type: str
-        # The name of the operating system for your asset.
-        self.instance_name = instance_name  # type: str
-        # The tag that is added to the vulnerability.
-        self.internet_ip = internet_ip  # type: str
-        # The timestamp when the vulnerability was first detected. Unit: milliseconds.
-        self.intranet_ip = intranet_ip  # type: str
-        # The ID of the region in which the server resides.
-        self.last_ts = last_ts  # type: long
-        # The ID of the vulnerability.
-        self.modify_ts = modify_ts  # type: long
-        # The instance ID of the asset.
-        self.name = name  # type: str
-        # The UUID of the asset.
-        self.necessity = necessity  # type: str
-        # The name of the vulnerability.
-        self.online = online  # type: bool
         # The edition of Security Center that is authorized to protect the asset. Valid values:
         # 
         # *   **1**: Basic edition
@@ -54217,31 +54210,74 @@ class DescribeVulListResponseBodyVulRecords(TeaModel):
         # *   **3**: Enterprise edition
         # *   **7**: Ultimate edition
         # *   **10**: Value-added Plan edition
-        self.os_name = os_name  # type: str
-        # The code that indicates the vulnerability fixing result.
-        self.os_version = os_version  # type: str
-        # The name of the asset.
-        self.primary_id = primary_id  # type: long
-        # The type of the vulnerability. Valid values:
+        self.auth_version = auth_version  # type: str
+        # Indicates whether Security Center is authorized to protect the asset. Valid values:
         # 
-        # *   **cve**: Linux software vulnerability
-        # *   **sys**: Windows system vulnerability
-        # *   **cms**: Web-CMS vulnerability
-        # *   **emg**: urgent vulnerability
-        # *   **app**: application vulnerability
-        # *   **sca**: application vulnerability that is detected by using software component analysis
-        self.rasp_defend = rasp_defend  # type: int
-        # The timestamp when the vulnerability status was modified. Unit: milliseconds.
-        self.rasp_status = rasp_status  # type: int
-        # The timestamp when the vulnerability was fixed. Unit: milliseconds.
-        self.region_id = region_id  # type: str
-        # The timestamp when the vulnerability was last detected. Unit: milliseconds.
-        self.related = related  # type: str
-        # The ID of the asset group.
-        self.repair_ts = repair_ts  # type: long
-        # The Common Vulnerabilities and Exposures (CVE) IDs related to the vulnerability. Multiple CVE IDs are separated by commas (,).
-        self.result_code = result_code  # type: str
+        # *   **true**\
+        # *   **false**\
+        self.bind = bind  # type: bool
         # The extended information about the vulnerability.
+        self.extend_content_json = extend_content_json  # type: DescribeVulListResponseBodyVulRecordsExtendContentJson
+        # The timestamp when the vulnerability was first detected. Unit: milliseconds.
+        self.first_ts = first_ts  # type: long
+        # The ID of the asset group.
+        self.group_id = group_id  # type: int
+        # The instance ID of the asset.
+        self.instance_id = instance_id  # type: str
+        # The name of the asset.
+        self.instance_name = instance_name  # type: str
+        # The public IP address of the asset.
+        self.internet_ip = internet_ip  # type: str
+        # The private IP address of the asset.
+        self.intranet_ip = intranet_ip  # type: str
+        # The timestamp when the vulnerability was last detected. Unit: milliseconds.
+        self.last_ts = last_ts  # type: long
+        # The timestamp when the vulnerability status was modified. Unit: milliseconds.
+        self.modify_ts = modify_ts  # type: long
+        # The name of the vulnerability.
+        self.name = name  # type: str
+        # The priority to fix the vulnerability. Valid values:
+        # 
+        # *   **asap**: high
+        # *   **later**: medium
+        # *   **nntf**: low
+        # 
+        # > We recommend that you fix the vulnerabilities that have the **high** priority at the earliest opportunity.
+        self.necessity = necessity  # type: str
+        # Indicates whether the Security Center agent on the asset is online. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.online = online  # type: bool
+        # The name of the operating system for your asset.
+        self.os_name = os_name  # type: str
+        # The name of the operating system for your asset.
+        self.os_version = os_version  # type: str
+        # The ID of the vulnerability.
+        self.primary_id = primary_id  # type: long
+        # Indicates whether the application protection feature is supported.
+        # 
+        # *   **0**: no
+        # *   **1**: yes
+        # 
+        # > If this parameter is not returned, the application protection feature is not supported.
+        self.rasp_defend = rasp_defend  # type: int
+        # The protection mode of the application protection feature. Valid values:
+        # 
+        # *   **0**: unprotected
+        # *   **1**: the Monitor mode
+        # *   **2**: the Block mode
+        # *   **3**: disabled
+        self.rasp_status = rasp_status  # type: int
+        # The ID of the region in which the server resides.
+        self.region_id = region_id  # type: str
+        # The Common Vulnerabilities and Exposures (CVE) IDs related to the vulnerability. Multiple CVE IDs are separated by commas (,).
+        self.related = related  # type: str
+        # The timestamp when the vulnerability was fixed. Unit: milliseconds.
+        self.repair_ts = repair_ts  # type: long
+        # The code that indicates the vulnerability fixing result.
+        self.result_code = result_code  # type: str
+        # The message that indicates the vulnerability fixing result.
         self.result_message = result_message  # type: str
         # The status of the vulnerability. Valid values:
         # 
@@ -54259,14 +54295,18 @@ class DescribeVulListResponseBodyVulRecords(TeaModel):
         # *   **12**: not found
         # *   **20**: expired
         self.status = status  # type: int
-        # Indicates whether the Security Center agent on the asset is online. Valid values:
-        # 
-        # *   **true**: yes
-        # *   **false**: no
+        # The tag that is added to the vulnerability.
         self.tag = tag  # type: str
-        # The public IP address of the asset.
+        # The type of the vulnerability. Valid values:
+        # 
+        # *   **cve**: Linux software vulnerability
+        # *   **sys**: Windows system vulnerability
+        # *   **cms**: Web-CMS vulnerability
+        # *   **emg**: urgent vulnerability
+        # *   **app**: application vulnerability
+        # *   **sca**: application vulnerability that is detected by using software component analysis
         self.type = type  # type: str
-        # The message that indicates the vulnerability fixing result.
+        # The UUID of the asset.
         self.uuid = uuid  # type: str
 
     def validate(self):
@@ -54407,7 +54447,7 @@ class DescribeVulListResponseBody(TeaModel):
     def __init__(self, current_page=None, page_size=None, request_id=None, total_count=None, vul_records=None):
         # The page number of the returned page.
         self.current_page = current_page  # type: int
-        # The number of entries returned per page.
+        # The number of entries per page.
         self.page_size = page_size  # type: int
         # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
