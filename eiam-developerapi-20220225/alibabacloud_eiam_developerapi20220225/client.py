@@ -32,10 +32,40 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
-    def create_organizational_unit(self, instance_id, application_id, request):
+    def add_user_to_organizational_units_with_options(self, instance_id, application_id, user_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.organizational_unit_ids):
+            body['organizationalUnitIds'] = request.organizational_unit_ids
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.authorization):
+            real_headers['Authorization'] = UtilClient.to_jsonstring(headers.authorization)
+        req = open_api_models.OpenApiRequest(
+            headers=real_headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='AddUserToOrganizationalUnits',
+            version='2022-02-25',
+            protocol='HTTPS',
+            pathname='/v2/%s/%s/users/%s/actions/addUserToOrganizationalUnits' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(application_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(user_id))),
+            method='POST',
+            auth_type='Anonymous',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            eiam_developerapi_20220225_models.AddUserToOrganizationalUnitsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def add_user_to_organizational_units(self, instance_id, application_id, user_id, request):
         runtime = util_models.RuntimeOptions()
-        headers = eiam_developerapi_20220225_models.CreateOrganizationalUnitHeaders()
-        return self.create_organizational_unit_with_options(instance_id, application_id, request, headers, runtime)
+        headers = eiam_developerapi_20220225_models.AddUserToOrganizationalUnitsHeaders()
+        return self.add_user_to_organizational_units_with_options(instance_id, application_id, user_id, request, headers, runtime)
 
     def create_organizational_unit_with_options(self, instance_id, application_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -73,10 +103,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_user(self, instance_id, application_id, request):
+    def create_organizational_unit(self, instance_id, application_id, request):
         runtime = util_models.RuntimeOptions()
-        headers = eiam_developerapi_20220225_models.CreateUserHeaders()
-        return self.create_user_with_options(instance_id, application_id, request, headers, runtime)
+        headers = eiam_developerapi_20220225_models.CreateOrganizationalUnitHeaders()
+        return self.create_organizational_unit_with_options(instance_id, application_id, request, headers, runtime)
 
     def create_user_with_options(self, instance_id, application_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -132,10 +162,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_organizational_unit(self, instance_id, application_id, organizational_unit_id):
+    def create_user(self, instance_id, application_id, request):
         runtime = util_models.RuntimeOptions()
-        headers = eiam_developerapi_20220225_models.DeleteOrganizationalUnitHeaders()
-        return self.delete_organizational_unit_with_options(instance_id, application_id, organizational_unit_id, headers, runtime)
+        headers = eiam_developerapi_20220225_models.CreateUserHeaders()
+        return self.create_user_with_options(instance_id, application_id, request, headers, runtime)
 
     def delete_organizational_unit_with_options(self, instance_id, application_id, organizational_unit_id, headers, runtime):
         real_headers = {}
@@ -162,10 +192,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_user(self, instance_id, application_id, user_id):
+    def delete_organizational_unit(self, instance_id, application_id, organizational_unit_id):
         runtime = util_models.RuntimeOptions()
-        headers = eiam_developerapi_20220225_models.DeleteUserHeaders()
-        return self.delete_user_with_options(instance_id, application_id, user_id, headers, runtime)
+        headers = eiam_developerapi_20220225_models.DeleteOrganizationalUnitHeaders()
+        return self.delete_organizational_unit_with_options(instance_id, application_id, organizational_unit_id, headers, runtime)
 
     def delete_user_with_options(self, instance_id, application_id, user_id, headers, runtime):
         real_headers = {}
@@ -192,10 +222,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def disable_user(self, instance_id, application_id, user_id):
+    def delete_user(self, instance_id, application_id, user_id):
         runtime = util_models.RuntimeOptions()
-        headers = eiam_developerapi_20220225_models.DisableUserHeaders()
-        return self.disable_user_with_options(instance_id, application_id, user_id, headers, runtime)
+        headers = eiam_developerapi_20220225_models.DeleteUserHeaders()
+        return self.delete_user_with_options(instance_id, application_id, user_id, headers, runtime)
 
     def disable_user_with_options(self, instance_id, application_id, user_id, headers, runtime):
         real_headers = {}
@@ -222,10 +252,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def enable_user(self, instance_id, application_id, user_id):
+    def disable_user(self, instance_id, application_id, user_id):
         runtime = util_models.RuntimeOptions()
-        headers = eiam_developerapi_20220225_models.EnableUserHeaders()
-        return self.enable_user_with_options(instance_id, application_id, user_id, headers, runtime)
+        headers = eiam_developerapi_20220225_models.DisableUserHeaders()
+        return self.disable_user_with_options(instance_id, application_id, user_id, headers, runtime)
 
     def enable_user_with_options(self, instance_id, application_id, user_id, headers, runtime):
         real_headers = {}
@@ -252,10 +282,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def generate_device_code(self, instance_id, application_id, request):
+    def enable_user(self, instance_id, application_id, user_id):
         runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.generate_device_code_with_options(instance_id, application_id, request, headers, runtime)
+        headers = eiam_developerapi_20220225_models.EnableUserHeaders()
+        return self.enable_user_with_options(instance_id, application_id, user_id, headers, runtime)
 
     def generate_device_code_with_options(self, instance_id, application_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -282,10 +312,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def generate_token(self, instance_id, application_id, request):
+    def generate_device_code(self, instance_id, application_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.generate_token_with_options(instance_id, application_id, request, headers, runtime)
+        return self.generate_device_code_with_options(instance_id, application_id, request, headers, runtime)
 
     def generate_token_with_options(self, instance_id, application_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -334,10 +364,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_application_provisioning_scope(self, instance_id, application_id):
+    def generate_token(self, instance_id, application_id, request):
         runtime = util_models.RuntimeOptions()
-        headers = eiam_developerapi_20220225_models.GetApplicationProvisioningScopeHeaders()
-        return self.get_application_provisioning_scope_with_options(instance_id, application_id, headers, runtime)
+        headers = {}
+        return self.generate_token_with_options(instance_id, application_id, request, headers, runtime)
 
     def get_application_provisioning_scope_with_options(self, instance_id, application_id, headers, runtime):
         real_headers = {}
@@ -364,10 +394,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_organizational_unit(self, instance_id, application_id, organizational_unit_id):
+    def get_application_provisioning_scope(self, instance_id, application_id):
         runtime = util_models.RuntimeOptions()
-        headers = eiam_developerapi_20220225_models.GetOrganizationalUnitHeaders()
-        return self.get_organizational_unit_with_options(instance_id, application_id, organizational_unit_id, headers, runtime)
+        headers = eiam_developerapi_20220225_models.GetApplicationProvisioningScopeHeaders()
+        return self.get_application_provisioning_scope_with_options(instance_id, application_id, headers, runtime)
 
     def get_organizational_unit_with_options(self, instance_id, application_id, organizational_unit_id, headers, runtime):
         real_headers = {}
@@ -394,10 +424,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_organizational_unit_id_by_external_id(self, instance_id, application_id, request):
+    def get_organizational_unit(self, instance_id, application_id, organizational_unit_id):
         runtime = util_models.RuntimeOptions()
-        headers = eiam_developerapi_20220225_models.GetOrganizationalUnitIdByExternalIdHeaders()
-        return self.get_organizational_unit_id_by_external_id_with_options(instance_id, application_id, request, headers, runtime)
+        headers = eiam_developerapi_20220225_models.GetOrganizationalUnitHeaders()
+        return self.get_organizational_unit_with_options(instance_id, application_id, organizational_unit_id, headers, runtime)
 
     def get_organizational_unit_id_by_external_id_with_options(self, instance_id, application_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -433,10 +463,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_user(self, instance_id, application_id, user_id):
+    def get_organizational_unit_id_by_external_id(self, instance_id, application_id, request):
         runtime = util_models.RuntimeOptions()
-        headers = eiam_developerapi_20220225_models.GetUserHeaders()
-        return self.get_user_with_options(instance_id, application_id, user_id, headers, runtime)
+        headers = eiam_developerapi_20220225_models.GetOrganizationalUnitIdByExternalIdHeaders()
+        return self.get_organizational_unit_id_by_external_id_with_options(instance_id, application_id, request, headers, runtime)
 
     def get_user_with_options(self, instance_id, application_id, user_id, headers, runtime):
         real_headers = {}
@@ -463,10 +493,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_user_id_by_email(self, instance_id, application_id, request):
+    def get_user(self, instance_id, application_id, user_id):
         runtime = util_models.RuntimeOptions()
-        headers = eiam_developerapi_20220225_models.GetUserIdByEmailHeaders()
-        return self.get_user_id_by_email_with_options(instance_id, application_id, request, headers, runtime)
+        headers = eiam_developerapi_20220225_models.GetUserHeaders()
+        return self.get_user_with_options(instance_id, application_id, user_id, headers, runtime)
 
     def get_user_id_by_email_with_options(self, instance_id, application_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -498,10 +528,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_user_id_by_phone_number(self, instance_id, application_id, request):
+    def get_user_id_by_email(self, instance_id, application_id, request):
         runtime = util_models.RuntimeOptions()
-        headers = eiam_developerapi_20220225_models.GetUserIdByPhoneNumberHeaders()
-        return self.get_user_id_by_phone_number_with_options(instance_id, application_id, request, headers, runtime)
+        headers = eiam_developerapi_20220225_models.GetUserIdByEmailHeaders()
+        return self.get_user_id_by_email_with_options(instance_id, application_id, request, headers, runtime)
 
     def get_user_id_by_phone_number_with_options(self, instance_id, application_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -533,10 +563,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_user_id_by_user_external_id(self, instance_id, application_id, request):
+    def get_user_id_by_phone_number(self, instance_id, application_id, request):
         runtime = util_models.RuntimeOptions()
-        headers = eiam_developerapi_20220225_models.GetUserIdByUserExternalIdHeaders()
-        return self.get_user_id_by_user_external_id_with_options(instance_id, application_id, request, headers, runtime)
+        headers = eiam_developerapi_20220225_models.GetUserIdByPhoneNumberHeaders()
+        return self.get_user_id_by_phone_number_with_options(instance_id, application_id, request, headers, runtime)
 
     def get_user_id_by_user_external_id_with_options(self, instance_id, application_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -572,10 +602,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_user_id_by_username(self, instance_id, application_id, request):
+    def get_user_id_by_user_external_id(self, instance_id, application_id, request):
         runtime = util_models.RuntimeOptions()
-        headers = eiam_developerapi_20220225_models.GetUserIdByUsernameHeaders()
-        return self.get_user_id_by_username_with_options(instance_id, application_id, request, headers, runtime)
+        headers = eiam_developerapi_20220225_models.GetUserIdByUserExternalIdHeaders()
+        return self.get_user_id_by_user_external_id_with_options(instance_id, application_id, request, headers, runtime)
 
     def get_user_id_by_username_with_options(self, instance_id, application_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -607,10 +637,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_user_info(self, instance_id, application_id):
+    def get_user_id_by_username(self, instance_id, application_id, request):
         runtime = util_models.RuntimeOptions()
-        headers = eiam_developerapi_20220225_models.GetUserInfoHeaders()
-        return self.get_user_info_with_options(instance_id, application_id, headers, runtime)
+        headers = eiam_developerapi_20220225_models.GetUserIdByUsernameHeaders()
+        return self.get_user_id_by_username_with_options(instance_id, application_id, request, headers, runtime)
 
     def get_user_info_with_options(self, instance_id, application_id, headers, runtime):
         real_headers = {}
@@ -637,10 +667,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_organizational_unit_parent_ids(self, instance_id, application_id, organizational_unit_id):
+    def get_user_info(self, instance_id, application_id):
         runtime = util_models.RuntimeOptions()
-        headers = eiam_developerapi_20220225_models.ListOrganizationalUnitParentIdsHeaders()
-        return self.list_organizational_unit_parent_ids_with_options(instance_id, application_id, organizational_unit_id, headers, runtime)
+        headers = eiam_developerapi_20220225_models.GetUserInfoHeaders()
+        return self.get_user_info_with_options(instance_id, application_id, headers, runtime)
 
     def list_organizational_unit_parent_ids_with_options(self, instance_id, application_id, organizational_unit_id, headers, runtime):
         real_headers = {}
@@ -667,10 +697,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_organizational_units(self, instance_id, application_id, request):
+    def list_organizational_unit_parent_ids(self, instance_id, application_id, organizational_unit_id):
         runtime = util_models.RuntimeOptions()
-        headers = eiam_developerapi_20220225_models.ListOrganizationalUnitsHeaders()
-        return self.list_organizational_units_with_options(instance_id, application_id, request, headers, runtime)
+        headers = eiam_developerapi_20220225_models.ListOrganizationalUnitParentIdsHeaders()
+        return self.list_organizational_unit_parent_ids_with_options(instance_id, application_id, organizational_unit_id, headers, runtime)
 
     def list_organizational_units_with_options(self, instance_id, application_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -706,10 +736,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_users(self, instance_id, application_id, request):
+    def list_organizational_units(self, instance_id, application_id, request):
         runtime = util_models.RuntimeOptions()
-        headers = eiam_developerapi_20220225_models.ListUsersHeaders()
-        return self.list_users_with_options(instance_id, application_id, request, headers, runtime)
+        headers = eiam_developerapi_20220225_models.ListOrganizationalUnitsHeaders()
+        return self.list_organizational_units_with_options(instance_id, application_id, request, headers, runtime)
 
     def list_users_with_options(self, instance_id, application_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -745,10 +775,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def patch_organizational_unit(self, instance_id, application_id, organizational_unit_id, request):
+    def list_users(self, instance_id, application_id, request):
         runtime = util_models.RuntimeOptions()
-        headers = eiam_developerapi_20220225_models.PatchOrganizationalUnitHeaders()
-        return self.patch_organizational_unit_with_options(instance_id, application_id, organizational_unit_id, request, headers, runtime)
+        headers = eiam_developerapi_20220225_models.ListUsersHeaders()
+        return self.list_users_with_options(instance_id, application_id, request, headers, runtime)
 
     def patch_organizational_unit_with_options(self, instance_id, application_id, organizational_unit_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -782,10 +812,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def patch_user(self, instance_id, application_id, user_id, request):
+    def patch_organizational_unit(self, instance_id, application_id, organizational_unit_id, request):
         runtime = util_models.RuntimeOptions()
-        headers = eiam_developerapi_20220225_models.PatchUserHeaders()
-        return self.patch_user_with_options(instance_id, application_id, user_id, request, headers, runtime)
+        headers = eiam_developerapi_20220225_models.PatchOrganizationalUnitHeaders()
+        return self.patch_organizational_unit_with_options(instance_id, application_id, organizational_unit_id, request, headers, runtime)
 
     def patch_user_with_options(self, instance_id, application_id, user_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -831,10 +861,45 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def revoke_token(self, instance_id, application_id, request):
+    def patch_user(self, instance_id, application_id, user_id, request):
         runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.revoke_token_with_options(instance_id, application_id, request, headers, runtime)
+        headers = eiam_developerapi_20220225_models.PatchUserHeaders()
+        return self.patch_user_with_options(instance_id, application_id, user_id, request, headers, runtime)
+
+    def remove_user_from_organizational_units_with_options(self, instance_id, application_id, user_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.organizational_unit_ids):
+            body['organizationalUnitIds'] = request.organizational_unit_ids
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.authorization):
+            real_headers['Authorization'] = UtilClient.to_jsonstring(headers.authorization)
+        req = open_api_models.OpenApiRequest(
+            headers=real_headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='RemoveUserFromOrganizationalUnits',
+            version='2022-02-25',
+            protocol='HTTPS',
+            pathname='/v2/%s/%s/users/%s/actions/removeUserFromOrganizationalUnits' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(application_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(user_id))),
+            method='POST',
+            auth_type='Anonymous',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            eiam_developerapi_20220225_models.RemoveUserFromOrganizationalUnitsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def remove_user_from_organizational_units(self, instance_id, application_id, user_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = eiam_developerapi_20220225_models.RemoveUserFromOrganizationalUnitsHeaders()
+        return self.remove_user_from_organizational_units_with_options(instance_id, application_id, user_id, request, headers, runtime)
 
     def revoke_token_with_options(self, instance_id, application_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -866,3 +931,78 @@ class Client(OpenApiClient):
             eiam_developerapi_20220225_models.RevokeTokenResponse(),
             self.call_api(params, req, runtime)
         )
+
+    def revoke_token(self, instance_id, application_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.revoke_token_with_options(instance_id, application_id, request, headers, runtime)
+
+    def set_user_primary_organizational_unit_with_options(self, instance_id, application_id, user_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.organizational_unit_id):
+            body['organizationalUnitId'] = request.organizational_unit_id
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.authorization):
+            real_headers['Authorization'] = UtilClient.to_jsonstring(headers.authorization)
+        req = open_api_models.OpenApiRequest(
+            headers=real_headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='SetUserPrimaryOrganizationalUnit',
+            version='2022-02-25',
+            protocol='HTTPS',
+            pathname='/v2/%s/%s/users/%s/actions/setUserPrimaryOrganizationalUnit' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(application_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(user_id))),
+            method='POST',
+            auth_type='Anonymous',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            eiam_developerapi_20220225_models.SetUserPrimaryOrganizationalUnitResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def set_user_primary_organizational_unit(self, instance_id, application_id, user_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = eiam_developerapi_20220225_models.SetUserPrimaryOrganizationalUnitHeaders()
+        return self.set_user_primary_organizational_unit_with_options(instance_id, application_id, user_id, request, headers, runtime)
+
+    def update_user_password_with_options(self, instance_id, application_id, user_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.password):
+            body['password'] = request.password
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.authorization):
+            real_headers['Authorization'] = UtilClient.to_jsonstring(headers.authorization)
+        req = open_api_models.OpenApiRequest(
+            headers=real_headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateUserPassword',
+            version='2022-02-25',
+            protocol='HTTPS',
+            pathname='/v2/%s/%s/users/%s/actions/updateUserPassword' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(application_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(user_id))),
+            method='POST',
+            auth_type='Anonymous',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            eiam_developerapi_20220225_models.UpdateUserPasswordResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_user_password(self, instance_id, application_id, user_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = eiam_developerapi_20220225_models.UpdateUserPasswordHeaders()
+        return self.update_user_password_with_options(instance_id, application_id, user_id, request, headers, runtime)
