@@ -2176,7 +2176,6 @@ class ApplyApproveRequest(TeaModel):
         self.note = note  # type: str
         self.operate_time = operate_time  # type: str
         self.status = status  # type: int
-        # 子企业Id
         self.sub_corp_id = sub_corp_id  # type: str
         self.user_id = user_id  # type: str
         self.user_name = user_name  # type: str
@@ -2647,7 +2646,6 @@ class ApplyListQueryRequest(TeaModel):
         self.page = page  # type: int
         self.page_size = page_size  # type: int
         self.start_time = start_time  # type: str
-        # 子企业Id
         self.sub_corp_id = sub_corp_id  # type: str
         self.type = type  # type: int
         self.union_no = union_no  # type: str
@@ -4345,7 +4343,6 @@ class ApplyQueryRequest(TeaModel):
     def __init__(self, apply_id=None, apply_show_id=None, sub_corp_id=None, thirdpart_apply_id=None, type=None):
         self.apply_id = apply_id  # type: int
         self.apply_show_id = apply_show_id  # type: str
-        # 子企业Id
         self.sub_corp_id = sub_corp_id  # type: str
         self.thirdpart_apply_id = thirdpart_apply_id  # type: str
         self.type = type  # type: int
@@ -6229,8 +6226,8 @@ class CarBillSettlementQueryResponseBodyModuleDataList(TeaModel):
                  over_apply_id=None, person_settle_fee=None, primary_id=None, project_code=None, project_name=None,
                  provider_name=None, real_drive_distance=None, real_from_addr=None, real_to_addr=None, remark=None,
                  service_fee=None, settlement_fee=None, settlement_grant_fee=None, settlement_time=None, settlement_type=None,
-                 special_order=None, special_reason=None, status=None, sub_order_id=None, traveler_id=None, traveler_job_no=None,
-                 traveler_name=None, user_confirm_desc=None, voucher_type=None):
+                 special_order=None, special_reason=None, status=None, sub_order_id=None, tax_rate=None, traveler_id=None,
+                 traveler_job_no=None, traveler_name=None, user_confirm_desc=None, voucher_type=None):
         self.alipay_trade_no = alipay_trade_no  # type: str
         # 审批扩展自定义字段
         self.apply_extend_field = apply_extend_field  # type: str
@@ -6285,6 +6282,8 @@ class CarBillSettlementQueryResponseBodyModuleDataList(TeaModel):
         self.special_reason = special_reason  # type: str
         self.status = status  # type: int
         self.sub_order_id = sub_order_id  # type: str
+        # 税率
+        self.tax_rate = tax_rate  # type: str
         self.traveler_id = traveler_id  # type: str
         self.traveler_job_no = traveler_job_no  # type: str
         self.traveler_name = traveler_name  # type: str
@@ -6406,6 +6405,8 @@ class CarBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             result['status'] = self.status
         if self.sub_order_id is not None:
             result['sub_order_id'] = self.sub_order_id
+        if self.tax_rate is not None:
+            result['tax_rate'] = self.tax_rate
         if self.traveler_id is not None:
             result['traveler_id'] = self.traveler_id
         if self.traveler_job_no is not None:
@@ -6526,6 +6527,8 @@ class CarBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             self.status = m.get('status')
         if m.get('sub_order_id') is not None:
             self.sub_order_id = m.get('sub_order_id')
+        if m.get('tax_rate') is not None:
+            self.tax_rate = m.get('tax_rate')
         if m.get('traveler_id') is not None:
             self.traveler_id = m.get('traveler_id')
         if m.get('traveler_job_no') is not None:
@@ -12049,8 +12052,8 @@ class FlightBillSettlementQueryResponseBodyModuleDataList(TeaModel):
                  most_price=None, negotiation_coupon_fee=None, oil_fee=None, order_id=None, over_apply_id=None,
                  primary_id=None, project_code=None, project_name=None, refund_fee=None, refund_upgrade_cost=None, remark=None,
                  repeat_refund=None, seal_price=None, service_fee=None, settlement_fee=None, settlement_grant_fee=None,
-                 settlement_time=None, settlement_type=None, status=None, ticket_id=None, traveler_id=None, traveler_job_no=None,
-                 traveler_name=None, upgrade_cost=None, voucher_type=None):
+                 settlement_time=None, settlement_type=None, status=None, tax_rate=None, ticket_id=None, traveler_id=None,
+                 traveler_job_no=None, traveler_name=None, upgrade_cost=None, voucher_type=None):
         self.advance_day = advance_day  # type: int
         self.airline_corp_code = airline_corp_code  # type: str
         self.airline_corp_name = airline_corp_name  # type: str
@@ -12118,6 +12121,8 @@ class FlightBillSettlementQueryResponseBodyModuleDataList(TeaModel):
         self.settlement_time = settlement_time  # type: str
         self.settlement_type = settlement_type  # type: str
         self.status = status  # type: int
+        # 税率
+        self.tax_rate = tax_rate  # type: str
         self.ticket_id = ticket_id  # type: str
         self.traveler_id = traveler_id  # type: str
         self.traveler_job_no = traveler_job_no  # type: str
@@ -12266,6 +12271,8 @@ class FlightBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             result['settlement_type'] = self.settlement_type
         if self.status is not None:
             result['status'] = self.status
+        if self.tax_rate is not None:
+            result['tax_rate'] = self.tax_rate
         if self.ticket_id is not None:
             result['ticket_id'] = self.ticket_id
         if self.traveler_id is not None:
@@ -12414,6 +12421,8 @@ class FlightBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             self.settlement_type = m.get('settlement_type')
         if m.get('status') is not None:
             self.status = m.get('status')
+        if m.get('tax_rate') is not None:
+            self.tax_rate = m.get('tax_rate')
         if m.get('ticket_id') is not None:
             self.ticket_id = m.get('ticket_id')
         if m.get('traveler_id') is not None:
@@ -27093,7 +27102,7 @@ class HotelBillSettlementQueryResponseBodyModuleDataList(TeaModel):
                  over_apply_id=None, person_refund_fee=None, person_settle_price=None, primary_id=None, project_code=None,
                  project_name=None, promotion_fee=None, remark=None, room_number=None, room_price=None, room_type=None,
                  service_fee=None, settlement_fee=None, settlement_grant_fee=None, settlement_time=None, settlement_type=None,
-                 status=None, total_nights=None, traveler_id=None, traveler_job_no=None, traveler_name=None,
+                 status=None, tax_rate=None, total_nights=None, traveler_id=None, traveler_job_no=None, traveler_name=None,
                  voucher_type=None):
         self.alipay_trade_no = alipay_trade_no  # type: str
         # 审批扩展自定义字段
@@ -27145,6 +27154,8 @@ class HotelBillSettlementQueryResponseBodyModuleDataList(TeaModel):
         self.settlement_time = settlement_time  # type: str
         self.settlement_type = settlement_type  # type: str
         self.status = status  # type: int
+        # 税率
+        self.tax_rate = tax_rate  # type: str
         self.total_nights = total_nights  # type: int
         self.traveler_id = traveler_id  # type: str
         self.traveler_job_no = traveler_job_no  # type: str
@@ -27258,6 +27269,8 @@ class HotelBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             result['settlement_type'] = self.settlement_type
         if self.status is not None:
             result['status'] = self.status
+        if self.tax_rate is not None:
+            result['tax_rate'] = self.tax_rate
         if self.total_nights is not None:
             result['total_nights'] = self.total_nights
         if self.traveler_id is not None:
@@ -27370,6 +27383,8 @@ class HotelBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             self.settlement_type = m.get('settlement_type')
         if m.get('status') is not None:
             self.status = m.get('status')
+        if m.get('tax_rate') is not None:
+            self.tax_rate = m.get('tax_rate')
         if m.get('total_nights') is not None:
             self.total_nights = m.get('total_nights')
         if m.get('traveler_id') is not None:
@@ -34698,8 +34713,8 @@ class IeFlightBillSettlementQueryResponseBodyModuleDataList(TeaModel):
                  negotiation_coupon_fee=None, order_id=None, order_status_desc=None, over_apply_id=None, primary_id=None,
                  project_code=None, project_name=None, refund_fee=None, remark=None, repeat_refund=None, seal_price=None,
                  segment_type=None, service_fee=None, settlement_fee=None, settlement_grant_fee=None, settlement_time=None,
-                 settlement_type=None, status=None, sub_order_id=None, tax_fee=None, ticket_id=None, trade=None, traveler_id=None,
-                 traveler_job_no=None, traveler_name=None, voucher_type=None):
+                 settlement_type=None, status=None, sub_order_id=None, tax_fee=None, tax_rate=None, ticket_id=None, trade=None,
+                 traveler_id=None, traveler_job_no=None, traveler_name=None, voucher_type=None):
         self.advance_day = advance_day  # type: int
         self.airline_corp_code = airline_corp_code  # type: str
         self.airline_corp_name = airline_corp_name  # type: str
@@ -34768,6 +34783,8 @@ class IeFlightBillSettlementQueryResponseBodyModuleDataList(TeaModel):
         self.status = status  # type: int
         self.sub_order_id = sub_order_id  # type: str
         self.tax_fee = tax_fee  # type: float
+        # 税率
+        self.tax_rate = tax_rate  # type: str
         self.ticket_id = ticket_id  # type: str
         self.trade = trade  # type: str
         self.traveler_id = traveler_id  # type: str
@@ -34918,6 +34935,8 @@ class IeFlightBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             result['sub_order_id'] = self.sub_order_id
         if self.tax_fee is not None:
             result['tax_fee'] = self.tax_fee
+        if self.tax_rate is not None:
+            result['tax_rate'] = self.tax_rate
         if self.ticket_id is not None:
             result['ticket_id'] = self.ticket_id
         if self.trade is not None:
@@ -35068,6 +35087,8 @@ class IeFlightBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             self.sub_order_id = m.get('sub_order_id')
         if m.get('tax_fee') is not None:
             self.tax_fee = m.get('tax_fee')
+        if m.get('tax_rate') is not None:
+            self.tax_rate = m.get('tax_rate')
         if m.get('ticket_id') is not None:
             self.ticket_id = m.get('ticket_id')
         if m.get('trade') is not None:
@@ -43224,8 +43245,8 @@ class TrainBillSettlementQueryResponseBodyModuleDataList(TeaModel):
                  dept_time=None, fee_type=None, index=None, invoice_title=None, order_id=None, order_price=None,
                  over_apply_id=None, primary_id=None, project_code=None, project_name=None, refund_fee=None, remark=None,
                  run_time=None, seat_no=None, seat_type=None, service_fee=None, settlement_fee=None,
-                 settlement_grant_fee=None, settlement_time=None, settlement_type=None, status=None, ticket_no=None, ticket_price=None,
-                 train_no=None, train_type=None, traveler_id=None, traveler_job_no=None, traveler_name=None,
+                 settlement_grant_fee=None, settlement_time=None, settlement_type=None, status=None, tax_rate=None, ticket_no=None,
+                 ticket_price=None, train_no=None, train_type=None, traveler_id=None, traveler_job_no=None, traveler_name=None,
                  voucher_type=None):
         self.alipay_trade_no = alipay_trade_no  # type: str
         # 审批扩展自定义字段
@@ -43270,6 +43291,8 @@ class TrainBillSettlementQueryResponseBodyModuleDataList(TeaModel):
         self.settlement_time = settlement_time  # type: str
         self.settlement_type = settlement_type  # type: str
         self.status = status  # type: int
+        # 税率
+        self.tax_rate = tax_rate  # type: str
         self.ticket_no = ticket_no  # type: str
         self.ticket_price = ticket_price  # type: float
         self.train_no = train_no  # type: str
@@ -43372,6 +43395,8 @@ class TrainBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             result['settlement_type'] = self.settlement_type
         if self.status is not None:
             result['status'] = self.status
+        if self.tax_rate is not None:
+            result['tax_rate'] = self.tax_rate
         if self.ticket_no is not None:
             result['ticket_no'] = self.ticket_no
         if self.ticket_price is not None:
@@ -43476,6 +43501,8 @@ class TrainBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             self.settlement_type = m.get('settlement_type')
         if m.get('status') is not None:
             self.status = m.get('status')
+        if m.get('tax_rate') is not None:
+            self.tax_rate = m.get('tax_rate')
         if m.get('ticket_no') is not None:
             self.ticket_no = m.get('ticket_no')
         if m.get('ticket_price') is not None:
