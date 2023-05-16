@@ -2597,6 +2597,269 @@ class CreateEnsRouteEntryResponse(TeaModel):
         return self
 
 
+class CreateEnsSaleControlRequestSaleControlsConditionControls(TeaModel):
+    def __init__(self, condition_control_module_code=None, condition_control_module_value=None):
+        self.condition_control_module_code = condition_control_module_code  # type: str
+        self.condition_control_module_value = condition_control_module_value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateEnsSaleControlRequestSaleControlsConditionControls, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.condition_control_module_code is not None:
+            result['ConditionControlModuleCode'] = self.condition_control_module_code
+        if self.condition_control_module_value is not None:
+            result['ConditionControlModuleValue'] = self.condition_control_module_value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ConditionControlModuleCode') is not None:
+            self.condition_control_module_code = m.get('ConditionControlModuleCode')
+        if m.get('ConditionControlModuleValue') is not None:
+            self.condition_control_module_value = m.get('ConditionControlModuleValue')
+        return self
+
+
+class CreateEnsSaleControlRequestSaleControlsModuleValue(TeaModel):
+    def __init__(self, module_max_value=None, module_min_value=None, module_value=None):
+        self.module_max_value = module_max_value  # type: str
+        self.module_min_value = module_min_value  # type: str
+        self.module_value = module_value  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateEnsSaleControlRequestSaleControlsModuleValue, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.module_max_value is not None:
+            result['ModuleMaxValue'] = self.module_max_value
+        if self.module_min_value is not None:
+            result['ModuleMinValue'] = self.module_min_value
+        if self.module_value is not None:
+            result['ModuleValue'] = self.module_value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ModuleMaxValue') is not None:
+            self.module_max_value = m.get('ModuleMaxValue')
+        if m.get('ModuleMinValue') is not None:
+            self.module_min_value = m.get('ModuleMinValue')
+        if m.get('ModuleValue') is not None:
+            self.module_value = m.get('ModuleValue')
+        return self
+
+
+class CreateEnsSaleControlRequestSaleControls(TeaModel):
+    def __init__(self, condition_controls=None, description=None, module_code=None, module_value=None,
+                 operator=None, order_type=None):
+        self.condition_controls = condition_controls  # type: list[CreateEnsSaleControlRequestSaleControlsConditionControls]
+        self.description = description  # type: str
+        self.module_code = module_code  # type: str
+        self.module_value = module_value  # type: CreateEnsSaleControlRequestSaleControlsModuleValue
+        self.operator = operator  # type: str
+        self.order_type = order_type  # type: str
+
+    def validate(self):
+        if self.condition_controls:
+            for k in self.condition_controls:
+                if k:
+                    k.validate()
+        if self.module_value:
+            self.module_value.validate()
+
+    def to_map(self):
+        _map = super(CreateEnsSaleControlRequestSaleControls, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['ConditionControls'] = []
+        if self.condition_controls is not None:
+            for k in self.condition_controls:
+                result['ConditionControls'].append(k.to_map() if k else None)
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.module_code is not None:
+            result['ModuleCode'] = self.module_code
+        if self.module_value is not None:
+            result['ModuleValue'] = self.module_value.to_map()
+        if self.operator is not None:
+            result['Operator'] = self.operator
+        if self.order_type is not None:
+            result['OrderType'] = self.order_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.condition_controls = []
+        if m.get('ConditionControls') is not None:
+            for k in m.get('ConditionControls'):
+                temp_model = CreateEnsSaleControlRequestSaleControlsConditionControls()
+                self.condition_controls.append(temp_model.from_map(k))
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('ModuleCode') is not None:
+            self.module_code = m.get('ModuleCode')
+        if m.get('ModuleValue') is not None:
+            temp_model = CreateEnsSaleControlRequestSaleControlsModuleValue()
+            self.module_value = temp_model.from_map(m['ModuleValue'])
+        if m.get('Operator') is not None:
+            self.operator = m.get('Operator')
+        if m.get('OrderType') is not None:
+            self.order_type = m.get('OrderType')
+        return self
+
+
+class CreateEnsSaleControlRequest(TeaModel):
+    def __init__(self, ali_uid_account=None, commodity_code=None, sale_controls=None):
+        self.ali_uid_account = ali_uid_account  # type: str
+        self.commodity_code = commodity_code  # type: str
+        self.sale_controls = sale_controls  # type: list[CreateEnsSaleControlRequestSaleControls]
+
+    def validate(self):
+        if self.sale_controls:
+            for k in self.sale_controls:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(CreateEnsSaleControlRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ali_uid_account is not None:
+            result['AliUidAccount'] = self.ali_uid_account
+        if self.commodity_code is not None:
+            result['CommodityCode'] = self.commodity_code
+        result['SaleControls'] = []
+        if self.sale_controls is not None:
+            for k in self.sale_controls:
+                result['SaleControls'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AliUidAccount') is not None:
+            self.ali_uid_account = m.get('AliUidAccount')
+        if m.get('CommodityCode') is not None:
+            self.commodity_code = m.get('CommodityCode')
+        self.sale_controls = []
+        if m.get('SaleControls') is not None:
+            for k in m.get('SaleControls'):
+                temp_model = CreateEnsSaleControlRequestSaleControls()
+                self.sale_controls.append(temp_model.from_map(k))
+        return self
+
+
+class CreateEnsSaleControlShrinkRequest(TeaModel):
+    def __init__(self, ali_uid_account=None, commodity_code=None, sale_controls_shrink=None):
+        self.ali_uid_account = ali_uid_account  # type: str
+        self.commodity_code = commodity_code  # type: str
+        self.sale_controls_shrink = sale_controls_shrink  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateEnsSaleControlShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ali_uid_account is not None:
+            result['AliUidAccount'] = self.ali_uid_account
+        if self.commodity_code is not None:
+            result['CommodityCode'] = self.commodity_code
+        if self.sale_controls_shrink is not None:
+            result['SaleControls'] = self.sale_controls_shrink
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AliUidAccount') is not None:
+            self.ali_uid_account = m.get('AliUidAccount')
+        if m.get('CommodityCode') is not None:
+            self.commodity_code = m.get('CommodityCode')
+        if m.get('SaleControls') is not None:
+            self.sale_controls_shrink = m.get('SaleControls')
+        return self
+
+
+class CreateEnsSaleControlResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateEnsSaleControlResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class CreateEnsSaleControlResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateEnsSaleControlResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateEnsSaleControlResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateEnsSaleControlResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CreateEnsServiceRequest(TeaModel):
     def __init__(self, ens_service_id=None, order_type=None, version=None):
         self.ens_service_id = ens_service_id  # type: str
@@ -5868,6 +6131,384 @@ class DeleteEnsRouteEntryResponse(TeaModel):
         return self
 
 
+class DeleteEnsSaleConditionControlRequestSaleControlsConditionControls(TeaModel):
+    def __init__(self, condition_control_module_code=None, condition_control_module_value=None):
+        self.condition_control_module_code = condition_control_module_code  # type: str
+        self.condition_control_module_value = condition_control_module_value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteEnsSaleConditionControlRequestSaleControlsConditionControls, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.condition_control_module_code is not None:
+            result['ConditionControlModuleCode'] = self.condition_control_module_code
+        if self.condition_control_module_value is not None:
+            result['ConditionControlModuleValue'] = self.condition_control_module_value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ConditionControlModuleCode') is not None:
+            self.condition_control_module_code = m.get('ConditionControlModuleCode')
+        if m.get('ConditionControlModuleValue') is not None:
+            self.condition_control_module_value = m.get('ConditionControlModuleValue')
+        return self
+
+
+class DeleteEnsSaleConditionControlRequestSaleControls(TeaModel):
+    def __init__(self, condition_controls=None, module_code=None, order_type=None):
+        self.condition_controls = condition_controls  # type: list[DeleteEnsSaleConditionControlRequestSaleControlsConditionControls]
+        self.module_code = module_code  # type: str
+        self.order_type = order_type  # type: str
+
+    def validate(self):
+        if self.condition_controls:
+            for k in self.condition_controls:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DeleteEnsSaleConditionControlRequestSaleControls, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['ConditionControls'] = []
+        if self.condition_controls is not None:
+            for k in self.condition_controls:
+                result['ConditionControls'].append(k.to_map() if k else None)
+        if self.module_code is not None:
+            result['ModuleCode'] = self.module_code
+        if self.order_type is not None:
+            result['OrderType'] = self.order_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.condition_controls = []
+        if m.get('ConditionControls') is not None:
+            for k in m.get('ConditionControls'):
+                temp_model = DeleteEnsSaleConditionControlRequestSaleControlsConditionControls()
+                self.condition_controls.append(temp_model.from_map(k))
+        if m.get('ModuleCode') is not None:
+            self.module_code = m.get('ModuleCode')
+        if m.get('OrderType') is not None:
+            self.order_type = m.get('OrderType')
+        return self
+
+
+class DeleteEnsSaleConditionControlRequest(TeaModel):
+    def __init__(self, ali_uid_account=None, commodity_code=None, sale_controls=None):
+        self.ali_uid_account = ali_uid_account  # type: str
+        self.commodity_code = commodity_code  # type: str
+        self.sale_controls = sale_controls  # type: list[DeleteEnsSaleConditionControlRequestSaleControls]
+
+    def validate(self):
+        if self.sale_controls:
+            for k in self.sale_controls:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DeleteEnsSaleConditionControlRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ali_uid_account is not None:
+            result['AliUidAccount'] = self.ali_uid_account
+        if self.commodity_code is not None:
+            result['CommodityCode'] = self.commodity_code
+        result['SaleControls'] = []
+        if self.sale_controls is not None:
+            for k in self.sale_controls:
+                result['SaleControls'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AliUidAccount') is not None:
+            self.ali_uid_account = m.get('AliUidAccount')
+        if m.get('CommodityCode') is not None:
+            self.commodity_code = m.get('CommodityCode')
+        self.sale_controls = []
+        if m.get('SaleControls') is not None:
+            for k in m.get('SaleControls'):
+                temp_model = DeleteEnsSaleConditionControlRequestSaleControls()
+                self.sale_controls.append(temp_model.from_map(k))
+        return self
+
+
+class DeleteEnsSaleConditionControlShrinkRequest(TeaModel):
+    def __init__(self, ali_uid_account=None, commodity_code=None, sale_controls_shrink=None):
+        self.ali_uid_account = ali_uid_account  # type: str
+        self.commodity_code = commodity_code  # type: str
+        self.sale_controls_shrink = sale_controls_shrink  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteEnsSaleConditionControlShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ali_uid_account is not None:
+            result['AliUidAccount'] = self.ali_uid_account
+        if self.commodity_code is not None:
+            result['CommodityCode'] = self.commodity_code
+        if self.sale_controls_shrink is not None:
+            result['SaleControls'] = self.sale_controls_shrink
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AliUidAccount') is not None:
+            self.ali_uid_account = m.get('AliUidAccount')
+        if m.get('CommodityCode') is not None:
+            self.commodity_code = m.get('CommodityCode')
+        if m.get('SaleControls') is not None:
+            self.sale_controls_shrink = m.get('SaleControls')
+        return self
+
+
+class DeleteEnsSaleConditionControlResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteEnsSaleConditionControlResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DeleteEnsSaleConditionControlResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteEnsSaleConditionControlResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteEnsSaleConditionControlResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteEnsSaleConditionControlResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DeleteEnsSaleControlRequestSaleControls(TeaModel):
+    def __init__(self, module_code=None, order_type=None):
+        self.module_code = module_code  # type: str
+        self.order_type = order_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteEnsSaleControlRequestSaleControls, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.module_code is not None:
+            result['ModuleCode'] = self.module_code
+        if self.order_type is not None:
+            result['OrderType'] = self.order_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ModuleCode') is not None:
+            self.module_code = m.get('ModuleCode')
+        if m.get('OrderType') is not None:
+            self.order_type = m.get('OrderType')
+        return self
+
+
+class DeleteEnsSaleControlRequest(TeaModel):
+    def __init__(self, ali_uid_account=None, commodity_code=None, sale_controls=None):
+        self.ali_uid_account = ali_uid_account  # type: str
+        self.commodity_code = commodity_code  # type: str
+        self.sale_controls = sale_controls  # type: list[DeleteEnsSaleControlRequestSaleControls]
+
+    def validate(self):
+        if self.sale_controls:
+            for k in self.sale_controls:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DeleteEnsSaleControlRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ali_uid_account is not None:
+            result['AliUidAccount'] = self.ali_uid_account
+        if self.commodity_code is not None:
+            result['CommodityCode'] = self.commodity_code
+        result['SaleControls'] = []
+        if self.sale_controls is not None:
+            for k in self.sale_controls:
+                result['SaleControls'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AliUidAccount') is not None:
+            self.ali_uid_account = m.get('AliUidAccount')
+        if m.get('CommodityCode') is not None:
+            self.commodity_code = m.get('CommodityCode')
+        self.sale_controls = []
+        if m.get('SaleControls') is not None:
+            for k in m.get('SaleControls'):
+                temp_model = DeleteEnsSaleControlRequestSaleControls()
+                self.sale_controls.append(temp_model.from_map(k))
+        return self
+
+
+class DeleteEnsSaleControlShrinkRequest(TeaModel):
+    def __init__(self, ali_uid_account=None, commodity_code=None, sale_controls_shrink=None):
+        self.ali_uid_account = ali_uid_account  # type: str
+        self.commodity_code = commodity_code  # type: str
+        self.sale_controls_shrink = sale_controls_shrink  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteEnsSaleControlShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ali_uid_account is not None:
+            result['AliUidAccount'] = self.ali_uid_account
+        if self.commodity_code is not None:
+            result['CommodityCode'] = self.commodity_code
+        if self.sale_controls_shrink is not None:
+            result['SaleControls'] = self.sale_controls_shrink
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AliUidAccount') is not None:
+            self.ali_uid_account = m.get('AliUidAccount')
+        if m.get('CommodityCode') is not None:
+            self.commodity_code = m.get('CommodityCode')
+        if m.get('SaleControls') is not None:
+            self.sale_controls_shrink = m.get('SaleControls')
+        return self
+
+
+class DeleteEnsSaleControlResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteEnsSaleControlResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DeleteEnsSaleControlResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteEnsSaleControlResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteEnsSaleControlResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteEnsSaleControlResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DeleteEpnInstanceRequest(TeaModel):
     def __init__(self, epninstance_id=None):
         self.epninstance_id = epninstance_id  # type: str
@@ -7132,11 +7773,17 @@ class DeleteVSwitchResponse(TeaModel):
 
 
 class DescribeAICImagesRequest(TeaModel):
-    def __init__(self, image_id=None, image_url=None, page_number=None, page_size=None):
+    def __init__(self, description=None, image_id=None, image_type=None, image_url=None, max_date=None,
+                 min_date=None, page_number=None, page_size=None, status=None):
+        self.description = description  # type: str
         self.image_id = image_id  # type: str
+        self.image_type = image_type  # type: str
         self.image_url = image_url  # type: str
+        self.max_date = max_date  # type: str
+        self.min_date = min_date  # type: str
         self.page_number = page_number  # type: str
         self.page_size = page_size  # type: str
+        self.status = status  # type: str
 
     def validate(self):
         pass
@@ -7147,32 +7794,53 @@ class DescribeAICImagesRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.description is not None:
+            result['Description'] = self.description
         if self.image_id is not None:
             result['ImageId'] = self.image_id
+        if self.image_type is not None:
+            result['ImageType'] = self.image_type
         if self.image_url is not None:
             result['ImageUrl'] = self.image_url
+        if self.max_date is not None:
+            result['MaxDate'] = self.max_date
+        if self.min_date is not None:
+            result['MinDate'] = self.min_date
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
             result['PageSize'] = self.page_size
+        if self.status is not None:
+            result['Status'] = self.status
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
         if m.get('ImageId') is not None:
             self.image_id = m.get('ImageId')
+        if m.get('ImageType') is not None:
+            self.image_type = m.get('ImageType')
         if m.get('ImageUrl') is not None:
             self.image_url = m.get('ImageUrl')
+        if m.get('MaxDate') is not None:
+            self.max_date = m.get('MaxDate')
+        if m.get('MinDate') is not None:
+            self.min_date = m.get('MinDate')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
         return self
 
 
 class DescribeAICImagesResponseBodyImages(TeaModel):
-    def __init__(self, creation_time=None, image_id=None, image_url=None, status=None, user=None):
+    def __init__(self, creation_time=None, description=None, image_id=None, image_url=None, status=None, user=None):
         self.creation_time = creation_time  # type: str
+        self.description = description  # type: str
         self.image_id = image_id  # type: str
         self.image_url = image_url  # type: str
         self.status = status  # type: str
@@ -7189,6 +7857,8 @@ class DescribeAICImagesResponseBodyImages(TeaModel):
         result = dict()
         if self.creation_time is not None:
             result['CreationTime'] = self.creation_time
+        if self.description is not None:
+            result['Description'] = self.description
         if self.image_id is not None:
             result['ImageId'] = self.image_id
         if self.image_url is not None:
@@ -7203,6 +7873,8 @@ class DescribeAICImagesResponseBodyImages(TeaModel):
         m = m or dict()
         if m.get('CreationTime') is not None:
             self.creation_time = m.get('CreationTime')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
         if m.get('ImageId') is not None:
             self.image_id = m.get('ImageId')
         if m.get('ImageUrl') is not None:
@@ -7215,9 +7887,12 @@ class DescribeAICImagesResponseBodyImages(TeaModel):
 
 
 class DescribeAICImagesResponseBody(TeaModel):
-    def __init__(self, images=None, request_id=None):
+    def __init__(self, images=None, page_number=None, page_size=None, request_id=None, total_count=None):
         self.images = images  # type: list[DescribeAICImagesResponseBodyImages]
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
         self.request_id = request_id  # type: str
+        self.total_count = total_count  # type: int
 
     def validate(self):
         if self.images:
@@ -7235,8 +7910,14 @@ class DescribeAICImagesResponseBody(TeaModel):
         if self.images is not None:
             for k in self.images:
                 result['Images'].append(k.to_map() if k else None)
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
         return result
 
     def from_map(self, m=None):
@@ -7246,8 +7927,14 @@ class DescribeAICImagesResponseBody(TeaModel):
             for k in m.get('Images'):
                 temp_model = DescribeAICImagesResponseBodyImages()
                 self.images.append(temp_model.from_map(k))
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
         return self
 
 
@@ -7291,11 +7978,23 @@ class DescribeAICImagesResponse(TeaModel):
 
 
 class DescribeARMServerInstancesRequest(TeaModel):
-    def __init__(self, ens_region_ids=None, page_number=None, page_size=None, server_ids=None):
+    def __init__(self, aicspecs=None, describe_aicinstances=None, ens_region_ids=None, latest_action=None,
+                 max_date=None, min_date=None, name=None, namespace=None, order_by_params=None, page_number=None,
+                 page_size=None, server_ids=None, server_specs=None, states=None):
+        self.aicspecs = aicspecs  # type: list[str]
+        self.describe_aicinstances = describe_aicinstances  # type: bool
         self.ens_region_ids = ens_region_ids  # type: list[str]
+        self.latest_action = latest_action  # type: str
+        self.max_date = max_date  # type: str
+        self.min_date = min_date  # type: str
+        self.name = name  # type: str
+        self.namespace = namespace  # type: str
+        self.order_by_params = order_by_params  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
         self.server_ids = server_ids  # type: list[str]
+        self.server_specs = server_specs  # type: list[str]
+        self.states = states  # type: list[str]
 
     def validate(self):
         pass
@@ -7306,35 +8005,87 @@ class DescribeARMServerInstancesRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.aicspecs is not None:
+            result['AICSpecs'] = self.aicspecs
+        if self.describe_aicinstances is not None:
+            result['DescribeAICInstances'] = self.describe_aicinstances
         if self.ens_region_ids is not None:
             result['EnsRegionIds'] = self.ens_region_ids
+        if self.latest_action is not None:
+            result['LatestAction'] = self.latest_action
+        if self.max_date is not None:
+            result['MaxDate'] = self.max_date
+        if self.min_date is not None:
+            result['MinDate'] = self.min_date
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.namespace is not None:
+            result['Namespace'] = self.namespace
+        if self.order_by_params is not None:
+            result['OrderByParams'] = self.order_by_params
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
             result['PageSize'] = self.page_size
         if self.server_ids is not None:
             result['ServerIds'] = self.server_ids
+        if self.server_specs is not None:
+            result['ServerSpecs'] = self.server_specs
+        if self.states is not None:
+            result['States'] = self.states
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AICSpecs') is not None:
+            self.aicspecs = m.get('AICSpecs')
+        if m.get('DescribeAICInstances') is not None:
+            self.describe_aicinstances = m.get('DescribeAICInstances')
         if m.get('EnsRegionIds') is not None:
             self.ens_region_ids = m.get('EnsRegionIds')
+        if m.get('LatestAction') is not None:
+            self.latest_action = m.get('LatestAction')
+        if m.get('MaxDate') is not None:
+            self.max_date = m.get('MaxDate')
+        if m.get('MinDate') is not None:
+            self.min_date = m.get('MinDate')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('Namespace') is not None:
+            self.namespace = m.get('Namespace')
+        if m.get('OrderByParams') is not None:
+            self.order_by_params = m.get('OrderByParams')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
         if m.get('ServerIds') is not None:
             self.server_ids = m.get('ServerIds')
+        if m.get('ServerSpecs') is not None:
+            self.server_specs = m.get('ServerSpecs')
+        if m.get('States') is not None:
+            self.states = m.get('States')
         return self
 
 
 class DescribeARMServerInstancesShrinkRequest(TeaModel):
-    def __init__(self, ens_region_ids_shrink=None, page_number=None, page_size=None, server_ids_shrink=None):
+    def __init__(self, aicspecs_shrink=None, describe_aicinstances=None, ens_region_ids_shrink=None,
+                 latest_action=None, max_date=None, min_date=None, name=None, namespace=None, order_by_params=None,
+                 page_number=None, page_size=None, server_ids_shrink=None, server_specs_shrink=None, states_shrink=None):
+        self.aicspecs_shrink = aicspecs_shrink  # type: str
+        self.describe_aicinstances = describe_aicinstances  # type: bool
         self.ens_region_ids_shrink = ens_region_ids_shrink  # type: str
+        self.latest_action = latest_action  # type: str
+        self.max_date = max_date  # type: str
+        self.min_date = min_date  # type: str
+        self.name = name  # type: str
+        self.namespace = namespace  # type: str
+        self.order_by_params = order_by_params  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
         self.server_ids_shrink = server_ids_shrink  # type: str
+        self.server_specs_shrink = server_specs_shrink  # type: str
+        self.states_shrink = states_shrink  # type: str
 
     def validate(self):
         pass
@@ -7345,26 +8096,66 @@ class DescribeARMServerInstancesShrinkRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.aicspecs_shrink is not None:
+            result['AICSpecs'] = self.aicspecs_shrink
+        if self.describe_aicinstances is not None:
+            result['DescribeAICInstances'] = self.describe_aicinstances
         if self.ens_region_ids_shrink is not None:
             result['EnsRegionIds'] = self.ens_region_ids_shrink
+        if self.latest_action is not None:
+            result['LatestAction'] = self.latest_action
+        if self.max_date is not None:
+            result['MaxDate'] = self.max_date
+        if self.min_date is not None:
+            result['MinDate'] = self.min_date
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.namespace is not None:
+            result['Namespace'] = self.namespace
+        if self.order_by_params is not None:
+            result['OrderByParams'] = self.order_by_params
         if self.page_number is not None:
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
             result['PageSize'] = self.page_size
         if self.server_ids_shrink is not None:
             result['ServerIds'] = self.server_ids_shrink
+        if self.server_specs_shrink is not None:
+            result['ServerSpecs'] = self.server_specs_shrink
+        if self.states_shrink is not None:
+            result['States'] = self.states_shrink
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AICSpecs') is not None:
+            self.aicspecs_shrink = m.get('AICSpecs')
+        if m.get('DescribeAICInstances') is not None:
+            self.describe_aicinstances = m.get('DescribeAICInstances')
         if m.get('EnsRegionIds') is not None:
             self.ens_region_ids_shrink = m.get('EnsRegionIds')
+        if m.get('LatestAction') is not None:
+            self.latest_action = m.get('LatestAction')
+        if m.get('MaxDate') is not None:
+            self.max_date = m.get('MaxDate')
+        if m.get('MinDate') is not None:
+            self.min_date = m.get('MinDate')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('Namespace') is not None:
+            self.namespace = m.get('Namespace')
+        if m.get('OrderByParams') is not None:
+            self.order_by_params = m.get('OrderByParams')
         if m.get('PageNumber') is not None:
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
         if m.get('ServerIds') is not None:
             self.server_ids_shrink = m.get('ServerIds')
+        if m.get('ServerSpecs') is not None:
+            self.server_specs_shrink = m.get('ServerSpecs')
+        if m.get('States') is not None:
+            self.states_shrink = m.get('States')
         return self
 
 
@@ -7403,11 +8194,13 @@ class DescribeARMServerInstancesResponseBodyServersAICInstancesNetworkAttributes
 
 
 class DescribeARMServerInstancesResponseBodyServersAICInstances(TeaModel):
-    def __init__(self, frequency=None, image_id=None, instance_id=None, network_attributes=None, resolution=None,
-                 spec=None, state=None, status=None):
+    def __init__(self, frequency=None, image_id=None, instance_id=None, latest_action=None, name=None,
+                 network_attributes=None, resolution=None, spec=None, state=None, status=None):
         self.frequency = frequency  # type: long
         self.image_id = image_id  # type: str
         self.instance_id = instance_id  # type: str
+        self.latest_action = latest_action  # type: str
+        self.name = name  # type: str
         self.network_attributes = network_attributes  # type: DescribeARMServerInstancesResponseBodyServersAICInstancesNetworkAttributes
         self.resolution = resolution  # type: str
         self.spec = spec  # type: str
@@ -7430,6 +8223,10 @@ class DescribeARMServerInstancesResponseBodyServersAICInstances(TeaModel):
             result['ImageId'] = self.image_id
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.latest_action is not None:
+            result['LatestAction'] = self.latest_action
+        if self.name is not None:
+            result['Name'] = self.name
         if self.network_attributes is not None:
             result['NetworkAttributes'] = self.network_attributes.to_map()
         if self.resolution is not None:
@@ -7450,6 +8247,10 @@ class DescribeARMServerInstancesResponseBodyServersAICInstances(TeaModel):
             self.image_id = m.get('ImageId')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('LatestAction') is not None:
+            self.latest_action = m.get('LatestAction')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
         if m.get('NetworkAttributes') is not None:
             temp_model = DescribeARMServerInstancesResponseBodyServersAICInstancesNetworkAttributes()
             self.network_attributes = temp_model.from_map(m['NetworkAttributes'])
@@ -7465,13 +8266,17 @@ class DescribeARMServerInstancesResponseBodyServersAICInstances(TeaModel):
 
 
 class DescribeARMServerInstancesResponseBodyServers(TeaModel):
-    def __init__(self, aicinstances=None, creation_time=None, ens_region_id=None, expired_time=None, namespace=None,
-                 server_id=None, spec_name=None, state=None, status=None):
+    def __init__(self, aicinstances=None, creation_time=None, ens_region_id=None, expired_time=None,
+                 latest_action=None, name=None, namespace=None, pay_type=None, server_id=None, spec_name=None, state=None,
+                 status=None):
         self.aicinstances = aicinstances  # type: list[DescribeARMServerInstancesResponseBodyServersAICInstances]
         self.creation_time = creation_time  # type: str
         self.ens_region_id = ens_region_id  # type: str
         self.expired_time = expired_time  # type: str
+        self.latest_action = latest_action  # type: str
+        self.name = name  # type: str
         self.namespace = namespace  # type: str
+        self.pay_type = pay_type  # type: str
         self.server_id = server_id  # type: str
         self.spec_name = spec_name  # type: str
         self.state = state  # type: str
@@ -7499,8 +8304,14 @@ class DescribeARMServerInstancesResponseBodyServers(TeaModel):
             result['EnsRegionId'] = self.ens_region_id
         if self.expired_time is not None:
             result['ExpiredTime'] = self.expired_time
+        if self.latest_action is not None:
+            result['LatestAction'] = self.latest_action
+        if self.name is not None:
+            result['Name'] = self.name
         if self.namespace is not None:
             result['Namespace'] = self.namespace
+        if self.pay_type is not None:
+            result['PayType'] = self.pay_type
         if self.server_id is not None:
             result['ServerId'] = self.server_id
         if self.spec_name is not None:
@@ -7524,8 +8335,14 @@ class DescribeARMServerInstancesResponseBodyServers(TeaModel):
             self.ens_region_id = m.get('EnsRegionId')
         if m.get('ExpiredTime') is not None:
             self.expired_time = m.get('ExpiredTime')
+        if m.get('LatestAction') is not None:
+            self.latest_action = m.get('LatestAction')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
         if m.get('Namespace') is not None:
             self.namespace = m.get('Namespace')
+        if m.get('PayType') is not None:
+            self.pay_type = m.get('PayType')
         if m.get('ServerId') is not None:
             self.server_id = m.get('ServerId')
         if m.get('SpecName') is not None:
@@ -11268,6 +12085,306 @@ class DescribeElbAvailableResourceInfoResponse(TeaModel):
         return self
 
 
+class DescribeEnsCommodityCodeRequest(TeaModel):
+    def __init__(self, commodity_code=None):
+        self.commodity_code = commodity_code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeEnsCommodityCodeRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.commodity_code is not None:
+            result['CommodityCode'] = self.commodity_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CommodityCode') is not None:
+            self.commodity_code = m.get('CommodityCode')
+        return self
+
+
+class DescribeEnsCommodityCodeResponseBodyCommodityCodeInfo(TeaModel):
+    def __init__(self, commodity_code=None, commodity_name=None):
+        self.commodity_code = commodity_code  # type: str
+        self.commodity_name = commodity_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeEnsCommodityCodeResponseBodyCommodityCodeInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.commodity_code is not None:
+            result['CommodityCode'] = self.commodity_code
+        if self.commodity_name is not None:
+            result['CommodityName'] = self.commodity_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CommodityCode') is not None:
+            self.commodity_code = m.get('CommodityCode')
+        if m.get('CommodityName') is not None:
+            self.commodity_name = m.get('CommodityName')
+        return self
+
+
+class DescribeEnsCommodityCodeResponseBody(TeaModel):
+    def __init__(self, commodity_code_info=None, request_id=None):
+        self.commodity_code_info = commodity_code_info  # type: list[DescribeEnsCommodityCodeResponseBodyCommodityCodeInfo]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.commodity_code_info:
+            for k in self.commodity_code_info:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeEnsCommodityCodeResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['CommodityCodeInfo'] = []
+        if self.commodity_code_info is not None:
+            for k in self.commodity_code_info:
+                result['CommodityCodeInfo'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.commodity_code_info = []
+        if m.get('CommodityCodeInfo') is not None:
+            for k in m.get('CommodityCodeInfo'):
+                temp_model = DescribeEnsCommodityCodeResponseBodyCommodityCodeInfo()
+                self.commodity_code_info.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeEnsCommodityCodeResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeEnsCommodityCodeResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeEnsCommodityCodeResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeEnsCommodityCodeResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeEnsCommodityModuleCodeRequest(TeaModel):
+    def __init__(self, commodity_code=None, module_code=None):
+        self.commodity_code = commodity_code  # type: str
+        self.module_code = module_code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeEnsCommodityModuleCodeRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.commodity_code is not None:
+            result['CommodityCode'] = self.commodity_code
+        if self.module_code is not None:
+            result['ModuleCode'] = self.module_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CommodityCode') is not None:
+            self.commodity_code = m.get('CommodityCode')
+        if m.get('ModuleCode') is not None:
+            self.module_code = m.get('ModuleCode')
+        return self
+
+
+class DescribeEnsCommodityModuleCodeResponseBodyCommodityCodesInfoModuleCodesInfo(TeaModel):
+    def __init__(self, module_code=None, module_name=None):
+        self.module_code = module_code  # type: str
+        self.module_name = module_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeEnsCommodityModuleCodeResponseBodyCommodityCodesInfoModuleCodesInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.module_code is not None:
+            result['ModuleCode'] = self.module_code
+        if self.module_name is not None:
+            result['ModuleName'] = self.module_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ModuleCode') is not None:
+            self.module_code = m.get('ModuleCode')
+        if m.get('ModuleName') is not None:
+            self.module_name = m.get('ModuleName')
+        return self
+
+
+class DescribeEnsCommodityModuleCodeResponseBodyCommodityCodesInfo(TeaModel):
+    def __init__(self, commodity_code=None, module_codes_info=None):
+        self.commodity_code = commodity_code  # type: str
+        self.module_codes_info = module_codes_info  # type: list[DescribeEnsCommodityModuleCodeResponseBodyCommodityCodesInfoModuleCodesInfo]
+
+    def validate(self):
+        if self.module_codes_info:
+            for k in self.module_codes_info:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeEnsCommodityModuleCodeResponseBodyCommodityCodesInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.commodity_code is not None:
+            result['CommodityCode'] = self.commodity_code
+        result['ModuleCodesInfo'] = []
+        if self.module_codes_info is not None:
+            for k in self.module_codes_info:
+                result['ModuleCodesInfo'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CommodityCode') is not None:
+            self.commodity_code = m.get('CommodityCode')
+        self.module_codes_info = []
+        if m.get('ModuleCodesInfo') is not None:
+            for k in m.get('ModuleCodesInfo'):
+                temp_model = DescribeEnsCommodityModuleCodeResponseBodyCommodityCodesInfoModuleCodesInfo()
+                self.module_codes_info.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeEnsCommodityModuleCodeResponseBody(TeaModel):
+    def __init__(self, commodity_codes_info=None, request_id=None):
+        self.commodity_codes_info = commodity_codes_info  # type: list[DescribeEnsCommodityModuleCodeResponseBodyCommodityCodesInfo]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.commodity_codes_info:
+            for k in self.commodity_codes_info:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeEnsCommodityModuleCodeResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['CommodityCodesInfo'] = []
+        if self.commodity_codes_info is not None:
+            for k in self.commodity_codes_info:
+                result['CommodityCodesInfo'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.commodity_codes_info = []
+        if m.get('CommodityCodesInfo') is not None:
+            for k in m.get('CommodityCodesInfo'):
+                temp_model = DescribeEnsCommodityModuleCodeResponseBodyCommodityCodesInfo()
+                self.commodity_codes_info.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeEnsCommodityModuleCodeResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeEnsCommodityModuleCodeResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeEnsCommodityModuleCodeResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeEnsCommodityModuleCodeResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeEnsEipAddressesRequest(TeaModel):
     def __init__(self, allocation_id=None, associated_instance_id=None, associated_instance_type=None,
                  eip_address=None, eip_name=None, ens_region_id=None, page_number=None, page_size=None):
@@ -13041,6 +14158,1203 @@ class DescribeEnsRouteEntryListResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeEnsRouteEntryListResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeEnsSaleControlRequest(TeaModel):
+    def __init__(self, ali_uid_account=None, commodity_code=None, module_code=None, order_type=None):
+        self.ali_uid_account = ali_uid_account  # type: str
+        self.commodity_code = commodity_code  # type: str
+        self.module_code = module_code  # type: str
+        self.order_type = order_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeEnsSaleControlRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ali_uid_account is not None:
+            result['AliUidAccount'] = self.ali_uid_account
+        if self.commodity_code is not None:
+            result['CommodityCode'] = self.commodity_code
+        if self.module_code is not None:
+            result['ModuleCode'] = self.module_code
+        if self.order_type is not None:
+            result['OrderType'] = self.order_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AliUidAccount') is not None:
+            self.ali_uid_account = m.get('AliUidAccount')
+        if m.get('CommodityCode') is not None:
+            self.commodity_code = m.get('CommodityCode')
+        if m.get('ModuleCode') is not None:
+            self.module_code = m.get('ModuleCode')
+        if m.get('OrderType') is not None:
+            self.order_type = m.get('OrderType')
+        return self
+
+
+class DescribeEnsSaleControlResponseBodySaleControlSaleControlItemsSaleControlItemBasicSaleControlModuleValue(TeaModel):
+    def __init__(self, module_max_value=None, module_min_value=None, module_value=None):
+        self.module_max_value = module_max_value  # type: str
+        self.module_min_value = module_min_value  # type: str
+        self.module_value = module_value  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeEnsSaleControlResponseBodySaleControlSaleControlItemsSaleControlItemBasicSaleControlModuleValue, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.module_max_value is not None:
+            result['ModuleMaxValue'] = self.module_max_value
+        if self.module_min_value is not None:
+            result['ModuleMinValue'] = self.module_min_value
+        if self.module_value is not None:
+            result['ModuleValue'] = self.module_value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ModuleMaxValue') is not None:
+            self.module_max_value = m.get('ModuleMaxValue')
+        if m.get('ModuleMinValue') is not None:
+            self.module_min_value = m.get('ModuleMinValue')
+        if m.get('ModuleValue') is not None:
+            self.module_value = m.get('ModuleValue')
+        return self
+
+
+class DescribeEnsSaleControlResponseBodySaleControlSaleControlItemsSaleControlItemBasicSaleControl(TeaModel):
+    def __init__(self, description=None, module_value=None, operator=None):
+        self.description = description  # type: str
+        self.module_value = module_value  # type: DescribeEnsSaleControlResponseBodySaleControlSaleControlItemsSaleControlItemBasicSaleControlModuleValue
+        self.operator = operator  # type: str
+
+    def validate(self):
+        if self.module_value:
+            self.module_value.validate()
+
+    def to_map(self):
+        _map = super(DescribeEnsSaleControlResponseBodySaleControlSaleControlItemsSaleControlItemBasicSaleControl, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.module_value is not None:
+            result['ModuleValue'] = self.module_value.to_map()
+        if self.operator is not None:
+            result['Operator'] = self.operator
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('ModuleValue') is not None:
+            temp_model = DescribeEnsSaleControlResponseBodySaleControlSaleControlItemsSaleControlItemBasicSaleControlModuleValue()
+            self.module_value = temp_model.from_map(m['ModuleValue'])
+        if m.get('Operator') is not None:
+            self.operator = m.get('Operator')
+        return self
+
+
+class DescribeEnsSaleControlResponseBodySaleControlSaleControlItemsSaleControlItemConditionSaleControlConditionControl(TeaModel):
+    def __init__(self, condition_control_module_code=None, condition_control_module_value=None):
+        self.condition_control_module_code = condition_control_module_code  # type: str
+        self.condition_control_module_value = condition_control_module_value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeEnsSaleControlResponseBodySaleControlSaleControlItemsSaleControlItemConditionSaleControlConditionControl, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.condition_control_module_code is not None:
+            result['ConditionControlModuleCode'] = self.condition_control_module_code
+        if self.condition_control_module_value is not None:
+            result['ConditionControlModuleValue'] = self.condition_control_module_value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ConditionControlModuleCode') is not None:
+            self.condition_control_module_code = m.get('ConditionControlModuleCode')
+        if m.get('ConditionControlModuleValue') is not None:
+            self.condition_control_module_value = m.get('ConditionControlModuleValue')
+        return self
+
+
+class DescribeEnsSaleControlResponseBodySaleControlSaleControlItemsSaleControlItemConditionSaleControlModuleValue(TeaModel):
+    def __init__(self, module_max_value=None, module_min_value=None, module_value=None):
+        self.module_max_value = module_max_value  # type: str
+        self.module_min_value = module_min_value  # type: str
+        self.module_value = module_value  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeEnsSaleControlResponseBodySaleControlSaleControlItemsSaleControlItemConditionSaleControlModuleValue, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.module_max_value is not None:
+            result['ModuleMaxValue'] = self.module_max_value
+        if self.module_min_value is not None:
+            result['ModuleMinValue'] = self.module_min_value
+        if self.module_value is not None:
+            result['ModuleValue'] = self.module_value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ModuleMaxValue') is not None:
+            self.module_max_value = m.get('ModuleMaxValue')
+        if m.get('ModuleMinValue') is not None:
+            self.module_min_value = m.get('ModuleMinValue')
+        if m.get('ModuleValue') is not None:
+            self.module_value = m.get('ModuleValue')
+        return self
+
+
+class DescribeEnsSaleControlResponseBodySaleControlSaleControlItemsSaleControlItemConditionSaleControl(TeaModel):
+    def __init__(self, condition_control=None, description=None, module_value=None, operator=None):
+        self.condition_control = condition_control  # type: DescribeEnsSaleControlResponseBodySaleControlSaleControlItemsSaleControlItemConditionSaleControlConditionControl
+        self.description = description  # type: str
+        self.module_value = module_value  # type: DescribeEnsSaleControlResponseBodySaleControlSaleControlItemsSaleControlItemConditionSaleControlModuleValue
+        self.operator = operator  # type: str
+
+    def validate(self):
+        if self.condition_control:
+            self.condition_control.validate()
+        if self.module_value:
+            self.module_value.validate()
+
+    def to_map(self):
+        _map = super(DescribeEnsSaleControlResponseBodySaleControlSaleControlItemsSaleControlItemConditionSaleControl, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.condition_control is not None:
+            result['ConditionControl'] = self.condition_control.to_map()
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.module_value is not None:
+            result['ModuleValue'] = self.module_value.to_map()
+        if self.operator is not None:
+            result['Operator'] = self.operator
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ConditionControl') is not None:
+            temp_model = DescribeEnsSaleControlResponseBodySaleControlSaleControlItemsSaleControlItemConditionSaleControlConditionControl()
+            self.condition_control = temp_model.from_map(m['ConditionControl'])
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('ModuleValue') is not None:
+            temp_model = DescribeEnsSaleControlResponseBodySaleControlSaleControlItemsSaleControlItemConditionSaleControlModuleValue()
+            self.module_value = temp_model.from_map(m['ModuleValue'])
+        if m.get('Operator') is not None:
+            self.operator = m.get('Operator')
+        return self
+
+
+class DescribeEnsSaleControlResponseBodySaleControlSaleControlItemsSaleControlItem(TeaModel):
+    def __init__(self, basic_sale_control=None, condition_sale_control=None):
+        self.basic_sale_control = basic_sale_control  # type: DescribeEnsSaleControlResponseBodySaleControlSaleControlItemsSaleControlItemBasicSaleControl
+        self.condition_sale_control = condition_sale_control  # type: list[DescribeEnsSaleControlResponseBodySaleControlSaleControlItemsSaleControlItemConditionSaleControl]
+
+    def validate(self):
+        if self.basic_sale_control:
+            self.basic_sale_control.validate()
+        if self.condition_sale_control:
+            for k in self.condition_sale_control:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeEnsSaleControlResponseBodySaleControlSaleControlItemsSaleControlItem, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.basic_sale_control is not None:
+            result['BasicSaleControl'] = self.basic_sale_control.to_map()
+        result['ConditionSaleControl'] = []
+        if self.condition_sale_control is not None:
+            for k in self.condition_sale_control:
+                result['ConditionSaleControl'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BasicSaleControl') is not None:
+            temp_model = DescribeEnsSaleControlResponseBodySaleControlSaleControlItemsSaleControlItemBasicSaleControl()
+            self.basic_sale_control = temp_model.from_map(m['BasicSaleControl'])
+        self.condition_sale_control = []
+        if m.get('ConditionSaleControl') is not None:
+            for k in m.get('ConditionSaleControl'):
+                temp_model = DescribeEnsSaleControlResponseBodySaleControlSaleControlItemsSaleControlItemConditionSaleControl()
+                self.condition_sale_control.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeEnsSaleControlResponseBodySaleControlSaleControlItems(TeaModel):
+    def __init__(self, module_code=None, sale_control_item=None):
+        self.module_code = module_code  # type: str
+        self.sale_control_item = sale_control_item  # type: DescribeEnsSaleControlResponseBodySaleControlSaleControlItemsSaleControlItem
+
+    def validate(self):
+        if self.sale_control_item:
+            self.sale_control_item.validate()
+
+    def to_map(self):
+        _map = super(DescribeEnsSaleControlResponseBodySaleControlSaleControlItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.module_code is not None:
+            result['ModuleCode'] = self.module_code
+        if self.sale_control_item is not None:
+            result['SaleControlItem'] = self.sale_control_item.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ModuleCode') is not None:
+            self.module_code = m.get('ModuleCode')
+        if m.get('SaleControlItem') is not None:
+            temp_model = DescribeEnsSaleControlResponseBodySaleControlSaleControlItemsSaleControlItem()
+            self.sale_control_item = temp_model.from_map(m['SaleControlItem'])
+        return self
+
+
+class DescribeEnsSaleControlResponseBodySaleControl(TeaModel):
+    def __init__(self, commodity_code=None, order_type=None, sale_control_items=None):
+        self.commodity_code = commodity_code  # type: str
+        self.order_type = order_type  # type: str
+        self.sale_control_items = sale_control_items  # type: list[DescribeEnsSaleControlResponseBodySaleControlSaleControlItems]
+
+    def validate(self):
+        if self.sale_control_items:
+            for k in self.sale_control_items:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeEnsSaleControlResponseBodySaleControl, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.commodity_code is not None:
+            result['CommodityCode'] = self.commodity_code
+        if self.order_type is not None:
+            result['OrderType'] = self.order_type
+        result['SaleControlItems'] = []
+        if self.sale_control_items is not None:
+            for k in self.sale_control_items:
+                result['SaleControlItems'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CommodityCode') is not None:
+            self.commodity_code = m.get('CommodityCode')
+        if m.get('OrderType') is not None:
+            self.order_type = m.get('OrderType')
+        self.sale_control_items = []
+        if m.get('SaleControlItems') is not None:
+            for k in m.get('SaleControlItems'):
+                temp_model = DescribeEnsSaleControlResponseBodySaleControlSaleControlItems()
+                self.sale_control_items.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeEnsSaleControlResponseBody(TeaModel):
+    def __init__(self, request_id=None, sale_control=None):
+        self.request_id = request_id  # type: str
+        self.sale_control = sale_control  # type: list[DescribeEnsSaleControlResponseBodySaleControl]
+
+    def validate(self):
+        if self.sale_control:
+            for k in self.sale_control:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeEnsSaleControlResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        result['SaleControl'] = []
+        if self.sale_control is not None:
+            for k in self.sale_control:
+                result['SaleControl'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        self.sale_control = []
+        if m.get('SaleControl') is not None:
+            for k in m.get('SaleControl'):
+                temp_model = DescribeEnsSaleControlResponseBodySaleControl()
+                self.sale_control.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeEnsSaleControlResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeEnsSaleControlResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeEnsSaleControlResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeEnsSaleControlResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeEnsSaleControlAvailableResourceRequest(TeaModel):
+    def __init__(self, commodity_code=None, order_type=None):
+        self.commodity_code = commodity_code  # type: str
+        self.order_type = order_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeEnsSaleControlAvailableResourceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.commodity_code is not None:
+            result['CommodityCode'] = self.commodity_code
+        if self.order_type is not None:
+            result['OrderType'] = self.order_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CommodityCode') is not None:
+            self.commodity_code = m.get('CommodityCode')
+        if m.get('OrderType') is not None:
+            self.order_type = m.get('OrderType')
+        return self
+
+
+class DescribeEnsSaleControlAvailableResourceResponseBodySaleControlAvailableResourceAvailableDiskType(TeaModel):
+    def __init__(self, disk_name=None, disk_type=None):
+        self.disk_name = disk_name  # type: str
+        self.disk_type = disk_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeEnsSaleControlAvailableResourceResponseBodySaleControlAvailableResourceAvailableDiskType, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.disk_name is not None:
+            result['DiskName'] = self.disk_name
+        if self.disk_type is not None:
+            result['DiskType'] = self.disk_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DiskName') is not None:
+            self.disk_name = m.get('DiskName')
+        if m.get('DiskType') is not None:
+            self.disk_type = m.get('DiskType')
+        return self
+
+
+class DescribeEnsSaleControlAvailableResourceResponseBodySaleControlAvailableResourceAvailableRegion(TeaModel):
+    def __init__(self, area=None, ens_region_id=None, ens_region_name=None, province=None):
+        self.area = area  # type: str
+        self.ens_region_id = ens_region_id  # type: str
+        self.ens_region_name = ens_region_name  # type: str
+        self.province = province  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeEnsSaleControlAvailableResourceResponseBodySaleControlAvailableResourceAvailableRegion, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.area is not None:
+            result['Area'] = self.area
+        if self.ens_region_id is not None:
+            result['EnsRegionId'] = self.ens_region_id
+        if self.ens_region_name is not None:
+            result['EnsRegionName'] = self.ens_region_name
+        if self.province is not None:
+            result['Province'] = self.province
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Area') is not None:
+            self.area = m.get('Area')
+        if m.get('EnsRegionId') is not None:
+            self.ens_region_id = m.get('EnsRegionId')
+        if m.get('EnsRegionName') is not None:
+            self.ens_region_name = m.get('EnsRegionName')
+        if m.get('Province') is not None:
+            self.province = m.get('Province')
+        return self
+
+
+class DescribeEnsSaleControlAvailableResourceResponseBodySaleControlAvailableResourceAvailableSpec(TeaModel):
+    def __init__(self, cores=None, memory=None, spec_name=None, spec_value=None):
+        self.cores = cores  # type: str
+        self.memory = memory  # type: str
+        self.spec_name = spec_name  # type: str
+        self.spec_value = spec_value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeEnsSaleControlAvailableResourceResponseBodySaleControlAvailableResourceAvailableSpec, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cores is not None:
+            result['Cores'] = self.cores
+        if self.memory is not None:
+            result['Memory'] = self.memory
+        if self.spec_name is not None:
+            result['SpecName'] = self.spec_name
+        if self.spec_value is not None:
+            result['SpecValue'] = self.spec_value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Cores') is not None:
+            self.cores = m.get('Cores')
+        if m.get('Memory') is not None:
+            self.memory = m.get('Memory')
+        if m.get('SpecName') is not None:
+            self.spec_name = m.get('SpecName')
+        if m.get('SpecValue') is not None:
+            self.spec_value = m.get('SpecValue')
+        return self
+
+
+class DescribeEnsSaleControlAvailableResourceResponseBodySaleControlAvailableResourceAvailableStorageTypeAvailableDefaultStorageType(TeaModel):
+    def __init__(self, storage_name=None, storage_type=None):
+        self.storage_name = storage_name  # type: str
+        self.storage_type = storage_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeEnsSaleControlAvailableResourceResponseBodySaleControlAvailableResourceAvailableStorageTypeAvailableDefaultStorageType, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.storage_name is not None:
+            result['StorageName'] = self.storage_name
+        if self.storage_type is not None:
+            result['StorageType'] = self.storage_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('StorageName') is not None:
+            self.storage_name = m.get('StorageName')
+        if m.get('StorageType') is not None:
+            self.storage_type = m.get('StorageType')
+        return self
+
+
+class DescribeEnsSaleControlAvailableResourceResponseBodySaleControlAvailableResourceAvailableStorageTypeAvailableSpecialStorageType(TeaModel):
+    def __init__(self, storage_type=None, storage_name=None, ens_region_id=None):
+        self.storage_type = storage_type  # type: str
+        self.storage_name = storage_name  # type: str
+        self.ens_region_id = ens_region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeEnsSaleControlAvailableResourceResponseBodySaleControlAvailableResourceAvailableStorageTypeAvailableSpecialStorageType, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.storage_type is not None:
+            result['StorageType'] = self.storage_type
+        if self.storage_name is not None:
+            result['StorageName'] = self.storage_name
+        if self.ens_region_id is not None:
+            result['EnsRegionId'] = self.ens_region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('StorageType') is not None:
+            self.storage_type = m.get('StorageType')
+        if m.get('StorageName') is not None:
+            self.storage_name = m.get('StorageName')
+        if m.get('EnsRegionId') is not None:
+            self.ens_region_id = m.get('EnsRegionId')
+        return self
+
+
+class DescribeEnsSaleControlAvailableResourceResponseBodySaleControlAvailableResourceAvailableStorageType(TeaModel):
+    def __init__(self, available_default_storage_type=None, available_special_storage_type=None):
+        self.available_default_storage_type = available_default_storage_type  # type: list[DescribeEnsSaleControlAvailableResourceResponseBodySaleControlAvailableResourceAvailableStorageTypeAvailableDefaultStorageType]
+        self.available_special_storage_type = available_special_storage_type  # type: list[list[DescribeEnsSaleControlAvailableResourceResponseBodySaleControlAvailableResourceAvailableStorageTypeAvailableSpecialStorageType]]
+
+    def validate(self):
+        if self.available_default_storage_type:
+            for k in self.available_default_storage_type:
+                if k:
+                    k.validate()
+        if self.available_special_storage_type:
+            for k in self.available_special_storage_type:
+                for k1 in k:
+                    if k1:
+                        k1.validate()
+
+    def to_map(self):
+        _map = super(DescribeEnsSaleControlAvailableResourceResponseBodySaleControlAvailableResourceAvailableStorageType, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['AvailableDefaultStorageType'] = []
+        if self.available_default_storage_type is not None:
+            for k in self.available_default_storage_type:
+                result['AvailableDefaultStorageType'].append(k.to_map() if k else None)
+        result['AvailableSpecialStorageType'] = []
+        if self.available_special_storage_type is not None:
+            for k in self.available_special_storage_type:
+                l1 = []
+                for k1 in k:
+                    l1.append(k1.to_map() if k1 else None)
+                result['availableSpecialStorageType'].append(l1)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.available_default_storage_type = []
+        if m.get('AvailableDefaultStorageType') is not None:
+            for k in m.get('AvailableDefaultStorageType'):
+                temp_model = DescribeEnsSaleControlAvailableResourceResponseBodySaleControlAvailableResourceAvailableStorageTypeAvailableDefaultStorageType()
+                self.available_default_storage_type.append(temp_model.from_map(k))
+        self.available_special_storage_type = []
+        if m.get('AvailableSpecialStorageType') is not None:
+            for k in m.get('AvailableSpecialStorageType'):
+                l1 = []
+                for k1 in k:
+                    temp_model = DescribeEnsSaleControlAvailableResourceResponseBodySaleControlAvailableResourceAvailableStorageTypeAvailableSpecialStorageType()
+                    l1.append(temp_model.from_map(k1))
+                self.available_special_storage_type.append(l1)
+        return self
+
+
+class DescribeEnsSaleControlAvailableResourceResponseBodySaleControlAvailableResource(TeaModel):
+    def __init__(self, available_disk_type=None, available_region=None, available_spec=None,
+                 available_storage_type=None, commodity_code=None, order_type=None):
+        self.available_disk_type = available_disk_type  # type: list[DescribeEnsSaleControlAvailableResourceResponseBodySaleControlAvailableResourceAvailableDiskType]
+        self.available_region = available_region  # type: list[DescribeEnsSaleControlAvailableResourceResponseBodySaleControlAvailableResourceAvailableRegion]
+        self.available_spec = available_spec  # type: list[DescribeEnsSaleControlAvailableResourceResponseBodySaleControlAvailableResourceAvailableSpec]
+        self.available_storage_type = available_storage_type  # type: DescribeEnsSaleControlAvailableResourceResponseBodySaleControlAvailableResourceAvailableStorageType
+        self.commodity_code = commodity_code  # type: str
+        self.order_type = order_type  # type: str
+
+    def validate(self):
+        if self.available_disk_type:
+            for k in self.available_disk_type:
+                if k:
+                    k.validate()
+        if self.available_region:
+            for k in self.available_region:
+                if k:
+                    k.validate()
+        if self.available_spec:
+            for k in self.available_spec:
+                if k:
+                    k.validate()
+        if self.available_storage_type:
+            self.available_storage_type.validate()
+
+    def to_map(self):
+        _map = super(DescribeEnsSaleControlAvailableResourceResponseBodySaleControlAvailableResource, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['AvailableDiskType'] = []
+        if self.available_disk_type is not None:
+            for k in self.available_disk_type:
+                result['AvailableDiskType'].append(k.to_map() if k else None)
+        result['AvailableRegion'] = []
+        if self.available_region is not None:
+            for k in self.available_region:
+                result['AvailableRegion'].append(k.to_map() if k else None)
+        result['AvailableSpec'] = []
+        if self.available_spec is not None:
+            for k in self.available_spec:
+                result['AvailableSpec'].append(k.to_map() if k else None)
+        if self.available_storage_type is not None:
+            result['AvailableStorageType'] = self.available_storage_type.to_map()
+        if self.commodity_code is not None:
+            result['CommodityCode'] = self.commodity_code
+        if self.order_type is not None:
+            result['OrderType'] = self.order_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.available_disk_type = []
+        if m.get('AvailableDiskType') is not None:
+            for k in m.get('AvailableDiskType'):
+                temp_model = DescribeEnsSaleControlAvailableResourceResponseBodySaleControlAvailableResourceAvailableDiskType()
+                self.available_disk_type.append(temp_model.from_map(k))
+        self.available_region = []
+        if m.get('AvailableRegion') is not None:
+            for k in m.get('AvailableRegion'):
+                temp_model = DescribeEnsSaleControlAvailableResourceResponseBodySaleControlAvailableResourceAvailableRegion()
+                self.available_region.append(temp_model.from_map(k))
+        self.available_spec = []
+        if m.get('AvailableSpec') is not None:
+            for k in m.get('AvailableSpec'):
+                temp_model = DescribeEnsSaleControlAvailableResourceResponseBodySaleControlAvailableResourceAvailableSpec()
+                self.available_spec.append(temp_model.from_map(k))
+        if m.get('AvailableStorageType') is not None:
+            temp_model = DescribeEnsSaleControlAvailableResourceResponseBodySaleControlAvailableResourceAvailableStorageType()
+            self.available_storage_type = temp_model.from_map(m['AvailableStorageType'])
+        if m.get('CommodityCode') is not None:
+            self.commodity_code = m.get('CommodityCode')
+        if m.get('OrderType') is not None:
+            self.order_type = m.get('OrderType')
+        return self
+
+
+class DescribeEnsSaleControlAvailableResourceResponseBody(TeaModel):
+    def __init__(self, request_id=None, sale_control_available_resource=None):
+        self.request_id = request_id  # type: str
+        self.sale_control_available_resource = sale_control_available_resource  # type: list[DescribeEnsSaleControlAvailableResourceResponseBodySaleControlAvailableResource]
+
+    def validate(self):
+        if self.sale_control_available_resource:
+            for k in self.sale_control_available_resource:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeEnsSaleControlAvailableResourceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        result['SaleControlAvailableResource'] = []
+        if self.sale_control_available_resource is not None:
+            for k in self.sale_control_available_resource:
+                result['SaleControlAvailableResource'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        self.sale_control_available_resource = []
+        if m.get('SaleControlAvailableResource') is not None:
+            for k in m.get('SaleControlAvailableResource'):
+                temp_model = DescribeEnsSaleControlAvailableResourceResponseBodySaleControlAvailableResource()
+                self.sale_control_available_resource.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeEnsSaleControlAvailableResourceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeEnsSaleControlAvailableResourceResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeEnsSaleControlAvailableResourceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeEnsSaleControlAvailableResourceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeEnsSaleControlStockRequest(TeaModel):
+    def __init__(self, ali_uid_account=None, commodity_code=None, module_code=None, order_type=None):
+        self.ali_uid_account = ali_uid_account  # type: str
+        self.commodity_code = commodity_code  # type: str
+        self.module_code = module_code  # type: str
+        self.order_type = order_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeEnsSaleControlStockRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ali_uid_account is not None:
+            result['AliUidAccount'] = self.ali_uid_account
+        if self.commodity_code is not None:
+            result['CommodityCode'] = self.commodity_code
+        if self.module_code is not None:
+            result['ModuleCode'] = self.module_code
+        if self.order_type is not None:
+            result['OrderType'] = self.order_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AliUidAccount') is not None:
+            self.ali_uid_account = m.get('AliUidAccount')
+        if m.get('CommodityCode') is not None:
+            self.commodity_code = m.get('CommodityCode')
+        if m.get('ModuleCode') is not None:
+            self.module_code = m.get('ModuleCode')
+        if m.get('OrderType') is not None:
+            self.order_type = m.get('OrderType')
+        return self
+
+
+class DescribeEnsSaleControlStockResponseBodySaleControlSaleControlItemsSaleControlItemBasicSaleControlModuleValue(TeaModel):
+    def __init__(self, module_max_value=None, module_min_value=None):
+        self.module_max_value = module_max_value  # type: str
+        self.module_min_value = module_min_value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeEnsSaleControlStockResponseBodySaleControlSaleControlItemsSaleControlItemBasicSaleControlModuleValue, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.module_max_value is not None:
+            result['ModuleMaxValue'] = self.module_max_value
+        if self.module_min_value is not None:
+            result['ModuleMinValue'] = self.module_min_value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ModuleMaxValue') is not None:
+            self.module_max_value = m.get('ModuleMaxValue')
+        if m.get('ModuleMinValue') is not None:
+            self.module_min_value = m.get('ModuleMinValue')
+        return self
+
+
+class DescribeEnsSaleControlStockResponseBodySaleControlSaleControlItemsSaleControlItemBasicSaleControl(TeaModel):
+    def __init__(self, module_value=None, stock_value=None):
+        self.module_value = module_value  # type: DescribeEnsSaleControlStockResponseBodySaleControlSaleControlItemsSaleControlItemBasicSaleControlModuleValue
+        self.stock_value = stock_value  # type: str
+
+    def validate(self):
+        if self.module_value:
+            self.module_value.validate()
+
+    def to_map(self):
+        _map = super(DescribeEnsSaleControlStockResponseBodySaleControlSaleControlItemsSaleControlItemBasicSaleControl, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.module_value is not None:
+            result['ModuleValue'] = self.module_value.to_map()
+        if self.stock_value is not None:
+            result['StockValue'] = self.stock_value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ModuleValue') is not None:
+            temp_model = DescribeEnsSaleControlStockResponseBodySaleControlSaleControlItemsSaleControlItemBasicSaleControlModuleValue()
+            self.module_value = temp_model.from_map(m['ModuleValue'])
+        if m.get('StockValue') is not None:
+            self.stock_value = m.get('StockValue')
+        return self
+
+
+class DescribeEnsSaleControlStockResponseBodySaleControlSaleControlItemsSaleControlItemConditionSaleControlConditionControl(TeaModel):
+    def __init__(self, condition_control_module_code=None, condition_control_module_value=None):
+        self.condition_control_module_code = condition_control_module_code  # type: str
+        self.condition_control_module_value = condition_control_module_value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeEnsSaleControlStockResponseBodySaleControlSaleControlItemsSaleControlItemConditionSaleControlConditionControl, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.condition_control_module_code is not None:
+            result['ConditionControlModuleCode'] = self.condition_control_module_code
+        if self.condition_control_module_value is not None:
+            result['ConditionControlModuleValue'] = self.condition_control_module_value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ConditionControlModuleCode') is not None:
+            self.condition_control_module_code = m.get('ConditionControlModuleCode')
+        if m.get('ConditionControlModuleValue') is not None:
+            self.condition_control_module_value = m.get('ConditionControlModuleValue')
+        return self
+
+
+class DescribeEnsSaleControlStockResponseBodySaleControlSaleControlItemsSaleControlItemConditionSaleControlModuleValue(TeaModel):
+    def __init__(self, module_max_value=None, module_min_value=None):
+        self.module_max_value = module_max_value  # type: str
+        self.module_min_value = module_min_value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeEnsSaleControlStockResponseBodySaleControlSaleControlItemsSaleControlItemConditionSaleControlModuleValue, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.module_max_value is not None:
+            result['ModuleMaxValue'] = self.module_max_value
+        if self.module_min_value is not None:
+            result['ModuleMinValue'] = self.module_min_value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ModuleMaxValue') is not None:
+            self.module_max_value = m.get('ModuleMaxValue')
+        if m.get('ModuleMinValue') is not None:
+            self.module_min_value = m.get('ModuleMinValue')
+        return self
+
+
+class DescribeEnsSaleControlStockResponseBodySaleControlSaleControlItemsSaleControlItemConditionSaleControl(TeaModel):
+    def __init__(self, condition_control=None, module_value=None, stock_value=None):
+        self.condition_control = condition_control  # type: DescribeEnsSaleControlStockResponseBodySaleControlSaleControlItemsSaleControlItemConditionSaleControlConditionControl
+        self.module_value = module_value  # type: DescribeEnsSaleControlStockResponseBodySaleControlSaleControlItemsSaleControlItemConditionSaleControlModuleValue
+        self.stock_value = stock_value  # type: str
+
+    def validate(self):
+        if self.condition_control:
+            self.condition_control.validate()
+        if self.module_value:
+            self.module_value.validate()
+
+    def to_map(self):
+        _map = super(DescribeEnsSaleControlStockResponseBodySaleControlSaleControlItemsSaleControlItemConditionSaleControl, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.condition_control is not None:
+            result['ConditionControl'] = self.condition_control.to_map()
+        if self.module_value is not None:
+            result['ModuleValue'] = self.module_value.to_map()
+        if self.stock_value is not None:
+            result['StockValue'] = self.stock_value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ConditionControl') is not None:
+            temp_model = DescribeEnsSaleControlStockResponseBodySaleControlSaleControlItemsSaleControlItemConditionSaleControlConditionControl()
+            self.condition_control = temp_model.from_map(m['ConditionControl'])
+        if m.get('ModuleValue') is not None:
+            temp_model = DescribeEnsSaleControlStockResponseBodySaleControlSaleControlItemsSaleControlItemConditionSaleControlModuleValue()
+            self.module_value = temp_model.from_map(m['ModuleValue'])
+        if m.get('StockValue') is not None:
+            self.stock_value = m.get('StockValue')
+        return self
+
+
+class DescribeEnsSaleControlStockResponseBodySaleControlSaleControlItemsSaleControlItem(TeaModel):
+    def __init__(self, basic_sale_control=None, condition_sale_control=None):
+        self.basic_sale_control = basic_sale_control  # type: DescribeEnsSaleControlStockResponseBodySaleControlSaleControlItemsSaleControlItemBasicSaleControl
+        self.condition_sale_control = condition_sale_control  # type: list[DescribeEnsSaleControlStockResponseBodySaleControlSaleControlItemsSaleControlItemConditionSaleControl]
+
+    def validate(self):
+        if self.basic_sale_control:
+            self.basic_sale_control.validate()
+        if self.condition_sale_control:
+            for k in self.condition_sale_control:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeEnsSaleControlStockResponseBodySaleControlSaleControlItemsSaleControlItem, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.basic_sale_control is not None:
+            result['BasicSaleControl'] = self.basic_sale_control.to_map()
+        result['ConditionSaleControl'] = []
+        if self.condition_sale_control is not None:
+            for k in self.condition_sale_control:
+                result['ConditionSaleControl'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BasicSaleControl') is not None:
+            temp_model = DescribeEnsSaleControlStockResponseBodySaleControlSaleControlItemsSaleControlItemBasicSaleControl()
+            self.basic_sale_control = temp_model.from_map(m['BasicSaleControl'])
+        self.condition_sale_control = []
+        if m.get('ConditionSaleControl') is not None:
+            for k in m.get('ConditionSaleControl'):
+                temp_model = DescribeEnsSaleControlStockResponseBodySaleControlSaleControlItemsSaleControlItemConditionSaleControl()
+                self.condition_sale_control.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeEnsSaleControlStockResponseBodySaleControlSaleControlItems(TeaModel):
+    def __init__(self, module_code=None, sale_control_item=None):
+        self.module_code = module_code  # type: str
+        self.sale_control_item = sale_control_item  # type: DescribeEnsSaleControlStockResponseBodySaleControlSaleControlItemsSaleControlItem
+
+    def validate(self):
+        if self.sale_control_item:
+            self.sale_control_item.validate()
+
+    def to_map(self):
+        _map = super(DescribeEnsSaleControlStockResponseBodySaleControlSaleControlItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.module_code is not None:
+            result['ModuleCode'] = self.module_code
+        if self.sale_control_item is not None:
+            result['SaleControlItem'] = self.sale_control_item.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ModuleCode') is not None:
+            self.module_code = m.get('ModuleCode')
+        if m.get('SaleControlItem') is not None:
+            temp_model = DescribeEnsSaleControlStockResponseBodySaleControlSaleControlItemsSaleControlItem()
+            self.sale_control_item = temp_model.from_map(m['SaleControlItem'])
+        return self
+
+
+class DescribeEnsSaleControlStockResponseBodySaleControl(TeaModel):
+    def __init__(self, commodity_code=None, order_type=None, sale_control_items=None):
+        self.commodity_code = commodity_code  # type: str
+        self.order_type = order_type  # type: str
+        self.sale_control_items = sale_control_items  # type: list[DescribeEnsSaleControlStockResponseBodySaleControlSaleControlItems]
+
+    def validate(self):
+        if self.sale_control_items:
+            for k in self.sale_control_items:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeEnsSaleControlStockResponseBodySaleControl, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.commodity_code is not None:
+            result['CommodityCode'] = self.commodity_code
+        if self.order_type is not None:
+            result['OrderType'] = self.order_type
+        result['SaleControlItems'] = []
+        if self.sale_control_items is not None:
+            for k in self.sale_control_items:
+                result['SaleControlItems'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CommodityCode') is not None:
+            self.commodity_code = m.get('CommodityCode')
+        if m.get('OrderType') is not None:
+            self.order_type = m.get('OrderType')
+        self.sale_control_items = []
+        if m.get('SaleControlItems') is not None:
+            for k in m.get('SaleControlItems'):
+                temp_model = DescribeEnsSaleControlStockResponseBodySaleControlSaleControlItems()
+                self.sale_control_items.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeEnsSaleControlStockResponseBody(TeaModel):
+    def __init__(self, request_id=None, sale_control=None):
+        self.request_id = request_id  # type: str
+        self.sale_control = sale_control  # type: list[DescribeEnsSaleControlStockResponseBodySaleControl]
+
+    def validate(self):
+        if self.sale_control:
+            for k in self.sale_control:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeEnsSaleControlStockResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        result['SaleControl'] = []
+        if self.sale_control is not None:
+            for k in self.sale_control:
+                result['SaleControl'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        self.sale_control = []
+        if m.get('SaleControl') is not None:
+            for k in m.get('SaleControl'):
+                temp_model = DescribeEnsSaleControlStockResponseBodySaleControl()
+                self.sale_control.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeEnsSaleControlStockResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeEnsSaleControlStockResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeEnsSaleControlStockResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeEnsSaleControlStockResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -22073,6 +24387,224 @@ class DescribePriceResponse(TeaModel):
         return self
 
 
+class DescribeRegionBandwidthQuotaRequest(TeaModel):
+    def __init__(self, region_id=None):
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeRegionBandwidthQuotaRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class DescribeRegionBandwidthQuotaResponseBodyBandwidthQuotaBandwidthInfo(TeaModel):
+    def __init__(self, month_average_quota=None, month_max=None, week_average_quota=None, week_max=None):
+        self.month_average_quota = month_average_quota  # type: long
+        self.month_max = month_max  # type: long
+        self.week_average_quota = week_average_quota  # type: long
+        self.week_max = week_max  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeRegionBandwidthQuotaResponseBodyBandwidthQuotaBandwidthInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.month_average_quota is not None:
+            result['MonthAverageQuota'] = self.month_average_quota
+        if self.month_max is not None:
+            result['MonthMax'] = self.month_max
+        if self.week_average_quota is not None:
+            result['WeekAverageQuota'] = self.week_average_quota
+        if self.week_max is not None:
+            result['WeekMax'] = self.week_max
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('MonthAverageQuota') is not None:
+            self.month_average_quota = m.get('MonthAverageQuota')
+        if m.get('MonthMax') is not None:
+            self.month_max = m.get('MonthMax')
+        if m.get('WeekAverageQuota') is not None:
+            self.week_average_quota = m.get('WeekAverageQuota')
+        if m.get('WeekMax') is not None:
+            self.week_max = m.get('WeekMax')
+        return self
+
+
+class DescribeRegionBandwidthQuotaResponseBodyBandwidthQuotaInstanceInfo(TeaModel):
+    def __init__(self, instance_number=None, instance_spec=None):
+        self.instance_number = instance_number  # type: long
+        self.instance_spec = instance_spec  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeRegionBandwidthQuotaResponseBodyBandwidthQuotaInstanceInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_number is not None:
+            result['InstanceNumber'] = self.instance_number
+        if self.instance_spec is not None:
+            result['InstanceSpec'] = self.instance_spec
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InstanceNumber') is not None:
+            self.instance_number = m.get('InstanceNumber')
+        if m.get('InstanceSpec') is not None:
+            self.instance_spec = m.get('InstanceSpec')
+        return self
+
+
+class DescribeRegionBandwidthQuotaResponseBodyBandwidthQuota(TeaModel):
+    def __init__(self, bandwidth_info=None, date=None, instance_info=None, region_id=None):
+        self.bandwidth_info = bandwidth_info  # type: DescribeRegionBandwidthQuotaResponseBodyBandwidthQuotaBandwidthInfo
+        self.date = date  # type: str
+        self.instance_info = instance_info  # type: list[DescribeRegionBandwidthQuotaResponseBodyBandwidthQuotaInstanceInfo]
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        if self.bandwidth_info:
+            self.bandwidth_info.validate()
+        if self.instance_info:
+            for k in self.instance_info:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeRegionBandwidthQuotaResponseBodyBandwidthQuota, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.bandwidth_info is not None:
+            result['BandwidthInfo'] = self.bandwidth_info.to_map()
+        if self.date is not None:
+            result['Date'] = self.date
+        result['InstanceInfo'] = []
+        if self.instance_info is not None:
+            for k in self.instance_info:
+                result['InstanceInfo'].append(k.to_map() if k else None)
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BandwidthInfo') is not None:
+            temp_model = DescribeRegionBandwidthQuotaResponseBodyBandwidthQuotaBandwidthInfo()
+            self.bandwidth_info = temp_model.from_map(m['BandwidthInfo'])
+        if m.get('Date') is not None:
+            self.date = m.get('Date')
+        self.instance_info = []
+        if m.get('InstanceInfo') is not None:
+            for k in m.get('InstanceInfo'):
+                temp_model = DescribeRegionBandwidthQuotaResponseBodyBandwidthQuotaInstanceInfo()
+                self.instance_info.append(temp_model.from_map(k))
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class DescribeRegionBandwidthQuotaResponseBody(TeaModel):
+    def __init__(self, bandwidth_quota=None, request_id=None):
+        self.bandwidth_quota = bandwidth_quota  # type: list[DescribeRegionBandwidthQuotaResponseBodyBandwidthQuota]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.bandwidth_quota:
+            for k in self.bandwidth_quota:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeRegionBandwidthQuotaResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['BandwidthQuota'] = []
+        if self.bandwidth_quota is not None:
+            for k in self.bandwidth_quota:
+                result['BandwidthQuota'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.bandwidth_quota = []
+        if m.get('BandwidthQuota') is not None:
+            for k in m.get('BandwidthQuota'):
+                temp_model = DescribeRegionBandwidthQuotaResponseBodyBandwidthQuota()
+                self.bandwidth_quota.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeRegionBandwidthQuotaResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeRegionBandwidthQuotaResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeRegionBandwidthQuotaResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeRegionBandwidthQuotaResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeRegionIspsRequest(TeaModel):
     def __init__(self, ens_region_id=None):
         self.ens_region_id = ens_region_id  # type: str
@@ -29326,8 +31858,9 @@ class ReInitDiskResponse(TeaModel):
 
 
 class RebootAICInstanceRequest(TeaModel):
-    def __init__(self, instance_id=None, server_id=None):
+    def __init__(self, instance_id=None, instance_ids=None, server_id=None):
         self.instance_id = instance_id  # type: str
+        self.instance_ids = instance_ids  # type: list[str]
         self.server_id = server_id  # type: str
 
     def validate(self):
@@ -29341,6 +31874,8 @@ class RebootAICInstanceRequest(TeaModel):
         result = dict()
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.instance_ids is not None:
+            result['InstanceIds'] = self.instance_ids
         if self.server_id is not None:
             result['ServerId'] = self.server_id
         return result
@@ -29349,6 +31884,42 @@ class RebootAICInstanceRequest(TeaModel):
         m = m or dict()
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('InstanceIds') is not None:
+            self.instance_ids = m.get('InstanceIds')
+        if m.get('ServerId') is not None:
+            self.server_id = m.get('ServerId')
+        return self
+
+
+class RebootAICInstanceShrinkRequest(TeaModel):
+    def __init__(self, instance_id=None, instance_ids_shrink=None, server_id=None):
+        self.instance_id = instance_id  # type: str
+        self.instance_ids_shrink = instance_ids_shrink  # type: str
+        self.server_id = server_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RebootAICInstanceShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.instance_ids_shrink is not None:
+            result['InstanceIds'] = self.instance_ids_shrink
+        if self.server_id is not None:
+            result['ServerId'] = self.server_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('InstanceIds') is not None:
+            self.instance_ids_shrink = m.get('InstanceIds')
         if m.get('ServerId') is not None:
             self.server_id = m.get('ServerId')
         return self
@@ -29418,8 +31989,9 @@ class RebootAICInstanceResponse(TeaModel):
 
 
 class RebootARMServerInstanceRequest(TeaModel):
-    def __init__(self, server_id=None):
+    def __init__(self, server_id=None, server_ids=None):
         self.server_id = server_id  # type: str
+        self.server_ids = server_ids  # type: list[str]
 
     def validate(self):
         pass
@@ -29432,12 +32004,45 @@ class RebootARMServerInstanceRequest(TeaModel):
         result = dict()
         if self.server_id is not None:
             result['ServerId'] = self.server_id
+        if self.server_ids is not None:
+            result['ServerIds'] = self.server_ids
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('ServerId') is not None:
             self.server_id = m.get('ServerId')
+        if m.get('ServerIds') is not None:
+            self.server_ids = m.get('ServerIds')
+        return self
+
+
+class RebootARMServerInstanceShrinkRequest(TeaModel):
+    def __init__(self, server_id=None, server_ids_shrink=None):
+        self.server_id = server_id  # type: str
+        self.server_ids_shrink = server_ids_shrink  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RebootARMServerInstanceShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.server_id is not None:
+            result['ServerId'] = self.server_id
+        if self.server_ids_shrink is not None:
+            result['ServerIds'] = self.server_ids_shrink
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ServerId') is not None:
+            self.server_id = m.get('ServerId')
+        if m.get('ServerIds') is not None:
+            self.server_ids_shrink = m.get('ServerIds')
         return self
 
 
@@ -31447,8 +34052,9 @@ class RescaleDeviceServiceResponse(TeaModel):
 
 
 class ResetAICInstanceRequest(TeaModel):
-    def __init__(self, instance_id=None, server_id=None):
+    def __init__(self, instance_id=None, instance_ids=None, server_id=None):
         self.instance_id = instance_id  # type: str
+        self.instance_ids = instance_ids  # type: list[str]
         self.server_id = server_id  # type: str
 
     def validate(self):
@@ -31462,6 +34068,8 @@ class ResetAICInstanceRequest(TeaModel):
         result = dict()
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.instance_ids is not None:
+            result['InstanceIds'] = self.instance_ids
         if self.server_id is not None:
             result['ServerId'] = self.server_id
         return result
@@ -31470,6 +34078,42 @@ class ResetAICInstanceRequest(TeaModel):
         m = m or dict()
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('InstanceIds') is not None:
+            self.instance_ids = m.get('InstanceIds')
+        if m.get('ServerId') is not None:
+            self.server_id = m.get('ServerId')
+        return self
+
+
+class ResetAICInstanceShrinkRequest(TeaModel):
+    def __init__(self, instance_id=None, instance_ids_shrink=None, server_id=None):
+        self.instance_id = instance_id  # type: str
+        self.instance_ids_shrink = instance_ids_shrink  # type: str
+        self.server_id = server_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ResetAICInstanceShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.instance_ids_shrink is not None:
+            result['InstanceIds'] = self.instance_ids_shrink
+        if self.server_id is not None:
+            result['ServerId'] = self.server_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('InstanceIds') is not None:
+            self.instance_ids_shrink = m.get('InstanceIds')
         if m.get('ServerId') is not None:
             self.server_id = m.get('ServerId')
         return self
@@ -32320,11 +34964,11 @@ class RunInstancesRequestSystemDisk(TeaModel):
 
 class RunInstancesRequest(TeaModel):
     def __init__(self, amount=None, auto_renew=None, carrier=None, data_disk=None, ens_region_id=None,
-                 host_name=None, image_id=None, instance_charge_type=None, instance_name=None, instance_type=None,
-                 internet_charge_type=None, internet_max_bandwidth_out=None, key_pair_name=None, net_district_code=None,
-                 net_work_id=None, password=None, password_inherit=None, period=None, period_unit=None, private_ip_address=None,
-                 public_ip_identification=None, schedule_area_level=None, scheduling_price_strategy=None, scheduling_strategy=None,
-                 security_id=None, system_disk=None, unique_suffix=None, user_data=None, v_switch_id=None):
+                 host_name=None, image_id=None, instance_charge_strategy=None, instance_charge_type=None, instance_name=None,
+                 instance_type=None, internet_charge_type=None, internet_max_bandwidth_out=None, key_pair_name=None,
+                 net_district_code=None, net_work_id=None, password=None, password_inherit=None, period=None, period_unit=None,
+                 private_ip_address=None, public_ip_identification=None, schedule_area_level=None, scheduling_price_strategy=None,
+                 scheduling_strategy=None, security_id=None, system_disk=None, unique_suffix=None, user_data=None, v_switch_id=None):
         self.amount = amount  # type: long
         self.auto_renew = auto_renew  # type: bool
         self.carrier = carrier  # type: str
@@ -32332,6 +34976,7 @@ class RunInstancesRequest(TeaModel):
         self.ens_region_id = ens_region_id  # type: str
         self.host_name = host_name  # type: str
         self.image_id = image_id  # type: str
+        self.instance_charge_strategy = instance_charge_strategy  # type: str
         self.instance_charge_type = instance_charge_type  # type: str
         self.instance_name = instance_name  # type: str
         self.instance_type = instance_type  # type: str
@@ -32385,6 +35030,8 @@ class RunInstancesRequest(TeaModel):
             result['HostName'] = self.host_name
         if self.image_id is not None:
             result['ImageId'] = self.image_id
+        if self.instance_charge_strategy is not None:
+            result['InstanceChargeStrategy'] = self.instance_charge_strategy
         if self.instance_charge_type is not None:
             result['InstanceChargeType'] = self.instance_charge_type
         if self.instance_name is not None:
@@ -32450,6 +35097,8 @@ class RunInstancesRequest(TeaModel):
             self.host_name = m.get('HostName')
         if m.get('ImageId') is not None:
             self.image_id = m.get('ImageId')
+        if m.get('InstanceChargeStrategy') is not None:
+            self.instance_charge_strategy = m.get('InstanceChargeStrategy')
         if m.get('InstanceChargeType') is not None:
             self.instance_charge_type = m.get('InstanceChargeType')
         if m.get('InstanceName') is not None:
@@ -32500,11 +35149,12 @@ class RunInstancesRequest(TeaModel):
 
 class RunInstancesShrinkRequest(TeaModel):
     def __init__(self, amount=None, auto_renew=None, carrier=None, data_disk_shrink=None, ens_region_id=None,
-                 host_name=None, image_id=None, instance_charge_type=None, instance_name=None, instance_type=None,
-                 internet_charge_type=None, internet_max_bandwidth_out=None, key_pair_name=None, net_district_code=None,
-                 net_work_id=None, password=None, password_inherit=None, period=None, period_unit=None, private_ip_address=None,
-                 public_ip_identification=None, schedule_area_level=None, scheduling_price_strategy=None, scheduling_strategy=None,
-                 security_id=None, system_disk_shrink=None, unique_suffix=None, user_data=None, v_switch_id=None):
+                 host_name=None, image_id=None, instance_charge_strategy=None, instance_charge_type=None, instance_name=None,
+                 instance_type=None, internet_charge_type=None, internet_max_bandwidth_out=None, key_pair_name=None,
+                 net_district_code=None, net_work_id=None, password=None, password_inherit=None, period=None, period_unit=None,
+                 private_ip_address=None, public_ip_identification=None, schedule_area_level=None, scheduling_price_strategy=None,
+                 scheduling_strategy=None, security_id=None, system_disk_shrink=None, unique_suffix=None, user_data=None,
+                 v_switch_id=None):
         self.amount = amount  # type: long
         self.auto_renew = auto_renew  # type: bool
         self.carrier = carrier  # type: str
@@ -32512,6 +35162,7 @@ class RunInstancesShrinkRequest(TeaModel):
         self.ens_region_id = ens_region_id  # type: str
         self.host_name = host_name  # type: str
         self.image_id = image_id  # type: str
+        self.instance_charge_strategy = instance_charge_strategy  # type: str
         self.instance_charge_type = instance_charge_type  # type: str
         self.instance_name = instance_name  # type: str
         self.instance_type = instance_type  # type: str
@@ -32558,6 +35209,8 @@ class RunInstancesShrinkRequest(TeaModel):
             result['HostName'] = self.host_name
         if self.image_id is not None:
             result['ImageId'] = self.image_id
+        if self.instance_charge_strategy is not None:
+            result['InstanceChargeStrategy'] = self.instance_charge_strategy
         if self.instance_charge_type is not None:
             result['InstanceChargeType'] = self.instance_charge_type
         if self.instance_name is not None:
@@ -32620,6 +35273,8 @@ class RunInstancesShrinkRequest(TeaModel):
             self.host_name = m.get('HostName')
         if m.get('ImageId') is not None:
             self.image_id = m.get('ImageId')
+        if m.get('InstanceChargeStrategy') is not None:
+            self.instance_charge_strategy = m.get('InstanceChargeStrategy')
         if m.get('InstanceChargeType') is not None:
             self.instance_charge_type = m.get('InstanceChargeType')
         if m.get('InstanceName') is not None:
@@ -35069,6 +37724,269 @@ class UnassociateNetworkAclResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = UnassociateNetworkAclResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UpdateEnsSaleControlRequestSaleControlsConditionControls(TeaModel):
+    def __init__(self, condition_control_module_code=None, condition_control_module_value=None):
+        self.condition_control_module_code = condition_control_module_code  # type: str
+        self.condition_control_module_value = condition_control_module_value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateEnsSaleControlRequestSaleControlsConditionControls, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.condition_control_module_code is not None:
+            result['ConditionControlModuleCode'] = self.condition_control_module_code
+        if self.condition_control_module_value is not None:
+            result['ConditionControlModuleValue'] = self.condition_control_module_value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ConditionControlModuleCode') is not None:
+            self.condition_control_module_code = m.get('ConditionControlModuleCode')
+        if m.get('ConditionControlModuleValue') is not None:
+            self.condition_control_module_value = m.get('ConditionControlModuleValue')
+        return self
+
+
+class UpdateEnsSaleControlRequestSaleControlsModuleValue(TeaModel):
+    def __init__(self, module_max_value=None, module_min_value=None, module_value=None):
+        self.module_max_value = module_max_value  # type: str
+        self.module_min_value = module_min_value  # type: str
+        self.module_value = module_value  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateEnsSaleControlRequestSaleControlsModuleValue, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.module_max_value is not None:
+            result['ModuleMaxValue'] = self.module_max_value
+        if self.module_min_value is not None:
+            result['ModuleMinValue'] = self.module_min_value
+        if self.module_value is not None:
+            result['ModuleValue'] = self.module_value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ModuleMaxValue') is not None:
+            self.module_max_value = m.get('ModuleMaxValue')
+        if m.get('ModuleMinValue') is not None:
+            self.module_min_value = m.get('ModuleMinValue')
+        if m.get('ModuleValue') is not None:
+            self.module_value = m.get('ModuleValue')
+        return self
+
+
+class UpdateEnsSaleControlRequestSaleControls(TeaModel):
+    def __init__(self, condition_controls=None, description=None, module_code=None, module_value=None,
+                 operator=None, order_type=None):
+        self.condition_controls = condition_controls  # type: list[UpdateEnsSaleControlRequestSaleControlsConditionControls]
+        self.description = description  # type: str
+        self.module_code = module_code  # type: str
+        self.module_value = module_value  # type: UpdateEnsSaleControlRequestSaleControlsModuleValue
+        self.operator = operator  # type: str
+        self.order_type = order_type  # type: str
+
+    def validate(self):
+        if self.condition_controls:
+            for k in self.condition_controls:
+                if k:
+                    k.validate()
+        if self.module_value:
+            self.module_value.validate()
+
+    def to_map(self):
+        _map = super(UpdateEnsSaleControlRequestSaleControls, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['ConditionControls'] = []
+        if self.condition_controls is not None:
+            for k in self.condition_controls:
+                result['ConditionControls'].append(k.to_map() if k else None)
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.module_code is not None:
+            result['ModuleCode'] = self.module_code
+        if self.module_value is not None:
+            result['ModuleValue'] = self.module_value.to_map()
+        if self.operator is not None:
+            result['Operator'] = self.operator
+        if self.order_type is not None:
+            result['OrderType'] = self.order_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.condition_controls = []
+        if m.get('ConditionControls') is not None:
+            for k in m.get('ConditionControls'):
+                temp_model = UpdateEnsSaleControlRequestSaleControlsConditionControls()
+                self.condition_controls.append(temp_model.from_map(k))
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('ModuleCode') is not None:
+            self.module_code = m.get('ModuleCode')
+        if m.get('ModuleValue') is not None:
+            temp_model = UpdateEnsSaleControlRequestSaleControlsModuleValue()
+            self.module_value = temp_model.from_map(m['ModuleValue'])
+        if m.get('Operator') is not None:
+            self.operator = m.get('Operator')
+        if m.get('OrderType') is not None:
+            self.order_type = m.get('OrderType')
+        return self
+
+
+class UpdateEnsSaleControlRequest(TeaModel):
+    def __init__(self, ali_uid_account=None, commodity_code=None, sale_controls=None):
+        self.ali_uid_account = ali_uid_account  # type: str
+        self.commodity_code = commodity_code  # type: str
+        self.sale_controls = sale_controls  # type: list[UpdateEnsSaleControlRequestSaleControls]
+
+    def validate(self):
+        if self.sale_controls:
+            for k in self.sale_controls:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(UpdateEnsSaleControlRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ali_uid_account is not None:
+            result['AliUidAccount'] = self.ali_uid_account
+        if self.commodity_code is not None:
+            result['CommodityCode'] = self.commodity_code
+        result['SaleControls'] = []
+        if self.sale_controls is not None:
+            for k in self.sale_controls:
+                result['SaleControls'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AliUidAccount') is not None:
+            self.ali_uid_account = m.get('AliUidAccount')
+        if m.get('CommodityCode') is not None:
+            self.commodity_code = m.get('CommodityCode')
+        self.sale_controls = []
+        if m.get('SaleControls') is not None:
+            for k in m.get('SaleControls'):
+                temp_model = UpdateEnsSaleControlRequestSaleControls()
+                self.sale_controls.append(temp_model.from_map(k))
+        return self
+
+
+class UpdateEnsSaleControlShrinkRequest(TeaModel):
+    def __init__(self, ali_uid_account=None, commodity_code=None, sale_controls_shrink=None):
+        self.ali_uid_account = ali_uid_account  # type: str
+        self.commodity_code = commodity_code  # type: str
+        self.sale_controls_shrink = sale_controls_shrink  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateEnsSaleControlShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ali_uid_account is not None:
+            result['AliUidAccount'] = self.ali_uid_account
+        if self.commodity_code is not None:
+            result['CommodityCode'] = self.commodity_code
+        if self.sale_controls_shrink is not None:
+            result['SaleControls'] = self.sale_controls_shrink
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AliUidAccount') is not None:
+            self.ali_uid_account = m.get('AliUidAccount')
+        if m.get('CommodityCode') is not None:
+            self.commodity_code = m.get('CommodityCode')
+        if m.get('SaleControls') is not None:
+            self.sale_controls_shrink = m.get('SaleControls')
+        return self
+
+
+class UpdateEnsSaleControlResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateEnsSaleControlResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class UpdateEnsSaleControlResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UpdateEnsSaleControlResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdateEnsSaleControlResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UpdateEnsSaleControlResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
