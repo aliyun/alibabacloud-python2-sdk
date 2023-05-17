@@ -50,6 +50,36 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
+    def describe_image_result_ext_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.info_type):
+            body['InfoType'] = request.info_type
+        if not UtilClient.is_unset(request.req_id):
+            body['ReqId'] = request.req_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DescribeImageResultExt',
+            version='2022-03-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            green_20220302_models.DescribeImageResultExtResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_image_result_ext(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_image_result_ext_with_options(request, runtime)
+
     def image_moderation_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}

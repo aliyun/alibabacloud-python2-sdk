@@ -3,6 +3,255 @@
 from Tea.model import TeaModel
 
 
+class DescribeImageResultExtRequest(TeaModel):
+    def __init__(self, info_type=None, req_id=None):
+        self.info_type = info_type  # type: str
+        self.req_id = req_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeImageResultExtRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.info_type is not None:
+            result['InfoType'] = self.info_type
+        if self.req_id is not None:
+            result['ReqId'] = self.req_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InfoType') is not None:
+            self.info_type = m.get('InfoType')
+        if m.get('ReqId') is not None:
+            self.req_id = m.get('ReqId')
+        return self
+
+
+class DescribeImageResultExtResponseBodyDataCustomImage(TeaModel):
+    def __init__(self, image_id=None, lib_id=None, lib_name=None):
+        # 图片ID。
+        self.image_id = image_id  # type: str
+        # 图库ID。
+        self.lib_id = lib_id  # type: str
+        # 图库名。
+        self.lib_name = lib_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeImageResultExtResponseBodyDataCustomImage, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.image_id is not None:
+            result['ImageId'] = self.image_id
+        if self.lib_id is not None:
+            result['LibId'] = self.lib_id
+        if self.lib_name is not None:
+            result['LibName'] = self.lib_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ImageId') is not None:
+            self.image_id = m.get('ImageId')
+        if m.get('LibId') is not None:
+            self.lib_id = m.get('LibId')
+        if m.get('LibName') is not None:
+            self.lib_name = m.get('LibName')
+        return self
+
+
+class DescribeImageResultExtResponseBodyDataPublicFigure(TeaModel):
+    def __init__(self, figure_id=None):
+        # 人物ID。
+        self.figure_id = figure_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeImageResultExtResponseBodyDataPublicFigure, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.figure_id is not None:
+            result['FigureId'] = self.figure_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('FigureId') is not None:
+            self.figure_id = m.get('FigureId')
+        return self
+
+
+class DescribeImageResultExtResponseBodyDataTextInImage(TeaModel):
+    def __init__(self, ocr_datas=None):
+        self.ocr_datas = ocr_datas  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeImageResultExtResponseBodyDataTextInImage, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ocr_datas is not None:
+            result['OcrDatas'] = self.ocr_datas
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('OcrDatas') is not None:
+            self.ocr_datas = m.get('OcrDatas')
+        return self
+
+
+class DescribeImageResultExtResponseBodyData(TeaModel):
+    def __init__(self, custom_image=None, public_figure=None, text_in_image=None):
+        self.custom_image = custom_image  # type: list[DescribeImageResultExtResponseBodyDataCustomImage]
+        self.public_figure = public_figure  # type: list[DescribeImageResultExtResponseBodyDataPublicFigure]
+        self.text_in_image = text_in_image  # type: DescribeImageResultExtResponseBodyDataTextInImage
+
+    def validate(self):
+        if self.custom_image:
+            for k in self.custom_image:
+                if k:
+                    k.validate()
+        if self.public_figure:
+            for k in self.public_figure:
+                if k:
+                    k.validate()
+        if self.text_in_image:
+            self.text_in_image.validate()
+
+    def to_map(self):
+        _map = super(DescribeImageResultExtResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['CustomImage'] = []
+        if self.custom_image is not None:
+            for k in self.custom_image:
+                result['CustomImage'].append(k.to_map() if k else None)
+        result['PublicFigure'] = []
+        if self.public_figure is not None:
+            for k in self.public_figure:
+                result['PublicFigure'].append(k.to_map() if k else None)
+        if self.text_in_image is not None:
+            result['TextInImage'] = self.text_in_image.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.custom_image = []
+        if m.get('CustomImage') is not None:
+            for k in m.get('CustomImage'):
+                temp_model = DescribeImageResultExtResponseBodyDataCustomImage()
+                self.custom_image.append(temp_model.from_map(k))
+        self.public_figure = []
+        if m.get('PublicFigure') is not None:
+            for k in m.get('PublicFigure'):
+                temp_model = DescribeImageResultExtResponseBodyDataPublicFigure()
+                self.public_figure.append(temp_model.from_map(k))
+        if m.get('TextInImage') is not None:
+            temp_model = DescribeImageResultExtResponseBodyDataTextInImage()
+            self.text_in_image = temp_model.from_map(m['TextInImage'])
+        return self
+
+
+class DescribeImageResultExtResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, msg=None, request_id=None):
+        self.code = code  # type: int
+        self.data = data  # type: DescribeImageResultExtResponseBodyData
+        self.msg = msg  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(DescribeImageResultExtResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.msg is not None:
+            result['Msg'] = self.msg
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = DescribeImageResultExtResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Msg') is not None:
+            self.msg = m.get('Msg')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeImageResultExtResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeImageResultExtResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeImageResultExtResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeImageResultExtResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ImageModerationRequest(TeaModel):
     def __init__(self, service=None, service_parameters=None):
         self.service = service  # type: str
