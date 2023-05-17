@@ -111,6 +111,10 @@ class Client(OpenApiClient):
             body['EcsInstanceCount'] = request.ecs_instance_count
         if not UtilClient.is_unset(request.ecs_instance_type):
             body['EcsInstanceType'] = request.ecs_instance_type
+        if not UtilClient.is_unset(request.system_disk_size):
+            body['SystemDiskSize'] = request.system_disk_size
+        if not UtilClient.is_unset(request.zone):
+            body['Zone'] = request.zone
         req = open_api_models.OpenApiRequest(
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
@@ -147,8 +151,12 @@ class Client(OpenApiClient):
             body['EcsInstanceCount'] = request.ecs_instance_count
         if not UtilClient.is_unset(request.ecs_instance_type):
             body['EcsInstanceType'] = request.ecs_instance_type
+        if not UtilClient.is_unset(request.system_disk_size):
+            body['SystemDiskSize'] = request.system_disk_size
         if not UtilClient.is_unset(request.user_data):
             body['UserData'] = request.user_data
+        if not UtilClient.is_unset(request.zone):
+            body['Zone'] = request.zone
         req = open_api_models.OpenApiRequest(
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
@@ -246,6 +254,8 @@ class Client(OpenApiClient):
     def create_service_auto_scaler_with_options(self, cluster_id, service_name, request, headers, runtime):
         UtilClient.validate_model(request)
         body = {}
+        if not UtilClient.is_unset(request.behavior):
+            body['behavior'] = request.behavior
         if not UtilClient.is_unset(request.max):
             body['max'] = request.max
         if not UtilClient.is_unset(request.min):
@@ -872,6 +882,10 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.end_time):
             query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.event_type):
+            query['EventType'] = request.event_type
+        if not UtilClient.is_unset(request.instance_name):
+            query['InstanceName'] = request.instance_name
         if not UtilClient.is_unset(request.page_num):
             query['PageNum'] = request.page_num
         if not UtilClient.is_unset(request.page_size):
@@ -906,8 +920,12 @@ class Client(OpenApiClient):
     def describe_service_log_with_options(self, cluster_id, service_name, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.container_name):
+            query['ContainerName'] = request.container_name
         if not UtilClient.is_unset(request.end_time):
             query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.instance_name):
+            query['InstanceName'] = request.instance_name
         if not UtilClient.is_unset(request.ip):
             query['Ip'] = request.ip
         if not UtilClient.is_unset(request.keyword):
@@ -916,6 +934,8 @@ class Client(OpenApiClient):
             query['PageNum'] = request.page_num
         if not UtilClient.is_unset(request.page_size):
             query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.previous):
+            query['Previous'] = request.previous
         if not UtilClient.is_unset(request.start_time):
             query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
@@ -1105,14 +1125,24 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.charge_type):
             query['ChargeType'] = request.charge_type
+        if not UtilClient.is_unset(request.filter):
+            query['Filter'] = request.filter
+        if not UtilClient.is_unset(request.instance_ip):
+            query['InstanceIP'] = request.instance_ip
         if not UtilClient.is_unset(request.instance_id):
             query['InstanceId'] = request.instance_id
         if not UtilClient.is_unset(request.instance_name):
             query['InstanceName'] = request.instance_name
+        if not UtilClient.is_unset(request.instance_status):
+            query['InstanceStatus'] = request.instance_status
+        if not UtilClient.is_unset(request.order):
+            query['Order'] = request.order
         if not UtilClient.is_unset(request.page_number):
             query['PageNumber'] = request.page_number
         if not UtilClient.is_unset(request.page_size):
             query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.sort):
+            query['Sort'] = request.sort
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)
@@ -1209,10 +1239,32 @@ class Client(OpenApiClient):
     def list_service_instances_with_options(self, cluster_id, service_name, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.filter):
+            query['Filter'] = request.filter
+        if not UtilClient.is_unset(request.host_ip):
+            query['HostIP'] = request.host_ip
+        if not UtilClient.is_unset(request.instance_ip):
+            query['InstanceIP'] = request.instance_ip
+        if not UtilClient.is_unset(request.instance_name):
+            query['InstanceName'] = request.instance_name
+        if not UtilClient.is_unset(request.instance_status):
+            query['InstanceStatus'] = request.instance_status
+        if not UtilClient.is_unset(request.instance_type):
+            query['InstanceType'] = request.instance_type
+        if not UtilClient.is_unset(request.is_spot):
+            query['IsSpot'] = request.is_spot
+        if not UtilClient.is_unset(request.order):
+            query['Order'] = request.order
         if not UtilClient.is_unset(request.page_number):
             query['PageNumber'] = request.page_number
         if not UtilClient.is_unset(request.page_size):
             query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.resource_type):
+            query['ResourceType'] = request.resource_type
+        if not UtilClient.is_unset(request.role):
+            query['Role'] = request.role
+        if not UtilClient.is_unset(request.sort):
+            query['Sort'] = request.sort
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)
@@ -1291,8 +1343,16 @@ class Client(OpenApiClient):
             query['PageSize'] = request.page_size
         if not UtilClient.is_unset(request.parent_service_uid):
             query['ParentServiceUid'] = request.parent_service_uid
+        if not UtilClient.is_unset(request.resource_name):
+            query['ResourceName'] = request.resource_name
+        if not UtilClient.is_unset(request.service_name):
+            query['ServiceName'] = request.service_name
+        if not UtilClient.is_unset(request.service_status):
+            query['ServiceStatus'] = request.service_status
         if not UtilClient.is_unset(request.service_type):
             query['ServiceType'] = request.service_type
+        if not UtilClient.is_unset(request.service_uid):
+            query['ServiceUid'] = request.service_uid
         if not UtilClient.is_unset(request.sort):
             query['Sort'] = request.sort
         req = open_api_models.OpenApiRequest(
@@ -1605,6 +1665,8 @@ class Client(OpenApiClient):
     def update_service_auto_scaler_with_options(self, cluster_id, service_name, request, headers, runtime):
         UtilClient.validate_model(request)
         body = {}
+        if not UtilClient.is_unset(request.behavior):
+            body['behavior'] = request.behavior
         if not UtilClient.is_unset(request.max):
             body['max'] = request.max
         if not UtilClient.is_unset(request.min):
