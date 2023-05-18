@@ -32,9 +32,8 @@ class Client(OpenApiClient):
 
     def accept_resource_share_invitation_with_options(self, request, runtime):
         """
-        A principal needs to accept or reject a resource sharing invitation only if the principal is not the management account or a member of a resource directory. If you share resources with an object in a resource directory, the system automatically accepts the resource sharing invitation for the object.
-        *   A resource sharing invitation is valid for seven days. A principal must accept or reject the invitation within the validity period.
-        This topic provides an example on how to call the API operation to accept the resource sharing invitation `i-pMnItMX19fBJ****` in the `cn-hangzhou` region.
+        The ID of the resource sharing invitation.
+        You can call the [ListResourceShareInvitations](~~450564~~) operation to obtain the ID of a resource sharing invitation.
         
 
         @param request: AcceptResourceShareInvitationRequest
@@ -68,9 +67,8 @@ class Client(OpenApiClient):
 
     def accept_resource_share_invitation(self, request):
         """
-        A principal needs to accept or reject a resource sharing invitation only if the principal is not the management account or a member of a resource directory. If you share resources with an object in a resource directory, the system automatically accepts the resource sharing invitation for the object.
-        *   A resource sharing invitation is valid for seven days. A principal must accept or reject the invitation within the validity period.
-        This topic provides an example on how to call the API operation to accept the resource sharing invitation `i-pMnItMX19fBJ****` in the `cn-hangzhou` region.
+        The ID of the resource sharing invitation.
+        You can call the [ListResourceShareInvitations](~~450564~~) operation to obtain the ID of a resource sharing invitation.
         
 
         @param request: AcceptResourceShareInvitationRequest
@@ -82,9 +80,7 @@ class Client(OpenApiClient):
 
     def associate_resource_share_with_options(self, request, runtime):
         """
-        This topic provides an example on how to call the API operation to associate the vSwitch `vsw-bp183p93qs667muql***` and the member `172050525300****` with the resource share `rs-6GRmdD3X****` in the `cn-hangzhou` region. After the association, the vSwitch is shared with the member.
-        ## Limits
-        You can call this operation up to 10 times per second per account. This operation is globally limited to 500 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
+        The operation that you want to perform. Set the value to AssociateResourceShare.
         
 
         @param request: AssociateResourceShareRequest
@@ -124,9 +120,7 @@ class Client(OpenApiClient):
 
     def associate_resource_share(self, request):
         """
-        This topic provides an example on how to call the API operation to associate the vSwitch `vsw-bp183p93qs667muql***` and the member `172050525300****` with the resource share `rs-6GRmdD3X****` in the `cn-hangzhou` region. After the association, the vSwitch is shared with the member.
-        ## Limits
-        You can call this operation up to 10 times per second per account. This operation is globally limited to 500 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
+        The operation that you want to perform. Set the value to AssociateResourceShare.
         
 
         @param request: AssociateResourceShareRequest
@@ -138,9 +132,7 @@ class Client(OpenApiClient):
 
     def associate_resource_share_permission_with_options(self, request, runtime):
         """
-        This topic provides an example on how to call the API operation to associate the `AliyunRSDefaultPermissionVSwitch` permission with the `rs-6GRmdD3X***` resource share in the `cn-hangzhou` region.
-        ## Limits
-        You can call this operation up to 20 times per second per account. This operation is globally limited to 500 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
+        The name of the permission.
         
 
         @param request: AssociateResourceSharePermissionRequest
@@ -178,9 +170,7 @@ class Client(OpenApiClient):
 
     def associate_resource_share_permission(self, request):
         """
-        This topic provides an example on how to call the API operation to associate the `AliyunRSDefaultPermissionVSwitch` permission with the `rs-6GRmdD3X***` resource share in the `cn-hangzhou` region.
-        ## Limits
-        You can call this operation up to 20 times per second per account. This operation is globally limited to 500 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
+        The name of the permission.
         
 
         @param request: AssociateResourceSharePermissionRequest
@@ -192,10 +182,7 @@ class Client(OpenApiClient):
 
     def create_resource_share_with_options(self, request, runtime):
         """
-        Resource Sharing allows you to share your resources with one or more accounts and access the resources shared by other accounts. For more information, see [Resource Sharing overview](~~160622~~).
-        This topic provides an example on how to call the API operation to create a resource share named `test` in the `cn-hangzhou` region to share the vSwitch `vsw-bp183p93qs667muql****` with the member `172050525300****`. In this example, the management account of a resource directory is used to call this API operation.
-        ## Limits
-        You can call this operation up to 10 times per second per account. This operation is globally limited to 500 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
+        The operation that you want to perform. Set the value to CreateResourceShare.
         
 
         @param request: CreateResourceShareRequest
@@ -210,8 +197,6 @@ class Client(OpenApiClient):
             query['AllowExternalTargets'] = request.allow_external_targets
         if not UtilClient.is_unset(request.permission_names):
             query['PermissionNames'] = request.permission_names
-        if not UtilClient.is_unset(request.resource_group_id):
-            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.resource_share_name):
             query['ResourceShareName'] = request.resource_share_name
         if not UtilClient.is_unset(request.resources):
@@ -239,10 +224,7 @@ class Client(OpenApiClient):
 
     def create_resource_share(self, request):
         """
-        Resource Sharing allows you to share your resources with one or more accounts and access the resources shared by other accounts. For more information, see [Resource Sharing overview](~~160622~~).
-        This topic provides an example on how to call the API operation to create a resource share named `test` in the `cn-hangzhou` region to share the vSwitch `vsw-bp183p93qs667muql****` with the member `172050525300****`. In this example, the management account of a resource directory is used to call this API operation.
-        ## Limits
-        You can call this operation up to 10 times per second per account. This operation is globally limited to 500 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
+        The operation that you want to perform. Set the value to CreateResourceShare.
         
 
         @param request: CreateResourceShareRequest
@@ -254,9 +236,7 @@ class Client(OpenApiClient):
 
     def delete_resource_share_with_options(self, request, runtime):
         """
-        After a resource share is deleted, all principals in the resource share can no longer access the resources in the resource share. However, the resources are not deleted with the resource share.
-        A resource share that is deleted is in the `Deleted` state. The system deletes the record of the resource share within 48 hours to 96 hours.
-        This topic provides an example on how to call the API operation to delete the resource share `rs-qSkW1HBY****` in the `cn-hangzhou` region.
+        The operation that you want to perform. Set the value to DeleteResourceShare.
         
 
         @param request: DeleteResourceShareRequest
@@ -290,9 +270,7 @@ class Client(OpenApiClient):
 
     def delete_resource_share(self, request):
         """
-        After a resource share is deleted, all principals in the resource share can no longer access the resources in the resource share. However, the resources are not deleted with the resource share.
-        A resource share that is deleted is in the `Deleted` state. The system deletes the record of the resource share within 48 hours to 96 hours.
-        This topic provides an example on how to call the API operation to delete the resource share `rs-qSkW1HBY****` in the `cn-hangzhou` region.
+        The operation that you want to perform. Set the value to DeleteResourceShare.
         
 
         @param request: DeleteResourceShareRequest
@@ -332,11 +310,7 @@ class Client(OpenApiClient):
 
     def disassociate_resource_share_with_options(self, request, runtime):
         """
-        A resource owner can call this API operation to remove shared resources or principals from a resource share.
-        *   If an Alibaba Cloud account that is not the management account or a member of a resource directory is added to a resource share as a principal, you can use the Alibaba Cloud account to call this API operation to exit the resource share. For more information, see [Exit a resource share](~~440614~~).
-        This topic provides an example on how to use the management account of a resource directory to call the API operation to remove the member `172050525300****` from the resource share `rs-6GRmdD3X****` in the `cn-hangzhou` region. After the member is removed from the resource share, the member cannot share the resources in the resource share.
-        ## Limits
-        You can call this operation up to 10 times per second per account. This operation is globally limited to 500 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
+        The operation that you want to perform. Set the value to DisassociateResourceShare.
         
 
         @param request: DisassociateResourceShareRequest
@@ -376,11 +350,7 @@ class Client(OpenApiClient):
 
     def disassociate_resource_share(self, request):
         """
-        A resource owner can call this API operation to remove shared resources or principals from a resource share.
-        *   If an Alibaba Cloud account that is not the management account or a member of a resource directory is added to a resource share as a principal, you can use the Alibaba Cloud account to call this API operation to exit the resource share. For more information, see [Exit a resource share](~~440614~~).
-        This topic provides an example on how to use the management account of a resource directory to call the API operation to remove the member `172050525300****` from the resource share `rs-6GRmdD3X****` in the `cn-hangzhou` region. After the member is removed from the resource share, the member cannot share the resources in the resource share.
-        ## Limits
-        You can call this operation up to 10 times per second per account. This operation is globally limited to 500 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
+        The operation that you want to perform. Set the value to DisassociateResourceShare.
         
 
         @param request: DisassociateResourceShareRequest
@@ -444,10 +414,7 @@ class Client(OpenApiClient):
 
     def enable_sharing_with_resource_directory_with_options(self, runtime):
         """
-        You can share your resources with all members in your resource directory, all members in a specific folder in your resource directory, or a specific member in your resource directory as a resource owner only after you enable resource sharing for your resource directory.
-        You can call this API operation only by using the management account of your resource directory or a RAM user or RAM role to which the required permissions are granted within the management account.
-        ## Limits
-        You can call this operation up to 10 times per second per account. This operation is globally limited to 500 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
+        The operation that you want to perform. Set the value to EnableSharingWithResourceDirectory.
         
 
         @param request: EnableSharingWithResourceDirectoryRequest
@@ -475,10 +442,7 @@ class Client(OpenApiClient):
 
     def enable_sharing_with_resource_directory(self):
         """
-        You can share your resources with all members in your resource directory, all members in a specific folder in your resource directory, or a specific member in your resource directory as a resource owner only after you enable resource sharing for your resource directory.
-        You can call this API operation only by using the management account of your resource directory or a RAM user or RAM role to which the required permissions are granted within the management account.
-        ## Limits
-        You can call this operation up to 10 times per second per account. This operation is globally limited to 500 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
+        The operation that you want to perform. Set the value to EnableSharingWithResourceDirectory.
         
 
         @return: EnableSharingWithResourceDirectoryResponse
@@ -488,9 +452,7 @@ class Client(OpenApiClient):
 
     def get_permission_with_options(self, request, runtime):
         """
-        This topic provides an example on how to call the API operation to query the information about the `AliyunRSDefaultPermissionVSwitch` permission whose version is `v1` in the `cn-hangzhou` region.
-        ## Limits
-        You can call this operation up to 20 times per second per account. This operation is globally limited to 500 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
+        The version of the permission.
         
 
         @param request: GetPermissionRequest
@@ -526,9 +488,7 @@ class Client(OpenApiClient):
 
     def get_permission(self, request):
         """
-        This topic provides an example on how to call the API operation to query the information about the `AliyunRSDefaultPermissionVSwitch` permission whose version is `v1` in the `cn-hangzhou` region.
-        ## Limits
-        You can call this operation up to 20 times per second per account. This operation is globally limited to 500 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
+        The version of the permission.
         
 
         @param request: GetPermissionRequest
@@ -540,9 +500,8 @@ class Client(OpenApiClient):
 
     def list_permission_versions_with_options(self, request, runtime):
         """
-        This topic provides an example on how to call the API operation to query the versions of the `AliyunRSDefaultPermissionVSwitch` permission in the `cn-hangzhou` region.
-        ## Limits
-        You can call this operation up to 20 times per second per account. This operation is globally limited to 500 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
+        The maximum number of entries to return for a single request.
+        Valid values: 1 to 100. Default value: 20.
         
 
         @param request: ListPermissionVersionsRequest
@@ -580,9 +539,8 @@ class Client(OpenApiClient):
 
     def list_permission_versions(self, request):
         """
-        This topic provides an example on how to call the API operation to query the versions of the `AliyunRSDefaultPermissionVSwitch` permission in the `cn-hangzhou` region.
-        ## Limits
-        You can call this operation up to 20 times per second per account. This operation is globally limited to 500 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
+        The maximum number of entries to return for a single request.
+        Valid values: 1 to 100. Default value: 20.
         
 
         @param request: ListPermissionVersionsRequest
@@ -594,9 +552,8 @@ class Client(OpenApiClient):
 
     def list_permissions_with_options(self, request, runtime):
         """
-        This topic provides an example on how to call the API operation to query the information about the default permission for the `VSwitch` resource type in the `cn-hangzhou` region.
-        ## Limits
-        You can call this operation up to 20 times per second per account. This operation is globally limited to 500 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
+        The maximum number of entries to return for a single request.
+        Valid values: 1 to 100. Default value: 20.
         
 
         @param request: ListPermissionsRequest
@@ -634,9 +591,8 @@ class Client(OpenApiClient):
 
     def list_permissions(self, request):
         """
-        This topic provides an example on how to call the API operation to query the information about the default permission for the `VSwitch` resource type in the `cn-hangzhou` region.
-        ## Limits
-        You can call this operation up to 20 times per second per account. This operation is globally limited to 500 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
+        The maximum number of entries to return for a single request.
+        Valid values: 1 to 100. Default value: 20.
         
 
         @param request: ListPermissionsRequest
@@ -714,7 +670,8 @@ class Client(OpenApiClient):
 
     def list_resource_share_invitations_with_options(self, request, runtime):
         """
-        This topic provides an example on how to call the API operation to query the resource sharing invitations that are received by the current account in the `cn-hangzhou` region. The response shows that one invitation is received by the current account and is waiting for confirmation.
+        The maximum number of entries to return for a single request.
+        Valid values: 1 to 100. Default value: 20.
         
 
         @param request: ListResourceShareInvitationsRequest
@@ -754,7 +711,8 @@ class Client(OpenApiClient):
 
     def list_resource_share_invitations(self, request):
         """
-        This topic provides an example on how to call the API operation to query the resource sharing invitations that are received by the current account in the `cn-hangzhou` region. The response shows that one invitation is received by the current account and is waiting for confirmation.
+        The maximum number of entries to return for a single request.
+        Valid values: 1 to 100. Default value: 20.
         
 
         @param request: ListResourceShareInvitationsRequest
@@ -766,9 +724,8 @@ class Client(OpenApiClient):
 
     def list_resource_share_permissions_with_options(self, request, runtime):
         """
-        This topic provides an example on how to call the API operation to query the permissions that are associated with the resource share created by using the current Alibaba Cloud account in the `cn-hangzhou` region.
-        ## Limits
-        You can call this operation up to 20 times per second per account. This operation is globally limited to 500 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
+        The maximum number of entries to return for a single request.
+        Valid values: 1 to 100. Default value: 20.
         
 
         @param request: ListResourceSharePermissionsRequest
@@ -808,9 +765,8 @@ class Client(OpenApiClient):
 
     def list_resource_share_permissions(self, request):
         """
-        This topic provides an example on how to call the API operation to query the permissions that are associated with the resource share created by using the current Alibaba Cloud account in the `cn-hangzhou` region.
-        ## Limits
-        You can call this operation up to 20 times per second per account. This operation is globally limited to 500 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
+        The maximum number of entries to return for a single request.
+        Valid values: 1 to 100. Default value: 20.
         
 
         @param request: ListResourceSharePermissionsRequest
@@ -822,11 +778,7 @@ class Client(OpenApiClient):
 
     def list_resource_shares_with_options(self, request, runtime):
         """
-        This topic provides an example on how to call the API operation to query the resource shares that are created by using the current Alibaba Cloud account in the `cn-hangzhou` region. The response shows that the following resource shares are created by using the account whose ID is `151266687691***`:
-        *   `rs-hX9wC5jO****`, which is in the `Deleted` state
-        *   `rs-PqysnzIj****`, which is in the `Active` state
-        ## Limits
-        You can call this operation up to 20 times per second per account. This operation is globally limited to 500 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
+        The operation that you want to perform. Set the value to ListResourceShares.
         
 
         @param request: ListResourceSharesRequest
@@ -843,8 +795,6 @@ class Client(OpenApiClient):
             query['NextToken'] = request.next_token
         if not UtilClient.is_unset(request.permission_name):
             query['PermissionName'] = request.permission_name
-        if not UtilClient.is_unset(request.resource_group_id):
-            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.resource_owner):
             query['ResourceOwner'] = request.resource_owner
         if not UtilClient.is_unset(request.resource_share_ids):
@@ -874,11 +824,7 @@ class Client(OpenApiClient):
 
     def list_resource_shares(self, request):
         """
-        This topic provides an example on how to call the API operation to query the resource shares that are created by using the current Alibaba Cloud account in the `cn-hangzhou` region. The response shows that the following resource shares are created by using the account whose ID is `151266687691***`:
-        *   `rs-hX9wC5jO****`, which is in the `Deleted` state
-        *   `rs-PqysnzIj****`, which is in the `Active` state
-        ## Limits
-        You can call this operation up to 20 times per second per account. This operation is globally limited to 500 times per second across all accounts. If the number of the calls per second exceeds a limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limits when you call this operation.
+        The operation that you want to perform. Set the value to ListResourceShares.
         
 
         @param request: ListResourceSharesRequest
@@ -1018,7 +964,8 @@ class Client(OpenApiClient):
 
     def reject_resource_share_invitation_with_options(self, request, runtime):
         """
-        This topic provides an example on how to call the API operation to reject the resource sharing invitation `i-yyTWbkjHArYh***` in the `cn-hangzhou` region.
+        The ID of the resource sharing invitation.
+        You can call the [ListResourceShareInvitations](~~450564~~) operation to obtain the ID of a resource sharing invitation.
         
 
         @param request: RejectResourceShareInvitationRequest
@@ -1052,7 +999,8 @@ class Client(OpenApiClient):
 
     def reject_resource_share_invitation(self, request):
         """
-        This topic provides an example on how to call the API operation to reject the resource sharing invitation `i-yyTWbkjHArYh***` in the `cn-hangzhou` region.
+        The ID of the resource sharing invitation.
+        You can call the [ListResourceShareInvitations](~~450564~~) operation to obtain the ID of a resource sharing invitation.
         
 
         @param request: RejectResourceShareInvitationRequest
@@ -1064,8 +1012,7 @@ class Client(OpenApiClient):
 
     def update_resource_share_with_options(self, request, runtime):
         """
-        You can call this API operation to change the name or resource sharing scope of a resource share.
-        This topic provides an example on how to call the API operation to change the name of the resource share `rs-qSkW1HBY****` in the `cn-hangzhou` region from `test` to `new`.
+        The operation that you want to perform. Set the value to UpdateResourceShare.
         
 
         @param request: UpdateResourceShareRequest
@@ -1103,8 +1050,7 @@ class Client(OpenApiClient):
 
     def update_resource_share(self, request):
         """
-        You can call this API operation to change the name or resource sharing scope of a resource share.
-        This topic provides an example on how to call the API operation to change the name of the resource share `rs-qSkW1HBY****` in the `cn-hangzhou` region from `test` to `new`.
+        The operation that you want to perform. Set the value to UpdateResourceShare.
         
 
         @param request: UpdateResourceShareRequest
