@@ -1647,6 +1647,8 @@ class Client(OpenApiClient):
     def recognize_purchase_record_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.output_multi_orders):
+            query['OutputMultiOrders'] = request.output_multi_orders
         if not UtilClient.is_unset(request.url):
             query['Url'] = request.url
         req = open_api_models.OpenApiRequest(
@@ -1893,6 +1895,8 @@ class Client(OpenApiClient):
     def recognize_table_ocr_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.is_hand_writing):
+            query['IsHandWriting'] = request.is_hand_writing
         if not UtilClient.is_unset(request.line_less):
             query['LineLess'] = request.line_less
         if not UtilClient.is_unset(request.need_rotate):
@@ -2111,36 +2115,6 @@ class Client(OpenApiClient):
     def recognize_train_invoice(self, request):
         runtime = util_models.RuntimeOptions()
         return self.recognize_train_invoice_with_options(request, runtime)
-
-    def recognize_travel_card_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.url):
-            query['Url'] = request.url
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query),
-            body=request.body,
-            stream=request.body
-        )
-        params = open_api_models.Params(
-            action='RecognizeTravelCard',
-            version='2021-07-07',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            ocr_api_20210707_models.RecognizeTravelCardResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def recognize_travel_card(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.recognize_travel_card_with_options(request, runtime)
 
     def recognize_used_car_invoice_with_options(self, request, runtime):
         UtilClient.validate_model(request)
