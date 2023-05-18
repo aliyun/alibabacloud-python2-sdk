@@ -1981,7 +1981,7 @@ class CreateDNADBResponse(TeaModel):
 
 class CreateEditingProjectRequest(TeaModel):
     def __init__(self, business_config=None, clips_param=None, cover_url=None, description=None, material_maps=None,
-                 project_type=None, template_id=None, timeline=None, title=None):
+                 project_type=None, template_id=None, template_type=None, timeline=None, title=None):
         self.business_config = business_config  # type: str
         self.clips_param = clips_param  # type: str
         self.cover_url = cover_url  # type: str
@@ -1989,6 +1989,7 @@ class CreateEditingProjectRequest(TeaModel):
         self.material_maps = material_maps  # type: str
         self.project_type = project_type  # type: str
         self.template_id = template_id  # type: str
+        self.template_type = template_type  # type: str
         self.timeline = timeline  # type: str
         self.title = title  # type: str
 
@@ -2015,6 +2016,8 @@ class CreateEditingProjectRequest(TeaModel):
             result['ProjectType'] = self.project_type
         if self.template_id is not None:
             result['TemplateId'] = self.template_id
+        if self.template_type is not None:
+            result['TemplateType'] = self.template_type
         if self.timeline is not None:
             result['Timeline'] = self.timeline
         if self.title is not None:
@@ -2037,6 +2040,8 @@ class CreateEditingProjectRequest(TeaModel):
             self.project_type = m.get('ProjectType')
         if m.get('TemplateId') is not None:
             self.template_id = m.get('TemplateId')
+        if m.get('TemplateType') is not None:
+            self.template_type = m.get('TemplateType')
         if m.get('Timeline') is not None:
             self.timeline = m.get('Timeline')
         if m.get('Title') is not None:
@@ -9307,6 +9312,110 @@ class GetCategoriesResponse(TeaModel):
         return self
 
 
+class GetContentAnalyzeConfigResponseBodyContentAnalyzeConfig(TeaModel):
+    def __init__(self, auto=None, save_type=None, template_id=None):
+        self.auto = auto  # type: bool
+        self.save_type = save_type  # type: str
+        self.template_id = template_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetContentAnalyzeConfigResponseBodyContentAnalyzeConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auto is not None:
+            result['Auto'] = self.auto
+        if self.save_type is not None:
+            result['SaveType'] = self.save_type
+        if self.template_id is not None:
+            result['TemplateId'] = self.template_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Auto') is not None:
+            self.auto = m.get('Auto')
+        if m.get('SaveType') is not None:
+            self.save_type = m.get('SaveType')
+        if m.get('TemplateId') is not None:
+            self.template_id = m.get('TemplateId')
+        return self
+
+
+class GetContentAnalyzeConfigResponseBody(TeaModel):
+    def __init__(self, content_analyze_config=None, request_id=None):
+        self.content_analyze_config = content_analyze_config  # type: GetContentAnalyzeConfigResponseBodyContentAnalyzeConfig
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.content_analyze_config:
+            self.content_analyze_config.validate()
+
+    def to_map(self):
+        _map = super(GetContentAnalyzeConfigResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.content_analyze_config is not None:
+            result['ContentAnalyzeConfig'] = self.content_analyze_config.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ContentAnalyzeConfig') is not None:
+            temp_model = GetContentAnalyzeConfigResponseBodyContentAnalyzeConfig()
+            self.content_analyze_config = temp_model.from_map(m['ContentAnalyzeConfig'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class GetContentAnalyzeConfigResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetContentAnalyzeConfigResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetContentAnalyzeConfigResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetContentAnalyzeConfigResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class GetCustomTemplateRequest(TeaModel):
     def __init__(self, subtype=None, template_id=None, type=None):
         self.subtype = subtype  # type: int
@@ -15627,7 +15736,9 @@ class GetSmartHandleJobRequest(TeaModel):
 
 class GetSmartHandleJobResponseBodyJobResult(TeaModel):
     def __init__(self, ai_result=None, media_id=None):
+        # 智能分析结果
         self.ai_result = ai_result  # type: str
+        # 媒资Id
         self.media_id = media_id  # type: str
 
     def validate(self):
@@ -17629,6 +17740,67 @@ class GetTranscodeJobResponseBodyTranscodeParentJobOutputGroupProcessConfigTrans
         return self
 
 
+class GetTranscodeJobResponseBodyTranscodeParentJobOutputGroupProcessConfigTranscodeOverwriteParamsTransConfig(TeaModel):
+    def __init__(self, adj_dar_method=None, is_check_audio_bitrate=None, is_check_audio_bitrate_fail=None,
+                 is_check_reso=None, is_check_reso_fail=None, is_check_video_bitrate=None, is_check_video_bitrate_fail=None,
+                 trans_mode=None):
+        self.adj_dar_method = adj_dar_method  # type: str
+        self.is_check_audio_bitrate = is_check_audio_bitrate  # type: str
+        self.is_check_audio_bitrate_fail = is_check_audio_bitrate_fail  # type: str
+        self.is_check_reso = is_check_reso  # type: str
+        self.is_check_reso_fail = is_check_reso_fail  # type: str
+        self.is_check_video_bitrate = is_check_video_bitrate  # type: str
+        self.is_check_video_bitrate_fail = is_check_video_bitrate_fail  # type: str
+        self.trans_mode = trans_mode  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetTranscodeJobResponseBodyTranscodeParentJobOutputGroupProcessConfigTranscodeOverwriteParamsTransConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.adj_dar_method is not None:
+            result['AdjDarMethod'] = self.adj_dar_method
+        if self.is_check_audio_bitrate is not None:
+            result['IsCheckAudioBitrate'] = self.is_check_audio_bitrate
+        if self.is_check_audio_bitrate_fail is not None:
+            result['IsCheckAudioBitrateFail'] = self.is_check_audio_bitrate_fail
+        if self.is_check_reso is not None:
+            result['IsCheckReso'] = self.is_check_reso
+        if self.is_check_reso_fail is not None:
+            result['IsCheckResoFail'] = self.is_check_reso_fail
+        if self.is_check_video_bitrate is not None:
+            result['IsCheckVideoBitrate'] = self.is_check_video_bitrate
+        if self.is_check_video_bitrate_fail is not None:
+            result['IsCheckVideoBitrateFail'] = self.is_check_video_bitrate_fail
+        if self.trans_mode is not None:
+            result['TransMode'] = self.trans_mode
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AdjDarMethod') is not None:
+            self.adj_dar_method = m.get('AdjDarMethod')
+        if m.get('IsCheckAudioBitrate') is not None:
+            self.is_check_audio_bitrate = m.get('IsCheckAudioBitrate')
+        if m.get('IsCheckAudioBitrateFail') is not None:
+            self.is_check_audio_bitrate_fail = m.get('IsCheckAudioBitrateFail')
+        if m.get('IsCheckReso') is not None:
+            self.is_check_reso = m.get('IsCheckReso')
+        if m.get('IsCheckResoFail') is not None:
+            self.is_check_reso_fail = m.get('IsCheckResoFail')
+        if m.get('IsCheckVideoBitrate') is not None:
+            self.is_check_video_bitrate = m.get('IsCheckVideoBitrate')
+        if m.get('IsCheckVideoBitrateFail') is not None:
+            self.is_check_video_bitrate_fail = m.get('IsCheckVideoBitrateFail')
+        if m.get('TransMode') is not None:
+            self.trans_mode = m.get('TransMode')
+        return self
+
+
 class GetTranscodeJobResponseBodyTranscodeParentJobOutputGroupProcessConfigTranscodeOverwriteParamsVideo(TeaModel):
     def __init__(self, abr_max=None, bitrate=None, bufsize=None, codec=None, crf=None, crop=None, fps=None, gop=None,
                  height=None, long_short_mode=None, maxrate=None, pad=None, pix_fmt=None, preset=None, profile=None,
@@ -17741,10 +17913,11 @@ class GetTranscodeJobResponseBodyTranscodeParentJobOutputGroupProcessConfigTrans
 
 
 class GetTranscodeJobResponseBodyTranscodeParentJobOutputGroupProcessConfigTranscodeOverwriteParams(TeaModel):
-    def __init__(self, audio=None, container=None, mux_config=None, video=None):
+    def __init__(self, audio=None, container=None, mux_config=None, trans_config=None, video=None):
         self.audio = audio  # type: GetTranscodeJobResponseBodyTranscodeParentJobOutputGroupProcessConfigTranscodeOverwriteParamsAudio
         self.container = container  # type: GetTranscodeJobResponseBodyTranscodeParentJobOutputGroupProcessConfigTranscodeOverwriteParamsContainer
         self.mux_config = mux_config  # type: GetTranscodeJobResponseBodyTranscodeParentJobOutputGroupProcessConfigTranscodeOverwriteParamsMuxConfig
+        self.trans_config = trans_config  # type: GetTranscodeJobResponseBodyTranscodeParentJobOutputGroupProcessConfigTranscodeOverwriteParamsTransConfig
         self.video = video  # type: GetTranscodeJobResponseBodyTranscodeParentJobOutputGroupProcessConfigTranscodeOverwriteParamsVideo
 
     def validate(self):
@@ -17754,6 +17927,8 @@ class GetTranscodeJobResponseBodyTranscodeParentJobOutputGroupProcessConfigTrans
             self.container.validate()
         if self.mux_config:
             self.mux_config.validate()
+        if self.trans_config:
+            self.trans_config.validate()
         if self.video:
             self.video.validate()
 
@@ -17769,6 +17944,8 @@ class GetTranscodeJobResponseBodyTranscodeParentJobOutputGroupProcessConfigTrans
             result['Container'] = self.container.to_map()
         if self.mux_config is not None:
             result['MuxConfig'] = self.mux_config.to_map()
+        if self.trans_config is not None:
+            result['TransConfig'] = self.trans_config.to_map()
         if self.video is not None:
             result['Video'] = self.video.to_map()
         return result
@@ -17784,6 +17961,9 @@ class GetTranscodeJobResponseBodyTranscodeParentJobOutputGroupProcessConfigTrans
         if m.get('MuxConfig') is not None:
             temp_model = GetTranscodeJobResponseBodyTranscodeParentJobOutputGroupProcessConfigTranscodeOverwriteParamsMuxConfig()
             self.mux_config = temp_model.from_map(m['MuxConfig'])
+        if m.get('TransConfig') is not None:
+            temp_model = GetTranscodeJobResponseBodyTranscodeParentJobOutputGroupProcessConfigTranscodeOverwriteParamsTransConfig()
+            self.trans_config = temp_model.from_map(m['TransConfig'])
         if m.get('Video') is not None:
             temp_model = GetTranscodeJobResponseBodyTranscodeParentJobOutputGroupProcessConfigTranscodeOverwriteParamsVideo()
             self.video = temp_model.from_map(m['Video'])
@@ -19003,6 +19183,67 @@ class GetTranscodeJobResponseBodyTranscodeParentJobTranscodeJobListProcessConfig
         return self
 
 
+class GetTranscodeJobResponseBodyTranscodeParentJobTranscodeJobListProcessConfigTranscodeOverwriteParamsTransConfig(TeaModel):
+    def __init__(self, adj_dar_method=None, is_check_audio_bitrate=None, is_check_audio_bitrate_fail=None,
+                 is_check_reso=None, is_check_reso_fail=None, is_check_video_bitrate=None, is_check_video_bitrate_fail=None,
+                 trans_mode=None):
+        self.adj_dar_method = adj_dar_method  # type: str
+        self.is_check_audio_bitrate = is_check_audio_bitrate  # type: str
+        self.is_check_audio_bitrate_fail = is_check_audio_bitrate_fail  # type: str
+        self.is_check_reso = is_check_reso  # type: str
+        self.is_check_reso_fail = is_check_reso_fail  # type: str
+        self.is_check_video_bitrate = is_check_video_bitrate  # type: str
+        self.is_check_video_bitrate_fail = is_check_video_bitrate_fail  # type: str
+        self.trans_mode = trans_mode  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetTranscodeJobResponseBodyTranscodeParentJobTranscodeJobListProcessConfigTranscodeOverwriteParamsTransConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.adj_dar_method is not None:
+            result['AdjDarMethod'] = self.adj_dar_method
+        if self.is_check_audio_bitrate is not None:
+            result['IsCheckAudioBitrate'] = self.is_check_audio_bitrate
+        if self.is_check_audio_bitrate_fail is not None:
+            result['IsCheckAudioBitrateFail'] = self.is_check_audio_bitrate_fail
+        if self.is_check_reso is not None:
+            result['IsCheckReso'] = self.is_check_reso
+        if self.is_check_reso_fail is not None:
+            result['IsCheckResoFail'] = self.is_check_reso_fail
+        if self.is_check_video_bitrate is not None:
+            result['IsCheckVideoBitrate'] = self.is_check_video_bitrate
+        if self.is_check_video_bitrate_fail is not None:
+            result['IsCheckVideoBitrateFail'] = self.is_check_video_bitrate_fail
+        if self.trans_mode is not None:
+            result['TransMode'] = self.trans_mode
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AdjDarMethod') is not None:
+            self.adj_dar_method = m.get('AdjDarMethod')
+        if m.get('IsCheckAudioBitrate') is not None:
+            self.is_check_audio_bitrate = m.get('IsCheckAudioBitrate')
+        if m.get('IsCheckAudioBitrateFail') is not None:
+            self.is_check_audio_bitrate_fail = m.get('IsCheckAudioBitrateFail')
+        if m.get('IsCheckReso') is not None:
+            self.is_check_reso = m.get('IsCheckReso')
+        if m.get('IsCheckResoFail') is not None:
+            self.is_check_reso_fail = m.get('IsCheckResoFail')
+        if m.get('IsCheckVideoBitrate') is not None:
+            self.is_check_video_bitrate = m.get('IsCheckVideoBitrate')
+        if m.get('IsCheckVideoBitrateFail') is not None:
+            self.is_check_video_bitrate_fail = m.get('IsCheckVideoBitrateFail')
+        if m.get('TransMode') is not None:
+            self.trans_mode = m.get('TransMode')
+        return self
+
+
 class GetTranscodeJobResponseBodyTranscodeParentJobTranscodeJobListProcessConfigTranscodeOverwriteParamsVideo(TeaModel):
     def __init__(self, abr_max=None, bitrate=None, bufsize=None, codec=None, crf=None, crop=None, fps=None, gop=None,
                  height=None, long_short_mode=None, maxrate=None, pad=None, pix_fmt=None, preset=None, profile=None,
@@ -19115,11 +19356,12 @@ class GetTranscodeJobResponseBodyTranscodeParentJobTranscodeJobListProcessConfig
 
 
 class GetTranscodeJobResponseBodyTranscodeParentJobTranscodeJobListProcessConfigTranscodeOverwriteParams(TeaModel):
-    def __init__(self, audio=None, container=None, mux_config=None, tags=None, video=None):
+    def __init__(self, audio=None, container=None, mux_config=None, tags=None, trans_config=None, video=None):
         self.audio = audio  # type: GetTranscodeJobResponseBodyTranscodeParentJobTranscodeJobListProcessConfigTranscodeOverwriteParamsAudio
         self.container = container  # type: GetTranscodeJobResponseBodyTranscodeParentJobTranscodeJobListProcessConfigTranscodeOverwriteParamsContainer
         self.mux_config = mux_config  # type: GetTranscodeJobResponseBodyTranscodeParentJobTranscodeJobListProcessConfigTranscodeOverwriteParamsMuxConfig
         self.tags = tags  # type: dict[str, str]
+        self.trans_config = trans_config  # type: GetTranscodeJobResponseBodyTranscodeParentJobTranscodeJobListProcessConfigTranscodeOverwriteParamsTransConfig
         self.video = video  # type: GetTranscodeJobResponseBodyTranscodeParentJobTranscodeJobListProcessConfigTranscodeOverwriteParamsVideo
 
     def validate(self):
@@ -19129,6 +19371,8 @@ class GetTranscodeJobResponseBodyTranscodeParentJobTranscodeJobListProcessConfig
             self.container.validate()
         if self.mux_config:
             self.mux_config.validate()
+        if self.trans_config:
+            self.trans_config.validate()
         if self.video:
             self.video.validate()
 
@@ -19146,6 +19390,8 @@ class GetTranscodeJobResponseBodyTranscodeParentJobTranscodeJobListProcessConfig
             result['MuxConfig'] = self.mux_config.to_map()
         if self.tags is not None:
             result['Tags'] = self.tags
+        if self.trans_config is not None:
+            result['TransConfig'] = self.trans_config.to_map()
         if self.video is not None:
             result['Video'] = self.video.to_map()
         return result
@@ -19163,6 +19409,9 @@ class GetTranscodeJobResponseBodyTranscodeParentJobTranscodeJobListProcessConfig
             self.mux_config = temp_model.from_map(m['MuxConfig'])
         if m.get('Tags') is not None:
             self.tags = m.get('Tags')
+        if m.get('TransConfig') is not None:
+            temp_model = GetTranscodeJobResponseBodyTranscodeParentJobTranscodeJobListProcessConfigTranscodeOverwriteParamsTransConfig()
+            self.trans_config = temp_model.from_map(m['TransConfig'])
         if m.get('Video') is not None:
             temp_model = GetTranscodeJobResponseBodyTranscodeParentJobTranscodeJobListProcessConfigTranscodeOverwriteParamsVideo()
             self.video = temp_model.from_map(m['Video'])
@@ -25499,6 +25748,155 @@ class ListSmartJobsResponse(TeaModel):
         return self
 
 
+class ListSmartSysAvatarModelsRequest(TeaModel):
+    def __init__(self, page_no=None, page_size=None):
+        self.page_no = page_no  # type: long
+        self.page_size = page_size  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListSmartSysAvatarModelsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.page_no is not None:
+            result['PageNo'] = self.page_no
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('PageNo') is not None:
+            self.page_no = m.get('PageNo')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        return self
+
+
+class ListSmartSysAvatarModelsResponseBodySmartSysAvatarModelList(TeaModel):
+    def __init__(self, avatar_id=None, avatar_name=None, cover_url=None, video_url=None):
+        self.avatar_id = avatar_id  # type: str
+        self.avatar_name = avatar_name  # type: str
+        self.cover_url = cover_url  # type: str
+        self.video_url = video_url  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListSmartSysAvatarModelsResponseBodySmartSysAvatarModelList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.avatar_id is not None:
+            result['AvatarId'] = self.avatar_id
+        if self.avatar_name is not None:
+            result['AvatarName'] = self.avatar_name
+        if self.cover_url is not None:
+            result['CoverUrl'] = self.cover_url
+        if self.video_url is not None:
+            result['VideoUrl'] = self.video_url
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AvatarId') is not None:
+            self.avatar_id = m.get('AvatarId')
+        if m.get('AvatarName') is not None:
+            self.avatar_name = m.get('AvatarName')
+        if m.get('CoverUrl') is not None:
+            self.cover_url = m.get('CoverUrl')
+        if m.get('VideoUrl') is not None:
+            self.video_url = m.get('VideoUrl')
+        return self
+
+
+class ListSmartSysAvatarModelsResponseBody(TeaModel):
+    def __init__(self, request_id=None, smart_sys_avatar_model_list=None, total_count=None):
+        self.request_id = request_id  # type: str
+        self.smart_sys_avatar_model_list = smart_sys_avatar_model_list  # type: list[ListSmartSysAvatarModelsResponseBodySmartSysAvatarModelList]
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        if self.smart_sys_avatar_model_list:
+            for k in self.smart_sys_avatar_model_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListSmartSysAvatarModelsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        result['SmartSysAvatarModelList'] = []
+        if self.smart_sys_avatar_model_list is not None:
+            for k in self.smart_sys_avatar_model_list:
+                result['SmartSysAvatarModelList'].append(k.to_map() if k else None)
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        self.smart_sys_avatar_model_list = []
+        if m.get('SmartSysAvatarModelList') is not None:
+            for k in m.get('SmartSysAvatarModelList'):
+                temp_model = ListSmartSysAvatarModelsResponseBodySmartSysAvatarModelList()
+                self.smart_sys_avatar_model_list.append(temp_model.from_map(k))
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class ListSmartSysAvatarModelsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListSmartSysAvatarModelsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListSmartSysAvatarModelsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListSmartSysAvatarModelsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListSnapshotJobsRequest(TeaModel):
     def __init__(self, end_of_create_time=None, job_id=None, next_page_token=None, order_by=None, page_size=None,
                  start_of_create_time=None, status=None):
@@ -30950,6 +31348,7 @@ class SearchMediaResponseBodyMediaInfoListAiData(TeaModel):
 
 class SearchMediaResponseBodyMediaInfoListAiRoughData(TeaModel):
     def __init__(self, ai_category=None, ai_job_id=None, result=None, save_type=None, status=None):
+        # 电视剧
         self.ai_category = ai_category  # type: str
         self.ai_job_id = ai_job_id  # type: str
         self.result = result  # type: str
@@ -31390,6 +31789,464 @@ class SearchMediaResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SearchMediaResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class SearchMediaByFaceRequest(TeaModel):
+    def __init__(self, entity_id=None, face_search_token=None, page_no=None, page_size=None, person_image_url=None):
+        self.entity_id = entity_id  # type: str
+        self.face_search_token = face_search_token  # type: str
+        self.page_no = page_no  # type: int
+        self.page_size = page_size  # type: int
+        self.person_image_url = person_image_url  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SearchMediaByFaceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.entity_id is not None:
+            result['EntityId'] = self.entity_id
+        if self.face_search_token is not None:
+            result['FaceSearchToken'] = self.face_search_token
+        if self.page_no is not None:
+            result['PageNo'] = self.page_no
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.person_image_url is not None:
+            result['PersonImageUrl'] = self.person_image_url
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EntityId') is not None:
+            self.entity_id = m.get('EntityId')
+        if m.get('FaceSearchToken') is not None:
+            self.face_search_token = m.get('FaceSearchToken')
+        if m.get('PageNo') is not None:
+            self.page_no = m.get('PageNo')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('PersonImageUrl') is not None:
+            self.person_image_url = m.get('PersonImageUrl')
+        return self
+
+
+class SearchMediaByFaceResponseBodyMediaInfoList(TeaModel):
+    def __init__(self, media_id=None):
+        self.media_id = media_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SearchMediaByFaceResponseBodyMediaInfoList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.media_id is not None:
+            result['MediaId'] = self.media_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('MediaId') is not None:
+            self.media_id = m.get('MediaId')
+        return self
+
+
+class SearchMediaByFaceResponseBody(TeaModel):
+    def __init__(self, code=None, media_info_list=None, request_id=None, success=None, total=None):
+        self.code = code  # type: str
+        self.media_info_list = media_info_list  # type: list[SearchMediaByFaceResponseBodyMediaInfoList]
+        self.request_id = request_id  # type: str
+        self.success = success  # type: str
+        self.total = total  # type: long
+
+    def validate(self):
+        if self.media_info_list:
+            for k in self.media_info_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(SearchMediaByFaceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        result['MediaInfoList'] = []
+        if self.media_info_list is not None:
+            for k in self.media_info_list:
+                result['MediaInfoList'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        if self.total is not None:
+            result['Total'] = self.total
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        self.media_info_list = []
+        if m.get('MediaInfoList') is not None:
+            for k in m.get('MediaInfoList'):
+                temp_model = SearchMediaByFaceResponseBodyMediaInfoList()
+                self.media_info_list.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Total') is not None:
+            self.total = m.get('Total')
+        return self
+
+
+class SearchMediaByFaceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: SearchMediaByFaceResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SearchMediaByFaceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = SearchMediaByFaceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class SearchMediaClipByFaceRequest(TeaModel):
+    def __init__(self, entity_id=None, face_search_token=None, media_id=None, page_no=None, page_size=None):
+        self.entity_id = entity_id  # type: str
+        self.face_search_token = face_search_token  # type: str
+        self.media_id = media_id  # type: str
+        self.page_no = page_no  # type: int
+        self.page_size = page_size  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SearchMediaClipByFaceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.entity_id is not None:
+            result['EntityId'] = self.entity_id
+        if self.face_search_token is not None:
+            result['FaceSearchToken'] = self.face_search_token
+        if self.media_id is not None:
+            result['MediaId'] = self.media_id
+        if self.page_no is not None:
+            result['PageNo'] = self.page_no
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EntityId') is not None:
+            self.entity_id = m.get('EntityId')
+        if m.get('FaceSearchToken') is not None:
+            self.face_search_token = m.get('FaceSearchToken')
+        if m.get('MediaId') is not None:
+            self.media_id = m.get('MediaId')
+        if m.get('PageNo') is not None:
+            self.page_no = m.get('PageNo')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        return self
+
+
+class SearchMediaClipByFaceResponseBodyMediaClipListOccurrencesInfosTrackDataBoxPosition(TeaModel):
+    def __init__(self, h=None, w=None, x=None, y=None):
+        self.h = h  # type: int
+        self.w = w  # type: int
+        self.x = x  # type: int
+        self.y = y  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SearchMediaClipByFaceResponseBodyMediaClipListOccurrencesInfosTrackDataBoxPosition, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.h is not None:
+            result['H'] = self.h
+        if self.w is not None:
+            result['W'] = self.w
+        if self.x is not None:
+            result['X'] = self.x
+        if self.y is not None:
+            result['Y'] = self.y
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('H') is not None:
+            self.h = m.get('H')
+        if m.get('W') is not None:
+            self.w = m.get('W')
+        if m.get('X') is not None:
+            self.x = m.get('X')
+        if m.get('Y') is not None:
+            self.y = m.get('Y')
+        return self
+
+
+class SearchMediaClipByFaceResponseBodyMediaClipListOccurrencesInfosTrackData(TeaModel):
+    def __init__(self, box_position=None, timestamp=None):
+        self.box_position = box_position  # type: SearchMediaClipByFaceResponseBodyMediaClipListOccurrencesInfosTrackDataBoxPosition
+        self.timestamp = timestamp  # type: float
+
+    def validate(self):
+        if self.box_position:
+            self.box_position.validate()
+
+    def to_map(self):
+        _map = super(SearchMediaClipByFaceResponseBodyMediaClipListOccurrencesInfosTrackData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.box_position is not None:
+            result['BoxPosition'] = self.box_position.to_map()
+        if self.timestamp is not None:
+            result['Timestamp'] = self.timestamp
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BoxPosition') is not None:
+            temp_model = SearchMediaClipByFaceResponseBodyMediaClipListOccurrencesInfosTrackDataBoxPosition()
+            self.box_position = temp_model.from_map(m['BoxPosition'])
+        if m.get('Timestamp') is not None:
+            self.timestamp = m.get('Timestamp')
+        return self
+
+
+class SearchMediaClipByFaceResponseBodyMediaClipListOccurrencesInfos(TeaModel):
+    def __init__(self, end_time=None, start_time=None, track_data=None):
+        self.end_time = end_time  # type: float
+        self.start_time = start_time  # type: float
+        self.track_data = track_data  # type: list[SearchMediaClipByFaceResponseBodyMediaClipListOccurrencesInfosTrackData]
+
+    def validate(self):
+        if self.track_data:
+            for k in self.track_data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(SearchMediaClipByFaceResponseBodyMediaClipListOccurrencesInfos, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        result['TrackData'] = []
+        if self.track_data is not None:
+            for k in self.track_data:
+                result['TrackData'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        self.track_data = []
+        if m.get('TrackData') is not None:
+            for k in m.get('TrackData'):
+                temp_model = SearchMediaClipByFaceResponseBodyMediaClipListOccurrencesInfosTrackData()
+                self.track_data.append(temp_model.from_map(k))
+        return self
+
+
+class SearchMediaClipByFaceResponseBodyMediaClipList(TeaModel):
+    def __init__(self, category=None, entity_id=None, label_name=None, occurrences_infos=None, score=None):
+        self.category = category  # type: str
+        self.entity_id = entity_id  # type: str
+        self.label_name = label_name  # type: str
+        self.occurrences_infos = occurrences_infos  # type: list[SearchMediaClipByFaceResponseBodyMediaClipListOccurrencesInfos]
+        self.score = score  # type: float
+
+    def validate(self):
+        if self.occurrences_infos:
+            for k in self.occurrences_infos:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(SearchMediaClipByFaceResponseBodyMediaClipList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.category is not None:
+            result['Category'] = self.category
+        if self.entity_id is not None:
+            result['EntityId'] = self.entity_id
+        if self.label_name is not None:
+            result['LabelName'] = self.label_name
+        result['OccurrencesInfos'] = []
+        if self.occurrences_infos is not None:
+            for k in self.occurrences_infos:
+                result['OccurrencesInfos'].append(k.to_map() if k else None)
+        if self.score is not None:
+            result['Score'] = self.score
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Category') is not None:
+            self.category = m.get('Category')
+        if m.get('EntityId') is not None:
+            self.entity_id = m.get('EntityId')
+        if m.get('LabelName') is not None:
+            self.label_name = m.get('LabelName')
+        self.occurrences_infos = []
+        if m.get('OccurrencesInfos') is not None:
+            for k in m.get('OccurrencesInfos'):
+                temp_model = SearchMediaClipByFaceResponseBodyMediaClipListOccurrencesInfos()
+                self.occurrences_infos.append(temp_model.from_map(k))
+        if m.get('Score') is not None:
+            self.score = m.get('Score')
+        return self
+
+
+class SearchMediaClipByFaceResponseBody(TeaModel):
+    def __init__(self, code=None, media_clip_list=None, request_id=None, success=None, total=None):
+        self.code = code  # type: str
+        self.media_clip_list = media_clip_list  # type: list[SearchMediaClipByFaceResponseBodyMediaClipList]
+        self.request_id = request_id  # type: str
+        self.success = success  # type: str
+        self.total = total  # type: long
+
+    def validate(self):
+        if self.media_clip_list:
+            for k in self.media_clip_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(SearchMediaClipByFaceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        result['MediaClipList'] = []
+        if self.media_clip_list is not None:
+            for k in self.media_clip_list:
+                result['MediaClipList'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        if self.total is not None:
+            result['Total'] = self.total
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        self.media_clip_list = []
+        if m.get('MediaClipList') is not None:
+            for k in m.get('MediaClipList'):
+                temp_model = SearchMediaClipByFaceResponseBodyMediaClipList()
+                self.media_clip_list.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Total') is not None:
+            self.total = m.get('Total')
+        return self
+
+
+class SearchMediaClipByFaceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: SearchMediaClipByFaceResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SearchMediaClipByFaceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = SearchMediaClipByFaceResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -31922,6 +32779,108 @@ class SendLiveTranscodeJobCommandResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SendLiveTranscodeJobCommandResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class SetContentAnalyzeConfigRequest(TeaModel):
+    def __init__(self, auto=None, save_type=None, template_id=None):
+        self.auto = auto  # type: bool
+        self.save_type = save_type  # type: str
+        self.template_id = template_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SetContentAnalyzeConfigRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auto is not None:
+            result['Auto'] = self.auto
+        if self.save_type is not None:
+            result['SaveType'] = self.save_type
+        if self.template_id is not None:
+            result['TemplateId'] = self.template_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Auto') is not None:
+            self.auto = m.get('Auto')
+        if m.get('SaveType') is not None:
+            self.save_type = m.get('SaveType')
+        if m.get('TemplateId') is not None:
+            self.template_id = m.get('TemplateId')
+        return self
+
+
+class SetContentAnalyzeConfigResponseBody(TeaModel):
+    def __init__(self, request_id=None, success=None):
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SetContentAnalyzeConfigResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class SetContentAnalyzeConfigResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: SetContentAnalyzeConfigResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SetContentAnalyzeConfigResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = SetContentAnalyzeConfigResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -32586,6 +33545,130 @@ class SubmitAudioProduceJobResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SubmitAudioProduceJobResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class SubmitAvatarVideoJobRequest(TeaModel):
+    def __init__(self, description=None, editing_config=None, input_config=None, output_config=None, title=None,
+                 user_data=None):
+        self.description = description  # type: str
+        self.editing_config = editing_config  # type: str
+        self.input_config = input_config  # type: str
+        self.output_config = output_config  # type: str
+        self.title = title  # type: str
+        self.user_data = user_data  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SubmitAvatarVideoJobRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.editing_config is not None:
+            result['EditingConfig'] = self.editing_config
+        if self.input_config is not None:
+            result['InputConfig'] = self.input_config
+        if self.output_config is not None:
+            result['OutputConfig'] = self.output_config
+        if self.title is not None:
+            result['Title'] = self.title
+        if self.user_data is not None:
+            result['UserData'] = self.user_data
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('EditingConfig') is not None:
+            self.editing_config = m.get('EditingConfig')
+        if m.get('InputConfig') is not None:
+            self.input_config = m.get('InputConfig')
+        if m.get('OutputConfig') is not None:
+            self.output_config = m.get('OutputConfig')
+        if m.get('Title') is not None:
+            self.title = m.get('Title')
+        if m.get('UserData') is not None:
+            self.user_data = m.get('UserData')
+        return self
+
+
+class SubmitAvatarVideoJobResponseBody(TeaModel):
+    def __init__(self, job_id=None, media_id=None, request_id=None):
+        self.job_id = job_id  # type: str
+        self.media_id = media_id  # type: str
+        # Id of the request
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SubmitAvatarVideoJobResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.job_id is not None:
+            result['JobId'] = self.job_id
+        if self.media_id is not None:
+            result['MediaId'] = self.media_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('JobId') is not None:
+            self.job_id = m.get('JobId')
+        if m.get('MediaId') is not None:
+            self.media_id = m.get('MediaId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class SubmitAvatarVideoJobResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: SubmitAvatarVideoJobResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SubmitAvatarVideoJobResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = SubmitAvatarVideoJobResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -35531,12 +36614,13 @@ class SubmitMediaInfoJobResponse(TeaModel):
 
 
 class SubmitMediaProducingJobRequest(TeaModel):
-    def __init__(self, client_token=None, clips_param=None, editing_produce_config=None, output_media_config=None,
-                 output_media_target=None, project_id=None, project_metadata=None, source=None, template_id=None, timeline=None,
-                 user_data=None):
+    def __init__(self, client_token=None, clips_param=None, editing_produce_config=None, media_metadata=None,
+                 output_media_config=None, output_media_target=None, project_id=None, project_metadata=None, source=None,
+                 template_id=None, timeline=None, user_data=None):
         self.client_token = client_token  # type: str
         self.clips_param = clips_param  # type: str
         self.editing_produce_config = editing_produce_config  # type: str
+        self.media_metadata = media_metadata  # type: str
         self.output_media_config = output_media_config  # type: str
         self.output_media_target = output_media_target  # type: str
         self.project_id = project_id  # type: str
@@ -35561,6 +36645,8 @@ class SubmitMediaProducingJobRequest(TeaModel):
             result['ClipsParam'] = self.clips_param
         if self.editing_produce_config is not None:
             result['EditingProduceConfig'] = self.editing_produce_config
+        if self.media_metadata is not None:
+            result['MediaMetadata'] = self.media_metadata
         if self.output_media_config is not None:
             result['OutputMediaConfig'] = self.output_media_config
         if self.output_media_target is not None:
@@ -35587,6 +36673,8 @@ class SubmitMediaProducingJobRequest(TeaModel):
             self.clips_param = m.get('ClipsParam')
         if m.get('EditingProduceConfig') is not None:
             self.editing_produce_config = m.get('EditingProduceConfig')
+        if m.get('MediaMetadata') is not None:
+            self.media_metadata = m.get('MediaMetadata')
         if m.get('OutputMediaConfig') is not None:
             self.output_media_config = m.get('OutputMediaConfig')
         if m.get('OutputMediaTarget') is not None:
@@ -38192,6 +39280,67 @@ class SubmitTranscodeJobRequestOutputGroupProcessConfigTranscodeOverwriteParamsM
         return self
 
 
+class SubmitTranscodeJobRequestOutputGroupProcessConfigTranscodeOverwriteParamsTransConfig(TeaModel):
+    def __init__(self, adj_dar_method=None, is_check_audio_bitrate=None, is_check_audio_bitrate_fail=None,
+                 is_check_reso=None, is_check_reso_fail=None, is_check_video_bitrate=None, is_check_video_bitrate_fail=None,
+                 trans_mode=None):
+        self.adj_dar_method = adj_dar_method  # type: str
+        self.is_check_audio_bitrate = is_check_audio_bitrate  # type: str
+        self.is_check_audio_bitrate_fail = is_check_audio_bitrate_fail  # type: str
+        self.is_check_reso = is_check_reso  # type: str
+        self.is_check_reso_fail = is_check_reso_fail  # type: str
+        self.is_check_video_bitrate = is_check_video_bitrate  # type: str
+        self.is_check_video_bitrate_fail = is_check_video_bitrate_fail  # type: str
+        self.trans_mode = trans_mode  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SubmitTranscodeJobRequestOutputGroupProcessConfigTranscodeOverwriteParamsTransConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.adj_dar_method is not None:
+            result['AdjDarMethod'] = self.adj_dar_method
+        if self.is_check_audio_bitrate is not None:
+            result['IsCheckAudioBitrate'] = self.is_check_audio_bitrate
+        if self.is_check_audio_bitrate_fail is not None:
+            result['IsCheckAudioBitrateFail'] = self.is_check_audio_bitrate_fail
+        if self.is_check_reso is not None:
+            result['IsCheckReso'] = self.is_check_reso
+        if self.is_check_reso_fail is not None:
+            result['IsCheckResoFail'] = self.is_check_reso_fail
+        if self.is_check_video_bitrate is not None:
+            result['IsCheckVideoBitrate'] = self.is_check_video_bitrate
+        if self.is_check_video_bitrate_fail is not None:
+            result['IsCheckVideoBitrateFail'] = self.is_check_video_bitrate_fail
+        if self.trans_mode is not None:
+            result['TransMode'] = self.trans_mode
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AdjDarMethod') is not None:
+            self.adj_dar_method = m.get('AdjDarMethod')
+        if m.get('IsCheckAudioBitrate') is not None:
+            self.is_check_audio_bitrate = m.get('IsCheckAudioBitrate')
+        if m.get('IsCheckAudioBitrateFail') is not None:
+            self.is_check_audio_bitrate_fail = m.get('IsCheckAudioBitrateFail')
+        if m.get('IsCheckReso') is not None:
+            self.is_check_reso = m.get('IsCheckReso')
+        if m.get('IsCheckResoFail') is not None:
+            self.is_check_reso_fail = m.get('IsCheckResoFail')
+        if m.get('IsCheckVideoBitrate') is not None:
+            self.is_check_video_bitrate = m.get('IsCheckVideoBitrate')
+        if m.get('IsCheckVideoBitrateFail') is not None:
+            self.is_check_video_bitrate_fail = m.get('IsCheckVideoBitrateFail')
+        if m.get('TransMode') is not None:
+            self.trans_mode = m.get('TransMode')
+        return self
+
+
 class SubmitTranscodeJobRequestOutputGroupProcessConfigTranscodeOverwriteParamsVideo(TeaModel):
     def __init__(self, abr_max=None, bitrate=None, bufsize=None, codec=None, crf=None, crop=None, fps=None, gop=None,
                  height=None, long_short_mode=None, maxrate=None, pad=None, pix_fmt=None, preset=None, profile=None,
@@ -38304,11 +39453,12 @@ class SubmitTranscodeJobRequestOutputGroupProcessConfigTranscodeOverwriteParamsV
 
 
 class SubmitTranscodeJobRequestOutputGroupProcessConfigTranscodeOverwriteParams(TeaModel):
-    def __init__(self, audio=None, container=None, mux_config=None, tags=None, video=None):
+    def __init__(self, audio=None, container=None, mux_config=None, tags=None, trans_config=None, video=None):
         self.audio = audio  # type: SubmitTranscodeJobRequestOutputGroupProcessConfigTranscodeOverwriteParamsAudio
         self.container = container  # type: SubmitTranscodeJobRequestOutputGroupProcessConfigTranscodeOverwriteParamsContainer
         self.mux_config = mux_config  # type: SubmitTranscodeJobRequestOutputGroupProcessConfigTranscodeOverwriteParamsMuxConfig
         self.tags = tags  # type: dict[str, str]
+        self.trans_config = trans_config  # type: SubmitTranscodeJobRequestOutputGroupProcessConfigTranscodeOverwriteParamsTransConfig
         self.video = video  # type: SubmitTranscodeJobRequestOutputGroupProcessConfigTranscodeOverwriteParamsVideo
 
     def validate(self):
@@ -38318,6 +39468,8 @@ class SubmitTranscodeJobRequestOutputGroupProcessConfigTranscodeOverwriteParams(
             self.container.validate()
         if self.mux_config:
             self.mux_config.validate()
+        if self.trans_config:
+            self.trans_config.validate()
         if self.video:
             self.video.validate()
 
@@ -38335,6 +39487,8 @@ class SubmitTranscodeJobRequestOutputGroupProcessConfigTranscodeOverwriteParams(
             result['MuxConfig'] = self.mux_config.to_map()
         if self.tags is not None:
             result['Tags'] = self.tags
+        if self.trans_config is not None:
+            result['TransConfig'] = self.trans_config.to_map()
         if self.video is not None:
             result['Video'] = self.video.to_map()
         return result
@@ -38352,6 +39506,9 @@ class SubmitTranscodeJobRequestOutputGroupProcessConfigTranscodeOverwriteParams(
             self.mux_config = temp_model.from_map(m['MuxConfig'])
         if m.get('Tags') is not None:
             self.tags = m.get('Tags')
+        if m.get('TransConfig') is not None:
+            temp_model = SubmitTranscodeJobRequestOutputGroupProcessConfigTranscodeOverwriteParamsTransConfig()
+            self.trans_config = temp_model.from_map(m['TransConfig'])
         if m.get('Video') is not None:
             temp_model = SubmitTranscodeJobRequestOutputGroupProcessConfigTranscodeOverwriteParamsVideo()
             self.video = temp_model.from_map(m['Video'])
@@ -39308,6 +40465,67 @@ class SubmitTranscodeJobResponseBodyTranscodeParentJobOutputGroupProcessConfigTr
         return self
 
 
+class SubmitTranscodeJobResponseBodyTranscodeParentJobOutputGroupProcessConfigTranscodeOverwriteParamsTransConfig(TeaModel):
+    def __init__(self, adj_dar_method=None, is_check_audio_bitrate=None, is_check_audio_bitrate_fail=None,
+                 is_check_reso=None, is_check_reso_fail=None, is_check_video_bitrate=None, is_check_video_bitrate_fail=None,
+                 trans_mode=None):
+        self.adj_dar_method = adj_dar_method  # type: str
+        self.is_check_audio_bitrate = is_check_audio_bitrate  # type: str
+        self.is_check_audio_bitrate_fail = is_check_audio_bitrate_fail  # type: str
+        self.is_check_reso = is_check_reso  # type: str
+        self.is_check_reso_fail = is_check_reso_fail  # type: str
+        self.is_check_video_bitrate = is_check_video_bitrate  # type: str
+        self.is_check_video_bitrate_fail = is_check_video_bitrate_fail  # type: str
+        self.trans_mode = trans_mode  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SubmitTranscodeJobResponseBodyTranscodeParentJobOutputGroupProcessConfigTranscodeOverwriteParamsTransConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.adj_dar_method is not None:
+            result['AdjDarMethod'] = self.adj_dar_method
+        if self.is_check_audio_bitrate is not None:
+            result['IsCheckAudioBitrate'] = self.is_check_audio_bitrate
+        if self.is_check_audio_bitrate_fail is not None:
+            result['IsCheckAudioBitrateFail'] = self.is_check_audio_bitrate_fail
+        if self.is_check_reso is not None:
+            result['IsCheckReso'] = self.is_check_reso
+        if self.is_check_reso_fail is not None:
+            result['IsCheckResoFail'] = self.is_check_reso_fail
+        if self.is_check_video_bitrate is not None:
+            result['IsCheckVideoBitrate'] = self.is_check_video_bitrate
+        if self.is_check_video_bitrate_fail is not None:
+            result['IsCheckVideoBitrateFail'] = self.is_check_video_bitrate_fail
+        if self.trans_mode is not None:
+            result['TransMode'] = self.trans_mode
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AdjDarMethod') is not None:
+            self.adj_dar_method = m.get('AdjDarMethod')
+        if m.get('IsCheckAudioBitrate') is not None:
+            self.is_check_audio_bitrate = m.get('IsCheckAudioBitrate')
+        if m.get('IsCheckAudioBitrateFail') is not None:
+            self.is_check_audio_bitrate_fail = m.get('IsCheckAudioBitrateFail')
+        if m.get('IsCheckReso') is not None:
+            self.is_check_reso = m.get('IsCheckReso')
+        if m.get('IsCheckResoFail') is not None:
+            self.is_check_reso_fail = m.get('IsCheckResoFail')
+        if m.get('IsCheckVideoBitrate') is not None:
+            self.is_check_video_bitrate = m.get('IsCheckVideoBitrate')
+        if m.get('IsCheckVideoBitrateFail') is not None:
+            self.is_check_video_bitrate_fail = m.get('IsCheckVideoBitrateFail')
+        if m.get('TransMode') is not None:
+            self.trans_mode = m.get('TransMode')
+        return self
+
+
 class SubmitTranscodeJobResponseBodyTranscodeParentJobOutputGroupProcessConfigTranscodeOverwriteParamsVideo(TeaModel):
     def __init__(self, abr_max=None, bitrate=None, bufsize=None, codec=None, crf=None, crop=None, fps=None, gop=None,
                  height=None, long_short_mode=None, maxrate=None, pad=None, pix_fmt=None, preset=None, profile=None,
@@ -39420,10 +40638,11 @@ class SubmitTranscodeJobResponseBodyTranscodeParentJobOutputGroupProcessConfigTr
 
 
 class SubmitTranscodeJobResponseBodyTranscodeParentJobOutputGroupProcessConfigTranscodeOverwriteParams(TeaModel):
-    def __init__(self, audio=None, container=None, mux_config=None, video=None):
+    def __init__(self, audio=None, container=None, mux_config=None, trans_config=None, video=None):
         self.audio = audio  # type: SubmitTranscodeJobResponseBodyTranscodeParentJobOutputGroupProcessConfigTranscodeOverwriteParamsAudio
         self.container = container  # type: SubmitTranscodeJobResponseBodyTranscodeParentJobOutputGroupProcessConfigTranscodeOverwriteParamsContainer
         self.mux_config = mux_config  # type: SubmitTranscodeJobResponseBodyTranscodeParentJobOutputGroupProcessConfigTranscodeOverwriteParamsMuxConfig
+        self.trans_config = trans_config  # type: SubmitTranscodeJobResponseBodyTranscodeParentJobOutputGroupProcessConfigTranscodeOverwriteParamsTransConfig
         self.video = video  # type: SubmitTranscodeJobResponseBodyTranscodeParentJobOutputGroupProcessConfigTranscodeOverwriteParamsVideo
 
     def validate(self):
@@ -39433,6 +40652,8 @@ class SubmitTranscodeJobResponseBodyTranscodeParentJobOutputGroupProcessConfigTr
             self.container.validate()
         if self.mux_config:
             self.mux_config.validate()
+        if self.trans_config:
+            self.trans_config.validate()
         if self.video:
             self.video.validate()
 
@@ -39448,6 +40669,8 @@ class SubmitTranscodeJobResponseBodyTranscodeParentJobOutputGroupProcessConfigTr
             result['Container'] = self.container.to_map()
         if self.mux_config is not None:
             result['MuxConfig'] = self.mux_config.to_map()
+        if self.trans_config is not None:
+            result['TransConfig'] = self.trans_config.to_map()
         if self.video is not None:
             result['Video'] = self.video.to_map()
         return result
@@ -39463,6 +40686,9 @@ class SubmitTranscodeJobResponseBodyTranscodeParentJobOutputGroupProcessConfigTr
         if m.get('MuxConfig') is not None:
             temp_model = SubmitTranscodeJobResponseBodyTranscodeParentJobOutputGroupProcessConfigTranscodeOverwriteParamsMuxConfig()
             self.mux_config = temp_model.from_map(m['MuxConfig'])
+        if m.get('TransConfig') is not None:
+            temp_model = SubmitTranscodeJobResponseBodyTranscodeParentJobOutputGroupProcessConfigTranscodeOverwriteParamsTransConfig()
+            self.trans_config = temp_model.from_map(m['TransConfig'])
         if m.get('Video') is not None:
             temp_model = SubmitTranscodeJobResponseBodyTranscodeParentJobOutputGroupProcessConfigTranscodeOverwriteParamsVideo()
             self.video = temp_model.from_map(m['Video'])
@@ -40682,6 +41908,67 @@ class SubmitTranscodeJobResponseBodyTranscodeParentJobTranscodeJobListProcessCon
         return self
 
 
+class SubmitTranscodeJobResponseBodyTranscodeParentJobTranscodeJobListProcessConfigTranscodeOverwriteParamsTransConfig(TeaModel):
+    def __init__(self, adj_dar_method=None, is_check_audio_bitrate=None, is_check_audio_bitrate_fail=None,
+                 is_check_reso=None, is_check_reso_fail=None, is_check_video_bitrate=None, is_check_video_bitrate_fail=None,
+                 trans_mode=None):
+        self.adj_dar_method = adj_dar_method  # type: str
+        self.is_check_audio_bitrate = is_check_audio_bitrate  # type: str
+        self.is_check_audio_bitrate_fail = is_check_audio_bitrate_fail  # type: str
+        self.is_check_reso = is_check_reso  # type: str
+        self.is_check_reso_fail = is_check_reso_fail  # type: str
+        self.is_check_video_bitrate = is_check_video_bitrate  # type: str
+        self.is_check_video_bitrate_fail = is_check_video_bitrate_fail  # type: str
+        self.trans_mode = trans_mode  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SubmitTranscodeJobResponseBodyTranscodeParentJobTranscodeJobListProcessConfigTranscodeOverwriteParamsTransConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.adj_dar_method is not None:
+            result['AdjDarMethod'] = self.adj_dar_method
+        if self.is_check_audio_bitrate is not None:
+            result['IsCheckAudioBitrate'] = self.is_check_audio_bitrate
+        if self.is_check_audio_bitrate_fail is not None:
+            result['IsCheckAudioBitrateFail'] = self.is_check_audio_bitrate_fail
+        if self.is_check_reso is not None:
+            result['IsCheckReso'] = self.is_check_reso
+        if self.is_check_reso_fail is not None:
+            result['IsCheckResoFail'] = self.is_check_reso_fail
+        if self.is_check_video_bitrate is not None:
+            result['IsCheckVideoBitrate'] = self.is_check_video_bitrate
+        if self.is_check_video_bitrate_fail is not None:
+            result['IsCheckVideoBitrateFail'] = self.is_check_video_bitrate_fail
+        if self.trans_mode is not None:
+            result['TransMode'] = self.trans_mode
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AdjDarMethod') is not None:
+            self.adj_dar_method = m.get('AdjDarMethod')
+        if m.get('IsCheckAudioBitrate') is not None:
+            self.is_check_audio_bitrate = m.get('IsCheckAudioBitrate')
+        if m.get('IsCheckAudioBitrateFail') is not None:
+            self.is_check_audio_bitrate_fail = m.get('IsCheckAudioBitrateFail')
+        if m.get('IsCheckReso') is not None:
+            self.is_check_reso = m.get('IsCheckReso')
+        if m.get('IsCheckResoFail') is not None:
+            self.is_check_reso_fail = m.get('IsCheckResoFail')
+        if m.get('IsCheckVideoBitrate') is not None:
+            self.is_check_video_bitrate = m.get('IsCheckVideoBitrate')
+        if m.get('IsCheckVideoBitrateFail') is not None:
+            self.is_check_video_bitrate_fail = m.get('IsCheckVideoBitrateFail')
+        if m.get('TransMode') is not None:
+            self.trans_mode = m.get('TransMode')
+        return self
+
+
 class SubmitTranscodeJobResponseBodyTranscodeParentJobTranscodeJobListProcessConfigTranscodeOverwriteParamsVideo(TeaModel):
     def __init__(self, abr_max=None, bitrate=None, bufsize=None, codec=None, crf=None, crop=None, fps=None, gop=None,
                  height=None, long_short_mode=None, maxrate=None, pad=None, pix_fmt=None, preset=None, profile=None,
@@ -40794,11 +42081,12 @@ class SubmitTranscodeJobResponseBodyTranscodeParentJobTranscodeJobListProcessCon
 
 
 class SubmitTranscodeJobResponseBodyTranscodeParentJobTranscodeJobListProcessConfigTranscodeOverwriteParams(TeaModel):
-    def __init__(self, audio=None, container=None, mux_config=None, tags=None, video=None):
+    def __init__(self, audio=None, container=None, mux_config=None, tags=None, trans_config=None, video=None):
         self.audio = audio  # type: SubmitTranscodeJobResponseBodyTranscodeParentJobTranscodeJobListProcessConfigTranscodeOverwriteParamsAudio
         self.container = container  # type: SubmitTranscodeJobResponseBodyTranscodeParentJobTranscodeJobListProcessConfigTranscodeOverwriteParamsContainer
         self.mux_config = mux_config  # type: SubmitTranscodeJobResponseBodyTranscodeParentJobTranscodeJobListProcessConfigTranscodeOverwriteParamsMuxConfig
         self.tags = tags  # type: dict[str, any]
+        self.trans_config = trans_config  # type: SubmitTranscodeJobResponseBodyTranscodeParentJobTranscodeJobListProcessConfigTranscodeOverwriteParamsTransConfig
         self.video = video  # type: SubmitTranscodeJobResponseBodyTranscodeParentJobTranscodeJobListProcessConfigTranscodeOverwriteParamsVideo
 
     def validate(self):
@@ -40808,6 +42096,8 @@ class SubmitTranscodeJobResponseBodyTranscodeParentJobTranscodeJobListProcessCon
             self.container.validate()
         if self.mux_config:
             self.mux_config.validate()
+        if self.trans_config:
+            self.trans_config.validate()
         if self.video:
             self.video.validate()
 
@@ -40825,6 +42115,8 @@ class SubmitTranscodeJobResponseBodyTranscodeParentJobTranscodeJobListProcessCon
             result['MuxConfig'] = self.mux_config.to_map()
         if self.tags is not None:
             result['Tags'] = self.tags
+        if self.trans_config is not None:
+            result['TransConfig'] = self.trans_config.to_map()
         if self.video is not None:
             result['Video'] = self.video.to_map()
         return result
@@ -40842,6 +42134,9 @@ class SubmitTranscodeJobResponseBodyTranscodeParentJobTranscodeJobListProcessCon
             self.mux_config = temp_model.from_map(m['MuxConfig'])
         if m.get('Tags') is not None:
             self.tags = m.get('Tags')
+        if m.get('TransConfig') is not None:
+            temp_model = SubmitTranscodeJobResponseBodyTranscodeParentJobTranscodeJobListProcessConfigTranscodeOverwriteParamsTransConfig()
+            self.trans_config = temp_model.from_map(m['TransConfig'])
         if m.get('Video') is not None:
             temp_model = SubmitTranscodeJobResponseBodyTranscodeParentJobTranscodeJobListProcessConfigTranscodeOverwriteParamsVideo()
             self.video = temp_model.from_map(m['Video'])

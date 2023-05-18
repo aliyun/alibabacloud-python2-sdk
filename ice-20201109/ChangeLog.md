@@ -1,3 +1,6 @@
+2023-05-18 Version: 1.3.8
+- Add conditional transcoding parameters.
+
 2023-03-01 Version: 1.3.7
 - Add jobResults params in GetSmartHandleJob API.
 

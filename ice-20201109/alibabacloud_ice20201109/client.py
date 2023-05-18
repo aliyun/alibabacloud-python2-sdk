@@ -466,6 +466,8 @@ class Client(OpenApiClient):
             query['ProjectType'] = request.project_type
         if not UtilClient.is_unset(request.template_id):
             query['TemplateId'] = request.template_id
+        if not UtilClient.is_unset(request.template_type):
+            query['TemplateType'] = request.template_type
         if not UtilClient.is_unset(request.timeline):
             query['Timeline'] = request.timeline
         if not UtilClient.is_unset(request.title):
@@ -2115,6 +2117,28 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_categories_with_options(request, runtime)
 
+    def get_content_analyze_config_with_options(self, runtime):
+        req = open_api_models.OpenApiRequest()
+        params = open_api_models.Params(
+            action='GetContentAnalyzeConfig',
+            version='2020-11-09',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ice20201109_models.GetContentAnalyzeConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_content_analyze_config(self):
+        runtime = util_models.RuntimeOptions()
+        return self.get_content_analyze_config_with_options(runtime)
+
     def get_custom_template_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -3691,6 +3715,32 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_smart_jobs_with_options(request, runtime)
 
+    def list_smart_sys_avatar_models_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListSmartSysAvatarModels',
+            version='2020-11-09',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ice20201109_models.ListSmartSysAvatarModelsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_smart_sys_avatar_models(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_smart_sys_avatar_models_with_options(request, runtime)
+
     def list_snapshot_jobs_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -4229,6 +4279,78 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.search_media_with_options(request, runtime)
 
+    def search_media_by_face_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.entity_id):
+            query['EntityId'] = request.entity_id
+        if not UtilClient.is_unset(request.face_search_token):
+            query['FaceSearchToken'] = request.face_search_token
+        if not UtilClient.is_unset(request.page_no):
+            query['PageNo'] = request.page_no
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.person_image_url):
+            query['PersonImageUrl'] = request.person_image_url
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='SearchMediaByFace',
+            version='2020-11-09',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ice20201109_models.SearchMediaByFaceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def search_media_by_face(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.search_media_by_face_with_options(request, runtime)
+
+    def search_media_clip_by_face_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.entity_id):
+            query['EntityId'] = request.entity_id
+        if not UtilClient.is_unset(request.face_search_token):
+            query['FaceSearchToken'] = request.face_search_token
+        if not UtilClient.is_unset(request.media_id):
+            query['MediaId'] = request.media_id
+        if not UtilClient.is_unset(request.page_no):
+            query['PageNo'] = request.page_no
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='SearchMediaClipByFace',
+            version='2020-11-09',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ice20201109_models.SearchMediaClipByFaceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def search_media_clip_by_face(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.search_media_clip_by_face_with_options(request, runtime)
+
     def search_public_media_info_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -4330,6 +4452,38 @@ class Client(OpenApiClient):
     def send_live_transcode_job_command(self, request):
         runtime = util_models.RuntimeOptions()
         return self.send_live_transcode_job_command_with_options(request, runtime)
+
+    def set_content_analyze_config_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.auto):
+            query['Auto'] = request.auto
+        if not UtilClient.is_unset(request.save_type):
+            query['SaveType'] = request.save_type
+        if not UtilClient.is_unset(request.template_id):
+            query['TemplateId'] = request.template_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='SetContentAnalyzeConfig',
+            version='2020-11-09',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ice20201109_models.SetContentAnalyzeConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def set_content_analyze_config(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.set_content_analyze_config_with_options(request, runtime)
 
     def set_default_custom_template_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -4538,6 +4692,44 @@ class Client(OpenApiClient):
     def submit_audio_produce_job(self, request):
         runtime = util_models.RuntimeOptions()
         return self.submit_audio_produce_job_with_options(request, runtime)
+
+    def submit_avatar_video_job_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.editing_config):
+            query['EditingConfig'] = request.editing_config
+        if not UtilClient.is_unset(request.input_config):
+            query['InputConfig'] = request.input_config
+        if not UtilClient.is_unset(request.output_config):
+            query['OutputConfig'] = request.output_config
+        if not UtilClient.is_unset(request.title):
+            query['Title'] = request.title
+        if not UtilClient.is_unset(request.user_data):
+            query['UserData'] = request.user_data
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='SubmitAvatarVideoJob',
+            version='2020-11-09',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ice20201109_models.SubmitAvatarVideoJobResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def submit_avatar_video_job(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.submit_avatar_video_job_with_options(request, runtime)
 
     def submit_dnajob_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
@@ -5012,6 +5204,8 @@ class Client(OpenApiClient):
             query['ClipsParam'] = request.clips_param
         if not UtilClient.is_unset(request.editing_produce_config):
             query['EditingProduceConfig'] = request.editing_produce_config
+        if not UtilClient.is_unset(request.media_metadata):
+            query['MediaMetadata'] = request.media_metadata
         if not UtilClient.is_unset(request.output_media_config):
             query['OutputMediaConfig'] = request.output_media_config
         if not UtilClient.is_unset(request.output_media_target):
