@@ -5,11 +5,11 @@ from Tea.model import TeaModel
 
 class AttachClusterToHubRequest(TeaModel):
     def __init__(self, attach_to_mesh=None, cluster_id=None, cluster_ids=None):
-        # Specifies whether to associate the clusters with Service Mesh (ASM) instances. Valid values:
+        # The operation that you want to perform. Set the value to **AttachClusterToHub**.
         self.attach_to_mesh = attach_to_mesh  # type: bool
-        # The ID of the master instance.
+        # The ID of the task.
         self.cluster_id = cluster_id  # type: str
-        # A JSON string that can be parsed into a string array. The string specifies the clusters that you want to associate with the master instance.
+        # The ID of the request.
         self.cluster_ids = cluster_ids  # type: str
 
     def validate(self):
@@ -42,13 +42,12 @@ class AttachClusterToHubRequest(TeaModel):
 
 class AttachClusterToHubResponseBody(TeaModel):
     def __init__(self, cluster_id=None, managed_cluster_ids=None, request_id=None, task_id=None):
-        # The ID of the master instance.
+        # You can call the AttachClusterToHub operation to associate an Container Service for Kubernetes (ACK) cluster with a master instance of ACK One.
         self.cluster_id = cluster_id  # type: str
-        # A list of the IDs of the clusters that you want to associate with the master instance.
+        # Zhishi
         self.managed_cluster_ids = managed_cluster_ids  # type: list[str]
-        # The ID of the request.
+        # Example 1
         self.request_id = request_id  # type: str
-        # The ID of the task.
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -455,8 +454,11 @@ class DeleteHubClusterResponse(TeaModel):
 
 class DeletePolicyInstanceRequest(TeaModel):
     def __init__(self, cluster_id=None, cluster_ids=None, policy_name=None):
+        # The ID of the master instance.
         self.cluster_id = cluster_id  # type: str
+        # A array of JSON strings. The JSON strings in the array indicate the IDs of the associated clusters for which the policy is deleted.
         self.cluster_ids = cluster_ids  # type: list[str]
+        # The name of the policy.
         self.policy_name = policy_name  # type: str
 
     def validate(self):
@@ -489,8 +491,11 @@ class DeletePolicyInstanceRequest(TeaModel):
 
 class DeletePolicyInstanceShrinkRequest(TeaModel):
     def __init__(self, cluster_id=None, cluster_ids_shrink=None, policy_name=None):
+        # The ID of the master instance.
         self.cluster_id = cluster_id  # type: str
+        # A array of JSON strings. The JSON strings in the array indicate the IDs of the associated clusters for which the policy is deleted.
         self.cluster_ids_shrink = cluster_ids_shrink  # type: str
+        # The name of the policy.
         self.policy_name = policy_name  # type: str
 
     def validate(self):
@@ -523,6 +528,7 @@ class DeletePolicyInstanceShrinkRequest(TeaModel):
 
 class DeletePolicyInstanceResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -681,10 +687,18 @@ class DeleteUserPermissionResponse(TeaModel):
 
 class DeployPolicyInstanceRequest(TeaModel):
     def __init__(self, cluster_id=None, cluster_ids=None, namespaces=None, policy_action=None, policy_name=None):
+        # The ID of the master instance.
         self.cluster_id = cluster_id  # type: str
+        # An array of JSON strings. The JSON strings in the array indicate the IDs of the associated clusters in which the policy instance is deployed.
         self.cluster_ids = cluster_ids  # type: list[str]
+        # A list of namespaces.
         self.namespaces = namespaces  # type: list[str]
+        # The action of the policy. Valid values:
+        # 
+        # *   deny: blocks deployments that match the policy.
+        # *   warn: generates alerts for deployments that match the policy.
         self.policy_action = policy_action  # type: str
+        # The name of the policy.
         self.policy_name = policy_name  # type: str
 
     def validate(self):
@@ -726,10 +740,18 @@ class DeployPolicyInstanceRequest(TeaModel):
 class DeployPolicyInstanceShrinkRequest(TeaModel):
     def __init__(self, cluster_id=None, cluster_ids_shrink=None, namespaces_shrink=None, policy_action=None,
                  policy_name=None):
+        # The ID of the master instance.
         self.cluster_id = cluster_id  # type: str
+        # An array of JSON strings. The JSON strings in the array indicate the IDs of the associated clusters in which the policy instance is deployed.
         self.cluster_ids_shrink = cluster_ids_shrink  # type: str
+        # A list of namespaces.
         self.namespaces_shrink = namespaces_shrink  # type: str
+        # The action of the policy. Valid values:
+        # 
+        # *   deny: blocks deployments that match the policy.
+        # *   warn: generates alerts for deployments that match the policy.
         self.policy_action = policy_action  # type: str
+        # The name of the policy.
         self.policy_name = policy_name  # type: str
 
     def validate(self):
@@ -770,6 +792,7 @@ class DeployPolicyInstanceShrinkRequest(TeaModel):
 
 class DeployPolicyInstanceResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1732,12 +1755,6 @@ class DescribeHubClusterLogsResponse(TeaModel):
 
 class DescribeHubClustersRequest(TeaModel):
     def __init__(self, profile=None):
-        # The scenario where master instances are used. Valid values:
-        # 
-        # *   `Default`: standard scenarios.
-        # *   `XFlow`: workflow scenarios.
-        # 
-        # Default value: `Default`.
         self.profile = profile  # type: str
 
     def validate(self):
@@ -1762,14 +1779,8 @@ class DescribeHubClustersRequest(TeaModel):
 
 class DescribeHubClustersResponseBodyClustersApiServer(TeaModel):
     def __init__(self, api_server_eip_id=None, enabled_public=None, load_balancer_id=None):
-        # The ID of the elastic IP address (EIP).
         self.api_server_eip_id = api_server_eip_id  # type: str
-        # Indicates whether the API server is accessible over the Internet. Valid values:
-        # 
-        # *   true: The API server is accessible over the Internet.
-        # *   false: The API server is inaccessible over the Internet.
         self.enabled_public = enabled_public  # type: bool
-        # The ID of the Server Load Balancer (SLB) instance that is associated with the Kubernetes API server.
         self.load_balancer_id = load_balancer_id  # type: str
 
     def validate(self):
@@ -1803,35 +1814,15 @@ class DescribeHubClustersResponseBodyClustersApiServer(TeaModel):
 class DescribeHubClustersResponseBodyClustersClusterInfo(TeaModel):
     def __init__(self, cluster_id=None, cluster_spec=None, creation_time=None, error_message=None, name=None,
                  profile=None, region_id=None, state=None, update_time=None, version=None):
-        # The ID of the master instance.
         self.cluster_id = cluster_id  # type: str
-        # The specification of the master instance.
-        # 
-        # *   ack.pro.small: ACK Pro cluster
         self.cluster_spec = cluster_spec  # type: str
-        # The time when the master instance was created.
         self.creation_time = creation_time  # type: str
-        # The error message returned when the master instance failed to be created.
         self.error_message = error_message  # type: str
-        # The name of the master instance.
         self.name = name  # type: str
-        # The configurations of the master instance.
         self.profile = profile  # type: str
-        # The ID of the region in which the master instance resides.
         self.region_id = region_id  # type: str
-        # The status of the master instance. Valid values:
-        # 
-        # *   initial: The master instance is being initialized.
-        # *   failed: The master instance failed to be created.
-        # *   running: The master instance is running
-        # *   inactive: The master instance is pending.
-        # *   deleting: The master instance is being deleted.
-        # *   delete_failed: The master instance failed to be deleted.
-        # *   deleted: The master instance is deleted.
         self.state = state  # type: str
-        # The last time when the master instance was updated.
         self.update_time = update_time  # type: str
-        # The Kubernetes version of the master instance.
         self.version = version  # type: str
 
     def validate(self):
@@ -1892,17 +1883,9 @@ class DescribeHubClustersResponseBodyClustersClusterInfo(TeaModel):
 
 class DescribeHubClustersResponseBodyClustersConditions(TeaModel):
     def __init__(self, message=None, reason=None, status=None, type=None):
-        # The error message of the deletion condition.
         self.message = message  # type: str
-        # The reason for the deletion condition.
         self.reason = reason  # type: str
-        # The status of the deletion condition. Valid values:
-        # 
-        # *   True: The master instance cannot be deleted.
-        # *   False: The master instance can be deleted.
-        # *   Unknow: Whether the master instance can be deleted is unknown.
         self.status = status  # type: str
-        # The type of deletion condition.
         self.type = type  # type: str
 
     def validate(self):
@@ -1939,9 +1922,7 @@ class DescribeHubClustersResponseBodyClustersConditions(TeaModel):
 
 class DescribeHubClustersResponseBodyClustersEndpoints(TeaModel):
     def __init__(self, intranet_api_server_endpoint=None, public_api_server_endpoint=None):
-        # The internal endpoint of the API server.
         self.intranet_api_server_endpoint = intranet_api_server_endpoint  # type: str
-        # The public endpoint of the API server.
         self.public_api_server_endpoint = public_api_server_endpoint  # type: str
 
     def validate(self):
@@ -1970,14 +1951,8 @@ class DescribeHubClustersResponseBodyClustersEndpoints(TeaModel):
 
 class DescribeHubClustersResponseBodyClustersLogConfig(TeaModel):
     def __init__(self, enable_log=None, log_project=None, log_store_ttl=None):
-        # Indicates whether audit logging is enabled. Valid values:
-        # 
-        # *   true: Audit logging is enabled.
-        # *   false: Audit logging is disabled.
         self.enable_log = enable_log  # type: bool
-        # The name of the project of Log Service.
         self.log_project = log_project  # type: str
-        # The number of days that logs are retained by Log Service.
         self.log_store_ttl = log_store_ttl  # type: str
 
     def validate(self):
@@ -2010,12 +1985,7 @@ class DescribeHubClustersResponseBodyClustersLogConfig(TeaModel):
 
 class DescribeHubClustersResponseBodyClustersMeshConfig(TeaModel):
     def __init__(self, enable_mesh=None, mesh_id=None):
-        # Indicates whether ASM is enabled. Valid values:
-        # 
-        # *   true: ASM is enabled.
-        # *   false: ASM is disabled.
         self.enable_mesh = enable_mesh  # type: bool
-        # The ID of the ASM instance.
         self.mesh_id = mesh_id  # type: str
 
     def validate(self):
@@ -2044,13 +2014,9 @@ class DescribeHubClustersResponseBodyClustersMeshConfig(TeaModel):
 
 class DescribeHubClustersResponseBodyClustersNetwork(TeaModel):
     def __init__(self, cluster_domain=None, security_group_ids=None, v_switches=None, vpc_id=None):
-        # The domain name of the master instance.
         self.cluster_domain = cluster_domain  # type: str
-        # The security group IDs of the master instance.
         self.security_group_ids = security_group_ids  # type: list[str]
-        # The IDs of the vSwitches to which the master instance is connected.
         self.v_switches = v_switches  # type: list[str]
-        # The ID of the virtual private cloud (VPC) to which the master instance belongs.
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
@@ -2088,19 +2054,12 @@ class DescribeHubClustersResponseBodyClustersNetwork(TeaModel):
 class DescribeHubClustersResponseBodyClusters(TeaModel):
     def __init__(self, api_server=None, cluster_info=None, conditions=None, endpoints=None, log_config=None,
                  mesh_config=None, network=None):
-        # The details of the Kubernetes API server.
         self.api_server = api_server  # type: DescribeHubClustersResponseBodyClustersApiServer
-        # The details of the master instance.
         self.cluster_info = cluster_info  # type: DescribeHubClustersResponseBodyClustersClusterInfo
-        # The list of the deletion conditions of the master instance.
         self.conditions = conditions  # type: list[DescribeHubClustersResponseBodyClustersConditions]
-        # The endpoint of the master instance.
         self.endpoints = endpoints  # type: DescribeHubClustersResponseBodyClustersEndpoints
-        # The logging configurations.
         self.log_config = log_config  # type: DescribeHubClustersResponseBodyClustersLogConfig
-        # The configurations of Alibaba Cloud Service Mesh (ASM).
         self.mesh_config = mesh_config  # type: DescribeHubClustersResponseBodyClustersMeshConfig
-        # The network configurations of the master instance.
         self.network = network  # type: DescribeHubClustersResponseBodyClustersNetwork
 
     def validate(self):
@@ -2175,9 +2134,7 @@ class DescribeHubClustersResponseBodyClusters(TeaModel):
 
 class DescribeHubClustersResponseBody(TeaModel):
     def __init__(self, clusters=None, request_id=None):
-        # The list of the master instances returned.
         self.clusters = clusters  # type: list[DescribeHubClustersResponseBodyClusters]
-        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2253,7 +2210,7 @@ class DescribeHubClustersResponse(TeaModel):
 
 class DescribeManagedClustersRequest(TeaModel):
     def __init__(self, cluster_id=None):
-        # The ID of the master instance.
+        # The status of the association between the clusters and Service Mesh (ASM).
         self.cluster_id = cluster_id  # type: str
 
     def validate(self):
@@ -2280,33 +2237,33 @@ class DescribeManagedClustersResponseBodyClustersCluster(TeaModel):
     def __init__(self, cluster_id=None, cluster_spec=None, cluster_type=None, created=None, current_version=None,
                  init_version=None, name=None, profile=None, region=None, resource_group_id=None, state=None, updated=None,
                  v_switch_id=None, vpc_id=None):
-        # The ID of the master instance.
+        # Information about the master instance.
         self.cluster_id = cluster_id  # type: str
-        # The specification of the master instance. Valid values: - ack.pro.small: ACK Pro.
+        # The ID of the master instance.
         self.cluster_spec = cluster_spec  # type: str
-        # The type of the master instance.
-        self.cluster_type = cluster_type  # type: str
         # The time when the master instance was created.
+        self.cluster_type = cluster_type  # type: str
+        # The ID of the master instance.
         self.created = created  # type: str
-        # The current Kubernetes version of the master instance.
+        # The name of the master instance.
         self.current_version = current_version  # type: str
-        # The original Kubernetes version of the master instance.
+        # The specification of the master instance. Valid values: - ack.pro.small: ACK Pro.
         self.init_version = init_version  # type: str
-        # The name of the master instance.
+        # The status information.
         self.name = name  # type: str
-        # The name of the master instance.
+        # The ID of the request.
         self.profile = profile  # type: str
-        # The region in which the master instance resides.
+        # The ID of the master instance.
         self.region = region  # type: str
-        # The ID of the resource group.
+        # The name of the master instance.
         self.resource_group_id = resource_group_id  # type: str
-        # The status of the associated clusters. Valid values: - initial: The associated clusters are being initialized. - failed: The associated clustersfailed to be created. - running: The associated clusters are running. - inactive: The associated clusters are inactive. - deleting: The associated clusters are being deleted. - deleted: The associated clusters are deleted.
+        # The current Kubernetes version of the master instance.
         self.state = state  # type: str
-        # The time when the master instance was updated.
-        self.updated = updated  # type: str
         # The ID of the vSwitch.
+        self.updated = updated  # type: str
+        # The original Kubernetes version of the master instance.
         self.v_switch_id = v_switch_id  # type: str
-        # VPC ID.
+        # The status of the association between the clusters and the master instance. Valid values: - Installing: The clusters are being associated with the master instance. - Successed: The clusters are associated with the master instance. - Failed: The clusters failed to be associated with the master instance. - Deleting: The clusters are being disassociated from the master instance. - Deleted: The clusters are disassociated from the master instance.
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
@@ -2383,7 +2340,6 @@ class DescribeManagedClustersResponseBodyClustersCluster(TeaModel):
 
 class DescribeManagedClustersResponseBodyClustersMeshStatus(TeaModel):
     def __init__(self, in_mesh=None):
-        # Indicates whether the clusters are associated with ASM instances. Valid values: - true: The clusters are associated with ASM instances. - false: The clusters are not associated with ASM instances.
         self.in_mesh = in_mesh  # type: bool
 
     def validate(self):
@@ -2408,9 +2364,9 @@ class DescribeManagedClustersResponseBodyClustersMeshStatus(TeaModel):
 
 class DescribeManagedClustersResponseBodyClustersStatus(TeaModel):
     def __init__(self, message=None, state=None):
-        # The status information.
+        # Query the clusters that are associated with a master instance.
         self.message = message  # type: str
-        # The status of the association between the clusters and the master instance. Valid values: - Installing: The clusters are being associated with the master instance. - Successed: The clusters are associated with the master instance. - Failed: The clusters failed to be associated with the master instance. - Deleting: The clusters are being disassociated from the master instance. - Deleted: The clusters are disassociated from the master instance.
+        # You can call the DescribeManagedClusters operation to query the clusters that are associated with a master instance.
         self.state = state  # type: str
 
     def validate(self):
@@ -2441,9 +2397,9 @@ class DescribeManagedClustersResponseBodyClusters(TeaModel):
     def __init__(self, cluster=None, mesh_status=None, status=None):
         # The name of the master instance.
         self.cluster = cluster  # type: DescribeManagedClustersResponseBodyClustersCluster
-        # The status of the association between the clusters and Service Mesh (ASM).
+        # Zhishi
         self.mesh_status = mesh_status  # type: DescribeManagedClustersResponseBodyClustersMeshStatus
-        # The status of the association between the clusters and the master instance.
+        # Example 1
         self.status = status  # type: DescribeManagedClustersResponseBodyClustersStatus
 
     def validate(self):
@@ -2484,9 +2440,9 @@ class DescribeManagedClustersResponseBodyClusters(TeaModel):
 
 class DescribeManagedClustersResponseBody(TeaModel):
     def __init__(self, clusters=None, request_id=None):
-        # Information about the master instance.
+        # The status of the associated clusters. Valid values: - initial: The associated clusters are being initialized. - failed: The associated clustersfailed to be created. - running: The associated clusters are running. - inactive: The associated clusters are inactive. - deleting: The associated clusters are being deleted. - deleted: The associated clusters are deleted.
         self.clusters = clusters  # type: list[DescribeManagedClustersResponseBodyClusters]
-        # The ID of the request.
+        # VPC ID
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2562,7 +2518,9 @@ class DescribeManagedClustersResponse(TeaModel):
 
 class DescribePoliciesResponseBodyPolicies(TeaModel):
     def __init__(self, category=None, names=None):
+        # The policy type.
         self.category = category  # type: str
+        # The names of the policies of each policy type.
         self.names = names  # type: list[str]
 
     def validate(self):
@@ -2591,7 +2549,9 @@ class DescribePoliciesResponseBodyPolicies(TeaModel):
 
 class DescribePoliciesResponseBody(TeaModel):
     def __init__(self, policies=None, request_id=None):
+        # A list of policies.
         self.policies = policies  # type: list[DescribePoliciesResponseBodyPolicies]
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2667,6 +2627,7 @@ class DescribePoliciesResponse(TeaModel):
 
 class DescribePolicyDetailsRequest(TeaModel):
     def __init__(self, policy_name=None):
+        # The name of the policy.
         self.policy_name = policy_name  # type: str
 
     def validate(self):
@@ -2692,14 +2653,29 @@ class DescribePolicyDetailsRequest(TeaModel):
 class DescribePolicyDetailsResponseBodyPolicy(TeaModel):
     def __init__(self, action=None, category=None, created=None, description=None, name=None, no_config=None,
                  severity=None, template=None, updated=None):
+        # The action of the policy. Valid values:
+        # 
+        # *   enforce: blocks deployments that match the policy.
+        # *   inform: generates alerts for deployments that match the policy.
         self.action = action  # type: str
+        # The type of the policy.
         self.category = category  # type: str
+        # The time when the policy was created.
         self.created = created  # type: str
+        # The description of the policy.
         self.description = description  # type: str
+        # The name of the policy.
         self.name = name  # type: str
+        # Indicates whether parameters are required. Valid values:
+        # 
+        # *   0: Parameters are required.
+        # *   1: Parameters are optional.
         self.no_config = no_config  # type: int
+        # The severity level of the policy.
         self.severity = severity  # type: str
+        # The content of the policy.
         self.template = template  # type: str
+        # The time when the policy was last updated.
         self.updated = updated  # type: str
 
     def validate(self):
@@ -2756,7 +2732,9 @@ class DescribePolicyDetailsResponseBodyPolicy(TeaModel):
 
 class DescribePolicyDetailsResponseBody(TeaModel):
     def __init__(self, policy=None, request_id=None):
+        # Detailed information about the policy.
         self.policy = policy  # type: DescribePolicyDetailsResponseBodyPolicy
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2826,6 +2804,7 @@ class DescribePolicyDetailsResponse(TeaModel):
 
 class DescribePolicyGovernanceInClusterRequest(TeaModel):
     def __init__(self, cluster_id=None):
+        # The ID of the master instance.
         self.cluster_id = cluster_id  # type: str
 
     def validate(self):
@@ -2851,12 +2830,19 @@ class DescribePolicyGovernanceInClusterRequest(TeaModel):
 class DescribePolicyGovernanceInClusterResponseBodyPolicyGovernancesCluster(TeaModel):
     def __init__(self, cluster_id=None, cluster_spec=None, cluster_type=None, name=None, profile=None,
                  region_id=None, state=None):
+        # The ID of the associated cluster.
         self.cluster_id = cluster_id  # type: str
+        # The specifications of the associated cluster.
         self.cluster_spec = cluster_spec  # type: str
+        # The type of the associated cluster.
         self.cluster_type = cluster_type  # type: str
+        # The name of the associated cluster.
         self.name = name  # type: str
+        # The identifier of the associated cluster.
         self.profile = profile  # type: str
+        # The region ID of the associated cluster.
         self.region_id = region_id  # type: str
+        # The status of the associated cluster.
         self.state = state  # type: str
 
     def validate(self):
@@ -2905,10 +2891,18 @@ class DescribePolicyGovernanceInClusterResponseBodyPolicyGovernancesCluster(TeaM
 
 class DescribePolicyGovernanceInClusterResponseBodyPolicyGovernancesPolicyGovernanceAdmitLog(TeaModel):
     def __init__(self, count=None, log_project=None, log_store=None, logs=None, progress=None):
+        # The number of log entries in the query result.
         self.count = count  # type: str
+        # The name of the Log Service project.
         self.log_project = log_project  # type: str
+        # The name of the Logstore.
         self.log_store = log_store  # type: str
+        # The content of the audit log.
         self.logs = logs  # type: list[dict[str, str]]
+        # The status of the query. Valid values:
+        # 
+        # *   Complete: The query is successful, and the complete result is returned.
+        # *   Incomplete: The query is successful, but the query result is incomplete. To obtain the complete result, you must call the operation again.
         self.progress = progress  # type: str
 
     def validate(self):
@@ -2949,8 +2943,11 @@ class DescribePolicyGovernanceInClusterResponseBodyPolicyGovernancesPolicyGovern
 
 class DescribePolicyGovernanceInClusterResponseBodyPolicyGovernancesPolicyGovernanceOnState(TeaModel):
     def __init__(self, enabled_count=None, severity=None, total_count=None):
+        # The types of policies that are enabled in the associated cluster.
         self.enabled_count = enabled_count  # type: long
+        # The severity level.
         self.severity = severity  # type: str
+        # The types of policies of each severity level.
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -2983,7 +2980,9 @@ class DescribePolicyGovernanceInClusterResponseBodyPolicyGovernancesPolicyGovern
 
 class DescribePolicyGovernanceInClusterResponseBodyPolicyGovernancesPolicyGovernanceViolationTotalViolationsDeny(TeaModel):
     def __init__(self, severity=None, violations=None):
+        # The severity level.
         self.severity = severity  # type: str
+        # The number of deployments that are blocked.
         self.violations = violations  # type: long
 
     def validate(self):
@@ -3012,7 +3011,9 @@ class DescribePolicyGovernanceInClusterResponseBodyPolicyGovernancesPolicyGovern
 
 class DescribePolicyGovernanceInClusterResponseBodyPolicyGovernancesPolicyGovernanceViolationTotalViolationsWarn(TeaModel):
     def __init__(self, severity=None, violations=None):
+        # The severity level.
         self.severity = severity  # type: str
+        # The number of deployments that have triggered alerting.
         self.violations = violations  # type: str
 
     def validate(self):
@@ -3041,7 +3042,9 @@ class DescribePolicyGovernanceInClusterResponseBodyPolicyGovernancesPolicyGovern
 
 class DescribePolicyGovernanceInClusterResponseBodyPolicyGovernancesPolicyGovernanceViolationTotalViolations(TeaModel):
     def __init__(self, deny=None, warn=None):
+        # The information about the deployments that are blocked.
         self.deny = deny  # type: list[DescribePolicyGovernanceInClusterResponseBodyPolicyGovernancesPolicyGovernanceViolationTotalViolationsDeny]
+        # The information about the deployments that have triggered alerting.
         self.warn = warn  # type: list[DescribePolicyGovernanceInClusterResponseBodyPolicyGovernancesPolicyGovernanceViolationTotalViolationsWarn]
 
     def validate(self):
@@ -3087,9 +3090,13 @@ class DescribePolicyGovernanceInClusterResponseBodyPolicyGovernancesPolicyGovern
 
 class DescribePolicyGovernanceInClusterResponseBodyPolicyGovernancesPolicyGovernanceViolationViolationsDeny(TeaModel):
     def __init__(self, policy_description=None, policy_name=None, severity=None, violations=None):
+        # The description of the policy.
         self.policy_description = policy_description  # type: str
+        # The name of the policy.
         self.policy_name = policy_name  # type: str
+        # The severity level of the policy.
         self.severity = severity  # type: str
+        # The number of times that the policy blocks deployments.
         self.violations = violations  # type: long
 
     def validate(self):
@@ -3126,9 +3133,13 @@ class DescribePolicyGovernanceInClusterResponseBodyPolicyGovernancesPolicyGovern
 
 class DescribePolicyGovernanceInClusterResponseBodyPolicyGovernancesPolicyGovernanceViolationViolationsWarn(TeaModel):
     def __init__(self, policy_description=None, policy_name=None, severity=None, violations=None):
+        # The description of the policy.
         self.policy_description = policy_description  # type: str
+        # The name of the policy.
         self.policy_name = policy_name  # type: str
+        # The severity level of the policy.
         self.severity = severity  # type: str
+        # The number of times that the policy generates alerts.
         self.violations = violations  # type: long
 
     def validate(self):
@@ -3165,7 +3176,9 @@ class DescribePolicyGovernanceInClusterResponseBodyPolicyGovernancesPolicyGovern
 
 class DescribePolicyGovernanceInClusterResponseBodyPolicyGovernancesPolicyGovernanceViolationViolations(TeaModel):
     def __init__(self, deny=None, warn=None):
+        # The information about the deployments that are blocked.
         self.deny = deny  # type: list[DescribePolicyGovernanceInClusterResponseBodyPolicyGovernancesPolicyGovernanceViolationViolationsDeny]
+        # The information about the deployments that have triggered alerting.
         self.warn = warn  # type: list[DescribePolicyGovernanceInClusterResponseBodyPolicyGovernancesPolicyGovernanceViolationViolationsWarn]
 
     def validate(self):
@@ -3211,7 +3224,9 @@ class DescribePolicyGovernanceInClusterResponseBodyPolicyGovernancesPolicyGovern
 
 class DescribePolicyGovernanceInClusterResponseBodyPolicyGovernancesPolicyGovernanceViolation(TeaModel):
     def __init__(self, total_violations=None, violations=None):
+        # The number of deployments that match the policies in the associated cluster, including deployments that are blocked and deployments that have triggered alerting. The deployments are classified by severity level.
         self.total_violations = total_violations  # type: DescribePolicyGovernanceInClusterResponseBodyPolicyGovernancesPolicyGovernanceViolationTotalViolations
+        # The number of deployments that match the policies in the associated cluster, including deployments that are blocked and deployments that have triggered alerting. The deployments are classified by policy type.
         self.violations = violations  # type: DescribePolicyGovernanceInClusterResponseBodyPolicyGovernancesPolicyGovernanceViolationViolations
 
     def validate(self):
@@ -3245,8 +3260,11 @@ class DescribePolicyGovernanceInClusterResponseBodyPolicyGovernancesPolicyGovern
 
 class DescribePolicyGovernanceInClusterResponseBodyPolicyGovernancesPolicyGovernance(TeaModel):
     def __init__(self, admit_log=None, on_state=None, violation=None):
+        # The audit log generated by the associated cluster.
         self.admit_log = admit_log  # type: DescribePolicyGovernanceInClusterResponseBodyPolicyGovernancesPolicyGovernanceAdmitLog
+        # The number of policies of each severity level enabled in the associated cluster.
         self.on_state = on_state  # type: list[DescribePolicyGovernanceInClusterResponseBodyPolicyGovernancesPolicyGovernanceOnState]
+        # The number of deployments that match the policies in the associated cluster, including deployments that are blocked and deployments that have triggered alerting.
         self.violation = violation  # type: DescribePolicyGovernanceInClusterResponseBodyPolicyGovernancesPolicyGovernanceViolation
 
     def validate(self):
@@ -3293,7 +3311,9 @@ class DescribePolicyGovernanceInClusterResponseBodyPolicyGovernancesPolicyGovern
 
 class DescribePolicyGovernanceInClusterResponseBodyPolicyGovernances(TeaModel):
     def __init__(self, cluster=None, policy_governance=None):
+        # The information about the associated clusters in which the policies are deployed.
         self.cluster = cluster  # type: DescribePolicyGovernanceInClusterResponseBodyPolicyGovernancesCluster
+        # The detailed policy information.
         self.policy_governance = policy_governance  # type: DescribePolicyGovernanceInClusterResponseBodyPolicyGovernancesPolicyGovernance
 
     def validate(self):
@@ -3327,7 +3347,9 @@ class DescribePolicyGovernanceInClusterResponseBodyPolicyGovernances(TeaModel):
 
 class DescribePolicyGovernanceInClusterResponseBody(TeaModel):
     def __init__(self, policy_governances=None, request_id=None):
+        # The detailed information about the policies.
         self.policy_governances = policy_governances  # type: list[DescribePolicyGovernanceInClusterResponseBodyPolicyGovernances]
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3403,7 +3425,9 @@ class DescribePolicyGovernanceInClusterResponse(TeaModel):
 
 class DescribePolicyInstancesRequest(TeaModel):
     def __init__(self, cluster_id=None, policy_name=None):
+        # The ID of the master instance.
         self.cluster_id = cluster_id  # type: str
+        # The name of the policy.
         self.policy_name = policy_name  # type: str
 
     def validate(self):
@@ -3434,15 +3458,32 @@ class DescribePolicyInstancesResponseBodyPolicies(TeaModel):
     def __init__(self, cluster_id=None, instance_name=None, policy_action=None, policy_category=None,
                  policy_description=None, policy_name=None, policy_parameters=None, policy_scope=None, policy_severity=None,
                  total_violations=None):
+        # The ID of the associated cluster.
         self.cluster_id = cluster_id  # type: str
+        # The name of the policy instance.
         self.instance_name = instance_name  # type: str
+        # The action of the policy. Valid values:
+        # 
+        # *   deny: blocks deployments that match the policy.
+        # *   warn: generates alerts for deployments that match the policy.
         self.policy_action = policy_action  # type: str
+        # The type of the policy.
         self.policy_category = policy_category  # type: str
+        # The description of the policy.
         self.policy_description = policy_description  # type: str
+        # The name of the policy.
         self.policy_name = policy_name  # type: str
+        # The parameters of the policy instance.
         self.policy_parameters = policy_parameters  # type: dict[str, str]
+        # The applicable scope of the policy instance.
+        # 
+        # A value of \* indicates all namespaces. This is the default value.
+        # 
+        # Multiple namespaces are separated by commas (,).
         self.policy_scope = policy_scope  # type: str
+        # The severity level of the policy.
         self.policy_severity = policy_severity  # type: str
+        # The total number of deployments that match the policy in the associated cluster, including the deployments that are blocked and the deployments that have triggered alerting.
         self.total_violations = total_violations  # type: long
 
     def validate(self):
@@ -3503,7 +3544,9 @@ class DescribePolicyInstancesResponseBodyPolicies(TeaModel):
 
 class DescribePolicyInstancesResponseBody(TeaModel):
     def __init__(self, policies=None, request_id=None):
+        # A list of policy instances.
         self.policies = policies  # type: list[DescribePolicyInstancesResponseBodyPolicies]
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3579,6 +3622,7 @@ class DescribePolicyInstancesResponse(TeaModel):
 
 class DescribePolicyInstancesStatusRequest(TeaModel):
     def __init__(self, cluster_id=None):
+        # The ID of the master instance.
         self.cluster_id = cluster_id  # type: str
 
     def validate(self):
@@ -3603,7 +3647,9 @@ class DescribePolicyInstancesStatusRequest(TeaModel):
 
 class DescribePolicyInstancesStatusResponseBodyPoliciesPolicyInstancesPolicyClusters(TeaModel):
     def __init__(self, cluster_id=None, status=None):
+        # The ID of the associated cluster.
         self.cluster_id = cluster_id  # type: str
+        # The status of the deployment.
         self.status = status  # type: str
 
     def validate(self):
@@ -3633,11 +3679,17 @@ class DescribePolicyInstancesStatusResponseBodyPoliciesPolicyInstancesPolicyClus
 class DescribePolicyInstancesStatusResponseBodyPoliciesPolicyInstances(TeaModel):
     def __init__(self, policy_category=None, policy_clusters=None, policy_description=None,
                  policy_instances_count=None, policy_name=None, policy_severity=None):
+        # The type of the policy.
         self.policy_category = policy_category  # type: str
+        # The associated clusters in which the policy instances are deployed.
         self.policy_clusters = policy_clusters  # type: list[DescribePolicyInstancesStatusResponseBodyPoliciesPolicyInstancesPolicyClusters]
+        # The description of the policy.
         self.policy_description = policy_description  # type: str
+        # The number of policy instances that are deployed. If this parameter is empty, no policy instance is deployed.
         self.policy_instances_count = policy_instances_count  # type: long
+        # The name of the policy.
         self.policy_name = policy_name  # type: str
+        # The severity level of the policy.
         self.policy_severity = policy_severity  # type: str
 
     def validate(self):
@@ -3690,7 +3742,9 @@ class DescribePolicyInstancesStatusResponseBodyPoliciesPolicyInstances(TeaModel)
 
 class DescribePolicyInstancesStatusResponseBodyPoliciesSeverityInfo(TeaModel):
     def __init__(self, severity_count=None, severity_type=None):
+        # The number of policy instances.
         self.severity_count = severity_count  # type: str
+        # The severity level.
         self.severity_type = severity_type  # type: str
 
     def validate(self):
@@ -3719,7 +3773,9 @@ class DescribePolicyInstancesStatusResponseBodyPoliciesSeverityInfo(TeaModel):
 
 class DescribePolicyInstancesStatusResponseBodyPolicies(TeaModel):
     def __init__(self, policy_instances=None, severity_info=None):
+        # The number of policy instances of each policy type.
         self.policy_instances = policy_instances  # type: list[DescribePolicyInstancesStatusResponseBodyPoliciesPolicyInstances]
+        # The number of policy instances that are deployed in the cluster.
         self.severity_info = severity_info  # type: list[DescribePolicyInstancesStatusResponseBodyPoliciesSeverityInfo]
 
     def validate(self):
@@ -3765,7 +3821,9 @@ class DescribePolicyInstancesStatusResponseBodyPolicies(TeaModel):
 
 class DescribePolicyInstancesStatusResponseBody(TeaModel):
     def __init__(self, policies=None, request_id=None):
+        # The number of policy instances of each policy type.
         self.policies = policies  # type: DescribePolicyInstancesStatusResponseBodyPolicies
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3835,7 +3893,7 @@ class DescribePolicyInstancesStatusResponse(TeaModel):
 
 class DescribeRegionsRequest(TeaModel):
     def __init__(self, language=None):
-        # The language. Valid values: zh, en, and jp.
+        # The ID of the request.
         self.language = language  # type: str
 
     def validate(self):
@@ -3860,9 +3918,8 @@ class DescribeRegionsRequest(TeaModel):
 
 class DescribeRegionsResponseBodyRegions(TeaModel):
     def __init__(self, local_name=None, region_id=None):
-        # The name of the region.
         self.local_name = local_name  # type: str
-        # The ID of the region.
+        # You can call the DescribeRegions operation to query available regions.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -3891,9 +3948,9 @@ class DescribeRegionsResponseBodyRegions(TeaModel):
 
 class DescribeRegionsResponseBody(TeaModel):
     def __init__(self, regions=None, request_id=None):
-        # A list of available regions that are returned.
+        # Example 1
         self.regions = regions  # type: list[DescribeRegionsResponseBodyRegions]
-        # The ID of the request.
+        # The name of the region.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4125,11 +4182,11 @@ class DescribeUserPermissionsResponse(TeaModel):
 
 class DetachClusterFromHubRequest(TeaModel):
     def __init__(self, cluster_id=None, cluster_ids=None, detach_from_mesh=None):
-        # The ID of the master instance.
+        # The ID of the request.
         self.cluster_id = cluster_id  # type: str
-        # A JSON string that can be parsed into a string array. The string specifies the clusters that you want to disassociate from the master instance.
+        # The operation that you want to perform. Set the value to **DetachClusterFromHub**.
         self.cluster_ids = cluster_ids  # type: str
-        # Specifies whether to only disassociate the clusters from Service Mesh (ASM) instances. Valid values: - true: only disassociates the clusters from ASM instances. - false: disassociates the clusters from the master instance and ASM instances.
+        # Example 1
         self.detach_from_mesh = detach_from_mesh  # type: bool
 
     def validate(self):
@@ -4162,13 +4219,11 @@ class DetachClusterFromHubRequest(TeaModel):
 
 class DetachClusterFromHubResponseBody(TeaModel):
     def __init__(self, cluster_id=None, managed_cluster_ids=None, request_id=None, task_id=None):
-        # The ID of the master instance.
+        # Zhishi
         self.cluster_id = cluster_id  # type: str
-        # The IDs of the clusters that are disassociated from the master instance.
         self.managed_cluster_ids = managed_cluster_ids  # type: list[str]
-        # The ID of the request.
+        # You can call the DetachClusterFromHub operation to disassociate clusters from a master instance.
         self.request_id = request_id  # type: str
-        # The ID of the task.
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -4243,9 +4298,11 @@ class DetachClusterFromHubResponse(TeaModel):
 
 
 class GrantUserPermissionRequest(TeaModel):
-    def __init__(self, cluster_id=None, namespace=None, role_name=None, role_type=None, user_id=None):
+    def __init__(self, cluster_id=None, is_ram_role=None, namespace=None, role_name=None, role_type=None,
+                 user_id=None):
         # The ID of the master instance.
         self.cluster_id = cluster_id  # type: str
+        self.is_ram_role = is_ram_role  # type: bool
         # The namespace to which the permissions are scoped. By default, this parameter is empty when you set role_type to cluster.
         self.namespace = namespace  # type: str
         # Specifies the predefined role that you want to assign. Valid values:
@@ -4272,6 +4329,8 @@ class GrantUserPermissionRequest(TeaModel):
         result = dict()
         if self.cluster_id is not None:
             result['ClusterId'] = self.cluster_id
+        if self.is_ram_role is not None:
+            result['IsRamRole'] = self.is_ram_role
         if self.namespace is not None:
             result['Namespace'] = self.namespace
         if self.role_name is not None:
@@ -4286,6 +4345,8 @@ class GrantUserPermissionRequest(TeaModel):
         m = m or dict()
         if m.get('ClusterId') is not None:
             self.cluster_id = m.get('ClusterId')
+        if m.get('IsRamRole') is not None:
+            self.is_ram_role = m.get('IsRamRole')
         if m.get('Namespace') is not None:
             self.namespace = m.get('Namespace')
         if m.get('RoleName') is not None:
@@ -4362,8 +4423,9 @@ class GrantUserPermissionResponse(TeaModel):
 
 
 class GrantUserPermissionsRequestPermissions(TeaModel):
-    def __init__(self, cluster_id=None, namespace=None, role_name=None, role_type=None):
+    def __init__(self, cluster_id=None, is_ram_role=None, namespace=None, role_name=None, role_type=None):
         self.cluster_id = cluster_id  # type: str
+        self.is_ram_role = is_ram_role  # type: bool
         self.namespace = namespace  # type: str
         self.role_name = role_name  # type: str
         self.role_type = role_type  # type: str
@@ -4379,6 +4441,8 @@ class GrantUserPermissionsRequestPermissions(TeaModel):
         result = dict()
         if self.cluster_id is not None:
             result['ClusterId'] = self.cluster_id
+        if self.is_ram_role is not None:
+            result['IsRamRole'] = self.is_ram_role
         if self.namespace is not None:
             result['Namespace'] = self.namespace
         if self.role_name is not None:
@@ -4391,6 +4455,8 @@ class GrantUserPermissionsRequestPermissions(TeaModel):
         m = m or dict()
         if m.get('ClusterId') is not None:
             self.cluster_id = m.get('ClusterId')
+        if m.get('IsRamRole') is not None:
+            self.is_ram_role = m.get('IsRamRole')
         if m.get('Namespace') is not None:
             self.namespace = m.get('Namespace')
         if m.get('RoleName') is not None:
