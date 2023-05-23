@@ -788,6 +788,7 @@ class GetVideoTaskInfoResponseBodyDataTaskResult(TeaModel):
         self.fail_reason = fail_reason  # type: str
         self.subtitles_url = subtitles_url  # type: str
         self.video_url = video_url  # type: str
+        # 字粒度的时间戳文件，特定任务支持
         self.word_subtitles_url = word_subtitles_url  # type: str
 
     def validate(self):
