@@ -211,6 +211,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.artifact_id):
             query['ArtifactId'] = request.artifact_id
+        if not UtilClient.is_unset(request.artifact_name):
+            query['ArtifactName'] = request.artifact_name
         if not UtilClient.is_unset(request.artifact_version):
             query['ArtifactVersion'] = request.artifact_version
         req = open_api_models.OpenApiRequest(
@@ -371,6 +373,34 @@ class Client(OpenApiClient):
     def get_service_instance(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_service_instance_with_options(request, runtime)
+
+    def get_upload_credentials_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.file_name):
+            query['FileName'] = request.file_name
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetUploadCredentials',
+            version='2021-05-21',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            compute_nest_supplier_20210521_models.GetUploadCredentialsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_upload_credentials(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_upload_credentials_with_options(request, runtime)
 
     def list_artifact_versions_with_options(self, request, runtime):
         UtilClient.validate_model(request)
