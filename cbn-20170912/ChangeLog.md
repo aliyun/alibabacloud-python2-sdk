@@ -1,3 +1,6 @@
+2023-05-23 Version: 1.0.11
+- Update API DescribeGrantRulesToCen support ChildInstanceOwnerId and ChildInstanceId.
+
 2023-04-27 Version: 1.0.10
 - Update API DescribeCenAttachedChildInstanceAttribute support returning VPC Cidrs.
 
