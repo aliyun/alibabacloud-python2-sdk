@@ -31,15 +31,20 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
-    def create_campaign(self, request):
+    def create_campaign_with_options(self, request, headers, runtime):
         """
         注册运营活动。
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.create_campaign_with_options(request, headers, runtime)
+        
 
-    def create_campaign_with_options(self, request, headers, runtime):
+        @param request: CreateCampaignRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateCampaignResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.name):
@@ -66,15 +71,33 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_group(self, request):
+    def create_campaign(self, request):
         """
-        注册人群。
+        注册运营活动。
+        
+
+        @param request: CreateCampaignRequest
+
+        @return: CreateCampaignResponse
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_group_with_options(request, headers, runtime)
+        return self.create_campaign_with_options(request, headers, runtime)
 
     def create_group_with_options(self, request, headers, runtime):
+        """
+        注册人群。
+        
+
+        @param request: CreateGroupRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateGroupResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.algorithm):
@@ -121,15 +144,33 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_inference_job(self, request):
+    def create_group(self, request):
         """
-        注册预测任务。
+        注册人群。
+        
+
+        @param request: CreateGroupRequest
+
+        @return: CreateGroupResponse
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_inference_job_with_options(request, headers, runtime)
+        return self.create_group_with_options(request, headers, runtime)
 
     def create_inference_job_with_options(self, request, headers, runtime):
+        """
+        注册预测任务。
+        
+
+        @param request: CreateInferenceJobRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateInferenceJobResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.algorithm):
@@ -168,17 +209,26 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_schedule(self, request):
+    def create_inference_job(self, request):
         """
-        注册触达计划。
+        注册预测任务。
+        
+
+        @param request: CreateInferenceJobRequest
+
+        @return: CreateInferenceJobResponse
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_schedule_with_options(request, headers, runtime)
+        return self.create_inference_job_with_options(request, headers, runtime)
 
     def create_schedule_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         body = {}
+        if not UtilClient.is_unset(request.aisend_end_date):
+            body['AISendEndDate'] = request.aisend_end_date
+        if not UtilClient.is_unset(request.aisend_start_date):
+            body['AISendStartDate'] = request.aisend_start_date
         if not UtilClient.is_unset(request.end_time):
             body['EndTime'] = request.end_time
         if not UtilClient.is_unset(request.execute_time):
@@ -187,6 +237,8 @@ class Client(OpenApiClient):
             body['GroupId'] = request.group_id
         if not UtilClient.is_unset(request.name):
             body['Name'] = request.name
+        if not UtilClient.is_unset(request.payment_type):
+            body['PaymentType'] = request.payment_type
         if not UtilClient.is_unset(request.repeat_cycle):
             body['RepeatCycle'] = request.repeat_cycle
         if not UtilClient.is_unset(request.repeat_cycle_unit):
@@ -221,13 +273,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_signature(self, request):
-        """
-        注册签名。
-        """
+    def create_schedule(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_signature_with_options(request, headers, runtime)
+        return self.create_schedule_with_options(request, headers, runtime)
 
     def create_signature_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -256,13 +305,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_template(self, request):
-        """
-        注册模板。
-        """
+    def create_signature(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_template_with_options(request, headers, runtime)
+        return self.create_signature_with_options(request, headers, runtime)
 
     def create_template_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -299,13 +345,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_training_job(self, request):
-        """
-        注册训练任务。
-        """
+    def create_template(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_training_job_with_options(request, headers, runtime)
+        return self.create_template_with_options(request, headers, runtime)
 
     def create_training_job_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -342,15 +385,23 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_campaign(self, id):
-        """
-        删除运营活动
-        """
+    def create_training_job(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_campaign_with_options(id, headers, runtime)
+        return self.create_training_job_with_options(request, headers, runtime)
 
     def delete_campaign_with_options(self, id, headers, runtime):
+        """
+        删除运营活动
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteCampaignResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -370,15 +421,29 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_group(self, id):
+    def delete_campaign(self, id):
         """
-        删除人群
+        删除运营活动
+        
+
+        @return: DeleteCampaignResponse
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_group_with_options(id, headers, runtime)
+        return self.delete_campaign_with_options(id, headers, runtime)
 
     def delete_group_with_options(self, id, headers, runtime):
+        """
+        删除人群
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteGroupResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -398,15 +463,29 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_inference_job(self, id):
+    def delete_group(self, id):
         """
-        删除预测任务。
+        删除人群
+        
+
+        @return: DeleteGroupResponse
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_inference_job_with_options(id, headers, runtime)
+        return self.delete_group_with_options(id, headers, runtime)
 
     def delete_inference_job_with_options(self, id, headers, runtime):
+        """
+        删除预测任务。
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteInferenceJobResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -426,15 +505,29 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_schedule(self, id):
+    def delete_inference_job(self, id):
         """
-        删除触达计划。
+        删除预测任务。
+        
+
+        @return: DeleteInferenceJobResponse
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_schedule_with_options(id, headers, runtime)
+        return self.delete_inference_job_with_options(id, headers, runtime)
 
     def delete_schedule_with_options(self, id, headers, runtime):
+        """
+        删除触达计划。
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteScheduleResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -454,13 +547,16 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_signature(self, id):
+    def delete_schedule(self, id):
         """
-        删除签名。
+        删除触达计划。
+        
+
+        @return: DeleteScheduleResponse
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_signature_with_options(id, headers, runtime)
+        return self.delete_schedule_with_options(id, headers, runtime)
 
     def delete_signature_with_options(self, id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -482,15 +578,23 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_template(self, id):
-        """
-        删除模板
-        """
+    def delete_signature(self, id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_template_with_options(id, headers, runtime)
+        return self.delete_signature_with_options(id, headers, runtime)
 
     def delete_template_with_options(self, id, headers, runtime):
+        """
+        删除模板
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteTemplateResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -510,15 +614,29 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_training_job(self, id):
+    def delete_template(self, id):
         """
-        删除训练任务。
+        删除模板
+        
+
+        @return: DeleteTemplateResponse
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_training_job_with_options(id, headers, runtime)
+        return self.delete_template_with_options(id, headers, runtime)
 
     def delete_training_job_with_options(self, id, headers, runtime):
+        """
+        删除训练任务。
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteTrainingJobResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -538,15 +656,29 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_algorithm(self, id):
+    def delete_training_job(self, id):
         """
-        获取算法详情。
+        删除训练任务。
+        
+
+        @return: DeleteTrainingJobResponse
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_algorithm_with_options(id, headers, runtime)
+        return self.delete_training_job_with_options(id, headers, runtime)
 
     def get_algorithm_with_options(self, id, headers, runtime):
+        """
+        获取算法详情。
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetAlgorithmResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -566,15 +698,29 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_campaign(self, id):
+    def get_algorithm(self, id):
         """
-        获取运营活动详情。
+        获取算法详情。
+        
+
+        @return: GetAlgorithmResponse
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_campaign_with_options(id, headers, runtime)
+        return self.get_algorithm_with_options(id, headers, runtime)
 
     def get_campaign_with_options(self, id, headers, runtime):
+        """
+        获取运营活动详情。
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetCampaignResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -594,15 +740,29 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_group(self, id):
+    def get_campaign(self, id):
         """
-        获取人群详情。
+        获取运营活动详情。
+        
+
+        @return: GetCampaignResponse
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_group_with_options(id, headers, runtime)
+        return self.get_campaign_with_options(id, headers, runtime)
 
     def get_group_with_options(self, id, headers, runtime):
+        """
+        获取人群详情。
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetGroupResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -622,15 +782,29 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_inference_job(self, id):
+    def get_group(self, id):
         """
-        获取预测任务详情。
+        获取人群详情。
+        
+
+        @return: GetGroupResponse
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_inference_job_with_options(id, headers, runtime)
+        return self.get_group_with_options(id, headers, runtime)
 
     def get_inference_job_with_options(self, id, headers, runtime):
+        """
+        获取预测任务详情。
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetInferenceJobResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -650,15 +824,29 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_message_config(self):
+    def get_inference_job(self, id):
         """
-        获取短信配置。
+        获取预测任务详情。
+        
+
+        @return: GetInferenceJobResponse
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_message_config_with_options(headers, runtime)
+        return self.get_inference_job_with_options(id, headers, runtime)
 
     def get_message_config_with_options(self, headers, runtime):
+        """
+        获取短信配置。
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetMessageConfigResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -678,13 +866,16 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_schedule(self, id):
+    def get_message_config(self):
         """
-        获取触达计划详情。
+        获取短信配置。
+        
+
+        @return: GetMessageConfigResponse
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_schedule_with_options(id, headers, runtime)
+        return self.get_message_config_with_options(headers, runtime)
 
     def get_schedule_with_options(self, id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -706,15 +897,23 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_signature(self, id):
-        """
-        获取签名详情。
-        """
+    def get_schedule(self, id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_signature_with_options(id, headers, runtime)
+        return self.get_schedule_with_options(id, headers, runtime)
 
     def get_signature_with_options(self, id, headers, runtime):
+        """
+        获取签名详情。
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetSignatureResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -734,15 +933,29 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_template(self, id):
+    def get_signature(self, id):
         """
-        获取模板详情。
+        获取签名详情。
+        
+
+        @return: GetSignatureResponse
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_template_with_options(id, headers, runtime)
+        return self.get_signature_with_options(id, headers, runtime)
 
     def get_template_with_options(self, id, headers, runtime):
+        """
+        获取模板详情。
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetTemplateResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -762,13 +975,16 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_training_job(self, id):
+    def get_template(self, id):
         """
-        获取训练任务详情。
+        获取模板详情。
+        
+
+        @return: GetTemplateResponse
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_training_job_with_options(id, headers, runtime)
+        return self.get_template_with_options(id, headers, runtime)
 
     def get_training_job_with_options(self, id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -790,15 +1006,23 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_user(self):
-        """
-        获取账号状态。
-        """
+    def get_training_job(self, id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_user_with_options(headers, runtime)
+        return self.get_training_job_with_options(id, headers, runtime)
 
     def get_user_with_options(self, headers, runtime):
+        """
+        获取账号状态。
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetUserResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -818,15 +1042,31 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_algorithms(self, request):
+    def get_user(self):
         """
-        获取算法列表。
+        获取账号状态。
+        
+
+        @return: GetUserResponse
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_algorithms_with_options(request, headers, runtime)
+        return self.get_user_with_options(headers, runtime)
 
     def list_algorithms_with_options(self, request, headers, runtime):
+        """
+        获取算法列表。
+        
+
+        @param request: ListAlgorithmsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListAlgorithmsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.id):
@@ -857,15 +1097,33 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_campaigns(self, request):
+    def list_algorithms(self, request):
         """
-        获取运营活动列表。
+        获取算法列表。
+        
+
+        @param request: ListAlgorithmsRequest
+
+        @return: ListAlgorithmsResponse
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_campaigns_with_options(request, headers, runtime)
+        return self.list_algorithms_with_options(request, headers, runtime)
 
     def list_campaigns_with_options(self, request, headers, runtime):
+        """
+        获取运营活动列表。
+        
+
+        @param request: ListCampaignsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListCampaignsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.name):
@@ -896,15 +1154,33 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_groups(self, request):
+    def list_campaigns(self, request):
         """
-        获取人群列表。
+        获取运营活动列表。
+        
+
+        @param request: ListCampaignsRequest
+
+        @return: ListCampaignsResponse
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_groups_with_options(request, headers, runtime)
+        return self.list_campaigns_with_options(request, headers, runtime)
 
     def list_groups_with_options(self, request, headers, runtime):
+        """
+        获取人群列表。
+        
+
+        @param request: ListGroupsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListGroupsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.name):
@@ -941,10 +1217,18 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_inference_jobs(self, request):
+    def list_groups(self, request):
+        """
+        获取人群列表。
+        
+
+        @param request: ListGroupsRequest
+
+        @return: ListGroupsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_inference_jobs_with_options(request, headers, runtime)
+        return self.list_groups_with_options(request, headers, runtime)
 
     def list_inference_jobs_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -985,17 +1269,27 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_message_metrics(self, request):
+    def list_inference_jobs(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_inference_jobs_with_options(request, headers, runtime)
+
+    def list_message_metrics_with_options(self, request, headers, runtime):
         """
         获取短信发送统计列表。
         获取短信发送统计数据，可按指定条件获取分类别详细数据，返回数据按日期顺序排列，发送统计为空的日期默认不返回。
         发送数据在48小时内会随实际短信发送状态不断更新，最终数据以48小时后数据为准。
-        """
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.list_message_metrics_with_options(request, headers, runtime)
+        
 
-    def list_message_metrics_with_options(self, request, headers, runtime):
+        @param request: ListMessageMetricsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListMessageMetricsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.end_date):
@@ -1040,15 +1334,35 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_messages(self, request):
+    def list_message_metrics(self, request):
         """
-        查询短信发送详情列表。
+        获取短信发送统计列表。
+        获取短信发送统计数据，可按指定条件获取分类别详细数据，返回数据按日期顺序排列，发送统计为空的日期默认不返回。
+        发送数据在48小时内会随实际短信发送状态不断更新，最终数据以48小时后数据为准。
+        
+
+        @param request: ListMessageMetricsRequest
+
+        @return: ListMessageMetricsResponse
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_messages_with_options(request, headers, runtime)
+        return self.list_message_metrics_with_options(request, headers, runtime)
 
     def list_messages_with_options(self, request, headers, runtime):
+        """
+        查询短信发送详情列表。
+        
+
+        @param request: ListMessagesRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListMessagesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.datetime):
@@ -1101,13 +1415,18 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_schedules(self, request):
+    def list_messages(self, request):
         """
-        获取触达计划列表。
+        查询短信发送详情列表。
+        
+
+        @param request: ListMessagesRequest
+
+        @return: ListMessagesResponse
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_schedules_with_options(request, headers, runtime)
+        return self.list_messages_with_options(request, headers, runtime)
 
     def list_schedules_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1140,15 +1459,25 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_signatures(self, request):
-        """
-        获取签名列表。
-        """
+    def list_schedules(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_signatures_with_options(request, headers, runtime)
+        return self.list_schedules_with_options(request, headers, runtime)
 
     def list_signatures_with_options(self, request, headers, runtime):
+        """
+        获取签名列表。
+        
+
+        @param request: ListSignaturesRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListSignaturesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.name):
@@ -1179,15 +1508,33 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_templates(self, request):
+    def list_signatures(self, request):
         """
-        获取模板列表。
+        获取签名列表。
+        
+
+        @param request: ListSignaturesRequest
+
+        @return: ListSignaturesResponse
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_templates_with_options(request, headers, runtime)
+        return self.list_signatures_with_options(request, headers, runtime)
 
     def list_templates_with_options(self, request, headers, runtime):
+        """
+        获取模板列表。
+        
+
+        @param request: ListTemplatesRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListTemplatesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.content):
@@ -1222,10 +1569,18 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_training_jobs(self, request):
+    def list_templates(self, request):
+        """
+        获取模板列表。
+        
+
+        @param request: ListTemplatesRequest
+
+        @return: ListTemplatesResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_training_jobs_with_options(request, headers, runtime)
+        return self.list_templates_with_options(request, headers, runtime)
 
     def list_training_jobs_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1266,10 +1621,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def send_message(self, request):
+    def list_training_jobs(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.send_message_with_options(request, headers, runtime)
+        return self.list_training_jobs_with_options(request, headers, runtime)
 
     def send_message_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1278,6 +1633,8 @@ class Client(OpenApiClient):
             body['GroupId'] = request.group_id
         if not UtilClient.is_unset(request.out_ids):
             body['OutIds'] = request.out_ids
+        if not UtilClient.is_unset(request.payment_type):
+            body['PaymentType'] = request.payment_type
         if not UtilClient.is_unset(request.phone_numbers):
             body['PhoneNumbers'] = request.phone_numbers
         if not UtilClient.is_unset(request.schedule_id):
@@ -1314,15 +1671,25 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def sms_report(self, request):
-        """
-        短信回执。
-        """
+    def send_message(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.sms_report_with_options(request, headers, runtime)
+        return self.send_message_with_options(request, headers, runtime)
 
     def sms_report_with_options(self, request, headers, runtime):
+        """
+        短信回执。
+        
+
+        @param request: SmsReportRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: SmsReportResponse
+        """
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             headers=headers,
@@ -1344,15 +1711,33 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def sms_up(self, request):
+    def sms_report(self, request):
         """
-        短信上行。
+        短信回执。
+        
+
+        @param request: SmsReportRequest
+
+        @return: SmsReportResponse
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.sms_up_with_options(request, headers, runtime)
+        return self.sms_report_with_options(request, headers, runtime)
 
     def sms_up_with_options(self, request, headers, runtime):
+        """
+        短信上行。
+        
+
+        @param request: SmsUpRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: SmsUpResponse
+        """
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             headers=headers,
@@ -1374,15 +1759,33 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_campaign(self, id, request):
+    def sms_up(self, request):
         """
-        更新运营活动
+        短信上行。
+        
+
+        @param request: SmsUpRequest
+
+        @return: SmsUpResponse
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_campaign_with_options(id, request, headers, runtime)
+        return self.sms_up_with_options(request, headers, runtime)
 
     def update_campaign_with_options(self, id, request, headers, runtime):
+        """
+        更新运营活动
+        
+
+        @param request: UpdateCampaignRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateCampaignResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.name):
@@ -1409,15 +1812,33 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_report_url(self, request):
+    def update_campaign(self, id, request):
         """
-        更新回执Url。
+        更新运营活动
+        
+
+        @param request: UpdateCampaignRequest
+
+        @return: UpdateCampaignResponse
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_report_url_with_options(request, headers, runtime)
+        return self.update_campaign_with_options(id, request, headers, runtime)
 
     def update_report_url_with_options(self, request, headers, runtime):
+        """
+        更新回执Url。
+        
+
+        @param request: UpdateReportUrlRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateReportUrlResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.url):
@@ -1442,15 +1863,33 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_upload_url(self, request):
+    def update_report_url(self, request):
         """
-        更新上行Url。
+        更新回执Url。
+        
+
+        @param request: UpdateReportUrlRequest
+
+        @return: UpdateReportUrlResponse
         """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_upload_url_with_options(request, headers, runtime)
+        return self.update_report_url_with_options(request, headers, runtime)
 
     def update_upload_url_with_options(self, request, headers, runtime):
+        """
+        更新上行Url。
+        
+
+        @param request: UpdateUploadUrlRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateUploadUrlResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.url):
@@ -1474,3 +1913,16 @@ class Client(OpenApiClient):
             pai_plugin_20220112_models.UpdateUploadUrlResponse(),
             self.call_api(params, req, runtime)
         )
+
+    def update_upload_url(self, request):
+        """
+        更新上行Url。
+        
+
+        @param request: UpdateUploadUrlRequest
+
+        @return: UpdateUploadUrlResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_upload_url_with_options(request, headers, runtime)
