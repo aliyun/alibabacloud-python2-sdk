@@ -262,9 +262,14 @@ class Client(OpenApiClient):
         headers = {}
         return self.delete_tensorboard_with_options(tensorboard_id, request, headers, runtime)
 
-    def get_job_with_options(self, job_id, headers, runtime):
+    def get_job_with_options(self, job_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.need_detail):
+            query['NeedDetail'] = request.need_detail
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='GetJob',
@@ -282,10 +287,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_job(self, job_id):
+    def get_job(self, job_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_job_with_options(job_id, headers, runtime)
+        return self.get_job_with_options(job_id, request, headers, runtime)
 
     def get_job_events_with_options(self, job_id, request, headers, runtime):
         UtilClient.validate_model(request)
