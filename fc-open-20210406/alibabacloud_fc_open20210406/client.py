@@ -1031,18 +1031,6 @@ class Client(OpenApiClient):
         return self.get_function_with_options(service_name, function_name, request, headers, runtime)
 
     def get_function_async_invoke_config_with_options(self, service_name, function_name, request, headers, runtime):
-        """
-        StatefulAsyncInvocation indicates whether the asynchronous task feature is enabled. If the value of StatefulAsyncInvocation is true, the asynchronous task feature is enabled. All asynchronous invocations change to asynchronous task mode.
-        
-
-        @param request: GetFunctionAsyncInvokeConfigRequest
-
-        @param headers: GetFunctionAsyncInvokeConfigHeaders
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: GetFunctionAsyncInvokeConfigResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.qualifier):
@@ -1077,14 +1065,6 @@ class Client(OpenApiClient):
         )
 
     def get_function_async_invoke_config(self, service_name, function_name, request):
-        """
-        StatefulAsyncInvocation indicates whether the asynchronous task feature is enabled. If the value of StatefulAsyncInvocation is true, the asynchronous task feature is enabled. All asynchronous invocations change to asynchronous task mode.
-        
-
-        @param request: GetFunctionAsyncInvokeConfigRequest
-
-        @return: GetFunctionAsyncInvokeConfigResponse
-        """
         runtime = util_models.RuntimeOptions()
         headers = fc__open_20210406_models.GetFunctionAsyncInvokeConfigHeaders()
         return self.get_function_async_invoke_config_with_options(service_name, function_name, request, headers, runtime)
@@ -1320,7 +1300,7 @@ class Client(OpenApiClient):
 
     def get_stateful_async_invocation_with_options(self, service_name, function_name, invocation_id, request, headers, runtime):
         """
-        StatefulAsyncInvocation: asynchronous task. Asynchronous tasks allow you to manage the states on the basis of common asynchronous invocations, which is more suitable for task scenarios.
+        The version or alias of the service to which the asynchronous task belongs.
         
 
         @param request: GetStatefulAsyncInvocationRequest
@@ -1372,7 +1352,7 @@ class Client(OpenApiClient):
 
     def get_stateful_async_invocation(self, service_name, function_name, invocation_id, request):
         """
-        StatefulAsyncInvocation: asynchronous task. Asynchronous tasks allow you to manage the states on the basis of common asynchronous invocations, which is more suitable for task scenarios.
+        The version or alias of the service to which the asynchronous task belongs.
         
 
         @param request: GetStatefulAsyncInvocationRequest
@@ -1436,6 +1416,8 @@ class Client(OpenApiClient):
             real_headers['X-Fc-Invocation-Type'] = UtilClient.to_jsonstring(headers.x_fc_invocation_type)
         if not UtilClient.is_unset(headers.x_fc_log_type):
             real_headers['X-Fc-Log-Type'] = UtilClient.to_jsonstring(headers.x_fc_log_type)
+        if not UtilClient.is_unset(headers.x_fc_stateful_async_invocation_enable):
+            real_headers['X-Fc-Stateful-Async-Invocation-Enable'] = UtilClient.to_jsonstring(headers.x_fc_stateful_async_invocation_enable)
         if not UtilClient.is_unset(headers.x_fc_stateful_async_invocation_id):
             real_headers['X-Fc-Stateful-Async-Invocation-Id'] = UtilClient.to_jsonstring(headers.x_fc_stateful_async_invocation_id)
         if not UtilClient.is_unset(headers.x_fc_trace_id):
@@ -1596,18 +1578,6 @@ class Client(OpenApiClient):
         return self.list_event_sources_with_options(service_name, function_name, request, headers, runtime)
 
     def list_function_async_invoke_configs_with_options(self, service_name, function_name, request, headers, runtime):
-        """
-        StatefulAsyncInvocation indicates whether the asynchronous task feature is enabled. If StatefulAsyncInvocation is set to true, the asynchronous task is enabled. All asynchronous invocations to the function corresponding to this configuration change to asynchronous task mode.
-        
-
-        @param request: ListFunctionAsyncInvokeConfigsRequest
-
-        @param headers: ListFunctionAsyncInvokeConfigsHeaders
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: ListFunctionAsyncInvokeConfigsResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.limit):
@@ -1650,14 +1620,6 @@ class Client(OpenApiClient):
         )
 
     def list_function_async_invoke_configs(self, service_name, function_name, request):
-        """
-        StatefulAsyncInvocation indicates whether the asynchronous task feature is enabled. If StatefulAsyncInvocation is set to true, the asynchronous task is enabled. All asynchronous invocations to the function corresponding to this configuration change to asynchronous task mode.
-        
-
-        @param request: ListFunctionAsyncInvokeConfigsRequest
-
-        @return: ListFunctionAsyncInvokeConfigsResponse
-        """
         runtime = util_models.RuntimeOptions()
         headers = fc__open_20210406_models.ListFunctionAsyncInvokeConfigsHeaders()
         return self.list_function_async_invoke_configs_with_options(service_name, function_name, request, headers, runtime)
@@ -1711,8 +1673,8 @@ class Client(OpenApiClient):
 
     def list_instances_with_options(self, service_name, function_name, request, headers, runtime):
         """
-        The ListInstances operation allows you to query the available instances of a function.
-        Available instances are instances that are processing requests or can be scheduled to process requests. Available instances queried by the ListInstances operation are the same as those that can be used when you call the InvokeFunction operation with the same values specified for the `serviceName`, `functionName`, and `qualifier` parameters.
+        The maximum number of resources to return. Valid values: \\[0,1000].
+        The number of returned resources is less than or equal to the specified number.
         
 
         @param request: ListInstancesRequest
@@ -1758,8 +1720,8 @@ class Client(OpenApiClient):
 
     def list_instances(self, service_name, function_name, request):
         """
-        The ListInstances operation allows you to query the available instances of a function.
-        Available instances are instances that are processing requests or can be scheduled to process requests. Available instances queried by the ListInstances operation are the same as those that can be used when you call the InvokeFunction operation with the same values specified for the `serviceName`, `functionName`, and `qualifier` parameters.
+        The maximum number of resources to return. Valid values: \\[0,1000].
+        The number of returned resources is less than or equal to the specified number.
         
 
         @param request: ListInstancesRequest
@@ -2083,7 +2045,7 @@ class Client(OpenApiClient):
 
     def list_stateful_async_invocation_functions_with_options(self, request, headers, runtime):
         """
-        StatefulAsyncInvocation: asynchronous task. Asynchronous tasks allow you to manage the states on the basis of common asynchronous invocations, which is more suitable for task scenarios.
+        The metadata of the service and function to which the asynchronous task belongs.
         
 
         @param request: ListStatefulAsyncInvocationFunctionsRequest
@@ -2131,7 +2093,7 @@ class Client(OpenApiClient):
 
     def list_stateful_async_invocation_functions(self, request):
         """
-        StatefulAsyncInvocation: asynchronous task. Asynchronous tasks allow you to manage the states on the basis of common asynchronous invocations, which is more suitable for task scenarios.
+        The metadata of the service and function to which the asynchronous task belongs.
         
 
         @param request: ListStatefulAsyncInvocationFunctionsRequest
@@ -2144,7 +2106,7 @@ class Client(OpenApiClient):
 
     def list_stateful_async_invocations_with_options(self, service_name, function_name, request, headers, runtime):
         """
-        StatefulAsyncInvocation: asynchronous task. Asynchronous tasks allow you to manage the states on the basis of common asynchronous invocations, which is more suitable for task scenarios.
+        The name of the service to which the asynchronous task belongs.
         
 
         @param request: ListStatefulAsyncInvocationsRequest
@@ -2212,7 +2174,7 @@ class Client(OpenApiClient):
 
     def list_stateful_async_invocations(self, service_name, function_name, request):
         """
-        StatefulAsyncInvocation: asynchronous task. Asynchronous tasks allow you to manage the states on the basis of common asynchronous invocations, which is more suitable for task scenarios.
+        The name of the service to which the asynchronous task belongs.
         
 
         @param request: ListStatefulAsyncInvocationsRequest
@@ -2386,7 +2348,7 @@ class Client(OpenApiClient):
 
     def put_function_async_invoke_config_with_options(self, service_name, function_name, request, headers, runtime):
         """
-        StatefulAsyncInvocation specifies the configurations of the asynchronous task. Asynchronous tasks allow you to manage the states on the basis of common asynchronous invocations, which is more suitable for task scenarios.
+        The maximum validity period of messages.
         
 
         @param request: PutFunctionAsyncInvokeConfigRequest
@@ -2442,7 +2404,7 @@ class Client(OpenApiClient):
 
     def put_function_async_invoke_config(self, service_name, function_name, request):
         """
-        StatefulAsyncInvocation specifies the configurations of the asynchronous task. Asynchronous tasks allow you to manage the states on the basis of common asynchronous invocations, which is more suitable for task scenarios.
+        The maximum validity period of messages.
         
 
         @param request: PutFunctionAsyncInvokeConfigRequest
