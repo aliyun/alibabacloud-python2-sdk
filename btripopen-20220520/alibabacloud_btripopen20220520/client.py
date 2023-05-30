@@ -3691,11 +3691,17 @@ class Client(OpenApiClient):
         headers = btrip_open_20220520_models.InvoiceSearchHeaders()
         return self.invoice_search_with_options(request, headers, runtime)
 
-    def isv_rule_save_with_options(self, request, headers, runtime):
-        UtilClient.validate_model(request)
+    def isv_rule_save_with_options(self, tmp_req, headers, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = btrip_open_20220520_models.IsvRuleSaveShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.bookuser_list):
+            request.bookuser_list_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.bookuser_list, 'bookuser_list', 'json')
         body = {}
         if not UtilClient.is_unset(request.book_type):
             body['book_type'] = request.book_type
+        if not UtilClient.is_unset(request.bookuser_list_shrink):
+            body['bookuser_list'] = request.bookuser_list_shrink
         if not UtilClient.is_unset(request.status):
             body['status'] = request.status
         if not UtilClient.is_unset(request.user_id):
