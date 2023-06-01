@@ -31,11 +31,6 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
-    def add_work_node_workforce(self, tenant_id, task_id, work_node_id, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.add_work_node_workforce_with_options(tenant_id, task_id, work_node_id, request, headers, runtime)
-
     def add_work_node_workforce_with_options(self, tenant_id, task_id, work_node_id, request, headers, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -61,16 +56,16 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_task(self, tenant_id, request):
+    def add_work_node_workforce(self, tenant_id, task_id, work_node_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_task_with_options(tenant_id, request, headers, runtime)
+        return self.add_work_node_workforce_with_options(tenant_id, task_id, work_node_id, request, headers, runtime)
 
     def create_task_with_options(self, tenant_id, request, headers, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.body))
+            body=OpenApiUtilClient.parse_to_map(request.body)
         )
         params = open_api_models.Params(
             action='CreateTask',
@@ -88,16 +83,16 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_template(self, tenant_id, request):
+    def create_task(self, tenant_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_template_with_options(tenant_id, request, headers, runtime)
+        return self.create_task_with_options(tenant_id, request, headers, runtime)
 
     def create_template_with_options(self, tenant_id, request, headers, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.body))
+            body=OpenApiUtilClient.parse_to_map(request.body)
         )
         params = open_api_models.Params(
             action='CreateTemplate',
@@ -115,10 +110,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_user(self, tenant_id, request):
+    def create_template(self, tenant_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_user_with_options(tenant_id, request, headers, runtime)
+        return self.create_template_with_options(tenant_id, request, headers, runtime)
 
     def create_user_with_options(self, tenant_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -151,10 +146,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_task(self, tenant_id, task_id):
+    def create_user(self, tenant_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_task_with_options(tenant_id, task_id, headers, runtime)
+        return self.create_user_with_options(tenant_id, request, headers, runtime)
 
     def delete_task_with_options(self, tenant_id, task_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -176,10 +171,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_template(self, tenant_id, template_id):
+    def delete_task(self, tenant_id, task_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_template_with_options(tenant_id, template_id, headers, runtime)
+        return self.delete_task_with_options(tenant_id, task_id, headers, runtime)
 
     def delete_template_with_options(self, tenant_id, template_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -201,10 +196,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_user(self, tenant_id, user_id):
+    def delete_template(self, tenant_id, template_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_user_with_options(tenant_id, user_id, headers, runtime)
+        return self.delete_template_with_options(tenant_id, template_id, headers, runtime)
 
     def delete_user_with_options(self, tenant_id, user_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -226,10 +221,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def export_annotations(self, tenant_id, task_id, request):
+    def delete_user(self, tenant_id, user_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.export_annotations_with_options(tenant_id, task_id, request, headers, runtime)
+        return self.delete_user_with_options(tenant_id, user_id, headers, runtime)
 
     def export_annotations_with_options(self, tenant_id, task_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -260,10 +255,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_job(self, tenant_id, job_id, request):
+    def export_annotations(self, tenant_id, task_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_job_with_options(tenant_id, job_id, request, headers, runtime)
+        return self.export_annotations_with_options(tenant_id, task_id, request, headers, runtime)
 
     def get_job_with_options(self, tenant_id, job_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -290,10 +285,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_subtask(self, tenant_id, task_id, subtask_id):
+    def get_job(self, tenant_id, job_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_subtask_with_options(tenant_id, task_id, subtask_id, headers, runtime)
+        return self.get_job_with_options(tenant_id, job_id, request, headers, runtime)
 
     def get_subtask_with_options(self, tenant_id, task_id, subtask_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -315,10 +310,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_subtask_item(self, tenant_id, task_id, subtask_id, item_id):
+    def get_subtask(self, tenant_id, task_id, subtask_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_subtask_item_with_options(tenant_id, task_id, subtask_id, item_id, headers, runtime)
+        return self.get_subtask_with_options(tenant_id, task_id, subtask_id, headers, runtime)
 
     def get_subtask_item_with_options(self, tenant_id, task_id, subtask_id, item_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -340,10 +335,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_task(self, tenant_id, task_id):
+    def get_subtask_item(self, tenant_id, task_id, subtask_id, item_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_task_with_options(tenant_id, task_id, headers, runtime)
+        return self.get_subtask_item_with_options(tenant_id, task_id, subtask_id, item_id, headers, runtime)
 
     def get_task_with_options(self, tenant_id, task_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -365,10 +360,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_task_statistics(self, tenant_id, task_id, request):
+    def get_task(self, tenant_id, task_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_task_statistics_with_options(tenant_id, task_id, request, headers, runtime)
+        return self.get_task_with_options(tenant_id, task_id, headers, runtime)
 
     def get_task_statistics_with_options(self, tenant_id, task_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -395,10 +390,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_task_status(self, tenant_id, task_id):
+    def get_task_statistics(self, tenant_id, task_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_task_status_with_options(tenant_id, task_id, headers, runtime)
+        return self.get_task_statistics_with_options(tenant_id, task_id, request, headers, runtime)
 
     def get_task_status_with_options(self, tenant_id, task_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -420,10 +415,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_task_template(self, tenant_id, task_id):
+    def get_task_status(self, tenant_id, task_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_task_template_with_options(tenant_id, task_id, headers, runtime)
+        return self.get_task_status_with_options(tenant_id, task_id, headers, runtime)
 
     def get_task_template_with_options(self, tenant_id, task_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -445,10 +440,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_task_template_questions(self, tenant_id, task_id):
+    def get_task_template(self, tenant_id, task_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_task_template_questions_with_options(tenant_id, task_id, headers, runtime)
+        return self.get_task_template_with_options(tenant_id, task_id, headers, runtime)
 
     def get_task_template_questions_with_options(self, tenant_id, task_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -470,10 +465,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_task_template_views(self, tenant_id, task_id):
+    def get_task_template_questions(self, tenant_id, task_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_task_template_views_with_options(tenant_id, task_id, headers, runtime)
+        return self.get_task_template_questions_with_options(tenant_id, task_id, headers, runtime)
 
     def get_task_template_views_with_options(self, tenant_id, task_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -495,10 +490,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_task_workforce(self, tenant_id, task_id):
+    def get_task_template_views(self, tenant_id, task_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_task_workforce_with_options(tenant_id, task_id, headers, runtime)
+        return self.get_task_template_views_with_options(tenant_id, task_id, headers, runtime)
 
     def get_task_workforce_with_options(self, tenant_id, task_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -520,10 +515,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_task_workforce_statistic(self, tenant_id, task_id, request):
+    def get_task_workforce(self, tenant_id, task_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_task_workforce_statistic_with_options(tenant_id, task_id, request, headers, runtime)
+        return self.get_task_workforce_with_options(tenant_id, task_id, headers, runtime)
 
     def get_task_workforce_statistic_with_options(self, tenant_id, task_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -554,10 +549,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_template(self, tenant_id, template_id):
+    def get_task_workforce_statistic(self, tenant_id, task_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_template_with_options(tenant_id, template_id, headers, runtime)
+        return self.get_task_workforce_statistic_with_options(tenant_id, task_id, request, headers, runtime)
 
     def get_template_with_options(self, tenant_id, template_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -579,10 +574,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_template_questions(self, tenant_id, template_id):
+    def get_template(self, tenant_id, template_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_template_questions_with_options(tenant_id, template_id, headers, runtime)
+        return self.get_template_with_options(tenant_id, template_id, headers, runtime)
 
     def get_template_questions_with_options(self, tenant_id, template_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -604,10 +599,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_template_view(self, tenant_id, template_id):
+    def get_template_questions(self, tenant_id, template_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_template_view_with_options(tenant_id, template_id, headers, runtime)
+        return self.get_template_questions_with_options(tenant_id, template_id, headers, runtime)
 
     def get_template_view_with_options(self, tenant_id, template_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -629,10 +624,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_tenant(self, tenant_id):
+    def get_template_view(self, tenant_id, template_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_tenant_with_options(tenant_id, headers, runtime)
+        return self.get_template_view_with_options(tenant_id, template_id, headers, runtime)
 
     def get_tenant_with_options(self, tenant_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -654,10 +649,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_user(self, tenant_id, user_id):
+    def get_tenant(self, tenant_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_user_with_options(tenant_id, user_id, headers, runtime)
+        return self.get_tenant_with_options(tenant_id, headers, runtime)
 
     def get_user_with_options(self, tenant_id, user_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -679,10 +674,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_jobs(self, tenant_id, request):
+    def get_user(self, tenant_id, user_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_jobs_with_options(tenant_id, request, headers, runtime)
+        return self.get_user_with_options(tenant_id, user_id, headers, runtime)
 
     def list_jobs_with_options(self, tenant_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -713,10 +708,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_subtask_items(self, tenant_id, task_id, subtask_id, request):
+    def list_jobs(self, tenant_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_subtask_items_with_options(tenant_id, task_id, subtask_id, request, headers, runtime)
+        return self.list_jobs_with_options(tenant_id, request, headers, runtime)
 
     def list_subtask_items_with_options(self, tenant_id, task_id, subtask_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -745,10 +740,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_subtasks(self, tenant_id, task_id, request):
+    def list_subtask_items(self, tenant_id, task_id, subtask_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_subtasks_with_options(tenant_id, task_id, request, headers, runtime)
+        return self.list_subtask_items_with_options(tenant_id, task_id, subtask_id, request, headers, runtime)
 
     def list_subtasks_with_options(self, tenant_id, task_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -777,10 +772,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_tasks(self, tenant_id, request):
+    def list_subtasks(self, tenant_id, task_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_tasks_with_options(tenant_id, request, headers, runtime)
+        return self.list_subtasks_with_options(tenant_id, task_id, request, headers, runtime)
 
     def list_tasks_with_options(self, tenant_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -809,10 +804,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_templates(self, tenant_id, request):
+    def list_tasks(self, tenant_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_templates_with_options(tenant_id, request, headers, runtime)
+        return self.list_tasks_with_options(tenant_id, request, headers, runtime)
 
     def list_templates_with_options(self, tenant_id, tmp_req, headers, runtime):
         UtilClient.validate_model(tmp_req)
@@ -849,10 +844,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_tenants(self, request):
+    def list_templates(self, tenant_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_tenants_with_options(request, headers, runtime)
+        return self.list_templates_with_options(tenant_id, request, headers, runtime)
 
     def list_tenants_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -881,10 +876,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_users(self, tenant_id, request):
+    def list_tenants(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_users_with_options(tenant_id, request, headers, runtime)
+        return self.list_tenants_with_options(request, headers, runtime)
 
     def list_users_with_options(self, tenant_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -913,10 +908,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def remove_work_node_workforce(self, tenant_id, task_id, work_node_id, request):
+    def list_users(self, tenant_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.remove_work_node_workforce_with_options(tenant_id, task_id, work_node_id, request, headers, runtime)
+        return self.list_users_with_options(tenant_id, request, headers, runtime)
 
     def remove_work_node_workforce_with_options(self, tenant_id, task_id, work_node_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -943,16 +938,16 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_task(self, tenant_id, task_id, request):
+    def remove_work_node_workforce(self, tenant_id, task_id, work_node_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_task_with_options(tenant_id, task_id, request, headers, runtime)
+        return self.remove_work_node_workforce_with_options(tenant_id, task_id, work_node_id, request, headers, runtime)
 
     def update_task_with_options(self, tenant_id, task_id, request, headers, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.body))
+            body=OpenApiUtilClient.parse_to_map(request.body)
         )
         params = open_api_models.Params(
             action='UpdateTask',
@@ -970,10 +965,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_task_workforce(self, tenant_id, task_id, request):
+    def update_task(self, tenant_id, task_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_task_workforce_with_options(tenant_id, task_id, request, headers, runtime)
+        return self.update_task_with_options(tenant_id, task_id, request, headers, runtime)
 
     def update_task_workforce_with_options(self, tenant_id, task_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1000,16 +995,16 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_template(self, tenant_id, template_id, request):
+    def update_task_workforce(self, tenant_id, task_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_template_with_options(tenant_id, template_id, request, headers, runtime)
+        return self.update_task_workforce_with_options(tenant_id, task_id, request, headers, runtime)
 
     def update_template_with_options(self, tenant_id, template_id, request, headers, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.body))
+            body=OpenApiUtilClient.parse_to_map(request.body)
         )
         params = open_api_models.Params(
             action='UpdateTemplate',
@@ -1027,10 +1022,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_tenant(self, tenant_id, request):
+    def update_template(self, tenant_id, template_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_tenant_with_options(tenant_id, request, headers, runtime)
+        return self.update_template_with_options(tenant_id, template_id, request, headers, runtime)
 
     def update_tenant_with_options(self, tenant_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1059,10 +1054,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_user(self, tenant_id, user_id, request):
+    def update_tenant(self, tenant_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_user_with_options(tenant_id, user_id, request, headers, runtime)
+        return self.update_tenant_with_options(tenant_id, request, headers, runtime)
 
     def update_user_with_options(self, tenant_id, user_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1090,3 +1085,8 @@ class Client(OpenApiClient):
             open_itag_20220616_models.UpdateUserResponse(),
             self.call_api(params, req, runtime)
         )
+
+    def update_user(self, tenant_id, user_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_user_with_options(tenant_id, user_id, request, headers, runtime)
