@@ -29970,10 +29970,11 @@ class HotelOrderCreateRequestOccupantInfoList(TeaModel):
 
 
 class HotelOrderCreateRequestPromotionInfoPromotionDetailInfoList(TeaModel):
-    def __init__(self, check_status=None, need_check=None, promotion_id=None, promotion_name=None,
-                 promotion_price=None, promotion_type=None):
+    def __init__(self, check_status=None, need_check=None, promotion_code=None, promotion_id=None,
+                 promotion_name=None, promotion_price=None, promotion_type=None):
         self.check_status = check_status  # type: bool
         self.need_check = need_check  # type: bool
+        self.promotion_code = promotion_code  # type: str
         self.promotion_id = promotion_id  # type: str
         self.promotion_name = promotion_name  # type: str
         self.promotion_price = promotion_price  # type: long
@@ -29992,6 +29993,8 @@ class HotelOrderCreateRequestPromotionInfoPromotionDetailInfoList(TeaModel):
             result['check_status'] = self.check_status
         if self.need_check is not None:
             result['need_check'] = self.need_check
+        if self.promotion_code is not None:
+            result['promotion_code'] = self.promotion_code
         if self.promotion_id is not None:
             result['promotion_id'] = self.promotion_id
         if self.promotion_name is not None:
@@ -30008,6 +30011,8 @@ class HotelOrderCreateRequestPromotionInfoPromotionDetailInfoList(TeaModel):
             self.check_status = m.get('check_status')
         if m.get('need_check') is not None:
             self.need_check = m.get('need_check')
+        if m.get('promotion_code') is not None:
+            self.promotion_code = m.get('promotion_code')
         if m.get('promotion_id') is not None:
             self.promotion_id = m.get('promotion_id')
         if m.get('promotion_name') is not None:
@@ -30058,9 +30063,9 @@ class HotelOrderCreateRequestPromotionInfo(TeaModel):
 
 class HotelOrderCreateRequest(TeaModel):
     def __init__(self, btrip_user_id=None, check_in=None, check_out=None, contract_email=None, contract_name=None,
-                 contract_phone=None, corp_pay_price=None, dis_order_id=None, invoice_info=None, item_id=None, itinerary_no=None,
-                 occupant_info_list=None, person_pay_price=None, promotion_info=None, rate_plan_id=None, room_id=None, room_num=None,
-                 seller_id=None, shid=None, total_order_price=None, validate_res_key=None):
+                 contract_phone=None, corp_pay_price=None, dis_order_id=None, extra=None, invoice_info=None, item_id=None,
+                 itinerary_no=None, occupant_info_list=None, person_pay_price=None, promotion_info=None, rate_plan_id=None,
+                 room_id=None, room_num=None, seller_id=None, shid=None, total_order_price=None, validate_res_key=None):
         self.btrip_user_id = btrip_user_id  # type: str
         self.check_in = check_in  # type: str
         self.check_out = check_out  # type: str
@@ -30069,6 +30074,7 @@ class HotelOrderCreateRequest(TeaModel):
         self.contract_phone = contract_phone  # type: str
         self.corp_pay_price = corp_pay_price  # type: long
         self.dis_order_id = dis_order_id  # type: str
+        self.extra = extra  # type: str
         self.invoice_info = invoice_info  # type: HotelOrderCreateRequestInvoiceInfo
         self.item_id = item_id  # type: long
         self.itinerary_no = itinerary_no  # type: str
@@ -30115,6 +30121,8 @@ class HotelOrderCreateRequest(TeaModel):
             result['corp_pay_price'] = self.corp_pay_price
         if self.dis_order_id is not None:
             result['dis_order_id'] = self.dis_order_id
+        if self.extra is not None:
+            result['extra'] = self.extra
         if self.invoice_info is not None:
             result['invoice_info'] = self.invoice_info.to_map()
         if self.item_id is not None:
@@ -30163,6 +30171,8 @@ class HotelOrderCreateRequest(TeaModel):
             self.corp_pay_price = m.get('corp_pay_price')
         if m.get('dis_order_id') is not None:
             self.dis_order_id = m.get('dis_order_id')
+        if m.get('extra') is not None:
+            self.extra = m.get('extra')
         if m.get('invoice_info') is not None:
             temp_model = HotelOrderCreateRequestInvoiceInfo()
             self.invoice_info = temp_model.from_map(m['invoice_info'])
@@ -30199,7 +30209,7 @@ class HotelOrderCreateRequest(TeaModel):
 
 class HotelOrderCreateShrinkRequest(TeaModel):
     def __init__(self, btrip_user_id=None, check_in=None, check_out=None, contract_email=None, contract_name=None,
-                 contract_phone=None, corp_pay_price=None, dis_order_id=None, invoice_info_shrink=None, item_id=None,
+                 contract_phone=None, corp_pay_price=None, dis_order_id=None, extra=None, invoice_info_shrink=None, item_id=None,
                  itinerary_no=None, occupant_info_list_shrink=None, person_pay_price=None, promotion_info_shrink=None,
                  rate_plan_id=None, room_id=None, room_num=None, seller_id=None, shid=None, total_order_price=None,
                  validate_res_key=None):
@@ -30211,6 +30221,7 @@ class HotelOrderCreateShrinkRequest(TeaModel):
         self.contract_phone = contract_phone  # type: str
         self.corp_pay_price = corp_pay_price  # type: long
         self.dis_order_id = dis_order_id  # type: str
+        self.extra = extra  # type: str
         self.invoice_info_shrink = invoice_info_shrink  # type: str
         self.item_id = item_id  # type: long
         self.itinerary_no = itinerary_no  # type: str
@@ -30250,6 +30261,8 @@ class HotelOrderCreateShrinkRequest(TeaModel):
             result['corp_pay_price'] = self.corp_pay_price
         if self.dis_order_id is not None:
             result['dis_order_id'] = self.dis_order_id
+        if self.extra is not None:
+            result['extra'] = self.extra
         if self.invoice_info_shrink is not None:
             result['invoice_info'] = self.invoice_info_shrink
         if self.item_id is not None:
@@ -30296,6 +30309,8 @@ class HotelOrderCreateShrinkRequest(TeaModel):
             self.corp_pay_price = m.get('corp_pay_price')
         if m.get('dis_order_id') is not None:
             self.dis_order_id = m.get('dis_order_id')
+        if m.get('extra') is not None:
+            self.extra = m.get('extra')
         if m.get('invoice_info') is not None:
             self.invoice_info_shrink = m.get('invoice_info')
         if m.get('item_id') is not None:
@@ -32437,10 +32452,11 @@ class HotelOrderPreValidateShrinkRequest(TeaModel):
 
 
 class HotelOrderPreValidateResponseBodyModulePromotionInfoPromotionDetailInfoList(TeaModel):
-    def __init__(self, check_status=None, need_check=None, promotion_id=None, promotion_name=None,
-                 promotion_price=None, promotion_type=None):
+    def __init__(self, check_status=None, need_check=None, promotion_code=None, promotion_id=None,
+                 promotion_name=None, promotion_price=None, promotion_type=None):
         self.check_status = check_status  # type: bool
         self.need_check = need_check  # type: bool
+        self.promotion_code = promotion_code  # type: str
         self.promotion_id = promotion_id  # type: str
         self.promotion_name = promotion_name  # type: str
         self.promotion_price = promotion_price  # type: long
@@ -32459,6 +32475,8 @@ class HotelOrderPreValidateResponseBodyModulePromotionInfoPromotionDetailInfoLis
             result['check_status'] = self.check_status
         if self.need_check is not None:
             result['need_check'] = self.need_check
+        if self.promotion_code is not None:
+            result['promotion_code'] = self.promotion_code
         if self.promotion_id is not None:
             result['promotion_id'] = self.promotion_id
         if self.promotion_name is not None:
@@ -32475,6 +32493,8 @@ class HotelOrderPreValidateResponseBodyModulePromotionInfoPromotionDetailInfoLis
             self.check_status = m.get('check_status')
         if m.get('need_check') is not None:
             self.need_check = m.get('need_check')
+        if m.get('promotion_code') is not None:
+            self.promotion_code = m.get('promotion_code')
         if m.get('promotion_id') is not None:
             self.promotion_id = m.get('promotion_id')
         if m.get('promotion_name') is not None:
@@ -32529,11 +32549,15 @@ class HotelOrderPreValidateResponseBodyModulePromotionInfo(TeaModel):
 
 
 class HotelOrderPreValidateResponseBodyModuleRatePlanDaily(TeaModel):
-    def __init__(self, board=None, price=None, rate_start_time=None, room_count=None, service_fee=None):
+    def __init__(self, board=None, discount_price=None, price=None, rate_start_time=None, room_count=None,
+                 rounding_discount_price=None, rounding_price=None, service_fee=None):
         self.board = board  # type: str
+        self.discount_price = discount_price  # type: str
         self.price = price  # type: long
         self.rate_start_time = rate_start_time  # type: str
         self.room_count = room_count  # type: int
+        self.rounding_discount_price = rounding_discount_price  # type: str
+        self.rounding_price = rounding_price  # type: str
         self.service_fee = service_fee  # type: long
 
     def validate(self):
@@ -32547,12 +32571,18 @@ class HotelOrderPreValidateResponseBodyModuleRatePlanDaily(TeaModel):
         result = dict()
         if self.board is not None:
             result['board'] = self.board
+        if self.discount_price is not None:
+            result['discount_price'] = self.discount_price
         if self.price is not None:
             result['price'] = self.price
         if self.rate_start_time is not None:
             result['rate_start_time'] = self.rate_start_time
         if self.room_count is not None:
             result['room_count'] = self.room_count
+        if self.rounding_discount_price is not None:
+            result['rounding_discount_price'] = self.rounding_discount_price
+        if self.rounding_price is not None:
+            result['rounding_price'] = self.rounding_price
         if self.service_fee is not None:
             result['service_fee'] = self.service_fee
         return result
@@ -32561,12 +32591,18 @@ class HotelOrderPreValidateResponseBodyModuleRatePlanDaily(TeaModel):
         m = m or dict()
         if m.get('board') is not None:
             self.board = m.get('board')
+        if m.get('discount_price') is not None:
+            self.discount_price = m.get('discount_price')
         if m.get('price') is not None:
             self.price = m.get('price')
         if m.get('rate_start_time') is not None:
             self.rate_start_time = m.get('rate_start_time')
         if m.get('room_count') is not None:
             self.room_count = m.get('room_count')
+        if m.get('rounding_discount_price') is not None:
+            self.rounding_discount_price = m.get('rounding_discount_price')
+        if m.get('rounding_price') is not None:
+            self.rounding_price = m.get('rounding_price')
         if m.get('service_fee') is not None:
             self.service_fee = m.get('service_fee')
         return self
@@ -34091,7 +34127,7 @@ class HotelSearchShrinkRequest(TeaModel):
 class HotelSearchResponseBodyModuleItems(TeaModel):
     def __init__(self, brand_name=None, btand_code=None, city_code=None, distance=None, district_code=None,
                  hotel_address=None, hotel_code=None, hotel_en_name=None, hotel_name=None, hotel_star=None, image_url=None,
-                 is_protocol=None, location=None, min_price=None, score=None, status=None, tel=None):
+                 is_protocol=None, location=None, min_price=None, original_min_price=None, score=None, status=None, tel=None):
         self.brand_name = brand_name  # type: str
         self.btand_code = btand_code  # type: str
         self.city_code = city_code  # type: str
@@ -34106,6 +34142,7 @@ class HotelSearchResponseBodyModuleItems(TeaModel):
         self.is_protocol = is_protocol  # type: bool
         self.location = location  # type: str
         self.min_price = min_price  # type: float
+        self.original_min_price = original_min_price  # type: float
         self.score = score  # type: str
         self.status = status  # type: int
         self.tel = tel  # type: str
@@ -34147,6 +34184,8 @@ class HotelSearchResponseBodyModuleItems(TeaModel):
             result['location'] = self.location
         if self.min_price is not None:
             result['min_price'] = self.min_price
+        if self.original_min_price is not None:
+            result['original_min_price'] = self.original_min_price
         if self.score is not None:
             result['score'] = self.score
         if self.status is not None:
@@ -34185,6 +34224,8 @@ class HotelSearchResponseBodyModuleItems(TeaModel):
             self.location = m.get('location')
         if m.get('min_price') is not None:
             self.min_price = m.get('min_price')
+        if m.get('original_min_price') is not None:
+            self.original_min_price = m.get('original_min_price')
         if m.get('score') is not None:
             self.score = m.get('score')
         if m.get('status') is not None:
