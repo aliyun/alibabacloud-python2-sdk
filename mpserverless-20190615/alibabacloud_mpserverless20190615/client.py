@@ -2011,6 +2011,8 @@ class Client(OpenApiClient):
         body = {}
         if not UtilClient.is_unset(request.end_time):
             body['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.interval):
+            body['Interval'] = request.interval
         if not UtilClient.is_unset(request.space_id):
             body['SpaceId'] = request.space_id
         if not UtilClient.is_unset(request.start_time):
@@ -2331,6 +2333,8 @@ class Client(OpenApiClient):
         body = {}
         if not UtilClient.is_unset(request.access_control_allow_origin):
             body['AccessControlAllowOrigin'] = request.access_control_allow_origin
+        if not UtilClient.is_unset(request.access_origin_control):
+            body['AccessOriginControl'] = request.access_origin_control
         if not UtilClient.is_unset(request.domain_name):
             body['DomainName'] = request.domain_name
         if not UtilClient.is_unset(request.enable_cors):
