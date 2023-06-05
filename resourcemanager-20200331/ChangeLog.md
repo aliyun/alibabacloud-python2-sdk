@@ -1,3 +1,6 @@
+2023-06-05 Version: 1.1.4
+- Modify endpoint for resourcemanager.
+
 2023-05-18 Version: 1.1.3
 - Supported more language for resourcemanager.
 
