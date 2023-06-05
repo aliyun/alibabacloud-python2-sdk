@@ -10841,6 +10841,38 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_app_network_with_options(request, runtime)
 
+    def get_asset_detail_by_uuid_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.source_ip):
+            query['SourceIp'] = request.source_ip
+        if not UtilClient.is_unset(request.uuid):
+            query['Uuid'] = request.uuid
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetAssetDetailByUuid',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.GetAssetDetailByUuidResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_asset_detail_by_uuid(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_asset_detail_by_uuid_with_options(request, runtime)
+
     def get_asset_selection_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
