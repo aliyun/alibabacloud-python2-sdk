@@ -29885,8 +29885,8 @@ class HotelOrderCreateRequestInvoiceInfo(TeaModel):
 
 class HotelOrderCreateRequestOccupantInfoList(TeaModel):
     def __init__(self, card_no=None, card_type=None, customer_type=None, department_id=None, department_name=None,
-                 email=None, employee_type=None, first_name=None, last_name=None, name=None, phone=None, staff_no=None,
-                 user_type=None):
+                 email=None, employee_type=None, first_name=None, last_name=None, name=None, phone=None, room_no=None,
+                 staff_no=None, user_type=None):
         self.card_no = card_no  # type: str
         self.card_type = card_type  # type: int
         self.customer_type = customer_type  # type: int
@@ -29898,6 +29898,7 @@ class HotelOrderCreateRequestOccupantInfoList(TeaModel):
         self.last_name = last_name  # type: str
         self.name = name  # type: str
         self.phone = phone  # type: str
+        self.room_no = room_no  # type: str
         self.staff_no = staff_no  # type: str
         self.user_type = user_type  # type: int
 
@@ -29932,6 +29933,8 @@ class HotelOrderCreateRequestOccupantInfoList(TeaModel):
             result['name'] = self.name
         if self.phone is not None:
             result['phone'] = self.phone
+        if self.room_no is not None:
+            result['room_no'] = self.room_no
         if self.staff_no is not None:
             result['staff_no'] = self.staff_no
         if self.user_type is not None:
@@ -29962,6 +29965,8 @@ class HotelOrderCreateRequestOccupantInfoList(TeaModel):
             self.name = m.get('name')
         if m.get('phone') is not None:
             self.phone = m.get('phone')
+        if m.get('room_no') is not None:
+            self.room_no = m.get('room_no')
         if m.get('staff_no') is not None:
             self.staff_no = m.get('staff_no')
         if m.get('user_type') is not None:
@@ -30842,7 +30847,7 @@ class HotelOrderDetailInfoResponseBodyModuleOccupantInfoListCostCenterInfoList(T
 class HotelOrderDetailInfoResponseBodyModuleOccupantInfoList(TeaModel):
     def __init__(self, card_no=None, card_type=None, cost_center_info_list=None, customer_type=None,
                  department_id=None, department_name=None, email=None, employee_type=None, first_name=None, is_booker=None,
-                 last_name=None, name=None, phone=None, selected=None, staff_no=None, user_type=None):
+                 last_name=None, name=None, phone=None, room_no=None, selected=None, staff_no=None, user_type=None):
         self.card_no = card_no  # type: str
         self.card_type = card_type  # type: int
         self.cost_center_info_list = cost_center_info_list  # type: list[HotelOrderDetailInfoResponseBodyModuleOccupantInfoListCostCenterInfoList]
@@ -30856,6 +30861,7 @@ class HotelOrderDetailInfoResponseBodyModuleOccupantInfoList(TeaModel):
         self.last_name = last_name  # type: str
         self.name = name  # type: str
         self.phone = phone  # type: str
+        self.room_no = room_no  # type: str
         self.selected = selected  # type: bool
         self.staff_no = staff_no  # type: str
         self.user_type = user_type  # type: int
@@ -30900,6 +30906,8 @@ class HotelOrderDetailInfoResponseBodyModuleOccupantInfoList(TeaModel):
             result['name'] = self.name
         if self.phone is not None:
             result['phone'] = self.phone
+        if self.room_no is not None:
+            result['room_no'] = self.room_no
         if self.selected is not None:
             result['selected'] = self.selected
         if self.staff_no is not None:
@@ -30939,6 +30947,8 @@ class HotelOrderDetailInfoResponseBodyModuleOccupantInfoList(TeaModel):
             self.name = m.get('name')
         if m.get('phone') is not None:
             self.phone = m.get('phone')
+        if m.get('room_no') is not None:
+            self.room_no = m.get('room_no')
         if m.get('selected') is not None:
             self.selected = m.get('selected')
         if m.get('staff_no') is not None:
@@ -32549,10 +32559,11 @@ class HotelOrderPreValidateResponseBodyModulePromotionInfo(TeaModel):
 
 
 class HotelOrderPreValidateResponseBodyModuleRatePlanDaily(TeaModel):
-    def __init__(self, board=None, discount_price=None, price=None, rate_start_time=None, room_count=None,
-                 rounding_discount_price=None, rounding_price=None, service_fee=None):
+    def __init__(self, board=None, discount_price=None, max_booking_num=None, price=None, rate_start_time=None,
+                 room_count=None, rounding_discount_price=None, rounding_price=None, service_fee=None):
         self.board = board  # type: str
         self.discount_price = discount_price  # type: str
+        self.max_booking_num = max_booking_num  # type: str
         self.price = price  # type: long
         self.rate_start_time = rate_start_time  # type: str
         self.room_count = room_count  # type: int
@@ -32573,6 +32584,8 @@ class HotelOrderPreValidateResponseBodyModuleRatePlanDaily(TeaModel):
             result['board'] = self.board
         if self.discount_price is not None:
             result['discount_price'] = self.discount_price
+        if self.max_booking_num is not None:
+            result['max_booking_num'] = self.max_booking_num
         if self.price is not None:
             result['price'] = self.price
         if self.rate_start_time is not None:
@@ -32593,6 +32606,8 @@ class HotelOrderPreValidateResponseBodyModuleRatePlanDaily(TeaModel):
             self.board = m.get('board')
         if m.get('discount_price') is not None:
             self.discount_price = m.get('discount_price')
+        if m.get('max_booking_num') is not None:
+            self.max_booking_num = m.get('max_booking_num')
         if m.get('price') is not None:
             self.price = m.get('price')
         if m.get('rate_start_time') is not None:
