@@ -1,3 +1,6 @@
+2023-06-06 Version: 1.3.9
+- Add KMS apis and hls encryption transcoding.
+
 2023-05-18 Version: 1.3.8
 - Add conditional transcoding parameters.
 

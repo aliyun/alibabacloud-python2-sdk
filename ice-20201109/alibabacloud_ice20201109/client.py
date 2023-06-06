@@ -707,6 +707,34 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_upload_stream_with_options(request, runtime)
 
+    def decrypt_kmsdata_key_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.ciphertext_blob):
+            query['CiphertextBlob'] = request.ciphertext_blob
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DecryptKMSDataKey',
+            version='2020-11-09',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ice20201109_models.DecryptKMSDataKeyResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def decrypt_kmsdata_key(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.decrypt_kmsdata_key_with_options(request, runtime)
+
     def delete_category_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -2080,6 +2108,28 @@ class Client(OpenApiClient):
     def describe_query_configs(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_query_configs_with_options(request, runtime)
+
+    def generate_kmsdata_key_with_options(self, runtime):
+        req = open_api_models.OpenApiRequest()
+        params = open_api_models.Params(
+            action='GenerateKMSDataKey',
+            version='2020-11-09',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ice20201109_models.GenerateKMSDataKeyResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def generate_kmsdata_key(self):
+        runtime = util_models.RuntimeOptions()
+        return self.generate_kmsdata_key_with_options(runtime)
 
     def get_categories_with_options(self, request, runtime):
         UtilClient.validate_model(request)
