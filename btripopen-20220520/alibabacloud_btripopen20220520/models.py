@@ -29898,7 +29898,7 @@ class HotelOrderCreateRequestOccupantInfoList(TeaModel):
         self.last_name = last_name  # type: str
         self.name = name  # type: str
         self.phone = phone  # type: str
-        self.room_no = room_no  # type: str
+        self.room_no = room_no  # type: int
         self.staff_no = staff_no  # type: str
         self.user_type = user_type  # type: int
 
@@ -30861,7 +30861,7 @@ class HotelOrderDetailInfoResponseBodyModuleOccupantInfoList(TeaModel):
         self.last_name = last_name  # type: str
         self.name = name  # type: str
         self.phone = phone  # type: str
-        self.room_no = room_no  # type: str
+        self.room_no = room_no  # type: int
         self.selected = selected  # type: bool
         self.staff_no = staff_no  # type: str
         self.user_type = user_type  # type: int
