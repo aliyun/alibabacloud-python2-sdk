@@ -804,7 +804,7 @@ class Client(OpenApiClient):
 
     def execute_job_with_options(self, request, runtime):
         """
-        > : The combination of the `JobID` and `ScheduleTime` parameters serves as a unique index. Therefore, after the ExecuteJob operation is called to run a job once, a sleep for one second is required before the ExecuteJob operation is called to run the job again. Otherwise, the job may fail.
+        > The combination of the `JobID` and `ScheduleTime` parameters serves as a unique index. Therefore, after the ExecuteJob operation is called to run a job once, a sleep for one second is required before the ExecuteJob operation is called to run the job again. Otherwise, the job may fail.
         
 
         @param request: ExecuteJobRequest
@@ -836,7 +836,7 @@ class Client(OpenApiClient):
 
     def execute_job(self, request):
         """
-        > : The combination of the `JobID` and `ScheduleTime` parameters serves as a unique index. Therefore, after the ExecuteJob operation is called to run a job once, a sleep for one second is required before the ExecuteJob operation is called to run the job again. Otherwise, the job may fail.
+        > The combination of the `JobID` and `ScheduleTime` parameters serves as a unique index. Therefore, after the ExecuteJob operation is called to run a job once, a sleep for one second is required before the ExecuteJob operation is called to run the job again. Otherwise, the job may fail.
         
 
         @param request: ExecuteJobRequest
@@ -1008,6 +1008,48 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_log_with_options(request, runtime)
 
+    def get_overview_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.metric_type):
+            query['MetricType'] = request.metric_type
+        if not UtilClient.is_unset(request.namespace):
+            query['Namespace'] = request.namespace
+        if not UtilClient.is_unset(request.namespace_source):
+            query['NamespaceSource'] = request.namespace_source
+        if not UtilClient.is_unset(request.operate):
+            query['Operate'] = request.operate
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetOverview',
+            version='2019-04-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            schedulerx_220190430_models.GetOverviewResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_overview(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_overview_with_options(request, runtime)
+
     def get_work_flow_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
@@ -1128,10 +1170,14 @@ class Client(OpenApiClient):
 
     def list_groups_with_options(self, request, runtime):
         """
-        >  Before you call this operation, you must add the following dependency to the pom.xml file:
+        Before you call this operation, you must add the following dependency to the pom.xml file:
+        ```xml
+        <dependency>
         <groupId>com.aliyun</groupId>
         <artifactId>aliyun-java-sdk-schedulerx2</artifactId>
         <version>1.0.5</version>
+        </dependency>
+        ```
         
 
         @param request: ListGroupsRequest
@@ -1141,7 +1187,15 @@ class Client(OpenApiClient):
         @return: ListGroupsResponse
         """
         UtilClient.validate_model(request)
-        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        query = {}
+        if not UtilClient.is_unset(request.app_group_name):
+            query['AppGroupName'] = request.app_group_name
+        if not UtilClient.is_unset(request.namespace):
+            query['Namespace'] = request.namespace
+        if not UtilClient.is_unset(request.namespace_source):
+            query['NamespaceSource'] = request.namespace_source
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1150,7 +1204,7 @@ class Client(OpenApiClient):
             version='2019-04-30',
             protocol='HTTPS',
             pathname='/',
-            method='GET',
+            method='POST',
             auth_type='AK',
             style='RPC',
             req_body_type='formData',
@@ -1163,10 +1217,14 @@ class Client(OpenApiClient):
 
     def list_groups(self, request):
         """
-        >  Before you call this operation, you must add the following dependency to the pom.xml file:
+        Before you call this operation, you must add the following dependency to the pom.xml file:
+        ```xml
+        <dependency>
         <groupId>com.aliyun</groupId>
         <artifactId>aliyun-java-sdk-schedulerx2</artifactId>
         <version>1.0.5</version>
+        </dependency>
+        ```
         
 
         @param request: ListGroupsRequest
@@ -1247,7 +1305,13 @@ class Client(OpenApiClient):
         @return: ListNamespacesResponse
         """
         UtilClient.validate_model(request)
-        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        query = {}
+        if not UtilClient.is_unset(request.namespace):
+            query['Namespace'] = request.namespace
+        if not UtilClient.is_unset(request.namespace_name):
+            query['NamespaceName'] = request.namespace_name
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1256,7 +1320,7 @@ class Client(OpenApiClient):
             version='2019-04-30',
             protocol='HTTPS',
             pathname='/',
-            method='GET',
+            method='POST',
             auth_type='AK',
             style='RPC',
             req_body_type='formData',
@@ -1626,6 +1690,8 @@ class Client(OpenApiClient):
             body['TaskDispatchMode'] = request.task_dispatch_mode
         if not UtilClient.is_unset(request.task_max_attempt):
             body['TaskMaxAttempt'] = request.task_max_attempt
+        if not UtilClient.is_unset(request.template):
+            body['Template'] = request.template
         if not UtilClient.is_unset(request.time_expression):
             body['TimeExpression'] = request.time_expression
         if not UtilClient.is_unset(request.time_type):
@@ -1638,6 +1704,8 @@ class Client(OpenApiClient):
             body['TimeoutKillEnable'] = request.timeout_kill_enable
         if not UtilClient.is_unset(request.timezone):
             body['Timezone'] = request.timezone
+        if not UtilClient.is_unset(request.xattrs):
+            body['XAttrs'] = request.xattrs
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query),
             body=OpenApiUtilClient.parse_to_map(body)

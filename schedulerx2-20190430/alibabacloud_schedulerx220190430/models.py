@@ -5,13 +5,13 @@ from Tea.model import TeaModel
 
 class BatchDeleteJobsRequest(TeaModel):
     def __init__(self, group_id=None, job_id_list=None, namespace=None, namespace_source=None, region_id=None):
-        # The ID of the application. You can obtain the application ID on the **Application Management** page in Distributed Task Scheduling Platform.
+        # The ID of the application. You can obtain the application ID on the **Application Management** page in the SchedulerX console.
         self.group_id = group_id  # type: str
-        # The job IDs. Multiple job IDs are separated by commas (,).
+        # The job IDs. Separate multiple job IDs with commas (,).
         self.job_id_list = job_id_list  # type: list[long]
-        # The ID of the namespace to which the job belongs. You can obtain the ID of the namespace on the **Namespace** page in Distributed Task Scheduling Platform.
+        # The ID of the namespace to which the job belongs. You can obtain the ID of the namespace on the **Namespace** page in the SchedulerX console.
         self.namespace = namespace  # type: str
-        # This parameter is required only for a special third party.
+        # The source of the namespace. This parameter is required only for a special third party.
         self.namespace_source = namespace_source  # type: str
         # The ID of the region to which the job belongs.
         self.region_id = region_id  # type: str
@@ -54,16 +54,16 @@ class BatchDeleteJobsRequest(TeaModel):
 
 class BatchDeleteJobsResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
-        # The HTTP status code that is returned.
+        # The HTTP status code.
         self.code = code  # type: int
-        # The additional information that is returned.
+        # The additional information returned.
         self.message = message  # type: str
         # The ID of the request.
         self.request_id = request_id  # type: str
-        # Indicates whether jobs are deleted in batches. Valid values:
+        # Indicates whether multiple jobs were deleted at a time. Valid values:
         # 
-        # *   **true**: Jobs are deleted in batches.
-        # *   **false**: Failed to delete jobs in batches.
+        # *   **true**: Multiple jobs were deleted at a time.
+        # *   **false**: Multiple jobs were not deleted at a time.
         self.success = success  # type: bool
 
     def validate(self):
@@ -180,7 +180,6 @@ class BatchDeleteRouteStrategyResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
         self.code = code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -257,15 +256,15 @@ class BatchDeleteRouteStrategyResponse(TeaModel):
 
 class BatchDisableJobsRequest(TeaModel):
     def __init__(self, group_id=None, job_id_list=None, namespace=None, namespace_source=None, region_id=None):
-        # The ID of the application. You can obtain the ID of the application on the **Application Management** page in the SchedulerX console.
+        # The ID of the application. You can obtain the application ID on the **Application Management** page in the SchedulerX console.
         self.group_id = group_id  # type: str
         # The job IDs. Separate multiple job IDs with commas (,).
         self.job_id_list = job_id_list  # type: list[long]
         # The ID of the namespace to which the job belongs. You can obtain the ID of the namespace on the **Namespace** page in the SchedulerX console.
         self.namespace = namespace  # type: str
-        # Required only for a special third party.
+        # The source of the namespace. This parameter is required only for a special third party.
         self.namespace_source = namespace_source  # type: str
-        # The ID of the region in which the job resides.
+        # The ID of the region to which the job belongs.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -306,16 +305,16 @@ class BatchDisableJobsRequest(TeaModel):
 
 class BatchDisableJobsResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
-        # The status code.
+        # The HTTP status code.
         self.code = code  # type: int
-        # The additional information returned.
+        # The additional information that was returned.
         self.message = message  # type: str
         # The ID of the request.
         self.request_id = request_id  # type: str
-        # Indicates whether the call is successful. Valid values:
+        # Indicates whether the request was successful. Valid values:
         # 
-        # *   **true**: The call is successful.
-        # *   **false**: The call fails.
+        # *   **true**: The request was successful.
+        # *   **false**: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -391,15 +390,15 @@ class BatchDisableJobsResponse(TeaModel):
 
 class BatchEnableJobsRequest(TeaModel):
     def __init__(self, group_id=None, job_id_list=None, namespace=None, namespace_source=None, region_id=None):
-        # The ID of the application. You can obtain the ID of the application on the **Application Management** page in the SchedulerX console.
+        # The application ID. You can obtain the application ID on the **Application Management** page in the SchedulerX console.
         self.group_id = group_id  # type: str
-        # The job IDs. Separate multiple job IDs with commas (,).
+        # The job IDs. Multiple job IDs are separated with commas (,).
         self.job_id_list = job_id_list  # type: list[long]
-        # The ID of the namespace to which the job belongs. You can obtain the ID of the namespace on the **Namespace** page in the SchedulerX console.
+        # The ID of the namespace to which the job belongs. You can obtain the namespace ID on the **Namespace** page in the SchedulerX console.
         self.namespace = namespace  # type: str
-        # Required only for a special third party.
+        # The source of the namespace. This parameter is required only for a special third party.
         self.namespace_source = namespace_source  # type: str
-        # The ID of the region in which the job resides.
+        # The ID of the region to which the job belongs.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -440,16 +439,16 @@ class BatchEnableJobsRequest(TeaModel):
 
 class BatchEnableJobsResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
-        # The status code.
+        # The HTTP status code.
         self.code = code  # type: int
-        # The additional information returned.
+        # The returned additional information.
         self.message = message  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # Indicates whether the call is successful. Valid values:
+        # Indicates whether the jobs were enabled at a time. Valid values:
         # 
-        # *   **true**: The call is successful.
-        # *   **false**: The call fails.
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: bool
 
     def validate(self):
@@ -531,11 +530,20 @@ class CreateAppGroupRequest(TeaModel):
         self.app_key = app_key  # type: str
         # The name of the application.
         self.app_name = app_name  # type: str
+        # 应用类型。
+        # 
+        # - 1、普通应用。
+        # - 2、k8s应用。
         self.app_type = app_type  # type: int
         # The description of the application.
         self.description = description  # type: str
+        # 是否开启日志。
+        # 
+        # - true：开启
+        # 
+        # - false：关闭
         self.enable_log = enable_log  # type: bool
-        # The ID of the application. You can obtain the application ID on the Application Management page in Distributed Task Scheduling Platform.
+        # The application ID. You can obtain the application ID on the Application Management page in the SchedulerX console.
         self.group_id = group_id  # type: str
         # The maximum number of jobs.
         self.max_jobs = max_jobs  # type: int
@@ -543,13 +551,13 @@ class CreateAppGroupRequest(TeaModel):
         self.monitor_config_json = monitor_config_json  # type: str
         # The configuration of alert contacts. The value is a JSON string.
         self.monitor_contacts_json = monitor_contacts_json  # type: str
-        # The ID of the namespace. You can obtain the ID of the namespace on the Namespace page in Distributed Task Scheduling Platform.
+        # The namespace ID. You can obtain the namespace ID on the Namespace page in the SchedulerX console.
         self.namespace = namespace  # type: str
         # The name of the namespace.
         self.namespace_name = namespace_name  # type: str
         # This parameter is not supported. You do not need to specify this parameter.
         self.namespace_source = namespace_source  # type: str
-        # The ID of the region.
+        # The region ID.
         self.region_id = region_id  # type: str
         # Specifies whether to schedule a busy worker.
         self.schedule_busy_workers = schedule_busy_workers  # type: bool
@@ -628,7 +636,7 @@ class CreateAppGroupRequest(TeaModel):
 
 class CreateAppGroupResponseBodyData(TeaModel):
     def __init__(self, app_group_id=None, app_key=None):
-        # The ID of the job group.
+        # The job group ID.
         self.app_group_id = app_group_id  # type: long
         # The AppKey for the application.
         self.app_key = app_key  # type: str
@@ -659,18 +667,18 @@ class CreateAppGroupResponseBodyData(TeaModel):
 
 class CreateAppGroupResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        # The HTTP status code that is returned.
+        # The HTTP status code.
         self.code = code  # type: int
         # The information about the job group.
         self.data = data  # type: CreateAppGroupResponseBodyData
-        # The error message that is returned only if an error occurs.
+        # The error message that is returned only if the corresponding error occurs.
         self.message = message  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # Indicates whether the application is created. Valid values:
+        # Indicates whether the application was created. Valid values:
         # 
-        # *   **true**: The application is created.
-        # *   **false**: Failed to create the application.
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: bool
 
     def validate(self):
@@ -752,13 +760,13 @@ class CreateAppGroupResponse(TeaModel):
 
 class CreateJobRequestContactInfo(TeaModel):
     def __init__(self, ding=None, user_mail=None, user_name=None, user_phone=None):
-        # The webhook URL of the DingTalk chatbot. For more information, see [DingTalk development documentation](https://open.dingtalk.com/document/org/application-types).
+        # The webhook URL of the DingTalk chatbot.[](https://open.dingtalk.com/document/org/application-types)
         self.ding = ding  # type: str
         # The email address of the alert contact.
         self.user_mail = user_mail  # type: str
         # The name of the alert contact.
         self.user_name = user_name  # type: str
-        # The mobile phone number of the alert contact.
+        # The mobile number of the alert contact.
         self.user_phone = user_phone  # type: str
 
     def validate(self):
@@ -801,44 +809,44 @@ class CreateJobRequest(TeaModel):
                  queue_size=None, region_id=None, send_channel=None, status=None, success_notice_enable=None,
                  task_attempt_interval=None, task_max_attempt=None, time_expression=None, time_type=None, timeout=None,
                  timeout_enable=None, timeout_kill_enable=None, timezone=None, xattrs=None):
-        # The interval at which the system attempts to rerun a job. Default value: 30. Unit: seconds.
+        # The interval of retries after a job failure. Default value: 30. Unit: seconds.
         self.attempt_interval = attempt_interval  # type: int
-        # When the Time type parameter is set to cron, you can specify a custom calendar.
+        # If you set TimeType to 1 (cron), you can specify calendar days.
         self.calendar = calendar  # type: str
         # The full path of the job interface class.
         # 
-        # This field is available only when you select a java job. In this case, you must enter a full path.
+        # This parameter is available only when you set JobType to java. You must enter a full path.
         self.class_name = class_name  # type: str
         # The number of threads that are triggered by a single worker at a time. Default value: 5. This parameter is an advanced configuration item of the MapReduce job.
         self.consumer_size = consumer_size  # type: int
-        # The information of the job contact.
+        # The information about the alert contact.
         self.contact_info = contact_info  # type: list[CreateJobRequestContactInfo]
-        # The script code content that is required when you set the job type to **python**, **shell**, or **go**.
+        # The script content. This parameter is required when you set JobType to python, shell, go, or k8s.
         self.content = content  # type: str
-        # When the Time type parameter is set to cron, you can specify a time offset. Unit: seconds.
+        # If you set TimeType to 1 (cron), you can specify a time offset. Unit: seconds.
         self.data_offset = data_offset  # type: int
-        # The description of the job.
+        # The job description.
         self.description = description  # type: str
-        # Default value: 5. This parameter is an advanced configuration item of the MapReduce job.
+        # The number of task distribution threads. Default value: 5. This parameter is an advanced configuration item of the MapReduce job.
         self.dispatcher_size = dispatcher_size  # type: int
-        # The execution mode of the job. The following execution modes are supported:
+        # The execution mode of the job. Valid values:
         # 
-        # *   **standalone**: The job runs in standalone mode.
-        # *   **broadcast**: The job runs in broadcast mode.
-        # *   **parallel**: The job runs in parallel computing mode.
-        # *   **grid**: The job runs in memory grid mode.
-        # *   **batch**: The job runs in grid computing mode.
-        # *   **sharding**: The job runs in sharding mode.
+        # *   **Stand-alone operation**\
+        # *   **Broadcast run**\
+        # *   **Visual MapReduce**\
+        # *   **MapReduce**\
+        # *   **Shard run**\
         self.execute_mode = execute_mode  # type: str
-        # Specifies whether to turn on Failure alarm. Valid values:
+        # Specifies whether to turn on Failure alarm. If the switch is turned on, an alert will be generated upon a failure. Valid values:
         # 
-        # *   **true**: Turn on Failure alarm.
-        # *   **false**: Turn off Failure alarm.
+        # *   **true**\
+        # *   **false**\
         self.fail_enable = fail_enable  # type: bool
+        # The number of consecutive failures. An alert will be received if the number of consecutive failures reaches the value of this parameter.
         self.fail_times = fail_times  # type: int
-        # The ID of the application. You can obtain the application ID on the Application Management page in Distributed Task Scheduling Platform.
+        # The application ID. You can obtain the application ID on the Application Management page in the SchedulerX console.
         self.group_id = group_id  # type: str
-        # The type of the job. The following job types are supported:
+        # The job type. Valid values:
         # 
         # *   java
         # *   python
@@ -850,68 +858,70 @@ class CreateJobRequest(TeaModel):
         # *   k8s
         # *   springschedule
         self.job_type = job_type  # type: str
-        # The maximum number of attempts that the system can make when an error occurs on a job. You can specify this parameter based on your business requirements. Default value: 0.
+        # The maximum number of retries after a job failure. Specify this parameter based on your business requirements. Default value: 0.
         self.max_attempt = max_attempt  # type: int
-        # The maximum number of instances that the system can run at the same time. Default value: 1. When you set this parameter to 1, if the current job does not end, the system will not run the next job even if the runtime is reached.
+        # The maximum number of concurrent instances. Default value: 1. The default value indicates that only one instance is allowed to run at a time. When an instance is running, another instance is not triggered even if the scheduled time for running the instance is reached.
         self.max_concurrency = max_concurrency  # type: int
-        # Specifies whether to turn on No machine alarm available.
+        # Specifies whether to turn on No machine alarm available. If the switch is turned on, an alert will be generated when no machine is available for running the job. Valid values:
         # 
-        # *   **true**: Turn on No machine alarm available.
-        # *   **false**: Turn off No machine alarm available.
+        # *   **true**\
+        # *   **false**\
         self.miss_worker_enable = miss_worker_enable  # type: bool
-        # The name of the job.
+        # The job name.
         self.name = name  # type: str
-        # The ID of the namespace. You can obtain the ID of the namespace on the Namespace page in Distributed Task Scheduling Platform.
+        # The namespace ID. You can obtain the namespace ID on the Namespace page in the SchedulerX console.
         self.namespace = namespace  # type: str
-        # This parameter is required only for a special third party.
+        # The namespace source. This parameter is required only for a special third party.
         self.namespace_source = namespace_source  # type: str
-        # The number of subtasks that can be pulled at a time. Default value: 100. This parameter is an advanced configuration item of MapReduce job.
+        # The number of tasks that can be pulled at a time. Default value: 100. This parameter is an advanced configuration item of the MapReduce job.
         self.page_size = page_size  # type: int
         # The user-defined parameters that you can obtain when the job is running.
         self.parameters = parameters  # type: str
-        # The maximum number of subtask queues that you can cache. Default value: 10000. This parameter is an advanced configuration item of the MapReduce job.
+        # The maximum number of tasks that can be queued. Default value: 10000. This parameter is an advanced configuration item of the MapReduce job.
         self.queue_size = queue_size  # type: int
-        # The ID of the region.
+        # The region ID.
         self.region_id = region_id  # type: str
-        # The channel for sending alerts. Only SMS messages are supported. Set the value to sms.
+        # The method that is used to send alerts. Only Short Message Service (SMS) is supported. Default value: sms.
         self.send_channel = send_channel  # type: str
-        # 0: disabled. 1: enabled. Default value: 1.
+        # Specifies whether to enable the job. If this parameter is set to 0, the job is disabled. If this parameter is set to 1, the job is enabled. Default value: 1.
         self.status = status  # type: int
+        # Specifies whether to turn on Successful notice. If the switch is turned on, a notice will be sent when a job succeeds.
         self.success_notice_enable = success_notice_enable  # type: bool
-        # The interval at which the system can rerun the subtask when the subtask fails. Default value: 0. This parameter is an advanced configuration item of the MapReduce job.
+        # The interval of retries after a task failure. Default value: 0. This parameter is an advanced configuration item of the MapReduce job.
         self.task_attempt_interval = task_attempt_interval  # type: int
-        # The number of retries that the system can perform when the subtask fails. Default value: 0. This parameter is an advanced configuration item of the MapReduce job.
+        # The number of retries after a task failure. Default value: 0. This parameter is an advanced configuration item of the MapReduce job.
         self.task_max_attempt = task_max_attempt  # type: int
-        # The time expression. You can set the time expression according to the selected time type.
+        # The time expression. Specify the time expression based on the value of TimeType:
         # 
-        # *   **cron**: Specify a standard Cron expression. You can verify the expression online after you specify the expression.
-        # *   **api**: No time expression is available.
-        # *   **fixed_rate**: Specify a fixed frequency value. Unit: seconds. For example, if you set this parameter to 30, the system triggers a job every 30 seconds.
-        # *   **second_delay**: Specify a delay after which you can run a job. You can specify a value from 1 to 60. Unit: seconds.
-        # *   **one_time**: Specify a time in the format of yyyy-MM-dd HH:mm:ss or specify a timestamp in milliseconds. Example: 2022-10-10 10:10:00.
+        # *   If you set TimeType to **1** (cron), specify this parameter to a standard CRON expression.
+        # *   If you set TimeType to **100** (api), no time expression is required.
+        # *   If you set TimeType to **3** (fixed_rate), specify this parameter to a fixed frequency in seconds. For example, if you set this parameter to 30, the system triggers a job every 30 seconds.
+        # *   If you set TimeType to **4** (second_delay), specify this parameter to a fixed delay after which the job is triggered. Valid values: 1 to 60. Unit: seconds.
+        # *   If you set TimeType to **5** (one_time), specify this parameter to a specific time point at which the job is triggered. The time is in the format of yyyy-MM-dd HH:mm:ss, such as 2022-10-10 10:10:00, or a timestamp in milliseconds.
         self.time_expression = time_expression  # type: str
-        # The type of time. The following time types are supported:
+        # The time type. Valid values:
         # 
-        # *   **cron**: 1
-        # *   **fixed_rate**: 3
-        # *   **second_delay**: 4
-        # *   **one_time**: 5
-        # *   **api**: 100
+        # *   **1**: cron
+        # *   **3**: fixed_rate
+        # *   **4**: second_delay
+        # *   **5**: one_time
+        # *   **100**: api
         self.time_type = time_type  # type: int
         # The timeout threshold. Default value: 7200. Unit: seconds.
         self.timeout = timeout  # type: long
-        # Specifies whether to turn on Timeout alarm. Valid values:
+        # Specifies whether to turn on Timeout alarm. If the switch is turned on, an alert will be generated upon a timeout. Valid values:
         # 
-        # *   **true**: Turn on Timeout alarm.
-        # *   **false**: Turn off Timeout alarm.
+        # *   **true**\
+        # *   **false**\
         self.timeout_enable = timeout_enable  # type: bool
-        # Specifies whether to turn on Timeout termination. Valid values:
+        # Specifies whether to turn on Timeout termination. If the switch is turned on, the job will be terminated upon a timeout. Valid values:
         # 
-        # *   **true**: Turn on Timeout termination.
-        # *   **false**: Turn off Timeout termination.
+        # *   **true**\
+        # *   **false**\
         self.timeout_kill_enable = timeout_kill_enable  # type: bool
+        # Time zone.
         self.timezone = timezone  # type: str
-        # If the Task type parameter is set to k8s, this parameter is required. xxljob task: {"resource":"job"} shell task: {"image":"busybox","resource":"shell"}
+        # If you set JobType to k8s, this parameter is required. xxljob task: {"resource":"job"} shell task: {"image":"busybox","resource":"shell"}
         self.xattrs = xattrs  # type: str
 
     def validate(self):
@@ -1084,7 +1094,7 @@ class CreateJobRequest(TeaModel):
 
 class CreateJobResponseBodyData(TeaModel):
     def __init__(self, job_id=None):
-        # The ID of the job.
+        # The job ID.
         self.job_id = job_id  # type: long
 
     def validate(self):
@@ -1109,18 +1119,18 @@ class CreateJobResponseBodyData(TeaModel):
 
 class CreateJobResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        # The HTTP status code that is returned.
+        # The HTTP status code.
         self.code = code  # type: int
         # The details of the job.
         self.data = data  # type: CreateJobResponseBodyData
-        # The additional information that is returned.
+        # The additional information returned.
         self.message = message  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # Indicates whether the job is created. Valid values:
+        # If you set JobType to k8s, this parameter is required. Valid values:
         # 
-        # *   **true**: The job is created.
-        # *   **false**: Failed to create the job.
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: bool
 
     def validate(self):
@@ -1206,9 +1216,9 @@ class CreateNamespaceRequest(TeaModel):
         self.description = description  # type: str
         # The name of the namespace.
         self.name = name  # type: str
-        # The ID of the region.
+        # The region ID.
         self.region_id = region_id  # type: str
-        # The UID of the namespace, which is globally unique. We recommend that you use the UUID to generate the UID.
+        # The unique identifier (UID) of the namespace. We recommend that you use the universally unique identifier (UUID) to generate the UID.
         self.uid = uid  # type: str
 
     def validate(self):
@@ -1245,7 +1255,7 @@ class CreateNamespaceRequest(TeaModel):
 
 class CreateNamespaceResponseBodyData(TeaModel):
     def __init__(self, namespace_uid=None):
-        # The unique identifier of the namespace.
+        # The UID of the namespace.
         self.namespace_uid = namespace_uid  # type: str
 
     def validate(self):
@@ -1270,18 +1280,18 @@ class CreateNamespaceResponseBodyData(TeaModel):
 
 class CreateNamespaceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        # The HTTP status code that is returned.
+        # The HTTP status code.
         self.code = code  # type: int
-        # The information of the namespace.
+        # The information about the namespace.
         self.data = data  # type: CreateNamespaceResponseBodyData
-        # The error message that is returned only if the error occurs.
+        # The error message that is returned only if the corresponding error occurs.
         self.message = message  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # Indicates whether an application is created. Valid values:
+        # Indicates whether the application was created. Valid values:
         # 
-        # *   **true**: The application is created.
-        # *   **false**: Failed to create the application.
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: bool
 
     def validate(self):
@@ -1364,13 +1374,26 @@ class CreateNamespaceResponse(TeaModel):
 class CreateRouteStrategyRequest(TeaModel):
     def __init__(self, group_id=None, job_id=None, name=None, namespace=None, region_id=None, status=None,
                  strategy_content=None, type=None):
+        # The ID of the application group. You can obtain the ID on the **Application Management** page in the SchedulerX console.
         self.group_id = group_id  # type: str
+        # The job ID. You can obtain the ID on the **Task Management** page in the SchedulerX console.
         self.job_id = job_id  # type: long
+        # The name of the routing policy.
         self.name = name  # type: str
+        # The namespace ID. You can obtain the namespace ID on the **Namespace** page in the SchedulerX console.
         self.namespace = namespace  # type: str
+        # The region ID.
         self.region_id = region_id  # type: str
+        # Specifies whether to enable the routing policy. Valid values:
+        # 
+        # *   **0**: disables the routing policy.
+        # *   **1**: enables the routing policy.
         self.status = status  # type: int
+        # The details of the routing policy. The value is a JSON string. For more information about this parameter, see **the additional information about request parameters** below this table.
         self.strategy_content = strategy_content  # type: str
+        # The type of the routing policy. Valid value:
+        # 
+        # *   **3**: routes by proportion.
         self.type = type  # type: int
 
     def validate(self):
@@ -1443,10 +1466,18 @@ class CreateRouteStrategyResponseBodyData(TeaModel):
 
 class CreateRouteStrategyResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The returned data.
         self.data = data  # type: CreateRouteStrategyResponseBodyData
+        # The additional information, including errors and tips.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the call was successful. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: bool
 
     def validate(self):
@@ -1529,15 +1560,31 @@ class CreateRouteStrategyResponse(TeaModel):
 class CreateWorkflowRequest(TeaModel):
     def __init__(self, description=None, group_id=None, max_concurrency=None, name=None, namespace=None,
                  namespace_source=None, region_id=None, time_expression=None, time_type=None, timezone=None):
+        # The description of the workflow.
         self.description = description  # type: str
+        # The application group ID. You can obtain the ID on the Application Management page in the SchedulerX console.
         self.group_id = group_id  # type: str
+        # The maximum number of workflow instances that can be run at the same time. Default value: 1. The value 1 indicates that only one workflow instance is allowed. In this case, if the triggered workflow instance is still ongoing, no more workflow instances can be triggered even the time to schedule the next workflow arrives.
         self.max_concurrency = max_concurrency  # type: int
+        # The name of the workflow.
         self.name = name  # type: str
+        # The namespace ID. You can obtain the namespace ID on the Namespace page in the SchedulerX console.
         self.namespace = namespace  # type: str
+        # The source of the namespace. This parameter is required only for a special third party.
         self.namespace_source = namespace_source  # type: str
+        # The region ID.
         self.region_id = region_id  # type: str
+        # The time expression. You can set the time expression based on the selected method that is used to specify time.
+        # 
+        # *   If you set the TimeType parameter to cron, you need to enter a standard cron expression. Online verification is supported.
+        # *   If you set the TimeType parameter to api, no time expression is required.
         self.time_expression = time_expression  # type: str
+        # The method that is used to specify the time. Valid values:
+        # 
+        # *   1: cron
+        # *   100: api
         self.time_type = time_type  # type: int
+        # The time zone.
         self.timezone = timezone  # type: str
 
     def validate(self):
@@ -1598,6 +1645,7 @@ class CreateWorkflowRequest(TeaModel):
 
 class CreateWorkflowResponseBodyData(TeaModel):
     def __init__(self, workflow_id=None):
+        # The workflow ID.
         self.workflow_id = workflow_id  # type: long
 
     def validate(self):
@@ -1622,10 +1670,18 @@ class CreateWorkflowResponseBodyData(TeaModel):
 
 class CreateWorkflowResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: str
+        # The data that was returned for the request.
         self.data = data  # type: CreateWorkflowResponseBodyData
+        # The returned error message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the workflow was created. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -1748,7 +1804,6 @@ class DeleteAppGroupResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
         self.code = code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -1825,13 +1880,13 @@ class DeleteAppGroupResponse(TeaModel):
 
 class DeleteJobRequest(TeaModel):
     def __init__(self, group_id=None, job_id=None, namespace=None, namespace_source=None, region_id=None):
-        # The ID of the application. You can obtain the application ID on the **Application Management** page in Distributed Task Scheduling Platform.
+        # The ID of the application. You can obtain the application ID on the **Application Management** page in the SchedulerX console.
         self.group_id = group_id  # type: str
-        # The ID of the job. You can obtain the ID on the **Task Management** page in Distributed Task Scheduling Platform.
+        # The ID of the job. You can obtain the ID on the **Task Management** page in the SchedulerX console.
         self.job_id = job_id  # type: long
-        # The ID of the namespace. You can obtain the ID of the namespace on the **Namespace** page in Distributed Task Scheduling Platform.
+        # The ID of the namespace. You can obtain the ID of the namespace on the **Namespace** page in the SchedulerX console.
         self.namespace = namespace  # type: str
-        # This parameter is required only for a special third party.
+        # The source of the namespace. This parameter is required only for a special third party.
         self.namespace_source = namespace_source  # type: str
         # The ID of the region.
         self.region_id = region_id  # type: str
@@ -1874,16 +1929,16 @@ class DeleteJobRequest(TeaModel):
 
 class DeleteJobResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
-        # The HTTP status code that is returned.
+        # The HTTP status code.
         self.code = code  # type: int
-        # The additional information that is returned.
+        # The additional information returned.
         self.message = message  # type: str
         # The ID of the request.
         self.request_id = request_id  # type: str
-        # Indicates whether the job is deleted.
+        # Indicates whether the job was deleted. Valid values:
         # 
-        # *   **true**: The job is deleted.
-        # *   **false**: Failed to delete the job.
+        # *   **true**: The job was deleted.
+        # *   **false**: The job was not deleted.
         self.success = success  # type: bool
 
     def validate(self):
@@ -1959,9 +2014,13 @@ class DeleteJobResponse(TeaModel):
 
 class DeleteRouteStrategyRequest(TeaModel):
     def __init__(self, group_id=None, job_id=None, namespace=None, region_id=None):
+        # The application ID. You can obtain the application ID on the **Application Management** page in the SchedulerX console.
         self.group_id = group_id  # type: str
+        # The job ID. You can obtain the job ID on the **Task Management** page in the SchedulerX console.
         self.job_id = job_id  # type: long
+        # The namespace ID. You can obtain the ID of the namespace on the **Namespace** page in the SchedulerX console.
         self.namespace = namespace  # type: str
+        # The region ID.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -1998,9 +2057,16 @@ class DeleteRouteStrategyRequest(TeaModel):
 
 class DeleteRouteStrategyResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
+        # The HTTP status code that is returned.
         self.code = code  # type: int
+        # The additional information that is returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -2076,15 +2142,15 @@ class DeleteRouteStrategyResponse(TeaModel):
 
 class DeleteWorkflowRequest(TeaModel):
     def __init__(self, group_id=None, namespace=None, namespace_source=None, region_id=None, workflow_id=None):
-        # The ID of the application. You can obtain the application ID on the Application Management page in Distributed Task Scheduling Platform.
+        # The application ID. You can obtain the application ID on the Application Management page in the SchedulerX console.
         self.group_id = group_id  # type: str
-        # The ID of the namespace. You can obtain the ID of the namespace on the Namespace page in Distributed Task Scheduling Platform.
+        # The namespace ID. You can obtain the namespace ID on the Namespace page in the SchedulerX console.
         self.namespace = namespace  # type: str
-        # This parameter is required only for a special third party.
+        # The source of the namespace. This parameter is required only for a special third party.
         self.namespace_source = namespace_source  # type: str
-        # The ID of the region.
+        # The region ID.
         self.region_id = region_id  # type: str
-        # The ID of the workflow.
+        # The workflow ID.
         self.workflow_id = workflow_id  # type: long
 
     def validate(self):
@@ -2125,16 +2191,16 @@ class DeleteWorkflowRequest(TeaModel):
 
 class DeleteWorkflowResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
-        # The HTTP status code that is returned.
+        # The HTTP status code.
         self.code = code  # type: int
-        # The error message that is returned only if the error occurs.
+        # The error message that is returned only if the corresponding error occurs.
         self.message = message  # type: str
-        # The unique ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # Indicates whether the workflow is deleted. Valid values:
+        # Indicates whether the workflow was deleted. Valid values:
         # 
-        # *   **true**: The workflow is deleted.
-        # *   **false**: Failed to delete the workflow.
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: bool
 
     def validate(self):
@@ -2210,7 +2276,7 @@ class DeleteWorkflowResponse(TeaModel):
 
 class DescribeRegionsResponseBodyRegions(TeaModel):
     def __init__(self, local_name=None, region_endpoint=None, region_id=None):
-        # The displayed name of the region, which varies based on the current language.
+        # The display name of the region, which varies based on the current language.
         self.local_name = local_name  # type: str
         # The endpoint of the region.
         self.region_endpoint = region_endpoint  # type: str
@@ -2247,18 +2313,18 @@ class DescribeRegionsResponseBodyRegions(TeaModel):
 
 class DescribeRegionsResponseBody(TeaModel):
     def __init__(self, code=None, message=None, regions=None, request_id=None, success=None):
-        # The HTTP status code that is returned.
+        # The HTTP status code.
         self.code = code  # type: int
-        # The error message that is returned only if the error occurs.
+        # The error message that was returned only if the corresponding error occurred.
         self.message = message  # type: str
-        # The list of regions.
+        # The available regions.
         self.regions = regions  # type: list[DescribeRegionsResponseBodyRegions]
         # The ID of the request.
         self.request_id = request_id  # type: str
-        # Indicates whether the call is successful. Valid values:
+        # Indicates whether the request was successful. Valid values:
         # 
-        # *   **true**: The call is successful.
-        # *   **false**: The call fails.
+        # *   **true**: The request was successful.
+        # *   **false**: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -2347,23 +2413,23 @@ class DescribeRegionsResponse(TeaModel):
 class DesignateWorkersRequest(TeaModel):
     def __init__(self, designate_type=None, group_id=None, job_id=None, labels=None, namespace=None,
                  namespace_source=None, region_id=None, transferable=None, workers=None):
-        # The type of the designated machines. Valid values: 1: worker. 2: label.
+        # The type of the machines to be designated. Valid values: 1 and 2. The value 1 specifies the worker type. The value 2 specifies the label type.
         self.designate_type = designate_type  # type: int
-        # The ID of the application group.
+        # The application group ID.
         self.group_id = group_id  # type: str
-        # The ID of the job.
+        # The job ID.
         self.job_id = job_id  # type: long
-        # The designated `labels`. The value is a `JSON` string.
+        # The designated `labels`. Specify the value of the parameter in a `JSON` string.
         self.labels = labels  # type: str
-        # The ID of the namespace.
+        # The unique identifier (UID) of the namespace.
         self.namespace = namespace  # type: str
         # The source of the namespace.
         self.namespace_source = namespace_source  # type: str
-        # The ID of the region.
+        # The region ID.
         self.region_id = region_id  # type: str
         # Specifies whether to allow a failover.
         self.transferable = transferable  # type: bool
-        # The designated workers. The value is a JSON string.
+        # The designated machines. Specify the value of the parameter in a JSON string.
         self.workers = workers  # type: str
 
     def validate(self):
@@ -2420,13 +2486,13 @@ class DesignateWorkersRequest(TeaModel):
 
 class DesignateWorkersResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
-        # The HTTP status code that is returned.
+        # The HTTP status code.
         self.code = code  # type: int
-        # The error message that is returned if an error occurs.
+        # The returned error message.
         self.message = message  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # Indicates whether the call is successful.
+        # Indicates whether the request was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -2502,15 +2568,15 @@ class DesignateWorkersResponse(TeaModel):
 
 class DisableJobRequest(TeaModel):
     def __init__(self, group_id=None, job_id=None, namespace=None, namespace_source=None, region_id=None):
-        # The ID of the application. You can obtain the ID of the application on the Application Management page in the SchedulerX console.
+        # The application ID. You can obtain the application ID on the Application Management page in the SchedulerX console.
         self.group_id = group_id  # type: str
-        # The ID of the job. You can obtain the ID of the job on the Task Management page in the SchedulerX console.
+        # The job ID. You can obtain the job ID on the Task Management page in the SchedulerX console.
         self.job_id = job_id  # type: long
-        # The ID of the namespace. You can obtain the ID of the namespace on the Namespace page in the SchedulerX console.
+        # The namespace ID. You can obtain the namespace ID on the Namespace page in the SchedulerX console.
         self.namespace = namespace  # type: str
-        # Required only for a special third party.
+        # The source of the namespace. This parameter is required only for a special third party.
         self.namespace_source = namespace_source  # type: str
-        # The ID of the region.
+        # The region ID.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -2551,16 +2617,16 @@ class DisableJobRequest(TeaModel):
 
 class DisableJobResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
-        # The status code.
+        # The HTTP status code.
         self.code = code  # type: int
-        # The error message. The error message is returned only when an error occurs.
+        # The error message that is returned only if the corresponding error occurs.
         self.message = message  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # Indicates whether the call is successful. Valid values:
+        # Indicates whether the job was disabled. Valid values:
         # 
-        # *   **true**: The call is successful.
-        # *   **false**: The call fails.
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: bool
 
     def validate(self):
@@ -2636,15 +2702,15 @@ class DisableJobResponse(TeaModel):
 
 class DisableWorkflowRequest(TeaModel):
     def __init__(self, group_id=None, namespace=None, namespace_source=None, region_id=None, workflow_id=None):
-        # The ID of the application. You can obtain the application ID on the Application Management page in Distributed Task Scheduling Platform.
+        # The application ID. You can obtain the application ID on the Application Management page in the SchedulerX console.
         self.group_id = group_id  # type: str
-        # The ID of the namespace. You can obtain the ID of the namespace on the Namespace page in Distributed Task Scheduling Platform.
+        # The namespace ID. You can obtain the namespace ID on the Namespace page in the SchedulerX console.
         self.namespace = namespace  # type: str
-        # This parameter is required only for a special third party.
+        # The source of the namespace. This parameter is required only for a special third party.
         self.namespace_source = namespace_source  # type: str
-        # The ID of the region.
+        # The region ID.
         self.region_id = region_id  # type: str
-        # The ID of the workflow.
+        # The workflow ID.
         self.workflow_id = workflow_id  # type: long
 
     def validate(self):
@@ -2685,16 +2751,16 @@ class DisableWorkflowRequest(TeaModel):
 
 class DisableWorkflowResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
-        # The HTTP status code that is returned.
+        # The HTTP status code.
         self.code = code  # type: int
-        # The error message that is returned only if the error occurs.
+        # The error message that is returned only if the corresponding error occurs.
         self.message = message  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # Indicates whether the workflow is disabled. Valid values:
+        # Indicates whether the workflow was disabled. Valid values:
         # 
-        # *   **true**: The workflow is disabled.
-        # *   **false**: Failed to disable the workflow.
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: bool
 
     def validate(self):
@@ -2770,15 +2836,15 @@ class DisableWorkflowResponse(TeaModel):
 
 class EnableJobRequest(TeaModel):
     def __init__(self, group_id=None, job_id=None, namespace=None, namespace_source=None, region_id=None):
-        # The ID of the application. You can obtain the ID of the application on the Application Management page in the SchedulerX console.
+        # The application ID. You can obtain the application ID on the Application Management page in the SchedulerX console.
         self.group_id = group_id  # type: str
-        # The ID of the job. You can obtain the ID of the job on the Task Management page in the SchedulerX console.
+        # The job ID. You can obtain the job ID on the Task Management page in the SchedulerX console.
         self.job_id = job_id  # type: long
-        # The ID of the namespace. You can obtain the ID of the namespace on the Namespace page in the SchedulerX console.
+        # The namespace ID. You can obtain the namespace ID on the Namespace page in the SchedulerX console.
         self.namespace = namespace  # type: str
-        # Required only for a special third party.
+        # The source of the namespace. This parameter is required only for a special third party.
         self.namespace_source = namespace_source  # type: str
-        # The ID of the region.
+        # The region ID.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -2819,16 +2885,16 @@ class EnableJobRequest(TeaModel):
 
 class EnableJobResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
-        # The status code.
+        # The HTTP status code.
         self.code = code  # type: int
-        # The error message. The error message is returned only when an error occurs.
+        # The error message that is returned only if the corresponding error occurs.
         self.message = message  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # Indicates whether the call is successful. Valid values:
+        # Indicates whether the request was successful. Valid values:
         # 
-        # *   **true**: The call is successful.
-        # *   **false**: The call fails.
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: bool
 
     def validate(self):
@@ -2904,15 +2970,15 @@ class EnableJobResponse(TeaModel):
 
 class EnableWorkflowRequest(TeaModel):
     def __init__(self, group_id=None, namespace=None, namespace_source=None, region_id=None, workflow_id=None):
-        # The ID of the application. You can obtain the application ID on the Application Management page in Distributed Task Scheduling Platform.
+        # The application ID. You can obtain the application ID on the Application Management page in the SchedulerX console.
         self.group_id = group_id  # type: str
-        # The ID of the namespace. You can obtain the ID of the namespace on the Namespace page in Distributed Task Scheduling Platform.
+        # The namespace ID. You can obtain the namespace ID on the Namespace page in the SchedulerX console.
         self.namespace = namespace  # type: str
-        # This parameter is required only for a special third party.
+        # The source of the namespace. This parameter is required only for a special third party.
         self.namespace_source = namespace_source  # type: str
-        # The ID of the region.
+        # The region ID.
         self.region_id = region_id  # type: str
-        # The ID of the workflow.
+        # The workflow ID.
         self.workflow_id = workflow_id  # type: long
 
     def validate(self):
@@ -2953,16 +3019,16 @@ class EnableWorkflowRequest(TeaModel):
 
 class EnableWorkflowResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
-        # The HTTP status code that is returned.
+        # The HTTP status code.
         self.code = code  # type: int
-        # The error message that is returned only if the error occurs.
+        # The error message that is returned only if the corresponding error occurs.
         self.message = message  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # Indicates whether the workflow is enabled. Valid values:
+        # Indicates whether the workflow was enabled. Valid values:
         # 
-        # *   **true**: The workflow is enabled.
-        # *   **false**: Failed to enable the workflow.
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: bool
 
     def validate(self):
@@ -3043,19 +3109,19 @@ class ExecuteJobRequest(TeaModel):
         self.check_job_status = check_job_status  # type: bool
         # The type of the designated machine. Valid values: -**1**: worker. -**2**: label.
         self.designate_type = designate_type  # type: int
-        # The ID of the application. You can obtain the application ID on the Application Management page in the SchedulerX console.
+        # The application ID. You can obtain the application ID on the Application Management page in the SchedulerX console.
         self.group_id = group_id  # type: str
-        # The parameters that are passed to trigger the job to run. The input value can be any string. The parameters that are passed are obtained by calling the `context.getInstanceParameters()` class in the `processor` code. The parameters are different from custom parameters for creating jobs.
+        # The parameters that are passed to trigger the job to run. The input value can be a random string. The parameters that are passed are obtained by calling the `context.getInstanceParameters()` class in the `processor` code. The parameters are different from custom parameters for creating jobs.
         self.instance_parameters = instance_parameters  # type: str
-        # The ID of the job. You can obtain the job ID on the Task Management page in the SchedulerX console.
+        # The job ID. You can obtain the job ID on the Task Management page in the SchedulerX console.
         self.job_id = job_id  # type: long
         # The label of the worker.
         self.label = label  # type: str
-        # The ID of the namespace. You can obtain the namespace ID on the Namespace page in the SchedulerX console.
+        # The namespace ID. You can obtain the namespace ID on the Namespace page in the SchedulerX console.
         self.namespace = namespace  # type: str
         # The source of the namespace. This parameter is required only for a special third party.
         self.namespace_source = namespace_source  # type: str
-        # The ID of the region.
+        # The region ID.
         self.region_id = region_id  # type: str
         # The worker address of the application. To query the worker address, call the GetWokerList operation.
         self.worker = worker  # type: str
@@ -3118,7 +3184,7 @@ class ExecuteJobRequest(TeaModel):
 
 class ExecuteJobResponseBodyData(TeaModel):
     def __init__(self, job_instance_id=None):
-        # The ID of the job instance.
+        # The job instance ID.
         self.job_instance_id = job_instance_id  # type: long
 
     def validate(self):
@@ -3143,18 +3209,18 @@ class ExecuteJobResponseBodyData(TeaModel):
 
 class ExecuteJobResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        # The HTTP status code that is returned.
+        # The HTTP status code.
         self.code = code  # type: int
-        # The ID of the job instance that is returned if the call is successful.
+        # The ID of the job instance that is returned if the request is successful.
         self.data = data  # type: ExecuteJobResponseBodyData
-        # The error message that is returned if an error occurs.
+        # The error message that is returned only if the corresponding error occurs.
         self.message = message  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # Indicates whether the call is successful. Valid values:
+        # Indicates whether the request was successful. Valid values:
         # 
-        # *   `true`: The call is successful.
-        # *   `false`: The call fails.
+        # *   `true`
+        # *   `false`
         self.success = success  # type: bool
 
     def validate(self):
@@ -3237,16 +3303,16 @@ class ExecuteJobResponse(TeaModel):
 class ExecuteWorkflowRequest(TeaModel):
     def __init__(self, group_id=None, instance_parameters=None, namespace=None, namespace_source=None,
                  region_id=None, workflow_id=None):
-        # The ID of the application. You can obtain the application ID on the Application Management page in Distributed Task Scheduling Platform.
+        # The application ID. You can obtain the application ID on the Application Management page in the SchedulerX console.
         self.group_id = group_id  # type: str
-        # The dynamic parameter of the workflow instance. The parameter must be 1 to 1,000 bytes in length.
+        # The dynamic parameter of the workflow instance. The value of the parameter can be up to 1,000 bytes in length.
         self.instance_parameters = instance_parameters  # type: str
-        # The ID of the namespace. You can obtain the ID of the namespace on the Namespace page in Distributed Task Scheduling Platform.
+        # The namespace ID. You can obtain the namespace ID on the Namespace page in the SchedulerX console.
         self.namespace = namespace  # type: str
-        # This parameter is required only for a special third party.
+        # The source of the namespace. This parameter is required only for a special third party.
         self.namespace_source = namespace_source  # type: str
         self.region_id = region_id  # type: str
-        # The ID of the workflow.
+        # The workflow ID.
         self.workflow_id = workflow_id  # type: long
 
     def validate(self):
@@ -3291,7 +3357,7 @@ class ExecuteWorkflowRequest(TeaModel):
 
 class ExecuteWorkflowResponseBodyData(TeaModel):
     def __init__(self, wf_instance_id=None):
-        # The ID of the workflow instance.
+        # The workflow instance ID.
         self.wf_instance_id = wf_instance_id  # type: long
 
     def validate(self):
@@ -3316,15 +3382,15 @@ class ExecuteWorkflowResponseBodyData(TeaModel):
 
 class ExecuteWorkflowResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        # The HTTP status code that is returned.
+        # The HTTP status code.
         self.code = code  # type: int
-        # If the call is successful, the ID of the workflow instance is returned.
+        # If the request is successful, the ID of the workflow instance is returned.
         self.data = data  # type: ExecuteWorkflowResponseBodyData
-        # The error message that is returned only if the error occurs.
+        # The error message that is returned only if the corresponding error occurs.
         self.message = message  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # Indicates whether the API call is successful.
+        # Indicates whether the request was successful.
         self.success = success  # type: bool
 
     def validate(self):
@@ -3498,7 +3564,6 @@ class GetAppGroupResponseBody(TeaModel):
         self.code = code  # type: int
         self.data = data  # type: GetAppGroupResponseBodyData
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -3582,17 +3647,17 @@ class GetAppGroupResponse(TeaModel):
 class GetJobInfoRequest(TeaModel):
     def __init__(self, group_id=None, job_id=None, job_name=None, namespace=None, namespace_source=None,
                  region_id=None):
-        # The ID of the application. You can obtain the ID of the application on the Application Management page in the SchedulerX console.
+        # The application ID. You can obtain the application ID on the Application Management page in the SchedulerX console.
         self.group_id = group_id  # type: str
-        # The ID of the job. You can obtain the ID of the job on the Task Management page in the SchedulerX console.
+        # The job ID. You can obtain the job ID on the Task Management page in the SchedulerX console.
         self.job_id = job_id  # type: long
-        # The name of the job.
+        # The job name.
         self.job_name = job_name  # type: str
-        # The ID of the namespace. You can obtain the ID of the namespace on the Namespace page in the SchedulerX console.
+        # The namespace ID. You can obtain the namespace ID on the Namespace page in the SchedulerX console.
         self.namespace = namespace  # type: str
-        # The source of the namespace. This parameter is required only for a special third party.
+        # The namespace source. This parameter is required only for a special third party.
         self.namespace_source = namespace_source  # type: str
-        # The ID of the region in which the job resides.
+        # The region ID.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -3639,11 +3704,11 @@ class GetJobInfoResponseBodyDataJobConfigInfoJobMonitorInfoContactInfo(TeaModel)
     def __init__(self, ding=None, user_mail=None, user_name=None, user_phone=None):
         # The webhook URL of the DingTalk chatbot.
         self.ding = ding  # type: str
-        # The email address of the user.
+        # The email address of the alert contact.
         self.user_mail = user_mail  # type: str
-        # The name of the user.
+        # The name of the alert contact.
         self.user_name = user_name  # type: str
-        # The mobile number of the user.
+        # The mobile phone number of the alert contact.
         self.user_phone = user_phone  # type: str
 
     def validate(self):
@@ -3681,23 +3746,23 @@ class GetJobInfoResponseBodyDataJobConfigInfoJobMonitorInfoContactInfo(TeaModel)
 class GetJobInfoResponseBodyDataJobConfigInfoJobMonitorInfoMonitorConfig(TeaModel):
     def __init__(self, fail_enable=None, miss_worker_enable=None, send_channel=None, timeout=None,
                  timeout_enable=None, timeout_kill_enable=None):
-        # Indicates whether an alert is generated upon a failure. Valid values:
+        # Indicates whether the Failure alarm switch was turned on. Valid values:
         # 
-        # *   **true**: The feature is enabled.
-        # *   **false**: The feature is disabled.
+        # *   **true**\
+        # *   **false**\
         self.fail_enable = fail_enable  # type: bool
-        # Indicates whether an alert is generated if no worker is available.
+        # Indicates whether the No machine alarm available switch was turned on.
         self.miss_worker_enable = miss_worker_enable  # type: bool
-        # The notification method. Only Short Message Service (SMS) is supported.
+        # The method used to send alerts. Only Short Message Service (SMS) is supported.
         self.send_channel = send_channel  # type: str
-        # The timeout threshold. Unit: seconds. Default value: 7200.
+        # The timeout threshold. Default value: 7200. Unit: seconds.
         self.timeout = timeout  # type: long
-        # Indicates whether an alert is generated upon a timeout. Valid values:
+        # Indicates whether the Timeout alarm switch was turned on. Valid values:
         # 
-        # *   **true**: The feature is enabled.
-        # *   **false**: The feature is disabled.
+        # *   **true**\
+        # *   **false**\
         self.timeout_enable = timeout_enable  # type: bool
-        # Indicates whether the job is terminated upon a timeout. By default, this feature is disabled.
+        # Indicates whether the Timeout termination switch was turned on. The switch is turned off by default.
         self.timeout_kill_enable = timeout_kill_enable  # type: bool
 
     def validate(self):
@@ -3742,9 +3807,9 @@ class GetJobInfoResponseBodyDataJobConfigInfoJobMonitorInfoMonitorConfig(TeaMode
 
 class GetJobInfoResponseBodyDataJobConfigInfoJobMonitorInfo(TeaModel):
     def __init__(self, contact_info=None, monitor_config=None):
-        # The contact Information.
+        # The alert contact Information.
         self.contact_info = contact_info  # type: list[GetJobInfoResponseBodyDataJobConfigInfoJobMonitorInfoContactInfo]
-        # The configurations of the alerting feature and alert thresholds.
+        # The configurations of the alerting features and the alert thresholds.
         self.monitor_config = monitor_config  # type: GetJobInfoResponseBodyDataJobConfigInfoJobMonitorInfoMonitorConfig
 
     def validate(self):
@@ -3785,15 +3850,15 @@ class GetJobInfoResponseBodyDataJobConfigInfoJobMonitorInfo(TeaModel):
 class GetJobInfoResponseBodyDataJobConfigInfoMapTaskXAttrs(TeaModel):
     def __init__(self, consumer_size=None, dispatcher_size=None, page_size=None, queue_size=None,
                  task_attempt_interval=None, task_max_attempt=None):
-        # The number of threads that are triggered by an instance. Default value: 5.
+        # The number of threads that were triggered by a single worker at a time. Default value: 5.
         self.consumer_size = consumer_size  # type: int
         # The number of task distribution threads. Default value: 5.
         self.dispatcher_size = dispatcher_size  # type: int
-        # The number of tasks that are returned for a parallel job at a time. Default value: 100.
+        # The number of tasks that were pulled by a parallel job at a time. Default value: 100.
         self.page_size = page_size  # type: int
         # The maximum number of tasks that can be queued. Default value: 10000.
         self.queue_size = queue_size  # type: int
-        # The retry interval of the task after a task failure.
+        # The interval at which the system retried to run the task after a task failure.
         self.task_attempt_interval = task_attempt_interval  # type: int
         # The number of retries after a task failure.
         self.task_max_attempt = task_max_attempt  # type: int
@@ -3840,22 +3905,23 @@ class GetJobInfoResponseBodyDataJobConfigInfoMapTaskXAttrs(TeaModel):
 
 class GetJobInfoResponseBodyDataJobConfigInfoTimeConfig(TeaModel):
     def __init__(self, calendar=None, data_offset=None, time_expression=None, time_type=None):
-        # If the TimeType parameter is set to **1** (cron), you can customize the calendar.
+        # Custom calendar days specified if TimeType is set to **1** (cron).
         self.calendar = calendar  # type: str
-        # If the TimeType parameter is set to **1** (cron), you can configure the time offset. Unit: seconds.
+        # The time offset specified if TimeType is set to **1** (cron). Unit: seconds.
         self.data_offset = data_offset  # type: int
-        # The time expression. The time expression varies with the time type:
+        # The time expression specified based on the value of TimeType:
         # 
-        # *   **api**: No time expression exists.
-        # *   **fix_rate**: a specific fixed frequency. For example, a value of 30 indicates that the job is triggered every 30 seconds.
-        # *   **cron**: a standard Cron expression.
-        # *   **second_delay**: a fixed delay after which the job is triggered. Valid values: 1 to 60. Unit: seconds.
+        # *   If TimeType is set to **100** (api), no time expression is required.
+        # *   If TimeType is set to **3** (fix_rate), this parameter value indicates the specific and fixed frequency. For example, if the value is 30, the system triggers a job every 30 seconds.
+        # *   If TimeType is set to **1** (cron), this parameter value indicates the standard CRON expression used to specify the time when to schedule the job.
+        # *   If TimeType is set to **4** (second_delay), this parameter value indicates the fixed delay after which the job is triggered. Valid values: 1 to 60. Unit: seconds.
         self.time_expression = time_expression  # type: str
         # The time type. Valid values:
         # 
         # *   **1**: cron
         # *   **3**: fix_rate
         # *   **4**: second_delay
+        # *   **5**: one_time
         # *   **100**: api
         self.time_type = time_type  # type: int
 
@@ -3895,7 +3961,7 @@ class GetJobInfoResponseBodyDataJobConfigInfo(TeaModel):
     def __init__(self, attempt_interval=None, class_name=None, content=None, description=None, execute_mode=None,
                  jar_url=None, job_id=None, job_monitor_info=None, job_type=None, map_task_xattrs=None, max_attempt=None,
                  max_concurrency=None, name=None, parameters=None, status=None, time_config=None, xattrs=None):
-        # The interval at which the system retries to run the job after a job failure. Unit: seconds. Default value: 30.
+        # The interval at which the system retried to run the job after a job failure. Default value: 30. Unit: seconds.
         self.attempt_interval = attempt_interval  # type: int
         # The full path of the job interface class. This parameter is returned only for jobs whose job type is Java.
         self.class_name = class_name  # type: str
@@ -3905,37 +3971,37 @@ class GetJobInfoResponseBodyDataJobConfigInfo(TeaModel):
         self.description = description  # type: str
         # The execution mode of the job. Valid values:
         # 
-        # *   **standalone**\
-        # *   **broadcast**\
-        # *   **parallel**\
-        # *   **grid**\
-        # *   **batch**\
-        # *   **shard**\
+        # *   **Stand-alone operation**\
+        # *   **Broadcast run**\
+        # *   **Visual MapReduce**\
+        # *   **MapReduce**\
+        # *   ****\
+        # *   **Shard run**\
         self.execute_mode = execute_mode  # type: str
-        # The full path that is used to upload files to Object Storage Service (OSS).
+        # The full path used to upload files to Object Storage Service (OSS).
         # 
         # If you use a JAR package, you can upload the JAR package to this OSS path.
         self.jar_url = jar_url  # type: str
-        # The ID of the job.
+        # The job ID.
         self.job_id = job_id  # type: long
         # The monitoring information of the job.
         self.job_monitor_info = job_monitor_info  # type: GetJobInfoResponseBodyDataJobConfigInfoJobMonitorInfo
-        # The type of the job.
+        # The job type.
         self.job_type = job_type  # type: str
-        # The advanced configurations of the job. The parameters are returned only if the execution mode of the job is parallel, grid, or batch.
+        # The advanced configurations of the job.
         self.map_task_xattrs = map_task_xattrs  # type: GetJobInfoResponseBodyDataJobConfigInfoMapTaskXAttrs
-        # The maximum number of retries after a job failure. This parameter is specified based on your business requirements. Default value: 0.
+        # The maximum number of retries after a job failure. This parameter was specified based on your business requirements. Default value: 0.
         self.max_attempt = max_attempt  # type: int
-        # The maximum number of concurrent instances. Default value: 1. A value of 1 indicates that if the last triggered instance is running, the next instance is not triggered even if the scheduled point in time for running the next instance is reached.
+        # The maximum number of concurrent instances. Default value: 1. The default value indicates that if the last triggered instance is running, the next instance is not triggered even if the scheduled point in time for running the next instance is reached.
         self.max_concurrency = max_concurrency  # type: str
-        # The name of the job.
+        # The job name.
         self.name = name  # type: str
-        # The user-defined parameters. These parameters can be obtained when the job is running.
+        # The user-defined parameters that you can obtain when the job is running.
         self.parameters = parameters  # type: str
-        # The status of the job. Valid values:
+        # Indicates whether the job was enabled. Valid values:
         # 
-        # *   **1**: The job is enabled and can be triggered.
-        # *   **0**: The job is disabled and cannot be triggered.
+        # *   **1**: The job was enabled and could be triggered.
+        # *   **0**: The job was disabled and could not be triggered.
         self.status = status  # type: int
         # The time configurations.
         self.time_config = time_config  # type: GetJobInfoResponseBodyDataJobConfigInfoTimeConfig
@@ -4063,18 +4129,18 @@ class GetJobInfoResponseBodyData(TeaModel):
 
 class GetJobInfoResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        # The HTTP status code that is returned.
+        # The HTTP status code.
         self.code = code  # type: int
         # The details of the job.
         self.data = data  # type: GetJobInfoResponseBodyData
-        # The error message that is returned only when an error occurs.
+        # The error message returned only if an error occurs.
         self.message = message  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # Indicates whether the job details are obtained. Valid values:
+        # Indicates whether the job details were obtained. Valid values:
         # 
-        # *   **true**: The job details are obtained.
-        # *   **false**: Failed to obtain the job details.
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: bool
 
     def validate(self):
@@ -4157,13 +4223,13 @@ class GetJobInfoResponse(TeaModel):
 class GetJobInstanceRequest(TeaModel):
     def __init__(self, group_id=None, job_id=None, job_instance_id=None, namespace=None, namespace_source=None,
                  region_id=None):
-        # The ID of the application. You can obtain the application ID on the Application Management page in the SchedulerX console.
+        # The application ID. You can obtain the application ID on the Application Management page in the SchedulerX console.
         self.group_id = group_id  # type: str
-        # The ID of the job.
+        # The job ID.
         self.job_id = job_id  # type: long
-        # The ID of the job instance.
+        # The job instance ID.
         self.job_instance_id = job_instance_id  # type: long
-        # The ID of the namespace. You can obtain the namespace ID on the Namespace page in the SchedulerX console.
+        # The namespace ID. You can obtain the namespace ID on the Namespace page in the SchedulerX console.
         self.namespace = namespace  # type: str
         # The source of the namespace. This parameter is required only for a special third party.
         self.namespace_source = namespace_source  # type: str
@@ -4213,30 +4279,30 @@ class GetJobInstanceResponseBodyDataJobInstanceDetail(TeaModel):
     def __init__(self, data_time=None, end_time=None, executor=None, instance_id=None, job_id=None, progress=None,
                  result=None, schedule_time=None, start_time=None, status=None, time_type=None, trigger_type=None,
                  work_addr=None):
-        # The data time.
+        # The data timestamp of the job instance.
         self.data_time = data_time  # type: str
         # The end time of the job execution.
         self.end_time = end_time  # type: str
         # The user who executes the job.
         self.executor = executor  # type: str
-        # The ID of the job instance.
+        # The job instance ID.
         self.instance_id = instance_id  # type: long
-        # The ID of the job.
+        # The job ID.
         self.job_id = job_id  # type: long
         # The progress of the job instance.
         self.progress = progress  # type: str
         # The execution results of the job instance.
         self.result = result  # type: str
-        # The scheduled time of the job.
+        # The time when the job was scheduled to run.
         self.schedule_time = schedule_time  # type: str
         # The start time of the job execution.
         self.start_time = start_time  # type: str
-        # The status of the job instance. Valid values:
+        # The state of the job instance. Valid values:
         # 
         # *   **1**: The job instance is waiting for execution.
         # *   **3**: The job instance is running.
         # *   **4**: The job instance is successful.
-        # *   **5**: The job instance fails.
+        # *   **5**: The job instance failed.
         # *   **9**: The job instance is rejected.
         # 
         # Enumeration class: com.alibaba.schedulerx.common.domain.InstanceStatus
@@ -4252,11 +4318,11 @@ class GetJobInstanceResponseBodyDataJobInstanceDetail(TeaModel):
         self.time_type = time_type  # type: int
         # The trigger type of the job instance. Valid values:
         # 
-        # *   **1**: The job instance is triggered at the scheduled time.
-        # *   **2**: The job instance is triggered due to data update.
-        # *   **3**: The job instance is triggered by an API call.
-        # *   **4**: The job instance is triggered because it is manually rerun.
-        # *   **5**: The job instance is triggered because the system automatically reruns the job instance upon a system exception, such as a database exception.
+        # *   **1**: The job instance was triggered at the scheduled time.
+        # *   **2**: The job instance was triggered due to data update.
+        # *   **3**: The job instance was triggered by an API call.
+        # *   **4**: The job instance was triggered because it is manually rerun.
+        # *   **5**: The job instance was triggered because the system automatically reruns the job instance upon a system exception, such as a database exception.
         # 
         # Enumeration class: com.alibaba.schedulerx.common.domain.TriggerType
         self.trigger_type = trigger_type  # type: int
@@ -4360,18 +4426,18 @@ class GetJobInstanceResponseBodyData(TeaModel):
 
 class GetJobInstanceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        # The HTTP status code that is returned.
+        # The HTTP status code.
         self.code = code  # type: int
         # The information about the job instance.
         self.data = data  # type: GetJobInstanceResponseBodyData
-        # The error message that is returned if an error occurs.
+        # The error message that is returned only if the corresponding error occurs.
         self.message = message  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # Indicates whether the call is successful. Valid values:
+        # Indicates whether the request was successful. Valid values:
         # 
-        # *   **true**: The call is successful.
-        # *   **false**: The call fails.
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: bool
 
     def validate(self):
@@ -4454,18 +4520,28 @@ class GetJobInstanceResponse(TeaModel):
 class GetJobInstanceListRequest(TeaModel):
     def __init__(self, end_timestamp=None, group_id=None, job_id=None, namespace=None, namespace_source=None,
                  region_id=None, start_timestamp=None, status=None):
+        # 结束时间（时间戳）。
         self.end_timestamp = end_timestamp  # type: long
         # The ID of the application. You can obtain the application ID on the Application Management page in the SchedulerX console.
         self.group_id = group_id  # type: str
-        # The ID of the job. You can obtain the job ID on the Task Management page in the SchedulerX console.
+        # The ID of the job. You can obtain the ID of the job on the Task Management page in the SchedulerX console.
         self.job_id = job_id  # type: long
         # The ID of the namespace. You can obtain the namespace ID on the Namespace page in the SchedulerX console.
         self.namespace = namespace  # type: str
         # The source of the namespace. This parameter is required only for a special third party.
         self.namespace_source = namespace_source  # type: str
-        # The ID of the region in which the application resides.
+        # The ID of the region.
         self.region_id = region_id  # type: str
+        # 开始时间（时间戳）。
         self.start_timestamp = start_timestamp  # type: long
+        # 实例状态。包含以下几种状态：
+        # 
+        # 1：等待
+        # 3：运行中
+        # 4：成功
+        # 5：失败
+        # 9：拒绝
+        # 对应枚举类： com.alibaba.schedulerx.common.domain.InstanceStatus
         self.status = status  # type: int
 
     def validate(self):
@@ -4767,17 +4843,29 @@ class GetJobInstanceListResponse(TeaModel):
 class GetLogRequest(TeaModel):
     def __init__(self, end_timestamp=None, group_id=None, job_id=None, job_instance_id=None, keyword=None, line=None,
                  namespace=None, namespace_source=None, offset=None, region_id=None, reverse=None, start_timestamp=None):
+        # The time when the job stops running. Specify a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.end_timestamp = end_timestamp  # type: long
+        # The application group ID. You can obtain the application group ID on the Application Management page in the SchedulerX console.
         self.group_id = group_id  # type: str
+        # The job ID.
         self.job_id = job_id  # type: str
+        # The job instance ID.
         self.job_instance_id = job_instance_id  # type: str
+        # The keyword.
         self.keyword = keyword  # type: str
+        # The number of rows to return. The maximum number is 200.
         self.line = line  # type: int
+        # The namespace ID. You can obtain the namespace ID on the Namespace page in the SchedulerX console.
         self.namespace = namespace  # type: str
+        # The source of the namespace. This parameter is required only for a special third party.
         self.namespace_source = namespace_source  # type: str
+        # The number of offset rows. This parameter can be used for a paged query.
         self.offset = offset  # type: int
+        # The region ID.
         self.region_id = region_id  # type: str
+        # Specifies whether to reverse the order. By default, the order is reversed.
         self.reverse = reverse  # type: bool
+        # The time when the job starts to run. Specify a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.start_timestamp = start_timestamp  # type: long
 
     def validate(self):
@@ -4846,6 +4934,7 @@ class GetLogRequest(TeaModel):
 
 class GetLogResponseBodyData(TeaModel):
     def __init__(self, logs=None):
+        # The logs. The value is an array of strings.
         self.logs = logs  # type: list[str]
 
     def validate(self):
@@ -4870,10 +4959,18 @@ class GetLogResponseBodyData(TeaModel):
 
 class GetLogResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The returned data.
         self.data = data  # type: GetLogResponseBodyData
+        # The returned error message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -4953,13 +5050,157 @@ class GetLogResponse(TeaModel):
         return self
 
 
+class GetOverviewRequest(TeaModel):
+    def __init__(self, end_time=None, group_id=None, metric_type=None, namespace=None, namespace_source=None,
+                 operate=None, region_id=None, start_time=None):
+        self.end_time = end_time  # type: long
+        self.group_id = group_id  # type: str
+        self.metric_type = metric_type  # type: int
+        self.namespace = namespace  # type: str
+        self.namespace_source = namespace_source  # type: str
+        self.operate = operate  # type: str
+        self.region_id = region_id  # type: str
+        self.start_time = start_time  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetOverviewRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.group_id is not None:
+            result['GroupId'] = self.group_id
+        if self.metric_type is not None:
+            result['MetricType'] = self.metric_type
+        if self.namespace is not None:
+            result['Namespace'] = self.namespace
+        if self.namespace_source is not None:
+            result['NamespaceSource'] = self.namespace_source
+        if self.operate is not None:
+            result['Operate'] = self.operate
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('GroupId') is not None:
+            self.group_id = m.get('GroupId')
+        if m.get('MetricType') is not None:
+            self.metric_type = m.get('MetricType')
+        if m.get('Namespace') is not None:
+            self.namespace = m.get('Namespace')
+        if m.get('NamespaceSource') is not None:
+            self.namespace_source = m.get('NamespaceSource')
+        if m.get('Operate') is not None:
+            self.operate = m.get('Operate')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        return self
+
+
+class GetOverviewResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        self.code = code  # type: int
+        self.data = data  # type: str
+        self.message = message  # type: str
+        # Id of the request
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetOverviewResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class GetOverviewResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetOverviewResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetOverviewResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetOverviewResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class GetWorkFlowRequest(TeaModel):
     def __init__(self, group_id=None, namespace=None, namespace_source=None, region_id=None, workflow_id=None):
         # The ID of the application group.
         self.group_id = group_id  # type: str
         # The ID of the namespace.
         self.namespace = namespace  # type: str
-        # The source of the namespcae.
+        # The source of the namespace.
         self.namespace_source = namespace_source  # type: str
         # The region information.
         self.region_id = region_id  # type: str
@@ -5062,7 +5303,7 @@ class GetWorkFlowResponseBodyDataWorkFlowNodeInfoEdges(TeaModel):
     def __init__(self, source=None, target=None):
         # The ID of the source job.
         self.source = source  # type: long
-        # The ID of the target job.
+        # The ID of the object job.
         self.target = target  # type: long
 
     def validate(self):
@@ -5212,11 +5453,11 @@ class GetWorkFlowResponseBodyData(TeaModel):
 
 class GetWorkFlowResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        # The error code that is returned.
+        # Error codes
         self.code = code  # type: int
         # The data of the workflow.
         self.data = data  # type: GetWorkFlowResponseBodyData
-        # The error message that is returned.
+        # Error message
         self.message = message  # type: str
         # The ID of the request.
         self.request_id = request_id  # type: str
@@ -5304,9 +5545,9 @@ class GetWorkerListRequest(TeaModel):
     def __init__(self, group_id=None, namespace=None, namespace_source=None, region_id=None):
         # The ID of the permission group.
         self.group_id = group_id  # type: str
-        # The ID of the namespace. You can obtain the ID of the namespace on the Namespace page in Distributed Task Scheduling Platform.
+        # The ID of the namespace. You can obtain the namespace ID on the Namespace page in the SchedulerX console.
         self.namespace = namespace  # type: str
-        # This parameter is required only for a special third party.
+        # The source of the namespace. This parameter is required only for a special third party.
         self.namespace_source = namespace_source  # type: str
         # The ID of the region.
         self.region_id = region_id  # type: str
@@ -5439,7 +5680,7 @@ class GetWorkerListResponseBody(TeaModel):
         self.data = data  # type: GetWorkerListResponseBodyData
         # The additional information that is returned.
         self.message = message  # type: str
-        # Id of the request
+        # The ID of the request.
         self.request_id = request_id  # type: str
         # Indicates whether the call is successful. Valid values:
         # 
@@ -5527,11 +5768,17 @@ class GetWorkerListResponse(TeaModel):
 class GetWorkflowInstanceRequest(TeaModel):
     def __init__(self, group_id=None, namespace=None, namespace_source=None, region_id=None, wf_instance_id=None,
                  workflow_id=None):
+        # The application group ID. You can obtain the ID on the Application Management page in the SchedulerX console.
         self.group_id = group_id  # type: str
+        # The namespace ID. You can obtain the namespace ID on the Namespace page in the SchedulerX console.
         self.namespace = namespace  # type: str
+        # The source of the namespace. This parameter is required only for a special third party.
         self.namespace_source = namespace_source  # type: str
+        # The region ID.
         self.region_id = region_id  # type: str
+        # The workflow instance ID.
         self.wf_instance_id = wf_instance_id  # type: long
+        # The workflow ID.
         self.workflow_id = workflow_id  # type: long
 
     def validate(self):
@@ -5576,7 +5823,9 @@ class GetWorkflowInstanceRequest(TeaModel):
 
 class GetWorkflowInstanceResponseBodyDataWfInstanceDagEdges(TeaModel):
     def __init__(self, source=None, target=None):
+        # The upstream job instance of the current job instance. The value 0 indicates that the upstream job instance is the root node.
         self.source = source  # type: long
+        # The downstream job instance of the current job instance.
         self.target = target  # type: long
 
     def validate(self):
@@ -5606,14 +5855,23 @@ class GetWorkflowInstanceResponseBodyDataWfInstanceDagEdges(TeaModel):
 class GetWorkflowInstanceResponseBodyDataWfInstanceDagNodes(TeaModel):
     def __init__(self, attempt=None, data_time=None, end_time=None, job_id=None, job_instance_id=None, result=None,
                  schedule_time=None, start_time=None, work_addr=None):
+        # The number of retries when the job instance failed.
         self.attempt = attempt  # type: int
+        # The data timestamp of the job instance.
         self.data_time = data_time  # type: str
+        # The time when the job instance stopped running.
         self.end_time = end_time  # type: str
+        # The job ID.
         self.job_id = job_id  # type: long
+        # The job instance ID.
         self.job_instance_id = job_instance_id  # type: long
+        # The state of the job instance.
         self.result = result  # type: str
+        # The time when the job instance was scheduled to run.
         self.schedule_time = schedule_time  # type: str
+        # The time when the job instance started to run.
         self.start_time = start_time  # type: str
+        # The server on which the job instance was run.
         self.work_addr = work_addr  # type: str
 
     def validate(self):
@@ -5670,7 +5928,9 @@ class GetWorkflowInstanceResponseBodyDataWfInstanceDagNodes(TeaModel):
 
 class GetWorkflowInstanceResponseBodyDataWfInstanceDag(TeaModel):
     def __init__(self, edges=None, nodes=None):
+        # The dependencies between job instances.
         self.edges = edges  # type: list[GetWorkflowInstanceResponseBodyDataWfInstanceDagEdges]
+        # The job instances.
         self.nodes = nodes  # type: list[GetWorkflowInstanceResponseBodyDataWfInstanceDagNodes]
 
     def validate(self):
@@ -5716,10 +5976,21 @@ class GetWorkflowInstanceResponseBodyDataWfInstanceDag(TeaModel):
 
 class GetWorkflowInstanceResponseBodyDataWfInstanceInfo(TeaModel):
     def __init__(self, data_time=None, end_time=None, schedule_time=None, start_time=None, status=None):
+        # The data timestamp of the workflow instance.
         self.data_time = data_time  # type: str
+        # The time when the workflow instance stopped running.
         self.end_time = end_time  # type: str
+        # The time when the workflow instance was scheduled to run.
         self.schedule_time = schedule_time  # type: str
+        # The time when the workflow instance started to run.
         self.start_time = start_time  # type: str
+        # The state of the workflow instance. Valid values:
+        # 
+        # *   1: pending
+        # *   2: preparing
+        # *   3: running
+        # *   4: successful
+        # *   5: failed
         self.status = status  # type: int
 
     def validate(self):
@@ -5760,7 +6031,9 @@ class GetWorkflowInstanceResponseBodyDataWfInstanceInfo(TeaModel):
 
 class GetWorkflowInstanceResponseBodyData(TeaModel):
     def __init__(self, wf_instance_dag=None, wf_instance_info=None):
+        # The directed acyclic graph (DAG) of the workflow instance, including job instances and dependencies.
         self.wf_instance_dag = wf_instance_dag  # type: GetWorkflowInstanceResponseBodyDataWfInstanceDag
+        # The details of the workflow instance, including the state of the workflow instance, the time when the workflow instance started to run, the time when the workflow instance stopped running, the state of each job instance, and the dependencies between job instances.
         self.wf_instance_info = wf_instance_info  # type: GetWorkflowInstanceResponseBodyDataWfInstanceInfo
 
     def validate(self):
@@ -5794,10 +6067,18 @@ class GetWorkflowInstanceResponseBodyData(TeaModel):
 
 class GetWorkflowInstanceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The details of the workflow instance.
         self.data = data  # type: GetWorkflowInstanceResponseBodyData
+        # The returned error message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -5880,15 +6161,15 @@ class GetWorkflowInstanceResponse(TeaModel):
 class GrantPermissionRequest(TeaModel):
     def __init__(self, grant_option=None, group_id=None, namespace=None, namespace_source=None, region_id=None,
                  user_id=None, user_name=None):
-        # Specifies whether to grant the permissions with the GRANT option. Valid values: -**true**: grants the permissions with the GRANT option. -**false**: does not grant the permissions with the GRANT option.
+        # Specifies whether to grant the permissions with the GRANT option. Valid values: -**true** -**false**\
         self.grant_option = grant_option  # type: bool
-        # The ID of the application group.
+        # The application group ID.
         self.group_id = group_id  # type: str
-        # The ID of the namespace.
+        # The namespace ID.
         self.namespace = namespace  # type: str
-        # This parameter is required only for a special third party.
+        # The source of the namespace. This parameter is required only for a special third party.
         self.namespace_source = namespace_source  # type: str
-        # The ID of the region.
+        # The region ID.
         self.region_id = region_id  # type: str
         # The user ID.
         self.user_id = user_id  # type: str
@@ -5941,16 +6222,16 @@ class GrantPermissionRequest(TeaModel):
 
 class GrantPermissionResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
-        # The HTTP status code that is returned.
+        # The HTTP status code.
         self.code = code  # type: int
-        # The error message that is returned if an error occurs.
+        # The error message that is returned only if the corresponding error occurs.
         self.message = message  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # Indicates whether the call is successful. Valid values:
+        # Indicates whether the request was successful. Valid values:
         # 
-        # *   **true**: The call is successful.
-        # *   **false**: The call fails.
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: bool
 
     def validate(self):
@@ -6025,12 +6306,14 @@ class GrantPermissionResponse(TeaModel):
 
 
 class ListGroupsRequest(TeaModel):
-    def __init__(self, namespace=None, namespace_source=None, region_id=None):
-        # The namespace. You can obtain the namespace on the **Namespace** page in Distributed Task Scheduling Platform.
+    def __init__(self, app_group_name=None, namespace=None, namespace_source=None, region_id=None):
+        # 应用分组名称。
+        self.app_group_name = app_group_name  # type: str
+        # The namespace ID. You can obtain the namespace ID on the **Namespace** page in the SchedulerX console.
         self.namespace = namespace  # type: str
-        # Required only for a special third party.
+        # The source of the namespace. This parameter is required only for a special third party.
         self.namespace_source = namespace_source  # type: str
-        # The ID of the region in which the application is located.
+        # The region ID.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -6042,6 +6325,8 @@ class ListGroupsRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.app_group_name is not None:
+            result['AppGroupName'] = self.app_group_name
         if self.namespace is not None:
             result['Namespace'] = self.namespace
         if self.namespace_source is not None:
@@ -6052,6 +6337,8 @@ class ListGroupsRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AppGroupName') is not None:
+            self.app_group_name = m.get('AppGroupName')
         if m.get('Namespace') is not None:
             self.namespace = m.get('Namespace')
         if m.get('NamespaceSource') is not None:
@@ -6063,13 +6350,13 @@ class ListGroupsRequest(TeaModel):
 
 class ListGroupsResponseBodyDataAppGroups(TeaModel):
     def __init__(self, app_group_id=None, app_key=None, app_name=None, description=None, group_id=None):
-        # 应用分组ID
+        # The application group ID.
         self.app_group_id = app_group_id  # type: long
-        # The key for the application.
+        # The AppKey for the application.
         self.app_key = app_key  # type: str
         # The name of the application.
         self.app_name = app_name  # type: str
-        # The application description.
+        # The description of the application.
         self.description = description  # type: str
         # The application ID.
         self.group_id = group_id  # type: str
@@ -6112,7 +6399,7 @@ class ListGroupsResponseBodyDataAppGroups(TeaModel):
 
 class ListGroupsResponseBodyData(TeaModel):
     def __init__(self, app_groups=None):
-        # The list of applications and details of applications.
+        # The applications and their details.
         self.app_groups = app_groups  # type: list[ListGroupsResponseBodyDataAppGroups]
 
     def validate(self):
@@ -6145,18 +6432,18 @@ class ListGroupsResponseBodyData(TeaModel):
 
 class ListGroupsResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        # The HTTP status code returned.
+        # The HTTP status code.
         self.code = code  # type: int
-        # The information about the list of applications.
+        # The information about the applications.
         self.data = data  # type: ListGroupsResponseBodyData
-        # The additional information returned.
+        # The returned message.
         self.message = message  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # Indicates whether the call is successful. Valid values:
+        # Indicates whether the request was successful. Valid values:
         # 
-        # *   **true**: The call is successful.
-        # *   **false**: The call fails.
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: bool
 
     def validate(self):
@@ -6247,7 +6534,7 @@ class ListJobsRequest(TeaModel):
         self.namespace = namespace  # type: str
         # The source of the namespace. This parameter is required only for a special third party.
         self.namespace_source = namespace_source  # type: str
-        # The ID of the region in which the job resides.
+        # The ID of the region.
         self.region_id = region_id  # type: str
         # Specifies whether to enable the job. Valid values:
         # 
@@ -6301,7 +6588,7 @@ class ListJobsResponseBodyDataJobsJobMonitorInfoContactInfo(TeaModel):
         self.ding = ding  # type: str
         # The email address of the user.
         self.user_mail = user_mail  # type: str
-        # The name of the user.
+        # The username.
         self.user_name = user_name  # type: str
         # The mobile number of the user.
         self.user_phone = user_phone  # type: str
@@ -6593,7 +6880,7 @@ class ListJobsResponseBodyDataJobs(TeaModel):
         self.name = name  # type: str
         # The user-defined parameters. These parameters can be obtained when the job is running.
         self.parameters = parameters  # type: str
-        # The status of the job. Valid values:
+        # Indicates whether the job is enabled. Valid values:
         # 
         # *   **1**: The job is enabled and can be triggered.
         # *   **0**: The job is disabled and cannot be triggered.
@@ -6822,8 +7109,10 @@ class ListJobsResponse(TeaModel):
 
 
 class ListNamespacesRequest(TeaModel):
-    def __init__(self, region_id=None):
-        # The ID of the region.
+    def __init__(self, namespace=None, namespace_name=None, region_id=None):
+        self.namespace = namespace  # type: str
+        self.namespace_name = namespace_name  # type: str
+        # The region ID.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -6835,12 +7124,20 @@ class ListNamespacesRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.namespace is not None:
+            result['Namespace'] = self.namespace
+        if self.namespace_name is not None:
+            result['NamespaceName'] = self.namespace_name
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Namespace') is not None:
+            self.namespace = m.get('Namespace')
+        if m.get('NamespaceName') is not None:
+            self.namespace_name = m.get('NamespaceName')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         return self
@@ -6852,7 +7149,7 @@ class ListNamespacesResponseBodyDataNamespaces(TeaModel):
         self.description = description  # type: str
         # The name of the namespace.
         self.name = name  # type: str
-        # The ID of the namespace.
+        # The namespace ID.
         self.uid = uid  # type: str
 
     def validate(self):
@@ -6885,7 +7182,7 @@ class ListNamespacesResponseBodyDataNamespaces(TeaModel):
 
 class ListNamespacesResponseBodyData(TeaModel):
     def __init__(self, namespaces=None):
-        # The list and details of the namespaces.
+        # The namespaces and their details.
         self.namespaces = namespaces  # type: list[ListNamespacesResponseBodyDataNamespaces]
 
     def validate(self):
@@ -6918,18 +7215,18 @@ class ListNamespacesResponseBodyData(TeaModel):
 
 class ListNamespacesResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
-        # The HTTP status code that is returned.
+        # The HTTP status code.
         self.code = code  # type: int
-        # The list of namespaces.
+        # The information about the namespaces.
         self.data = data  # type: ListNamespacesResponseBodyData
-        # The additional information that is returned.
+        # The returned message.
         self.message = message  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # Indicates whether the call is successful. Valid values:
+        # Indicates whether the request was successful. Valid values:
         # 
-        # *   **true**: The call is successful.
-        # *   **false**: The call fails.
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: bool
 
     def validate(self):
@@ -7011,10 +7308,15 @@ class ListNamespacesResponse(TeaModel):
 
 class ListWorkflowInstanceRequest(TeaModel):
     def __init__(self, group_id=None, namespace=None, namespace_source=None, region_id=None, workflow_id=None):
+        # The application group ID. You can obtain the ID on the Application Management page in the SchedulerX console.
         self.group_id = group_id  # type: str
+        # The namespace ID. You can obtain the namespace ID on the Namespace page in the SchedulerX console.
         self.namespace = namespace  # type: str
+        # The source of the namespace. This parameter is required only for a special third party.
         self.namespace_source = namespace_source  # type: str
+        # The region ID.
         self.region_id = region_id  # type: str
+        # The workflow ID.
         self.workflow_id = workflow_id  # type: str
 
     def validate(self):
@@ -7056,12 +7358,25 @@ class ListWorkflowInstanceRequest(TeaModel):
 class ListWorkflowInstanceResponseBodyDataWfInstanceInfos(TeaModel):
     def __init__(self, data_time=None, end_time=None, schedule_time=None, start_time=None, status=None,
                  wf_instance_id=None, workflow_id=None):
+        # The data timestamp of the workflow instance.
         self.data_time = data_time  # type: str
+        # The time when the workflow instance stopped running.
         self.end_time = end_time  # type: str
+        # The time when the workflow instance was scheduled to run.
         self.schedule_time = schedule_time  # type: str
+        # The time when the workflow instance started to run.
         self.start_time = start_time  # type: str
+        # The state of the workflow instance. Valid values:
+        # 
+        # *   1: pending
+        # *   2: preparing
+        # *   3: running
+        # *   4: successful
+        # *   5: failed
         self.status = status  # type: int
+        # The workflow instance ID.
         self.wf_instance_id = wf_instance_id  # type: long
+        # The workflow ID.
         self.workflow_id = workflow_id  # type: long
 
     def validate(self):
@@ -7110,6 +7425,7 @@ class ListWorkflowInstanceResponseBodyDataWfInstanceInfos(TeaModel):
 
 class ListWorkflowInstanceResponseBodyData(TeaModel):
     def __init__(self, wf_instance_infos=None):
+        # The workflow instances.
         self.wf_instance_infos = wf_instance_infos  # type: list[ListWorkflowInstanceResponseBodyDataWfInstanceInfos]
 
     def validate(self):
@@ -7142,10 +7458,18 @@ class ListWorkflowInstanceResponseBodyData(TeaModel):
 
 class ListWorkflowInstanceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The information about workflow instances.
         self.data = data  # type: ListWorkflowInstanceResponseBodyData
+        # The returned error message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -7228,13 +7552,21 @@ class ListWorkflowInstanceResponse(TeaModel):
 class RerunJobRequest(TeaModel):
     def __init__(self, data_time=None, end_date=None, group_id=None, job_id=None, namespace=None,
                  namespace_source=None, region_id=None, start_date=None):
+        # The data timestamp of the job. Specify a string in the HH:mm:ss format.
         self.data_time = data_time  # type: str
+        # The time when the job stops running. Specify a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.end_date = end_date  # type: long
+        # The application group ID. You can obtain the application group ID on the Application Management page in the SchedulerX console.
         self.group_id = group_id  # type: str
+        # The job ID.
         self.job_id = job_id  # type: long
+        # The namespace ID. You can obtain the namespace ID on the Namespace page in the SchedulerX console.
         self.namespace = namespace  # type: str
+        # The source of the namespace. This parameter is required only for a special third party.
         self.namespace_source = namespace_source  # type: str
+        # The region ID.
         self.region_id = region_id  # type: str
+        # The time when the job starts to rerun. Specify a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.start_date = start_date  # type: long
 
     def validate(self):
@@ -7287,9 +7619,16 @@ class RerunJobRequest(TeaModel):
 
 class RerunJobResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The returned error message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -7366,11 +7705,17 @@ class RerunJobResponse(TeaModel):
 class RetryJobInstanceRequest(TeaModel):
     def __init__(self, group_id=None, job_id=None, job_instance_id=None, namespace=None, namespace_source=None,
                  region_id=None):
+        # The application group ID. You can obtain the application group ID on the Application Management page in the SchedulerX console.
         self.group_id = group_id  # type: str
+        # The job ID.
         self.job_id = job_id  # type: long
+        # The job instance ID.
         self.job_instance_id = job_instance_id  # type: long
+        # The namespace ID. You can obtain the namespace ID on the Namespace page in the SchedulerX console.
         self.namespace = namespace  # type: str
+        # The source of the namespace. This parameter is required only for a special third party.
         self.namespace_source = namespace_source  # type: str
+        # The region ID.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -7415,9 +7760,16 @@ class RetryJobInstanceRequest(TeaModel):
 
 class RetryJobInstanceResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The returned error message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -7493,15 +7845,15 @@ class RetryJobInstanceResponse(TeaModel):
 
 class RevokePermissionRequest(TeaModel):
     def __init__(self, group_id=None, namespace=None, namespace_source=None, region_id=None, user_id=None):
-        # The ID of the application. You can obtain the application ID on the Application Management page in the SchedulerX console.
+        # The application ID. You can obtain the application ID on the Application Management page in the SchedulerX console.
         self.group_id = group_id  # type: str
-        # The ID of the namespace. You can obtain the namespace ID on the Namespace page in the SchedulerX console.
+        # The unique identifier (UID) of the namespace. You can obtain the namespace UID on the Namespace page in the SchedulerX console.
         self.namespace = namespace  # type: str
-        # This parameter is required only for a special third party.
+        # The source of the namespace. This parameter is required only for a special third party.
         self.namespace_source = namespace_source  # type: str
-        # The ID of the region.
+        # The region ID.
         self.region_id = region_id  # type: str
-        # The unique ID (UID) of the RAM user.
+        # The UID of the RAM user.
         self.user_id = user_id  # type: str
 
     def validate(self):
@@ -7542,16 +7894,16 @@ class RevokePermissionRequest(TeaModel):
 
 class RevokePermissionResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
-        # The HTTP status code that is returned.
+        # The HTTP status code.
         self.code = code  # type: int
-        # The error message that is returned if an error occurs.
+        # The error message that is returned only if the corresponding error occurs.
         self.message = message  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # Indicates whether the call is successful. Valid values:
+        # Indicates whether the request was successful. Valid values:
         # 
-        # *   **true**: The call is successful.
-        # *   **false**: The call fails.
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: bool
 
     def validate(self):
@@ -7628,11 +7980,17 @@ class RevokePermissionResponse(TeaModel):
 class SetJobInstanceSuccessRequest(TeaModel):
     def __init__(self, group_id=None, job_id=None, job_instance_id=None, namespace=None, namespace_source=None,
                  region_id=None):
+        # The application group ID. You can obtain the application group ID on the Application Management page in the SchedulerX console.
         self.group_id = group_id  # type: str
+        # The job ID.
         self.job_id = job_id  # type: long
+        # The job instance ID.
         self.job_instance_id = job_instance_id  # type: long
+        # The namespace ID. You can obtain the namespace ID on the Namespace page in the SchedulerX console.
         self.namespace = namespace  # type: str
+        # The source of the namespace. This parameter is required only for a special third party.
         self.namespace_source = namespace_source  # type: str
+        # The region ID.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -7677,9 +8035,16 @@ class SetJobInstanceSuccessRequest(TeaModel):
 
 class SetJobInstanceSuccessResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The returned error message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -7756,11 +8121,17 @@ class SetJobInstanceSuccessResponse(TeaModel):
 class SetWfInstanceSuccessRequest(TeaModel):
     def __init__(self, group_id=None, namespace=None, namespace_source=None, region_id=None, wf_instance_id=None,
                  workflow_id=None):
+        # The application group ID. You can obtain the application group ID on the Application Management page in the SchedulerX console.
         self.group_id = group_id  # type: str
+        # The namespace ID. You can obtain the namespace ID on the Namespace page in the SchedulerX console.
         self.namespace = namespace  # type: str
+        # The source of the namespace. This parameter is required only for a special third party.
         self.namespace_source = namespace_source  # type: str
+        # The region ID.
         self.region_id = region_id  # type: str
+        # The workflow instance ID.
         self.wf_instance_id = wf_instance_id  # type: long
+        # The workflow ID.
         self.workflow_id = workflow_id  # type: long
 
     def validate(self):
@@ -7805,9 +8176,16 @@ class SetWfInstanceSuccessRequest(TeaModel):
 
 class SetWfInstanceSuccessResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The error message that is returned only if the corresponding error occurs.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -7888,13 +8266,13 @@ class StopInstanceRequest(TeaModel):
         self.group_id = group_id  # type: str
         # The ID of the job instance in the running state.
         self.instance_id = instance_id  # type: long
-        # The ID of the job. You can obtain the job ID on the Task Management page in the SchedulerX console.
+        # The ID of the job. You can obtain the ID of the job on the Task Management page in the SchedulerX console.
         self.job_id = job_id  # type: long
         # The ID of the namespace. You can obtain the namespace ID on the Namespace page in the SchedulerX console.
         self.namespace = namespace  # type: str
         # The source of the namespace. This parameter is required only for a special third party.
         self.namespace_source = namespace_source  # type: str
-        # The ID of the region in which the application resides.
+        # The ID of the region.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -7941,7 +8319,7 @@ class StopInstanceResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
         # The HTTP status code that is returned.
         self.code = code  # type: int
-        # The error message that is returned if an error occurs.
+        # The error message that is returned only if an error occurs.
         self.message = message  # type: str
         # The ID of the request.
         self.request_id = request_id  # type: str
@@ -8070,7 +8448,6 @@ class UpdateAppGroupResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
         self.code = code  # type: int
         self.message = message  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -8147,13 +8524,13 @@ class UpdateAppGroupResponse(TeaModel):
 
 class UpdateJobRequestContactInfo(TeaModel):
     def __init__(self, ding=None, user_mail=None, user_name=None, user_phone=None):
-        # The webhook URL of the DingTalk chatbot. For more information, see [DingTalk development documentation](https://open.dingtalk.com/document/org/application-types).
+        # The webhook URL of the DingTalk chatbot.[](https://open.dingtalk.com/document/org/application-types)
         self.ding = ding  # type: str
-        # The email address of the contact.
+        # The email address of the alert contact.
         self.user_mail = user_mail  # type: str
-        # The name of the contact.
+        # The name of the alert contact.
         self.user_name = user_name  # type: str
-        # The mobile phone number of the contact.
+        # The mobile phone number of the alert contact.
         self.user_phone = user_phone  # type: str
 
     def validate(self):
@@ -8194,105 +8571,110 @@ class UpdateJobRequest(TeaModel):
                  fail_enable=None, fail_times=None, group_id=None, job_id=None, max_attempt=None, max_concurrency=None,
                  miss_worker_enable=None, name=None, namespace=None, namespace_source=None, page_size=None, parameters=None,
                  queue_size=None, region_id=None, send_channel=None, success_notice_enable=None, task_attempt_interval=None,
-                 task_dispatch_mode=None, task_max_attempt=None, time_expression=None, time_type=None, timeout=None,
-                 timeout_enable=None, timeout_kill_enable=None, timezone=None):
-        # The interval at which the system attempts to rerun a job. Default value: 30. Unit: seconds.
+                 task_dispatch_mode=None, task_max_attempt=None, template=None, time_expression=None, time_type=None, timeout=None,
+                 timeout_enable=None, timeout_kill_enable=None, timezone=None, xattrs=None):
+        # The interval of retries after a job failure. Default value: 30. Unit: seconds.
         self.attempt_interval = attempt_interval  # type: int
-        # When the Time type parameter is set to cron, you can specify a custom calendar.
+        # If you set TimeType to 1 (cron), you can specify calendar days.
         self.calendar = calendar  # type: str
         # The full path of the job interface class.
         # 
-        # This field is available only when you select a java job. In this case, you must enter a full path.
+        # This field is available only when you set the job type to java. In this case, you must enter a full path.
         self.class_name = class_name  # type: str
         # The number of threads that are triggered by a single worker at a time. Default value: 5. This parameter is an advanced configuration item of the MapReduce job.
         self.consumer_size = consumer_size  # type: int
-        # The information of the job contact.
+        # The information about the alert contact.
         self.contact_info = contact_info  # type: list[UpdateJobRequestContactInfo]
-        # The script code content that is required when you set the job type to **python**, **shell**, or **go**.
+        # The script content. This parameter is required when you set the job type to python, shell, go, or k8s.
         self.content = content  # type: str
-        # When the Time type parameter is set to cron, you can specify a time offset. Unit: seconds.
+        # If you set TimeType to 1 (cron), you can specify a time offset. Unit: seconds.
         self.data_offset = data_offset  # type: int
-        # The description of the job.
+        # The job description.
         self.description = description  # type: str
-        # Default value: 5. This parameter is an advanced configuration item of the MapReduce job.
+        # The number of task distribution threads. Default value: 5. This parameter is an advanced configuration item of the MapReduce job.
         self.dispatcher_size = dispatcher_size  # type: int
-        # The execution mode of the job. The following execution modes are supported:
+        # The execution mode of the job. Valid values:
         # 
-        # *   **standalone**: The job runs in standalone mode.
-        # *   **broadcast**: The job runs in broadcast mode.
-        # *   **parallel**: The job runs in parallel computing mode.
-        # *   **grid**: The job runs in memory grid mode.
-        # *   **batch**: The job runs in grid computing mode.
-        # *   **sharding**: The job runs in sharding mode.
+        # *   **Stand-alone operation**\
+        # *   **Broadcast run**\
+        # *   **Visual MapReduce**\
+        # *   **MapReduce**\
+        # *   **Shard run**\
         self.execute_mode = execute_mode  # type: str
-        # Specifies whether to turn on Failure alarm. Valid values:
+        # Specifies whether to turn on Failure alarm. If the switch is turned on, an alert will be generated upon a failure. Valid values:
         # 
-        # *   **true**: Turn on Failure alarm.
-        # *   **false**: Turn off Failure alarm.
+        # *   **true**\
+        # *   **false**\
         self.fail_enable = fail_enable  # type: bool
+        # The number of consecutive failures. An alert will be received if the number of consecutive failures reaches the value of this parameter.
         self.fail_times = fail_times  # type: int
-        # The ID of the application. You can obtain the application ID on the Application Management page in Distributed Task Scheduling Platform.
+        # The application ID. You can obtain the application ID on the Application Management page in the SchedulerX console.
         self.group_id = group_id  # type: str
-        # The ID of the job. You can obtain the job ID on the Task Management page in Distributed Task Scheduling Platform.
+        # The job ID. You can obtain the job ID on the Task Management page in the SchedulerX console.
         self.job_id = job_id  # type: long
-        # The maximum number of attempts that the system can make when an error occurs on a job. You can specify this parameter based on your business requirements.
+        # The maximum number of retries after a job failure. This parameter is specified based on your business requirements.
         self.max_attempt = max_attempt  # type: int
-        # The maximum number of instances that the system can run at the same time. Default value: 1. When you set this parameter to 1, if the current job does not end, the system will not run the next job even if the runtime is reached.
+        # The maximum number of concurrent instances. Default value: 1. The default value indicates that only one instance is allowed to run at a time. When an instance is running, another instance is not triggered even if the scheduled time for running the instance is reached.
         self.max_concurrency = max_concurrency  # type: int
-        # Specifies whether to turn on No machine alarm available when no worker is available.
+        # Specifies whether to turn on No machine alarm available. If the switch is turned on, an alert will be generated when no machine is available for running the job. Valid values:
         # 
-        # *   **true**: Turn on No machine alarm available when no worker is available.
-        # *   **false**: Turn off No machine alarm available when no worker is available.
+        # *   **true**\
+        # *   **false**\
         self.miss_worker_enable = miss_worker_enable  # type: bool
-        # The name of the job.
+        # The job name.
         self.name = name  # type: str
-        # The ID of the namespace. You can obtain the ID of the namespace on the Namespace page in Distributed Task Scheduling Platform.
+        # The namespace ID. You can obtain the namespace ID on the Namespace page in the SchedulerX console.
         self.namespace = namespace  # type: str
-        # This parameter is required only for a special third party.
+        # The namespace source. This parameter is required only for a special third party.
         self.namespace_source = namespace_source  # type: str
-        # The number of subtasks that can be pulled at a time. Default value: 100. This parameter is an advanced configuration item of the MapReduce job.
+        # The number of tasks that can be pulled at a time. Default value: 100. This parameter is an advanced configuration item of the MapReduce job.
         self.page_size = page_size  # type: int
-        # The user-defined parameters that you can obtain when you run the job.
+        # The user-defined parameters that you can obtain when the job is running.
         self.parameters = parameters  # type: str
-        # The maximum number of subtask queues that you can cache. Default value: 10000. This parameter is an advanced configuration item of the MapReduce job.
+        # The maximum number of tasks that can be queued. Default value: 10000. This parameter is an advanced configuration item of the MapReduce job.
         self.queue_size = queue_size  # type: int
-        # The ID of the region.
+        # The region ID.
         self.region_id = region_id  # type: str
-        # The channel for sending alerts. Only SMS messages are supported.
+        # The method that is used to send alerts. Only Short Message Service (SMS) is supported.
         self.send_channel = send_channel  # type: str
+        # Specifies whether to turn on Successful notice. If the switch is turned on, a notice will be sent when a job succeeds.
         self.success_notice_enable = success_notice_enable  # type: bool
-        # The interval at which the system can rerun the subtask when the subtask fails. This parameter is an advanced configuration item of the MapReduce job.
+        # The interval of retries after a task failure. This parameter is an advanced configuration item of the MapReduce job.
         self.task_attempt_interval = task_attempt_interval  # type: int
+        # The job mode. Valid values: push and pull. This parameter is an advanced configuration item of the MapReduce job.
         self.task_dispatch_mode = task_dispatch_mode  # type: str
-        # The number of retries that the system can perform when the subtask fails. This parameter is an advanced configuration item of the MapReduce job.
+        # The number of retries after a task failure. This parameter is an advanced configuration item of the MapReduce job.
         self.task_max_attempt = task_max_attempt  # type: int
-        # The time expression. You can set the time expression according to the selected time type.
+        self.template = template  # type: str
+        # The time expression. Specify the time expression based on the value of TimeType:
         # 
-        # *   **cron**: Specify a standard Cron expression. You can verify the expression online after you specify the expression.
-        # *   **api**: No time expression is available.
-        # *   **fixed_rate**: Specify a fixed frequency value. Unit: seconds. For example, if you set this parameter to 30, the system triggers a job every 30 seconds.
-        # *   **second_delay**: Specify a delay after which you can run a job. You can specify a value from 1 to 60. Unit: seconds.
+        # *   If you set TimeType to **1** (cron), specify this parameter to a standard CRON expression.
+        # *   If you set TimeType to **100** (api), no time expression is required.
+        # *   If you set TimeType to **3** (fixed_rate), specify this parameter to a fixed frequency in seconds. For example, if you set this parameter to 30, the system triggers a job every 30 seconds.
+        # *   If you set TimeType to **4** (second_delay), specify this parameter to a fixed delay after which the job is triggered. Valid values: 1 to 60. Unit: seconds.
         self.time_expression = time_expression  # type: str
-        # The type of time. The following time types are supported:
+        # The time type. Valid values:
         # 
-        # *   **cron**: 1
-        # *   **fix_rate**: 3
-        # *   **second_delay**: 4
-        # *   **api**: 100
+        # *   **1**: cron
+        # *   **3**: fix_rate
+        # *   **4**: second_delay
+        # *   **100**: api
         self.time_type = time_type  # type: int
-        # The timeout threshold. Default value: 7200. Unit: seconds.
+        # The timeout threshold. Unit: seconds.
         self.timeout = timeout  # type: long
-        # Specifies whether to turn on Timeout alarm. Valid values:
+        # Specifies whether to turn on Timeout alarm. If the switch is turned on, an alert will be generated upon a timeout. Valid values:
         # 
-        # *   **true**: Turn on Timeout alarm.
-        # *   **false**: Turn off Timeout alarm.
+        # *   **true**\
+        # *   **false**\
         self.timeout_enable = timeout_enable  # type: bool
-        # Specifies whether to turn on Timeout termination. Valid values:
+        # Specifies whether to turn on Timeout termination. If the switch is turned on, the job will be terminated upon a timeout. Valid values:
         # 
-        # *   **true**: Turn on Timeout termination.
-        # *   **false**: Turn off Timeout termination.
+        # *   **true**\
+        # *   **false**\
         self.timeout_kill_enable = timeout_kill_enable  # type: bool
+        # Time zone.
         self.timezone = timezone  # type: str
+        self.xattrs = xattrs  # type: str
 
     def validate(self):
         if self.contact_info:
@@ -8366,6 +8748,8 @@ class UpdateJobRequest(TeaModel):
             result['TaskDispatchMode'] = self.task_dispatch_mode
         if self.task_max_attempt is not None:
             result['TaskMaxAttempt'] = self.task_max_attempt
+        if self.template is not None:
+            result['Template'] = self.template
         if self.time_expression is not None:
             result['TimeExpression'] = self.time_expression
         if self.time_type is not None:
@@ -8378,6 +8762,8 @@ class UpdateJobRequest(TeaModel):
             result['TimeoutKillEnable'] = self.timeout_kill_enable
         if self.timezone is not None:
             result['Timezone'] = self.timezone
+        if self.xattrs is not None:
+            result['XAttrs'] = self.xattrs
         return result
 
     def from_map(self, m=None):
@@ -8443,6 +8829,8 @@ class UpdateJobRequest(TeaModel):
             self.task_dispatch_mode = m.get('TaskDispatchMode')
         if m.get('TaskMaxAttempt') is not None:
             self.task_max_attempt = m.get('TaskMaxAttempt')
+        if m.get('Template') is not None:
+            self.template = m.get('Template')
         if m.get('TimeExpression') is not None:
             self.time_expression = m.get('TimeExpression')
         if m.get('TimeType') is not None:
@@ -8455,16 +8843,18 @@ class UpdateJobRequest(TeaModel):
             self.timeout_kill_enable = m.get('TimeoutKillEnable')
         if m.get('Timezone') is not None:
             self.timezone = m.get('Timezone')
+        if m.get('XAttrs') is not None:
+            self.xattrs = m.get('XAttrs')
         return self
 
 
 class UpdateJobResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
-        # The HTTP status code that is returned.
+        # The HTTP status code.
         self.code = code  # type: int
-        # The additional information that is returned only if the error occurs.
+        # The additional information returned only if an error occurs.
         self.message = message  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
         # Indicates whether the request was successful.
         self.success = success  # type: bool
@@ -8543,14 +8933,29 @@ class UpdateJobResponse(TeaModel):
 class UpdateWorkflowRequest(TeaModel):
     def __init__(self, description=None, group_id=None, name=None, namespace=None, namespace_source=None,
                  region_id=None, time_expression=None, time_type=None, workflow_id=None):
+        # The description of the workflow.
         self.description = description  # type: str
+        # The application group ID. You can obtain the application group ID on the Application Management page in the SchedulerX console.
         self.group_id = group_id  # type: str
+        # The name of the workflow.
         self.name = name  # type: str
+        # The namespace ID. You can obtain the namespace ID on the Namespace page in the SchedulerX console.
         self.namespace = namespace  # type: str
+        # The source of the namespace. This parameter is required only for a special third party.
         self.namespace_source = namespace_source  # type: str
+        # The region ID.
         self.region_id = region_id  # type: str
+        # The time expression. You can set the time expression based on the selected method that is used to specify time.
+        # 
+        # *   If you set TimeType to cron, you need to enter a standard cron expression. Online verification is supported.
+        # *   If you set TimeType to api, no time expression is required.
         self.time_expression = time_expression  # type: str
+        # The method that is used to specify the time. Valid values:
+        # 
+        # *   1: cron
+        # *   100: api
         self.time_type = time_type  # type: int
+        # The workflow ID.
         self.workflow_id = workflow_id  # type: str
 
     def validate(self):
@@ -8607,9 +9012,16 @@ class UpdateWorkflowRequest(TeaModel):
 
 class UpdateWorkflowResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The returned error message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
@@ -8686,11 +9098,17 @@ class UpdateWorkflowResponse(TeaModel):
 class UpdateWorkflowDagRequest(TeaModel):
     def __init__(self, dag_json=None, group_id=None, namespace=None, namespace_source=None, region_id=None,
                  workflow_id=None):
+        # The directed acyclic graph (DAG) of the workflow, including the information about the nodes and the edges. Specify the value of this parameter in the JSON format.
         self.dag_json = dag_json  # type: str
+        # The application group ID. You can obtain the application group ID on the Application Management page in the SchedulerX console.
         self.group_id = group_id  # type: str
+        # The namespace ID. You can obtain the namespace ID on the Namespace page in the SchedulerX console.
         self.namespace = namespace  # type: str
+        # The source of the namespace. This parameter is required only for a special third party.
         self.namespace_source = namespace_source  # type: str
+        # The region ID.
         self.region_id = region_id  # type: str
+        # The workflow ID.
         self.workflow_id = workflow_id  # type: str
 
     def validate(self):
@@ -8735,9 +9153,16 @@ class UpdateWorkflowDagRequest(TeaModel):
 
 class UpdateWorkflowDagResponseBody(TeaModel):
     def __init__(self, code=None, message=None, request_id=None, success=None):
+        # The HTTP status code.
         self.code = code  # type: int
+        # The returned error message.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   true
+        # *   false
         self.success = success  # type: bool
 
     def validate(self):
