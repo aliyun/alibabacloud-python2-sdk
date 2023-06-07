@@ -30,10 +30,157 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
-    def get_stat_trend(self, request):
+    def get_h5page_trend_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_version):
+            query['appVersion'] = request.app_version
+        if not UtilClient.is_unset(request.data_source_id):
+            query['dataSourceId'] = request.data_source_id
+        if not UtilClient.is_unset(request.end_date):
+            query['endDate'] = request.end_date
+        if not UtilClient.is_unset(request.start_date):
+            query['startDate'] = request.start_date
+        if not UtilClient.is_unset(request.time_unit):
+            query['timeUnit'] = request.time_unit
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetH5PageTrend',
+            version='2022-02-14',
+            protocol='HTTPS',
+            pathname='/stat/getH5PageTrend',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            umeng_apm_20220214_models.GetH5PageTrendResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_h5page_trend(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_stat_trend_with_options(request, headers, runtime)
+        return self.get_h5page_trend_with_options(request, headers, runtime)
+
+    def get_launch_trend_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_version):
+            query['appVersion'] = request.app_version
+        if not UtilClient.is_unset(request.data_source_id):
+            query['dataSourceId'] = request.data_source_id
+        if not UtilClient.is_unset(request.end_date):
+            query['endDate'] = request.end_date
+        if not UtilClient.is_unset(request.start_date):
+            query['startDate'] = request.start_date
+        if not UtilClient.is_unset(request.time_unit):
+            query['timeUnit'] = request.time_unit
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetLaunchTrend',
+            version='2022-02-14',
+            protocol='HTTPS',
+            pathname='/stat/getLaunchTrend',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            umeng_apm_20220214_models.GetLaunchTrendResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_launch_trend(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_launch_trend_with_options(request, headers, runtime)
+
+    def get_native_page_trend_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_version):
+            query['appVersion'] = request.app_version
+        if not UtilClient.is_unset(request.data_source_id):
+            query['dataSourceId'] = request.data_source_id
+        if not UtilClient.is_unset(request.end_date):
+            query['endDate'] = request.end_date
+        if not UtilClient.is_unset(request.start_date):
+            query['startDate'] = request.start_date
+        if not UtilClient.is_unset(request.time_unit):
+            query['timeUnit'] = request.time_unit
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetNativePageTrend',
+            version='2022-02-14',
+            protocol='HTTPS',
+            pathname='/stat/getNativePageTrend',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            umeng_apm_20220214_models.GetNativePageTrendResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_native_page_trend(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_native_page_trend_with_options(request, headers, runtime)
+
+    def get_network_trend_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_version):
+            query['appVersion'] = request.app_version
+        if not UtilClient.is_unset(request.data_source_id):
+            query['dataSourceId'] = request.data_source_id
+        if not UtilClient.is_unset(request.end_date):
+            query['endDate'] = request.end_date
+        if not UtilClient.is_unset(request.start_date):
+            query['startDate'] = request.start_date
+        if not UtilClient.is_unset(request.time_unit):
+            query['timeUnit'] = request.time_unit
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetNetworkTrend',
+            version='2022-02-14',
+            protocol='HTTPS',
+            pathname='/stat/getNetworkTrend',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            umeng_apm_20220214_models.GetNetworkTrendResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_network_trend(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_network_trend_with_options(request, headers, runtime)
 
     def get_stat_trend_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -68,10 +215,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_sym_upload_param(self, request):
+    def get_stat_trend(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_sym_upload_param_with_options(request, headers, runtime)
+        return self.get_stat_trend_with_options(request, headers, runtime)
 
     def get_sym_upload_param_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -104,10 +251,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_today_stat_trend(self, request):
+    def get_sym_upload_param(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_today_stat_trend_with_options(request, headers, runtime)
+        return self.get_sym_upload_param_with_options(request, headers, runtime)
 
     def get_today_stat_trend_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -138,10 +285,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_alert_plan(self, request):
+    def get_today_stat_trend(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_alert_plan_with_options(request, headers, runtime)
+        return self.get_today_stat_trend_with_options(request, headers, runtime)
 
     def update_alert_plan_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -171,3 +318,8 @@ class Client(OpenApiClient):
             umeng_apm_20220214_models.UpdateAlertPlanResponse(),
             self.call_api(params, req, runtime)
         )
+
+    def update_alert_plan(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_alert_plan_with_options(request, headers, runtime)
