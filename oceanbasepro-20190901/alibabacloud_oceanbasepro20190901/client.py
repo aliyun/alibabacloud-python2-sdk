@@ -362,6 +362,40 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_tenant_read_only_connection_with_options(request, runtime)
 
+    def create_tenant_security_ip_group_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.instance_id):
+            body['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.security_ip_group_name):
+            body['SecurityIpGroupName'] = request.security_ip_group_name
+        if not UtilClient.is_unset(request.security_ips):
+            body['SecurityIps'] = request.security_ips
+        if not UtilClient.is_unset(request.tenant_id):
+            body['TenantId'] = request.tenant_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateTenantSecurityIpGroup',
+            version='2019-09-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ocean_base_pro_20190901_models.CreateTenantSecurityIpGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_tenant_security_ip_group(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_tenant_security_ip_group_with_options(request, runtime)
+
     def create_tenant_user_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -547,6 +581,38 @@ class Client(OpenApiClient):
     def delete_security_ip_group(self, request):
         runtime = util_models.RuntimeOptions()
         return self.delete_security_ip_group_with_options(request, runtime)
+
+    def delete_tenant_security_ip_group_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.instance_id):
+            body['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.security_ip_group_name):
+            body['SecurityIpGroupName'] = request.security_ip_group_name
+        if not UtilClient.is_unset(request.tenant_id):
+            body['TenantId'] = request.tenant_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeleteTenantSecurityIpGroup',
+            version='2019-09-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ocean_base_pro_20190901_models.DeleteTenantSecurityIpGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_tenant_security_ip_group(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_tenant_security_ip_group_with_options(request, runtime)
 
     def delete_tenant_users_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1062,6 +1128,292 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_node_metrics_with_options(request, runtime)
 
+    def describe_oas_anomaly_sqllist_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.accept_language):
+            body['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.current):
+            body['Current'] = request.current
+        if not UtilClient.is_unset(request.db_name):
+            body['DbName'] = request.db_name
+        if not UtilClient.is_unset(request.end_time):
+            body['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.filter_condition):
+            body['FilterCondition'] = request.filter_condition
+        if not UtilClient.is_unset(request.instance_id):
+            body['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.node_ip):
+            body['NodeIp'] = request.node_ip
+        if not UtilClient.is_unset(request.page_size):
+            body['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.search_key_word):
+            body['SearchKeyWord'] = request.search_key_word
+        if not UtilClient.is_unset(request.search_param):
+            body['SearchParam'] = request.search_param
+        if not UtilClient.is_unset(request.search_rule):
+            body['SearchRule'] = request.search_rule
+        if not UtilClient.is_unset(request.search_value):
+            body['SearchValue'] = request.search_value
+        if not UtilClient.is_unset(request.sql_id):
+            body['SqlId'] = request.sql_id
+        if not UtilClient.is_unset(request.sql_text_length):
+            body['SqlTextLength'] = request.sql_text_length
+        if not UtilClient.is_unset(request.start_time):
+            body['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.tenant_id):
+            body['TenantId'] = request.tenant_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DescribeOasAnomalySQLList',
+            version='2019-09-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ocean_base_pro_20190901_models.DescribeOasAnomalySQLListResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_oas_anomaly_sqllist(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_oas_anomaly_sqllist_with_options(request, runtime)
+
+    def describe_oas_sqldetails_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.db_name):
+            body['DbName'] = request.db_name
+        if not UtilClient.is_unset(request.end_time):
+            body['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.instance_id):
+            body['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.sql_id):
+            body['SqlId'] = request.sql_id
+        if not UtilClient.is_unset(request.start_time):
+            body['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.tenant_id):
+            body['TenantId'] = request.tenant_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DescribeOasSQLDetails',
+            version='2019-09-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ocean_base_pro_20190901_models.DescribeOasSQLDetailsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_oas_sqldetails(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_oas_sqldetails_with_options(request, runtime)
+
+    def describe_oas_sqlhistory_list_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.accept_language):
+            body['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.db_name):
+            body['DbName'] = request.db_name
+        if not UtilClient.is_unset(request.end_time):
+            body['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.instance_id):
+            body['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.node_ip):
+            body['NodeIp'] = request.node_ip
+        if not UtilClient.is_unset(request.sql_id):
+            body['SqlId'] = request.sql_id
+        if not UtilClient.is_unset(request.start_time):
+            body['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.tenant_id):
+            body['TenantId'] = request.tenant_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DescribeOasSQLHistoryList',
+            version='2019-09-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ocean_base_pro_20190901_models.DescribeOasSQLHistoryListResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_oas_sqlhistory_list(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_oas_sqlhistory_list_with_options(request, runtime)
+
+    def describe_oas_sqlplans_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.accept_language):
+            body['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.db_name):
+            body['DbName'] = request.db_name
+        if not UtilClient.is_unset(request.end_time):
+            body['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.instance_id):
+            body['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.sql_id):
+            body['SqlId'] = request.sql_id
+        if not UtilClient.is_unset(request.start_time):
+            body['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.tenant_id):
+            body['TenantId'] = request.tenant_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DescribeOasSQLPlans',
+            version='2019-09-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ocean_base_pro_20190901_models.DescribeOasSQLPlansResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_oas_sqlplans(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_oas_sqlplans_with_options(request, runtime)
+
+    def describe_oas_slow_sqllist_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.accept_language):
+            body['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.db_name):
+            body['DbName'] = request.db_name
+        if not UtilClient.is_unset(request.end_time):
+            body['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.filter_condition):
+            body['FilterCondition'] = request.filter_condition
+        if not UtilClient.is_unset(request.instance_id):
+            body['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.node_ip):
+            body['NodeIp'] = request.node_ip
+        if not UtilClient.is_unset(request.search_key_word):
+            body['SearchKeyWord'] = request.search_key_word
+        if not UtilClient.is_unset(request.search_param):
+            body['SearchParam'] = request.search_param
+        if not UtilClient.is_unset(request.search_rule):
+            body['SearchRule'] = request.search_rule
+        if not UtilClient.is_unset(request.search_value):
+            body['SearchValue'] = request.search_value
+        if not UtilClient.is_unset(request.sql_id):
+            body['SqlId'] = request.sql_id
+        if not UtilClient.is_unset(request.sql_text_length):
+            body['SqlTextLength'] = request.sql_text_length
+        if not UtilClient.is_unset(request.start_time):
+            body['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.tenant_id):
+            body['TenantId'] = request.tenant_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DescribeOasSlowSQLList',
+            version='2019-09-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ocean_base_pro_20190901_models.DescribeOasSlowSQLListResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_oas_slow_sqllist(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_oas_slow_sqllist_with_options(request, runtime)
+
+    def describe_oas_top_sqllist_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.accept_language):
+            body['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.db_name):
+            body['DbName'] = request.db_name
+        if not UtilClient.is_unset(request.end_time):
+            body['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.filter_condition):
+            body['FilterCondition'] = request.filter_condition
+        if not UtilClient.is_unset(request.instance_id):
+            body['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.node_ip):
+            body['NodeIp'] = request.node_ip
+        if not UtilClient.is_unset(request.search_key_word):
+            body['SearchKeyWord'] = request.search_key_word
+        if not UtilClient.is_unset(request.search_param):
+            body['SearchParam'] = request.search_param
+        if not UtilClient.is_unset(request.search_rule):
+            body['SearchRule'] = request.search_rule
+        if not UtilClient.is_unset(request.search_value):
+            body['SearchValue'] = request.search_value
+        if not UtilClient.is_unset(request.sql_id):
+            body['SqlId'] = request.sql_id
+        if not UtilClient.is_unset(request.sql_text_length):
+            body['SqlTextLength'] = request.sql_text_length
+        if not UtilClient.is_unset(request.start_time):
+            body['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.tenant_id):
+            body['TenantId'] = request.tenant_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DescribeOasTopSQLList',
+            version='2019-09-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ocean_base_pro_20190901_models.DescribeOasTopSQLListResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_oas_top_sqllist(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_oas_top_sqllist_with_options(request, runtime)
+
     def describe_oms_open_apiproject_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -1370,6 +1722,44 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_sqlplans_with_options(request, runtime)
 
+    def describe_sqlsamples_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.db_name):
+            body['DbName'] = request.db_name
+        if not UtilClient.is_unset(request.end_time):
+            body['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.instance_id):
+            body['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.sql_id):
+            body['SqlId'] = request.sql_id
+        if not UtilClient.is_unset(request.start_time):
+            body['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.tenant_id):
+            body['TenantId'] = request.tenant_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DescribeSQLSamples',
+            version='2019-09-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ocean_base_pro_20190901_models.DescribeSQLSamplesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_sqlsamples(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_sqlsamples_with_options(request, runtime)
+
     def describe_security_ip_groups_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -1599,6 +1989,36 @@ class Client(OpenApiClient):
     def describe_tenant_security_configs(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_tenant_security_configs_with_options(request, runtime)
+
+    def describe_tenant_security_ip_groups_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.instance_id):
+            body['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.tenant_id):
+            body['TenantId'] = request.tenant_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DescribeTenantSecurityIpGroups',
+            version='2019-09-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ocean_base_pro_20190901_models.DescribeTenantSecurityIpGroupsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_tenant_security_ip_groups(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_tenant_security_ip_groups_with_options(request, runtime)
 
     def describe_tenant_tags_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -2232,6 +2652,40 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.modify_tenant_resource_with_options(request, runtime)
 
+    def modify_tenant_security_ip_group_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.instance_id):
+            body['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.security_ip_group_name):
+            body['SecurityIpGroupName'] = request.security_ip_group_name
+        if not UtilClient.is_unset(request.security_ips):
+            body['SecurityIps'] = request.security_ips
+        if not UtilClient.is_unset(request.tenant_id):
+            body['TenantId'] = request.tenant_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ModifyTenantSecurityIpGroup',
+            version='2019-09-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ocean_base_pro_20190901_models.ModifyTenantSecurityIpGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_tenant_security_ip_group(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_tenant_security_ip_group_with_options(request, runtime)
+
     def modify_tenant_tags_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -2667,3 +3121,35 @@ class Client(OpenApiClient):
     def stop_oms_open_apiproject(self, request):
         runtime = util_models.RuntimeOptions()
         return self.stop_oms_open_apiproject_with_options(request, runtime)
+
+    def switchover_instance_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.forced):
+            body['Forced'] = request.forced
+        if not UtilClient.is_unset(request.instance_id):
+            body['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.target_instance_id):
+            body['TargetInstanceId'] = request.target_instance_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='SwitchoverInstance',
+            version='2019-09-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ocean_base_pro_20190901_models.SwitchoverInstanceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def switchover_instance(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.switchover_instance_with_options(request, runtime)
