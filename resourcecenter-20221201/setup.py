@@ -25,7 +25,7 @@ from setuptools import setup, find_packages
 """
 setup module for alibabacloud_resourcecenter20221201_py2.
 
-Created on 08/03/2023
+Created on 09/06/2023
 
 @author: Alibaba Cloud SDK
 """
