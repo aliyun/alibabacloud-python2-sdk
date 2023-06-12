@@ -392,8 +392,12 @@ class CreatePrivateAccessPolicyRequest(TeaModel):
         self.policy_action = policy_action  # type: str
         self.priority = priority  # type: int
         self.status = status  # type: str
+        # 内网访问标签ID集合。最多可输入100个内网访问标签ID。当**ApplicationType**为**Tag时**，必填。和**ApplicationIds**互斥。
         self.tag_ids = tag_ids  # type: list[str]
         self.user_group_ids = user_group_ids  # type: list[str]
+        # 内网访问策略的用户组类型。取值：
+        # - **Normal**：普通用户组。
+        # - **Custom**：自定义用户组。
         self.user_group_mode = user_group_mode  # type: str
 
     def validate(self):
@@ -476,8 +480,12 @@ class CreatePrivateAccessPolicyShrinkRequest(TeaModel):
         self.policy_action = policy_action  # type: str
         self.priority = priority  # type: int
         self.status = status  # type: str
+        # 内网访问标签ID集合。最多可输入100个内网访问标签ID。当**ApplicationType**为**Tag时**，必填。和**ApplicationIds**互斥。
         self.tag_ids_shrink = tag_ids_shrink  # type: str
         self.user_group_ids_shrink = user_group_ids_shrink  # type: str
+        # 内网访问策略的用户组类型。取值：
+        # - **Normal**：普通用户组。
+        # - **Custom**：自定义用户组。
         self.user_group_mode = user_group_mode  # type: str
 
     def validate(self):
@@ -779,40 +787,6 @@ class CreateUserGroupRequest(TeaModel):
             for k in m.get('Attributes'):
                 temp_model = CreateUserGroupRequestAttributes()
                 self.attributes.append(temp_model.from_map(k))
-        if m.get('Description') is not None:
-            self.description = m.get('Description')
-        if m.get('Name') is not None:
-            self.name = m.get('Name')
-        return self
-
-
-class CreateUserGroupShrinkRequest(TeaModel):
-    def __init__(self, attributes_shrink=None, description=None, name=None):
-        self.attributes_shrink = attributes_shrink  # type: str
-        self.description = description  # type: str
-        self.name = name  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(CreateUserGroupShrinkRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.attributes_shrink is not None:
-            result['Attributes'] = self.attributes_shrink
-        if self.description is not None:
-            result['Description'] = self.description
-        if self.name is not None:
-            result['Name'] = self.name
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Attributes') is not None:
-            self.attributes_shrink = m.get('Attributes')
         if m.get('Description') is not None:
             self.description = m.get('Description')
         if m.get('Name') is not None:
@@ -1996,30 +1970,6 @@ class ListApplicationsForPrivateAccessPolicyRequest(TeaModel):
         return self
 
 
-class ListApplicationsForPrivateAccessPolicyShrinkRequest(TeaModel):
-    def __init__(self, policy_ids_shrink=None):
-        self.policy_ids_shrink = policy_ids_shrink  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ListApplicationsForPrivateAccessPolicyShrinkRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.policy_ids_shrink is not None:
-            result['PolicyIds'] = self.policy_ids_shrink
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('PolicyIds') is not None:
-            self.policy_ids_shrink = m.get('PolicyIds')
-        return self
-
-
 class ListApplicationsForPrivateAccessPolicyResponseBodyPolicesApplicationsPortRanges(TeaModel):
     def __init__(self, begin=None, end=None):
         self.begin = begin  # type: int
@@ -2254,30 +2204,6 @@ class ListApplicationsForPrivateAccessTagRequest(TeaModel):
         return self
 
 
-class ListApplicationsForPrivateAccessTagShrinkRequest(TeaModel):
-    def __init__(self, tag_ids_shrink=None):
-        self.tag_ids_shrink = tag_ids_shrink  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ListApplicationsForPrivateAccessTagShrinkRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.tag_ids_shrink is not None:
-            result['TagIds'] = self.tag_ids_shrink
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('TagIds') is not None:
-            self.tag_ids_shrink = m.get('TagIds')
-        return self
-
-
 class ListApplicationsForPrivateAccessTagResponseBodyTagsApplicationsPortRanges(TeaModel):
     def __init__(self, begin=None, end=None):
         self.begin = begin  # type: int
@@ -2312,6 +2238,7 @@ class ListApplicationsForPrivateAccessTagResponseBodyTagsApplications(TeaModel):
                  port_ranges=None, protocol=None, status=None):
         self.addresses = addresses  # type: list[str]
         self.application_id = application_id  # type: str
+        # 内网访问应用创建时间。
         self.create_time = create_time  # type: str
         self.description = description  # type: str
         self.name = name  # type: str
@@ -2489,11 +2416,14 @@ class ListApplicationsForPrivateAccessTagResponse(TeaModel):
 
 
 class ListConnectorsRequest(TeaModel):
-    def __init__(self, connector_ids=None, current_page=None, name=None, page_size=None):
+    def __init__(self, connector_ids=None, current_page=None, name=None, page_size=None, status=None,
+                 switch_status=None):
         self.connector_ids = connector_ids  # type: list[str]
         self.current_page = current_page  # type: int
         self.name = name  # type: str
         self.page_size = page_size  # type: int
+        self.status = status  # type: str
+        self.switch_status = switch_status  # type: str
 
     def validate(self):
         pass
@@ -2512,6 +2442,10 @@ class ListConnectorsRequest(TeaModel):
             result['Name'] = self.name
         if self.page_size is not None:
             result['PageSize'] = self.page_size
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.switch_status is not None:
+            result['SwitchStatus'] = self.switch_status
         return result
 
     def from_map(self, m=None):
@@ -2524,45 +2458,10 @@ class ListConnectorsRequest(TeaModel):
             self.name = m.get('Name')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
-        return self
-
-
-class ListConnectorsShrinkRequest(TeaModel):
-    def __init__(self, connector_ids_shrink=None, current_page=None, name=None, page_size=None):
-        self.connector_ids_shrink = connector_ids_shrink  # type: str
-        self.current_page = current_page  # type: int
-        self.name = name  # type: str
-        self.page_size = page_size  # type: int
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ListConnectorsShrinkRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.connector_ids_shrink is not None:
-            result['ConnectorIds'] = self.connector_ids_shrink
-        if self.current_page is not None:
-            result['CurrentPage'] = self.current_page
-        if self.name is not None:
-            result['Name'] = self.name
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('ConnectorIds') is not None:
-            self.connector_ids_shrink = m.get('ConnectorIds')
-        if m.get('CurrentPage') is not None:
-            self.current_page = m.get('CurrentPage')
-        if m.get('Name') is not None:
-            self.name = m.get('Name')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('SwitchStatus') is not None:
+            self.switch_status = m.get('SwitchStatus')
         return self
 
 
@@ -2798,30 +2697,6 @@ class ListPolicesForPrivateAccessApplicationRequest(TeaModel):
         m = m or dict()
         if m.get('ApplicationIds') is not None:
             self.application_ids = m.get('ApplicationIds')
-        return self
-
-
-class ListPolicesForPrivateAccessApplicationShrinkRequest(TeaModel):
-    def __init__(self, application_ids_shrink=None):
-        self.application_ids_shrink = application_ids_shrink  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ListPolicesForPrivateAccessApplicationShrinkRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.application_ids_shrink is not None:
-            result['ApplicationIds'] = self.application_ids_shrink
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('ApplicationIds') is not None:
-            self.application_ids_shrink = m.get('ApplicationIds')
         return self
 
 
@@ -3079,35 +2954,25 @@ class ListPolicesForPrivateAccessTagRequest(TeaModel):
         return self
 
 
-class ListPolicesForPrivateAccessTagShrinkRequest(TeaModel):
-    def __init__(self, tag_ids_shrink=None):
-        self.tag_ids_shrink = tag_ids_shrink  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ListPolicesForPrivateAccessTagShrinkRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.tag_ids_shrink is not None:
-            result['TagIds'] = self.tag_ids_shrink
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('TagIds') is not None:
-            self.tag_ids_shrink = m.get('TagIds')
-        return self
-
-
 class ListPolicesForPrivateAccessTagResponseBodyTagsPolicesCustomUserAttributes(TeaModel):
     def __init__(self, idp_id=None, relation=None, user_group_type=None, value=None):
+        # 用户组的身份源ID。当自定义用户组类型为**department**时，存在该值。
         self.idp_id = idp_id  # type: int
+        # 用户组的关系。取值：
+        # - **Equal**：等于。
+        # - **Unequal**：不等于。
         self.relation = relation  # type: str
+        # 用户组的类型。取值：
+        # - **username**：用户名。
+        # - **department**：部门。
+        # - **email**：邮箱。
+        # - **telephone**：手机。
         self.user_group_type = user_group_type  # type: str
+        # 用户组属性的值。
+        # - 当用户组类型为**username**时，表示用户名的值。长度为1~128个字符，支持中文和大小写英文字母，可包含数字、半角句号（.）、下划线（_）和短划线（-）。
+        # - 当用户组类型为**department**时，表示部门的值。如：OU=部门1,OU=SASE钉钉。
+        # - 当用户组类型为**email**时，表示邮箱的值。如：username@example.com。
+        # - 当用户组类型为**telephone**时，表示手机的值。如：13900001234。
         self.value = value  # type: str
 
     def validate(self):
@@ -3146,7 +3011,9 @@ class ListPolicesForPrivateAccessTagResponseBodyTagsPolices(TeaModel):
     def __init__(self, application_type=None, create_time=None, custom_user_attributes=None, description=None,
                  name=None, policy_action=None, policy_id=None, priority=None, status=None, user_group_type=None):
         self.application_type = application_type  # type: str
+        # 内网访问策略创建时间。
         self.create_time = create_time  # type: str
+        # 自定义用户组属性集合。多个自定义用户组属性之间是或的关系，按照合集生效。
         self.custom_user_attributes = custom_user_attributes  # type: list[ListPolicesForPrivateAccessTagResponseBodyTagsPolicesCustomUserAttributes]
         self.description = description  # type: str
         self.name = name  # type: str
@@ -3357,30 +3224,6 @@ class ListPolicesForUserGroupRequest(TeaModel):
         return self
 
 
-class ListPolicesForUserGroupShrinkRequest(TeaModel):
-    def __init__(self, user_group_ids_shrink=None):
-        self.user_group_ids_shrink = user_group_ids_shrink  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ListPolicesForUserGroupShrinkRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.user_group_ids_shrink is not None:
-            result['UserGroupIds'] = self.user_group_ids_shrink
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('UserGroupIds') is not None:
-            self.user_group_ids_shrink = m.get('UserGroupIds')
-        return self
-
-
 class ListPolicesForUserGroupResponseBodyUserGroupsPolices(TeaModel):
     def __init__(self, name=None, policy_id=None, policy_type=None):
         self.name = name  # type: str
@@ -3573,66 +3416,6 @@ class ListPrivateAccessApplicationsRequest(TeaModel):
             self.address = m.get('Address')
         if m.get('ApplicationIds') is not None:
             self.application_ids = m.get('ApplicationIds')
-        if m.get('CurrentPage') is not None:
-            self.current_page = m.get('CurrentPage')
-        if m.get('Name') is not None:
-            self.name = m.get('Name')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
-        if m.get('PolicyId') is not None:
-            self.policy_id = m.get('PolicyId')
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
-        if m.get('TagId') is not None:
-            self.tag_id = m.get('TagId')
-        return self
-
-
-class ListPrivateAccessApplicationsShrinkRequest(TeaModel):
-    def __init__(self, address=None, application_ids_shrink=None, current_page=None, name=None, page_size=None,
-                 policy_id=None, status=None, tag_id=None):
-        self.address = address  # type: str
-        self.application_ids_shrink = application_ids_shrink  # type: str
-        self.current_page = current_page  # type: int
-        self.name = name  # type: str
-        self.page_size = page_size  # type: int
-        self.policy_id = policy_id  # type: str
-        self.status = status  # type: str
-        self.tag_id = tag_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ListPrivateAccessApplicationsShrinkRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.address is not None:
-            result['Address'] = self.address
-        if self.application_ids_shrink is not None:
-            result['ApplicationIds'] = self.application_ids_shrink
-        if self.current_page is not None:
-            result['CurrentPage'] = self.current_page
-        if self.name is not None:
-            result['Name'] = self.name
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
-        if self.policy_id is not None:
-            result['PolicyId'] = self.policy_id
-        if self.status is not None:
-            result['Status'] = self.status
-        if self.tag_id is not None:
-            result['TagId'] = self.tag_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Address') is not None:
-            self.address = m.get('Address')
-        if m.get('ApplicationIds') is not None:
-            self.application_ids_shrink = m.get('ApplicationIds')
         if m.get('CurrentPage') is not None:
             self.current_page = m.get('CurrentPage')
         if m.get('Name') is not None:
@@ -3847,6 +3630,9 @@ class ListPrivateAccessPolicesRequest(TeaModel):
         self.policy_ids = policy_ids  # type: list[str]
         self.status = status  # type: str
         self.tag_id = tag_id  # type: str
+        # 用户组ID。取值来源：
+        # - [ListUserGroups](~~ListUserGroups~~)：批量查询用户组。
+        # - [CreateUserGroup](~~CreateUserGroup~~)：创建用户组。
         self.user_group_id = user_group_id  # type: str
 
     def validate(self):
@@ -3892,71 +3678,6 @@ class ListPrivateAccessPolicesRequest(TeaModel):
             self.policy_action = m.get('PolicyAction')
         if m.get('PolicyIds') is not None:
             self.policy_ids = m.get('PolicyIds')
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
-        if m.get('TagId') is not None:
-            self.tag_id = m.get('TagId')
-        if m.get('UserGroupId') is not None:
-            self.user_group_id = m.get('UserGroupId')
-        return self
-
-
-class ListPrivateAccessPolicesShrinkRequest(TeaModel):
-    def __init__(self, application_id=None, current_page=None, name=None, page_size=None, policy_action=None,
-                 policy_ids_shrink=None, status=None, tag_id=None, user_group_id=None):
-        self.application_id = application_id  # type: str
-        self.current_page = current_page  # type: int
-        self.name = name  # type: str
-        self.page_size = page_size  # type: int
-        self.policy_action = policy_action  # type: str
-        self.policy_ids_shrink = policy_ids_shrink  # type: str
-        self.status = status  # type: str
-        self.tag_id = tag_id  # type: str
-        self.user_group_id = user_group_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ListPrivateAccessPolicesShrinkRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.application_id is not None:
-            result['ApplicationId'] = self.application_id
-        if self.current_page is not None:
-            result['CurrentPage'] = self.current_page
-        if self.name is not None:
-            result['Name'] = self.name
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
-        if self.policy_action is not None:
-            result['PolicyAction'] = self.policy_action
-        if self.policy_ids_shrink is not None:
-            result['PolicyIds'] = self.policy_ids_shrink
-        if self.status is not None:
-            result['Status'] = self.status
-        if self.tag_id is not None:
-            result['TagId'] = self.tag_id
-        if self.user_group_id is not None:
-            result['UserGroupId'] = self.user_group_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('ApplicationId') is not None:
-            self.application_id = m.get('ApplicationId')
-        if m.get('CurrentPage') is not None:
-            self.current_page = m.get('CurrentPage')
-        if m.get('Name') is not None:
-            self.name = m.get('Name')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
-        if m.get('PolicyAction') is not None:
-            self.policy_action = m.get('PolicyAction')
-        if m.get('PolicyIds') is not None:
-            self.policy_ids_shrink = m.get('PolicyIds')
         if m.get('Status') is not None:
             self.status = m.get('Status')
         if m.get('TagId') is not None:
@@ -4230,56 +3951,6 @@ class ListPrivateAccessTagsRequest(TeaModel):
         return self
 
 
-class ListPrivateAccessTagsShrinkRequest(TeaModel):
-    def __init__(self, application_id=None, current_page=None, name=None, page_size=None, policy_id=None,
-                 tag_ids_shrink=None):
-        self.application_id = application_id  # type: str
-        self.current_page = current_page  # type: int
-        self.name = name  # type: str
-        self.page_size = page_size  # type: int
-        self.policy_id = policy_id  # type: str
-        self.tag_ids_shrink = tag_ids_shrink  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ListPrivateAccessTagsShrinkRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.application_id is not None:
-            result['ApplicationId'] = self.application_id
-        if self.current_page is not None:
-            result['CurrentPage'] = self.current_page
-        if self.name is not None:
-            result['Name'] = self.name
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
-        if self.policy_id is not None:
-            result['PolicyId'] = self.policy_id
-        if self.tag_ids_shrink is not None:
-            result['TagIds'] = self.tag_ids_shrink
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('ApplicationId') is not None:
-            self.application_id = m.get('ApplicationId')
-        if m.get('CurrentPage') is not None:
-            self.current_page = m.get('CurrentPage')
-        if m.get('Name') is not None:
-            self.name = m.get('Name')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
-        if m.get('PolicyId') is not None:
-            self.policy_id = m.get('PolicyId')
-        if m.get('TagIds') is not None:
-            self.tag_ids_shrink = m.get('TagIds')
-        return self
-
-
 class ListPrivateAccessTagsResponseBodyTags(TeaModel):
     def __init__(self, application_ids=None, create_time=None, description=None, name=None, policy_ids=None,
                  tag_id=None, tag_type=None):
@@ -4437,30 +4108,6 @@ class ListTagsForPrivateAccessApplicationRequest(TeaModel):
         m = m or dict()
         if m.get('ApplicationIds') is not None:
             self.application_ids = m.get('ApplicationIds')
-        return self
-
-
-class ListTagsForPrivateAccessApplicationShrinkRequest(TeaModel):
-    def __init__(self, application_ids_shrink=None):
-        self.application_ids_shrink = application_ids_shrink  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ListTagsForPrivateAccessApplicationShrinkRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.application_ids_shrink is not None:
-            result['ApplicationIds'] = self.application_ids_shrink
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('ApplicationIds') is not None:
-            self.application_ids_shrink = m.get('ApplicationIds')
         return self
 
 
@@ -4645,32 +4292,9 @@ class ListTagsForPrivateAccessPolicyRequest(TeaModel):
         return self
 
 
-class ListTagsForPrivateAccessPolicyShrinkRequest(TeaModel):
-    def __init__(self, policy_ids_shrink=None):
-        self.policy_ids_shrink = policy_ids_shrink  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ListTagsForPrivateAccessPolicyShrinkRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.policy_ids_shrink is not None:
-            result['PolicyIds'] = self.policy_ids_shrink
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('PolicyIds') is not None:
-            self.policy_ids_shrink = m.get('PolicyIds')
-        return self
-
-
 class ListTagsForPrivateAccessPolicyResponseBodyPolicesTags(TeaModel):
     def __init__(self, create_time=None, description=None, name=None, tag_id=None, tag_type=None):
+        # 内网访问标签创建时间。
         self.create_time = create_time  # type: str
         self.description = description  # type: str
         self.name = name  # type: str
@@ -4831,6 +4455,7 @@ class ListUserGroupsRequest(TeaModel):
                  user_group_ids=None):
         self.attribute_value = attribute_value  # type: str
         self.current_page = current_page  # type: int
+        # 用户组名称。长度为1~128个字符，支持中文和大小写英文字母，可包含数字、半角句号（.）、下划线（_）和短划线（-）。
         self.name = name  # type: str
         self.papolicy_id = papolicy_id  # type: str
         self.page_size = page_size  # type: int
@@ -4873,56 +4498,6 @@ class ListUserGroupsRequest(TeaModel):
             self.page_size = m.get('PageSize')
         if m.get('UserGroupIds') is not None:
             self.user_group_ids = m.get('UserGroupIds')
-        return self
-
-
-class ListUserGroupsShrinkRequest(TeaModel):
-    def __init__(self, attribute_value=None, current_page=None, name=None, papolicy_id=None, page_size=None,
-                 user_group_ids_shrink=None):
-        self.attribute_value = attribute_value  # type: str
-        self.current_page = current_page  # type: int
-        self.name = name  # type: str
-        self.papolicy_id = papolicy_id  # type: str
-        self.page_size = page_size  # type: int
-        self.user_group_ids_shrink = user_group_ids_shrink  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ListUserGroupsShrinkRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.attribute_value is not None:
-            result['AttributeValue'] = self.attribute_value
-        if self.current_page is not None:
-            result['CurrentPage'] = self.current_page
-        if self.name is not None:
-            result['Name'] = self.name
-        if self.papolicy_id is not None:
-            result['PAPolicyId'] = self.papolicy_id
-        if self.page_size is not None:
-            result['PageSize'] = self.page_size
-        if self.user_group_ids_shrink is not None:
-            result['UserGroupIds'] = self.user_group_ids_shrink
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('AttributeValue') is not None:
-            self.attribute_value = m.get('AttributeValue')
-        if m.get('CurrentPage') is not None:
-            self.current_page = m.get('CurrentPage')
-        if m.get('Name') is not None:
-            self.name = m.get('Name')
-        if m.get('PAPolicyId') is not None:
-            self.papolicy_id = m.get('PAPolicyId')
-        if m.get('PageSize') is not None:
-            self.page_size = m.get('PageSize')
-        if m.get('UserGroupIds') is not None:
-            self.user_group_ids_shrink = m.get('UserGroupIds')
         return self
 
 
@@ -5122,30 +4697,6 @@ class ListUserGroupsForPrivateAccessPolicyRequest(TeaModel):
         return self
 
 
-class ListUserGroupsForPrivateAccessPolicyShrinkRequest(TeaModel):
-    def __init__(self, policy_ids_shrink=None):
-        self.policy_ids_shrink = policy_ids_shrink  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ListUserGroupsForPrivateAccessPolicyShrinkRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.policy_ids_shrink is not None:
-            result['PolicyIds'] = self.policy_ids_shrink
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('PolicyIds') is not None:
-            self.policy_ids_shrink = m.get('PolicyIds')
-        return self
-
-
 class ListUserGroupsForPrivateAccessPolicyResponseBodyPolicesUserGroupsAttributes(TeaModel):
     def __init__(self, idp_id=None, relation=None, user_group_type=None, value=None):
         self.idp_id = idp_id  # type: int
@@ -5188,6 +4739,7 @@ class ListUserGroupsForPrivateAccessPolicyResponseBodyPolicesUserGroupsAttribute
 class ListUserGroupsForPrivateAccessPolicyResponseBodyPolicesUserGroups(TeaModel):
     def __init__(self, attributes=None, create_time=None, description=None, name=None, user_group_id=None):
         self.attributes = attributes  # type: list[ListUserGroupsForPrivateAccessPolicyResponseBodyPolicesUserGroupsAttributes]
+        # 用户组创建时间。
         self.create_time = create_time  # type: str
         self.description = description  # type: str
         self.name = name  # type: str
@@ -5622,8 +5174,12 @@ class UpdatePrivateAccessPolicyRequest(TeaModel):
         self.policy_id = policy_id  # type: str
         self.priority = priority  # type: int
         self.status = status  # type: str
+        # 内网访问标签ID集合。一条策略最多支持100个内网访问标签ID。
         self.tag_ids = tag_ids  # type: list[str]
         self.user_group_ids = user_group_ids  # type: list[str]
+        # 内网访问策略的用户组类型。取值：
+        # - **Normal**：普通用户组。
+        # - **Custom**：自定义用户组。
         self.user_group_mode = user_group_mode  # type: str
 
     def validate(self):
@@ -5711,8 +5267,12 @@ class UpdatePrivateAccessPolicyShrinkRequest(TeaModel):
         self.policy_id = policy_id  # type: str
         self.priority = priority  # type: int
         self.status = status  # type: str
+        # 内网访问标签ID集合。一条策略最多支持100个内网访问标签ID。
         self.tag_ids_shrink = tag_ids_shrink  # type: str
         self.user_group_ids_shrink = user_group_ids_shrink  # type: str
+        # 内网访问策略的用户组类型。取值：
+        # - **Normal**：普通用户组。
+        # - **Custom**：自定义用户组。
         self.user_group_mode = user_group_mode  # type: str
 
     def validate(self):
@@ -5919,45 +5479,6 @@ class UpdateUserGroupRequest(TeaModel):
             for k in m.get('Attributes'):
                 temp_model = UpdateUserGroupRequestAttributes()
                 self.attributes.append(temp_model.from_map(k))
-        if m.get('Description') is not None:
-            self.description = m.get('Description')
-        if m.get('ModifyType') is not None:
-            self.modify_type = m.get('ModifyType')
-        if m.get('UserGroupId') is not None:
-            self.user_group_id = m.get('UserGroupId')
-        return self
-
-
-class UpdateUserGroupShrinkRequest(TeaModel):
-    def __init__(self, attributes_shrink=None, description=None, modify_type=None, user_group_id=None):
-        self.attributes_shrink = attributes_shrink  # type: str
-        self.description = description  # type: str
-        self.modify_type = modify_type  # type: str
-        self.user_group_id = user_group_id  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(UpdateUserGroupShrinkRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.attributes_shrink is not None:
-            result['Attributes'] = self.attributes_shrink
-        if self.description is not None:
-            result['Description'] = self.description
-        if self.modify_type is not None:
-            result['ModifyType'] = self.modify_type
-        if self.user_group_id is not None:
-            result['UserGroupId'] = self.user_group_id
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Attributes') is not None:
-            self.attributes_shrink = m.get('Attributes')
         if m.get('Description') is not None:
             self.description = m.get('Description')
         if m.get('ModifyType') is not None:
