@@ -2445,6 +2445,8 @@ class Client(OpenApiClient):
             body['status'] = request.status
         if not UtilClient.is_unset(request.sub_corp_id_list_shrink):
             body['sub_corp_id_list'] = request.sub_corp_id_list_shrink
+        if not UtilClient.is_unset(request.sync_group):
+            body['sync_group'] = request.sync_group
         real_headers = {}
         if not UtilClient.is_unset(headers.common_headers):
             real_headers = headers.common_headers
