@@ -1975,7 +1975,7 @@ class CleanDistDataResponse(TeaModel):
 class CreateARMServerInstancesRequest(TeaModel):
     def __init__(self, amount=None, auto_renew=None, ens_region_id=None, frequency=None, image_id=None,
                  instance_type=None, key_pair_name=None, name_space=None, pay_type=None, period=None, period_unit=None,
-                 resolution=None, server_type=None):
+                 resolution=None, server_name=None, server_type=None):
         self.amount = amount  # type: int
         self.auto_renew = auto_renew  # type: bool
         self.ens_region_id = ens_region_id  # type: str
@@ -1988,6 +1988,7 @@ class CreateARMServerInstancesRequest(TeaModel):
         self.period = period  # type: int
         self.period_unit = period_unit  # type: str
         self.resolution = resolution  # type: str
+        self.server_name = server_name  # type: str
         self.server_type = server_type  # type: str
 
     def validate(self):
@@ -2023,6 +2024,8 @@ class CreateARMServerInstancesRequest(TeaModel):
             result['PeriodUnit'] = self.period_unit
         if self.resolution is not None:
             result['Resolution'] = self.resolution
+        if self.server_name is not None:
+            result['ServerName'] = self.server_name
         if self.server_type is not None:
             result['ServerType'] = self.server_type
         return result
@@ -2053,6 +2056,8 @@ class CreateARMServerInstancesRequest(TeaModel):
             self.period_unit = m.get('PeriodUnit')
         if m.get('Resolution') is not None:
             self.resolution = m.get('Resolution')
+        if m.get('ServerName') is not None:
+            self.server_name = m.get('ServerName')
         if m.get('ServerType') is not None:
             self.server_type = m.get('ServerType')
         return self
@@ -24598,7 +24603,8 @@ class DescribeRegionBandwidthQuotaRequest(TeaModel):
 
 
 class DescribeRegionBandwidthQuotaResponseBodyBandwidthQuotaBandwidthInfo(TeaModel):
-    def __init__(self, month_average_quota=None, month_max=None, week_average_quota=None, week_max=None):
+    def __init__(self, isp=None, month_average_quota=None, month_max=None, week_average_quota=None, week_max=None):
+        self.isp = isp  # type: str
         self.month_average_quota = month_average_quota  # type: long
         self.month_max = month_max  # type: long
         self.week_average_quota = week_average_quota  # type: long
@@ -24613,6 +24619,8 @@ class DescribeRegionBandwidthQuotaResponseBodyBandwidthQuotaBandwidthInfo(TeaMod
             return _map
 
         result = dict()
+        if self.isp is not None:
+            result['Isp'] = self.isp
         if self.month_average_quota is not None:
             result['MonthAverageQuota'] = self.month_average_quota
         if self.month_max is not None:
@@ -24625,6 +24633,8 @@ class DescribeRegionBandwidthQuotaResponseBodyBandwidthQuotaBandwidthInfo(TeaMod
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Isp') is not None:
+            self.isp = m.get('Isp')
         if m.get('MonthAverageQuota') is not None:
             self.month_average_quota = m.get('MonthAverageQuota')
         if m.get('MonthMax') is not None:
@@ -24667,14 +24677,16 @@ class DescribeRegionBandwidthQuotaResponseBodyBandwidthQuotaInstanceInfo(TeaMode
 
 class DescribeRegionBandwidthQuotaResponseBodyBandwidthQuota(TeaModel):
     def __init__(self, bandwidth_info=None, date=None, instance_info=None, region_id=None):
-        self.bandwidth_info = bandwidth_info  # type: DescribeRegionBandwidthQuotaResponseBodyBandwidthQuotaBandwidthInfo
+        self.bandwidth_info = bandwidth_info  # type: list[DescribeRegionBandwidthQuotaResponseBodyBandwidthQuotaBandwidthInfo]
         self.date = date  # type: str
         self.instance_info = instance_info  # type: list[DescribeRegionBandwidthQuotaResponseBodyBandwidthQuotaInstanceInfo]
         self.region_id = region_id  # type: str
 
     def validate(self):
         if self.bandwidth_info:
-            self.bandwidth_info.validate()
+            for k in self.bandwidth_info:
+                if k:
+                    k.validate()
         if self.instance_info:
             for k in self.instance_info:
                 if k:
@@ -24686,8 +24698,10 @@ class DescribeRegionBandwidthQuotaResponseBodyBandwidthQuota(TeaModel):
             return _map
 
         result = dict()
+        result['BandwidthInfo'] = []
         if self.bandwidth_info is not None:
-            result['BandwidthInfo'] = self.bandwidth_info.to_map()
+            for k in self.bandwidth_info:
+                result['BandwidthInfo'].append(k.to_map() if k else None)
         if self.date is not None:
             result['Date'] = self.date
         result['InstanceInfo'] = []
@@ -24700,9 +24714,11 @@ class DescribeRegionBandwidthQuotaResponseBodyBandwidthQuota(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        self.bandwidth_info = []
         if m.get('BandwidthInfo') is not None:
-            temp_model = DescribeRegionBandwidthQuotaResponseBodyBandwidthQuotaBandwidthInfo()
-            self.bandwidth_info = temp_model.from_map(m['BandwidthInfo'])
+            for k in m.get('BandwidthInfo'):
+                temp_model = DescribeRegionBandwidthQuotaResponseBodyBandwidthQuotaBandwidthInfo()
+                self.bandwidth_info.append(temp_model.from_map(k))
         if m.get('Date') is not None:
             self.date = m.get('Date')
         self.instance_info = []
@@ -28790,6 +28806,453 @@ class DescribeVSwitchesResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeVSwitchesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeWorkflowRequest(TeaModel):
+    def __init__(self, ali_uid=None, business_id=None, end_date=None, ens_region_id=None, id=None, instance_id=None,
+                 page_num=None, page_size=None, start_date=None, status=None, work_flow_id=None, work_flow_name=None):
+        self.ali_uid = ali_uid  # type: str
+        self.business_id = business_id  # type: str
+        self.end_date = end_date  # type: str
+        self.ens_region_id = ens_region_id  # type: str
+        self.id = id  # type: str
+        self.instance_id = instance_id  # type: str
+        self.page_num = page_num  # type: str
+        self.page_size = page_size  # type: str
+        self.start_date = start_date  # type: str
+        self.status = status  # type: str
+        self.work_flow_id = work_flow_id  # type: str
+        self.work_flow_name = work_flow_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeWorkflowRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ali_uid is not None:
+            result['AliUid'] = self.ali_uid
+        if self.business_id is not None:
+            result['BusinessId'] = self.business_id
+        if self.end_date is not None:
+            result['EndDate'] = self.end_date
+        if self.ens_region_id is not None:
+            result['EnsRegionId'] = self.ens_region_id
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.page_num is not None:
+            result['PageNum'] = self.page_num
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.start_date is not None:
+            result['StartDate'] = self.start_date
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.work_flow_id is not None:
+            result['WorkFlowId'] = self.work_flow_id
+        if self.work_flow_name is not None:
+            result['WorkFlowName'] = self.work_flow_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AliUid') is not None:
+            self.ali_uid = m.get('AliUid')
+        if m.get('BusinessId') is not None:
+            self.business_id = m.get('BusinessId')
+        if m.get('EndDate') is not None:
+            self.end_date = m.get('EndDate')
+        if m.get('EnsRegionId') is not None:
+            self.ens_region_id = m.get('EnsRegionId')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('PageNum') is not None:
+            self.page_num = m.get('PageNum')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('StartDate') is not None:
+            self.start_date = m.get('StartDate')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('WorkFlowId') is not None:
+            self.work_flow_id = m.get('WorkFlowId')
+        if m.get('WorkFlowName') is not None:
+            self.work_flow_name = m.get('WorkFlowName')
+        return self
+
+
+class DescribeWorkflowResponseBodyWorkFlowInfo(TeaModel):
+    def __init__(self, ali_uid=None, biz_type=None, bussiness_id=None, duration=None, ens_region_id=None,
+                 gmt_create=None, gmt_end=None, gmt_expire=None, gmt_modify=None, gmt_start=None, id=None, init_attributes=None,
+                 instance_id=None, name=None, priority=None, status=None, worker_node=None, workflow_id=None):
+        self.ali_uid = ali_uid  # type: str
+        self.biz_type = biz_type  # type: str
+        self.bussiness_id = bussiness_id  # type: str
+        self.duration = duration  # type: str
+        self.ens_region_id = ens_region_id  # type: str
+        self.gmt_create = gmt_create  # type: str
+        self.gmt_end = gmt_end  # type: str
+        self.gmt_expire = gmt_expire  # type: str
+        self.gmt_modify = gmt_modify  # type: str
+        self.gmt_start = gmt_start  # type: str
+        self.id = id  # type: str
+        self.init_attributes = init_attributes  # type: str
+        self.instance_id = instance_id  # type: str
+        self.name = name  # type: str
+        self.priority = priority  # type: str
+        self.status = status  # type: str
+        self.worker_node = worker_node  # type: str
+        self.workflow_id = workflow_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeWorkflowResponseBodyWorkFlowInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ali_uid is not None:
+            result['AliUid'] = self.ali_uid
+        if self.biz_type is not None:
+            result['BizType'] = self.biz_type
+        if self.bussiness_id is not None:
+            result['BussinessId'] = self.bussiness_id
+        if self.duration is not None:
+            result['Duration'] = self.duration
+        if self.ens_region_id is not None:
+            result['EnsRegionId'] = self.ens_region_id
+        if self.gmt_create is not None:
+            result['GmtCreate'] = self.gmt_create
+        if self.gmt_end is not None:
+            result['GmtEnd'] = self.gmt_end
+        if self.gmt_expire is not None:
+            result['GmtExpire'] = self.gmt_expire
+        if self.gmt_modify is not None:
+            result['GmtModify'] = self.gmt_modify
+        if self.gmt_start is not None:
+            result['GmtStart'] = self.gmt_start
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.init_attributes is not None:
+            result['InitAttributes'] = self.init_attributes
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.priority is not None:
+            result['Priority'] = self.priority
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.worker_node is not None:
+            result['WorkerNode'] = self.worker_node
+        if self.workflow_id is not None:
+            result['WorkflowId'] = self.workflow_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AliUid') is not None:
+            self.ali_uid = m.get('AliUid')
+        if m.get('BizType') is not None:
+            self.biz_type = m.get('BizType')
+        if m.get('BussinessId') is not None:
+            self.bussiness_id = m.get('BussinessId')
+        if m.get('Duration') is not None:
+            self.duration = m.get('Duration')
+        if m.get('EnsRegionId') is not None:
+            self.ens_region_id = m.get('EnsRegionId')
+        if m.get('GmtCreate') is not None:
+            self.gmt_create = m.get('GmtCreate')
+        if m.get('GmtEnd') is not None:
+            self.gmt_end = m.get('GmtEnd')
+        if m.get('GmtExpire') is not None:
+            self.gmt_expire = m.get('GmtExpire')
+        if m.get('GmtModify') is not None:
+            self.gmt_modify = m.get('GmtModify')
+        if m.get('GmtStart') is not None:
+            self.gmt_start = m.get('GmtStart')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('InitAttributes') is not None:
+            self.init_attributes = m.get('InitAttributes')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('Priority') is not None:
+            self.priority = m.get('Priority')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('WorkerNode') is not None:
+            self.worker_node = m.get('WorkerNode')
+        if m.get('WorkflowId') is not None:
+            self.workflow_id = m.get('WorkflowId')
+        return self
+
+
+class DescribeWorkflowResponseBody(TeaModel):
+    def __init__(self, request_id=None, work_flow_info=None):
+        self.request_id = request_id  # type: str
+        self.work_flow_info = work_flow_info  # type: list[DescribeWorkflowResponseBodyWorkFlowInfo]
+
+    def validate(self):
+        if self.work_flow_info:
+            for k in self.work_flow_info:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeWorkflowResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        result['WorkFlowInfo'] = []
+        if self.work_flow_info is not None:
+            for k in self.work_flow_info:
+                result['WorkFlowInfo'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        self.work_flow_info = []
+        if m.get('WorkFlowInfo') is not None:
+            for k in m.get('WorkFlowInfo'):
+                temp_model = DescribeWorkflowResponseBodyWorkFlowInfo()
+                self.work_flow_info.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeWorkflowResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeWorkflowResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeWorkflowResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeWorkflowResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeWorkflowActivityRequest(TeaModel):
+    def __init__(self, work_flow_id=None):
+        self.work_flow_id = work_flow_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeWorkflowActivityRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.work_flow_id is not None:
+            result['WorkFlowId'] = self.work_flow_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('WorkFlowId') is not None:
+            self.work_flow_id = m.get('WorkFlowId')
+        return self
+
+
+class DescribeWorkflowActivityResponseBodyActivityInfo(TeaModel):
+    def __init__(self, activity_id=None, activity_name=None, duration=None, error=None, gmt_create=None,
+                 gmt_end=None, gmt_start=None, input=None, method=None, output=None, state=None, worker_node=None):
+        self.activity_id = activity_id  # type: str
+        self.activity_name = activity_name  # type: str
+        self.duration = duration  # type: str
+        self.error = error  # type: str
+        self.gmt_create = gmt_create  # type: str
+        self.gmt_end = gmt_end  # type: str
+        self.gmt_start = gmt_start  # type: str
+        self.input = input  # type: str
+        self.method = method  # type: str
+        self.output = output  # type: str
+        self.state = state  # type: str
+        self.worker_node = worker_node  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeWorkflowActivityResponseBodyActivityInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.activity_id is not None:
+            result['ActivityId'] = self.activity_id
+        if self.activity_name is not None:
+            result['ActivityName'] = self.activity_name
+        if self.duration is not None:
+            result['Duration'] = self.duration
+        if self.error is not None:
+            result['Error'] = self.error
+        if self.gmt_create is not None:
+            result['GmtCreate'] = self.gmt_create
+        if self.gmt_end is not None:
+            result['GmtEnd'] = self.gmt_end
+        if self.gmt_start is not None:
+            result['GmtStart'] = self.gmt_start
+        if self.input is not None:
+            result['Input'] = self.input
+        if self.method is not None:
+            result['Method'] = self.method
+        if self.output is not None:
+            result['Output'] = self.output
+        if self.state is not None:
+            result['State'] = self.state
+        if self.worker_node is not None:
+            result['WorkerNode'] = self.worker_node
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ActivityId') is not None:
+            self.activity_id = m.get('ActivityId')
+        if m.get('ActivityName') is not None:
+            self.activity_name = m.get('ActivityName')
+        if m.get('Duration') is not None:
+            self.duration = m.get('Duration')
+        if m.get('Error') is not None:
+            self.error = m.get('Error')
+        if m.get('GmtCreate') is not None:
+            self.gmt_create = m.get('GmtCreate')
+        if m.get('GmtEnd') is not None:
+            self.gmt_end = m.get('GmtEnd')
+        if m.get('GmtStart') is not None:
+            self.gmt_start = m.get('GmtStart')
+        if m.get('Input') is not None:
+            self.input = m.get('Input')
+        if m.get('Method') is not None:
+            self.method = m.get('Method')
+        if m.get('Output') is not None:
+            self.output = m.get('Output')
+        if m.get('State') is not None:
+            self.state = m.get('State')
+        if m.get('WorkerNode') is not None:
+            self.worker_node = m.get('WorkerNode')
+        return self
+
+
+class DescribeWorkflowActivityResponseBody(TeaModel):
+    def __init__(self, activity_info=None, request_id=None):
+        self.activity_info = activity_info  # type: list[DescribeWorkflowActivityResponseBodyActivityInfo]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.activity_info:
+            for k in self.activity_info:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeWorkflowActivityResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['ActivityInfo'] = []
+        if self.activity_info is not None:
+            for k in self.activity_info:
+                result['ActivityInfo'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.activity_info = []
+        if m.get('ActivityInfo') is not None:
+            for k in m.get('ActivityInfo'):
+                temp_model = DescribeWorkflowActivityResponseBodyActivityInfo()
+                self.activity_info.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeWorkflowActivityResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeWorkflowActivityResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeWorkflowActivityResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeWorkflowActivityResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -34917,6 +35380,228 @@ class RestartDeviceInstanceResponse(TeaModel):
         return self
 
 
+class RestartWorkflowRequest(TeaModel):
+    def __init__(self, workflow_ids=None):
+        self.workflow_ids = workflow_ids  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RestartWorkflowRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.workflow_ids is not None:
+            result['WorkflowIds'] = self.workflow_ids
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('WorkflowIds') is not None:
+            self.workflow_ids = m.get('WorkflowIds')
+        return self
+
+
+class RestartWorkflowShrinkRequest(TeaModel):
+    def __init__(self, workflow_ids_shrink=None):
+        self.workflow_ids_shrink = workflow_ids_shrink  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RestartWorkflowShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.workflow_ids_shrink is not None:
+            result['WorkflowIds'] = self.workflow_ids_shrink
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('WorkflowIds') is not None:
+            self.workflow_ids_shrink = m.get('WorkflowIds')
+        return self
+
+
+class RestartWorkflowResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RestartWorkflowResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class RestartWorkflowResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: RestartWorkflowResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(RestartWorkflowResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = RestartWorkflowResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class RetryWorkflowRequest(TeaModel):
+    def __init__(self, workflow_ids=None):
+        self.workflow_ids = workflow_ids  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RetryWorkflowRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.workflow_ids is not None:
+            result['WorkflowIds'] = self.workflow_ids
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('WorkflowIds') is not None:
+            self.workflow_ids = m.get('WorkflowIds')
+        return self
+
+
+class RetryWorkflowShrinkRequest(TeaModel):
+    def __init__(self, workflow_ids_shrink=None):
+        self.workflow_ids_shrink = workflow_ids_shrink  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RetryWorkflowShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.workflow_ids_shrink is not None:
+            result['WorkflowIds'] = self.workflow_ids_shrink
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('WorkflowIds') is not None:
+            self.workflow_ids_shrink = m.get('WorkflowIds')
+        return self
+
+
+class RetryWorkflowResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RetryWorkflowResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class RetryWorkflowResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: RetryWorkflowResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(RetryWorkflowResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = RetryWorkflowResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class RevokeSecurityGroupRequest(TeaModel):
     def __init__(self, ip_protocol=None, policy=None, port_range=None, priority=None, security_group_id=None,
                  source_cidr_ip=None, source_port_range=None, version=None):
@@ -35266,6 +35951,117 @@ class RollbackApplicationResponse(TeaModel):
         return self
 
 
+class RollbackWorkflowRequest(TeaModel):
+    def __init__(self, workflow_ids=None):
+        self.workflow_ids = workflow_ids  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RollbackWorkflowRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.workflow_ids is not None:
+            result['WorkflowIds'] = self.workflow_ids
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('WorkflowIds') is not None:
+            self.workflow_ids = m.get('WorkflowIds')
+        return self
+
+
+class RollbackWorkflowShrinkRequest(TeaModel):
+    def __init__(self, workflow_ids_shrink=None):
+        self.workflow_ids_shrink = workflow_ids_shrink  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RollbackWorkflowShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.workflow_ids_shrink is not None:
+            result['WorkflowIds'] = self.workflow_ids_shrink
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('WorkflowIds') is not None:
+            self.workflow_ids_shrink = m.get('WorkflowIds')
+        return self
+
+
+class RollbackWorkflowResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RollbackWorkflowResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class RollbackWorkflowResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: RollbackWorkflowResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(RollbackWorkflowResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = RollbackWorkflowResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class RunInstancesRequestDataDisk(TeaModel):
     def __init__(self, category=None, size=None):
         self.category = category  # type: str
@@ -35296,7 +36092,8 @@ class RunInstancesRequestDataDisk(TeaModel):
 
 
 class RunInstancesRequestSystemDisk(TeaModel):
-    def __init__(self, size=None):
+    def __init__(self, category=None, size=None):
+        self.category = category  # type: str
         self.size = size  # type: long
 
     def validate(self):
@@ -35308,12 +36105,16 @@ class RunInstancesRequestSystemDisk(TeaModel):
             return _map
 
         result = dict()
+        if self.category is not None:
+            result['Category'] = self.category
         if self.size is not None:
             result['Size'] = self.size
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Category') is not None:
+            self.category = m.get('Category')
         if m.get('Size') is not None:
             self.size = m.get('Size')
         return self
@@ -37958,6 +38759,117 @@ class StopSnatIpForSnatEntryResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = StopSnatIpForSnatEntryResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class TerminateWorkflowRequest(TeaModel):
+    def __init__(self, workflow_ids=None):
+        self.workflow_ids = workflow_ids  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(TerminateWorkflowRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.workflow_ids is not None:
+            result['WorkflowIds'] = self.workflow_ids
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('WorkflowIds') is not None:
+            self.workflow_ids = m.get('WorkflowIds')
+        return self
+
+
+class TerminateWorkflowShrinkRequest(TeaModel):
+    def __init__(self, workflow_ids_shrink=None):
+        self.workflow_ids_shrink = workflow_ids_shrink  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(TerminateWorkflowShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.workflow_ids_shrink is not None:
+            result['WorkflowIds'] = self.workflow_ids_shrink
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('WorkflowIds') is not None:
+            self.workflow_ids_shrink = m.get('WorkflowIds')
+        return self
+
+
+class TerminateWorkflowResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(TerminateWorkflowResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class TerminateWorkflowResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: TerminateWorkflowResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(TerminateWorkflowResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = TerminateWorkflowResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
