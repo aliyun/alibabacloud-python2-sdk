@@ -1654,10 +1654,11 @@ class SubmitConvertPdfToWordJobResponse(TeaModel):
 
 
 class SubmitDocStructureJobRequest(TeaModel):
-    def __init__(self, file_name=None, file_name_extension=None, file_url=None):
+    def __init__(self, file_name=None, file_name_extension=None, file_url=None, structure_type=None):
         self.file_name = file_name  # type: str
         self.file_name_extension = file_name_extension  # type: str
         self.file_url = file_url  # type: str
+        self.structure_type = structure_type  # type: str
 
     def validate(self):
         pass
@@ -1674,6 +1675,8 @@ class SubmitDocStructureJobRequest(TeaModel):
             result['FileNameExtension'] = self.file_name_extension
         if self.file_url is not None:
             result['FileUrl'] = self.file_url
+        if self.structure_type is not None:
+            result['StructureType'] = self.structure_type
         return result
 
     def from_map(self, m=None):
@@ -1684,14 +1687,17 @@ class SubmitDocStructureJobRequest(TeaModel):
             self.file_name_extension = m.get('FileNameExtension')
         if m.get('FileUrl') is not None:
             self.file_url = m.get('FileUrl')
+        if m.get('StructureType') is not None:
+            self.structure_type = m.get('StructureType')
         return self
 
 
 class SubmitDocStructureJobAdvanceRequest(TeaModel):
-    def __init__(self, file_name=None, file_name_extension=None, file_url_object=None):
+    def __init__(self, file_name=None, file_name_extension=None, file_url_object=None, structure_type=None):
         self.file_name = file_name  # type: str
         self.file_name_extension = file_name_extension  # type: str
         self.file_url_object = file_url_object  # type: READABLE
+        self.structure_type = structure_type  # type: str
 
     def validate(self):
         pass
@@ -1708,6 +1714,8 @@ class SubmitDocStructureJobAdvanceRequest(TeaModel):
             result['FileNameExtension'] = self.file_name_extension
         if self.file_url_object is not None:
             result['FileUrl'] = self.file_url_object
+        if self.structure_type is not None:
+            result['StructureType'] = self.structure_type
         return result
 
     def from_map(self, m=None):
@@ -1718,6 +1726,8 @@ class SubmitDocStructureJobAdvanceRequest(TeaModel):
             self.file_name_extension = m.get('FileNameExtension')
         if m.get('FileUrl') is not None:
             self.file_url_object = m.get('FileUrl')
+        if m.get('StructureType') is not None:
+            self.structure_type = m.get('StructureType')
         return self
 
 
