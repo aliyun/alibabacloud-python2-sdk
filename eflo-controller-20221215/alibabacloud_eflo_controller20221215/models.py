@@ -512,7 +512,9 @@ class CreateClusterRequestNetworksNewVpdInfo(TeaModel):
 
 class CreateClusterRequestNetworksVpdInfo(TeaModel):
     def __init__(self, vpd_id=None, vpd_subnets=None):
+        # 专有网络 id
         self.vpd_id = vpd_id  # type: str
+        # 集群子网id列表
         self.vpd_subnets = vpd_subnets  # type: list[str]
 
     def validate(self):
@@ -543,6 +545,7 @@ class CreateClusterRequestNetworks(TeaModel):
     def __init__(self, ip_allocation_policy=None, new_vpd_info=None, vpd_info=None):
         self.ip_allocation_policy = ip_allocation_policy  # type: list[CreateClusterRequestNetworksIpAllocationPolicy]
         self.new_vpd_info = new_vpd_info  # type: CreateClusterRequestNetworksNewVpdInfo
+        # 复用VPD信息
         self.vpd_info = vpd_info  # type: CreateClusterRequestNetworksVpdInfo
 
     def validate(self):
@@ -1361,6 +1364,7 @@ class DescribeNodeResponseBody(TeaModel):
         self.expired_time = expired_time  # type: str
         self.hostname = hostname  # type: str
         self.image_id = image_id  # type: str
+        # 镜像名称
         self.image_name = image_name  # type: str
         self.machine_type = machine_type  # type: str
         self.networks = networks  # type: list[DescribeNodeResponseBodyNetworks]
@@ -1771,12 +1775,13 @@ class DescribeTaskResponseBodySteps(TeaModel):
 
 
 class DescribeTaskResponseBody(TeaModel):
-    def __init__(self, cluster_id=None, cluster_name=None, create_time=None, message=None, request_id=None,
-                 steps=None, task_state=None, task_type=None, update_time=None):
+    def __init__(self, cluster_id=None, cluster_name=None, create_time=None, message=None, node_ids=None,
+                 request_id=None, steps=None, task_state=None, task_type=None, update_time=None):
         self.cluster_id = cluster_id  # type: str
         self.cluster_name = cluster_name  # type: str
         self.create_time = create_time  # type: str
         self.message = message  # type: str
+        self.node_ids = node_ids  # type: list[str]
         self.request_id = request_id  # type: str
         self.steps = steps  # type: list[DescribeTaskResponseBodySteps]
         self.task_state = task_state  # type: str
@@ -1803,6 +1808,8 @@ class DescribeTaskResponseBody(TeaModel):
             result['CreateTime'] = self.create_time
         if self.message is not None:
             result['Message'] = self.message
+        if self.node_ids is not None:
+            result['NodeIds'] = self.node_ids
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         result['Steps'] = []
@@ -1827,6 +1834,8 @@ class DescribeTaskResponseBody(TeaModel):
             self.create_time = m.get('CreateTime')
         if m.get('Message') is not None:
             self.message = m.get('Message')
+        if m.get('NodeIds') is not None:
+            self.node_ids = m.get('NodeIds')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         self.steps = []
