@@ -36254,7 +36254,7 @@ class InvoiceAddHeaders(TeaModel):
 
 class InvoiceAddRequest(TeaModel):
     def __init__(self, address=None, bank_name=None, bank_no=None, tax_no=None, tel=None, third_part_id=None,
-                 title=None, type=None):
+                 title=None, type=None, unit_type=None):
         self.address = address  # type: str
         self.bank_name = bank_name  # type: str
         self.bank_no = bank_no  # type: str
@@ -36263,6 +36263,7 @@ class InvoiceAddRequest(TeaModel):
         self.third_part_id = third_part_id  # type: str
         self.title = title  # type: str
         self.type = type  # type: int
+        self.unit_type = unit_type  # type: int
 
     def validate(self):
         pass
@@ -36289,6 +36290,8 @@ class InvoiceAddRequest(TeaModel):
             result['title'] = self.title
         if self.type is not None:
             result['type'] = self.type
+        if self.unit_type is not None:
+            result['unit_type'] = self.unit_type
         return result
 
     def from_map(self, m=None):
@@ -36309,6 +36312,8 @@ class InvoiceAddRequest(TeaModel):
             self.title = m.get('title')
         if m.get('type') is not None:
             self.type = m.get('type')
+        if m.get('unit_type') is not None:
+            self.unit_type = m.get('unit_type')
         return self
 
 
@@ -36564,7 +36569,7 @@ class InvoiceModifyHeaders(TeaModel):
 
 class InvoiceModifyRequest(TeaModel):
     def __init__(self, address=None, bank_name=None, bank_no=None, tax_no=None, tel=None, third_part_id=None,
-                 title=None, type=None):
+                 title=None, type=None, unit_type=None):
         self.address = address  # type: str
         self.bank_name = bank_name  # type: str
         self.bank_no = bank_no  # type: str
@@ -36573,6 +36578,7 @@ class InvoiceModifyRequest(TeaModel):
         self.third_part_id = third_part_id  # type: str
         self.title = title  # type: str
         self.type = type  # type: int
+        self.unit_type = unit_type  # type: int
 
     def validate(self):
         pass
@@ -36599,6 +36605,8 @@ class InvoiceModifyRequest(TeaModel):
             result['title'] = self.title
         if self.type is not None:
             result['type'] = self.type
+        if self.unit_type is not None:
+            result['unit_type'] = self.unit_type
         return result
 
     def from_map(self, m=None):
@@ -36619,6 +36627,8 @@ class InvoiceModifyRequest(TeaModel):
             self.title = m.get('title')
         if m.get('type') is not None:
             self.type = m.get('type')
+        if m.get('unit_type') is not None:
+            self.unit_type = m.get('unit_type')
         return self
 
 
