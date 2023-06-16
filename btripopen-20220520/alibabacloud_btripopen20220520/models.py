@@ -39096,12 +39096,68 @@ class QueryReimbursementOrderRequest(TeaModel):
         return self
 
 
+class QueryReimbursementOrderResponseBodyModuleExpensesExpenseCompositions(TeaModel):
+    def __init__(self, bill_settlement_id=None, fee_type=None, remark=None, remind_tag_list=None,
+                 settlement_amount=None, settlement_time=None, voucher_type=None):
+        self.bill_settlement_id = bill_settlement_id  # type: long
+        self.fee_type = fee_type  # type: str
+        self.remark = remark  # type: str
+        self.remind_tag_list = remind_tag_list  # type: list[str]
+        self.settlement_amount = settlement_amount  # type: str
+        self.settlement_time = settlement_time  # type: str
+        self.voucher_type = voucher_type  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryReimbursementOrderResponseBodyModuleExpensesExpenseCompositions, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.bill_settlement_id is not None:
+            result['bill_settlement_id'] = self.bill_settlement_id
+        if self.fee_type is not None:
+            result['fee_type'] = self.fee_type
+        if self.remark is not None:
+            result['remark'] = self.remark
+        if self.remind_tag_list is not None:
+            result['remind_tag_list'] = self.remind_tag_list
+        if self.settlement_amount is not None:
+            result['settlement_amount'] = self.settlement_amount
+        if self.settlement_time is not None:
+            result['settlement_time'] = self.settlement_time
+        if self.voucher_type is not None:
+            result['voucher_type'] = self.voucher_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('bill_settlement_id') is not None:
+            self.bill_settlement_id = m.get('bill_settlement_id')
+        if m.get('fee_type') is not None:
+            self.fee_type = m.get('fee_type')
+        if m.get('remark') is not None:
+            self.remark = m.get('remark')
+        if m.get('remind_tag_list') is not None:
+            self.remind_tag_list = m.get('remind_tag_list')
+        if m.get('settlement_amount') is not None:
+            self.settlement_amount = m.get('settlement_amount')
+        if m.get('settlement_time') is not None:
+            self.settlement_time = m.get('settlement_time')
+        if m.get('voucher_type') is not None:
+            self.voucher_type = m.get('voucher_type')
+        return self
+
+
 class QueryReimbursementOrderResponseBodyModuleExpenses(TeaModel):
-    def __init__(self, amount=None, currency=None, expense_city=None, expense_time=None, expense_type=None,
-                 expense_type_code=None, reimb_expense_id=None, remark=None, settlement_type=None):
+    def __init__(self, amount=None, currency=None, expense_city=None, expense_compositions=None, expense_time=None,
+                 expense_type=None, expense_type_code=None, reimb_expense_id=None, remark=None, settlement_type=None):
         self.amount = amount  # type: str
         self.currency = currency  # type: str
         self.expense_city = expense_city  # type: str
+        self.expense_compositions = expense_compositions  # type: list[QueryReimbursementOrderResponseBodyModuleExpensesExpenseCompositions]
         self.expense_time = expense_time  # type: str
         self.expense_type = expense_type  # type: str
         self.expense_type_code = expense_type_code  # type: str
@@ -39110,7 +39166,10 @@ class QueryReimbursementOrderResponseBodyModuleExpenses(TeaModel):
         self.settlement_type = settlement_type  # type: str
 
     def validate(self):
-        pass
+        if self.expense_compositions:
+            for k in self.expense_compositions:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(QueryReimbursementOrderResponseBodyModuleExpenses, self).to_map()
@@ -39124,6 +39183,10 @@ class QueryReimbursementOrderResponseBodyModuleExpenses(TeaModel):
             result['currency'] = self.currency
         if self.expense_city is not None:
             result['expense_city'] = self.expense_city
+        result['expense_compositions'] = []
+        if self.expense_compositions is not None:
+            for k in self.expense_compositions:
+                result['expense_compositions'].append(k.to_map() if k else None)
         if self.expense_time is not None:
             result['expense_time'] = self.expense_time
         if self.expense_type is not None:
@@ -39146,6 +39209,11 @@ class QueryReimbursementOrderResponseBodyModuleExpenses(TeaModel):
             self.currency = m.get('currency')
         if m.get('expense_city') is not None:
             self.expense_city = m.get('expense_city')
+        self.expense_compositions = []
+        if m.get('expense_compositions') is not None:
+            for k in m.get('expense_compositions'):
+                temp_model = QueryReimbursementOrderResponseBodyModuleExpensesExpenseCompositions()
+                self.expense_compositions.append(temp_model.from_map(k))
         if m.get('expense_time') is not None:
             self.expense_time = m.get('expense_time')
         if m.get('expense_type') is not None:
