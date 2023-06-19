@@ -8883,9 +8883,10 @@ class DescribeApiGroupResponseBody(TeaModel):
                  cloud_market_commodity=None, cms_monitor_group=None, compatible_flags=None, created_time=None, custom_domains=None,
                  custom_trace_config=None, customer_configs=None, dedicated_instance_type=None, default_domain=None, description=None,
                  group_id=None, group_name=None, https_policy=None, illegal_status=None, instance_id=None,
-                 instance_type=None, instance_vip_list=None, ipv_6status=None, modified_time=None, passthrough_headers=None,
-                 region_id=None, request_id=None, rpc_pattern=None, stage_items=None, status=None, sub_domain=None,
-                 traffic_limit=None, user_log_config=None, vpc_domain=None, vpc_slb_intranet_domain=None):
+                 instance_type=None, instance_vip_list=None, ipv_6status=None, migration_error=None, migration_status=None,
+                 modified_time=None, passthrough_headers=None, region_id=None, request_id=None, rpc_pattern=None,
+                 stage_items=None, status=None, sub_domain=None, traffic_limit=None, user_log_config=None, vpc_domain=None,
+                 vpc_slb_intranet_domain=None):
         # The root path of the API.
         self.base_path = base_path  # type: str
         # The billing status of the API group.
@@ -8937,6 +8938,8 @@ class DescribeApiGroupResponseBody(TeaModel):
         self.instance_vip_list = instance_vip_list  # type: str
         # The IPv6 status.
         self.ipv_6status = ipv_6status  # type: str
+        self.migration_error = migration_error  # type: str
+        self.migration_status = migration_status  # type: str
         # The last modification time (UTC) of the API group.
         self.modified_time = modified_time  # type: str
         # Specifies whether to pass headers.
@@ -9019,6 +9022,10 @@ class DescribeApiGroupResponseBody(TeaModel):
             result['InstanceVipList'] = self.instance_vip_list
         if self.ipv_6status is not None:
             result['Ipv6Status'] = self.ipv_6status
+        if self.migration_error is not None:
+            result['MigrationError'] = self.migration_error
+        if self.migration_status is not None:
+            result['MigrationStatus'] = self.migration_status
         if self.modified_time is not None:
             result['ModifiedTime'] = self.modified_time
         if self.passthrough_headers is not None:
@@ -9090,6 +9097,10 @@ class DescribeApiGroupResponseBody(TeaModel):
             self.instance_vip_list = m.get('InstanceVipList')
         if m.get('Ipv6Status') is not None:
             self.ipv_6status = m.get('Ipv6Status')
+        if m.get('MigrationError') is not None:
+            self.migration_error = m.get('MigrationError')
+        if m.get('MigrationStatus') is not None:
+            self.migration_status = m.get('MigrationStatus')
         if m.get('ModifiedTime') is not None:
             self.modified_time = m.get('ModifiedTime')
         if m.get('PassthroughHeaders') is not None:
@@ -16148,6 +16159,107 @@ class DescribeBackendInfoRequest(TeaModel):
         return self
 
 
+class DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfigDiscoveryConfigNacosConfig(TeaModel):
+    def __init__(self, access_key=None, auth_type=None, clusters=None, group_name=None, namespace=None,
+                 password=None, secret_key=None, server_address=None, service_name=None, user_name=None):
+        self.access_key = access_key  # type: str
+        self.auth_type = auth_type  # type: str
+        self.clusters = clusters  # type: str
+        self.group_name = group_name  # type: str
+        self.namespace = namespace  # type: str
+        self.password = password  # type: str
+        self.secret_key = secret_key  # type: str
+        self.server_address = server_address  # type: str
+        self.service_name = service_name  # type: str
+        self.user_name = user_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfigDiscoveryConfigNacosConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_key is not None:
+            result['AccessKey'] = self.access_key
+        if self.auth_type is not None:
+            result['AuthType'] = self.auth_type
+        if self.clusters is not None:
+            result['Clusters'] = self.clusters
+        if self.group_name is not None:
+            result['GroupName'] = self.group_name
+        if self.namespace is not None:
+            result['Namespace'] = self.namespace
+        if self.password is not None:
+            result['Password'] = self.password
+        if self.secret_key is not None:
+            result['SecretKey'] = self.secret_key
+        if self.server_address is not None:
+            result['ServerAddress'] = self.server_address
+        if self.service_name is not None:
+            result['ServiceName'] = self.service_name
+        if self.user_name is not None:
+            result['UserName'] = self.user_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccessKey') is not None:
+            self.access_key = m.get('AccessKey')
+        if m.get('AuthType') is not None:
+            self.auth_type = m.get('AuthType')
+        if m.get('Clusters') is not None:
+            self.clusters = m.get('Clusters')
+        if m.get('GroupName') is not None:
+            self.group_name = m.get('GroupName')
+        if m.get('Namespace') is not None:
+            self.namespace = m.get('Namespace')
+        if m.get('Password') is not None:
+            self.password = m.get('Password')
+        if m.get('SecretKey') is not None:
+            self.secret_key = m.get('SecretKey')
+        if m.get('ServerAddress') is not None:
+            self.server_address = m.get('ServerAddress')
+        if m.get('ServiceName') is not None:
+            self.service_name = m.get('ServiceName')
+        if m.get('UserName') is not None:
+            self.user_name = m.get('UserName')
+        return self
+
+
+class DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfigDiscoveryConfig(TeaModel):
+    def __init__(self, nacos_config=None, rc_type=None):
+        self.nacos_config = nacos_config  # type: DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfigDiscoveryConfigNacosConfig
+        self.rc_type = rc_type  # type: str
+
+    def validate(self):
+        if self.nacos_config:
+            self.nacos_config.validate()
+
+    def to_map(self):
+        _map = super(DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfigDiscoveryConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.nacos_config is not None:
+            result['NacosConfig'] = self.nacos_config.to_map()
+        if self.rc_type is not None:
+            result['RcType'] = self.rc_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('NacosConfig') is not None:
+            temp_model = DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfigDiscoveryConfigNacosConfig()
+            self.nacos_config = temp_model.from_map(m['NacosConfig'])
+        if m.get('RcType') is not None:
+            self.rc_type = m.get('RcType')
+        return self
+
+
 class DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfigEventBridgeConfig(TeaModel):
     def __init__(self, event_bridge_region_id=None, event_bus=None, event_source=None, role_arn=None):
         self.event_bridge_region_id = event_bridge_region_id  # type: str
@@ -16403,8 +16515,9 @@ class DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfigVpcCon
 
 
 class DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfig(TeaModel):
-    def __init__(self, event_bridge_config=None, function_compute_config=None, http_target_host_name=None,
-                 mock_config=None, oss_config=None, service_address=None, type=None, vpc_config=None):
+    def __init__(self, discovery_config=None, event_bridge_config=None, function_compute_config=None,
+                 http_target_host_name=None, mock_config=None, oss_config=None, service_address=None, type=None, vpc_config=None):
+        self.discovery_config = discovery_config  # type: DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfigDiscoveryConfig
         self.event_bridge_config = event_bridge_config  # type: DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfigEventBridgeConfig
         self.function_compute_config = function_compute_config  # type: DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfigFunctionComputeConfig
         self.http_target_host_name = http_target_host_name  # type: str
@@ -16415,6 +16528,8 @@ class DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfig(TeaMo
         self.vpc_config = vpc_config  # type: DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfigVpcConfig
 
     def validate(self):
+        if self.discovery_config:
+            self.discovery_config.validate()
         if self.event_bridge_config:
             self.event_bridge_config.validate()
         if self.function_compute_config:
@@ -16432,6 +16547,8 @@ class DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfig(TeaMo
             return _map
 
         result = dict()
+        if self.discovery_config is not None:
+            result['DiscoveryConfig'] = self.discovery_config.to_map()
         if self.event_bridge_config is not None:
             result['EventBridgeConfig'] = self.event_bridge_config.to_map()
         if self.function_compute_config is not None:
@@ -16452,6 +16569,9 @@ class DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfig(TeaMo
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('DiscoveryConfig') is not None:
+            temp_model = DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfigDiscoveryConfig()
+            self.discovery_config = temp_model.from_map(m['DiscoveryConfig'])
         if m.get('EventBridgeConfig') is not None:
             temp_model = DescribeBackendInfoResponseBodyBackendInfoBackendModelsBackendConfigEventBridgeConfig()
             self.event_bridge_config = temp_model.from_map(m['EventBridgeConfig'])
@@ -22142,11 +22262,12 @@ class DescribeInstancesResponseBodyInstancesInstanceAttributeNetworkInterfaceAtt
 
 class DescribeInstancesResponseBodyInstancesInstanceAttribute(TeaModel):
     def __init__(self, acl_id=None, acl_name=None, acl_status=None, acl_type=None, classic_egress_address=None,
-                 connect_vpc_id=None, created_time=None, dedicated_instance_type=None, egress_ipv_6enable=None, expired_time=None,
-                 https_policies=None, ipv6acl_id=None, ipv6acl_name=None, ipv6acl_status=None, ipv6acl_type=None,
-                 instance_charge_type=None, instance_cidr_block=None, instance_cluster_id=None, instance_id=None, instance_name=None,
-                 instance_rps_limit=None, instance_spec=None, instance_spec_attributes=None, instance_type=None,
-                 internet_egress_address=None, intranet_segments=None, network_interface_attributes=None, region_id=None, status=None,
+                 connect_cidr_blocks=None, connect_vpc_id=None, created_time=None, dedicated_instance_type=None,
+                 egress_ipv_6enable=None, expired_time=None, https_policies=None, ipv6acl_id=None, ipv6acl_name=None,
+                 ipv6acl_status=None, ipv6acl_type=None, instance_charge_type=None, instance_cidr_block=None,
+                 instance_cluster_id=None, instance_id=None, instance_name=None, instance_rps_limit=None, instance_spec=None,
+                 instance_spec_attributes=None, instance_type=None, internet_egress_address=None, intranet_segments=None,
+                 maintain_end_time=None, maintain_start_time=None, network_interface_attributes=None, region_id=None, status=None,
                  support_ipv_6=None, user_vpc_id=None, user_vswitch_id=None, vip_type_list=None, vpc_egress_address=None,
                  vpc_intranet_enable=None, vpc_owner_id=None, vpc_slb_intranet_enable=None, zone_id=None, zone_local_name=None):
         self.acl_id = acl_id  # type: str
@@ -22154,6 +22275,7 @@ class DescribeInstancesResponseBodyInstancesInstanceAttribute(TeaModel):
         self.acl_status = acl_status  # type: str
         self.acl_type = acl_type  # type: str
         self.classic_egress_address = classic_egress_address  # type: str
+        self.connect_cidr_blocks = connect_cidr_blocks  # type: str
         # VPC融合类型专享实例联通的用户VPC ID
         self.connect_vpc_id = connect_vpc_id  # type: str
         self.created_time = created_time  # type: str
@@ -22182,6 +22304,8 @@ class DescribeInstancesResponseBodyInstancesInstanceAttribute(TeaModel):
         self.instance_type = instance_type  # type: str
         self.internet_egress_address = internet_egress_address  # type: str
         self.intranet_segments = intranet_segments  # type: str
+        self.maintain_end_time = maintain_end_time  # type: str
+        self.maintain_start_time = maintain_start_time  # type: str
         # VPC融合类型专享实例连通的用户VPC内的网络信息
         self.network_interface_attributes = network_interface_attributes  # type: DescribeInstancesResponseBodyInstancesInstanceAttributeNetworkInterfaceAttributes
         self.region_id = region_id  # type: str
@@ -22219,6 +22343,8 @@ class DescribeInstancesResponseBodyInstancesInstanceAttribute(TeaModel):
             result['AclType'] = self.acl_type
         if self.classic_egress_address is not None:
             result['ClassicEgressAddress'] = self.classic_egress_address
+        if self.connect_cidr_blocks is not None:
+            result['ConnectCidrBlocks'] = self.connect_cidr_blocks
         if self.connect_vpc_id is not None:
             result['ConnectVpcId'] = self.connect_vpc_id
         if self.created_time is not None:
@@ -22261,6 +22387,10 @@ class DescribeInstancesResponseBodyInstancesInstanceAttribute(TeaModel):
             result['InternetEgressAddress'] = self.internet_egress_address
         if self.intranet_segments is not None:
             result['IntranetSegments'] = self.intranet_segments
+        if self.maintain_end_time is not None:
+            result['MaintainEndTime'] = self.maintain_end_time
+        if self.maintain_start_time is not None:
+            result['MaintainStartTime'] = self.maintain_start_time
         if self.network_interface_attributes is not None:
             result['NetworkInterfaceAttributes'] = self.network_interface_attributes.to_map()
         if self.region_id is not None:
@@ -22301,6 +22431,8 @@ class DescribeInstancesResponseBodyInstancesInstanceAttribute(TeaModel):
             self.acl_type = m.get('AclType')
         if m.get('ClassicEgressAddress') is not None:
             self.classic_egress_address = m.get('ClassicEgressAddress')
+        if m.get('ConnectCidrBlocks') is not None:
+            self.connect_cidr_blocks = m.get('ConnectCidrBlocks')
         if m.get('ConnectVpcId') is not None:
             self.connect_vpc_id = m.get('ConnectVpcId')
         if m.get('CreatedTime') is not None:
@@ -22344,6 +22476,10 @@ class DescribeInstancesResponseBodyInstancesInstanceAttribute(TeaModel):
             self.internet_egress_address = m.get('InternetEgressAddress')
         if m.get('IntranetSegments') is not None:
             self.intranet_segments = m.get('IntranetSegments')
+        if m.get('MaintainEndTime') is not None:
+            self.maintain_end_time = m.get('MaintainEndTime')
+        if m.get('MaintainStartTime') is not None:
+            self.maintain_start_time = m.get('MaintainStartTime')
         if m.get('NetworkInterfaceAttributes') is not None:
             temp_model = DescribeInstancesResponseBodyInstancesInstanceAttributeNetworkInterfaceAttributes()
             self.network_interface_attributes = temp_model.from_map(m['NetworkInterfaceAttributes'])
@@ -30068,7 +30204,7 @@ class ModifyApiGroupRequestTag(TeaModel):
 class ModifyApiGroupRequest(TeaModel):
     def __init__(self, base_path=None, compatible_flags=None, custom_trace_config=None, customer_configs=None,
                  default_domain=None, description=None, group_id=None, group_name=None, passthrough_headers=None, rpc_pattern=None,
-                 security_token=None, tag=None, user_log_config=None):
+                 security_token=None, support_sse=None, tag=None, user_log_config=None):
         self.base_path = base_path  # type: str
         self.compatible_flags = compatible_flags  # type: str
         self.custom_trace_config = custom_trace_config  # type: str
@@ -30080,6 +30216,7 @@ class ModifyApiGroupRequest(TeaModel):
         self.passthrough_headers = passthrough_headers  # type: str
         self.rpc_pattern = rpc_pattern  # type: str
         self.security_token = security_token  # type: str
+        self.support_sse = support_sse  # type: str
         self.tag = tag  # type: list[ModifyApiGroupRequestTag]
         self.user_log_config = user_log_config  # type: str
 
@@ -30117,6 +30254,8 @@ class ModifyApiGroupRequest(TeaModel):
             result['RpcPattern'] = self.rpc_pattern
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
+        if self.support_sse is not None:
+            result['SupportSSE'] = self.support_sse
         result['Tag'] = []
         if self.tag is not None:
             for k in self.tag:
@@ -30149,6 +30288,8 @@ class ModifyApiGroupRequest(TeaModel):
             self.rpc_pattern = m.get('RpcPattern')
         if m.get('SecurityToken') is not None:
             self.security_token = m.get('SecurityToken')
+        if m.get('SupportSSE') is not None:
+            self.support_sse = m.get('SupportSSE')
         self.tag = []
         if m.get('Tag') is not None:
             for k in m.get('Tag'):
