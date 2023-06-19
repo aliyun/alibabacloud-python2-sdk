@@ -2826,7 +2826,7 @@ class GetWirelessCloudConnectorRequest(TeaModel):
 
 class GetWirelessCloudConnectorResponseBodyNetLinks(TeaModel):
     def __init__(self, apn=None, create_time=None, description=None, grant_ali_uid=None, isp=None, name=None,
-                 net_link_id=None, region_id=None, status=None, v_switchs=None, vpc_id=None):
+                 net_link_id=None, region_id=None, status=None, type=None, v_switchs=None, vpc_id=None):
         self.apn = apn  # type: str
         self.create_time = create_time  # type: str
         self.description = description  # type: str
@@ -2838,6 +2838,7 @@ class GetWirelessCloudConnectorResponseBodyNetLinks(TeaModel):
         self.net_link_id = net_link_id  # type: str
         self.region_id = region_id  # type: str
         self.status = status  # type: str
+        self.type = type  # type: str
         self.v_switchs = v_switchs  # type: list[str]
         self.vpc_id = vpc_id  # type: str
 
@@ -2868,6 +2869,8 @@ class GetWirelessCloudConnectorResponseBodyNetLinks(TeaModel):
             result['RegionId'] = self.region_id
         if self.status is not None:
             result['Status'] = self.status
+        if self.type is not None:
+            result['Type'] = self.type
         if self.v_switchs is not None:
             result['VSwitchs'] = self.v_switchs
         if self.vpc_id is not None:
@@ -2894,6 +2897,8 @@ class GetWirelessCloudConnectorResponseBodyNetLinks(TeaModel):
             self.region_id = m.get('RegionId')
         if m.get('Status') is not None:
             self.status = m.get('Status')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
         if m.get('VSwitchs') is not None:
             self.v_switchs = m.get('VSwitchs')
         if m.get('VpcId') is not None:
@@ -3204,7 +3209,7 @@ class ListAPNsRequest(TeaModel):
 
 class ListAPNsResponseBodyAPNs(TeaModel):
     def __init__(self, apn=None, description=None, isp=None, name=None, zones=None):
-        # apn
+        # 代表资源名称的资源属性字段
         self.apn = apn  # type: str
         self.description = description  # type: str
         # 代表资源一级ID的资源属性字段
@@ -3254,7 +3259,6 @@ class ListAPNsResponseBody(TeaModel):
         self.apns = apns  # type: list[ListAPNsResponseBodyAPNs]
         self.max_results = max_results  # type: str
         self.next_token = next_token  # type: str
-        # Id of the request
         self.request_id = request_id  # type: str
         self.total_count = total_count  # type: str
 
@@ -3861,6 +3865,225 @@ class ListBatchOperateCardsTasksResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListBatchOperateCardsTasksResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListCardDayUsagesRequest(TeaModel):
+    def __init__(self, iccids=None, latest_month_num=None, wireless_cloud_connector_id=None):
+        self.iccids = iccids  # type: list[str]
+        self.latest_month_num = latest_month_num  # type: int
+        self.wireless_cloud_connector_id = wireless_cloud_connector_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListCardDayUsagesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.iccids is not None:
+            result['Iccids'] = self.iccids
+        if self.latest_month_num is not None:
+            result['LatestMonthNum'] = self.latest_month_num
+        if self.wireless_cloud_connector_id is not None:
+            result['WirelessCloudConnectorId'] = self.wireless_cloud_connector_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Iccids') is not None:
+            self.iccids = m.get('Iccids')
+        if m.get('LatestMonthNum') is not None:
+            self.latest_month_num = m.get('LatestMonthNum')
+        if m.get('WirelessCloudConnectorId') is not None:
+            self.wireless_cloud_connector_id = m.get('WirelessCloudConnectorId')
+        return self
+
+
+class ListCardDayUsagesResponseBodyCardsUsageDataMonthsCardDayUsages(TeaModel):
+    def __init__(self, day=None, usage_data=None):
+        self.day = day  # type: str
+        self.usage_data = usage_data  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListCardDayUsagesResponseBodyCardsUsageDataMonthsCardDayUsages, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.day is not None:
+            result['Day'] = self.day
+        if self.usage_data is not None:
+            result['UsageData'] = self.usage_data
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Day') is not None:
+            self.day = m.get('Day')
+        if m.get('UsageData') is not None:
+            self.usage_data = m.get('UsageData')
+        return self
+
+
+class ListCardDayUsagesResponseBodyCardsUsageDataMonths(TeaModel):
+    def __init__(self, card_day_usages=None, month=None, usage_data_month=None):
+        self.card_day_usages = card_day_usages  # type: list[ListCardDayUsagesResponseBodyCardsUsageDataMonthsCardDayUsages]
+        self.month = month  # type: str
+        self.usage_data_month = usage_data_month  # type: str
+
+    def validate(self):
+        if self.card_day_usages:
+            for k in self.card_day_usages:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListCardDayUsagesResponseBodyCardsUsageDataMonths, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['CardDayUsages'] = []
+        if self.card_day_usages is not None:
+            for k in self.card_day_usages:
+                result['CardDayUsages'].append(k.to_map() if k else None)
+        if self.month is not None:
+            result['Month'] = self.month
+        if self.usage_data_month is not None:
+            result['UsageDataMonth'] = self.usage_data_month
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.card_day_usages = []
+        if m.get('CardDayUsages') is not None:
+            for k in m.get('CardDayUsages'):
+                temp_model = ListCardDayUsagesResponseBodyCardsUsageDataMonthsCardDayUsages()
+                self.card_day_usages.append(temp_model.from_map(k))
+        if m.get('Month') is not None:
+            self.month = m.get('Month')
+        if m.get('UsageDataMonth') is not None:
+            self.usage_data_month = m.get('UsageDataMonth')
+        return self
+
+
+class ListCardDayUsagesResponseBodyCards(TeaModel):
+    def __init__(self, iccid=None, usage_data_months=None):
+        # 代表资源一级ID的资源属性字段
+        self.iccid = iccid  # type: str
+        self.usage_data_months = usage_data_months  # type: list[ListCardDayUsagesResponseBodyCardsUsageDataMonths]
+
+    def validate(self):
+        if self.usage_data_months:
+            for k in self.usage_data_months:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListCardDayUsagesResponseBodyCards, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.iccid is not None:
+            result['Iccid'] = self.iccid
+        result['UsageDataMonths'] = []
+        if self.usage_data_months is not None:
+            for k in self.usage_data_months:
+                result['UsageDataMonths'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Iccid') is not None:
+            self.iccid = m.get('Iccid')
+        self.usage_data_months = []
+        if m.get('UsageDataMonths') is not None:
+            for k in m.get('UsageDataMonths'):
+                temp_model = ListCardDayUsagesResponseBodyCardsUsageDataMonths()
+                self.usage_data_months.append(temp_model.from_map(k))
+        return self
+
+
+class ListCardDayUsagesResponseBody(TeaModel):
+    def __init__(self, cards=None, request_id=None):
+        self.cards = cards  # type: list[ListCardDayUsagesResponseBodyCards]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.cards:
+            for k in self.cards:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListCardDayUsagesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Cards'] = []
+        if self.cards is not None:
+            for k in self.cards:
+                result['Cards'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.cards = []
+        if m.get('Cards') is not None:
+            for k in m.get('Cards'):
+                temp_model = ListCardDayUsagesResponseBodyCards()
+                self.cards.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ListCardDayUsagesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListCardDayUsagesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListCardDayUsagesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListCardDayUsagesResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
