@@ -3226,21 +3226,23 @@ class DeleteStackRequest(TeaModel):
     def __init__(self, delete_options=None, ram_role_name=None, region_id=None, retain_all_resources=None,
                  retain_resources=None, stack_id=None):
         self.delete_options = delete_options  # type: list[str]
-        # The name of resource N that you want to retain.
-        self.ram_role_name = ram_role_name  # type: str
-        # The name of resource N that you want to retain.
-        self.region_id = region_id  # type: str
-        # The name of the RAM role. Resource Orchestration Service (ROS) assumes the RAM role to create the stack and uses credentials of the role to call the APIs of Alibaba Cloud services.
-        # 
-        # ROS assumes the RAM role to perform operations on the stack. If you have permissions to perform operations on the stack but do not have permissions to use the RAM role, ROS still assumes the RAM role. You must make sure that the least privileges are granted to the role.
-        # 
-        # If you leave this parameter empty when you call the DeleteStack operation, ROS cannot assume the existing RAM role that is associated with the stack. If you want ROS to assume a RAM role, you must specify this parameter. If no role is available for ROS to assume, ROS uses a temporary credential that is generated from the credentials of your account.
-        # 
+        # The name of the RAM role. Resource Orchestration Service (ROS) assumes the RAM role to create the stack and uses the credentials of the role to call the APIs of Alibaba Cloud services.\
+        # ROS assumes the role to perform operations on the stack. If you have permissions to perform operations on the stack but do not have permissions to use the RAM role, ROS still assumes the RAM role. You must make sure that the least privileges are granted to the RAM role.\
+        # If you leave this parameter empty when you call the DeleteStack operation, ROS cannot assume the existing RAM role that is associated with the stack. If you want ROS to assume a RAM role, you must specify this parameter. If no RAM roles are available, ROS uses a temporary credential that is generated from the credentials of your account.\
         # The name of the RAM role can be up to 64 bytes in length.
-        self.retain_all_resources = retain_all_resources  # type: bool
-        # The ID of the request.
-        self.retain_resources = retain_resources  # type: list[str]
+        self.ram_role_name = ram_role_name  # type: str
         # The region ID of the stack. You can call the [DescribeRegions](~~131035~~) operation to query the most recent region list.
+        self.region_id = region_id  # type: str
+        # Specifies whether to retain all resources in the stack.
+        # 
+        # Valid values:
+        # 
+        # *   true
+        # *   false (default)
+        self.retain_all_resources = retain_all_resources  # type: bool
+        # The resources that you want to retain.
+        self.retain_resources = retain_resources  # type: list[str]
+        # The ID of the stack.
         self.stack_id = stack_id  # type: str
 
     def validate(self):
@@ -3285,6 +3287,7 @@ class DeleteStackRequest(TeaModel):
 
 class DeleteStackResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4919,7 +4922,7 @@ class ExecuteChangeSetResponse(TeaModel):
 
 
 class GenerateTemplateByScratchRequest(TeaModel):
-    def __init__(self, provision_region_id=None, region_id=None, template_scratch_id=None):
+    def __init__(self, provision_region_id=None, region_id=None, template_scratch_id=None, template_type=None):
         # The ID of the region to which the new node belongs.
         self.provision_region_id = provision_region_id  # type: str
         # The ID of the region in which the scenario is created.
@@ -4930,6 +4933,7 @@ class GenerateTemplateByScratchRequest(TeaModel):
         # 
         # For more information about how to query the IDs of scenarios, see [ListTemplateScratches](~~363050~~).
         self.template_scratch_id = template_scratch_id  # type: str
+        self.template_type = template_type  # type: str
 
     def validate(self):
         pass
@@ -4946,6 +4950,8 @@ class GenerateTemplateByScratchRequest(TeaModel):
             result['RegionId'] = self.region_id
         if self.template_scratch_id is not None:
             result['TemplateScratchId'] = self.template_scratch_id
+        if self.template_type is not None:
+            result['TemplateType'] = self.template_type
         return result
 
     def from_map(self, m=None):
@@ -4956,6 +4962,8 @@ class GenerateTemplateByScratchRequest(TeaModel):
             self.region_id = m.get('RegionId')
         if m.get('TemplateScratchId') is not None:
             self.template_scratch_id = m.get('TemplateScratchId')
+        if m.get('TemplateType') is not None:
+            self.template_type = m.get('TemplateType')
         return self
 
 
@@ -5161,9 +5169,10 @@ class GenerateTemplatePolicyRequest(TeaModel):
 
 
 class GenerateTemplatePolicyResponseBodyPolicyStatement(TeaModel):
-    def __init__(self, action=None, effect=None, resource=None):
+    def __init__(self, action=None, condition=None, effect=None, resource=None):
         # The operations that are performed on the specified resource.
         self.action = action  # type: list[str]
+        self.condition = condition  # type: dict[str, any]
         # The effect of the statement. Valid values:
         # 
         # *   Allow
@@ -5183,6 +5192,8 @@ class GenerateTemplatePolicyResponseBodyPolicyStatement(TeaModel):
         result = dict()
         if self.action is not None:
             result['Action'] = self.action
+        if self.condition is not None:
+            result['Condition'] = self.condition
         if self.effect is not None:
             result['Effect'] = self.effect
         if self.resource is not None:
@@ -5193,6 +5204,8 @@ class GenerateTemplatePolicyResponseBodyPolicyStatement(TeaModel):
         m = m or dict()
         if m.get('Action') is not None:
             self.action = m.get('Action')
+        if m.get('Condition') is not None:
+            self.condition = m.get('Condition')
         if m.get('Effect') is not None:
             self.effect = m.get('Effect')
         if m.get('Resource') is not None:
@@ -5650,9 +5663,14 @@ class GetChangeSetResponse(TeaModel):
 
 class GetFeatureDetailsRequest(TeaModel):
     def __init__(self, feature=None, region_id=None):
-        # The resource types that support the scenario feature.
+        # The one or more features that you want to query. Valid values:
+        # 
+        # *   Terraform: the Terraform hosting feature.
+        # *   ResourceCleaner: the resource cleaner feature. You can use ALIYUN::ROS::ResourceCleaner to create a resource cleaner.
+        # *   TemplateScratch: the scenario feature.
+        # *   All: all features that are supported by ROS.
         self.feature = feature  # type: str
-        # The resource types that support the system tag `acs:ros:stackId`.
+        # The region ID of the stack. You can call the [DescribeRegions](~~131035~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -5705,8 +5723,18 @@ class GetFeatureDetailsResponseBodyDriftDetection(TeaModel):
 
 class GetFeatureDetailsResponseBodyResourceCleanerSupportedResourceTypes(TeaModel):
     def __init__(self, resource_type=None, side_effects=None, supported_filters=None):
+        # The resource type that can be cleaned up.
         self.resource_type = resource_type  # type: str
+        # The names of the side effects. The StopInstance value indicates that an instance that is related to the specified resource is stopped.
         self.side_effects = side_effects  # type: list[str]
+        # The filters that are used to filter resources. Valid values:
+        # 
+        # *   RegionId: the ID of the region.
+        # *   ResourceId: the ID of the resource.
+        # *   ResourceName: the name of the resource.
+        # *   Tags: the tags of the resource.
+        # *   ResourceGroupId: the ID of the resource group.
+        # *   DeletionProtection: the deletion protection feature.
         self.supported_filters = supported_filters  # type: list[str]
 
     def validate(self):
@@ -5739,6 +5767,7 @@ class GetFeatureDetailsResponseBodyResourceCleanerSupportedResourceTypes(TeaMode
 
 class GetFeatureDetailsResponseBodyResourceCleaner(TeaModel):
     def __init__(self, supported_resource_types=None):
+        # The resource types that can be cleaned up.
         self.supported_resource_types = supported_resource_types  # type: list[GetFeatureDetailsResponseBodyResourceCleanerSupportedResourceTypes]
 
     def validate(self):
@@ -5832,7 +5861,9 @@ class GetFeatureDetailsResponseBodyResourceImport(TeaModel):
 
 class GetFeatureDetailsResponseBodyTemplateParameterConstraintsSupportedResourceTypes(TeaModel):
     def __init__(self, properties=None, resource_type=None):
+        # The names of properties that are supported by the resource type.
         self.properties = properties  # type: list[str]
+        # The resource type.
         self.resource_type = resource_type  # type: str
 
     def validate(self):
@@ -5861,6 +5892,7 @@ class GetFeatureDetailsResponseBodyTemplateParameterConstraintsSupportedResource
 
 class GetFeatureDetailsResponseBodyTemplateParameterConstraints(TeaModel):
     def __init__(self, supported_resource_types=None):
+        # The resource types that support the template parameter constraint feature.
         self.supported_resource_types = supported_resource_types  # type: list[GetFeatureDetailsResponseBodyTemplateParameterConstraintsSupportedResourceTypes]
 
     def validate(self):
@@ -5894,15 +5926,27 @@ class GetFeatureDetailsResponseBodyTemplateParameterConstraints(TeaModel):
 class GetFeatureDetailsResponseBodyTemplateScratchSupportedResourceTypes(TeaModel):
     def __init__(self, resource_type=None, source_resource_group_supported=None, source_resources_supported=None,
                  source_supported=None, source_tag_supported=None):
-        # Details of the template parameter constraint feature.
-        self.resource_type = resource_type  # type: str
         # The resource type.
+        self.resource_type = resource_type  # type: str
+        # Indicates whether the resource scope can be specified by resource group. Valid values:
+        # 
+        # - true
+        # - false
         self.source_resource_group_supported = source_resource_group_supported  # type: bool
-        # The resource types that support the template parameter constraint feature.
+        # Indicates whether the resource scope can be specified by tag, resource group, or resource. Valid values:
+        # 
+        # - true
+        # - false
         self.source_resources_supported = source_resources_supported  # type: bool
-        # The names of properties that are supported by the resource type.
+        # Indicates whether the resource scope can be specified by resource. Valid values:
+        # 
+        # - true
+        # - false
         self.source_supported = source_supported  # type: bool
-        # The resource types that support the template parameter constraint feature.
+        # Indicates whether the resource scope can be specified by tag. Valid values:
+        # 
+        # - true
+        # - false
         self.source_tag_supported = source_tag_supported  # type: bool
 
     def validate(self):
@@ -5943,7 +5987,7 @@ class GetFeatureDetailsResponseBodyTemplateScratchSupportedResourceTypes(TeaMode
 
 class GetFeatureDetailsResponseBodyTemplateScratch(TeaModel):
     def __init__(self, supported_resource_types=None):
-        # The names of the side effects. The StopInstance value indicates that an instance that is related to the specified resource is stopped.
+        # The resource types that support the scenario feature.
         self.supported_resource_types = supported_resource_types  # type: list[GetFeatureDetailsResponseBodyTemplateScratchSupportedResourceTypes]
 
     def validate(self):
@@ -5976,14 +6020,7 @@ class GetFeatureDetailsResponseBodyTemplateScratch(TeaModel):
 
 class GetFeatureDetailsResponseBodyTerraformSupportedResourceTypesStackOperationRisk(TeaModel):
     def __init__(self, delete_stack=None):
-        # The filters that are used to filter resources. Valid values:
-        # 
-        # *   RegionId: the ID of the region.
-        # *   ResourceId: the ID of the resource.
-        # *   ResourceName: the name of the resource.
-        # *   Tags: the tags of the resource.
-        # *   ResourceGroupId: the ID of the resource group.
-        # *   DeletionProtection: the deletion protection feature.
+        # The resource types that support the risk check performed to detect risks caused by a stack deletion operation.
         self.delete_stack = delete_stack  # type: list[str]
 
     def validate(self):
@@ -6009,21 +6046,15 @@ class GetFeatureDetailsResponseBodyTerraformSupportedResourceTypesStackOperation
 class GetFeatureDetailsResponseBodyTerraformSupportedResourceTypes(TeaModel):
     def __init__(self, custom_tag=None, estimate_cost=None, resource_group=None, stack_operation_risk=None,
                  system_tag=None):
-        # Indicates whether the resource scope can be specified by tag, resource group, or resource. Valid values:
-        # 
-        # - true
-        # - false
+        # The resource types that support the custom tag feature.
         self.custom_tag = custom_tag  # type: list[str]
-        # Indicates whether the resource scope can be specified by resource group. Valid values:
-        # 
-        # - true
-        # - false
+        # The resource types that support the price inquiry feature.
         self.estimate_cost = estimate_cost  # type: list[str]
-        # Details of the resource cleaner feature.
+        # The resource types that support the resource group feature.
         self.resource_group = resource_group  # type: list[str]
-        # The resource type that can be cleaned up.
+        # The resource type that support the risk check feature.
         self.stack_operation_risk = stack_operation_risk  # type: GetFeatureDetailsResponseBodyTerraformSupportedResourceTypesStackOperationRisk
-        # The resource types that support the scenario feature.
+        # The resource types that support the system tag `acs:ros:stackId`.
         self.system_tag = system_tag  # type: list[str]
 
     def validate(self):
@@ -6066,9 +6097,9 @@ class GetFeatureDetailsResponseBodyTerraformSupportedResourceTypes(TeaModel):
 
 class GetFeatureDetailsResponseBodyTerraformSupportedVersionsProviderVersions(TeaModel):
     def __init__(self, provider_name=None, supported_versions=None):
-        # The resource types that support the price inquiry feature.
+        # The name of the provider.
         self.provider_name = provider_name  # type: str
-        # The resource types that support the resource group feature.
+        # The versions of the provider.
         self.supported_versions = supported_versions  # type: list[str]
 
     def validate(self):
@@ -6098,13 +6129,13 @@ class GetFeatureDetailsResponseBodyTerraformSupportedVersionsProviderVersions(Te
 class GetFeatureDetailsResponseBodyTerraformSupportedVersions(TeaModel):
     def __init__(self, provider_versions=None, terraform_version=None, transform=None,
                  update_allowed_transforms=None):
-        # The resource types that support the price inquiry feature.
+        # The names and versions of the providers that correspond to the Terraform versions.
         self.provider_versions = provider_versions  # type: list[GetFeatureDetailsResponseBodyTerraformSupportedVersionsProviderVersions]
-        # The resource type that support the risk check feature.
+        # The Terraform version.
         self.terraform_version = terraform_version  # type: str
-        # The resource types that support the risk check performed to detect risks caused by a stack deletion operation.
+        # The Terraform version that is supported by ROS. The parameter value is the same as the value of the Transform parameter in a Terraform template.
         self.transform = transform  # type: str
-        # The resource types that support the risk check performed to detect risks caused by a stack deletion operation.
+        # The versions to which Terraform can be updated in ROS.
         self.update_allowed_transforms = update_allowed_transforms  # type: list[str]
 
     def validate(self):
@@ -6151,7 +6182,7 @@ class GetFeatureDetailsResponseBodyTerraform(TeaModel):
     def __init__(self, supported_resource_types=None, supported_versions=None):
         # The resource types that support the scenario feature.
         self.supported_resource_types = supported_resource_types  # type: GetFeatureDetailsResponseBodyTerraformSupportedResourceTypes
-        # The resource types that support the custom tag feature.
+        # The Terraform versions.
         self.supported_versions = supported_versions  # type: list[GetFeatureDetailsResponseBodyTerraformSupportedVersions]
 
     def validate(self):
@@ -6193,15 +6224,16 @@ class GetFeatureDetailsResponseBody(TeaModel):
     def __init__(self, drift_detection=None, request_id=None, resource_cleaner=None, resource_import=None,
                  template_parameter_constraints=None, template_scratch=None, terraform=None):
         self.drift_detection = drift_detection  # type: GetFeatureDetailsResponseBodyDriftDetection
-        # The resource types that support the system tag `acs:ros:stackId`.
+        # The ID of the request.
         self.request_id = request_id  # type: str
-        # The names of properties that are supported by the resource type.
+        # Details of the resource cleaner feature.
         self.resource_cleaner = resource_cleaner  # type: GetFeatureDetailsResponseBodyResourceCleaner
         self.resource_import = resource_import  # type: GetFeatureDetailsResponseBodyResourceImport
+        # Details of the template parameter constraint feature.
         self.template_parameter_constraints = template_parameter_constraints  # type: GetFeatureDetailsResponseBodyTemplateParameterConstraints
-        # The names of the side effects. The StopInstance value indicates that an instance that is related to the specified resource is stopped.
+        # Details of the scenario feature.
         self.template_scratch = template_scratch  # type: GetFeatureDetailsResponseBodyTemplateScratch
-        # The resource types that support the custom tag feature.
+        # Details of the Terraform hosting feature.
         self.terraform = terraform  # type: GetFeatureDetailsResponseBodyTerraform
 
     def validate(self):
@@ -10033,7 +10065,6 @@ class GetTemplateEstimateCostRequest(TeaModel):
         # >  You must specify only one of the following parameters: TemplateBody, TemplateURL, TemplateId, and TemplateScratchId.
         self.region_id = region_id  # type: str
         self.stack_id = stack_id  # type: str
-        # The version of the template. This parameter takes effect only when the TemplateId parameter is specified.
         self.template_body = template_body  # type: str
         # The value of parameter N.
         # 
@@ -10252,11 +10283,6 @@ class GetTemplateParameterConstraintsRequest(TeaModel):
         self.region_id = region_id  # type: str
         # The ID of the stack.
         self.stack_id = stack_id  # type: str
-        # The structure that contains the template body.
-        # 
-        # The template body must be 1 to 524,288 bytes in length. If the length of the template body exceeds the upper limit, we recommend that you add parameters to the HTTP POST request body to prevent request failures caused by excessively long URLs.
-        # 
-        # >  You must specify only one of the following parameters: TemplateBody, TemplateURL, and TemplateId.
         self.template_body = template_body  # type: str
         # The ID of the template. This parameter applies to shared and private templates.
         # 
@@ -10394,11 +10420,6 @@ class GetTemplateParameterConstraintsShrinkRequest(TeaModel):
         self.region_id = region_id  # type: str
         # The ID of the stack.
         self.stack_id = stack_id  # type: str
-        # The structure that contains the template body.
-        # 
-        # The template body must be 1 to 524,288 bytes in length. If the length of the template body exceeds the upper limit, we recommend that you add parameters to the HTTP POST request body to prevent request failures caused by excessively long URLs.
-        # 
-        # >  You must specify only one of the following parameters: TemplateBody, TemplateURL, and TemplateId.
         self.template_body = template_body  # type: str
         # The ID of the template. This parameter applies to shared and private templates.
         # 
@@ -10510,6 +10531,45 @@ class GetTemplateParameterConstraintsResponseBodyParameterConstraintsNotSupportR
         return self
 
 
+class GetTemplateParameterConstraintsResponseBodyParameterConstraintsOriginalConstraints(TeaModel):
+    def __init__(self, allowed_values=None, property_name=None, resource_name=None, resource_type=None):
+        self.allowed_values = allowed_values  # type: list[any]
+        self.property_name = property_name  # type: str
+        self.resource_name = resource_name  # type: str
+        self.resource_type = resource_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetTemplateParameterConstraintsResponseBodyParameterConstraintsOriginalConstraints, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.allowed_values is not None:
+            result['AllowedValues'] = self.allowed_values
+        if self.property_name is not None:
+            result['PropertyName'] = self.property_name
+        if self.resource_name is not None:
+            result['ResourceName'] = self.resource_name
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AllowedValues') is not None:
+            self.allowed_values = m.get('AllowedValues')
+        if m.get('PropertyName') is not None:
+            self.property_name = m.get('PropertyName')
+        if m.get('ResourceName') is not None:
+            self.resource_name = m.get('ResourceName')
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
+        return self
+
+
 class GetTemplateParameterConstraintsResponseBodyParameterConstraintsQueryErrors(TeaModel):
     def __init__(self, error_message=None, resource_name=None, resource_type=None):
         # The error message.
@@ -10549,8 +10609,8 @@ class GetTemplateParameterConstraintsResponseBodyParameterConstraintsQueryErrors
 
 class GetTemplateParameterConstraintsResponseBodyParameterConstraints(TeaModel):
     def __init__(self, allowed_values=None, association_parameter_names=None, behavior=None, behavior_reason=None,
-                 illegal_value_by_parameter_constraints=None, illegal_value_by_rules=None, not_support_resources=None, parameter_key=None,
-                 query_errors=None, type=None):
+                 illegal_value_by_parameter_constraints=None, illegal_value_by_rules=None, not_support_resources=None, original_constraints=None,
+                 parameter_key=None, query_errors=None, type=None):
         # The values of the parameter.
         self.allowed_values = allowed_values  # type: list[str]
         # The names of the associated parameters.
@@ -10575,6 +10635,7 @@ class GetTemplateParameterConstraintsResponseBodyParameterConstraints(TeaModel):
         self.illegal_value_by_rules = illegal_value_by_rules  # type: list[any]
         # The unsupported resources in the template.
         self.not_support_resources = not_support_resources  # type: list[GetTemplateParameterConstraintsResponseBodyParameterConstraintsNotSupportResources]
+        self.original_constraints = original_constraints  # type: list[GetTemplateParameterConstraintsResponseBodyParameterConstraintsOriginalConstraints]
         # The name of the parameter.
         self.parameter_key = parameter_key  # type: str
         # The error details that are returned if the request fails.
@@ -10585,6 +10646,10 @@ class GetTemplateParameterConstraintsResponseBodyParameterConstraints(TeaModel):
     def validate(self):
         if self.not_support_resources:
             for k in self.not_support_resources:
+                if k:
+                    k.validate()
+        if self.original_constraints:
+            for k in self.original_constraints:
                 if k:
                     k.validate()
         if self.query_errors:
@@ -10614,6 +10679,10 @@ class GetTemplateParameterConstraintsResponseBodyParameterConstraints(TeaModel):
         if self.not_support_resources is not None:
             for k in self.not_support_resources:
                 result['NotSupportResources'].append(k.to_map() if k else None)
+        result['OriginalConstraints'] = []
+        if self.original_constraints is not None:
+            for k in self.original_constraints:
+                result['OriginalConstraints'].append(k.to_map() if k else None)
         if self.parameter_key is not None:
             result['ParameterKey'] = self.parameter_key
         result['QueryErrors'] = []
@@ -10643,6 +10712,11 @@ class GetTemplateParameterConstraintsResponseBodyParameterConstraints(TeaModel):
             for k in m.get('NotSupportResources'):
                 temp_model = GetTemplateParameterConstraintsResponseBodyParameterConstraintsNotSupportResources()
                 self.not_support_resources.append(temp_model.from_map(k))
+        self.original_constraints = []
+        if m.get('OriginalConstraints') is not None:
+            for k in m.get('OriginalConstraints'):
+                temp_model = GetTemplateParameterConstraintsResponseBodyParameterConstraintsOriginalConstraints()
+                self.original_constraints.append(temp_model.from_map(k))
         if m.get('ParameterKey') is not None:
             self.parameter_key = m.get('ParameterKey')
         self.query_errors = []
@@ -13883,49 +13957,50 @@ class ListStackOperationRisksRequest(TeaModel):
     def __init__(self, client_token=None, operation_type=None, ram_role_name=None, region_id=None,
                  retain_all_resources=None, retain_resources=None, stack_id=None, template_body=None, template_id=None,
                  template_url=None, template_version=None):
-        # The resource N that you want to retain in the stack.
+        # The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can be up to 64 characters in length, and can contain letters, digits, hyphens (-), and underscores (\_). For more information, see [How to ensure idempotence](~~134212~~).
         self.client_token = client_token  # type: str
-        # Specifies whether to retain all resources in the stack.
+        # The type of the operation of which you want to detect risks. Valid values:
         # 
-        # Default value: false. Valid values:
-        # 
-        # *   true
-        # *   false
-        # 
-        # >  This parameter takes effect when the OperationType parameter is set to DeleteStack.
+        # *   DeleteStack: detects high risks that may arise in resources when you delete a stack.
+        # *   CreateStack: detects the missing permissions when you fail to create a stack.
         self.operation_type = operation_type  # type: str
-        # The resource N that you want to retain in the stack.
-        self.ram_role_name = ram_role_name  # type: str
-        # The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must make sure that the value is unique among different requests.
-        # 
-        # The token can be up to 64 characters in length, and can contain letters, digits, hyphens (-), and underscores (\_).
-        # 
-        # For more information, see [Ensure idempotence](~~134212~~).
-        self.region_id = region_id  # type: str
-        # The structure that contains the template body. The template body must be 1 to 524,288 bytes in length. If the length of the template body exceeds the upper limit, we recommend that you add parameters to the HTTP POST request body to prevent request failures caused by excessively long URLs.
-        # 
-        # >  You must specify only one of the following parameters: TemplateBody, TemplateURL, TemplateId, and TemplateScratchId.
-        self.retain_all_resources = retain_all_resources  # type: bool
-        # The URL of the file that contains the template body. The URL must point to a template that is located on an HTTP or HTTPS web server or in an Object Storage Service (OSS) bucket, such as oss://ros/stack-policy/demo or oss://ros/stack-policy/demo?RegionId=cn-hangzhou. The template body can be up to 524,288 bytes in length. If you do not specify the region ID of the OSS bucket, the value of the RegionId parameter is used.
-        # 
-        # >  You must specify only one of the following parameters: TemplateBody, TemplateURL, TemplateId, and TemplateScratchId.
-        self.retain_resources = retain_resources  # type: list[str]
         # The name of the RAM role.
         # 
         # *   If you specify a RAM role, ROS creates stacks based on the permissions that are granted to the RAM role and uses the credentials of the RAM role to call the API operations of Alibaba Cloud services.
         # *   If you do not specify a RAM role, ROS creates stacks based on the permissions of your Alibaba Cloud account.
         # 
         # The name of the RAM role can be up to 64 bytes in length.
+        self.ram_role_name = ram_role_name  # type: str
+        # The region ID of the stack. You can call the [DescribeRegions](~~131035~~) operation to query the most recent region list.
+        self.region_id = region_id  # type: str
+        # Specifies whether to retain all resources in the stack. Valid values:
+        # 
+        # *   true
+        # *   false (default)
+        # 
+        # > This parameter takes effect only if you set OperationType to DeleteStack.
+        self.retain_all_resources = retain_all_resources  # type: bool
+        # The list of resources to retain.
+        # 
+        # > This parameter takes effect only if you set OperationType to DeleteStack.
+        self.retain_resources = retain_resources  # type: list[str]
+        # The ID of the stack.
         self.stack_id = stack_id  # type: str
+        # The template body. The template body must be 1 to 524,288 bytes in length. If the length of the template body exceeds the upper limit, we recommend that you add parameters to the HTTP POST request body to prevent request failures caused by excessively long URLs.
+        # 
+        # > You must specify one of TemplateBody, TemplateURL, TemplateId, and TemplateScratchId.
+        self.template_body = template_body  # type: str
+        # The ID of the template. This parameter applies to shared and private templates.
+        # 
+        # > You must specify one of TemplateBody, TemplateURL, TemplateId, and TemplateScratchId.
+        self.template_id = template_id  # type: str
+        # The URL of the file that contains the template body. The URL must point to a template that is located on an HTTP or HTTPS web server or in an Object Storage Service (OSS) bucket, such as oss://ros/stack-policy/demo and oss://ros/stack-policy/demo?RegionId=cn-hangzhou. The template body can be up to 524,288 bytes in length. If you do not specify RegionId in the URL, the region ID of the stack is used.
+        # 
+        # > You must specify one of TemplateBody, TemplateURL, TemplateId, and TemplateScratchId.
+        self.template_url = template_url  # type: str
         # The version of the template.
         # 
-        # >  This parameter takes effect only when the TemplateId parameter is specified.
-        self.template_body = template_body  # type: str
-        # The resources that are at risk.
-        self.template_id = template_id  # type: str
-        # The ID of the request.
-        self.template_url = template_url  # type: str
-        # The logical ID of the resource. The logical ID is the resource name that is defined in the template.
+        # > This parameter takes effect only if you specify TemplateId.
         self.template_version = template_version  # type: str
 
     def validate(self):
@@ -13991,29 +14066,32 @@ class ListStackOperationRisksRequest(TeaModel):
 class ListStackOperationRisksResponseBodyRiskResources(TeaModel):
     def __init__(self, code=None, logical_resource_id=None, message=None, physical_resource_id=None, reason=None,
                  request_id=None, resource_type=None, risk_type=None):
-        # The reason for the risk.
-        self.code = code  # type: str
-        # The resource type.
-        self.logical_resource_id = logical_resource_id  # type: str
-        # The operations on which the permissions are not granted to the Alibaba Cloud account of the caller.
-        self.message = message  # type: str
         # The error code that is returned when the risk detection fails.
         # 
         # >  This parameter is not returned if the risk detection is successful.
-        self.physical_resource_id = physical_resource_id  # type: str
-        self.reason = reason  # type: str
+        self.code = code  # type: str
+        # The logical ID of the resource. The logical ID is the resource name that is defined in the template.
+        self.logical_resource_id = logical_resource_id  # type: str
         # The error message that is returned when the risk detection fails.
         # 
         # >  This parameter is not returned if the risk detection is successful.
+        self.message = message  # type: str
+        # The physical ID of the resource. The physical ID is the actual ID of the resource.
+        self.physical_resource_id = physical_resource_id  # type: str
+        # The cause of the risk.
+        self.reason = reason  # type: str
+        # The ID of the request when the risk detection fails.
+        # 
+        # >  This parameter is not returned if the risk detection is successful.
         self.request_id = request_id  # type: str
+        # The type of the resource.
+        self.resource_type = resource_type  # type: str
         # The type of the risk. Valid values:
         # 
         # *   Referenced: The resource is referenced by other resources.
         # *   MaybeReferenced: The resource may be referenced by other resources.
         # *   AdditionalRiskCheckRequired: An additional risk detection is required for a nested stack.
         # *   OperationIgnored: The operation does not take effect for the resource.
-        self.resource_type = resource_type  # type: str
-        # The operations on which the permissions are not granted to the Alibaba Cloud account of the caller.
         self.risk_type = risk_type  # type: str
 
     def validate(self):
@@ -14066,12 +14144,11 @@ class ListStackOperationRisksResponseBodyRiskResources(TeaModel):
 
 class ListStackOperationRisksResponseBody(TeaModel):
     def __init__(self, missing_policy_actions=None, request_id=None, risk_resources=None):
+        # The operations on which the permissions are not granted to the Alibaba Cloud account of the caller.
         self.missing_policy_actions = missing_policy_actions  # type: list[str]
-        # The physical ID of the resource. The physical ID is the actual ID of the resource.
+        # The ID of the request.
         self.request_id = request_id  # type: str
-        # The ID of the request when the risk detection fails.
-        # 
-        # >  This parameter is not returned if the risk detection is successful.
+        # The resources that are at risk.
         self.risk_resources = risk_resources  # type: list[ListStackOperationRisksResponseBodyRiskResources]
 
     def validate(self):
