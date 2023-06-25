@@ -503,6 +503,12 @@ class Client(OpenApiClient):
             query['App'] = request.app_shrink
         if not UtilClient.is_unset(request.avatar_info_shrink):
             query['AvatarInfo'] = request.avatar_info_shrink
+        if not UtilClient.is_unset(request.callback):
+            query['Callback'] = request.callback
+        if not UtilClient.is_unset(request.callback_params):
+            query['CallbackParams'] = request.callback_params
+        if not UtilClient.is_unset(request.ext_params):
+            query['ExtParams'] = request.ext_params
         if not UtilClient.is_unset(request.tenant_id):
             query['TenantId'] = request.tenant_id
         if not UtilClient.is_unset(request.title):
@@ -549,6 +555,12 @@ class Client(OpenApiClient):
             query['App'] = request.app_shrink
         if not UtilClient.is_unset(request.avatar_info_shrink):
             query['AvatarInfo'] = request.avatar_info_shrink
+        if not UtilClient.is_unset(request.callback):
+            query['Callback'] = request.callback
+        if not UtilClient.is_unset(request.callback_params):
+            query['CallbackParams'] = request.callback_params
+        if not UtilClient.is_unset(request.ext_params):
+            query['ExtParams'] = request.ext_params
         if not UtilClient.is_unset(request.tenant_id):
             query['TenantId'] = request.tenant_id
         if not UtilClient.is_unset(request.title):
@@ -599,6 +611,12 @@ class Client(OpenApiClient):
             query['AudioInfo'] = request.audio_info_shrink
         if not UtilClient.is_unset(request.avatar_info_shrink):
             query['AvatarInfo'] = request.avatar_info_shrink
+        if not UtilClient.is_unset(request.callback):
+            query['Callback'] = request.callback
+        if not UtilClient.is_unset(request.callback_params):
+            query['CallbackParams'] = request.callback_params
+        if not UtilClient.is_unset(request.ext_params):
+            query['ExtParams'] = request.ext_params
         if not UtilClient.is_unset(request.tenant_id):
             query['TenantId'] = request.tenant_id
         if not UtilClient.is_unset(request.text):
