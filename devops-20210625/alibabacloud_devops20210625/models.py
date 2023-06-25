@@ -4313,6 +4313,822 @@ class CreateTagResponse(TeaModel):
         return self
 
 
+class CreateTestCaseRequestFieldValueList(TeaModel):
+    def __init__(self, field_identifier=None, value=None):
+        self.field_identifier = field_identifier  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateTestCaseRequestFieldValueList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.field_identifier is not None:
+            result['fieldIdentifier'] = self.field_identifier
+        if self.value is not None:
+            result['value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('fieldIdentifier') is not None:
+            self.field_identifier = m.get('fieldIdentifier')
+        if m.get('value') is not None:
+            self.value = m.get('value')
+        return self
+
+
+class CreateTestCaseRequestTestcaseStepContentInfoStepResultList(TeaModel):
+    def __init__(self, expected=None, step=None):
+        self.expected = expected  # type: str
+        self.step = step  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateTestCaseRequestTestcaseStepContentInfoStepResultList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.expected is not None:
+            result['expected'] = self.expected
+        if self.step is not None:
+            result['step'] = self.step
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('expected') is not None:
+            self.expected = m.get('expected')
+        if m.get('step') is not None:
+            self.step = m.get('step')
+        return self
+
+
+class CreateTestCaseRequestTestcaseStepContentInfo(TeaModel):
+    def __init__(self, precondition=None, step_result_list=None, step_type=None):
+        self.precondition = precondition  # type: str
+        self.step_result_list = step_result_list  # type: list[CreateTestCaseRequestTestcaseStepContentInfoStepResultList]
+        self.step_type = step_type  # type: str
+
+    def validate(self):
+        if self.step_result_list:
+            for k in self.step_result_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(CreateTestCaseRequestTestcaseStepContentInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.precondition is not None:
+            result['precondition'] = self.precondition
+        result['stepResultList'] = []
+        if self.step_result_list is not None:
+            for k in self.step_result_list:
+                result['stepResultList'].append(k.to_map() if k else None)
+        if self.step_type is not None:
+            result['stepType'] = self.step_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('precondition') is not None:
+            self.precondition = m.get('precondition')
+        self.step_result_list = []
+        if m.get('stepResultList') is not None:
+            for k in m.get('stepResultList'):
+                temp_model = CreateTestCaseRequestTestcaseStepContentInfoStepResultList()
+                self.step_result_list.append(temp_model.from_map(k))
+        if m.get('stepType') is not None:
+            self.step_type = m.get('stepType')
+        return self
+
+
+class CreateTestCaseRequest(TeaModel):
+    def __init__(self, assigned_to=None, directory_identifier=None, field_value_list=None, priority=None,
+                 space_identifier=None, subject=None, tags=None, testcase_step_content_info=None):
+        self.assigned_to = assigned_to  # type: str
+        self.directory_identifier = directory_identifier  # type: str
+        self.field_value_list = field_value_list  # type: list[CreateTestCaseRequestFieldValueList]
+        self.priority = priority  # type: str
+        self.space_identifier = space_identifier  # type: str
+        self.subject = subject  # type: str
+        self.tags = tags  # type: list[str]
+        self.testcase_step_content_info = testcase_step_content_info  # type: CreateTestCaseRequestTestcaseStepContentInfo
+
+    def validate(self):
+        if self.field_value_list:
+            for k in self.field_value_list:
+                if k:
+                    k.validate()
+        if self.testcase_step_content_info:
+            self.testcase_step_content_info.validate()
+
+    def to_map(self):
+        _map = super(CreateTestCaseRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.assigned_to is not None:
+            result['assignedTo'] = self.assigned_to
+        if self.directory_identifier is not None:
+            result['directoryIdentifier'] = self.directory_identifier
+        result['fieldValueList'] = []
+        if self.field_value_list is not None:
+            for k in self.field_value_list:
+                result['fieldValueList'].append(k.to_map() if k else None)
+        if self.priority is not None:
+            result['priority'] = self.priority
+        if self.space_identifier is not None:
+            result['spaceIdentifier'] = self.space_identifier
+        if self.subject is not None:
+            result['subject'] = self.subject
+        if self.tags is not None:
+            result['tags'] = self.tags
+        if self.testcase_step_content_info is not None:
+            result['testcaseStepContentInfo'] = self.testcase_step_content_info.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('assignedTo') is not None:
+            self.assigned_to = m.get('assignedTo')
+        if m.get('directoryIdentifier') is not None:
+            self.directory_identifier = m.get('directoryIdentifier')
+        self.field_value_list = []
+        if m.get('fieldValueList') is not None:
+            for k in m.get('fieldValueList'):
+                temp_model = CreateTestCaseRequestFieldValueList()
+                self.field_value_list.append(temp_model.from_map(k))
+        if m.get('priority') is not None:
+            self.priority = m.get('priority')
+        if m.get('spaceIdentifier') is not None:
+            self.space_identifier = m.get('spaceIdentifier')
+        if m.get('subject') is not None:
+            self.subject = m.get('subject')
+        if m.get('tags') is not None:
+            self.tags = m.get('tags')
+        if m.get('testcaseStepContentInfo') is not None:
+            temp_model = CreateTestCaseRequestTestcaseStepContentInfo()
+            self.testcase_step_content_info = temp_model.from_map(m['testcaseStepContentInfo'])
+        return self
+
+
+class CreateTestCaseResponseBodyTestcaseAssignedTo(TeaModel):
+    def __init__(self, assign_identifier=None, name=None, tb_role_id=None):
+        self.assign_identifier = assign_identifier  # type: str
+        self.name = name  # type: str
+        self.tb_role_id = tb_role_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateTestCaseResponseBodyTestcaseAssignedTo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.assign_identifier is not None:
+            result['assignIdentifier'] = self.assign_identifier
+        if self.name is not None:
+            result['name'] = self.name
+        if self.tb_role_id is not None:
+            result['tbRoleId'] = self.tb_role_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('assignIdentifier') is not None:
+            self.assign_identifier = m.get('assignIdentifier')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('tbRoleId') is not None:
+            self.tb_role_id = m.get('tbRoleId')
+        return self
+
+
+class CreateTestCaseResponseBodyTestcaseCreator(TeaModel):
+    def __init__(self, create_identifier=None, name=None):
+        self.create_identifier = create_identifier  # type: str
+        self.name = name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateTestCaseResponseBodyTestcaseCreator, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.create_identifier is not None:
+            result['createIdentifier'] = self.create_identifier
+        if self.name is not None:
+            result['name'] = self.name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('createIdentifier') is not None:
+            self.create_identifier = m.get('createIdentifier')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        return self
+
+
+class CreateTestCaseResponseBodyTestcaseDetailInfoExpectedResult(TeaModel):
+    def __init__(self, expect_content=None, expect_content_type=None, expect_identifier=None):
+        self.expect_content = expect_content  # type: str
+        self.expect_content_type = expect_content_type  # type: str
+        self.expect_identifier = expect_identifier  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateTestCaseResponseBodyTestcaseDetailInfoExpectedResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.expect_content is not None:
+            result['expectContent'] = self.expect_content
+        if self.expect_content_type is not None:
+            result['expectContentType'] = self.expect_content_type
+        if self.expect_identifier is not None:
+            result['expectIdentifier'] = self.expect_identifier
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('expectContent') is not None:
+            self.expect_content = m.get('expectContent')
+        if m.get('expectContentType') is not None:
+            self.expect_content_type = m.get('expectContentType')
+        if m.get('expectIdentifier') is not None:
+            self.expect_identifier = m.get('expectIdentifier')
+        return self
+
+
+class CreateTestCaseResponseBodyTestcaseDetailInfoPrecondition(TeaModel):
+    def __init__(self, pre_content=None, pre_content_type=None, pre_identifier=None):
+        self.pre_content = pre_content  # type: str
+        self.pre_content_type = pre_content_type  # type: str
+        self.pre_identifier = pre_identifier  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateTestCaseResponseBodyTestcaseDetailInfoPrecondition, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.pre_content is not None:
+            result['preContent'] = self.pre_content
+        if self.pre_content_type is not None:
+            result['preContentType'] = self.pre_content_type
+        if self.pre_identifier is not None:
+            result['preIdentifier'] = self.pre_identifier
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('preContent') is not None:
+            self.pre_content = m.get('preContent')
+        if m.get('preContentType') is not None:
+            self.pre_content_type = m.get('preContentType')
+        if m.get('preIdentifier') is not None:
+            self.pre_identifier = m.get('preIdentifier')
+        return self
+
+
+class CreateTestCaseResponseBodyTestcaseDetailInfoStepContent(TeaModel):
+    def __init__(self, step_content=None, step_content_type=None, step_identifier=None):
+        self.step_content = step_content  # type: str
+        self.step_content_type = step_content_type  # type: str
+        self.step_identifier = step_identifier  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateTestCaseResponseBodyTestcaseDetailInfoStepContent, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.step_content is not None:
+            result['stepContent'] = self.step_content
+        if self.step_content_type is not None:
+            result['stepContentType'] = self.step_content_type
+        if self.step_identifier is not None:
+            result['stepIdentifier'] = self.step_identifier
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('stepContent') is not None:
+            self.step_content = m.get('stepContent')
+        if m.get('stepContentType') is not None:
+            self.step_content_type = m.get('stepContentType')
+        if m.get('stepIdentifier') is not None:
+            self.step_identifier = m.get('stepIdentifier')
+        return self
+
+
+class CreateTestCaseResponseBodyTestcaseDetailInfo(TeaModel):
+    def __init__(self, expected_result=None, precondition=None, step_content=None, step_type=None):
+        self.expected_result = expected_result  # type: CreateTestCaseResponseBodyTestcaseDetailInfoExpectedResult
+        self.precondition = precondition  # type: CreateTestCaseResponseBodyTestcaseDetailInfoPrecondition
+        self.step_content = step_content  # type: CreateTestCaseResponseBodyTestcaseDetailInfoStepContent
+        self.step_type = step_type  # type: str
+
+    def validate(self):
+        if self.expected_result:
+            self.expected_result.validate()
+        if self.precondition:
+            self.precondition.validate()
+        if self.step_content:
+            self.step_content.validate()
+
+    def to_map(self):
+        _map = super(CreateTestCaseResponseBodyTestcaseDetailInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.expected_result is not None:
+            result['expectedResult'] = self.expected_result.to_map()
+        if self.precondition is not None:
+            result['precondition'] = self.precondition.to_map()
+        if self.step_content is not None:
+            result['stepContent'] = self.step_content.to_map()
+        if self.step_type is not None:
+            result['stepType'] = self.step_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('expectedResult') is not None:
+            temp_model = CreateTestCaseResponseBodyTestcaseDetailInfoExpectedResult()
+            self.expected_result = temp_model.from_map(m['expectedResult'])
+        if m.get('precondition') is not None:
+            temp_model = CreateTestCaseResponseBodyTestcaseDetailInfoPrecondition()
+            self.precondition = temp_model.from_map(m['precondition'])
+        if m.get('stepContent') is not None:
+            temp_model = CreateTestCaseResponseBodyTestcaseDetailInfoStepContent()
+            self.step_content = temp_model.from_map(m['stepContent'])
+        if m.get('stepType') is not None:
+            self.step_type = m.get('stepType')
+        return self
+
+
+class CreateTestCaseResponseBodyTestcaseDirectory(TeaModel):
+    def __init__(self, child_identifier=None, directory_identifier=None, name=None, path_name=None):
+        self.child_identifier = child_identifier  # type: str
+        self.directory_identifier = directory_identifier  # type: str
+        self.name = name  # type: str
+        self.path_name = path_name  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateTestCaseResponseBodyTestcaseDirectory, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.child_identifier is not None:
+            result['childIdentifier'] = self.child_identifier
+        if self.directory_identifier is not None:
+            result['directoryIdentifier'] = self.directory_identifier
+        if self.name is not None:
+            result['name'] = self.name
+        if self.path_name is not None:
+            result['pathName'] = self.path_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('childIdentifier') is not None:
+            self.child_identifier = m.get('childIdentifier')
+        if m.get('directoryIdentifier') is not None:
+            self.directory_identifier = m.get('directoryIdentifier')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('pathName') is not None:
+            self.path_name = m.get('pathName')
+        return self
+
+
+class CreateTestCaseResponseBodyTestcaseModifier(TeaModel):
+    def __init__(self, modify_identifier=None, name=None):
+        self.modify_identifier = modify_identifier  # type: str
+        self.name = name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateTestCaseResponseBodyTestcaseModifier, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.modify_identifier is not None:
+            result['modifyIdentifier'] = self.modify_identifier
+        if self.name is not None:
+            result['name'] = self.name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('modifyIdentifier') is not None:
+            self.modify_identifier = m.get('modifyIdentifier')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        return self
+
+
+class CreateTestCaseResponseBodyTestcase(TeaModel):
+    def __init__(self, assigned_to=None, category_identifier=None, creator=None, detail_info=None, directory=None,
+                 identifier=None, modifier=None, space_identifier=None, space_type=None, subject=None):
+        self.assigned_to = assigned_to  # type: CreateTestCaseResponseBodyTestcaseAssignedTo
+        self.category_identifier = category_identifier  # type: str
+        self.creator = creator  # type: CreateTestCaseResponseBodyTestcaseCreator
+        self.detail_info = detail_info  # type: CreateTestCaseResponseBodyTestcaseDetailInfo
+        self.directory = directory  # type: CreateTestCaseResponseBodyTestcaseDirectory
+        self.identifier = identifier  # type: str
+        self.modifier = modifier  # type: CreateTestCaseResponseBodyTestcaseModifier
+        self.space_identifier = space_identifier  # type: str
+        self.space_type = space_type  # type: str
+        self.subject = subject  # type: str
+
+    def validate(self):
+        if self.assigned_to:
+            self.assigned_to.validate()
+        if self.creator:
+            self.creator.validate()
+        if self.detail_info:
+            self.detail_info.validate()
+        if self.directory:
+            self.directory.validate()
+        if self.modifier:
+            self.modifier.validate()
+
+    def to_map(self):
+        _map = super(CreateTestCaseResponseBodyTestcase, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.assigned_to is not None:
+            result['assignedTo'] = self.assigned_to.to_map()
+        if self.category_identifier is not None:
+            result['categoryIdentifier'] = self.category_identifier
+        if self.creator is not None:
+            result['creator'] = self.creator.to_map()
+        if self.detail_info is not None:
+            result['detailInfo'] = self.detail_info.to_map()
+        if self.directory is not None:
+            result['directory'] = self.directory.to_map()
+        if self.identifier is not None:
+            result['identifier'] = self.identifier
+        if self.modifier is not None:
+            result['modifier'] = self.modifier.to_map()
+        if self.space_identifier is not None:
+            result['spaceIdentifier'] = self.space_identifier
+        if self.space_type is not None:
+            result['spaceType'] = self.space_type
+        if self.subject is not None:
+            result['subject'] = self.subject
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('assignedTo') is not None:
+            temp_model = CreateTestCaseResponseBodyTestcaseAssignedTo()
+            self.assigned_to = temp_model.from_map(m['assignedTo'])
+        if m.get('categoryIdentifier') is not None:
+            self.category_identifier = m.get('categoryIdentifier')
+        if m.get('creator') is not None:
+            temp_model = CreateTestCaseResponseBodyTestcaseCreator()
+            self.creator = temp_model.from_map(m['creator'])
+        if m.get('detailInfo') is not None:
+            temp_model = CreateTestCaseResponseBodyTestcaseDetailInfo()
+            self.detail_info = temp_model.from_map(m['detailInfo'])
+        if m.get('directory') is not None:
+            temp_model = CreateTestCaseResponseBodyTestcaseDirectory()
+            self.directory = temp_model.from_map(m['directory'])
+        if m.get('identifier') is not None:
+            self.identifier = m.get('identifier')
+        if m.get('modifier') is not None:
+            temp_model = CreateTestCaseResponseBodyTestcaseModifier()
+            self.modifier = temp_model.from_map(m['modifier'])
+        if m.get('spaceIdentifier') is not None:
+            self.space_identifier = m.get('spaceIdentifier')
+        if m.get('spaceType') is not None:
+            self.space_type = m.get('spaceType')
+        if m.get('subject') is not None:
+            self.subject = m.get('subject')
+        return self
+
+
+class CreateTestCaseResponseBody(TeaModel):
+    def __init__(self, error_code=None, error_msg=None, request_id=None, success=None, testcase=None):
+        self.error_code = error_code  # type: str
+        self.error_msg = error_msg  # type: str
+        # Id of the request
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+        self.testcase = testcase  # type: CreateTestCaseResponseBodyTestcase
+
+    def validate(self):
+        if self.testcase:
+            self.testcase.validate()
+
+    def to_map(self):
+        _map = super(CreateTestCaseResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_code is not None:
+            result['errorCode'] = self.error_code
+        if self.error_msg is not None:
+            result['errorMsg'] = self.error_msg
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.success is not None:
+            result['success'] = self.success
+        if self.testcase is not None:
+            result['testcase'] = self.testcase.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('errorCode') is not None:
+            self.error_code = m.get('errorCode')
+        if m.get('errorMsg') is not None:
+            self.error_msg = m.get('errorMsg')
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('testcase') is not None:
+            temp_model = CreateTestCaseResponseBodyTestcase()
+            self.testcase = temp_model.from_map(m['testcase'])
+        return self
+
+
+class CreateTestCaseResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateTestCaseResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateTestCaseResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateTestCaseResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CreateUserKeyRequest(TeaModel):
+    def __init__(self, access_token=None, expire_time=None, key_scope=None, public_key=None, title=None,
+                 organization_id=None):
+        self.access_token = access_token  # type: str
+        self.expire_time = expire_time  # type: str
+        self.key_scope = key_scope  # type: str
+        self.public_key = public_key  # type: str
+        self.title = title  # type: str
+        self.organization_id = organization_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateUserKeyRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_token is not None:
+            result['accessToken'] = self.access_token
+        if self.expire_time is not None:
+            result['expireTime'] = self.expire_time
+        if self.key_scope is not None:
+            result['keyScope'] = self.key_scope
+        if self.public_key is not None:
+            result['publicKey'] = self.public_key
+        if self.title is not None:
+            result['title'] = self.title
+        if self.organization_id is not None:
+            result['organizationId'] = self.organization_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('accessToken') is not None:
+            self.access_token = m.get('accessToken')
+        if m.get('expireTime') is not None:
+            self.expire_time = m.get('expireTime')
+        if m.get('keyScope') is not None:
+            self.key_scope = m.get('keyScope')
+        if m.get('publicKey') is not None:
+            self.public_key = m.get('publicKey')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        if m.get('organizationId') is not None:
+            self.organization_id = m.get('organizationId')
+        return self
+
+
+class CreateUserKeyResponseBodyResult(TeaModel):
+    def __init__(self, created_at=None, expire_time=None, finger_print=None, id=None, key_scope=None,
+                 last_used_time=None, public_key=None, title=None):
+        self.created_at = created_at  # type: str
+        self.expire_time = expire_time  # type: str
+        self.finger_print = finger_print  # type: str
+        self.id = id  # type: long
+        self.key_scope = key_scope  # type: str
+        self.last_used_time = last_used_time  # type: str
+        self.public_key = public_key  # type: str
+        self.title = title  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateUserKeyResponseBodyResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.created_at is not None:
+            result['createdAt'] = self.created_at
+        if self.expire_time is not None:
+            result['expireTime'] = self.expire_time
+        if self.finger_print is not None:
+            result['fingerPrint'] = self.finger_print
+        if self.id is not None:
+            result['id'] = self.id
+        if self.key_scope is not None:
+            result['keyScope'] = self.key_scope
+        if self.last_used_time is not None:
+            result['lastUsedTime'] = self.last_used_time
+        if self.public_key is not None:
+            result['publicKey'] = self.public_key
+        if self.title is not None:
+            result['title'] = self.title
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('createdAt') is not None:
+            self.created_at = m.get('createdAt')
+        if m.get('expireTime') is not None:
+            self.expire_time = m.get('expireTime')
+        if m.get('fingerPrint') is not None:
+            self.finger_print = m.get('fingerPrint')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('keyScope') is not None:
+            self.key_scope = m.get('keyScope')
+        if m.get('lastUsedTime') is not None:
+            self.last_used_time = m.get('lastUsedTime')
+        if m.get('publicKey') is not None:
+            self.public_key = m.get('publicKey')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        return self
+
+
+class CreateUserKeyResponseBody(TeaModel):
+    def __init__(self, error_code=None, error_message=None, request_id=None, result=None, success=None):
+        self.error_code = error_code  # type: str
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.result = result  # type: CreateUserKeyResponseBodyResult
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.result:
+            self.result.validate()
+
+    def to_map(self):
+        _map = super(CreateUserKeyResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_code is not None:
+            result['errorCode'] = self.error_code
+        if self.error_message is not None:
+            result['errorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.result is not None:
+            result['result'] = self.result.to_map()
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('errorCode') is not None:
+            self.error_code = m.get('errorCode')
+        if m.get('errorMessage') is not None:
+            self.error_message = m.get('errorMessage')
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('result') is not None:
+            temp_model = CreateUserKeyResponseBodyResult()
+            self.result = temp_model.from_map(m['result'])
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class CreateUserKeyResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateUserKeyResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateUserKeyResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateUserKeyResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CreateVariableGroupRequest(TeaModel):
     def __init__(self, description=None, name=None, variables=None):
         self.description = description  # type: str
@@ -7969,6 +8785,195 @@ class DeleteTagResponse(TeaModel):
         return self
 
 
+class DeleteUserKeyRequest(TeaModel):
+    def __init__(self, access_token=None, organization_id=None):
+        self.access_token = access_token  # type: str
+        self.organization_id = organization_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteUserKeyRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_token is not None:
+            result['accessToken'] = self.access_token
+        if self.organization_id is not None:
+            result['organizationId'] = self.organization_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('accessToken') is not None:
+            self.access_token = m.get('accessToken')
+        if m.get('organizationId') is not None:
+            self.organization_id = m.get('organizationId')
+        return self
+
+
+class DeleteUserKeyResponseBodyResult(TeaModel):
+    def __init__(self, context=None, created_at=None, expire_time=None, finger_print=None, id=None, key_scope=None,
+                 last_used_time=None, public_key=None, sha_context=None, title=None, updated_at=None):
+        self.context = context  # type: str
+        self.created_at = created_at  # type: str
+        self.expire_time = expire_time  # type: str
+        self.finger_print = finger_print  # type: str
+        self.id = id  # type: long
+        self.key_scope = key_scope  # type: str
+        self.last_used_time = last_used_time  # type: str
+        self.public_key = public_key  # type: str
+        self.sha_context = sha_context  # type: str
+        self.title = title  # type: str
+        self.updated_at = updated_at  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteUserKeyResponseBodyResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.context is not None:
+            result['context'] = self.context
+        if self.created_at is not None:
+            result['createdAt'] = self.created_at
+        if self.expire_time is not None:
+            result['expireTime'] = self.expire_time
+        if self.finger_print is not None:
+            result['fingerPrint'] = self.finger_print
+        if self.id is not None:
+            result['id'] = self.id
+        if self.key_scope is not None:
+            result['keyScope'] = self.key_scope
+        if self.last_used_time is not None:
+            result['lastUsedTime'] = self.last_used_time
+        if self.public_key is not None:
+            result['publicKey'] = self.public_key
+        if self.sha_context is not None:
+            result['shaContext'] = self.sha_context
+        if self.title is not None:
+            result['title'] = self.title
+        if self.updated_at is not None:
+            result['updatedAt'] = self.updated_at
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('context') is not None:
+            self.context = m.get('context')
+        if m.get('createdAt') is not None:
+            self.created_at = m.get('createdAt')
+        if m.get('expireTime') is not None:
+            self.expire_time = m.get('expireTime')
+        if m.get('fingerPrint') is not None:
+            self.finger_print = m.get('fingerPrint')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('keyScope') is not None:
+            self.key_scope = m.get('keyScope')
+        if m.get('lastUsedTime') is not None:
+            self.last_used_time = m.get('lastUsedTime')
+        if m.get('publicKey') is not None:
+            self.public_key = m.get('publicKey')
+        if m.get('shaContext') is not None:
+            self.sha_context = m.get('shaContext')
+        if m.get('title') is not None:
+            self.title = m.get('title')
+        if m.get('updatedAt') is not None:
+            self.updated_at = m.get('updatedAt')
+        return self
+
+
+class DeleteUserKeyResponseBody(TeaModel):
+    def __init__(self, error_code=None, error_message=None, request_id=None, result=None, success=None):
+        self.error_code = error_code  # type: str
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.result = result  # type: DeleteUserKeyResponseBodyResult
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.result:
+            self.result.validate()
+
+    def to_map(self):
+        _map = super(DeleteUserKeyResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_code is not None:
+            result['errorCode'] = self.error_code
+        if self.error_message is not None:
+            result['errorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.result is not None:
+            result['result'] = self.result.to_map()
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('errorCode') is not None:
+            self.error_code = m.get('errorCode')
+        if m.get('errorMessage') is not None:
+            self.error_message = m.get('errorMessage')
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('result') is not None:
+            temp_model = DeleteUserKeyResponseBodyResult()
+            self.result = temp_model.from_map(m['result'])
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class DeleteUserKeyResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteUserKeyResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteUserKeyResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteUserKeyResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DeleteVariableGroupResponseBody(TeaModel):
     def __init__(self, error_code=None, error_message=None, request_id=None, success=None):
         self.error_code = error_code  # type: str
@@ -10051,6 +11056,7 @@ class GetFileLastCommitRequest(TeaModel):
 
 class GetFileLastCommitResponseBodyResultSignature(TeaModel):
     def __init__(self, gpg_key_id=None, verification_status=None):
+        # GPG密钥ID
         self.gpg_key_id = gpg_key_id  # type: str
         self.verification_status = verification_status  # type: str
 
@@ -10089,7 +11095,6 @@ class GetFileLastCommitResponseBodyResult(TeaModel):
         self.committer_email = committer_email  # type: str
         self.committer_name = committer_name  # type: str
         self.created_at = created_at  # type: str
-        # Commit ID
         self.id = id  # type: str
         self.message = message  # type: str
         self.parent_ids = parent_ids  # type: list[str]
@@ -14109,6 +15114,679 @@ class GetSprintInfoResponse(TeaModel):
         return self
 
 
+class GetTestResultListRequest(TeaModel):
+    def __init__(self, conditions=None, directory_identifier=None):
+        self.conditions = conditions  # type: str
+        self.directory_identifier = directory_identifier  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetTestResultListRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.conditions is not None:
+            result['conditions'] = self.conditions
+        if self.directory_identifier is not None:
+            result['directoryIdentifier'] = self.directory_identifier
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('conditions') is not None:
+            self.conditions = m.get('conditions')
+        if m.get('directoryIdentifier') is not None:
+            self.directory_identifier = m.get('directoryIdentifier')
+        return self
+
+
+class GetTestResultListResponseBodyTestResultAssignedTo(TeaModel):
+    def __init__(self, assigned_to_identtifier=None, name=None):
+        self.assigned_to_identtifier = assigned_to_identtifier  # type: str
+        self.name = name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetTestResultListResponseBodyTestResultAssignedTo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.assigned_to_identtifier is not None:
+            result['assignedToIdenttifier'] = self.assigned_to_identtifier
+        if self.name is not None:
+            result['name'] = self.name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('assignedToIdenttifier') is not None:
+            self.assigned_to_identtifier = m.get('assignedToIdenttifier')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        return self
+
+
+class GetTestResultListResponseBodyTestResultCustomFields(TeaModel):
+    def __init__(self, field_class_name=None, field_format=None, field_identifier=None, value=None):
+        self.field_class_name = field_class_name  # type: str
+        self.field_format = field_format  # type: str
+        self.field_identifier = field_identifier  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetTestResultListResponseBodyTestResultCustomFields, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.field_class_name is not None:
+            result['fieldClassName'] = self.field_class_name
+        if self.field_format is not None:
+            result['fieldFormat'] = self.field_format
+        if self.field_identifier is not None:
+            result['fieldIdentifier'] = self.field_identifier
+        if self.value is not None:
+            result['value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('fieldClassName') is not None:
+            self.field_class_name = m.get('fieldClassName')
+        if m.get('fieldFormat') is not None:
+            self.field_format = m.get('fieldFormat')
+        if m.get('fieldIdentifier') is not None:
+            self.field_identifier = m.get('fieldIdentifier')
+        if m.get('value') is not None:
+            self.value = m.get('value')
+        return self
+
+
+class GetTestResultListResponseBodyTestResultTestResultExecutor(TeaModel):
+    def __init__(self, executor_identifier=None, name=None):
+        self.executor_identifier = executor_identifier  # type: str
+        self.name = name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetTestResultListResponseBodyTestResultTestResultExecutor, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.executor_identifier is not None:
+            result['executorIdentifier'] = self.executor_identifier
+        if self.name is not None:
+            result['name'] = self.name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('executorIdentifier') is not None:
+            self.executor_identifier = m.get('executorIdentifier')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        return self
+
+
+class GetTestResultListResponseBodyTestResult(TeaModel):
+    def __init__(self, assigned_to=None, bug_count=None, category_identifier=None, custom_fields=None,
+                 gmt_create=None, space_identifier=None, subject=None, test_result_executor=None, test_result_gmt_create=None,
+                 test_result_identifier=None, test_result_status=None, testcase_identifier=None):
+        self.assigned_to = assigned_to  # type: GetTestResultListResponseBodyTestResultAssignedTo
+        self.bug_count = bug_count  # type: long
+        self.category_identifier = category_identifier  # type: str
+        self.custom_fields = custom_fields  # type: list[GetTestResultListResponseBodyTestResultCustomFields]
+        self.gmt_create = gmt_create  # type: long
+        self.space_identifier = space_identifier  # type: str
+        self.subject = subject  # type: str
+        self.test_result_executor = test_result_executor  # type: GetTestResultListResponseBodyTestResultTestResultExecutor
+        self.test_result_gmt_create = test_result_gmt_create  # type: long
+        self.test_result_identifier = test_result_identifier  # type: str
+        self.test_result_status = test_result_status  # type: str
+        self.testcase_identifier = testcase_identifier  # type: str
+
+    def validate(self):
+        if self.assigned_to:
+            self.assigned_to.validate()
+        if self.custom_fields:
+            for k in self.custom_fields:
+                if k:
+                    k.validate()
+        if self.test_result_executor:
+            self.test_result_executor.validate()
+
+    def to_map(self):
+        _map = super(GetTestResultListResponseBodyTestResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.assigned_to is not None:
+            result['assignedTo'] = self.assigned_to.to_map()
+        if self.bug_count is not None:
+            result['bugCount'] = self.bug_count
+        if self.category_identifier is not None:
+            result['categoryIdentifier'] = self.category_identifier
+        result['customFields'] = []
+        if self.custom_fields is not None:
+            for k in self.custom_fields:
+                result['customFields'].append(k.to_map() if k else None)
+        if self.gmt_create is not None:
+            result['gmtCreate'] = self.gmt_create
+        if self.space_identifier is not None:
+            result['spaceIdentifier'] = self.space_identifier
+        if self.subject is not None:
+            result['subject'] = self.subject
+        if self.test_result_executor is not None:
+            result['testResultExecutor'] = self.test_result_executor.to_map()
+        if self.test_result_gmt_create is not None:
+            result['testResultGmtCreate'] = self.test_result_gmt_create
+        if self.test_result_identifier is not None:
+            result['testResultIdentifier'] = self.test_result_identifier
+        if self.test_result_status is not None:
+            result['testResultStatus'] = self.test_result_status
+        if self.testcase_identifier is not None:
+            result['testcaseIdentifier'] = self.testcase_identifier
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('assignedTo') is not None:
+            temp_model = GetTestResultListResponseBodyTestResultAssignedTo()
+            self.assigned_to = temp_model.from_map(m['assignedTo'])
+        if m.get('bugCount') is not None:
+            self.bug_count = m.get('bugCount')
+        if m.get('categoryIdentifier') is not None:
+            self.category_identifier = m.get('categoryIdentifier')
+        self.custom_fields = []
+        if m.get('customFields') is not None:
+            for k in m.get('customFields'):
+                temp_model = GetTestResultListResponseBodyTestResultCustomFields()
+                self.custom_fields.append(temp_model.from_map(k))
+        if m.get('gmtCreate') is not None:
+            self.gmt_create = m.get('gmtCreate')
+        if m.get('spaceIdentifier') is not None:
+            self.space_identifier = m.get('spaceIdentifier')
+        if m.get('subject') is not None:
+            self.subject = m.get('subject')
+        if m.get('testResultExecutor') is not None:
+            temp_model = GetTestResultListResponseBodyTestResultTestResultExecutor()
+            self.test_result_executor = temp_model.from_map(m['testResultExecutor'])
+        if m.get('testResultGmtCreate') is not None:
+            self.test_result_gmt_create = m.get('testResultGmtCreate')
+        if m.get('testResultIdentifier') is not None:
+            self.test_result_identifier = m.get('testResultIdentifier')
+        if m.get('testResultStatus') is not None:
+            self.test_result_status = m.get('testResultStatus')
+        if m.get('testcaseIdentifier') is not None:
+            self.testcase_identifier = m.get('testcaseIdentifier')
+        return self
+
+
+class GetTestResultListResponseBody(TeaModel):
+    def __init__(self, error_code=None, error_msg=None, request_id=None, success=None, test_result=None):
+        self.error_code = error_code  # type: str
+        self.error_msg = error_msg  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+        self.test_result = test_result  # type: list[GetTestResultListResponseBodyTestResult]
+
+    def validate(self):
+        if self.test_result:
+            for k in self.test_result:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GetTestResultListResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_code is not None:
+            result['errorCode'] = self.error_code
+        if self.error_msg is not None:
+            result['errorMsg'] = self.error_msg
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.success is not None:
+            result['success'] = self.success
+        result['testResult'] = []
+        if self.test_result is not None:
+            for k in self.test_result:
+                result['testResult'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('errorCode') is not None:
+            self.error_code = m.get('errorCode')
+        if m.get('errorMsg') is not None:
+            self.error_msg = m.get('errorMsg')
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        self.test_result = []
+        if m.get('testResult') is not None:
+            for k in m.get('testResult'):
+                temp_model = GetTestResultListResponseBodyTestResult()
+                self.test_result.append(temp_model.from_map(k))
+        return self
+
+
+class GetTestResultListResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetTestResultListResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetTestResultListResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetTestResultListResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetTestcaseListRequest(TeaModel):
+    def __init__(self, conditions=None, directory_identifier=None, max_result=None, next_token=None,
+                 space_identifier=None):
+        self.conditions = conditions  # type: str
+        self.directory_identifier = directory_identifier  # type: str
+        self.max_result = max_result  # type: str
+        self.next_token = next_token  # type: str
+        self.space_identifier = space_identifier  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetTestcaseListRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.conditions is not None:
+            result['conditions'] = self.conditions
+        if self.directory_identifier is not None:
+            result['directoryIdentifier'] = self.directory_identifier
+        if self.max_result is not None:
+            result['maxResult'] = self.max_result
+        if self.next_token is not None:
+            result['nextToken'] = self.next_token
+        if self.space_identifier is not None:
+            result['spaceIdentifier'] = self.space_identifier
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('conditions') is not None:
+            self.conditions = m.get('conditions')
+        if m.get('directoryIdentifier') is not None:
+            self.directory_identifier = m.get('directoryIdentifier')
+        if m.get('maxResult') is not None:
+            self.max_result = m.get('maxResult')
+        if m.get('nextToken') is not None:
+            self.next_token = m.get('nextToken')
+        if m.get('spaceIdentifier') is not None:
+            self.space_identifier = m.get('spaceIdentifier')
+        return self
+
+
+class GetTestcaseListResponseBodyTestcaseAssignedTo(TeaModel):
+    def __init__(self, assigned_to_identtifier=None, name=None):
+        self.assigned_to_identtifier = assigned_to_identtifier  # type: str
+        self.name = name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetTestcaseListResponseBodyTestcaseAssignedTo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.assigned_to_identtifier is not None:
+            result['assignedToIdenttifier'] = self.assigned_to_identtifier
+        if self.name is not None:
+            result['name'] = self.name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('assignedToIdenttifier') is not None:
+            self.assigned_to_identtifier = m.get('assignedToIdenttifier')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        return self
+
+
+class GetTestcaseListResponseBodyTestcaseCustomFields(TeaModel):
+    def __init__(self, field_class_name=None, field_format=None, field_identifier=None, value=None):
+        self.field_class_name = field_class_name  # type: str
+        self.field_format = field_format  # type: str
+        self.field_identifier = field_identifier  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetTestcaseListResponseBodyTestcaseCustomFields, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.field_class_name is not None:
+            result['fieldClassName'] = self.field_class_name
+        if self.field_format is not None:
+            result['fieldFormat'] = self.field_format
+        if self.field_identifier is not None:
+            result['fieldIdentifier'] = self.field_identifier
+        if self.value is not None:
+            result['value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('fieldClassName') is not None:
+            self.field_class_name = m.get('fieldClassName')
+        if m.get('fieldFormat') is not None:
+            self.field_format = m.get('fieldFormat')
+        if m.get('fieldIdentifier') is not None:
+            self.field_identifier = m.get('fieldIdentifier')
+        if m.get('value') is not None:
+            self.value = m.get('value')
+        return self
+
+
+class GetTestcaseListResponseBodyTestcaseSpace(TeaModel):
+    def __init__(self, space_identifier=None, type=None):
+        self.space_identifier = space_identifier  # type: str
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetTestcaseListResponseBodyTestcaseSpace, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.space_identifier is not None:
+            result['spaceIdentifier'] = self.space_identifier
+        if self.type is not None:
+            result['type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('spaceIdentifier') is not None:
+            self.space_identifier = m.get('spaceIdentifier')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        return self
+
+
+class GetTestcaseListResponseBodyTestcaseTags(TeaModel):
+    def __init__(self, name=None, tag_identifier=None):
+        self.name = name  # type: str
+        self.tag_identifier = tag_identifier  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetTestcaseListResponseBodyTestcaseTags, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.name is not None:
+            result['name'] = self.name
+        if self.tag_identifier is not None:
+            result['tagIdentifier'] = self.tag_identifier
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('tagIdentifier') is not None:
+            self.tag_identifier = m.get('tagIdentifier')
+        return self
+
+
+class GetTestcaseListResponseBodyTestcase(TeaModel):
+    def __init__(self, assigned_to=None, category_identifier=None, custom_fields=None, gmt_create=None,
+                 identifier=None, space=None, subject=None, tags=None):
+        self.assigned_to = assigned_to  # type: GetTestcaseListResponseBodyTestcaseAssignedTo
+        self.category_identifier = category_identifier  # type: str
+        self.custom_fields = custom_fields  # type: list[GetTestcaseListResponseBodyTestcaseCustomFields]
+        self.gmt_create = gmt_create  # type: long
+        self.identifier = identifier  # type: str
+        self.space = space  # type: GetTestcaseListResponseBodyTestcaseSpace
+        self.subject = subject  # type: str
+        self.tags = tags  # type: list[GetTestcaseListResponseBodyTestcaseTags]
+
+    def validate(self):
+        if self.assigned_to:
+            self.assigned_to.validate()
+        if self.custom_fields:
+            for k in self.custom_fields:
+                if k:
+                    k.validate()
+        if self.space:
+            self.space.validate()
+        if self.tags:
+            for k in self.tags:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GetTestcaseListResponseBodyTestcase, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.assigned_to is not None:
+            result['assignedTo'] = self.assigned_to.to_map()
+        if self.category_identifier is not None:
+            result['categoryIdentifier'] = self.category_identifier
+        result['customFields'] = []
+        if self.custom_fields is not None:
+            for k in self.custom_fields:
+                result['customFields'].append(k.to_map() if k else None)
+        if self.gmt_create is not None:
+            result['gmtCreate'] = self.gmt_create
+        if self.identifier is not None:
+            result['identifier'] = self.identifier
+        if self.space is not None:
+            result['space'] = self.space.to_map()
+        if self.subject is not None:
+            result['subject'] = self.subject
+        result['tags'] = []
+        if self.tags is not None:
+            for k in self.tags:
+                result['tags'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('assignedTo') is not None:
+            temp_model = GetTestcaseListResponseBodyTestcaseAssignedTo()
+            self.assigned_to = temp_model.from_map(m['assignedTo'])
+        if m.get('categoryIdentifier') is not None:
+            self.category_identifier = m.get('categoryIdentifier')
+        self.custom_fields = []
+        if m.get('customFields') is not None:
+            for k in m.get('customFields'):
+                temp_model = GetTestcaseListResponseBodyTestcaseCustomFields()
+                self.custom_fields.append(temp_model.from_map(k))
+        if m.get('gmtCreate') is not None:
+            self.gmt_create = m.get('gmtCreate')
+        if m.get('identifier') is not None:
+            self.identifier = m.get('identifier')
+        if m.get('space') is not None:
+            temp_model = GetTestcaseListResponseBodyTestcaseSpace()
+            self.space = temp_model.from_map(m['space'])
+        if m.get('subject') is not None:
+            self.subject = m.get('subject')
+        self.tags = []
+        if m.get('tags') is not None:
+            for k in m.get('tags'):
+                temp_model = GetTestcaseListResponseBodyTestcaseTags()
+                self.tags.append(temp_model.from_map(k))
+        return self
+
+
+class GetTestcaseListResponseBody(TeaModel):
+    def __init__(self, error_code=None, error_msg=None, max_results=None, next_token=None, request_id=None,
+                 success=None, testcase=None, total_count=None):
+        self.error_code = error_code  # type: str
+        self.error_msg = error_msg  # type: str
+        self.max_results = max_results  # type: long
+        self.next_token = next_token  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+        self.testcase = testcase  # type: list[GetTestcaseListResponseBodyTestcase]
+        self.total_count = total_count  # type: long
+
+    def validate(self):
+        if self.testcase:
+            for k in self.testcase:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GetTestcaseListResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_code is not None:
+            result['errorCode'] = self.error_code
+        if self.error_msg is not None:
+            result['errorMsg'] = self.error_msg
+        if self.max_results is not None:
+            result['maxResults'] = self.max_results
+        if self.next_token is not None:
+            result['nextToken'] = self.next_token
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.success is not None:
+            result['success'] = self.success
+        result['testcase'] = []
+        if self.testcase is not None:
+            for k in self.testcase:
+                result['testcase'].append(k.to_map() if k else None)
+        if self.total_count is not None:
+            result['totalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('errorCode') is not None:
+            self.error_code = m.get('errorCode')
+        if m.get('errorMsg') is not None:
+            self.error_msg = m.get('errorMsg')
+        if m.get('maxResults') is not None:
+            self.max_results = m.get('maxResults')
+        if m.get('nextToken') is not None:
+            self.next_token = m.get('nextToken')
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        self.testcase = []
+        if m.get('testcase') is not None:
+            for k in m.get('testcase'):
+                temp_model = GetTestcaseListResponseBodyTestcase()
+                self.testcase.append(temp_model.from_map(k))
+        if m.get('totalCount') is not None:
+            self.total_count = m.get('totalCount')
+        return self
+
+
+class GetTestcaseListResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetTestcaseListResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetTestcaseListResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetTestcaseListResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class GetUserInfoRequest(TeaModel):
     def __init__(self, organization_id=None):
         self.organization_id = organization_id  # type: str
@@ -17485,8 +19163,10 @@ class ListHostGroupsResponse(TeaModel):
 
 
 class ListOrganizationMembersRequest(TeaModel):
-    def __init__(self, extern_uid=None, join_time_from=None, join_time_to=None, max_results=None, next_token=None,
-                 organization_member_name=None, provider=None, state=None):
+    def __init__(self, contains_extern_info=None, extern_uid=None, join_time_from=None, join_time_to=None,
+                 max_results=None, next_token=None, organization_member_name=None, provider=None, state=None):
+        # 返回信息中是否包含第三方信息，默认不包含。
+        self.contains_extern_info = contains_extern_info  # type: bool
         self.extern_uid = extern_uid  # type: str
         self.join_time_from = join_time_from  # type: long
         self.join_time_to = join_time_to  # type: long
@@ -17505,6 +19185,8 @@ class ListOrganizationMembersRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.contains_extern_info is not None:
+            result['containsExternInfo'] = self.contains_extern_info
         if self.extern_uid is not None:
             result['externUid'] = self.extern_uid
         if self.join_time_from is not None:
@@ -17525,6 +19207,8 @@ class ListOrganizationMembersRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('containsExternInfo') is not None:
+            self.contains_extern_info = m.get('containsExternInfo')
         if m.get('externUid') is not None:
             self.extern_uid = m.get('externUid')
         if m.get('joinTimeFrom') is not None:
@@ -19312,6 +20996,7 @@ class ListProjectMembersResponseBodyMembers(TeaModel):
         self.organization_user_info = organization_user_info  # type: ListProjectMembersResponseBodyMembersOrganizationUserInfo
         self.real_name = real_name  # type: str
         self.real_name_pinyin = real_name_pinyin  # type: str
+        # 角色名称
         self.role_name = role_name  # type: str
         self.stamp = stamp  # type: str
         self.tb_role_id = tb_role_id  # type: str
@@ -22276,7 +23961,6 @@ class ListRepositoryGroupsResponse(TeaModel):
 
 class ListRepositoryMemberWithInheritedRequest(TeaModel):
     def __init__(self, access_token=None, organization_id=None):
-        # accessToken
         self.access_token = access_token  # type: str
         self.organization_id = organization_id  # type: str
 
@@ -24811,6 +26495,490 @@ class ListSprintsResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListSprintsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListTestCaseFieldsRequest(TeaModel):
+    def __init__(self, space_identifier=None):
+        self.space_identifier = space_identifier  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListTestCaseFieldsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.space_identifier is not None:
+            result['spaceIdentifier'] = self.space_identifier
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('spaceIdentifier') is not None:
+            self.space_identifier = m.get('spaceIdentifier')
+        return self
+
+
+class ListTestCaseFieldsResponseBodyFieldsOptions(TeaModel):
+    def __init__(self, display_value=None, field_identifier=None, identifier=None, level=None, position=None,
+                 value=None, value_en=None):
+        self.display_value = display_value  # type: str
+        self.field_identifier = field_identifier  # type: str
+        self.identifier = identifier  # type: str
+        self.level = level  # type: long
+        self.position = position  # type: long
+        self.value = value  # type: str
+        self.value_en = value_en  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListTestCaseFieldsResponseBodyFieldsOptions, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.display_value is not None:
+            result['displayValue'] = self.display_value
+        if self.field_identifier is not None:
+            result['fieldIdentifier'] = self.field_identifier
+        if self.identifier is not None:
+            result['identifier'] = self.identifier
+        if self.level is not None:
+            result['level'] = self.level
+        if self.position is not None:
+            result['position'] = self.position
+        if self.value is not None:
+            result['value'] = self.value
+        if self.value_en is not None:
+            result['valueEn'] = self.value_en
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('displayValue') is not None:
+            self.display_value = m.get('displayValue')
+        if m.get('fieldIdentifier') is not None:
+            self.field_identifier = m.get('fieldIdentifier')
+        if m.get('identifier') is not None:
+            self.identifier = m.get('identifier')
+        if m.get('level') is not None:
+            self.level = m.get('level')
+        if m.get('position') is not None:
+            self.position = m.get('position')
+        if m.get('value') is not None:
+            self.value = m.get('value')
+        if m.get('valueEn') is not None:
+            self.value_en = m.get('valueEn')
+        return self
+
+
+class ListTestCaseFieldsResponseBodyFields(TeaModel):
+    def __init__(self, class_name=None, creator=None, default_value=None, description=None, format=None,
+                 gmt_create=None, gmt_modified=None, identifier=None, is_required=None, is_show_when_create=None,
+                 is_system_required=None, link_with_service=None, modifier=None, name=None, options=None, resource_type=None, type=None):
+        self.class_name = class_name  # type: str
+        self.creator = creator  # type: str
+        self.default_value = default_value  # type: str
+        self.description = description  # type: str
+        self.format = format  # type: str
+        self.gmt_create = gmt_create  # type: long
+        self.gmt_modified = gmt_modified  # type: long
+        self.identifier = identifier  # type: str
+        self.is_required = is_required  # type: bool
+        self.is_show_when_create = is_show_when_create  # type: bool
+        self.is_system_required = is_system_required  # type: bool
+        self.link_with_service = link_with_service  # type: str
+        self.modifier = modifier  # type: str
+        self.name = name  # type: str
+        self.options = options  # type: list[ListTestCaseFieldsResponseBodyFieldsOptions]
+        self.resource_type = resource_type  # type: str
+        self.type = type  # type: str
+
+    def validate(self):
+        if self.options:
+            for k in self.options:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListTestCaseFieldsResponseBodyFields, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.class_name is not None:
+            result['className'] = self.class_name
+        if self.creator is not None:
+            result['creator'] = self.creator
+        if self.default_value is not None:
+            result['defaultValue'] = self.default_value
+        if self.description is not None:
+            result['description'] = self.description
+        if self.format is not None:
+            result['format'] = self.format
+        if self.gmt_create is not None:
+            result['gmtCreate'] = self.gmt_create
+        if self.gmt_modified is not None:
+            result['gmtModified'] = self.gmt_modified
+        if self.identifier is not None:
+            result['identifier'] = self.identifier
+        if self.is_required is not None:
+            result['isRequired'] = self.is_required
+        if self.is_show_when_create is not None:
+            result['isShowWhenCreate'] = self.is_show_when_create
+        if self.is_system_required is not None:
+            result['isSystemRequired'] = self.is_system_required
+        if self.link_with_service is not None:
+            result['linkWithService'] = self.link_with_service
+        if self.modifier is not None:
+            result['modifier'] = self.modifier
+        if self.name is not None:
+            result['name'] = self.name
+        result['options'] = []
+        if self.options is not None:
+            for k in self.options:
+                result['options'].append(k.to_map() if k else None)
+        if self.resource_type is not None:
+            result['resourceType'] = self.resource_type
+        if self.type is not None:
+            result['type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('className') is not None:
+            self.class_name = m.get('className')
+        if m.get('creator') is not None:
+            self.creator = m.get('creator')
+        if m.get('defaultValue') is not None:
+            self.default_value = m.get('defaultValue')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('format') is not None:
+            self.format = m.get('format')
+        if m.get('gmtCreate') is not None:
+            self.gmt_create = m.get('gmtCreate')
+        if m.get('gmtModified') is not None:
+            self.gmt_modified = m.get('gmtModified')
+        if m.get('identifier') is not None:
+            self.identifier = m.get('identifier')
+        if m.get('isRequired') is not None:
+            self.is_required = m.get('isRequired')
+        if m.get('isShowWhenCreate') is not None:
+            self.is_show_when_create = m.get('isShowWhenCreate')
+        if m.get('isSystemRequired') is not None:
+            self.is_system_required = m.get('isSystemRequired')
+        if m.get('linkWithService') is not None:
+            self.link_with_service = m.get('linkWithService')
+        if m.get('modifier') is not None:
+            self.modifier = m.get('modifier')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        self.options = []
+        if m.get('options') is not None:
+            for k in m.get('options'):
+                temp_model = ListTestCaseFieldsResponseBodyFieldsOptions()
+                self.options.append(temp_model.from_map(k))
+        if m.get('resourceType') is not None:
+            self.resource_type = m.get('resourceType')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        return self
+
+
+class ListTestCaseFieldsResponseBody(TeaModel):
+    def __init__(self, error_code=None, error_msg=None, fields=None, request_id=None, success=None):
+        self.error_code = error_code  # type: str
+        self.error_msg = error_msg  # type: str
+        self.fields = fields  # type: list[ListTestCaseFieldsResponseBodyFields]
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.fields:
+            for k in self.fields:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListTestCaseFieldsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_code is not None:
+            result['errorCode'] = self.error_code
+        if self.error_msg is not None:
+            result['errorMsg'] = self.error_msg
+        result['fields'] = []
+        if self.fields is not None:
+            for k in self.fields:
+                result['fields'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('errorCode') is not None:
+            self.error_code = m.get('errorCode')
+        if m.get('errorMsg') is not None:
+            self.error_msg = m.get('errorMsg')
+        self.fields = []
+        if m.get('fields') is not None:
+            for k in m.get('fields'):
+                temp_model = ListTestCaseFieldsResponseBodyFields()
+                self.fields.append(temp_model.from_map(k))
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class ListTestCaseFieldsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListTestCaseFieldsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListTestCaseFieldsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListTestCaseFieldsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListUserKeysRequest(TeaModel):
+    def __init__(self, access_token=None, order_by=None, organization_id=None, page=None, page_size=None, sort=None):
+        self.access_token = access_token  # type: str
+        self.order_by = order_by  # type: str
+        self.organization_id = organization_id  # type: str
+        self.page = page  # type: long
+        self.page_size = page_size  # type: long
+        self.sort = sort  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListUserKeysRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_token is not None:
+            result['accessToken'] = self.access_token
+        if self.order_by is not None:
+            result['orderBy'] = self.order_by
+        if self.organization_id is not None:
+            result['organizationId'] = self.organization_id
+        if self.page is not None:
+            result['page'] = self.page
+        if self.page_size is not None:
+            result['pageSize'] = self.page_size
+        if self.sort is not None:
+            result['sort'] = self.sort
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('accessToken') is not None:
+            self.access_token = m.get('accessToken')
+        if m.get('orderBy') is not None:
+            self.order_by = m.get('orderBy')
+        if m.get('organizationId') is not None:
+            self.organization_id = m.get('organizationId')
+        if m.get('page') is not None:
+            self.page = m.get('page')
+        if m.get('pageSize') is not None:
+            self.page_size = m.get('pageSize')
+        if m.get('sort') is not None:
+            self.sort = m.get('sort')
+        return self
+
+
+class ListUserKeysResponseBodyResult(TeaModel):
+    def __init__(self, created_at=None, expire_time=None, finger_print=None, id=None, key_scope=None,
+                 last_used_time=None, public_key=None, tittle=None):
+        self.created_at = created_at  # type: str
+        self.expire_time = expire_time  # type: str
+        self.finger_print = finger_print  # type: str
+        self.id = id  # type: long
+        self.key_scope = key_scope  # type: str
+        self.last_used_time = last_used_time  # type: str
+        self.public_key = public_key  # type: str
+        self.tittle = tittle  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListUserKeysResponseBodyResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.created_at is not None:
+            result['createdAt'] = self.created_at
+        if self.expire_time is not None:
+            result['expireTime'] = self.expire_time
+        if self.finger_print is not None:
+            result['fingerPrint'] = self.finger_print
+        if self.id is not None:
+            result['id'] = self.id
+        if self.key_scope is not None:
+            result['keyScope'] = self.key_scope
+        if self.last_used_time is not None:
+            result['lastUsedTime'] = self.last_used_time
+        if self.public_key is not None:
+            result['publicKey'] = self.public_key
+        if self.tittle is not None:
+            result['tittle'] = self.tittle
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('createdAt') is not None:
+            self.created_at = m.get('createdAt')
+        if m.get('expireTime') is not None:
+            self.expire_time = m.get('expireTime')
+        if m.get('fingerPrint') is not None:
+            self.finger_print = m.get('fingerPrint')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('keyScope') is not None:
+            self.key_scope = m.get('keyScope')
+        if m.get('lastUsedTime') is not None:
+            self.last_used_time = m.get('lastUsedTime')
+        if m.get('publicKey') is not None:
+            self.public_key = m.get('publicKey')
+        if m.get('tittle') is not None:
+            self.tittle = m.get('tittle')
+        return self
+
+
+class ListUserKeysResponseBody(TeaModel):
+    def __init__(self, error_code=None, error_message=None, request_id=None, result=None, success=None):
+        self.error_code = error_code  # type: str
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.result = result  # type: list[ListUserKeysResponseBodyResult]
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.result:
+            for k in self.result:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListUserKeysResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_code is not None:
+            result['errorCode'] = self.error_code
+        if self.error_message is not None:
+            result['errorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        result['result'] = []
+        if self.result is not None:
+            for k in self.result:
+                result['result'].append(k.to_map() if k else None)
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('errorCode') is not None:
+            self.error_code = m.get('errorCode')
+        if m.get('errorMessage') is not None:
+            self.error_message = m.get('errorMessage')
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        self.result = []
+        if m.get('result') is not None:
+            for k in m.get('result'):
+                temp_model = ListUserKeysResponseBodyResult()
+                self.result.append(temp_model.from_map(k))
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class ListUserKeysResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListUserKeysResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListUserKeysResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListUserKeysResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -30938,6 +33106,624 @@ class UpdateResourceMemberResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = UpdateResourceMemberResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UpdateTestCaseRequestUpdateWorkitemPropertyRequest(TeaModel):
+    def __init__(self, field_identifier=None, field_value=None):
+        self.field_identifier = field_identifier  # type: str
+        self.field_value = field_value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateTestCaseRequestUpdateWorkitemPropertyRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.field_identifier is not None:
+            result['fieldIdentifier'] = self.field_identifier
+        if self.field_value is not None:
+            result['fieldValue'] = self.field_value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('fieldIdentifier') is not None:
+            self.field_identifier = m.get('fieldIdentifier')
+        if m.get('fieldValue') is not None:
+            self.field_value = m.get('fieldValue')
+        return self
+
+
+class UpdateTestCaseRequest(TeaModel):
+    def __init__(self, update_workitem_property_request=None):
+        self.update_workitem_property_request = update_workitem_property_request  # type: list[UpdateTestCaseRequestUpdateWorkitemPropertyRequest]
+
+    def validate(self):
+        if self.update_workitem_property_request:
+            for k in self.update_workitem_property_request:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(UpdateTestCaseRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['updateWorkitemPropertyRequest'] = []
+        if self.update_workitem_property_request is not None:
+            for k in self.update_workitem_property_request:
+                result['updateWorkitemPropertyRequest'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.update_workitem_property_request = []
+        if m.get('updateWorkitemPropertyRequest') is not None:
+            for k in m.get('updateWorkitemPropertyRequest'):
+                temp_model = UpdateTestCaseRequestUpdateWorkitemPropertyRequest()
+                self.update_workitem_property_request.append(temp_model.from_map(k))
+        return self
+
+
+class UpdateTestCaseResponseBodyTestcaseAssignedTo(TeaModel):
+    def __init__(self, assign_identifier=None, name=None, tb_role_id=None):
+        self.assign_identifier = assign_identifier  # type: str
+        self.name = name  # type: str
+        self.tb_role_id = tb_role_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateTestCaseResponseBodyTestcaseAssignedTo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.assign_identifier is not None:
+            result['assignIdentifier'] = self.assign_identifier
+        if self.name is not None:
+            result['name'] = self.name
+        if self.tb_role_id is not None:
+            result['tbRoleId'] = self.tb_role_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('assignIdentifier') is not None:
+            self.assign_identifier = m.get('assignIdentifier')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('tbRoleId') is not None:
+            self.tb_role_id = m.get('tbRoleId')
+        return self
+
+
+class UpdateTestCaseResponseBodyTestcaseCreator(TeaModel):
+    def __init__(self, create_identifier=None, name=None):
+        self.create_identifier = create_identifier  # type: str
+        self.name = name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateTestCaseResponseBodyTestcaseCreator, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.create_identifier is not None:
+            result['createIdentifier'] = self.create_identifier
+        if self.name is not None:
+            result['name'] = self.name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('createIdentifier') is not None:
+            self.create_identifier = m.get('createIdentifier')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        return self
+
+
+class UpdateTestCaseResponseBodyTestcaseDetailInfoExpectedResult(TeaModel):
+    def __init__(self, expect_content=None, expect_content_type=None, expect_identifier=None):
+        self.expect_content = expect_content  # type: str
+        self.expect_content_type = expect_content_type  # type: str
+        self.expect_identifier = expect_identifier  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateTestCaseResponseBodyTestcaseDetailInfoExpectedResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.expect_content is not None:
+            result['expectContent'] = self.expect_content
+        if self.expect_content_type is not None:
+            result['expectContentType'] = self.expect_content_type
+        if self.expect_identifier is not None:
+            result['expectIdentifier'] = self.expect_identifier
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('expectContent') is not None:
+            self.expect_content = m.get('expectContent')
+        if m.get('expectContentType') is not None:
+            self.expect_content_type = m.get('expectContentType')
+        if m.get('expectIdentifier') is not None:
+            self.expect_identifier = m.get('expectIdentifier')
+        return self
+
+
+class UpdateTestCaseResponseBodyTestcaseDetailInfoPrecondition(TeaModel):
+    def __init__(self, pre_content=None, pre_content_type=None, pre_identifier=None):
+        self.pre_content = pre_content  # type: str
+        self.pre_content_type = pre_content_type  # type: str
+        self.pre_identifier = pre_identifier  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateTestCaseResponseBodyTestcaseDetailInfoPrecondition, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.pre_content is not None:
+            result['preContent'] = self.pre_content
+        if self.pre_content_type is not None:
+            result['preContentType'] = self.pre_content_type
+        if self.pre_identifier is not None:
+            result['preIdentifier'] = self.pre_identifier
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('preContent') is not None:
+            self.pre_content = m.get('preContent')
+        if m.get('preContentType') is not None:
+            self.pre_content_type = m.get('preContentType')
+        if m.get('preIdentifier') is not None:
+            self.pre_identifier = m.get('preIdentifier')
+        return self
+
+
+class UpdateTestCaseResponseBodyTestcaseDetailInfoStepContent(TeaModel):
+    def __init__(self, step_content=None, step_content_type=None, step_identifier=None):
+        self.step_content = step_content  # type: str
+        self.step_content_type = step_content_type  # type: str
+        self.step_identifier = step_identifier  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateTestCaseResponseBodyTestcaseDetailInfoStepContent, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.step_content is not None:
+            result['stepContent'] = self.step_content
+        if self.step_content_type is not None:
+            result['stepContentType'] = self.step_content_type
+        if self.step_identifier is not None:
+            result['stepIdentifier'] = self.step_identifier
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('stepContent') is not None:
+            self.step_content = m.get('stepContent')
+        if m.get('stepContentType') is not None:
+            self.step_content_type = m.get('stepContentType')
+        if m.get('stepIdentifier') is not None:
+            self.step_identifier = m.get('stepIdentifier')
+        return self
+
+
+class UpdateTestCaseResponseBodyTestcaseDetailInfo(TeaModel):
+    def __init__(self, expected_result=None, precondition=None, step_content=None, step_type=None):
+        self.expected_result = expected_result  # type: UpdateTestCaseResponseBodyTestcaseDetailInfoExpectedResult
+        self.precondition = precondition  # type: UpdateTestCaseResponseBodyTestcaseDetailInfoPrecondition
+        self.step_content = step_content  # type: UpdateTestCaseResponseBodyTestcaseDetailInfoStepContent
+        self.step_type = step_type  # type: str
+
+    def validate(self):
+        if self.expected_result:
+            self.expected_result.validate()
+        if self.precondition:
+            self.precondition.validate()
+        if self.step_content:
+            self.step_content.validate()
+
+    def to_map(self):
+        _map = super(UpdateTestCaseResponseBodyTestcaseDetailInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.expected_result is not None:
+            result['expectedResult'] = self.expected_result.to_map()
+        if self.precondition is not None:
+            result['precondition'] = self.precondition.to_map()
+        if self.step_content is not None:
+            result['stepContent'] = self.step_content.to_map()
+        if self.step_type is not None:
+            result['stepType'] = self.step_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('expectedResult') is not None:
+            temp_model = UpdateTestCaseResponseBodyTestcaseDetailInfoExpectedResult()
+            self.expected_result = temp_model.from_map(m['expectedResult'])
+        if m.get('precondition') is not None:
+            temp_model = UpdateTestCaseResponseBodyTestcaseDetailInfoPrecondition()
+            self.precondition = temp_model.from_map(m['precondition'])
+        if m.get('stepContent') is not None:
+            temp_model = UpdateTestCaseResponseBodyTestcaseDetailInfoStepContent()
+            self.step_content = temp_model.from_map(m['stepContent'])
+        if m.get('stepType') is not None:
+            self.step_type = m.get('stepType')
+        return self
+
+
+class UpdateTestCaseResponseBodyTestcaseDirectory(TeaModel):
+    def __init__(self, child_identifier=None, directory_identifier=None, name=None, path_name=None):
+        self.child_identifier = child_identifier  # type: str
+        self.directory_identifier = directory_identifier  # type: str
+        self.name = name  # type: str
+        self.path_name = path_name  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateTestCaseResponseBodyTestcaseDirectory, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.child_identifier is not None:
+            result['childIdentifier'] = self.child_identifier
+        if self.directory_identifier is not None:
+            result['directoryIdentifier'] = self.directory_identifier
+        if self.name is not None:
+            result['name'] = self.name
+        if self.path_name is not None:
+            result['pathName'] = self.path_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('childIdentifier') is not None:
+            self.child_identifier = m.get('childIdentifier')
+        if m.get('directoryIdentifier') is not None:
+            self.directory_identifier = m.get('directoryIdentifier')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('pathName') is not None:
+            self.path_name = m.get('pathName')
+        return self
+
+
+class UpdateTestCaseResponseBodyTestcaseModifier(TeaModel):
+    def __init__(self, modify_identifier=None, name=None):
+        self.modify_identifier = modify_identifier  # type: str
+        self.name = name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateTestCaseResponseBodyTestcaseModifier, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.modify_identifier is not None:
+            result['modifyIdentifier'] = self.modify_identifier
+        if self.name is not None:
+            result['name'] = self.name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('modifyIdentifier') is not None:
+            self.modify_identifier = m.get('modifyIdentifier')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        return self
+
+
+class UpdateTestCaseResponseBodyTestcase(TeaModel):
+    def __init__(self, assigned_to=None, category_identifier=None, creator=None, detail_info=None, directory=None,
+                 identifier=None, modifier=None, space_identifier=None, space_type=None, subject=None):
+        self.assigned_to = assigned_to  # type: UpdateTestCaseResponseBodyTestcaseAssignedTo
+        self.category_identifier = category_identifier  # type: str
+        self.creator = creator  # type: UpdateTestCaseResponseBodyTestcaseCreator
+        self.detail_info = detail_info  # type: UpdateTestCaseResponseBodyTestcaseDetailInfo
+        self.directory = directory  # type: UpdateTestCaseResponseBodyTestcaseDirectory
+        self.identifier = identifier  # type: str
+        self.modifier = modifier  # type: UpdateTestCaseResponseBodyTestcaseModifier
+        self.space_identifier = space_identifier  # type: str
+        self.space_type = space_type  # type: str
+        self.subject = subject  # type: str
+
+    def validate(self):
+        if self.assigned_to:
+            self.assigned_to.validate()
+        if self.creator:
+            self.creator.validate()
+        if self.detail_info:
+            self.detail_info.validate()
+        if self.directory:
+            self.directory.validate()
+        if self.modifier:
+            self.modifier.validate()
+
+    def to_map(self):
+        _map = super(UpdateTestCaseResponseBodyTestcase, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.assigned_to is not None:
+            result['assignedTo'] = self.assigned_to.to_map()
+        if self.category_identifier is not None:
+            result['categoryIdentifier'] = self.category_identifier
+        if self.creator is not None:
+            result['creator'] = self.creator.to_map()
+        if self.detail_info is not None:
+            result['detailInfo'] = self.detail_info.to_map()
+        if self.directory is not None:
+            result['directory'] = self.directory.to_map()
+        if self.identifier is not None:
+            result['identifier'] = self.identifier
+        if self.modifier is not None:
+            result['modifier'] = self.modifier.to_map()
+        if self.space_identifier is not None:
+            result['spaceIdentifier'] = self.space_identifier
+        if self.space_type is not None:
+            result['spaceType'] = self.space_type
+        if self.subject is not None:
+            result['subject'] = self.subject
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('assignedTo') is not None:
+            temp_model = UpdateTestCaseResponseBodyTestcaseAssignedTo()
+            self.assigned_to = temp_model.from_map(m['assignedTo'])
+        if m.get('categoryIdentifier') is not None:
+            self.category_identifier = m.get('categoryIdentifier')
+        if m.get('creator') is not None:
+            temp_model = UpdateTestCaseResponseBodyTestcaseCreator()
+            self.creator = temp_model.from_map(m['creator'])
+        if m.get('detailInfo') is not None:
+            temp_model = UpdateTestCaseResponseBodyTestcaseDetailInfo()
+            self.detail_info = temp_model.from_map(m['detailInfo'])
+        if m.get('directory') is not None:
+            temp_model = UpdateTestCaseResponseBodyTestcaseDirectory()
+            self.directory = temp_model.from_map(m['directory'])
+        if m.get('identifier') is not None:
+            self.identifier = m.get('identifier')
+        if m.get('modifier') is not None:
+            temp_model = UpdateTestCaseResponseBodyTestcaseModifier()
+            self.modifier = temp_model.from_map(m['modifier'])
+        if m.get('spaceIdentifier') is not None:
+            self.space_identifier = m.get('spaceIdentifier')
+        if m.get('spaceType') is not None:
+            self.space_type = m.get('spaceType')
+        if m.get('subject') is not None:
+            self.subject = m.get('subject')
+        return self
+
+
+class UpdateTestCaseResponseBody(TeaModel):
+    def __init__(self, testcase=None, error_code=None, error_msg=None, request_id=None, success=None):
+        self.testcase = testcase  # type: UpdateTestCaseResponseBodyTestcase
+        self.error_code = error_code  # type: str
+        self.error_msg = error_msg  # type: str
+        # Id of the request
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.testcase:
+            self.testcase.validate()
+
+    def to_map(self):
+        _map = super(UpdateTestCaseResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.testcase is not None:
+            result['Testcase'] = self.testcase.to_map()
+        if self.error_code is not None:
+            result['errorCode'] = self.error_code
+        if self.error_msg is not None:
+            result['errorMsg'] = self.error_msg
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Testcase') is not None:
+            temp_model = UpdateTestCaseResponseBodyTestcase()
+            self.testcase = temp_model.from_map(m['Testcase'])
+        if m.get('errorCode') is not None:
+            self.error_code = m.get('errorCode')
+        if m.get('errorMsg') is not None:
+            self.error_msg = m.get('errorMsg')
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class UpdateTestCaseResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UpdateTestCaseResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdateTestCaseResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UpdateTestCaseResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UpdateTestResultRequest(TeaModel):
+    def __init__(self, executor=None, status=None):
+        self.executor = executor  # type: str
+        self.status = status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateTestResultRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.executor is not None:
+            result['executor'] = self.executor
+        if self.status is not None:
+            result['status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('executor') is not None:
+            self.executor = m.get('executor')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        return self
+
+
+class UpdateTestResultResponseBody(TeaModel):
+    def __init__(self, error_code=None, error_msg=None, request_id=None, success=None):
+        self.error_code = error_code  # type: str
+        self.error_msg = error_msg  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateTestResultResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_code is not None:
+            result['errorCode'] = self.error_code
+        if self.error_msg is not None:
+            result['errorMsg'] = self.error_msg
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('errorCode') is not None:
+            self.error_code = m.get('errorCode')
+        if m.get('errorMsg') is not None:
+            self.error_msg = m.get('errorMsg')
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class UpdateTestResultResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UpdateTestResultResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdateTestResultResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UpdateTestResultResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 

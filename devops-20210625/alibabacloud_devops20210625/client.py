@@ -830,6 +830,92 @@ class Client(OpenApiClient):
         headers = {}
         return self.create_tag_with_options(repository_id, request, headers, runtime)
 
+    def create_test_case_with_options(self, organization_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.assigned_to):
+            body['assignedTo'] = request.assigned_to
+        if not UtilClient.is_unset(request.directory_identifier):
+            body['directoryIdentifier'] = request.directory_identifier
+        if not UtilClient.is_unset(request.field_value_list):
+            body['fieldValueList'] = request.field_value_list
+        if not UtilClient.is_unset(request.priority):
+            body['priority'] = request.priority
+        if not UtilClient.is_unset(request.space_identifier):
+            body['spaceIdentifier'] = request.space_identifier
+        if not UtilClient.is_unset(request.subject):
+            body['subject'] = request.subject
+        if not UtilClient.is_unset(request.tags):
+            body['tags'] = request.tags
+        if not UtilClient.is_unset(request.testcase_step_content_info):
+            body['testcaseStepContentInfo'] = request.testcase_step_content_info
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateTestCase',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/testhub/testcase' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.CreateTestCaseResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_test_case(self, organization_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_test_case_with_options(organization_id, request, headers, runtime)
+
+    def create_user_key_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_token):
+            query['accessToken'] = request.access_token
+        if not UtilClient.is_unset(request.organization_id):
+            query['organizationId'] = request.organization_id
+        body = {}
+        if not UtilClient.is_unset(request.expire_time):
+            body['expireTime'] = request.expire_time
+        if not UtilClient.is_unset(request.key_scope):
+            body['keyScope'] = request.key_scope
+        if not UtilClient.is_unset(request.public_key):
+            body['publicKey'] = request.public_key
+        if not UtilClient.is_unset(request.title):
+            body['title'] = request.title
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateUserKey',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/api/v3/user/keys/create',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.CreateUserKeyResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_user_key(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_user_key_with_options(request, headers, runtime)
+
     def create_variable_group_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -1609,6 +1695,38 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.delete_tag_with_options(repository_id, request, headers, runtime)
+
+    def delete_user_key_with_options(self, key_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_token):
+            query['accessToken'] = request.access_token
+        if not UtilClient.is_unset(request.organization_id):
+            query['organizationId'] = request.organization_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteUserKey',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/api/v3/user/keys/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(key_id)),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.DeleteUserKeyResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_user_key(self, key_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_user_key_with_options(key_id, request, headers, runtime)
 
     def delete_variable_group_with_options(self, organization_id, id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -2496,6 +2614,76 @@ class Client(OpenApiClient):
         headers = {}
         return self.get_sprint_info_with_options(organization_id, sprint_id, headers, runtime)
 
+    def get_test_result_list_with_options(self, organization_id, test_plan_identifier, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.conditions):
+            body['conditions'] = request.conditions
+        if not UtilClient.is_unset(request.directory_identifier):
+            body['directoryIdentifier'] = request.directory_identifier
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='GetTestResultList',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/testhub/testplan/%s/testresults' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(test_plan_identifier))),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.GetTestResultListResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_test_result_list(self, organization_id, test_plan_identifier, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_test_result_list_with_options(organization_id, test_plan_identifier, request, headers, runtime)
+
+    def get_testcase_list_with_options(self, organization_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.conditions):
+            body['conditions'] = request.conditions
+        if not UtilClient.is_unset(request.directory_identifier):
+            body['directoryIdentifier'] = request.directory_identifier
+        if not UtilClient.is_unset(request.max_result):
+            body['maxResult'] = request.max_result
+        if not UtilClient.is_unset(request.next_token):
+            body['nextToken'] = request.next_token
+        if not UtilClient.is_unset(request.space_identifier):
+            body['spaceIdentifier'] = request.space_identifier
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='GetTestcaseList',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/testhub/testcases' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.GetTestcaseListResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_testcase_list(self, organization_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_testcase_list_with_options(organization_id, request, headers, runtime)
+
     def get_user_info_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -2937,6 +3125,8 @@ class Client(OpenApiClient):
     def list_organization_members_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.contains_extern_info):
+            query['containsExternInfo'] = request.contains_extern_info
         if not UtilClient.is_unset(request.extern_uid):
             query['externUid'] = request.extern_uid
         if not UtilClient.is_unset(request.join_time_from):
@@ -4032,6 +4222,76 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_sprints_with_options(organization_id, request, headers, runtime)
+
+    def list_test_case_fields_with_options(self, organization_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.space_identifier):
+            query['spaceIdentifier'] = request.space_identifier
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListTestCaseFields',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/testhub/testcase/fields' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.ListTestCaseFieldsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_test_case_fields(self, organization_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_test_case_fields_with_options(organization_id, request, headers, runtime)
+
+    def list_user_keys_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_token):
+            query['accessToken'] = request.access_token
+        if not UtilClient.is_unset(request.order_by):
+            query['orderBy'] = request.order_by
+        if not UtilClient.is_unset(request.organization_id):
+            query['organizationId'] = request.organization_id
+        if not UtilClient.is_unset(request.page):
+            query['page'] = request.page
+        if not UtilClient.is_unset(request.page_size):
+            query['pageSize'] = request.page_size
+        if not UtilClient.is_unset(request.sort):
+            query['sort'] = request.sort
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListUserKeys',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/api/v3/user/keys',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.ListUserKeysResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_user_keys(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_user_keys_with_options(request, headers, runtime)
 
     def list_variable_groups_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -5239,6 +5499,68 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_resource_member_with_options(organization_id, resource_type, resource_id, account_id, request, headers, runtime)
+
+    def update_test_case_with_options(self, organization_id, testcase_identifier, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.update_workitem_property_request):
+            body['updateWorkitemPropertyRequest'] = request.update_workitem_property_request
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateTestCase',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/testhub/testcase/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(testcase_identifier))),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.UpdateTestCaseResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_test_case(self, organization_id, testcase_identifier, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_test_case_with_options(organization_id, testcase_identifier, request, headers, runtime)
+
+    def update_test_result_with_options(self, organization_id, test_plan_identifier, testcase_identifier, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.executor):
+            body['executor'] = request.executor
+        if not UtilClient.is_unset(request.status):
+            body['status'] = request.status
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateTestResult',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/testhub/testplan/%s/testresult/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(test_plan_identifier)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(testcase_identifier))),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.UpdateTestResultResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_test_result(self, organization_id, test_plan_identifier, testcase_identifier, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_test_result_with_options(organization_id, test_plan_identifier, testcase_identifier, request, headers, runtime)
 
     def update_variable_group_with_options(self, organization_id, id, request, headers, runtime):
         UtilClient.validate_model(request)
