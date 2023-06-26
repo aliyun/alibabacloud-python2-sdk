@@ -29638,8 +29638,10 @@ class HotelOrderCancelRequest(TeaModel):
 
 
 class HotelOrderCancelResponseBodyModule(TeaModel):
-    def __init__(self, cancel_success=None, forfeit_fee=None):
+    def __init__(self, cancel_success=None, code=None, desc=None, forfeit_fee=None):
         self.cancel_success = cancel_success  # type: bool
+        self.code = code  # type: str
+        self.desc = desc  # type: str
         self.forfeit_fee = forfeit_fee  # type: long
 
     def validate(self):
@@ -29653,6 +29655,10 @@ class HotelOrderCancelResponseBodyModule(TeaModel):
         result = dict()
         if self.cancel_success is not None:
             result['cancel_success'] = self.cancel_success
+        if self.code is not None:
+            result['code'] = self.code
+        if self.desc is not None:
+            result['desc'] = self.desc
         if self.forfeit_fee is not None:
             result['forfeit_fee'] = self.forfeit_fee
         return result
@@ -29661,6 +29667,10 @@ class HotelOrderCancelResponseBodyModule(TeaModel):
         m = m or dict()
         if m.get('cancel_success') is not None:
             self.cancel_success = m.get('cancel_success')
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('desc') is not None:
+            self.desc = m.get('desc')
         if m.get('forfeit_fee') is not None:
             self.forfeit_fee = m.get('forfeit_fee')
         return self
