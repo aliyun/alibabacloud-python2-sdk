@@ -226,13 +226,15 @@ class AddCardToDirectionalGroupResponse(TeaModel):
 
 
 class AddDirectionalAddressRequest(TeaModel):
-    def __init__(self, address=None, address_type=None, group_id=None, msg_notify=None, serial_no=None, source=None):
+    def __init__(self, address=None, address_type=None, group_id=None, msg_notify=None, serial_no=None, source=None,
+                 url_insecurity_force=None):
         self.address = address  # type: str
         self.address_type = address_type  # type: str
         self.group_id = group_id  # type: str
         self.msg_notify = msg_notify  # type: bool
         self.serial_no = serial_no  # type: str
         self.source = source  # type: str
+        self.url_insecurity_force = url_insecurity_force  # type: bool
 
     def validate(self):
         pass
@@ -255,6 +257,8 @@ class AddDirectionalAddressRequest(TeaModel):
             result['SerialNo'] = self.serial_no
         if self.source is not None:
             result['Source'] = self.source
+        if self.url_insecurity_force is not None:
+            result['UrlInsecurityForce'] = self.url_insecurity_force
         return result
 
     def from_map(self, m=None):
@@ -271,6 +275,8 @@ class AddDirectionalAddressRequest(TeaModel):
             self.serial_no = m.get('SerialNo')
         if m.get('Source') is not None:
             self.source = m.get('Source')
+        if m.get('UrlInsecurityForce') is not None:
+            self.url_insecurity_force = m.get('UrlInsecurityForce')
         return self
 
 
@@ -3130,9 +3136,9 @@ class GetCredentialPoolStatisticsRequest(TeaModel):
 
 class GetCredentialPoolStatisticsResponseBodyData(TeaModel):
     def __init__(self, card_active_num=None, card_total_num=None, credential_instance_id=None, credential_no=None,
-                 credential_type=None, effective_available_flow=None, effective_total_flow=None, month_feature_fee=None,
-                 month_used_amount=None, pool_avaiable=None, pool_grand_total=None, pool_grand_total_used=None, pool_out_used=None,
-                 pool_used=None, sms_used=None):
+                 credential_type=None, effective_available_flow=None, effective_total_flow=None, month_exceed_fee=None,
+                 month_feature_fee=None, month_used_amount=None, pool_avaiable=None, pool_grand_total=None,
+                 pool_grand_total_used=None, pool_out_used=None, pool_used=None, sms_used=None):
         self.card_active_num = card_active_num  # type: long
         self.card_total_num = card_total_num  # type: long
         self.credential_instance_id = credential_instance_id  # type: str
@@ -3140,6 +3146,7 @@ class GetCredentialPoolStatisticsResponseBodyData(TeaModel):
         self.credential_type = credential_type  # type: str
         self.effective_available_flow = effective_available_flow  # type: str
         self.effective_total_flow = effective_total_flow  # type: str
+        self.month_exceed_fee = month_exceed_fee  # type: long
         self.month_feature_fee = month_feature_fee  # type: long
         self.month_used_amount = month_used_amount  # type: long
         self.pool_avaiable = pool_avaiable  # type: str
@@ -3172,6 +3179,8 @@ class GetCredentialPoolStatisticsResponseBodyData(TeaModel):
             result['EffectiveAvailableFlow'] = self.effective_available_flow
         if self.effective_total_flow is not None:
             result['EffectiveTotalFlow'] = self.effective_total_flow
+        if self.month_exceed_fee is not None:
+            result['MonthExceedFee'] = self.month_exceed_fee
         if self.month_feature_fee is not None:
             result['MonthFeatureFee'] = self.month_feature_fee
         if self.month_used_amount is not None:
@@ -3206,6 +3215,8 @@ class GetCredentialPoolStatisticsResponseBodyData(TeaModel):
             self.effective_available_flow = m.get('EffectiveAvailableFlow')
         if m.get('EffectiveTotalFlow') is not None:
             self.effective_total_flow = m.get('EffectiveTotalFlow')
+        if m.get('MonthExceedFee') is not None:
+            self.month_exceed_fee = m.get('MonthExceedFee')
         if m.get('MonthFeatureFee') is not None:
             self.month_feature_fee = m.get('MonthFeatureFee')
         if m.get('MonthUsedAmount') is not None:

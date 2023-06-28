@@ -90,6 +90,8 @@ class Client(OpenApiClient):
             query['SerialNo'] = request.serial_no
         if not UtilClient.is_unset(request.source):
             query['Source'] = request.source
+        if not UtilClient.is_unset(request.url_insecurity_force):
+            query['UrlInsecurityForce'] = request.url_insecurity_force
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
