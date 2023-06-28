@@ -29,8 +29,11 @@ class AddDataLevelPermissionRuleUsersRequest(TeaModel):
 
 class AddDataLevelPermissionRuleUsersResponseBody(TeaModel):
     def __init__(self, request_id=None, result=None, success=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The execution result of the interface. Valid values:\n\n*   true: The request was successful.\n*   false: The request failed.\n
         self.result = result  # type: bool
+        # Indicates whether the request is successful. Valid values:\n\n*   true: The request was successful.\n*   false: The request failed.\n
         self.success = success  # type: bool
 
     def validate(self):
@@ -1700,7 +1703,9 @@ class CancelAuthorizationMenuResponse(TeaModel):
 
 class CancelCollectionRequest(TeaModel):
     def __init__(self, user_id=None, works_id=None):
+        # The ID of the favorite user. The user ID is the UserID of the Quick BI, not the UID of Alibaba Cloud.
         self.user_id = user_id  # type: str
+        # The ID of the work to cancel the collection.
         self.works_id = works_id  # type: str
 
     def validate(self):
@@ -1729,8 +1734,17 @@ class CancelCollectionRequest(TeaModel):
 
 class CancelCollectionResponseBody(TeaModel):
     def __init__(self, request_id=None, result=None, success=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The execution result of the interface is returned. Valid values:
+        # 
+        # *   true: The request was successful.
+        # *   false: The request fails.
         self.result = result  # type: bool
+        # Indicates whether the request is successful. Valid values:
+        # 
+        # *   true: The request was successful.
+        # *   false: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -2041,7 +2055,9 @@ class ChangeVisibilityModelResponse(TeaModel):
 
 class CheckReadableRequest(TeaModel):
     def __init__(self, user_id=None, works_id=None):
+        # The user ID of the Quick BI to be checked.
         self.user_id = user_id  # type: str
+        # The ID of the work. Resources here include BI portal, dashboards, spreadsheets, and self-service access.
         self.works_id = works_id  # type: str
 
     def validate(self):
@@ -2070,8 +2086,17 @@ class CheckReadableRequest(TeaModel):
 
 class CheckReadableResponseBody(TeaModel):
     def __init__(self, request_id=None, result=None, success=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The execution result of the interface is returned. Valid values:
+        # 
+        # *   true: The request was successful.
+        # *   false: The request fails.
         self.result = result  # type: bool
+        # Indicates whether the request is successful. Valid values:
+        # 
+        # *   true: The request was successful.
+        # *   false: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -5902,6 +5927,811 @@ class ModifyApiDatasourceParametersResponse(TeaModel):
         return self
 
 
+class QueryComponentPerformanceRequest(TeaModel):
+    def __init__(self, cost_time_avg_min=None, page_num=None, page_size=None, query_type=None, report_id=None,
+                 resource_type=None, workspace_id=None):
+        self.cost_time_avg_min = cost_time_avg_min  # type: int
+        self.page_num = page_num  # type: int
+        self.page_size = page_size  # type: int
+        self.query_type = query_type  # type: str
+        self.report_id = report_id  # type: str
+        self.resource_type = resource_type  # type: str
+        self.workspace_id = workspace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryComponentPerformanceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cost_time_avg_min is not None:
+            result['CostTimeAvgMin'] = self.cost_time_avg_min
+        if self.page_num is not None:
+            result['PageNum'] = self.page_num
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.query_type is not None:
+            result['QueryType'] = self.query_type
+        if self.report_id is not None:
+            result['ReportId'] = self.report_id
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
+        if self.workspace_id is not None:
+            result['WorkspaceId'] = self.workspace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CostTimeAvgMin') is not None:
+            self.cost_time_avg_min = m.get('CostTimeAvgMin')
+        if m.get('PageNum') is not None:
+            self.page_num = m.get('PageNum')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('QueryType') is not None:
+            self.query_type = m.get('QueryType')
+        if m.get('ReportId') is not None:
+            self.report_id = m.get('ReportId')
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
+        if m.get('WorkspaceId') is not None:
+            self.workspace_id = m.get('WorkspaceId')
+        return self
+
+
+class QueryComponentPerformanceResponseBodyResult(TeaModel):
+    def __init__(self, cache_cost_time_avg=None, cache_query_count=None, component_id=None, component_name=None,
+                 cost_time_avg=None, query_count=None, query_count_avg=None, query_over_five_percent_num=None,
+                 query_over_five_sec_percent=None, query_over_ten_sec_percent=None, query_over_ten_sec_percent_num=None,
+                 query_timeout_count=None, query_timeout_count_percent=None, quick_index_cost_time_avg=None,
+                 quick_index_query_count=None, repeat_query_percent=None, repeat_query_percent_num=None, repeat_sql_query_count=None,
+                 repeat_sql_query_percent=None, report_id=None, report_name=None, report_type=None, workspace_id=None, workspace_name=None):
+        self.cache_cost_time_avg = cache_cost_time_avg  # type: float
+        self.cache_query_count = cache_query_count  # type: int
+        self.component_id = component_id  # type: str
+        self.component_name = component_name  # type: str
+        self.cost_time_avg = cost_time_avg  # type: float
+        self.query_count = query_count  # type: int
+        self.query_count_avg = query_count_avg  # type: float
+        self.query_over_five_percent_num = query_over_five_percent_num  # type: float
+        self.query_over_five_sec_percent = query_over_five_sec_percent  # type: str
+        self.query_over_ten_sec_percent = query_over_ten_sec_percent  # type: str
+        self.query_over_ten_sec_percent_num = query_over_ten_sec_percent_num  # type: float
+        self.query_timeout_count = query_timeout_count  # type: int
+        self.query_timeout_count_percent = query_timeout_count_percent  # type: float
+        self.quick_index_cost_time_avg = quick_index_cost_time_avg  # type: float
+        self.quick_index_query_count = quick_index_query_count  # type: int
+        self.repeat_query_percent = repeat_query_percent  # type: str
+        self.repeat_query_percent_num = repeat_query_percent_num  # type: float
+        self.repeat_sql_query_count = repeat_sql_query_count  # type: int
+        self.repeat_sql_query_percent = repeat_sql_query_percent  # type: str
+        self.report_id = report_id  # type: str
+        self.report_name = report_name  # type: str
+        self.report_type = report_type  # type: str
+        self.workspace_id = workspace_id  # type: str
+        self.workspace_name = workspace_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryComponentPerformanceResponseBodyResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cache_cost_time_avg is not None:
+            result['CacheCostTimeAvg'] = self.cache_cost_time_avg
+        if self.cache_query_count is not None:
+            result['CacheQueryCount'] = self.cache_query_count
+        if self.component_id is not None:
+            result['ComponentId'] = self.component_id
+        if self.component_name is not None:
+            result['ComponentName'] = self.component_name
+        if self.cost_time_avg is not None:
+            result['CostTimeAvg'] = self.cost_time_avg
+        if self.query_count is not None:
+            result['QueryCount'] = self.query_count
+        if self.query_count_avg is not None:
+            result['QueryCountAvg'] = self.query_count_avg
+        if self.query_over_five_percent_num is not None:
+            result['QueryOverFivePercentNum'] = self.query_over_five_percent_num
+        if self.query_over_five_sec_percent is not None:
+            result['QueryOverFiveSecPercent'] = self.query_over_five_sec_percent
+        if self.query_over_ten_sec_percent is not None:
+            result['QueryOverTenSecPercent'] = self.query_over_ten_sec_percent
+        if self.query_over_ten_sec_percent_num is not None:
+            result['QueryOverTenSecPercentNum'] = self.query_over_ten_sec_percent_num
+        if self.query_timeout_count is not None:
+            result['QueryTimeoutCount'] = self.query_timeout_count
+        if self.query_timeout_count_percent is not None:
+            result['QueryTimeoutCountPercent'] = self.query_timeout_count_percent
+        if self.quick_index_cost_time_avg is not None:
+            result['QuickIndexCostTimeAvg'] = self.quick_index_cost_time_avg
+        if self.quick_index_query_count is not None:
+            result['QuickIndexQueryCount'] = self.quick_index_query_count
+        if self.repeat_query_percent is not None:
+            result['RepeatQueryPercent'] = self.repeat_query_percent
+        if self.repeat_query_percent_num is not None:
+            result['RepeatQueryPercentNum'] = self.repeat_query_percent_num
+        if self.repeat_sql_query_count is not None:
+            result['RepeatSqlQueryCount'] = self.repeat_sql_query_count
+        if self.repeat_sql_query_percent is not None:
+            result['RepeatSqlQueryPercent'] = self.repeat_sql_query_percent
+        if self.report_id is not None:
+            result['ReportId'] = self.report_id
+        if self.report_name is not None:
+            result['ReportName'] = self.report_name
+        if self.report_type is not None:
+            result['ReportType'] = self.report_type
+        if self.workspace_id is not None:
+            result['WorkspaceId'] = self.workspace_id
+        if self.workspace_name is not None:
+            result['WorkspaceName'] = self.workspace_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CacheCostTimeAvg') is not None:
+            self.cache_cost_time_avg = m.get('CacheCostTimeAvg')
+        if m.get('CacheQueryCount') is not None:
+            self.cache_query_count = m.get('CacheQueryCount')
+        if m.get('ComponentId') is not None:
+            self.component_id = m.get('ComponentId')
+        if m.get('ComponentName') is not None:
+            self.component_name = m.get('ComponentName')
+        if m.get('CostTimeAvg') is not None:
+            self.cost_time_avg = m.get('CostTimeAvg')
+        if m.get('QueryCount') is not None:
+            self.query_count = m.get('QueryCount')
+        if m.get('QueryCountAvg') is not None:
+            self.query_count_avg = m.get('QueryCountAvg')
+        if m.get('QueryOverFivePercentNum') is not None:
+            self.query_over_five_percent_num = m.get('QueryOverFivePercentNum')
+        if m.get('QueryOverFiveSecPercent') is not None:
+            self.query_over_five_sec_percent = m.get('QueryOverFiveSecPercent')
+        if m.get('QueryOverTenSecPercent') is not None:
+            self.query_over_ten_sec_percent = m.get('QueryOverTenSecPercent')
+        if m.get('QueryOverTenSecPercentNum') is not None:
+            self.query_over_ten_sec_percent_num = m.get('QueryOverTenSecPercentNum')
+        if m.get('QueryTimeoutCount') is not None:
+            self.query_timeout_count = m.get('QueryTimeoutCount')
+        if m.get('QueryTimeoutCountPercent') is not None:
+            self.query_timeout_count_percent = m.get('QueryTimeoutCountPercent')
+        if m.get('QuickIndexCostTimeAvg') is not None:
+            self.quick_index_cost_time_avg = m.get('QuickIndexCostTimeAvg')
+        if m.get('QuickIndexQueryCount') is not None:
+            self.quick_index_query_count = m.get('QuickIndexQueryCount')
+        if m.get('RepeatQueryPercent') is not None:
+            self.repeat_query_percent = m.get('RepeatQueryPercent')
+        if m.get('RepeatQueryPercentNum') is not None:
+            self.repeat_query_percent_num = m.get('RepeatQueryPercentNum')
+        if m.get('RepeatSqlQueryCount') is not None:
+            self.repeat_sql_query_count = m.get('RepeatSqlQueryCount')
+        if m.get('RepeatSqlQueryPercent') is not None:
+            self.repeat_sql_query_percent = m.get('RepeatSqlQueryPercent')
+        if m.get('ReportId') is not None:
+            self.report_id = m.get('ReportId')
+        if m.get('ReportName') is not None:
+            self.report_name = m.get('ReportName')
+        if m.get('ReportType') is not None:
+            self.report_type = m.get('ReportType')
+        if m.get('WorkspaceId') is not None:
+            self.workspace_id = m.get('WorkspaceId')
+        if m.get('WorkspaceName') is not None:
+            self.workspace_name = m.get('WorkspaceName')
+        return self
+
+
+class QueryComponentPerformanceResponseBody(TeaModel):
+    def __init__(self, request_id=None, result=None, success=None):
+        self.request_id = request_id  # type: str
+        self.result = result  # type: list[QueryComponentPerformanceResponseBodyResult]
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.result:
+            for k in self.result:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(QueryComponentPerformanceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        result['Result'] = []
+        if self.result is not None:
+            for k in self.result:
+                result['Result'].append(k.to_map() if k else None)
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        self.result = []
+        if m.get('Result') is not None:
+            for k in m.get('Result'):
+                temp_model = QueryComponentPerformanceResponseBodyResult()
+                self.result.append(temp_model.from_map(k))
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class QueryComponentPerformanceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: QueryComponentPerformanceResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(QueryComponentPerformanceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = QueryComponentPerformanceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class QueryCubeOptimizationRequest(TeaModel):
+    def __init__(self, workspace_id=None):
+        self.workspace_id = workspace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryCubeOptimizationRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.workspace_id is not None:
+            result['WorkspaceId'] = self.workspace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('WorkspaceId') is not None:
+            self.workspace_id = m.get('WorkspaceId')
+        return self
+
+
+class QueryCubeOptimizationResponseBodyResultCubePerformanceDiagnoseModel(TeaModel):
+    def __init__(self, cache_cost_time_avg=None, cache_query_count=None, cost_time_avg=None, cube_id=None,
+                 cube_name=None, query_count=None, query_count_avg=None, query_over_five_percent_num=None,
+                 query_over_five_sec_percent=None, query_over_ten_sec_percent=None, query_over_ten_sec_percent_num=None,
+                 query_timeout_count=None, query_timeout_count_percent=None, quick_index_cost_time_avg=None,
+                 quick_index_query_count=None, repeat_query_percent=None, repeat_query_percent_num=None, repeat_sql_query_count=None,
+                 repeat_sql_query_percent=None, workspace_id=None, workspace_name=None):
+        self.cache_cost_time_avg = cache_cost_time_avg  # type: float
+        self.cache_query_count = cache_query_count  # type: int
+        self.cost_time_avg = cost_time_avg  # type: float
+        self.cube_id = cube_id  # type: str
+        self.cube_name = cube_name  # type: str
+        self.query_count = query_count  # type: int
+        self.query_count_avg = query_count_avg  # type: float
+        self.query_over_five_percent_num = query_over_five_percent_num  # type: float
+        self.query_over_five_sec_percent = query_over_five_sec_percent  # type: str
+        self.query_over_ten_sec_percent = query_over_ten_sec_percent  # type: str
+        self.query_over_ten_sec_percent_num = query_over_ten_sec_percent_num  # type: float
+        self.query_timeout_count = query_timeout_count  # type: int
+        self.query_timeout_count_percent = query_timeout_count_percent  # type: float
+        self.quick_index_cost_time_avg = quick_index_cost_time_avg  # type: float
+        self.quick_index_query_count = quick_index_query_count  # type: int
+        self.repeat_query_percent = repeat_query_percent  # type: str
+        self.repeat_query_percent_num = repeat_query_percent_num  # type: float
+        self.repeat_sql_query_count = repeat_sql_query_count  # type: int
+        self.repeat_sql_query_percent = repeat_sql_query_percent  # type: str
+        self.workspace_id = workspace_id  # type: str
+        self.workspace_name = workspace_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryCubeOptimizationResponseBodyResultCubePerformanceDiagnoseModel, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cache_cost_time_avg is not None:
+            result['CacheCostTimeAvg'] = self.cache_cost_time_avg
+        if self.cache_query_count is not None:
+            result['CacheQueryCount'] = self.cache_query_count
+        if self.cost_time_avg is not None:
+            result['CostTimeAvg'] = self.cost_time_avg
+        if self.cube_id is not None:
+            result['CubeId'] = self.cube_id
+        if self.cube_name is not None:
+            result['CubeName'] = self.cube_name
+        if self.query_count is not None:
+            result['QueryCount'] = self.query_count
+        if self.query_count_avg is not None:
+            result['QueryCountAvg'] = self.query_count_avg
+        if self.query_over_five_percent_num is not None:
+            result['QueryOverFivePercentNum'] = self.query_over_five_percent_num
+        if self.query_over_five_sec_percent is not None:
+            result['QueryOverFiveSecPercent'] = self.query_over_five_sec_percent
+        if self.query_over_ten_sec_percent is not None:
+            result['QueryOverTenSecPercent'] = self.query_over_ten_sec_percent
+        if self.query_over_ten_sec_percent_num is not None:
+            result['QueryOverTenSecPercentNum'] = self.query_over_ten_sec_percent_num
+        if self.query_timeout_count is not None:
+            result['QueryTimeoutCount'] = self.query_timeout_count
+        if self.query_timeout_count_percent is not None:
+            result['QueryTimeoutCountPercent'] = self.query_timeout_count_percent
+        if self.quick_index_cost_time_avg is not None:
+            result['QuickIndexCostTimeAvg'] = self.quick_index_cost_time_avg
+        if self.quick_index_query_count is not None:
+            result['QuickIndexQueryCount'] = self.quick_index_query_count
+        if self.repeat_query_percent is not None:
+            result['RepeatQueryPercent'] = self.repeat_query_percent
+        if self.repeat_query_percent_num is not None:
+            result['RepeatQueryPercentNum'] = self.repeat_query_percent_num
+        if self.repeat_sql_query_count is not None:
+            result['RepeatSqlQueryCount'] = self.repeat_sql_query_count
+        if self.repeat_sql_query_percent is not None:
+            result['RepeatSqlQueryPercent'] = self.repeat_sql_query_percent
+        if self.workspace_id is not None:
+            result['WorkspaceId'] = self.workspace_id
+        if self.workspace_name is not None:
+            result['WorkspaceName'] = self.workspace_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CacheCostTimeAvg') is not None:
+            self.cache_cost_time_avg = m.get('CacheCostTimeAvg')
+        if m.get('CacheQueryCount') is not None:
+            self.cache_query_count = m.get('CacheQueryCount')
+        if m.get('CostTimeAvg') is not None:
+            self.cost_time_avg = m.get('CostTimeAvg')
+        if m.get('CubeId') is not None:
+            self.cube_id = m.get('CubeId')
+        if m.get('CubeName') is not None:
+            self.cube_name = m.get('CubeName')
+        if m.get('QueryCount') is not None:
+            self.query_count = m.get('QueryCount')
+        if m.get('QueryCountAvg') is not None:
+            self.query_count_avg = m.get('QueryCountAvg')
+        if m.get('QueryOverFivePercentNum') is not None:
+            self.query_over_five_percent_num = m.get('QueryOverFivePercentNum')
+        if m.get('QueryOverFiveSecPercent') is not None:
+            self.query_over_five_sec_percent = m.get('QueryOverFiveSecPercent')
+        if m.get('QueryOverTenSecPercent') is not None:
+            self.query_over_ten_sec_percent = m.get('QueryOverTenSecPercent')
+        if m.get('QueryOverTenSecPercentNum') is not None:
+            self.query_over_ten_sec_percent_num = m.get('QueryOverTenSecPercentNum')
+        if m.get('QueryTimeoutCount') is not None:
+            self.query_timeout_count = m.get('QueryTimeoutCount')
+        if m.get('QueryTimeoutCountPercent') is not None:
+            self.query_timeout_count_percent = m.get('QueryTimeoutCountPercent')
+        if m.get('QuickIndexCostTimeAvg') is not None:
+            self.quick_index_cost_time_avg = m.get('QuickIndexCostTimeAvg')
+        if m.get('QuickIndexQueryCount') is not None:
+            self.quick_index_query_count = m.get('QuickIndexQueryCount')
+        if m.get('RepeatQueryPercent') is not None:
+            self.repeat_query_percent = m.get('RepeatQueryPercent')
+        if m.get('RepeatQueryPercentNum') is not None:
+            self.repeat_query_percent_num = m.get('RepeatQueryPercentNum')
+        if m.get('RepeatSqlQueryCount') is not None:
+            self.repeat_sql_query_count = m.get('RepeatSqlQueryCount')
+        if m.get('RepeatSqlQueryPercent') is not None:
+            self.repeat_sql_query_percent = m.get('RepeatSqlQueryPercent')
+        if m.get('WorkspaceId') is not None:
+            self.workspace_id = m.get('WorkspaceId')
+        if m.get('WorkspaceName') is not None:
+            self.workspace_name = m.get('WorkspaceName')
+        return self
+
+
+class QueryCubeOptimizationResponseBodyResult(TeaModel):
+    def __init__(self, advice_type=None, cube_performance_diagnose_model=None):
+        self.advice_type = advice_type  # type: str
+        self.cube_performance_diagnose_model = cube_performance_diagnose_model  # type: QueryCubeOptimizationResponseBodyResultCubePerformanceDiagnoseModel
+
+    def validate(self):
+        if self.cube_performance_diagnose_model:
+            self.cube_performance_diagnose_model.validate()
+
+    def to_map(self):
+        _map = super(QueryCubeOptimizationResponseBodyResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.advice_type is not None:
+            result['AdviceType'] = self.advice_type
+        if self.cube_performance_diagnose_model is not None:
+            result['CubePerformanceDiagnoseModel'] = self.cube_performance_diagnose_model.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AdviceType') is not None:
+            self.advice_type = m.get('AdviceType')
+        if m.get('CubePerformanceDiagnoseModel') is not None:
+            temp_model = QueryCubeOptimizationResponseBodyResultCubePerformanceDiagnoseModel()
+            self.cube_performance_diagnose_model = temp_model.from_map(m['CubePerformanceDiagnoseModel'])
+        return self
+
+
+class QueryCubeOptimizationResponseBody(TeaModel):
+    def __init__(self, request_id=None, result=None, success=None):
+        self.request_id = request_id  # type: str
+        self.result = result  # type: list[QueryCubeOptimizationResponseBodyResult]
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.result:
+            for k in self.result:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(QueryCubeOptimizationResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        result['Result'] = []
+        if self.result is not None:
+            for k in self.result:
+                result['Result'].append(k.to_map() if k else None)
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        self.result = []
+        if m.get('Result') is not None:
+            for k in m.get('Result'):
+                temp_model = QueryCubeOptimizationResponseBodyResult()
+                self.result.append(temp_model.from_map(k))
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class QueryCubeOptimizationResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: QueryCubeOptimizationResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(QueryCubeOptimizationResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = QueryCubeOptimizationResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class QueryCubePerformanceRequest(TeaModel):
+    def __init__(self, cost_time_avg_min=None, cube_id=None, page_num=None, page_size=None, query_type=None,
+                 workspace_id=None):
+        self.cost_time_avg_min = cost_time_avg_min  # type: int
+        self.cube_id = cube_id  # type: str
+        self.page_num = page_num  # type: int
+        self.page_size = page_size  # type: int
+        self.query_type = query_type  # type: str
+        self.workspace_id = workspace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryCubePerformanceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cost_time_avg_min is not None:
+            result['CostTimeAvgMin'] = self.cost_time_avg_min
+        if self.cube_id is not None:
+            result['CubeId'] = self.cube_id
+        if self.page_num is not None:
+            result['PageNum'] = self.page_num
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.query_type is not None:
+            result['QueryType'] = self.query_type
+        if self.workspace_id is not None:
+            result['WorkspaceId'] = self.workspace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CostTimeAvgMin') is not None:
+            self.cost_time_avg_min = m.get('CostTimeAvgMin')
+        if m.get('CubeId') is not None:
+            self.cube_id = m.get('CubeId')
+        if m.get('PageNum') is not None:
+            self.page_num = m.get('PageNum')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('QueryType') is not None:
+            self.query_type = m.get('QueryType')
+        if m.get('WorkspaceId') is not None:
+            self.workspace_id = m.get('WorkspaceId')
+        return self
+
+
+class QueryCubePerformanceResponseBodyResult(TeaModel):
+    def __init__(self, cache_cost_time_avg=None, cache_query_count=None, cost_time_avg=None, cube_id=None,
+                 cube_name=None, query_count=None, query_count_avg=None, query_over_five_percent_num=None,
+                 query_over_five_sec_percent=None, query_over_ten_sec_percent=None, query_over_ten_sec_percent_num=None,
+                 query_timeout_count=None, query_timeout_count_percent=None, quick_index_cost_time_avg=None,
+                 quick_index_query_count=None, repeat_query_percent=None, repeat_query_percent_num=None, repeat_sql_query_count=None,
+                 repeat_sql_query_percent=None, workspace_id=None, workspace_name=None):
+        self.cache_cost_time_avg = cache_cost_time_avg  # type: float
+        self.cache_query_count = cache_query_count  # type: int
+        self.cost_time_avg = cost_time_avg  # type: float
+        self.cube_id = cube_id  # type: str
+        self.cube_name = cube_name  # type: str
+        self.query_count = query_count  # type: int
+        self.query_count_avg = query_count_avg  # type: float
+        self.query_over_five_percent_num = query_over_five_percent_num  # type: float
+        self.query_over_five_sec_percent = query_over_five_sec_percent  # type: str
+        self.query_over_ten_sec_percent = query_over_ten_sec_percent  # type: str
+        self.query_over_ten_sec_percent_num = query_over_ten_sec_percent_num  # type: float
+        self.query_timeout_count = query_timeout_count  # type: int
+        self.query_timeout_count_percent = query_timeout_count_percent  # type: float
+        self.quick_index_cost_time_avg = quick_index_cost_time_avg  # type: float
+        self.quick_index_query_count = quick_index_query_count  # type: int
+        self.repeat_query_percent = repeat_query_percent  # type: str
+        self.repeat_query_percent_num = repeat_query_percent_num  # type: float
+        self.repeat_sql_query_count = repeat_sql_query_count  # type: int
+        self.repeat_sql_query_percent = repeat_sql_query_percent  # type: str
+        self.workspace_id = workspace_id  # type: str
+        self.workspace_name = workspace_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryCubePerformanceResponseBodyResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cache_cost_time_avg is not None:
+            result['CacheCostTimeAvg'] = self.cache_cost_time_avg
+        if self.cache_query_count is not None:
+            result['CacheQueryCount'] = self.cache_query_count
+        if self.cost_time_avg is not None:
+            result['CostTimeAvg'] = self.cost_time_avg
+        if self.cube_id is not None:
+            result['CubeId'] = self.cube_id
+        if self.cube_name is not None:
+            result['CubeName'] = self.cube_name
+        if self.query_count is not None:
+            result['QueryCount'] = self.query_count
+        if self.query_count_avg is not None:
+            result['QueryCountAvg'] = self.query_count_avg
+        if self.query_over_five_percent_num is not None:
+            result['QueryOverFivePercentNum'] = self.query_over_five_percent_num
+        if self.query_over_five_sec_percent is not None:
+            result['QueryOverFiveSecPercent'] = self.query_over_five_sec_percent
+        if self.query_over_ten_sec_percent is not None:
+            result['QueryOverTenSecPercent'] = self.query_over_ten_sec_percent
+        if self.query_over_ten_sec_percent_num is not None:
+            result['QueryOverTenSecPercentNum'] = self.query_over_ten_sec_percent_num
+        if self.query_timeout_count is not None:
+            result['QueryTimeoutCount'] = self.query_timeout_count
+        if self.query_timeout_count_percent is not None:
+            result['QueryTimeoutCountPercent'] = self.query_timeout_count_percent
+        if self.quick_index_cost_time_avg is not None:
+            result['QuickIndexCostTimeAvg'] = self.quick_index_cost_time_avg
+        if self.quick_index_query_count is not None:
+            result['QuickIndexQueryCount'] = self.quick_index_query_count
+        if self.repeat_query_percent is not None:
+            result['RepeatQueryPercent'] = self.repeat_query_percent
+        if self.repeat_query_percent_num is not None:
+            result['RepeatQueryPercentNum'] = self.repeat_query_percent_num
+        if self.repeat_sql_query_count is not None:
+            result['RepeatSqlQueryCount'] = self.repeat_sql_query_count
+        if self.repeat_sql_query_percent is not None:
+            result['RepeatSqlQueryPercent'] = self.repeat_sql_query_percent
+        if self.workspace_id is not None:
+            result['WorkspaceId'] = self.workspace_id
+        if self.workspace_name is not None:
+            result['WorkspaceName'] = self.workspace_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CacheCostTimeAvg') is not None:
+            self.cache_cost_time_avg = m.get('CacheCostTimeAvg')
+        if m.get('CacheQueryCount') is not None:
+            self.cache_query_count = m.get('CacheQueryCount')
+        if m.get('CostTimeAvg') is not None:
+            self.cost_time_avg = m.get('CostTimeAvg')
+        if m.get('CubeId') is not None:
+            self.cube_id = m.get('CubeId')
+        if m.get('CubeName') is not None:
+            self.cube_name = m.get('CubeName')
+        if m.get('QueryCount') is not None:
+            self.query_count = m.get('QueryCount')
+        if m.get('QueryCountAvg') is not None:
+            self.query_count_avg = m.get('QueryCountAvg')
+        if m.get('QueryOverFivePercentNum') is not None:
+            self.query_over_five_percent_num = m.get('QueryOverFivePercentNum')
+        if m.get('QueryOverFiveSecPercent') is not None:
+            self.query_over_five_sec_percent = m.get('QueryOverFiveSecPercent')
+        if m.get('QueryOverTenSecPercent') is not None:
+            self.query_over_ten_sec_percent = m.get('QueryOverTenSecPercent')
+        if m.get('QueryOverTenSecPercentNum') is not None:
+            self.query_over_ten_sec_percent_num = m.get('QueryOverTenSecPercentNum')
+        if m.get('QueryTimeoutCount') is not None:
+            self.query_timeout_count = m.get('QueryTimeoutCount')
+        if m.get('QueryTimeoutCountPercent') is not None:
+            self.query_timeout_count_percent = m.get('QueryTimeoutCountPercent')
+        if m.get('QuickIndexCostTimeAvg') is not None:
+            self.quick_index_cost_time_avg = m.get('QuickIndexCostTimeAvg')
+        if m.get('QuickIndexQueryCount') is not None:
+            self.quick_index_query_count = m.get('QuickIndexQueryCount')
+        if m.get('RepeatQueryPercent') is not None:
+            self.repeat_query_percent = m.get('RepeatQueryPercent')
+        if m.get('RepeatQueryPercentNum') is not None:
+            self.repeat_query_percent_num = m.get('RepeatQueryPercentNum')
+        if m.get('RepeatSqlQueryCount') is not None:
+            self.repeat_sql_query_count = m.get('RepeatSqlQueryCount')
+        if m.get('RepeatSqlQueryPercent') is not None:
+            self.repeat_sql_query_percent = m.get('RepeatSqlQueryPercent')
+        if m.get('WorkspaceId') is not None:
+            self.workspace_id = m.get('WorkspaceId')
+        if m.get('WorkspaceName') is not None:
+            self.workspace_name = m.get('WorkspaceName')
+        return self
+
+
+class QueryCubePerformanceResponseBody(TeaModel):
+    def __init__(self, request_id=None, result=None, success=None):
+        self.request_id = request_id  # type: str
+        self.result = result  # type: list[QueryCubePerformanceResponseBodyResult]
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.result:
+            for k in self.result:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(QueryCubePerformanceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        result['Result'] = []
+        if self.result is not None:
+            for k in self.result:
+                result['Result'].append(k.to_map() if k else None)
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        self.result = []
+        if m.get('Result') is not None:
+            for k in m.get('Result'):
+                temp_model = QueryCubePerformanceResponseBodyResult()
+                self.result.append(temp_model.from_map(k))
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class QueryCubePerformanceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: QueryCubePerformanceResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(QueryCubePerformanceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = QueryCubePerformanceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class QueryDataServiceRequest(TeaModel):
     def __init__(self, api_id=None, conditions=None, return_fields=None):
         # Call an API that is created in DataService Studio.
@@ -6148,6 +6978,7 @@ class QueryDataServiceResponse(TeaModel):
 
 class QueryDatasetDetailInfoRequest(TeaModel):
     def __init__(self, dataset_id=None):
+        # The ID of the training dataset that you want to remove from the specified custom linguistic model.
         self.dataset_id = dataset_id  # type: str
 
     def validate(self):
@@ -6172,8 +7003,14 @@ class QueryDatasetDetailInfoRequest(TeaModel):
 
 class QueryDatasetDetailInfoResponseBody(TeaModel):
     def __init__(self, request_id=None, result=None, success=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Returns the dataset data in JSON format: `{ "cube": { "dimensions": [ { "caption": "customer name", "dataType": "string", "dimensionType": "standard_dimension", "factColumn": "customer_name", "uid": "N5820f5_customer_name" }, { "caption": "datastring", "" standard_dimension", "factColumn": "order_id", "uid": "N5820f5_order_id" }, ], "measures": [ { "caption": "order amount ", "dataType": "number", "factColumn": "order_amt", "measureType": "standard_measure ": " Nderamid " }, " { "customsql": false, "dsId": "261b252d-c3c3-498a-a0a7-5d1ec6cd****", "tableName": "company_sales_record_copy" } }, "datasetId": "5820f58c-c734-4d8a-baf1-7979af4f****", "datasetName": "company_sales_record_copy12", "datasource": { "dsId": "261b252d-c3c3-498a-a0a7-5d1ec6cd****", "dsName": "Self-use", "dsType": "mysql" }, "directory" { "id": "schemaad8aad00-9c55-4984-a767-b4e0ec60****", "name": "My dataset", "pathId": "schemaad8aad00-9c55-4984-a767-b4e0ec60****", "pathName": "My dataset" }, "ownerId": "13651626232****", "ownerName": "Zhang San", "rowLevel": false, "workspaceId": "95296e95-ca89-4c7d-8af9-dedf0ad0****", "workspaceName": "Test Workspace" }`
         self.result = result  # type: str
+        # The execution result of the interface is returned. Valid values:
+        # 
+        # *   true: The request was successful.
+        # *   false: The request fails.
         self.success = success  # type: bool
 
     def validate(self):
@@ -7455,6 +8292,7 @@ class QueryEmbeddedInfoResponse(TeaModel):
 
 class QueryEmbeddedStatusRequest(TeaModel):
     def __init__(self, works_id=None):
+        # The work ID of the query.
         self.works_id = works_id  # type: str
 
     def validate(self):
@@ -7479,8 +8317,17 @@ class QueryEmbeddedStatusRequest(TeaModel):
 
 class QueryEmbeddedStatusResponseBody(TeaModel):
     def __init__(self, request_id=None, result=None, success=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Whether the work is enabled for embedding. Valid values:
+        # 
+        # *   true: embedded
+        # *   false: not embedded
         self.result = result  # type: bool
+        # Indicates whether the request is successful. Valid values:
+        # 
+        # *   true: The request was successful.
+        # *   false: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -8089,6 +8936,286 @@ class QueryReadableResourcesListByUserIdResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = QueryReadableResourcesListByUserIdResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class QueryReportPerformanceRequest(TeaModel):
+    def __init__(self, cost_time_avg_min=None, page_num=None, page_size=None, query_type=None, report_id=None,
+                 resource_type=None, workspace_id=None):
+        self.cost_time_avg_min = cost_time_avg_min  # type: int
+        self.page_num = page_num  # type: int
+        self.page_size = page_size  # type: int
+        self.query_type = query_type  # type: str
+        self.report_id = report_id  # type: str
+        self.resource_type = resource_type  # type: str
+        self.workspace_id = workspace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryReportPerformanceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cost_time_avg_min is not None:
+            result['CostTimeAvgMin'] = self.cost_time_avg_min
+        if self.page_num is not None:
+            result['PageNum'] = self.page_num
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.query_type is not None:
+            result['QueryType'] = self.query_type
+        if self.report_id is not None:
+            result['ReportId'] = self.report_id
+        if self.resource_type is not None:
+            result['ResourceType'] = self.resource_type
+        if self.workspace_id is not None:
+            result['WorkspaceId'] = self.workspace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CostTimeAvgMin') is not None:
+            self.cost_time_avg_min = m.get('CostTimeAvgMin')
+        if m.get('PageNum') is not None:
+            self.page_num = m.get('PageNum')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('QueryType') is not None:
+            self.query_type = m.get('QueryType')
+        if m.get('ReportId') is not None:
+            self.report_id = m.get('ReportId')
+        if m.get('ResourceType') is not None:
+            self.resource_type = m.get('ResourceType')
+        if m.get('WorkspaceId') is not None:
+            self.workspace_id = m.get('WorkspaceId')
+        return self
+
+
+class QueryReportPerformanceResponseBodyResult(TeaModel):
+    def __init__(self, cache_cost_time_avg=None, cache_query_count=None, component_query_count=None,
+                 component_query_count_avg=None, cost_time_avg=None, query_count=None, query_count_avg=None,
+                 query_over_five_percent_num=None, query_over_five_sec_percent=None, query_over_ten_sec_percent=None,
+                 query_over_ten_sec_percent_num=None, query_timeout_count=None, query_timeout_count_percent=None, quick_index_cost_time_avg=None,
+                 quick_index_query_count=None, repeat_query_percent=None, repeat_query_percent_num=None, repeat_sql_query_count=None,
+                 repeat_sql_query_percent=None, report_id=None, report_name=None, report_type=None, workspace_id=None, workspace_name=None):
+        self.cache_cost_time_avg = cache_cost_time_avg  # type: float
+        self.cache_query_count = cache_query_count  # type: int
+        self.component_query_count = component_query_count  # type: int
+        self.component_query_count_avg = component_query_count_avg  # type: float
+        self.cost_time_avg = cost_time_avg  # type: float
+        self.query_count = query_count  # type: int
+        self.query_count_avg = query_count_avg  # type: float
+        self.query_over_five_percent_num = query_over_five_percent_num  # type: float
+        self.query_over_five_sec_percent = query_over_five_sec_percent  # type: str
+        self.query_over_ten_sec_percent = query_over_ten_sec_percent  # type: str
+        self.query_over_ten_sec_percent_num = query_over_ten_sec_percent_num  # type: float
+        self.query_timeout_count = query_timeout_count  # type: int
+        self.query_timeout_count_percent = query_timeout_count_percent  # type: float
+        self.quick_index_cost_time_avg = quick_index_cost_time_avg  # type: float
+        self.quick_index_query_count = quick_index_query_count  # type: int
+        self.repeat_query_percent = repeat_query_percent  # type: str
+        self.repeat_query_percent_num = repeat_query_percent_num  # type: float
+        self.repeat_sql_query_count = repeat_sql_query_count  # type: int
+        self.repeat_sql_query_percent = repeat_sql_query_percent  # type: str
+        self.report_id = report_id  # type: str
+        self.report_name = report_name  # type: str
+        self.report_type = report_type  # type: str
+        self.workspace_id = workspace_id  # type: str
+        self.workspace_name = workspace_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryReportPerformanceResponseBodyResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cache_cost_time_avg is not None:
+            result['CacheCostTimeAvg'] = self.cache_cost_time_avg
+        if self.cache_query_count is not None:
+            result['CacheQueryCount'] = self.cache_query_count
+        if self.component_query_count is not None:
+            result['ComponentQueryCount'] = self.component_query_count
+        if self.component_query_count_avg is not None:
+            result['ComponentQueryCountAvg'] = self.component_query_count_avg
+        if self.cost_time_avg is not None:
+            result['CostTimeAvg'] = self.cost_time_avg
+        if self.query_count is not None:
+            result['QueryCount'] = self.query_count
+        if self.query_count_avg is not None:
+            result['QueryCountAvg'] = self.query_count_avg
+        if self.query_over_five_percent_num is not None:
+            result['QueryOverFivePercentNum'] = self.query_over_five_percent_num
+        if self.query_over_five_sec_percent is not None:
+            result['QueryOverFiveSecPercent'] = self.query_over_five_sec_percent
+        if self.query_over_ten_sec_percent is not None:
+            result['QueryOverTenSecPercent'] = self.query_over_ten_sec_percent
+        if self.query_over_ten_sec_percent_num is not None:
+            result['QueryOverTenSecPercentNum'] = self.query_over_ten_sec_percent_num
+        if self.query_timeout_count is not None:
+            result['QueryTimeoutCount'] = self.query_timeout_count
+        if self.query_timeout_count_percent is not None:
+            result['QueryTimeoutCountPercent'] = self.query_timeout_count_percent
+        if self.quick_index_cost_time_avg is not None:
+            result['QuickIndexCostTimeAvg'] = self.quick_index_cost_time_avg
+        if self.quick_index_query_count is not None:
+            result['QuickIndexQueryCount'] = self.quick_index_query_count
+        if self.repeat_query_percent is not None:
+            result['RepeatQueryPercent'] = self.repeat_query_percent
+        if self.repeat_query_percent_num is not None:
+            result['RepeatQueryPercentNum'] = self.repeat_query_percent_num
+        if self.repeat_sql_query_count is not None:
+            result['RepeatSqlQueryCount'] = self.repeat_sql_query_count
+        if self.repeat_sql_query_percent is not None:
+            result['RepeatSqlQueryPercent'] = self.repeat_sql_query_percent
+        if self.report_id is not None:
+            result['ReportId'] = self.report_id
+        if self.report_name is not None:
+            result['ReportName'] = self.report_name
+        if self.report_type is not None:
+            result['ReportType'] = self.report_type
+        if self.workspace_id is not None:
+            result['WorkspaceId'] = self.workspace_id
+        if self.workspace_name is not None:
+            result['WorkspaceName'] = self.workspace_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CacheCostTimeAvg') is not None:
+            self.cache_cost_time_avg = m.get('CacheCostTimeAvg')
+        if m.get('CacheQueryCount') is not None:
+            self.cache_query_count = m.get('CacheQueryCount')
+        if m.get('ComponentQueryCount') is not None:
+            self.component_query_count = m.get('ComponentQueryCount')
+        if m.get('ComponentQueryCountAvg') is not None:
+            self.component_query_count_avg = m.get('ComponentQueryCountAvg')
+        if m.get('CostTimeAvg') is not None:
+            self.cost_time_avg = m.get('CostTimeAvg')
+        if m.get('QueryCount') is not None:
+            self.query_count = m.get('QueryCount')
+        if m.get('QueryCountAvg') is not None:
+            self.query_count_avg = m.get('QueryCountAvg')
+        if m.get('QueryOverFivePercentNum') is not None:
+            self.query_over_five_percent_num = m.get('QueryOverFivePercentNum')
+        if m.get('QueryOverFiveSecPercent') is not None:
+            self.query_over_five_sec_percent = m.get('QueryOverFiveSecPercent')
+        if m.get('QueryOverTenSecPercent') is not None:
+            self.query_over_ten_sec_percent = m.get('QueryOverTenSecPercent')
+        if m.get('QueryOverTenSecPercentNum') is not None:
+            self.query_over_ten_sec_percent_num = m.get('QueryOverTenSecPercentNum')
+        if m.get('QueryTimeoutCount') is not None:
+            self.query_timeout_count = m.get('QueryTimeoutCount')
+        if m.get('QueryTimeoutCountPercent') is not None:
+            self.query_timeout_count_percent = m.get('QueryTimeoutCountPercent')
+        if m.get('QuickIndexCostTimeAvg') is not None:
+            self.quick_index_cost_time_avg = m.get('QuickIndexCostTimeAvg')
+        if m.get('QuickIndexQueryCount') is not None:
+            self.quick_index_query_count = m.get('QuickIndexQueryCount')
+        if m.get('RepeatQueryPercent') is not None:
+            self.repeat_query_percent = m.get('RepeatQueryPercent')
+        if m.get('RepeatQueryPercentNum') is not None:
+            self.repeat_query_percent_num = m.get('RepeatQueryPercentNum')
+        if m.get('RepeatSqlQueryCount') is not None:
+            self.repeat_sql_query_count = m.get('RepeatSqlQueryCount')
+        if m.get('RepeatSqlQueryPercent') is not None:
+            self.repeat_sql_query_percent = m.get('RepeatSqlQueryPercent')
+        if m.get('ReportId') is not None:
+            self.report_id = m.get('ReportId')
+        if m.get('ReportName') is not None:
+            self.report_name = m.get('ReportName')
+        if m.get('ReportType') is not None:
+            self.report_type = m.get('ReportType')
+        if m.get('WorkspaceId') is not None:
+            self.workspace_id = m.get('WorkspaceId')
+        if m.get('WorkspaceName') is not None:
+            self.workspace_name = m.get('WorkspaceName')
+        return self
+
+
+class QueryReportPerformanceResponseBody(TeaModel):
+    def __init__(self, request_id=None, result=None, success=None):
+        self.request_id = request_id  # type: str
+        self.result = result  # type: list[QueryReportPerformanceResponseBodyResult]
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.result:
+            for k in self.result:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(QueryReportPerformanceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        result['Result'] = []
+        if self.result is not None:
+            for k in self.result:
+                result['Result'].append(k.to_map() if k else None)
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        self.result = []
+        if m.get('Result') is not None:
+            for k in m.get('Result'):
+                temp_model = QueryReportPerformanceResponseBodyResult()
+                self.result.append(temp_model.from_map(k))
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class QueryReportPerformanceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: QueryReportPerformanceResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(QueryReportPerformanceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = QueryReportPerformanceResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -11669,7 +12796,9 @@ class ResultCallbackResponse(TeaModel):
 
 class SaveFavoritesRequest(TeaModel):
     def __init__(self, user_id=None, works_id=None):
+        # The user ID of the collection. The user ID is the UserID of the Quick BI, not the UID of Alibaba Cloud.
         self.user_id = user_id  # type: str
+        # The ID of the collection.
         self.works_id = works_id  # type: str
 
     def validate(self):
@@ -11698,8 +12827,17 @@ class SaveFavoritesRequest(TeaModel):
 
 class SaveFavoritesResponseBody(TeaModel):
     def __init__(self, request_id=None, result=None, success=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The execution result of the interface is returned. Valid values:
+        # 
+        # *   true: The request was successful.
+        # *   false: The request fails.
         self.result = result  # type: bool
+        # Indicates whether the request is successful. Valid values:
+        # 
+        # *   true: The request was successful.
+        # *   false: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
