@@ -35,8 +35,9 @@ class AddCdnDomainRequestTag(TeaModel):
 
 
 class AddCdnDomainRequest(TeaModel):
-    def __init__(self, cdn_type=None, check_url=None, domain_name=None, owner_account=None, owner_id=None,
-                 resource_group_id=None, scope=None, security_token=None, sources=None, tag=None, top_level_domain=None):
+    def __init__(self, cdn_type=None, check_url=None, domain_name=None, global_resource_plan=None,
+                 owner_account=None, owner_id=None, resource_group_id=None, scope=None, security_token=None, sources=None,
+                 tag=None, top_level_domain=None):
         # The workload type of the accelerated domain name. Valid values:
         # 
         # *   **web**: images and small files
@@ -49,6 +50,7 @@ class AddCdnDomainRequest(TeaModel):
         # 
         # A wildcard domain that starts with a period (.) is supported, such as .example.com.
         self.domain_name = domain_name  # type: str
+        self.global_resource_plan = global_resource_plan  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         # The ID of the resource group.
@@ -87,6 +89,8 @@ class AddCdnDomainRequest(TeaModel):
             result['CheckUrl'] = self.check_url
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
+        if self.global_resource_plan is not None:
+            result['GlobalResourcePlan'] = self.global_resource_plan
         if self.owner_account is not None:
             result['OwnerAccount'] = self.owner_account
         if self.owner_id is not None:
@@ -115,6 +119,8 @@ class AddCdnDomainRequest(TeaModel):
             self.check_url = m.get('CheckUrl')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
+        if m.get('GlobalResourcePlan') is not None:
+            self.global_resource_plan = m.get('GlobalResourcePlan')
         if m.get('OwnerAccount') is not None:
             self.owner_account = m.get('OwnerAccount')
         if m.get('OwnerId') is not None:
@@ -4466,7 +4472,7 @@ class DescribeCdnDomainDetailResponseBodyGetDomainDetailModelSourceModels(TeaMod
 
 class DescribeCdnDomainDetailResponseBodyGetDomainDetailModel(TeaModel):
     def __init__(self, cdn_type=None, cname=None, description=None, domain_name=None, domain_status=None,
-                 gmt_created=None, gmt_modified=None, https_cname=None, resource_group_id=None, scope=None,
+                 global_resource_plan=None, gmt_created=None, gmt_modified=None, https_cname=None, resource_group_id=None, scope=None,
                  server_certificate_status=None, source_models=None):
         # The workload type of the accelerated domain name. Valid values:
         # 
@@ -4491,6 +4497,7 @@ class DescribeCdnDomainDetailResponseBodyGetDomainDetailModel(TeaModel):
         # *   **stopping**\
         # *   **deleting**\
         self.domain_status = domain_status  # type: str
+        self.global_resource_plan = global_resource_plan  # type: str
         # The time when the domain name was created.
         self.gmt_created = gmt_created  # type: str
         # The time when the domain name was last modified.
@@ -4529,6 +4536,8 @@ class DescribeCdnDomainDetailResponseBodyGetDomainDetailModel(TeaModel):
             result['DomainName'] = self.domain_name
         if self.domain_status is not None:
             result['DomainStatus'] = self.domain_status
+        if self.global_resource_plan is not None:
+            result['GlobalResourcePlan'] = self.global_resource_plan
         if self.gmt_created is not None:
             result['GmtCreated'] = self.gmt_created
         if self.gmt_modified is not None:
@@ -4557,6 +4566,8 @@ class DescribeCdnDomainDetailResponseBodyGetDomainDetailModel(TeaModel):
             self.domain_name = m.get('DomainName')
         if m.get('DomainStatus') is not None:
             self.domain_status = m.get('DomainStatus')
+        if m.get('GlobalResourcePlan') is not None:
+            self.global_resource_plan = m.get('GlobalResourcePlan')
         if m.get('GmtCreated') is not None:
             self.gmt_created = m.get('GmtCreated')
         if m.get('GmtModified') is not None:
@@ -23074,8 +23085,8 @@ class DescribeUserDomainsResponseBodyDomainsPageDataSources(TeaModel):
 
 class DescribeUserDomainsResponseBodyDomainsPageData(TeaModel):
     def __init__(self, cdn_type=None, cname=None, coverage=None, description=None, domain_id=None, domain_name=None,
-                 domain_status=None, gmt_created=None, gmt_modified=None, resource_group_id=None, sandbox=None, sources=None,
-                 ssl_protocol=None):
+                 domain_status=None, global_resource_plan=None, gmt_created=None, gmt_modified=None, resource_group_id=None,
+                 sandbox=None, sources=None, ssl_protocol=None):
         # The type of the workload accelerated by Alibaba Cloud CDN. Valid values:
         # 
         # *   **web**: images and small files
@@ -23107,6 +23118,7 @@ class DescribeUserDomainsResponseBodyDomainsPageData(TeaModel):
         # *   **stopping**\
         # *   **deleting**\
         self.domain_status = domain_status  # type: str
+        self.global_resource_plan = global_resource_plan  # type: str
         # The time when the accelerated domain name was added.
         self.gmt_created = gmt_created  # type: str
         # The time when the accelerated domain name was modified.
@@ -23147,6 +23159,8 @@ class DescribeUserDomainsResponseBodyDomainsPageData(TeaModel):
             result['DomainName'] = self.domain_name
         if self.domain_status is not None:
             result['DomainStatus'] = self.domain_status
+        if self.global_resource_plan is not None:
+            result['GlobalResourcePlan'] = self.global_resource_plan
         if self.gmt_created is not None:
             result['GmtCreated'] = self.gmt_created
         if self.gmt_modified is not None:
@@ -23177,6 +23191,8 @@ class DescribeUserDomainsResponseBodyDomainsPageData(TeaModel):
             self.domain_name = m.get('DomainName')
         if m.get('DomainStatus') is not None:
             self.domain_status = m.get('DomainStatus')
+        if m.get('GlobalResourcePlan') is not None:
+            self.global_resource_plan = m.get('GlobalResourcePlan')
         if m.get('GmtCreated') is not None:
             self.gmt_created = m.get('GmtCreated')
         if m.get('GmtModified') is not None:
