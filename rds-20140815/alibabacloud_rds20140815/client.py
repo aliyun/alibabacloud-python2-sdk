@@ -233,6 +233,8 @@ class Client(OpenApiClient):
             query['OwnerAccount'] = request.owner_account
         if not UtilClient.is_unset(request.owner_id):
             query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.pgbouncer_port):
+            query['PGBouncerPort'] = request.pgbouncer_port
         if not UtilClient.is_unset(request.port):
             query['Port'] = request.port
         if not UtilClient.is_unset(request.resource_owner_account):
@@ -1587,6 +1589,8 @@ class Client(OpenApiClient):
             query['Port'] = request.port
         if not UtilClient.is_unset(request.private_ip_address):
             query['PrivateIpAddress'] = request.private_ip_address
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.resource_owner_id):
             query['ResourceOwnerId'] = request.resource_owner_id
         if not UtilClient.is_unset(request.v_switch_id):
@@ -1655,6 +1659,8 @@ class Client(OpenApiClient):
             query['IpType'] = request.ip_type
         if not UtilClient.is_unset(request.port):
             query['Port'] = request.port
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.resource_owner_id):
             query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
@@ -1807,6 +1813,8 @@ class Client(OpenApiClient):
             query['OwnerAccount'] = request.owner_account
         if not UtilClient.is_unset(request.owner_id):
             query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.resource_owner_account):
             query['ResourceOwnerAccount'] = request.resource_owner_account
         if not UtilClient.is_unset(request.resource_owner_id):
@@ -5993,6 +6001,7 @@ class Client(OpenApiClient):
 
     def describe_dbinstances_as_csv_with_options(self, request, runtime):
         """
+        @deprecated : DescribeDBInstancesAsCsv is deprecated, please use Rds::2014-08-15::DescribeDBInstances instead.
         This operation is no longer available. You can call the DescribeDBInstanceAttribute operation to query information about an instance.
         
 
@@ -6001,6 +6010,7 @@ class Client(OpenApiClient):
         @param runtime: runtime options for this request RuntimeOptions
 
         @return: DescribeDBInstancesAsCsvResponse
+        Deprecated
         """
         UtilClient.validate_model(request)
         query = {}
@@ -6041,12 +6051,14 @@ class Client(OpenApiClient):
 
     def describe_dbinstances_as_csv(self, request):
         """
+        @deprecated : DescribeDBInstancesAsCsv is deprecated, please use Rds::2014-08-15::DescribeDBInstances instead.
         This operation is no longer available. You can call the DescribeDBInstanceAttribute operation to query information about an instance.
         
 
         @param request: DescribeDBInstancesAsCsvRequest
 
         @return: DescribeDBInstancesAsCsvResponse
+        Deprecated
         """
         runtime = util_models.RuntimeOptions()
         return self.describe_dbinstances_as_csv_with_options(request, runtime)
@@ -10991,6 +11003,8 @@ class Client(OpenApiClient):
             query['OwnerAccount'] = request.owner_account
         if not UtilClient.is_unset(request.owner_id):
             query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.pgbouncer_port):
+            query['PGBouncerPort'] = request.pgbouncer_port
         if not UtilClient.is_unset(request.port):
             query['Port'] = request.port
         if not UtilClient.is_unset(request.resource_owner_account):

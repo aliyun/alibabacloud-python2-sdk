@@ -327,8 +327,8 @@ class AddTagsToResourceResponse(TeaModel):
 
 class AllocateInstancePublicConnectionRequest(TeaModel):
     def __init__(self, babelfish_port=None, connection_string_prefix=None, dbinstance_id=None,
-                 general_group_name=None, owner_account=None, owner_id=None, port=None, resource_owner_account=None,
-                 resource_owner_id=None):
+                 general_group_name=None, owner_account=None, owner_id=None, pgbouncer_port=None, port=None,
+                 resource_owner_account=None, resource_owner_id=None):
         # The Tabular Data Stream (TDS) port of the instance for which Babelfish is enabled.
         # 
         # > This parameter applies only to ApsaraDB RDS for PostgreSQL instances. For more information about Babelfish for ApsaraDB RDS for PostgreSQL, see [Introduction to Babelfish](~~428613~~).
@@ -343,6 +343,7 @@ class AllocateInstancePublicConnectionRequest(TeaModel):
         self.general_group_name = general_group_name  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        self.pgbouncer_port = pgbouncer_port  # type: str
         # The public port of the instance. Valid values: **1000 to 5999**.
         self.port = port  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
@@ -369,6 +370,8 @@ class AllocateInstancePublicConnectionRequest(TeaModel):
             result['OwnerAccount'] = self.owner_account
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
+        if self.pgbouncer_port is not None:
+            result['PGBouncerPort'] = self.pgbouncer_port
         if self.port is not None:
             result['Port'] = self.port
         if self.resource_owner_account is not None:
@@ -391,6 +394,8 @@ class AllocateInstancePublicConnectionRequest(TeaModel):
             self.owner_account = m.get('OwnerAccount')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
+        if m.get('PGBouncerPort') is not None:
+            self.pgbouncer_port = m.get('PGBouncerPort')
         if m.get('Port') is not None:
             self.port = m.get('Port')
         if m.get('ResourceOwnerAccount') is not None:
@@ -5015,7 +5020,7 @@ class CreateDBInstanceEndpointRequestNodeItems(TeaModel):
 class CreateDBInstanceEndpointRequest(TeaModel):
     def __init__(self, client_token=None, connection_string_prefix=None, dbinstance_endpoint_description=None,
                  dbinstance_endpoint_type=None, dbinstance_id=None, node_items=None, port=None, private_ip_address=None,
-                 resource_owner_id=None, v_switch_id=None, vpc_id=None):
+                 resource_group_id=None, resource_owner_id=None, v_switch_id=None, vpc_id=None):
         # The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests.
         # 
         # The token can contain only ASCII characters and cannot exceed 64 characters in length.
@@ -5041,6 +5046,7 @@ class CreateDBInstanceEndpointRequest(TeaModel):
         self.port = port  # type: str
         # The IP address of the internal endpoint.
         self.private_ip_address = private_ip_address  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
         # The vSwitch ID of the internal endpoint.
         self.v_switch_id = v_switch_id  # type: str
@@ -5077,6 +5083,8 @@ class CreateDBInstanceEndpointRequest(TeaModel):
             result['Port'] = self.port
         if self.private_ip_address is not None:
             result['PrivateIpAddress'] = self.private_ip_address
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_id is not None:
             result['ResourceOwnerId'] = self.resource_owner_id
         if self.v_switch_id is not None:
@@ -5106,6 +5114,8 @@ class CreateDBInstanceEndpointRequest(TeaModel):
             self.port = m.get('Port')
         if m.get('PrivateIpAddress') is not None:
             self.private_ip_address = m.get('PrivateIpAddress')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerId') is not None:
             self.resource_owner_id = m.get('ResourceOwnerId')
         if m.get('VSwitchId') is not None:
@@ -5118,7 +5128,7 @@ class CreateDBInstanceEndpointRequest(TeaModel):
 class CreateDBInstanceEndpointShrinkRequest(TeaModel):
     def __init__(self, client_token=None, connection_string_prefix=None, dbinstance_endpoint_description=None,
                  dbinstance_endpoint_type=None, dbinstance_id=None, node_items_shrink=None, port=None, private_ip_address=None,
-                 resource_owner_id=None, v_switch_id=None, vpc_id=None):
+                 resource_group_id=None, resource_owner_id=None, v_switch_id=None, vpc_id=None):
         # The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests.
         # 
         # The token can contain only ASCII characters and cannot exceed 64 characters in length.
@@ -5144,6 +5154,7 @@ class CreateDBInstanceEndpointShrinkRequest(TeaModel):
         self.port = port  # type: str
         # The IP address of the internal endpoint.
         self.private_ip_address = private_ip_address  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
         # The vSwitch ID of the internal endpoint.
         self.v_switch_id = v_switch_id  # type: str
@@ -5175,6 +5186,8 @@ class CreateDBInstanceEndpointShrinkRequest(TeaModel):
             result['Port'] = self.port
         if self.private_ip_address is not None:
             result['PrivateIpAddress'] = self.private_ip_address
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_id is not None:
             result['ResourceOwnerId'] = self.resource_owner_id
         if self.v_switch_id is not None:
@@ -5201,6 +5214,8 @@ class CreateDBInstanceEndpointShrinkRequest(TeaModel):
             self.port = m.get('Port')
         if m.get('PrivateIpAddress') is not None:
             self.private_ip_address = m.get('PrivateIpAddress')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerId') is not None:
             self.resource_owner_id = m.get('ResourceOwnerId')
         if m.get('VSwitchId') is not None:
@@ -5321,7 +5336,7 @@ class CreateDBInstanceEndpointResponse(TeaModel):
 
 class CreateDBInstanceEndpointAddressRequest(TeaModel):
     def __init__(self, client_token=None, connection_string_prefix=None, dbinstance_endpoint_id=None,
-                 dbinstance_id=None, ip_type=None, port=None, resource_owner_id=None):
+                 dbinstance_id=None, ip_type=None, port=None, resource_group_id=None, resource_owner_id=None):
         # The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests.
         # 
         # The token can contain only ASCII characters and cannot exceed 64 characters in length.
@@ -5336,6 +5351,7 @@ class CreateDBInstanceEndpointAddressRequest(TeaModel):
         self.ip_type = ip_type  # type: str
         # The port number of the public endpoint.
         self.port = port  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
 
     def validate(self):
@@ -5359,6 +5375,8 @@ class CreateDBInstanceEndpointAddressRequest(TeaModel):
             result['IpType'] = self.ip_type
         if self.port is not None:
             result['Port'] = self.port
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_id is not None:
             result['ResourceOwnerId'] = self.resource_owner_id
         return result
@@ -5377,6 +5395,8 @@ class CreateDBInstanceEndpointAddressRequest(TeaModel):
             self.ip_type = m.get('IpType')
         if m.get('Port') is not None:
             self.port = m.get('Port')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerId') is not None:
             self.resource_owner_id = m.get('ResourceOwnerId')
         return self
@@ -5800,7 +5820,7 @@ class CreateDBNodesRequestDBNode(TeaModel):
 
 class CreateDBNodesRequest(TeaModel):
     def __init__(self, client_token=None, dbinstance_id=None, dbnode=None, owner_account=None, owner_id=None,
-                 resource_owner_account=None, resource_owner_id=None):
+                 resource_group_id=None, resource_owner_account=None, resource_owner_id=None):
         # The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests.
         # 
         # The token can contain only ASCII characters and cannot exceed 64 characters in length.
@@ -5811,6 +5831,7 @@ class CreateDBNodesRequest(TeaModel):
         self.dbnode = dbnode  # type: list[CreateDBNodesRequestDBNode]
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
 
@@ -5838,6 +5859,8 @@ class CreateDBNodesRequest(TeaModel):
             result['OwnerAccount'] = self.owner_account
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
@@ -5859,6 +5882,8 @@ class CreateDBNodesRequest(TeaModel):
             self.owner_account = m.get('OwnerAccount')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
@@ -5868,7 +5893,7 @@ class CreateDBNodesRequest(TeaModel):
 
 class CreateDBNodesShrinkRequest(TeaModel):
     def __init__(self, client_token=None, dbinstance_id=None, dbnode_shrink=None, owner_account=None, owner_id=None,
-                 resource_owner_account=None, resource_owner_id=None):
+                 resource_group_id=None, resource_owner_account=None, resource_owner_id=None):
         # The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests.
         # 
         # The token can contain only ASCII characters and cannot exceed 64 characters in length.
@@ -5879,6 +5904,7 @@ class CreateDBNodesShrinkRequest(TeaModel):
         self.dbnode_shrink = dbnode_shrink  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
 
@@ -5901,6 +5927,8 @@ class CreateDBNodesShrinkRequest(TeaModel):
             result['OwnerAccount'] = self.owner_account
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
@@ -5919,6 +5947,8 @@ class CreateDBNodesShrinkRequest(TeaModel):
             self.owner_account = m.get('OwnerAccount')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
@@ -17682,11 +17712,11 @@ class DescribeDBInstanceAttributeResponseBodyItemsDBInstanceAttribute(TeaModel):
                  engine_version=None, expire_time=None, extra=None, general_group_name=None, guard_dbinstance_id=None, iptype=None,
                  increment_source_dbinstance_id=None, instance_network_type=None, instruction_set_arch=None, latest_kernel_version=None,
                  lock_mode=None, lock_reason=None, maintain_time=None, master_instance_id=None, master_zone=None,
-                 max_connections=None, max_iombps=None, max_iops=None, pay_type=None, port=None, proxy_type=None,
-                 read_only_dbinstance_ids=None, readonly_instance_sqldelayed_time=None, region_id=None, resource_group_id=None,
-                 security_iplist=None, security_ipmode=None, serverless_config=None, slave_zones=None, super_permission_mode=None,
-                 temp_dbinstance_id=None, time_zone=None, tips=None, tips_level=None, v_switch_id=None, vpc_cloud_instance_id=None,
-                 vpc_id=None, zone_id=None, kind_code=None):
+                 max_connections=None, max_iombps=None, max_iops=None, pgbouncer_enabled=None, pay_type=None, port=None,
+                 proxy_type=None, read_only_dbinstance_ids=None, readonly_instance_sqldelayed_time=None, region_id=None,
+                 resource_group_id=None, security_iplist=None, security_ipmode=None, serverless_config=None, slave_zones=None,
+                 super_permission_mode=None, temp_dbinstance_id=None, time_zone=None, tips=None, tips_level=None, v_switch_id=None,
+                 vpc_cloud_instance_id=None, vpc_id=None, zone_id=None, kind_code=None):
         # The maximum number of accounts that can be created on the instance.
         self.account_max_quantity = account_max_quantity  # type: int
         # The advanced features that are enabled for the instance. If multiple advanced features are enabled, the advanced features are separated by commas (,). This parameter is available only to instances that run **SQL Server**. Valid values:
@@ -17850,6 +17880,7 @@ class DescribeDBInstanceAttributeResponseBodyItemsDBInstanceAttribute(TeaModel):
         self.max_iombps = max_iombps  # type: int
         # The maximum number of I/O requests that is processed by the instance per second.
         self.max_iops = max_iops  # type: int
+        self.pgbouncer_enabled = pgbouncer_enabled  # type: str
         # The billing method of the instance. Valid values:
         # 
         # *   **Postpaid**: pay-as-you-go
@@ -18025,6 +18056,8 @@ class DescribeDBInstanceAttributeResponseBodyItemsDBInstanceAttribute(TeaModel):
             result['MaxIOMBPS'] = self.max_iombps
         if self.max_iops is not None:
             result['MaxIOPS'] = self.max_iops
+        if self.pgbouncer_enabled is not None:
+            result['PGBouncerEnabled'] = self.pgbouncer_enabled
         if self.pay_type is not None:
             result['PayType'] = self.pay_type
         if self.port is not None:
@@ -18170,6 +18203,8 @@ class DescribeDBInstanceAttributeResponseBodyItemsDBInstanceAttribute(TeaModel):
             self.max_iombps = m.get('MaxIOMBPS')
         if m.get('MaxIOPS') is not None:
             self.max_iops = m.get('MaxIOPS')
+        if m.get('PGBouncerEnabled') is not None:
+            self.pgbouncer_enabled = m.get('PGBouncerEnabled')
         if m.get('PayType') is not None:
             self.pay_type = m.get('PayType')
         if m.get('Port') is not None:
@@ -20574,7 +20609,7 @@ class DescribeDBInstanceNetInfoResponseBodyDBInstanceNetInfosDBInstanceNetInfoSe
 class DescribeDBInstanceNetInfoResponseBodyDBInstanceNetInfosDBInstanceNetInfo(TeaModel):
     def __init__(self, babelfish_port=None, connection_string=None, connection_string_type=None,
                  dbinstance_weights=None, distribution_type=None, expired_time=None, ipaddress=None, iptype=None, max_delay_time=None,
-                 port=None, security_ipgroups=None, upgradeable=None, vpcid=None, v_switch_id=None):
+                 pgbouncer_port=None, port=None, security_ipgroups=None, upgradeable=None, vpcid=None, v_switch_id=None):
         # The Tabular Data Stream (TDS) port of the instance for which Babelfish is enabled.
         # 
         # > This parameter applies only to ApsaraDB RDS for PostgreSQL instances. For more information about Babelfish for ApsaraDB RDS for PostgreSQL, see [Introduction to Babelfish](~~428613~~).
@@ -20610,6 +20645,7 @@ class DescribeDBInstanceNetInfoResponseBodyDBInstanceNetInfosDBInstanceNetInfo(T
         # 
         # > If the latency on a read-only instance exceeds the specified threshold, the system no longer forwards read requests to the read-only instance.
         self.max_delay_time = max_delay_time  # type: str
+        self.pgbouncer_port = pgbouncer_port  # type: str
         # The port that is used to connect to the instance.
         self.port = port  # type: str
         # An array that consists of the details about the IP address whitelists.
@@ -20656,6 +20692,8 @@ class DescribeDBInstanceNetInfoResponseBodyDBInstanceNetInfosDBInstanceNetInfo(T
             result['IPType'] = self.iptype
         if self.max_delay_time is not None:
             result['MaxDelayTime'] = self.max_delay_time
+        if self.pgbouncer_port is not None:
+            result['PGBouncerPort'] = self.pgbouncer_port
         if self.port is not None:
             result['Port'] = self.port
         if self.security_ipgroups is not None:
@@ -20689,6 +20727,8 @@ class DescribeDBInstanceNetInfoResponseBodyDBInstanceNetInfosDBInstanceNetInfo(T
             self.iptype = m.get('IPType')
         if m.get('MaxDelayTime') is not None:
             self.max_delay_time = m.get('MaxDelayTime')
+        if m.get('PGBouncerPort') is not None:
+            self.pgbouncer_port = m.get('PGBouncerPort')
         if m.get('Port') is not None:
             self.port = m.get('Port')
         if m.get('SecurityIPGroups') is not None:
@@ -34063,9 +34103,13 @@ class DescribeParametersResponseBodyConfigParameters(TeaModel):
 class DescribeParametersResponseBodyParamGroupInfo(TeaModel):
     def __init__(self, param_group_id=None, parameter_group_desc=None, parameter_group_name=None,
                  parameter_group_type=None):
+        # Parameter template ID.
         self.param_group_id = param_group_id  # type: str
+        # Parameter template description.
         self.parameter_group_desc = parameter_group_desc  # type: str
+        # Parameter template name.
         self.parameter_group_name = parameter_group_name  # type: str
+        # Parameter template type.
         self.parameter_group_type = parameter_group_type  # type: str
 
     def validate(self):
@@ -34178,6 +34222,7 @@ class DescribeParametersResponseBody(TeaModel):
         self.engine = engine  # type: str
         # The database engine version of the instance.
         self.engine_version = engine_version  # type: str
+        # Parameter template information.
         self.param_group_info = param_group_info  # type: DescribeParametersResponseBodyParamGroupInfo
         # The ID of the request.
         self.request_id = request_id  # type: str
@@ -45328,7 +45373,7 @@ class ModifyDBInstanceConnectionModeResponse(TeaModel):
 
 class ModifyDBInstanceConnectionStringRequest(TeaModel):
     def __init__(self, babelfish_port=None, connection_string_prefix=None, current_connection_string=None,
-                 dbinstance_id=None, general_group_name=None, owner_account=None, owner_id=None, port=None,
+                 dbinstance_id=None, general_group_name=None, owner_account=None, owner_id=None, pgbouncer_port=None, port=None,
                  resource_owner_account=None, resource_owner_id=None):
         # The Tabular Data Stream (TDS) port of the instance for which Babelfish is enabled.
         # 
@@ -45348,6 +45393,7 @@ class ModifyDBInstanceConnectionStringRequest(TeaModel):
         self.general_group_name = general_group_name  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        self.pgbouncer_port = pgbouncer_port  # type: str
         # The port number after the change.
         self.port = port  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
@@ -45376,6 +45422,8 @@ class ModifyDBInstanceConnectionStringRequest(TeaModel):
             result['OwnerAccount'] = self.owner_account
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
+        if self.pgbouncer_port is not None:
+            result['PGBouncerPort'] = self.pgbouncer_port
         if self.port is not None:
             result['Port'] = self.port
         if self.resource_owner_account is not None:
@@ -45400,6 +45448,8 @@ class ModifyDBInstanceConnectionStringRequest(TeaModel):
             self.owner_account = m.get('OwnerAccount')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
+        if m.get('PGBouncerPort') is not None:
+            self.pgbouncer_port = m.get('PGBouncerPort')
         if m.get('Port') is not None:
             self.port = m.get('Port')
         if m.get('ResourceOwnerAccount') is not None:
