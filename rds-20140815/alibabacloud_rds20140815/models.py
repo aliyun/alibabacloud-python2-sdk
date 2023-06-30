@@ -13781,11 +13781,12 @@ class DescribeBackupPolicyRequest(TeaModel):
 
 class DescribeBackupPolicyResponseBody(TeaModel):
     def __init__(self, archive_backup_keep_count=None, archive_backup_keep_policy=None,
-                 archive_backup_retention_period=None, backup_interval=None, backup_log=None, backup_method=None, backup_retention_period=None,
-                 category=None, compress_type=None, enable_backup_log=None, enable_increment_data_backup=None,
-                 high_space_usage_protection=None, local_log_retention_hours=None, local_log_retention_space=None, log_backup_frequency=None,
-                 log_backup_local_retention_number=None, log_backup_retention_period=None, preferred_backup_period=None, preferred_backup_time=None,
-                 preferred_next_backup_time=None, released_keep_policy=None, request_id=None, support_released_keep=None,
+                 archive_backup_retention_period=None, backup_interval=None, backup_log=None, backup_method=None, backup_priority=None,
+                 backup_retention_period=None, category=None, compress_type=None, enable_backup_log=None,
+                 enable_increment_data_backup=None, high_space_usage_protection=None, local_log_retention_hours=None,
+                 local_log_retention_space=None, log_backup_frequency=None, log_backup_local_retention_number=None,
+                 log_backup_retention_period=None, preferred_backup_period=None, preferred_backup_time=None, preferred_next_backup_time=None,
+                 released_keep_policy=None, request_id=None, support_modify_backup_priority=None, support_released_keep=None,
                  support_volume_shadow_copy=None):
         # The number of archived backup files that are retained.
         self.archive_backup_keep_count = archive_backup_keep_count  # type: str
@@ -13810,6 +13811,7 @@ class DescribeBackupPolicyResponseBody(TeaModel):
         # 
         # > This parameter is returned only when the instance runs SQL Server and uses cloud disks.
         self.backup_method = backup_method  # type: str
+        self.backup_priority = backup_priority  # type: int
         # The number of days for which data backup files are retained.
         self.backup_retention_period = backup_retention_period  # type: int
         # Indicates whether to enable the single-digit second backup feature. This feature allows ApsaraDB RDS to complete a backup within single-digit seconds. Valid values:
@@ -13879,6 +13881,7 @@ class DescribeBackupPolicyResponseBody(TeaModel):
         self.released_keep_policy = released_keep_policy  # type: str
         # The ID of the request.
         self.request_id = request_id  # type: str
+        self.support_modify_backup_priority = support_modify_backup_priority  # type: bool
         # A reserved parameter.
         self.support_released_keep = support_released_keep  # type: int
         # Indicates whether the instance supports snapshot backups. Valid values:
@@ -13910,6 +13913,8 @@ class DescribeBackupPolicyResponseBody(TeaModel):
             result['BackupLog'] = self.backup_log
         if self.backup_method is not None:
             result['BackupMethod'] = self.backup_method
+        if self.backup_priority is not None:
+            result['BackupPriority'] = self.backup_priority
         if self.backup_retention_period is not None:
             result['BackupRetentionPeriod'] = self.backup_retention_period
         if self.category is not None:
@@ -13942,6 +13947,8 @@ class DescribeBackupPolicyResponseBody(TeaModel):
             result['ReleasedKeepPolicy'] = self.released_keep_policy
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.support_modify_backup_priority is not None:
+            result['SupportModifyBackupPriority'] = self.support_modify_backup_priority
         if self.support_released_keep is not None:
             result['SupportReleasedKeep'] = self.support_released_keep
         if self.support_volume_shadow_copy is not None:
@@ -13962,6 +13969,8 @@ class DescribeBackupPolicyResponseBody(TeaModel):
             self.backup_log = m.get('BackupLog')
         if m.get('BackupMethod') is not None:
             self.backup_method = m.get('BackupMethod')
+        if m.get('BackupPriority') is not None:
+            self.backup_priority = m.get('BackupPriority')
         if m.get('BackupRetentionPeriod') is not None:
             self.backup_retention_period = m.get('BackupRetentionPeriod')
         if m.get('Category') is not None:
@@ -13994,6 +14003,8 @@ class DescribeBackupPolicyResponseBody(TeaModel):
             self.released_keep_policy = m.get('ReleasedKeepPolicy')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('SupportModifyBackupPriority') is not None:
+            self.support_modify_backup_priority = m.get('SupportModifyBackupPriority')
         if m.get('SupportReleasedKeep') is not None:
             self.support_released_keep = m.get('SupportReleasedKeep')
         if m.get('SupportVolumeShadowCopy') is not None:
@@ -44393,11 +44404,12 @@ class ModifyActiveOperationTasksResponse(TeaModel):
 class ModifyBackupPolicyRequest(TeaModel):
     def __init__(self, archive_backup_keep_count=None, archive_backup_keep_policy=None,
                  archive_backup_retention_period=None, backup_interval=None, backup_log=None, backup_method=None, backup_policy_mode=None,
-                 backup_retention_period=None, category=None, compress_type=None, dbinstance_id=None, enable_backup_log=None,
-                 enable_increment_data_backup=None, high_space_usage_protection=None, local_log_retention_hours=None,
-                 local_log_retention_space=None, log_backup_frequency=None, log_backup_local_retention_number=None,
-                 log_backup_retention_period=None, owner_account=None, owner_id=None, preferred_backup_period=None, preferred_backup_time=None,
-                 released_keep_policy=None, resource_owner_account=None, resource_owner_id=None):
+                 backup_priority=None, backup_retention_period=None, category=None, compress_type=None, dbinstance_id=None,
+                 enable_backup_log=None, enable_increment_data_backup=None, high_space_usage_protection=None,
+                 local_log_retention_hours=None, local_log_retention_space=None, log_backup_frequency=None,
+                 log_backup_local_retention_number=None, log_backup_retention_period=None, owner_account=None, owner_id=None,
+                 preferred_backup_period=None, preferred_backup_time=None, released_keep_policy=None, resource_owner_account=None,
+                 resource_owner_id=None):
         # The number of archived backup files that are retained. Default value: **1**. Valid values:
         # 
         # *   Valid values when **ArchiveBackupKeepPolicy** is set to **ByMonth**: **1** to **31**.
@@ -44471,6 +44483,7 @@ class ModifyBackupPolicyRequest(TeaModel):
         # *   **DataBackupPolicy**: data backup
         # *   **LogBackupPolicy**: log backup
         self.backup_policy_mode = backup_policy_mode  # type: str
+        self.backup_priority = backup_priority  # type: int
         # The number of days for which you want to retain data backup files. Valid values: **7 to 730**.
         # 
         # > 
@@ -44633,6 +44646,8 @@ class ModifyBackupPolicyRequest(TeaModel):
             result['BackupMethod'] = self.backup_method
         if self.backup_policy_mode is not None:
             result['BackupPolicyMode'] = self.backup_policy_mode
+        if self.backup_priority is not None:
+            result['BackupPriority'] = self.backup_priority
         if self.backup_retention_period is not None:
             result['BackupRetentionPeriod'] = self.backup_retention_period
         if self.category is not None:
@@ -44689,6 +44704,8 @@ class ModifyBackupPolicyRequest(TeaModel):
             self.backup_method = m.get('BackupMethod')
         if m.get('BackupPolicyMode') is not None:
             self.backup_policy_mode = m.get('BackupPolicyMode')
+        if m.get('BackupPriority') is not None:
+            self.backup_priority = m.get('BackupPriority')
         if m.get('BackupRetentionPeriod') is not None:
             self.backup_retention_period = m.get('BackupRetentionPeriod')
         if m.get('Category') is not None:

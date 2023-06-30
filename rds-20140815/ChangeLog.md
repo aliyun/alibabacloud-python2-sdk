@@ -1,3 +1,7 @@
+2023-06-30 Version: 1.0.9
+- ModifyBackupPolicy API support parameter BackupPriority.
+- DescribeBackupPolicy API add return parameters: BackupPriority and SupportModifyBackupPriority.
+
 2023-06-29 Version: 1.0.8
 - Support More Open Api.
 

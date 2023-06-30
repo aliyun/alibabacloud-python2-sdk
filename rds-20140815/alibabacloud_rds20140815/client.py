@@ -10676,6 +10676,8 @@ class Client(OpenApiClient):
             query['BackupMethod'] = request.backup_method
         if not UtilClient.is_unset(request.backup_policy_mode):
             query['BackupPolicyMode'] = request.backup_policy_mode
+        if not UtilClient.is_unset(request.backup_priority):
+            query['BackupPriority'] = request.backup_priority
         if not UtilClient.is_unset(request.backup_retention_period):
             query['BackupRetentionPeriod'] = request.backup_retention_period
         if not UtilClient.is_unset(request.category):
