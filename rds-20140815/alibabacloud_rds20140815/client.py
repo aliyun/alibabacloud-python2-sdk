@@ -10919,6 +10919,50 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.modify_dbinstance_auto_upgrade_minor_version_with_options(request, runtime)
 
+    def modify_dbinstance_config_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.config_name):
+            query['ConfigName'] = request.config_name
+        if not UtilClient.is_unset(request.config_value):
+            query['ConfigValue'] = request.config_value
+        if not UtilClient.is_unset(request.dbinstance_id):
+            query['DBInstanceId'] = request.dbinstance_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyDBInstanceConfig',
+            version='2014-08-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            rds_20140815_models.ModifyDBInstanceConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_dbinstance_config(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_dbinstance_config_with_options(request, runtime)
+
     def modify_dbinstance_connection_mode_with_options(self, request, runtime):
         """
         > The API has been taken offline
