@@ -184,6 +184,7 @@ class AddTagsToResourceRequest(TeaModel):
         # 
         # >  You can enter up to 30 instance IDs in a single request. If you enter more than one instance ID, you must separate the instance IDs with commas (,).
         self.dbinstance_id = dbinstance_id  # type: str
+        # The logon name of the RAM user.
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         # The region ID of the instance. You can call the [DescribeRegions](~~26243~~) operation to query the most recent region list.
@@ -34358,12 +34359,41 @@ class DescribePriceRequestDBNode(TeaModel):
         return self
 
 
+class DescribePriceRequestServerlessConfig(TeaModel):
+    def __init__(self, max_capacity=None, min_capacity=None):
+        self.max_capacity = max_capacity  # type: float
+        self.min_capacity = min_capacity  # type: float
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribePriceRequestServerlessConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.max_capacity is not None:
+            result['MaxCapacity'] = self.max_capacity
+        if self.min_capacity is not None:
+            result['MinCapacity'] = self.min_capacity
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('MaxCapacity') is not None:
+            self.max_capacity = m.get('MaxCapacity')
+        if m.get('MinCapacity') is not None:
+            self.min_capacity = m.get('MinCapacity')
+        return self
+
+
 class DescribePriceRequest(TeaModel):
     def __init__(self, client_token=None, commodity_code=None, dbinstance_class=None, dbinstance_id=None,
                  dbinstance_storage=None, dbinstance_storage_type=None, dbnode=None, engine=None, engine_version=None,
                  instance_used_type=None, order_type=None, owner_account=None, owner_id=None, pay_type=None, quantity=None,
-                 region_id=None, resource_owner_account=None, resource_owner_id=None, time_type=None, used_time=None,
-                 zone_id=None):
+                 region_id=None, resource_owner_account=None, resource_owner_id=None, serverless_config=None, time_type=None,
+                 used_time=None, zone_id=None):
         # The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must ensure that it is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length.
         self.client_token = client_token  # type: str
         # The commodity code of the instance. Valid values:
@@ -34437,6 +34467,7 @@ class DescribePriceRequest(TeaModel):
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        self.serverless_config = serverless_config  # type: DescribePriceRequestServerlessConfig
         # The unit that is used to calculate the subscription duration of the instance. If you set the **CommodityCode** parameter to **RDS**, **rds_rordspre_public_cn**, **rds_intl**, or **rds_rordspre_public_intl**, you must also specify this parameter. Valid values:
         # 
         # *   **Year**\
@@ -34459,6 +34490,8 @@ class DescribePriceRequest(TeaModel):
             for k in self.dbnode:
                 if k:
                     k.validate()
+        if self.serverless_config:
+            self.serverless_config.validate()
 
     def to_map(self):
         _map = super(DescribePriceRequest, self).to_map()
@@ -34504,6 +34537,8 @@ class DescribePriceRequest(TeaModel):
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
             result['ResourceOwnerId'] = self.resource_owner_id
+        if self.serverless_config is not None:
+            result['ServerlessConfig'] = self.serverless_config.to_map()
         if self.time_type is not None:
             result['TimeType'] = self.time_type
         if self.used_time is not None:
@@ -34553,6 +34588,9 @@ class DescribePriceRequest(TeaModel):
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
             self.resource_owner_id = m.get('ResourceOwnerId')
+        if m.get('ServerlessConfig') is not None:
+            temp_model = DescribePriceRequestServerlessConfig()
+            self.serverless_config = temp_model.from_map(m['ServerlessConfig'])
         if m.get('TimeType') is not None:
             self.time_type = m.get('TimeType')
         if m.get('UsedTime') is not None:
@@ -34566,8 +34604,8 @@ class DescribePriceShrinkRequest(TeaModel):
     def __init__(self, client_token=None, commodity_code=None, dbinstance_class=None, dbinstance_id=None,
                  dbinstance_storage=None, dbinstance_storage_type=None, dbnode_shrink=None, engine=None, engine_version=None,
                  instance_used_type=None, order_type=None, owner_account=None, owner_id=None, pay_type=None, quantity=None,
-                 region_id=None, resource_owner_account=None, resource_owner_id=None, time_type=None, used_time=None,
-                 zone_id=None):
+                 region_id=None, resource_owner_account=None, resource_owner_id=None, serverless_config_shrink=None,
+                 time_type=None, used_time=None, zone_id=None):
         # The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must ensure that it is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length.
         self.client_token = client_token  # type: str
         # The commodity code of the instance. Valid values:
@@ -34641,6 +34679,7 @@ class DescribePriceShrinkRequest(TeaModel):
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        self.serverless_config_shrink = serverless_config_shrink  # type: str
         # The unit that is used to calculate the subscription duration of the instance. If you set the **CommodityCode** parameter to **RDS**, **rds_rordspre_public_cn**, **rds_intl**, or **rds_rordspre_public_intl**, you must also specify this parameter. Valid values:
         # 
         # *   **Year**\
@@ -34703,6 +34742,8 @@ class DescribePriceShrinkRequest(TeaModel):
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
             result['ResourceOwnerId'] = self.resource_owner_id
+        if self.serverless_config_shrink is not None:
+            result['ServerlessConfig'] = self.serverless_config_shrink
         if self.time_type is not None:
             result['TimeType'] = self.time_type
         if self.used_time is not None:
@@ -34749,6 +34790,8 @@ class DescribePriceShrinkRequest(TeaModel):
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
             self.resource_owner_id = m.get('ResourceOwnerId')
+        if m.get('ServerlessConfig') is not None:
+            self.serverless_config_shrink = m.get('ServerlessConfig')
         if m.get('TimeType') is not None:
             self.time_type = m.get('TimeType')
         if m.get('UsedTime') is not None:
@@ -35034,7 +35077,8 @@ class DescribePriceResponseBodyRules(TeaModel):
 
 
 class DescribePriceResponseBody(TeaModel):
-    def __init__(self, price_info=None, request_id=None, rules=None, show_discount=None):
+    def __init__(self, price_info=None, request_id=None, rules=None, show_discount=None, trade_max_rcuamount=None,
+                 trade_min_rcuamount=None):
         # The information about the price.
         self.price_info = price_info  # type: DescribePriceResponseBodyPriceInfo
         # The ID of the request.
@@ -35042,6 +35086,8 @@ class DescribePriceResponseBody(TeaModel):
         # An array that consists of the details of the promotion rule.
         self.rules = rules  # type: DescribePriceResponseBodyRules
         self.show_discount = show_discount  # type: bool
+        self.trade_max_rcuamount = trade_max_rcuamount  # type: float
+        self.trade_min_rcuamount = trade_min_rcuamount  # type: float
 
     def validate(self):
         if self.price_info:
@@ -35063,6 +35109,10 @@ class DescribePriceResponseBody(TeaModel):
             result['Rules'] = self.rules.to_map()
         if self.show_discount is not None:
             result['ShowDiscount'] = self.show_discount
+        if self.trade_max_rcuamount is not None:
+            result['TradeMaxRCUAmount'] = self.trade_max_rcuamount
+        if self.trade_min_rcuamount is not None:
+            result['TradeMinRCUAmount'] = self.trade_min_rcuamount
         return result
 
     def from_map(self, m=None):
@@ -35077,6 +35127,10 @@ class DescribePriceResponseBody(TeaModel):
             self.rules = temp_model.from_map(m['Rules'])
         if m.get('ShowDiscount') is not None:
             self.show_discount = m.get('ShowDiscount')
+        if m.get('TradeMaxRCUAmount') is not None:
+            self.trade_max_rcuamount = m.get('TradeMaxRCUAmount')
+        if m.get('TradeMinRCUAmount') is not None:
+            self.trade_min_rcuamount = m.get('TradeMinRCUAmount')
         return self
 
 
