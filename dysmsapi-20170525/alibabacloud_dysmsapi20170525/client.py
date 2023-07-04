@@ -22,9 +22,11 @@ class Client(OpenApiClient):
         self._endpoint_rule = 'central'
         self._endpoint_map = {
             'ap-southeast-1': 'dysmsapi.ap-southeast-1.aliyuncs.com',
-            'ap-southeast-5': 'dysmsapi-xman.ap-southeast-5.aliyuncs.com',
+            'ap-southeast-5': 'dysmsapi.ap-southeast-5.aliyuncs.com',
             'cn-beijing': 'dysmsapi-proxy.cn-beijing.aliyuncs.com',
-            'cn-hongkong': 'dysmsapi-xman.cn-hongkong.aliyuncs.com'
+            'cn-hongkong': 'dysmsapi-xman.cn-hongkong.aliyuncs.com',
+            'eu-central-1': 'dysmsapi.eu-central-1.aliyuncs.com',
+            'us-east-1': 'dysmsapi.us-east-1.aliyuncs.com'
         }
         self.check_config(config)
         self._endpoint = self.get_endpoint('dysmsapi', self._region_id, self._endpoint_rule, self._network, self._suffix, self._endpoint_map, self._endpoint)
@@ -190,6 +192,42 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.check_mobiles_card_support_with_options(request, runtime)
 
+    def conversion_data_intl_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.conversion_rate):
+            query['ConversionRate'] = request.conversion_rate
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.report_time):
+            query['ReportTime'] = request.report_time
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ConversionDataIntl',
+            version='2017-05-25',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dysmsapi_20170525_models.ConversionDataIntlResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def conversion_data_intl(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.conversion_data_intl_with_options(request, runtime)
+
     def create_card_sms_template_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
         request = dysmsapi_20170525_models.CreateCardSmsTemplateShrinkRequest()
@@ -227,6 +265,46 @@ class Client(OpenApiClient):
     def create_card_sms_template(self, request):
         runtime = util_models.RuntimeOptions()
         return self.create_card_sms_template_with_options(request, runtime)
+
+    def create_smart_short_url_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.expiration):
+            query['Expiration'] = request.expiration
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.phone_numbers):
+            query['PhoneNumbers'] = request.phone_numbers
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.source_name):
+            query['SourceName'] = request.source_name
+        if not UtilClient.is_unset(request.source_url):
+            query['SourceUrl'] = request.source_url
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateSmartShortUrl',
+            version='2017-05-25',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dysmsapi_20170525_models.CreateSmartShortUrlResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_smart_short_url(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_smart_short_url_with_options(request, runtime)
 
     def delete_short_url_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -659,6 +737,58 @@ class Client(OpenApiClient):
     def query_mobiles_card_support(self, request):
         runtime = util_models.RuntimeOptions()
         return self.query_mobiles_card_support_with_options(request, runtime)
+
+    def query_page_smart_short_url_log_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.click_state):
+            query['ClickState'] = request.click_state
+        if not UtilClient.is_unset(request.create_date_end):
+            query['CreateDateEnd'] = request.create_date_end
+        if not UtilClient.is_unset(request.create_date_start):
+            query['CreateDateStart'] = request.create_date_start
+        if not UtilClient.is_unset(request.end_id):
+            query['EndId'] = request.end_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_no):
+            query['PageNo'] = request.page_no
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.phone_number):
+            query['PhoneNumber'] = request.phone_number
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.short_name):
+            query['ShortName'] = request.short_name
+        if not UtilClient.is_unset(request.short_url):
+            query['ShortUrl'] = request.short_url
+        if not UtilClient.is_unset(request.start_id):
+            query['StartId'] = request.start_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='QueryPageSmartShortUrlLog',
+            version='2017-05-25',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dysmsapi_20170525_models.QueryPageSmartShortUrlLogResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_page_smart_short_url_log(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_page_smart_short_url_log_with_options(request, runtime)
 
     def query_send_details_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1115,6 +1245,44 @@ class Client(OpenApiClient):
     def send_sms(self, request):
         runtime = util_models.RuntimeOptions()
         return self.send_sms_with_options(request, runtime)
+
+    def sms_conversion_intl_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.conversion_time):
+            query['ConversionTime'] = request.conversion_time
+        if not UtilClient.is_unset(request.delivered):
+            query['Delivered'] = request.delivered
+        if not UtilClient.is_unset(request.message_id):
+            query['MessageId'] = request.message_id
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='SmsConversionIntl',
+            version='2017-05-25',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dysmsapi_20170525_models.SmsConversionIntlResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def sms_conversion_intl(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.sms_conversion_intl_with_options(request, runtime)
 
     def tag_resources_with_options(self, request, runtime):
         UtilClient.validate_model(request)
