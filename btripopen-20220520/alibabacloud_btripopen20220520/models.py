@@ -39107,9 +39107,10 @@ class QueryReimbursementOrderRequest(TeaModel):
 
 
 class QueryReimbursementOrderResponseBodyModuleExpensesExpenseCompositions(TeaModel):
-    def __init__(self, bill_settlement_id=None, fee_type=None, remark=None, remind_tag_list=None,
-                 settlement_amount=None, settlement_time=None, voucher_type=None):
+    def __init__(self, bill_settlement_id=None, capital_direction=None, fee_type=None, remark=None,
+                 remind_tag_list=None, settlement_amount=None, settlement_time=None, voucher_type=None):
         self.bill_settlement_id = bill_settlement_id  # type: long
+        self.capital_direction = capital_direction  # type: str
         self.fee_type = fee_type  # type: str
         self.remark = remark  # type: str
         self.remind_tag_list = remind_tag_list  # type: list[str]
@@ -39128,6 +39129,8 @@ class QueryReimbursementOrderResponseBodyModuleExpensesExpenseCompositions(TeaMo
         result = dict()
         if self.bill_settlement_id is not None:
             result['bill_settlement_id'] = self.bill_settlement_id
+        if self.capital_direction is not None:
+            result['capital_direction'] = self.capital_direction
         if self.fee_type is not None:
             result['fee_type'] = self.fee_type
         if self.remark is not None:
@@ -39146,6 +39149,8 @@ class QueryReimbursementOrderResponseBodyModuleExpensesExpenseCompositions(TeaMo
         m = m or dict()
         if m.get('bill_settlement_id') is not None:
             self.bill_settlement_id = m.get('bill_settlement_id')
+        if m.get('capital_direction') is not None:
+            self.capital_direction = m.get('capital_direction')
         if m.get('fee_type') is not None:
             self.fee_type = m.get('fee_type')
         if m.get('remark') is not None:
