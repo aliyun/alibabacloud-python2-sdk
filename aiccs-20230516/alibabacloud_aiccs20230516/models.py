@@ -2074,10 +2074,11 @@ class ImportNumberRequestCustomers(TeaModel):
 
 
 class ImportNumberRequest(TeaModel):
-    def __init__(self, customers=None, fail_return=None, owner_id=None, resource_owner_account=None,
+    def __init__(self, customers=None, fail_return=None, out_id=None, owner_id=None, resource_owner_account=None,
                  resource_owner_id=None, task_id=None):
         self.customers = customers  # type: list[ImportNumberRequestCustomers]
         self.fail_return = fail_return  # type: long
+        self.out_id = out_id  # type: str
         self.owner_id = owner_id  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -2101,6 +2102,8 @@ class ImportNumberRequest(TeaModel):
                 result['Customers'].append(k.to_map() if k else None)
         if self.fail_return is not None:
             result['FailReturn'] = self.fail_return
+        if self.out_id is not None:
+            result['OutId'] = self.out_id
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
         if self.resource_owner_account is not None:
@@ -2120,6 +2123,8 @@ class ImportNumberRequest(TeaModel):
                 self.customers.append(temp_model.from_map(k))
         if m.get('FailReturn') is not None:
             self.fail_return = m.get('FailReturn')
+        if m.get('OutId') is not None:
+            self.out_id = m.get('OutId')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
         if m.get('ResourceOwnerAccount') is not None:
@@ -2132,10 +2137,11 @@ class ImportNumberRequest(TeaModel):
 
 
 class ImportNumberShrinkRequest(TeaModel):
-    def __init__(self, customers_shrink=None, fail_return=None, owner_id=None, resource_owner_account=None,
-                 resource_owner_id=None, task_id=None):
+    def __init__(self, customers_shrink=None, fail_return=None, out_id=None, owner_id=None,
+                 resource_owner_account=None, resource_owner_id=None, task_id=None):
         self.customers_shrink = customers_shrink  # type: str
         self.fail_return = fail_return  # type: long
+        self.out_id = out_id  # type: str
         self.owner_id = owner_id  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -2154,6 +2160,8 @@ class ImportNumberShrinkRequest(TeaModel):
             result['Customers'] = self.customers_shrink
         if self.fail_return is not None:
             result['FailReturn'] = self.fail_return
+        if self.out_id is not None:
+            result['OutId'] = self.out_id
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
         if self.resource_owner_account is not None:
@@ -2170,6 +2178,8 @@ class ImportNumberShrinkRequest(TeaModel):
             self.customers_shrink = m.get('Customers')
         if m.get('FailReturn') is not None:
             self.fail_return = m.get('FailReturn')
+        if m.get('OutId') is not None:
+            self.out_id = m.get('OutId')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
         if m.get('ResourceOwnerAccount') is not None:

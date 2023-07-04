@@ -379,6 +379,8 @@ class Client(OpenApiClient):
             query['Customers'] = request.customers_shrink
         if not UtilClient.is_unset(request.fail_return):
             query['FailReturn'] = request.fail_return
+        if not UtilClient.is_unset(request.out_id):
+            query['OutId'] = request.out_id
         if not UtilClient.is_unset(request.owner_id):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.resource_owner_account):
