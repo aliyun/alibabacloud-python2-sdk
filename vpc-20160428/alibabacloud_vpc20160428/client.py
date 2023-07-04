@@ -113,6 +113,19 @@ class Client(OpenApiClient):
         return self.activate_router_interface_with_options(request, runtime)
 
     def active_flow_log_with_options(self, request, runtime):
+        """
+        The **ActiveFlowLog** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeFlowLogs](~~87923~~) operation to query the status of a flow log:
+        *   If the flow log is in the **Activating** state, the flow log is being started.
+        *   If the flow log is in the **Active** state, the flow log is started.
+        *   You cannot repeatedly call the **ActiveFlowLog** operation to start a flow log within the specified period of time.
+        
+
+        @param request: ActiveFlowLogRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ActiveFlowLogResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.flow_log_id):
@@ -147,6 +160,17 @@ class Client(OpenApiClient):
         )
 
     def active_flow_log(self, request):
+        """
+        The **ActiveFlowLog** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeFlowLogs](~~87923~~) operation to query the status of a flow log:
+        *   If the flow log is in the **Activating** state, the flow log is being started.
+        *   If the flow log is in the **Active** state, the flow log is started.
+        *   You cannot repeatedly call the **ActiveFlowLog** operation to start a flow log within the specified period of time.
+        
+
+        @param request: ActiveFlowLogRequest
+
+        @return: ActiveFlowLogResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.active_flow_log_with_options(request, runtime)
 
@@ -195,6 +219,22 @@ class Client(OpenApiClient):
         return self.add_bgp_network_with_options(request, runtime)
 
     def add_common_bandwidth_package_ip_with_options(self, request, runtime):
+        """
+        When you call this operation to associate an EIP with an EIP bandwidth plan, make sure that the EIP meets the following requirements:
+        *   The EIP uses the pay-as-you-go billing method.
+        *   The EIP and the EIP bandwidth plan belong to the same region.
+        *   The line type of the EIP is the same as that of the EIP bandwidth plan.
+        *   The **AddCommonBandwidthPackageIp** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeCommonBandwidthPackages](~~120309~~) operation to query the status of an EIP bandwidth plan:
+        *   If the EIP bandwidth plan is in the **BINDING** state, the EIP is being associated with the EIP bandwidth plan. In this state, you can only query the EIP bandwidth plan and cannot perform other operations.
+        *   If the EIP bandwidth plan is in the **BINDED** state, the EIP is associated with the EIP bandwidth plan.
+        
+
+        @param request: AddCommonBandwidthPackageIpRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: AddCommonBandwidthPackageIpResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.bandwidth_package_id):
@@ -235,10 +275,40 @@ class Client(OpenApiClient):
         )
 
     def add_common_bandwidth_package_ip(self, request):
+        """
+        When you call this operation to associate an EIP with an EIP bandwidth plan, make sure that the EIP meets the following requirements:
+        *   The EIP uses the pay-as-you-go billing method.
+        *   The EIP and the EIP bandwidth plan belong to the same region.
+        *   The line type of the EIP is the same as that of the EIP bandwidth plan.
+        *   The **AddCommonBandwidthPackageIp** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeCommonBandwidthPackages](~~120309~~) operation to query the status of an EIP bandwidth plan:
+        *   If the EIP bandwidth plan is in the **BINDING** state, the EIP is being associated with the EIP bandwidth plan. In this state, you can only query the EIP bandwidth plan and cannot perform other operations.
+        *   If the EIP bandwidth plan is in the **BINDED** state, the EIP is associated with the EIP bandwidth plan.
+        
+
+        @param request: AddCommonBandwidthPackageIpRequest
+
+        @return: AddCommonBandwidthPackageIpResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.add_common_bandwidth_package_ip_with_options(request, runtime)
 
     def add_common_bandwidth_package_ips_with_options(self, request, runtime):
+        """
+        When you call this operation to associate EIPs with an EIP bandwidth plan, make sure that the EIPs meet the following requirements:
+        *   The EIPs use the pay-as-you-go billing method.
+        *   The EIPs and the EIP bandwidth plan belong to the same region.
+        *   The line type of the EIPs is the same as that of the EIP bandwidth plan.
+        *   The **AddCommonBandwidthPackageIps** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeCommonBandwidthPackages](~~120309~~) operation to query the status of an EIP bandwidth plan:
+        *   If the EIP bandwidth plan is in the **BINDING** state, the EIPs are being associated with the EIP bandwidth plan. In this state, you can only query the EIP bandwidth plan and cannot perform other operations.
+        *   If the EIP bandwidth plan is in the **BINDED** state, the EIPs are associated with the EIP bandwidth plan.
+        
+
+        @param request: AddCommonBandwidthPackageIpsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: AddCommonBandwidthPackageIpsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.bandwidth_package_id):
@@ -279,6 +349,20 @@ class Client(OpenApiClient):
         )
 
     def add_common_bandwidth_package_ips(self, request):
+        """
+        When you call this operation to associate EIPs with an EIP bandwidth plan, make sure that the EIPs meet the following requirements:
+        *   The EIPs use the pay-as-you-go billing method.
+        *   The EIPs and the EIP bandwidth plan belong to the same region.
+        *   The line type of the EIPs is the same as that of the EIP bandwidth plan.
+        *   The **AddCommonBandwidthPackageIps** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeCommonBandwidthPackages](~~120309~~) operation to query the status of an EIP bandwidth plan:
+        *   If the EIP bandwidth plan is in the **BINDING** state, the EIPs are being associated with the EIP bandwidth plan. In this state, you can only query the EIP bandwidth plan and cannot perform other operations.
+        *   If the EIP bandwidth plan is in the **BINDED** state, the EIPs are associated with the EIP bandwidth plan.
+        
+
+        @param request: AddCommonBandwidthPackageIpsRequest
+
+        @return: AddCommonBandwidthPackageIpsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.add_common_bandwidth_package_ips_with_options(request, runtime)
 
@@ -323,6 +407,17 @@ class Client(OpenApiClient):
         return self.add_global_acceleration_instance_ip_with_options(request, runtime)
 
     def add_ipv_6translator_acl_list_entry_with_options(self, request, runtime):
+        """
+        @deprecated
+        
+
+        @param request: AddIPv6TranslatorAclListEntryRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: AddIPv6TranslatorAclListEntryResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.acl_entry_comment):
@@ -361,10 +456,30 @@ class Client(OpenApiClient):
         )
 
     def add_ipv_6translator_acl_list_entry(self, request):
+        """
+        @deprecated
+        
+
+        @param request: AddIPv6TranslatorAclListEntryRequest
+
+        @return: AddIPv6TranslatorAclListEntryResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.add_ipv_6translator_acl_list_entry_with_options(request, runtime)
 
     def add_public_ip_address_pool_cidr_block_with_options(self, request, runtime):
+        """
+        The CIDR block.
+        >  You cannot set the **CidrBlock** and **CidrMask** parameters at the same time.
+        
+
+        @param request: AddPublicIpAddressPoolCidrBlockRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: AddPublicIpAddressPoolCidrBlockResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.cidr_block):
@@ -407,10 +522,31 @@ class Client(OpenApiClient):
         )
 
     def add_public_ip_address_pool_cidr_block(self, request):
+        """
+        The CIDR block.
+        >  You cannot set the **CidrBlock** and **CidrMask** parameters at the same time.
+        
+
+        @param request: AddPublicIpAddressPoolCidrBlockRequest
+
+        @return: AddPublicIpAddressPoolCidrBlockResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.add_public_ip_address_pool_cidr_block_with_options(request, runtime)
 
     def add_sources_to_traffic_mirror_session_with_options(self, request, runtime):
+        """
+        The client token that is used to ensure the idempotence of the request.
+        You can use the client to generate the value, but you must make sure that it is unique among different requests. The client token can contain only ASCII characters.
+        >  If you do not set this parameter, the system uses **RequestId** as **ClientToken**. **RequestId** may be different for each API request.
+        
+
+        @param request: AddSourcesToTrafficMirrorSessionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: AddSourcesToTrafficMirrorSessionResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -451,10 +587,34 @@ class Client(OpenApiClient):
         )
 
     def add_sources_to_traffic_mirror_session(self, request):
+        """
+        The client token that is used to ensure the idempotence of the request.
+        You can use the client to generate the value, but you must make sure that it is unique among different requests. The client token can contain only ASCII characters.
+        >  If you do not set this parameter, the system uses **RequestId** as **ClientToken**. **RequestId** may be different for each API request.
+        
+
+        @param request: AddSourcesToTrafficMirrorSessionRequest
+
+        @return: AddSourcesToTrafficMirrorSessionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.add_sources_to_traffic_mirror_session_with_options(request, runtime)
 
     def allocate_eip_address_with_options(self, request, runtime):
+        """
+        The maximum bandwidth of the EIP. Unit: Mbit/s.
+        *   When **InstanceChargeType** is set to **PostPaid** and **InternetChargeType** is set to **PayByBandwidth**, valid values for **Bandwidth** are **1** to **500**.
+        *   When **InstanceChargeType** is set to **PostPaid** and **InternetChargeType** is set to **PayByTraffic**, valid values for **Bandwidth** are **1** to **200**.
+        *   When **InstanceChargeType** is set to **PrePaid**, valid values for **Bandwidth** are **1** to **1000**.
+        Default value: **5**. Unit: Mbit/s.
+        
+
+        @param request: AllocateEipAddressRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: AllocateEipAddressResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.activity_id):
@@ -471,8 +631,12 @@ class Client(OpenApiClient):
             query['ISP'] = request.isp
         if not UtilClient.is_unset(request.instance_charge_type):
             query['InstanceChargeType'] = request.instance_charge_type
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
         if not UtilClient.is_unset(request.internet_charge_type):
             query['InternetChargeType'] = request.internet_charge_type
+        if not UtilClient.is_unset(request.ip_address):
+            query['IpAddress'] = request.ip_address
         if not UtilClient.is_unset(request.name):
             query['Name'] = request.name
         if not UtilClient.is_unset(request.netmode):
@@ -497,6 +661,8 @@ class Client(OpenApiClient):
             query['ResourceOwnerId'] = request.resource_owner_id
         if not UtilClient.is_unset(request.security_protection_types):
             query['SecurityProtectionTypes'] = request.security_protection_types
+        if not UtilClient.is_unset(request.zone):
+            query['Zone'] = request.zone
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -517,6 +683,18 @@ class Client(OpenApiClient):
         )
 
     def allocate_eip_address(self, request):
+        """
+        The maximum bandwidth of the EIP. Unit: Mbit/s.
+        *   When **InstanceChargeType** is set to **PostPaid** and **InternetChargeType** is set to **PayByBandwidth**, valid values for **Bandwidth** are **1** to **500**.
+        *   When **InstanceChargeType** is set to **PostPaid** and **InternetChargeType** is set to **PayByTraffic**, valid values for **Bandwidth** are **1** to **200**.
+        *   When **InstanceChargeType** is set to **PrePaid**, valid values for **Bandwidth** are **1** to **1000**.
+        Default value: **5**. Unit: Mbit/s.
+        
+
+        @param request: AllocateEipAddressRequest
+
+        @return: AllocateEipAddressResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.allocate_eip_address_with_options(request, runtime)
 
@@ -585,6 +763,16 @@ class Client(OpenApiClient):
         return self.allocate_eip_address_pro_with_options(request, runtime)
 
     def allocate_eip_segment_address_with_options(self, request, runtime):
+        """
+        The operation that you want to perform. The operation that you want to perform. Set the value to *AllocateEipSegmentAddress**.
+        
+
+        @param request: AllocateEipSegmentAddressRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: AllocateEipSegmentAddressResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.bandwidth):
@@ -611,6 +799,8 @@ class Client(OpenApiClient):
             query['ResourceOwnerAccount'] = request.resource_owner_account
         if not UtilClient.is_unset(request.resource_owner_id):
             query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.zone):
+            query['Zone'] = request.zone
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -631,10 +821,28 @@ class Client(OpenApiClient):
         )
 
     def allocate_eip_segment_address(self, request):
+        """
+        The operation that you want to perform. The operation that you want to perform. Set the value to *AllocateEipSegmentAddress**.
+        
+
+        @param request: AllocateEipSegmentAddressRequest
+
+        @return: AllocateEipSegmentAddressResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.allocate_eip_segment_address_with_options(request, runtime)
 
     def allocate_ipv_6internet_bandwidth_with_options(self, request, runtime):
+        """
+        You cannot call the *AllocateIpv6InternetBandwidth** operation to purchase Internet bandwidth for an IPv6 gateway at the same time.
+        
+
+        @param request: AllocateIpv6InternetBandwidthRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: AllocateIpv6InternetBandwidthResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.bandwidth):
@@ -679,10 +887,30 @@ class Client(OpenApiClient):
         )
 
     def allocate_ipv_6internet_bandwidth(self, request):
+        """
+        You cannot call the *AllocateIpv6InternetBandwidth** operation to purchase Internet bandwidth for an IPv6 gateway at the same time.
+        
+
+        @param request: AllocateIpv6InternetBandwidthRequest
+
+        @return: AllocateIpv6InternetBandwidthResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.allocate_ipv_6internet_bandwidth_with_options(request, runtime)
 
     def allocate_vpc_ipv_6cidr_with_options(self, request, runtime):
+        """
+        The following section describes how to allocate an IPv6 CIDR block to a virtual private cloud (VPC):
+        1\\. Call the AllocateVpcIpv6Cidr operation to reserve an IPv6 CIDR block.
+        2\\. If you want to allocate the reserved IPv6 CIDR block to an existing VPC, call the [AssociateVpcCidrBlock](~~146745~~) operation, specify the **RegionId** and **VpcId** parameters, and set the **IPv6CidrBlock** parameter to the reserved IPv6 CIDR block and the **IpVersion** parameter to **IPV6**. If you want to allocate the reserved IPv6 CIDR block to a new VPC, call the [CreateVpc](~~35737~~) operation, specify the **RegionId** parameter, and set the **Ipv6CidrBlock** parameter to the reserved IPv6 CIDR block and the **EnableIpv6** parameter to **true**.
+        
+
+        @param request: AllocateVpcIpv6CidrRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: AllocateVpcIpv6CidrResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.address_pool_type):
@@ -725,6 +953,16 @@ class Client(OpenApiClient):
         )
 
     def allocate_vpc_ipv_6cidr(self, request):
+        """
+        The following section describes how to allocate an IPv6 CIDR block to a virtual private cloud (VPC):
+        1\\. Call the AllocateVpcIpv6Cidr operation to reserve an IPv6 CIDR block.
+        2\\. If you want to allocate the reserved IPv6 CIDR block to an existing VPC, call the [AssociateVpcCidrBlock](~~146745~~) operation, specify the **RegionId** and **VpcId** parameters, and set the **IPv6CidrBlock** parameter to the reserved IPv6 CIDR block and the **IpVersion** parameter to **IPV6**. If you want to allocate the reserved IPv6 CIDR block to a new VPC, call the [CreateVpc](~~35737~~) operation, specify the **RegionId** parameter, and set the **Ipv6CidrBlock** parameter to the reserved IPv6 CIDR block and the **EnableIpv6** parameter to **true**.
+        
+
+        @param request: AllocateVpcIpv6CidrRequest
+
+        @return: AllocateVpcIpv6CidrResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.allocate_vpc_ipv_6cidr_with_options(request, runtime)
 
@@ -785,6 +1023,17 @@ class Client(OpenApiClient):
         return self.apply_physical_connection_loawith_options(request, runtime)
 
     def associate_eip_address_with_options(self, request, runtime):
+        """
+        The ID of the region to which the EIP belongs.
+        You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
+        
+
+        @param request: AssociateEipAddressRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: AssociateEipAddressResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.allocation_id):
@@ -833,10 +1082,33 @@ class Client(OpenApiClient):
         )
 
     def associate_eip_address(self, request):
+        """
+        The ID of the region to which the EIP belongs.
+        You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
+        
+
+        @param request: AssociateEipAddressRequest
+
+        @return: AssociateEipAddressResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.associate_eip_address_with_options(request, runtime)
 
     def associate_eip_address_batch_with_options(self, request, runtime):
+        """
+        You can call the **AssociateEipAddressBatch** operation to associate EIPs with a NAT gateway or a secondary elastic network interface (ENI) in the same region. For more information about how to associate EIPs with other instances, see [AssociateEipAddress](~~120195~~).
+        *   The **AssociateEipAddressBatch** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeEipAddresses](~~120193~~) operation to query the status of an EIP.
+        *   If the EIP is in the **Associating** state, the EIP is being associated. In this state, you can only query the EIP and cannot perform other operations.
+        *   If the EIP is in the **InUse** state, the EIP is associated.
+        *   You cannot repeatedly call **AssociateEipAddressBatch** to associate an EIP with an instance within the specified period of time.
+        
+
+        @param request: AssociateEipAddressBatchRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: AssociateEipAddressBatchResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.binded_instance_id):
@@ -879,10 +1151,42 @@ class Client(OpenApiClient):
         )
 
     def associate_eip_address_batch(self, request):
+        """
+        You can call the **AssociateEipAddressBatch** operation to associate EIPs with a NAT gateway or a secondary elastic network interface (ENI) in the same region. For more information about how to associate EIPs with other instances, see [AssociateEipAddress](~~120195~~).
+        *   The **AssociateEipAddressBatch** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeEipAddresses](~~120193~~) operation to query the status of an EIP.
+        *   If the EIP is in the **Associating** state, the EIP is being associated. In this state, you can only query the EIP and cannot perform other operations.
+        *   If the EIP is in the **InUse** state, the EIP is associated.
+        *   You cannot repeatedly call **AssociateEipAddressBatch** to associate an EIP with an instance within the specified period of time.
+        
+
+        @param request: AssociateEipAddressBatchRequest
+
+        @return: AssociateEipAddressBatchResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.associate_eip_address_batch_with_options(request, runtime)
 
     def associate_global_acceleration_instance_with_options(self, request, runtime):
+        """
+        ## Usage notes
+        When you call this operation, take note of the following items:
+        *   You can specify only an Elastic Compute Service (ECS) instance in a virtual private cloud (VPC) or a Server Load Balancer (SLB) instance as a backend server.
+        *   You can associate each GA instance with only one backend server.
+        *   You can associate multiple GA instances with the same backend server.
+        *   The backend server and the GA instance must belong to the same Alibaba Cloud account.
+        *   The region of the backend server must belong to the service area of the GA instance.
+        *   You can call this operation to associate only a dedicated-bandwidth GA instance with a backend server.
+        To associate a shared-bandwidth GA instance with a backend server, perform the following operations:
+        1.  Associate an elastic IP address (EIP) with the shared-bandwidth GA instance: For more information, see [AddGlobalAccelerationInstanceIp](~~86045~~).
+        2.  Associate the EIP with a backend server. For more information, see [AssociateEipAddress](~~120195~~). When you call AssociateEipAddress, specify **InstanceRegionId**.
+        
+
+        @param request: AssociateGlobalAccelerationInstanceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: AssociateGlobalAccelerationInstanceResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.backend_server_id):
@@ -923,10 +1227,47 @@ class Client(OpenApiClient):
         )
 
     def associate_global_acceleration_instance(self, request):
+        """
+        ## Usage notes
+        When you call this operation, take note of the following items:
+        *   You can specify only an Elastic Compute Service (ECS) instance in a virtual private cloud (VPC) or a Server Load Balancer (SLB) instance as a backend server.
+        *   You can associate each GA instance with only one backend server.
+        *   You can associate multiple GA instances with the same backend server.
+        *   The backend server and the GA instance must belong to the same Alibaba Cloud account.
+        *   The region of the backend server must belong to the service area of the GA instance.
+        *   You can call this operation to associate only a dedicated-bandwidth GA instance with a backend server.
+        To associate a shared-bandwidth GA instance with a backend server, perform the following operations:
+        1.  Associate an elastic IP address (EIP) with the shared-bandwidth GA instance: For more information, see [AddGlobalAccelerationInstanceIp](~~86045~~).
+        2.  Associate the EIP with a backend server. For more information, see [AssociateEipAddress](~~120195~~). When you call AssociateEipAddress, specify **InstanceRegionId**.
+        
+
+        @param request: AssociateGlobalAccelerationInstanceRequest
+
+        @return: AssociateGlobalAccelerationInstanceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.associate_global_acceleration_instance_with_options(request, runtime)
 
     def associate_ha_vip_with_options(self, request, runtime):
+        """
+        When you call this operation, take note of the following limits:
+        *   An HAVIP immediately takes effect after it is associated. You do not need to restart the ECS instance. However, you must associate the HAVIP with the ENI of the ECS instance.
+        *   The HAVIP and ECS instance must belong to the same vSwitch.
+        *   You can associate an HAVIP with at most two ECS instances.
+        *   The ECS instance must be in the **Running** or **Stopped** state.
+        *   The HAVIP must be in the **Available** or **InUse** state.
+        *   The **AssociateHaVip** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeHaVips](~~114611~~) operation to query the status of an HAVIP:
+        *   If the HAVIP is in the **Associating** state, the HAVIP is being associated.
+        *   If the HAVIP is in the **InUse** state, the HAVIP is associated.
+        *   You cannot repeatedly call the **AssociateHaVip** operation to associate an HAVIP within the specified period of time.
+        
+
+        @param request: AssociateHaVipRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: AssociateHaVipResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -967,10 +1308,37 @@ class Client(OpenApiClient):
         )
 
     def associate_ha_vip(self, request):
+        """
+        When you call this operation, take note of the following limits:
+        *   An HAVIP immediately takes effect after it is associated. You do not need to restart the ECS instance. However, you must associate the HAVIP with the ENI of the ECS instance.
+        *   The HAVIP and ECS instance must belong to the same vSwitch.
+        *   You can associate an HAVIP with at most two ECS instances.
+        *   The ECS instance must be in the **Running** or **Stopped** state.
+        *   The HAVIP must be in the **Available** or **InUse** state.
+        *   The **AssociateHaVip** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeHaVips](~~114611~~) operation to query the status of an HAVIP:
+        *   If the HAVIP is in the **Associating** state, the HAVIP is being associated.
+        *   If the HAVIP is in the **InUse** state, the HAVIP is associated.
+        *   You cannot repeatedly call the **AssociateHaVip** operation to associate an HAVIP within the specified period of time.
+        
+
+        @param request: AssociateHaVipRequest
+
+        @return: AssociateHaVipResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.associate_ha_vip_with_options(request, runtime)
 
     def associate_network_acl_with_options(self, request, runtime):
+        """
+        The ID of the resource with which you want to associate the network ACL.
+        
+
+        @param request: AssociateNetworkAclRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: AssociateNetworkAclResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -1009,6 +1377,14 @@ class Client(OpenApiClient):
         )
 
     def associate_network_acl(self, request):
+        """
+        The ID of the resource with which you want to associate the network ACL.
+        
+
+        @param request: AssociateNetworkAclRequest
+
+        @return: AssociateNetworkAclResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.associate_network_acl_with_options(request, runtime)
 
@@ -1073,6 +1449,18 @@ class Client(OpenApiClient):
         return self.associate_physical_connection_to_virtual_border_router_with_options(request, runtime)
 
     def associate_route_table_with_options(self, request, runtime):
+        """
+        The *AssociateRouteTable** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeVSwitchAttributes](~~94567~~) operation to query the status of a vSwitch:
+        *   If the vSwitch is in the **Pending** state, the route table is being associated with the vSwitch.
+        *   If the vSwitch is in the **Available** state, the route table is associated with the vSwitch.
+        
+
+        @param request: AssociateRouteTableRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: AssociateRouteTableResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -1113,6 +1501,16 @@ class Client(OpenApiClient):
         )
 
     def associate_route_table(self, request):
+        """
+        The *AssociateRouteTable** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeVSwitchAttributes](~~94567~~) operation to query the status of a vSwitch:
+        *   If the vSwitch is in the **Pending** state, the route table is being associated with the vSwitch.
+        *   If the vSwitch is in the **Available** state, the route table is associated with the vSwitch.
+        
+
+        @param request: AssociateRouteTableRequest
+
+        @return: AssociateRouteTableResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.associate_route_table_with_options(request, runtime)
 
@@ -1163,6 +1561,16 @@ class Client(OpenApiClient):
         return self.associate_route_table_with_gateway_with_options(request, runtime)
 
     def associate_route_tables_with_vpc_gateway_endpoint_with_options(self, request, runtime):
+        """
+        The ID of the gateway endpoint to be associated with the route table.
+        
+
+        @param request: AssociateRouteTablesWithVpcGatewayEndpointRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: AssociateRouteTablesWithVpcGatewayEndpointResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -1203,16 +1611,38 @@ class Client(OpenApiClient):
         )
 
     def associate_route_tables_with_vpc_gateway_endpoint(self, request):
+        """
+        The ID of the gateway endpoint to be associated with the route table.
+        
+
+        @param request: AssociateRouteTablesWithVpcGatewayEndpointRequest
+
+        @return: AssociateRouteTablesWithVpcGatewayEndpointResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.associate_route_tables_with_vpc_gateway_endpoint_with_options(request, runtime)
 
     def associate_vpc_cidr_block_with_options(self, request, runtime):
+        """
+        The IP version. Valid values:
+        *   **IPV4**: IPv4
+        *   **IPV6**: IPv6. If you set **IpVersion** to **IPV6** and do not set **SecondaryCidrBlock**, you can add IPv6 CIDR blocks to the VPC.
+        
+
+        @param request: AssociateVpcCidrBlockRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: AssociateVpcCidrBlockResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.ipv_6cidr_block):
             query['IPv6CidrBlock'] = request.ipv_6cidr_block
         if not UtilClient.is_unset(request.ip_version):
             query['IpVersion'] = request.ip_version
+        if not UtilClient.is_unset(request.ipam_pool_id):
+            query['IpamPoolId'] = request.ipam_pool_id
         if not UtilClient.is_unset(request.ipv_6isp):
             query['Ipv6Isp'] = request.ipv_6isp
         if not UtilClient.is_unset(request.owner_account):
@@ -1251,10 +1681,41 @@ class Client(OpenApiClient):
         )
 
     def associate_vpc_cidr_block(self, request):
+        """
+        The IP version. Valid values:
+        *   **IPV4**: IPv4
+        *   **IPV6**: IPv6. If you set **IpVersion** to **IPV6** and do not set **SecondaryCidrBlock**, you can add IPv6 CIDR blocks to the VPC.
+        
+
+        @param request: AssociateVpcCidrBlockRequest
+
+        @return: AssociateVpcCidrBlockResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.associate_vpc_cidr_block_with_options(request, runtime)
 
     def associate_vpn_gateway_with_certificate_with_options(self, request, runtime):
+        """
+        ## Usage notes
+        Before you associate a VPN gateway with an SSL certificate, take note of the following items:
+        *   You can associate only VPN gateways of the ShangMi (SM) type with SSL certificates. You need to associate a VPN gateway of the SM type with two SSL certificates, one as the encryption certificate and the other as the signature certificate.
+        *   The SSL certificates must use the SM algorithm.
+        *   You cannot specify one SSL certificate as both the encryption certificate and signature certificate for one VPN gateway.
+        *   The first time you associate a VPN gateway of the SM type with an SSL certificate, the system automatically creates the AliyunServiceRoleForVPNCertificate service-linked role. In addition, the system adds the AliyunServiceRolePolicyForVPNCertificate policy to the role, which allows the VPN gateway to access other cloud resources. For more information, see [AliyunServiceRoleForVPNCertificate](~~203323~~).
+        *   **AssociateVpnGatewayWithCertificate** is an asynchronous operation. After a request is sent, the system returns a request ID and runs the task in the background. You can call the [DescribeVpnGateway](~~73720~~) operation to query the status of the task.
+        *   If the VPN gateway is in the **updating** state, the SSL certificate is being associated.
+        *   If the VPN gateway is in the **active** state, the SSL certificate is being associated.
+        *   You cannot call **AssociateVpnGatewayWithCertificate** within a specific period of time.
+        ## Prerequisites
+        Make sure that you have two SSL certificates that use the SM algorithm in the Certificate Management Service console. For more information about SSL certificates, see [What is Certificate Management Service?](~~28535~~).
+        
+
+        @param request: AssociateVpnGatewayWithCertificateRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: AssociateVpnGatewayWithCertificateResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.certificate_id):
@@ -1289,10 +1750,42 @@ class Client(OpenApiClient):
         )
 
     def associate_vpn_gateway_with_certificate(self, request):
+        """
+        ## Usage notes
+        Before you associate a VPN gateway with an SSL certificate, take note of the following items:
+        *   You can associate only VPN gateways of the ShangMi (SM) type with SSL certificates. You need to associate a VPN gateway of the SM type with two SSL certificates, one as the encryption certificate and the other as the signature certificate.
+        *   The SSL certificates must use the SM algorithm.
+        *   You cannot specify one SSL certificate as both the encryption certificate and signature certificate for one VPN gateway.
+        *   The first time you associate a VPN gateway of the SM type with an SSL certificate, the system automatically creates the AliyunServiceRoleForVPNCertificate service-linked role. In addition, the system adds the AliyunServiceRolePolicyForVPNCertificate policy to the role, which allows the VPN gateway to access other cloud resources. For more information, see [AliyunServiceRoleForVPNCertificate](~~203323~~).
+        *   **AssociateVpnGatewayWithCertificate** is an asynchronous operation. After a request is sent, the system returns a request ID and runs the task in the background. You can call the [DescribeVpnGateway](~~73720~~) operation to query the status of the task.
+        *   If the VPN gateway is in the **updating** state, the SSL certificate is being associated.
+        *   If the VPN gateway is in the **active** state, the SSL certificate is being associated.
+        *   You cannot call **AssociateVpnGatewayWithCertificate** within a specific period of time.
+        ## Prerequisites
+        Make sure that you have two SSL certificates that use the SM algorithm in the Certificate Management Service console. For more information about SSL certificates, see [What is Certificate Management Service?](~~28535~~).
+        
+
+        @param request: AssociateVpnGatewayWithCertificateRequest
+
+        @return: AssociateVpnGatewayWithCertificateResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.associate_vpn_gateway_with_certificate_with_options(request, runtime)
 
     def attach_dhcp_options_set_to_vpc_with_options(self, request, runtime):
+        """
+        The **AttachDhcpOptionsSetToVpc** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeVpcAttribute](~~94565~~) operation to query the status of a DHCP options set:
+        *   If the DHCP options set is in the **Pending** state, the DHCP options set is being associated.
+        *   If the DHCP options set is in the **InUse** state, the DHCP options set is associated.
+        *   You cannot repeatedly call the **AttachDhcpOptionsSetToVpc** operation to associate DHCP options sets with a VPC within the specified period of time.
+        
+
+        @param request: AttachDhcpOptionsSetToVpcRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: AttachDhcpOptionsSetToVpcResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -1333,6 +1826,17 @@ class Client(OpenApiClient):
         )
 
     def attach_dhcp_options_set_to_vpc(self, request):
+        """
+        The **AttachDhcpOptionsSetToVpc** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeVpcAttribute](~~94565~~) operation to query the status of a DHCP options set:
+        *   If the DHCP options set is in the **Pending** state, the DHCP options set is being associated.
+        *   If the DHCP options set is in the **InUse** state, the DHCP options set is associated.
+        *   You cannot repeatedly call the **AttachDhcpOptionsSetToVpc** operation to associate DHCP options sets with a VPC within the specified period of time.
+        
+
+        @param request: AttachDhcpOptionsSetToVpcRequest
+
+        @return: AttachDhcpOptionsSetToVpcResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.attach_dhcp_options_set_to_vpc_with_options(request, runtime)
 
@@ -1373,6 +1877,17 @@ class Client(OpenApiClient):
         return self.attach_vbr_to_vpconn_with_options(request, runtime)
 
     def cancel_common_bandwidth_package_ip_bandwidth_with_options(self, request, runtime):
+        """
+        After this operation is performed, the maximum bandwidth of the EIP equals that of the EIP bandwidth plan.
+        *   You cannot repeatedly call the **CancelCommonBandwidthPackageIpBandwidth** operation to remove the maximum bandwidth configured for an EIP within the specified period of time.
+        
+
+        @param request: CancelCommonBandwidthPackageIpBandwidthRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CancelCommonBandwidthPackageIpBandwidthResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.bandwidth_package_id):
@@ -1409,10 +1924,30 @@ class Client(OpenApiClient):
         )
 
     def cancel_common_bandwidth_package_ip_bandwidth(self, request):
+        """
+        After this operation is performed, the maximum bandwidth of the EIP equals that of the EIP bandwidth plan.
+        *   You cannot repeatedly call the **CancelCommonBandwidthPackageIpBandwidth** operation to remove the maximum bandwidth configured for an EIP within the specified period of time.
+        
+
+        @param request: CancelCommonBandwidthPackageIpBandwidthRequest
+
+        @return: CancelCommonBandwidthPackageIpBandwidthResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.cancel_common_bandwidth_package_ip_bandwidth_with_options(request, runtime)
 
     def cancel_physical_connection_with_options(self, request, runtime):
+        """
+        ## Limits
+        You can cancel only an Express Connect circuit that is in the **Initial**, **Approved**, **Allocated**, or **Confirmed** state.
+        
+
+        @param request: CancelPhysicalConnectionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CancelPhysicalConnectionResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -1449,10 +1984,29 @@ class Client(OpenApiClient):
         )
 
     def cancel_physical_connection(self, request):
+        """
+        ## Limits
+        You can cancel only an Express Connect circuit that is in the **Initial**, **Approved**, **Allocated**, or **Confirmed** state.
+        
+
+        @param request: CancelPhysicalConnectionRequest
+
+        @return: CancelPhysicalConnectionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.cancel_physical_connection_with_options(request, runtime)
 
     def change_resource_group_with_options(self, request, runtime):
+        """
+        You cannot repeatedly call the *ChangeResourceGroup** operation within the specified period of time.
+        
+
+        @param request: ChangeResourceGroupRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ChangeResourceGroupResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.new_resource_group_id):
@@ -1483,6 +2037,14 @@ class Client(OpenApiClient):
         )
 
     def change_resource_group(self, request):
+        """
+        You cannot repeatedly call the *ChangeResourceGroup** operation within the specified period of time.
+        
+
+        @param request: ChangeResourceGroupRequest
+
+        @return: ChangeResourceGroupResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.change_resource_group_with_options(request, runtime)
 
@@ -1651,6 +2213,20 @@ class Client(OpenApiClient):
         return self.confirm_physical_connection_with_options(request, runtime)
 
     def connect_router_interface_with_options(self, request, runtime):
+        """
+        After you call this operation, the router interface enters the *Connecting** state. When the connection is established, it enters the **Active** state.
+        When you call this operation, take note of the following rules:
+        *   Only an initiator router interface in the **Idle** state can initiate a connection.
+        *   You can create only one pair of connected router interfaces between two routers.
+        *   You cannot initiate a connection if your Alibaba Cloud account has a router interface with overdue payments.
+        
+
+        @param request: ConnectRouterInterfaceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ConnectRouterInterfaceResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.owner_id):
@@ -1683,10 +2259,35 @@ class Client(OpenApiClient):
         )
 
     def connect_router_interface(self, request):
+        """
+        After you call this operation, the router interface enters the *Connecting** state. When the connection is established, it enters the **Active** state.
+        When you call this operation, take note of the following rules:
+        *   Only an initiator router interface in the **Idle** state can initiate a connection.
+        *   You can create only one pair of connected router interfaces between two routers.
+        *   You cannot initiate a connection if your Alibaba Cloud account has a router interface with overdue payments.
+        
+
+        @param request: ConnectRouterInterfaceRequest
+
+        @return: ConnectRouterInterfaceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.connect_router_interface_with_options(request, runtime)
 
     def convert_bandwidth_package_with_options(self, request, runtime):
+        """
+        Before you convert a NAT bandwidth package to an Internet Shared Bandwidth instance, make sure you are aware of the following:
+        *   The conversion does not incur any additional fees.
+        *   The conversion does not affect the SNAT or DNAT entries of the NAT Gateway, and has no impact on the running services. However, we recommend that you perform the conversion during off-peak hours.
+        *   After the conversion, the public IP address in the NAT bandwidth package is converted to an EIP. The peak bandwidth and billing method of the Internet Shared Bandwidth instance are consistent with those of the original NAT bandwidth package.
+        
+
+        @param request: ConvertBandwidthPackageRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ConvertBandwidthPackageResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.bandwidth_package_id):
@@ -1723,10 +2324,34 @@ class Client(OpenApiClient):
         )
 
     def convert_bandwidth_package(self, request):
+        """
+        Before you convert a NAT bandwidth package to an Internet Shared Bandwidth instance, make sure you are aware of the following:
+        *   The conversion does not incur any additional fees.
+        *   The conversion does not affect the SNAT or DNAT entries of the NAT Gateway, and has no impact on the running services. However, we recommend that you perform the conversion during off-peak hours.
+        *   After the conversion, the public IP address in the NAT bandwidth package is converted to an EIP. The peak bandwidth and billing method of the Internet Shared Bandwidth instance are consistent with those of the original NAT bandwidth package.
+        
+
+        @param request: ConvertBandwidthPackageRequest
+
+        @return: ConvertBandwidthPackageResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.convert_bandwidth_package_with_options(request, runtime)
 
     def copy_network_acl_entries_with_options(self, request, runtime):
+        """
+        The **CopyNetworkAclEntries** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeNetworkAclAttributes](~~116542~~) operation to query the status of a network ACL:
+        *   If the network ACL is in the **Modifying** state, the rules of the network ACL are being copied.
+        *   If the network ACL is in the **Available** state, the rules of the network ACL are copied.
+        *   You cannot repeatedly call the **CopyNetworkAclEntries** operation to copy the rules of a network ACL within the specified period of time.
+        
+
+        @param request: CopyNetworkAclEntriesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CopyNetworkAclEntriesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -1765,10 +2390,38 @@ class Client(OpenApiClient):
         )
 
     def copy_network_acl_entries(self, request):
+        """
+        The **CopyNetworkAclEntries** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeNetworkAclAttributes](~~116542~~) operation to query the status of a network ACL:
+        *   If the network ACL is in the **Modifying** state, the rules of the network ACL are being copied.
+        *   If the network ACL is in the **Available** state, the rules of the network ACL are copied.
+        *   You cannot repeatedly call the **CopyNetworkAclEntries** operation to copy the rules of a network ACL within the specified period of time.
+        
+
+        @param request: CopyNetworkAclEntriesRequest
+
+        @return: CopyNetworkAclEntriesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.copy_network_acl_entries_with_options(request, runtime)
 
     def create_bgp_group_with_options(self, request, runtime):
+        """
+        You can use BGP to connect a VBR to a data center. Each BGP group is associated with a VBR. You can add a BGP peer that needs to communicate with a VBR to a BGP group and advertise the BGP network in the VBR.
+        BGP groups are used to simplify BGP configurations. You can add BGP peers that use the same configurations to one BGP group. Before you start, you must create a BGP group with the requested autonomous system number (ASN).
+        When you call this operation, take note of the following limits:
+        *   You can specify only the data center that is connected to the VBR through an Express Connect circuit as a BGP peer.
+        *   VBRs support only BGP-4.
+        *   You can create at most eight BGP peers for each VBR.
+        *   Each BGP peer supports at most 110 dynamic routes.
+        *   The ASN of Alibaba Cloud is 45104. You can specify a 2-byte or 4-byte ASN for the data center.
+        
+
+        @param request: CreateBgpGroupRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateBgpGroupResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.auth_key):
@@ -1821,6 +2474,21 @@ class Client(OpenApiClient):
         )
 
     def create_bgp_group(self, request):
+        """
+        You can use BGP to connect a VBR to a data center. Each BGP group is associated with a VBR. You can add a BGP peer that needs to communicate with a VBR to a BGP group and advertise the BGP network in the VBR.
+        BGP groups are used to simplify BGP configurations. You can add BGP peers that use the same configurations to one BGP group. Before you start, you must create a BGP group with the requested autonomous system number (ASN).
+        When you call this operation, take note of the following limits:
+        *   You can specify only the data center that is connected to the VBR through an Express Connect circuit as a BGP peer.
+        *   VBRs support only BGP-4.
+        *   You can create at most eight BGP peers for each VBR.
+        *   Each BGP peer supports at most 110 dynamic routes.
+        *   The ASN of Alibaba Cloud is 45104. You can specify a 2-byte or 4-byte ASN for the data center.
+        
+
+        @param request: CreateBgpGroupRequest
+
+        @return: CreateBgpGroupResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_bgp_group_with_options(request, runtime)
 
@@ -1953,6 +2621,8 @@ class Client(OpenApiClient):
             query['ResourceOwnerAccount'] = request.resource_owner_account
         if not UtilClient.is_unset(request.resource_owner_id):
             query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.tags):
+            query['Tags'] = request.tags
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1975,6 +2645,168 @@ class Client(OpenApiClient):
     def create_customer_gateway(self, request):
         runtime = util_models.RuntimeOptions()
         return self.create_customer_gateway_with_options(request, runtime)
+
+    def create_default_vswitch_with_options(self, request, runtime):
+        """
+        ## Usage notes
+        When you call this operation, take note of the following items:
+        *   The first IP address and last three IP addresses of a default vSwitch CIDR block are reserved. For example, if the CIDR block of a vSwitch is 192.168.1.0/24, the IP addresses 192.168.1.0, 192.168.1.253, 192.168.1.254, and 192.168.1.255 are reserved.
+        *   The number of instances in the default vSwitch cannot exceed the remaining number of instances supported by the VPC (15,000 minus the number of existing instances).
+        *   Default vSwitches do not support multicasting or broadcasting.
+        *   After you create a default vSwitch, you cannot modify its CIDR block.
+        *   **CreateDefaultVSwitch** is an asynchronous operation. After a request is sent, the system returns a request ID and runs the task in the background. You can call the [DescribeVSwitchAttributes](~~94567~~) operation to query the status of a default vSwitch:
+        *   If a default vSwitch is in the **Pending** state, it is being configured.
+        *   If a default vSwitch is in the **Available** state, it is available.
+        *   If a default vSwitch already exists in a region, you cannot call this operation to create a default vSwitch in this region.
+        *   Before you create a default vSwitch, make sure that a default VPC is created. You can call the [CreateDefaultVpc](~~609152~~) operation to create a default VPC.
+        
+
+        @param request: CreateDefaultVSwitchRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateDefaultVSwitchResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.ipv_6cidr_block):
+            query['Ipv6CidrBlock'] = request.ipv_6cidr_block
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.zone_id):
+            query['ZoneId'] = request.zone_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateDefaultVSwitch',
+            version='2016-04-28',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            vpc_20160428_models.CreateDefaultVSwitchResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_default_vswitch(self, request):
+        """
+        ## Usage notes
+        When you call this operation, take note of the following items:
+        *   The first IP address and last three IP addresses of a default vSwitch CIDR block are reserved. For example, if the CIDR block of a vSwitch is 192.168.1.0/24, the IP addresses 192.168.1.0, 192.168.1.253, 192.168.1.254, and 192.168.1.255 are reserved.
+        *   The number of instances in the default vSwitch cannot exceed the remaining number of instances supported by the VPC (15,000 minus the number of existing instances).
+        *   Default vSwitches do not support multicasting or broadcasting.
+        *   After you create a default vSwitch, you cannot modify its CIDR block.
+        *   **CreateDefaultVSwitch** is an asynchronous operation. After a request is sent, the system returns a request ID and runs the task in the background. You can call the [DescribeVSwitchAttributes](~~94567~~) operation to query the status of a default vSwitch:
+        *   If a default vSwitch is in the **Pending** state, it is being configured.
+        *   If a default vSwitch is in the **Available** state, it is available.
+        *   If a default vSwitch already exists in a region, you cannot call this operation to create a default vSwitch in this region.
+        *   Before you create a default vSwitch, make sure that a default VPC is created. You can call the [CreateDefaultVpc](~~609152~~) operation to create a default VPC.
+        
+
+        @param request: CreateDefaultVSwitchRequest
+
+        @return: CreateDefaultVSwitchResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.create_default_vswitch_with_options(request, runtime)
+
+    def create_default_vpc_with_options(self, request, runtime):
+        """
+        ## Usage notes
+        When you call this operation, take note of the following items:
+        *   After you create a default VPC, you cannot change its CIDR block. However, you can add secondary IPv4 CIDR blocks to it.
+        *   In each default VPC, cloud services can use a maximum of 60,000 private IP addresses. You cannot increase the quota.
+        *   After you create a default VPC, a vRouter and a route table are automatically created for the VPC.
+        *   At most three user CIDR blocks can be added to a VPC. If a user CIDR block includes another user CIDR block, the one with the shorter subnet mask takes effect. For example, if 10.0.0.0/8 and 10.1.0.0/16 are specified, only 10.0.0.0/8 takes effect.
+        *   **CreateDefaultVpc** is an asynchronous operation. After a request is sent, the system returns a request ID and runs the task in the background. You can call the [DescribeVpcAttribute](~~94565~~) operation to query the status of the task:
+        *   If the default VPC is in the **Pending** state, the VPC is being configured.
+        *   If the default VPC is in the **Available** state, the VPC is available.
+        *   You cannot repeatedly call the **CreateDefaultVpc** operation within a specific time period.
+        *   You can create only one default VPC in each region.
+        
+
+        @param request: CreateDefaultVpcRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateDefaultVpcResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.enable_ipv_6):
+            query['EnableIpv6'] = request.enable_ipv_6
+        if not UtilClient.is_unset(request.ipv_6cidr_block):
+            query['Ipv6CidrBlock'] = request.ipv_6cidr_block
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateDefaultVpc',
+            version='2016-04-28',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            vpc_20160428_models.CreateDefaultVpcResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_default_vpc(self, request):
+        """
+        ## Usage notes
+        When you call this operation, take note of the following items:
+        *   After you create a default VPC, you cannot change its CIDR block. However, you can add secondary IPv4 CIDR blocks to it.
+        *   In each default VPC, cloud services can use a maximum of 60,000 private IP addresses. You cannot increase the quota.
+        *   After you create a default VPC, a vRouter and a route table are automatically created for the VPC.
+        *   At most three user CIDR blocks can be added to a VPC. If a user CIDR block includes another user CIDR block, the one with the shorter subnet mask takes effect. For example, if 10.0.0.0/8 and 10.1.0.0/16 are specified, only 10.0.0.0/8 takes effect.
+        *   **CreateDefaultVpc** is an asynchronous operation. After a request is sent, the system returns a request ID and runs the task in the background. You can call the [DescribeVpcAttribute](~~94565~~) operation to query the status of the task:
+        *   If the default VPC is in the **Pending** state, the VPC is being configured.
+        *   If the default VPC is in the **Available** state, the VPC is available.
+        *   You cannot repeatedly call the **CreateDefaultVpc** operation within a specific time period.
+        *   You can create only one default VPC in each region.
+        
+
+        @param request: CreateDefaultVpcRequest
+
+        @return: CreateDefaultVpcResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.create_default_vpc_with_options(request, runtime)
 
     def create_dhcp_options_set_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -2001,6 +2833,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.resource_owner_account):
             query['ResourceOwnerAccount'] = request.resource_owner_account
         if not UtilClient.is_unset(request.resource_owner_id):
@@ -2087,6 +2921,18 @@ class Client(OpenApiClient):
         return self.create_express_cloud_connection_with_options(request, runtime)
 
     def create_flow_log_with_options(self, request, runtime):
+        """
+        *CreateFlowLog** is an asynchronous operation. After you send a request, the system returns a request ID and runs the task in the background. You can call the [DescribeFlowLogs](~~87923~~) operation to query the status of a flow log:
+        *   If the flow log is in the **Activating** state, the flow log is being created.
+        *   If the flow log is in the **Active** state, the flow log is created and started.
+        
+
+        @param request: CreateFlowLogRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateFlowLogResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.aggregation_interval):
@@ -2105,6 +2951,8 @@ class Client(OpenApiClient):
             query['ProjectName'] = request.project_name
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.resource_id):
             query['ResourceId'] = request.resource_id
         if not UtilClient.is_unset(request.resource_owner_account):
@@ -2137,10 +2985,31 @@ class Client(OpenApiClient):
         )
 
     def create_flow_log(self, request):
+        """
+        *CreateFlowLog** is an asynchronous operation. After you send a request, the system returns a request ID and runs the task in the background. You can call the [DescribeFlowLogs](~~87923~~) operation to query the status of a flow log:
+        *   If the flow log is in the **Activating** state, the flow log is being created.
+        *   If the flow log is in the **Active** state, the flow log is created and started.
+        
+
+        @param request: CreateFlowLogRequest
+
+        @return: CreateFlowLogResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_flow_log_with_options(request, runtime)
 
     def create_forward_entry_with_options(self, request, runtime):
+        """
+        The region ID of the NAT gateway.
+        You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
+        
+
+        @param request: CreateForwardEntryRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateForwardEntryResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -2191,10 +3060,29 @@ class Client(OpenApiClient):
         )
 
     def create_forward_entry(self, request):
+        """
+        The region ID of the NAT gateway.
+        You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
+        
+
+        @param request: CreateForwardEntryRequest
+
+        @return: CreateForwardEntryResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_forward_entry_with_options(request, runtime)
 
     def create_full_nat_entry_with_options(self, request, runtime):
+        """
+        The operation that you want to perform. Set the value to *CreateFullNatEntry**.
+        
+
+        @param request: CreateFullNatEntryRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateFullNatEntryResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.access_ip):
@@ -2249,10 +3137,29 @@ class Client(OpenApiClient):
         )
 
     def create_full_nat_entry(self, request):
+        """
+        The operation that you want to perform. Set the value to *CreateFullNatEntry**.
+        
+
+        @param request: CreateFullNatEntryRequest
+
+        @return: CreateFullNatEntryResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_full_nat_entry_with_options(request, runtime)
 
     def create_global_acceleration_instance_with_options(self, request, runtime):
+        """
+        ## Usage notes
+        You can call this operation to create only pay-as-you-go GA instances.
+        
+
+        @param request: CreateGlobalAccelerationInstanceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateGlobalAccelerationInstanceResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.bandwidth):
@@ -2297,10 +3204,31 @@ class Client(OpenApiClient):
         )
 
     def create_global_acceleration_instance(self, request):
+        """
+        ## Usage notes
+        You can call this operation to create only pay-as-you-go GA instances.
+        
+
+        @param request: CreateGlobalAccelerationInstanceRequest
+
+        @return: CreateGlobalAccelerationInstanceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_global_acceleration_instance_with_options(request, runtime)
 
     def create_ha_vip_with_options(self, request, runtime):
+        """
+        *CreateHaVip** is an asynchronous operation. After you send the request, the system returns a request ID and runs the task in the background. You can call the [DescribeHaVips](~~114611~~) operation to query the status of an HAVIP:
+        *   If the HAVIP is in the **Creating** state, the HAVIP is being created.
+        *   If the HAVIP is in the **Available** state, the HAVIP is created.
+        
+
+        @param request: CreateHaVipRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateHaVipResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -2317,6 +3245,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.resource_owner_account):
             query['ResourceOwnerAccount'] = request.resource_owner_account
         if not UtilClient.is_unset(request.resource_owner_id):
@@ -2343,10 +3273,31 @@ class Client(OpenApiClient):
         )
 
     def create_ha_vip(self, request):
+        """
+        *CreateHaVip** is an asynchronous operation. After you send the request, the system returns a request ID and runs the task in the background. You can call the [DescribeHaVips](~~114611~~) operation to query the status of an HAVIP:
+        *   If the HAVIP is in the **Creating** state, the HAVIP is being created.
+        *   If the HAVIP is in the **Available** state, the HAVIP is created.
+        
+
+        @param request: CreateHaVipRequest
+
+        @return: CreateHaVipResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_ha_vip_with_options(request, runtime)
 
     def create_ipv_6translator_with_options(self, request, runtime):
+        """
+        @deprecated
+        
+
+        @param request: CreateIPv6TranslatorRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateIPv6TranslatorResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.auto_pay):
@@ -2395,10 +3346,30 @@ class Client(OpenApiClient):
         )
 
     def create_ipv_6translator(self, request):
+        """
+        @deprecated
+        
+
+        @param request: CreateIPv6TranslatorRequest
+
+        @return: CreateIPv6TranslatorResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_ipv_6translator_with_options(request, runtime)
 
     def create_ipv_6translator_acl_list_with_options(self, request, runtime):
+        """
+        @deprecated
+        
+
+        @param request: CreateIPv6TranslatorAclListRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateIPv6TranslatorAclListResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.acl_name):
@@ -2435,10 +3406,30 @@ class Client(OpenApiClient):
         )
 
     def create_ipv_6translator_acl_list(self, request):
+        """
+        @deprecated
+        
+
+        @param request: CreateIPv6TranslatorAclListRequest
+
+        @return: CreateIPv6TranslatorAclListResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_ipv_6translator_acl_list_with_options(request, runtime)
 
     def create_ipv_6translator_entry_with_options(self, request, runtime):
+        """
+        @deprecated
+        
+
+        @param request: CreateIPv6TranslatorEntryRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateIPv6TranslatorEntryResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.acl_id):
@@ -2493,10 +3484,33 @@ class Client(OpenApiClient):
         )
 
     def create_ipv_6translator_entry(self, request):
+        """
+        @deprecated
+        
+
+        @param request: CreateIPv6TranslatorEntryRequest
+
+        @return: CreateIPv6TranslatorEntryResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_ipv_6translator_entry_with_options(request, runtime)
 
     def create_ipsec_server_with_options(self, request, runtime):
+        """
+        Before you create an IPsec server, you must create a VPN gateway and enable the SSL-VPN feature for the VPN gateway. For more information, see [CreateVpnGateway](~~120363~~).
+        *   The **CreateIpsecServer** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeVpnGateway](~~73720~~) operation to query the status of a VPN gateway.
+        *   If the VPN gateway is in the **updating** state, the IPsec server is being created.
+        *   If the VPN gateway is in the **active** state, the IPsec server is created.
+        *   You cannot repeatedly call **CreateIpsecServer** to create an IPsec server for a VPN gateway within the specified period of time.
+        
+
+        @param request: CreateIpsecServerRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateIpsecServerResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_ip_pool):
@@ -2543,10 +3557,35 @@ class Client(OpenApiClient):
         )
 
     def create_ipsec_server(self, request):
+        """
+        Before you create an IPsec server, you must create a VPN gateway and enable the SSL-VPN feature for the VPN gateway. For more information, see [CreateVpnGateway](~~120363~~).
+        *   The **CreateIpsecServer** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeVpnGateway](~~73720~~) operation to query the status of a VPN gateway.
+        *   If the VPN gateway is in the **updating** state, the IPsec server is being created.
+        *   If the VPN gateway is in the **active** state, the IPsec server is created.
+        *   You cannot repeatedly call **CreateIpsecServer** to create an IPsec server for a VPN gateway within the specified period of time.
+        
+
+        @param request: CreateIpsecServerRequest
+
+        @return: CreateIpsecServerResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_ipsec_server_with_options(request, runtime)
 
     def create_ipv_4gateway_with_options(self, request, runtime):
+        """
+        **CreateIpv4Gateway** is an asynchronous operation. After you send a request, the system returns a request ID and runs the task in the background. You can call the [GetIpv4GatewayAttribute](~~407670~~) operation to query the status of an IPv4 gateway:
+        *   If the IPv4 gateway is in the **Creating** state, the IPv4 gateway is being created.
+        *   If the IPv4 gateway is in the **Created** state, the IPv4 gateway is created.
+        *   You cannot repeatedly call the **CreateIpv4Gateway** operation to create IPv4 gateways in a virtual private cloud (VPC) within the specified period of time.
+        
+
+        @param request: CreateIpv4GatewayRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateIpv4GatewayResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -2565,6 +3604,8 @@ class Client(OpenApiClient):
             query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.resource_owner_account):
             query['ResourceOwnerAccount'] = request.resource_owner_account
         if not UtilClient.is_unset(request.resource_owner_id):
@@ -2591,10 +3632,34 @@ class Client(OpenApiClient):
         )
 
     def create_ipv_4gateway(self, request):
+        """
+        **CreateIpv4Gateway** is an asynchronous operation. After you send a request, the system returns a request ID and runs the task in the background. You can call the [GetIpv4GatewayAttribute](~~407670~~) operation to query the status of an IPv4 gateway:
+        *   If the IPv4 gateway is in the **Creating** state, the IPv4 gateway is being created.
+        *   If the IPv4 gateway is in the **Created** state, the IPv4 gateway is created.
+        *   You cannot repeatedly call the **CreateIpv4Gateway** operation to create IPv4 gateways in a virtual private cloud (VPC) within the specified period of time.
+        
+
+        @param request: CreateIpv4GatewayRequest
+
+        @return: CreateIpv4GatewayResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_ipv_4gateway_with_options(request, runtime)
 
     def create_ipv_6egress_only_rule_with_options(self, request, runtime):
+        """
+        The **CreateIpv6EgressOnlyRule** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeIpv6EgressOnlyRules](~~102208~~) operation to query the status of an egress-only rule.
+        *   If the egress-only rule is in the **Creating** state, the egress-only rule is being created.
+        *   If the egress-only rule is in the **Created** state, the egress-only rule is created.
+        *   You cannot repeatedly call the **CreateIpv6EgressOnlyRule** operation to add egress-only rules for an IPv6 address within the specified period of time.
+        
+
+        @param request: CreateIpv6EgressOnlyRuleRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateIpv6EgressOnlyRuleResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -2641,10 +3706,34 @@ class Client(OpenApiClient):
         )
 
     def create_ipv_6egress_only_rule(self, request):
+        """
+        The **CreateIpv6EgressOnlyRule** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeIpv6EgressOnlyRules](~~102208~~) operation to query the status of an egress-only rule.
+        *   If the egress-only rule is in the **Creating** state, the egress-only rule is being created.
+        *   If the egress-only rule is in the **Created** state, the egress-only rule is created.
+        *   You cannot repeatedly call the **CreateIpv6EgressOnlyRule** operation to add egress-only rules for an IPv6 address within the specified period of time.
+        
+
+        @param request: CreateIpv6EgressOnlyRuleRequest
+
+        @return: CreateIpv6EgressOnlyRuleResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_ipv_6egress_only_rule_with_options(request, runtime)
 
     def create_ipv_6gateway_with_options(self, request, runtime):
+        """
+        **CreateIpv6Gateway** is an asynchronous operation. After you send a request, the system returns a request ID and runs the task in the background. You can call the [DescribeIpv6GatewayAttribute](~~102226~~) operation to query the state of an IPv6 gateway.
+        *   If the IPv6 gateway is in the **Creating** state, the IPv6 gateway is being created.
+        *   If the IPv6 gateway is in the **Created** state, the IPv6 gateway is created.
+        *   You cannot call the **CreateIpv6Gateway** operation to create multiple IPv6 gateways in a virtual private cloud (VPC) at the same time.
+        
+
+        @param request: CreateIpv6GatewayRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateIpv6GatewayResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -2661,6 +3750,8 @@ class Client(OpenApiClient):
             query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.resource_owner_account):
             query['ResourceOwnerAccount'] = request.resource_owner_account
         if not UtilClient.is_unset(request.resource_owner_id):
@@ -2687,10 +3778,38 @@ class Client(OpenApiClient):
         )
 
     def create_ipv_6gateway(self, request):
+        """
+        **CreateIpv6Gateway** is an asynchronous operation. After you send a request, the system returns a request ID and runs the task in the background. You can call the [DescribeIpv6GatewayAttribute](~~102226~~) operation to query the state of an IPv6 gateway.
+        *   If the IPv6 gateway is in the **Creating** state, the IPv6 gateway is being created.
+        *   If the IPv6 gateway is in the **Created** state, the IPv6 gateway is created.
+        *   You cannot call the **CreateIpv6Gateway** operation to create multiple IPv6 gateways in a virtual private cloud (VPC) at the same time.
+        
+
+        @param request: CreateIpv6GatewayRequest
+
+        @return: CreateIpv6GatewayResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_ipv_6gateway_with_options(request, runtime)
 
     def create_nat_gateway_with_options(self, request, runtime):
+        """
+        Before you call this operation, take note of the following items:
+        *   When you create an enhanced NAT gateway for the first time, the system automatically creates the service-linked role AliyunServiceRoleForNatgw. Then, the system attaches the permission policy AliyunServiceRolePolicyForNatgw to the role. This allows the NAT gateway to access other resources on Alibaba Cloud. For more information, see [Service-linked roles](~~174251~~).
+        *   After you create an enhanced Internet NAT gateway, a route entry is automatically added to the route table of the VPC. The destination CIDR block of the route entry is 0.0.0.0/0 and the next hop is the NAT gateway. This ensures that traffic is routed to the NAT gateway.
+        *   **CreateNatGateway** is an asynchronous operation. After you send a request, the system returns a request ID and runs the task in the background. You can call the [DescribeNatGateways](~~36054~~) operation to query the status of a NAT gateway.
+        *   If a NAT gateway is in the **Creating** state, the NAT gateway is being created. In this case, you can query the NAT gateway but cannot perform other operations.
+        *   If a NAT gateway is in the **Available** state, the NAT gateway is created.
+        It takes 1 to 3 minutes to create a NAT gateway.
+        *   You cannot repeatedly call the **CreateNatGateway** operation to create a VPC NAT gateway or an Internet NAT gateway within the specified period of time.
+        
+
+        @param request: CreateNatGatewayRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateNatGatewayResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.auto_pay):
@@ -2757,10 +3876,35 @@ class Client(OpenApiClient):
         )
 
     def create_nat_gateway(self, request):
+        """
+        Before you call this operation, take note of the following items:
+        *   When you create an enhanced NAT gateway for the first time, the system automatically creates the service-linked role AliyunServiceRoleForNatgw. Then, the system attaches the permission policy AliyunServiceRolePolicyForNatgw to the role. This allows the NAT gateway to access other resources on Alibaba Cloud. For more information, see [Service-linked roles](~~174251~~).
+        *   After you create an enhanced Internet NAT gateway, a route entry is automatically added to the route table of the VPC. The destination CIDR block of the route entry is 0.0.0.0/0 and the next hop is the NAT gateway. This ensures that traffic is routed to the NAT gateway.
+        *   **CreateNatGateway** is an asynchronous operation. After you send a request, the system returns a request ID and runs the task in the background. You can call the [DescribeNatGateways](~~36054~~) operation to query the status of a NAT gateway.
+        *   If a NAT gateway is in the **Creating** state, the NAT gateway is being created. In this case, you can query the NAT gateway but cannot perform other operations.
+        *   If a NAT gateway is in the **Available** state, the NAT gateway is created.
+        It takes 1 to 3 minutes to create a NAT gateway.
+        *   You cannot repeatedly call the **CreateNatGateway** operation to create a VPC NAT gateway or an Internet NAT gateway within the specified period of time.
+        
+
+        @param request: CreateNatGatewayRequest
+
+        @return: CreateNatGatewayResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_nat_gateway_with_options(request, runtime)
 
     def create_nat_ip_with_options(self, request, runtime):
+        """
+        The ID of the Virtual Private Cloud (VPC) NAT gateway for which you want to create the NAT IP address.
+        
+
+        @param request: CreateNatIpRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateNatIpResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -2773,8 +3917,6 @@ class Client(OpenApiClient):
             query['NatIp'] = request.nat_ip
         if not UtilClient.is_unset(request.nat_ip_cidr):
             query['NatIpCidr'] = request.nat_ip_cidr
-        if not UtilClient.is_unset(request.nat_ip_cidr_id):
-            query['NatIpCidrId'] = request.nat_ip_cidr_id
         if not UtilClient.is_unset(request.nat_ip_description):
             query['NatIpDescription'] = request.nat_ip_description
         if not UtilClient.is_unset(request.nat_ip_name):
@@ -2811,10 +3953,28 @@ class Client(OpenApiClient):
         )
 
     def create_nat_ip(self, request):
+        """
+        The ID of the Virtual Private Cloud (VPC) NAT gateway for which you want to create the NAT IP address.
+        
+
+        @param request: CreateNatIpRequest
+
+        @return: CreateNatIpResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_nat_ip_with_options(request, runtime)
 
     def create_nat_ip_cidr_with_options(self, request, runtime):
+        """
+        The ID of the Virtual Private Cloud (VPC) NAT gateway with which you want to associate the CIDR block.
+        
+
+        @param request: CreateNatIpCidrRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateNatIpCidrResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -2861,6 +4021,14 @@ class Client(OpenApiClient):
         )
 
     def create_nat_ip_cidr(self, request):
+        """
+        The ID of the Virtual Private Cloud (VPC) NAT gateway with which you want to associate the CIDR block.
+        
+
+        @param request: CreateNatIpCidrRequest
+
+        @return: CreateNatIpCidrResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_nat_ip_cidr_with_options(request, runtime)
 
@@ -2909,6 +4077,16 @@ class Client(OpenApiClient):
         return self.create_network_acl_with_options(request, runtime)
 
     def create_physical_connection_with_options(self, request, runtime):
+        """
+        The access point ID of the Express Connect circuit.
+        
+
+        @param request: CreatePhysicalConnectionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreatePhysicalConnectionResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.access_point_id):
@@ -2943,6 +4121,8 @@ class Client(OpenApiClient):
             query['ResourceOwnerAccount'] = request.resource_owner_account
         if not UtilClient.is_unset(request.resource_owner_id):
             query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         if not UtilClient.is_unset(request.type):
             query['Type'] = request.type
         if not UtilClient.is_unset(request.bandwidth):
@@ -2967,10 +4147,28 @@ class Client(OpenApiClient):
         )
 
     def create_physical_connection(self, request):
+        """
+        The access point ID of the Express Connect circuit.
+        
+
+        @param request: CreatePhysicalConnectionRequest
+
+        @return: CreatePhysicalConnectionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_physical_connection_with_options(request, runtime)
 
     def create_physical_connection_occupancy_order_with_options(self, request, runtime):
+        """
+        >  You can call this operation only when the Express Connect circuit is in the *Complete** state.
+        
+
+        @param request: CreatePhysicalConnectionOccupancyOrderRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreatePhysicalConnectionOccupancyOrderResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.auto_pay):
@@ -3015,6 +4213,14 @@ class Client(OpenApiClient):
         )
 
     def create_physical_connection_occupancy_order(self, request):
+        """
+        >  You can call this operation only when the Express Connect circuit is in the *Complete** state.
+        
+
+        @param request: CreatePhysicalConnectionOccupancyOrderRequest
+
+        @return: CreatePhysicalConnectionOccupancyOrderResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_physical_connection_occupancy_order_with_options(request, runtime)
 
@@ -3069,6 +4275,17 @@ class Client(OpenApiClient):
         return self.create_physical_connection_setup_order_with_options(request, runtime)
 
     def create_public_ip_address_pool_with_options(self, request, runtime):
+        """
+        ## Limits
+        By default, the IP address pool feature is unavailable. You can apply for the privilege to use the **IP address pool feature** on the Quota Center page. For more information, see [Request a quota increase in the Quota Center console](~~108213~~).
+        
+
+        @param request: CreatePublicIpAddressPoolRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreatePublicIpAddressPoolResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -3113,10 +4330,29 @@ class Client(OpenApiClient):
         )
 
     def create_public_ip_address_pool(self, request):
+        """
+        ## Limits
+        By default, the IP address pool feature is unavailable. You can apply for the privilege to use the **IP address pool feature** on the Quota Center page. For more information, see [Request a quota increase in the Quota Center console](~~108213~~).
+        
+
+        @param request: CreatePublicIpAddressPoolRequest
+
+        @return: CreatePublicIpAddressPoolResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_public_ip_address_pool_with_options(request, runtime)
 
     def create_route_entries_with_options(self, request, runtime):
+        """
+        The operation that you want to perform. Set the value to *CreateRouteEntries**.
+        
+
+        @param request: CreateRouteEntriesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateRouteEntriesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.owner_account):
@@ -3153,10 +4389,28 @@ class Client(OpenApiClient):
         )
 
     def create_route_entries(self, request):
+        """
+        The operation that you want to perform. Set the value to *CreateRouteEntries**.
+        
+
+        @param request: CreateRouteEntriesRequest
+
+        @return: CreateRouteEntriesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_route_entries_with_options(request, runtime)
 
     def create_route_entry_with_options(self, request, runtime):
+        """
+        The ID of the route table to which you want to add a custom route entry.
+        
+
+        @param request: CreateRouteEntryRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateRouteEntryResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -3205,10 +4459,31 @@ class Client(OpenApiClient):
         )
 
     def create_route_entry(self, request):
+        """
+        The ID of the route table to which you want to add a custom route entry.
+        
+
+        @param request: CreateRouteEntryRequest
+
+        @return: CreateRouteEntryResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_route_entry_with_options(request, runtime)
 
     def create_route_table_with_options(self, request, runtime):
+        """
+        The **CreateRouteTable** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeRouteTableList](~~87602~~) operation to query the status of a custom route table:
+        *   If the custom route table is in the **Creating** state, the custom route table is being created.
+        *   If the custom route table is in the **Created** state, the custom route table is created.
+        *   You cannot repeatedly call the **CreateRouteTable** operation to create a custom route table within the specified period of time.
+        
+
+        @param request: CreateRouteTableRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateRouteTableResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.associate_type):
@@ -3253,16 +4528,45 @@ class Client(OpenApiClient):
         )
 
     def create_route_table(self, request):
+        """
+        The **CreateRouteTable** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeRouteTableList](~~87602~~) operation to query the status of a custom route table:
+        *   If the custom route table is in the **Creating** state, the custom route table is being created.
+        *   If the custom route table is in the **Created** state, the custom route table is created.
+        *   You cannot repeatedly call the **CreateRouteTable** operation to create a custom route table within the specified period of time.
+        
+
+        @param request: CreateRouteTableRequest
+
+        @return: CreateRouteTableResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_route_table_with_options(request, runtime)
 
     def create_router_interface_with_options(self, request, runtime):
+        """
+        When you call this operation, take note of the following limits:
+        *   You can create only one pair of interfaces to be connected between two routers.
+        *   You can create a maximum of five router interfaces for a router.
+        *   If your Alibaba Cloud account has a router interface with overdue payments, you cannot create new router interfaces.
+        *   Each destination CIDR block of route entries in the same route table must be unique.
+        *   A virtual border router (VBR) can serve only as a requester. The VBR must be in the Activated state.
+        *   You can call this operation to create subscription and pay-as-you-go router interfaces.
+        
+
+        @param request: CreateRouterInterfaceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateRouterInterfaceResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.access_point_id):
             query['AccessPointId'] = request.access_point_id
         if not UtilClient.is_unset(request.auto_pay):
             query['AutoPay'] = request.auto_pay
+        if not UtilClient.is_unset(request.auto_renew):
+            query['AutoRenew'] = request.auto_renew
         if not UtilClient.is_unset(request.client_token):
             query['ClientToken'] = request.client_token
         if not UtilClient.is_unset(request.client_token):
@@ -3333,10 +4637,42 @@ class Client(OpenApiClient):
         )
 
     def create_router_interface(self, request):
+        """
+        When you call this operation, take note of the following limits:
+        *   You can create only one pair of interfaces to be connected between two routers.
+        *   You can create a maximum of five router interfaces for a router.
+        *   If your Alibaba Cloud account has a router interface with overdue payments, you cannot create new router interfaces.
+        *   Each destination CIDR block of route entries in the same route table must be unique.
+        *   A virtual border router (VBR) can serve only as a requester. The VBR must be in the Activated state.
+        *   You can call this operation to create subscription and pay-as-you-go router interfaces.
+        
+
+        @param request: CreateRouterInterfaceRequest
+
+        @return: CreateRouterInterfaceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_router_interface_with_options(request, runtime)
 
     def create_snat_entry_with_options(self, request, runtime):
+        """
+        You can call this operation to add SNAT entries to Internet NAT gateways and Virtual Private Cloud (VPC) NAT gateways. In this topic, a NAT gateway refers to both gateway types.
+        Before you call this operation, take note of the following limits:
+        *   **CreateSnatEntry** is an asynchronous operation. After you make a request, an SNAT entry ID is returned but the specified SNAT entry is not added. The system adds the entry in the background. You can call the [DescribeSnatTableEntries](~~42677~~) operation to query the status of the SNAT entry.
+        *   If the SNAT entry is in the **Pending** state, the system is adding the SNAT entry. You can only query the status of the SNAT entry, but cannot perform other operations.
+        *   If the SNAT entry is in the **Available** state, the SNAT entry is added.
+        *   You cannot repeatedly call the **CreateSnatEntry** operation to add an SNAT entry to an SNAT table within the specified period of time.
+        *   The vSwitch and Elastic Compute Service (ECS) instance specified in an SNAT entry must be created in the virtual private cloud (VPC) where the NAT gateway is deployed.
+        *   Each vSwitch or ECS instance can be specified in only one SNAT entry.
+        *   If a high-availability virtual IP address (HAVIP) exists in a vSwitch, you cannot create SNAT entries.
+        
+
+        @param request: CreateSnatEntryRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateSnatEntryResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -3383,6 +4719,22 @@ class Client(OpenApiClient):
         )
 
     def create_snat_entry(self, request):
+        """
+        You can call this operation to add SNAT entries to Internet NAT gateways and Virtual Private Cloud (VPC) NAT gateways. In this topic, a NAT gateway refers to both gateway types.
+        Before you call this operation, take note of the following limits:
+        *   **CreateSnatEntry** is an asynchronous operation. After you make a request, an SNAT entry ID is returned but the specified SNAT entry is not added. The system adds the entry in the background. You can call the [DescribeSnatTableEntries](~~42677~~) operation to query the status of the SNAT entry.
+        *   If the SNAT entry is in the **Pending** state, the system is adding the SNAT entry. You can only query the status of the SNAT entry, but cannot perform other operations.
+        *   If the SNAT entry is in the **Available** state, the SNAT entry is added.
+        *   You cannot repeatedly call the **CreateSnatEntry** operation to add an SNAT entry to an SNAT table within the specified period of time.
+        *   The vSwitch and Elastic Compute Service (ECS) instance specified in an SNAT entry must be created in the virtual private cloud (VPC) where the NAT gateway is deployed.
+        *   Each vSwitch or ECS instance can be specified in only one SNAT entry.
+        *   If a high-availability virtual IP address (HAVIP) exists in a vSwitch, you cannot create SNAT entries.
+        
+
+        @param request: CreateSnatEntryRequest
+
+        @return: CreateSnatEntryResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_snat_entry_with_options(request, runtime)
 
@@ -3429,6 +4781,19 @@ class Client(OpenApiClient):
         return self.create_ssl_vpn_client_cert_with_options(request, runtime)
 
     def create_ssl_vpn_server_with_options(self, request, runtime):
+        """
+        The **CreateSslVpnServer** operation is asynchronous. After you send the request, the system returns a request ID, but the operation is still being performed in the system background. You can call the [DescribeVpnGateway](~~73720~~) operation to query the status of the associated VPN gateway and determine whether the SSL server is created.
+        *   If the VPN gateway is in the **updating** state, the SSL server is being created.
+        *   If the VPN gateway is in the **active** state, the SSL server is created.
+        *   You cannot repeatedly call the **CreateSslVpnServer** operation for the same VPN gateway within the specified period of time.
+        
+
+        @param request: CreateSslVpnServerRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateSslVpnServerResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.cipher):
@@ -3485,10 +4850,33 @@ class Client(OpenApiClient):
         )
 
     def create_ssl_vpn_server(self, request):
+        """
+        The **CreateSslVpnServer** operation is asynchronous. After you send the request, the system returns a request ID, but the operation is still being performed in the system background. You can call the [DescribeVpnGateway](~~73720~~) operation to query the status of the associated VPN gateway and determine whether the SSL server is created.
+        *   If the VPN gateway is in the **updating** state, the SSL server is being created.
+        *   If the VPN gateway is in the **active** state, the SSL server is created.
+        *   You cannot repeatedly call the **CreateSslVpnServer** operation for the same VPN gateway within the specified period of time.
+        
+
+        @param request: CreateSslVpnServerRequest
+
+        @return: CreateSslVpnServerResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_ssl_vpn_server_with_options(request, runtime)
 
     def create_traffic_mirror_filter_with_options(self, request, runtime):
+        """
+        *CreateTrafficMirrorFilter** is an asynchronous operation. After you send a request, the system returns a request ID and runs the task in the background. You can call the [ListTrafficMirrorFilters](~~261353~~) operation to query the status of a filter.
+        *   If the filter is in the **Creating** state, the filter is being created.
+        *   If the filter is in the **Created** state, the filter is created.
+        
+
+        @param request: CreateTrafficMirrorFilterRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateTrafficMirrorFilterResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -3505,6 +4893,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.resource_owner_account):
             query['ResourceOwnerAccount'] = request.resource_owner_account
         if not UtilClient.is_unset(request.resource_owner_id):
@@ -3533,10 +4923,30 @@ class Client(OpenApiClient):
         )
 
     def create_traffic_mirror_filter(self, request):
+        """
+        *CreateTrafficMirrorFilter** is an asynchronous operation. After you send a request, the system returns a request ID and runs the task in the background. You can call the [ListTrafficMirrorFilters](~~261353~~) operation to query the status of a filter.
+        *   If the filter is in the **Creating** state, the filter is being created.
+        *   If the filter is in the **Created** state, the filter is created.
+        
+
+        @param request: CreateTrafficMirrorFilterRequest
+
+        @return: CreateTrafficMirrorFilterResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_traffic_mirror_filter_with_options(request, runtime)
 
     def create_traffic_mirror_filter_rules_with_options(self, request, runtime):
+        """
+        The ID of the filter.
+        
+
+        @param request: CreateTrafficMirrorFilterRulesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateTrafficMirrorFilterRulesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -3579,10 +4989,29 @@ class Client(OpenApiClient):
         )
 
     def create_traffic_mirror_filter_rules(self, request):
+        """
+        The ID of the filter.
+        
+
+        @param request: CreateTrafficMirrorFilterRulesRequest
+
+        @return: CreateTrafficMirrorFilterRulesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_traffic_mirror_filter_rules_with_options(request, runtime)
 
     def create_traffic_mirror_session_with_options(self, request, runtime):
+        """
+        The description of the traffic mirror session.
+        The description must be 1 to 256 characters in length and cannot start with `http://` or `https://`.
+        
+
+        @param request: CreateTrafficMirrorSessionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateTrafficMirrorSessionResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -3601,6 +5030,8 @@ class Client(OpenApiClient):
             query['Priority'] = request.priority
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.resource_owner_account):
             query['ResourceOwnerAccount'] = request.resource_owner_account
         if not UtilClient.is_unset(request.resource_owner_id):
@@ -3639,10 +5070,30 @@ class Client(OpenApiClient):
         )
 
     def create_traffic_mirror_session(self, request):
+        """
+        The description of the traffic mirror session.
+        The description must be 1 to 256 characters in length and cannot start with `http://` or `https://`.
+        
+
+        @param request: CreateTrafficMirrorSessionRequest
+
+        @return: CreateTrafficMirrorSessionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_traffic_mirror_session_with_options(request, runtime)
 
     def create_vswitch_with_options(self, request, runtime):
+        """
+        The zone ID of the vSwitch.
+        You can call the [DescribeZones](~~36064~~) operation to query the most recent zone list.
+        
+
+        @param request: CreateVSwitchRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateVSwitchResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.cidr_block):
@@ -3691,6 +5142,15 @@ class Client(OpenApiClient):
         )
 
     def create_vswitch(self, request):
+        """
+        The zone ID of the vSwitch.
+        You can call the [DescribeZones](~~36064~~) operation to query the most recent zone list.
+        
+
+        @param request: CreateVSwitchRequest
+
+        @return: CreateVSwitchResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_vswitch_with_options(request, runtime)
 
@@ -3743,6 +5203,21 @@ class Client(OpenApiClient):
         return self.create_vbr_ha_with_options(request, runtime)
 
     def create_vco_route_entry_with_options(self, request, runtime):
+        """
+        You cannot create a destination-based route whose destination CIDR block is 0.0.0.0/0.
+        *   When you create a destination-based route for an IPsec-VPN connection, do not create a route that meets the following conditions: The destination CIDR block is 100.64.0.0/10 or one of its subnets. The next hop is the IPsec-VPN connection. Such a route results in one of the following errors: The status of the IPsec-VPN connection cannot be displayed in the console. The negotiations of the IPsec-VPN connection fail.
+        *   **CreateVcoRouteEntry** is an asynchronous operation. After you send a request, the system returns a request ID and runs the task in the background. You can call the [DescribeVpnConnection](~~53046~~) operation to query the status of a route based on the status of the associated IPsec-VPN connection.
+        *   If the IPsec-VPN connection is in the **updating** state, the route is being created.
+        *   If the IPsec-VPN connection is in the **attached** state, the route is created.
+        *   You cannot repeatedly call **CreateVcoRouteEntry** to create a route for the same IPsec-VPN connection within the specified period of time.
+        
+
+        @param request: CreateVcoRouteEntryRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateVcoRouteEntryResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -3787,10 +5262,34 @@ class Client(OpenApiClient):
         )
 
     def create_vco_route_entry(self, request):
+        """
+        You cannot create a destination-based route whose destination CIDR block is 0.0.0.0/0.
+        *   When you create a destination-based route for an IPsec-VPN connection, do not create a route that meets the following conditions: The destination CIDR block is 100.64.0.0/10 or one of its subnets. The next hop is the IPsec-VPN connection. Such a route results in one of the following errors: The status of the IPsec-VPN connection cannot be displayed in the console. The negotiations of the IPsec-VPN connection fail.
+        *   **CreateVcoRouteEntry** is an asynchronous operation. After you send a request, the system returns a request ID and runs the task in the background. You can call the [DescribeVpnConnection](~~53046~~) operation to query the status of a route based on the status of the associated IPsec-VPN connection.
+        *   If the IPsec-VPN connection is in the **updating** state, the route is being created.
+        *   If the IPsec-VPN connection is in the **attached** state, the route is created.
+        *   You cannot repeatedly call **CreateVcoRouteEntry** to create a route for the same IPsec-VPN connection within the specified period of time.
+        
+
+        @param request: CreateVcoRouteEntryRequest
+
+        @return: CreateVcoRouteEntryResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_vco_route_entry_with_options(request, runtime)
 
     def create_virtual_border_router_with_options(self, request, runtime):
+        """
+        The ID of the Express Connect circuit.
+        You can create a VBR for a dedicated connection or a hosted connection.
+        
+
+        @param request: CreateVirtualBorderRouterRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateVirtualBorderRouterResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.bandwidth):
@@ -3855,10 +5354,31 @@ class Client(OpenApiClient):
         )
 
     def create_virtual_border_router(self, request):
+        """
+        The ID of the Express Connect circuit.
+        You can create a VBR for a dedicated connection or a hosted connection.
+        
+
+        @param request: CreateVirtualBorderRouterRequest
+
+        @return: CreateVirtualBorderRouterResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_virtual_border_router_with_options(request, runtime)
 
     def create_virtual_physical_connection_with_options(self, request, runtime):
+        """
+        The payer for the hosted connection. Valid values:
+        *   **PayByPhysicalConnectionOwner**: The partner pays for the hosted connection.
+        *   **PayByVirtualPhysicalConnectionOwner**: The tenant pays for the hosted connection.
+        
+
+        @param request: CreateVirtualPhysicalConnectionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateVirtualPhysicalConnectionResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.description):
@@ -3877,6 +5397,8 @@ class Client(OpenApiClient):
             query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.spec):
             query['Spec'] = request.spec
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         if not UtilClient.is_unset(request.token):
             query['Token'] = request.token
         if not UtilClient.is_unset(request.vlan_id):
@@ -3903,10 +5425,39 @@ class Client(OpenApiClient):
         )
 
     def create_virtual_physical_connection(self, request):
+        """
+        The payer for the hosted connection. Valid values:
+        *   **PayByPhysicalConnectionOwner**: The partner pays for the hosted connection.
+        *   **PayByVirtualPhysicalConnectionOwner**: The tenant pays for the hosted connection.
+        
+
+        @param request: CreateVirtualPhysicalConnectionRequest
+
+        @return: CreateVirtualPhysicalConnectionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_virtual_physical_connection_with_options(request, runtime)
 
     def create_vpc_with_options(self, request, runtime):
+        """
+        When you call this operation, take note of the following rules:
+        *   You can specify only one CIDR block for each VPC.
+        *   After you create a VPC, you cannot change its CIDR block. However, you can add secondary IPv4 CIDR blocks to the VPC.
+        *   In each VPC, cloud services can use a maximum of 60,000 private IP addresses. You cannot increase the quota.
+        *   After you create a VPC, a vRouter and a route table are automatically created.
+        *   At most three user CIDR blocks can be added to a VPC. If a user CIDR block includes another user CIDR block, the one with the shorter subnet mask takes effect. For example, if 10.0.0.0/8 and 10.1.0.0/16 are specified, only 10.0.0.0/8 takes effect.
+        *   The **CreateVpc** operation is asynchronous. After you send a request, the system returns a request ID and runs the task in the background. You can call the [DescribeVpcAttribute](~~94565~~) operation to query the status of a VPC:
+        *   If the VPC is in the **Creating** state, the VPC is being created.
+        *   If the VPC is in the **Created** state, the VPC is created.
+        *   You cannot repeatedly call the **CreateVpc** operation to create default VPCs within the specified period of time. However, you can repeatedly call this operation to create custom VPCs within the specified period of time.
+        
+
+        @param request: CreateVpcRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateVpcResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.cidr_block):
@@ -3919,6 +5470,8 @@ class Client(OpenApiClient):
             query['DryRun'] = request.dry_run
         if not UtilClient.is_unset(request.enable_ipv_6):
             query['EnableIpv6'] = request.enable_ipv_6
+        if not UtilClient.is_unset(request.ipv_4ipam_pool_id):
+            query['Ipv4IpamPoolId'] = request.ipv_4ipam_pool_id
         if not UtilClient.is_unset(request.ipv_6cidr_block):
             query['Ipv6CidrBlock'] = request.ipv_6cidr_block
         if not UtilClient.is_unset(request.ipv_6isp):
@@ -3959,10 +5512,38 @@ class Client(OpenApiClient):
         )
 
     def create_vpc(self, request):
+        """
+        When you call this operation, take note of the following rules:
+        *   You can specify only one CIDR block for each VPC.
+        *   After you create a VPC, you cannot change its CIDR block. However, you can add secondary IPv4 CIDR blocks to the VPC.
+        *   In each VPC, cloud services can use a maximum of 60,000 private IP addresses. You cannot increase the quota.
+        *   After you create a VPC, a vRouter and a route table are automatically created.
+        *   At most three user CIDR blocks can be added to a VPC. If a user CIDR block includes another user CIDR block, the one with the shorter subnet mask takes effect. For example, if 10.0.0.0/8 and 10.1.0.0/16 are specified, only 10.0.0.0/8 takes effect.
+        *   The **CreateVpc** operation is asynchronous. After you send a request, the system returns a request ID and runs the task in the background. You can call the [DescribeVpcAttribute](~~94565~~) operation to query the status of a VPC:
+        *   If the VPC is in the **Creating** state, the VPC is being created.
+        *   If the VPC is in the **Created** state, the VPC is created.
+        *   You cannot repeatedly call the **CreateVpc** operation to create default VPCs within the specified period of time. However, you can repeatedly call this operation to create custom VPCs within the specified period of time.
+        
+
+        @param request: CreateVpcRequest
+
+        @return: CreateVpcResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_vpc_with_options(request, runtime)
 
     def create_vpc_gateway_endpoint_with_options(self, request, runtime):
+        """
+        The description of the gateway endpoint.
+        The description must be 1 to 255 characters in length.
+        
+
+        @param request: CreateVpcGatewayEndpointRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateVpcGatewayEndpointResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -3981,6 +5562,8 @@ class Client(OpenApiClient):
             query['PolicyDocument'] = request.policy_document
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.resource_owner_account):
             query['ResourceOwnerAccount'] = request.resource_owner_account
         if not UtilClient.is_unset(request.resource_owner_id):
@@ -4009,10 +5592,29 @@ class Client(OpenApiClient):
         )
 
     def create_vpc_gateway_endpoint(self, request):
+        """
+        The description of the gateway endpoint.
+        The description must be 1 to 255 characters in length.
+        
+
+        @param request: CreateVpcGatewayEndpointRequest
+
+        @return: CreateVpcGatewayEndpointResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_vpc_gateway_endpoint_with_options(request, runtime)
 
     def create_vpc_prefix_list_with_options(self, request, runtime):
+        """
+        You cannot repeatedly call the *CreateVpcPrefixList** operation to create a prefix list in a region within the specified period of time.
+        
+
+        @param request: CreateVpcPrefixListRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateVpcPrefixListResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -4061,10 +5663,30 @@ class Client(OpenApiClient):
         )
 
     def create_vpc_prefix_list(self, request):
+        """
+        You cannot repeatedly call the *CreateVpcPrefixList** operation to create a prefix list in a region within the specified period of time.
+        
+
+        @param request: CreateVpcPrefixListRequest
+
+        @return: CreateVpcPrefixListResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_vpc_prefix_list_with_options(request, runtime)
 
     def create_vpconn_from_vbr_with_options(self, request, runtime):
+        """
+        Specifies the party that must pay for the shared Express Connect circuit. Valid values:
+        *   **PayByPhysicalConnectionOwner**: If you set the value to PayByPhysicalConnectionOwner, the Express Connect partner must pay for the shared Express Connect circuit.
+        *   **PayByVirtualPhysicalConnectionOwner**: If you set the value to PayByVirtualPhysicalConnectionOwner, the tenant must pay for the shared Express Connect circuit.
+        
+
+        @param request: CreateVpconnFromVbrRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateVpconnFromVbrResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dry_run):
@@ -4097,10 +5719,33 @@ class Client(OpenApiClient):
         )
 
     def create_vpconn_from_vbr(self, request):
+        """
+        Specifies the party that must pay for the shared Express Connect circuit. Valid values:
+        *   **PayByPhysicalConnectionOwner**: If you set the value to PayByPhysicalConnectionOwner, the Express Connect partner must pay for the shared Express Connect circuit.
+        *   **PayByVirtualPhysicalConnectionOwner**: If you set the value to PayByVirtualPhysicalConnectionOwner, the tenant must pay for the shared Express Connect circuit.
+        
+
+        @param request: CreateVpconnFromVbrRequest
+
+        @return: CreateVpconnFromVbrResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_vpconn_from_vbr_with_options(request, runtime)
 
     def create_vpn_attachment_with_options(self, request, runtime):
+        """
+        By default, an IPsec-VPN connection created by calling the `CreateVpnAttachment` operation is not associated with a resource. You can associate an IPsec-VPN connection with a transit router by calling the [CreateTransitRouterVpnAttachment](~~443993~~) operation.
+        ## Prerequisites
+        Before you create an IPsec-VPN connection, make sure that you created a customer gateway in the region where you want to create the IPsec-VPN connection. For more information, see [CreateCustomerGateway](/help/en/vpn-gateway/latest/createcustomergateway).
+        If you want to add BGP configurations to an IPsec-VPN connection, make sure that an autonomous system number (ASN) is assigned to the customer gateway.
+        
+
+        @param request: CreateVpnAttachmentRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateVpnAttachmentResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.auto_config_route):
@@ -4141,6 +5786,8 @@ class Client(OpenApiClient):
             query['ResourceOwnerAccount'] = request.resource_owner_account
         if not UtilClient.is_unset(request.resource_owner_id):
             query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.tags):
+            query['Tags'] = request.tags
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -4161,10 +5808,34 @@ class Client(OpenApiClient):
         )
 
     def create_vpn_attachment(self, request):
+        """
+        By default, an IPsec-VPN connection created by calling the `CreateVpnAttachment` operation is not associated with a resource. You can associate an IPsec-VPN connection with a transit router by calling the [CreateTransitRouterVpnAttachment](~~443993~~) operation.
+        ## Prerequisites
+        Before you create an IPsec-VPN connection, make sure that you created a customer gateway in the region where you want to create the IPsec-VPN connection. For more information, see [CreateCustomerGateway](/help/en/vpn-gateway/latest/createcustomergateway).
+        If you want to add BGP configurations to an IPsec-VPN connection, make sure that an autonomous system number (ASN) is assigned to the customer gateway.
+        
+
+        @param request: CreateVpnAttachmentRequest
+
+        @return: CreateVpnAttachmentResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_vpn_attachment_with_options(request, runtime)
 
     def create_vpn_connection_with_options(self, request, runtime):
+        """
+        **CreateVpnConnection** is an asynchronous operation. After you send a request, the system returns a request ID and runs the task in the background. You can call [DescribeVpnGateway](~~73720~~) to query the status of a VPN gateway.
+        *   If the VPN gateway is in the **updating** state, the IPsec-VPN connection is being created.
+        *   If the VPN gateway is in the **active** state, the IPsec-VPN connection has been created.
+        *   You cannot repeatedly call **CreateVpnConnection** to create an IPsec-VPN connection on a VPN gateway within the specified period of time.
+        
+
+        @param request: CreateVpnConnectionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateVpnConnectionResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.auto_config_route):
@@ -4181,6 +5852,8 @@ class Client(OpenApiClient):
             query['EnableDpd'] = request.enable_dpd
         if not UtilClient.is_unset(request.enable_nat_traversal):
             query['EnableNatTraversal'] = request.enable_nat_traversal
+        if not UtilClient.is_unset(request.enable_tunnels_bgp):
+            query['EnableTunnelsBgp'] = request.enable_tunnels_bgp
         if not UtilClient.is_unset(request.health_check_config):
             query['HealthCheckConfig'] = request.health_check_config
         if not UtilClient.is_unset(request.ike_config):
@@ -4205,10 +5878,19 @@ class Client(OpenApiClient):
             query['ResourceOwnerAccount'] = request.resource_owner_account
         if not UtilClient.is_unset(request.resource_owner_id):
             query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.tags):
+            query['Tags'] = request.tags
         if not UtilClient.is_unset(request.vpn_gateway_id):
             query['VpnGatewayId'] = request.vpn_gateway_id
+        body = {}
+        body_flat = {}
+        if not UtilClient.is_unset(request.tunnel_options_specification):
+            body_flat['TunnelOptionsSpecification'] = request.tunnel_options_specification
+        body = TeaCore.merge(body,
+            OpenApiUtilClient.query(body_flat))
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='CreateVpnConnection',
@@ -4227,10 +5909,31 @@ class Client(OpenApiClient):
         )
 
     def create_vpn_connection(self, request):
+        """
+        **CreateVpnConnection** is an asynchronous operation. After you send a request, the system returns a request ID and runs the task in the background. You can call [DescribeVpnGateway](~~73720~~) to query the status of a VPN gateway.
+        *   If the VPN gateway is in the **updating** state, the IPsec-VPN connection is being created.
+        *   If the VPN gateway is in the **active** state, the IPsec-VPN connection has been created.
+        *   You cannot repeatedly call **CreateVpnConnection** to create an IPsec-VPN connection on a VPN gateway within the specified period of time.
+        
+
+        @param request: CreateVpnConnectionRequest
+
+        @return: CreateVpnConnectionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_vpn_connection_with_options(request, runtime)
 
     def create_vpn_gateway_with_options(self, request, runtime):
+        """
+        The region ID of the VPN gateway. You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
+        
+
+        @param request: CreateVpnGatewayRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateVpnGatewayResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.auto_pay):
@@ -4239,6 +5942,8 @@ class Client(OpenApiClient):
             query['Bandwidth'] = request.bandwidth
         if not UtilClient.is_unset(request.client_token):
             query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.disaster_recovery_vswitch_id):
+            query['DisasterRecoveryVSwitchId'] = request.disaster_recovery_vswitch_id
         if not UtilClient.is_unset(request.enable_ipsec):
             query['EnableIpsec'] = request.enable_ipsec
         if not UtilClient.is_unset(request.enable_ssl):
@@ -4289,10 +5994,33 @@ class Client(OpenApiClient):
         )
 
     def create_vpn_gateway(self, request):
+        """
+        The region ID of the VPN gateway. You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
+        
+
+        @param request: CreateVpnGatewayRequest
+
+        @return: CreateVpnGatewayResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_vpn_gateway_with_options(request, runtime)
 
     def create_vpn_pbr_route_entry_with_options(self, request, runtime):
+        """
+        Before you call this operation, we recommend that you learn about the match rules of policy-based routes and limits on policy-based routes. For more information, see [Work with policy-based routes](~~110777~~).
+        *   Before you create a policy-based route, make sure that an IPsec-VPN connection is created. For more information, see [CreateVpnConnection](~~120391~~).
+        *   **CreateVpnPbrRouteEntry** is an asynchronous operation. After you send the request, the route information is returned but the operation is still being performed in the background. You can call [DescribeVpnGateway](~~73720~~) to query the status of a VPN gateway.
+        *   If a VPN gateway is in the **updating** state, the policy-based route entry is being created.
+        *   If a VPN gateway is in the **active** state, the policy-based route entry is created.
+        *   You cannot repeatedly call **CreateVpnPbrRouteEntry** to create a policy-based route for a VPN gateway within the specified period of time.
+        
+
+        @param request: CreateVpnPbrRouteEntryRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateVpnPbrRouteEntryResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -4345,10 +6073,36 @@ class Client(OpenApiClient):
         )
 
     def create_vpn_pbr_route_entry(self, request):
+        """
+        Before you call this operation, we recommend that you learn about the match rules of policy-based routes and limits on policy-based routes. For more information, see [Work with policy-based routes](~~110777~~).
+        *   Before you create a policy-based route, make sure that an IPsec-VPN connection is created. For more information, see [CreateVpnConnection](~~120391~~).
+        *   **CreateVpnPbrRouteEntry** is an asynchronous operation. After you send the request, the route information is returned but the operation is still being performed in the background. You can call [DescribeVpnGateway](~~73720~~) to query the status of a VPN gateway.
+        *   If a VPN gateway is in the **updating** state, the policy-based route entry is being created.
+        *   If a VPN gateway is in the **active** state, the policy-based route entry is created.
+        *   You cannot repeatedly call **CreateVpnPbrRouteEntry** to create a policy-based route for a VPN gateway within the specified period of time.
+        
+
+        @param request: CreateVpnPbrRouteEntryRequest
+
+        @return: CreateVpnPbrRouteEntryResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_vpn_pbr_route_entry_with_options(request, runtime)
 
     def create_vpn_route_entry_with_options(self, request, runtime):
+        """
+        **CreateVpnRouteEntry** is an asynchronous operation. After you call the operation, the route configurations are returned but the operation is still being performed in the background. You can call [DescribeVpnGateway](~~73720~~) to query the status of a destination-based route entry.
+        *   If a VPN gateway is in the **updating** state, the destination-based route entry is being created.
+        *   If a VPN gateway is in the **active** state, the destination-based route entry has been created.
+        *   You cannot repeatedly call **CreateVpnRouteEntry** to create a destination-based route entry for a VPN gateway within the specified period of time.
+        
+
+        @param request: CreateVpnRouteEntryRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateVpnRouteEntryResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -4397,6 +6151,17 @@ class Client(OpenApiClient):
         )
 
     def create_vpn_route_entry(self, request):
+        """
+        **CreateVpnRouteEntry** is an asynchronous operation. After you call the operation, the route configurations are returned but the operation is still being performed in the background. You can call [DescribeVpnGateway](~~73720~~) to query the status of a destination-based route entry.
+        *   If a VPN gateway is in the **updating** state, the destination-based route entry is being created.
+        *   If a VPN gateway is in the **active** state, the destination-based route entry has been created.
+        *   You cannot repeatedly call **CreateVpnRouteEntry** to create a destination-based route entry for a VPN gateway within the specified period of time.
+        
+
+        @param request: CreateVpnRouteEntryRequest
+
+        @return: CreateVpnRouteEntryResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_vpn_route_entry_with_options(request, runtime)
 
@@ -4437,6 +6202,19 @@ class Client(OpenApiClient):
         return self.deactivate_router_interface_with_options(request, runtime)
 
     def deactive_flow_log_with_options(self, request, runtime):
+        """
+        The **DeactiveFlowLog** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeFlowLogs](~~87923~~) operation to query the status of a flow log:
+        *   If the flow log is in the **Deactivating** state, the flow log is being disabled.
+        *   If the flow log is in the **Inactive** state, the flow log is disabled.
+        *   You cannot repeatedly call the **DeactiveFlowLog** operation to disable a flow log within the specified period of time.
+        
+
+        @param request: DeactiveFlowLogRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeactiveFlowLogResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.flow_log_id):
@@ -4471,6 +6249,17 @@ class Client(OpenApiClient):
         )
 
     def deactive_flow_log(self, request):
+        """
+        The **DeactiveFlowLog** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeFlowLogs](~~87923~~) operation to query the status of a flow log:
+        *   If the flow log is in the **Deactivating** state, the flow log is being disabled.
+        *   If the flow log is in the **Inactive** state, the flow log is disabled.
+        *   You cannot repeatedly call the **DeactiveFlowLog** operation to disable a flow log within the specified period of time.
+        
+
+        @param request: DeactiveFlowLogRequest
+
+        @return: DeactiveFlowLogResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.deactive_flow_log_with_options(request, runtime)
 
@@ -4597,6 +6386,16 @@ class Client(OpenApiClient):
         return self.delete_bgp_peer_with_options(request, runtime)
 
     def delete_common_bandwidth_package_with_options(self, request, runtime):
+        """
+        You cannot repeatedly call the *DeleteCommonBandwidthPackage** operation to delete an EIP bandwidth plan within the specified period of time.
+        
+
+        @param request: DeleteCommonBandwidthPackageRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteCommonBandwidthPackageResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.bandwidth_package_id):
@@ -4633,6 +6432,14 @@ class Client(OpenApiClient):
         )
 
     def delete_common_bandwidth_package(self, request):
+        """
+        You cannot repeatedly call the *DeleteCommonBandwidthPackage** operation to delete an EIP bandwidth plan within the specified period of time.
+        
+
+        @param request: DeleteCommonBandwidthPackageRequest
+
+        @return: DeleteCommonBandwidthPackageResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_common_bandwidth_package_with_options(request, runtime)
 
@@ -4677,6 +6484,19 @@ class Client(OpenApiClient):
         return self.delete_customer_gateway_with_options(request, runtime)
 
     def delete_dhcp_options_set_with_options(self, request, runtime):
+        """
+        The **DeleteDhcpOptionsSet** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [GetDhcpOptionsSet](~~189208~~) operation to query the status of a DHCP options set:
+        *   If the DHCP options set is in the **Deleting** state, the DHCP options set is being deleted.
+        *   If you cannot query the DHCP options set, the DHCP options set is deleted.
+        *   You cannot repeatedly call the **DeleteDhcpOptionsSet** operation to delete a DHCP options set within the specified period of time.
+        
+
+        @param request: DeleteDhcpOptionsSetRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteDhcpOptionsSetResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -4715,10 +6535,34 @@ class Client(OpenApiClient):
         )
 
     def delete_dhcp_options_set(self, request):
+        """
+        The **DeleteDhcpOptionsSet** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [GetDhcpOptionsSet](~~189208~~) operation to query the status of a DHCP options set:
+        *   If the DHCP options set is in the **Deleting** state, the DHCP options set is being deleted.
+        *   If you cannot query the DHCP options set, the DHCP options set is deleted.
+        *   You cannot repeatedly call the **DeleteDhcpOptionsSet** operation to delete a DHCP options set within the specified period of time.
+        
+
+        @param request: DeleteDhcpOptionsSetRequest
+
+        @return: DeleteDhcpOptionsSetResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_dhcp_options_set_with_options(request, runtime)
 
     def delete_flow_log_with_options(self, request, runtime):
+        """
+        The **DeleteFlowLog** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeFlowLogs](~~87923~~) operation to query the status of a flow log:
+        *   If the flow log is in the **Deleting** state, the flow log is being deleted.
+        *   If you cannot query the flow log, the flow log is deleted.
+        *   You cannot repeatedly call the **DeleteFlowLog** operation to delete a flow log within the specified period of time.
+        
+
+        @param request: DeleteFlowLogRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteFlowLogResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.flow_log_id):
@@ -4753,10 +6597,32 @@ class Client(OpenApiClient):
         )
 
     def delete_flow_log(self, request):
+        """
+        The **DeleteFlowLog** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeFlowLogs](~~87923~~) operation to query the status of a flow log:
+        *   If the flow log is in the **Deleting** state, the flow log is being deleted.
+        *   If you cannot query the flow log, the flow log is deleted.
+        *   You cannot repeatedly call the **DeleteFlowLog** operation to delete a flow log within the specified period of time.
+        
+
+        @param request: DeleteFlowLogRequest
+
+        @return: DeleteFlowLogResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_flow_log_with_options(request, runtime)
 
     def delete_forward_entry_with_options(self, request, runtime):
+        """
+        The region ID of the NAT gateway.
+        You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
+        
+
+        @param request: DeleteForwardEntryRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteForwardEntryResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -4795,10 +6661,29 @@ class Client(OpenApiClient):
         )
 
     def delete_forward_entry(self, request):
+        """
+        The region ID of the NAT gateway.
+        You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
+        
+
+        @param request: DeleteForwardEntryRequest
+
+        @return: DeleteForwardEntryResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_forward_entry_with_options(request, runtime)
 
     def delete_full_nat_entry_with_options(self, request, runtime):
+        """
+        The operation that you want to perform. Set the value to *DeleteFullNatEntry**.
+        
+
+        @param request: DeleteFullNatEntryRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteFullNatEntryResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -4839,10 +6724,31 @@ class Client(OpenApiClient):
         )
 
     def delete_full_nat_entry(self, request):
+        """
+        The operation that you want to perform. Set the value to *DeleteFullNatEntry**.
+        
+
+        @param request: DeleteFullNatEntryRequest
+
+        @return: DeleteFullNatEntryResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_full_nat_entry_with_options(request, runtime)
 
     def delete_global_acceleration_instance_with_options(self, request, runtime):
+        """
+        When you call this operation, take note of the following items:
+        *   You can delete only pay-as-you-go instances.
+        *   Before you can delete a dedicated instance, disassociate the backend server from the instance first.
+        *   Before you can delete a shared instance, disassociate the elastic IP address (EIP) from the instance first.
+        
+
+        @param request: DeleteGlobalAccelerationInstanceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteGlobalAccelerationInstanceResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.global_acceleration_instance_id):
@@ -4877,10 +6783,38 @@ class Client(OpenApiClient):
         )
 
     def delete_global_acceleration_instance(self, request):
+        """
+        When you call this operation, take note of the following items:
+        *   You can delete only pay-as-you-go instances.
+        *   Before you can delete a dedicated instance, disassociate the backend server from the instance first.
+        *   Before you can delete a shared instance, disassociate the elastic IP address (EIP) from the instance first.
+        
+
+        @param request: DeleteGlobalAccelerationInstanceRequest
+
+        @return: DeleteGlobalAccelerationInstanceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_global_acceleration_instance_with_options(request, runtime)
 
     def delete_ha_vip_with_options(self, request, runtime):
+        """
+        When you call this operation, take note of the following rules:
+        *   You can delete only HAVIPs that are in the Available state.
+        *   Make sure that no route points to the HAVIP that you want to delete.
+        *   Make sure that no elastic IP address (EIP) is associated with the HAVIP that you want to delete.
+        *   The **DeleteHaVip** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeHaVips](~~114611~~) operation to query the status of an HAVIP:
+        *   If the HAVIP is in the **Deleting** state, the HAVIP is being deleted.
+        *   If you cannot query the HAVIP, the HAVIP is deleted.
+        *   You cannot repeatedly call the **DeleteHaVip** operation to delete an HAVIP within the specified period of time.
+        
+
+        @param request: DeleteHaVipRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteHaVipResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -4917,6 +6851,21 @@ class Client(OpenApiClient):
         )
 
     def delete_ha_vip(self, request):
+        """
+        When you call this operation, take note of the following rules:
+        *   You can delete only HAVIPs that are in the Available state.
+        *   Make sure that no route points to the HAVIP that you want to delete.
+        *   Make sure that no elastic IP address (EIP) is associated with the HAVIP that you want to delete.
+        *   The **DeleteHaVip** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeHaVips](~~114611~~) operation to query the status of an HAVIP:
+        *   If the HAVIP is in the **Deleting** state, the HAVIP is being deleted.
+        *   If you cannot query the HAVIP, the HAVIP is deleted.
+        *   You cannot repeatedly call the **DeleteHaVip** operation to delete an HAVIP within the specified period of time.
+        
+
+        @param request: DeleteHaVipRequest
+
+        @return: DeleteHaVipResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_ha_vip_with_options(request, runtime)
 
@@ -4961,6 +6910,17 @@ class Client(OpenApiClient):
         return self.delete_ipv_6translator_with_options(request, runtime)
 
     def delete_ipv_6translator_acl_list_with_options(self, request, runtime):
+        """
+        @deprecated
+        
+
+        @param request: DeleteIPv6TranslatorAclListRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteIPv6TranslatorAclListResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.acl_id):
@@ -4997,10 +6957,30 @@ class Client(OpenApiClient):
         )
 
     def delete_ipv_6translator_acl_list(self, request):
+        """
+        @deprecated
+        
+
+        @param request: DeleteIPv6TranslatorAclListRequest
+
+        @return: DeleteIPv6TranslatorAclListResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_ipv_6translator_acl_list_with_options(request, runtime)
 
     def delete_ipv_6translator_entry_with_options(self, request, runtime):
+        """
+        @deprecated
+        
+
+        @param request: DeleteIPv6TranslatorEntryRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteIPv6TranslatorEntryResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -5039,10 +7019,32 @@ class Client(OpenApiClient):
         )
 
     def delete_ipv_6translator_entry(self, request):
+        """
+        @deprecated
+        
+
+        @param request: DeleteIPv6TranslatorEntryRequest
+
+        @return: DeleteIPv6TranslatorEntryResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_ipv_6translator_entry_with_options(request, runtime)
 
     def delete_ipsec_server_with_options(self, request, runtime):
+        """
+        The **DeleteIpsecServer** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call [DescribeVpnGateway](~~73720~~) to query the status of a VPN gateway.
+        *   If a VPN gateway is in the **updating** state, the IPsec server is being deleted.
+        *   If a VPN gateway is in the **active** state, the IPsec server has been deleted.
+        *   You cannot repeatedly call **DeleteIpsecServer** to delete an IPsec server from a VPN gateway within the specified period of time.
+        
+
+        @param request: DeleteIpsecServerRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteIpsecServerResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -5073,10 +7075,31 @@ class Client(OpenApiClient):
         )
 
     def delete_ipsec_server(self, request):
+        """
+        The **DeleteIpsecServer** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call [DescribeVpnGateway](~~73720~~) to query the status of a VPN gateway.
+        *   If a VPN gateway is in the **updating** state, the IPsec server is being deleted.
+        *   If a VPN gateway is in the **active** state, the IPsec server has been deleted.
+        *   You cannot repeatedly call **DeleteIpsecServer** to delete an IPsec server from a VPN gateway within the specified period of time.
+        
+
+        @param request: DeleteIpsecServerRequest
+
+        @return: DeleteIpsecServerResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_ipsec_server_with_options(request, runtime)
 
     def delete_ipv_4gateway_with_options(self, request, runtime):
+        """
+        The ID of the IPv4 gateway that you want to delete.
+        
+
+        @param request: DeleteIpv4GatewayRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteIpv4GatewayResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -5117,10 +7140,31 @@ class Client(OpenApiClient):
         )
 
     def delete_ipv_4gateway(self, request):
+        """
+        The ID of the IPv4 gateway that you want to delete.
+        
+
+        @param request: DeleteIpv4GatewayRequest
+
+        @return: DeleteIpv4GatewayResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_ipv_4gateway_with_options(request, runtime)
 
     def delete_ipv_6egress_only_rule_with_options(self, request, runtime):
+        """
+        **DeleteIpv6EgressOnlyRule** is an asynchronous operation. After you send a request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeIpv6EgressOnlyRules](~~102208~~) operation to query whether the egress-only rule is deleted.
+        *   If the egress-only rule is in the **Deleting** state, it indicates that the egress-only rule is being deleted.
+        *   If you cannot query the egress-only rule, it indicates that the egress-only rule is deleted.
+        *   You cannot call the **DeleteIpv6EgressOnlyRule** operation to delete an egress-only rule again when the rule is being deleted.
+        
+
+        @param request: DeleteIpv6EgressOnlyRuleRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteIpv6EgressOnlyRuleResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -5159,10 +7203,35 @@ class Client(OpenApiClient):
         )
 
     def delete_ipv_6egress_only_rule(self, request):
+        """
+        **DeleteIpv6EgressOnlyRule** is an asynchronous operation. After you send a request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeIpv6EgressOnlyRules](~~102208~~) operation to query whether the egress-only rule is deleted.
+        *   If the egress-only rule is in the **Deleting** state, it indicates that the egress-only rule is being deleted.
+        *   If you cannot query the egress-only rule, it indicates that the egress-only rule is deleted.
+        *   You cannot call the **DeleteIpv6EgressOnlyRule** operation to delete an egress-only rule again when the rule is being deleted.
+        
+
+        @param request: DeleteIpv6EgressOnlyRuleRequest
+
+        @return: DeleteIpv6EgressOnlyRuleResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_ipv_6egress_only_rule_with_options(request, runtime)
 
     def delete_ipv_6gateway_with_options(self, request, runtime):
+        """
+        - The *DeleteIpv6Gateway** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeIpv6GatewayAttribute](/help/en/virtual-private-cloud/latest/describeipv6gatewayattribute) operation to query the status of an IPv6 gateway:   - If the IPv6 gateway is in the **Deleting** state, the IPv6 gateway is being deleted.
+        - If you cannot query the IPv6 gateway, the IPv6 gateway is deleted.
+        - After you call the **DeleteIpv6Gateway** operation to delete an IPv6 gateway, you cannot call the operation again to delete the IPv6 gateway until the deletion task is complete.
+        ## Prerequisites
+        Before you delete an IPv6 gateway, you must delete the egress-only rules of the IPv6 gateway. For more information, see [DeleteIpv6EgressOnlyRule](~~102201~~).
+        
+
+        @param request: DeleteIpv6GatewayRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteIpv6GatewayResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.ipv_6gateway_id):
@@ -5199,10 +7268,32 @@ class Client(OpenApiClient):
         )
 
     def delete_ipv_6gateway(self, request):
+        """
+        - The *DeleteIpv6Gateway** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeIpv6GatewayAttribute](/help/en/virtual-private-cloud/latest/describeipv6gatewayattribute) operation to query the status of an IPv6 gateway:   - If the IPv6 gateway is in the **Deleting** state, the IPv6 gateway is being deleted.
+        - If you cannot query the IPv6 gateway, the IPv6 gateway is deleted.
+        - After you call the **DeleteIpv6Gateway** operation to delete an IPv6 gateway, you cannot call the operation again to delete the IPv6 gateway until the deletion task is complete.
+        ## Prerequisites
+        Before you delete an IPv6 gateway, you must delete the egress-only rules of the IPv6 gateway. For more information, see [DeleteIpv6EgressOnlyRule](~~102201~~).
+        
+
+        @param request: DeleteIpv6GatewayRequest
+
+        @return: DeleteIpv6GatewayResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_ipv_6gateway_with_options(request, runtime)
 
     def delete_ipv_6internet_bandwidth_with_options(self, request, runtime):
+        """
+        You cannot call the *DeleteIpv6InternetBandwidth** operation to delete the same Internet bandwidth at the same time.
+        
+
+        @param request: DeleteIpv6InternetBandwidthRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteIpv6InternetBandwidthResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.ipv_6address_id):
@@ -5241,10 +7332,29 @@ class Client(OpenApiClient):
         )
 
     def delete_ipv_6internet_bandwidth(self, request):
+        """
+        You cannot call the *DeleteIpv6InternetBandwidth** operation to delete the same Internet bandwidth at the same time.
+        
+
+        @param request: DeleteIpv6InternetBandwidthRequest
+
+        @return: DeleteIpv6InternetBandwidthResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_ipv_6internet_bandwidth_with_options(request, runtime)
 
     def delete_nat_gateway_with_options(self, request, runtime):
+        """
+        The ID of the region where the NAT gateway is deployed.
+        You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
+        
+
+        @param request: DeleteNatGatewayRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteNatGatewayResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.force):
@@ -5281,10 +7391,29 @@ class Client(OpenApiClient):
         )
 
     def delete_nat_gateway(self, request):
+        """
+        The ID of the region where the NAT gateway is deployed.
+        You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
+        
+
+        @param request: DeleteNatGatewayRequest
+
+        @return: DeleteNatGatewayResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_nat_gateway_with_options(request, runtime)
 
     def delete_nat_ip_with_options(self, request, runtime):
+        """
+        The ID of the NAT IP address that you want to delete.
+        
+
+        @param request: DeleteNatIpRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteNatIpResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -5325,10 +7454,28 @@ class Client(OpenApiClient):
         )
 
     def delete_nat_ip(self, request):
+        """
+        The ID of the NAT IP address that you want to delete.
+        
+
+        @param request: DeleteNatIpRequest
+
+        @return: DeleteNatIpResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_nat_ip_with_options(request, runtime)
 
     def delete_nat_ip_cidr_with_options(self, request, runtime):
+        """
+        You cannot repeatedly call the *DeleteNatIpCidr** operation to delete a NAT CIDR block within the specified period of time.
+        
+
+        @param request: DeleteNatIpCidrRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteNatIpCidrResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -5371,10 +7518,28 @@ class Client(OpenApiClient):
         )
 
     def delete_nat_ip_cidr(self, request):
+        """
+        You cannot repeatedly call the *DeleteNatIpCidr** operation to delete a NAT CIDR block within the specified period of time.
+        
+
+        @param request: DeleteNatIpCidrRequest
+
+        @return: DeleteNatIpCidrResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_nat_ip_cidr_with_options(request, runtime)
 
     def delete_network_acl_with_options(self, request, runtime):
+        """
+        You cannot repeatedly call the *DeleteNetworkAcl** operation to delete a network ACL within the specified period of time.
+        
+
+        @param request: DeleteNetworkAclRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteNetworkAclResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -5411,10 +7576,29 @@ class Client(OpenApiClient):
         )
 
     def delete_network_acl(self, request):
+        """
+        You cannot repeatedly call the *DeleteNetworkAcl** operation to delete a network ACL within the specified period of time.
+        
+
+        @param request: DeleteNetworkAclRequest
+
+        @return: DeleteNetworkAclResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_network_acl_with_options(request, runtime)
 
     def delete_physical_connection_with_options(self, request, runtime):
+        """
+        ## Limit
+        You can only delete a connection over an Express Connect circuit that is in the **Rejected**, **Canceled**, **AllocationFailed**, or **Terminated** state.
+        
+
+        @param request: DeletePhysicalConnectionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeletePhysicalConnectionResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -5451,10 +7635,29 @@ class Client(OpenApiClient):
         )
 
     def delete_physical_connection(self, request):
+        """
+        ## Limit
+        You can only delete a connection over an Express Connect circuit that is in the **Rejected**, **Canceled**, **AllocationFailed**, or **Terminated** state.
+        
+
+        @param request: DeletePhysicalConnectionRequest
+
+        @return: DeletePhysicalConnectionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_physical_connection_with_options(request, runtime)
 
     def delete_public_ip_address_pool_with_options(self, request, runtime):
+        """
+        The ID of the IP address pool.
+        
+
+        @param request: DeletePublicIpAddressPoolRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeletePublicIpAddressPoolResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -5493,10 +7696,28 @@ class Client(OpenApiClient):
         )
 
     def delete_public_ip_address_pool(self, request):
+        """
+        The ID of the IP address pool.
+        
+
+        @param request: DeletePublicIpAddressPoolRequest
+
+        @return: DeletePublicIpAddressPoolResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_public_ip_address_pool_with_options(request, runtime)
 
     def delete_public_ip_address_pool_cidr_block_with_options(self, request, runtime):
+        """
+        The ID of the IP address pool.
+        
+
+        @param request: DeletePublicIpAddressPoolCidrBlockRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeletePublicIpAddressPoolCidrBlockResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.cidr_block):
@@ -5537,10 +7758,34 @@ class Client(OpenApiClient):
         )
 
     def delete_public_ip_address_pool_cidr_block(self, request):
+        """
+        The ID of the IP address pool.
+        
+
+        @param request: DeletePublicIpAddressPoolCidrBlockRequest
+
+        @return: DeletePublicIpAddressPoolCidrBlockResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_public_ip_address_pool_cidr_block_with_options(request, runtime)
 
     def delete_route_entries_with_options(self, request, runtime):
+        """
+        When you call this operation, take note of the following items:
+        *   You can delete only route entries that are in the **Available** state.
+        *   You cannot delete a route entry of a virtual private cloud (VPC) in which a vSwitch or another route entry is being created or deleted.
+        *   **DeleteRouteEntries** is an asynchronous operation. After you call this operation, the system returns a request ID and runs the task in the background. You can call the [DescribeRouteEntryList](~~138148~~) operation to query the status of a route entry.
+        *   If the route entry is in the **Deleting** state, the route entry is being deleted.
+        *   If you cannot query the route entry, the route entry is deleted.
+        *   You cannot repeatedly call **DeleteRouteEntries** within a specific period of time.
+        
+
+        @param request: DeleteRouteEntriesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteRouteEntriesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.owner_account):
@@ -5577,10 +7822,41 @@ class Client(OpenApiClient):
         )
 
     def delete_route_entries(self, request):
+        """
+        When you call this operation, take note of the following items:
+        *   You can delete only route entries that are in the **Available** state.
+        *   You cannot delete a route entry of a virtual private cloud (VPC) in which a vSwitch or another route entry is being created or deleted.
+        *   **DeleteRouteEntries** is an asynchronous operation. After you call this operation, the system returns a request ID and runs the task in the background. You can call the [DescribeRouteEntryList](~~138148~~) operation to query the status of a route entry.
+        *   If the route entry is in the **Deleting** state, the route entry is being deleted.
+        *   If you cannot query the route entry, the route entry is deleted.
+        *   You cannot repeatedly call **DeleteRouteEntries** within a specific period of time.
+        
+
+        @param request: DeleteRouteEntriesRequest
+
+        @return: DeleteRouteEntriesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_route_entries_with_options(request, runtime)
 
     def delete_route_entry_with_options(self, request, runtime):
+        """
+        When you call this operation, take note of the following rules:
+        *   You can delete only routes that are in the **Available** state.
+        *   You cannot delete a route of a virtual private cloud (VPC) in which a vSwitch or a route is being created.
+        *   Before you call this operation to delete a route of a VBR route table, call the [DescribeRouteEntryList](~~138148~~) operation to query the **NextHopId** of the route first.
+        *   The **DeleteRouteEntry** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeRouteEntryList](~~138148~~) operation to query the status of a route:
+        *   If the route is in the **Deleting** state, the route is being deleted.
+        *   If you cannot query the route, the route is deleted.
+        *   You cannot repeatedly call the **DeleteRouteEntry** operation to delete a route from the route table of a vRouter or a VBR within the specified period of time.
+        
+
+        @param request: DeleteRouteEntryRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteRouteEntryResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.destination_cidr_block):
@@ -5623,10 +7899,38 @@ class Client(OpenApiClient):
         )
 
     def delete_route_entry(self, request):
+        """
+        When you call this operation, take note of the following rules:
+        *   You can delete only routes that are in the **Available** state.
+        *   You cannot delete a route of a virtual private cloud (VPC) in which a vSwitch or a route is being created.
+        *   Before you call this operation to delete a route of a VBR route table, call the [DescribeRouteEntryList](~~138148~~) operation to query the **NextHopId** of the route first.
+        *   The **DeleteRouteEntry** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeRouteEntryList](~~138148~~) operation to query the status of a route:
+        *   If the route is in the **Deleting** state, the route is being deleted.
+        *   If you cannot query the route, the route is deleted.
+        *   You cannot repeatedly call the **DeleteRouteEntry** operation to delete a route from the route table of a vRouter or a VBR within the specified period of time.
+        
+
+        @param request: DeleteRouteEntryRequest
+
+        @return: DeleteRouteEntryResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_route_entry_with_options(request, runtime)
 
     def delete_route_table_with_options(self, request, runtime):
+        """
+        The **DeleteRouteTable** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeRouteTableList](~~87602~~) operation to query the status of a custom route table:
+        *   If the custom route table is in the **Deleting** state, the custom route table is being deleted.
+        *   If you cannot query the custom route table, the custom route table is deleted.
+        *   You cannot repeatedly call the **DeleteRouteTable** operation to delete a custom route table within the specified period of time.
+        
+
+        @param request: DeleteRouteTableRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteRouteTableResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.owner_account):
@@ -5663,10 +7967,33 @@ class Client(OpenApiClient):
         )
 
     def delete_route_table(self, request):
+        """
+        The **DeleteRouteTable** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeRouteTableList](~~87602~~) operation to query the status of a custom route table:
+        *   If the custom route table is in the **Deleting** state, the custom route table is being deleted.
+        *   If you cannot query the custom route table, the custom route table is deleted.
+        *   You cannot repeatedly call the **DeleteRouteTable** operation to delete a custom route table within the specified period of time.
+        
+
+        @param request: DeleteRouteTableRequest
+
+        @return: DeleteRouteTableResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_route_table_with_options(request, runtime)
 
     def delete_router_interface_with_options(self, request, runtime):
+        """
+        When you call this operation, take note of the following limits:
+        *   You can delete only a router interface that is in the **Idle** or **Inactive** state.
+        *   Before you delete a router interface, you must delete all custom route entries destined for the router interface.
+        
+
+        @param request: DeleteRouterInterfaceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteRouterInterfaceResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -5703,10 +8030,33 @@ class Client(OpenApiClient):
         )
 
     def delete_router_interface(self, request):
+        """
+        When you call this operation, take note of the following limits:
+        *   You can delete only a router interface that is in the **Idle** or **Inactive** state.
+        *   Before you delete a router interface, you must delete all custom route entries destined for the router interface.
+        
+
+        @param request: DeleteRouterInterfaceRequest
+
+        @return: DeleteRouterInterfaceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_router_interface_with_options(request, runtime)
 
     def delete_snat_entry_with_options(self, request, runtime):
+        """
+        DeleteSnatEntry is an asynchronous operation. After you make a request, the ID of the request is returned but the specified SNAT entry is not deleted. The system deletes the SNAT entry in the background. You can call the [DescribeSnatTableEntries](~~42677~~) operation to query the status of SNAT entries.
+        *   If the SNAT entries are in the **Deleting** state, the system is deleting the SNAT entries. In this case, you can only query the status of the SNAT entries, and cannot perform other operations.
+        *   If no SNAT entry is returned in the response, the SNAT entry is deleted.
+        If some SNAT entries are in the **Pending** state, you cannot delete these SNAT entries.
+        
+
+        @param request: DeleteSnatEntryRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteSnatEntryResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -5745,10 +8095,34 @@ class Client(OpenApiClient):
         )
 
     def delete_snat_entry(self, request):
+        """
+        DeleteSnatEntry is an asynchronous operation. After you make a request, the ID of the request is returned but the specified SNAT entry is not deleted. The system deletes the SNAT entry in the background. You can call the [DescribeSnatTableEntries](~~42677~~) operation to query the status of SNAT entries.
+        *   If the SNAT entries are in the **Deleting** state, the system is deleting the SNAT entries. In this case, you can only query the status of the SNAT entries, and cannot perform other operations.
+        *   If no SNAT entry is returned in the response, the SNAT entry is deleted.
+        If some SNAT entries are in the **Pending** state, you cannot delete these SNAT entries.
+        
+
+        @param request: DeleteSnatEntryRequest
+
+        @return: DeleteSnatEntryResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_snat_entry_with_options(request, runtime)
 
     def delete_ssl_vpn_client_cert_with_options(self, request, runtime):
+        """
+        The **DeleteSslVpnClientCert** operation is asynchronous. After you send a request, the system returns a request ID. However, the operation is still being performed in the system background. You can call [DescribeVpnGateway](~~73720~~) to query the status of a VPN gateway associated with an SSL server. You can check whether an SSL client certificate is deleted based on the status of the VPN gateway.
+        *   If the VPN gateway is in the **updating** state, the SSL client certificate is being deleted.
+        *   If the VPN gateway is in the **active** state, the SSL client certificate is deleted.
+        *   You cannot repeatedly call **DeleteSslVpnClientCert** to delete an SSL client certificate from the same VPN gateway within the specified period of time.
+        
+
+        @param request: DeleteSslVpnClientCertRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteSslVpnClientCertResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -5785,10 +8159,34 @@ class Client(OpenApiClient):
         )
 
     def delete_ssl_vpn_client_cert(self, request):
+        """
+        The **DeleteSslVpnClientCert** operation is asynchronous. After you send a request, the system returns a request ID. However, the operation is still being performed in the system background. You can call [DescribeVpnGateway](~~73720~~) to query the status of a VPN gateway associated with an SSL server. You can check whether an SSL client certificate is deleted based on the status of the VPN gateway.
+        *   If the VPN gateway is in the **updating** state, the SSL client certificate is being deleted.
+        *   If the VPN gateway is in the **active** state, the SSL client certificate is deleted.
+        *   You cannot repeatedly call **DeleteSslVpnClientCert** to delete an SSL client certificate from the same VPN gateway within the specified period of time.
+        
+
+        @param request: DeleteSslVpnClientCertRequest
+
+        @return: DeleteSslVpnClientCertResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_ssl_vpn_client_cert_with_options(request, runtime)
 
     def delete_ssl_vpn_server_with_options(self, request, runtime):
+        """
+        The **DeleteSslVpnServer** operation is asynchronous. After you send a request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeVpnGateway](~~73720~~) operation to query the status of an SSL server based on the status of the associated VPN gateway.
+        *   If the VPN gateway is in the **updating** state, the SSL server is being deleted.
+        *   If the VPN gateway is in the **active** state, the SSL server is deleted.
+        *   You cannot repeatedly call the **DeleteSslVpnServer** operation to delete an SSL server from the same VPN gateway within the specified period of time.
+        
+
+        @param request: DeleteSslVpnServerRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteSslVpnServerResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -5825,10 +8223,31 @@ class Client(OpenApiClient):
         )
 
     def delete_ssl_vpn_server(self, request):
+        """
+        The **DeleteSslVpnServer** operation is asynchronous. After you send a request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeVpnGateway](~~73720~~) operation to query the status of an SSL server based on the status of the associated VPN gateway.
+        *   If the VPN gateway is in the **updating** state, the SSL server is being deleted.
+        *   If the VPN gateway is in the **active** state, the SSL server is deleted.
+        *   You cannot repeatedly call the **DeleteSslVpnServer** operation to delete an SSL server from the same VPN gateway within the specified period of time.
+        
+
+        @param request: DeleteSslVpnServerRequest
+
+        @return: DeleteSslVpnServerResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_ssl_vpn_server_with_options(request, runtime)
 
     def delete_traffic_mirror_filter_with_options(self, request, runtime):
+        """
+        The ID of the filter.
+        
+
+        @param request: DeleteTrafficMirrorFilterRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteTrafficMirrorFilterResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -5867,10 +8286,28 @@ class Client(OpenApiClient):
         )
 
     def delete_traffic_mirror_filter(self, request):
+        """
+        The ID of the filter.
+        
+
+        @param request: DeleteTrafficMirrorFilterRequest
+
+        @return: DeleteTrafficMirrorFilterResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_traffic_mirror_filter_with_options(request, runtime)
 
     def delete_traffic_mirror_filter_rules_with_options(self, request, runtime):
+        """
+        The ID of the filter.
+        
+
+        @param request: DeleteTrafficMirrorFilterRulesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteTrafficMirrorFilterRulesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -5911,10 +8348,30 @@ class Client(OpenApiClient):
         )
 
     def delete_traffic_mirror_filter_rules(self, request):
+        """
+        The ID of the filter.
+        
+
+        @param request: DeleteTrafficMirrorFilterRulesRequest
+
+        @return: DeleteTrafficMirrorFilterRulesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_traffic_mirror_filter_rules_with_options(request, runtime)
 
     def delete_traffic_mirror_session_with_options(self, request, runtime):
+        """
+        The client token that is used to ensure the idempotence of the request.
+        You can use the client to generate the value, but you must make sure that it is unique among all requests. ClientToken can contain only ASCII characters.
+        >  If you do not specify this parameter, **ClientToken** is set to the value of **RequestId**. The value of **RequestId** for each API request may be different.
+        
+
+        @param request: DeleteTrafficMirrorSessionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteTrafficMirrorSessionResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -5953,10 +8410,37 @@ class Client(OpenApiClient):
         )
 
     def delete_traffic_mirror_session(self, request):
+        """
+        The client token that is used to ensure the idempotence of the request.
+        You can use the client to generate the value, but you must make sure that it is unique among all requests. ClientToken can contain only ASCII characters.
+        >  If you do not specify this parameter, **ClientToken** is set to the value of **RequestId**. The value of **RequestId** for each API request may be different.
+        
+
+        @param request: DeleteTrafficMirrorSessionRequest
+
+        @return: DeleteTrafficMirrorSessionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_traffic_mirror_session_with_options(request, runtime)
 
     def delete_vswitch_with_options(self, request, runtime):
+        """
+        When you call this operation, take note of the following limits:
+        *   Before you delete a vSwitch, you must first release or remove all virtual private cloud (VPC) resources, including vSwitches, instances, router interfaces, and high-availability virtual IP addresses (HAVIPs).
+        *   You can delete only vSwitches that are in the **Available** state.
+        *   You cannot delete a vSwitch from a VPC where a vSwitch or a route is being created or deleted.
+        *   **DeleteVSwitch** is an asynchronous operation. After you send a request, the system returns a request ID and runs the task in the background. You can call the [DescribeVSwitchAttributes](~~94567~~) operation to query the status of a vSwitch:
+        *   If the vSwitch is in the **Pending** state, the vSwitch is being deleted.
+        *   If you cannot query the vSwitch, the vSwitch is deleted.
+        *   You cannot repeatedly call the **DeleteVSwitch** operation to delete a vSwitch within the specified period of time.
+        
+
+        @param request: DeleteVSwitchRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteVSwitchResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.owner_account):
@@ -5991,6 +8475,21 @@ class Client(OpenApiClient):
         )
 
     def delete_vswitch(self, request):
+        """
+        When you call this operation, take note of the following limits:
+        *   Before you delete a vSwitch, you must first release or remove all virtual private cloud (VPC) resources, including vSwitches, instances, router interfaces, and high-availability virtual IP addresses (HAVIPs).
+        *   You can delete only vSwitches that are in the **Available** state.
+        *   You cannot delete a vSwitch from a VPC where a vSwitch or a route is being created or deleted.
+        *   **DeleteVSwitch** is an asynchronous operation. After you send a request, the system returns a request ID and runs the task in the background. You can call the [DescribeVSwitchAttributes](~~94567~~) operation to query the status of a vSwitch:
+        *   If the vSwitch is in the **Pending** state, the vSwitch is being deleted.
+        *   If you cannot query the vSwitch, the vSwitch is deleted.
+        *   You cannot repeatedly call the **DeleteVSwitch** operation to delete a vSwitch within the specified period of time.
+        
+
+        @param request: DeleteVSwitchRequest
+
+        @return: DeleteVSwitchResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_vswitch_with_options(request, runtime)
 
@@ -6035,6 +8534,19 @@ class Client(OpenApiClient):
         return self.delete_vbr_ha_with_options(request, runtime)
 
     def delete_vco_route_entry_with_options(self, request, runtime):
+        """
+        The **DeleteVcoRouteEntry** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeVpnConnection](~~53046~~) operation to query the status of a route based on the status of the associated IPsec-VPN connection.
+        *   If the IPsec-VPN connection is in the **updating** state, the route is being deleted.
+        *   If the IPsec-VPN connection is in the **attached** state, the route is deleted.
+        *   You cannot repeatedly call the **DeleteVcoRouteEntry** operation to delete a route from the same IPsec-VPN connection within the specified period of time.
+        
+
+        @param request: DeleteVcoRouteEntryRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteVcoRouteEntryResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -6077,10 +8589,35 @@ class Client(OpenApiClient):
         )
 
     def delete_vco_route_entry(self, request):
+        """
+        The **DeleteVcoRouteEntry** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeVpnConnection](~~53046~~) operation to query the status of a route based on the status of the associated IPsec-VPN connection.
+        *   If the IPsec-VPN connection is in the **updating** state, the route is being deleted.
+        *   If the IPsec-VPN connection is in the **attached** state, the route is deleted.
+        *   You cannot repeatedly call the **DeleteVcoRouteEntry** operation to delete a route from the same IPsec-VPN connection within the specified period of time.
+        
+
+        @param request: DeleteVcoRouteEntryRequest
+
+        @return: DeleteVcoRouteEntryResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_vco_route_entry_with_options(request, runtime)
 
     def delete_virtual_border_router_with_options(self, request, runtime):
+        """
+        ## Limits
+        Before you call this operation, take note of the following limits:
+        *   Before you delete a VBR, you must delete all router interfaces of the VBR.
+        *   You can delete only a VBR that is in the** Unconfirmed**,** Enabled**, or** Terminated** state.
+        *   If the owner of an Express Connect circuit wants to delete a VBR that belongs to another Alibaba Cloud account, the VBR must be in the **Unconfirmed** state.
+        
+
+        @param request: DeleteVirtualBorderRouterRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteVirtualBorderRouterResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -6117,12 +8654,44 @@ class Client(OpenApiClient):
         )
 
     def delete_virtual_border_router(self, request):
+        """
+        ## Limits
+        Before you call this operation, take note of the following limits:
+        *   Before you delete a VBR, you must delete all router interfaces of the VBR.
+        *   You can delete only a VBR that is in the** Unconfirmed**,** Enabled**, or** Terminated** state.
+        *   If the owner of an Express Connect circuit wants to delete a VBR that belongs to another Alibaba Cloud account, the VBR must be in the **Unconfirmed** state.
+        
+
+        @param request: DeleteVirtualBorderRouterRequest
+
+        @return: DeleteVirtualBorderRouterResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_virtual_border_router_with_options(request, runtime)
 
     def delete_vpc_with_options(self, request, runtime):
+        """
+        When you call this operation, take note of the following limits:
+        *   Before you delete a VPC, make sure that all resources deployed in the VPC are released or removed, such as vSwitches, instances, and high-availability virtual IP addresses (HAVIPs).
+        *   You can delete only a VPC that is in the **Available** state.
+        *   The **DeleteVpc** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeVpcAttribute](~~94565~~) operation to query the status of a VPC:
+        *   If the VPC is in the **Deleting** state, the VPC is being deleted.
+        *   If you cannot query the VPC, the VPC is deleted.
+        *   You cannot repeatedly call the **DeleteVpc** operation to delete a VPC within the specified period of time.
+        
+
+        @param request: DeleteVpcRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteVpcResponse
+        """
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.dry_run):
+            query['DryRun'] = request.dry_run
+        if not UtilClient.is_unset(request.force_delete):
+            query['ForceDelete'] = request.force_delete
         if not UtilClient.is_unset(request.owner_account):
             query['OwnerAccount'] = request.owner_account
         if not UtilClient.is_unset(request.owner_id):
@@ -6155,6 +8724,20 @@ class Client(OpenApiClient):
         )
 
     def delete_vpc(self, request):
+        """
+        When you call this operation, take note of the following limits:
+        *   Before you delete a VPC, make sure that all resources deployed in the VPC are released or removed, such as vSwitches, instances, and high-availability virtual IP addresses (HAVIPs).
+        *   You can delete only a VPC that is in the **Available** state.
+        *   The **DeleteVpc** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeVpcAttribute](~~94565~~) operation to query the status of a VPC:
+        *   If the VPC is in the **Deleting** state, the VPC is being deleted.
+        *   If you cannot query the VPC, the VPC is deleted.
+        *   You cannot repeatedly call the **DeleteVpc** operation to delete a VPC within the specified period of time.
+        
+
+        @param request: DeleteVpcRequest
+
+        @return: DeleteVpcResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_vpc_with_options(request, runtime)
 
@@ -6201,6 +8784,16 @@ class Client(OpenApiClient):
         return self.delete_vpc_gateway_endpoint_with_options(request, runtime)
 
     def delete_vpc_prefix_list_with_options(self, request, runtime):
+        """
+        The ID of the prefix list that you want to delete.
+        
+
+        @param request: DeleteVpcPrefixListRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteVpcPrefixListResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -6239,10 +8832,29 @@ class Client(OpenApiClient):
         )
 
     def delete_vpc_prefix_list(self, request):
+        """
+        The ID of the prefix list that you want to delete.
+        
+
+        @param request: DeleteVpcPrefixListRequest
+
+        @return: DeleteVpcPrefixListResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_vpc_prefix_list_with_options(request, runtime)
 
     def delete_vpn_attachment_with_options(self, request, runtime):
+        """
+        If the IPsec-VPN connection is associated with a transit router, you must first disassociate the IPsec-VPN connection from the transit router before you delete the IPsec-VPN connection.
+        *   If the IPsec-VPN connection is not associated with a resource, you can call the `DeleteVpnAttachment` to delete the IPsec-VPN connection.
+        
+
+        @param request: DeleteVpnAttachmentRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteVpnAttachmentResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -6277,10 +8889,33 @@ class Client(OpenApiClient):
         )
 
     def delete_vpn_attachment(self, request):
+        """
+        If the IPsec-VPN connection is associated with a transit router, you must first disassociate the IPsec-VPN connection from the transit router before you delete the IPsec-VPN connection.
+        *   If the IPsec-VPN connection is not associated with a resource, you can call the `DeleteVpnAttachment` to delete the IPsec-VPN connection.
+        
+
+        @param request: DeleteVpnAttachmentRequest
+
+        @return: DeleteVpnAttachmentResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_vpn_attachment_with_options(request, runtime)
 
     def delete_vpn_connection_with_options(self, request, runtime):
+        """
+        The **DeleteVpnConnection** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeVpnGateway](~~73720~~) operation to query the status of a VPN gateway.
+        *   If the VPN gateway is in the **updating** state, the IPsec-VPN connection is being deleted.
+        *   If the VPN gateway is in the **active** state, the IPsec-VPN connection is deleted.
+        *   You cannot repeatedly call **DeleteVpnConnection** to delete an IPsec-VPN connection from the same VPN gateway within the specified period of time.
+        >  After an IPsec-VPN connection between a virtual private cloud (VPC) and a data center is deleted, the communication between the VPC and data center is interrupted.
+        
+
+        @param request: DeleteVpnConnectionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteVpnConnectionResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -6317,10 +8952,32 @@ class Client(OpenApiClient):
         )
 
     def delete_vpn_connection(self, request):
+        """
+        The **DeleteVpnConnection** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeVpnGateway](~~73720~~) operation to query the status of a VPN gateway.
+        *   If the VPN gateway is in the **updating** state, the IPsec-VPN connection is being deleted.
+        *   If the VPN gateway is in the **active** state, the IPsec-VPN connection is deleted.
+        *   You cannot repeatedly call **DeleteVpnConnection** to delete an IPsec-VPN connection from the same VPN gateway within the specified period of time.
+        >  After an IPsec-VPN connection between a virtual private cloud (VPC) and a data center is deleted, the communication between the VPC and data center is interrupted.
+        
+
+        @param request: DeleteVpnConnectionRequest
+
+        @return: DeleteVpnConnectionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_vpn_connection_with_options(request, runtime)
 
     def delete_vpn_gateway_with_options(self, request, runtime):
+        """
+        >  You cannot delete a VPN gateway that is associated with an IPsec-VPN connection.
+        
+
+        @param request: DeleteVpnGatewayRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteVpnGatewayResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -6357,10 +9014,31 @@ class Client(OpenApiClient):
         )
 
     def delete_vpn_gateway(self, request):
+        """
+        >  You cannot delete a VPN gateway that is associated with an IPsec-VPN connection.
+        
+
+        @param request: DeleteVpnGatewayRequest
+
+        @return: DeleteVpnGatewayResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_vpn_gateway_with_options(request, runtime)
 
     def delete_vpn_pbr_route_entry_with_options(self, request, runtime):
+        """
+        The **DeleteVpnPbrRouteEntry** operation is asynchronous. After you call the operation, the request ID is returned but the operation is still being performed in the system background. You can call [DescribeVpnGateway](~~73720~~) to query the status of a VPN gateway.
+        *   If a VPN gateway is in the **updating** state, the policy-based route is being deleted.
+        *   If a VPN gateway is in the **active** state, the policy-based route has been deleted.
+        *   You cannot repeatedly call **DeleteVpnPbrRouteEntry** to delete a policy-based route within the specified period of time.
+        
+
+        @param request: DeleteVpnPbrRouteEntryRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteVpnPbrRouteEntryResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -6409,10 +9087,34 @@ class Client(OpenApiClient):
         )
 
     def delete_vpn_pbr_route_entry(self, request):
+        """
+        The **DeleteVpnPbrRouteEntry** operation is asynchronous. After you call the operation, the request ID is returned but the operation is still being performed in the system background. You can call [DescribeVpnGateway](~~73720~~) to query the status of a VPN gateway.
+        *   If a VPN gateway is in the **updating** state, the policy-based route is being deleted.
+        *   If a VPN gateway is in the **active** state, the policy-based route has been deleted.
+        *   You cannot repeatedly call **DeleteVpnPbrRouteEntry** to delete a policy-based route within the specified period of time.
+        
+
+        @param request: DeleteVpnPbrRouteEntryRequest
+
+        @return: DeleteVpnPbrRouteEntryResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_vpn_pbr_route_entry_with_options(request, runtime)
 
     def delete_vpn_route_entry_with_options(self, request, runtime):
+        """
+        The **DeleteRouteEntry** operation is asynchronous. After you send the request, the system returns a request ID but the operation is still being performed in the system background. You can call [DescribeVpnGateway](~~73720~~) to query the status of a VPN gateway.
+        *   If a VPN gateway is in the **updating** state, the destination-based route is being deleted.
+        *   If the VPN gateway is in the **active** state, the destination-based route has been deleted.
+        *   You cannot repeatedly call **DeleteVpnRouteEntry** to delete a destination-based route from a VPN gateway within the specified period of time.
+        
+
+        @param request: DeleteVpnRouteEntryRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteVpnRouteEntryResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -6457,10 +9159,31 @@ class Client(OpenApiClient):
         )
 
     def delete_vpn_route_entry(self, request):
+        """
+        The **DeleteRouteEntry** operation is asynchronous. After you send the request, the system returns a request ID but the operation is still being performed in the system background. You can call [DescribeVpnGateway](~~73720~~) to query the status of a VPN gateway.
+        *   If a VPN gateway is in the **updating** state, the destination-based route is being deleted.
+        *   If the VPN gateway is in the **active** state, the destination-based route has been deleted.
+        *   You cannot repeatedly call **DeleteVpnRouteEntry** to delete a destination-based route from a VPN gateway within the specified period of time.
+        
+
+        @param request: DeleteVpnRouteEntryRequest
+
+        @return: DeleteVpnRouteEntryResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_vpn_route_entry_with_options(request, runtime)
 
     def deletion_protection_with_options(self, request, runtime):
+        """
+        After you enable deletion protection for an instance, you cannot delete the instance. You must disable deletion protection before you can delete the instance.
+        
+
+        @param request: DeletionProtectionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeletionProtectionResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -6501,12 +9224,22 @@ class Client(OpenApiClient):
         )
 
     def deletion_protection(self, request):
+        """
+        After you enable deletion protection for an instance, you cannot delete the instance. You must disable deletion protection before you can delete the instance.
+        
+
+        @param request: DeletionProtectionRequest
+
+        @return: DeletionProtectionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.deletion_protection_with_options(request, runtime)
 
     def describe_access_points_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.accept_language):
+            query['AcceptLanguage'] = request.accept_language
         if not UtilClient.is_unset(request.owner_id):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.page_number):
@@ -6707,6 +9440,8 @@ class Client(OpenApiClient):
             query['ResourceOwnerId'] = request.resource_owner_id
         if not UtilClient.is_unset(request.security_protection_enabled):
             query['SecurityProtectionEnabled'] = request.security_protection_enabled
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -6787,6 +9522,8 @@ class Client(OpenApiClient):
             query['ResourceOwnerAccount'] = request.resource_owner_account
         if not UtilClient.is_unset(request.resource_owner_id):
             query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -6847,6 +9584,16 @@ class Client(OpenApiClient):
         return self.describe_ec_grant_relation_with_options(request, runtime)
 
     def describe_eip_addresses_with_options(self, request, runtime):
+        """
+        The number of the page to return. Default value: *1**.
+        
+
+        @param request: DescribeEipAddressesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeEipAddressesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.allocation_id):
@@ -6915,10 +9662,28 @@ class Client(OpenApiClient):
         )
 
     def describe_eip_addresses(self, request):
+        """
+        The number of the page to return. Default value: *1**.
+        
+
+        @param request: DescribeEipAddressesRequest
+
+        @return: DescribeEipAddressesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_eip_addresses_with_options(request, runtime)
 
     def describe_eip_gateway_info_with_options(self, request, runtime):
+        """
+        You can query only EIPs that are associated with secondary elastic network interfaces (ENIs) in multi-EIP-to-ENI mode.
+        
+
+        @param request: DescribeEipGatewayInfoRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeEipGatewayInfoResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.instance_id):
@@ -6955,10 +9720,28 @@ class Client(OpenApiClient):
         )
 
     def describe_eip_gateway_info(self, request):
+        """
+        You can query only EIPs that are associated with secondary elastic network interfaces (ENIs) in multi-EIP-to-ENI mode.
+        
+
+        @param request: DescribeEipGatewayInfoRequest
+
+        @return: DescribeEipGatewayInfoResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_eip_gateway_info_with_options(request, runtime)
 
     def describe_eip_monitor_data_with_options(self, request, runtime):
+        """
+        To improve user experience in querying monitoring data, we recommend that you call the DescribeMetricList API operation provided by CloudMonitor to query EIP monitoring data. For more information, see [DescribeMetricList](~~51936~~) and [EIP monitoring data](~~162874~~).
+        
+
+        @param request: DescribeEipMonitorDataRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeEipMonitorDataResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.allocation_id):
@@ -6999,6 +9782,14 @@ class Client(OpenApiClient):
         )
 
     def describe_eip_monitor_data(self, request):
+        """
+        To improve user experience in querying monitoring data, we recommend that you call the DescribeMetricList API operation provided by CloudMonitor to query EIP monitoring data. For more information, see [DescribeMetricList](~~51936~~) and [EIP monitoring data](~~162874~~).
+        
+
+        @param request: DescribeEipMonitorDataRequest
+
+        @return: DescribeEipMonitorDataResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_eip_monitor_data_with_options(request, runtime)
 
@@ -7069,6 +9860,8 @@ class Client(OpenApiClient):
             query['ProjectName'] = request.project_name
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.resource_id):
             query['ResourceId'] = request.resource_id
         if not UtilClient.is_unset(request.resource_owner_account):
@@ -7079,6 +9872,8 @@ class Client(OpenApiClient):
             query['ResourceType'] = request.resource_type
         if not UtilClient.is_unset(request.status):
             query['Status'] = request.status
+        if not UtilClient.is_unset(request.tags):
+            query['Tags'] = request.tags
         if not UtilClient.is_unset(request.traffic_type):
             query['TrafficType'] = request.traffic_type
         if not UtilClient.is_unset(request.vpc_id):
@@ -7283,10 +10078,14 @@ class Client(OpenApiClient):
             query['PageSize'] = request.page_size
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.resource_owner_account):
             query['ResourceOwnerAccount'] = request.resource_owner_account
         if not UtilClient.is_unset(request.resource_owner_id):
             query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.tags):
+            query['Tags'] = request.tags
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -7393,6 +10192,17 @@ class Client(OpenApiClient):
         return self.describe_ipv_6translator_acl_list_attributes_with_options(request, runtime)
 
     def describe_ipv_6translator_acl_lists_with_options(self, request, runtime):
+        """
+        @deprecated
+        
+
+        @param request: DescribeIPv6TranslatorAclListsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeIPv6TranslatorAclListsResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.acl_id):
@@ -7433,10 +10243,30 @@ class Client(OpenApiClient):
         )
 
     def describe_ipv_6translator_acl_lists(self, request):
+        """
+        @deprecated
+        
+
+        @param request: DescribeIPv6TranslatorAclListsRequest
+
+        @return: DescribeIPv6TranslatorAclListsResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_ipv_6translator_acl_lists_with_options(request, runtime)
 
     def describe_ipv_6translator_entries_with_options(self, request, runtime):
+        """
+        @deprecated
+        
+
+        @param request: DescribeIPv6TranslatorEntriesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeIPv6TranslatorEntriesResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.acl_id):
@@ -7497,10 +10327,30 @@ class Client(OpenApiClient):
         )
 
     def describe_ipv_6translator_entries(self, request):
+        """
+        @deprecated
+        
+
+        @param request: DescribeIPv6TranslatorEntriesRequest
+
+        @return: DescribeIPv6TranslatorEntriesResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_ipv_6translator_entries_with_options(request, runtime)
 
     def describe_ipv_6translators_with_options(self, request, runtime):
+        """
+        @deprecated
+        
+
+        @param request: DescribeIPv6TranslatorsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeIPv6TranslatorsResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.allocate_ipv_4addr):
@@ -7553,6 +10403,15 @@ class Client(OpenApiClient):
         )
 
     def describe_ipv_6translators(self, request):
+        """
+        @deprecated
+        
+
+        @param request: DescribeIPv6TranslatorsRequest
+
+        @return: DescribeIPv6TranslatorsResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_ipv_6translators_with_options(request, runtime)
 
@@ -7563,6 +10422,8 @@ class Client(OpenApiClient):
             query['AssociatedInstanceId'] = request.associated_instance_id
         if not UtilClient.is_unset(request.associated_instance_type):
             query['AssociatedInstanceType'] = request.associated_instance_type
+        if not UtilClient.is_unset(request.include_reservation_data):
+            query['IncludeReservationData'] = request.include_reservation_data
         if not UtilClient.is_unset(request.ipv_6address):
             query['Ipv6Address'] = request.ipv_6address
         if not UtilClient.is_unset(request.ipv_6address_id):
@@ -7727,10 +10588,14 @@ class Client(OpenApiClient):
             query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.resource_owner_account):
             query['ResourceOwnerAccount'] = request.resource_owner_account
         if not UtilClient.is_unset(request.resource_owner_id):
             query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.tags):
+            query['Tags'] = request.tags
         if not UtilClient.is_unset(request.vpc_id):
             query['VpcId'] = request.vpc_id
         req = open_api_models.OpenApiRequest(
@@ -7757,6 +10622,16 @@ class Client(OpenApiClient):
         return self.describe_ipv_6gateways_with_options(request, runtime)
 
     def describe_nat_gateways_with_options(self, request, runtime):
+        """
+        You can call this operation to query both Virtual Private Cloud (VPC) NAT gateways and Internet NAT gateways. NAT gateways in this topic refer to both VPC NAT gateways and Internet NAT gateways.
+        
+
+        @param request: DescribeNatGatewaysRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeNatGatewaysResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dry_run):
@@ -7817,6 +10692,14 @@ class Client(OpenApiClient):
         )
 
     def describe_nat_gateways(self, request):
+        """
+        You can call this operation to query both Virtual Private Cloud (VPC) NAT gateways and Internet NAT gateways. NAT gateways in this topic refer to both VPC NAT gateways and Internet NAT gateways.
+        
+
+        @param request: DescribeNatGatewaysRequest
+
+        @return: DescribeNatGatewaysResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_nat_gateways_with_options(request, runtime)
 
@@ -7887,6 +10770,8 @@ class Client(OpenApiClient):
             query['ResourceOwnerId'] = request.resource_owner_id
         if not UtilClient.is_unset(request.resource_type):
             query['ResourceType'] = request.resource_type
+        if not UtilClient.is_unset(request.tags):
+            query['Tags'] = request.tags
         if not UtilClient.is_unset(request.vpc_id):
             query['VpcId'] = request.vpc_id
         req = open_api_models.OpenApiRequest(
@@ -7953,6 +10838,16 @@ class Client(OpenApiClient):
         return self.describe_physical_connection_loawith_options(request, runtime)
 
     def describe_physical_connections_with_options(self, request, runtime):
+        """
+        By default, the system queries information about all Express Connect circuits in the specified region. You can query Express Connect circuits that meet specific conditions by specifying filter conditions provided by the *DescribePhysicalConnections** operation. For more information about the supported filter conditions, see **Key** in the **Request parameters** section.
+        
+
+        @param request: DescribePhysicalConnectionsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribePhysicalConnectionsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -7999,10 +10894,28 @@ class Client(OpenApiClient):
         )
 
     def describe_physical_connections(self, request):
+        """
+        By default, the system queries information about all Express Connect circuits in the specified region. You can query Express Connect circuits that meet specific conditions by specifying filter conditions provided by the *DescribePhysicalConnections** operation. For more information about the supported filter conditions, see **Key** in the **Request parameters** section.
+        
+
+        @param request: DescribePhysicalConnectionsRequest
+
+        @return: DescribePhysicalConnectionsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_physical_connections_with_options(request, runtime)
 
     def describe_public_ip_address_with_options(self, request, runtime):
+        """
+        You cannot query the range of public IP addresses of a classic network by calling the *DescribePublicIpAddress** operation.
+        
+
+        @param request: DescribePublicIpAddressRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribePublicIpAddressResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.owner_account):
@@ -8041,6 +10954,14 @@ class Client(OpenApiClient):
         )
 
     def describe_public_ip_address(self, request):
+        """
+        You cannot query the range of public IP addresses of a classic network by calling the *DescribePublicIpAddress** operation.
+        
+
+        @param request: DescribePublicIpAddressRequest
+
+        @return: DescribePublicIpAddressResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_public_ip_address_with_options(request, runtime)
 
@@ -8083,6 +11004,16 @@ class Client(OpenApiClient):
         return self.describe_regions_with_options(request, runtime)
 
     def describe_route_entry_list_with_options(self, request, runtime):
+        """
+        Before you call the [DeleteRouteEntry](~~36013~~) operation to delete a route, you can call this operation to query the next hop of the route that you want to delete.
+        
+
+        @param request: DescribeRouteEntryListRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeRouteEntryListResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dest_cidr_block_list):
@@ -8141,6 +11072,14 @@ class Client(OpenApiClient):
         )
 
     def describe_route_entry_list(self, request):
+        """
+        Before you call the [DeleteRouteEntry](~~36013~~) operation to delete a route, you can call this operation to query the next hop of the route that you want to delete.
+        
+
+        @param request: DescribeRouteEntryListRequest
+
+        @return: DescribeRouteEntryListResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_route_entry_list_with_options(request, runtime)
 
@@ -8329,6 +11268,16 @@ class Client(OpenApiClient):
         return self.describe_router_interfaces_with_options(request, runtime)
 
     def describe_server_related_global_acceleration_instances_with_options(self, request, runtime):
+        """
+        > You can call this operation to query only dedicated-bandwidth GA instances.
+        
+
+        @param request: DescribeServerRelatedGlobalAccelerationInstancesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeServerRelatedGlobalAccelerationInstancesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.owner_account):
@@ -8365,6 +11314,14 @@ class Client(OpenApiClient):
         )
 
     def describe_server_related_global_acceleration_instances(self, request):
+        """
+        > You can call this operation to query only dedicated-bandwidth GA instances.
+        
+
+        @param request: DescribeServerRelatedGlobalAccelerationInstancesRequest
+
+        @return: DescribeServerRelatedGlobalAccelerationInstancesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_server_related_global_acceleration_instances_with_options(request, runtime)
 
@@ -8506,6 +11463,48 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_ssl_vpn_client_certs_with_options(request, runtime)
 
+    def describe_ssl_vpn_clients_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.vpn_gateway_id):
+            query['VpnGatewayId'] = request.vpn_gateway_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeSslVpnClients',
+            version='2016-04-28',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            vpc_20160428_models.DescribeSslVpnClientsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_ssl_vpn_clients(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_ssl_vpn_clients_with_options(request, runtime)
+
     def describe_ssl_vpn_servers_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -8645,6 +11644,19 @@ class Client(OpenApiClient):
         return self.describe_tag_keys_for_express_connect_with_options(request, runtime)
 
     def describe_tags_with_options(self, request, runtime):
+        """
+        You must specify **ResourceId.N** or **Tag.N** that consists of **Tag.N.Key** and **Tag.N.Value** in the request to specify the object that you want to query.
+        *   **Tag.N** is a resource tag that consists of a key-value pair. If you specify only **Tag.N.Key**, all tag values that are associated with the specified tag key are returned. If you specify only **Tag.N.Value**, an error message is returned.
+        *   If you specify **Tag.N** and **ResourceId.N** to filter tags, **ResourceId.N** must match all specified key-value pairs.
+        *   If you specify multiple key-value pairs, all tags that match the key-value pairs are returned.
+        
+
+        @param request: DescribeTagsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeTagsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.max_result):
@@ -8687,6 +11699,17 @@ class Client(OpenApiClient):
         )
 
     def describe_tags(self, request):
+        """
+        You must specify **ResourceId.N** or **Tag.N** that consists of **Tag.N.Key** and **Tag.N.Value** in the request to specify the object that you want to query.
+        *   **Tag.N** is a resource tag that consists of a key-value pair. If you specify only **Tag.N.Key**, all tag values that are associated with the specified tag key are returned. If you specify only **Tag.N.Value**, an error message is returned.
+        *   If you specify **Tag.N** and **ResourceId.N** to filter tags, **ResourceId.N** must match all specified key-value pairs.
+        *   If you specify multiple key-value pairs, all tags that match the key-value pairs are returned.
+        
+
+        @param request: DescribeTagsRequest
+
+        @return: DescribeTagsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_tags_with_options(request, runtime)
 
@@ -9203,6 +12226,8 @@ class Client(OpenApiClient):
             query['ResourceOwnerId'] = request.resource_owner_id
         if not UtilClient.is_unset(request.to):
             query['To'] = request.to
+        if not UtilClient.is_unset(request.tunnel_id):
+            query['TunnelId'] = request.tunnel_id
         if not UtilClient.is_unset(request.vpn_connection_id):
             query['VpnConnectionId'] = request.vpn_connection_id
         req = open_api_models.OpenApiRequest(
@@ -9247,6 +12272,8 @@ class Client(OpenApiClient):
             query['ResourceOwnerAccount'] = request.resource_owner_account
         if not UtilClient.is_unset(request.resource_owner_id):
             query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         if not UtilClient.is_unset(request.vpn_connection_id):
             query['VpnConnectionId'] = request.vpn_connection_id
         if not UtilClient.is_unset(request.vpn_gateway_id):
@@ -9585,6 +12612,16 @@ class Client(OpenApiClient):
         return self.describe_zones_with_options(request, runtime)
 
     def detach_dhcp_options_set_from_vpc_with_options(self, request, runtime):
+        """
+        The region to which the DHCP options set belongs. You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
+        
+
+        @param request: DetachDhcpOptionsSetFromVpcRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DetachDhcpOptionsSetFromVpcResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -9625,12 +12662,20 @@ class Client(OpenApiClient):
         )
 
     def detach_dhcp_options_set_from_vpc(self, request):
+        """
+        The region to which the DHCP options set belongs. You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
+        
+
+        @param request: DetachDhcpOptionsSetFromVpcRequest
+
+        @return: DetachDhcpOptionsSetFromVpcResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.detach_dhcp_options_set_from_vpc_with_options(request, runtime)
 
     def diagnose_vpn_gateway_with_options(self, request, runtime):
         """
-        VPN网关发起诊断
+        Only VPN gateways in specific regions support the quick diagnostics feature. For more information about the supported regions, see [Supported regions](~~430697~~).
         
 
         @param request: DiagnoseVpnGatewayRequest
@@ -9674,7 +12719,7 @@ class Client(OpenApiClient):
 
     def diagnose_vpn_gateway(self, request):
         """
-        VPN网关发起诊断
+        Only VPN gateways in specific regions support the quick diagnostics feature. For more information about the supported regions, see [Supported regions](~~430697~~).
         
 
         @param request: DiagnoseVpnGatewayRequest
@@ -9849,6 +12894,20 @@ class Client(OpenApiClient):
         return self.dissociate_route_tables_from_vpc_gateway_endpoint_with_options(request, runtime)
 
     def dissociate_vpn_gateway_with_certificate_with_options(self, request, runtime):
+        """
+        ## Usage notes
+        *   **DissociateVpnGatewayWithCertificate** is an asynchronous operation. After a request is sent, the system returns a request and runs the task in the background. You can call the [DescribeVpnGateway](~~73720~~) operation to query the status the task.
+        *   If the VPN gateway is in the **updating** state, the SSL certificate is being disassociated from the VPN gateway.
+        *   If the VPN gateway is in the **active** state, the SSL certificate is disassociated from the VPN gateway.
+        *   You cannot repeatedly call **DissociateVpnGatewayWithCertificate** within a specific period of time.
+        
+
+        @param request: DissociateVpnGatewayWithCertificateRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DissociateVpnGatewayWithCertificateResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.certificate_id):
@@ -9883,6 +12942,18 @@ class Client(OpenApiClient):
         )
 
     def dissociate_vpn_gateway_with_certificate(self, request):
+        """
+        ## Usage notes
+        *   **DissociateVpnGatewayWithCertificate** is an asynchronous operation. After a request is sent, the system returns a request and runs the task in the background. You can call the [DescribeVpnGateway](~~73720~~) operation to query the status the task.
+        *   If the VPN gateway is in the **updating** state, the SSL certificate is being disassociated from the VPN gateway.
+        *   If the VPN gateway is in the **active** state, the SSL certificate is disassociated from the VPN gateway.
+        *   You cannot repeatedly call **DissociateVpnGatewayWithCertificate** within a specific period of time.
+        
+
+        @param request: DissociateVpnGatewayWithCertificateRequest
+
+        @return: DissociateVpnGatewayWithCertificateResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.dissociate_vpn_gateway_with_certificate_with_options(request, runtime)
 
@@ -9959,6 +13030,17 @@ class Client(OpenApiClient):
         return self.enable_nat_gateway_ecs_metric_with_options(request, runtime)
 
     def enable_physical_connection_with_options(self, request, runtime):
+        """
+        The region ID of the Express Connect circuit.
+        You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
+        
+
+        @param request: EnablePhysicalConnectionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: EnablePhysicalConnectionResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -9995,6 +13077,15 @@ class Client(OpenApiClient):
         )
 
     def enable_physical_connection(self, request):
+        """
+        The region ID of the Express Connect circuit.
+        You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
+        
+
+        @param request: EnablePhysicalConnectionRequest
+
+        @return: EnablePhysicalConnectionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.enable_physical_connection_with_options(request, runtime)
 
@@ -10039,6 +13130,16 @@ class Client(OpenApiClient):
         return self.enable_vpc_classic_link_with_options(request, runtime)
 
     def enable_vpc_ipv_4gateway_with_options(self, request, runtime):
+        """
+        The ID of the IPv4 gateway that you want to activate.
+        
+
+        @param request: EnableVpcIpv4GatewayRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: EnableVpcIpv4GatewayResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -10081,6 +13182,14 @@ class Client(OpenApiClient):
         )
 
     def enable_vpc_ipv_4gateway(self, request):
+        """
+        The ID of the IPv4 gateway that you want to activate.
+        
+
+        @param request: EnableVpcIpv4GatewayRequest
+
+        @return: EnableVpcIpv4GatewayResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.enable_vpc_ipv_4gateway_with_options(request, runtime)
 
@@ -10203,6 +13312,16 @@ class Client(OpenApiClient):
         return self.get_ipv_4gateway_attribute_with_options(request, runtime)
 
     def get_nat_gateway_attribute_with_options(self, request, runtime):
+        """
+        You can call this operation to query information about a specified Internet NAT gateway or Virtual Private Cloud (VPC) NAT gateway. In this topic, "NAT gateway" refers to both gateway types.
+        
+
+        @param request: GetNatGatewayAttributeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetNatGatewayAttributeResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.nat_gateway_id):
@@ -10239,6 +13358,14 @@ class Client(OpenApiClient):
         )
 
     def get_nat_gateway_attribute(self, request):
+        """
+        You can call this operation to query information about a specified Internet NAT gateway or Virtual Private Cloud (VPC) NAT gateway. In this topic, "NAT gateway" refers to both gateway types.
+        
+
+        @param request: GetNatGatewayAttributeRequest
+
+        @return: GetNatGatewayAttributeResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_nat_gateway_attribute_with_options(request, runtime)
 
@@ -10283,6 +13410,16 @@ class Client(OpenApiClient):
         return self.get_nat_gateway_convert_status_with_options(request, runtime)
 
     def get_physical_connection_service_status_with_options(self, request, runtime):
+        """
+        You can call this API operation to query the status of outbound data transfer billing for the current account. For more information about outbound data transfer billing, see [Outbound data transfer billing](~~274385~~) and [Billing](~~54582~~).
+        
+
+        @param request: GetPhysicalConnectionServiceStatusRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetPhysicalConnectionServiceStatusResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.owner_account):
@@ -10315,14 +13452,34 @@ class Client(OpenApiClient):
         )
 
     def get_physical_connection_service_status(self, request):
+        """
+        You can call this API operation to query the status of outbound data transfer billing for the current account. For more information about outbound data transfer billing, see [Outbound data transfer billing](~~274385~~) and [Billing](~~54582~~).
+        
+
+        @param request: GetPhysicalConnectionServiceStatusRequest
+
+        @return: GetPhysicalConnectionServiceStatusResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_physical_connection_service_status_with_options(request, runtime)
 
     def get_traffic_mirror_service_status_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
         if not UtilClient.is_unset(request.owner_id):
             query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -10512,7 +13669,7 @@ class Client(OpenApiClient):
 
     def get_vpn_gateway_diagnose_result_with_options(self, request, runtime):
         """
-        查询VPN网关一键诊断结果
+        When you call the *GetVpnGatewayDiagnoseResult** operation, you must set one of the **DiagnoseId** and **VpnGatewayId** parameters.
         
 
         @param request: GetVpnGatewayDiagnoseResultRequest
@@ -10552,7 +13709,7 @@ class Client(OpenApiClient):
 
     def get_vpn_gateway_diagnose_result(self, request):
         """
-        查询VPN网关一键诊断结果
+        When you call the *GetVpnGatewayDiagnoseResult** operation, you must set one of the **DiagnoseId** and **VpnGatewayId** parameters.
         
 
         @param request: GetVpnGatewayDiagnoseResultRequest
@@ -10563,6 +13720,18 @@ class Client(OpenApiClient):
         return self.get_vpn_gateway_diagnose_result_with_options(request, runtime)
 
     def grant_instance_to_cen_with_options(self, request, runtime):
+        """
+        Before you can attach a network instance that belongs to another Alibaba Cloud account to your CEN instance, you must grant permissions to your CEN instance.
+        >  **GrantInstanceToCen** is a Virtual Private Cloud (VPC) operation. Therefore, you must use `vpc.aliyuncs.com` as the domain name when you call this operation. The API version is `2016-04-28`.
+        *   You cannot repeatedly call the **GrantInstanceToCen** operation to grant the permissions on a network instance to a CEN instance. The network instance can be a VPC, a virtual border router (VBR), or a Cloud Connect Network (CCN) instance.
+        
+
+        @param request: GrantInstanceToCenRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GrantInstanceToCenResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.cen_id):
@@ -10605,10 +13774,31 @@ class Client(OpenApiClient):
         )
 
     def grant_instance_to_cen(self, request):
+        """
+        Before you can attach a network instance that belongs to another Alibaba Cloud account to your CEN instance, you must grant permissions to your CEN instance.
+        >  **GrantInstanceToCen** is a Virtual Private Cloud (VPC) operation. Therefore, you must use `vpc.aliyuncs.com` as the domain name when you call this operation. The API version is `2016-04-28`.
+        *   You cannot repeatedly call the **GrantInstanceToCen** operation to grant the permissions on a network instance to a CEN instance. The network instance can be a VPC, a virtual border router (VBR), or a Cloud Connect Network (CCN) instance.
+        
+
+        @param request: GrantInstanceToCenRequest
+
+        @return: GrantInstanceToCenResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.grant_instance_to_cen_with_options(request, runtime)
 
     def grant_instance_to_vbr_with_options(self, tmp_req, runtime):
+        """
+        ## Usage notes
+        When you connect a VBR to a VPC that belongs to another Alibaba Cloud account, the VBR must acquire the required permissions from the VPC.
+        
+
+        @param tmp_req: GrantInstanceToVbrRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GrantInstanceToVbrResponse
+        """
         UtilClient.validate_model(tmp_req)
         request = vpc_20160428_models.GrantInstanceToVbrShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
@@ -10647,6 +13837,15 @@ class Client(OpenApiClient):
         )
 
     def grant_instance_to_vbr(self, request):
+        """
+        ## Usage notes
+        When you connect a VBR to a VPC that belongs to another Alibaba Cloud account, the VBR must acquire the required permissions from the VPC.
+        
+
+        @param request: GrantInstanceToVbrRequest
+
+        @return: GrantInstanceToVbrResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.grant_instance_to_vbr_with_options(request, runtime)
 
@@ -10699,10 +13898,14 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.resource_owner_account):
             query['ResourceOwnerAccount'] = request.resource_owner_account
         if not UtilClient.is_unset(request.resource_owner_id):
             query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.tags):
+            query['Tags'] = request.tags
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -10727,6 +13930,16 @@ class Client(OpenApiClient):
         return self.list_dhcp_options_sets_with_options(request, runtime)
 
     def list_enhanhced_nat_gateway_available_zones_with_options(self, request, runtime):
+        """
+        You can call this operation to query zones that support NAT gateways, including Internet NAT gateways and Virtual Private Cloud (VPC) NAT gateways.
+        
+
+        @param request: ListEnhanhcedNatGatewayAvailableZonesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListEnhanhcedNatGatewayAvailableZonesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.accept_language):
@@ -10763,6 +13976,14 @@ class Client(OpenApiClient):
         )
 
     def list_enhanhced_nat_gateway_available_zones(self, request):
+        """
+        You can call this operation to query zones that support NAT gateways, including Internet NAT gateways and Virtual Private Cloud (VPC) NAT gateways.
+        
+
+        @param request: ListEnhanhcedNatGatewayAvailableZonesRequest
+
+        @return: ListEnhanhcedNatGatewayAvailableZonesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_enhanhced_nat_gateway_available_zones_with_options(request, runtime)
 
@@ -10985,10 +14206,14 @@ class Client(OpenApiClient):
             query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.resource_owner_account):
             query['ResourceOwnerAccount'] = request.resource_owner_account
         if not UtilClient.is_unset(request.resource_owner_id):
             query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.tags):
+            query['Tags'] = request.tags
         if not UtilClient.is_unset(request.vpc_id):
             query['VpcId'] = request.vpc_id
         req = open_api_models.OpenApiRequest(
@@ -11127,16 +14352,6 @@ class Client(OpenApiClient):
         return self.list_nat_ips_with_options(request, runtime)
 
     def list_prefix_lists_with_options(self, request, runtime):
-        """
-        *\
-        
-
-        @param request: ListPrefixListsRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: ListPrefixListsResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.max_results):
@@ -11181,14 +14396,6 @@ class Client(OpenApiClient):
         )
 
     def list_prefix_lists(self, request):
-        """
-        *\
-        
-
-        @param request: ListPrefixListsRequest
-
-        @return: ListPrefixListsResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.list_prefix_lists_with_options(request, runtime)
 
@@ -11293,6 +14500,19 @@ class Client(OpenApiClient):
         return self.list_public_ip_address_pools_with_options(request, runtime)
 
     def list_tag_resources_with_options(self, request, runtime):
+        """
+        Set **ResourceId.N** or **Tag.N** that consists of **Tag.N.Key** and **Tag.N.Value** in the request to specify the object to be queried.
+        *   **Tag.N** is a resource tag that consists of a key-value pair. If you set only **Tag.N.Key**, all tag values that are associated with the specified key are returned. If you set only **Tag.N.Value**, an error message is returned.
+        *   If you set **Tag.N** and **ResourceId.N** to filter tags, **ResourceId.N** must match all specified key-value pairs.
+        *   If you specify multiple key-value pairs, resources that contain these key-value pairs are returned.
+        
+
+        @param request: ListTagResourcesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListTagResourcesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.max_results):
@@ -11335,10 +14555,34 @@ class Client(OpenApiClient):
         )
 
     def list_tag_resources(self, request):
+        """
+        Set **ResourceId.N** or **Tag.N** that consists of **Tag.N.Key** and **Tag.N.Value** in the request to specify the object to be queried.
+        *   **Tag.N** is a resource tag that consists of a key-value pair. If you set only **Tag.N.Key**, all tag values that are associated with the specified key are returned. If you set only **Tag.N.Value**, an error message is returned.
+        *   If you set **Tag.N** and **ResourceId.N** to filter tags, **ResourceId.N** must match all specified key-value pairs.
+        *   If you specify multiple key-value pairs, resources that contain these key-value pairs are returned.
+        
+
+        @param request: ListTagResourcesRequest
+
+        @return: ListTagResourcesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_tag_resources_with_options(request, runtime)
 
     def list_tag_resources_for_express_connect_with_options(self, request, runtime):
+        """
+        You must specify **ResourceId.N** or **Tag.N** that consists of **Tag.N.Key** and **Tag.N.Value** in the request to specify the object that you want to query.
+        *   **Tag.N** is a resource tag that consists of a key-value pair. If you specify only **Tag.N.Key**, all tag values that are associated with the specified tag key are returned. If you specify only **Tag.N.Value**, an error message is returned.
+        *   If you specify **Tag.N** and **ResourceId.N** to filter tags, **ResourceId.N** must match all specified key-value pairs.
+        *   If you specify multiple key-value pairs, resources that contain these key-value pairs are returned.
+        
+
+        @param request: ListTagResourcesForExpressConnectRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListTagResourcesForExpressConnectResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.max_results):
@@ -11381,6 +14625,17 @@ class Client(OpenApiClient):
         )
 
     def list_tag_resources_for_express_connect(self, request):
+        """
+        You must specify **ResourceId.N** or **Tag.N** that consists of **Tag.N.Key** and **Tag.N.Value** in the request to specify the object that you want to query.
+        *   **Tag.N** is a resource tag that consists of a key-value pair. If you specify only **Tag.N.Key**, all tag values that are associated with the specified tag key are returned. If you specify only **Tag.N.Value**, an error message is returned.
+        *   If you specify **Tag.N** and **ResourceId.N** to filter tags, **ResourceId.N** must match all specified key-value pairs.
+        *   If you specify multiple key-value pairs, resources that contain these key-value pairs are returned.
+        
+
+        @param request: ListTagResourcesForExpressConnectRequest
+
+        @return: ListTagResourcesForExpressConnectResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_tag_resources_for_express_connect_with_options(request, runtime)
 
@@ -11397,10 +14652,14 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.resource_owner_account):
             query['ResourceOwnerAccount'] = request.resource_owner_account
         if not UtilClient.is_unset(request.resource_owner_id):
             query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.tags):
+            query['Tags'] = request.tags
         if not UtilClient.is_unset(request.traffic_mirror_filter_ids):
             query['TrafficMirrorFilterIds'] = request.traffic_mirror_filter_ids
         if not UtilClient.is_unset(request.traffic_mirror_filter_name):
@@ -11445,10 +14704,14 @@ class Client(OpenApiClient):
             query['Priority'] = request.priority
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.resource_owner_account):
             query['ResourceOwnerAccount'] = request.resource_owner_account
         if not UtilClient.is_unset(request.resource_owner_id):
             query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.tags):
+            query['Tags'] = request.tags
         if not UtilClient.is_unset(request.traffic_mirror_filter_id):
             query['TrafficMirrorFilterId'] = request.traffic_mirror_filter_id
         if not UtilClient.is_unset(request.traffic_mirror_session_ids):
@@ -11593,12 +14856,16 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.resource_owner_account):
             query['ResourceOwnerAccount'] = request.resource_owner_account
         if not UtilClient.is_unset(request.resource_owner_id):
             query['ResourceOwnerId'] = request.resource_owner_id
         if not UtilClient.is_unset(request.service_name):
             query['ServiceName'] = request.service_name
+        if not UtilClient.is_unset(request.tags):
+            query['Tags'] = request.tags
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -11623,6 +14890,21 @@ class Client(OpenApiClient):
         return self.list_vpc_gateway_endpoints_with_options(request, runtime)
 
     def list_vpn_certificate_associations_with_options(self, request, runtime):
+        """
+        ## Usage notes
+        When you call **ListVpnCertificateAssociations**, take note of the following information:
+        *   If you specify only **RegionId**, the SSL certificates associated with all VPN gateways in the specified region are queried.
+        *   If you specify **RegionId** and **CertificateType**, the SSL certificates of the specified type that are associated with the VPN gateways in the specified region are queried.
+        *   If you specify **RegionId** and **VpnGatewayId**, the SSL certificates associated with the specified VPN gateway in the specified region are queried.
+        *   If you specify **RegionId** and **CertificateId**, the VPN gateways associated with the specified SSL certificate in the specified region are queried.
+        
+
+        @param request: ListVpnCertificateAssociationsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListVpnCertificateAssociationsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.certificate_id):
@@ -11657,6 +14939,19 @@ class Client(OpenApiClient):
         )
 
     def list_vpn_certificate_associations(self, request):
+        """
+        ## Usage notes
+        When you call **ListVpnCertificateAssociations**, take note of the following information:
+        *   If you specify only **RegionId**, the SSL certificates associated with all VPN gateways in the specified region are queried.
+        *   If you specify **RegionId** and **CertificateType**, the SSL certificates of the specified type that are associated with the VPN gateways in the specified region are queried.
+        *   If you specify **RegionId** and **VpnGatewayId**, the SSL certificates associated with the specified VPN gateway in the specified region are queried.
+        *   If you specify **RegionId** and **CertificateId**, the VPN gateways associated with the specified SSL certificate in the specified region are queried.
+        
+
+        @param request: ListVpnCertificateAssociationsRequest
+
+        @return: ListVpnCertificateAssociationsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_vpn_certificate_associations_with_options(request, runtime)
 
@@ -11807,6 +15102,21 @@ class Client(OpenApiClient):
         return self.modify_common_bandwidth_package_attribute_with_options(request, runtime)
 
     def modify_common_bandwidth_package_ip_bandwidth_with_options(self, request, runtime):
+        """
+        You can call the *ModifyCommonBandwidthPackageIpBandwidth** operation to set the maximum bandwidth of an EIP that is associated with an EIP bandwidth plan. This prevents an EIP from exhausting the bandwidth resources of an EIP bandwidth plan.
+        For example, two EIPs are associated with an EIP bandwidth plan whose maximum bandwidth is 800 Mbit/s. In this case, you can set the maximum bandwidth of one EIP to 500 Mbit/s and that of the other EIP to 400 Mbit/s. After you set the maximum bandwidth values, the first EIP cannot consume bandwidth higher than 500 Mbit/s. The second EIP cannot consume bandwidth higher than 400 Mbit/s.
+        When you call this operation, take note of the following items:
+        *   This operation is valid only for EIPs that are associated with Elastic Compute Service (ECS) instances. This operation is invalid for EIPs that are associated with Server Load Balancer (SLB) instances, NAT gateways, secondary elastic network interfaces (ENIs), or high-availability virtual IP addresses (HAVIPs).
+        *   This operation is in public preview. You can call this operation to set the maximum bandwidth of EIPs only if the EIPs are associated with an EIP bandwidth plan. The feature is not supported in the console.
+        *   You cannot repeatedly call this operation to set the maximum bandwidth of an EIP within the specified period of time.
+        
+
+        @param request: ModifyCommonBandwidthPackageIpBandwidthRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyCommonBandwidthPackageIpBandwidthResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.bandwidth):
@@ -11845,10 +15155,34 @@ class Client(OpenApiClient):
         )
 
     def modify_common_bandwidth_package_ip_bandwidth(self, request):
+        """
+        You can call the *ModifyCommonBandwidthPackageIpBandwidth** operation to set the maximum bandwidth of an EIP that is associated with an EIP bandwidth plan. This prevents an EIP from exhausting the bandwidth resources of an EIP bandwidth plan.
+        For example, two EIPs are associated with an EIP bandwidth plan whose maximum bandwidth is 800 Mbit/s. In this case, you can set the maximum bandwidth of one EIP to 500 Mbit/s and that of the other EIP to 400 Mbit/s. After you set the maximum bandwidth values, the first EIP cannot consume bandwidth higher than 500 Mbit/s. The second EIP cannot consume bandwidth higher than 400 Mbit/s.
+        When you call this operation, take note of the following items:
+        *   This operation is valid only for EIPs that are associated with Elastic Compute Service (ECS) instances. This operation is invalid for EIPs that are associated with Server Load Balancer (SLB) instances, NAT gateways, secondary elastic network interfaces (ENIs), or high-availability virtual IP addresses (HAVIPs).
+        *   This operation is in public preview. You can call this operation to set the maximum bandwidth of EIPs only if the EIPs are associated with an EIP bandwidth plan. The feature is not supported in the console.
+        *   You cannot repeatedly call this operation to set the maximum bandwidth of an EIP within the specified period of time.
+        
+
+        @param request: ModifyCommonBandwidthPackageIpBandwidthRequest
+
+        @return: ModifyCommonBandwidthPackageIpBandwidthResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_common_bandwidth_package_ip_bandwidth_with_options(request, runtime)
 
     def modify_common_bandwidth_package_spec_with_options(self, request, runtime):
+        """
+        The region ID of the EIP bandwidth plan.
+        You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
+        
+
+        @param request: ModifyCommonBandwidthPackageSpecRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyCommonBandwidthPackageSpecResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.bandwidth):
@@ -11885,10 +15219,33 @@ class Client(OpenApiClient):
         )
 
     def modify_common_bandwidth_package_spec(self, request):
+        """
+        The region ID of the EIP bandwidth plan.
+        You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
+        
+
+        @param request: ModifyCommonBandwidthPackageSpecRequest
+
+        @return: ModifyCommonBandwidthPackageSpecResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_common_bandwidth_package_spec_with_options(request, runtime)
 
     def modify_customer_gateway_attribute_with_options(self, request, runtime):
+        """
+        When you call **ModifyCustomerGatewayAttribute**, if a value is assigned to **AuthKey**, the operation is asynchronous. After you call the operation, the information about the customer gateway is returned but the operation is still being performed in the system background. You can call [DescribeVpnGateway](~~73720~~) to query the status of a customer gateway.
+        *   If a VPN gateway is in the **updating** state, the configurations are being modified.
+        *   If a VPN gateway is in the **active** state, the configurations have been modified.
+        *   When you call **ModifyCustomerGatewayAttribute**, if no value is assigned to **AuthKey**, the operation is synchronous.
+        *   You cannot repeatedly call **ModifyCustomerGatewayAttribute** to modify the configurations of a customer gateway within the specified period of time.
+        
+
+        @param request: ModifyCustomerGatewayAttributeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyCustomerGatewayAttributeResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.auth_key):
@@ -11931,6 +15288,18 @@ class Client(OpenApiClient):
         )
 
     def modify_customer_gateway_attribute(self, request):
+        """
+        When you call **ModifyCustomerGatewayAttribute**, if a value is assigned to **AuthKey**, the operation is asynchronous. After you call the operation, the information about the customer gateway is returned but the operation is still being performed in the system background. You can call [DescribeVpnGateway](~~73720~~) to query the status of a customer gateway.
+        *   If a VPN gateway is in the **updating** state, the configurations are being modified.
+        *   If a VPN gateway is in the **active** state, the configurations have been modified.
+        *   When you call **ModifyCustomerGatewayAttribute**, if no value is assigned to **AuthKey**, the operation is synchronous.
+        *   You cannot repeatedly call **ModifyCustomerGatewayAttribute** to modify the configurations of a customer gateway within the specified period of time.
+        
+
+        @param request: ModifyCustomerGatewayAttributeRequest
+
+        @return: ModifyCustomerGatewayAttributeResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_customer_gateway_attribute_with_options(request, runtime)
 
@@ -12067,6 +15436,19 @@ class Client(OpenApiClient):
         return self.modify_express_cloud_connection_bandwidth_with_options(request, runtime)
 
     def modify_flow_log_attribute_with_options(self, request, runtime):
+        """
+        **ModifyFlowLogAttribute** is an asynchronous operation. After you send a request, the system returns a request ID and runs the task in the background. You can call the [DescribeFlowLogs](~~87923~~) operation to query the status of a flow log:
+        *   If the flow log is in the **Modifying** state, the flow log is being modified.
+        *   If the flow log is in the **Active** or **Inactive** state, the flow log is modified.
+        *   You cannot repeatedly call the **ModifyFlowLogAttribute** operation to modify a flow log within the specified period of time.
+        
+
+        @param request: ModifyFlowLogAttributeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyFlowLogAttributeResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.aggregation_interval):
@@ -12107,10 +15489,31 @@ class Client(OpenApiClient):
         )
 
     def modify_flow_log_attribute(self, request):
+        """
+        **ModifyFlowLogAttribute** is an asynchronous operation. After you send a request, the system returns a request ID and runs the task in the background. You can call the [DescribeFlowLogs](~~87923~~) operation to query the status of a flow log:
+        *   If the flow log is in the **Modifying** state, the flow log is being modified.
+        *   If the flow log is in the **Active** or **Inactive** state, the flow log is modified.
+        *   You cannot repeatedly call the **ModifyFlowLogAttribute** operation to modify a flow log within the specified period of time.
+        
+
+        @param request: ModifyFlowLogAttributeRequest
+
+        @return: ModifyFlowLogAttributeResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_flow_log_attribute_with_options(request, runtime)
 
     def modify_forward_entry_with_options(self, request, runtime):
+        """
+        The ID of the DNAT table to which the DNAT entry belongs.
+        
+
+        @param request: ModifyForwardEntryRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyForwardEntryResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -12163,10 +15566,28 @@ class Client(OpenApiClient):
         )
 
     def modify_forward_entry(self, request):
+        """
+        The ID of the DNAT table to which the DNAT entry belongs.
+        
+
+        @param request: ModifyForwardEntryRequest
+
+        @return: ModifyForwardEntryResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_forward_entry_with_options(request, runtime)
 
     def modify_full_nat_entry_attribute_with_options(self, request, runtime):
+        """
+        The operation that you want to perform. Set the value to *ModifyFullNatEntryAttribute**.
+        
+
+        @param request: ModifyFullNatEntryAttributeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyFullNatEntryAttributeResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.access_ip):
@@ -12223,6 +15644,14 @@ class Client(OpenApiClient):
         )
 
     def modify_full_nat_entry_attribute(self, request):
+        """
+        The operation that you want to perform. Set the value to *ModifyFullNatEntryAttribute**.
+        
+
+        @param request: ModifyFullNatEntryAttributeRequest
+
+        @return: ModifyFullNatEntryAttributeResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_full_nat_entry_attribute_with_options(request, runtime)
 
@@ -12269,6 +15698,17 @@ class Client(OpenApiClient):
         return self.modify_global_acceleration_instance_attributes_with_options(request, runtime)
 
     def modify_global_acceleration_instance_spec_with_options(self, request, runtime):
+        """
+        ## Usage notes
+        You cannot call this operation to modify the maximum bandwidth of a subscription GA instance.
+        
+
+        @param request: ModifyGlobalAccelerationInstanceSpecRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyGlobalAccelerationInstanceSpecResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.bandwidth):
@@ -12305,10 +15745,29 @@ class Client(OpenApiClient):
         )
 
     def modify_global_acceleration_instance_spec(self, request):
+        """
+        ## Usage notes
+        You cannot call this operation to modify the maximum bandwidth of a subscription GA instance.
+        
+
+        @param request: ModifyGlobalAccelerationInstanceSpecRequest
+
+        @return: ModifyGlobalAccelerationInstanceSpecResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_global_acceleration_instance_spec_with_options(request, runtime)
 
     def modify_ha_vip_attribute_with_options(self, request, runtime):
+        """
+        You cannot repeatedly call the *ModifyHaVipAttribute** operation to modify the name and description of an HAVIP within the specified period of time.
+        
+
+        @param request: ModifyHaVipAttributeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyHaVipAttributeResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -12349,10 +15808,29 @@ class Client(OpenApiClient):
         )
 
     def modify_ha_vip_attribute(self, request):
+        """
+        You cannot repeatedly call the *ModifyHaVipAttribute** operation to modify the name and description of an HAVIP within the specified period of time.
+        
+
+        @param request: ModifyHaVipAttributeRequest
+
+        @return: ModifyHaVipAttributeResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_ha_vip_attribute_with_options(request, runtime)
 
     def modify_ipv_6translator_acl_attribute_with_options(self, request, runtime):
+        """
+        @deprecated
+        
+
+        @param request: ModifyIPv6TranslatorAclAttributeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyIPv6TranslatorAclAttributeResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.acl_id):
@@ -12391,6 +15869,15 @@ class Client(OpenApiClient):
         )
 
     def modify_ipv_6translator_acl_attribute(self, request):
+        """
+        @deprecated
+        
+
+        @param request: ModifyIPv6TranslatorAclAttributeRequest
+
+        @return: ModifyIPv6TranslatorAclAttributeResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_ipv_6translator_acl_attribute_with_options(request, runtime)
 
@@ -12525,6 +16012,17 @@ class Client(OpenApiClient):
         return self.modify_ipv_6translator_bandwidth_with_options(request, runtime)
 
     def modify_ipv_6translator_entry_with_options(self, request, runtime):
+        """
+        @deprecated
+        
+
+        @param request: ModifyIPv6TranslatorEntryRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyIPv6TranslatorEntryResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.acl_id):
@@ -12579,6 +16077,15 @@ class Client(OpenApiClient):
         )
 
     def modify_ipv_6translator_entry(self, request):
+        """
+        @deprecated
+        
+
+        @param request: ModifyIPv6TranslatorEntryRequest
+
+        @return: ModifyIPv6TranslatorEntryResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_ipv_6translator_entry_with_options(request, runtime)
 
@@ -12671,6 +16178,16 @@ class Client(OpenApiClient):
         return self.modify_ipv_6gateway_attribute_with_options(request, runtime)
 
     def modify_ipv_6gateway_spec_with_options(self, request, runtime):
+        """
+        You cannot repeatedly call the *ModifyIpv6GatewaySpec** operation to change the specification of an IPv6 gateway within the specified period of time.
+        
+
+        @param request: ModifyIpv6GatewaySpecRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyIpv6GatewaySpecResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -12711,10 +16228,28 @@ class Client(OpenApiClient):
         )
 
     def modify_ipv_6gateway_spec(self, request):
+        """
+        You cannot repeatedly call the *ModifyIpv6GatewaySpec** operation to change the specification of an IPv6 gateway within the specified period of time.
+        
+
+        @param request: ModifyIpv6GatewaySpecRequest
+
+        @return: ModifyIpv6GatewaySpecResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_ipv_6gateway_spec_with_options(request, runtime)
 
     def modify_ipv_6internet_bandwidth_with_options(self, request, runtime):
+        """
+        You cannot call the *ModifyIpv6InternetBandwidth** operation to modify the Internet bandwidth value of an IPv6 CIDR block at the same time.
+        
+
+        @param request: ModifyIpv6InternetBandwidthRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyIpv6InternetBandwidthResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.bandwidth):
@@ -12757,10 +16292,28 @@ class Client(OpenApiClient):
         )
 
     def modify_ipv_6internet_bandwidth(self, request):
+        """
+        You cannot call the *ModifyIpv6InternetBandwidth** operation to modify the Internet bandwidth value of an IPv6 CIDR block at the same time.
+        
+
+        @param request: ModifyIpv6InternetBandwidthRequest
+
+        @return: ModifyIpv6InternetBandwidthResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_ipv_6internet_bandwidth_with_options(request, runtime)
 
     def modify_nat_gateway_attribute_with_options(self, request, runtime):
+        """
+        You can call this operation to query an Internet NAT gateway or a virtual private cloud (VPC) NAT gateway. The term NAT gateway in this topic refers to both types of NAT gateway.
+        
+
+        @param request: ModifyNatGatewayAttributeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyNatGatewayAttributeResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.description):
@@ -12803,10 +16356,38 @@ class Client(OpenApiClient):
         )
 
     def modify_nat_gateway_attribute(self, request):
+        """
+        You can call this operation to query an Internet NAT gateway or a virtual private cloud (VPC) NAT gateway. The term NAT gateway in this topic refers to both types of NAT gateway.
+        
+
+        @param request: ModifyNatGatewayAttributeRequest
+
+        @return: ModifyNatGatewayAttributeResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_nat_gateway_attribute_with_options(request, runtime)
 
     def modify_nat_gateway_spec_with_options(self, request, runtime):
+        """
+        - You cannot call this operation to downgrade a subscription Internet NAT gateway. You can downgrade a subscription Internet NAT gateway only in the console.
+        - When you call this operation to upgrade a subscription Internet NAT gateway, an order is generated. After you complete the payment in the order center, the Internet NAT gateway is upgraded.
+        - **ModifyNatGatewaySpec** is an asynchronous operation. After you make a request, the ID of the request is returned but the Internet NAT gateway is not upgraded. The system upgrades the NAT gateway in the background. You can call the [DescribeNatGateways](/help/en/virtual-private-cloud/latest/describenatgateways) operation to query the status of an Internet NAT gateway.    - If an Internet NAT gateway is in the **Modifying** state, the NAT gateway is being upgraded. In this case, you can only query the NAT gateway but cannot perform other operations.
+        - If an Internet NAT gateway is in the **Available** state, the Internet NAT gateway is upgraded.
+        - You cannot repeatedly call the **ModifyNatGatewaySpec** operation to resize a pay-by-specification NAT gateway.
+        Internet NAT gateways are available in different sizes. The size of an Internet NAT gateway determines the SNAT performance, which includes the maximum number of connections and the number of new connections per second. However, the size of a NAT gateway does not affect the data throughput. The following table describes the correlations between different sizes of Internet NAT gateways and SNAT performance metrics.
+        | Size | Maximum number of connections | Number of new connections per second |
+        | ---- | ----------------------------- | ------------------------------------ |
+        | Small | 10,000 | 1,000 |
+        | Medium | 50,000 | 5,000 |
+        | Large | 200,000 | 10,000 |
+        
+
+        @param request: ModifyNatGatewaySpecRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyNatGatewaySpecResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.auto_pay):
@@ -12847,10 +16428,38 @@ class Client(OpenApiClient):
         )
 
     def modify_nat_gateway_spec(self, request):
+        """
+        - You cannot call this operation to downgrade a subscription Internet NAT gateway. You can downgrade a subscription Internet NAT gateway only in the console.
+        - When you call this operation to upgrade a subscription Internet NAT gateway, an order is generated. After you complete the payment in the order center, the Internet NAT gateway is upgraded.
+        - **ModifyNatGatewaySpec** is an asynchronous operation. After you make a request, the ID of the request is returned but the Internet NAT gateway is not upgraded. The system upgrades the NAT gateway in the background. You can call the [DescribeNatGateways](/help/en/virtual-private-cloud/latest/describenatgateways) operation to query the status of an Internet NAT gateway.    - If an Internet NAT gateway is in the **Modifying** state, the NAT gateway is being upgraded. In this case, you can only query the NAT gateway but cannot perform other operations.
+        - If an Internet NAT gateway is in the **Available** state, the Internet NAT gateway is upgraded.
+        - You cannot repeatedly call the **ModifyNatGatewaySpec** operation to resize a pay-by-specification NAT gateway.
+        Internet NAT gateways are available in different sizes. The size of an Internet NAT gateway determines the SNAT performance, which includes the maximum number of connections and the number of new connections per second. However, the size of a NAT gateway does not affect the data throughput. The following table describes the correlations between different sizes of Internet NAT gateways and SNAT performance metrics.
+        | Size | Maximum number of connections | Number of new connections per second |
+        | ---- | ----------------------------- | ------------------------------------ |
+        | Small | 10,000 | 1,000 |
+        | Medium | 50,000 | 5,000 |
+        | Large | 200,000 | 10,000 |
+        
+
+        @param request: ModifyNatGatewaySpecRequest
+
+        @return: ModifyNatGatewaySpecResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_nat_gateway_spec_with_options(request, runtime)
 
     def modify_nat_ip_attribute_with_options(self, request, runtime):
+        """
+        The ID of the NAT IP address that you want to modify.
+        
+
+        @param request: ModifyNatIpAttributeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyNatIpAttributeResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -12895,6 +16504,14 @@ class Client(OpenApiClient):
         )
 
     def modify_nat_ip_attribute(self, request):
+        """
+        The ID of the NAT IP address that you want to modify.
+        
+
+        @param request: ModifyNatIpAttributeRequest
+
+        @return: ModifyNatIpAttributeResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_nat_ip_attribute_with_options(request, runtime)
 
@@ -12993,6 +16610,20 @@ class Client(OpenApiClient):
         return self.modify_network_acl_attributes_with_options(request, runtime)
 
     def modify_physical_connection_attribute_with_options(self, request, runtime):
+        """
+        ## Limits
+        When you call this operation, take note of the following limits:
+        *   If an Express Connect circuit is in the **Initial**, **Enabled**, or **Rejected** state, you can modify the specifications of the Express Connect circuit and the ID of the redundant circuit.
+        *   If an Express Connect circuit is in the **Canceled**, **Allocating**, **AllocationFailed**, or **Terminated** state, you cannot modify the specifications of the Express Connect circuit.
+        *   After you modify the specifications of an Express Connect circuit that is in the **Rejected** state, the Express Connect circuit enters the **Initial** state.
+        
+
+        @param request: ModifyPhysicalConnectionAttributeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyPhysicalConnectionAttributeResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.circuit_code):
@@ -13047,10 +16678,32 @@ class Client(OpenApiClient):
         )
 
     def modify_physical_connection_attribute(self, request):
+        """
+        ## Limits
+        When you call this operation, take note of the following limits:
+        *   If an Express Connect circuit is in the **Initial**, **Enabled**, or **Rejected** state, you can modify the specifications of the Express Connect circuit and the ID of the redundant circuit.
+        *   If an Express Connect circuit is in the **Canceled**, **Allocating**, **AllocationFailed**, or **Terminated** state, you cannot modify the specifications of the Express Connect circuit.
+        *   After you modify the specifications of an Express Connect circuit that is in the **Rejected** state, the Express Connect circuit enters the **Initial** state.
+        
+
+        @param request: ModifyPhysicalConnectionAttributeRequest
+
+        @return: ModifyPhysicalConnectionAttributeResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_physical_connection_attribute_with_options(request, runtime)
 
     def modify_route_entry_with_options(self, request, runtime):
+        """
+        You cannot repeatedly call the *ModifyRouteEntry** operation to modify the name and description of a custom route within the specified period of time.
+        
+
+        @param request: ModifyRouteEntryRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyRouteEntryResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.description):
@@ -13089,10 +16742,28 @@ class Client(OpenApiClient):
         )
 
     def modify_route_entry(self, request):
+        """
+        You cannot repeatedly call the *ModifyRouteEntry** operation to modify the name and description of a custom route within the specified period of time.
+        
+
+        @param request: ModifyRouteEntryRequest
+
+        @return: ModifyRouteEntryResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_route_entry_with_options(request, runtime)
 
     def modify_route_table_attributes_with_options(self, request, runtime):
+        """
+        You cannot repeatedly call the *ModifyRouteTableAttributes** operation to modify the name and description of a route table within the specified period of time.
+        
+
+        @param request: ModifyRouteTableAttributesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyRouteTableAttributesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.description):
@@ -13131,6 +16802,14 @@ class Client(OpenApiClient):
         )
 
     def modify_route_table_attributes(self, request):
+        """
+        You cannot repeatedly call the *ModifyRouteTableAttributes** operation to modify the name and description of a route table within the specified period of time.
+        
+
+        @param request: ModifyRouteTableAttributesRequest
+
+        @return: ModifyRouteTableAttributesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_route_table_attributes_with_options(request, runtime)
 
@@ -13193,6 +16872,17 @@ class Client(OpenApiClient):
         return self.modify_router_interface_attribute_with_options(request, runtime)
 
     def modify_router_interface_spec_with_options(self, request, runtime):
+        """
+        After you call this operation, the router interface enters the *Activating** state. After the router interface is activated, the router interface enters the **Active** state.
+        >  You cannot modify the specifications of a router interface that has overdue payments.
+        
+
+        @param request: ModifyRouterInterfaceSpecRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyRouterInterfaceSpecResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -13231,10 +16921,33 @@ class Client(OpenApiClient):
         )
 
     def modify_router_interface_spec(self, request):
+        """
+        After you call this operation, the router interface enters the *Activating** state. After the router interface is activated, the router interface enters the **Active** state.
+        >  You cannot modify the specifications of a router interface that has overdue payments.
+        
+
+        @param request: ModifyRouterInterfaceSpecRequest
+
+        @return: ModifyRouterInterfaceSpecResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_router_interface_spec_with_options(request, runtime)
 
     def modify_snat_entry_with_options(self, request, runtime):
+        """
+        *ModifySnatEntry** is an asynchronous operation. After you make a request, the ID of the request is returned but the specified SNAT entry is not modified. The system modifies the entry in the background. You can call the [DescribeSnatTableEntries](~~42677~~) operation to query the status of a SNAT entry.
+        *   **Pending**: indicates that the system is modifying the SNAT entry. You can only query the status of the SNAT entry, but cannot perform other operations.
+        *   **Available**: indicates that the SNAT entry is modified.
+        >  **Pending**: indicates that you cannot modify the SNAT entry in the SNAT table.
+        You cannot repeatedly call the **ModifySnatEntry** operation to modify an SNAT entry within the specified period of time.
+        
+
+        @param request: ModifySnatEntryRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifySnatEntryResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -13277,6 +16990,18 @@ class Client(OpenApiClient):
         )
 
     def modify_snat_entry(self, request):
+        """
+        *ModifySnatEntry** is an asynchronous operation. After you make a request, the ID of the request is returned but the specified SNAT entry is not modified. The system modifies the entry in the background. You can call the [DescribeSnatTableEntries](~~42677~~) operation to query the status of a SNAT entry.
+        *   **Pending**: indicates that the system is modifying the SNAT entry. You can only query the status of the SNAT entry, but cannot perform other operations.
+        *   **Available**: indicates that the SNAT entry is modified.
+        >  **Pending**: indicates that you cannot modify the SNAT entry in the SNAT table.
+        You cannot repeatedly call the **ModifySnatEntry** operation to modify an SNAT entry within the specified period of time.
+        
+
+        @param request: ModifySnatEntryRequest
+
+        @return: ModifySnatEntryResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_snat_entry_with_options(request, runtime)
 
@@ -13323,6 +17048,20 @@ class Client(OpenApiClient):
         return self.modify_ssl_vpn_client_cert_with_options(request, runtime)
 
     def modify_ssl_vpn_server_with_options(self, request, runtime):
+        """
+        If you modify only the **name** of the SSL server, the operation is synchronous. If you also modify other configurations, the operation is asynchronous.
+        *   When **ModifySslVpnServer** is an asynchronous operation, the system returns the request ID but the operation is still being performed in the system background. You can call [DescribeVpnGateway](~~73720~~) to query the status of a VPN gateway.
+        *   If a VPN gateway is in the **updating** state, the configurations of the SSL server are being modified.
+        *   If a VPN gateway is in the **active** state, the configurations of the SSL server have been modified.
+        *   You cannot repeatedly call **ModifySslVpnServer** to modify the configurations of an SSL server within the specified period of time.
+        
+
+        @param request: ModifySslVpnServerRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifySslVpnServerResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.cipher):
@@ -13379,10 +17118,32 @@ class Client(OpenApiClient):
         )
 
     def modify_ssl_vpn_server(self, request):
+        """
+        If you modify only the **name** of the SSL server, the operation is synchronous. If you also modify other configurations, the operation is asynchronous.
+        *   When **ModifySslVpnServer** is an asynchronous operation, the system returns the request ID but the operation is still being performed in the system background. You can call [DescribeVpnGateway](~~73720~~) to query the status of a VPN gateway.
+        *   If a VPN gateway is in the **updating** state, the configurations of the SSL server are being modified.
+        *   If a VPN gateway is in the **active** state, the configurations of the SSL server have been modified.
+        *   You cannot repeatedly call **ModifySslVpnServer** to modify the configurations of an SSL server within the specified period of time.
+        
+
+        @param request: ModifySslVpnServerRequest
+
+        @return: ModifySslVpnServerResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_ssl_vpn_server_with_options(request, runtime)
 
     def modify_vrouter_attribute_with_options(self, request, runtime):
+        """
+        The ID of the vRouter.
+        
+
+        @param request: ModifyVRouterAttributeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyVRouterAttributeResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.description):
@@ -13421,10 +17182,31 @@ class Client(OpenApiClient):
         )
 
     def modify_vrouter_attribute(self, request):
+        """
+        The ID of the vRouter.
+        
+
+        @param request: ModifyVRouterAttributeRequest
+
+        @return: ModifyVRouterAttributeResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_vrouter_attribute_with_options(request, runtime)
 
     def modify_vswitch_attribute_with_options(self, request, runtime):
+        """
+        The **ModifyVSwitchAttribute** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeVSwitchAttributes](~~94567~~) operation to query the status of a vSwitch:
+        *   If the vSwitch is in the **Pending** state, the vSwitch is being modified.
+        *   If the vSwitch is in the **Available** state, the vSwitch is available.
+        *   You cannot repeatedly call the **ModifyVSwitchAttribute** operation to modify the name and description of a vSwitch within the specified period of time.
+        
+
+        @param request: ModifyVSwitchAttributeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyVSwitchAttributeResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.description):
@@ -13469,10 +17251,34 @@ class Client(OpenApiClient):
         )
 
     def modify_vswitch_attribute(self, request):
+        """
+        The **ModifyVSwitchAttribute** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeVSwitchAttributes](~~94567~~) operation to query the status of a vSwitch:
+        *   If the vSwitch is in the **Pending** state, the vSwitch is being modified.
+        *   If the vSwitch is in the **Available** state, the vSwitch is available.
+        *   You cannot repeatedly call the **ModifyVSwitchAttribute** operation to modify the name and description of a vSwitch within the specified period of time.
+        
+
+        @param request: ModifyVSwitchAttributeRequest
+
+        @return: ModifyVSwitchAttributeResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_vswitch_attribute_with_options(request, runtime)
 
     def modify_vco_route_entry_weight_with_options(self, request, runtime):
+        """
+        **ModifyVcoRouteEntryWeight** is an asynchronous operation. After you send a request, the system returns a request ID and runs the task in the background. You can call the [DescribeVpnConnection](~~53046~~) operation to query the status of the associated IPsec-VPN connection and determine whether the weight of the specified destination-based route is modified.
+        *   If the IPsec-VPN connection is in the **updating** state, the weight of the destination-based route is being modified.
+        *   If the IPsec-VPN connection is in the **attached** state, the weight of the destination-based route is modified.
+        *   You cannot repeatedly call the **ModifyVcoRouteEntryWeight** operation for the same IPsec-VPN connection within the specified period of time.
+        
+
+        @param request: ModifyVcoRouteEntryWeightRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyVcoRouteEntryWeightResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -13517,10 +17323,36 @@ class Client(OpenApiClient):
         )
 
     def modify_vco_route_entry_weight(self, request):
+        """
+        **ModifyVcoRouteEntryWeight** is an asynchronous operation. After you send a request, the system returns a request ID and runs the task in the background. You can call the [DescribeVpnConnection](~~53046~~) operation to query the status of the associated IPsec-VPN connection and determine whether the weight of the specified destination-based route is modified.
+        *   If the IPsec-VPN connection is in the **updating** state, the weight of the destination-based route is being modified.
+        *   If the IPsec-VPN connection is in the **attached** state, the weight of the destination-based route is modified.
+        *   You cannot repeatedly call the **ModifyVcoRouteEntryWeight** operation for the same IPsec-VPN connection within the specified period of time.
+        
+
+        @param request: ModifyVcoRouteEntryWeightRequest
+
+        @return: ModifyVcoRouteEntryWeightResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_vco_route_entry_weight_with_options(request, runtime)
 
     def modify_virtual_border_router_attribute_with_options(self, request, runtime):
+        """
+        Only the owner of an Express Connect circuit can modify the **VlanId** parameter.
+        *   One VLAN ID of an Express Connect circuit cannot be used by two VBRs at the same time.
+        *   The VLAN ID of a VBR in the **Terminated** state is reserved for seven days and cannot be used by other VBRs. The VLAN ID can be used by other VBRs after 7 days.
+        *   You cannot set **LocalGatewayIp**, **PeerGatewayIp**, or **PeeringSubnetMask** for VBRs that do not belong to your Alibaba Cloud account.
+        *   Set **PeeringSubnetMask** to a subnet mask with 24 to 30 bits in length (255.255.255.0～255.255.255.252).
+        *   Set **LocalGatewayIp** and **PeerGatewayIp** to IP addresses that belong to the same CIDR block. For example, you can set LocalGatewayIp to 192.168.XX.XX, PeerGatewayIp to 192.168.XX.XX, and PeeringSubnetMask to 255.255.255.248.
+        
+
+        @param request: ModifyVirtualBorderRouterAttributeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyVirtualBorderRouterAttributeResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.associated_physical_connections):
@@ -13589,10 +17421,33 @@ class Client(OpenApiClient):
         )
 
     def modify_virtual_border_router_attribute(self, request):
+        """
+        Only the owner of an Express Connect circuit can modify the **VlanId** parameter.
+        *   One VLAN ID of an Express Connect circuit cannot be used by two VBRs at the same time.
+        *   The VLAN ID of a VBR in the **Terminated** state is reserved for seven days and cannot be used by other VBRs. The VLAN ID can be used by other VBRs after 7 days.
+        *   You cannot set **LocalGatewayIp**, **PeerGatewayIp**, or **PeeringSubnetMask** for VBRs that do not belong to your Alibaba Cloud account.
+        *   Set **PeeringSubnetMask** to a subnet mask with 24 to 30 bits in length (255.255.255.0～255.255.255.252).
+        *   Set **LocalGatewayIp** and **PeerGatewayIp** to IP addresses that belong to the same CIDR block. For example, you can set LocalGatewayIp to 192.168.XX.XX, PeerGatewayIp to 192.168.XX.XX, and PeeringSubnetMask to 255.255.255.248.
+        
+
+        @param request: ModifyVirtualBorderRouterAttributeRequest
+
+        @return: ModifyVirtualBorderRouterAttributeResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_virtual_border_router_attribute_with_options(request, runtime)
 
     def modify_vpc_attribute_with_options(self, request, runtime):
+        """
+        You cannot repeatedly call the *ModifyVpcAttribute** operation to modify the name and description of a VPC within the specified period of time.
+        
+
+        @param request: ModifyVpcAttributeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyVpcAttributeResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.cidr_block):
@@ -13639,10 +17494,28 @@ class Client(OpenApiClient):
         )
 
     def modify_vpc_attribute(self, request):
+        """
+        You cannot repeatedly call the *ModifyVpcAttribute** operation to modify the name and description of a VPC within the specified period of time.
+        
+
+        @param request: ModifyVpcAttributeRequest
+
+        @return: ModifyVpcAttributeResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_vpc_attribute_with_options(request, runtime)
 
     def modify_vpc_prefix_list_with_options(self, request, runtime):
+        """
+        The ID of the prefix list.
+        
+
+        @param request: ModifyVpcPrefixListRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyVpcPrefixListResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.add_prefix_list_entry):
@@ -13691,10 +17564,34 @@ class Client(OpenApiClient):
         )
 
     def modify_vpc_prefix_list(self, request):
+        """
+        The ID of the prefix list.
+        
+
+        @param request: ModifyVpcPrefixListRequest
+
+        @return: ModifyVpcPrefixListResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_vpc_prefix_list_with_options(request, runtime)
 
     def modify_vpn_attachment_attribute_with_options(self, request, runtime):
+        """
+        **ModifyVpnAttachmentAttribute** is an asynchronous operation. After you send a request, the system returns a request ID and runs the task in the background. You can call the [DescribeVpnConnection](~~53046~~) operation to query the status of an IPsec-VPN connection.
+        *   If the IPsec-VPN connection is in the **updating** state, it indicates that the IPsec-VPN connection is being modified.
+        *   If the IPsec-VPN connection is in the **attached** state, it indicates that the IPsec-VPN connection is modified.
+        *   You cannot call the **ModifyVpnAttachmentAttribute** operation again on the same IPsec-VPN connection before the previous operation is complete.
+        *   When you call the **ModifyVpnAttachmentAttribute** operation, take note of the following items:
+        *   If the IPsec-VPN connection is associated with a transit router, you cannot change the type of the gateway connected to the IPsec-VPN connection.
+        *   If the IPsec-VPN connection is not associated with a resource, you cannot change the type of the gateway connected to the IPsec-VPN connection or the customer gateway connected to the IPsec-VPN connection.
+        
+
+        @param request: ModifyVpnAttachmentAttributeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyVpnAttachmentAttributeResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.auto_config_route):
@@ -13757,10 +17654,37 @@ class Client(OpenApiClient):
         )
 
     def modify_vpn_attachment_attribute(self, request):
+        """
+        **ModifyVpnAttachmentAttribute** is an asynchronous operation. After you send a request, the system returns a request ID and runs the task in the background. You can call the [DescribeVpnConnection](~~53046~~) operation to query the status of an IPsec-VPN connection.
+        *   If the IPsec-VPN connection is in the **updating** state, it indicates that the IPsec-VPN connection is being modified.
+        *   If the IPsec-VPN connection is in the **attached** state, it indicates that the IPsec-VPN connection is modified.
+        *   You cannot call the **ModifyVpnAttachmentAttribute** operation again on the same IPsec-VPN connection before the previous operation is complete.
+        *   When you call the **ModifyVpnAttachmentAttribute** operation, take note of the following items:
+        *   If the IPsec-VPN connection is associated with a transit router, you cannot change the type of the gateway connected to the IPsec-VPN connection.
+        *   If the IPsec-VPN connection is not associated with a resource, you cannot change the type of the gateway connected to the IPsec-VPN connection or the customer gateway connected to the IPsec-VPN connection.
+        
+
+        @param request: ModifyVpnAttachmentAttributeRequest
+
+        @return: ModifyVpnAttachmentAttributeResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_vpn_attachment_attribute_with_options(request, runtime)
 
     def modify_vpn_connection_attribute_with_options(self, request, runtime):
+        """
+        **ModifyVpnConnectionAttribute** is an asynchronous operation. After you send a request, the system returns a request ID and runs the task in the background. You can call the [DescribeVpnGateway](~~73720~~) operation to query the status of the VPN gateway. The status of the VPN gateway indicates whether the IPsec-VPN connection is modified.
+        *   If the VPN gateway is in the **updating** state, it indicates that the IPsec-VPN connection is being modified.
+        *   If the VPN gateway is in the **active** state, it indicates that the IPsec-VPN connection is modified.
+        *   You cannot call the **ModifyVpnConnectionAttribute** operation again on the same VPN gateway to modify the configuration of an IPsec-VPN connection before the previous operation is complete.
+        
+
+        @param request: ModifyVpnConnectionAttributeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyVpnConnectionAttributeResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.auto_config_route):
@@ -13775,6 +17699,8 @@ class Client(OpenApiClient):
             query['EnableDpd'] = request.enable_dpd
         if not UtilClient.is_unset(request.enable_nat_traversal):
             query['EnableNatTraversal'] = request.enable_nat_traversal
+        if not UtilClient.is_unset(request.enable_tunnels_bgp):
+            query['EnableTunnelsBgp'] = request.enable_tunnels_bgp
         if not UtilClient.is_unset(request.health_check_config):
             query['HealthCheckConfig'] = request.health_check_config
         if not UtilClient.is_unset(request.ike_config):
@@ -13801,8 +17727,15 @@ class Client(OpenApiClient):
             query['ResourceOwnerId'] = request.resource_owner_id
         if not UtilClient.is_unset(request.vpn_connection_id):
             query['VpnConnectionId'] = request.vpn_connection_id
+        body = {}
+        body_flat = {}
+        if not UtilClient.is_unset(request.tunnel_options_specification):
+            body_flat['TunnelOptionsSpecification'] = request.tunnel_options_specification
+        body = TeaCore.merge(body,
+            OpenApiUtilClient.query(body_flat))
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='ModifyVpnConnectionAttribute',
@@ -13821,10 +17754,34 @@ class Client(OpenApiClient):
         )
 
     def modify_vpn_connection_attribute(self, request):
+        """
+        **ModifyVpnConnectionAttribute** is an asynchronous operation. After you send a request, the system returns a request ID and runs the task in the background. You can call the [DescribeVpnGateway](~~73720~~) operation to query the status of the VPN gateway. The status of the VPN gateway indicates whether the IPsec-VPN connection is modified.
+        *   If the VPN gateway is in the **updating** state, it indicates that the IPsec-VPN connection is being modified.
+        *   If the VPN gateway is in the **active** state, it indicates that the IPsec-VPN connection is modified.
+        *   You cannot call the **ModifyVpnConnectionAttribute** operation again on the same VPN gateway to modify the configuration of an IPsec-VPN connection before the previous operation is complete.
+        
+
+        @param request: ModifyVpnConnectionAttributeRequest
+
+        @return: ModifyVpnConnectionAttributeResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_vpn_connection_attribute_with_options(request, runtime)
 
     def modify_vpn_gateway_attribute_with_options(self, request, runtime):
+        """
+        **ModifyVpnGatewayAttribute** is an asynchronous operation. After you send the request, the information about the VPN gateway is returned but the operation is still being performed in the system background. You can call the [DescribeVpnGateway](~~73720~~) operation to query the status of a VPN gateway.
+        *   If a VPN gateway is in the **updating** state, the VPN gateway is being modified.
+        *   If a VPN gateway is in the **active** state, the VPN gateway has been modified.
+        *   You cannot repeatedly call **ModifyVpnGatewayAttribute** to modify a VPN gateway within the specified period of time.
+        
+
+        @param request: ModifyVpnGatewayAttributeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyVpnGatewayAttributeResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.auto_propagate):
@@ -13867,10 +17824,38 @@ class Client(OpenApiClient):
         )
 
     def modify_vpn_gateway_attribute(self, request):
+        """
+        **ModifyVpnGatewayAttribute** is an asynchronous operation. After you send the request, the information about the VPN gateway is returned but the operation is still being performed in the system background. You can call the [DescribeVpnGateway](~~73720~~) operation to query the status of a VPN gateway.
+        *   If a VPN gateway is in the **updating** state, the VPN gateway is being modified.
+        *   If a VPN gateway is in the **active** state, the VPN gateway has been modified.
+        *   You cannot repeatedly call **ModifyVpnGatewayAttribute** to modify a VPN gateway within the specified period of time.
+        
+
+        @param request: ModifyVpnGatewayAttributeRequest
+
+        @return: ModifyVpnGatewayAttributeResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_vpn_gateway_attribute_with_options(request, runtime)
 
     def modify_vpn_pbr_route_entry_attribute_with_options(self, request, runtime):
+        """
+        You can call the **ModifyVpnPbrRouteEntryAttribute** operation to modify the weight and priority of a policy-based route.
+        *   If you want to modify only the weight of a policy-based route, call [ModifyVpnPbrRouteEntryWeight](~~127249~~).
+        *   If you want to modify only the priority of a policy-based route, call [ModifyVpnPbrRouteEntryPriority](~~466870~~).
+        *   If a policy-based route does not support priorities, you can only call [ModifyVpnPbrRouteEntryWeight](~~127249~~) to modify its weight.
+        *   The **ModifyVpnPbrRouteEntryAttribute** operation is asynchronous. After you send a request, the system returns a request ID, but the operation is still being performed in the system background. You can call [DescribeVpnGateway](~~73720~~) to query the status of a VPN gateway.
+        *   If the VPN gateway is in the **updating** state, the policy-based route is being created.
+        *   If the VPN gateway is in the **active** state, the policy-based route is created.
+        *   You cannot repeatedly call the **ModifyVpnPbrRouteEntryAttribute** operation for the same VPN gateway within the specified period of time
+        
+
+        @param request: ModifyVpnPbrRouteEntryAttributeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyVpnPbrRouteEntryAttributeResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -13921,10 +17906,38 @@ class Client(OpenApiClient):
         )
 
     def modify_vpn_pbr_route_entry_attribute(self, request):
+        """
+        You can call the **ModifyVpnPbrRouteEntryAttribute** operation to modify the weight and priority of a policy-based route.
+        *   If you want to modify only the weight of a policy-based route, call [ModifyVpnPbrRouteEntryWeight](~~127249~~).
+        *   If you want to modify only the priority of a policy-based route, call [ModifyVpnPbrRouteEntryPriority](~~466870~~).
+        *   If a policy-based route does not support priorities, you can only call [ModifyVpnPbrRouteEntryWeight](~~127249~~) to modify its weight.
+        *   The **ModifyVpnPbrRouteEntryAttribute** operation is asynchronous. After you send a request, the system returns a request ID, but the operation is still being performed in the system background. You can call [DescribeVpnGateway](~~73720~~) to query the status of a VPN gateway.
+        *   If the VPN gateway is in the **updating** state, the policy-based route is being created.
+        *   If the VPN gateway is in the **active** state, the policy-based route is created.
+        *   You cannot repeatedly call the **ModifyVpnPbrRouteEntryAttribute** operation for the same VPN gateway within the specified period of time
+        
+
+        @param request: ModifyVpnPbrRouteEntryAttributeRequest
+
+        @return: ModifyVpnPbrRouteEntryAttributeResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_vpn_pbr_route_entry_attribute_with_options(request, runtime)
 
     def modify_vpn_pbr_route_entry_priority_with_options(self, request, runtime):
+        """
+        The **ModifyVpnPbrRouteEntryPriority** operation is asynchronous. After you send a request, the system returns a request ID, but the operation is still being performed in the system background. You can call [DescribeVpnGateway](~~73720~~) to query the status of a VPN gateway.
+        *   If the VPN gateway is in the **updating** state, the policy-based route is being created.
+        *   If the VPN gateway is in the **active** state, the policy-based route is created.
+        *   You cannot repeatedly call the **ModifyVpnPbrRouteEntryPriority** operation for the same VPN gateway within the specified period of time.
+        
+
+        @param request: ModifyVpnPbrRouteEntryPriorityRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyVpnPbrRouteEntryPriorityResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -13973,10 +17986,34 @@ class Client(OpenApiClient):
         )
 
     def modify_vpn_pbr_route_entry_priority(self, request):
+        """
+        The **ModifyVpnPbrRouteEntryPriority** operation is asynchronous. After you send a request, the system returns a request ID, but the operation is still being performed in the system background. You can call [DescribeVpnGateway](~~73720~~) to query the status of a VPN gateway.
+        *   If the VPN gateway is in the **updating** state, the policy-based route is being created.
+        *   If the VPN gateway is in the **active** state, the policy-based route is created.
+        *   You cannot repeatedly call the **ModifyVpnPbrRouteEntryPriority** operation for the same VPN gateway within the specified period of time.
+        
+
+        @param request: ModifyVpnPbrRouteEntryPriorityRequest
+
+        @return: ModifyVpnPbrRouteEntryPriorityResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_vpn_pbr_route_entry_priority_with_options(request, runtime)
 
     def modify_vpn_pbr_route_entry_weight_with_options(self, request, runtime):
+        """
+        The **ModifyVpnPbrRouteEntryWeight** operation is asynchronous. After you send a request, the system returns a request ID, but the operation is still being performed in the system background. You can call [DescribeVpnGateway](~~73720~~) to query the status of a VPN gateway.
+        *   If a VPN gateway is in the **updating** state, the policy-based route entry is being modified.
+        *   If a VPN gateway is in the **active** state, the policy-based route entry is modified.
+        *   You cannot repeatedly call the **ModifyVpnPbrRouteEntryWeight** operation for the same VPN gateway within the specified period of time.
+        
+
+        @param request: ModifyVpnPbrRouteEntryWeightRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyVpnPbrRouteEntryWeightResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -14027,10 +18064,34 @@ class Client(OpenApiClient):
         )
 
     def modify_vpn_pbr_route_entry_weight(self, request):
+        """
+        The **ModifyVpnPbrRouteEntryWeight** operation is asynchronous. After you send a request, the system returns a request ID, but the operation is still being performed in the system background. You can call [DescribeVpnGateway](~~73720~~) to query the status of a VPN gateway.
+        *   If a VPN gateway is in the **updating** state, the policy-based route entry is being modified.
+        *   If a VPN gateway is in the **active** state, the policy-based route entry is modified.
+        *   You cannot repeatedly call the **ModifyVpnPbrRouteEntryWeight** operation for the same VPN gateway within the specified period of time.
+        
+
+        @param request: ModifyVpnPbrRouteEntryWeightRequest
+
+        @return: ModifyVpnPbrRouteEntryWeightResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_vpn_pbr_route_entry_weight_with_options(request, runtime)
 
     def modify_vpn_route_entry_weight_with_options(self, request, runtime):
+        """
+        The **ModifyVpnRouteEntryWeight** operation is asynchronous. After you send a request, the system returns a request ID, but the operation is still being performed in the system background. You can call [DescribeVpnGateway](~~73720~~) to query the status of a VPN gateway.
+        *   If the VPN gateway is in the **updating** state, the weight of the destination-based route is being modified.
+        *   If the VPN gateway is in the **active** state, the weight of the destination-based route is modified.
+        *   You cannot repeatedly call the **ModifyVpnRouteEntryWeight** operation to modify the weight of destination-based route for the same VPN gateway within the specified period of time.
+        
+
+        @param request: ModifyVpnRouteEntryWeightRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyVpnRouteEntryWeightResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -14077,6 +18138,17 @@ class Client(OpenApiClient):
         )
 
     def modify_vpn_route_entry_weight(self, request):
+        """
+        The **ModifyVpnRouteEntryWeight** operation is asynchronous. After you send a request, the system returns a request ID, but the operation is still being performed in the system background. You can call [DescribeVpnGateway](~~73720~~) to query the status of a VPN gateway.
+        *   If the VPN gateway is in the **updating** state, the weight of the destination-based route is being modified.
+        *   If the VPN gateway is in the **active** state, the weight of the destination-based route is modified.
+        *   You cannot repeatedly call the **ModifyVpnRouteEntryWeight** operation to modify the weight of destination-based route for the same VPN gateway within the specified period of time.
+        
+
+        @param request: ModifyVpnRouteEntryWeightRequest
+
+        @return: ModifyVpnRouteEntryWeightResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_vpn_route_entry_weight_with_options(request, runtime)
 
@@ -14123,6 +18195,17 @@ class Client(OpenApiClient):
         return self.move_resource_group_with_options(request, runtime)
 
     def open_flow_log_service_with_options(self, request, runtime):
+        """
+        You cannot repeatedly call the **OpenFlowLogService** operation within the specified period of time by using an Alibaba Cloud account.
+        *   You can call the [GetFlowLogServiceStatus](~~449624~~) operation to query the status of the flow log feature.
+        
+
+        @param request: OpenFlowLogServiceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: OpenFlowLogServiceResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -14159,6 +18242,15 @@ class Client(OpenApiClient):
         )
 
     def open_flow_log_service(self, request):
+        """
+        You cannot repeatedly call the **OpenFlowLogService** operation within the specified period of time by using an Alibaba Cloud account.
+        *   You can call the [GetFlowLogServiceStatus](~~449624~~) operation to query the status of the flow log feature.
+        
+
+        @param request: OpenFlowLogServiceRequest
+
+        @return: OpenFlowLogServiceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.open_flow_log_service_with_options(request, runtime)
 
@@ -14199,10 +18291,32 @@ class Client(OpenApiClient):
         return self.open_physical_connection_service_with_options(request, runtime)
 
     def open_traffic_mirror_service_with_options(self, request, runtime):
+        """
+        You can enable traffic mirroring for different regions. You cannot repeatedly call the *OpenTrafficMirrorService** operation to enable traffic mirroring for one region within the specified period of time.
+        
+
+        @param request: OpenTrafficMirrorServiceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: OpenTrafficMirrorServiceResponse
+        """
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
         if not UtilClient.is_unset(request.owner_id):
             query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -14223,6 +18337,14 @@ class Client(OpenApiClient):
         )
 
     def open_traffic_mirror_service(self, request):
+        """
+        You can enable traffic mirroring for different regions. You cannot repeatedly call the *OpenTrafficMirrorService** operation to enable traffic mirroring for one region within the specified period of time.
+        
+
+        @param request: OpenTrafficMirrorServiceRequest
+
+        @return: OpenTrafficMirrorServiceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.open_traffic_mirror_service_with_options(request, runtime)
 
@@ -14275,6 +18397,17 @@ class Client(OpenApiClient):
         return self.publish_vpn_route_entry_with_options(request, runtime)
 
     def recover_physical_connection_with_options(self, request, runtime):
+        """
+        The ID of the Express Connect circuit.
+        >  You can resume only shared Express Connect circuits.
+        
+
+        @param request: RecoverPhysicalConnectionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RecoverPhysicalConnectionResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dry_run):
@@ -14305,10 +18438,32 @@ class Client(OpenApiClient):
         )
 
     def recover_physical_connection(self, request):
+        """
+        The ID of the Express Connect circuit.
+        >  You can resume only shared Express Connect circuits.
+        
+
+        @param request: RecoverPhysicalConnectionRequest
+
+        @return: RecoverPhysicalConnectionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.recover_physical_connection_with_options(request, runtime)
 
     def recover_virtual_border_router_with_options(self, request, runtime):
+        """
+        After the operation is called, the virtual border router (VBR) changes from the *Terminated** state to the **Recovering** state. When the VBR recovers, it enters the **Enabled** state.
+        When you call this operation, take note of the following items:
+        *   Only the owner of the Express Connect circuit can call this operation.
+        *   The Express Connect circuit to which the VBR connects must be in the **Enabled** state.
+        
+
+        @param request: RecoverVirtualBorderRouterRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RecoverVirtualBorderRouterResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -14345,10 +18500,38 @@ class Client(OpenApiClient):
         )
 
     def recover_virtual_border_router(self, request):
+        """
+        After the operation is called, the virtual border router (VBR) changes from the *Terminated** state to the **Recovering** state. When the VBR recovers, it enters the **Enabled** state.
+        When you call this operation, take note of the following items:
+        *   Only the owner of the Express Connect circuit can call this operation.
+        *   The Express Connect circuit to which the VBR connects must be in the **Enabled** state.
+        
+
+        @param request: RecoverVirtualBorderRouterRequest
+
+        @return: RecoverVirtualBorderRouterResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.recover_virtual_border_router_with_options(request, runtime)
 
     def release_eip_address_with_options(self, request, runtime):
+        """
+        Before you call this operation, take note of the following limits:
+        *   Before you release an EIP, make sure that the EIP meets the following requirements:
+        *   You can release only an EIP that is in the **Available** state.
+        *   You can release only a pay-as-you-go EIP. You cannot release a subscription EIP.
+        *   The **ReleaseEipAddress** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeEipAddresses](~~120193~~) operation to query the status of an EIP:
+        *   If the EIP is in the **Releasing** state, the EIP is being released. In this state, you can only query the EIP and cannot perform other operations.
+        *   If you cannot query the EIP, the EIP is released.
+        *   You cannot repeatedly call the **ReleaseEipAddress** operation to release an EIP within the specified period of time.
+        
+
+        @param request: ReleaseEipAddressRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ReleaseEipAddressResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.allocation_id):
@@ -14383,10 +18566,39 @@ class Client(OpenApiClient):
         )
 
     def release_eip_address(self, request):
+        """
+        Before you call this operation, take note of the following limits:
+        *   Before you release an EIP, make sure that the EIP meets the following requirements:
+        *   You can release only an EIP that is in the **Available** state.
+        *   You can release only a pay-as-you-go EIP. You cannot release a subscription EIP.
+        *   The **ReleaseEipAddress** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeEipAddresses](~~120193~~) operation to query the status of an EIP:
+        *   If the EIP is in the **Releasing** state, the EIP is being released. In this state, you can only query the EIP and cannot perform other operations.
+        *   If you cannot query the EIP, the EIP is released.
+        *   You cannot repeatedly call the **ReleaseEipAddress** operation to release an EIP within the specified period of time.
+        
+
+        @param request: ReleaseEipAddressRequest
+
+        @return: ReleaseEipAddressResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.release_eip_address_with_options(request, runtime)
 
     def release_eip_segment_address_with_options(self, request, runtime):
+        """
+        After you call the **ReleaseEipSegmentAddress** operation, all EIPs in the specified group are released.
+        *   The **ReleaseEipSegmentAddress** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeEipSegment](~~156063~~) operation to query the status of a group of contiguous EIPs:
+        *   If the group is in the **Releasing** state, EIPs in the group are being released. In this state, you can only query the group and cannot perform other operations.
+        *   If you cannot query the group of contiguous EIPs, the contiguous EIPs are released.
+        *   You cannot repeatedly call the **ReleaseEipSegmentAddress** operation to release a group of contiguous EIPs within the specified period of time.
+        
+
+        @param request: ReleaseEipSegmentAddressRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ReleaseEipSegmentAddressResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -14423,6 +18635,18 @@ class Client(OpenApiClient):
         )
 
     def release_eip_segment_address(self, request):
+        """
+        After you call the **ReleaseEipSegmentAddress** operation, all EIPs in the specified group are released.
+        *   The **ReleaseEipSegmentAddress** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeEipSegment](~~156063~~) operation to query the status of a group of contiguous EIPs:
+        *   If the group is in the **Releasing** state, EIPs in the group are being released. In this state, you can only query the group and cannot perform other operations.
+        *   If you cannot query the group of contiguous EIPs, the contiguous EIPs are released.
+        *   You cannot repeatedly call the **ReleaseEipSegmentAddress** operation to release a group of contiguous EIPs within the specified period of time.
+        
+
+        @param request: ReleaseEipSegmentAddressRequest
+
+        @return: ReleaseEipSegmentAddressResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.release_eip_segment_address_with_options(request, runtime)
 
@@ -14551,6 +18775,18 @@ class Client(OpenApiClient):
         return self.remove_ipv_6translator_acl_list_entry_with_options(request, runtime)
 
     def remove_sources_from_traffic_mirror_session_with_options(self, request, runtime):
+        """
+        The client token that is used to ensure the idempotence of the request.
+        You can use the client to generate the value, but you must make sure that the value is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length.
+        >  If you do not set this parameter, the system uses **RequestId** as **ClientToken**. **RequestId** may be different for each API request.
+        
+
+        @param request: RemoveSourcesFromTrafficMirrorSessionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RemoveSourcesFromTrafficMirrorSessionResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -14591,10 +18827,33 @@ class Client(OpenApiClient):
         )
 
     def remove_sources_from_traffic_mirror_session(self, request):
+        """
+        The client token that is used to ensure the idempotence of the request.
+        You can use the client to generate the value, but you must make sure that the value is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length.
+        >  If you do not set this parameter, the system uses **RequestId** as **ClientToken**. **RequestId** may be different for each API request.
+        
+
+        @param request: RemoveSourcesFromTrafficMirrorSessionRequest
+
+        @return: RemoveSourcesFromTrafficMirrorSessionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.remove_sources_from_traffic_mirror_session_with_options(request, runtime)
 
     def replace_vpc_dhcp_options_set_with_options(self, request, runtime):
+        """
+        The **ReplaceVpcDhcpOptionsSet** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeVpcAttribute](~~94565~~) operation to query the status of a DHCP options set:
+        *   If the DHCP options set is in the **Pending** state, the DHCP options set is being replaced.
+        *   If the DHCP options set is in the **InUse** state, the DHCP options set is replaced.
+        *   You cannot repeatedly call the **ReplaceVpcDhcpOptionsSet** operation to replace the DHCP options set associated with a VPC within the specified period of time.
+        
+
+        @param request: ReplaceVpcDhcpOptionsSetRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ReplaceVpcDhcpOptionsSetResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -14635,10 +18894,38 @@ class Client(OpenApiClient):
         )
 
     def replace_vpc_dhcp_options_set(self, request):
+        """
+        The **ReplaceVpcDhcpOptionsSet** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeVpcAttribute](~~94565~~) operation to query the status of a DHCP options set:
+        *   If the DHCP options set is in the **Pending** state, the DHCP options set is being replaced.
+        *   If the DHCP options set is in the **InUse** state, the DHCP options set is replaced.
+        *   You cannot repeatedly call the **ReplaceVpcDhcpOptionsSet** operation to replace the DHCP options set associated with a VPC within the specified period of time.
+        
+
+        @param request: ReplaceVpcDhcpOptionsSetRequest
+
+        @return: ReplaceVpcDhcpOptionsSetResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.replace_vpc_dhcp_options_set_with_options(request, runtime)
 
     def retry_vpc_prefix_list_association_with_options(self, request, runtime):
+        """
+        If you modify the information about a prefix list but the modification is not automatically applied to the route table that is associated with the prefix list, you can call this operation to apply the latest prefix list to the associated route table.
+        *   The **RetryVpcPrefixListAssociation** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the background. You can call the [GetVpcPrefixListAssociations](~~445478~~) to check whether the prefix list is re-applied.
+        *   If the prefix list is in the **Modifying** state, the prefix list is being re-applied.
+        *   If the prefix list is in the **ModifyFailed** state, the prefix list fails to be re-applied.
+        *   If the prefix list is in the **Created** state, the prefix list is re-applied.
+        *   After you call the **RetryVpcPrefixListAssociation** operation to re-apply a prefix list, you cannot call the operation again until the current task is complete.
+        ## Scenarios
+        A prefix list can be successfully modified if the following requirements are met: CIDR blocks are valid, CIDR blocks do not conflict, and the number of CIDR blocks does not exceed the maximum number of CIDR blocks supported by the prefix list. If issues occur on the resource that references the prefix list, the reference may fail. The issues include the number of prefix list entries exceeding the quota or CIDR blocks conflicting with existing routes. After you resolve the issues, you can call the **RetryVpcPrefixListAssociation** operation to re-apply the prefix list.
+        
+
+        @param request: RetryVpcPrefixListAssociationRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RetryVpcPrefixListAssociationResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -14681,10 +18968,36 @@ class Client(OpenApiClient):
         )
 
     def retry_vpc_prefix_list_association(self, request):
+        """
+        If you modify the information about a prefix list but the modification is not automatically applied to the route table that is associated with the prefix list, you can call this operation to apply the latest prefix list to the associated route table.
+        *   The **RetryVpcPrefixListAssociation** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the background. You can call the [GetVpcPrefixListAssociations](~~445478~~) to check whether the prefix list is re-applied.
+        *   If the prefix list is in the **Modifying** state, the prefix list is being re-applied.
+        *   If the prefix list is in the **ModifyFailed** state, the prefix list fails to be re-applied.
+        *   If the prefix list is in the **Created** state, the prefix list is re-applied.
+        *   After you call the **RetryVpcPrefixListAssociation** operation to re-apply a prefix list, you cannot call the operation again until the current task is complete.
+        ## Scenarios
+        A prefix list can be successfully modified if the following requirements are met: CIDR blocks are valid, CIDR blocks do not conflict, and the number of CIDR blocks does not exceed the maximum number of CIDR blocks supported by the prefix list. If issues occur on the resource that references the prefix list, the reference may fail. The issues include the number of prefix list entries exceeding the quota or CIDR blocks conflicting with existing routes. After you resolve the issues, you can call the **RetryVpcPrefixListAssociation** operation to re-apply the prefix list.
+        
+
+        @param request: RetryVpcPrefixListAssociationRequest
+
+        @return: RetryVpcPrefixListAssociationResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.retry_vpc_prefix_list_association_with_options(request, runtime)
 
     def revoke_instance_from_cen_with_options(self, request, runtime):
+        """
+        **RevokeInstanceFromCen** is a Virtual Private Cloud (VPC) operation. Therefore, you must use `vpc.aliyuncs.com` as the domain name when you call this operation. The API version is `2016-04-28`.
+        *   You cannot repeatedly call the **RevokeInstanceFromCen** operation to revoke the permissions on a network instance that is attached to a CEN instance within the specified period of time. The network instance can be a VPC, virtual border router (VBR), or a Cloud Connect Network (CCN) instance.
+        
+
+        @param request: RevokeInstanceFromCenRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RevokeInstanceFromCenResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.cen_id):
@@ -14727,6 +19040,15 @@ class Client(OpenApiClient):
         )
 
     def revoke_instance_from_cen(self, request):
+        """
+        **RevokeInstanceFromCen** is a Virtual Private Cloud (VPC) operation. Therefore, you must use `vpc.aliyuncs.com` as the domain name when you call this operation. The API version is `2016-04-28`.
+        *   You cannot repeatedly call the **RevokeInstanceFromCen** operation to revoke the permissions on a network instance that is attached to a CEN instance within the specified period of time. The network instance can be a VPC, virtual border router (VBR), or a Cloud Connect Network (CCN) instance.
+        
+
+        @param request: RevokeInstanceFromCenRequest
+
+        @return: RevokeInstanceFromCenResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.revoke_instance_from_cen_with_options(request, runtime)
 
@@ -14773,6 +19095,16 @@ class Client(OpenApiClient):
         return self.revoke_instance_from_vbr_with_options(request, runtime)
 
     def set_high_definition_monitor_log_status_with_options(self, request, runtime):
+        """
+        You cannot repeatedly call *SetHighDefinitionMonitorLogStatus** within a specific period of time.
+        
+
+        @param request: SetHighDefinitionMonitorLogStatusRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: SetHighDefinitionMonitorLogStatusResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.instance_id):
@@ -14815,10 +19147,28 @@ class Client(OpenApiClient):
         )
 
     def set_high_definition_monitor_log_status(self, request):
+        """
+        You cannot repeatedly call *SetHighDefinitionMonitorLogStatus** within a specific period of time.
+        
+
+        @param request: SetHighDefinitionMonitorLogStatusRequest
+
+        @return: SetHighDefinitionMonitorLogStatusResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.set_high_definition_monitor_log_status_with_options(request, runtime)
 
     def tag_resources_with_options(self, request, runtime):
+        """
+        The ID of the resource. You can specify up to 20 IDs.
+        
+
+        @param request: TagResourcesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: TagResourcesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.owner_account):
@@ -14857,10 +19207,33 @@ class Client(OpenApiClient):
         )
 
     def tag_resources(self, request):
+        """
+        The ID of the resource. You can specify up to 20 IDs.
+        
+
+        @param request: TagResourcesRequest
+
+        @return: TagResourcesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.tag_resources_with_options(request, runtime)
 
     def tag_resources_for_express_connect_with_options(self, request, runtime):
+        """
+        Tags are used to classify instances. Each tag consists of a key-value pair. To use tags, make sure that the following requirements are met:
+        *   The keys of tags that are added to the same instance must be unique.
+        *   You cannot create tags without adding them to instances. All tags must be added to instances.
+        *   Tag information is not shared across regions.
+        For example, you cannot view the tags that are created in the China (Hangzhou) region from the China (Shanghai) region.
+        *   You can add up to 20 tags to each instance. Before you add a tag to an instance, the system automatically checks the number of existing tags. If the maximum number of tags is reached, an error message is returned.
+        
+
+        @param request: TagResourcesForExpressConnectRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: TagResourcesForExpressConnectResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.owner_account):
@@ -14899,10 +19272,36 @@ class Client(OpenApiClient):
         )
 
     def tag_resources_for_express_connect(self, request):
+        """
+        Tags are used to classify instances. Each tag consists of a key-value pair. To use tags, make sure that the following requirements are met:
+        *   The keys of tags that are added to the same instance must be unique.
+        *   You cannot create tags without adding them to instances. All tags must be added to instances.
+        *   Tag information is not shared across regions.
+        For example, you cannot view the tags that are created in the China (Hangzhou) region from the China (Shanghai) region.
+        *   You can add up to 20 tags to each instance. Before you add a tag to an instance, the system automatically checks the number of existing tags. If the maximum number of tags is reached, an error message is returned.
+        
+
+        @param request: TagResourcesForExpressConnectRequest
+
+        @return: TagResourcesForExpressConnectResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.tag_resources_for_express_connect_with_options(request, runtime)
 
     def terminate_physical_connection_with_options(self, request, runtime):
+        """
+        After you call this operation, the specified Express Connect circuit changes to the *Terminating** state. After the Express Connect circuit is disabled, it changes to the **Terminated** state.
+        When you call this operation, take note of the following limits:
+        *   You can only terminate an Express Connect circuit that is in the **Enabled** state.
+        *   Before you disable an Express Connect circuit, you must delete the virtual border routers (VBRs) associated with it.
+        
+
+        @param request: TerminatePhysicalConnectionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: TerminatePhysicalConnectionResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -14939,10 +19338,32 @@ class Client(OpenApiClient):
         )
 
     def terminate_physical_connection(self, request):
+        """
+        After you call this operation, the specified Express Connect circuit changes to the *Terminating** state. After the Express Connect circuit is disabled, it changes to the **Terminated** state.
+        When you call this operation, take note of the following limits:
+        *   You can only terminate an Express Connect circuit that is in the **Enabled** state.
+        *   Before you disable an Express Connect circuit, you must delete the virtual border routers (VBRs) associated with it.
+        
+
+        @param request: TerminatePhysicalConnectionRequest
+
+        @return: TerminatePhysicalConnectionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.terminate_physical_connection_with_options(request, runtime)
 
     def terminate_virtual_border_router_with_options(self, request, runtime):
+        """
+        After the operation is called, the VBR changes from the *Enabled** state to the **Terminating** state. After the VBR is terminated, it enters the **Terminated** state.
+        >  Only the owner of an Express Connect circuit can call this operation.
+        
+
+        @param request: TerminateVirtualBorderRouterRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: TerminateVirtualBorderRouterResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -14979,6 +19400,15 @@ class Client(OpenApiClient):
         )
 
     def terminate_virtual_border_router(self, request):
+        """
+        After the operation is called, the VBR changes from the *Enabled** state to the **Terminating** state. After the VBR is terminated, it enters the **Terminated** state.
+        >  Only the owner of an Express Connect circuit can call this operation.
+        
+
+        @param request: TerminateVirtualBorderRouterRequest
+
+        @return: TerminateVirtualBorderRouterResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.terminate_virtual_border_router_with_options(request, runtime)
 
@@ -15027,6 +19457,18 @@ class Client(OpenApiClient):
         return self.un_tag_resources_with_options(request, runtime)
 
     def unassociate_eip_address_with_options(self, request, runtime):
+        """
+        Specifies whether to disassociate the EIP from a NAT gateway if a DNAT or SNAT entry is added to the NAT gateway. Valid values:
+        *   **false** (default): does not disassociate the EIP from a NAT gateway if a DNAT or SNAT entry is added to the NAT gateway.
+        *   **true**: disassociates the EIP from a NAT gateway if a DNAT or SNAT entry is added to the NAT gateway.
+        
+
+        @param request: UnassociateEipAddressRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UnassociateEipAddressResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.allocation_id):
@@ -15071,6 +19513,16 @@ class Client(OpenApiClient):
         )
 
     def unassociate_eip_address(self, request):
+        """
+        Specifies whether to disassociate the EIP from a NAT gateway if a DNAT or SNAT entry is added to the NAT gateway. Valid values:
+        *   **false** (default): does not disassociate the EIP from a NAT gateway if a DNAT or SNAT entry is added to the NAT gateway.
+        *   **true**: disassociates the EIP from a NAT gateway if a DNAT or SNAT entry is added to the NAT gateway.
+        
+
+        @param request: UnassociateEipAddressRequest
+
+        @return: UnassociateEipAddressResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.unassociate_eip_address_with_options(request, runtime)
 
@@ -15115,6 +19567,16 @@ class Client(OpenApiClient):
         return self.unassociate_global_acceleration_instance_with_options(request, runtime)
 
     def unassociate_ha_vip_with_options(self, request, runtime):
+        """
+        The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must make sure that the value is unique among different requests. The `ClientToken` value can contain only ASCII characters and cannot exceed 64 characters in length.
+        
+
+        @param request: UnassociateHaVipRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UnassociateHaVipResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -15157,10 +19619,28 @@ class Client(OpenApiClient):
         )
 
     def unassociate_ha_vip(self, request):
+        """
+        The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must make sure that the value is unique among different requests. The `ClientToken` value can contain only ASCII characters and cannot exceed 64 characters in length.
+        
+
+        @param request: UnassociateHaVipRequest
+
+        @return: UnassociateHaVipResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.unassociate_ha_vip_with_options(request, runtime)
 
     def unassociate_network_acl_with_options(self, request, runtime):
+        """
+        The ID of the resource from which you want to disassociate the network ACL.
+        
+
+        @param request: UnassociateNetworkAclRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UnassociateNetworkAclResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -15199,6 +19679,14 @@ class Client(OpenApiClient):
         )
 
     def unassociate_network_acl(self, request):
+        """
+        The ID of the resource from which you want to disassociate the network ACL.
+        
+
+        @param request: UnassociateNetworkAclRequest
+
+        @return: UnassociateNetworkAclResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.unassociate_network_acl_with_options(request, runtime)
 
@@ -15245,6 +19733,19 @@ class Client(OpenApiClient):
         return self.unassociate_physical_connection_from_virtual_border_router_with_options(request, runtime)
 
     def unassociate_route_table_with_options(self, request, runtime):
+        """
+        The **UnassociateRouteTable** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeVSwitchAttributes](~~94567~~) operation to query the status of a vSwitch:
+        *   If the vSwitch is in the **Pending** state, the route table is being disassociated.
+        *   If the vSwitch is in the **Available** state, the route table is disassociated.
+        *   You cannot repeatedly call the **UnassociateRouteTable** operation to disassociate a route table from a vSwitch within the specified period of time.
+        
+
+        @param request: UnassociateRouteTableRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UnassociateRouteTableResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -15285,10 +19786,32 @@ class Client(OpenApiClient):
         )
 
     def unassociate_route_table(self, request):
+        """
+        The **UnassociateRouteTable** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeVSwitchAttributes](~~94567~~) operation to query the status of a vSwitch:
+        *   If the vSwitch is in the **Pending** state, the route table is being disassociated.
+        *   If the vSwitch is in the **Available** state, the route table is disassociated.
+        *   You cannot repeatedly call the **UnassociateRouteTable** operation to disassociate a route table from a vSwitch within the specified period of time.
+        
+
+        @param request: UnassociateRouteTableRequest
+
+        @return: UnassociateRouteTableResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.unassociate_route_table_with_options(request, runtime)
 
     def unassociate_vpc_cidr_block_with_options(self, request, runtime):
+        """
+        Before you delete a secondary CIDR block from a VPC, delete the vSwitch which is created with the CIDR block. For more information, see [DeleteVSwitch](~~35746~~).
+        *   You cannot repeatedly call the **UnassociateVpcCidrBlock** operation to delete a secondary CIDR block from a VPC within the specified period of time.
+        
+
+        @param request: UnassociateVpcCidrBlockRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UnassociateVpcCidrBlockResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.ipv_6cidr_block):
@@ -15329,6 +19852,15 @@ class Client(OpenApiClient):
         )
 
     def unassociate_vpc_cidr_block(self, request):
+        """
+        Before you delete a secondary CIDR block from a VPC, delete the vSwitch which is created with the CIDR block. For more information, see [DeleteVSwitch](~~35746~~).
+        *   You cannot repeatedly call the **UnassociateVpcCidrBlock** operation to delete a secondary CIDR block from a VPC within the specified period of time.
+        
+
+        @param request: UnassociateVpcCidrBlockRequest
+
+        @return: UnassociateVpcCidrBlockResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.unassociate_vpc_cidr_block_with_options(request, runtime)
 
@@ -15485,6 +20017,20 @@ class Client(OpenApiClient):
         return self.update_gateway_route_table_entry_attribute_with_options(request, runtime)
 
     def update_ipsec_server_with_options(self, request, runtime):
+        """
+        If you modify only the **IpsecServerName** parameter, this operation is synchronous. If you modify parameters other than **IpsecServerName**, this operation is asynchronous.
+        *   When the **UpdateIpsecServer** operation is asynchronous, the system returns a request ID after you send the request. However, the operation is still being performed in the system background. You can call [DescribeVpnGateway](~~73720~~) to query the status of a VPN gateway.
+        *   If the VPN gateway is in the **updating** state, the configuration of the IPsec server is being modified.
+        *   If the VPN gateway is in the **active** state, the configuration of the IPsec server is modified.
+        *   You cannot repeatedly call **UpdateIpsecServer** to modify the configuration of an IPsec server of the same VPN gateway within the specified period of time.
+        
+
+        @param request: UpdateIpsecServerRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateIpsecServerResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_ip_pool):
@@ -15531,10 +20077,32 @@ class Client(OpenApiClient):
         )
 
     def update_ipsec_server(self, request):
+        """
+        If you modify only the **IpsecServerName** parameter, this operation is synchronous. If you modify parameters other than **IpsecServerName**, this operation is asynchronous.
+        *   When the **UpdateIpsecServer** operation is asynchronous, the system returns a request ID after you send the request. However, the operation is still being performed in the system background. You can call [DescribeVpnGateway](~~73720~~) to query the status of a VPN gateway.
+        *   If the VPN gateway is in the **updating** state, the configuration of the IPsec server is being modified.
+        *   If the VPN gateway is in the **active** state, the configuration of the IPsec server is modified.
+        *   You cannot repeatedly call **UpdateIpsecServer** to modify the configuration of an IPsec server of the same VPN gateway within the specified period of time.
+        
+
+        @param request: UpdateIpsecServerRequest
+
+        @return: UpdateIpsecServerResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.update_ipsec_server_with_options(request, runtime)
 
     def update_ipv_4gateway_attribute_with_options(self, request, runtime):
+        """
+        The ID of the IPv4 gateway whose name or description you want to modify.
+        
+
+        @param request: UpdateIpv4GatewayAttributeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateIpv4GatewayAttributeResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -15579,10 +20147,36 @@ class Client(OpenApiClient):
         )
 
     def update_ipv_4gateway_attribute(self, request):
+        """
+        The ID of the IPv4 gateway whose name or description you want to modify.
+        
+
+        @param request: UpdateIpv4GatewayAttributeRequest
+
+        @return: UpdateIpv4GatewayAttributeResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.update_ipv_4gateway_attribute_with_options(request, runtime)
 
     def update_nat_gateway_nat_type_with_options(self, request, runtime):
+        """
+        Before you call this operation, take note of the following limits:
+        *   **UpdateNatGatewayNatType** is an asynchronous operation. After you make a request, the ID of the request is returned but the NAT gateway is not upgraded. The system upgrades the NAT gateway in the background. You can call the GetNatGatewayConvertStatus operation to query the upgrade progress of a NAT gateway. For more information, see [GetNatGatewayConvertStatus](~~184744~~).
+        *   If a NAT gateway is in the **processing** state, it indicates that the NAT gateway is being upgraded. You can only query the state of the NAT gateway but cannot perform other operations.
+        *   If a NAT gateway is in the **successful** state, it indicates that the NAT gateway is upgraded.
+        *   If a NAT gateway is in the **failed** state, it indicates that the system failed to upgrade the NAT gateway.
+        *   You cannot repeatedly call the **UpdateNatGatewayNatType** operation to upgrade a NAT gateway within the specified period of time.
+        *   The billing method and billable items remain the same after the upgrade.
+        *   It takes about 5 minutes to upgrade a standard NAT gateway to an enhanced NAT gateway. During the upgrade, transient connections may occur once or twice. You can determine whether to enable automatic reconnection or use manual reconnection based on your business requirements.
+        *   You can only upgrade standard NAT gateways to enhanced NAT gateways. You are not allowed to downgrade enhanced NAT gateways to standard NAT gateways.
+        
+
+        @param request: UpdateNatGatewayNatTypeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateNatGatewayNatTypeResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -15627,10 +20221,39 @@ class Client(OpenApiClient):
         )
 
     def update_nat_gateway_nat_type(self, request):
+        """
+        Before you call this operation, take note of the following limits:
+        *   **UpdateNatGatewayNatType** is an asynchronous operation. After you make a request, the ID of the request is returned but the NAT gateway is not upgraded. The system upgrades the NAT gateway in the background. You can call the GetNatGatewayConvertStatus operation to query the upgrade progress of a NAT gateway. For more information, see [GetNatGatewayConvertStatus](~~184744~~).
+        *   If a NAT gateway is in the **processing** state, it indicates that the NAT gateway is being upgraded. You can only query the state of the NAT gateway but cannot perform other operations.
+        *   If a NAT gateway is in the **successful** state, it indicates that the NAT gateway is upgraded.
+        *   If a NAT gateway is in the **failed** state, it indicates that the system failed to upgrade the NAT gateway.
+        *   You cannot repeatedly call the **UpdateNatGatewayNatType** operation to upgrade a NAT gateway within the specified period of time.
+        *   The billing method and billable items remain the same after the upgrade.
+        *   It takes about 5 minutes to upgrade a standard NAT gateway to an enhanced NAT gateway. During the upgrade, transient connections may occur once or twice. You can determine whether to enable automatic reconnection or use manual reconnection based on your business requirements.
+        *   You can only upgrade standard NAT gateways to enhanced NAT gateways. You are not allowed to downgrade enhanced NAT gateways to standard NAT gateways.
+        
+
+        @param request: UpdateNatGatewayNatTypeRequest
+
+        @return: UpdateNatGatewayNatTypeResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.update_nat_gateway_nat_type_with_options(request, runtime)
 
     def update_network_acl_entries_with_options(self, request, runtime):
+        """
+        The **UpdateNetworkAclEntries** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeNetworkAclAttributes](~~116542~~) operation to query the status of a network ACL:
+        *   If the network ACL is in the **Modifying** state, the rules of the network ACL are being updated.
+        *   If the network ACL is in the **Available** state, the rules of the network ACL are updated.
+        *   You cannot repeatedly call the **UpdateNetworkAclEntries** operation to update the rules of a network ACL within the specified period of time.
+        
+
+        @param request: UpdateNetworkAclEntriesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateNetworkAclEntriesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -15675,10 +20298,31 @@ class Client(OpenApiClient):
         )
 
     def update_network_acl_entries(self, request):
+        """
+        The **UpdateNetworkAclEntries** operation is asynchronous. After you send the request, the system returns a request ID. However, the operation is still being performed in the system background. You can call the [DescribeNetworkAclAttributes](~~116542~~) operation to query the status of a network ACL:
+        *   If the network ACL is in the **Modifying** state, the rules of the network ACL are being updated.
+        *   If the network ACL is in the **Available** state, the rules of the network ACL are updated.
+        *   You cannot repeatedly call the **UpdateNetworkAclEntries** operation to update the rules of a network ACL within the specified period of time.
+        
+
+        @param request: UpdateNetworkAclEntriesRequest
+
+        @return: UpdateNetworkAclEntriesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.update_network_acl_entries_with_options(request, runtime)
 
     def update_public_ip_address_pool_attribute_with_options(self, request, runtime):
+        """
+        The ID of the IP address pool.
+        
+
+        @param request: UpdatePublicIpAddressPoolAttributeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdatePublicIpAddressPoolAttributeResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -15721,10 +20365,28 @@ class Client(OpenApiClient):
         )
 
     def update_public_ip_address_pool_attribute(self, request):
+        """
+        The ID of the IP address pool.
+        
+
+        @param request: UpdatePublicIpAddressPoolAttributeRequest
+
+        @return: UpdatePublicIpAddressPoolAttributeResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.update_public_ip_address_pool_attribute_with_options(request, runtime)
 
     def update_traffic_mirror_filter_attribute_with_options(self, request, runtime):
+        """
+        The ID of the filter.
+        
+
+        @param request: UpdateTrafficMirrorFilterAttributeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateTrafficMirrorFilterAttributeResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -15767,10 +20429,28 @@ class Client(OpenApiClient):
         )
 
     def update_traffic_mirror_filter_attribute(self, request):
+        """
+        The ID of the filter.
+        
+
+        @param request: UpdateTrafficMirrorFilterAttributeRequest
+
+        @return: UpdateTrafficMirrorFilterAttributeResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.update_traffic_mirror_filter_attribute_with_options(request, runtime)
 
     def update_traffic_mirror_filter_rule_attribute_with_options(self, request, runtime):
+        """
+        The ID of the inbound or outbound rule.
+        
+
+        @param request: UpdateTrafficMirrorFilterRuleAttributeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateTrafficMirrorFilterRuleAttributeResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -15823,10 +20503,29 @@ class Client(OpenApiClient):
         )
 
     def update_traffic_mirror_filter_rule_attribute(self, request):
+        """
+        The ID of the inbound or outbound rule.
+        
+
+        @param request: UpdateTrafficMirrorFilterRuleAttributeRequest
+
+        @return: UpdateTrafficMirrorFilterRuleAttributeResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.update_traffic_mirror_filter_rule_attribute_with_options(request, runtime)
 
     def update_traffic_mirror_session_attribute_with_options(self, request, runtime):
+        """
+        The description of the traffic mirror session.
+        The description must be 1 to 256 characters in length and cannot start with `http://` or `https://`.
+        
+
+        @param request: UpdateTrafficMirrorSessionAttributeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateTrafficMirrorSessionAttributeResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -15839,6 +20538,8 @@ class Client(OpenApiClient):
             query['OwnerAccount'] = request.owner_account
         if not UtilClient.is_unset(request.owner_id):
             query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.packet_length):
+            query['PacketLength'] = request.packet_length
         if not UtilClient.is_unset(request.priority):
             query['Priority'] = request.priority
         if not UtilClient.is_unset(request.region_id):
@@ -15881,6 +20582,15 @@ class Client(OpenApiClient):
         )
 
     def update_traffic_mirror_session_attribute(self, request):
+        """
+        The description of the traffic mirror session.
+        The description must be 1 to 256 characters in length and cannot start with `http://` or `https://`.
+        
+
+        @param request: UpdateTrafficMirrorSessionAttributeRequest
+
+        @return: UpdateTrafficMirrorSessionAttributeResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.update_traffic_mirror_session_attribute_with_options(request, runtime)
 
@@ -15965,6 +20675,16 @@ class Client(OpenApiClient):
         return self.update_virtual_physical_connection_with_options(request, runtime)
 
     def update_vpc_gateway_endpoint_attribute_with_options(self, request, runtime):
+        """
+        The ID of the gateway endpoint that you want to modify.
+        
+
+        @param request: UpdateVpcGatewayEndpointAttributeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateVpcGatewayEndpointAttributeResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -16009,10 +20729,28 @@ class Client(OpenApiClient):
         )
 
     def update_vpc_gateway_endpoint_attribute(self, request):
+        """
+        The ID of the gateway endpoint that you want to modify.
+        
+
+        @param request: UpdateVpcGatewayEndpointAttributeRequest
+
+        @return: UpdateVpcGatewayEndpointAttributeResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.update_vpc_gateway_endpoint_attribute_with_options(request, runtime)
 
     def vpc_describe_vpc_nat_gateway_network_interface_quota_with_options(self, request, runtime):
+        """
+        Before you call this operation, make sure that a VPC NAT gateway is created. For more information, see [CreateNatGateway](~~120219~~).
+        
+
+        @param request: VpcDescribeVpcNatGatewayNetworkInterfaceQuotaRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: VpcDescribeVpcNatGatewayNetworkInterfaceQuotaResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -16051,5 +20789,13 @@ class Client(OpenApiClient):
         )
 
     def vpc_describe_vpc_nat_gateway_network_interface_quota(self, request):
+        """
+        Before you call this operation, make sure that a VPC NAT gateway is created. For more information, see [CreateNatGateway](~~120219~~).
+        
+
+        @param request: VpcDescribeVpcNatGatewayNetworkInterfaceQuotaRequest
+
+        @return: VpcDescribeVpcNatGatewayNetworkInterfaceQuotaResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.vpc_describe_vpc_nat_gateway_network_interface_quota_with_options(request, runtime)

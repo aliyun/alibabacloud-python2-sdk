@@ -1,3 +1,7 @@
+2023-07-04 Version: 2.0.0
+- Interface modification with parameter deletion is incompatible.
+- Remove CreateNatIp remove useless parameter NatIpCidrId, must specify NatIpCidr.
+
 2023-01-31 Version: 1.0.1
 - Supported set high definition monitor log status for eip.
 - Supported batch associate eip to cloud products.
