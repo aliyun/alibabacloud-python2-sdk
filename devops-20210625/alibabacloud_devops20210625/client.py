@@ -461,6 +461,38 @@ class Client(OpenApiClient):
         headers = {}
         return self.create_oauth_token_with_options(request, headers, runtime)
 
+    def create_pipeline_with_options(self, organization_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.content):
+            body['content'] = request.content
+        if not UtilClient.is_unset(request.name):
+            body['name'] = request.name
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreatePipeline',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/pipelines' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.CreatePipelineResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_pipeline(self, organization_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_pipeline_with_options(organization_id, request, headers, runtime)
+
     def create_pipeline_group_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -5173,6 +5205,40 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_host_group_with_options(organization_id, id, request, headers, runtime)
+
+    def update_pipeline_with_options(self, organization_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.content):
+            body['content'] = request.content
+        if not UtilClient.is_unset(request.name):
+            body['name'] = request.name
+        if not UtilClient.is_unset(request.pipeline_id):
+            body['pipelineId'] = request.pipeline_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdatePipeline',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/pipelines/update' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.UpdatePipelineResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_pipeline(self, organization_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_pipeline_with_options(organization_id, request, headers, runtime)
 
     def update_pipeline_base_info_with_options(self, organization_id, pipeline_id, request, headers, runtime):
         UtilClient.validate_model(request)
