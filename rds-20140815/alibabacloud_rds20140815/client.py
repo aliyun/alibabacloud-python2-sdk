@@ -6877,6 +6877,7 @@ class Client(OpenApiClient):
 
     def describe_diagnostic_report_list_with_options(self, request, runtime):
         """
+        @deprecated
         > This operation is no longer maintained. You can use the [DescribeDiagnosticReportList](~~443006~~) operation of Database Autonomy Service (DAS) to query a list of diagnostic reports.
         *   The returned diagnosis reports include data collection time, data generation time, and download URLs. The system retains the reports for 15 days.
         *   This operation is not suitable for instances that run SQL Server 2017 on RDS Cluster Edition.
@@ -6887,6 +6888,7 @@ class Client(OpenApiClient):
         @param runtime: runtime options for this request RuntimeOptions
 
         @return: DescribeDiagnosticReportListResponse
+        Deprecated
         """
         UtilClient.validate_model(request)
         query = {}
@@ -6915,6 +6917,7 @@ class Client(OpenApiClient):
 
     def describe_diagnostic_report_list(self, request):
         """
+        @deprecated
         > This operation is no longer maintained. You can use the [DescribeDiagnosticReportList](~~443006~~) operation of Database Autonomy Service (DAS) to query a list of diagnostic reports.
         *   The returned diagnosis reports include data collection time, data generation time, and download URLs. The system retains the reports for 15 days.
         *   This operation is not suitable for instances that run SQL Server 2017 on RDS Cluster Edition.
@@ -6923,6 +6926,7 @@ class Client(OpenApiClient):
         @param request: DescribeDiagnosticReportListRequest
 
         @return: DescribeDiagnosticReportListResponse
+        Deprecated
         """
         runtime = util_models.RuntimeOptions()
         return self.describe_diagnostic_report_list_with_options(request, runtime)
@@ -11944,6 +11948,8 @@ class Client(OpenApiClient):
         if not UtilClient.is_unset(tmp_req.serverless_configuration):
             request.serverless_configuration_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.serverless_configuration, 'ServerlessConfiguration', 'json')
         query = {}
+        if not UtilClient.is_unset(request.auto_use_coupon):
+            query['AutoUseCoupon'] = request.auto_use_coupon
         if not UtilClient.is_unset(request.bursting_enabled):
             query['BurstingEnabled'] = request.bursting_enabled
         if not UtilClient.is_unset(request.category):
