@@ -4492,7 +4492,8 @@ class RecognizeInternationalIdcardResponse(TeaModel):
 
 
 class RecognizeInvoiceRequest(TeaModel):
-    def __init__(self, url=None, body=None):
+    def __init__(self, page_no=None, url=None, body=None):
+        self.page_no = page_no  # type: int
         self.url = url  # type: str
         self.body = body  # type: READABLE
 
@@ -4505,6 +4506,8 @@ class RecognizeInvoiceRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.page_no is not None:
+            result['PageNo'] = self.page_no
         if self.url is not None:
             result['Url'] = self.url
         if self.body is not None:
@@ -4513,6 +4516,8 @@ class RecognizeInvoiceRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('PageNo') is not None:
+            self.page_no = m.get('PageNo')
         if m.get('Url') is not None:
             self.url = m.get('Url')
         if m.get('body') is not None:
@@ -5179,7 +5184,8 @@ class RecognizeMedicalDeviceProduceLicenseResponse(TeaModel):
 
 
 class RecognizeMixedInvoicesRequest(TeaModel):
-    def __init__(self, url=None, body=None):
+    def __init__(self, page_no=None, url=None, body=None):
+        self.page_no = page_no  # type: int
         self.url = url  # type: str
         self.body = body  # type: READABLE
 
@@ -5192,6 +5198,8 @@ class RecognizeMixedInvoicesRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.page_no is not None:
+            result['PageNo'] = self.page_no
         if self.url is not None:
             result['Url'] = self.url
         if self.body is not None:
@@ -5200,6 +5208,8 @@ class RecognizeMixedInvoicesRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('PageNo') is not None:
+            self.page_no = m.get('PageNo')
         if m.get('Url') is not None:
             self.url = m.get('Url')
         if m.get('body') is not None:
