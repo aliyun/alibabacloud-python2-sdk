@@ -19127,11 +19127,14 @@ class ListAvailableAccelerateAreasRequest(TeaModel):
 
 
 class ListAvailableAccelerateAreasResponseBodyAreasRegionList(TeaModel):
-    def __init__(self, local_name=None, region_id=None):
+    def __init__(self, china_mainland=None, isp_type_list=None, local_name=None, region_id=None, support_ipv_6=None):
+        self.china_mainland = china_mainland  # type: bool
+        self.isp_type_list = isp_type_list  # type: list[str]
         # The name of the acceleration region.
         self.local_name = local_name  # type: str
         # The ID of the acceleration region.
         self.region_id = region_id  # type: str
+        self.support_ipv_6 = support_ipv_6  # type: bool
 
     def validate(self):
         pass
@@ -19142,18 +19145,30 @@ class ListAvailableAccelerateAreasResponseBodyAreasRegionList(TeaModel):
             return _map
 
         result = dict()
+        if self.china_mainland is not None:
+            result['ChinaMainland'] = self.china_mainland
+        if self.isp_type_list is not None:
+            result['IspTypeList'] = self.isp_type_list
         if self.local_name is not None:
             result['LocalName'] = self.local_name
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.support_ipv_6 is not None:
+            result['SupportIpv6'] = self.support_ipv_6
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('ChinaMainland') is not None:
+            self.china_mainland = m.get('ChinaMainland')
+        if m.get('IspTypeList') is not None:
+            self.isp_type_list = m.get('IspTypeList')
         if m.get('LocalName') is not None:
             self.local_name = m.get('LocalName')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('SupportIpv6') is not None:
+            self.support_ipv_6 = m.get('SupportIpv6')
         return self
 
 
@@ -19312,7 +19327,8 @@ class ListAvailableBusiRegionsRequest(TeaModel):
 
 
 class ListAvailableBusiRegionsResponseBodyRegions(TeaModel):
-    def __init__(self, local_name=None, pop=None, region_id=None):
+    def __init__(self, china_mainland=None, local_name=None, pop=None, region_id=None):
+        self.china_mainland = china_mainland  # type: bool
         # The name of the region.
         self.local_name = local_name  # type: str
         # Indicates whether the region is a point of presence (PoP). Valid values:
@@ -19332,6 +19348,8 @@ class ListAvailableBusiRegionsResponseBodyRegions(TeaModel):
             return _map
 
         result = dict()
+        if self.china_mainland is not None:
+            result['ChinaMainland'] = self.china_mainland
         if self.local_name is not None:
             result['LocalName'] = self.local_name
         if self.pop is not None:
@@ -19342,6 +19360,8 @@ class ListAvailableBusiRegionsResponseBodyRegions(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('ChinaMainland') is not None:
+            self.china_mainland = m.get('ChinaMainland')
         if m.get('LocalName') is not None:
             self.local_name = m.get('LocalName')
         if m.get('Pop') is not None:
@@ -23565,9 +23585,13 @@ class ListEndpointGroupIpAddressCidrBlocksResponse(TeaModel):
 
 class ListEndpointGroupsRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
-        # The tag key of the GA instance.
+        # The ID of the listener.
         self.key = key  # type: str
-        # The tag value of the GA instance.
+        # The type of the endpoint group. Valid values:
+        # 
+        # *   **default**: a default endpoint group
+        # *   **virtual**: a virtual endpoint group
+        # *   If you leave this parameter empty, all default and virtual endpoint groups are queried.
         self.value = value  # type: str
 
     def validate(self):
@@ -23599,28 +23623,31 @@ class ListEndpointGroupsRequest(TeaModel):
                  endpoint_group_type=None, listener_id=None, page_number=None, page_size=None, region_id=None, tag=None):
         # The ID of the GA instance.
         self.accelerator_id = accelerator_id  # type: str
-        # Specifies whether the access logging feature is enabled. Default value: off. Valid values:
-        # 
-        # *   **on:** enables the access logging feature.
-        # *   **off:** disables the access logging feature.
+        # The total number of entries returned.
         self.access_log_switch = access_log_switch  # type: str
-        # The ID of the endpoint group.
+        # The protocol that is used to monitor latency. Valid values:
+        # 
+        # *   **icmp**: ICMP
+        # *   **tcp**: TCP
         self.endpoint_group_id = endpoint_group_id  # type: str
         # The type of the endpoint group. Valid values:
         # 
-        # *   **default:** a default endpoint group.
-        # *   **virtual:** a virtual endpoint group.
+        # *   **default**\
+        # *   **virtual**\
         # *   If you leave this parameter empty, all default and virtual endpoint groups are queried.
         self.endpoint_group_type = endpoint_group_type  # type: str
-        # The ID of the listener.
+        # The number of entries returned per page.
         self.listener_id = listener_id  # type: str
-        # The number of the page to return. Default value: **1**.
+        # The endpoint group IP addresses to be confirmed after the GA instance is upgraded.
         self.page_number = page_number  # type: int
-        # The number of entries to return on each page. Maximum value: **50**. Default value: **10**.
+        # The protocol that is used by the backend service. Valid values:
+        # 
+        # *   **HTTP**: HTTP
+        # *   **HTTPS**: HTTPS
         self.page_size = page_size  # type: int
-        # The ID of the region where the Global Accelerator (GA) instance is deployed. Set the value to **cn-hangzhou**.
+        # The endpoint port.
         self.region_id = region_id  # type: str
-        # Tags of GA instances.
+        # The name of the endpoint group.
         self.tag = tag  # type: list[ListEndpointGroupsRequestTag]
 
     def validate(self):
@@ -23686,33 +23713,12 @@ class ListEndpointGroupsRequest(TeaModel):
 class ListEndpointGroupsResponseBodyEndpointGroupsEndpointConfigurations(TeaModel):
     def __init__(self, enable_client_ippreservation=None, endpoint=None, endpoint_id=None, probe_port=None,
                  probe_protocol=None, type=None, weight=None):
-        # Indicates whether the client IP address preservation feature is enabled. Valid values:
-        # 
-        # *   **true:** The client IP address preservation feature is enabled.
-        # *   **false:** The client IP address preservation feature is disabled.
         self.enable_client_ippreservation = enable_client_ippreservation  # type: bool
-        # The IP address or domain name of the endpoint.
         self.endpoint = endpoint  # type: str
-        # The ID of the endpoint.
         self.endpoint_id = endpoint_id  # type: str
-        # The port that is used to monitor latency.
         self.probe_port = probe_port  # type: int
-        # The protocol that is used to monitor latency. Valid values:
-        # 
-        # *   **icmp:** ICMP.
-        # *   **tcp:** TCP.
         self.probe_protocol = probe_protocol  # type: str
-        # The type of the endpoint. Valid values:
-        # 
-        # *   **Domain:** a custom domain name.
-        # *   **Ip:** a custom IP address.
-        # *   **PublicIp:** a public IP address provided by Alibaba Cloud.
-        # *   **ECS:** an Elastic Compute Service (ECS) instance.
-        # *   **SLB:** a Server Load Balancer (SLB) instance.
-        # *   **ALB:** an Application Load Balancer (ALB) instance.
-        # *   **OSS:** an Object Storage Service (OSS) bucket.
         self.type = type  # type: str
-        # The weight of the endpoint.
         self.weight = weight  # type: int
 
     def validate(self):
@@ -23761,9 +23767,7 @@ class ListEndpointGroupsResponseBodyEndpointGroupsEndpointConfigurations(TeaMode
 
 class ListEndpointGroupsResponseBodyEndpointGroupsPortOverrides(TeaModel):
     def __init__(self, endpoint_port=None, listener_port=None):
-        # The endpoint port.
         self.endpoint_port = endpoint_port  # type: int
-        # The listening port.
         self.listener_port = listener_port  # type: int
 
     def validate(self):
@@ -23792,9 +23796,7 @@ class ListEndpointGroupsResponseBodyEndpointGroupsPortOverrides(TeaModel):
 
 class ListEndpointGroupsResponseBodyEndpointGroupsTags(TeaModel):
     def __init__(self, key=None, value=None):
-        # The tag key of the GA instance.
         self.key = key  # type: str
-        # The tag value of the GA instance.
         self.value = value  # type: str
 
     def validate(self):
@@ -23828,67 +23830,40 @@ class ListEndpointGroupsResponseBodyEndpointGroups(TeaModel):
                  health_check_interval_seconds=None, health_check_path=None, health_check_port=None, health_check_protocol=None,
                  listener_id=None, name=None, port_overrides=None, state=None, tags=None, threshold_count=None,
                  traffic_percentage=None):
-        # The ID of the GA instance.
         self.accelerator_id = accelerator_id  # type: str
-        # The description of the endpoint group.
         self.description = description  # type: str
-        # Configurations of Endpoints.
         self.endpoint_configurations = endpoint_configurations  # type: list[ListEndpointGroupsResponseBodyEndpointGroupsEndpointConfigurations]
-        # The ID of the endpoint group.
+        # The ID of an endpoint group.
         self.endpoint_group_id = endpoint_group_id  # type: str
-        # The list of endpoint group IP addresses.
+        # The mappings between ports.
         self.endpoint_group_ip_list = endpoint_group_ip_list  # type: list[str]
-        # The ID of the region where the endpoint group is deployed.
-        self.endpoint_group_region = endpoint_group_region  # type: str
-        # The type of the endpoint group. Valid values:
-        # 
-        # *   **default:** a default endpoint group.
-        # *   **virtual:** a virtual endpoint group.
-        self.endpoint_group_type = endpoint_group_type  # type: str
-        # The list of endpoint group IP addresses to be confirmed after the GA instance is upgraded.
-        self.endpoint_group_unconfirmed_ip_list = endpoint_group_unconfirmed_ip_list  # type: list[str]
-        # The protocol that is used by the backend service. Valid values:
-        # 
-        # *   **HTTP:** HTTP.
-        # *   **HTTPS:** HTTPS.
-        self.endpoint_request_protocol = endpoint_request_protocol  # type: str
-        # IDs of forwarding rules that are associated with endpoint groups.
-        self.forwarding_rule_ids = forwarding_rule_ids  # type: list[str]
         # Indicates whether the health check feature is enabled. Valid values:
         # 
-        # *   **true:** The health check feature is enabled.
-        # *   **false:** The health check feature is disabled.
-        self.health_check_enabled = health_check_enabled  # type: bool
+        # *   **true**: The health check feature is enabled.
+        # *   **false**: The health check feature is disabled.
+        self.endpoint_group_region = endpoint_group_region  # type: str
+        self.endpoint_group_type = endpoint_group_type  # type: str
         # The interval at which health checks are performed. Unit: seconds.
+        self.endpoint_group_unconfirmed_ip_list = endpoint_group_unconfirmed_ip_list  # type: list[str]
+        self.endpoint_request_protocol = endpoint_request_protocol  # type: str
+        self.forwarding_rule_ids = forwarding_rule_ids  # type: list[str]
+        self.health_check_enabled = health_check_enabled  # type: bool
         self.health_check_interval_seconds = health_check_interval_seconds  # type: int
-        # The path to which health check probes are sent.
+        # The ID of the request.
         self.health_check_path = health_check_path  # type: str
-        # The port that is used for health checks.
         self.health_check_port = health_check_port  # type: int
-        # The protocol over which health check probes are sent. Valid values:
-        # 
-        # *   **tcp:** TCP.
-        # *   **http:** HTTP.
-        # *   **https:** HTTPS.
         self.health_check_protocol = health_check_protocol  # type: str
-        # The ID of the listener.
         self.listener_id = listener_id  # type: str
-        # The name of the endpoint group.
         self.name = name  # type: str
-        # Mappings between ports.
         self.port_overrides = port_overrides  # type: list[ListEndpointGroupsResponseBodyEndpointGroupsPortOverrides]
-        # The state of the endpoint group. Valid values:
+        # The protocol over which health check requests are sent. Valid values:
         # 
-        # *   **init:** The endpoint group is being initialized.
-        # *   **active:** The endpoint group is running as expected.
-        # *   **updating:**The endpoint group is being updated.
-        # *   **deleteing:** The endpoint group is being deleted.
+        # *   **tcp**: TCP
+        # *   **http**: HTTP
+        # *   **https**: HTTPS
         self.state = state  # type: str
-        # Tags of GA instances.
         self.tags = tags  # type: list[ListEndpointGroupsResponseBodyEndpointGroupsTags]
-        # The number of consecutive failed health checks that must occur before an endpoint is considered unhealthy.
         self.threshold_count = threshold_count  # type: int
-        # The weight of the endpoint group when the listener is associated with multiple endpoint groups.
         self.traffic_percentage = traffic_percentage  # type: int
 
     def validate(self):
@@ -24023,15 +23998,18 @@ class ListEndpointGroupsResponseBodyEndpointGroups(TeaModel):
 
 class ListEndpointGroupsResponseBody(TeaModel):
     def __init__(self, endpoint_groups=None, page_number=None, page_size=None, request_id=None, total_count=None):
-        # Configurations of endpoint groups.
+        # The ID of the endpoint group.
         self.endpoint_groups = endpoint_groups  # type: list[ListEndpointGroupsResponseBodyEndpointGroups]
-        # The page number of the returned page.
+        # Indicates whether the client IP address preservation feature is enabled. Valid values:
+        # 
+        # *   **true**: The client IP address preservation feature is enabled.
+        # *   **false**: The client IP address preservation feature is disabled.
         self.page_number = page_number  # type: int
-        # The number of entries returned on each page.
+        # The number of consecutive failed health checks that must occur before an endpoint is considered unhealthy.
         self.page_size = page_size  # type: int
-        # The ID of the request.
+        # The weight of the endpoint.
         self.request_id = request_id  # type: str
-        # The number of returned entries.
+        # The ID of the endpoint.
         self.total_count = total_count  # type: int
 
     def validate(self):
