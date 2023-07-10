@@ -1,3 +1,6 @@
+2023-07-10 Version: 1.2.2
+- Fixed 500 for interface.
+
 2023-07-10 Version: 1.2.1
 - Add DescribeClassDetails Api.
 
