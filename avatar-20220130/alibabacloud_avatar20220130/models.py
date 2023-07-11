@@ -2215,6 +2215,220 @@ class QueryTimedResetOperateStatusResponse(TeaModel):
         return self
 
 
+class SendCommandRequest(TeaModel):
+    def __init__(self, code=None, content=None, feedback=None, session_id=None, tenant_id=None, unique_code=None):
+        self.code = code  # type: str
+        self.content = content  # type: dict[str, any]
+        self.feedback = feedback  # type: bool
+        self.session_id = session_id  # type: str
+        self.tenant_id = tenant_id  # type: long
+        self.unique_code = unique_code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SendCommandRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.content is not None:
+            result['Content'] = self.content
+        if self.feedback is not None:
+            result['Feedback'] = self.feedback
+        if self.session_id is not None:
+            result['SessionId'] = self.session_id
+        if self.tenant_id is not None:
+            result['TenantId'] = self.tenant_id
+        if self.unique_code is not None:
+            result['UniqueCode'] = self.unique_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Content') is not None:
+            self.content = m.get('Content')
+        if m.get('Feedback') is not None:
+            self.feedback = m.get('Feedback')
+        if m.get('SessionId') is not None:
+            self.session_id = m.get('SessionId')
+        if m.get('TenantId') is not None:
+            self.tenant_id = m.get('TenantId')
+        if m.get('UniqueCode') is not None:
+            self.unique_code = m.get('UniqueCode')
+        return self
+
+
+class SendCommandShrinkRequest(TeaModel):
+    def __init__(self, code=None, content_shrink=None, feedback=None, session_id=None, tenant_id=None,
+                 unique_code=None):
+        self.code = code  # type: str
+        self.content_shrink = content_shrink  # type: str
+        self.feedback = feedback  # type: bool
+        self.session_id = session_id  # type: str
+        self.tenant_id = tenant_id  # type: long
+        self.unique_code = unique_code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SendCommandShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.content_shrink is not None:
+            result['Content'] = self.content_shrink
+        if self.feedback is not None:
+            result['Feedback'] = self.feedback
+        if self.session_id is not None:
+            result['SessionId'] = self.session_id
+        if self.tenant_id is not None:
+            result['TenantId'] = self.tenant_id
+        if self.unique_code is not None:
+            result['UniqueCode'] = self.unique_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Content') is not None:
+            self.content_shrink = m.get('Content')
+        if m.get('Feedback') is not None:
+            self.feedback = m.get('Feedback')
+        if m.get('SessionId') is not None:
+            self.session_id = m.get('SessionId')
+        if m.get('TenantId') is not None:
+            self.tenant_id = m.get('TenantId')
+        if m.get('UniqueCode') is not None:
+            self.unique_code = m.get('UniqueCode')
+        return self
+
+
+class SendCommandResponseBodyData(TeaModel):
+    def __init__(self, session_id=None, unique_code=None):
+        self.session_id = session_id  # type: str
+        self.unique_code = unique_code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SendCommandResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.session_id is not None:
+            result['SessionId'] = self.session_id
+        if self.unique_code is not None:
+            result['UniqueCode'] = self.unique_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('SessionId') is not None:
+            self.session_id = m.get('SessionId')
+        if m.get('UniqueCode') is not None:
+            self.unique_code = m.get('UniqueCode')
+        return self
+
+
+class SendCommandResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: SendCommandResponseBodyData
+        self.message = message  # type: str
+        # Id of the request
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(SendCommandResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = SendCommandResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class SendCommandResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: SendCommandResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SendCommandResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = SendCommandResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class SendMessageRequestStreamExtension(TeaModel):
     def __init__(self, index=None, is_stream=None, position=None):
         self.index = index  # type: int
@@ -2531,6 +2745,416 @@ class SendMessageResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SendMessageResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class SendTextRequestStreamExtension(TeaModel):
+    def __init__(self, index=None, is_stream=None, position=None):
+        self.index = index  # type: int
+        self.is_stream = is_stream  # type: bool
+        self.position = position  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SendTextRequestStreamExtension, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.index is not None:
+            result['Index'] = self.index
+        if self.is_stream is not None:
+            result['IsStream'] = self.is_stream
+        if self.position is not None:
+            result['Position'] = self.position
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Index') is not None:
+            self.index = m.get('Index')
+        if m.get('IsStream') is not None:
+            self.is_stream = m.get('IsStream')
+        if m.get('Position') is not None:
+            self.position = m.get('Position')
+        return self
+
+
+class SendTextRequest(TeaModel):
+    def __init__(self, feedback=None, interrupt=None, session_id=None, stream_extension=None, tenant_id=None,
+                 text=None, unique_code=None):
+        self.feedback = feedback  # type: bool
+        self.interrupt = interrupt  # type: bool
+        self.session_id = session_id  # type: str
+        self.stream_extension = stream_extension  # type: SendTextRequestStreamExtension
+        self.tenant_id = tenant_id  # type: long
+        self.text = text  # type: str
+        self.unique_code = unique_code  # type: str
+
+    def validate(self):
+        if self.stream_extension:
+            self.stream_extension.validate()
+
+    def to_map(self):
+        _map = super(SendTextRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.feedback is not None:
+            result['Feedback'] = self.feedback
+        if self.interrupt is not None:
+            result['Interrupt'] = self.interrupt
+        if self.session_id is not None:
+            result['SessionId'] = self.session_id
+        if self.stream_extension is not None:
+            result['StreamExtension'] = self.stream_extension.to_map()
+        if self.tenant_id is not None:
+            result['TenantId'] = self.tenant_id
+        if self.text is not None:
+            result['Text'] = self.text
+        if self.unique_code is not None:
+            result['UniqueCode'] = self.unique_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Feedback') is not None:
+            self.feedback = m.get('Feedback')
+        if m.get('Interrupt') is not None:
+            self.interrupt = m.get('Interrupt')
+        if m.get('SessionId') is not None:
+            self.session_id = m.get('SessionId')
+        if m.get('StreamExtension') is not None:
+            temp_model = SendTextRequestStreamExtension()
+            self.stream_extension = temp_model.from_map(m['StreamExtension'])
+        if m.get('TenantId') is not None:
+            self.tenant_id = m.get('TenantId')
+        if m.get('Text') is not None:
+            self.text = m.get('Text')
+        if m.get('UniqueCode') is not None:
+            self.unique_code = m.get('UniqueCode')
+        return self
+
+
+class SendTextShrinkRequest(TeaModel):
+    def __init__(self, feedback=None, interrupt=None, session_id=None, stream_extension_shrink=None, tenant_id=None,
+                 text=None, unique_code=None):
+        self.feedback = feedback  # type: bool
+        self.interrupt = interrupt  # type: bool
+        self.session_id = session_id  # type: str
+        self.stream_extension_shrink = stream_extension_shrink  # type: str
+        self.tenant_id = tenant_id  # type: long
+        self.text = text  # type: str
+        self.unique_code = unique_code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SendTextShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.feedback is not None:
+            result['Feedback'] = self.feedback
+        if self.interrupt is not None:
+            result['Interrupt'] = self.interrupt
+        if self.session_id is not None:
+            result['SessionId'] = self.session_id
+        if self.stream_extension_shrink is not None:
+            result['StreamExtension'] = self.stream_extension_shrink
+        if self.tenant_id is not None:
+            result['TenantId'] = self.tenant_id
+        if self.text is not None:
+            result['Text'] = self.text
+        if self.unique_code is not None:
+            result['UniqueCode'] = self.unique_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Feedback') is not None:
+            self.feedback = m.get('Feedback')
+        if m.get('Interrupt') is not None:
+            self.interrupt = m.get('Interrupt')
+        if m.get('SessionId') is not None:
+            self.session_id = m.get('SessionId')
+        if m.get('StreamExtension') is not None:
+            self.stream_extension_shrink = m.get('StreamExtension')
+        if m.get('TenantId') is not None:
+            self.tenant_id = m.get('TenantId')
+        if m.get('Text') is not None:
+            self.text = m.get('Text')
+        if m.get('UniqueCode') is not None:
+            self.unique_code = m.get('UniqueCode')
+        return self
+
+
+class SendTextResponseBodyData(TeaModel):
+    def __init__(self, session_id=None, unique_code=None):
+        self.session_id = session_id  # type: str
+        self.unique_code = unique_code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SendTextResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.session_id is not None:
+            result['SessionId'] = self.session_id
+        if self.unique_code is not None:
+            result['UniqueCode'] = self.unique_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('SessionId') is not None:
+            self.session_id = m.get('SessionId')
+        if m.get('UniqueCode') is not None:
+            self.unique_code = m.get('UniqueCode')
+        return self
+
+
+class SendTextResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: SendTextResponseBodyData
+        self.message = message  # type: str
+        # Id of the request
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(SendTextResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = SendTextResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class SendTextResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: SendTextResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SendTextResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = SendTextResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class SendVamlRequest(TeaModel):
+    def __init__(self, session_id=None, tenant_id=None, vaml=None):
+        self.session_id = session_id  # type: str
+        self.tenant_id = tenant_id  # type: long
+        self.vaml = vaml  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SendVamlRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.session_id is not None:
+            result['SessionId'] = self.session_id
+        if self.tenant_id is not None:
+            result['TenantId'] = self.tenant_id
+        if self.vaml is not None:
+            result['Vaml'] = self.vaml
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('SessionId') is not None:
+            self.session_id = m.get('SessionId')
+        if m.get('TenantId') is not None:
+            self.tenant_id = m.get('TenantId')
+        if m.get('Vaml') is not None:
+            self.vaml = m.get('Vaml')
+        return self
+
+
+class SendVamlResponseBodyData(TeaModel):
+    def __init__(self, session_id=None, unique_code=None):
+        self.session_id = session_id  # type: str
+        self.unique_code = unique_code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SendVamlResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.session_id is not None:
+            result['SessionId'] = self.session_id
+        if self.unique_code is not None:
+            result['UniqueCode'] = self.unique_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('SessionId') is not None:
+            self.session_id = m.get('SessionId')
+        if m.get('UniqueCode') is not None:
+            self.unique_code = m.get('UniqueCode')
+        return self
+
+
+class SendVamlResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: SendVamlResponseBodyData
+        self.message = message  # type: str
+        # Id of the request
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(SendVamlResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = SendVamlResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class SendVamlResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: SendVamlResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SendVamlResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = SendVamlResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
