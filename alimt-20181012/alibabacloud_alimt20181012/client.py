@@ -767,6 +767,17 @@ class Client(OpenApiClient):
         return translate_certificate_resp
 
     def translate_ecommerce_with_options(self, request, runtime):
+        """
+        @deprecated : TranslateECommerce is deprecated, please use alimt::2018-10-12::Translate instead.
+        
+
+        @param request: TranslateECommerceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: TranslateECommerceResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.context):
@@ -803,6 +814,15 @@ class Client(OpenApiClient):
         )
 
     def translate_ecommerce(self, request):
+        """
+        @deprecated : TranslateECommerce is deprecated, please use alimt::2018-10-12::Translate instead.
+        
+
+        @param request: TranslateECommerceRequest
+
+        @return: TranslateECommerceResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.translate_ecommerce_with_options(request, runtime)
 
