@@ -110,6 +110,118 @@ class AttachEaiResponse(TeaModel):
         return self
 
 
+class AttachEaisEiRequest(TeaModel):
+    def __init__(self, client_instance_id=None, ei_instance_id=None, ei_instance_type=None, region_id=None):
+        self.client_instance_id = client_instance_id  # type: str
+        self.ei_instance_id = ei_instance_id  # type: str
+        self.ei_instance_type = ei_instance_type  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(AttachEaisEiRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_instance_id is not None:
+            result['ClientInstanceId'] = self.client_instance_id
+        if self.ei_instance_id is not None:
+            result['EiInstanceId'] = self.ei_instance_id
+        if self.ei_instance_type is not None:
+            result['EiInstanceType'] = self.ei_instance_type
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientInstanceId') is not None:
+            self.client_instance_id = m.get('ClientInstanceId')
+        if m.get('EiInstanceId') is not None:
+            self.ei_instance_id = m.get('EiInstanceId')
+        if m.get('EiInstanceType') is not None:
+            self.ei_instance_type = m.get('EiInstanceType')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class AttachEaisEiResponseBody(TeaModel):
+    def __init__(self, client_instance_id=None, ei_instance_id=None, request_id=None):
+        self.client_instance_id = client_instance_id  # type: str
+        self.ei_instance_id = ei_instance_id  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(AttachEaisEiResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_instance_id is not None:
+            result['ClientInstanceId'] = self.client_instance_id
+        if self.ei_instance_id is not None:
+            result['EiInstanceId'] = self.ei_instance_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientInstanceId') is not None:
+            self.client_instance_id = m.get('ClientInstanceId')
+        if m.get('EiInstanceId') is not None:
+            self.ei_instance_id = m.get('EiInstanceId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class AttachEaisEiResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: AttachEaisEiResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(AttachEaisEiResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = AttachEaisEiResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ChangeResourceGroupRequest(TeaModel):
     def __init__(self, resource_group_id=None, resource_id=None, resource_region_id=None):
         self.resource_group_id = resource_group_id  # type: str
@@ -208,9 +320,10 @@ class ChangeResourceGroupResponse(TeaModel):
 
 
 class CreateEaiRequest(TeaModel):
-    def __init__(self, client_token=None, instance_name=None, instance_type=None, region_id=None,
+    def __init__(self, client_token=None, image=None, instance_name=None, instance_type=None, region_id=None,
                  resource_group_id=None, security_group_id=None, v_switch_id=None):
         self.client_token = client_token  # type: str
+        self.image = image  # type: str
         self.instance_name = instance_name  # type: str
         self.instance_type = instance_type  # type: str
         self.region_id = region_id  # type: str
@@ -229,6 +342,8 @@ class CreateEaiRequest(TeaModel):
         result = dict()
         if self.client_token is not None:
             result['ClientToken'] = self.client_token
+        if self.image is not None:
+            result['Image'] = self.image
         if self.instance_name is not None:
             result['InstanceName'] = self.instance_name
         if self.instance_type is not None:
@@ -247,6 +362,8 @@ class CreateEaiRequest(TeaModel):
         m = m or dict()
         if m.get('ClientToken') is not None:
             self.client_token = m.get('ClientToken')
+        if m.get('Image') is not None:
+            self.image = m.get('Image')
         if m.get('InstanceName') is not None:
             self.instance_name = m.get('InstanceName')
         if m.get('InstanceType') is not None:
@@ -1081,9 +1198,10 @@ class CreateEaiJupyterRequestEnvironmentVar(TeaModel):
 
 
 class CreateEaiJupyterRequest(TeaModel):
-    def __init__(self, client_token=None, eais_type=None, environment_var=None, region_id=None,
+    def __init__(self, client_token=None, eais_name=None, eais_type=None, environment_var=None, region_id=None,
                  resource_group_id=None, security_group_id=None, v_switch_id=None):
         self.client_token = client_token  # type: str
+        self.eais_name = eais_name  # type: str
         self.eais_type = eais_type  # type: str
         self.environment_var = environment_var  # type: list[CreateEaiJupyterRequestEnvironmentVar]
         self.region_id = region_id  # type: str
@@ -1105,6 +1223,8 @@ class CreateEaiJupyterRequest(TeaModel):
         result = dict()
         if self.client_token is not None:
             result['ClientToken'] = self.client_token
+        if self.eais_name is not None:
+            result['EaisName'] = self.eais_name
         if self.eais_type is not None:
             result['EaisType'] = self.eais_type
         result['EnvironmentVar'] = []
@@ -1125,6 +1245,8 @@ class CreateEaiJupyterRequest(TeaModel):
         m = m or dict()
         if m.get('ClientToken') is not None:
             self.client_token = m.get('ClientToken')
+        if m.get('EaisName') is not None:
+            self.eais_name = m.get('EaisName')
         if m.get('EaisType') is not None:
             self.eais_type = m.get('EaisType')
         self.environment_var = []
@@ -1144,9 +1266,10 @@ class CreateEaiJupyterRequest(TeaModel):
 
 
 class CreateEaiJupyterShrinkRequest(TeaModel):
-    def __init__(self, client_token=None, eais_type=None, environment_var_shrink=None, region_id=None,
-                 resource_group_id=None, security_group_id=None, v_switch_id=None):
+    def __init__(self, client_token=None, eais_name=None, eais_type=None, environment_var_shrink=None,
+                 region_id=None, resource_group_id=None, security_group_id=None, v_switch_id=None):
         self.client_token = client_token  # type: str
+        self.eais_name = eais_name  # type: str
         self.eais_type = eais_type  # type: str
         self.environment_var_shrink = environment_var_shrink  # type: str
         self.region_id = region_id  # type: str
@@ -1165,6 +1288,8 @@ class CreateEaiJupyterShrinkRequest(TeaModel):
         result = dict()
         if self.client_token is not None:
             result['ClientToken'] = self.client_token
+        if self.eais_name is not None:
+            result['EaisName'] = self.eais_name
         if self.eais_type is not None:
             result['EaisType'] = self.eais_type
         if self.environment_var_shrink is not None:
@@ -1183,6 +1308,8 @@ class CreateEaiJupyterShrinkRequest(TeaModel):
         m = m or dict()
         if m.get('ClientToken') is not None:
             self.client_token = m.get('ClientToken')
+        if m.get('EaisName') is not None:
+            self.eais_name = m.get('EaisName')
         if m.get('EaisType') is not None:
             self.eais_type = m.get('EaisType')
         if m.get('EnvironmentVar') is not None:
@@ -1262,6 +1389,129 @@ class CreateEaiJupyterResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateEaiJupyterResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CreateEaisEiRequest(TeaModel):
+    def __init__(self, client_token=None, instance_name=None, instance_type=None, region_id=None,
+                 resource_group_id=None, security_group_id=None, v_switch_id=None):
+        self.client_token = client_token  # type: str
+        self.instance_name = instance_name  # type: str
+        self.instance_type = instance_type  # type: str
+        self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
+        self.security_group_id = security_group_id  # type: str
+        self.v_switch_id = v_switch_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateEaisEiRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.instance_name is not None:
+            result['InstanceName'] = self.instance_name
+        if self.instance_type is not None:
+            result['InstanceType'] = self.instance_type
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
+        if self.security_group_id is not None:
+            result['SecurityGroupId'] = self.security_group_id
+        if self.v_switch_id is not None:
+            result['VSwitchId'] = self.v_switch_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('InstanceName') is not None:
+            self.instance_name = m.get('InstanceName')
+        if m.get('InstanceType') is not None:
+            self.instance_type = m.get('InstanceType')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('SecurityGroupId') is not None:
+            self.security_group_id = m.get('SecurityGroupId')
+        if m.get('VSwitchId') is not None:
+            self.v_switch_id = m.get('VSwitchId')
+        return self
+
+
+class CreateEaisEiResponseBody(TeaModel):
+    def __init__(self, ei_instance_id=None, request_id=None):
+        self.ei_instance_id = ei_instance_id  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateEaisEiResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ei_instance_id is not None:
+            result['EiInstanceId'] = self.ei_instance_id
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EiInstanceId') is not None:
+            self.ei_instance_id = m.get('EiInstanceId')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class CreateEaisEiResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateEaisEiResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateEaisEiResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateEaisEiResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -1456,6 +1706,103 @@ class DeleteEaiAllResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DeleteEaiAllResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DeleteEaisEiRequest(TeaModel):
+    def __init__(self, ei_instance_id=None, force=None, region_id=None):
+        self.ei_instance_id = ei_instance_id  # type: str
+        self.force = force  # type: bool
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteEaisEiRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ei_instance_id is not None:
+            result['EiInstanceId'] = self.ei_instance_id
+        if self.force is not None:
+            result['Force'] = self.force
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EiInstanceId') is not None:
+            self.ei_instance_id = m.get('EiInstanceId')
+        if m.get('Force') is not None:
+            self.force = m.get('Force')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class DeleteEaisEiResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteEaisEiResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DeleteEaisEiResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteEaisEiResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteEaisEiResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteEaisEiResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -2040,11 +2387,105 @@ class DetachEaiResponse(TeaModel):
         return self
 
 
+class DetachEaisEiRequest(TeaModel):
+    def __init__(self, ei_instance_id=None, region_id=None):
+        self.ei_instance_id = ei_instance_id  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DetachEaisEiRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ei_instance_id is not None:
+            result['EiInstanceId'] = self.ei_instance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EiInstanceId') is not None:
+            self.ei_instance_id = m.get('EiInstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class DetachEaisEiResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DetachEaisEiResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DetachEaisEiResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DetachEaisEiResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DetachEaisEiResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DetachEaisEiResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class GetInstanceMetricsRequest(TeaModel):
-    def __init__(self, end_time=None, instance_id=None, metric_type=None, start_time=None, time_step=None):
+    def __init__(self, end_time=None, instance_id=None, metric_type=None, region_id=None, start_time=None,
+                 time_step=None):
         self.end_time = end_time  # type: str
         self.instance_id = instance_id  # type: str
         self.metric_type = metric_type  # type: str
+        self.region_id = region_id  # type: str
         self.start_time = start_time  # type: str
         self.time_step = time_step  # type: str
 
@@ -2063,6 +2504,8 @@ class GetInstanceMetricsRequest(TeaModel):
             result['InstanceId'] = self.instance_id
         if self.metric_type is not None:
             result['MetricType'] = self.metric_type
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
         if self.start_time is not None:
             result['StartTime'] = self.start_time
         if self.time_step is not None:
@@ -2077,6 +2520,8 @@ class GetInstanceMetricsRequest(TeaModel):
             self.instance_id = m.get('InstanceId')
         if m.get('MetricType') is not None:
             self.metric_type = m.get('MetricType')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
         if m.get('StartTime') is not None:
             self.start_time = m.get('StartTime')
         if m.get('TimeStep') is not None:
@@ -2228,6 +2673,190 @@ class GetInstanceMetricsResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetInstanceMetricsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class StartEaisEiRequest(TeaModel):
+    def __init__(self, ei_instance_id=None, region_id=None):
+        self.ei_instance_id = ei_instance_id  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(StartEaisEiRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ei_instance_id is not None:
+            result['EiInstanceId'] = self.ei_instance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EiInstanceId') is not None:
+            self.ei_instance_id = m.get('EiInstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class StartEaisEiResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(StartEaisEiResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class StartEaisEiResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: StartEaisEiResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(StartEaisEiResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = StartEaisEiResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class StopEaisEiRequest(TeaModel):
+    def __init__(self, ei_instance_id=None, region_id=None):
+        self.ei_instance_id = ei_instance_id  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(StopEaisEiRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ei_instance_id is not None:
+            result['EiInstanceId'] = self.ei_instance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EiInstanceId') is not None:
+            self.ei_instance_id = m.get('EiInstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class StopEaisEiResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(StopEaisEiResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class StopEaisEiResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: StopEaisEiResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(StopEaisEiResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = StopEaisEiResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 

@@ -115,6 +115,40 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.attach_eai_with_options(request, runtime)
 
+    def attach_eais_ei_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_instance_id):
+            query['ClientInstanceId'] = request.client_instance_id
+        if not UtilClient.is_unset(request.ei_instance_id):
+            query['EiInstanceId'] = request.ei_instance_id
+        if not UtilClient.is_unset(request.ei_instance_type):
+            query['EiInstanceType'] = request.ei_instance_type
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='AttachEaisEi',
+            version='2019-06-24',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eais_20190624_models.AttachEaisEiResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def attach_eais_ei(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.attach_eais_ei_with_options(request, runtime)
+
     def change_resource_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -152,6 +186,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.client_token):
             query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.image):
+            query['Image'] = request.image
         if not UtilClient.is_unset(request.instance_name):
             query['InstanceName'] = request.instance_name
         if not UtilClient.is_unset(request.instance_type):
@@ -366,6 +402,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.client_token):
             query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.eais_name):
+            query['EaisName'] = request.eais_name
         if not UtilClient.is_unset(request.eais_type):
             query['EaisType'] = request.eais_type
         if not UtilClient.is_unset(request.environment_var_shrink):
@@ -400,6 +438,46 @@ class Client(OpenApiClient):
     def create_eai_jupyter(self, request):
         runtime = util_models.RuntimeOptions()
         return self.create_eai_jupyter_with_options(request, runtime)
+
+    def create_eais_ei_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.instance_name):
+            query['InstanceName'] = request.instance_name
+        if not UtilClient.is_unset(request.instance_type):
+            query['InstanceType'] = request.instance_type
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.security_group_id):
+            query['SecurityGroupId'] = request.security_group_id
+        if not UtilClient.is_unset(request.v_switch_id):
+            query['VSwitchId'] = request.v_switch_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateEaisEi',
+            version='2019-06-24',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eais_20190624_models.CreateEaisEiResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_eais_ei(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_eais_ei_with_options(request, runtime)
 
     def delete_eai_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -464,6 +542,38 @@ class Client(OpenApiClient):
     def delete_eai_all(self, request):
         runtime = util_models.RuntimeOptions()
         return self.delete_eai_all_with_options(request, runtime)
+
+    def delete_eais_ei_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.ei_instance_id):
+            query['EiInstanceId'] = request.ei_instance_id
+        if not UtilClient.is_unset(request.force):
+            query['Force'] = request.force
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteEaisEi',
+            version='2019-06-24',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eais_20190624_models.DeleteEaisEiResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_eais_ei(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_eais_ei_with_options(request, runtime)
 
     def describe_eais_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -559,6 +669,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.detach_eai_with_options(request, runtime)
 
+    def detach_eais_ei_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.ei_instance_id):
+            query['EiInstanceId'] = request.ei_instance_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DetachEaisEi',
+            version='2019-06-24',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eais_20190624_models.DetachEaisEiResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def detach_eais_ei(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.detach_eais_ei_with_options(request, runtime)
+
     def get_instance_metrics_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -568,6 +708,8 @@ class Client(OpenApiClient):
             query['InstanceId'] = request.instance_id
         if not UtilClient.is_unset(request.metric_type):
             query['MetricType'] = request.metric_type
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.start_time):
             query['StartTime'] = request.start_time
         if not UtilClient.is_unset(request.time_step):
@@ -594,3 +736,63 @@ class Client(OpenApiClient):
     def get_instance_metrics(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_instance_metrics_with_options(request, runtime)
+
+    def start_eais_ei_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.ei_instance_id):
+            query['EiInstanceId'] = request.ei_instance_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='StartEaisEi',
+            version='2019-06-24',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eais_20190624_models.StartEaisEiResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def start_eais_ei(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.start_eais_ei_with_options(request, runtime)
+
+    def stop_eais_ei_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.ei_instance_id):
+            query['EiInstanceId'] = request.ei_instance_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='StopEaisEi',
+            version='2019-06-24',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eais_20190624_models.StopEaisEiResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def stop_eais_ei(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.stop_eais_ei_with_options(request, runtime)
