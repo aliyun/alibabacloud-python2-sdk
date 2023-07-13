@@ -12006,7 +12006,7 @@ class DescribeActiveOperationTasksResponseBodyItems(TeaModel):
                  change_level_zh=None, created_time=None, current_avz=None, db_type=None, db_version=None, deadline=None, id=None,
                  impact=None, impact_en=None, impact_zh=None, ins_comment=None, ins_name=None, modified_time=None,
                  prepare_interval=None, region=None, result_info=None, start_time=None, status=None, sub_ins_names=None,
-                 switch_time=None, task_type=None, task_type_en=None, task_type_zh=None):
+                 switch_time=None, task_params=None, task_type=None, task_type_en=None, task_type_zh=None):
         # Indicates whether the task can be canceled. The value 1 indicates that the task can be canceled. The value 0 indicates that the task cannot be canceled.
         self.allow_cancel = allow_cancel  # type: str
         # Indicates whether the switching time can be changed. The value 1 indicates that the switching time can be changed. The value 0 indicates that the switching time cannot be changed.
@@ -12061,6 +12061,7 @@ class DescribeActiveOperationTasksResponseBodyItems(TeaModel):
         self.sub_ins_names = sub_ins_names  # type: list[str]
         # The switching time of the task. The time follows the ISO 8601 standard in the yyyy-MM-ddThh:mm:ssZ format. The time is displayed in UTC.
         self.switch_time = switch_time  # type: str
+        self.task_params = task_params  # type: str
         # The type of the task. Valid values:
         # 
         # *   **rds_apsaradb_ha**: primary/secondary switchover
@@ -12130,6 +12131,8 @@ class DescribeActiveOperationTasksResponseBodyItems(TeaModel):
             result['SubInsNames'] = self.sub_ins_names
         if self.switch_time is not None:
             result['SwitchTime'] = self.switch_time
+        if self.task_params is not None:
+            result['TaskParams'] = self.task_params
         if self.task_type is not None:
             result['TaskType'] = self.task_type
         if self.task_type_en is not None:
@@ -12188,6 +12191,8 @@ class DescribeActiveOperationTasksResponseBodyItems(TeaModel):
             self.sub_ins_names = m.get('SubInsNames')
         if m.get('SwitchTime') is not None:
             self.switch_time = m.get('SwitchTime')
+        if m.get('TaskParams') is not None:
+            self.task_params = m.get('TaskParams')
         if m.get('TaskType') is not None:
             self.task_type = m.get('TaskType')
         if m.get('TaskTypeEn') is not None:
@@ -53844,12 +53849,13 @@ class ResetAccountPasswordResponse(TeaModel):
 
 
 class RestartDBInstanceRequest(TeaModel):
-    def __init__(self, client_token=None, dbinstance_id=None, owner_account=None, owner_id=None,
+    def __init__(self, client_token=None, dbinstance_id=None, node_id=None, owner_account=None, owner_id=None,
                  resource_owner_account=None, resource_owner_id=None):
         # The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length.
         self.client_token = client_token  # type: str
         # The ID of the instance.
         self.dbinstance_id = dbinstance_id  # type: str
+        self.node_id = node_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
@@ -53868,6 +53874,8 @@ class RestartDBInstanceRequest(TeaModel):
             result['ClientToken'] = self.client_token
         if self.dbinstance_id is not None:
             result['DBInstanceId'] = self.dbinstance_id
+        if self.node_id is not None:
+            result['NodeId'] = self.node_id
         if self.owner_account is not None:
             result['OwnerAccount'] = self.owner_account
         if self.owner_id is not None:
@@ -53884,6 +53892,8 @@ class RestartDBInstanceRequest(TeaModel):
             self.client_token = m.get('ClientToken')
         if m.get('DBInstanceId') is not None:
             self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('NodeId') is not None:
+            self.node_id = m.get('NodeId')
         if m.get('OwnerAccount') is not None:
             self.owner_account = m.get('OwnerAccount')
         if m.get('OwnerId') is not None:

@@ -1,3 +1,7 @@
+2023-07-13 Version: 1.2.5
+- Support change instance config event for rds.
+- Add NodeId param for restart slave.
+
 2023-07-12 Version: 1.2.4
 - Add error coede.
 - Fix bugs for 500.
