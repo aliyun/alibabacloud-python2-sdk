@@ -32711,12 +32711,13 @@ class HotelOrderPreValidateResponseBodyModuleRatePlanInfoBtripHotelCancelPolicyD
 
 class HotelOrderPreValidateResponseBodyModuleRatePlanInfo(TeaModel):
     def __init__(self, bed_desc=None, btrip_hotel_cancel_policy_dto=None, earliest_check_in_time=None,
-                 latest_check_out_time=None, max_occupancy_num=None, need_certificate=None, need_email=None, need_english_name=None,
-                 total_order_price=None, total_room_price=None):
+                 latest_check_out_time=None, max_booking_num=None, max_occupancy_num=None, need_certificate=None, need_email=None,
+                 need_english_name=None, total_order_price=None, total_room_price=None):
         self.bed_desc = bed_desc  # type: str
         self.btrip_hotel_cancel_policy_dto = btrip_hotel_cancel_policy_dto  # type: HotelOrderPreValidateResponseBodyModuleRatePlanInfoBtripHotelCancelPolicyDTO
         self.earliest_check_in_time = earliest_check_in_time  # type: str
         self.latest_check_out_time = latest_check_out_time  # type: str
+        self.max_booking_num = max_booking_num  # type: int
         self.max_occupancy_num = max_occupancy_num  # type: int
         self.need_certificate = need_certificate  # type: bool
         self.need_email = need_email  # type: bool
@@ -32742,6 +32743,8 @@ class HotelOrderPreValidateResponseBodyModuleRatePlanInfo(TeaModel):
             result['earliest_check_in_time'] = self.earliest_check_in_time
         if self.latest_check_out_time is not None:
             result['latest_check_out_time'] = self.latest_check_out_time
+        if self.max_booking_num is not None:
+            result['max_booking_num'] = self.max_booking_num
         if self.max_occupancy_num is not None:
             result['max_occupancy_num'] = self.max_occupancy_num
         if self.need_certificate is not None:
@@ -32767,6 +32770,8 @@ class HotelOrderPreValidateResponseBodyModuleRatePlanInfo(TeaModel):
             self.earliest_check_in_time = m.get('earliest_check_in_time')
         if m.get('latest_check_out_time') is not None:
             self.latest_check_out_time = m.get('latest_check_out_time')
+        if m.get('max_booking_num') is not None:
+            self.max_booking_num = m.get('max_booking_num')
         if m.get('max_occupancy_num') is not None:
             self.max_occupancy_num = m.get('max_occupancy_num')
         if m.get('need_certificate') is not None:
