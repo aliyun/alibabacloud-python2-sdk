@@ -7481,7 +7481,8 @@ class GetStackResponseBodyResourceProgressInProgressResourceDetails(TeaModel):
 
 class GetStackResponseBodyResourceProgress(TeaModel):
     def __init__(self, failed_resource_count=None, in_progress_resource_count=None,
-                 in_progress_resource_details=None, pending_resource_count=None, success_resource_count=None, total_resource_count=None):
+                 in_progress_resource_details=None, pending_resource_count=None, stack_action_progress=None, stack_operation_progress=None,
+                 success_resource_count=None, total_resource_count=None):
         # The number of resources that fail to be created.
         self.failed_resource_count = failed_resource_count  # type: int
         # The number of resources that are being created.
@@ -7490,6 +7491,8 @@ class GetStackResponseBodyResourceProgress(TeaModel):
         self.in_progress_resource_details = in_progress_resource_details  # type: list[GetStackResponseBodyResourceProgressInProgressResourceDetails]
         # The number of resources to be created.
         self.pending_resource_count = pending_resource_count  # type: int
+        self.stack_action_progress = stack_action_progress  # type: float
+        self.stack_operation_progress = stack_operation_progress  # type: float
         # The number of resources that are created.
         self.success_resource_count = success_resource_count  # type: int
         # The total number of resources.
@@ -7517,6 +7520,10 @@ class GetStackResponseBodyResourceProgress(TeaModel):
                 result['InProgressResourceDetails'].append(k.to_map() if k else None)
         if self.pending_resource_count is not None:
             result['PendingResourceCount'] = self.pending_resource_count
+        if self.stack_action_progress is not None:
+            result['StackActionProgress'] = self.stack_action_progress
+        if self.stack_operation_progress is not None:
+            result['StackOperationProgress'] = self.stack_operation_progress
         if self.success_resource_count is not None:
             result['SuccessResourceCount'] = self.success_resource_count
         if self.total_resource_count is not None:
@@ -7536,6 +7543,10 @@ class GetStackResponseBodyResourceProgress(TeaModel):
                 self.in_progress_resource_details.append(temp_model.from_map(k))
         if m.get('PendingResourceCount') is not None:
             self.pending_resource_count = m.get('PendingResourceCount')
+        if m.get('StackActionProgress') is not None:
+            self.stack_action_progress = m.get('StackActionProgress')
+        if m.get('StackOperationProgress') is not None:
+            self.stack_operation_progress = m.get('StackOperationProgress')
         if m.get('SuccessResourceCount') is not None:
             self.success_resource_count = m.get('SuccessResourceCount')
         if m.get('TotalResourceCount') is not None:
