@@ -552,7 +552,7 @@ class Client(OpenApiClient):
 
     def config_app_with_options(self, request, runtime):
         """
-        **\
+        ***\
         
 
         @param request: ConfigAppRequest
@@ -592,7 +592,7 @@ class Client(OpenApiClient):
 
     def config_app(self, request):
         """
-        **\
+        ***\
         
 
         @param request: ConfigAppRequest
@@ -604,7 +604,7 @@ class Client(OpenApiClient):
 
     def create_alert_contact_with_options(self, request, runtime):
         """
-        This operation is no longer maintained. To create or modify an alert contact, call the CreateOrUpdateContact operation provided by the new version of the Alert Management module.
+        The ID of the request.
         
 
         @param request: CreateAlertContactRequest
@@ -650,7 +650,7 @@ class Client(OpenApiClient):
 
     def create_alert_contact(self, request):
         """
-        This operation is no longer maintained. To create or modify an alert contact, call the CreateOrUpdateContact operation provided by the new version of the Alert Management module.
+        The ID of the request.
         
 
         @param request: CreateAlertContactRequest
@@ -661,16 +661,6 @@ class Client(OpenApiClient):
         return self.create_alert_contact_with_options(request, runtime)
 
     def create_alert_contact_group_with_options(self, request, runtime):
-        """
-        ***********\
-        
-
-        @param request: CreateAlertContactGroupRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: CreateAlertContactGroupResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.contact_group_name):
@@ -699,14 +689,6 @@ class Client(OpenApiClient):
         )
 
     def create_alert_contact_group(self, request):
-        """
-        ***********\
-        
-
-        @param request: CreateAlertContactGroupRequest
-
-        @return: CreateAlertContactGroupResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.create_alert_contact_group_with_options(request, runtime)
 
@@ -821,6 +803,8 @@ class Client(OpenApiClient):
             body['PromQL'] = request.prom_ql
         if not UtilClient.is_unset(request.region_id):
             body['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.tags):
+            body['Tags'] = request.tags
         req = open_api_models.OpenApiRequest(
             body=OpenApiUtilClient.parse_to_map(body)
         )
@@ -1137,16 +1121,6 @@ class Client(OpenApiClient):
         return self.create_or_update_webhook_contact_with_options(request, runtime)
 
     def create_prometheus_alert_rule_with_options(self, request, runtime):
-        """
-        > We recommend that you call the [CreateOrUpdateAlertRule](~~411960~~) operation to create a Prometheus alert rule.
-        
-
-        @param request: CreatePrometheusAlertRuleRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: CreatePrometheusAlertRuleResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.alert_name):
@@ -1169,6 +1143,8 @@ class Client(OpenApiClient):
             query['NotifyType'] = request.notify_type
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.tags):
+            query['Tags'] = request.tags
         if not UtilClient.is_unset(request.type):
             query['Type'] = request.type
         req = open_api_models.OpenApiRequest(
@@ -1191,20 +1167,14 @@ class Client(OpenApiClient):
         )
 
     def create_prometheus_alert_rule(self, request):
-        """
-        > We recommend that you call the [CreateOrUpdateAlertRule](~~411960~~) operation to create a Prometheus alert rule.
-        
-
-        @param request: CreatePrometheusAlertRuleRequest
-
-        @return: CreatePrometheusAlertRuleResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.create_prometheus_alert_rule_with_options(request, runtime)
 
     def create_prometheus_instance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.all_sub_clusters_success):
+            query['AllSubClustersSuccess'] = request.all_sub_clusters_success
         if not UtilClient.is_unset(request.cluster_id):
             query['ClusterId'] = request.cluster_id
         if not UtilClient.is_unset(request.cluster_name):
@@ -1249,6 +1219,44 @@ class Client(OpenApiClient):
     def create_prometheus_instance(self, request):
         runtime = util_models.RuntimeOptions()
         return self.create_prometheus_instance_with_options(request, runtime)
+
+    def create_prometheus_monitoring_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
+        if not UtilClient.is_unset(request.type):
+            query['Type'] = request.type
+        body = {}
+        if not UtilClient.is_unset(request.config_yaml):
+            body['ConfigYaml'] = request.config_yaml
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreatePrometheusMonitoring',
+            version='2019-08-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            arms20190808_models.CreatePrometheusMonitoringResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_prometheus_monitoring(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_prometheus_monitoring_with_options(request, runtime)
 
     def create_retcode_app_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1431,16 +1439,6 @@ class Client(OpenApiClient):
         return self.del_auth_token_with_options(request, runtime)
 
     def delete_alert_contact_with_options(self, request, runtime):
-        """
-        *******\
-        
-
-        @param request: DeleteAlertContactRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: DeleteAlertContactResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.contact_id):
@@ -1467,28 +1465,10 @@ class Client(OpenApiClient):
         )
 
     def delete_alert_contact(self, request):
-        """
-        *******\
-        
-
-        @param request: DeleteAlertContactRequest
-
-        @return: DeleteAlertContactResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.delete_alert_contact_with_options(request, runtime)
 
     def delete_alert_contact_group_with_options(self, request, runtime):
-        """
-        *******\
-        
-
-        @param request: DeleteAlertContactGroupRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: DeleteAlertContactGroupResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.contact_group_id):
@@ -1515,14 +1495,6 @@ class Client(OpenApiClient):
         )
 
     def delete_alert_contact_group(self, request):
-        """
-        *******\
-        
-
-        @param request: DeleteAlertContactGroupRequest
-
-        @return: DeleteAlertContactGroupResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.delete_alert_contact_group_with_options(request, runtime)
 
@@ -1555,16 +1527,6 @@ class Client(OpenApiClient):
         return self.delete_alert_rule_with_options(request, runtime)
 
     def delete_alert_rules_with_options(self, request, runtime):
-        """
-        The current operation is no longer maintained. Call the DeleteAlertRule operation of Alert Management (New) to delete alert rules.
-        
-
-        @param request: DeleteAlertRulesRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: DeleteAlertRulesResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.alert_ids):
@@ -1591,14 +1553,6 @@ class Client(OpenApiClient):
         )
 
     def delete_alert_rules(self, request):
-        """
-        The current operation is no longer maintained. Call the DeleteAlertRule operation of Alert Management (New) to delete alert rules.
-        
-
-        @param request: DeleteAlertRulesRequest
-
-        @return: DeleteAlertRulesResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.delete_alert_rules_with_options(request, runtime)
 
@@ -1689,16 +1643,6 @@ class Client(OpenApiClient):
         return self.delete_contact_group_with_options(request, runtime)
 
     def delete_dispatch_rule_with_options(self, request, runtime):
-        """
-        *******\
-        
-
-        @param request: DeleteDispatchRuleRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: DeleteDispatchRuleResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.id):
@@ -1725,14 +1669,6 @@ class Client(OpenApiClient):
         )
 
     def delete_dispatch_rule(self, request):
-        """
-        *******\
-        
-
-        @param request: DeleteDispatchRuleRequest
-
-        @return: DeleteDispatchRuleResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.delete_dispatch_rule_with_options(request, runtime)
 
@@ -1917,6 +1853,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.alert_id):
             query['AlertId'] = request.alert_id
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2003,6 +1941,40 @@ class Client(OpenApiClient):
     def delete_prometheus_integration(self, request):
         runtime = util_models.RuntimeOptions()
         return self.delete_prometheus_integration_with_options(request, runtime)
+
+    def delete_prometheus_monitoring_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.monitoring_name):
+            query['MonitoringName'] = request.monitoring_name
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.type):
+            query['Type'] = request.type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeletePrometheusMonitoring',
+            version='2019-08-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            arms20190808_models.DeletePrometheusMonitoringResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_prometheus_monitoring(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_prometheus_monitoring_with_options(request, runtime)
 
     def delete_prometheus_remote_write_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -2267,6 +2239,8 @@ class Client(OpenApiClient):
             query['IsDetail'] = request.is_detail
         if not UtilClient.is_unset(request.page):
             query['Page'] = request.page
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.size):
             query['Size'] = request.size
         req = open_api_models.OpenApiRequest(
@@ -2305,6 +2279,8 @@ class Client(OpenApiClient):
             query['Page'] = request.page
         if not UtilClient.is_unset(request.phone):
             query['Phone'] = request.phone
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.size):
             query['Size'] = request.size
         if not UtilClient.is_unset(request.verbose):
@@ -2401,6 +2377,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.alert_id):
             query['AlertId'] = request.alert_id
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2478,6 +2456,38 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_webhook_contacts_with_options(request, runtime)
 
+    def enable_metric_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.drop_metric):
+            query['DropMetric'] = request.drop_metric
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='EnableMetric',
+            version='2019-08-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            arms20190808_models.EnableMetricResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def enable_metric(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.enable_metric_with_options(request, runtime)
+
     def get_agent_download_url_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
@@ -2525,6 +2535,8 @@ class Client(OpenApiClient):
             query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.size):
             query['Size'] = request.size
+        if not UtilClient.is_unset(request.tags):
+            query['Tags'] = request.tags
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2842,7 +2854,7 @@ class Client(OpenApiClient):
 
     def get_prometheus_api_token_with_options(self, request, runtime):
         """
-        None.
+        The ID of the request.
         
 
         @param request: GetPrometheusApiTokenRequest
@@ -2876,7 +2888,7 @@ class Client(OpenApiClient):
 
     def get_prometheus_api_token(self, request):
         """
-        None.
+        The ID of the request.
         
 
         @param request: GetPrometheusApiTokenRequest
@@ -2979,6 +2991,40 @@ class Client(OpenApiClient):
     def get_prometheus_integration(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_prometheus_integration_with_options(request, runtime)
+
+    def get_prometheus_monitoring_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.monitoring_name):
+            query['MonitoringName'] = request.monitoring_name
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.type):
+            query['Type'] = request.type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetPrometheusMonitoring',
+            version='2019-08-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            arms20190808_models.GetPrometheusMonitoringResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_prometheus_monitoring(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_prometheus_monitoring_with_options(request, runtime)
 
     def get_prometheus_remote_write_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -3399,6 +3445,8 @@ class Client(OpenApiClient):
             query['Pid'] = request.pid
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.tags):
+            query['Tags'] = request.tags
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -3424,7 +3472,7 @@ class Client(OpenApiClient):
 
     def import_app_alert_rules_with_options(self, request, runtime):
         """
-        >  You can call the *ImportAppAlertRules** operation to import only the alert rules that are generated by Application Real-Time Monitoring Service (ARMS) for application monitoring and browser monitoring. This operation cannot be used to import custom alert rules, alert rules for Prometheus monitoring, or default emergency alert rules.
+        The ID of the region where the associated applications reside.
         
 
         @param request: ImportAppAlertRulesRequest
@@ -3443,6 +3491,8 @@ class Client(OpenApiClient):
             query['Pids'] = request.pids
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.tags):
+            query['Tags'] = request.tags
         if not UtilClient.is_unset(request.templage_alert_config):
             query['TemplageAlertConfig'] = request.templage_alert_config
         if not UtilClient.is_unset(request.template_alert_id):
@@ -3468,7 +3518,7 @@ class Client(OpenApiClient):
 
     def import_app_alert_rules(self, request):
         """
-        >  You can call the *ImportAppAlertRules** operation to import only the alert rules that are generated by Application Real-Time Monitoring Service (ARMS) for application monitoring and browser monitoring. This operation cannot be used to import custom alert rules, alert rules for Prometheus monitoring, or default emergency alert rules.
+        The ID of the region where the associated applications reside.
         
 
         @param request: ImportAppAlertRulesRequest
@@ -3516,7 +3566,7 @@ class Client(OpenApiClient):
 
     def install_managed_prometheus_with_options(self, request, runtime):
         """
-        You can call the API operation to install a Prometheus agent to monitor a serverless Kubernetes (ASK) cluster. You can manage the agent in Application Real-Time Monitoring Service (ARMS), but you cannot view the agent in the ASK cluster.
+        $.parameters[5].schema.example
         
 
         @param request: InstallManagedPrometheusRequest
@@ -3568,7 +3618,7 @@ class Client(OpenApiClient):
 
     def install_managed_prometheus(self, request):
         """
-        You can call the API operation to install a Prometheus agent to monitor a serverless Kubernetes (ASK) cluster. You can manage the agent in Application Real-Time Monitoring Service (ARMS), but you cannot view the agent in the ASK cluster.
+        $.parameters[5].schema.example
         
 
         @param request: InstallManagedPrometheusRequest
@@ -3762,7 +3812,7 @@ class Client(OpenApiClient):
 
     def list_dashboards_with_options(self, request, runtime):
         """
-        *******\
+        None.
         
 
         @param request: ListDashboardsRequest
@@ -3810,7 +3860,7 @@ class Client(OpenApiClient):
 
     def list_dashboards(self, request):
         """
-        *******\
+        None.
         
 
         @param request: ListDashboardsRequest
@@ -4087,6 +4137,8 @@ class Client(OpenApiClient):
             query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.status):
             query['Status'] = request.status
+        if not UtilClient.is_unset(request.tags):
+            query['Tags'] = request.tags
         if not UtilClient.is_unset(request.type):
             query['Type'] = request.type
         req = open_api_models.OpenApiRequest(
@@ -4205,6 +4257,8 @@ class Client(OpenApiClient):
     def list_prometheus_instances_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.cluster_type):
+            query['ClusterType'] = request.cluster_type
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.show_global_view):
@@ -4264,6 +4318,38 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_prometheus_integration_with_options(request, runtime)
 
+    def list_prometheus_monitoring_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.type):
+            query['Type'] = request.type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListPrometheusMonitoring',
+            version='2019-08-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            arms20190808_models.ListPrometheusMonitoringResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_prometheus_monitoring(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_prometheus_monitoring_with_options(request, runtime)
+
     def list_prometheus_remote_writes_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -4296,7 +4382,7 @@ class Client(OpenApiClient):
 
     def list_retcode_apps_with_options(self, request, runtime):
         """
-        **\
+        ***\
         
 
         @param request: ListRetcodeAppsRequest
@@ -4334,7 +4420,7 @@ class Client(OpenApiClient):
 
     def list_retcode_apps(self, request):
         """
-        **\
+        ***\
         
 
         @param request: ListRetcodeAppsRequest
@@ -4543,20 +4629,6 @@ class Client(OpenApiClient):
         return self.open_arms_default_slrwith_options(request, runtime)
 
     def open_arms_service_second_version_with_options(self, request, runtime):
-        """
-        The *OpenArmsServiceSecondVersion** operation supports the following sub-service editions:
-        *   Application Monitoring: Basic Edition
-        *   Browser Monitoring: Basic Edition
-        *   Synthetic Monitoring: Pro Edition (pay-as-you-go)
-        *   Prometheus Service: Pro Edition
-        
-
-        @param request: OpenArmsServiceSecondVersionRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: OpenArmsServiceSecondVersionResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.region_id):
@@ -4583,18 +4655,6 @@ class Client(OpenApiClient):
         )
 
     def open_arms_service_second_version(self, request):
-        """
-        The *OpenArmsServiceSecondVersion** operation supports the following sub-service editions:
-        *   Application Monitoring: Basic Edition
-        *   Browser Monitoring: Basic Edition
-        *   Synthetic Monitoring: Pro Edition (pay-as-you-go)
-        *   Prometheus Service: Pro Edition
-        
-
-        @param request: OpenArmsServiceSecondVersionRequest
-
-        @return: OpenArmsServiceSecondVersionResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.open_arms_service_second_version_with_options(request, runtime)
 
@@ -4884,7 +4944,7 @@ class Client(OpenApiClient):
 
     def search_alert_contact_with_options(self, request, runtime):
         """
-        This operation is no longer maintained. To query alert contacts, call the DescribeContacts operation provided by the new version of Alert Management.
+        The ID of the resource group.
         
 
         @param request: SearchAlertContactRequest
@@ -4930,7 +4990,7 @@ class Client(OpenApiClient):
 
     def search_alert_contact(self, request):
         """
-        This operation is no longer maintained. To query alert contacts, call the DescribeContacts operation provided by the new version of Alert Management.
+        The ID of the resource group.
         
 
         @param request: SearchAlertContactRequest
@@ -4942,7 +5002,7 @@ class Client(OpenApiClient):
 
     def search_alert_contact_group_with_options(self, request, runtime):
         """
-        The operation is no longer maintained. Call the DescribeContactGroups operation in the alert management module to query alert contact groups.
+        The mobile number of the alert contact.
         
 
         @param request: SearchAlertContactGroupRequest
@@ -4986,7 +5046,7 @@ class Client(OpenApiClient):
 
     def search_alert_contact_group(self, request):
         """
-        The operation is no longer maintained. Call the DescribeContactGroups operation in the alert management module to query alert contact groups.
+        The mobile number of the alert contact.
         
 
         @param request: SearchAlertContactGroupRequest
@@ -4998,7 +5058,7 @@ class Client(OpenApiClient):
 
     def search_alert_histories_with_options(self, request, runtime):
         """
-        *******\
+        This operation is no longer maintained. To query alert records, call the ListAlerts operation provided by the new version of Alert Management.
         
 
         @param request: SearchAlertHistoriesRequest
@@ -5044,7 +5104,7 @@ class Client(OpenApiClient):
 
     def search_alert_histories(self, request):
         """
-        *******\
+        This operation is no longer maintained. To query alert records, call the ListAlerts operation provided by the new version of Alert Management.
         
 
         @param request: SearchAlertHistoriesRequest
@@ -5056,7 +5116,7 @@ class Client(OpenApiClient):
 
     def search_alert_rules_with_options(self, request, runtime):
         """
-        The current operation is no longer maintained. You can call the GetAlertRules operation of Alert Management (New) to query existing alert rules.
+        Queries alert rules.
         
 
         @param request: SearchAlertRulesRequest
@@ -5083,6 +5143,8 @@ class Client(OpenApiClient):
             query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.system_region_id):
             query['SystemRegionId'] = request.system_region_id
+        if not UtilClient.is_unset(request.tags):
+            query['Tags'] = request.tags
         if not UtilClient.is_unset(request.title):
             query['Title'] = request.title
         if not UtilClient.is_unset(request.type):
@@ -5108,7 +5170,7 @@ class Client(OpenApiClient):
 
     def search_alert_rules(self, request):
         """
-        The current operation is no longer maintained. You can call the GetAlertRules operation of Alert Management (New) to query existing alert rules.
+        Queries alert rules.
         
 
         @param request: SearchAlertRulesRequest
@@ -5120,7 +5182,7 @@ class Client(OpenApiClient):
 
     def search_events_with_options(self, request, runtime):
         """
-        Alert event records are different from alert notification records. Alert events are recorded every minute after an alert rule filters data. Alert events can be classified based on whether they are triggered or not. If a triggered event is not in the silence period, an alert notification is sent.
+        The operation that you want to perform. Set the value to `SearchEvents`.
         
 
         @param request: SearchEventsRequest
@@ -5172,7 +5234,7 @@ class Client(OpenApiClient):
 
     def search_events(self, request):
         """
-        Alert event records are different from alert notification records. Alert events are recorded every minute after an alert rule filters data. Alert events can be classified based on whether they are triggered or not. If a triggered event is not in the silence period, an alert notification is sent.
+        The operation that you want to perform. Set the value to `SearchEvents`.
         
 
         @param request: SearchEventsRequest
@@ -5237,6 +5299,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.tags):
+            query['Tags'] = request.tags
         if not UtilClient.is_unset(request.trace_app_name):
             query['TraceAppName'] = request.trace_app_name
         req = open_api_models.OpenApiRequest(
@@ -5381,6 +5445,8 @@ class Client(OpenApiClient):
             query['EndTime'] = request.end_time
         if not UtilClient.is_unset(request.exclusion_filters):
             query['ExclusionFilters'] = request.exclusion_filters
+        if not UtilClient.is_unset(request.is_error):
+            query['IsError'] = request.is_error
         if not UtilClient.is_unset(request.min_duration):
             query['MinDuration'] = request.min_duration
         if not UtilClient.is_unset(request.operation_name):
@@ -5428,7 +5494,7 @@ class Client(OpenApiClient):
 
     def send_ttsverify_link_with_options(self, request, runtime):
         """
-        After receiving the mobile phone number verification SMS, please complete the mobile phone number verification according to the SMS prompt. Only verified mobile phone numbers can use the notification method of the phone in the notification policy.
+        After you receive the text message, verify the mobile number as prompted. Before you can specify a mobile phone number in a notification policy, you must verify the mobile phone number.
         
 
         @param request: SendTTSVerifyLinkRequest
@@ -5464,7 +5530,7 @@ class Client(OpenApiClient):
 
     def send_ttsverify_link(self, request):
         """
-        After receiving the mobile phone number verification SMS, please complete the mobile phone number verification according to the SMS prompt. Only verified mobile phone numbers can use the notification method of the phone in the notification policy.
+        After you receive the text message, verify the mobile number as prompted. Before you can specify a mobile phone number in a notification policy, you must verify the mobile phone number.
         
 
         @param request: SendTTSVerifyLinkRequest
@@ -5662,7 +5728,7 @@ class Client(OpenApiClient):
 
     def uninstall_managed_prometheus_with_options(self, request, runtime):
         """
-        You can call the API operation to uninstall a Prometheus agent only from a serverless Kubernetes (ASK) cluster.
+        The status code. The status code 200 indicates that the request was successful. If another status code is returned, the request failed.
         
 
         @param request: UninstallManagedPrometheusRequest
@@ -5704,7 +5770,7 @@ class Client(OpenApiClient):
 
     def uninstall_managed_prometheus(self, request):
         """
-        You can call the API operation to uninstall a Prometheus agent only from a serverless Kubernetes (ASK) cluster.
+        The status code. The status code 200 indicates that the request was successful. If another status code is returned, the request failed.
         
 
         @param request: UninstallManagedPrometheusRequest
@@ -5755,6 +5821,8 @@ class Client(OpenApiClient):
             query['ResourceType'] = request.resource_type
         if not UtilClient.is_unset(request.tag_key):
             query['TagKey'] = request.tag_key
+        if not UtilClient.is_unset(request.tags):
+            query['Tags'] = request.tags
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -5780,7 +5848,7 @@ class Client(OpenApiClient):
 
     def update_alert_contact_with_options(self, request, runtime):
         """
-        This operation is no longer maintained. To create or modify an alert contact, call the CreateOrUpdateContact operation provided by the new version of Alert Management.
+        The ID of the request.
         
 
         @param request: UpdateAlertContactRequest
@@ -5826,7 +5894,7 @@ class Client(OpenApiClient):
 
     def update_alert_contact(self, request):
         """
-        This operation is no longer maintained. To create or modify an alert contact, call the CreateOrUpdateContact operation provided by the new version of Alert Management.
+        The ID of the request.
         
 
         @param request: UpdateAlertContactRequest
@@ -5939,8 +6007,6 @@ class Client(OpenApiClient):
     def update_integration_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
-        if not UtilClient.is_unset(request.api_endpoint):
-            body['ApiEndpoint'] = request.api_endpoint
         if not UtilClient.is_unset(request.auto_recover):
             body['AutoRecover'] = request.auto_recover
         if not UtilClient.is_unset(request.description):
@@ -5965,8 +6031,6 @@ class Client(OpenApiClient):
             body['Liveness'] = request.liveness
         if not UtilClient.is_unset(request.recover_time):
             body['RecoverTime'] = request.recover_time
-        if not UtilClient.is_unset(request.short_token):
-            body['ShortToken'] = request.short_token
         if not UtilClient.is_unset(request.stat):
             body['Stat'] = request.stat
         if not UtilClient.is_unset(request.state):
@@ -5995,16 +6059,6 @@ class Client(OpenApiClient):
         return self.update_integration_with_options(request, runtime)
 
     def update_prometheus_alert_rule_with_options(self, request, runtime):
-        """
-        The UpdatePrometheusAlertRule operation is no longer maintained. Call the CreateOrUpdateAlertRule operation to create or modify alert rules.
-        
-
-        @param request: UpdatePrometheusAlertRuleRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: UpdatePrometheusAlertRuleResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.alert_id):
@@ -6029,6 +6083,8 @@ class Client(OpenApiClient):
             query['NotifyType'] = request.notify_type
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.tags):
+            query['Tags'] = request.tags
         if not UtilClient.is_unset(request.type):
             query['Type'] = request.type
         req = open_api_models.OpenApiRequest(
@@ -6051,20 +6107,14 @@ class Client(OpenApiClient):
         )
 
     def update_prometheus_alert_rule(self, request):
-        """
-        The UpdatePrometheusAlertRule operation is no longer maintained. Call the CreateOrUpdateAlertRule operation to create or modify alert rules.
-        
-
-        @param request: UpdatePrometheusAlertRuleRequest
-
-        @return: UpdatePrometheusAlertRuleResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.update_prometheus_alert_rule_with_options(request, runtime)
 
     def update_prometheus_global_view_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.all_sub_clusters_success):
+            query['AllSubClustersSuccess'] = request.all_sub_clusters_success
         if not UtilClient.is_unset(request.cluster_id):
             query['ClusterId'] = request.cluster_id
         if not UtilClient.is_unset(request.region_id):
@@ -6132,6 +6182,80 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.update_prometheus_integration_with_options(request, runtime)
 
+    def update_prometheus_monitoring_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.monitoring_name):
+            query['MonitoringName'] = request.monitoring_name
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.type):
+            query['Type'] = request.type
+        body = {}
+        if not UtilClient.is_unset(request.config_yaml):
+            body['ConfigYaml'] = request.config_yaml
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdatePrometheusMonitoring',
+            version='2019-08-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            arms20190808_models.UpdatePrometheusMonitoringResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_prometheus_monitoring(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_prometheus_monitoring_with_options(request, runtime)
+
+    def update_prometheus_monitoring_status_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.monitoring_name):
+            query['MonitoringName'] = request.monitoring_name
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
+        if not UtilClient.is_unset(request.type):
+            query['Type'] = request.type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdatePrometheusMonitoringStatus',
+            version='2019-08-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            arms20190808_models.UpdatePrometheusMonitoringStatusResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_prometheus_monitoring_status(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_prometheus_monitoring_status_with_options(request, runtime)
+
     def update_prometheus_remote_write_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -6170,7 +6294,7 @@ class Client(OpenApiClient):
 
     def update_webhook_with_options(self, request, runtime):
         """
-        This operation is no longer maintained. Call the CreateOrUpdateWebhookContact operation in the new alter management module to create or modify a webhook alert contact.
+        The ID of the request.
         
 
         @param request: UpdateWebhookRequest
@@ -6220,7 +6344,7 @@ class Client(OpenApiClient):
 
     def update_webhook(self, request):
         """
-        This operation is no longer maintained. Call the CreateOrUpdateWebhookContact operation in the new alter management module to create or modify a webhook alert contact.
+        The ID of the request.
         
 
         @param request: UpdateWebhookRequest
