@@ -1156,6 +1156,62 @@ class Client(OpenApiClient):
         headers = {}
         return self.create_workitem_record_with_options(organization_id, request, headers, runtime)
 
+    def create_workitem_v2with_options(self, organization_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.assigned_to):
+            body['assignedTo'] = request.assigned_to
+        if not UtilClient.is_unset(request.category):
+            body['category'] = request.category
+        if not UtilClient.is_unset(request.description):
+            body['description'] = request.description
+        if not UtilClient.is_unset(request.field_value_list):
+            body['fieldValueList'] = request.field_value_list
+        if not UtilClient.is_unset(request.parent_identifier):
+            body['parentIdentifier'] = request.parent_identifier
+        if not UtilClient.is_unset(request.participants):
+            body['participants'] = request.participants
+        if not UtilClient.is_unset(request.space_identifier):
+            body['spaceIdentifier'] = request.space_identifier
+        if not UtilClient.is_unset(request.sprint_identifier):
+            body['sprintIdentifier'] = request.sprint_identifier
+        if not UtilClient.is_unset(request.subject):
+            body['subject'] = request.subject
+        if not UtilClient.is_unset(request.tags):
+            body['tags'] = request.tags
+        if not UtilClient.is_unset(request.trackers):
+            body['trackers'] = request.trackers
+        if not UtilClient.is_unset(request.verifier):
+            body['verifier'] = request.verifier
+        if not UtilClient.is_unset(request.versions):
+            body['versions'] = request.versions
+        if not UtilClient.is_unset(request.workitem_type_identifier):
+            body['workitemTypeIdentifier'] = request.workitem_type_identifier
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateWorkitemV2',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/workitem' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.CreateWorkitemV2Response(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_workitem_v2(self, organization_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_workitem_v2with_options(organization_id, request, headers, runtime)
+
     def create_workspace_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -2875,6 +2931,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.get_work_item_work_flow_info_with_options(organization_id, workitem_id, request, headers, runtime)
+
+    def get_workitem_attachment_createmeta_with_options(self, organization_id, workitem_identifier, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.file_name):
+            query['fileName'] = request.file_name
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetWorkitemAttachmentCreatemeta',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/workitem/%s/attachment/createmeta' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(workitem_identifier))),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.GetWorkitemAttachmentCreatemetaResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_workitem_attachment_createmeta(self, organization_id, workitem_identifier, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_workitem_attachment_createmeta_with_options(organization_id, workitem_identifier, request, headers, runtime)
 
     def get_workitem_comment_list_with_options(self, organization_id, workitem_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -5765,3 +5851,35 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_workitem_field_with_options(organization_id, request, headers, runtime)
+
+    def workitem_attachment_create_with_options(self, organization_id, workitem_identifier, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.file_key):
+            body['fileKey'] = request.file_key
+        if not UtilClient.is_unset(request.original_filename):
+            body['originalFilename'] = request.original_filename
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='WorkitemAttachmentCreate',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/workitem/%s/attachment' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(workitem_identifier))),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.WorkitemAttachmentCreateResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def workitem_attachment_create(self, organization_id, workitem_identifier, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.workitem_attachment_create_with_options(organization_id, workitem_identifier, request, headers, runtime)
