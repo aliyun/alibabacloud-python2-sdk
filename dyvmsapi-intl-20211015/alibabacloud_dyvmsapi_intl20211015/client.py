@@ -43,6 +43,8 @@ class Client(OpenApiClient):
             query['CallerIdNumber'] = request.caller_id_number
         if not UtilClient.is_unset(request.country_id):
             query['CountryId'] = request.country_id
+        if not UtilClient.is_unset(request.out_id):
+            query['OutId'] = request.out_id
         if not UtilClient.is_unset(request.owner_id):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.play_times):
@@ -97,6 +99,8 @@ class Client(OpenApiClient):
             query['CallerIdNumber'] = request.caller_id_number
         if not UtilClient.is_unset(request.country_id):
             query['CountryId'] = request.country_id
+        if not UtilClient.is_unset(request.out_id):
+            query['OutId'] = request.out_id
         if not UtilClient.is_unset(request.owner_id):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.play_times):
@@ -1171,8 +1175,6 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.resource_owner_account):
             query['ResourceOwnerAccount'] = request.resource_owner_account
-        if not UtilClient.is_unset(request.resource_owner_id):
-            query['ResourceOwnerId'] = request.resource_owner_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )

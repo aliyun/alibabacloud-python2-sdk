@@ -4,12 +4,13 @@ from Tea.model import TeaModel
 
 
 class BackendCallGroupRequest(TeaModel):
-    def __init__(self, called_number=None, caller_id_number=None, country_id=None, owner_id=None, play_times=None,
-                 resource_owner_account=None, resource_owner_id=None, send_type=None, speed=None, task_name=None, timing_start=None,
-                 tts_code=None, voice_code=None, volume=None):
+    def __init__(self, called_number=None, caller_id_number=None, country_id=None, out_id=None, owner_id=None,
+                 play_times=None, resource_owner_account=None, resource_owner_id=None, send_type=None, speed=None,
+                 task_name=None, timing_start=None, tts_code=None, voice_code=None, volume=None):
         self.called_number = called_number  # type: list[str]
         self.caller_id_number = caller_id_number  # type: str
         self.country_id = country_id  # type: str
+        self.out_id = out_id  # type: str
         self.owner_id = owner_id  # type: long
         self.play_times = play_times  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
@@ -37,6 +38,8 @@ class BackendCallGroupRequest(TeaModel):
             result['CallerIdNumber'] = self.caller_id_number
         if self.country_id is not None:
             result['CountryId'] = self.country_id
+        if self.out_id is not None:
+            result['OutId'] = self.out_id
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
         if self.play_times is not None:
@@ -69,6 +72,8 @@ class BackendCallGroupRequest(TeaModel):
             self.caller_id_number = m.get('CallerIdNumber')
         if m.get('CountryId') is not None:
             self.country_id = m.get('CountryId')
+        if m.get('OutId') is not None:
+            self.out_id = m.get('OutId')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
         if m.get('PlayTimes') is not None:
@@ -95,12 +100,13 @@ class BackendCallGroupRequest(TeaModel):
 
 
 class BackendCallGroupShrinkRequest(TeaModel):
-    def __init__(self, called_number_shrink=None, caller_id_number=None, country_id=None, owner_id=None,
-                 play_times=None, resource_owner_account=None, resource_owner_id=None, send_type=None, speed=None,
-                 task_name=None, timing_start=None, tts_code=None, voice_code=None, volume=None):
+    def __init__(self, called_number_shrink=None, caller_id_number=None, country_id=None, out_id=None,
+                 owner_id=None, play_times=None, resource_owner_account=None, resource_owner_id=None, send_type=None,
+                 speed=None, task_name=None, timing_start=None, tts_code=None, voice_code=None, volume=None):
         self.called_number_shrink = called_number_shrink  # type: str
         self.caller_id_number = caller_id_number  # type: str
         self.country_id = country_id  # type: str
+        self.out_id = out_id  # type: str
         self.owner_id = owner_id  # type: long
         self.play_times = play_times  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
@@ -128,6 +134,8 @@ class BackendCallGroupShrinkRequest(TeaModel):
             result['CallerIdNumber'] = self.caller_id_number
         if self.country_id is not None:
             result['CountryId'] = self.country_id
+        if self.out_id is not None:
+            result['OutId'] = self.out_id
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
         if self.play_times is not None:
@@ -160,6 +168,8 @@ class BackendCallGroupShrinkRequest(TeaModel):
             self.caller_id_number = m.get('CallerIdNumber')
         if m.get('CountryId') is not None:
             self.country_id = m.get('CountryId')
+        if m.get('OutId') is not None:
+            self.out_id = m.get('OutId')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
         if m.get('PlayTimes') is not None:
@@ -264,11 +274,13 @@ class BackendCallGroupResponse(TeaModel):
 
 
 class BackendCallSignalRequest(TeaModel):
-    def __init__(self, called_number=None, caller_id_number=None, country_id=None, owner_id=None, play_times=None,
-                 resource_owner_account=None, resource_owner_id=None, speed=None, tts_code=None, tts_param=None, volume=None):
+    def __init__(self, called_number=None, caller_id_number=None, country_id=None, out_id=None, owner_id=None,
+                 play_times=None, resource_owner_account=None, resource_owner_id=None, speed=None, tts_code=None,
+                 tts_param=None, volume=None):
         self.called_number = called_number  # type: str
         self.caller_id_number = caller_id_number  # type: str
         self.country_id = country_id  # type: str
+        self.out_id = out_id  # type: str
         self.owner_id = owner_id  # type: long
         self.play_times = play_times  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
@@ -293,6 +305,8 @@ class BackendCallSignalRequest(TeaModel):
             result['CallerIdNumber'] = self.caller_id_number
         if self.country_id is not None:
             result['CountryId'] = self.country_id
+        if self.out_id is not None:
+            result['OutId'] = self.out_id
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
         if self.play_times is not None:
@@ -319,6 +333,8 @@ class BackendCallSignalRequest(TeaModel):
             self.caller_id_number = m.get('CallerIdNumber')
         if m.get('CountryId') is not None:
             self.country_id = m.get('CountryId')
+        if m.get('OutId') is not None:
+            self.out_id = m.get('OutId')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
         if m.get('PlayTimes') is not None:
@@ -5333,10 +5349,9 @@ class QueryHomeStatResponse(TeaModel):
 
 
 class QueryRecordingEnableRequest(TeaModel):
-    def __init__(self, owner_id=None, resource_owner_account=None, resource_owner_id=None):
+    def __init__(self, owner_id=None, resource_owner_account=None):
         self.owner_id = owner_id  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
-        self.resource_owner_id = resource_owner_id  # type: long
 
     def validate(self):
         pass
@@ -5351,8 +5366,6 @@ class QueryRecordingEnableRequest(TeaModel):
             result['OwnerId'] = self.owner_id
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
-        if self.resource_owner_id is not None:
-            result['ResourceOwnerId'] = self.resource_owner_id
         return result
 
     def from_map(self, m=None):
@@ -5361,8 +5374,6 @@ class QueryRecordingEnableRequest(TeaModel):
             self.owner_id = m.get('OwnerId')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
-        if m.get('ResourceOwnerId') is not None:
-            self.resource_owner_id = m.get('ResourceOwnerId')
         return self
 
 
