@@ -5868,8 +5868,8 @@ class GetWorkflowInstanceResponseBodyDataWfInstanceDagEdges(TeaModel):
 
 
 class GetWorkflowInstanceResponseBodyDataWfInstanceDagNodes(TeaModel):
-    def __init__(self, attempt=None, data_time=None, end_time=None, job_id=None, job_instance_id=None, result=None,
-                 schedule_time=None, start_time=None, status=None, work_addr=None):
+    def __init__(self, attempt=None, data_time=None, end_time=None, job_id=None, job_instance_id=None, job_name=None,
+                 result=None, schedule_time=None, start_time=None, status=None, work_addr=None):
         # The number of retries when the job instance failed.
         self.attempt = attempt  # type: int
         # The data timestamp of the job instance.
@@ -5880,6 +5880,7 @@ class GetWorkflowInstanceResponseBodyDataWfInstanceDagNodes(TeaModel):
         self.job_id = job_id  # type: long
         # The job instance ID.
         self.job_instance_id = job_instance_id  # type: long
+        self.job_name = job_name  # type: str
         # The state of the job instance.
         self.result = result  # type: str
         # The time when the job instance was scheduled to run.
@@ -5909,6 +5910,8 @@ class GetWorkflowInstanceResponseBodyDataWfInstanceDagNodes(TeaModel):
             result['JobId'] = self.job_id
         if self.job_instance_id is not None:
             result['JobInstanceId'] = self.job_instance_id
+        if self.job_name is not None:
+            result['JobName'] = self.job_name
         if self.result is not None:
             result['Result'] = self.result
         if self.schedule_time is not None:
@@ -5933,6 +5936,8 @@ class GetWorkflowInstanceResponseBodyDataWfInstanceDagNodes(TeaModel):
             self.job_id = m.get('JobId')
         if m.get('JobInstanceId') is not None:
             self.job_instance_id = m.get('JobInstanceId')
+        if m.get('JobName') is not None:
+            self.job_name = m.get('JobName')
         if m.get('Result') is not None:
             self.result = m.get('Result')
         if m.get('ScheduleTime') is not None:
