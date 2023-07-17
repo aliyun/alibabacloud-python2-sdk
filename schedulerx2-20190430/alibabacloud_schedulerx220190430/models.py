@@ -4276,9 +4276,9 @@ class GetJobInstanceRequest(TeaModel):
 
 
 class GetJobInstanceResponseBodyDataJobInstanceDetail(TeaModel):
-    def __init__(self, data_time=None, end_time=None, executor=None, instance_id=None, job_id=None, progress=None,
-                 result=None, schedule_time=None, start_time=None, status=None, time_type=None, trigger_type=None,
-                 work_addr=None):
+    def __init__(self, data_time=None, end_time=None, executor=None, instance_id=None, job_id=None, job_name=None,
+                 parameters=None, progress=None, result=None, schedule_time=None, start_time=None, status=None, time_type=None,
+                 trace_id=None, trigger_type=None, work_addr=None):
         # The data timestamp of the job instance.
         self.data_time = data_time  # type: str
         # The end time of the job execution.
@@ -4289,6 +4289,8 @@ class GetJobInstanceResponseBodyDataJobInstanceDetail(TeaModel):
         self.instance_id = instance_id  # type: long
         # The job ID.
         self.job_id = job_id  # type: long
+        self.job_name = job_name  # type: str
+        self.parameters = parameters  # type: str
         # The progress of the job instance.
         self.progress = progress  # type: str
         # The execution results of the job instance.
@@ -4316,6 +4318,7 @@ class GetJobInstanceResponseBodyDataJobInstanceDetail(TeaModel):
         # 
         # Enumeration class: com.alibaba.schedulerx.common.domain.TimeType
         self.time_type = time_type  # type: int
+        self.trace_id = trace_id  # type: str
         # The trigger type of the job instance. Valid values:
         # 
         # *   **1**: The job instance was triggered at the scheduled time.
@@ -4348,6 +4351,10 @@ class GetJobInstanceResponseBodyDataJobInstanceDetail(TeaModel):
             result['InstanceId'] = self.instance_id
         if self.job_id is not None:
             result['JobId'] = self.job_id
+        if self.job_name is not None:
+            result['JobName'] = self.job_name
+        if self.parameters is not None:
+            result['Parameters'] = self.parameters
         if self.progress is not None:
             result['Progress'] = self.progress
         if self.result is not None:
@@ -4360,6 +4367,8 @@ class GetJobInstanceResponseBodyDataJobInstanceDetail(TeaModel):
             result['Status'] = self.status
         if self.time_type is not None:
             result['TimeType'] = self.time_type
+        if self.trace_id is not None:
+            result['TraceId'] = self.trace_id
         if self.trigger_type is not None:
             result['TriggerType'] = self.trigger_type
         if self.work_addr is not None:
@@ -4378,6 +4387,10 @@ class GetJobInstanceResponseBodyDataJobInstanceDetail(TeaModel):
             self.instance_id = m.get('InstanceId')
         if m.get('JobId') is not None:
             self.job_id = m.get('JobId')
+        if m.get('JobName') is not None:
+            self.job_name = m.get('JobName')
+        if m.get('Parameters') is not None:
+            self.parameters = m.get('Parameters')
         if m.get('Progress') is not None:
             self.progress = m.get('Progress')
         if m.get('Result') is not None:
@@ -4390,6 +4403,8 @@ class GetJobInstanceResponseBodyDataJobInstanceDetail(TeaModel):
             self.status = m.get('Status')
         if m.get('TimeType') is not None:
             self.time_type = m.get('TimeType')
+        if m.get('TraceId') is not None:
+            self.trace_id = m.get('TraceId')
         if m.get('TriggerType') is not None:
             self.trigger_type = m.get('TriggerType')
         if m.get('WorkAddr') is not None:
@@ -5854,7 +5869,7 @@ class GetWorkflowInstanceResponseBodyDataWfInstanceDagEdges(TeaModel):
 
 class GetWorkflowInstanceResponseBodyDataWfInstanceDagNodes(TeaModel):
     def __init__(self, attempt=None, data_time=None, end_time=None, job_id=None, job_instance_id=None, result=None,
-                 schedule_time=None, start_time=None, work_addr=None):
+                 schedule_time=None, start_time=None, status=None, work_addr=None):
         # The number of retries when the job instance failed.
         self.attempt = attempt  # type: int
         # The data timestamp of the job instance.
@@ -5871,6 +5886,7 @@ class GetWorkflowInstanceResponseBodyDataWfInstanceDagNodes(TeaModel):
         self.schedule_time = schedule_time  # type: str
         # The time when the job instance started to run.
         self.start_time = start_time  # type: str
+        self.status = status  # type: int
         # The server on which the job instance was run.
         self.work_addr = work_addr  # type: str
 
@@ -5899,6 +5915,8 @@ class GetWorkflowInstanceResponseBodyDataWfInstanceDagNodes(TeaModel):
             result['ScheduleTime'] = self.schedule_time
         if self.start_time is not None:
             result['StartTime'] = self.start_time
+        if self.status is not None:
+            result['Status'] = self.status
         if self.work_addr is not None:
             result['WorkAddr'] = self.work_addr
         return result
@@ -5921,6 +5939,8 @@ class GetWorkflowInstanceResponseBodyDataWfInstanceDagNodes(TeaModel):
             self.schedule_time = m.get('ScheduleTime')
         if m.get('StartTime') is not None:
             self.start_time = m.get('StartTime')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
         if m.get('WorkAddr') is not None:
             self.work_addr = m.get('WorkAddr')
         return self
