@@ -11074,7 +11074,6 @@ class Client(OpenApiClient):
     def modify_dbinstance_connection_string_with_options(self, request, runtime):
         """
         ApsaraDB RDS provides the internal and public endpoints. ApsaraDB RDS also allows hybrid access by using both a virtual private cloud (VPC) endpoint and a classic network endpoint.
-        >
         *   You can change only the prefix of an endpoint.
         *   The read/write splitting endpoint cannot be changed.
         
@@ -11131,7 +11130,6 @@ class Client(OpenApiClient):
     def modify_dbinstance_connection_string(self, request):
         """
         ApsaraDB RDS provides the internal and public endpoints. ApsaraDB RDS also allows hybrid access by using both a virtual private cloud (VPC) endpoint and a classic network endpoint.
-        >
         *   You can change only the prefix of an endpoint.
         *   The read/write splitting endpoint cannot be changed.
         
