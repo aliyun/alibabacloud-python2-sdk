@@ -3328,12 +3328,12 @@ class CreateExportMigrationResponse(TeaModel):
 
 class CreateFileRequest(TeaModel):
     def __init__(self, advanced_settings=None, auto_parsing=None, auto_rerun_interval_millis=None,
-                 auto_rerun_times=None, connection_name=None, content=None, cron_express=None, cycle_type=None,
-                 dependent_node_id_list=None, dependent_type=None, end_effect_date=None, file_description=None, file_folder_path=None,
-                 file_name=None, file_type=None, ignore_parent_skip_running_property=None, input_list=None,
-                 input_parameters=None, output_parameters=None, owner=None, para_value=None, project_id=None,
-                 project_identifier=None, rerun_mode=None, resource_group_id=None, resource_group_identifier=None,
-                 scheduler_type=None, start_effect_date=None, start_immediately=None, stop=None):
+                 auto_rerun_times=None, connection_name=None, content=None, create_folder_if_not_exists=None, cron_express=None,
+                 cycle_type=None, dependent_node_id_list=None, dependent_type=None, end_effect_date=None,
+                 file_description=None, file_folder_path=None, file_name=None, file_type=None,
+                 ignore_parent_skip_running_property=None, input_list=None, input_parameters=None, output_parameters=None, owner=None, para_value=None,
+                 project_id=None, project_identifier=None, rerun_mode=None, resource_group_id=None,
+                 resource_group_identifier=None, scheduler_type=None, start_effect_date=None, start_immediately=None, stop=None):
         # The advanced configurations of the node.
         # 
         # This parameter is valid only for an EMR Spark Streaming node or an EMR Streaming SQL node. This parameter corresponds to the Advanced Settings tab of the node in the [DataWorks console](https://workbench.data.aliyun.com/console).
@@ -3361,6 +3361,7 @@ class CreateFileRequest(TeaModel):
         self.connection_name = connection_name  # type: str
         # The code for the file. The code format varies based on the file type. To view the code format for a specific file type, go to Operation Center, right-click a node of the file type, and then select View Code.
         self.content = content  # type: str
+        self.create_folder_if_not_exists = create_folder_if_not_exists  # type: bool
         # The CRON expression that represents the automatic scheduling policy of the node. This parameter corresponds to the Cron Expression parameter in the Schedule section of the Properties tab in the [DataWorks console](https://workbench.data.aliyun.com/console). After you configure the Scheduling Cycle and Run At parameters in the DataWorks console, DataWorks generates the value of the Cron Expression parameter.
         # 
         # Examples:
@@ -3501,6 +3502,8 @@ class CreateFileRequest(TeaModel):
             result['ConnectionName'] = self.connection_name
         if self.content is not None:
             result['Content'] = self.content
+        if self.create_folder_if_not_exists is not None:
+            result['CreateFolderIfNotExists'] = self.create_folder_if_not_exists
         if self.cron_express is not None:
             result['CronExpress'] = self.cron_express
         if self.cycle_type is not None:
@@ -3565,6 +3568,8 @@ class CreateFileRequest(TeaModel):
             self.connection_name = m.get('ConnectionName')
         if m.get('Content') is not None:
             self.content = m.get('Content')
+        if m.get('CreateFolderIfNotExists') is not None:
+            self.create_folder_if_not_exists = m.get('CreateFolderIfNotExists')
         if m.get('CronExpress') is not None:
             self.cron_express = m.get('CronExpress')
         if m.get('CycleType') is not None:
@@ -5829,6 +5834,155 @@ class CreateRemindResponse(TeaModel):
         return self
 
 
+class CreateResourceFileRequest(TeaModel):
+    def __init__(self, content=None, file_description=None, file_folder_path=None, file_name=None, file_type=None,
+                 origin_resource_name=None, owner=None, project_id=None, register_to_calc_engine=None, resource_file=None,
+                 storage_url=None, upload_mode=None):
+        self.content = content  # type: str
+        self.file_description = file_description  # type: str
+        self.file_folder_path = file_folder_path  # type: str
+        self.file_name = file_name  # type: str
+        self.file_type = file_type  # type: int
+        self.origin_resource_name = origin_resource_name  # type: str
+        self.owner = owner  # type: str
+        self.project_id = project_id  # type: long
+        self.register_to_calc_engine = register_to_calc_engine  # type: bool
+        self.resource_file = resource_file  # type: str
+        self.storage_url = storage_url  # type: str
+        self.upload_mode = upload_mode  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateResourceFileRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.content is not None:
+            result['Content'] = self.content
+        if self.file_description is not None:
+            result['FileDescription'] = self.file_description
+        if self.file_folder_path is not None:
+            result['FileFolderPath'] = self.file_folder_path
+        if self.file_name is not None:
+            result['FileName'] = self.file_name
+        if self.file_type is not None:
+            result['FileType'] = self.file_type
+        if self.origin_resource_name is not None:
+            result['OriginResourceName'] = self.origin_resource_name
+        if self.owner is not None:
+            result['Owner'] = self.owner
+        if self.project_id is not None:
+            result['ProjectId'] = self.project_id
+        if self.register_to_calc_engine is not None:
+            result['RegisterToCalcEngine'] = self.register_to_calc_engine
+        if self.resource_file is not None:
+            result['ResourceFile'] = self.resource_file
+        if self.storage_url is not None:
+            result['StorageURL'] = self.storage_url
+        if self.upload_mode is not None:
+            result['UploadMode'] = self.upload_mode
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Content') is not None:
+            self.content = m.get('Content')
+        if m.get('FileDescription') is not None:
+            self.file_description = m.get('FileDescription')
+        if m.get('FileFolderPath') is not None:
+            self.file_folder_path = m.get('FileFolderPath')
+        if m.get('FileName') is not None:
+            self.file_name = m.get('FileName')
+        if m.get('FileType') is not None:
+            self.file_type = m.get('FileType')
+        if m.get('OriginResourceName') is not None:
+            self.origin_resource_name = m.get('OriginResourceName')
+        if m.get('Owner') is not None:
+            self.owner = m.get('Owner')
+        if m.get('ProjectId') is not None:
+            self.project_id = m.get('ProjectId')
+        if m.get('RegisterToCalcEngine') is not None:
+            self.register_to_calc_engine = m.get('RegisterToCalcEngine')
+        if m.get('ResourceFile') is not None:
+            self.resource_file = m.get('ResourceFile')
+        if m.get('StorageURL') is not None:
+            self.storage_url = m.get('StorageURL')
+        if m.get('UploadMode') is not None:
+            self.upload_mode = m.get('UploadMode')
+        return self
+
+
+class CreateResourceFileResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: long
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateResourceFileResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class CreateResourceFileResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateResourceFileResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateResourceFileResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateResourceFileResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CreateTableRequestColumns(TeaModel):
     def __init__(self, column_name=None, column_name_cn=None, column_type=None, comment=None, is_partition_col=None,
                  length=None, seq_number=None):
@@ -6500,13 +6654,14 @@ class CreateTableThemeResponse(TeaModel):
 
 
 class CreateUdfFileRequest(TeaModel):
-    def __init__(self, class_name=None, cmd_description=None, example=None, file_folder_path=None, file_name=None,
-                 function_type=None, parameter_description=None, project_id=None, project_identifier=None, resources=None,
-                 return_value=None, udf_description=None):
+    def __init__(self, class_name=None, cmd_description=None, create_folder_if_not_exists=None, example=None,
+                 file_folder_path=None, file_name=None, function_type=None, parameter_description=None, project_id=None,
+                 project_identifier=None, resources=None, return_value=None, udf_description=None):
         # The name of the class in which the function is defined. This parameter corresponds to the Class Name parameter in the Register Function section of the configuration tab of the function in the DataWorks console.
         self.class_name = class_name  # type: str
         # The syntax used for calling the function. This parameter corresponds to the Expression Syntax parameter in the Register Function section of the configuration tab of the function in the DataWorks console.
         self.cmd_description = cmd_description  # type: str
+        self.create_folder_if_not_exists = create_folder_if_not_exists  # type: bool
         # The example for calling the function. This parameter corresponds to the Example parameter in the Register Function section of the configuration tab of the function in the DataWorks console.
         self.example = example  # type: str
         # The path of the folder in which the file for the function is stored.
@@ -6543,6 +6698,8 @@ class CreateUdfFileRequest(TeaModel):
             result['ClassName'] = self.class_name
         if self.cmd_description is not None:
             result['CmdDescription'] = self.cmd_description
+        if self.create_folder_if_not_exists is not None:
+            result['CreateFolderIfNotExists'] = self.create_folder_if_not_exists
         if self.example is not None:
             result['Example'] = self.example
         if self.file_folder_path is not None:
@@ -6571,6 +6728,8 @@ class CreateUdfFileRequest(TeaModel):
             self.class_name = m.get('ClassName')
         if m.get('CmdDescription') is not None:
             self.cmd_description = m.get('CmdDescription')
+        if m.get('CreateFolderIfNotExists') is not None:
+            self.create_folder_if_not_exists = m.get('CreateFolderIfNotExists')
         if m.get('Example') is not None:
             self.example = m.get('Example')
         if m.get('FileFolderPath') is not None:
@@ -38357,16 +38516,21 @@ class ListFileVersionsResponse(TeaModel):
 
 
 class ListFilesRequest(TeaModel):
-    def __init__(self, file_folder_path=None, file_types=None, keyword=None, node_id=None, owner=None,
-                 page_number=None, page_size=None, project_id=None, project_identifier=None, use_type=None):
+    def __init__(self, exact_file_name=None, file_folder_path=None, file_id_in=None, file_types=None, keyword=None,
+                 need_absolute_folder_path=None, need_content=None, node_id=None, owner=None, page_number=None, page_size=None,
+                 project_id=None, project_identifier=None, use_type=None):
+        self.exact_file_name = exact_file_name  # type: str
         # The path of the files.
         self.file_folder_path = file_folder_path  # type: str
+        self.file_id_in = file_id_in  # type: str
         # The types of the code in the files.
         # 
         # Valid values: 6 (Shell), 10 (ODPS SQL), 11 (ODPS MR), 23 (Data Integration), 24 (ODPS Script), 97 (PAI), 98 (node group), 99 (zero load), 221 (PyODPS 2), 225 (ODPS Spark), 227 (EMR Hive), 228 (EMR Spark), 229 (EMR Spark SQL), 230 (EMR MR), 239 (OSS object inspection), 257 (EMR Shell), 258 (EMR Spark Shell), 259 (EMR Presto), 260 (EMR Impala), 900 (real-time synchronization), 1002 (PAI inner node), 1089 (cross-tenant collaboration), 1091 (Hologres development), 1093 (Hologres SQL), 1100 (assignment), 1106 (for-each), and 1221 (PyODPS 3).
         self.file_types = file_types  # type: str
         # The keyword in the file names. The keyword is used to perform a fuzzy match. You can specify a keyword to query all files whose names contain the keyword.
         self.keyword = keyword  # type: str
+        self.need_absolute_folder_path = need_absolute_folder_path  # type: bool
+        self.need_content = need_content  # type: bool
         # The ID of the node that is scheduled. You can call the [ListNodes](~~173979~~) operation to query the ID of the node.
         self.node_id = node_id  # type: long
         # The owner of the files.
@@ -38402,12 +38566,20 @@ class ListFilesRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.exact_file_name is not None:
+            result['ExactFileName'] = self.exact_file_name
         if self.file_folder_path is not None:
             result['FileFolderPath'] = self.file_folder_path
+        if self.file_id_in is not None:
+            result['FileIdIn'] = self.file_id_in
         if self.file_types is not None:
             result['FileTypes'] = self.file_types
         if self.keyword is not None:
             result['Keyword'] = self.keyword
+        if self.need_absolute_folder_path is not None:
+            result['NeedAbsoluteFolderPath'] = self.need_absolute_folder_path
+        if self.need_content is not None:
+            result['NeedContent'] = self.need_content
         if self.node_id is not None:
             result['NodeId'] = self.node_id
         if self.owner is not None:
@@ -38426,12 +38598,20 @@ class ListFilesRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('ExactFileName') is not None:
+            self.exact_file_name = m.get('ExactFileName')
         if m.get('FileFolderPath') is not None:
             self.file_folder_path = m.get('FileFolderPath')
+        if m.get('FileIdIn') is not None:
+            self.file_id_in = m.get('FileIdIn')
         if m.get('FileTypes') is not None:
             self.file_types = m.get('FileTypes')
         if m.get('Keyword') is not None:
             self.keyword = m.get('Keyword')
+        if m.get('NeedAbsoluteFolderPath') is not None:
+            self.need_absolute_folder_path = m.get('NeedAbsoluteFolderPath')
+        if m.get('NeedContent') is not None:
+            self.need_content = m.get('NeedContent')
         if m.get('NodeId') is not None:
             self.node_id = m.get('NodeId')
         if m.get('Owner') is not None:
@@ -38450,10 +38630,11 @@ class ListFilesRequest(TeaModel):
 
 
 class ListFilesResponseBodyDataFiles(TeaModel):
-    def __init__(self, auto_parsing=None, biz_id=None, business_id=None, commit_status=None, connection_name=None,
-                 content=None, create_time=None, create_user=None, current_version=None, file_description=None,
-                 file_folder_id=None, file_id=None, file_name=None, file_type=None, is_max_compute=None, last_edit_time=None,
-                 last_edit_user=None, node_id=None, owner=None, parent_id=None, use_type=None):
+    def __init__(self, absolute_folder_path=None, auto_parsing=None, biz_id=None, business_id=None,
+                 commit_status=None, connection_name=None, content=None, create_time=None, create_user=None, current_version=None,
+                 file_description=None, file_folder_id=None, file_id=None, file_name=None, file_type=None, is_max_compute=None,
+                 last_edit_time=None, last_edit_user=None, node_id=None, owner=None, parent_id=None, use_type=None):
+        self.absolute_folder_path = absolute_folder_path  # type: str
         # Specifies whether the automatic parsing feature is enabled for the file. Valid values:
         # 
         # *   true: The automatic parsing feature is enabled for the file.
@@ -38520,6 +38701,8 @@ class ListFilesResponseBodyDataFiles(TeaModel):
             return _map
 
         result = dict()
+        if self.absolute_folder_path is not None:
+            result['AbsoluteFolderPath'] = self.absolute_folder_path
         if self.auto_parsing is not None:
             result['AutoParsing'] = self.auto_parsing
         if self.biz_id is not None:
@@ -38566,6 +38749,8 @@ class ListFilesResponseBodyDataFiles(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AbsoluteFolderPath') is not None:
+            self.absolute_folder_path = m.get('AbsoluteFolderPath')
         if m.get('AutoParsing') is not None:
             self.auto_parsing = m.get('AutoParsing')
         if m.get('BizId') is not None:
