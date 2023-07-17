@@ -1,3 +1,6 @@
+2023-07-17 Version: 1.0.7
+- Add Query Upload Token API.
+
 2023-05-17 Version: 1.0.5
 - Add Image Result Query API.
 

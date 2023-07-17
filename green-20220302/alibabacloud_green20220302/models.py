@@ -95,8 +95,9 @@ class DescribeImageResultExtResponseBodyDataPublicFigure(TeaModel):
 
 
 class DescribeImageResultExtResponseBodyDataTextInImage(TeaModel):
-    def __init__(self, ocr_datas=None):
+    def __init__(self, ocr_datas=None, risk_words=None):
         self.ocr_datas = ocr_datas  # type: list[str]
+        self.risk_words = risk_words  # type: list[str]
 
     def validate(self):
         pass
@@ -109,12 +110,16 @@ class DescribeImageResultExtResponseBodyDataTextInImage(TeaModel):
         result = dict()
         if self.ocr_datas is not None:
             result['OcrDatas'] = self.ocr_datas
+        if self.risk_words is not None:
+            result['RiskWords'] = self.risk_words
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('OcrDatas') is not None:
             self.ocr_datas = m.get('OcrDatas')
+        if m.get('RiskWords') is not None:
+            self.risk_words = m.get('RiskWords')
         return self
 
 
@@ -248,6 +253,146 @@ class DescribeImageResultExtResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeImageResultExtResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeUploadTokenResponseBodyData(TeaModel):
+    def __init__(self, access_key_id=None, access_key_secret=None, bucket_name=None, expiration=None,
+                 file_name_prefix=None, oss_internal_end_point=None, oss_internet_end_point=None, security_token=None):
+        self.access_key_id = access_key_id  # type: str
+        self.access_key_secret = access_key_secret  # type: str
+        self.bucket_name = bucket_name  # type: str
+        self.expiration = expiration  # type: int
+        self.file_name_prefix = file_name_prefix  # type: str
+        self.oss_internal_end_point = oss_internal_end_point  # type: str
+        self.oss_internet_end_point = oss_internet_end_point  # type: str
+        self.security_token = security_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeUploadTokenResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_key_id is not None:
+            result['AccessKeyId'] = self.access_key_id
+        if self.access_key_secret is not None:
+            result['AccessKeySecret'] = self.access_key_secret
+        if self.bucket_name is not None:
+            result['BucketName'] = self.bucket_name
+        if self.expiration is not None:
+            result['Expiration'] = self.expiration
+        if self.file_name_prefix is not None:
+            result['FileNamePrefix'] = self.file_name_prefix
+        if self.oss_internal_end_point is not None:
+            result['OssInternalEndPoint'] = self.oss_internal_end_point
+        if self.oss_internet_end_point is not None:
+            result['OssInternetEndPoint'] = self.oss_internet_end_point
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccessKeyId') is not None:
+            self.access_key_id = m.get('AccessKeyId')
+        if m.get('AccessKeySecret') is not None:
+            self.access_key_secret = m.get('AccessKeySecret')
+        if m.get('BucketName') is not None:
+            self.bucket_name = m.get('BucketName')
+        if m.get('Expiration') is not None:
+            self.expiration = m.get('Expiration')
+        if m.get('FileNamePrefix') is not None:
+            self.file_name_prefix = m.get('FileNamePrefix')
+        if m.get('OssInternalEndPoint') is not None:
+            self.oss_internal_end_point = m.get('OssInternalEndPoint')
+        if m.get('OssInternetEndPoint') is not None:
+            self.oss_internet_end_point = m.get('OssInternetEndPoint')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
+        return self
+
+
+class DescribeUploadTokenResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, msg=None, request_id=None):
+        self.code = code  # type: int
+        self.data = data  # type: DescribeUploadTokenResponseBodyData
+        self.msg = msg  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(DescribeUploadTokenResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.msg is not None:
+            result['Msg'] = self.msg
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = DescribeUploadTokenResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Msg') is not None:
+            self.msg = m.get('Msg')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeUploadTokenResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeUploadTokenResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeUploadTokenResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeUploadTokenResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
