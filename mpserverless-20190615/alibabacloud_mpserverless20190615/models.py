@@ -2480,6 +2480,343 @@ class DeployFunctionResponse(TeaModel):
         return self
 
 
+class DescribeCdnDomainRequest(TeaModel):
+    def __init__(self, space_id=None, tenant_id=None, type=None):
+        self.space_id = space_id  # type: str
+        self.tenant_id = tenant_id  # type: str
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeCdnDomainRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.space_id is not None:
+            result['SpaceId'] = self.space_id
+        if self.tenant_id is not None:
+            result['TenantId'] = self.tenant_id
+        if self.type is not None:
+            result['Type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('SpaceId') is not None:
+            self.space_id = m.get('SpaceId')
+        if m.get('TenantId') is not None:
+            self.tenant_id = m.get('TenantId')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        return self
+
+
+class DescribeCdnDomainResponseBodyAuthConfig(TeaModel):
+    def __init__(self, auth_delta=None, auth_key=None, auth_type=None, config_id=None):
+        self.auth_delta = auth_delta  # type: int
+        self.auth_key = auth_key  # type: str
+        self.auth_type = auth_type  # type: str
+        self.config_id = config_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeCdnDomainResponseBodyAuthConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_delta is not None:
+            result['AuthDelta'] = self.auth_delta
+        if self.auth_key is not None:
+            result['AuthKey'] = self.auth_key
+        if self.auth_type is not None:
+            result['AuthType'] = self.auth_type
+        if self.config_id is not None:
+            result['configId'] = self.config_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AuthDelta') is not None:
+            self.auth_delta = m.get('AuthDelta')
+        if m.get('AuthKey') is not None:
+            self.auth_key = m.get('AuthKey')
+        if m.get('AuthType') is not None:
+            self.auth_type = m.get('AuthType')
+        if m.get('configId') is not None:
+            self.config_id = m.get('configId')
+        return self
+
+
+class DescribeCdnDomainResponseBodyCorsConfig(TeaModel):
+    def __init__(self, access_origin_control=None, allow_origin=None, config_id=None):
+        self.access_origin_control = access_origin_control  # type: bool
+        self.allow_origin = allow_origin  # type: str
+        self.config_id = config_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeCdnDomainResponseBodyCorsConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_origin_control is not None:
+            result['AccessOriginControl'] = self.access_origin_control
+        if self.allow_origin is not None:
+            result['AllowOrigin'] = self.allow_origin
+        if self.config_id is not None:
+            result['ConfigId'] = self.config_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccessOriginControl') is not None:
+            self.access_origin_control = m.get('AccessOriginControl')
+        if m.get('AllowOrigin') is not None:
+            self.allow_origin = m.get('AllowOrigin')
+        if m.get('ConfigId') is not None:
+            self.config_id = m.get('ConfigId')
+        return self
+
+
+class DescribeCdnDomainResponseBodyIpConfig(TeaModel):
+    def __init__(self, config_id=None, ip_list=None, type=None):
+        self.config_id = config_id  # type: str
+        self.ip_list = ip_list  # type: str
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeCdnDomainResponseBodyIpConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.config_id is not None:
+            result['ConfigId'] = self.config_id
+        if self.ip_list is not None:
+            result['IpList'] = self.ip_list
+        if self.type is not None:
+            result['Type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ConfigId') is not None:
+            self.config_id = m.get('ConfigId')
+        if m.get('IpList') is not None:
+            self.ip_list = m.get('IpList')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        return self
+
+
+class DescribeCdnDomainResponseBodyRefererConfig(TeaModel):
+    def __init__(self, allow_empty=None, config_id=None, disable_ast=None, refer_list=None, type=None):
+        self.allow_empty = allow_empty  # type: str
+        self.config_id = config_id  # type: str
+        self.disable_ast = disable_ast  # type: str
+        self.refer_list = refer_list  # type: str
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeCdnDomainResponseBodyRefererConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.allow_empty is not None:
+            result['AllowEmpty'] = self.allow_empty
+        if self.config_id is not None:
+            result['ConfigId'] = self.config_id
+        if self.disable_ast is not None:
+            result['DisableAst'] = self.disable_ast
+        if self.refer_list is not None:
+            result['ReferList'] = self.refer_list
+        if self.type is not None:
+            result['Type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AllowEmpty') is not None:
+            self.allow_empty = m.get('AllowEmpty')
+        if m.get('ConfigId') is not None:
+            self.config_id = m.get('ConfigId')
+        if m.get('DisableAst') is not None:
+            self.disable_ast = m.get('DisableAst')
+        if m.get('ReferList') is not None:
+            self.refer_list = m.get('ReferList')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        return self
+
+
+class DescribeCdnDomainResponseBodyUaConfig(TeaModel):
+    def __init__(self, config_id=None, type=None, ua_list=None):
+        self.config_id = config_id  # type: str
+        self.type = type  # type: str
+        self.ua_list = ua_list  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeCdnDomainResponseBodyUaConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.config_id is not None:
+            result['ConfigId'] = self.config_id
+        if self.type is not None:
+            result['Type'] = self.type
+        if self.ua_list is not None:
+            result['UaList'] = self.ua_list
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ConfigId') is not None:
+            self.config_id = m.get('ConfigId')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        if m.get('UaList') is not None:
+            self.ua_list = m.get('UaList')
+        return self
+
+
+class DescribeCdnDomainResponseBody(TeaModel):
+    def __init__(self, auth_config=None, cors_config=None, domain_name=None, ip_config=None, referer_config=None,
+                 request_id=None, service_status=None, space_id=None, ua_config=None):
+        self.auth_config = auth_config  # type: DescribeCdnDomainResponseBodyAuthConfig
+        self.cors_config = cors_config  # type: DescribeCdnDomainResponseBodyCorsConfig
+        self.domain_name = domain_name  # type: str
+        self.ip_config = ip_config  # type: DescribeCdnDomainResponseBodyIpConfig
+        self.referer_config = referer_config  # type: DescribeCdnDomainResponseBodyRefererConfig
+        self.request_id = request_id  # type: str
+        self.service_status = service_status  # type: str
+        self.space_id = space_id  # type: str
+        self.ua_config = ua_config  # type: DescribeCdnDomainResponseBodyUaConfig
+
+    def validate(self):
+        if self.auth_config:
+            self.auth_config.validate()
+        if self.cors_config:
+            self.cors_config.validate()
+        if self.ip_config:
+            self.ip_config.validate()
+        if self.referer_config:
+            self.referer_config.validate()
+        if self.ua_config:
+            self.ua_config.validate()
+
+    def to_map(self):
+        _map = super(DescribeCdnDomainResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_config is not None:
+            result['AuthConfig'] = self.auth_config.to_map()
+        if self.cors_config is not None:
+            result['CorsConfig'] = self.cors_config.to_map()
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.ip_config is not None:
+            result['IpConfig'] = self.ip_config.to_map()
+        if self.referer_config is not None:
+            result['RefererConfig'] = self.referer_config.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.service_status is not None:
+            result['ServiceStatus'] = self.service_status
+        if self.space_id is not None:
+            result['SpaceId'] = self.space_id
+        if self.ua_config is not None:
+            result['UaConfig'] = self.ua_config.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AuthConfig') is not None:
+            temp_model = DescribeCdnDomainResponseBodyAuthConfig()
+            self.auth_config = temp_model.from_map(m['AuthConfig'])
+        if m.get('CorsConfig') is not None:
+            temp_model = DescribeCdnDomainResponseBodyCorsConfig()
+            self.cors_config = temp_model.from_map(m['CorsConfig'])
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('IpConfig') is not None:
+            temp_model = DescribeCdnDomainResponseBodyIpConfig()
+            self.ip_config = temp_model.from_map(m['IpConfig'])
+        if m.get('RefererConfig') is not None:
+            temp_model = DescribeCdnDomainResponseBodyRefererConfig()
+            self.referer_config = temp_model.from_map(m['RefererConfig'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('ServiceStatus') is not None:
+            self.service_status = m.get('ServiceStatus')
+        if m.get('SpaceId') is not None:
+            self.space_id = m.get('SpaceId')
+        if m.get('UaConfig') is not None:
+            temp_model = DescribeCdnDomainResponseBodyUaConfig()
+            self.ua_config = temp_model.from_map(m['UaConfig'])
+        return self
+
+
+class DescribeCdnDomainResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeCdnDomainResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeCdnDomainResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeCdnDomainResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeFCOpenStatusResponseBody(TeaModel):
     def __init__(self, request_id=None, status=None):
         self.request_id = request_id  # type: str
@@ -5578,8 +5915,9 @@ class ListExtensionsResponse(TeaModel):
 
 
 class ListFileRequest(TeaModel):
-    def __init__(self, file_id=None, keyword=None, mode=None, next_token=None, page_size=None, prefix=None,
-                 space_id=None):
+    def __init__(self, auth_delta=None, file_id=None, keyword=None, mode=None, next_token=None, page_size=None,
+                 prefix=None, space_id=None):
+        self.auth_delta = auth_delta  # type: int
         self.file_id = file_id  # type: str
         self.keyword = keyword  # type: str
         self.mode = mode  # type: str
@@ -5597,6 +5935,8 @@ class ListFileRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.auth_delta is not None:
+            result['AuthDelta'] = self.auth_delta
         if self.file_id is not None:
             result['FileId'] = self.file_id
         if self.keyword is not None:
@@ -5615,6 +5955,8 @@ class ListFileRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AuthDelta') is not None:
+            self.auth_delta = m.get('AuthDelta')
         if m.get('FileId') is not None:
             self.file_id = m.get('FileId')
         if m.get('Keyword') is not None:
@@ -5633,7 +5975,9 @@ class ListFileRequest(TeaModel):
 
 
 class ListFileResponseBodyDataList(TeaModel):
-    def __init__(self, gmt_create=None, gmt_modified=None, id=None, name=None, size=None, type=None, url=None):
+    def __init__(self, auth_delta=None, gmt_create=None, gmt_modified=None, id=None, name=None, size=None, type=None,
+                 url=None):
+        self.auth_delta = auth_delta  # type: int
         self.gmt_create = gmt_create  # type: str
         self.gmt_modified = gmt_modified  # type: str
         self.id = id  # type: str
@@ -5651,6 +5995,8 @@ class ListFileResponseBodyDataList(TeaModel):
             return _map
 
         result = dict()
+        if self.auth_delta is not None:
+            result['AuthDelta'] = self.auth_delta
         if self.gmt_create is not None:
             result['GmtCreate'] = self.gmt_create
         if self.gmt_modified is not None:
@@ -5669,6 +6015,8 @@ class ListFileResponseBodyDataList(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AuthDelta') is not None:
+            self.auth_delta = m.get('AuthDelta')
         if m.get('GmtCreate') is not None:
             self.gmt_create = m.get('GmtCreate')
         if m.get('GmtModified') is not None:
@@ -9872,6 +10220,129 @@ class SaveAppAuthTokenResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SaveAppAuthTokenResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class SaveCdnDomainConfigRequest(TeaModel):
+    def __init__(self, auth_config=None, cors_config=None, ip_config=None, referer_config=None, space_id=None,
+                 tenant_id=None, type=None, ua_config=None):
+        self.auth_config = auth_config  # type: str
+        self.cors_config = cors_config  # type: str
+        self.ip_config = ip_config  # type: str
+        self.referer_config = referer_config  # type: str
+        self.space_id = space_id  # type: str
+        self.tenant_id = tenant_id  # type: str
+        self.type = type  # type: str
+        self.ua_config = ua_config  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SaveCdnDomainConfigRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auth_config is not None:
+            result['AuthConfig'] = self.auth_config
+        if self.cors_config is not None:
+            result['CorsConfig'] = self.cors_config
+        if self.ip_config is not None:
+            result['IpConfig'] = self.ip_config
+        if self.referer_config is not None:
+            result['RefererConfig'] = self.referer_config
+        if self.space_id is not None:
+            result['SpaceId'] = self.space_id
+        if self.tenant_id is not None:
+            result['TenantId'] = self.tenant_id
+        if self.type is not None:
+            result['Type'] = self.type
+        if self.ua_config is not None:
+            result['UaConfig'] = self.ua_config
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AuthConfig') is not None:
+            self.auth_config = m.get('AuthConfig')
+        if m.get('CorsConfig') is not None:
+            self.cors_config = m.get('CorsConfig')
+        if m.get('IpConfig') is not None:
+            self.ip_config = m.get('IpConfig')
+        if m.get('RefererConfig') is not None:
+            self.referer_config = m.get('RefererConfig')
+        if m.get('SpaceId') is not None:
+            self.space_id = m.get('SpaceId')
+        if m.get('TenantId') is not None:
+            self.tenant_id = m.get('TenantId')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        if m.get('UaConfig') is not None:
+            self.ua_config = m.get('UaConfig')
+        return self
+
+
+class SaveCdnDomainConfigResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SaveCdnDomainConfigResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class SaveCdnDomainConfigResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: SaveCdnDomainConfigResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SaveCdnDomainConfigResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = SaveCdnDomainConfigResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 

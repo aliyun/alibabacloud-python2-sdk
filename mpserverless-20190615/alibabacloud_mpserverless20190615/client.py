@@ -786,6 +786,38 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.deploy_function_with_options(request, runtime)
 
+    def describe_cdn_domain_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.space_id):
+            body['SpaceId'] = request.space_id
+        if not UtilClient.is_unset(request.tenant_id):
+            body['TenantId'] = request.tenant_id
+        if not UtilClient.is_unset(request.type):
+            body['Type'] = request.type
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DescribeCdnDomain',
+            version='2019-06-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            mpserverless_20190615_models.DescribeCdnDomainResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_cdn_domain(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_cdn_domain_with_options(request, runtime)
+
     def describe_fcopen_status_with_options(self, runtime):
         req = open_api_models.OpenApiRequest()
         params = open_api_models.Params(
@@ -1400,6 +1432,8 @@ class Client(OpenApiClient):
         if not UtilClient.is_unset(request.next_token):
             query['NextToken'] = request.next_token
         body = {}
+        if not UtilClient.is_unset(request.auth_delta):
+            body['AuthDelta'] = request.auth_delta
         if not UtilClient.is_unset(request.file_id):
             body['FileId'] = request.file_id
         if not UtilClient.is_unset(request.keyword):
@@ -2295,6 +2329,48 @@ class Client(OpenApiClient):
     def save_app_auth_token(self, request):
         runtime = util_models.RuntimeOptions()
         return self.save_app_auth_token_with_options(request, runtime)
+
+    def save_cdn_domain_config_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.auth_config):
+            body['AuthConfig'] = request.auth_config
+        if not UtilClient.is_unset(request.cors_config):
+            body['CorsConfig'] = request.cors_config
+        if not UtilClient.is_unset(request.ip_config):
+            body['IpConfig'] = request.ip_config
+        if not UtilClient.is_unset(request.referer_config):
+            body['RefererConfig'] = request.referer_config
+        if not UtilClient.is_unset(request.space_id):
+            body['SpaceId'] = request.space_id
+        if not UtilClient.is_unset(request.tenant_id):
+            body['TenantId'] = request.tenant_id
+        if not UtilClient.is_unset(request.type):
+            body['Type'] = request.type
+        if not UtilClient.is_unset(request.ua_config):
+            body['UaConfig'] = request.ua_config
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='SaveCdnDomainConfig',
+            version='2019-06-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            mpserverless_20190615_models.SaveCdnDomainConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def save_cdn_domain_config(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.save_cdn_domain_config_with_options(request, runtime)
 
     def save_web_hosting_custom_domain_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
