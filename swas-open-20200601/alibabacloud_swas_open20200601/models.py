@@ -4558,18 +4558,25 @@ class ListCustomImagesResponse(TeaModel):
 class ListDisksRequest(TeaModel):
     def __init__(self, disk_ids=None, disk_type=None, instance_id=None, page_number=None, page_size=None,
                  region_id=None):
-        # The IDs of the disks. The value can be a JSON array that consists of up to 100 disk IDs. Separate the disk IDs with commas (,).
+        # The IDs of the disks. The value can be a JSON array that consists of up to 100 disk IDs. Separate multiple disk IDs with commas (,).
         self.disk_ids = disk_ids  # type: str
+        # 磁盘类型。可能值：
+        # 
+        # - System：系统盘
+        # 
+        # - Data：数据盘
+        # 
+        # 默认全量查询
         self.disk_type = disk_type  # type: str
         # The ID of the simple application server.
         self.instance_id = instance_id  # type: str
-        # The number of the page to return.
+        # The page number.
         # 
         # Default value: 1.
         self.page_number = page_number  # type: int
-        # The number of entries to return on each page.
+        # The number of entries per page.
         # 
-        # Maximum value: 100.
+        # Valid values: 1 to 100.
         # 
         # Default value: 10.
         self.page_size = page_size  # type: int
@@ -4642,9 +4649,11 @@ class ListDisksResponseBodyDisks(TeaModel):
         self.disk_type = disk_type  # type: str
         # The ID of the simple application server to which the disk is attached.
         self.instance_id = instance_id  # type: str
+        # 轻量应用服务器名称。
         self.instance_name = instance_name  # type: str
         # The region ID of the server.
         self.region_id = region_id  # type: str
+        # 磁盘备注。
         self.remark = remark  # type: str
         # The size of the disk. Unit: GB.
         self.size = size  # type: int
@@ -4728,15 +4737,15 @@ class ListDisksResponseBodyDisks(TeaModel):
 
 class ListDisksResponseBody(TeaModel):
     def __init__(self, disks=None, page_number=None, page_size=None, request_id=None, total_count=None):
-        # Details about the disks.
+        # The region ID of the disks.
         self.disks = disks  # type: list[ListDisksResponseBodyDisks]
-        # The page number of the returned page.
+        # The page number.
         self.page_number = page_number  # type: int
-        # The number of entries returned per page.
+        # The number of entries per page.
         self.page_size = page_size  # type: int
         # The request ID.
         self.request_id = request_id  # type: str
-        # The total number of disks.
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -5557,7 +5566,7 @@ class ListInstanceStatusResponse(TeaModel):
 
 class ListInstancesRequest(TeaModel):
     def __init__(self, charge_type=None, instance_ids=None, page_number=None, page_size=None,
-                 public_ip_addresses=None, region_id=None):
+                 public_ip_addresses=None, region_id=None, status=None):
         # The billing method of the simple application server. Set the value to PrePaid, which indicates the subscription billing method. Only the subscription billing method is supported.
         # 
         # Default value: PrePaid.
@@ -5580,6 +5589,7 @@ class ListInstancesRequest(TeaModel):
         self.public_ip_addresses = public_ip_addresses  # type: str
         # The region ID of the simple application servers.
         self.region_id = region_id  # type: str
+        self.status = status  # type: str
 
     def validate(self):
         pass
@@ -5602,6 +5612,8 @@ class ListInstancesRequest(TeaModel):
             result['PublicIpAddresses'] = self.public_ip_addresses
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.status is not None:
+            result['Status'] = self.status
         return result
 
     def from_map(self, m=None):
@@ -5618,6 +5630,8 @@ class ListInstancesRequest(TeaModel):
             self.public_ip_addresses = m.get('PublicIpAddresses')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
         return self
 
 
@@ -6438,21 +6452,21 @@ class ListRegionsResponse(TeaModel):
 class ListSnapshotsRequest(TeaModel):
     def __init__(self, disk_id=None, instance_id=None, page_number=None, page_size=None, region_id=None,
                  snapshot_ids=None, source_disk_type=None):
-        # The ID of the source disk.
+        # The disk ID.
         self.disk_id = disk_id  # type: str
         # The ID of the simple application server.
         self.instance_id = instance_id  # type: str
-        # The number of the page to return.
+        # The page number.
         # 
         # Default value: 1.
         self.page_number = page_number  # type: int
-        # The number of entries to return on each page. Maximum value: 100.
+        # The number of entries per page. Valid values: 1 to 100.
         # 
         # Default value: 10.
         self.page_size = page_size  # type: int
-        # The region ID of the simple application server.
+        # The region ID of the simple application server that corresponds to the snapshots.
         self.region_id = region_id  # type: str
-        # The IDs of the snapshots. The value can be a JSON array that consists of up to 100 snapshot IDs. Separate the snapshot IDs with commas (,).
+        # The snapshot IDs. The value can be a JSON array that consists of up to 100 snapshot IDs. Separate multiple snapshot IDs with commas (,).
         self.snapshot_ids = snapshot_ids  # type: str
         self.source_disk_type = source_disk_type  # type: str
 
@@ -6594,15 +6608,15 @@ class ListSnapshotsResponseBodySnapshots(TeaModel):
 
 class ListSnapshotsResponseBody(TeaModel):
     def __init__(self, page_number=None, page_size=None, request_id=None, snapshots=None, total_count=None):
-        # The page number of the returned page.
+        # The page number.
         self.page_number = page_number  # type: int
-        # The number of entries returned per page.
+        # The number of entries per page.
         self.page_size = page_size  # type: int
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # Details about the snapshots.
+        # The region ID of the simple application server.
         self.snapshots = snapshots  # type: list[ListSnapshotsResponseBodySnapshots]
-        # The total number of snapshots.
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -8779,6 +8793,114 @@ class StartInstancesResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = StartInstancesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class StartTerminalSessionRequest(TeaModel):
+    def __init__(self, instance_id=None, region_id=None):
+        self.instance_id = instance_id  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(StartTerminalSessionRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class StartTerminalSessionResponseBody(TeaModel):
+    def __init__(self, request_id=None, security_token=None, session_id=None, web_socket_url=None):
+        # Id of the request
+        self.request_id = request_id  # type: str
+        self.security_token = security_token  # type: str
+        self.session_id = session_id  # type: str
+        self.web_socket_url = web_socket_url  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(StartTerminalSessionResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
+        if self.session_id is not None:
+            result['SessionId'] = self.session_id
+        if self.web_socket_url is not None:
+            result['WebSocketUrl'] = self.web_socket_url
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
+        if m.get('SessionId') is not None:
+            self.session_id = m.get('SessionId')
+        if m.get('WebSocketUrl') is not None:
+            self.web_socket_url = m.get('WebSocketUrl')
+        return self
+
+
+class StartTerminalSessionResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: StartTerminalSessionResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(StartTerminalSessionResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = StartTerminalSessionResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
