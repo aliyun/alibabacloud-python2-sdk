@@ -221,6 +221,8 @@ class Client(OpenApiClient):
             query['InstanceId'] = request.instance_id
         if not UtilClient.is_unset(request.instance_type):
             query['InstanceType'] = request.instance_type
+        if not UtilClient.is_unset(request.standby):
+            query['Standby'] = request.standby
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -807,6 +809,8 @@ class Client(OpenApiClient):
             query['IpProtocol'] = request.ip_protocol
         if not UtilClient.is_unset(request.nat_gateway_id):
             query['NatGatewayId'] = request.nat_gateway_id
+        if not UtilClient.is_unset(request.standby_external_ip):
+            query['StandbyExternalIp'] = request.standby_external_ip
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1507,6 +1511,8 @@ class Client(OpenApiClient):
             query['SourceNetworkId'] = request.source_network_id
         if not UtilClient.is_unset(request.source_vswitch_id):
             query['SourceVSwitchId'] = request.source_vswitch_id
+        if not UtilClient.is_unset(request.standby_snat_ip):
+            query['StandbySnatIp'] = request.standby_snat_ip
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2851,6 +2857,8 @@ class Client(OpenApiClient):
             query['PageNumber'] = request.page_number
         if not UtilClient.is_unset(request.page_size):
             query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.standby):
+            query['Standby'] = request.standby
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -3157,6 +3165,8 @@ class Client(OpenApiClient):
             query['AliUidAccount'] = request.ali_uid_account
         if not UtilClient.is_unset(request.commodity_code):
             query['CommodityCode'] = request.commodity_code
+        if not UtilClient.is_unset(request.custom_account):
+            query['CustomAccount'] = request.custom_account
         if not UtilClient.is_unset(request.module_code):
             query['ModuleCode'] = request.module_code
         if not UtilClient.is_unset(request.order_type):
@@ -3189,6 +3199,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.commodity_code):
             query['CommodityCode'] = request.commodity_code
+        if not UtilClient.is_unset(request.custom_account):
+            query['CustomAccount'] = request.custom_account
         if not UtilClient.is_unset(request.order_type):
             query['OrderType'] = request.order_type
         req = open_api_models.OpenApiRequest(
@@ -3221,6 +3233,8 @@ class Client(OpenApiClient):
             query['AliUidAccount'] = request.ali_uid_account
         if not UtilClient.is_unset(request.commodity_code):
             query['CommodityCode'] = request.commodity_code
+        if not UtilClient.is_unset(request.custom_account):
+            query['CustomAccount'] = request.custom_account
         if not UtilClient.is_unset(request.module_code):
             query['ModuleCode'] = request.module_code
         if not UtilClient.is_unset(request.order_type):
@@ -4700,7 +4714,9 @@ class Client(OpenApiClient):
 
     def describe_snat_attribute_with_options(self, request, runtime):
         UtilClient.validate_model(request)
-        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        query = {}
+        if not UtilClient.is_unset(request.snat_entry_id):
+            query['SnatEntryId'] = request.snat_entry_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -4709,7 +4725,7 @@ class Client(OpenApiClient):
             version='2017-11-10',
             protocol='HTTPS',
             pathname='/',
-            method='GET',
+            method='POST',
             auth_type='AK',
             style='RPC',
             req_body_type='formData',

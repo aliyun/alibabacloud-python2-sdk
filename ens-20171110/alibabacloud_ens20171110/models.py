@@ -1332,10 +1332,11 @@ class AssignPrivateIpAddressesResponse(TeaModel):
 
 
 class AssociateEnsEipAddressRequest(TeaModel):
-    def __init__(self, allocation_id=None, instance_id=None, instance_type=None):
+    def __init__(self, allocation_id=None, instance_id=None, instance_type=None, standby=None):
         self.allocation_id = allocation_id  # type: str
         self.instance_id = instance_id  # type: str
         self.instance_type = instance_type  # type: str
+        self.standby = standby  # type: bool
 
     def validate(self):
         pass
@@ -1352,6 +1353,8 @@ class AssociateEnsEipAddressRequest(TeaModel):
             result['InstanceId'] = self.instance_id
         if self.instance_type is not None:
             result['InstanceType'] = self.instance_type
+        if self.standby is not None:
+            result['Standby'] = self.standby
         return result
 
     def from_map(self, m=None):
@@ -1362,6 +1365,8 @@ class AssociateEnsEipAddressRequest(TeaModel):
             self.instance_id = m.get('InstanceId')
         if m.get('InstanceType') is not None:
             self.instance_type = m.get('InstanceType')
+        if m.get('Standby') is not None:
+            self.standby = m.get('Standby')
         return self
 
 
@@ -3370,7 +3375,7 @@ class CreateFileSystemResponse(TeaModel):
 
 class CreateForwardEntryRequest(TeaModel):
     def __init__(self, external_ip=None, external_port=None, forward_entry_name=None, health_check_port=None,
-                 internal_ip=None, internal_port=None, ip_protocol=None, nat_gateway_id=None):
+                 internal_ip=None, internal_port=None, ip_protocol=None, nat_gateway_id=None, standby_external_ip=None):
         self.external_ip = external_ip  # type: str
         self.external_port = external_port  # type: str
         self.forward_entry_name = forward_entry_name  # type: str
@@ -3379,6 +3384,7 @@ class CreateForwardEntryRequest(TeaModel):
         self.internal_port = internal_port  # type: str
         self.ip_protocol = ip_protocol  # type: str
         self.nat_gateway_id = nat_gateway_id  # type: str
+        self.standby_external_ip = standby_external_ip  # type: str
 
     def validate(self):
         pass
@@ -3405,6 +3411,8 @@ class CreateForwardEntryRequest(TeaModel):
             result['IpProtocol'] = self.ip_protocol
         if self.nat_gateway_id is not None:
             result['NatGatewayId'] = self.nat_gateway_id
+        if self.standby_external_ip is not None:
+            result['StandbyExternalIp'] = self.standby_external_ip
         return result
 
     def from_map(self, m=None):
@@ -3425,6 +3433,8 @@ class CreateForwardEntryRequest(TeaModel):
             self.ip_protocol = m.get('IpProtocol')
         if m.get('NatGatewayId') is not None:
             self.nat_gateway_id = m.get('NatGatewayId')
+        if m.get('StandbyExternalIp') is not None:
+            self.standby_external_ip = m.get('StandbyExternalIp')
         return self
 
 
@@ -5627,13 +5637,14 @@ class CreateSecurityGroupResponse(TeaModel):
 
 class CreateSnatEntryRequest(TeaModel):
     def __init__(self, nat_gateway_id=None, snat_entry_name=None, snat_ip=None, source_cidr=None,
-                 source_network_id=None, source_vswitch_id=None):
+                 source_network_id=None, source_vswitch_id=None, standby_snat_ip=None):
         self.nat_gateway_id = nat_gateway_id  # type: str
         self.snat_entry_name = snat_entry_name  # type: str
         self.snat_ip = snat_ip  # type: str
         self.source_cidr = source_cidr  # type: str
         self.source_network_id = source_network_id  # type: str
         self.source_vswitch_id = source_vswitch_id  # type: str
+        self.standby_snat_ip = standby_snat_ip  # type: str
 
     def validate(self):
         pass
@@ -5656,6 +5667,8 @@ class CreateSnatEntryRequest(TeaModel):
             result['SourceNetworkId'] = self.source_network_id
         if self.source_vswitch_id is not None:
             result['SourceVSwitchId'] = self.source_vswitch_id
+        if self.standby_snat_ip is not None:
+            result['StandbySnatIp'] = self.standby_snat_ip
         return result
 
     def from_map(self, m=None):
@@ -5672,6 +5685,8 @@ class CreateSnatEntryRequest(TeaModel):
             self.source_network_id = m.get('SourceNetworkId')
         if m.get('SourceVSwitchId') is not None:
             self.source_vswitch_id = m.get('SourceVSwitchId')
+        if m.get('StandbySnatIp') is not None:
+            self.standby_snat_ip = m.get('StandbySnatIp')
         return self
 
 
@@ -11774,8 +11789,8 @@ class DescribeDisksRequest(TeaModel):
 
 class DescribeDisksResponseBodyDisksDisks(TeaModel):
     def __init__(self, category=None, creation_time=None, disk_charge_type=None, disk_id=None, disk_name=None,
-                 ens_region_id=None, instance_id=None, instance_name=None, portable=None, size=None, snapshot_id=None, status=None,
-                 type=None):
+                 ens_region_id=None, instance_id=None, instance_name=None, portable=None, serial_id=None, size=None,
+                 snapshot_id=None, status=None, type=None):
         self.category = category  # type: str
         self.creation_time = creation_time  # type: str
         self.disk_charge_type = disk_charge_type  # type: str
@@ -11785,6 +11800,7 @@ class DescribeDisksResponseBodyDisksDisks(TeaModel):
         self.instance_id = instance_id  # type: str
         self.instance_name = instance_name  # type: str
         self.portable = portable  # type: bool
+        self.serial_id = serial_id  # type: str
         self.size = size  # type: int
         self.snapshot_id = snapshot_id  # type: str
         self.status = status  # type: str
@@ -11817,6 +11833,8 @@ class DescribeDisksResponseBodyDisksDisks(TeaModel):
             result['InstanceName'] = self.instance_name
         if self.portable is not None:
             result['Portable'] = self.portable
+        if self.serial_id is not None:
+            result['SerialId'] = self.serial_id
         if self.size is not None:
             result['Size'] = self.size
         if self.snapshot_id is not None:
@@ -11847,6 +11865,8 @@ class DescribeDisksResponseBodyDisksDisks(TeaModel):
             self.instance_name = m.get('InstanceName')
         if m.get('Portable') is not None:
             self.portable = m.get('Portable')
+        if m.get('SerialId') is not None:
+            self.serial_id = m.get('SerialId')
         if m.get('Size') is not None:
             self.size = m.get('Size')
         if m.get('SnapshotId') is not None:
@@ -12578,7 +12598,7 @@ class DescribeEnsCommodityModuleCodeResponse(TeaModel):
 
 class DescribeEnsEipAddressesRequest(TeaModel):
     def __init__(self, allocation_id=None, associated_instance_id=None, associated_instance_type=None,
-                 eip_address=None, eip_name=None, ens_region_id=None, page_number=None, page_size=None):
+                 eip_address=None, eip_name=None, ens_region_id=None, page_number=None, page_size=None, standby=None):
         self.allocation_id = allocation_id  # type: str
         self.associated_instance_id = associated_instance_id  # type: str
         self.associated_instance_type = associated_instance_type  # type: str
@@ -12587,6 +12607,7 @@ class DescribeEnsEipAddressesRequest(TeaModel):
         self.ens_region_id = ens_region_id  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
+        self.standby = standby  # type: str
 
     def validate(self):
         pass
@@ -12613,6 +12634,8 @@ class DescribeEnsEipAddressesRequest(TeaModel):
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
             result['PageSize'] = self.page_size
+        if self.standby is not None:
+            result['Standby'] = self.standby
         return result
 
     def from_map(self, m=None):
@@ -12633,13 +12656,15 @@ class DescribeEnsEipAddressesRequest(TeaModel):
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
+        if m.get('Standby') is not None:
+            self.standby = m.get('Standby')
         return self
 
 
 class DescribeEnsEipAddressesResponseBodyEipAddressesEipAddress(TeaModel):
     def __init__(self, allocation_id=None, allocation_time=None, bandwidth=None, charge_type=None, description=None,
-                 ens_region_id=None, instance_id=None, instance_type=None, internet_charge_type=None, ip_address=None, isp=None,
-                 name=None, status=None):
+                 ens_region_id=None, instance_id=None, instance_type=None, internet_charge_type=None, ip_address=None,
+                 ip_status=None, isp=None, name=None, standby=None, status=None):
         self.allocation_id = allocation_id  # type: str
         self.allocation_time = allocation_time  # type: str
         self.bandwidth = bandwidth  # type: int
@@ -12650,8 +12675,10 @@ class DescribeEnsEipAddressesResponseBodyEipAddressesEipAddress(TeaModel):
         self.instance_type = instance_type  # type: str
         self.internet_charge_type = internet_charge_type  # type: str
         self.ip_address = ip_address  # type: str
+        self.ip_status = ip_status  # type: str
         self.isp = isp  # type: str
         self.name = name  # type: str
+        self.standby = standby  # type: bool
         self.status = status  # type: str
 
     def validate(self):
@@ -12683,10 +12710,14 @@ class DescribeEnsEipAddressesResponseBodyEipAddressesEipAddress(TeaModel):
             result['InternetChargeType'] = self.internet_charge_type
         if self.ip_address is not None:
             result['IpAddress'] = self.ip_address
+        if self.ip_status is not None:
+            result['IpStatus'] = self.ip_status
         if self.isp is not None:
             result['Isp'] = self.isp
         if self.name is not None:
             result['Name'] = self.name
+        if self.standby is not None:
+            result['Standby'] = self.standby
         if self.status is not None:
             result['Status'] = self.status
         return result
@@ -12713,10 +12744,14 @@ class DescribeEnsEipAddressesResponseBodyEipAddressesEipAddress(TeaModel):
             self.internet_charge_type = m.get('InternetChargeType')
         if m.get('IpAddress') is not None:
             self.ip_address = m.get('IpAddress')
+        if m.get('IpStatus') is not None:
+            self.ip_status = m.get('IpStatus')
         if m.get('Isp') is not None:
             self.isp = m.get('Isp')
         if m.get('Name') is not None:
             self.name = m.get('Name')
+        if m.get('Standby') is not None:
+            self.standby = m.get('Standby')
         if m.get('Status') is not None:
             self.status = m.get('Status')
         return self
@@ -14354,9 +14389,11 @@ class DescribeEnsRouteEntryListResponse(TeaModel):
 
 
 class DescribeEnsSaleControlRequest(TeaModel):
-    def __init__(self, ali_uid_account=None, commodity_code=None, module_code=None, order_type=None):
+    def __init__(self, ali_uid_account=None, commodity_code=None, custom_account=None, module_code=None,
+                 order_type=None):
         self.ali_uid_account = ali_uid_account  # type: str
         self.commodity_code = commodity_code  # type: str
+        self.custom_account = custom_account  # type: str
         self.module_code = module_code  # type: str
         self.order_type = order_type  # type: str
 
@@ -14373,6 +14410,8 @@ class DescribeEnsSaleControlRequest(TeaModel):
             result['AliUidAccount'] = self.ali_uid_account
         if self.commodity_code is not None:
             result['CommodityCode'] = self.commodity_code
+        if self.custom_account is not None:
+            result['CustomAccount'] = self.custom_account
         if self.module_code is not None:
             result['ModuleCode'] = self.module_code
         if self.order_type is not None:
@@ -14385,6 +14424,8 @@ class DescribeEnsSaleControlRequest(TeaModel):
             self.ali_uid_account = m.get('AliUidAccount')
         if m.get('CommodityCode') is not None:
             self.commodity_code = m.get('CommodityCode')
+        if m.get('CustomAccount') is not None:
+            self.custom_account = m.get('CustomAccount')
         if m.get('ModuleCode') is not None:
             self.module_code = m.get('ModuleCode')
         if m.get('OrderType') is not None:
@@ -14759,8 +14800,9 @@ class DescribeEnsSaleControlResponse(TeaModel):
 
 
 class DescribeEnsSaleControlAvailableResourceRequest(TeaModel):
-    def __init__(self, commodity_code=None, order_type=None):
+    def __init__(self, commodity_code=None, custom_account=None, order_type=None):
         self.commodity_code = commodity_code  # type: str
+        self.custom_account = custom_account  # type: str
         self.order_type = order_type  # type: str
 
     def validate(self):
@@ -14774,6 +14816,8 @@ class DescribeEnsSaleControlAvailableResourceRequest(TeaModel):
         result = dict()
         if self.commodity_code is not None:
             result['CommodityCode'] = self.commodity_code
+        if self.custom_account is not None:
+            result['CustomAccount'] = self.custom_account
         if self.order_type is not None:
             result['OrderType'] = self.order_type
         return result
@@ -14782,6 +14826,8 @@ class DescribeEnsSaleControlAvailableResourceRequest(TeaModel):
         m = m or dict()
         if m.get('CommodityCode') is not None:
             self.commodity_code = m.get('CommodityCode')
+        if m.get('CustomAccount') is not None:
+            self.custom_account = m.get('CustomAccount')
         if m.get('OrderType') is not None:
             self.order_type = m.get('OrderType')
         return self
@@ -14817,10 +14863,14 @@ class DescribeEnsSaleControlAvailableResourceResponseBodySaleControlAvailableRes
 
 
 class DescribeEnsSaleControlAvailableResourceResponseBodySaleControlAvailableResourceAvailableRegion(TeaModel):
-    def __init__(self, area=None, ens_region_id=None, ens_region_name=None, province=None):
+    def __init__(self, area=None, city=None, country=None, ens_region_id=None, ens_region_name=None, isp=None,
+                 province=None):
         self.area = area  # type: str
+        self.city = city  # type: str
+        self.country = country  # type: str
         self.ens_region_id = ens_region_id  # type: str
         self.ens_region_name = ens_region_name  # type: str
+        self.isp = isp  # type: str
         self.province = province  # type: str
 
     def validate(self):
@@ -14834,10 +14884,16 @@ class DescribeEnsSaleControlAvailableResourceResponseBodySaleControlAvailableRes
         result = dict()
         if self.area is not None:
             result['Area'] = self.area
+        if self.city is not None:
+            result['City'] = self.city
+        if self.country is not None:
+            result['Country'] = self.country
         if self.ens_region_id is not None:
             result['EnsRegionId'] = self.ens_region_id
         if self.ens_region_name is not None:
             result['EnsRegionName'] = self.ens_region_name
+        if self.isp is not None:
+            result['Isp'] = self.isp
         if self.province is not None:
             result['Province'] = self.province
         return result
@@ -14846,10 +14902,16 @@ class DescribeEnsSaleControlAvailableResourceResponseBodySaleControlAvailableRes
         m = m or dict()
         if m.get('Area') is not None:
             self.area = m.get('Area')
+        if m.get('City') is not None:
+            self.city = m.get('City')
+        if m.get('Country') is not None:
+            self.country = m.get('Country')
         if m.get('EnsRegionId') is not None:
             self.ens_region_id = m.get('EnsRegionId')
         if m.get('EnsRegionName') is not None:
             self.ens_region_name = m.get('EnsRegionName')
+        if m.get('Isp') is not None:
+            self.isp = m.get('Isp')
         if m.get('Province') is not None:
             self.province = m.get('Province')
         return self
@@ -15166,9 +15228,11 @@ class DescribeEnsSaleControlAvailableResourceResponse(TeaModel):
 
 
 class DescribeEnsSaleControlStockRequest(TeaModel):
-    def __init__(self, ali_uid_account=None, commodity_code=None, module_code=None, order_type=None):
+    def __init__(self, ali_uid_account=None, commodity_code=None, custom_account=None, module_code=None,
+                 order_type=None):
         self.ali_uid_account = ali_uid_account  # type: str
         self.commodity_code = commodity_code  # type: str
+        self.custom_account = custom_account  # type: str
         self.module_code = module_code  # type: str
         self.order_type = order_type  # type: str
 
@@ -15185,6 +15249,8 @@ class DescribeEnsSaleControlStockRequest(TeaModel):
             result['AliUidAccount'] = self.ali_uid_account
         if self.commodity_code is not None:
             result['CommodityCode'] = self.commodity_code
+        if self.custom_account is not None:
+            result['CustomAccount'] = self.custom_account
         if self.module_code is not None:
             result['ModuleCode'] = self.module_code
         if self.order_type is not None:
@@ -15197,6 +15263,8 @@ class DescribeEnsSaleControlStockRequest(TeaModel):
             self.ali_uid_account = m.get('AliUidAccount')
         if m.get('CommodityCode') is not None:
             self.commodity_code = m.get('CommodityCode')
+        if m.get('CustomAccount') is not None:
+            self.custom_account = m.get('CustomAccount')
         if m.get('ModuleCode') is not None:
             self.module_code = m.get('ModuleCode')
         if m.get('OrderType') is not None:
@@ -17287,7 +17355,8 @@ class DescribeForwardTableEntriesRequest(TeaModel):
 
 class DescribeForwardTableEntriesResponseBodyForwardTableEntries(TeaModel):
     def __init__(self, external_ip=None, external_port=None, forward_entry_id=None, forward_entry_name=None,
-                 health_check_port=None, internal_ip=None, internal_port=None, ip_protocol=None, nat_gateway_id=None, status=None):
+                 health_check_port=None, internal_ip=None, internal_port=None, ip_protocol=None, nat_gateway_id=None,
+                 standby_external_ip=None, standby_status=None, status=None):
         self.external_ip = external_ip  # type: str
         self.external_port = external_port  # type: str
         self.forward_entry_id = forward_entry_id  # type: str
@@ -17297,6 +17366,8 @@ class DescribeForwardTableEntriesResponseBodyForwardTableEntries(TeaModel):
         self.internal_port = internal_port  # type: str
         self.ip_protocol = ip_protocol  # type: str
         self.nat_gateway_id = nat_gateway_id  # type: str
+        self.standby_external_ip = standby_external_ip  # type: str
+        self.standby_status = standby_status  # type: str
         self.status = status  # type: str
 
     def validate(self):
@@ -17326,6 +17397,10 @@ class DescribeForwardTableEntriesResponseBodyForwardTableEntries(TeaModel):
             result['IpProtocol'] = self.ip_protocol
         if self.nat_gateway_id is not None:
             result['NatGatewayId'] = self.nat_gateway_id
+        if self.standby_external_ip is not None:
+            result['StandbyExternalIp'] = self.standby_external_ip
+        if self.standby_status is not None:
+            result['StandbyStatus'] = self.standby_status
         if self.status is not None:
             result['Status'] = self.status
         return result
@@ -17350,6 +17425,10 @@ class DescribeForwardTableEntriesResponseBodyForwardTableEntries(TeaModel):
             self.ip_protocol = m.get('IpProtocol')
         if m.get('NatGatewayId') is not None:
             self.nat_gateway_id = m.get('NatGatewayId')
+        if m.get('StandbyExternalIp') is not None:
+            self.standby_external_ip = m.get('StandbyExternalIp')
+        if m.get('StandbyStatus') is not None:
+            self.standby_status = m.get('StandbyStatus')
         if m.get('Status') is not None:
             self.status = m.get('Status')
         return self
@@ -28050,7 +28129,8 @@ class DescribeSnatAttributeResponseBodySnatIps(TeaModel):
 
 class DescribeSnatAttributeResponseBody(TeaModel):
     def __init__(self, creation_time=None, nat_gateway_id=None, request_id=None, snat_entry_id=None,
-                 snat_entry_name=None, snat_ip=None, snat_ips=None, source_cidr=None, status=None):
+                 snat_entry_name=None, snat_ip=None, snat_ips=None, source_cidr=None, standby_snat_ip=None, standby_status=None,
+                 status=None):
         self.creation_time = creation_time  # type: str
         self.nat_gateway_id = nat_gateway_id  # type: str
         # Id of the request
@@ -28060,6 +28140,8 @@ class DescribeSnatAttributeResponseBody(TeaModel):
         self.snat_ip = snat_ip  # type: str
         self.snat_ips = snat_ips  # type: list[DescribeSnatAttributeResponseBodySnatIps]
         self.source_cidr = source_cidr  # type: str
+        self.standby_snat_ip = standby_snat_ip  # type: str
+        self.standby_status = standby_status  # type: str
         self.status = status  # type: str
 
     def validate(self):
@@ -28092,6 +28174,10 @@ class DescribeSnatAttributeResponseBody(TeaModel):
                 result['SnatIps'].append(k.to_map() if k else None)
         if self.source_cidr is not None:
             result['SourceCIDR'] = self.source_cidr
+        if self.standby_snat_ip is not None:
+            result['StandbySnatIp'] = self.standby_snat_ip
+        if self.standby_status is not None:
+            result['StandbyStatus'] = self.standby_status
         if self.status is not None:
             result['Status'] = self.status
         return result
@@ -28117,6 +28203,10 @@ class DescribeSnatAttributeResponseBody(TeaModel):
                 self.snat_ips.append(temp_model.from_map(k))
         if m.get('SourceCIDR') is not None:
             self.source_cidr = m.get('SourceCIDR')
+        if m.get('StandbySnatIp') is not None:
+            self.standby_snat_ip = m.get('StandbySnatIp')
+        if m.get('StandbyStatus') is not None:
+            self.standby_status = m.get('StandbyStatus')
         if m.get('Status') is not None:
             self.status = m.get('Status')
         return self
@@ -28218,12 +28308,14 @@ class DescribeSnatTableEntriesRequest(TeaModel):
 
 class DescribeSnatTableEntriesResponseBodySnatTableEntries(TeaModel):
     def __init__(self, nat_gateway_id=None, snat_entry_id=None, snat_entry_name=None, snat_ip=None,
-                 source_cidr=None, status=None):
+                 source_cidr=None, standby_snat_ip=None, standby_status=None, status=None):
         self.nat_gateway_id = nat_gateway_id  # type: str
         self.snat_entry_id = snat_entry_id  # type: str
         self.snat_entry_name = snat_entry_name  # type: str
         self.snat_ip = snat_ip  # type: str
         self.source_cidr = source_cidr  # type: str
+        self.standby_snat_ip = standby_snat_ip  # type: str
+        self.standby_status = standby_status  # type: str
         self.status = status  # type: str
 
     def validate(self):
@@ -28245,6 +28337,10 @@ class DescribeSnatTableEntriesResponseBodySnatTableEntries(TeaModel):
             result['SnatIp'] = self.snat_ip
         if self.source_cidr is not None:
             result['SourceCIDR'] = self.source_cidr
+        if self.standby_snat_ip is not None:
+            result['StandbySnatIp'] = self.standby_snat_ip
+        if self.standby_status is not None:
+            result['StandbyStatus'] = self.standby_status
         if self.status is not None:
             result['Status'] = self.status
         return result
@@ -28261,6 +28357,10 @@ class DescribeSnatTableEntriesResponseBodySnatTableEntries(TeaModel):
             self.snat_ip = m.get('SnatIp')
         if m.get('SourceCIDR') is not None:
             self.source_cidr = m.get('SourceCIDR')
+        if m.get('StandbySnatIp') is not None:
+            self.standby_snat_ip = m.get('StandbySnatIp')
+        if m.get('StandbyStatus') is not None:
+            self.standby_status = m.get('StandbyStatus')
         if m.get('Status') is not None:
             self.status = m.get('Status')
         return self
