@@ -561,8 +561,12 @@ class Client(OpenApiClient):
     def delete_service_instances_with_options(self, cluster_id, service_name, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.container):
+            query['Container'] = request.container
         if not UtilClient.is_unset(request.instance_list):
             query['InstanceList'] = request.instance_list
+        if not UtilClient.is_unset(request.soft_restart):
+            query['SoftRestart'] = request.soft_restart
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)
@@ -877,6 +881,31 @@ class Client(OpenApiClient):
         headers = {}
         return self.describe_service_cron_scaler_with_options(cluster_id, service_name, headers, runtime)
 
+    def describe_service_diagnosis_with_options(self, cluster_id, service_name, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='DescribeServiceDiagnosis',
+            version='2021-07-01',
+            protocol='HTTPS',
+            pathname='/api/v2/services/%s/%s/diagnosis' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name))),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eas_20210701_models.DescribeServiceDiagnosisResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_service_diagnosis(self, cluster_id, service_name):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.describe_service_diagnosis_with_options(cluster_id, service_name, headers, runtime)
+
     def describe_service_event_with_options(self, cluster_id, service_name, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -916,6 +945,31 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.describe_service_event_with_options(cluster_id, service_name, request, headers, runtime)
+
+    def describe_service_instance_diagnosis_with_options(self, cluster_id, service_name, instance_name, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='DescribeServiceInstanceDiagnosis',
+            version='2021-07-01',
+            protocol='HTTPS',
+            pathname='/api/v2/services/%s/%s/instances/%s/diagnosis' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_name))),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eas_20210701_models.DescribeServiceInstanceDiagnosisResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_service_instance_diagnosis(self, cluster_id, service_name, instance_name):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.describe_service_instance_diagnosis_with_options(cluster_id, service_name, instance_name, headers, runtime)
 
     def describe_service_log_with_options(self, cluster_id, service_name, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1236,6 +1290,31 @@ class Client(OpenApiClient):
         headers = {}
         return self.list_resources_with_options(request, headers, runtime)
 
+    def list_service_containers_with_options(self, cluster_id, service_name, instance_name, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='ListServiceContainers',
+            version='2021-07-01',
+            protocol='HTTPS',
+            pathname='/api/v2/services/%s/%s/instances/%s/containers' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_name))),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eas_20210701_models.ListServiceContainersResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_service_containers(self, cluster_id, service_name, instance_name):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_service_containers_with_options(cluster_id, service_name, instance_name, headers, runtime)
+
     def list_service_instances_with_options(self, cluster_id, service_name, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1411,6 +1490,31 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.release_service_with_options(cluster_id, service_name, request, headers, runtime)
+
+    def restart_service_with_options(self, cluster_id, service_name, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='RestartService',
+            version='2021-07-01',
+            protocol='HTTPS',
+            pathname='/api/v2/services/%s/%s/restart' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(service_name))),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eas_20210701_models.RestartServiceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def restart_service(self, cluster_id, service_name):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.restart_service_with_options(cluster_id, service_name, headers, runtime)
 
     def start_benchmark_task_with_options(self, cluster_id, task_name, headers, runtime):
         req = open_api_models.OpenApiRequest(
