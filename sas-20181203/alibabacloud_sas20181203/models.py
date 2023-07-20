@@ -613,6 +613,138 @@ class AddClientUserDefineRuleResponse(TeaModel):
         return self
 
 
+class AddImageVulWhiteListRequest(TeaModel):
+    def __init__(self, lang=None, reason=None, target=None, type=None, whitelist=None):
+        self.lang = lang  # type: str
+        self.reason = reason  # type: str
+        self.target = target  # type: str
+        self.type = type  # type: str
+        self.whitelist = whitelist  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(AddImageVulWhiteListRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.lang is not None:
+            result['Lang'] = self.lang
+        if self.reason is not None:
+            result['Reason'] = self.reason
+        if self.target is not None:
+            result['Target'] = self.target
+        if self.type is not None:
+            result['Type'] = self.type
+        if self.whitelist is not None:
+            result['Whitelist'] = self.whitelist
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Lang') is not None:
+            self.lang = m.get('Lang')
+        if m.get('Reason') is not None:
+            self.reason = m.get('Reason')
+        if m.get('Target') is not None:
+            self.target = m.get('Target')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        if m.get('Whitelist') is not None:
+            self.whitelist = m.get('Whitelist')
+        return self
+
+
+class AddImageVulWhiteListResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: bool
+        self.http_status_code = http_status_code  # type: int
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(AddImageVulWhiteListResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class AddImageVulWhiteListResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: AddImageVulWhiteListResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(AddImageVulWhiteListResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = AddImageVulWhiteListResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class AddInstallCodeRequest(TeaModel):
     def __init__(self, expired_date=None, group_id=None, only_image=None, os=None, proxy_cluster=None,
                  vendor_name=None):
@@ -2052,9 +2184,215 @@ class CancelOnceTaskResponse(TeaModel):
         return self
 
 
+class ChangeAssetRefreshTaskConfigRequestAssetRefreshConfigs(TeaModel):
+    def __init__(self, schedule_period=None, status=None, vendor=None):
+        self.schedule_period = schedule_period  # type: int
+        self.status = status  # type: int
+        self.vendor = vendor  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ChangeAssetRefreshTaskConfigRequestAssetRefreshConfigs, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.schedule_period is not None:
+            result['SchedulePeriod'] = self.schedule_period
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.vendor is not None:
+            result['Vendor'] = self.vendor
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('SchedulePeriod') is not None:
+            self.schedule_period = m.get('SchedulePeriod')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('Vendor') is not None:
+            self.vendor = m.get('Vendor')
+        return self
+
+
+class ChangeAssetRefreshTaskConfigRequest(TeaModel):
+    def __init__(self, asset_refresh_configs=None, region_id=None):
+        self.asset_refresh_configs = asset_refresh_configs  # type: list[ChangeAssetRefreshTaskConfigRequestAssetRefreshConfigs]
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        if self.asset_refresh_configs:
+            for k in self.asset_refresh_configs:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ChangeAssetRefreshTaskConfigRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['AssetRefreshConfigs'] = []
+        if self.asset_refresh_configs is not None:
+            for k in self.asset_refresh_configs:
+                result['AssetRefreshConfigs'].append(k.to_map() if k else None)
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.asset_refresh_configs = []
+        if m.get('AssetRefreshConfigs') is not None:
+            for k in m.get('AssetRefreshConfigs'):
+                temp_model = ChangeAssetRefreshTaskConfigRequestAssetRefreshConfigs()
+                self.asset_refresh_configs.append(temp_model.from_map(k))
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class ChangeAssetRefreshTaskConfigResponseBody(TeaModel):
+    def __init__(self, data=None, message=None, request_id=None):
+        self.data = data  # type: bool
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ChangeAssetRefreshTaskConfigResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ChangeAssetRefreshTaskConfigResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ChangeAssetRefreshTaskConfigResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ChangeAssetRefreshTaskConfigResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ChangeAssetRefreshTaskConfigResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ChangeCheckConfigRequestAddedCheck(TeaModel):
+    def __init__(self, check_id=None, section_id=None):
+        self.check_id = check_id  # type: long
+        self.section_id = section_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ChangeCheckConfigRequestAddedCheck, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.check_id is not None:
+            result['CheckId'] = self.check_id
+        if self.section_id is not None:
+            result['SectionId'] = self.section_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CheckId') is not None:
+            self.check_id = m.get('CheckId')
+        if m.get('SectionId') is not None:
+            self.section_id = m.get('SectionId')
+        return self
+
+
+class ChangeCheckConfigRequestRemovedCheck(TeaModel):
+    def __init__(self, check_id=None, section_id=None):
+        self.check_id = check_id  # type: long
+        self.section_id = section_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ChangeCheckConfigRequestRemovedCheck, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.check_id is not None:
+            result['CheckId'] = self.check_id
+        if self.section_id is not None:
+            result['SectionId'] = self.section_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CheckId') is not None:
+            self.check_id = m.get('CheckId')
+        if m.get('SectionId') is not None:
+            self.section_id = m.get('SectionId')
+        return self
+
+
 class ChangeCheckConfigRequest(TeaModel):
-    def __init__(self, cycle_days=None, end_time=None, region_id=None, standard_ids=None, start_time=None):
+    def __init__(self, added_check=None, cycle_days=None, enable_add_check=None, enable_auto_check=None,
+                 end_time=None, region_id=None, removed_check=None, standard_ids=None, start_time=None):
+        self.added_check = added_check  # type: list[ChangeCheckConfigRequestAddedCheck]
         self.cycle_days = cycle_days  # type: list[int]
+        self.enable_add_check = enable_add_check  # type: bool
+        self.enable_auto_check = enable_auto_check  # type: bool
         # The end time of the check. The value specifies a point in time in a day. The time period that is specified by the start time and end time must be one of the following time periods:
         # 
         # *   **00:00 to 06:00:** If you set the StartTime parameter to 0, you must set the EndTime parameter to 6.
@@ -2066,13 +2404,21 @@ class ChangeCheckConfigRequest(TeaModel):
         # 
         # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
+        self.removed_check = removed_check  # type: list[ChangeCheckConfigRequestRemovedCheck]
         # An array that consists of the information about the check item.
         self.standard_ids = standard_ids  # type: list[long]
         # The start time of the check. The value specifies a point in time in a day.
         self.start_time = start_time  # type: int
 
     def validate(self):
-        pass
+        if self.added_check:
+            for k in self.added_check:
+                if k:
+                    k.validate()
+        if self.removed_check:
+            for k in self.removed_check:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(ChangeCheckConfigRequest, self).to_map()
@@ -2080,12 +2426,24 @@ class ChangeCheckConfigRequest(TeaModel):
             return _map
 
         result = dict()
+        result['AddedCheck'] = []
+        if self.added_check is not None:
+            for k in self.added_check:
+                result['AddedCheck'].append(k.to_map() if k else None)
         if self.cycle_days is not None:
             result['CycleDays'] = self.cycle_days
+        if self.enable_add_check is not None:
+            result['EnableAddCheck'] = self.enable_add_check
+        if self.enable_auto_check is not None:
+            result['EnableAutoCheck'] = self.enable_auto_check
         if self.end_time is not None:
             result['EndTime'] = self.end_time
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        result['RemovedCheck'] = []
+        if self.removed_check is not None:
+            for k in self.removed_check:
+                result['RemovedCheck'].append(k.to_map() if k else None)
         if self.standard_ids is not None:
             result['StandardIds'] = self.standard_ids
         if self.start_time is not None:
@@ -2094,12 +2452,26 @@ class ChangeCheckConfigRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        self.added_check = []
+        if m.get('AddedCheck') is not None:
+            for k in m.get('AddedCheck'):
+                temp_model = ChangeCheckConfigRequestAddedCheck()
+                self.added_check.append(temp_model.from_map(k))
         if m.get('CycleDays') is not None:
             self.cycle_days = m.get('CycleDays')
+        if m.get('EnableAddCheck') is not None:
+            self.enable_add_check = m.get('EnableAddCheck')
+        if m.get('EnableAutoCheck') is not None:
+            self.enable_auto_check = m.get('EnableAutoCheck')
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        self.removed_check = []
+        if m.get('RemovedCheck') is not None:
+            for k in m.get('RemovedCheck'):
+                temp_model = ChangeCheckConfigRequestRemovedCheck()
+                self.removed_check.append(temp_model.from_map(k))
         if m.get('StandardIds') is not None:
             self.standard_ids = m.get('StandardIds')
         if m.get('StartTime') is not None:
@@ -2818,8 +3190,11 @@ class ConfirmVirusEventsResponse(TeaModel):
 
 
 class CreateAgentlessScanTaskRequest(TeaModel):
-    def __init__(self, auto_delete_days=None, target_type=None, uuid_list=None):
+    def __init__(self, auto_delete_days=None, release_after_scan=None, scan_data_disk=None, target_type=None,
+                 uuid_list=None):
         self.auto_delete_days = auto_delete_days  # type: int
+        self.release_after_scan = release_after_scan  # type: bool
+        self.scan_data_disk = scan_data_disk  # type: bool
         self.target_type = target_type  # type: int
         self.uuid_list = uuid_list  # type: list[str]
 
@@ -2834,6 +3209,10 @@ class CreateAgentlessScanTaskRequest(TeaModel):
         result = dict()
         if self.auto_delete_days is not None:
             result['AutoDeleteDays'] = self.auto_delete_days
+        if self.release_after_scan is not None:
+            result['ReleaseAfterScan'] = self.release_after_scan
+        if self.scan_data_disk is not None:
+            result['ScanDataDisk'] = self.scan_data_disk
         if self.target_type is not None:
             result['TargetType'] = self.target_type
         if self.uuid_list is not None:
@@ -2844,6 +3223,10 @@ class CreateAgentlessScanTaskRequest(TeaModel):
         m = m or dict()
         if m.get('AutoDeleteDays') is not None:
             self.auto_delete_days = m.get('AutoDeleteDays')
+        if m.get('ReleaseAfterScan') is not None:
+            self.release_after_scan = m.get('ReleaseAfterScan')
+        if m.get('ScanDataDisk') is not None:
+            self.scan_data_disk = m.get('ScanDataDisk')
         if m.get('TargetType') is not None:
             self.target_type = m.get('TargetType')
         if m.get('UuidList') is not None:
@@ -3968,10 +4351,11 @@ class CreateCycleTaskResponse(TeaModel):
 
 class CreateFileDetectRequest(TeaModel):
     def __init__(self, download_url=None, hash_key=None, oss_key=None, source_ip=None, type=None):
+        # The URL that is used to download the file. You can specify this parameter to trigger file detection without the need to upload the file in advance.
         self.download_url = download_url  # type: str
         # The identifier of the file. Only MD5 hash values are supported.
         self.hash_key = hash_key  # type: str
-        # The key of the file that is stored in the Object Storage Service (OSS) bucket. You can call the [CreateFileDetectUploadUrl](~~CreateFileDetectUploadUrl~~) operation to query the keys of files.
+        # The key of the file that is stored in the Object Storage Service (OSS) bucket. If you specify the DownloadUrl parameter, you can leave this parameter empty. You can call the [CreateFileDetectUploadUrl](~~CreateFileDetectUploadUrl~~) operation to query the keys of files.
         self.oss_key = oss_key  # type: str
         # The source IP address of the request.
         self.source_ip = source_ip  # type: str
@@ -4791,6 +5175,10 @@ class CreateHoneypotPresetRequest(TeaModel):
     def __init__(self, honeypot_image_name=None, lang=None, meta=None, node_id=None, preset_name=None):
         # The name of the honeypot image.
         self.honeypot_image_name = honeypot_image_name  # type: str
+        # The language of the content within the request and response. Default value: **zh**. Valid values:
+        # 
+        # *   **zh**: Chinese
+        # *   **en**: English
         self.lang = lang  # type: str
         # The custom configurations of the honeypot template. The value is a JSON string that contains the following fields:
         # 
@@ -7740,6 +8128,103 @@ class DeleteBackupPolicyMachineResponse(TeaModel):
         return self
 
 
+class DeleteBinarySecurityPolicyRequest(TeaModel):
+    def __init__(self, name=None, resource_owner_id=None, source_ip=None):
+        self.name = name  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        self.source_ip = source_ip  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteBinarySecurityPolicyRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        if self.source_ip is not None:
+            result['SourceIp'] = self.source_ip
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        if m.get('SourceIp') is not None:
+            self.source_ip = m.get('SourceIp')
+        return self
+
+
+class DeleteBinarySecurityPolicyResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteBinarySecurityPolicyResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DeleteBinarySecurityPolicyResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteBinarySecurityPolicyResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteBinarySecurityPolicyResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteBinarySecurityPolicyResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DeleteClientUserDefineRuleRequest(TeaModel):
     def __init__(self, id_list=None):
         # The IDs of the custom defense rules.
@@ -8125,6 +8610,10 @@ class DeleteHoneypotRequest(TeaModel):
         # 
         # > You can call the [ListHoneypot](~~ListHoneypot~~) operation to query the IDs of honeypots.
         self.honeypot_id = honeypot_id  # type: str
+        # The language of the content within the request and response. Default value: **zh**. Valid values:
+        # 
+        # *   **zh**: Chinese
+        # *   **en**: English
         self.lang = lang  # type: str
 
     def validate(self):
@@ -8244,6 +8733,10 @@ class DeleteHoneypotResponse(TeaModel):
 
 class DeleteHoneypotNodeRequest(TeaModel):
     def __init__(self, lang=None, node_id=None):
+        # The language of the content within the request and response. Default value: **zh**. Valid values:
+        # 
+        # *   **zh**: Chinese
+        # *   **en**: English
         self.lang = lang  # type: str
         # The ID of the management node.
         # 
@@ -9928,7 +10421,8 @@ class DescribeAccessKeyLeakDetailResponseBody(TeaModel):
     def __init__(self, accesskey_id=None, asset=None, code=None, deal_time=None, deal_type=None,
                  github_file_name=None, github_file_type=None, github_file_update_time=None, github_file_url=None,
                  github_repo_name=None, github_repo_url=None, github_user=None, github_user_pic_url=None, gmt_create=None,
-                 gmt_modified=None, remark=None, request_id=None, source=None, type=None, whitelist_status=None):
+                 gmt_modified=None, remark=None, request_id=None, source=None, token_valid=None, type=None, whitelist_status=None,
+                 whitelist_time=None):
         self.accesskey_id = accesskey_id  # type: str
         self.asset = asset  # type: str
         self.code = code  # type: str
@@ -9947,8 +10441,10 @@ class DescribeAccessKeyLeakDetailResponseBody(TeaModel):
         self.remark = remark  # type: str
         self.request_id = request_id  # type: str
         self.source = source  # type: str
+        self.token_valid = token_valid  # type: int
         self.type = type  # type: str
         self.whitelist_status = whitelist_status  # type: str
+        self.whitelist_time = whitelist_time  # type: long
 
     def validate(self):
         pass
@@ -9995,10 +10491,14 @@ class DescribeAccessKeyLeakDetailResponseBody(TeaModel):
             result['RequestId'] = self.request_id
         if self.source is not None:
             result['Source'] = self.source
+        if self.token_valid is not None:
+            result['TokenValid'] = self.token_valid
         if self.type is not None:
             result['Type'] = self.type
         if self.whitelist_status is not None:
             result['WhitelistStatus'] = self.whitelist_status
+        if self.whitelist_time is not None:
+            result['WhitelistTime'] = self.whitelist_time
         return result
 
     def from_map(self, m=None):
@@ -10039,10 +10539,14 @@ class DescribeAccessKeyLeakDetailResponseBody(TeaModel):
             self.request_id = m.get('RequestId')
         if m.get('Source') is not None:
             self.source = m.get('Source')
+        if m.get('TokenValid') is not None:
+            self.token_valid = m.get('TokenValid')
         if m.get('Type') is not None:
             self.type = m.get('Type')
         if m.get('WhitelistStatus') is not None:
             self.whitelist_status = m.get('WhitelistStatus')
+        if m.get('WhitelistTime') is not None:
+            self.whitelist_time = m.get('WhitelistTime')
         return self
 
 
@@ -11700,7 +12204,8 @@ class DescribeAlarmEventDetailResponse(TeaModel):
 
 
 class DescribeAlarmEventStackInfoRequest(TeaModel):
-    def __init__(self, event_name=None, lang=None, source_ip=None, unique_info=None, uuid=None):
+    def __init__(self, event_name=None, lang=None, resource_directory_account_id=None, source_ip=None,
+                 unique_info=None, uuid=None):
         # The name of the event.
         # 
         # >  You can call the [DescribeSuspEvents](~~DescribeSuspEvents~~) operation to query the names of events.
@@ -11710,6 +12215,7 @@ class DescribeAlarmEventStackInfoRequest(TeaModel):
         # *   **zh**: Chinese
         # *   **en**: English
         self.lang = lang  # type: str
+        self.resource_directory_account_id = resource_directory_account_id  # type: long
         # The source IP address of the request.
         self.source_ip = source_ip  # type: str
         # The ID of the alert event.
@@ -11732,6 +12238,8 @@ class DescribeAlarmEventStackInfoRequest(TeaModel):
             result['EventName'] = self.event_name
         if self.lang is not None:
             result['Lang'] = self.lang
+        if self.resource_directory_account_id is not None:
+            result['ResourceDirectoryAccountId'] = self.resource_directory_account_id
         if self.source_ip is not None:
             result['SourceIp'] = self.source_ip
         if self.unique_info is not None:
@@ -11746,6 +12254,8 @@ class DescribeAlarmEventStackInfoRequest(TeaModel):
             self.event_name = m.get('EventName')
         if m.get('Lang') is not None:
             self.lang = m.get('Lang')
+        if m.get('ResourceDirectoryAccountId') is not None:
+            self.resource_directory_account_id = m.get('ResourceDirectoryAccountId')
         if m.get('SourceIp') is not None:
             self.source_ip = m.get('SourceIp')
         if m.get('UniqueInfo') is not None:
@@ -13082,12 +13592,13 @@ class DescribeAssetDetailByUuidResponse(TeaModel):
 
 
 class DescribeAssetDetailByUuidsRequest(TeaModel):
-    def __init__(self, lang=None, uuids=None):
+    def __init__(self, lang=None, resource_directory_account_id=None, uuids=None):
         # The language of the content within the request and response. Default value: **zh**. Valid values:
         # 
         # *   **zh**: Chinese
         # *   **en**: English
         self.lang = lang  # type: str
+        self.resource_directory_account_id = resource_directory_account_id  # type: long
         # The UUIDs of the ECS instances. Separate multiple UUIDs with commas (,).
         self.uuids = uuids  # type: str
 
@@ -13102,6 +13613,8 @@ class DescribeAssetDetailByUuidsRequest(TeaModel):
         result = dict()
         if self.lang is not None:
             result['Lang'] = self.lang
+        if self.resource_directory_account_id is not None:
+            result['ResourceDirectoryAccountId'] = self.resource_directory_account_id
         if self.uuids is not None:
             result['Uuids'] = self.uuids
         return result
@@ -13110,6 +13623,8 @@ class DescribeAssetDetailByUuidsRequest(TeaModel):
         m = m or dict()
         if m.get('Lang') is not None:
             self.lang = m.get('Lang')
+        if m.get('ResourceDirectoryAccountId') is not None:
+            self.resource_directory_account_id = m.get('ResourceDirectoryAccountId')
         if m.get('Uuids') is not None:
             self.uuids = m.get('Uuids')
         return self
@@ -17841,7 +18356,8 @@ class DescribeClientConfStrategyResponse(TeaModel):
 
 class DescribeCloudCenterInstancesRequest(TeaModel):
     def __init__(self, criteria=None, current_page=None, importance=None, lang=None, logical_exp=None,
-                 machine_types=None, next_token=None, no_group_trace=None, page_size=None, region_id=None, use_next_token=None):
+                 machine_types=None, next_token=None, no_group_trace=None, page_size=None, region_id=None,
+                 resource_directory_account_id=None, use_next_token=None):
         # The search conditions that are used to filter assets. The value of this parameter is in the JSON format and is case-sensitive.
         # 
         # > A search condition can be an instance ID, instance name, VPC ID, region, or public IP address. You can call the [DescribeCriteria](~~DescribeCriteria~~) operation to query the supported search conditions.
@@ -17879,6 +18395,7 @@ class DescribeCloudCenterInstancesRequest(TeaModel):
         self.page_size = page_size  # type: int
         # The ID of the region in which the asset resides.
         self.region_id = region_id  # type: str
+        self.resource_directory_account_id = resource_directory_account_id  # type: long
         self.use_next_token = use_next_token  # type: bool
 
     def validate(self):
@@ -17910,6 +18427,8 @@ class DescribeCloudCenterInstancesRequest(TeaModel):
             result['PageSize'] = self.page_size
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_directory_account_id is not None:
+            result['ResourceDirectoryAccountId'] = self.resource_directory_account_id
         if self.use_next_token is not None:
             result['UseNextToken'] = self.use_next_token
         return result
@@ -17936,6 +18455,8 @@ class DescribeCloudCenterInstancesRequest(TeaModel):
             self.page_size = m.get('PageSize')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceDirectoryAccountId') is not None:
+            self.resource_directory_account_id = m.get('ResourceDirectoryAccountId')
         if m.get('UseNextToken') is not None:
             self.use_next_token = m.get('UseNextToken')
         return self
@@ -25502,11 +26023,12 @@ class DescribeExposedStatisticsDetailResponse(TeaModel):
 
 
 class DescribeFieldStatisticsRequest(TeaModel):
-    def __init__(self, machine_types=None, region_id=None):
+    def __init__(self, machine_types=None, region_id=None, resource_directory_account_id=None):
         # The total number of cloud services that are protected by Security Center.
         self.machine_types = machine_types  # type: str
         # The number of regions to which the servers belong.
         self.region_id = region_id  # type: str
+        self.resource_directory_account_id = resource_directory_account_id  # type: long
 
     def validate(self):
         pass
@@ -25521,6 +26043,8 @@ class DescribeFieldStatisticsRequest(TeaModel):
             result['MachineTypes'] = self.machine_types
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_directory_account_id is not None:
+            result['ResourceDirectoryAccountId'] = self.resource_directory_account_id
         return result
 
     def from_map(self, m=None):
@@ -25529,6 +26053,8 @@ class DescribeFieldStatisticsRequest(TeaModel):
             self.machine_types = m.get('MachineTypes')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceDirectoryAccountId') is not None:
+            self.resource_directory_account_id = m.get('ResourceDirectoryAccountId')
         return self
 
 
@@ -27337,8 +27863,8 @@ class DescribeGroupedTagsResponse(TeaModel):
 
 class DescribeGroupedVulRequest(TeaModel):
     def __init__(self, alias_name=None, asset_type=None, attach_types=None, container_field_name=None,
-                 current_page=None, dealed=None, group_id=None, lang=None, necessity=None, page_size=None, search_tags=None,
-                 target_type=None, type=None, uuids=None):
+                 current_page=None, dealed=None, group_id=None, lang=None, necessity=None, page_size=None,
+                 resource_directory_account_id=None, search_tags=None, target_type=None, type=None, uuids=None):
         # The alias of the vulnerability.
         self.alias_name = alias_name  # type: str
         # The type of the asset on which the vulnerability is detected. Separate multiple types with commas (,). Valid values:
@@ -27387,6 +27913,7 @@ class DescribeGroupedVulRequest(TeaModel):
         self.necessity = necessity  # type: str
         # The number of entries per page. Default value: 10.
         self.page_size = page_size  # type: int
+        self.resource_directory_account_id = resource_directory_account_id  # type: long
         # The tag that is used to filter vulnerabilities. Valid values:
         # 
         # *   Restart required
@@ -27442,6 +27969,8 @@ class DescribeGroupedVulRequest(TeaModel):
             result['Necessity'] = self.necessity
         if self.page_size is not None:
             result['PageSize'] = self.page_size
+        if self.resource_directory_account_id is not None:
+            result['ResourceDirectoryAccountId'] = self.resource_directory_account_id
         if self.search_tags is not None:
             result['SearchTags'] = self.search_tags
         if self.target_type is not None:
@@ -27474,6 +28003,8 @@ class DescribeGroupedVulRequest(TeaModel):
             self.necessity = m.get('Necessity')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
+        if m.get('ResourceDirectoryAccountId') is not None:
+            self.resource_directory_account_id = m.get('ResourceDirectoryAccountId')
         if m.get('SearchTags') is not None:
             self.search_tags = m.get('SearchTags')
         if m.get('TargetType') is not None:
@@ -27942,6 +28473,10 @@ class DescribeHoneyPotSuspStatisticsRequest(TeaModel):
     def __init__(self, from_=None, lang=None, statistics_days=None, statistics_key_type=None):
         # The source of the request. Set the value to **honeypot**.
         self.from_ = from_  # type: str
+        # The language of the content within the request and response. Valid values:
+        # 
+        # *   **zh**: Chinese
+        # *   **en**: English
         self.lang = lang  # type: str
         # The time range of the data to query. Unit: days.
         self.statistics_days = statistics_days  # type: int
@@ -35513,6 +36048,243 @@ class DescribeImageVulListResponse(TeaModel):
         return self
 
 
+class DescribeImageVulWhiteListRequest(TeaModel):
+    def __init__(self, alias_name=None, current_page=None, lang=None, page_size=None):
+        self.alias_name = alias_name  # type: str
+        self.current_page = current_page  # type: int
+        self.lang = lang  # type: str
+        self.page_size = page_size  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeImageVulWhiteListRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.alias_name is not None:
+            result['AliasName'] = self.alias_name
+        if self.current_page is not None:
+            result['CurrentPage'] = self.current_page
+        if self.lang is not None:
+            result['Lang'] = self.lang
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AliasName') is not None:
+            self.alias_name = m.get('AliasName')
+        if m.get('CurrentPage') is not None:
+            self.current_page = m.get('CurrentPage')
+        if m.get('Lang') is not None:
+            self.lang = m.get('Lang')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        return self
+
+
+class DescribeImageVulWhiteListResponseBodyImageVulWhitelist(TeaModel):
+    def __init__(self, alias_name=None, id=None, name=None, reason=None, target=None, type=None):
+        self.alias_name = alias_name  # type: str
+        self.id = id  # type: long
+        self.name = name  # type: str
+        self.reason = reason  # type: str
+        self.target = target  # type: str
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeImageVulWhiteListResponseBodyImageVulWhitelist, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.alias_name is not None:
+            result['AliasName'] = self.alias_name
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.reason is not None:
+            result['Reason'] = self.reason
+        if self.target is not None:
+            result['Target'] = self.target
+        if self.type is not None:
+            result['Type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AliasName') is not None:
+            self.alias_name = m.get('AliasName')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('Reason') is not None:
+            self.reason = m.get('Reason')
+        if m.get('Target') is not None:
+            self.target = m.get('Target')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        return self
+
+
+class DescribeImageVulWhiteListResponseBodyPageInfo(TeaModel):
+    def __init__(self, count=None, current_page=None, page_size=None, total_count=None):
+        self.count = count  # type: int
+        self.current_page = current_page  # type: int
+        self.page_size = page_size  # type: int
+        self.total_count = total_count  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeImageVulWhiteListResponseBodyPageInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.count is not None:
+            result['Count'] = self.count
+        if self.current_page is not None:
+            result['CurrentPage'] = self.current_page
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Count') is not None:
+            self.count = m.get('Count')
+        if m.get('CurrentPage') is not None:
+            self.current_page = m.get('CurrentPage')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class DescribeImageVulWhiteListResponseBody(TeaModel):
+    def __init__(self, code=None, http_status_code=None, image_vul_whitelist=None, message=None, page_info=None,
+                 request_id=None, success=None, time_cost=None):
+        self.code = code  # type: str
+        self.http_status_code = http_status_code  # type: int
+        self.image_vul_whitelist = image_vul_whitelist  # type: list[DescribeImageVulWhiteListResponseBodyImageVulWhitelist]
+        self.message = message  # type: str
+        self.page_info = page_info  # type: DescribeImageVulWhiteListResponseBodyPageInfo
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+        self.time_cost = time_cost  # type: long
+
+    def validate(self):
+        if self.image_vul_whitelist:
+            for k in self.image_vul_whitelist:
+                if k:
+                    k.validate()
+        if self.page_info:
+            self.page_info.validate()
+
+    def to_map(self):
+        _map = super(DescribeImageVulWhiteListResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        result['ImageVulWhitelist'] = []
+        if self.image_vul_whitelist is not None:
+            for k in self.image_vul_whitelist:
+                result['ImageVulWhitelist'].append(k.to_map() if k else None)
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.page_info is not None:
+            result['PageInfo'] = self.page_info.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        if self.time_cost is not None:
+            result['TimeCost'] = self.time_cost
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        self.image_vul_whitelist = []
+        if m.get('ImageVulWhitelist') is not None:
+            for k in m.get('ImageVulWhitelist'):
+                temp_model = DescribeImageVulWhiteListResponseBodyImageVulWhitelist()
+                self.image_vul_whitelist.append(temp_model.from_map(k))
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('PageInfo') is not None:
+            temp_model = DescribeImageVulWhiteListResponseBodyPageInfo()
+            self.page_info = temp_model.from_map(m['PageInfo'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('TimeCost') is not None:
+            self.time_cost = m.get('TimeCost')
+        return self
+
+
+class DescribeImageVulWhiteListResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeImageVulWhiteListResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeImageVulWhiteListResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeImageVulWhiteListResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeInstallCaptchaRequest(TeaModel):
     def __init__(self, deadline=None, lang=None, source_ip=None):
         # The validity period of the installation verification code. If this parameter is not specified, the validity period is 1 hour.
@@ -37884,6 +38656,74 @@ class DescribeModuleConfigResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeModuleConfigResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeMonitorAccountsResponseBody(TeaModel):
+    def __init__(self, account_ids=None, request_id=None):
+        self.account_ids = account_ids  # type: list[str]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeMonitorAccountsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.account_ids is not None:
+            result['AccountIds'] = self.account_ids
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccountIds') is not None:
+            self.account_ids = m.get('AccountIds')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeMonitorAccountsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeMonitorAccountsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeMonitorAccountsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeMonitorAccountsResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -46765,7 +47605,46 @@ class DescribeSecureSuggestionResponseBody(TeaModel):
     def __init__(self, request_id=None, suggestions=None, total_count=None):
         # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
-        # An array that consists of the unhandled security risks.
+        # The sub-type of the unhandled risk. Valid values:
+        # 
+        # *   **ALARM_HIGH**: Unhandled Urgency Alerts
+        # *   **ALARM_MEDIUM**: Unhandled Warning Alerts
+        # *   **ALARM_LOW**: Unhandled Reminder Alerts
+        # *   **VUL_EMR_UNCHECK**: Unchecked Urgent Vulnerabilities
+        # *   **VUL_EMR_UNFIX**: Unfixed Urgent Vulnerabilities
+        # *   **VUL_WIN**: Unfixed Windows Server Vulnerabilities
+        # *   **VUL_LINUX**: Unfixed Linux Server Vulnerabilities
+        # *   **VUL_CMS**: Unfixed CMS Vulnerabilities
+        # *   **ACCESSKEY_LEAK**: AccessKey Leakage Risks
+        # *   **HC_WARN**: Baseline Risks
+        # *   **HC_WEAK_EXPLOIT_WARN**: There is a risk of weak passwords exposed by the public network.
+        # *   **HC_WEAK_PASSWORD_WARN**: Risk of weak password
+        # *   **HC_HIGH_EXPLOIT_WARN**: There is a high risk of invasion
+        # *   **HC_OTHER_WARN**: Security Configuration risk
+        # *   **HC_DATABASE_WARN**: Database has security risks
+        # *   **CLOUD_HC_SAS_OPEN**: Security protection has not been installed on the server
+        # *   **CLOUD_HC_AEGIS_OFFLINE**: Server protection status is offline
+        # *   **CLOUD_HC_ACCOUNT_DOUBLE_CHECK**: Two-Factor Authentication not Enabled for Primary Account
+        # *   **CLOUD_HC_RDS**: RDS-database security policy failed, security risks
+        # *   **CLOUD_HC_DDOS**: Risks in Anti-DDoS Pro Back-to-Origin Settings
+        # *   **CLOUD_HC_HIGH_LEVEL**: Cloud product configuration has high risk
+        # *   **CLOUD_HC_OTHER_LEVEL**: Cloud product configuration has medium and low risk risks
+        # *   **OTHER_ATTACH**: Attacks
+        # *   **OTHER_DATABASE_ATTACH**: Database has security risks
+        # *   **REINFORCE_BASELINE**: Config Assessment
+        # *   **REINFORCE_SUSPICIOUS**: Antivirus
+        # *   **REINFORCE_ANALYSIS**: Log Analysis
+        # *   **REINFORCE_AK_LEAK**: AccessKey Leaked Intelligence Detection
+        # *   **REINFORCE_WEB_LOCK**: Website tamper-proofing capability not configured
+        # *   **REINFORCE_BRUTE_FORCE**: Anti brute force cracking
+        # *   **REINFORCE_XPRESS_INSTALL**: One-click client installation
+        # *   **REINFORCE_RANSOMWARE**: Enable anti-extortion strategy
+        # *   **REINFORCE_UNI_RANSOMWARE**: Anti-ransomware for Databases
+        # *   **REINFORCE_VIRUS_SCHEDULE_SCAN**: Periodic virus scan policies not configured
+        # *   **REINFORCE_IMAGE_REPO_SCAN**: No container image scan range configured
+        # *   **REINFORCE_IMAGE_SCAN_TASK**: Image security scan
+        # *   **REINFORCE_K8S_LOG_ANALYSIS**: Container K8s threat detection is disabled
+        # *   **REINFORCE_CONTAINER_NETWORK**: Container Visualization
         self.suggestions = suggestions  # type: list[DescribeSecureSuggestionResponseBodySuggestions]
         # The total number of unhandled security risks.
         self.total_count = total_count  # type: int
@@ -50579,7 +51458,8 @@ class DescribeSupportRegionResponse(TeaModel):
 
 
 class DescribeSuspEventDetailRequest(TeaModel):
-    def __init__(self, from_=None, lang=None, source_ip=None, suspicious_event_id=None):
+    def __init__(self, from_=None, lang=None, resource_directory_account_id=None, source_ip=None,
+                 suspicious_event_id=None):
         # The data source of the exception. Set the value to sas.
         self.from_ = from_  # type: str
         # The language of the content within the request and response. Default value: **zh**. Valid values:
@@ -50587,6 +51467,7 @@ class DescribeSuspEventDetailRequest(TeaModel):
         # *   **zh**: Chinese
         # *   **en**: English
         self.lang = lang  # type: str
+        self.resource_directory_account_id = resource_directory_account_id  # type: long
         # The source IP address of the request.
         self.source_ip = source_ip  # type: str
         # The ID of the exception.
@@ -50605,6 +51486,8 @@ class DescribeSuspEventDetailRequest(TeaModel):
             result['From'] = self.from_
         if self.lang is not None:
             result['Lang'] = self.lang
+        if self.resource_directory_account_id is not None:
+            result['ResourceDirectoryAccountId'] = self.resource_directory_account_id
         if self.source_ip is not None:
             result['SourceIp'] = self.source_ip
         if self.suspicious_event_id is not None:
@@ -50617,6 +51500,8 @@ class DescribeSuspEventDetailRequest(TeaModel):
             self.from_ = m.get('From')
         if m.get('Lang') is not None:
             self.lang = m.get('Lang')
+        if m.get('ResourceDirectoryAccountId') is not None:
+            self.resource_directory_account_id = m.get('ResourceDirectoryAccountId')
         if m.get('SourceIp') is not None:
             self.source_ip = m.get('SourceIp')
         if m.get('SuspiciousEventId') is not None:
@@ -51430,9 +52315,9 @@ class DescribeSuspEventsRequest(TeaModel):
     def __init__(self, alarm_unique_info=None, assets_type_list=None, cluster_id=None, container_field_name=None,
                  container_field_value=None, current_page=None, dealed=None, event_names=None, from_=None, group_id=None, id=None,
                  lang=None, levels=None, name=None, operate_error_code_list=None, operate_time_end=None,
-                 operate_time_start=None, page_size=None, parent_event_types=None, remark=None, sort_column=None, sort_type=None,
-                 source=None, source_ip=None, status=None, tactic_id=None, target_type=None, time_end=None, time_start=None,
-                 unique_info=None, uuids=None):
+                 operate_time_start=None, page_size=None, parent_event_types=None, remark=None, resource_directory_account_id=None,
+                 sort_column=None, sort_type=None, source=None, source_ip=None, status=None, tactic_id=None, target_type=None,
+                 time_end=None, time_start=None, unique_info=None, uuids=None):
         # The ID of the alert event.
         # 
         # >  To query the details about the exceptions of an alert event, you must specify the ID of the alert event. You can call the [DescribeSuspEvents](~~DescribeSuspEvents~~) operation to query the IDs of alert events.
@@ -51524,6 +52409,7 @@ class DescribeSuspEventsRequest(TeaModel):
         # 
         # >  Fuzzy search is supported. The asset information includes the name, public IP address, and private IP address of an asset.
         self.remark = remark  # type: str
+        self.resource_directory_account_id = resource_directory_account_id  # type: long
         # The custom sorting field. Default value: **operateTime**. Valid values:
         # 
         # *   **lastTime**: the latest occurrence time.
@@ -51622,6 +52508,8 @@ class DescribeSuspEventsRequest(TeaModel):
             result['ParentEventTypes'] = self.parent_event_types
         if self.remark is not None:
             result['Remark'] = self.remark
+        if self.resource_directory_account_id is not None:
+            result['ResourceDirectoryAccountId'] = self.resource_directory_account_id
         if self.sort_column is not None:
             result['SortColumn'] = self.sort_column
         if self.sort_type is not None:
@@ -51688,6 +52576,8 @@ class DescribeSuspEventsRequest(TeaModel):
             self.parent_event_types = m.get('ParentEventTypes')
         if m.get('Remark') is not None:
             self.remark = m.get('Remark')
+        if m.get('ResourceDirectoryAccountId') is not None:
+            self.resource_directory_account_id = m.get('ResourceDirectoryAccountId')
         if m.get('SortColumn') is not None:
             self.sort_column = m.get('SortColumn')
         if m.get('SortType') is not None:
@@ -57125,7 +58015,7 @@ class DescribeVulConfigResponse(TeaModel):
 
 
 class DescribeVulDetailsRequest(TeaModel):
-    def __init__(self, alias_name=None, lang=None, name=None, type=None):
+    def __init__(self, alias_name=None, lang=None, name=None, resource_directory_account_id=None, type=None):
         # The vulnerability announcement.
         self.alias_name = alias_name  # type: str
         # The language of the content within the request and response. Valid values:
@@ -57137,6 +58027,7 @@ class DescribeVulDetailsRequest(TeaModel):
         # 
         # > You can call the [DescribeGroupedVul](~~DescribeGroupedVul~~) or [DescribeVulList](~~DescribeVulList~~) operation to query the names of vulnerabilities.
         self.name = name  # type: str
+        self.resource_directory_account_id = resource_directory_account_id  # type: long
         # The type of the vulnerability. Valid values:
         # 
         # *   **cve**: Linux software vulnerability
@@ -57162,6 +58053,8 @@ class DescribeVulDetailsRequest(TeaModel):
             result['Lang'] = self.lang
         if self.name is not None:
             result['Name'] = self.name
+        if self.resource_directory_account_id is not None:
+            result['ResourceDirectoryAccountId'] = self.resource_directory_account_id
         if self.type is not None:
             result['Type'] = self.type
         return result
@@ -57174,6 +58067,8 @@ class DescribeVulDetailsRequest(TeaModel):
             self.lang = m.get('Lang')
         if m.get('Name') is not None:
             self.name = m.get('Name')
+        if m.get('ResourceDirectoryAccountId') is not None:
+            self.resource_directory_account_id = m.get('ResourceDirectoryAccountId')
         if m.get('Type') is not None:
             self.type = m.get('Type')
         return self
@@ -57794,7 +58689,8 @@ class DescribeVulFixStatisticsResponse(TeaModel):
 
 class DescribeVulListRequest(TeaModel):
     def __init__(self, alias_name=None, attach_types=None, current_page=None, dealed=None, group_id=None, lang=None,
-                 name=None, necessity=None, page_size=None, remark=None, type=None, uuids=None, vpc_instance_ids=None):
+                 name=None, necessity=None, page_size=None, remark=None, resource_directory_account_id=None, type=None,
+                 uuids=None, vpc_instance_ids=None):
         # The name of the vulnerability.
         self.alias_name = alias_name  # type: str
         # The additional type of the vulnerabilities. You need to specify this parameter when you query application vulnerabilities. Set the value to **sca**. If you set **Type** to **app**, you must specify this parameter.
@@ -57829,6 +58725,7 @@ class DescribeVulListRequest(TeaModel):
         self.page_size = page_size  # type: int
         # The remarks for the asset affected by the vulnerability. The value can be the private IP address, public IP address, or name of the asset.
         self.remark = remark  # type: str
+        self.resource_directory_account_id = resource_directory_account_id  # type: long
         # The type of the vulnerability. Valid values:
         # 
         # *   **cve**: Linux software vulnerability
@@ -57872,6 +58769,8 @@ class DescribeVulListRequest(TeaModel):
             result['PageSize'] = self.page_size
         if self.remark is not None:
             result['Remark'] = self.remark
+        if self.resource_directory_account_id is not None:
+            result['ResourceDirectoryAccountId'] = self.resource_directory_account_id
         if self.type is not None:
             result['Type'] = self.type
         if self.uuids is not None:
@@ -57902,6 +58801,8 @@ class DescribeVulListRequest(TeaModel):
             self.page_size = m.get('PageSize')
         if m.get('Remark') is not None:
             self.remark = m.get('Remark')
+        if m.get('ResourceDirectoryAccountId') is not None:
+            self.resource_directory_account_id = m.get('ResourceDirectoryAccountId')
         if m.get('Type') is not None:
             self.type = m.get('Type')
         if m.get('Uuids') is not None:
@@ -59676,6 +60577,9 @@ class DescribeWarningMachinesRequest(TeaModel):
         self.container_field_value = container_field_value  # type: str
         # The number of the page to return. Default value: **1**.
         self.current_page = current_page  # type: int
+        # The ID of the new server group to which the servers belong.
+        # 
+        # >  You can call the [DescribeAllGroups](~~DescribeAllGroups~~) operation to query the IDs of server groups.
         self.group_id = group_id  # type: long
         # Specifies whether risks were detected. Valid values:
         # 
@@ -59798,7 +60702,9 @@ class DescribeWarningMachinesResponseBodyWarningMachines(TeaModel):
         # *   **true**: yes
         # *   **false**: no
         self.bind = bind  # type: bool
+        # The ID of the container.
         self.container_id = container_id  # type: str
+        # The name of container.
         self.container_name = container_name  # type: str
         # The number of **high-risk** items on the server.
         self.high_warning_count = high_warning_count  # type: int
@@ -64214,12 +65120,15 @@ class GenerateOnceTaskResponse(TeaModel):
 
 
 class GetAgentlessTaskCountResponseBody(TeaModel):
-    def __init__(self, last_task_time=None, malicious_file=None, request_id=None, risk_machine=None,
-                 scan_machine=None, vulnerability=None):
+    def __init__(self, baseline_check_count=None, cve_vul_count=None, last_task_time=None, malicious_file=None,
+                 request_id=None, risk_machine=None, sca_vul_count=None, scan_machine=None, vulnerability=None):
+        self.baseline_check_count = baseline_check_count  # type: int
+        self.cve_vul_count = cve_vul_count  # type: int
         self.last_task_time = last_task_time  # type: long
         self.malicious_file = malicious_file  # type: int
         self.request_id = request_id  # type: str
         self.risk_machine = risk_machine  # type: int
+        self.sca_vul_count = sca_vul_count  # type: int
         self.scan_machine = scan_machine  # type: int
         self.vulnerability = vulnerability  # type: int
 
@@ -64232,6 +65141,10 @@ class GetAgentlessTaskCountResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.baseline_check_count is not None:
+            result['BaselineCheckCount'] = self.baseline_check_count
+        if self.cve_vul_count is not None:
+            result['CveVulCount'] = self.cve_vul_count
         if self.last_task_time is not None:
             result['LastTaskTime'] = self.last_task_time
         if self.malicious_file is not None:
@@ -64240,6 +65153,8 @@ class GetAgentlessTaskCountResponseBody(TeaModel):
             result['RequestId'] = self.request_id
         if self.risk_machine is not None:
             result['RiskMachine'] = self.risk_machine
+        if self.sca_vul_count is not None:
+            result['ScaVulCount'] = self.sca_vul_count
         if self.scan_machine is not None:
             result['ScanMachine'] = self.scan_machine
         if self.vulnerability is not None:
@@ -64248,6 +65163,10 @@ class GetAgentlessTaskCountResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('BaselineCheckCount') is not None:
+            self.baseline_check_count = m.get('BaselineCheckCount')
+        if m.get('CveVulCount') is not None:
+            self.cve_vul_count = m.get('CveVulCount')
         if m.get('LastTaskTime') is not None:
             self.last_task_time = m.get('LastTaskTime')
         if m.get('MaliciousFile') is not None:
@@ -64256,6 +65175,8 @@ class GetAgentlessTaskCountResponseBody(TeaModel):
             self.request_id = m.get('RequestId')
         if m.get('RiskMachine') is not None:
             self.risk_machine = m.get('RiskMachine')
+        if m.get('ScaVulCount') is not None:
+            self.sca_vul_count = m.get('ScaVulCount')
         if m.get('ScanMachine') is not None:
             self.scan_machine = m.get('ScanMachine')
         if m.get('Vulnerability') is not None:
@@ -66026,6 +66947,35 @@ class GetBackupStorageCountResponse(TeaModel):
         return self
 
 
+class GetCheckConfigResponseBodySelectedChecks(TeaModel):
+    def __init__(self, check_id=None, section_id=None):
+        self.check_id = check_id  # type: long
+        self.section_id = section_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetCheckConfigResponseBodySelectedChecks, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.check_id is not None:
+            result['CheckId'] = self.check_id
+        if self.section_id is not None:
+            result['SectionId'] = self.section_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CheckId') is not None:
+            self.check_id = m.get('CheckId')
+        if m.get('SectionId') is not None:
+            self.section_id = m.get('SectionId')
+        return self
+
+
 class GetCheckConfigResponseBodyStandards(TeaModel):
     def __init__(self, id=None, show_name=None, status=None, type=None):
         # The ID of the check item.
@@ -66077,9 +67027,12 @@ class GetCheckConfigResponseBodyStandards(TeaModel):
 
 
 class GetCheckConfigResponseBody(TeaModel):
-    def __init__(self, cycle_days=None, end_time=None, request_id=None, standards=None, start_time=None):
+    def __init__(self, cycle_days=None, enable_add_check=None, enable_auto_check=None, end_time=None,
+                 request_id=None, selected_checks=None, standards=None, start_time=None):
         # An array that consists of days in a week on which an automatic check is performed.
         self.cycle_days = cycle_days  # type: list[int]
+        self.enable_add_check = enable_add_check  # type: bool
+        self.enable_auto_check = enable_auto_check  # type: bool
         # The end time of the check. The value indicates a point in time. The time period that is specified by the start time and end time must be one of the following time periods:
         # 
         # *   **00:00 to 06:00:** The StartTime parameter is set to 0 and the EndTime parameter is set to 6.
@@ -66089,12 +67042,17 @@ class GetCheckConfigResponseBody(TeaModel):
         self.end_time = end_time  # type: int
         # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
+        self.selected_checks = selected_checks  # type: list[GetCheckConfigResponseBodySelectedChecks]
         # An array that consists of the information about the check items.
         self.standards = standards  # type: list[GetCheckConfigResponseBodyStandards]
         # The start time of the check. The value indicates a point in time.
         self.start_time = start_time  # type: int
 
     def validate(self):
+        if self.selected_checks:
+            for k in self.selected_checks:
+                if k:
+                    k.validate()
         if self.standards:
             for k in self.standards:
                 if k:
@@ -66108,10 +67066,18 @@ class GetCheckConfigResponseBody(TeaModel):
         result = dict()
         if self.cycle_days is not None:
             result['CycleDays'] = self.cycle_days
+        if self.enable_add_check is not None:
+            result['EnableAddCheck'] = self.enable_add_check
+        if self.enable_auto_check is not None:
+            result['EnableAutoCheck'] = self.enable_auto_check
         if self.end_time is not None:
             result['EndTime'] = self.end_time
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        result['SelectedChecks'] = []
+        if self.selected_checks is not None:
+            for k in self.selected_checks:
+                result['SelectedChecks'].append(k.to_map() if k else None)
         result['Standards'] = []
         if self.standards is not None:
             for k in self.standards:
@@ -66124,10 +67090,19 @@ class GetCheckConfigResponseBody(TeaModel):
         m = m or dict()
         if m.get('CycleDays') is not None:
             self.cycle_days = m.get('CycleDays')
+        if m.get('EnableAddCheck') is not None:
+            self.enable_add_check = m.get('EnableAddCheck')
+        if m.get('EnableAutoCheck') is not None:
+            self.enable_auto_check = m.get('EnableAutoCheck')
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        self.selected_checks = []
+        if m.get('SelectedChecks') is not None:
+            for k in m.get('SelectedChecks'):
+                temp_model = GetCheckConfigResponseBodySelectedChecks()
+                self.selected_checks.append(temp_model.from_map(k))
         self.standards = []
         if m.get('Standards') is not None:
             for k in m.get('Standards'):
@@ -67079,7 +68054,8 @@ class GetCheckSummaryResponse(TeaModel):
 
 
 class GetClientRatioStatisticRequest(TeaModel):
-    def __init__(self, statistic_types=None, time_end=None, time_start=None):
+    def __init__(self, resource_directory_account_id=None, statistic_types=None, time_end=None, time_start=None):
+        self.resource_directory_account_id = resource_directory_account_id  # type: long
         self.statistic_types = statistic_types  # type: list[str]
         self.time_end = time_end  # type: long
         self.time_start = time_start  # type: long
@@ -67093,6 +68069,8 @@ class GetClientRatioStatisticRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.resource_directory_account_id is not None:
+            result['ResourceDirectoryAccountId'] = self.resource_directory_account_id
         if self.statistic_types is not None:
             result['StatisticTypes'] = self.statistic_types
         if self.time_end is not None:
@@ -67103,6 +68081,8 @@ class GetClientRatioStatisticRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('ResourceDirectoryAccountId') is not None:
+            self.resource_directory_account_id = m.get('ResourceDirectoryAccountId')
         if m.get('StatisticTypes') is not None:
             self.statistic_types = m.get('StatisticTypes')
         if m.get('TimeEnd') is not None:
@@ -74602,6 +75582,160 @@ class ListAgentlessTaskResponse(TeaModel):
         return self
 
 
+class ListAssetRefreshTaskConfigRequest(TeaModel):
+    def __init__(self, region_id=None):
+        # The region where the Security Center instance is deployed.
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListAssetRefreshTaskConfigRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class ListAssetRefreshTaskConfigResponseBodyAssetRefreshConfig(TeaModel):
+    def __init__(self, schedule_period=None, status=None, vendor=None):
+        # The synchronization cycle. Valid values:
+        # 
+        # *   **60**: 60 minutes
+        # *   **180**: 3 hours
+        # *   **360**: 6 hours
+        # *   **720**: 12 hours
+        # *   **1440**: 1 day
+        # *   **10080**: 7 days
+        self.schedule_period = schedule_period  # type: int
+        # The status of asset synchonization. Valid values:
+        # 
+        # *   **1**: enabled
+        # *   **0**: disabled
+        self.status = status  # type: int
+        # The service provider of the cloud asset. Valid values:
+        # 
+        # *   **3**: Tencent Cloud
+        # *   **4**: HUAWEI CLOUD
+        # *   **7**: Amazon Web Services (AWS) Cloud
+        self.vendor = vendor  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListAssetRefreshTaskConfigResponseBodyAssetRefreshConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.schedule_period is not None:
+            result['SchedulePeriod'] = self.schedule_period
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.vendor is not None:
+            result['Vendor'] = self.vendor
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('SchedulePeriod') is not None:
+            self.schedule_period = m.get('SchedulePeriod')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('Vendor') is not None:
+            self.vendor = m.get('Vendor')
+        return self
+
+
+class ListAssetRefreshTaskConfigResponseBody(TeaModel):
+    def __init__(self, asset_refresh_config=None, request_id=None):
+        # An array that consist of the configurations.
+        self.asset_refresh_config = asset_refresh_config  # type: list[ListAssetRefreshTaskConfigResponseBodyAssetRefreshConfig]
+        # The ID of the request, which is used to locate and troubleshoot issues.
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.asset_refresh_config:
+            for k in self.asset_refresh_config:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListAssetRefreshTaskConfigResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['AssetRefreshConfig'] = []
+        if self.asset_refresh_config is not None:
+            for k in self.asset_refresh_config:
+                result['AssetRefreshConfig'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.asset_refresh_config = []
+        if m.get('AssetRefreshConfig') is not None:
+            for k in m.get('AssetRefreshConfig'):
+                temp_model = ListAssetRefreshTaskConfigResponseBodyAssetRefreshConfig()
+                self.asset_refresh_config.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ListAssetRefreshTaskConfigResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListAssetRefreshTaskConfigResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListAssetRefreshTaskConfigResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListAssetRefreshTaskConfigResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListAssetSelectionSelectedTargetRequest(TeaModel):
     def __init__(self, selection_key=None, target_list=None):
         self.selection_key = selection_key  # type: str
@@ -75219,7 +76353,8 @@ class ListCheckInstanceResultRequest(TeaModel):
 
 
 class ListCheckInstanceResultResponseBodyBasicData(TeaModel):
-    def __init__(self, id=None, instance_id=None, instance_name=None, region_id=None, status=None):
+    def __init__(self, id=None, instance_id=None, instance_name=None, region_id=None, status=None,
+                 status_message=None):
         # The check result ID of the instance.
         self.id = id  # type: long
         # The ID of the server.
@@ -75236,6 +76371,7 @@ class ListCheckInstanceResultResponseBodyBasicData(TeaModel):
         # *   **NOT_CHECK**\
         # *   **WHITELIST**\
         self.status = status  # type: str
+        self.status_message = status_message  # type: str
 
     def validate(self):
         pass
@@ -75256,6 +76392,8 @@ class ListCheckInstanceResultResponseBodyBasicData(TeaModel):
             result['RegionId'] = self.region_id
         if self.status is not None:
             result['Status'] = self.status
+        if self.status_message is not None:
+            result['StatusMessage'] = self.status_message
         return result
 
     def from_map(self, m=None):
@@ -75270,6 +76408,8 @@ class ListCheckInstanceResultResponseBodyBasicData(TeaModel):
             self.region_id = m.get('RegionId')
         if m.get('Status') is not None:
             self.status = m.get('Status')
+        if m.get('StatusMessage') is not None:
+            self.status_message = m.get('StatusMessage')
         return self
 
 
@@ -76090,6 +77230,9 @@ class ListCheckItemWarningSummaryResponseBodyList(TeaModel):
         self.check_level = check_level  # type: str
         # The type of the check item.
         self.check_type = check_type  # type: str
+        # Checks if the item belongs to the container runtime category.Valid values:
+        # *   **true**\
+        # *  **false**\
         self.container_check_item = container_check_item  # type: bool
         # The description of the check item.
         self.description = description  # type: str
@@ -76294,13 +77437,14 @@ class ListCheckItemWarningSummaryResponse(TeaModel):
 
 
 class ListCheckResultRequest(TeaModel):
-    def __init__(self, check_key=None, current_page=None, instance_ids=None, instance_types=None, lang=None,
-                 page_size=None, region_id=None, requirement_ids=None, risk_levels=None, sort_types=None, standard_ids=None,
-                 statuses=None, types=None, vendors=None):
+    def __init__(self, check_key=None, current_page=None, custom_param=None, instance_ids=None, instance_types=None,
+                 lang=None, page_size=None, region_id=None, requirement_ids=None, risk_levels=None, sort_types=None,
+                 standard_ids=None, statuses=None, types=None, vendors=None):
         # The key that you want to use to search for check items in fuzzy match mode.
         self.check_key = check_key  # type: str
         # The page number.
         self.current_page = current_page  # type: int
+        self.custom_param = custom_param  # type: bool
         # The instance IDs of the cloud services that you want to query. Separate multiple IDs with commas (,).
         self.instance_ids = instance_ids  # type: list[str]
         # The asset type of the cloud services. Valid values:
@@ -76383,6 +77527,8 @@ class ListCheckResultRequest(TeaModel):
             result['CheckKey'] = self.check_key
         if self.current_page is not None:
             result['CurrentPage'] = self.current_page
+        if self.custom_param is not None:
+            result['CustomParam'] = self.custom_param
         if self.instance_ids is not None:
             result['InstanceIds'] = self.instance_ids
         if self.instance_types is not None:
@@ -76415,6 +77561,8 @@ class ListCheckResultRequest(TeaModel):
             self.check_key = m.get('CheckKey')
         if m.get('CurrentPage') is not None:
             self.current_page = m.get('CurrentPage')
+        if m.get('CustomParam') is not None:
+            self.custom_param = m.get('CustomParam')
         if m.get('InstanceIds') is not None:
             self.instance_ids = m.get('InstanceIds')
         if m.get('InstanceTypes') is not None:
@@ -76500,8 +77648,8 @@ class ListCheckResultResponseBodyChecksCheckPolicies(TeaModel):
 
 class ListCheckResultResponseBodyChecks(TeaModel):
     def __init__(self, check_id=None, check_policies=None, check_show_name=None, instance_sub_type=None,
-                 instance_type=None, last_check_time=None, risk_level=None, status=None, task_id=None, trial_permission=None,
-                 vendor=None, vendor_show_name=None):
+                 instance_type=None, last_check_time=None, risk_level=None, status=None, status_message=None, task_id=None,
+                 trial_permission=None, vendor=None, vendor_show_name=None):
         # The ID of the check item.
         self.check_id = check_id  # type: long
         # The check policies.
@@ -76577,6 +77725,7 @@ class ListCheckResultResponseBodyChecks(TeaModel):
         # *   **NOT_CHECK**\
         # *   **WHITELIST**\
         self.status = status  # type: str
+        self.status_message = status_message  # type: str
         # The ID of the check task.
         self.task_id = task_id  # type: str
         # Indicates whether the TRIAL permission is required.
@@ -76616,6 +77765,8 @@ class ListCheckResultResponseBodyChecks(TeaModel):
             result['RiskLevel'] = self.risk_level
         if self.status is not None:
             result['Status'] = self.status
+        if self.status_message is not None:
+            result['StatusMessage'] = self.status_message
         if self.task_id is not None:
             result['TaskId'] = self.task_id
         if self.trial_permission is not None:
@@ -76647,6 +77798,8 @@ class ListCheckResultResponseBodyChecks(TeaModel):
             self.risk_level = m.get('RiskLevel')
         if m.get('Status') is not None:
             self.status = m.get('Status')
+        if m.get('StatusMessage') is not None:
+            self.status_message = m.get('StatusMessage')
         if m.get('TaskId') is not None:
             self.task_id = m.get('TaskId')
         if m.get('TrialPermission') is not None:
@@ -96779,6 +97932,30 @@ class StartVirusScanTaskResponse(TeaModel):
         return self
 
 
+class SubmitCheckRequest(TeaModel):
+    def __init__(self, scan_range=None):
+        self.scan_range = scan_range  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SubmitCheckRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.scan_range is not None:
+            result['ScanRange'] = self.scan_range
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ScanRange') is not None:
+            self.scan_range = m.get('ScanRange')
+        return self
+
+
 class SubmitCheckResponseBodyData(TeaModel):
     def __init__(self, operate_code=None):
         self.operate_code = operate_code  # type: str
@@ -97176,6 +98353,10 @@ class UpdateHoneypotRequest(TeaModel):
         self.honeypot_id = honeypot_id  # type: str
         # The custom name of the honeypot.
         self.honeypot_name = honeypot_name  # type: str
+        # The language of the content within the request and response. Default value: **zh**. Valid values:
+        # 
+        # *   **zh**: Chinese
+        # *   **en**: English
         self.lang = lang  # type: str
         # The custom configuration of the honeypot.
         # 
@@ -97519,6 +98700,10 @@ class UpdateHoneypotPresetRequest(TeaModel):
         # 
         # > You can call the [ListHoneypotPreset](~~ListHoneypotPreset~~) operation to query the IDs of honeypot templates.
         self.honeypot_preset_id = honeypot_preset_id  # type: str
+        # The language of the content within the request and response. Default value: **zh**. Valid values:
+        # 
+        # *   **zh**: Chinese
+        # *   **en**: English
         self.lang = lang  # type: str
         # The custom configurations of the honeypot template. The value is a JSON string that contains the following fields:
         # 
@@ -97662,6 +98847,10 @@ class UpdateHoneypotProbeRequest(TeaModel):
         self.arp = arp  # type: bool
         # The name of the probe.
         self.display_name = display_name  # type: str
+        # The language of the content within the request and response. Default value: **zh**. Valid values:
+        # 
+        # *   **zh**: Chinese
+        # *   **en**: English
         self.lang = lang  # type: str
         # Specifies whether ping is enabled for the check type.
         self.ping = ping  # type: bool
@@ -98144,10 +99333,17 @@ class UpgradeBackupPolicyVersionResponse(TeaModel):
 
 class ValidateHcWarningsRequest(TeaModel):
     def __init__(self, check_ids=None, risk_ids=None, uuids=None):
+        # The IDs of the check items. Separate multiple IDs with commas (,).
+        # 
+        # > You can call the [DescribeCheckWarningSummary](~~116179~~) operation to query the IDs of check items.
         self.check_ids = check_ids  # type: str
-        # The IDs of risk items that you want to verify. Separate multiple IDs with commas (,).
+        # The list of IDs of the risk items that you want to verify. Separate multiple IDs with commas (,).
+        # 
+        # > You can call the [DescribeCheckWarnings](~~DescribeCheckWarnings~~) operation to query the IDs of risk items.
         self.risk_ids = risk_ids  # type: str
-        # The UUIDs of servers on which you want to verify risk items.
+        # The UUIDs of the servers on which you want to verify the risk items. Separate multiple UUIDs with commas (,).
+        # 
+        # > You can call the [DescribeCloudCenterInstances](~~DescribeCloudCenterInstances~~) operation to query the UUIDs of servers.
         self.uuids = uuids  # type: str
 
     def validate(self):
@@ -98180,7 +99376,7 @@ class ValidateHcWarningsRequest(TeaModel):
 
 class ValidateHcWarningsResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
