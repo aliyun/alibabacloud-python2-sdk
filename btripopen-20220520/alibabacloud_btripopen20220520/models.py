@@ -7382,16 +7382,18 @@ class CarOrderQueryRequest(TeaModel):
 
 
 class CarOrderQueryResponseBodyModuleCarInfo(TeaModel):
-    def __init__(self, business_category=None, cancel_time=None, car_info=None, car_level=None,
-                 driver_confirm_time=None, estimate_price=None, from_address=None, from_city_name=None, is_special=None, memo=None,
-                 pay_time=None, publish_time=None, real_from_address=None, real_from_city_name=None, real_to_address=None,
-                 real_to_city_name=None, service_type=None, special_types=None, taken_time=None, to_address=None, to_city_name=None,
-                 travel_distance=None):
+    def __init__(self, business_category=None, cancel_time=None, car_info=None, car_level=None, driver_card=None,
+                 driver_confirm_time=None, driver_name=None, estimate_price=None, from_address=None, from_city_name=None,
+                 is_special=None, memo=None, pay_time=None, publish_time=None, real_from_address=None,
+                 real_from_city_name=None, real_to_address=None, real_to_city_name=None, service_type=None, special_types=None,
+                 taken_time=None, to_address=None, to_city_name=None, travel_distance=None):
         self.business_category = business_category  # type: str
         self.cancel_time = cancel_time  # type: long
         self.car_info = car_info  # type: str
         self.car_level = car_level  # type: int
+        self.driver_card = driver_card  # type: str
         self.driver_confirm_time = driver_confirm_time  # type: long
+        self.driver_name = driver_name  # type: str
         self.estimate_price = estimate_price  # type: long
         self.from_address = from_address  # type: str
         self.from_city_name = from_city_name  # type: str
@@ -7427,8 +7429,12 @@ class CarOrderQueryResponseBodyModuleCarInfo(TeaModel):
             result['car_info'] = self.car_info
         if self.car_level is not None:
             result['car_level'] = self.car_level
+        if self.driver_card is not None:
+            result['driver_card'] = self.driver_card
         if self.driver_confirm_time is not None:
             result['driver_confirm_time'] = self.driver_confirm_time
+        if self.driver_name is not None:
+            result['driver_name'] = self.driver_name
         if self.estimate_price is not None:
             result['estimate_price'] = self.estimate_price
         if self.from_address is not None:
@@ -7475,8 +7481,12 @@ class CarOrderQueryResponseBodyModuleCarInfo(TeaModel):
             self.car_info = m.get('car_info')
         if m.get('car_level') is not None:
             self.car_level = m.get('car_level')
+        if m.get('driver_card') is not None:
+            self.driver_card = m.get('driver_card')
         if m.get('driver_confirm_time') is not None:
             self.driver_confirm_time = m.get('driver_confirm_time')
+        if m.get('driver_name') is not None:
+            self.driver_name = m.get('driver_name')
         if m.get('estimate_price') is not None:
             self.estimate_price = m.get('estimate_price')
         if m.get('from_address') is not None:
@@ -38371,8 +38381,9 @@ class MonthBillGetRequest(TeaModel):
 
 
 class MonthBillGetResponseBodyModuleMonthAccountBillDetail(TeaModel):
-    def __init__(self, car_amount=None, damage_amount=None, flight_amount=None, fu_point=None, hotel_amount=None,
-                 ie_flight_amount=None, mail_bill_date=None, service_amount=None, train_amount=None):
+    def __init__(self, bill_confirmed=None, car_amount=None, damage_amount=None, flight_amount=None, fu_point=None,
+                 hotel_amount=None, ie_flight_amount=None, mail_bill_date=None, service_amount=None, train_amount=None):
+        self.bill_confirmed = bill_confirmed  # type: int
         # 用车金额（单位：元）
         self.car_amount = car_amount  # type: float
         # 违约金金额（单位：元）
@@ -38401,6 +38412,8 @@ class MonthBillGetResponseBodyModuleMonthAccountBillDetail(TeaModel):
             return _map
 
         result = dict()
+        if self.bill_confirmed is not None:
+            result['billConfirmed'] = self.bill_confirmed
         if self.car_amount is not None:
             result['carAmount'] = self.car_amount
         if self.damage_amount is not None:
@@ -38423,6 +38436,8 @@ class MonthBillGetResponseBodyModuleMonthAccountBillDetail(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('billConfirmed') is not None:
+            self.bill_confirmed = m.get('billConfirmed')
         if m.get('carAmount') is not None:
             self.car_amount = m.get('carAmount')
         if m.get('damageAmount') is not None:
