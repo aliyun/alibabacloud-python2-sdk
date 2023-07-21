@@ -2807,8 +2807,9 @@ class ConfirmNotifyResponse(TeaModel):
 
 
 class CopyDatabaseRequest(TeaModel):
-    def __init__(self, owner_id=None, resource_owner_account=None, resource_owner_id=None):
+    def __init__(self, owner_id=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None):
         self.owner_id = owner_id  # type: long
+        self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
 
@@ -2823,6 +2824,8 @@ class CopyDatabaseRequest(TeaModel):
         result = dict()
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
@@ -2833,6 +2836,8 @@ class CopyDatabaseRequest(TeaModel):
         m = m or dict()
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
@@ -10149,7 +10154,7 @@ class DeleteDBInstanceEndpointAddressResponse(TeaModel):
 
 class DeleteDBNodesRequest(TeaModel):
     def __init__(self, client_token=None, dbinstance_id=None, dbnode_id=None, owner_account=None, owner_id=None,
-                 resource_owner_account=None, resource_owner_id=None):
+                 resource_group_id=None, resource_owner_account=None, resource_owner_id=None):
         # The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must make sure that it is unique among different requests.
         # 
         # The token can only contain ASCII characters and cannot exceed 64 characters in length.
@@ -10160,6 +10165,7 @@ class DeleteDBNodesRequest(TeaModel):
         self.dbnode_id = dbnode_id  # type: list[str]
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
 
@@ -10182,6 +10188,8 @@ class DeleteDBNodesRequest(TeaModel):
             result['OwnerAccount'] = self.owner_account
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
@@ -10200,6 +10208,8 @@ class DeleteDBNodesRequest(TeaModel):
             self.owner_account = m.get('OwnerAccount')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
@@ -10209,7 +10219,7 @@ class DeleteDBNodesRequest(TeaModel):
 
 class DeleteDBNodesShrinkRequest(TeaModel):
     def __init__(self, client_token=None, dbinstance_id=None, dbnode_id_shrink=None, owner_account=None,
-                 owner_id=None, resource_owner_account=None, resource_owner_id=None):
+                 owner_id=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None):
         # The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must make sure that it is unique among different requests.
         # 
         # The token can only contain ASCII characters and cannot exceed 64 characters in length.
@@ -10220,6 +10230,7 @@ class DeleteDBNodesShrinkRequest(TeaModel):
         self.dbnode_id_shrink = dbnode_id_shrink  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
 
@@ -10242,6 +10253,8 @@ class DeleteDBNodesShrinkRequest(TeaModel):
             result['OwnerAccount'] = self.owner_account
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
@@ -10260,6 +10273,8 @@ class DeleteDBNodesShrinkRequest(TeaModel):
             self.owner_account = m.get('OwnerAccount')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
@@ -15792,8 +15807,8 @@ class DescribeBinlogFilesResponse(TeaModel):
 
 
 class DescribeCharacterSetNameRequest(TeaModel):
-    def __init__(self, engine=None, owner_account=None, owner_id=None, region_id=None, resource_owner_account=None,
-                 resource_owner_id=None):
+    def __init__(self, engine=None, owner_account=None, owner_id=None, region_id=None, resource_group_id=None,
+                 resource_owner_account=None, resource_owner_id=None):
         # The database engine that is run on the instance. Valid values:
         # 
         # *   **mysql**: MySQL
@@ -15805,6 +15820,7 @@ class DescribeCharacterSetNameRequest(TeaModel):
         self.owner_id = owner_id  # type: long
         # The region ID of the instance. You can call the [DescribeRegions](~~26243~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
 
@@ -15825,6 +15841,8 @@ class DescribeCharacterSetNameRequest(TeaModel):
             result['OwnerId'] = self.owner_id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
@@ -15841,6 +15859,8 @@ class DescribeCharacterSetNameRequest(TeaModel):
             self.owner_id = m.get('OwnerId')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
@@ -37480,7 +37500,7 @@ class DescribeRegionsResponse(TeaModel):
 class DescribeRenewalPriceRequest(TeaModel):
     def __init__(self, business_info=None, client_token=None, dbinstance_class=None, dbinstance_id=None,
                  order_type=None, owner_account=None, owner_id=None, pay_type=None, quantity=None, region_id=None,
-                 resource_owner_account=None, resource_owner_id=None, time_type=None, used_time=None):
+                 resource_group_id=None, resource_owner_account=None, resource_owner_id=None, time_type=None, used_time=None):
         # The additional business information about the instance.
         self.business_info = business_info  # type: str
         # The client token that is used to ensure the idempotence of the request.
@@ -37502,6 +37522,7 @@ class DescribeRenewalPriceRequest(TeaModel):
         self.quantity = quantity  # type: int
         # The region ID of the instance. You can call the [DescribeRegions](~~26243~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
         # The renewal cycle of the instance. Valid values:
@@ -37544,6 +37565,8 @@ class DescribeRenewalPriceRequest(TeaModel):
             result['Quantity'] = self.quantity
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
@@ -37576,6 +37599,8 @@ class DescribeRenewalPriceRequest(TeaModel):
             self.quantity = m.get('Quantity')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
