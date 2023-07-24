@@ -2329,18 +2329,13 @@ class Client(OpenApiClient):
 
     def describe_cdn_user_bill_prediction_with_options(self, request, runtime):
         """
-        The billable region. Valid values:
-        *   **CN**: the Chinese mainland
-        *   **OverSeas**: outside the Chinese mainland
-        *   **AP1**: Asia Pacific 1
-        *   **AP2**: Asia Pacific 2
-        *   **AP3**: Asia Pacific 3
-        *   **NA**: North America
-        *   **SA**: South America
-        *   **EU**: Europe
-        *   **MEAA**: Middle East and Africa
-        By default, the value of this parameter is determined by the metering method that is currently used. Regions inside and outside the Chinese mainland are classified into the **CN** and **OverSeas** billable regions. Billable regions inside the Chinese mainland include **CN**. Billable regions outside the Chinese mainland include **AP1**, **AP2**, **AP3**, **NA**, **SA**, **EU**, and **MEAA**.
-        > For more information about billable regions, see [Billable regions](~~142221~~).
+        You can call this operation to estimate resource usage of the current month based on the metering method that is specified on the first day of the current month. You can call this operation to estimate resource usage only of the current month within your Alibaba Cloud account. The time range used for the estimation starts at 00:00 on the first day of the current month and ends 2 hours earlier than the current time.
+        *   Pay by monthly 95th percentile: The top 5% values between the start time and end time are excluded. The estimated value is the highest value among the remaining values.
+        *   Pay by average daily peak bandwidth per month: Estimated value = Sum of daily peak bandwidth values/Number of days. The current day is excluded.
+        *   Pay by 4th peak bandwidth per month: The estimated value is the 4th peak bandwidth value between the start time and end time. If the time range is less than four days, the estimated value is 0.
+        *   Pay by average daily 95th percentile bandwidth per month: Estimated value = Sum of daily 95th percentile bandwidth values/Number of days. The current day is excluded.
+        *   Pay by 95th percentile bandwidth with 50% off from 00:00 to 08:00: The top 5% values between the start time and end time are excluded. The estimated value is the highest value among the remaining values.
+        > You can call this operation only once per second per account.
         
 
         @param request: DescribeCdnUserBillPredictionRequest
@@ -2380,18 +2375,13 @@ class Client(OpenApiClient):
 
     def describe_cdn_user_bill_prediction(self, request):
         """
-        The billable region. Valid values:
-        *   **CN**: the Chinese mainland
-        *   **OverSeas**: outside the Chinese mainland
-        *   **AP1**: Asia Pacific 1
-        *   **AP2**: Asia Pacific 2
-        *   **AP3**: Asia Pacific 3
-        *   **NA**: North America
-        *   **SA**: South America
-        *   **EU**: Europe
-        *   **MEAA**: Middle East and Africa
-        By default, the value of this parameter is determined by the metering method that is currently used. Regions inside and outside the Chinese mainland are classified into the **CN** and **OverSeas** billable regions. Billable regions inside the Chinese mainland include **CN**. Billable regions outside the Chinese mainland include **AP1**, **AP2**, **AP3**, **NA**, **SA**, **EU**, and **MEAA**.
-        > For more information about billable regions, see [Billable regions](~~142221~~).
+        You can call this operation to estimate resource usage of the current month based on the metering method that is specified on the first day of the current month. You can call this operation to estimate resource usage only of the current month within your Alibaba Cloud account. The time range used for the estimation starts at 00:00 on the first day of the current month and ends 2 hours earlier than the current time.
+        *   Pay by monthly 95th percentile: The top 5% values between the start time and end time are excluded. The estimated value is the highest value among the remaining values.
+        *   Pay by average daily peak bandwidth per month: Estimated value = Sum of daily peak bandwidth values/Number of days. The current day is excluded.
+        *   Pay by 4th peak bandwidth per month: The estimated value is the 4th peak bandwidth value between the start time and end time. If the time range is less than four days, the estimated value is 0.
+        *   Pay by average daily 95th percentile bandwidth per month: Estimated value = Sum of daily 95th percentile bandwidth values/Number of days. The current day is excluded.
+        *   Pay by 95th percentile bandwidth with 50% off from 00:00 to 08:00: The top 5% values between the start time and end time are excluded. The estimated value is the highest value among the remaining values.
+        > You can call this operation only once per second per account.
         
 
         @param request: DescribeCdnUserBillPredictionRequest
@@ -3242,7 +3232,6 @@ class Client(OpenApiClient):
     def describe_domain_detail_data_by_layer_with_options(self, request, runtime):
         """
         You can call this operation up to 20 times per second per account.
-        *   If you do not set the StartTime or EndTime parameter, the request returns the data collected in the last 24 hours. If you set both these parameters, the request returns the data collected within the specified time range.
         
 
         @param request: DescribeDomainDetailDataByLayerRequest
@@ -3275,7 +3264,6 @@ class Client(OpenApiClient):
     def describe_domain_detail_data_by_layer(self, request):
         """
         You can call this operation up to 20 times per second per account.
-        *   If you do not set the StartTime or EndTime parameter, the request returns the data collected in the last 24 hours. If you set both these parameters, the request returns the data collected within the specified time range.
         
 
         @param request: DescribeDomainDetailDataByLayerRequest
@@ -3284,6 +3272,64 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.describe_domain_detail_data_by_layer_with_options(request, runtime)
+
+    def describe_domain_file_size_proportion_data_with_options(self, request, runtime):
+        """
+        >
+        *   If you do not specify StartTime or EndTime, the request returns the data collected in the last 24 hours. If you specify both StartTime and EndTime, the request returns the data collected within the specified time range.
+        *   You can call this operation up to 10 times per second per account.
+        
+
+        @param request: DescribeDomainFileSizeProportionDataRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDomainFileSizeProportionDataResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_name):
+            query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDomainFileSizeProportionData',
+            version='2018-05-10',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cdn_20180510_models.DescribeDomainFileSizeProportionDataResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_domain_file_size_proportion_data(self, request):
+        """
+        >
+        *   If you do not specify StartTime or EndTime, the request returns the data collected in the last 24 hours. If you specify both StartTime and EndTime, the request returns the data collected within the specified time range.
+        *   You can call this operation up to 10 times per second per account.
+        
+
+        @param request: DescribeDomainFileSizeProportionDataRequest
+
+        @return: DescribeDomainFileSizeProportionDataResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.describe_domain_file_size_proportion_data_with_options(request, runtime)
 
     def describe_domain_hit_rate_data_with_options(self, request, runtime):
         """
@@ -7619,7 +7665,8 @@ class Client(OpenApiClient):
 
     def set_domain_server_certificate_with_options(self, request, runtime):
         """
-        You can call this operation up to 10 times per second per user.
+        @deprecated : SetDomainServerCertificate is deprecated, please use Cdn::2018-05-10::SetCdnDomainSSLCertificate instead.
+        *   You can call this operation up to 10 times per second per user.
         *   Method: POST.
         
 
@@ -7628,6 +7675,7 @@ class Client(OpenApiClient):
         @param runtime: runtime options for this request RuntimeOptions
 
         @return: SetDomainServerCertificateResponse
+        Deprecated
         """
         UtilClient.validate_model(request)
         query = {}
@@ -7670,13 +7718,15 @@ class Client(OpenApiClient):
 
     def set_domain_server_certificate(self, request):
         """
-        You can call this operation up to 10 times per second per user.
+        @deprecated : SetDomainServerCertificate is deprecated, please use Cdn::2018-05-10::SetCdnDomainSSLCertificate instead.
+        *   You can call this operation up to 10 times per second per user.
         *   Method: POST.
         
 
         @param request: SetDomainServerCertificateRequest
 
         @return: SetDomainServerCertificateResponse
+        Deprecated
         """
         runtime = util_models.RuntimeOptions()
         return self.set_domain_server_certificate_with_options(request, runtime)
