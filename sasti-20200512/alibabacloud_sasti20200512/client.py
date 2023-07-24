@@ -37,6 +37,8 @@ class Client(OpenApiClient):
             query['Domain'] = request.domain
         if not UtilClient.is_unset(request.field):
             query['Field'] = request.field
+        if not UtilClient.is_unset(request.service_lang):
+            query['ServiceLang'] = request.service_lang
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -59,3 +61,97 @@ class Client(OpenApiClient):
     def describe_domain_report(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_domain_report_with_options(request, runtime)
+
+    def describe_file_report_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.field):
+            query['Field'] = request.field
+        if not UtilClient.is_unset(request.file_hash):
+            query['FileHash'] = request.file_hash
+        if not UtilClient.is_unset(request.service_lang):
+            query['ServiceLang'] = request.service_lang
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeFileReport',
+            version='2020-05-12',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sasti_20200512_models.DescribeFileReportResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_file_report(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_file_report_with_options(request, runtime)
+
+    def describe_ip_report_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.field):
+            query['Field'] = request.field
+        if not UtilClient.is_unset(request.ip):
+            query['Ip'] = request.ip
+        if not UtilClient.is_unset(request.service_lang):
+            query['ServiceLang'] = request.service_lang
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeIpReport',
+            version='2020-05-12',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sasti_20200512_models.DescribeIpReportResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_ip_report(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_ip_report_with_options(request, runtime)
+
+    def get_graph_query_templates_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.env):
+            body['Env'] = request.env
+        if not UtilClient.is_unset(request.service_unit):
+            body['ServiceUnit'] = request.service_unit
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='GetGraphQueryTemplates',
+            version='2020-05-12',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sasti_20200512_models.GetGraphQueryTemplatesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_graph_query_templates(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_graph_query_templates_with_options(request, runtime)
