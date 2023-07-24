@@ -30733,11 +30733,16 @@ class DescribeHistoryTasksResponse(TeaModel):
 class DescribeHostWebShellRequest(TeaModel):
     def __init__(self, account_name=None, account_password=None, dbinstance_id=None, host_name=None, owner_id=None,
                  region_id=None, resource_owner_account=None, resource_owner_id=None):
+        # The username of the account that is used to log on to the host of the instance.
         self.account_name = account_name  # type: str
+        # The password of the account.
         self.account_password = account_password  # type: str
+        # The ID of the instance.
         self.dbinstance_id = dbinstance_id  # type: str
+        # The hostname of the instance. You can call the [DescribeDBInstanceIpHostname](~~610525~~) operation to query the hostname.
         self.host_name = host_name  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID of the instance. You can call the [DescribeDBInstanceAttribute](~~610394~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -30792,7 +30797,9 @@ class DescribeHostWebShellRequest(TeaModel):
 
 class DescribeHostWebShellResponseBody(TeaModel):
     def __init__(self, login_url=None, request_id=None):
+        # The URL of the webshell.
         self.login_url = login_url  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
