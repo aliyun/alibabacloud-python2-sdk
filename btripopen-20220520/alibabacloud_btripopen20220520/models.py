@@ -28719,11 +28719,12 @@ class HotelGoodsQueryResponseBodyModuleRoomsRatesBtripHotelCancelDesc(TeaModel):
 
 class HotelGoodsQueryResponseBodyModuleRoomsRatesHotelDetailRatePriceDTO(TeaModel):
     def __init__(self, before_discount_price=None, breakfast=None, discount_price=None, last_discounts_price=None,
-                 last_num=None, rate_start_time=None, status=None):
+                 last_discounts_rounding_price=None, last_num=None, rate_start_time=None, status=None):
         self.before_discount_price = before_discount_price  # type: long
         self.breakfast = breakfast  # type: str
         self.discount_price = discount_price  # type: long
         self.last_discounts_price = last_discounts_price  # type: long
+        self.last_discounts_rounding_price = last_discounts_rounding_price  # type: long
         self.last_num = last_num  # type: int
         self.rate_start_time = rate_start_time  # type: str
         self.status = status  # type: int
@@ -28745,6 +28746,8 @@ class HotelGoodsQueryResponseBodyModuleRoomsRatesHotelDetailRatePriceDTO(TeaMode
             result['discount_price'] = self.discount_price
         if self.last_discounts_price is not None:
             result['last_discounts_price'] = self.last_discounts_price
+        if self.last_discounts_rounding_price is not None:
+            result['last_discounts_rounding_price'] = self.last_discounts_rounding_price
         if self.last_num is not None:
             result['last_num'] = self.last_num
         if self.rate_start_time is not None:
@@ -28763,6 +28766,8 @@ class HotelGoodsQueryResponseBodyModuleRoomsRatesHotelDetailRatePriceDTO(TeaMode
             self.discount_price = m.get('discount_price')
         if m.get('last_discounts_price') is not None:
             self.last_discounts_price = m.get('last_discounts_price')
+        if m.get('last_discounts_rounding_price') is not None:
+            self.last_discounts_rounding_price = m.get('last_discounts_rounding_price')
         if m.get('last_num') is not None:
             self.last_num = m.get('last_num')
         if m.get('rate_start_time') is not None:
