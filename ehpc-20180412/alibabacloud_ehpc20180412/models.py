@@ -5,21 +5,21 @@ from Tea.model import TeaModel
 
 class AddContainerAppRequest(TeaModel):
     def __init__(self, container_type=None, description=None, image_tag=None, name=None, repository=None):
-        # The ID of the request.
+        # The type of the container. Set the value to singularity.
         self.container_type = container_type  # type: str
+        # The description of the container.
+        self.description = description  # type: str
         # The tags of the image.
         # 
         # The repository stores a type of images such as Ubuntu images. Tags are used to identify the images. Examples: 16.04, 17.04, and latest.
         # 
         # Default value: latest
-        self.description = description  # type: str
-        # The type of the container. Set the value to singularity.
         self.image_tag = image_tag  # type: str
+        # The name of the container. The name must be 2 to 64 characters in length. It must start with a letter and can contain letters, digits, hyphens (-), and underscores (\_).
+        self.name = name  # type: str
         # The name of the repository. The image that has the same name as the repository is pulled.
         # 
         # For information about image names, visit [Docker Hub official website](https://hub.docker.com/search?q=\&type=image).
-        self.name = name  # type: str
-        # The description of the container.
         self.repository = repository  # type: str
 
     def validate(self):
@@ -84,8 +84,9 @@ class AddContainerAppResponseBodyContainerId(TeaModel):
 
 class AddContainerAppResponseBody(TeaModel):
     def __init__(self, container_id=None, request_id=None):
-        self.container_id = container_id  # type: AddContainerAppResponseBodyContainerId
         # The ID of the container.
+        self.container_id = container_id  # type: AddContainerAppResponseBodyContainerId
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -11493,22 +11494,22 @@ class DescribeServerlessJobsResponseBodyJobInfosContainerGroups(TeaModel):
 
 
 class DescribeServerlessJobsResponseBodyJobInfos(TeaModel):
-    def __init__(self, array_properties=None, container_groups=None, end_time=None, id=None, is_array_job=None,
-                 last_modify_time=None, name=None, owner=None, priority=None, queue=None, start_time=None, state=None,
-                 submit_time=None):
+    def __init__(self, array_properties=None, container_groups=None, end_time=None, is_array_job=None, job_id=None,
+                 job_name=None, last_modify_time=None, priority=None, queue=None, start_time=None, state=None,
+                 submit_time=None, user=None):
         self.array_properties = array_properties  # type: DescribeServerlessJobsResponseBodyJobInfosArrayProperties
         self.container_groups = container_groups  # type: list[DescribeServerlessJobsResponseBodyJobInfosContainerGroups]
         self.end_time = end_time  # type: long
-        self.id = id  # type: str
         self.is_array_job = is_array_job  # type: bool
+        self.job_id = job_id  # type: str
+        self.job_name = job_name  # type: str
         self.last_modify_time = last_modify_time  # type: long
-        self.name = name  # type: str
-        self.owner = owner  # type: str
         self.priority = priority  # type: long
         self.queue = queue  # type: str
         self.start_time = start_time  # type: long
         self.state = state  # type: str
         self.submit_time = submit_time  # type: long
+        self.user = user  # type: str
 
     def validate(self):
         if self.array_properties:
@@ -11532,16 +11533,14 @@ class DescribeServerlessJobsResponseBodyJobInfos(TeaModel):
                 result['ContainerGroups'].append(k.to_map() if k else None)
         if self.end_time is not None:
             result['EndTime'] = self.end_time
-        if self.id is not None:
-            result['Id'] = self.id
         if self.is_array_job is not None:
             result['IsArrayJob'] = self.is_array_job
+        if self.job_id is not None:
+            result['JobId'] = self.job_id
+        if self.job_name is not None:
+            result['JobName'] = self.job_name
         if self.last_modify_time is not None:
             result['LastModifyTime'] = self.last_modify_time
-        if self.name is not None:
-            result['Name'] = self.name
-        if self.owner is not None:
-            result['Owner'] = self.owner
         if self.priority is not None:
             result['Priority'] = self.priority
         if self.queue is not None:
@@ -11552,6 +11551,8 @@ class DescribeServerlessJobsResponseBodyJobInfos(TeaModel):
             result['State'] = self.state
         if self.submit_time is not None:
             result['SubmitTime'] = self.submit_time
+        if self.user is not None:
+            result['User'] = self.user
         return result
 
     def from_map(self, m=None):
@@ -11566,16 +11567,14 @@ class DescribeServerlessJobsResponseBodyJobInfos(TeaModel):
                 self.container_groups.append(temp_model.from_map(k))
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
-        if m.get('Id') is not None:
-            self.id = m.get('Id')
         if m.get('IsArrayJob') is not None:
             self.is_array_job = m.get('IsArrayJob')
+        if m.get('JobId') is not None:
+            self.job_id = m.get('JobId')
+        if m.get('JobName') is not None:
+            self.job_name = m.get('JobName')
         if m.get('LastModifyTime') is not None:
             self.last_modify_time = m.get('LastModifyTime')
-        if m.get('Name') is not None:
-            self.name = m.get('Name')
-        if m.get('Owner') is not None:
-            self.owner = m.get('Owner')
         if m.get('Priority') is not None:
             self.priority = m.get('Priority')
         if m.get('Queue') is not None:
@@ -11586,6 +11585,8 @@ class DescribeServerlessJobsResponseBodyJobInfos(TeaModel):
             self.state = m.get('State')
         if m.get('SubmitTime') is not None:
             self.submit_time = m.get('SubmitTime')
+        if m.get('User') is not None:
+            self.user = m.get('User')
         return self
 
 
@@ -13817,23 +13818,26 @@ class GetIfEcsTypeSupportHtConfigResponse(TeaModel):
 
 class GetJobLogRequest(TeaModel):
     def __init__(self, cluster_id=None, exec_host=None, job_id=None, offset=None, size=None):
-        # The maximum size of logs that you can read in a single request.
-        # 
-        # Unit: bits
-        # 
-        # Default value: 1024
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
-        # The ID of the task.
+        # The node on which the job runs.
+        # 
+        # *   If the job is completed, you do not need to specify the parameter.
+        # *   If the job is running, you must specify the parameter.
         self.exec_host = exec_host  # type: str
+        # The ID of the job.
+        self.job_id = job_id  # type: str
         # The position where logs start to be read.
         # 
         # Unit: bits
         # 
         # Default value: 0
-        self.job_id = job_id  # type: str
-        # The content of the output logs. The content is encoded in Base64.
         self.offset = offset  # type: long
-        # The ID of the job.
+        # The maximum size of logs that you can read in a single request.
+        # 
+        # Unit: bits
+        # 
+        # Default value: 1024
         self.size = size  # type: int
 
     def validate(self):
@@ -13874,10 +13878,13 @@ class GetJobLogRequest(TeaModel):
 
 class GetJobLogResponseBody(TeaModel):
     def __init__(self, error_log=None, job_id=None, output_log=None, request_id=None):
-        self.error_log = error_log  # type: str
-        self.job_id = job_id  # type: str
-        self.output_log = output_log  # type: str
         # The content of the error logs. The content is encoded in Base64.
+        self.error_log = error_log  # type: str
+        # The ID of the job.
+        self.job_id = job_id  # type: str
+        # The content of the output logs. The content is encoded in Base64.
+        self.output_log = output_log  # type: str
+        # The ID of the task.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -15872,11 +15879,11 @@ class ListClusterLogsResponse(TeaModel):
 
 class ListClustersRequest(TeaModel):
     def __init__(self, page_number=None, page_size=None):
+        # The number of the page to return. Pages start from page 1.
+        self.page_number = page_number  # type: int
         # The number of entries to return on each page. Valid values: 1 to 50.
         # 
         # Default value: 10
-        self.page_number = page_number  # type: int
-        # The number of entries returned per page.
         self.page_size = page_size  # type: int
 
     def validate(self):
@@ -15906,15 +15913,15 @@ class ListClustersRequest(TeaModel):
 class ListClustersResponseBodyClustersClusterInfoSimpleComputes(TeaModel):
     def __init__(self, exception_count=None, normal_count=None, operating_count=None, stopped_count=None,
                  total=None):
-        # The number of stopped nodes.
-        self.exception_count = exception_count  # type: int
-        # The statistics of all resources in the cluster.
-        self.normal_count = normal_count  # type: int
         # The number of abnormal nodes.
-        self.operating_count = operating_count  # type: int
-        # The total number of nodes.
-        self.stopped_count = stopped_count  # type: int
+        self.exception_count = exception_count  # type: int
         # The number of normal nodes.
+        self.normal_count = normal_count  # type: int
+        # The number of nodes that are being used in the queue. This includes those that are being initialized, installed, or released.
+        self.operating_count = operating_count  # type: int
+        # The number of stopped nodes.
+        self.stopped_count = stopped_count  # type: int
+        # The total number of nodes.
         self.total = total  # type: int
 
     def validate(self):
@@ -15956,15 +15963,15 @@ class ListClustersResponseBodyClustersClusterInfoSimpleComputes(TeaModel):
 class ListClustersResponseBodyClustersClusterInfoSimpleManagers(TeaModel):
     def __init__(self, exception_count=None, normal_count=None, operating_count=None, stopped_count=None,
                  total=None):
-        # The number of stopped nodes.
-        self.exception_count = exception_count  # type: int
-        # The information about compute nodes.
-        self.normal_count = normal_count  # type: int
         # The number of abnormal nodes.
-        self.operating_count = operating_count  # type: int
-        # The total number of management nodes.
-        self.stopped_count = stopped_count  # type: int
+        self.exception_count = exception_count  # type: int
         # The number of normal nodes.
+        self.normal_count = normal_count  # type: int
+        # The number of nodes that are being used in the queue. This includes those that are being initialized, installed, or released.
+        self.operating_count = operating_count  # type: int
+        # The number of stopped nodes.
+        self.stopped_count = stopped_count  # type: int
+        # The total number of management nodes.
         self.total = total  # type: int
 
     def validate(self):
@@ -16005,11 +16012,11 @@ class ListClustersResponseBodyClustersClusterInfoSimpleManagers(TeaModel):
 
 class ListClustersResponseBodyClustersClusterInfoSimpleTotalResources(TeaModel):
     def __init__(self, cpu=None, gpu=None, memory=None):
-        # The memory size. Unit: MiB.
-        self.cpu = cpu  # type: int
         # The number of CPU cores. Unit: cores.
+        self.cpu = cpu  # type: int
+        # The number of GPU cards. Unit: cards.
         self.gpu = gpu  # type: int
-        # The number of consumed resources in the cluster.
+        # The memory size. Unit: MiB.
         self.memory = memory  # type: int
 
     def validate(self):
@@ -16042,16 +16049,11 @@ class ListClustersResponseBodyClustersClusterInfoSimpleTotalResources(TeaModel):
 
 class ListClustersResponseBodyClustersClusterInfoSimpleUsedResources(TeaModel):
     def __init__(self, cpu=None, gpu=None, memory=None):
-        # The memory size. Unit: MiB.
-        self.cpu = cpu  # type: int
         # The number of CPU cores. Unit: cores.
+        self.cpu = cpu  # type: int
+        # The number of GPU cards. Unit: cards.
         self.gpu = gpu  # type: int
-        # Indicates whether plug-ins were used in the cluster. Valid values:
-        # 
-        # *   true: Plug-ins are used.
-        # *   false: Plug-ins are not used.
-        # 
-        # Default value: false
+        # The memory size. Unit: MiB.
         self.memory = memory  # type: int
 
     def validate(self):
@@ -16089,99 +16091,97 @@ class ListClustersResponseBodyClustersClusterInfoSimple(TeaModel):
                  instance_type=None, is_compute_ess=None, location=None, login_nodes=None, managers=None, name=None,
                  node_prefix=None, node_suffix=None, os_tag=None, region_id=None, resource_group_id=None, scheduler_type=None,
                  status=None, total_resources=None, used_resources=None, v_switch_id=None, vpc_id=None, zone_id=None):
-        # The number of compute nodes in the cluster.
-        self.account_type = account_type  # type: str
-        # The name of the cluster.
-        self.base_os_tag = base_os_tag  # type: str
-        # The list of management nodes.
-        self.client_version = client_version  # type: str
-        # The type of the scheduler. Valid values:
-        # 
-        # *   pbs
-        # *   slurm
-        # *   opengridscheduler
-        # *   deadline
-        self.compute_spot_price_limit = compute_spot_price_limit  # type: float
         # The server type of the account. Valid values:
         # 
         # *   nis
         # *   ldap
-        self.compute_spot_strategy = compute_spot_strategy  # type: str
-        # The number of nodes that are being used in the queue. This includes those that are being initialized, installed, or released.
-        self.computes = computes  # type: ListClustersResponseBodyClustersClusterInfoSimpleComputes
-        # The version of E-HPC.
-        self.count = count  # type: int
-        # Indicates whether a scaling group was enabled. Valid values:
-        # 
-        # *   true: A scaling group is enabled.
-        # *   false: No scaling group is enabled.
-        self.create_time = create_time  # type: str
-        # The suffix of the node.
-        self.deploy_mode = deploy_mode  # type: str
+        self.account_type = account_type  # type: str
         # The operating system tag of the base image. The tag was used only by the management node.
-        self.description = description  # type: str
-        # The description of the cluster.
-        self.ehpc_version = ehpc_version  # type: str
-        self.has_plugin = has_plugin  # type: bool
-        # The location where the cluster was deployed. Valid values:
-        # 
-        # *   OnPremise: The cluster is deployed on a hybrid cloud.
-        # *   PublicCloud: The cluster is deployed on a public cloud.
-        self.id = id  # type: str
+        self.base_os_tag = base_os_tag  # type: str
+        # The version of the client.
+        self.client_version = client_version  # type: str
         # The maximum hourly price for the ECS instance under the compute node. The return value can be accurate to three decimal places.
-        self.image_id = image_id  # type: str
-        # The operating system tag of the image.
-        self.image_owner_alias = image_owner_alias  # type: str
-        # The ID of the vSwitch.
-        self.instance_charge_type = instance_charge_type  # type: str
-        # The ID of the region.
-        self.instance_type = instance_type  # type: str
+        self.compute_spot_price_limit = compute_spot_price_limit  # type: float
         # The bidding method of the compute nodes. Valid values:
         # 
         # *   NoSpot: The instances of the compute node are pay-as-you-go instances.
         # *   SpotWithPriceLimit: The instances of the compute node are preemptible instances. These types of instances have a specified maximum hourly price.
         # *   SpotAsPriceGo: The instances of the compute node are preemptible instances. The price of these instances is based on the current market price.
-        self.is_compute_ess = is_compute_ess  # type: bool
-        # The version of the client.
-        self.location = location  # type: str
-        # The ID of the cluster.
-        self.login_nodes = login_nodes  # type: str
-        # The number of nodes that are being used in the queue. This includes those that are being initialized, installed, or released.
-        self.managers = managers  # type: ListClustersResponseBodyClustersClusterInfoSimpleManagers
-        # The ID of the image.
-        self.name = name  # type: str
-        # The instance type of the compute nodes.
-        self.node_prefix = node_prefix  # type: str
-        # The type of the image. Valid values:
-        # 
-        # *   system: public image
-        # *   self: custom image
-        # *   others: shared image
-        # *   marketplace: Alibaba Cloud Marketplace image
-        self.node_suffix = node_suffix  # type: str
-        # The prefix of the node.
-        self.os_tag = os_tag  # type: str
-        # The billing method of the nodes in the cluster. Valid values:
-        # 
-        # *   PostPaid: pay-as-you-go
-        # *   PrePaid: subscription
-        self.region_id = region_id  # type: str
-        self.resource_group_id = resource_group_id  # type: str
+        self.compute_spot_strategy = compute_spot_strategy  # type: str
+        # The information about compute nodes.
+        self.computes = computes  # type: ListClustersResponseBodyClustersClusterInfoSimpleComputes
+        # The number of compute nodes in the cluster.
+        self.count = count  # type: int
+        # The time when the instance was created.
+        self.create_time = create_time  # type: str
         # The mode in which the cluster was deployed. Valid values:
         # 
         # *   Standard: An account node, a scheduling node, a logon node, and multiple compute nodes are separately deployed.
         # *   Advanced: Two high availability (HA) account nodes, two HA scheduler nodes, one logon node, and multiple compute nodes are separately deployed.
         # *   Simple: A management node, a logon node, and multiple compute nodes are deployed. The management node consists of an account node and a scheduling node. The logon node and compute nodes are separately deployed.
         # *   Tiny: A management node and multiple compute nodes are deployed. The management node consists of an account node, a scheduling node, and a logon node. The compute nodes are separately deployed.
+        self.deploy_mode = deploy_mode  # type: str
+        # The description of the cluster.
+        self.description = description  # type: str
+        # The version of E-HPC.
+        self.ehpc_version = ehpc_version  # type: str
+        # Indicates whether plug-ins were used in the cluster. Valid values:
+        # 
+        # *   true: Plug-ins are used.
+        # *   false: Plug-ins are not used.
+        # 
+        # Default value: false
+        self.has_plugin = has_plugin  # type: bool
+        # The ID of the cluster.
+        self.id = id  # type: str
+        # The ID of the image.
+        self.image_id = image_id  # type: str
+        # The type of the image. Valid values:
+        # 
+        # *   system: public image
+        # *   self: custom image
+        # *   others: shared image
+        # *   marketplace: Alibaba Cloud Marketplace image
+        self.image_owner_alias = image_owner_alias  # type: str
+        # The billing method of the nodes in the cluster. Valid values:
+        # 
+        # *   PostPaid: pay-as-you-go
+        # *   PrePaid: subscription
+        self.instance_charge_type = instance_charge_type  # type: str
+        # The instance type of the compute nodes.
+        self.instance_type = instance_type  # type: str
+        # Indicates whether a scaling group was enabled. Valid values:
+        # 
+        # *   true: A scaling group is enabled.
+        # *   false: No scaling group is enabled.
+        self.is_compute_ess = is_compute_ess  # type: bool
+        # The location where the cluster was deployed. Valid values:
+        # 
+        # *   OnPremise: The cluster is deployed on a hybrid cloud.
+        # *   PublicCloud: The cluster is deployed on a public cloud.
+        self.location = location  # type: str
+        # The list of logon nodes.
+        self.login_nodes = login_nodes  # type: str
+        # The list of management nodes.
+        self.managers = managers  # type: ListClustersResponseBodyClustersClusterInfoSimpleManagers
+        # The name of the cluster.
+        self.name = name  # type: str
+        # The prefix of the node.
+        self.node_prefix = node_prefix  # type: str
+        # The suffix of the node.
+        self.node_suffix = node_suffix  # type: str
+        # The operating system tag of the image.
+        self.os_tag = os_tag  # type: str
+        # The ID of the region.
+        self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
+        # The type of the scheduler. Valid values:
+        # 
+        # *   pbs
+        # *   slurm
+        # *   opengridscheduler
+        # *   deadline
         self.scheduler_type = scheduler_type  # type: str
-        # The time when the instance was created.
-        self.status = status  # type: str
-        # The number of GPU cards. Unit: cards.
-        self.total_resources = total_resources  # type: ListClustersResponseBodyClustersClusterInfoSimpleTotalResources
-        # The number of GPU cards. Unit: cards.
-        self.used_resources = used_resources  # type: ListClustersResponseBodyClustersClusterInfoSimpleUsedResources
-        # The ID of the zone.
-        self.v_switch_id = v_switch_id  # type: str
         # The status of the cluster. Valid values:
         # 
         # *   uninit: The cluster is not initialized.
@@ -16190,8 +16190,16 @@ class ListClustersResponseBodyClustersClusterInfoSimple(TeaModel):
         # *   running: The cluster is running.
         # *   exception: The cluster encounters an exception.
         # *   releasing: The cluster is being released.
+        self.status = status  # type: str
+        # The statistics of all resources in the cluster.
+        self.total_resources = total_resources  # type: ListClustersResponseBodyClustersClusterInfoSimpleTotalResources
+        # The number of consumed resources in the cluster.
+        self.used_resources = used_resources  # type: ListClustersResponseBodyClustersClusterInfoSimpleUsedResources
+        # The ID of the vSwitch.
+        self.v_switch_id = v_switch_id  # type: str
+        # The ID of the virtual private cloud (VPC).
         self.vpc_id = vpc_id  # type: str
-        # The list of logon nodes.
+        # The ID of the zone.
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -16391,15 +16399,15 @@ class ListClustersResponseBodyClusters(TeaModel):
 
 class ListClustersResponseBody(TeaModel):
     def __init__(self, clusters=None, page_number=None, page_size=None, request_id=None, total_count=None):
-        # The ID of the virtual private cloud (VPC).
-        self.clusters = clusters  # type: ListClustersResponseBodyClusters
-        # The total number of returned entries.
-        self.page_number = page_number  # type: int
-        # The ID of the request.
-        self.page_size = page_size  # type: int
-        # The number of the returned page.
-        self.request_id = request_id  # type: str
         # The list of clusters.
+        self.clusters = clusters  # type: ListClustersResponseBodyClusters
+        # The number of the returned page.
+        self.page_number = page_number  # type: int
+        # The number of entries returned per page.
+        self.page_size = page_size  # type: int
+        # The ID of the request.
+        self.request_id = request_id  # type: str
+        # The total number of returned entries.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -19431,7 +19439,9 @@ class ListInstalledSoftwareResponse(TeaModel):
 
 class ListInvocationResultsRequestInstance(TeaModel):
     def __init__(self, id=None):
-        # The number of entries returned per page.
+        # The ID of the node on which the command is run.
+        # 
+        # >  The Instance.N.Id parameter specifies the node on which the command is run. If it is not specified, the command is run on all nodes of the cluster.
         self.id = id  # type: str
 
     def validate(self):
@@ -19457,31 +19467,32 @@ class ListInvocationResultsRequestInstance(TeaModel):
 class ListInvocationResultsRequest(TeaModel):
     def __init__(self, cluster_id=None, command_id=None, instance=None, invoke_record_status=None, page_number=None,
                  page_size=None):
+        # The ID of the cluster.
+        # 
+        # You can call the [ListClusters](~~87116~~) operation to query the cluster ID.
+        self.cluster_id = cluster_id  # type: str
         # The ID of the command.
         # 
         # You can call the [ListCommands](~~87388~~) operation to query the command ID.
-        self.cluster_id = cluster_id  # type: str
+        self.command_id = command_id  # type: str
+        # The information of nodes on which the command is run.
+        self.instance = instance  # type: list[ListInvocationResultsRequestInstance]
         # The status of the command that you want to query. Valid values:
         # 
         # *   Finished
         # *   Running
         # *   Failed
         # *   Stopped
-        self.command_id = command_id  # type: str
-        self.instance = instance  # type: list[ListInvocationResultsRequestInstance]
+        self.invoke_record_status = invoke_record_status  # type: str
         # The number of the page to return.
         # 
         # Page numbers start from 1.
         # 
         # Default value: 1
-        self.invoke_record_status = invoke_record_status  # type: str
+        self.page_number = page_number  # type: int
         # The number of entries to return on each page. Valid values: 1 to 50.
         # 
         # Default value: 10
-        self.page_number = page_number  # type: int
-        # The ID of the node on which the command is run.
-        # 
-        # >  The Instance.N.Id parameter specifies the node on which the command is run. If it is not specified, the command is run on all nodes of the cluster.
         self.page_size = page_size  # type: int
 
     def validate(self):
@@ -19535,23 +19546,24 @@ class ListInvocationResultsRequest(TeaModel):
 class ListInvocationResultsResponseBodyInvocationResultsInvocationResult(TeaModel):
     def __init__(self, command_id=None, exit_code=None, finished_time=None, instance_id=None,
                  invoke_record_status=None, message=None, success=None):
-        # The ID of the node on which the command was run.
-        self.command_id = command_id  # type: str
-        self.exit_code = exit_code  # type: int
         # The ID of the command.
+        self.command_id = command_id  # type: str
+        # The exit code.
+        self.exit_code = exit_code  # type: int
+        # The time at which the command entered the Finished state.
         self.finished_time = finished_time  # type: str
+        # The ID of the node on which the command was run.
+        self.instance_id = instance_id  # type: str
         # The status of the command. Valid values:
         # 
         # *   Finished
         # *   Running
         # *   Failed
         # *   Stopped
-        self.instance_id = instance_id  # type: str
-        # The exit code.
         self.invoke_record_status = invoke_record_status  # type: str
-        # The time at which the command entered the Finished state.
-        self.message = message  # type: str
         # The output result.
+        self.message = message  # type: str
+        # Indicates whether the command was run and its result was obtained.
         self.success = success  # type: bool
 
     def validate(self):
@@ -19632,15 +19644,15 @@ class ListInvocationResultsResponseBodyInvocationResults(TeaModel):
 
 class ListInvocationResultsResponseBody(TeaModel):
     def __init__(self, invocation_results=None, page_number=None, page_size=None, request_id=None, total_count=None):
-        # Indicates whether the command was run and its result was obtained.
-        self.invocation_results = invocation_results  # type: ListInvocationResultsResponseBodyInvocationResults
-        # The total number of returned entries.
-        self.page_number = page_number  # type: int
-        # The ID of the request.
-        self.page_size = page_size  # type: int
-        # The page number of the returned page.
-        self.request_id = request_id  # type: str
         # The result of the command.
+        self.invocation_results = invocation_results  # type: ListInvocationResultsResponseBodyInvocationResults
+        # The page number of the returned page.
+        self.page_number = page_number  # type: int
+        # The number of entries returned per page.
+        self.page_size = page_size  # type: int
+        # The ID of the request.
+        self.request_id = request_id  # type: str
+        # The total number of returned entries.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -19914,15 +19926,17 @@ class ListInvocationStatusResponse(TeaModel):
 
 class ListJobTemplatesRequest(TeaModel):
     def __init__(self, name=None, page_number=None, page_size=None):
+        # The name of the job template.
+        # 
+        # You can call the [ListJobTemplates](~~87248~~) operation to obtain the job template name.
+        self.name = name  # type: str
         # The number of the page to return. Page numbers start from 1.
         # 
         # Default value: 1
-        self.name = name  # type: str
+        self.page_number = page_number  # type: int
         # The number of entries to return on each page. Maximum value: 50.
         # 
         # Default value: 10
-        self.page_number = page_number  # type: int
-        # The number of entries returned per page.
         self.page_size = page_size  # type: int
 
     def validate(self):
@@ -19958,64 +19972,65 @@ class ListJobTemplatesResponseBodyTemplatesJobTemplates(TeaModel):
                  input_file_url=None, mem=None, name=None, node=None, package_path=None, priority=None, queue=None, re_runable=None,
                  runas_user=None, stderr_redirect_path=None, stdout_redirect_path=None, task=None, thread=None, unzip_cmd=None,
                  variables=None, with_unzip_cmd=None):
-        # The output file path of stderr.
+        # The job array.
+        # 
+        # Format: X-Y:Z. X is the minimum index value. Y is the maximum index value. Z is the step size. For example, 2-7:2 indicates that three jobs need to be run and their index values are 2, 4, and 6.
         self.array_request = array_request  # type: str
-        # Indicates whether the job can be rerun. Valid values:
-        # 
-        # *   true: The job can be rerun.
-        # *   false: The job cannot be rerun.
-        self.clock_time = clock_time  # type: str
-        # The queue of the job.
-        self.command_line = command_line  # type: str
-        # The path that was used to run the job.
-        self.gpu = gpu  # type: int
-        # The name of the user that ran the job.
-        self.id = id  # type: str
-        # Indicates whether to decompress the job files downloaded from an OSS bucket. Valid values:
-        # 
-        # *   true: The job files are decompressed.
-        # *   false: The job files are not decompressed.
-        self.input_file_url = input_file_url  # type: str
-        # The number of threads required by a single compute node. Valid values: 1 to 1000.
-        self.mem = mem  # type: str
-        # The ID of the job template.
-        self.name = name  # type: str
-        # The output file path of stdout.
-        self.node = node  # type: int
         # The maximum running time of the job. Valid formats:
         # 
         # *   hh:mm:ss
         # *   mm:ss
         # *   ss
-        self.package_path = package_path  # type: str
-        # The maximum memory usage of a single compute node. The unit can be GB, MB, or KB, and is case-insensitive.
-        self.priority = priority  # type: int
-        # The priority of the job. Valid values: 0 to 9. A large value indicates a high priority.
-        self.queue = queue  # type: str
-        # The name of the job template.
-        self.re_runable = re_runable  # type: bool
-        # The URL of the job files that were uploaded to an Object Storage Service (OSS) bucket.
-        self.runas_user = runas_user  # type: str
-        # The number of the compute nodes. Valid values: 1 to 500.
-        self.stderr_redirect_path = stderr_redirect_path  # type: str
+        self.clock_time = clock_time  # type: str
+        # The command that was used to run the job.
+        self.command_line = command_line  # type: str
         # The maximum GPU usage required by a single compute node. Valid values: 1 to 8.
         # 
         # The parameter takes effect only when the cluster uses PBS and a compute node is a GPU-accelerated instance.
-        self.stdout_redirect_path = stdout_redirect_path  # type: str
-        # The environment variables of the job.
-        self.task = task  # type: int
-        # The job array.
+        self.gpu = gpu  # type: int
+        # The ID of the job template.
+        self.id = id  # type: str
+        # The URL of the job files that were uploaded to an Object Storage Service (OSS) bucket.
+        self.input_file_url = input_file_url  # type: str
+        # The maximum memory usage of a single compute node. The unit can be GB, MB, or KB, and is case-insensitive.
+        self.mem = mem  # type: str
+        # The name of the job template.
+        self.name = name  # type: str
+        # The number of the compute nodes. Valid values: 1 to 500.
+        self.node = node  # type: int
+        # The path that was used to run the job.
+        self.package_path = package_path  # type: str
+        # The priority of the job. Valid values: 0 to 9. A large value indicates a high priority.
+        self.priority = priority  # type: int
+        # The queue of the job.
+        self.queue = queue  # type: str
+        # Indicates whether the job can be rerun. Valid values:
         # 
-        # Format: X-Y:Z. X is the minimum index value. Y is the maximum index value. Z is the step size. For example, 2-7:2 indicates that three jobs need to be run and their index values are 2, 4, and 6.
+        # *   true: The job can be rerun.
+        # *   false: The job cannot be rerun.
+        self.re_runable = re_runable  # type: bool
+        # The name of the user that ran the job.
+        self.runas_user = runas_user  # type: str
+        # The output file path of stderr.
+        self.stderr_redirect_path = stderr_redirect_path  # type: str
+        # The output file path of stdout.
+        self.stdout_redirect_path = stdout_redirect_path  # type: str
+        # The number of tasks required by a single compute node. Valid values: 1 to 1000.
+        self.task = task  # type: int
+        # The number of threads required by a single compute node. Valid values: 1 to 1000.
         self.thread = thread  # type: int
-        self.unzip_cmd = unzip_cmd  # type: str
-        # The command that was used to run the job.
-        self.variables = variables  # type: str
         # The command that was used to decompress the job files downloaded from an OSS bucket. The parameter takes effect only when WithUnzipCmd is set to true. Valid values:
         # 
         # *   tar xzf: decompresses GZIP files.
         # *   tar xf: decompresses TAR files.
         # *   unzip: decompresses ZIP files.
+        self.unzip_cmd = unzip_cmd  # type: str
+        # The environment variables of the job.
+        self.variables = variables  # type: str
+        # Indicates whether to decompress the job files downloaded from an OSS bucket. Valid values:
+        # 
+        # *   true: The job files are decompressed.
+        # *   false: The job files are not decompressed.
         self.with_unzip_cmd = with_unzip_cmd  # type: bool
 
     def validate(self):
@@ -20152,15 +20167,15 @@ class ListJobTemplatesResponseBodyTemplates(TeaModel):
 
 class ListJobTemplatesResponseBody(TeaModel):
     def __init__(self, page_number=None, page_size=None, request_id=None, templates=None, total_count=None):
-        # The total number of returned entries.
-        self.page_number = page_number  # type: int
-        # The ID of the request.
-        self.page_size = page_size  # type: int
         # The number of the returned page.
+        self.page_number = page_number  # type: int
+        # The number of entries returned per page.
+        self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
-        # The number of tasks required by a single compute node. Valid values: 1 to 1000.
-        self.templates = templates  # type: ListJobTemplatesResponseBodyTemplates
         # The list of job templates.
+        self.templates = templates  # type: ListJobTemplatesResponseBodyTemplates
+        # The total number of returned entries.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -23124,22 +23139,20 @@ class ListSecurityGroupsResponse(TeaModel):
 
 
 class ListServerlessJobsRequest(TeaModel):
-    def __init__(self, cluster_id=None, job_ids=None, job_names=None, page_number=None, page_size=None, queues=None,
+    def __init__(self, cluster_id=None, job_ids=None, job_names=None, page_number=None, page_size=None,
                  region_id=None, start_order=None, state=None, submit_order=None, submit_time_end=None,
-                 submit_time_start=None, users=None):
+                 submit_time_start=None):
         self.cluster_id = cluster_id  # type: str
         self.job_ids = job_ids  # type: list[str]
         self.job_names = job_names  # type: list[str]
         self.page_number = page_number  # type: long
         self.page_size = page_size  # type: long
-        self.queues = queues  # type: list[str]
         self.region_id = region_id  # type: str
         self.start_order = start_order  # type: str
         self.state = state  # type: str
         self.submit_order = submit_order  # type: str
         self.submit_time_end = submit_time_end  # type: str
         self.submit_time_start = submit_time_start  # type: str
-        self.users = users  # type: list[str]
 
     def validate(self):
         pass
@@ -23160,8 +23173,6 @@ class ListServerlessJobsRequest(TeaModel):
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
             result['PageSize'] = self.page_size
-        if self.queues is not None:
-            result['Queues'] = self.queues
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         if self.start_order is not None:
@@ -23174,8 +23185,6 @@ class ListServerlessJobsRequest(TeaModel):
             result['SubmitTimeEnd'] = self.submit_time_end
         if self.submit_time_start is not None:
             result['SubmitTimeStart'] = self.submit_time_start
-        if self.users is not None:
-            result['Users'] = self.users
         return result
 
     def from_map(self, m=None):
@@ -23190,8 +23199,6 @@ class ListServerlessJobsRequest(TeaModel):
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
-        if m.get('Queues') is not None:
-            self.queues = m.get('Queues')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         if m.get('StartOrder') is not None:
@@ -23204,24 +23211,22 @@ class ListServerlessJobsRequest(TeaModel):
             self.submit_time_end = m.get('SubmitTimeEnd')
         if m.get('SubmitTimeStart') is not None:
             self.submit_time_start = m.get('SubmitTimeStart')
-        if m.get('Users') is not None:
-            self.users = m.get('Users')
         return self
 
 
 class ListServerlessJobsResponseBodyJobs(TeaModel):
-    def __init__(self, end_time=None, id=None, is_array_job=None, name=None, owner=None, priority=None, queue=None,
-                 start_time=None, state=None, submit_time=None):
+    def __init__(self, end_time=None, is_array_job=None, job_id=None, job_name=None, priority=None, queue=None,
+                 start_time=None, state=None, submit_time=None, user=None):
         self.end_time = end_time  # type: str
-        self.id = id  # type: str
         self.is_array_job = is_array_job  # type: bool
-        self.name = name  # type: str
-        self.owner = owner  # type: str
+        self.job_id = job_id  # type: str
+        self.job_name = job_name  # type: str
         self.priority = priority  # type: str
         self.queue = queue  # type: str
         self.start_time = start_time  # type: str
         self.state = state  # type: str
         self.submit_time = submit_time  # type: str
+        self.user = user  # type: str
 
     def validate(self):
         pass
@@ -23234,14 +23239,12 @@ class ListServerlessJobsResponseBodyJobs(TeaModel):
         result = dict()
         if self.end_time is not None:
             result['EndTime'] = self.end_time
-        if self.id is not None:
-            result['Id'] = self.id
         if self.is_array_job is not None:
             result['IsArrayJob'] = self.is_array_job
-        if self.name is not None:
-            result['Name'] = self.name
-        if self.owner is not None:
-            result['Owner'] = self.owner
+        if self.job_id is not None:
+            result['JobId'] = self.job_id
+        if self.job_name is not None:
+            result['JobName'] = self.job_name
         if self.priority is not None:
             result['Priority'] = self.priority
         if self.queue is not None:
@@ -23252,20 +23255,20 @@ class ListServerlessJobsResponseBodyJobs(TeaModel):
             result['State'] = self.state
         if self.submit_time is not None:
             result['SubmitTime'] = self.submit_time
+        if self.user is not None:
+            result['User'] = self.user
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
-        if m.get('Id') is not None:
-            self.id = m.get('Id')
         if m.get('IsArrayJob') is not None:
             self.is_array_job = m.get('IsArrayJob')
-        if m.get('Name') is not None:
-            self.name = m.get('Name')
-        if m.get('Owner') is not None:
-            self.owner = m.get('Owner')
+        if m.get('JobId') is not None:
+            self.job_id = m.get('JobId')
+        if m.get('JobName') is not None:
+            self.job_name = m.get('JobName')
         if m.get('Priority') is not None:
             self.priority = m.get('Priority')
         if m.get('Queue') is not None:
@@ -23276,6 +23279,8 @@ class ListServerlessJobsResponseBodyJobs(TeaModel):
             self.state = m.get('State')
         if m.get('SubmitTime') is not None:
             self.submit_time = m.get('SubmitTime')
+        if m.get('User') is not None:
+            self.user = m.get('User')
         return self
 
 
@@ -23372,11 +23377,13 @@ class ListServerlessJobsResponse(TeaModel):
 
 class ListSoftwaresRequest(TeaModel):
     def __init__(self, ehpc_version=None, os_tag=None):
+        # The version of the E-HPC client.
+        # 
+        # You can call the [ListCurrentClientVersion](~~87223~~) operation to query the E-HPC client version.
+        self.ehpc_version = ehpc_version  # type: str
         # The image tag of the cluster.
         # 
         # You can use the [ListImages](~~87213~~) to query the image tag of the cluster.
-        self.ehpc_version = ehpc_version  # type: str
-        # The ID of the request.
         self.os_tag = os_tag  # type: str
 
     def validate(self):
@@ -23405,12 +23412,16 @@ class ListSoftwaresRequest(TeaModel):
 
 class ListSoftwaresResponseBodySoftwaresSoftwareInfoApplicationsApplicationInfo(TeaModel):
     def __init__(self, name=None, required=None, tag=None, version=None):
-        # The version of the software.
-        self.name = name  # type: str
-        # The tag of the software.
-        self.required = required  # type: bool
         # The name of the software.
+        self.name = name  # type: str
+        # Indicates whether the software is required. Valid values:
+        # 
+        # *   false: optional
+        # *   true: required
+        self.required = required  # type: bool
+        # The tag of the software.
         self.tag = tag  # type: str
+        # The version of the software.
         self.version = version  # type: str
 
     def validate(self):
@@ -23480,25 +23491,33 @@ class ListSoftwaresResponseBodySoftwaresSoftwareInfoApplications(TeaModel):
 class ListSoftwaresResponseBodySoftwaresSoftwareInfo(TeaModel):
     def __init__(self, account_type=None, account_version=None, applications=None, ehpc_version=None, os_tag=None,
                  scheduler_type=None, scheduler_version=None):
-        # The version of the E-HPC client.
-        self.account_type = account_type  # type: str
         # The service type of the domain account. Valid values:
         # 
         # *   nis
         # *   ldap
-        self.account_version = account_version  # type: str
-        # Indicates whether the software is required. Valid values:
-        # 
-        # *   false: optional
-        # *   true: required
-        self.applications = applications  # type: ListSoftwaresResponseBodySoftwaresSoftwareInfoApplications
-        # The list of the software in the cluster.
-        self.ehpc_version = ehpc_version  # type: str
-        # The version of the scheduler.
-        self.os_tag = os_tag  # type: str
-        # The image tag of the cluster.
-        self.scheduler_type = scheduler_type  # type: str
+        self.account_type = account_type  # type: str
         # The version of the domain account service.
+        self.account_version = account_version  # type: str
+        # The list of the software in the cluster.
+        self.applications = applications  # type: ListSoftwaresResponseBodySoftwaresSoftwareInfoApplications
+        # The version of the E-HPC client.
+        self.ehpc_version = ehpc_version  # type: str
+        # The image tag of the cluster.
+        self.os_tag = os_tag  # type: str
+        # The type of the scheduler. Valid values:
+        # 
+        # *   pbs
+        # *   pbs19
+        # *   slurm
+        # *   slurm19
+        # *   slurm20
+        # *   opengridscheduler
+        # *   deadline
+        # *   gridengine
+        # *   cube
+        # *   custom
+        self.scheduler_type = scheduler_type  # type: str
+        # The version of the scheduler.
         self.scheduler_version = scheduler_version  # type: str
 
     def validate(self):
@@ -23581,20 +23600,9 @@ class ListSoftwaresResponseBodySoftwares(TeaModel):
 
 class ListSoftwaresResponseBody(TeaModel):
     def __init__(self, request_id=None, softwares=None):
-        # The list of the information about the software installed in the cluster.
+        # The ID of the request.
         self.request_id = request_id  # type: str
-        # The type of the scheduler. Valid values:
-        # 
-        # *   pbs
-        # *   pbs19
-        # *   slurm
-        # *   slurm19
-        # *   slurm20
-        # *   opengridscheduler
-        # *   deadline
-        # *   gridengine
-        # *   cube
-        # *   custom
+        # The list of the information about the software installed in the cluster.
         self.softwares = softwares  # type: ListSoftwaresResponseBodySoftwares
 
     def validate(self):
@@ -30053,8 +30061,8 @@ class SubmitServerlessJobRequestArrayProperties(TeaModel):
 
 
 class SubmitServerlessJobRequestContainerEnvironmentVar(TeaModel):
-    def __init__(self, name=None, value=None):
-        self.name = name  # type: str
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
         self.value = value  # type: str
 
     def validate(self):
@@ -30066,95 +30074,29 @@ class SubmitServerlessJobRequestContainerEnvironmentVar(TeaModel):
             return _map
 
         result = dict()
-        if self.name is not None:
-            result['Name'] = self.name
+        if self.key is not None:
+            result['Key'] = self.key
         if self.value is not None:
             result['Value'] = self.value
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Name') is not None:
-            self.name = m.get('Name')
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
         if m.get('Value') is not None:
             self.value = m.get('Value')
         return self
 
 
-class SubmitServerlessJobRequestContainerVolumeMountFlexVolume(TeaModel):
-    def __init__(self, driver=None, options=None):
-        self.driver = driver  # type: str
-        self.options = options  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(SubmitServerlessJobRequestContainerVolumeMountFlexVolume, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.driver is not None:
-            result['Driver'] = self.driver
-        if self.options is not None:
-            result['Options'] = self.options
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Driver') is not None:
-            self.driver = m.get('Driver')
-        if m.get('Options') is not None:
-            self.options = m.get('Options')
-        return self
-
-
-class SubmitServerlessJobRequestContainerVolumeMountNFSVolume(TeaModel):
-    def __init__(self, path=None, read_only=None, server=None):
-        self.path = path  # type: str
-        self.read_only = read_only  # type: bool
-        self.server = server  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(SubmitServerlessJobRequestContainerVolumeMountNFSVolume, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.path is not None:
-            result['Path'] = self.path
-        if self.read_only is not None:
-            result['ReadOnly'] = self.read_only
-        if self.server is not None:
-            result['Server'] = self.server
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('Path') is not None:
-            self.path = m.get('Path')
-        if m.get('ReadOnly') is not None:
-            self.read_only = m.get('ReadOnly')
-        if m.get('Server') is not None:
-            self.server = m.get('Server')
-        return self
-
-
 class SubmitServerlessJobRequestContainerVolumeMount(TeaModel):
-    def __init__(self, flex_volume=None, nfsvolume=None, mount_path=None):
-        self.flex_volume = flex_volume  # type: SubmitServerlessJobRequestContainerVolumeMountFlexVolume
-        self.nfsvolume = nfsvolume  # type: SubmitServerlessJobRequestContainerVolumeMountNFSVolume
+    def __init__(self, flex_volume_driver=None, flex_volume_options=None, mount_path=None):
+        self.flex_volume_driver = flex_volume_driver  # type: str
+        self.flex_volume_options = flex_volume_options  # type: str
         self.mount_path = mount_path  # type: str
 
     def validate(self):
-        if self.flex_volume:
-            self.flex_volume.validate()
-        if self.nfsvolume:
-            self.nfsvolume.validate()
+        pass
 
     def to_map(self):
         _map = super(SubmitServerlessJobRequestContainerVolumeMount, self).to_map()
@@ -30162,22 +30104,20 @@ class SubmitServerlessJobRequestContainerVolumeMount(TeaModel):
             return _map
 
         result = dict()
-        if self.flex_volume is not None:
-            result['FlexVolume'] = self.flex_volume.to_map()
-        if self.nfsvolume is not None:
-            result['NFSVolume'] = self.nfsvolume.to_map()
+        if self.flex_volume_driver is not None:
+            result['FlexVolumeDriver'] = self.flex_volume_driver
+        if self.flex_volume_options is not None:
+            result['FlexVolumeOptions'] = self.flex_volume_options
         if self.mount_path is not None:
             result['MountPath'] = self.mount_path
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('FlexVolume') is not None:
-            temp_model = SubmitServerlessJobRequestContainerVolumeMountFlexVolume()
-            self.flex_volume = temp_model.from_map(m['FlexVolume'])
-        if m.get('NFSVolume') is not None:
-            temp_model = SubmitServerlessJobRequestContainerVolumeMountNFSVolume()
-            self.nfsvolume = temp_model.from_map(m['NFSVolume'])
+        if m.get('FlexVolumeDriver') is not None:
+            self.flex_volume_driver = m.get('FlexVolumeDriver')
+        if m.get('FlexVolumeOptions') is not None:
+            self.flex_volume_options = m.get('FlexVolumeOptions')
         if m.get('MountPath') is not None:
             self.mount_path = m.get('MountPath')
         return self
