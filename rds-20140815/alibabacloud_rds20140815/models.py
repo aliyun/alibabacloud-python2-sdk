@@ -1365,8 +1365,8 @@ class CheckCloudResourceAuthorizedResponse(TeaModel):
 
 class CheckCreateDdrDBInstanceRequest(TeaModel):
     def __init__(self, backup_set_id=None, dbinstance_class=None, dbinstance_storage=None, engine=None,
-                 engine_version=None, owner_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None,
-                 restore_time=None, restore_type=None, source_dbinstance_name=None, source_region=None):
+                 engine_version=None, owner_id=None, region_id=None, resource_group_id=None, resource_owner_account=None,
+                 resource_owner_id=None, restore_time=None, restore_type=None, source_dbinstance_name=None, source_region=None):
         # The ID of the data backup file that is used for the restoration. You can call the [DescribeCrossRegionBackups](~~121733~~) operation to query backup set IDs.
         # 
         # >  If you set the **RestoreType** parameter to **0**, you must also specify this parameter.
@@ -1392,6 +1392,7 @@ class CheckCreateDdrDBInstanceRequest(TeaModel):
         self.owner_id = owner_id  # type: long
         # The region ID of the destination instance. You can call the [DescribeRegions](~~26243~~) operation to query the most recent region list of region IDs.
         self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
         # The point in time to which you want to restore data. The point in time that you specify must be earlier than the current time. Specify the time in the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm:ss*Z format. The time must be in UTC.
@@ -1437,6 +1438,8 @@ class CheckCreateDdrDBInstanceRequest(TeaModel):
             result['OwnerId'] = self.owner_id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
@@ -1467,6 +1470,8 @@ class CheckCreateDdrDBInstanceRequest(TeaModel):
             self.owner_id = m.get('OwnerId')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
@@ -2553,7 +2558,8 @@ class CloneDBInstanceResponse(TeaModel):
 
 class CloneParameterGroupRequest(TeaModel):
     def __init__(self, owner_id=None, parameter_group_desc=None, parameter_group_id=None,
-                 parameter_group_name=None, region_id=None, resource_owner_account=None, resource_owner_id=None, target_region_id=None):
+                 parameter_group_name=None, region_id=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None,
+                 target_region_id=None):
         self.owner_id = owner_id  # type: long
         # The description of the parameter template in the destination region.
         self.parameter_group_desc = parameter_group_desc  # type: str
@@ -2563,6 +2569,7 @@ class CloneParameterGroupRequest(TeaModel):
         self.parameter_group_name = parameter_group_name  # type: str
         # The ID of the source region to which the parameter template belongs. You can call the [DescribeRegions](~~26243~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
         # The ID of the destination region. You can call the [DescribeRegions](~~26243~~) operation to query the most recent region list.
@@ -2587,6 +2594,8 @@ class CloneParameterGroupRequest(TeaModel):
             result['ParameterGroupName'] = self.parameter_group_name
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
@@ -2607,6 +2616,8 @@ class CloneParameterGroupRequest(TeaModel):
             self.parameter_group_name = m.get('ParameterGroupName')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
@@ -8128,7 +8139,8 @@ class CreateOnlineDatabaseTaskResponse(TeaModel):
 
 class CreateParameterGroupRequest(TeaModel):
     def __init__(self, engine=None, engine_version=None, owner_id=None, parameter_group_desc=None,
-                 parameter_group_name=None, parameters=None, region_id=None, resource_owner_account=None, resource_owner_id=None):
+                 parameter_group_name=None, parameters=None, region_id=None, resource_group_id=None, resource_owner_account=None,
+                 resource_owner_id=None):
         # The database engine. Valid values:
         # 
         # *   **mysql**\
@@ -8163,6 +8175,7 @@ class CreateParameterGroupRequest(TeaModel):
         self.parameters = parameters  # type: str
         # The region ID of the parameter template. You can call the [DescribeRegions](~~26243~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
 
@@ -8189,6 +8202,8 @@ class CreateParameterGroupRequest(TeaModel):
             result['Parameters'] = self.parameters
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
@@ -8211,6 +8226,8 @@ class CreateParameterGroupRequest(TeaModel):
             self.parameters = m.get('Parameters')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
@@ -10567,11 +10584,12 @@ class DeleteDatabaseResponse(TeaModel):
 
 
 class DeleteGadInstanceRequest(TeaModel):
-    def __init__(self, gad_instance_name=None, region_id=None):
+    def __init__(self, gad_instance_name=None, region_id=None, resource_group_id=None):
         # The ID of the global active database cluster. You can call the [DescribeGadInstances](~~330105~~) operation to query the IDs of global active database clusters.
         self.gad_instance_name = gad_instance_name  # type: str
         # The region ID of the central node of the global active database cluster. You can call the [DescribeGadInstances](~~330105~~) operation to query the region IDs of global active database clusters.
         self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
 
     def validate(self):
         pass
@@ -10586,6 +10604,8 @@ class DeleteGadInstanceRequest(TeaModel):
             result['GadInstanceName'] = self.gad_instance_name
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         return result
 
     def from_map(self, m=None):
@@ -10594,6 +10614,8 @@ class DeleteGadInstanceRequest(TeaModel):
             self.gad_instance_name = m.get('GadInstanceName')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         return self
 
 
@@ -10662,13 +10684,14 @@ class DeleteGadInstanceResponse(TeaModel):
 
 
 class DeleteParameterGroupRequest(TeaModel):
-    def __init__(self, owner_id=None, parameter_group_id=None, region_id=None, resource_owner_account=None,
-                 resource_owner_id=None):
+    def __init__(self, owner_id=None, parameter_group_id=None, region_id=None, resource_group_id=None,
+                 resource_owner_account=None, resource_owner_id=None):
         self.owner_id = owner_id  # type: long
         # The ID of the parameter template. You can call the [DescribeParameterGroups](~~144491~~) operation to query the ID of the parameter template.
         self.parameter_group_id = parameter_group_id  # type: str
         # The ID of the region. You can call the [DescribeRegions](~~26243~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
 
@@ -10687,6 +10710,8 @@ class DeleteParameterGroupRequest(TeaModel):
             result['ParameterGroupId'] = self.parameter_group_id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
@@ -10701,6 +10726,8 @@ class DeleteParameterGroupRequest(TeaModel):
             self.parameter_group_id = m.get('ParameterGroupId')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
@@ -10908,7 +10935,7 @@ class DeletePostgresExtensionsResponse(TeaModel):
 
 class DeleteSecretRequest(TeaModel):
     def __init__(self, client_token=None, db_instance_id=None, engine=None, owner_id=None, region_id=None,
-                 resource_owner_account=None, resource_owner_id=None, secret_arn=None, secret_name=None):
+                 resource_group_id=None, resource_owner_account=None, resource_owner_id=None, secret_arn=None, secret_name=None):
         # The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length.
         self.client_token = client_token  # type: str
         # The ID of the instance. You can call the [DescribeDBInstances](~~26232~~) operation to query the ID of the instance.
@@ -10922,6 +10949,7 @@ class DeleteSecretRequest(TeaModel):
         self.owner_id = owner_id  # type: long
         # The region ID of the instance. You can call the [DescribeRegions](~~446624~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
         # The Alibaba Cloud Resource Name (ARN) of the credential for the created Data API account. You can call the [CreateSecret](~~446607~~) operation to obtain the value of this parameter.
@@ -10956,6 +10984,8 @@ class DeleteSecretRequest(TeaModel):
             result['OwnerId'] = self.owner_id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
@@ -10978,6 +11008,8 @@ class DeleteSecretRequest(TeaModel):
             self.owner_id = m.get('OwnerId')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
@@ -11235,13 +11267,14 @@ class DeleteSlotResponse(TeaModel):
 
 
 class DeleteUserBackupFileRequest(TeaModel):
-    def __init__(self, backup_id=None, owner_id=None, region_id=None, resource_owner_account=None,
-                 resource_owner_id=None):
+    def __init__(self, backup_id=None, owner_id=None, region_id=None, resource_group_id=None,
+                 resource_owner_account=None, resource_owner_id=None):
         # The ID of the backup file. You can call the [ListUserBackupFiles](~~257821~~) operation to query the ID of the file.
         self.backup_id = backup_id  # type: str
         self.owner_id = owner_id  # type: long
         # The ID of the region. You can call the [DescribeRegions](~~26243~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
 
@@ -11260,6 +11293,8 @@ class DeleteUserBackupFileRequest(TeaModel):
             result['OwnerId'] = self.owner_id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
@@ -11274,6 +11309,8 @@ class DeleteUserBackupFileRequest(TeaModel):
             self.owner_id = m.get('OwnerId')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
@@ -11353,8 +11390,8 @@ class DeleteUserBackupFileResponse(TeaModel):
 
 class DescibeImportsFromDatabaseRequest(TeaModel):
     def __init__(self, client_token=None, dbinstance_id=None, end_time=None, engine=None, import_id=None,
-                 owner_account=None, owner_id=None, page_number=None, page_size=None, resource_owner_account=None,
-                 resource_owner_id=None, start_time=None):
+                 owner_account=None, owner_id=None, page_number=None, page_size=None, resource_group_id=None,
+                 resource_owner_account=None, resource_owner_id=None, start_time=None):
         # The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must ensure that it is unique among different requests. The token can only contain ASCII characters and cannot exceed 64 characters in length.
         self.client_token = client_token  # type: str
         # The ID of the instance.
@@ -11382,6 +11419,7 @@ class DescibeImportsFromDatabaseRequest(TeaModel):
         # 
         # Default value: **30**.
         self.page_size = page_size  # type: int
+        self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
         # The beginning of the time range to query. Specify the time in the ISO 8601 standard in the *yyyy-MM-dd*T*HH:mm*Z format. The time must be in UTC.
@@ -11414,6 +11452,8 @@ class DescibeImportsFromDatabaseRequest(TeaModel):
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
             result['PageSize'] = self.page_size
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
@@ -11442,6 +11482,8 @@ class DescibeImportsFromDatabaseRequest(TeaModel):
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
@@ -12182,10 +12224,12 @@ class DescribeAccountsResponse(TeaModel):
 
 
 class DescribeActionEventPolicyRequest(TeaModel):
-    def __init__(self, owner_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None):
+    def __init__(self, owner_id=None, region_id=None, resource_group_id=None, resource_owner_account=None,
+                 resource_owner_id=None):
         self.owner_id = owner_id  # type: long
         # The ID of the region. You can call the [DescribeRegions](~~26243~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
 
@@ -12202,6 +12246,8 @@ class DescribeActionEventPolicyRequest(TeaModel):
             result['OwnerId'] = self.owner_id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
@@ -12214,6 +12260,8 @@ class DescribeActionEventPolicyRequest(TeaModel):
             self.owner_id = m.get('OwnerId')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
@@ -15972,7 +16020,7 @@ class DescribeCharacterSetNameResponse(TeaModel):
 
 class DescribeClassDetailsRequest(TeaModel):
     def __init__(self, class_code=None, client_token=None, commodity_code=None, engine=None, engine_version=None,
-                 owner_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None):
+                 owner_id=None, region_id=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None):
         self.class_code = class_code  # type: str
         self.client_token = client_token  # type: str
         self.commodity_code = commodity_code  # type: str
@@ -15980,6 +16028,7 @@ class DescribeClassDetailsRequest(TeaModel):
         self.engine_version = engine_version  # type: str
         self.owner_id = owner_id  # type: long
         self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
 
@@ -16006,6 +16055,8 @@ class DescribeClassDetailsRequest(TeaModel):
             result['OwnerId'] = self.owner_id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
@@ -16028,6 +16079,8 @@ class DescribeClassDetailsRequest(TeaModel):
             self.owner_id = m.get('OwnerId')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
@@ -24554,8 +24607,8 @@ class DescribeDBInstancesAsCsvResponse(TeaModel):
 
 class DescribeDBInstancesByExpireTimeRequest(TeaModel):
     def __init__(self, expire_period=None, expired=None, owner_account=None, owner_id=None, page_number=None,
-                 page_size=None, region_id=None, resource_owner_account=None, resource_owner_id=None, tags=None,
-                 proxy_id=None):
+                 page_size=None, region_id=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None,
+                 tags=None, proxy_id=None):
         # The number of remaining days for which the instances are available. Valid values: **0 to 180**.
         self.expire_period = expire_period  # type: int
         # Specifies whether to query instances that have expired. Valid values:
@@ -24575,6 +24628,7 @@ class DescribeDBInstancesByExpireTimeRequest(TeaModel):
         self.page_size = page_size  # type: int
         # The ID of the region. You can call the [DescribeRegions](~~26243~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
         # The tag that is added to the instance. Each tag is a key-value pair that consists of two parts: TagKey and TagValue. You can specify a maximum of five tags in the following format for each request: `{"key1":"value1","key2":"value2"...}`.
@@ -24605,6 +24659,8 @@ class DescribeDBInstancesByExpireTimeRequest(TeaModel):
             result['PageSize'] = self.page_size
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
@@ -24631,6 +24687,8 @@ class DescribeDBInstancesByExpireTimeRequest(TeaModel):
             self.page_size = m.get('PageSize')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
@@ -42952,13 +43010,14 @@ class DestroyDBInstanceResponse(TeaModel):
 
 
 class DetachGadInstanceMemberRequest(TeaModel):
-    def __init__(self, gad_instance_name=None, member_instance_name=None, region_id=None):
+    def __init__(self, gad_instance_name=None, member_instance_name=None, region_id=None, resource_group_id=None):
         # The ID of the global active database cluster.
         self.gad_instance_name = gad_instance_name  # type: str
         # The ID of the instance that serves as the unit node you want to remove. You can call the [DescribeGadInstances](~~330105~~) query the ID of the instance.
         self.member_instance_name = member_instance_name  # type: str
         # The region ID of the central node. You can call the [DescribeGadInstances](~~330105~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
 
     def validate(self):
         pass
@@ -42975,6 +43034,8 @@ class DetachGadInstanceMemberRequest(TeaModel):
             result['MemberInstanceName'] = self.member_instance_name
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         return result
 
     def from_map(self, m=None):
@@ -42985,6 +43046,8 @@ class DetachGadInstanceMemberRequest(TeaModel):
             self.member_instance_name = m.get('MemberInstanceName')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         return self
 
 
@@ -44053,8 +44116,8 @@ class ImportDatabaseBetweenInstancesResponse(TeaModel):
 
 class ImportUserBackupFileRequest(TeaModel):
     def __init__(self, backup_file=None, bucket_region=None, comment=None, engine_version=None, owner_id=None,
-                 region_id=None, resource_owner_account=None, resource_owner_id=None, restore_size=None, retention=None,
-                 zone_id=None):
+                 region_id=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None,
+                 restore_size=None, retention=None, zone_id=None):
         # A JSON array that consists of the information about the full backup file stored as an object in an OSS bucket. Example: `{"Bucket":"test", "Object":"test/test_db_employees.xb","Location":"ap-southeast-1"}`
         # 
         # The JSON array contains the following fields:
@@ -44078,6 +44141,7 @@ class ImportUserBackupFileRequest(TeaModel):
         # 
         # *   The value of this parameter must be consistent with the value of **BucketRegion**.
         self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
         # The amount of storage that is required to restore the data of the full backup file. Unit: GB.
@@ -44120,6 +44184,8 @@ class ImportUserBackupFileRequest(TeaModel):
             result['OwnerId'] = self.owner_id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
@@ -44146,6 +44212,8 @@ class ImportUserBackupFileRequest(TeaModel):
             self.owner_id = m.get('OwnerId')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
@@ -44751,7 +44819,7 @@ class ListTagResourcesResponse(TeaModel):
 
 class ListUserBackupFilesRequest(TeaModel):
     def __init__(self, backup_id=None, comment=None, oss_url=None, owner_id=None, region_id=None,
-                 resource_owner_account=None, resource_owner_id=None, status=None, tags=None):
+                 resource_group_id=None, resource_owner_account=None, resource_owner_id=None, status=None, tags=None):
         # The ID of the full backup file.
         self.backup_id = backup_id  # type: str
         # The description of the full backup file.
@@ -44763,6 +44831,7 @@ class ListUserBackupFilesRequest(TeaModel):
         self.owner_id = owner_id  # type: long
         # The ID of the region. You can call the [DescribeRegions](~~26243~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
         # The status of the full backup file. Valid values:
@@ -44795,6 +44864,8 @@ class ListUserBackupFilesRequest(TeaModel):
             result['OwnerId'] = self.owner_id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
@@ -44817,6 +44888,8 @@ class ListUserBackupFilesRequest(TeaModel):
             self.owner_id = m.get('OwnerId')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
@@ -52467,7 +52540,8 @@ class ModifyParameterResponse(TeaModel):
 
 class ModifyParameterGroupRequest(TeaModel):
     def __init__(self, modify_mode=None, owner_id=None, parameter_group_desc=None, parameter_group_id=None,
-                 parameter_group_name=None, parameters=None, region_id=None, resource_owner_account=None, resource_owner_id=None):
+                 parameter_group_name=None, parameters=None, region_id=None, resource_group_id=None, resource_owner_account=None,
+                 resource_owner_id=None):
         # The modification mode of the parameter template. Valid values:
         # 
         # *   **Collectivity** (default): adds new parameters or modifies parameters in the original parameter template.
@@ -52505,6 +52579,7 @@ class ModifyParameterGroupRequest(TeaModel):
         # 
         # > The region of a parameter template cannot be changed. You can call the [CloneParameterGroup](~~144581~~) operation to replicate a parameter template to a specific region.
         self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
 
@@ -52531,6 +52606,8 @@ class ModifyParameterGroupRequest(TeaModel):
             result['Parameters'] = self.parameters
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
@@ -52553,6 +52630,8 @@ class ModifyParameterGroupRequest(TeaModel):
             self.parameters = m.get('Parameters')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
@@ -52794,13 +52873,14 @@ class ModifyReadWriteSplittingConnectionResponse(TeaModel):
 
 
 class ModifyReadonlyInstanceDelayReplicationTimeRequest(TeaModel):
-    def __init__(self, dbinstance_id=None, owner_id=None, read_sqlreplication_time=None,
+    def __init__(self, dbinstance_id=None, owner_id=None, read_sqlreplication_time=None, resource_group_id=None,
                  resource_owner_account=None, resource_owner_id=None):
         # The ID of the read-only instance.
         self.dbinstance_id = dbinstance_id  # type: str
         self.owner_id = owner_id  # type: long
         # The latency at which to replicate data from the primary instance to the read-only instance. Unit: seconds.
         self.read_sqlreplication_time = read_sqlreplication_time  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
 
@@ -52819,6 +52899,8 @@ class ModifyReadonlyInstanceDelayReplicationTimeRequest(TeaModel):
             result['OwnerId'] = self.owner_id
         if self.read_sqlreplication_time is not None:
             result['ReadSQLReplicationTime'] = self.read_sqlreplication_time
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
@@ -52833,6 +52915,8 @@ class ModifyReadonlyInstanceDelayReplicationTimeRequest(TeaModel):
             self.owner_id = m.get('OwnerId')
         if m.get('ReadSQLReplicationTime') is not None:
             self.read_sqlreplication_time = m.get('ReadSQLReplicationTime')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
@@ -55132,7 +55216,8 @@ class RemoveTagsFromResourceRequestTag(TeaModel):
 
 class RemoveTagsFromResourceRequest(TeaModel):
     def __init__(self, tag=None, client_token=None, dbinstance_id=None, owner_account=None, owner_id=None,
-                 region_id=None, resource_owner_account=None, resource_owner_id=None, tags=None, proxy_id=None):
+                 region_id=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None, tags=None,
+                 proxy_id=None):
         self.tag = tag  # type: list[RemoveTagsFromResourceRequestTag]
         # The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must ensure that it is unique among different requests. The token can only contain ASCII characters and cannot exceed 64 characters in length.
         self.client_token = client_token  # type: str
@@ -55142,6 +55227,7 @@ class RemoveTagsFromResourceRequest(TeaModel):
         self.owner_id = owner_id  # type: long
         # The region ID of the instance. You can call the [DescribeRegions](~~26243~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
         # A set of a TagKey and a TagValue that you use to unbind the tag. Format: {"key1":"value1"}.
@@ -55177,6 +55263,8 @@ class RemoveTagsFromResourceRequest(TeaModel):
             result['OwnerId'] = self.owner_id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
@@ -55204,6 +55292,8 @@ class RemoveTagsFromResourceRequest(TeaModel):
             self.owner_id = m.get('OwnerId')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
@@ -57131,12 +57221,13 @@ class SwitchDBInstanceVpcResponse(TeaModel):
 
 
 class SwitchGuardToMasterInstanceRequest(TeaModel):
-    def __init__(self, dbinstance_id=None, owner_account=None, owner_id=None, resource_owner_account=None,
-                 resource_owner_id=None):
+    def __init__(self, dbinstance_id=None, owner_account=None, owner_id=None, resource_group_id=None,
+                 resource_owner_account=None, resource_owner_id=None):
         # The ID of the disaster recovery instance. You can call the [DescribeDBInstances](~~26232~~) operation to query the ID of the instance.
         self.dbinstance_id = dbinstance_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
 
@@ -57155,6 +57246,8 @@ class SwitchGuardToMasterInstanceRequest(TeaModel):
             result['OwnerAccount'] = self.owner_account
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
@@ -57169,6 +57262,8 @@ class SwitchGuardToMasterInstanceRequest(TeaModel):
             self.owner_account = m.get('OwnerAccount')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
@@ -58090,8 +58185,8 @@ class UpdatePostgresExtensionsResponse(TeaModel):
 
 
 class UpdateUserBackupFileRequest(TeaModel):
-    def __init__(self, backup_id=None, comment=None, owner_id=None, region_id=None, resource_owner_account=None,
-                 resource_owner_id=None, retention=None):
+    def __init__(self, backup_id=None, comment=None, owner_id=None, region_id=None, resource_group_id=None,
+                 resource_owner_account=None, resource_owner_id=None, retention=None):
         # The ID of the backup file. You can call the [ListUserBackupFiles](~~257821~~) operation to query the ID of the backup file.
         self.backup_id = backup_id  # type: str
         # The new description of the full backup file.
@@ -58099,6 +58194,7 @@ class UpdateUserBackupFileRequest(TeaModel):
         self.owner_id = owner_id  # type: long
         # The ID of the region. You can call the [DescribeRegions](~~26243~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
         # The new retention period of the full backup file. Unit: days. Valid values: any non-zero positive integer.
@@ -58121,6 +58217,8 @@ class UpdateUserBackupFileRequest(TeaModel):
             result['OwnerId'] = self.owner_id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
@@ -58139,6 +58237,8 @@ class UpdateUserBackupFileRequest(TeaModel):
             self.owner_id = m.get('OwnerId')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
