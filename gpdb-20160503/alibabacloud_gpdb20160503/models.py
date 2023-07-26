@@ -1793,10 +1793,11 @@ class DeleteCollectionResponse(TeaModel):
 
 
 class DeleteCollectionDataRequest(TeaModel):
-    def __init__(self, collection=None, collection_data=None, dbinstance_id=None, namespace=None,
-                 namespace_password=None, owner_id=None, region_id=None):
+    def __init__(self, collection=None, collection_data=None, collection_data_filter=None, dbinstance_id=None,
+                 namespace=None, namespace_password=None, owner_id=None, region_id=None):
         self.collection = collection  # type: str
         self.collection_data = collection_data  # type: str
+        self.collection_data_filter = collection_data_filter  # type: str
         self.dbinstance_id = dbinstance_id  # type: str
         self.namespace = namespace  # type: str
         self.namespace_password = namespace_password  # type: str
@@ -1816,6 +1817,8 @@ class DeleteCollectionDataRequest(TeaModel):
             result['Collection'] = self.collection
         if self.collection_data is not None:
             result['CollectionData'] = self.collection_data
+        if self.collection_data_filter is not None:
+            result['CollectionDataFilter'] = self.collection_data_filter
         if self.dbinstance_id is not None:
             result['DBInstanceId'] = self.dbinstance_id
         if self.namespace is not None:
@@ -1834,6 +1837,8 @@ class DeleteCollectionDataRequest(TeaModel):
             self.collection = m.get('Collection')
         if m.get('CollectionData') is not None:
             self.collection_data = m.get('CollectionData')
+        if m.get('CollectionDataFilter') is not None:
+            self.collection_data_filter = m.get('CollectionDataFilter')
         if m.get('DBInstanceId') is not None:
             self.dbinstance_id = m.get('DBInstanceId')
         if m.get('Namespace') is not None:

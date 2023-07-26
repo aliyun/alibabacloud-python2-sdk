@@ -656,6 +656,8 @@ class Client(OpenApiClient):
             query['Collection'] = request.collection
         if not UtilClient.is_unset(request.collection_data):
             query['CollectionData'] = request.collection_data
+        if not UtilClient.is_unset(request.collection_data_filter):
+            query['CollectionDataFilter'] = request.collection_data_filter
         if not UtilClient.is_unset(request.dbinstance_id):
             query['DBInstanceId'] = request.dbinstance_id
         if not UtilClient.is_unset(request.namespace):
