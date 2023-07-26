@@ -5,6 +5,9 @@ from Tea.model import TeaModel
 
 class AcceptHandshakeRequest(TeaModel):
     def __init__(self, handshake_id=None):
+        # The ID of the invitation.
+        # 
+        # You can call the [ListHandshakesForAccount](~~ListHandshakesForAccount~~) operation to obtain the ID.
         self.handshake_id = handshake_id  # type: str
 
     def validate(self):
@@ -31,16 +34,36 @@ class AcceptHandshakeResponseBodyHandshake(TeaModel):
     def __init__(self, create_time=None, expire_time=None, handshake_id=None, master_account_id=None,
                  master_account_name=None, modify_time=None, note=None, resource_directory_id=None, status=None, target_entity=None,
                  target_type=None):
+        # The time when the invitation was created. The time is displayed in UTC.
         self.create_time = create_time  # type: str
+        # The time when the invitation expires. The time is displayed in UTC.
         self.expire_time = expire_time  # type: str
+        # The ID of the invitation.
         self.handshake_id = handshake_id  # type: str
+        # The ID of the management account of the resource directory.
         self.master_account_id = master_account_id  # type: str
+        # The name of the management account of the resource directory.
         self.master_account_name = master_account_name  # type: str
+        # The time when the invitation was modified. The time is displayed in UTC.
         self.modify_time = modify_time  # type: str
+        # The description of the invitation.
         self.note = note  # type: str
+        # The ID of the resource directory.
         self.resource_directory_id = resource_directory_id  # type: str
+        # The status of the invitation. Valid values:
+        # 
+        # *   Pending: The invitation is waiting for confirmation.
+        # *   Accepted: The invitation is accepted.
+        # *   Cancelled: The invitation is canceled.
+        # *   Declined: The invitation is rejected.
+        # *   Expired: The invitation expires.
         self.status = status  # type: str
+        # The ID or logon email address of the invited Alibaba Cloud account.
         self.target_entity = target_entity  # type: str
+        # The type of the invited Alibaba Cloud account. Valid values:
+        # 
+        # *   Account: indicates the ID of the Alibaba Cloud account.
+        # *   Email: indicates the logon email address of the Alibaba Cloud account.
         self.target_type = target_type  # type: str
 
     def validate(self):
@@ -105,7 +128,9 @@ class AcceptHandshakeResponseBodyHandshake(TeaModel):
 
 class AcceptHandshakeResponseBody(TeaModel):
     def __init__(self, handshake=None, request_id=None):
+        # The information of the invitation.
         self.handshake = handshake  # type: AcceptHandshakeResponseBodyHandshake
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -175,10 +200,75 @@ class AcceptHandshakeResponse(TeaModel):
 
 class AddMessageContactRequest(TeaModel):
     def __init__(self, email_address=None, message_types=None, name=None, phone_number=None, title=None):
+        # The email address of the contact.
+        # 
+        # After you specify an email address, you need to call [SendEmailVerificationForMessageContact](~~SendEmailVerificationForMessageContact~~) to send verification information to the email address. After the verification is passed, the email address takes effect.
         self.email_address = email_address  # type: str
+        # The types of messages received by the contact.
         self.message_types = message_types  # type: list[str]
+        # The name of the contact.
+        # 
+        # The name must be unique in your resource directory.
+        # 
+        # The name must be 2 to 12 characters in length and can contain only letters.
         self.name = name  # type: str
+        # The mobile phone number of the contact.
+        # 
+        # Specify the mobile phone number in the `<Country code>-<Mobile phone number>` format.
+        # 
+        # After you specify a mobile phone number, you need to call [SendPhoneVerificationForMessageContact](~~SendPhoneVerificationForMessageContact~~) to send verification information to the mobile phone number. After the verification is passed, the mobile phone number takes effect.
         self.phone_number = phone_number  # type: str
+        # The job title of the contact.
+        # 
+        # Valid values:
+        # 
+        # *   FinanceDirector
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        # *   TechnicalDirector
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        # *   MaintenanceDirector
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        # *   CEO
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        # *   ProjectDirector
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        # *   Other
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
         self.title = title  # type: str
 
     def validate(self):
@@ -219,7 +309,9 @@ class AddMessageContactRequest(TeaModel):
 
 class AddMessageContactResponseBodyContact(TeaModel):
     def __init__(self, contact_id=None, create_date=None):
+        # The ID of the contact.
         self.contact_id = contact_id  # type: str
+        # The time when the contact was created.
         self.create_date = create_date  # type: str
 
     def validate(self):
@@ -248,7 +340,9 @@ class AddMessageContactResponseBodyContact(TeaModel):
 
 class AddMessageContactResponseBody(TeaModel):
     def __init__(self, contact=None, request_id=None):
+        # The information about the contact.
         self.contact = contact  # type: AddMessageContactResponseBodyContact
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -318,7 +412,9 @@ class AddMessageContactResponse(TeaModel):
 
 class AssociateMembersRequest(TeaModel):
     def __init__(self, contact_id=None, members=None):
+        # The ID of the contact.
         self.contact_id = contact_id  # type: str
+        # The IDs of objects to which you want to bind the contact.
         self.members = members  # type: list[str]
 
     def validate(self):
@@ -347,8 +443,15 @@ class AssociateMembersRequest(TeaModel):
 
 class AssociateMembersResponseBodyMembers(TeaModel):
     def __init__(self, contact_id=None, member_id=None, modify_date=None):
+        # The ID of the contact.
         self.contact_id = contact_id  # type: str
+        # The ID of the object. Valid values:
+        # 
+        # - ID of the resource directory
+        # - ID of the folder
+        # - ID of the member
         self.member_id = member_id  # type: str
+        # The time when the contact was bound to the object.
         self.modify_date = modify_date  # type: str
 
     def validate(self):
@@ -381,7 +484,9 @@ class AssociateMembersResponseBodyMembers(TeaModel):
 
 class AssociateMembersResponseBody(TeaModel):
     def __init__(self, members=None, request_id=None):
+        # The time when the contact was bound to the object.
         self.members = members  # type: list[AssociateMembersResponseBodyMembers]
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -457,7 +562,13 @@ class AssociateMembersResponse(TeaModel):
 
 class AttachControlPolicyRequest(TeaModel):
     def __init__(self, policy_id=None, target_id=None):
+        # The ID of the access control policy.
         self.policy_id = policy_id  # type: str
+        # The ID of the object to which you want to attach the access control policy. Access control policies can be attached to the following objects:
+        # 
+        # *   Root folder
+        # *   Subfolders of the Root folder
+        # *   Members
         self.target_id = target_id  # type: str
 
     def validate(self):
@@ -486,6 +597,7 @@ class AttachControlPolicyRequest(TeaModel):
 
 class AttachControlPolicyResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -549,8 +661,19 @@ class AttachControlPolicyResponse(TeaModel):
 
 class BindSecureMobilePhoneRequest(TeaModel):
     def __init__(self, account_id=None, secure_mobile_phone=None, verification_code=None):
+        # The Alibaba Cloud account ID of the member.
         self.account_id = account_id  # type: str
+        # The mobile phone number that you want to bind to the member for security purposes.
+        # 
+        # The mobile phone number you specify must be the same as the mobile phone number that you specify when you call the [SendVerificationCodeForBindSecureMobilePhone](~~SendVerificationCodeForBindSecureMobilePhone~~) operation to obtain a verification code.
+        # 
+        # Specify the mobile phone number in the \<Country code>-\<Mobile phone number> format.
+        # 
+        # > Mobile phone numbers in the `86-<Mobile phone number>` format in the Chinese mainland are not supported.
         self.secure_mobile_phone = secure_mobile_phone  # type: str
+        # The verification code.
+        # 
+        # You can call the [SendVerificationCodeForBindSecureMobilePhone](~~SendVerificationCodeForBindSecureMobilePhone~~) operation to obtain the verification code.
         self.verification_code = verification_code  # type: str
 
     def validate(self):
@@ -583,6 +706,7 @@ class BindSecureMobilePhoneRequest(TeaModel):
 
 class BindSecureMobilePhoneResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -646,6 +770,7 @@ class BindSecureMobilePhoneResponse(TeaModel):
 
 class CancelChangeAccountEmailRequest(TeaModel):
     def __init__(self, account_id=None):
+        # The Alibaba Cloud account ID of the member.
         self.account_id = account_id  # type: str
 
     def validate(self):
@@ -670,6 +795,7 @@ class CancelChangeAccountEmailRequest(TeaModel):
 
 class CancelChangeAccountEmailResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -733,6 +859,7 @@ class CancelChangeAccountEmailResponse(TeaModel):
 
 class CancelHandshakeRequest(TeaModel):
     def __init__(self, handshake_id=None):
+        # The ID of the invitation.
         self.handshake_id = handshake_id  # type: str
 
     def validate(self):
@@ -759,16 +886,36 @@ class CancelHandshakeResponseBodyHandshake(TeaModel):
     def __init__(self, create_time=None, expire_time=None, handshake_id=None, master_account_id=None,
                  master_account_name=None, modify_time=None, note=None, resource_directory_id=None, status=None, target_entity=None,
                  target_type=None):
+        # The time when the invitation was created. The time is displayed in UTC.
         self.create_time = create_time  # type: str
+        # The time when the invitation expires. The time is displayed in UTC.
         self.expire_time = expire_time  # type: str
+        # The ID of the invitation.
         self.handshake_id = handshake_id  # type: str
+        # The ID of the management account of the resource directory.
         self.master_account_id = master_account_id  # type: str
+        # The name of the management account of the resource directory.
         self.master_account_name = master_account_name  # type: str
+        # The time when the invitation was modified. The time is displayed in UTC.
         self.modify_time = modify_time  # type: str
+        # The description of the invitation.
         self.note = note  # type: str
+        # The ID of the resource directory.
         self.resource_directory_id = resource_directory_id  # type: str
+        # The status of the invitation. Valid values:
+        # 
+        # *   Pending: The invitation is waiting for confirmation.
+        # *   Accepted: The invitation is accepted.
+        # *   Cancelled: The invitation is canceled.
+        # *   Declined: The invitation is rejected.
+        # *   Expired: The invitation expires.
         self.status = status  # type: str
+        # The ID or logon email address of the invited account.
         self.target_entity = target_entity  # type: str
+        # The type of the invited account. Valid values:
+        # 
+        # *   Account: indicates the ID of the account.
+        # *   Email: indicates the logon email address of the account.
         self.target_type = target_type  # type: str
 
     def validate(self):
@@ -833,7 +980,9 @@ class CancelHandshakeResponseBodyHandshake(TeaModel):
 
 class CancelHandshakeResponseBody(TeaModel):
     def __init__(self, handshake=None, request_id=None):
+        # The information of the invitation.
         self.handshake = handshake  # type: CancelHandshakeResponseBodyHandshake
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -903,8 +1052,13 @@ class CancelHandshakeResponse(TeaModel):
 
 class CancelMessageContactUpdateRequest(TeaModel):
     def __init__(self, contact_id=None, email_address=None, phone_number=None):
+        # The ID of the contact.
         self.contact_id = contact_id  # type: str
+        # The email address of the contact.
         self.email_address = email_address  # type: str
+        # The mobile phone number of the contact.
+        # 
+        # Specify the mobile phone number in the `<Country code>-<Mobile phone number>` format.
         self.phone_number = phone_number  # type: str
 
     def validate(self):
@@ -937,6 +1091,7 @@ class CancelMessageContactUpdateRequest(TeaModel):
 
 class CancelMessageContactUpdateResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1000,7 +1155,11 @@ class CancelMessageContactUpdateResponse(TeaModel):
 
 class ChangeAccountEmailRequest(TeaModel):
     def __init__(self, account_id=None, email=None):
+        # The Alibaba Cloud account ID of the member.
         self.account_id = account_id  # type: str
+        # The email address to be bound to the member.
+        # 
+        # > The system automatically sends a verification email to the email address. After the verification is passed, the email address takes effect, and the system changes both the logon email address and secure email address of the member.
         self.email = email  # type: str
 
     def validate(self):
@@ -1029,6 +1188,7 @@ class ChangeAccountEmailRequest(TeaModel):
 
 class ChangeAccountEmailResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1092,6 +1252,7 @@ class ChangeAccountEmailResponse(TeaModel):
 
 class CheckAccountDeleteRequest(TeaModel):
     def __init__(self, account_id=None):
+        # The Alibaba Cloud account ID of the member that you want to delete.
         self.account_id = account_id  # type: str
 
     def validate(self):
@@ -1116,6 +1277,7 @@ class CheckAccountDeleteRequest(TeaModel):
 
 class CheckAccountDeleteResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1179,9 +1341,25 @@ class CheckAccountDeleteResponse(TeaModel):
 
 class CreateControlPolicyRequest(TeaModel):
     def __init__(self, description=None, effect_scope=None, policy_document=None, policy_name=None):
+        # The description of the access control policy.
+        # 
+        # The description must be 1 to 1,024 characters in length. The description can contain letters, digits, underscores (\_), and hyphens (-) and must start with a letter.
         self.description = description  # type: str
+        # The effective scope of the access control policy.
+        # 
+        # The value RAM indicates that the access control policy takes effect only for RAM users and RAM roles.
         self.effect_scope = effect_scope  # type: str
+        # The document of the access control policy.
+        # 
+        # The document can be a maximum of 4,096 characters in length.
+        # 
+        # For more information about the languages of access control policies, see [Languages of access control policies](~~179096~~).
+        # 
+        # For more information about the examples of access control policies, see [Examples of custom access control policies](~~181474~~).
         self.policy_document = policy_document  # type: str
+        # The name of the access control policy.
+        # 
+        # The name must be 1 to 128 characters in length. The name can contain letters, digits, and hyphens (-) and must start with a letter.
         self.policy_name = policy_name  # type: str
 
     def validate(self):
@@ -1219,13 +1397,26 @@ class CreateControlPolicyRequest(TeaModel):
 class CreateControlPolicyResponseBodyControlPolicy(TeaModel):
     def __init__(self, attachment_count=None, create_date=None, description=None, effect_scope=None, policy_id=None,
                  policy_name=None, policy_type=None, update_date=None):
+        # The number of times that the access control policy is referenced.
         self.attachment_count = attachment_count  # type: str
+        # The time when the access control policy was created.
         self.create_date = create_date  # type: str
+        # The description of the access control policy.
         self.description = description  # type: str
+        # The effective scope of the access control policy.
+        # 
+        # The value RAM indicates that the access control policy takes effect only for RAM users and RAM roles.
         self.effect_scope = effect_scope  # type: str
+        # The ID of the access control policy.
         self.policy_id = policy_id  # type: str
+        # The name of the access control policy.
         self.policy_name = policy_name  # type: str
+        # The type of the access control policy. Valid values:
+        # 
+        # *   System: system access control policy
+        # *   Custom: custom access control policy
         self.policy_type = policy_type  # type: str
+        # The time when the access control policy was updated.
         self.update_date = update_date  # type: str
 
     def validate(self):
@@ -1278,7 +1469,9 @@ class CreateControlPolicyResponseBodyControlPolicy(TeaModel):
 
 class CreateControlPolicyResponseBody(TeaModel):
     def __init__(self, control_policy=None, request_id=None):
+        # The details of the access control policy.
         self.control_policy = control_policy  # type: CreateControlPolicyResponseBodyControlPolicy
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1348,7 +1541,11 @@ class CreateControlPolicyResponse(TeaModel):
 
 class CreateFolderRequest(TeaModel):
     def __init__(self, folder_name=None, parent_folder_id=None):
+        # The name of the folder.
+        # 
+        # The name must be 1 to 24 characters in length and can contain letters, digits, underscores (\_), periods (.),and hyphens (-).
         self.folder_name = folder_name  # type: str
+        # The ID of the parent folder.
         self.parent_folder_id = parent_folder_id  # type: str
 
     def validate(self):
@@ -1377,9 +1574,13 @@ class CreateFolderRequest(TeaModel):
 
 class CreateFolderResponseBodyFolder(TeaModel):
     def __init__(self, create_time=None, folder_id=None, folder_name=None, parent_folder_id=None):
+        # The time when the folder was created.
         self.create_time = create_time  # type: str
+        # The ID of the folder.
         self.folder_id = folder_id  # type: str
+        # The name of the folder.
         self.folder_name = folder_name  # type: str
+        # The ID of the parent folder.
         self.parent_folder_id = parent_folder_id  # type: str
 
     def validate(self):
@@ -1416,7 +1617,9 @@ class CreateFolderResponseBodyFolder(TeaModel):
 
 class CreateFolderResponseBody(TeaModel):
     def __init__(self, folder=None, request_id=None):
+        # The information about the folder.
         self.folder = folder  # type: CreateFolderResponseBodyFolder
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1486,7 +1689,9 @@ class CreateFolderResponse(TeaModel):
 
 class CreateResourceAccountRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the tag.
         self.key = key  # type: str
+        # The value of the tag.
         self.value = value  # type: str
 
     def validate(self):
@@ -1516,11 +1721,36 @@ class CreateResourceAccountRequestTag(TeaModel):
 class CreateResourceAccountRequest(TeaModel):
     def __init__(self, account_name_prefix=None, display_name=None, parent_folder_id=None, payer_account_id=None,
                  resell_account_type=None, tag=None):
+        # The prefix for the Alibaba Cloud account name of the member. If you leave this parameter empty, the system randomly generates a prefix.
+        # 
+        # The prefix must be 2 to 37 characters in length.
+        # 
+        # The prefix can contain letters, digits, and special characters but cannot contain consecutive special characters. The prefix must start with a letter or digit and end with a letter or digit. Valid special characters include underscores (`_`), periods (.), and hyphens (`-`).
+        # 
+        # The complete Alibaba Cloud account name of a member in a resource directory is in the @.aliyunid.com format, such as `alice@rd-3G****.aliyunid.com`.
+        # 
+        # Each name must be unique in the resource directory.
         self.account_name_prefix = account_name_prefix  # type: str
+        # The display name of the member.
+        # 
+        # The name must be 2 to 50 characters in length.
+        # 
+        # The name can contain letters, digits, underscores (\_), periods (.), hyphens (-), and spaces.
+        # 
+        # The name must be unique in the resource directory.
         self.display_name = display_name  # type: str
+        # The ID of the parent folder.
         self.parent_folder_id = parent_folder_id  # type: str
+        # The ID of the billing account. If you leave this parameter empty, the member is used as its own billing account.
         self.payer_account_id = payer_account_id  # type: str
+        # The identity type of the member. Valid values:
+        # 
+        # *   resell: The member is an account for a reseller. This is the default value. A relationship is automatically established between the member and the reseller. The management account of the resource directory must be used as the billing account of the member.
+        # *   non_resell: The member is not an account for a reseller. The member is an account that is not associated with a reseller. You can directly use the account to purchase Alibaba Cloud resources. The member is used as its own billing account.
+        # 
+        # > This parameter is available only for resellers at the international site (alibabacloud.com).
         self.resell_account_type = resell_account_type  # type: str
+        # The tag of the member.
         self.tag = tag  # type: list[CreateResourceAccountRequestTag]
 
     def validate(self):
@@ -1574,15 +1804,28 @@ class CreateResourceAccountRequest(TeaModel):
 class CreateResourceAccountResponseBodyAccount(TeaModel):
     def __init__(self, account_id=None, account_name=None, display_name=None, folder_id=None, join_method=None,
                  join_time=None, modify_time=None, resource_directory_id=None, status=None, type=None):
+        # The Alibaba Cloud account ID of the member.
         self.account_id = account_id  # type: str
+        # The Alibaba Cloud account name of the member.
         self.account_name = account_name  # type: str
+        # The display name of the member.
         self.display_name = display_name  # type: str
+        # The ID of the folder.
         self.folder_id = folder_id  # type: str
+        # The way in which the member joins the resource directory. Valid values:
+        # 
+        # *   invited: The member is invited to join the resource directory.
+        # *   created: The member is directly created in the resource directory.
         self.join_method = join_method  # type: str
+        # The time when the member joined the resource directory. The time is displayed in UTC.
         self.join_time = join_time  # type: str
+        # The time when the member was modified. The time is displayed in UTC.
         self.modify_time = modify_time  # type: str
+        # The ID of the resource directory.
         self.resource_directory_id = resource_directory_id  # type: str
+        # The status of the member. The value CreateSuccess indicates that the member is created.
         self.status = status  # type: str
+        # The type of the member. The value ResourceAccount indicates that the member is a resource account.
         self.type = type  # type: str
 
     def validate(self):
@@ -1643,7 +1886,9 @@ class CreateResourceAccountResponseBodyAccount(TeaModel):
 
 class CreateResourceAccountResponseBody(TeaModel):
     def __init__(self, account=None, request_id=None):
+        # The information of the member.
         self.account = account  # type: CreateResourceAccountResponseBodyAccount
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1713,6 +1958,7 @@ class CreateResourceAccountResponse(TeaModel):
 
 class DeclineHandshakeRequest(TeaModel):
     def __init__(self, handshake_id=None):
+        # The ID of the invitation.
         self.handshake_id = handshake_id  # type: str
 
     def validate(self):
@@ -1739,16 +1985,36 @@ class DeclineHandshakeResponseBodyHandshake(TeaModel):
     def __init__(self, create_time=None, expire_time=None, handshake_id=None, master_account_id=None,
                  master_account_name=None, modify_time=None, note=None, resource_directory_id=None, status=None, target_entity=None,
                  target_type=None):
+        # The time when the invitation was created.
         self.create_time = create_time  # type: str
+        # The time when the invitation expires.
         self.expire_time = expire_time  # type: str
+        # The ID of the invitation.
         self.handshake_id = handshake_id  # type: str
+        # The ID of the management account of the resource directory.
         self.master_account_id = master_account_id  # type: str
+        # The name of the management account of the resource directory.
         self.master_account_name = master_account_name  # type: str
+        # The time when the invitation was modified.
         self.modify_time = modify_time  # type: str
+        # The description of the invitation.
         self.note = note  # type: str
+        # The ID of the resource directory.
         self.resource_directory_id = resource_directory_id  # type: str
+        # The status of the invitation. Valid values:
+        # 
+        # *   Pending: The invitation is waiting for confirmation.
+        # *   Accepted: The invitation is accepted.
+        # *   Cancelled: The invitation is canceled.
+        # *   Declined: The invitation is rejected.
+        # *   Expired: The invitation expires.
         self.status = status  # type: str
+        # The ID or logon email address of the invited account.
         self.target_entity = target_entity  # type: str
+        # The type of the invited account. Valid values:
+        # 
+        # *   Account: indicates the ID of the account.
+        # *   Email: indicates the logon email address of the account.
         self.target_type = target_type  # type: str
 
     def validate(self):
@@ -1813,7 +2079,9 @@ class DeclineHandshakeResponseBodyHandshake(TeaModel):
 
 class DeclineHandshakeResponseBody(TeaModel):
     def __init__(self, handshake=None, request_id=None):
+        # The information of the invitation.
         self.handshake = handshake  # type: DeclineHandshakeResponseBodyHandshake
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1883,7 +2151,11 @@ class DeclineHandshakeResponse(TeaModel):
 
 class DeleteAccountRequest(TeaModel):
     def __init__(self, abandonable_check_id=None, account_id=None):
+        # The IDs of the check items that you can choose to ignore for the member deletion.
+        # 
+        # You can obtain the IDs from the response of the [GetAccountDeletionCheckResult](~~GetAccountDeletionCheckResult~~) operation.
         self.abandonable_check_id = abandonable_check_id  # type: list[str]
+        # The Alibaba Cloud account ID of the member that you want to delete.
         self.account_id = account_id  # type: str
 
     def validate(self):
@@ -1912,7 +2184,11 @@ class DeleteAccountRequest(TeaModel):
 
 class DeleteAccountShrinkRequest(TeaModel):
     def __init__(self, abandonable_check_id_shrink=None, account_id=None):
+        # The IDs of the check items that you can choose to ignore for the member deletion.
+        # 
+        # You can obtain the IDs from the response of the [GetAccountDeletionCheckResult](~~GetAccountDeletionCheckResult~~) operation.
         self.abandonable_check_id_shrink = abandonable_check_id_shrink  # type: str
+        # The Alibaba Cloud account ID of the member that you want to delete.
         self.account_id = account_id  # type: str
 
     def validate(self):
@@ -1941,7 +2217,12 @@ class DeleteAccountShrinkRequest(TeaModel):
 
 class DeleteAccountResponseBody(TeaModel):
     def __init__(self, deletion_type=None, request_id=None):
+        # The type of the deletion. Valid values:
+        # 
+        # *   0: direct deletion. If the member does not have pay-as-you-go resources that are purchased within the previous 30 days, the system directly deletes the member.
+        # *   1: deletion with a silence period. If the member has pay-as-you-go resources that are purchased within the previous 30 days, the member enters a silence period of 45 days. The system starts to delete the member until the silence period ends. For more information about the silence period, see [What is the silence period for member deletion?](~~446079~~)
         self.deletion_type = deletion_type  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2009,6 +2290,7 @@ class DeleteAccountResponse(TeaModel):
 
 class DeleteControlPolicyRequest(TeaModel):
     def __init__(self, policy_id=None):
+        # The ID of the access control policy.
         self.policy_id = policy_id  # type: str
 
     def validate(self):
@@ -2033,6 +2315,7 @@ class DeleteControlPolicyRequest(TeaModel):
 
 class DeleteControlPolicyResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2096,6 +2379,7 @@ class DeleteControlPolicyResponse(TeaModel):
 
 class DeleteFolderRequest(TeaModel):
     def __init__(self, folder_id=None):
+        # The ID of the folder.
         self.folder_id = folder_id  # type: str
 
     def validate(self):
@@ -2120,6 +2404,7 @@ class DeleteFolderRequest(TeaModel):
 
 class DeleteFolderResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2183,7 +2468,12 @@ class DeleteFolderResponse(TeaModel):
 
 class DeleteMessageContactRequest(TeaModel):
     def __init__(self, contact_id=None, retain_contact_in_members=None):
+        # The ID of the contact.
         self.contact_id = contact_id  # type: str
+        # Specifies whether to retain the contact for members. Valid values:
+        # 
+        # *   true (default): retains the contact for members. In this case, the contact can still receive messages for the members.
+        # *   false: does not retain the contact for members. In this case, the contact can no longer receive messages for the members. If you set this parameter to false, the response is asynchronously returned. You can call [GetMessageContactDeletionStatus](~~GetMessageContactDeletionStatus~~) to obtain the deletion result.
         self.retain_contact_in_members = retain_contact_in_members  # type: bool
 
     def validate(self):
@@ -2212,7 +2502,12 @@ class DeleteMessageContactRequest(TeaModel):
 
 class DeleteMessageContactResponseBody(TeaModel):
     def __init__(self, request_id=None, status=None):
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The deletion status of the contact. Valid values:
+        # 
+        # *   Deleting
+        # *   Deleted
         self.status = status  # type: str
 
     def validate(self):
@@ -2280,7 +2575,9 @@ class DeleteMessageContactResponse(TeaModel):
 
 class DeregisterDelegatedAdministratorRequest(TeaModel):
     def __init__(self, account_id=None, service_principal=None):
+        # The Alibaba Cloud account ID of the member in the resource directory.
         self.account_id = account_id  # type: str
+        # The identifier of the trusted service.
         self.service_principal = service_principal  # type: str
 
     def validate(self):
@@ -2309,6 +2606,7 @@ class DeregisterDelegatedAdministratorRequest(TeaModel):
 
 class DeregisterDelegatedAdministratorResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2435,7 +2733,13 @@ class DestroyResourceDirectoryResponse(TeaModel):
 
 class DetachControlPolicyRequest(TeaModel):
     def __init__(self, policy_id=None, target_id=None):
+        # The ID of the access control policy.
         self.policy_id = policy_id  # type: str
+        # The ID of the object from which you want to detach the access control policy. Access control policies can be attached to the following objects:
+        # 
+        # *   Root folder
+        # *   Subfolders of the Root folder
+        # *   Members
         self.target_id = target_id  # type: str
 
     def validate(self):
@@ -2464,6 +2768,7 @@ class DetachControlPolicyRequest(TeaModel):
 
 class DetachControlPolicyResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2595,7 +2900,9 @@ class DisableControlPolicyResponse(TeaModel):
 
 class DisassociateMembersRequest(TeaModel):
     def __init__(self, contact_id=None, members=None):
+        # The ID of the contact.
         self.contact_id = contact_id  # type: str
+        # The IDs of objects from which you want to unbind the contact.
         self.members = members  # type: list[str]
 
     def validate(self):
@@ -2624,8 +2931,15 @@ class DisassociateMembersRequest(TeaModel):
 
 class DisassociateMembersResponseBodyMembers(TeaModel):
     def __init__(self, contact_id=None, member_id=None, modify_date=None):
+        # The ID of the contact.
         self.contact_id = contact_id  # type: str
+        # The ID of the object. Valid values:
+        # 
+        # - ID of the resource directory
+        # - ID of the folder
+        # - ID of the member
         self.member_id = member_id  # type: str
+        # The time when the contact was unbound from the object.
         self.modify_date = modify_date  # type: str
 
     def validate(self):
@@ -2658,7 +2972,9 @@ class DisassociateMembersResponseBodyMembers(TeaModel):
 
 class DisassociateMembersResponseBody(TeaModel):
     def __init__(self, members=None, request_id=None):
+        # The time when the contact was unbound from the object.
         self.members = members  # type: list[DisassociateMembersResponseBodyMembers]
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2802,9 +3118,26 @@ class EnableControlPolicyResponse(TeaModel):
 
 class EnableResourceDirectoryRequest(TeaModel):
     def __init__(self, enable_mode=None, maname=None, masecure_mobile_phone=None, verification_code=None):
+        # The mode in which you enable a resource directory. Valid values:
+        # 
+        # *   CurrentAccount: The current account is used to enable a resource directory.
+        # *   NewManagementAccount: A newly created account is used to enable a resource directory. If you select this mode, you must configure the `MAName`, `MASecureMobilePhone`, and `VerificationCode` parameters.
         self.enable_mode = enable_mode  # type: str
+        # The name of the newly created account.
+        # 
+        # Specify the name in the `<Prefix>@rdadmin.aliyunid.com` format. The prefix can contain letters, digits, and special characters but cannot contain consecutive special characters. The prefix must start and end with a letter or digit. Valid special characters include underscores (`_`), periods (.), and hyphens (-). The prefix must be 2 to 50 characters in length.
         self.maname = maname  # type: str
+        # The mobile phone number that is bound to the newly created account.
+        # 
+        # If you leave this parameter empty, the mobile phone number that is bound to the current account is used. The mobile phone number you specify must be the same as the mobile phone number that you specify when you call the [SendVerificationCodeForEnableRD](~~SendVerificationCodeForEnableRD~~) operation to obtain a verification code.
+        # 
+        # Specify the mobile phone number in the `<Country code>-<Mobile phone number>` format.
+        # 
+        # > Mobile phone numbers in the `86-<Mobile phone number>` format in the Chinese mainland are not supported.
         self.masecure_mobile_phone = masecure_mobile_phone  # type: str
+        # The verification code.
+        # 
+        # You can call the [SendVerificationCodeForEnableRD](~~SendVerificationCodeForEnableRD~~) operation to obtain the verification code.
         self.verification_code = verification_code  # type: str
 
     def validate(self):
@@ -2842,10 +3175,15 @@ class EnableResourceDirectoryRequest(TeaModel):
 class EnableResourceDirectoryResponseBodyResourceDirectory(TeaModel):
     def __init__(self, create_time=None, master_account_id=None, master_account_name=None,
                  resource_directory_id=None, root_folder_id=None):
+        # The time when the resource directory was enabled.
         self.create_time = create_time  # type: str
+        # The ID of the management account.
         self.master_account_id = master_account_id  # type: str
+        # The name of the management account.
         self.master_account_name = master_account_name  # type: str
+        # The ID of the resource directory.
         self.resource_directory_id = resource_directory_id  # type: str
+        # The ID of the Root folder.
         self.root_folder_id = root_folder_id  # type: str
 
     def validate(self):
@@ -2886,7 +3224,9 @@ class EnableResourceDirectoryResponseBodyResourceDirectory(TeaModel):
 
 class EnableResourceDirectoryResponseBody(TeaModel):
     def __init__(self, request_id=None, resource_directory=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The information about the resource directory.
         self.resource_directory = resource_directory  # type: EnableResourceDirectoryResponseBodyResourceDirectory
 
     def validate(self):
@@ -2956,7 +3296,12 @@ class EnableResourceDirectoryResponse(TeaModel):
 
 class GetAccountRequest(TeaModel):
     def __init__(self, account_id=None, include_tags=None):
+        # The Alibaba Cloud account ID of the member.
         self.account_id = account_id  # type: str
+        # Specifies whether to return the information of tags. Valid values:
+        # 
+        # *   false (default value)
+        # *   true
         self.include_tags = include_tags  # type: bool
 
     def validate(self):
@@ -2985,7 +3330,9 @@ class GetAccountRequest(TeaModel):
 
 class GetAccountResponseBodyAccountTags(TeaModel):
     def __init__(self, key=None, value=None):
+        # A tag key.
         self.key = key  # type: str
+        # A tag value.
         self.value = value  # type: str
 
     def validate(self):
@@ -3016,20 +3363,54 @@ class GetAccountResponseBodyAccount(TeaModel):
     def __init__(self, account_id=None, account_name=None, display_name=None, email_status=None, folder_id=None,
                  identity_information=None, join_method=None, join_time=None, location=None, modify_time=None,
                  resource_directory_id=None, resource_directory_path=None, status=None, tags=None, type=None):
+        # The Alibaba Cloud account ID of the member.
         self.account_id = account_id  # type: str
+        # The Alibaba Cloud account name of the member.
         self.account_name = account_name  # type: str
+        # The display name of the member.
         self.display_name = display_name  # type: str
+        # The status of the modification for the email address bound to the member. Valid values:
+        # 
+        # *   If the value of this parameter is empty, no modification is performed for the email address.
+        # *   WAIT_MODIFY: The modification is being performed.
+        # *   CANCELLED: The modification is canceled.
+        # *   EXPIRED: The modification expires.
         self.email_status = email_status  # type: str
+        # The ID of the folder.
         self.folder_id = folder_id  # type: str
+        # The real-name verification information.
         self.identity_information = identity_information  # type: str
+        # The way in which the member joins the resource directory. Valid values:
+        # 
+        # *   invited: The member is invited to join the resource directory.
+        # *   created: The member is directly created in the resource directory.
         self.join_method = join_method  # type: str
+        # The time when the member joined the resource directory.
         self.join_time = join_time  # type: str
+        # The location of the member in the resource directory.
         self.location = location  # type: str
+        # The time when the member was modified.
         self.modify_time = modify_time  # type: str
+        # The ID of the resource directory.
         self.resource_directory_id = resource_directory_id  # type: str
+        # The path of the member in the resource directory.
         self.resource_directory_path = resource_directory_path  # type: str
+        # The status of the member. Valid values:
+        # 
+        # *   CreateSuccess: The member is created.
+        # *   PromoteVerifying: The upgrade of the member is being confirmed.
+        # *   PromoteFailed: The upgrade of the member fails.
+        # *   PromoteExpired: The upgrade of the member expires.
+        # *   PromoteCancelled: The upgrade of the member is canceled.
+        # *   PromoteSuccess: The member is upgraded.
+        # *   InviteSuccess: The member accepts the invitation.
         self.status = status  # type: str
+        # The tags of the member.
         self.tags = tags  # type: list[GetAccountResponseBodyAccountTags]
+        # The type of the member. Valid values:
+        # 
+        # *   CloudAccount: cloud account
+        # *   ResourceAccount: resource account
         self.type = type  # type: str
 
     def validate(self):
@@ -3118,7 +3499,9 @@ class GetAccountResponseBodyAccount(TeaModel):
 
 class GetAccountResponseBody(TeaModel):
     def __init__(self, account=None, request_id=None):
+        # The information of the member.
         self.account = account  # type: GetAccountResponseBodyAccount
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3188,6 +3571,7 @@ class GetAccountResponse(TeaModel):
 
 class GetAccountDeletionCheckResultRequest(TeaModel):
     def __init__(self, account_id=None):
+        # The Alibaba Cloud account ID of the member that you want to delete.
         self.account_id = account_id  # type: str
 
     def validate(self):
@@ -3212,8 +3596,11 @@ class GetAccountDeletionCheckResultRequest(TeaModel):
 
 class GetAccountDeletionCheckResultResponseBodyAccountDeletionCheckResultInfoAbandonableChecks(TeaModel):
     def __init__(self, check_id=None, check_name=None, description=None):
+        # The ID of the check item.
         self.check_id = check_id  # type: str
+        # The name of the cloud service to which the check item belongs.
         self.check_name = check_name  # type: str
+        # The description of the check item.
         self.description = description  # type: str
 
     def validate(self):
@@ -3246,8 +3633,11 @@ class GetAccountDeletionCheckResultResponseBodyAccountDeletionCheckResultInfoAba
 
 class GetAccountDeletionCheckResultResponseBodyAccountDeletionCheckResultInfoNotAllowReason(TeaModel):
     def __init__(self, check_id=None, check_name=None, description=None):
+        # The ID of the check item.
         self.check_id = check_id  # type: str
+        # The name of the cloud service to which the check item belongs.
         self.check_name = check_name  # type: str
+        # The description of the check item.
         self.description = description  # type: str
 
     def validate(self):
@@ -3280,9 +3670,23 @@ class GetAccountDeletionCheckResultResponseBodyAccountDeletionCheckResultInfoNot
 
 class GetAccountDeletionCheckResultResponseBodyAccountDeletionCheckResultInfo(TeaModel):
     def __init__(self, abandonable_checks=None, allow_delete=None, not_allow_reason=None, status=None):
+        # The check items that you can choose to ignore for the member deletion.
+        # 
+        # > This parameter may be returned if the value of AllowDelete is true.
         self.abandonable_checks = abandonable_checks  # type: list[GetAccountDeletionCheckResultResponseBodyAccountDeletionCheckResultInfoAbandonableChecks]
+        # Indicates whether the member can be deleted. Valid values:
+        # 
+        # *   true: The member can be deleted.
+        # *   false: The member cannot be deleted.
         self.allow_delete = allow_delete  # type: str
+        # The reasons why the member cannot be deleted.
+        # 
+        # > This parameter is returned only if the value of AllowDelete is false.
         self.not_allow_reason = not_allow_reason  # type: list[GetAccountDeletionCheckResultResponseBodyAccountDeletionCheckResultInfoNotAllowReason]
+        # The status of the check. Valid values:
+        # 
+        # *   PreCheckComplete: The check is complete.
+        # *   PreChecking: The check is in progress.
         self.status = status  # type: str
 
     def validate(self):
@@ -3336,7 +3740,9 @@ class GetAccountDeletionCheckResultResponseBodyAccountDeletionCheckResultInfo(Te
 
 class GetAccountDeletionCheckResultResponseBody(TeaModel):
     def __init__(self, account_deletion_check_result_info=None, request_id=None):
+        # The result of the deletion check for the member.
         self.account_deletion_check_result_info = account_deletion_check_result_info  # type: GetAccountDeletionCheckResultResponseBodyAccountDeletionCheckResultInfo
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3406,6 +3812,7 @@ class GetAccountDeletionCheckResultResponse(TeaModel):
 
 class GetAccountDeletionStatusRequest(TeaModel):
     def __init__(self, account_id=None):
+        # The Alibaba Cloud account ID of the member.
         self.account_id = account_id  # type: str
 
     def validate(self):
@@ -3430,7 +3837,9 @@ class GetAccountDeletionStatusRequest(TeaModel):
 
 class GetAccountDeletionStatusResponseBodyRdAccountDeletionStatusFailReasonList(TeaModel):
     def __init__(self, description=None, name=None):
+        # The description of the check item.
         self.description = description  # type: str
+        # The name of the cloud service to which the check item belongs.
         self.name = name  # type: str
 
     def validate(self):
@@ -3460,11 +3869,26 @@ class GetAccountDeletionStatusResponseBodyRdAccountDeletionStatusFailReasonList(
 class GetAccountDeletionStatusResponseBodyRdAccountDeletionStatus(TeaModel):
     def __init__(self, account_id=None, create_time=None, deletion_time=None, deletion_type=None,
                  fail_reason_list=None, status=None):
+        # The Alibaba Cloud account ID of the member.
         self.account_id = account_id  # type: str
+        # The start time of the deletion.
         self.create_time = create_time  # type: str
+        # The end time of the deletion.
         self.deletion_time = deletion_time  # type: str
+        # The type of the deletion. Valid values:
+        # 
+        # *   0: direct deletion. If the member does not have pay-as-you-go resources that are purchased within the previous 30 days, the system directly deletes the member.
+        # *   1: deletion with a silence period. If the member has pay-as-you-go resources that are purchased within the previous 30 days, the member enters a silence period of 45 days. The system starts to delete the member until the silence period ends. For more information about the silence period, see [What is the silence period for member deletion?](~~446079~~)
         self.deletion_type = deletion_type  # type: str
+        # The reasons why the member fails to be deleted.
         self.fail_reason_list = fail_reason_list  # type: list[GetAccountDeletionStatusResponseBodyRdAccountDeletionStatusFailReasonList]
+        # The status. Valid values:
+        # 
+        # *   Success: The member is deleted.
+        # *   Checking: A deletion check is being performed for the member.
+        # *   Deleting: The member is being deleted.
+        # *   CheckFailed: The deletion check for the member fails.
+        # *   DeleteFailed: The member fails to be deleted.
         self.status = status  # type: str
 
     def validate(self):
@@ -3517,7 +3941,9 @@ class GetAccountDeletionStatusResponseBodyRdAccountDeletionStatus(TeaModel):
 
 class GetAccountDeletionStatusResponseBody(TeaModel):
     def __init__(self, rd_account_deletion_status=None, request_id=None):
+        # The deletion status of the member.
         self.rd_account_deletion_status = rd_account_deletion_status  # type: GetAccountDeletionStatusResponseBodyRdAccountDeletionStatus
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3587,7 +4013,15 @@ class GetAccountDeletionStatusResponse(TeaModel):
 
 class GetControlPolicyRequest(TeaModel):
     def __init__(self, language=None, policy_id=None):
+        # The language in which you want to return the description of the access control policy. Valid values:
+        # 
+        # *   zh-CN (default value): Chinese
+        # *   en: English
+        # *   ja: Japanese
+        # 
+        # > This parameter is valid only for system access control policies.
         self.language = language  # type: str
+        # The ID of the access control policy.
         self.policy_id = policy_id  # type: str
 
     def validate(self):
@@ -3617,14 +4051,29 @@ class GetControlPolicyRequest(TeaModel):
 class GetControlPolicyResponseBodyControlPolicy(TeaModel):
     def __init__(self, attachment_count=None, create_date=None, description=None, effect_scope=None,
                  policy_document=None, policy_id=None, policy_name=None, policy_type=None, update_date=None):
+        # The number of times that the access control policy is referenced.
         self.attachment_count = attachment_count  # type: str
+        # The time when the access control policy was created.
         self.create_date = create_date  # type: str
+        # The description of the access control policy.
         self.description = description  # type: str
+        # The effective scope of the access control policy. Valid values:
+        # 
+        # *   All: The access control policy is in effect for Alibaba Cloud accounts, RAM users, and RAM roles.
+        # *   RAM: The access control policy is in effect only for RAM users and RAM roles.
         self.effect_scope = effect_scope  # type: str
+        # The document of the access control policy.
         self.policy_document = policy_document  # type: str
+        # The ID of the access control policy.
         self.policy_id = policy_id  # type: str
+        # The name of the access control policy.
         self.policy_name = policy_name  # type: str
+        # The type of the access control policy. Valid values:
+        # 
+        # *   System: system access control policy
+        # *   Custom: custom access control policy
         self.policy_type = policy_type  # type: str
+        # The time when the access control policy was updated.
         self.update_date = update_date  # type: str
 
     def validate(self):
@@ -3681,7 +4130,9 @@ class GetControlPolicyResponseBodyControlPolicy(TeaModel):
 
 class GetControlPolicyResponseBody(TeaModel):
     def __init__(self, control_policy=None, request_id=None):
+        # The details of the access control policy.
         self.control_policy = control_policy  # type: GetControlPolicyResponseBodyControlPolicy
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3819,6 +4270,7 @@ class GetControlPolicyEnablementStatusResponse(TeaModel):
 
 class GetFolderRequest(TeaModel):
     def __init__(self, folder_id=None):
+        # The ID of the folder.
         self.folder_id = folder_id  # type: str
 
     def validate(self):
@@ -3844,10 +4296,15 @@ class GetFolderRequest(TeaModel):
 class GetFolderResponseBodyFolder(TeaModel):
     def __init__(self, create_time=None, folder_id=None, folder_name=None, parent_folder_id=None,
                  resource_directory_path=None):
+        # The time when the folder was created.
         self.create_time = create_time  # type: str
+        # The ID of the folder.
         self.folder_id = folder_id  # type: str
+        # The name of the folder.
         self.folder_name = folder_name  # type: str
+        # The ID of the parent folder.
         self.parent_folder_id = parent_folder_id  # type: str
+        # The path of the folder in the resource directory.
         self.resource_directory_path = resource_directory_path  # type: str
 
     def validate(self):
@@ -3888,7 +4345,9 @@ class GetFolderResponseBodyFolder(TeaModel):
 
 class GetFolderResponseBody(TeaModel):
     def __init__(self, folder=None, request_id=None):
+        # The information about the folder.
         self.folder = folder  # type: GetFolderResponseBodyFolder
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3958,6 +4417,7 @@ class GetFolderResponse(TeaModel):
 
 class GetHandshakeRequest(TeaModel):
     def __init__(self, handshake_id=None):
+        # The ID of the invitation.
         self.handshake_id = handshake_id  # type: str
 
     def validate(self):
@@ -3984,18 +4444,44 @@ class GetHandshakeResponseBodyHandshake(TeaModel):
     def __init__(self, create_time=None, expire_time=None, handshake_id=None, invited_account_real_name=None,
                  master_account_id=None, master_account_name=None, master_account_real_name=None, modify_time=None, note=None,
                  resource_directory_id=None, status=None, target_entity=None, target_type=None):
+        # The time when the invitation was created. The time is displayed in UTC.
         self.create_time = create_time  # type: str
+        # The time when the invitation expires. The time is displayed in UTC.
         self.expire_time = expire_time  # type: str
+        # The ID of the invitation.
         self.handshake_id = handshake_id  # type: str
+        # The real-name verification information of the invitee.
+        # 
+        # > This parameter is available only when an invitee calls this operation.
         self.invited_account_real_name = invited_account_real_name  # type: str
+        # The ID of the management account of the resource directory.
         self.master_account_id = master_account_id  # type: str
+        # The name of the management account of the resource directory.
         self.master_account_name = master_account_name  # type: str
+        # The real-name verification information of the management account of the resource directory.
+        # 
+        # > This parameter is available only when an invitee calls this operation.
         self.master_account_real_name = master_account_real_name  # type: str
+        # The time when the invitation was modified. The time is displayed in UTC.
         self.modify_time = modify_time  # type: str
+        # The description of the invitation.
         self.note = note  # type: str
+        # The ID of the resource directory.
         self.resource_directory_id = resource_directory_id  # type: str
+        # The status of the invitation. Valid values:
+        # 
+        # *   Pending: The invitation is waiting for confirmation.
+        # *   Accepted: The invitation is accepted.
+        # *   Cancelled: The invitation is canceled.
+        # *   Declined: The invitation is rejected.
+        # *   Expired: The invitation expires.
         self.status = status  # type: str
+        # The ID or logon email address of the invited account.
         self.target_entity = target_entity  # type: str
+        # The type of the invited account. Valid values:
+        # 
+        # *   Account: indicates the ID of the account.
+        # *   Email: indicates the logon email address of the account.
         self.target_type = target_type  # type: str
 
     def validate(self):
@@ -4068,7 +4554,9 @@ class GetHandshakeResponseBodyHandshake(TeaModel):
 
 class GetHandshakeResponseBody(TeaModel):
     def __init__(self, handshake=None, request_id=None):
+        # The information of the invitation.
         self.handshake = handshake  # type: GetHandshakeResponseBodyHandshake
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4138,6 +4626,7 @@ class GetHandshakeResponse(TeaModel):
 
 class GetMessageContactRequest(TeaModel):
     def __init__(self, contact_id=None):
+        # The ID of the contact.
         self.contact_id = contact_id  # type: str
 
     def validate(self):
@@ -4163,14 +4652,27 @@ class GetMessageContactRequest(TeaModel):
 class GetMessageContactResponseBodyContact(TeaModel):
     def __init__(self, contact_id=None, create_date=None, email_address=None, members=None, message_types=None,
                  name=None, phone_number=None, status=None, title=None):
+        # The ID of the contact.
         self.contact_id = contact_id  # type: str
+        # The time when the contact was created.
         self.create_date = create_date  # type: str
+        # The email address of the contact.
         self.email_address = email_address  # type: str
+        # The IDs of objects to which the contact is bound.
         self.members = members  # type: list[str]
+        # The types of messages received by the contact.
         self.message_types = message_types  # type: list[str]
+        # The name of the contact.
         self.name = name  # type: str
+        # The mobile phone number of the contact.
         self.phone_number = phone_number  # type: str
+        # The status of the contact. Valid values:
+        # 
+        # *   Verifying
+        # *   Active
+        # *   Deleting
         self.status = status  # type: str
+        # The job title of the contact.
         self.title = title  # type: str
 
     def validate(self):
@@ -4227,7 +4729,9 @@ class GetMessageContactResponseBodyContact(TeaModel):
 
 class GetMessageContactResponseBody(TeaModel):
     def __init__(self, contact=None, request_id=None):
+        # The information about the contact.
         self.contact = contact  # type: GetMessageContactResponseBodyContact
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4297,6 +4801,7 @@ class GetMessageContactResponse(TeaModel):
 
 class GetMessageContactDeletionStatusRequest(TeaModel):
     def __init__(self, contact_id=None):
+        # The ID of the contact.
         self.contact_id = contact_id  # type: str
 
     def validate(self):
@@ -4321,7 +4826,9 @@ class GetMessageContactDeletionStatusRequest(TeaModel):
 
 class GetMessageContactDeletionStatusResponseBodyContactDeletionStatusFailReasonList(TeaModel):
     def __init__(self, account_id=None, message_types=None):
+        # The Alibaba Cloud account ID of the member.
         self.account_id = account_id  # type: str
+        # The types of messages received by the contact.
         self.message_types = message_types  # type: list[str]
 
     def validate(self):
@@ -4350,8 +4857,14 @@ class GetMessageContactDeletionStatusResponseBodyContactDeletionStatusFailReason
 
 class GetMessageContactDeletionStatusResponseBodyContactDeletionStatus(TeaModel):
     def __init__(self, contact_id=None, fail_reason_list=None, status=None):
+        # The ID of the contact.
         self.contact_id = contact_id  # type: str
+        # The types of messages received by the contact.
         self.fail_reason_list = fail_reason_list  # type: list[GetMessageContactDeletionStatusResponseBodyContactDeletionStatusFailReasonList]
+        # The deletion status of the contact. Valid values:
+        # 
+        # *   Deleting
+        # *   Failed
         self.status = status  # type: str
 
     def validate(self):
@@ -4392,7 +4905,9 @@ class GetMessageContactDeletionStatusResponseBodyContactDeletionStatus(TeaModel)
 
 class GetMessageContactDeletionStatusResponseBody(TeaModel):
     def __init__(self, contact_deletion_status=None, request_id=None):
+        # The deletion information of the contact.
         self.contact_deletion_status = contact_deletion_status  # type: GetMessageContactDeletionStatusResponseBodyContactDeletionStatus
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4694,7 +5209,9 @@ class GetResourceDirectoryResponse(TeaModel):
 
 class InviteAccountToResourceDirectoryRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The tag key.
         self.key = key  # type: str
+        # The tag value.
         self.value = value  # type: str
 
     def validate(self):
@@ -4723,10 +5240,20 @@ class InviteAccountToResourceDirectoryRequestTag(TeaModel):
 
 class InviteAccountToResourceDirectoryRequest(TeaModel):
     def __init__(self, note=None, parent_folder_id=None, tag=None, target_entity=None, target_type=None):
+        # The description of the invitation.
+        # 
+        # The description can be up to 1,024 characters in length.
         self.note = note  # type: str
+        # The ID of the parent folder.
         self.parent_folder_id = parent_folder_id  # type: str
+        # The tag value.
         self.tag = tag  # type: list[InviteAccountToResourceDirectoryRequestTag]
+        # The ID or logon email address of the account that you want to invite.
         self.target_entity = target_entity  # type: str
+        # The type of the invited account. Valid values:
+        # 
+        # *   Account: indicates the ID of the account.
+        # *   Email: indicates the logon email address of the account.
         self.target_type = target_type  # type: str
 
     def validate(self):
@@ -4777,16 +5304,36 @@ class InviteAccountToResourceDirectoryResponseBodyHandshake(TeaModel):
     def __init__(self, create_time=None, expire_time=None, handshake_id=None, master_account_id=None,
                  master_account_name=None, modify_time=None, note=None, resource_directory_id=None, status=None, target_entity=None,
                  target_type=None):
+        # The time when the invitation was created. The time is displayed in UTC.
         self.create_time = create_time  # type: str
+        # The time when the invitation expires. The time is displayed in UTC.
         self.expire_time = expire_time  # type: str
+        # The ID of the invitation.
         self.handshake_id = handshake_id  # type: str
+        # The ID of the management account of the resource directory.
         self.master_account_id = master_account_id  # type: str
+        # The name of the management account of the resource directory.
         self.master_account_name = master_account_name  # type: str
+        # The time when the invitation was modified. The time is displayed in UTC.
         self.modify_time = modify_time  # type: str
+        # The description of the invitation.
         self.note = note  # type: str
+        # The ID of the resource directory.
         self.resource_directory_id = resource_directory_id  # type: str
+        # The status of the invitation. Valid values:
+        # 
+        # *   Pending
+        # *   Accepted
+        # *   Cancelled
+        # *   Declined
+        # *   Expired
         self.status = status  # type: str
+        # The ID or logon email address of the invited account.
         self.target_entity = target_entity  # type: str
+        # The type of the invited account. Valid values:
+        # 
+        # *   Account: indicates the ID of the account.
+        # *   Email: indicates the logon email address of the account.
         self.target_type = target_type  # type: str
 
     def validate(self):
@@ -4851,7 +5398,9 @@ class InviteAccountToResourceDirectoryResponseBodyHandshake(TeaModel):
 
 class InviteAccountToResourceDirectoryResponseBody(TeaModel):
     def __init__(self, handshake=None, request_id=None):
+        # The information about the invitation.
         self.handshake = handshake  # type: InviteAccountToResourceDirectoryResponseBodyHandshake
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -7431,8 +7980,11 @@ class ListHandshakesForResourceDirectoryResponse(TeaModel):
 
 class ListMessageContactVerificationsRequest(TeaModel):
     def __init__(self, contact_id=None, page_number=None, page_size=None):
+        # The ID of the contact.
         self.contact_id = contact_id  # type: str
+        # The page number.
         self.page_number = page_number  # type: int
+        # The number of entries per page.
         self.page_size = page_size  # type: int
 
     def validate(self):
@@ -7465,7 +8017,12 @@ class ListMessageContactVerificationsRequest(TeaModel):
 
 class ListMessageContactVerificationsResponseBodyContactVerifications(TeaModel):
     def __init__(self, contact_id=None, target=None):
+        # The ID of the contact.
         self.contact_id = contact_id  # type: str
+        # The object that is used for verification. Valid values:
+        # 
+        # - Mobile phone number
+        # - Email address
         self.target = target  # type: str
 
     def validate(self):
@@ -7495,10 +8052,15 @@ class ListMessageContactVerificationsResponseBodyContactVerifications(TeaModel):
 class ListMessageContactVerificationsResponseBody(TeaModel):
     def __init__(self, contact_verifications=None, page_number=None, page_size=None, request_id=None,
                  total_count=None):
+        # The record for the contact to be verified.
         self.contact_verifications = contact_verifications  # type: list[ListMessageContactVerificationsResponseBodyContactVerifications]
+        # The page number.
         self.page_number = page_number  # type: int
+        # The number of entries per page.
         self.page_size = page_size  # type: int
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -7586,9 +8148,17 @@ class ListMessageContactVerificationsResponse(TeaModel):
 
 class ListMessageContactsRequest(TeaModel):
     def __init__(self, contact_id=None, member=None, page_number=None, page_size=None):
+        # The ID of the contact.
         self.contact_id = contact_id  # type: str
+        # The ID of the object to which the contact is bound. Valid values:
+        # 
+        # *   ID of the resource directory
+        # *   ID of the folder
+        # *   ID of the member
         self.member = member  # type: str
+        # The page number.
         self.page_number = page_number  # type: int
+        # The number of entries per page.
         self.page_size = page_size  # type: int
 
     def validate(self):
@@ -7626,15 +8196,29 @@ class ListMessageContactsRequest(TeaModel):
 class ListMessageContactsResponseBodyContacts(TeaModel):
     def __init__(self, associated_date=None, contact_id=None, create_date=None, email_address=None, members=None,
                  message_types=None, name=None, phone_number=None, status=None, title=None):
+        # The time when the contact was bound to the objects.
         self.associated_date = associated_date  # type: str
+        # The ID of the contact.
         self.contact_id = contact_id  # type: str
+        # The time when the contact was added.
         self.create_date = create_date  # type: str
+        # The email address of the contact.
         self.email_address = email_address  # type: str
+        # The IDs of objects to which the contact is bound.
         self.members = members  # type: list[str]
+        # The types of messages received by the contact.
         self.message_types = message_types  # type: list[str]
+        # The name of the contact.
         self.name = name  # type: str
+        # The mobile phone number of the contact.
         self.phone_number = phone_number  # type: str
+        # The status of the contact. Valid values:
+        # 
+        # - Verifying
+        # - Active
+        # - Deleting
         self.status = status  # type: str
+        # The job title of the contact.
         self.title = title  # type: str
 
     def validate(self):
@@ -7695,10 +8279,15 @@ class ListMessageContactsResponseBodyContacts(TeaModel):
 
 class ListMessageContactsResponseBody(TeaModel):
     def __init__(self, contacts=None, page_number=None, page_size=None, request_id=None, total_count=None):
+        # The time when the contact was bound to the objects.
         self.contacts = contacts  # type: list[ListMessageContactsResponseBodyContacts]
+        # The page number.
         self.page_number = page_number  # type: int
+        # The number of entries per page.
         self.page_size = page_size  # type: int
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -8224,8 +8813,20 @@ class ListTargetAttachmentsForControlPolicyResponse(TeaModel):
 
 class ListTrustedServiceStatusRequest(TeaModel):
     def __init__(self, admin_account_id=None, page_number=None, page_size=None):
+        # The ID of the management account or delegated administrator account.
+        # 
+        # *   If you set this parameter to the ID of a management account, the trusted services that are enabled within the management account are queried. The default value of this parameter is the ID of an management account.
+        # *   If you set this parameter to the ID of a delegated administrator account, the trusted services that are enabled within the delegated administrator account are queried.
+        # 
+        # For more information about trusted services and delegated administrator accounts, see [Overview of trusted services](~~208133~~) and [Delegated administrator accounts](~~208117~~).
         self.admin_account_id = admin_account_id  # type: str
+        # The number of the page to return.
+        # 
+        # Pages start from page 1. Default value: 1.
         self.page_number = page_number  # type: int
+        # The number of entries to return on each page.
+        # 
+        # Valid values: 1 to 100. Default value: 10.
         self.page_size = page_size  # type: int
 
     def validate(self):
@@ -8258,7 +8859,9 @@ class ListTrustedServiceStatusRequest(TeaModel):
 
 class ListTrustedServiceStatusResponseBodyEnabledServicePrincipalsEnabledServicePrincipal(TeaModel):
     def __init__(self, enable_time=None, service_principal=None):
+        # The time when the trusted service was enabled.
         self.enable_time = enable_time  # type: str
+        # The identifier of the trusted service.
         self.service_principal = service_principal  # type: str
 
     def validate(self):
@@ -8320,10 +8923,15 @@ class ListTrustedServiceStatusResponseBodyEnabledServicePrincipals(TeaModel):
 class ListTrustedServiceStatusResponseBody(TeaModel):
     def __init__(self, enabled_service_principals=None, page_number=None, page_size=None, request_id=None,
                  total_count=None):
+        # The information about the trusted services that are enabled.
         self.enabled_service_principals = enabled_service_principals  # type: ListTrustedServiceStatusResponseBodyEnabledServicePrincipals
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -8500,7 +9108,11 @@ class MoveAccountResponse(TeaModel):
 
 class RegisterDelegatedAdministratorRequest(TeaModel):
     def __init__(self, account_id=None, service_principal=None):
+        # The Alibaba Cloud account ID of the member in the resource directory.
         self.account_id = account_id  # type: str
+        # The identifier of the trusted service.
+        # 
+        # For more information, see the `Trusted service identifier` column in [Supported trusted services](~~208133~~).
         self.service_principal = service_principal  # type: str
 
     def validate(self):
@@ -8529,6 +9141,7 @@ class RegisterDelegatedAdministratorRequest(TeaModel):
 
 class RegisterDelegatedAdministratorResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -8770,7 +9383,11 @@ class RetryChangeAccountEmailResponse(TeaModel):
 
 class SendEmailVerificationForMessageContactRequest(TeaModel):
     def __init__(self, contact_id=None, email_address=None):
+        # The ID of the contact.
         self.contact_id = contact_id  # type: str
+        # The email address of the contact.
+        # 
+        # The specified email address must be the one you specify when you call [AddMessageContact](~~AddMessageContact~~).
         self.email_address = email_address  # type: str
 
     def validate(self):
@@ -8799,6 +9416,7 @@ class SendEmailVerificationForMessageContactRequest(TeaModel):
 
 class SendEmailVerificationForMessageContactResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -8862,7 +9480,13 @@ class SendEmailVerificationForMessageContactResponse(TeaModel):
 
 class SendPhoneVerificationForMessageContactRequest(TeaModel):
     def __init__(self, contact_id=None, phone_number=None):
+        # The ID of the contact.
         self.contact_id = contact_id  # type: str
+        # The mobile phone number of the contact.
+        # 
+        # The value must be in the `<Country code>-<Mobile phone number>` format.
+        # 
+        # The specified mobile phone number must be the one you specify when you call the [AddMessageContact](~~AddMessageContact~~) operation.
         self.phone_number = phone_number  # type: str
 
     def validate(self):
@@ -8891,6 +9515,7 @@ class SendPhoneVerificationForMessageContactRequest(TeaModel):
 
 class SendPhoneVerificationForMessageContactResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -9534,8 +10159,18 @@ class UntagResourcesResponse(TeaModel):
 
 class UpdateAccountRequest(TeaModel):
     def __init__(self, account_id=None, new_account_type=None, new_display_name=None):
+        # The Alibaba Cloud account ID of the member.
         self.account_id = account_id  # type: str
+        # The new type of the member. Valid values:
+        # 
+        # *   ResourceAccount: resource account
+        # *   CloudAccount: cloud account
+        # 
+        # > You can specify either `NewDisplayName` or `NewAccountType`.
         self.new_account_type = new_account_type  # type: str
+        # The new display name of the member.
+        # 
+        # > You can specify either `NewDisplayName` or `NewAccountType`.
         self.new_display_name = new_display_name  # type: str
 
     def validate(self):
@@ -9569,15 +10204,36 @@ class UpdateAccountRequest(TeaModel):
 class UpdateAccountResponseBodyAccount(TeaModel):
     def __init__(self, account_id=None, account_name=None, display_name=None, folder_id=None, join_method=None,
                  join_time=None, modify_time=None, resource_directory_id=None, status=None, type=None):
+        # The Alibaba Cloud account ID of the member.
         self.account_id = account_id  # type: str
+        # The Alibaba Cloud account name of the member.
         self.account_name = account_name  # type: str
+        # The display name of the member.
         self.display_name = display_name  # type: str
+        # The ID of the folder.
         self.folder_id = folder_id  # type: str
+        # The way in which the member joins the resource directory. Valid values:
+        # 
+        # *   invited: The member is invited to join the resource directory.
+        # *   created: The member is directly created in the resource directory.
         self.join_method = join_method  # type: str
+        # The time when the member joined the resource directory. The time is displayed in UTC.
         self.join_time = join_time  # type: str
+        # The time when the member was modified. The time is displayed in UTC.
         self.modify_time = modify_time  # type: str
+        # The ID of the resource directory.
         self.resource_directory_id = resource_directory_id  # type: str
+        # The status of the member. Valid values:
+        # 
+        # *   CreateSuccess: The member is created.
+        # *   InviteSuccess: The member accepts the invitation.
+        # *   Removed: The member is removed.
+        # *   SwitchSuccess: The type of the member is switched.
         self.status = status  # type: str
+        # The type of the member. Valid values:
+        # 
+        # *   CloudAccount: cloud account
+        # *   ResourceAccount: resource account
         self.type = type  # type: str
 
     def validate(self):
@@ -9638,7 +10294,9 @@ class UpdateAccountResponseBodyAccount(TeaModel):
 
 class UpdateAccountResponseBody(TeaModel):
     def __init__(self, account=None, request_id=None):
+        # The information of the member.
         self.account = account  # type: UpdateAccountResponseBodyAccount
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -10056,11 +10714,73 @@ class UpdateFolderResponse(TeaModel):
 class UpdateMessageContactRequest(TeaModel):
     def __init__(self, contact_id=None, email_address=None, message_types=None, name=None, phone_number=None,
                  title=None):
+        # The ID of the contact.
         self.contact_id = contact_id  # type: str
+        # The email address of the contact.
+        # 
+        # After you specify an email address, you need to call [SendEmailVerificationForMessageContact](~~SendEmailVerificationForMessageContact~~) to send verification information to the email address. After the verification is passed, the email address takes effect.
         self.email_address = email_address  # type: str
+        # The types of messages received by the contact.
         self.message_types = message_types  # type: list[str]
+        # The name of the contact.
         self.name = name  # type: str
+        # The mobile phone number of the contact.
+        # 
+        # Specify the mobile phone number in the `<Country code>-<Mobile phone number>` format.
+        # 
+        # After you specify a mobile phone number, you need to call [SendPhoneVerificationForMessageContact](~~SendPhoneVerificationForMessageContact~~) to send verification information to the mobile phone number. After the verification is passed, the mobile phone number takes effect.
         self.phone_number = phone_number  # type: str
+        # The job title of the contact.
+        # 
+        # Valid values:
+        # 
+        # *   FinanceDirector
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        # *   TechnicalDirector
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        # *   MaintenanceDirector
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        # *   CEO
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        # *   ProjectDirector
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        # *   Other
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
         self.title = title  # type: str
 
     def validate(self):
@@ -10105,6 +10825,7 @@ class UpdateMessageContactRequest(TeaModel):
 
 class UpdateMessageContactResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
