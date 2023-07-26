@@ -5,9 +5,13 @@ from Tea.model import TeaModel
 
 class ChangeResourceGroupRequest(TeaModel):
     def __init__(self, client_token=None, new_resource_group_id=None, resource_id=None, resource_type=None):
+        # The client token that is used to ensure the idempotence of the request.
         self.client_token = client_token  # type: str
+        # The ID of the resource group to which you want to move the resource.
         self.new_resource_group_id = new_resource_group_id  # type: str
+        # The ID of the resource.
         self.resource_id = resource_id  # type: str
+        # The type of the resource. Set the value to backupplan.
         self.resource_type = resource_type  # type: str
 
     def validate(self):
@@ -45,12 +49,25 @@ class ChangeResourceGroupRequest(TeaModel):
 class ChangeResourceGroupResponseBody(TeaModel):
     def __init__(self, code=None, data=None, err_code=None, err_message=None, message=None, request_id=None,
                  success=None):
+        # The status code returned.
         self.code = code  # type: str
+        # Indicates whether the resource was successfully moved. Valid values:
+        # 
+        # *   **true**: The resource was successfully moved.
+        # *   **false**: The resource failed to be moved.
         self.data = data  # type: str
+        # The error code returned if the request failed.
         self.err_code = err_code  # type: str
+        # The error message returned if the request failed.
         self.err_message = err_message  # type: str
+        # The additional information.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # *   **true**: The request was successful.
+        # *   **false**: The request failed.
         self.success = success  # type: str
 
     def validate(self):
@@ -140,26 +157,28 @@ class CreateDownloadRequest(TeaModel):
     def __init__(self, bak_set_id=None, bak_set_size=None, bak_set_type=None, download_point_in_time=None,
                  format_type=None, instance_name=None, region_code=None, target_bucket=None, target_oss_region=None,
                  target_path=None, target_type=None):
-        # The ID of the backup set. You can call the [DescribeBackups](~~26273~~) operation to obtain the ID of the backup set.
+        # The ID of the backup set. You can call the [DescribeBackups](~~26273~~) operation to query the ID of the backup set.
         # 
-        # >  This parameter is required if the BakSetType parameter is set to full.
+        # > This parameter is required if the BakSetType parameter is set to full.
         self.bak_set_id = bak_set_id  # type: str
-        # The size of the full backup set. You can call the [DescribeBackups](~~26273~~) operation to query the size of the full backup set. Unit: bytes.
+        # The size of the full backup set. Unit: bytes. You can call the [DescribeBackups](~~26273~~) operation to query the size of the full backup set.
         self.bak_set_size = bak_set_size  # type: str
         # The type of the download task. Valid values:
         # 
         # *   **full**: downloads a full backup set.
         # *   **pitr**: downloads a backup set at a specific point in time.
         self.bak_set_type = bak_set_type  # type: str
-        # The point in time at which the backup set is downloaded. The UNIX timestamp of the LONG type. Unit: milliseconds.
+        # The point in time at which the backup set is downloaded. Specify a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         # 
-        # >  This parameter is required if the BakSetType parameter is set to pitr.
+        # > This parameter is required if the BakSetType parameter is set to pitr.
         self.download_point_in_time = download_point_in_time  # type: str
-        # The destination format to which the downloaded backup set is converted. Valid values:
+        # The format to which the downloaded backup set is converted. Valid values:
         # 
-        # *   **csv**\
+        # *   **CSV**\
         # *   **SQL**\
         # *   **Parquet**\
+        # 
+        # > This parameter is required.
         self.format_type = format_type  # type: str
         # The ID of the instance.
         self.instance_name = instance_name  # type: str
@@ -168,17 +187,17 @@ class CreateDownloadRequest(TeaModel):
         # The name of the OSS bucket that is used to store the backup set.
         # 
         # *   This parameter is required if the TargetType parameter is set to OSS.
-        # *   Make sure that your account has the **AliyunDBSDefaultRole** permission. For more information, see [Use RAM for resource authorization](~~26307~~). You can also grant permissions based on the operation instructions in the RAM console.
+        # *   Make sure that your account is granted the **AliyunDBSDefaultRole** permission. For more information, see [Use RAM for resource authorization](~~26307~~). You can also grant permissions based on the operation instructions in the Resource Access Management (RAM) console.
         self.target_bucket = target_bucket  # type: str
         # The region in which the OSS bucket resides.
         # 
-        # >  This parameter is required if the TargetType parameter is set to OSS.
+        # > This parameter is required if the TargetType parameter is set to OSS.
         self.target_oss_region = target_oss_region  # type: str
-        # The destination path of the downloaded data.
+        # The destination path to which the backup set is downloaded.
         # 
-        # >  This parameter is required if the TargetType parameter is set to OSS.
+        # > This parameter is required if the TargetType parameter is set to OSS.
         self.target_path = target_path  # type: str
-        # The type of the method in which the backup set is downloaded. Valid values:
+        # The type of the destination to which the backup set is downloaded. Valid values:
         # 
         # *   **OSS**\
         # *   **URL**\
@@ -248,42 +267,42 @@ class CreateDownloadResponseBodyData(TeaModel):
     def __init__(self, backup_set_time=None, bak_set_id=None, db_list=None, download_status=None,
                  export_data_size=None, format=None, gmt_create=None, import_data_size=None, progress=None, region_code=None,
                  target_path=None, target_type=None, task_id=None):
-        # The point in time of the backup set if the task is used to download a backup set at a specific point in time. The value is a timestamp.
+        # The point in time of the backup set if the task is used to download a backup set at a specific point in time. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.backup_set_time = backup_set_time  # type: long
         # The ID of the full backup set.
         self.bak_set_id = bak_set_id  # type: str
-        # The database and table information that is returned if the download task is a database and table filtering task.
+        # The database and table information that is returned if databases and tables are filtered by the download task.
         self.db_list = db_list  # type: str
-        # The status of the download task. Valid values:
+        # The state of the download task. Valid values:
         # 
-        # *   Initializing: The download task is being initialized.
-        # *   queuing: The download task is queuing.
-        # *   running: The download task is running.
-        # *   failed: The download task fails.
-        # *   finished: The download task is complete.
-        # *   expired: The download task expires.
+        # *   initializing: The download task was being initialized.
+        # *   queuing: The download task was queuing.
+        # *   running: The download task was running.
+        # *   failed: The download task failed.
+        # *   finished: The download task was complete.
+        # *   expired: The download task expired.
         # 
-        # >  The download task expires in three days after the task is complete if the TargetType parameter is set to URL.
+        # > If the TargetType parameter is set to URL, the download task expires in three days after the task is complete.
         self.download_status = download_status  # type: str
-        # The amount of output data. Unit: bytes.
+        # The size of the downloaded data. Unit: bytes.
         self.export_data_size = export_data_size  # type: long
         # The format to which the downloaded data is converted.
         self.format = format  # type: str
-        # The time when the download task was created. The value is a timestamp.
+        # The time when the download task was created. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.gmt_create = gmt_create  # type: long
-        # The amount of data that is processed. Unit: bytes.
+        # The size of the processed data. Unit: bytes.
         self.import_data_size = import_data_size  # type: long
         # The number of tables that have been downloaded and the total number of tables to be downloaded.
         # 
-        # >  If the task is in the preparation stage, 0/0 is returned.
+        # > If the task is in the preparation stage, 0/0 is returned.
         self.progress = progress  # type: str
         # The ID of the region in which the instance resides.
         self.region_code = region_code  # type: str
-        # The destination path of the downloaded data.
+        # The destination path to which the backup set is downloaded.
         # 
-        # >  This parameter is returned if the TargetType parameter is set to OSS.
+        # > This parameter is returned if the TargetType parameter is set to OSS.
         self.target_path = target_path  # type: str
-        # The type of the method in which the backup set is downloaded.
+        # The type of the destination to which the backup set is downloaded.
         self.target_type = target_type  # type: str
         # The ID of the download task.
         self.task_id = task_id  # type: str
@@ -359,22 +378,22 @@ class CreateDownloadResponseBodyData(TeaModel):
 class CreateDownloadResponseBody(TeaModel):
     def __init__(self, code=None, data=None, err_code=None, err_message=None, message=None, request_id=None,
                  success=None):
-        # The error code.
+        # The status code returned.
         self.code = code  # type: str
-        # The response parameters.
+        # The returned data.
         self.data = data  # type: CreateDownloadResponseBodyData
-        # The error code.
+        # The error code returned if the request failed.
         self.err_code = err_code  # type: str
-        # The error message.
+        # The error message returned if the request failed.
         self.err_message = err_message  # type: str
-        # The error message.
+        # The error message returned if the request failed.
         self.message = message  # type: str
         # The ID of the request.
         self.request_id = request_id  # type: str
-        # Indicates whether the request is successful. Valid values:
+        # Indicates whether the request was successful. Valid values:
         # 
-        # *   **true**: The request is successful.
-        # *   **false**: The request fails.
+        # *   **true**: The request was successful.
+        # *   **false**: The request failed.
         self.success = success  # type: str
 
     def validate(self):
@@ -468,15 +487,15 @@ class CreateSandboxInstanceRequest(TeaModel):
                  vpc_switch_id=None):
         # The ID of the backup schedule. You can call the [DescribeBackupPlanList](~~437215~~) operation to obtain the ID of the backup schedule.
         # 
-        # >  If your instance is an ApsaraDB RDS for MySQL instance, you can configure [automatic access to the instance](~~193091~~) to automatically add the instance to DBS and obtain the ID of the backup schedule.
+        # > If your instance is an ApsaraDB RDS for MySQL instance, you can [configure automatic access to a data source](~~193091~~) to automatically add the instance to DBS and obtain the ID of the backup schedule.
         self.backup_plan_id = backup_plan_id  # type: str
         # The ID of the backup set to be restored, which is the point in time when a snapshot was created. You can call the [DescribeSandboxBackupSets](~~437256~~) operation to obtain the ID.
         # 
-        # >  You need to specify only one of the **BackupSetId** and **RestoreTime** parameters.
+        # > You need to specify only one of the **BackupSetId** and **RestoreTime** parameters.
         self.backup_set_id = backup_set_id  # type: str
         # The point in time of the sandbox instance to be restored. You can call the [DescribeSandboxRecoveryTime](~~437258~~) operation to view the recoverable time range. Specify the time in the format of *yyyy-MM-ddTHH:mm:ssZ*. The time must be in UTC.
         self.restore_time = restore_time  # type: str
-        # The name of the sandbox instance.
+        # The custom name of the sandbox instance.
         self.sandbox_instance_name = sandbox_instance_name  # type: str
         # The password of the privileged account created in the sandbox instance.
         self.sandbox_password = sandbox_password  # type: str
@@ -491,13 +510,13 @@ class CreateSandboxInstanceRequest(TeaModel):
         # *   **MYSQL\_8C\_16M_SD**: 8 CPU cores and 16 GB of memory.
         # *   **MYSQL\_8C\_32M_SD**: 8 CPU cores and 32 GB of memory.
         # 
-        # >  Different specifications have little impact on the recovery speed. High-specification instances provide better performance after restoration. For more information, see [Sandbox instance fees](~~201466~~).
+        # > Different specifications have little impact on the recovery speed. High-specification instances provide better performance after restoration. For more information, see [DBS sandbox fees](~~201466~~).
         self.sandbox_specification = sandbox_specification  # type: str
         # The type of the sandbox instance. You can call this operation only to create an instance of the **Sandbox** type. After the sandbox instance is created, the MySQL endpoint of the instance is provided.
         self.sandbox_type = sandbox_type  # type: str
         # The privileged account created in the sandbox instance.
         # 
-        # *   After you specify this parameter, the system creates a privileged account in the sandbox instance. The account has the permissions on all databases in the instance.
+        # *   After you specify this parameter, the system creates a privileged account in the sandbox instance. The account is granted the permissions on all databases in the instance.
         # 
         # The account of the source database is retained in the sandbox instance.
         # 
@@ -505,7 +524,7 @@ class CreateSandboxInstanceRequest(TeaModel):
         self.sandbox_user = sandbox_user  # type: str
         # The ID of the virtual private cloud (VPC) that is used to connect to the sandbox instance. If you want to connect to the sandbox instance by using Elastic Compute Service (ECS) instances, you must set this parameter to the VPC in which the ECS instances reside.
         # 
-        # >  You can set this parameter if you want to use it in a recovery drill scenario.
+        # > You can set this parameter if you want to use it in a recovery drill scenario.
         self.vpc_id = vpc_id  # type: str
         # The ID of the VSwitch that is used to connect to the sandbox instance.
         self.vpc_switch_id = vpc_switch_id  # type: str
@@ -568,7 +587,7 @@ class CreateSandboxInstanceRequest(TeaModel):
 
 class CreateSandboxInstanceResponseBodyData(TeaModel):
     def __init__(self, backup_plan_id=None, instance_id=None):
-        # The ID of the backup schedule.
+        # The ID of the backup plan.
         self.backup_plan_id = backup_plan_id  # type: str
         # The ID of the sandbox instance.
         self.instance_id = instance_id  # type: str
@@ -600,19 +619,19 @@ class CreateSandboxInstanceResponseBodyData(TeaModel):
 class CreateSandboxInstanceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, err_code=None, err_message=None, message=None, request_id=None,
                  success=None):
-        # The error code.
+        # The error code returned if the request fails.
         self.code = code  # type: str
         # The response parameters.
         self.data = data  # type: CreateSandboxInstanceResponseBodyData
-        # The error code.
+        # The error code returned if the request fails.
         self.err_code = err_code  # type: str
-        # The error message.
+        # The error message returned if the request fails.
         self.err_message = err_message  # type: str
-        # The error message.
+        # The error message returned if the request fails.
         self.message = message  # type: str
         # The ID of the request.
         self.request_id = request_id  # type: str
-        # Indicates whether the request is successful.
+        # Indicates whether the request was successful.
         self.success = success  # type: str
 
     def validate(self):
@@ -702,11 +721,11 @@ class CreateSandboxInstanceResponse(TeaModel):
 
 class DeleteSandboxInstanceRequest(TeaModel):
     def __init__(self, backup_plan_id=None, instance_id=None):
-        # The ID of the backup schedule. You can call the [DescribeBackupPlanList](~~437215~~) operation to obtain the ID of the backup schedule.
+        # The ID of the backup schedule. You can call the [DescribeBackupPlanList](~~437215~~) operation to query the ID of the backup schedule.
         # 
-        # >  If your instance is an ApsaraDB RDS for MySQL instance, you can configure [automatic access to the instance](~~193091~~) to automatically add the instance to DBS and obtain the ID of the backup schedule.
+        # > If your instance is an ApsaraDB RDS for MySQL instance, you can [configure automatic access to a data source](~~193091~~) to automatically add the instance to DBS and obtain the ID of the backup schedule.
         self.backup_plan_id = backup_plan_id  # type: str
-        # The ID of the sandbox instance. You can call the [DescribeSandboxInstances](~~437257~~) operation to obtain the ID of the sandbox instance.
+        # The ID of the sandbox instance. You can call the [DescribeSandboxInstances](~~437257~~) operation to query the ID of the sandbox instance.
         self.instance_id = instance_id  # type: str
 
     def validate(self):
@@ -736,19 +755,19 @@ class DeleteSandboxInstanceRequest(TeaModel):
 class DeleteSandboxInstanceResponseBody(TeaModel):
     def __init__(self, code=None, data=None, err_code=None, err_message=None, message=None, request_id=None,
                  success=None):
-        # The error code.
+        # The error code returned if the request failed.
         self.code = code  # type: str
-        # The response parameters.
+        # The returned data.
         self.data = data  # type: str
-        # The error code.
+        # The error code returned if the request failed.
         self.err_code = err_code  # type: str
-        # The error message.
+        # The error message returned if the request failed.
         self.err_message = err_message  # type: str
-        # The error message.
+        # The error message returned if the request failed.
         self.message = message  # type: str
         # The ID of the request.
         self.request_id = request_id  # type: str
-        # Indicates whether the request is successful.
+        # Indicates whether the request was successful.
         self.success = success  # type: str
 
     def validate(self):
@@ -835,10 +854,9 @@ class DeleteSandboxInstanceResponse(TeaModel):
 
 
 class DescribeDBTablesRecoveryBackupSetRequest(TeaModel):
-    def __init__(self, instance_id=None, region_code=None, region_id=None):
+    def __init__(self, instance_id=None, region_code=None):
         self.instance_id = instance_id  # type: str
         self.region_code = region_code  # type: str
-        self.region_id = region_id  # type: str
 
     def validate(self):
         pass
@@ -853,8 +871,6 @@ class DescribeDBTablesRecoveryBackupSetRequest(TeaModel):
             result['InstanceId'] = self.instance_id
         if self.region_code is not None:
             result['RegionCode'] = self.region_code
-        if self.region_id is not None:
-            result['RegionId'] = self.region_id
         return result
 
     def from_map(self, m=None):
@@ -863,8 +879,6 @@ class DescribeDBTablesRecoveryBackupSetRequest(TeaModel):
             self.instance_id = m.get('InstanceId')
         if m.get('RegionCode') is not None:
             self.region_code = m.get('RegionCode')
-        if m.get('RegionId') is not None:
-            self.region_id = m.get('RegionId')
         return self
 
 
@@ -963,10 +977,9 @@ class DescribeDBTablesRecoveryBackupSetResponse(TeaModel):
 
 
 class DescribeDBTablesRecoveryStateRequest(TeaModel):
-    def __init__(self, instance_id=None, region_code=None, region_id=None):
+    def __init__(self, instance_id=None, region_code=None):
         self.instance_id = instance_id  # type: str
         self.region_code = region_code  # type: str
-        self.region_id = region_id  # type: str
 
     def validate(self):
         pass
@@ -981,8 +994,6 @@ class DescribeDBTablesRecoveryStateRequest(TeaModel):
             result['InstanceId'] = self.instance_id
         if self.region_code is not None:
             result['RegionCode'] = self.region_code
-        if self.region_id is not None:
-            result['RegionId'] = self.region_id
         return result
 
     def from_map(self, m=None):
@@ -991,8 +1002,6 @@ class DescribeDBTablesRecoveryStateRequest(TeaModel):
             self.instance_id = m.get('InstanceId')
         if m.get('RegionCode') is not None:
             self.region_code = m.get('RegionCode')
-        if m.get('RegionId') is not None:
-            self.region_id = m.get('RegionId')
         return self
 
 
@@ -1091,10 +1100,9 @@ class DescribeDBTablesRecoveryStateResponse(TeaModel):
 
 
 class DescribeDBTablesRecoveryTimeRangeRequest(TeaModel):
-    def __init__(self, instance_id=None, region_code=None, region_id=None):
+    def __init__(self, instance_id=None, region_code=None):
         self.instance_id = instance_id  # type: str
         self.region_code = region_code  # type: str
-        self.region_id = region_id  # type: str
 
     def validate(self):
         pass
@@ -1109,8 +1117,6 @@ class DescribeDBTablesRecoveryTimeRangeRequest(TeaModel):
             result['InstanceId'] = self.instance_id
         if self.region_code is not None:
             result['RegionCode'] = self.region_code
-        if self.region_id is not None:
-            result['RegionId'] = self.region_id
         return result
 
     def from_map(self, m=None):
@@ -1119,8 +1125,6 @@ class DescribeDBTablesRecoveryTimeRangeRequest(TeaModel):
             self.instance_id = m.get('InstanceId')
         if m.get('RegionCode') is not None:
             self.region_code = m.get('RegionCode')
-        if m.get('RegionId') is not None:
-            self.region_id = m.get('RegionId')
         return self
 
 
@@ -1222,22 +1226,22 @@ class DescribeDownloadBackupSetStorageInfoRequest(TeaModel):
     def __init__(self, backup_set_id=None, duration=None, instance_name=None, region_code=None, task_id=None):
         # The ID of the backup set.
         self.backup_set_id = backup_set_id  # type: str
-        # Set this parameter if the Download Destination parameter is set to URL.
+        # The validity period of the URL that is used as the download destination. Take note of the following items:
         # 
-        # *   By default, a URL is valid for 2 hours, which is equal to 7,200 seconds.
-        # *   The valid duration is 5 minutes (300 seconds) to 1 day (86,400 seconds).
-        # *   Before you set this parameter, convert the time to seconds. For example, if you want to set the validity period of the link to 5 minutes, enter 300.
+        # *   Default value: 7200. This means that the URL is valid for 2 hours by default.
+        # *   Valid values: 300 to 86400. Unit: seconds. This means that you can specify a validity period in the range of 5 minutes to 1 day.
+        # *   Before you specify this parameter, convert the validity period to seconds. For example, if you want to set the validity period of the URL to 5 minutes, enter 300.
         self.duration = duration  # type: str
         # The ID of the instance.
         # 
-        # >  The **BackupSetId** parameter is required if you specify the **InstanceName** parameter.
+        # > The **BackupSetId** parameter is required if you specify the **InstanceName** parameter.
         self.instance_name = instance_name  # type: str
-        # The region ID of the instance. You can call the [DescribeDBInstanceAttribute](~~26231~~) operation to query the region ID of the instance.
+        # The ID of the region in which the instance resides. You can call the [DescribeDBInstanceAttribute](~~26231~~) operation to query the region ID of the instance.
         self.region_code = region_code  # type: str
         # The ID of the download task.
         # 
         # *   The **BackupSetId** and **InstanceName** parameters are required if you do not specify the **TaskId** parameter.
-        # *   You can find the instance and click **Backup and Restoration**. On the **Backup Download** tab, view the **task ID**.
+        # *   You can go to the instance details page in the Alibaba Cloud Management Console and click **Backup and Restoration** in the left-side navigation pane. On the **Backup Download** tab, view the task ID.
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -1278,9 +1282,9 @@ class DescribeDownloadBackupSetStorageInfoRequest(TeaModel):
 
 class DescribeDownloadBackupSetStorageInfoResponseBodyData(TeaModel):
     def __init__(self, expiration_time=None, private_url=None, public_url=None):
-        # The expiration time of the URL.
+        # The validity period of the URL.
         # 
-        # >  The return value is in the timestamp format.
+        # > This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.expiration_time = expiration_time  # type: long
         # The private download URL of the backup set.
         self.private_url = private_url  # type: str
@@ -1318,22 +1322,22 @@ class DescribeDownloadBackupSetStorageInfoResponseBodyData(TeaModel):
 class DescribeDownloadBackupSetStorageInfoResponseBody(TeaModel):
     def __init__(self, code=None, data=None, err_code=None, err_message=None, message=None, request_id=None,
                  success=None):
-        # The error code.
+        # The error code returned if the request failed.
         self.code = code  # type: str
-        # The response parameters.
+        # The returned data.
         self.data = data  # type: DescribeDownloadBackupSetStorageInfoResponseBodyData
-        # The error code.
+        # The error code returned if the request failed.
         self.err_code = err_code  # type: str
-        # The error message.
+        # The error message returned if the request failed.
         self.err_message = err_message  # type: str
-        # The error message.
+        # The error message returned if the request failed.
         self.message = message  # type: str
         # The ID of the request.
         self.request_id = request_id  # type: str
         # Indicates whether the request was successful. Valid values:
         # 
-        # *   **true**: the request is successful.
-        # *   **false**: the request fails.
+        # *   **true**: The request was successful.
+        # *   **false**: The request failed.
         self.success = success  # type: str
 
     def validate(self):
@@ -1455,25 +1459,25 @@ class DescribeDownloadSupportRequest(TeaModel):
 class DescribeDownloadSupportResponseBody(TeaModel):
     def __init__(self, code=None, data=None, err_code=None, err_message=None, message=None, request_id=None,
                  success=None):
-        # The error code.
+        # The error code returned if the request failed.
         self.code = code  # type: str
         # Indicates whether the advanced download feature is supported. Valid values:
         # 
         # *   **true**: The advanced download feature is supported.
         # *   **false**: The advanced download feature is not supported.
         self.data = data  # type: str
-        # The error code returned if the request fails.
+        # The error code returned if the request failed.
         self.err_code = err_code  # type: str
-        # The error message returned if the request fails.
+        # The error message returned if the request failed.
         self.err_message = err_message  # type: str
-        # The error message.
+        # The error message returned if the request failed.
         self.message = message  # type: str
         # The ID of the request.
         self.request_id = request_id  # type: str
-        # Indicates whether the request is successful. Valid values:
+        # Indicates whether the request was successful. Valid values:
         # 
-        # *   **true**: The request is successful.
-        # *   **false**: The request fails.
+        # *   **true**: The request was successful.
+        # *   **false**: The request failed.
         self.success = success  # type: str
 
     def validate(self):
@@ -1563,7 +1567,7 @@ class DescribeDownloadTaskRequest(TeaModel):
     def __init__(self, backup_set_id=None, current_page=None, datasource_id=None, end_time=None, instance_name=None,
                  order_column=None, order_direct=None, page_size=None, region_code=None, start_time=None, state=None,
                  task_type=None):
-        # The ID of the backup set generated when you create the download task. You can call the [DescribeBackups](~~26273~~) operation to query the backup set ID. Unit: bytes.
+        # The ID of the backup set generated when you create a download task. You can call the [DescribeBackups](~~26273~~) operation to query the ID.
         self.backup_set_id = backup_set_id  # type: str
         # The page number of the page to return.
         self.current_page = current_page  # type: str
@@ -1572,13 +1576,15 @@ class DescribeDownloadTaskRequest(TeaModel):
         # The end of the time range to query. Specify this parameter as a timestamp of the LONG type. Unit: milliseconds.
         self.end_time = end_time  # type: str
         # The ID of the instance.
+        # 
+        # > This parameter is required.
         self.instance_name = instance_name  # type: str
-        # The column based on which the entries are sorted. By default, the entries are sorted by the creation time. Set the value to **gmt_create**.
+        # The column based on which the entries are sorted. By default, the entries are sorted by the time when the download task was created. Set the value to **gmt_create**.
         self.order_column = order_column  # type: str
         # The order in which you want to sort the entries. Valid values:
         # 
-        # *   **asc**: sorts the retrieved entries by time in ascending order.
-        # *   **desc**: sorts the retrieved entries by time in descending order. This is the default value.
+        # *   **asc**: the ascending order.
+        # *   **desc**: the descending order. This is the default value.
         self.order_direct = order_direct  # type: str
         # The number of entries to return on each page.
         self.page_size = page_size  # type: str
@@ -1586,13 +1592,14 @@ class DescribeDownloadTaskRequest(TeaModel):
         self.region_code = region_code  # type: str
         # The beginning of the time range to query. Specify this parameter as a timestamp of the LONG type. Unit: milliseconds.
         self.start_time = start_time  # type: str
-        # The status of the download task. Valid values:
+        # The state of the download task. Valid values:
         # 
         # *   **Initializing**: The download task is being initialized.
         # *   **queuing**: The download task is queuing.
         # *   **running**: The download task is running.
         # *   **failed**: The download task fails.
         # *   **finished**: The download task is complete.
+        # *   **expired**: The download task expires.
         self.state = state  # type: str
         # The type of the download task. Valid values:
         # 
@@ -1672,16 +1679,16 @@ class DescribeDownloadTaskResponseBodyDataContentList(TeaModel):
         self.backup_set_time = backup_set_time  # type: str
         # The ID of the full backup set.
         self.bak_set_id = bak_set_id  # type: str
-        # The details of the databases.
+        # The databases.
         self.db_list = db_list  # type: str
-        # The status of the download task. Valid values:
+        # The state of the download task. Valid values:
         # 
-        # *   **Initializing**: The download task is being initialized.
-        # *   **queuing**: The download task is queuing.
-        # *   **running**: The download task is running.
-        # *   **failed**: The download task fails.
-        # *   **finished**: The download task is complete.
-        # *   **expired**: The download task expires.
+        # *   **Initializing**: The download task was being initialized.
+        # *   **queuing**: The download task was queuing.
+        # *   **running**: The download task was running.
+        # *   **failed**: The download task failed.
+        # *   **finished**: The download task was complete.
+        # *   **expired**: The download task expired.
         self.download_status = download_status  # type: str
         # The amount of output data. Unit: bytes.
         self.export_data_size = export_data_size  # type: str
@@ -1812,12 +1819,15 @@ class DescribeDownloadTaskResponseBodyDataContent(TeaModel):
 class DescribeDownloadTaskResponseBodyData(TeaModel):
     def __init__(self, content=None, extra=None, page_number=None, page_size=None, total_elements=None,
                  total_pages=None):
-        # The details of the download tasks.
+        # The details of the download task.
         self.content = content  # type: DescribeDownloadTaskResponseBodyDataContent
-        # The extra description of the download task.
+        # The extra description of the download tasks.
         self.extra = extra  # type: str
+        # The page number of the returned page. The value must be an integer that is greater than 0. Default value: 1.
         self.page_number = page_number  # type: long
+        # The number of entries returned per page.
         self.page_size = page_size  # type: long
+        # The total number of full backup tasks.
         self.total_elements = total_elements  # type: long
         # The total number of returned pages.
         self.total_pages = total_pages  # type: long
@@ -1867,22 +1877,22 @@ class DescribeDownloadTaskResponseBodyData(TeaModel):
 class DescribeDownloadTaskResponseBody(TeaModel):
     def __init__(self, code=None, data=None, err_code=None, err_message=None, message=None, request_id=None,
                  success=None):
-        # The error code.
+        # The error code returned if the request fails.
         self.code = code  # type: str
-        # The details of the download tasks.
+        # The details of the download task.
         self.data = data  # type: DescribeDownloadTaskResponseBodyData
-        # The error code.
+        # The error code returned if the request fails.
         self.err_code = err_code  # type: str
-        # The error message.
+        # The error message returned if the request fails.
         self.err_message = err_message  # type: str
-        # The error message.
+        # The error message returned if the request fails.
         self.message = message  # type: str
         # The ID of the request.
         self.request_id = request_id  # type: str
-        # Indicates whether the request is successful. Valid values:
+        # Indicates whether the request was successful. Valid values:
         # 
-        # *   **true**: The request is successful.
-        # *   **false**: The request fails.
+        # *   **true**: The request was successful.
+        # *   **false**: The request failed.
         self.success = success  # type: str
 
     def validate(self):
@@ -1972,19 +1982,19 @@ class DescribeDownloadTaskResponse(TeaModel):
 
 class DescribeSandboxBackupSetsRequest(TeaModel):
     def __init__(self, backup_plan_id=None, backup_set_id=None, page_number=None, page_size=None):
-        # The ID of the backup schedule. You can call the [DescribeBackupPlanList](~~437215~~) operation to obtain the ID of the backup schedule.
+        # The ID of the backup schedule. You can call the [DescribeBackupPlanList](~~437215~~) operation to query the ID of the backup schedule.
         # 
-        # >  If your instance is an ApsaraDB RDS for MySQL instance, you can configure [automatic access to the instance](~~193091~~) to automatically add the instance to DBS and obtain the ID of the backup schedule.
+        # > If your instance is an ApsaraDB RDS for MySQL instance, you can [configure automatic access to a data source](~~193091~~) to automatically add the instance to DBS and obtain the ID of the backup schedule.
         self.backup_plan_id = backup_plan_id  # type: str
-        # The ID of the backup set. If this parameter is specified, only the snapshot of the backup set is returned. If this parameter is not specified, all the snapshots of the backup schedule are returned.
+        # The ID of the backup set. If this parameter is specified, only the snapshot of the specified backup set is returned. If this parameter is not specified, all the snapshots of the backup schedule are returned.
         self.backup_set_id = backup_set_id  # type: str
-        # The number of the page to return. The value must be an integer that is greater than 0. Default value: 1.
+        # The number of the page to return. Pages start from page 1. Default value: 1.
         self.page_number = page_number  # type: str
         # The number of entries to return on each page. Valid values:
         # 
-        # *   30 (default value)
-        # *   50
-        # *   100
+        # *   30: This is the default value.
+        # *   50\.
+        # *   100\.
         self.page_size = page_size  # type: str
 
     def validate(self):
@@ -2022,24 +2032,24 @@ class DescribeSandboxBackupSetsRequest(TeaModel):
 class DescribeSandboxBackupSetsResponseBody(TeaModel):
     def __init__(self, code=None, data=None, err_code=None, err_message=None, message=None, request_id=None,
                  success=None):
-        # The error code.
+        # The error code returned if the request failed.
         self.code = code  # type: str
-        # The response parameters.
+        # The returned data. The following parameters are contained:
         # 
         # *   **backupSetTime**: the point in time when the snapshot was created. The time follows the ISO 8601 standard in the yyyy-MM-ddThh:mm:ssZ format. The time is displayed in UTC.
         # *   **backupSetId**: the ID of the backup set.
         # *   **backupSetType**: the type of the snapshot. A value of **Full** indicates that the snapshot is a full backup snapshot. A value of **Inc** indicates that the snapshot is an incremental backup snapshot.
         # *   **backupPlanId**: the ID of the backup schedule.
         self.data = data  # type: str
-        # The error code.
+        # The error code returned if the request failed.
         self.err_code = err_code  # type: str
-        # The error message.
+        # The error message returned if the request failed.
         self.err_message = err_message  # type: str
-        # The error message.
+        # The error message returned if the request failed.
         self.message = message  # type: str
         # The ID of the request.
         self.request_id = request_id  # type: str
-        # Indicates whether the request is successful.
+        # Indicates whether the request was successful.
         self.success = success  # type: str
 
     def validate(self):
@@ -2129,15 +2139,15 @@ class DescribeSandboxInstancesRequest(TeaModel):
     def __init__(self, backup_plan_id=None, instance_id=None, page_number=None, page_size=None):
         # The ID of the backup schedule. You can call the [DescribeBackupPlanList](~~437215~~) operation to obtain the ID of the backup schedule.
         # 
-        # >  If your instance is an ApsaraDB RDS for MySQL instance, you can configure [automatic access to the instance](~~193091~~) to automatically add the instance to DBS and obtain the ID of the backup schedule.
+        # > If your instance is an ApsaraDB RDS for MySQL instance, you can [configure automatic access to a data source](~~193091~~) to automatically add the instance to DBS and obtain the ID of the backup schedule.
         self.backup_plan_id = backup_plan_id  # type: str
-        # The ID of the sandbox instance. You can call the [CreateSandboxInstance](~~437252~~) parameter to obtain the ID of the sandbox instance.
+        # The ID of the sandbox instance. You can call the [CreateSandboxInstance](~~437252~~) operation to obtain the ID of the sandbox instance.
         self.instance_id = instance_id  # type: str
         # The number of the page to return. The value must be an integer that is greater than 0. Default value: 1.
         self.page_number = page_number  # type: str
         # The number of entries to return on each page. Valid values:
         # 
-        # *   30 (default value)
+        # *   30\. This is the default value.
         # *   50
         # *   100
         self.page_size = page_size  # type: str
@@ -2177,7 +2187,7 @@ class DescribeSandboxInstancesRequest(TeaModel):
 class DescribeSandboxInstancesResponseBody(TeaModel):
     def __init__(self, code=None, data=None, err_code=None, err_message=None, message=None, request_id=None,
                  success=None):
-        # The error code.
+        # The error code returned if the request fails.
         self.code = code  # type: str
         # The response parameters.
         # 
@@ -2193,15 +2203,15 @@ class DescribeSandboxInstancesResponseBody(TeaModel):
         # *   **sandboxSpecification**: the specifications of the sandbox instance.
         # *   **status**: the status of the sandbox instance. Valid values: **running**, **check_pass**, and **stop**.
         self.data = data  # type: str
-        # The error code.
+        # The error code returned if the request fails.
         self.err_code = err_code  # type: str
-        # The error message.
+        # The error message returned if the request fails.
         self.err_message = err_message  # type: str
-        # The error message.
+        # The error message returned if the request fails.
         self.message = message  # type: str
         # The ID of the request.
         self.request_id = request_id  # type: str
-        # Indicates whether the request is successful.
+        # Indicates whether the request was successful.
         self.success = success  # type: str
 
     def validate(self):
@@ -2291,7 +2301,7 @@ class DescribeSandboxRecoveryTimeRequest(TeaModel):
     def __init__(self, backup_plan_id=None):
         # The ID of the backup schedule. You can call the [DescribeBackupPlanList](~~437215~~) operation to obtain the ID of the backup schedule. If you set this parameter to the backup schedule ID obtained by calling the DescribeBackupPlanList operation, the dbs prefix must be removed. Otherwise, the call fails.
         # 
-        # >  If your instance is an ApsaraDB RDS for MySQL instance, you can configure [automatic access to the instance](~~193091~~) to automatically add the instance to DBS and obtain the ID of the backup schedule.
+        # > If your instance is an ApsaraDB RDS for MySQL instance, you can [configure automatic access to a data source](~~193091~~) to automatically add the instance to DBS and obtain the ID of the backup schedule.
         self.backup_plan_id = backup_plan_id  # type: str
 
     def validate(self):
@@ -2354,19 +2364,19 @@ class DescribeSandboxRecoveryTimeResponseBodyData(TeaModel):
 class DescribeSandboxRecoveryTimeResponseBody(TeaModel):
     def __init__(self, code=None, data=None, err_code=None, err_message=None, message=None, request_id=None,
                  success=None):
-        # The error code.
+        # The error code returned if the request fails.
         self.code = code  # type: str
         # The response parameters.
         self.data = data  # type: DescribeSandboxRecoveryTimeResponseBodyData
-        # The error code.
+        # The error code returned if the request fails.
         self.err_code = err_code  # type: str
-        # The error message.
+        # The error message returned if the request fails.
         self.err_message = err_message  # type: str
-        # The error message.
+        # The error message returned if the request fails.
         self.message = message  # type: str
         # The ID of the request.
         self.request_id = request_id  # type: str
-        # Indicates whether the request is successful.
+        # Indicates whether the request was successful.
         self.success = success  # type: str
 
     def validate(self):
@@ -2455,11 +2465,10 @@ class DescribeSandboxRecoveryTimeResponse(TeaModel):
 
 
 class ModifyDBTablesRecoveryStateRequest(TeaModel):
-    def __init__(self, category=None, instance_id=None, region_code=None, region_id=None, retention=None):
+    def __init__(self, category=None, instance_id=None, region_code=None, retention=None):
         self.category = category  # type: str
         self.instance_id = instance_id  # type: str
         self.region_code = region_code  # type: str
-        self.region_id = region_id  # type: str
         self.retention = retention  # type: str
 
     def validate(self):
@@ -2477,8 +2486,6 @@ class ModifyDBTablesRecoveryStateRequest(TeaModel):
             result['InstanceId'] = self.instance_id
         if self.region_code is not None:
             result['RegionCode'] = self.region_code
-        if self.region_id is not None:
-            result['RegionId'] = self.region_id
         if self.retention is not None:
             result['Retention'] = self.retention
         return result
@@ -2491,8 +2498,6 @@ class ModifyDBTablesRecoveryStateRequest(TeaModel):
             self.instance_id = m.get('InstanceId')
         if m.get('RegionCode') is not None:
             self.region_code = m.get('RegionCode')
-        if m.get('RegionId') is not None:
-            self.region_id = m.get('RegionId')
         if m.get('Retention') is not None:
             self.retention = m.get('Retention')
         return self
@@ -2593,10 +2598,9 @@ class ModifyDBTablesRecoveryStateResponse(TeaModel):
 
 
 class SupportDBTableRecoveryRequest(TeaModel):
-    def __init__(self, instance_id=None, region_code=None, region_id=None):
+    def __init__(self, instance_id=None, region_code=None):
         self.instance_id = instance_id  # type: str
         self.region_code = region_code  # type: str
-        self.region_id = region_id  # type: str
 
     def validate(self):
         pass
@@ -2611,8 +2615,6 @@ class SupportDBTableRecoveryRequest(TeaModel):
             result['InstanceId'] = self.instance_id
         if self.region_code is not None:
             result['RegionCode'] = self.region_code
-        if self.region_id is not None:
-            result['RegionId'] = self.region_id
         return result
 
     def from_map(self, m=None):
@@ -2621,8 +2623,6 @@ class SupportDBTableRecoveryRequest(TeaModel):
             self.instance_id = m.get('InstanceId')
         if m.get('RegionCode') is not None:
             self.region_code = m.get('RegionCode')
-        if m.get('RegionId') is not None:
-            self.region_id = m.get('RegionId')
         return self
 
 
