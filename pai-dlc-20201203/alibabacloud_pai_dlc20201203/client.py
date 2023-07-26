@@ -470,6 +470,40 @@ class Client(OpenApiClient):
         headers = {}
         return self.get_tensorboard_with_options(tensorboard_id, request, headers, runtime)
 
+    def get_token_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.expire_time):
+            query['ExpireTime'] = request.expire_time
+        if not UtilClient.is_unset(request.target_id):
+            query['TargetId'] = request.target_id
+        if not UtilClient.is_unset(request.target_type):
+            query['TargetType'] = request.target_type
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetToken',
+            version='2020-12-03',
+            protocol='HTTPS',
+            pathname='/api/v1/tokens',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            pai_dlc_20201203_models.GetTokenResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_token(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_token_with_options(request, headers, runtime)
+
     def get_web_terminal_with_options(self, job_id, pod_id, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
