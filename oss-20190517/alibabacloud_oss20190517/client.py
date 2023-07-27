@@ -9,8 +9,8 @@ from alibabacloud_gateway_spi.client import Client as SPIClient
 from alibabacloud_tea_openapi.client import Client as OpenApiClient
 from alibabacloud_tea_openapi import models as open_api_models
 from alibabacloud_gateway_oss.client import Client as GatewayClientClient
-from alibabacloud_oss20190517 import models as oss_20190517_models
 from alibabacloud_tea_util import models as util_models
+from alibabacloud_oss20190517 import models as oss_20190517_models
 from alibabacloud_tea_util.client import Client as UtilClient
 from alibabacloud_openapi_util.client import Client as OpenApiUtilClient
 
@@ -26,11 +26,6 @@ class Client(OpenApiClient):
         self._client = GatewayClientClient()
         self._spi = self._client
         self._endpoint_rule = ''
-
-    def abort_bucket_worm(self, bucket):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.abort_bucket_worm_with_options(bucket, headers, runtime)
 
     def abort_bucket_worm_with_options(self, bucket, headers, runtime):
         host_map = {}
@@ -55,10 +50,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def abort_multipart_upload(self, bucket, key, request):
+    def abort_bucket_worm(self, bucket):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.abort_multipart_upload_with_options(bucket, key, request, headers, runtime)
+        return self.abort_bucket_worm_with_options(bucket, headers, runtime)
 
     def abort_multipart_upload_with_options(self, bucket, key, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -88,10 +83,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def append_object(self, bucket, key, request):
+    def abort_multipart_upload(self, bucket, key, request):
         runtime = util_models.RuntimeOptions()
-        headers = oss_20190517_models.AppendObjectHeaders()
-        return self.append_object_with_options(bucket, key, request, headers, runtime)
+        headers = {}
+        return self.abort_multipart_upload_with_options(bucket, key, request, headers, runtime)
 
     def append_object_with_options(self, bucket, key, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -144,10 +139,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def complete_bucket_worm(self, bucket, request):
+    def append_object(self, bucket, key, request):
         runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.complete_bucket_worm_with_options(bucket, request, headers, runtime)
+        headers = oss_20190517_models.AppendObjectHeaders()
+        return self.append_object_with_options(bucket, key, request, headers, runtime)
 
     def complete_bucket_worm_with_options(self, bucket, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -177,10 +172,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def complete_multipart_upload(self, bucket, key, request):
+    def complete_bucket_worm(self, bucket, request):
         runtime = util_models.RuntimeOptions()
-        headers = oss_20190517_models.CompleteMultipartUploadHeaders()
-        return self.complete_multipart_upload_with_options(bucket, key, request, headers, runtime)
+        headers = {}
+        return self.complete_bucket_worm_with_options(bucket, request, headers, runtime)
 
     def complete_multipart_upload_with_options(self, bucket, key, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -191,9 +186,6 @@ class Client(OpenApiClient):
             query['encoding-type'] = request.encoding_type
         if not UtilClient.is_unset(request.upload_id):
             query['uploadId'] = request.upload_id
-        body = {}
-        if not UtilClient.is_unset(request.complete_multipart_upload):
-            body['completeMultipartUpload'] = request.complete_multipart_upload
         real_headers = {}
         if not UtilClient.is_unset(headers.common_headers):
             real_headers = headers.common_headers
@@ -205,7 +197,7 @@ class Client(OpenApiClient):
             host_map=host_map,
             headers=real_headers,
             query=OpenApiUtilClient.query(query),
-            body=OpenApiUtilClient.parse_to_map(body)
+            body=OpenApiUtilClient.parse_to_map(request.body)
         )
         params = open_api_models.Params(
             action='CompleteMultipartUpload',
@@ -223,10 +215,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def copy_object(self, bucket, key):
+    def complete_multipart_upload(self, bucket, key, request):
         runtime = util_models.RuntimeOptions()
-        headers = oss_20190517_models.CopyObjectHeaders()
-        return self.copy_object_with_options(bucket, key, headers, runtime)
+        headers = oss_20190517_models.CompleteMultipartUploadHeaders()
+        return self.complete_multipart_upload_with_options(bucket, key, request, headers, runtime)
 
     def copy_object_with_options(self, bucket, key, headers, runtime):
         host_map = {}
@@ -282,10 +274,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def create_select_object_meta(self, bucket, key, request):
+    def copy_object(self, bucket, key):
         runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.create_select_object_meta_with_options(bucket, key, request, headers, runtime)
+        headers = oss_20190517_models.CopyObjectHeaders()
+        return self.copy_object_with_options(bucket, key, headers, runtime)
 
     def create_select_object_meta_with_options(self, bucket, key, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -294,7 +286,7 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             host_map=host_map,
             headers=headers,
-            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.select_meta_request))
+            body=OpenApiUtilClient.parse_to_map(request.select_meta_request)
         )
         params = open_api_models.Params(
             action='CreateSelectObjectMeta',
@@ -312,10 +304,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def delete_bucket(self, bucket):
+    def create_select_object_meta(self, bucket, key, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_bucket_with_options(bucket, headers, runtime)
+        return self.create_select_object_meta_with_options(bucket, key, request, headers, runtime)
 
     def delete_bucket_with_options(self, bucket, headers, runtime):
         host_map = {}
@@ -340,10 +332,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def delete_bucket_cors(self, bucket):
+    def delete_bucket(self, bucket):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_bucket_cors_with_options(bucket, headers, runtime)
+        return self.delete_bucket_with_options(bucket, headers, runtime)
 
     def delete_bucket_cors_with_options(self, bucket, headers, runtime):
         host_map = {}
@@ -368,10 +360,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def delete_bucket_encryption(self, bucket):
+    def delete_bucket_cors(self, bucket):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_bucket_encryption_with_options(bucket, headers, runtime)
+        return self.delete_bucket_cors_with_options(bucket, headers, runtime)
 
     def delete_bucket_encryption_with_options(self, bucket, headers, runtime):
         host_map = {}
@@ -396,10 +388,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def delete_bucket_inventory(self, bucket, request):
+    def delete_bucket_encryption(self, bucket):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_bucket_inventory_with_options(bucket, request, headers, runtime)
+        return self.delete_bucket_encryption_with_options(bucket, headers, runtime)
 
     def delete_bucket_inventory_with_options(self, bucket, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -429,10 +421,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def delete_bucket_lifecycle(self, bucket):
+    def delete_bucket_inventory(self, bucket, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_bucket_lifecycle_with_options(bucket, headers, runtime)
+        return self.delete_bucket_inventory_with_options(bucket, request, headers, runtime)
 
     def delete_bucket_lifecycle_with_options(self, bucket, headers, runtime):
         host_map = {}
@@ -457,10 +449,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def delete_bucket_logging(self, bucket):
+    def delete_bucket_lifecycle(self, bucket):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_bucket_logging_with_options(bucket, headers, runtime)
+        return self.delete_bucket_lifecycle_with_options(bucket, headers, runtime)
 
     def delete_bucket_logging_with_options(self, bucket, headers, runtime):
         host_map = {}
@@ -485,10 +477,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def delete_bucket_policy(self, bucket):
+    def delete_bucket_logging(self, bucket):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_bucket_policy_with_options(bucket, headers, runtime)
+        return self.delete_bucket_logging_with_options(bucket, headers, runtime)
 
     def delete_bucket_policy_with_options(self, bucket, headers, runtime):
         host_map = {}
@@ -513,10 +505,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def delete_bucket_replication(self, bucket, request):
+    def delete_bucket_policy(self, bucket):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_bucket_replication_with_options(bucket, request, headers, runtime)
+        return self.delete_bucket_policy_with_options(bucket, headers, runtime)
 
     def delete_bucket_replication_with_options(self, bucket, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -525,7 +517,7 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             host_map=host_map,
             headers=headers,
-            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.body))
+            body=OpenApiUtilClient.parse_to_map(request.body)
         )
         params = open_api_models.Params(
             action='DeleteBucketReplication',
@@ -543,10 +535,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def delete_bucket_tags(self, bucket):
+    def delete_bucket_replication(self, bucket, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_bucket_tags_with_options(bucket, headers, runtime)
+        return self.delete_bucket_replication_with_options(bucket, request, headers, runtime)
 
     def delete_bucket_tags_with_options(self, bucket, headers, runtime):
         host_map = {}
@@ -571,10 +563,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def delete_bucket_website(self, bucket):
+    def delete_bucket_tags(self, bucket):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_bucket_website_with_options(bucket, headers, runtime)
+        return self.delete_bucket_tags_with_options(bucket, headers, runtime)
 
     def delete_bucket_website_with_options(self, bucket, headers, runtime):
         host_map = {}
@@ -599,10 +591,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def delete_live_channel(self, bucket, channel):
+    def delete_bucket_website(self, bucket):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_live_channel_with_options(bucket, channel, headers, runtime)
+        return self.delete_bucket_website_with_options(bucket, headers, runtime)
 
     def delete_live_channel_with_options(self, bucket, channel, headers, runtime):
         host_map = {}
@@ -627,10 +619,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def delete_multiple_objects(self, bucket, request):
+    def delete_live_channel(self, bucket, channel):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_multiple_objects_with_options(bucket, request, headers, runtime)
+        return self.delete_live_channel_with_options(bucket, channel, headers, runtime)
 
     def delete_multiple_objects_with_options(self, bucket, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -639,11 +631,16 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.encoding_type):
             query['encoding-type'] = request.encoding_type
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.content_md_5):
+            real_headers['content-md5'] = UtilClient.to_jsonstring(headers.content_md_5)
         req = open_api_models.OpenApiRequest(
             host_map=host_map,
-            headers=headers,
+            headers=real_headers,
             query=OpenApiUtilClient.query(query),
-            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.delete))
+            body=OpenApiUtilClient.parse_to_map(request.delete)
         )
         params = open_api_models.Params(
             action='DeleteMultipleObjects',
@@ -661,10 +658,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def delete_object(self, bucket, key, request):
+    def delete_multiple_objects(self, bucket, request):
         runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.delete_object_with_options(bucket, key, request, headers, runtime)
+        headers = oss_20190517_models.DeleteMultipleObjectsHeaders()
+        return self.delete_multiple_objects_with_options(bucket, request, headers, runtime)
 
     def delete_object_with_options(self, bucket, key, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -694,10 +691,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def delete_object_tagging(self, bucket, key, request):
+    def delete_object(self, bucket, key, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_object_tagging_with_options(bucket, key, request, headers, runtime)
+        return self.delete_object_with_options(bucket, key, request, headers, runtime)
 
     def delete_object_tagging_with_options(self, bucket, key, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -727,10 +724,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def describe_regions(self, request):
+    def delete_object_tagging(self, bucket, key, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_regions_with_options(request, headers, runtime)
+        return self.delete_object_tagging_with_options(bucket, key, request, headers, runtime)
 
     def describe_regions_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -757,10 +754,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def extend_bucket_worm(self, bucket, request):
+    def describe_regions(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.extend_bucket_worm_with_options(bucket, request, headers, runtime)
+        return self.describe_regions_with_options(request, headers, runtime)
 
     def extend_bucket_worm_with_options(self, bucket, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -769,14 +766,11 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.worm_id):
             query['wormId'] = request.worm_id
-        body = {}
-        if not UtilClient.is_unset(request.extend_worm_configuration):
-            body['extendWormConfiguration'] = request.extend_worm_configuration
         req = open_api_models.OpenApiRequest(
             host_map=host_map,
             headers=headers,
             query=OpenApiUtilClient.query(query),
-            body=OpenApiUtilClient.parse_to_map(body)
+            body=OpenApiUtilClient.parse_to_map(request.body)
         )
         params = open_api_models.Params(
             action='ExtendBucketWorm',
@@ -794,10 +788,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def get_bucket_acl(self, bucket):
+    def extend_bucket_worm(self, bucket, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_bucket_acl_with_options(bucket, headers, runtime)
+        return self.extend_bucket_worm_with_options(bucket, request, headers, runtime)
 
     def get_bucket_acl_with_options(self, bucket, headers, runtime):
         host_map = {}
@@ -822,10 +816,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def get_bucket_cors(self, bucket):
+    def get_bucket_acl(self, bucket):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_bucket_cors_with_options(bucket, headers, runtime)
+        return self.get_bucket_acl_with_options(bucket, headers, runtime)
 
     def get_bucket_cors_with_options(self, bucket, headers, runtime):
         host_map = {}
@@ -850,10 +844,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def get_bucket_encryption(self, bucket):
+    def get_bucket_cors(self, bucket):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_bucket_encryption_with_options(bucket, headers, runtime)
+        return self.get_bucket_cors_with_options(bucket, headers, runtime)
 
     def get_bucket_encryption_with_options(self, bucket, headers, runtime):
         host_map = {}
@@ -878,10 +872,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def get_bucket_info(self, bucket):
+    def get_bucket_encryption(self, bucket):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_bucket_info_with_options(bucket, headers, runtime)
+        return self.get_bucket_encryption_with_options(bucket, headers, runtime)
 
     def get_bucket_info_with_options(self, bucket, headers, runtime):
         host_map = {}
@@ -906,10 +900,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def get_bucket_inventory(self, bucket, request):
+    def get_bucket_info(self, bucket):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_bucket_inventory_with_options(bucket, request, headers, runtime)
+        return self.get_bucket_info_with_options(bucket, headers, runtime)
 
     def get_bucket_inventory_with_options(self, bucket, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -939,10 +933,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def get_bucket_lifecycle(self, bucket):
+    def get_bucket_inventory(self, bucket, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_bucket_lifecycle_with_options(bucket, headers, runtime)
+        return self.get_bucket_inventory_with_options(bucket, request, headers, runtime)
 
     def get_bucket_lifecycle_with_options(self, bucket, headers, runtime):
         host_map = {}
@@ -967,10 +961,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def get_bucket_location(self, bucket):
+    def get_bucket_lifecycle(self, bucket):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_bucket_location_with_options(bucket, headers, runtime)
+        return self.get_bucket_lifecycle_with_options(bucket, headers, runtime)
 
     def get_bucket_location_with_options(self, bucket, headers, runtime):
         host_map = {}
@@ -995,10 +989,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def get_bucket_logging(self, bucket):
+    def get_bucket_location(self, bucket):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_bucket_logging_with_options(bucket, headers, runtime)
+        return self.get_bucket_location_with_options(bucket, headers, runtime)
 
     def get_bucket_logging_with_options(self, bucket, headers, runtime):
         host_map = {}
@@ -1023,10 +1017,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def get_bucket_policy(self, bucket):
+    def get_bucket_logging(self, bucket):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_bucket_policy_with_options(bucket, headers, runtime)
+        return self.get_bucket_logging_with_options(bucket, headers, runtime)
 
     def get_bucket_policy_with_options(self, bucket, headers, runtime):
         host_map = {}
@@ -1051,10 +1045,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def get_bucket_referer(self, bucket):
+    def get_bucket_policy(self, bucket):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_bucket_referer_with_options(bucket, headers, runtime)
+        return self.get_bucket_policy_with_options(bucket, headers, runtime)
 
     def get_bucket_referer_with_options(self, bucket, headers, runtime):
         host_map = {}
@@ -1072,17 +1066,17 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='xml',
-            body_type='xml'
+            body_type='json'
         )
         return TeaCore.from_map(
             oss_20190517_models.GetBucketRefererResponse(),
             self.execute(params, req, runtime)
         )
 
-    def get_bucket_replication(self, bucket):
+    def get_bucket_referer(self, bucket):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_bucket_replication_with_options(bucket, headers, runtime)
+        return self.get_bucket_referer_with_options(bucket, headers, runtime)
 
     def get_bucket_replication_with_options(self, bucket, headers, runtime):
         host_map = {}
@@ -1107,10 +1101,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def get_bucket_replication_location(self, bucket):
+    def get_bucket_replication(self, bucket):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_bucket_replication_location_with_options(bucket, headers, runtime)
+        return self.get_bucket_replication_with_options(bucket, headers, runtime)
 
     def get_bucket_replication_location_with_options(self, bucket, headers, runtime):
         host_map = {}
@@ -1135,10 +1129,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def get_bucket_replication_progress(self, bucket, request):
+    def get_bucket_replication_location(self, bucket):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_bucket_replication_progress_with_options(bucket, request, headers, runtime)
+        return self.get_bucket_replication_location_with_options(bucket, headers, runtime)
 
     def get_bucket_replication_progress_with_options(self, bucket, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1168,10 +1162,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def get_bucket_request_payment(self, bucket):
+    def get_bucket_replication_progress(self, bucket, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_bucket_request_payment_with_options(bucket, headers, runtime)
+        return self.get_bucket_replication_progress_with_options(bucket, request, headers, runtime)
 
     def get_bucket_request_payment_with_options(self, bucket, headers, runtime):
         host_map = {}
@@ -1196,10 +1190,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def get_bucket_tags(self, bucket):
+    def get_bucket_request_payment(self, bucket):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_bucket_tags_with_options(bucket, headers, runtime)
+        return self.get_bucket_request_payment_with_options(bucket, headers, runtime)
 
     def get_bucket_tags_with_options(self, bucket, headers, runtime):
         host_map = {}
@@ -1224,10 +1218,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def get_bucket_transfer_acceleration(self, bucket):
+    def get_bucket_tags(self, bucket):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_bucket_transfer_acceleration_with_options(bucket, headers, runtime)
+        return self.get_bucket_tags_with_options(bucket, headers, runtime)
 
     def get_bucket_transfer_acceleration_with_options(self, bucket, headers, runtime):
         host_map = {}
@@ -1252,10 +1246,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def get_bucket_versioning(self, bucket):
+    def get_bucket_transfer_acceleration(self, bucket):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_bucket_versioning_with_options(bucket, headers, runtime)
+        return self.get_bucket_transfer_acceleration_with_options(bucket, headers, runtime)
 
     def get_bucket_versioning_with_options(self, bucket, headers, runtime):
         host_map = {}
@@ -1280,10 +1274,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def get_bucket_website(self, bucket):
+    def get_bucket_versioning(self, bucket):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_bucket_website_with_options(bucket, headers, runtime)
+        return self.get_bucket_versioning_with_options(bucket, headers, runtime)
 
     def get_bucket_website_with_options(self, bucket, headers, runtime):
         host_map = {}
@@ -1308,10 +1302,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def get_bucket_worm(self, bucket):
+    def get_bucket_website(self, bucket):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_bucket_worm_with_options(bucket, headers, runtime)
+        return self.get_bucket_website_with_options(bucket, headers, runtime)
 
     def get_bucket_worm_with_options(self, bucket, headers, runtime):
         host_map = {}
@@ -1336,10 +1330,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def get_live_channel_history(self, bucket, channel):
+    def get_bucket_worm(self, bucket):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_live_channel_history_with_options(bucket, channel, headers, runtime)
+        return self.get_bucket_worm_with_options(bucket, headers, runtime)
 
     def get_live_channel_history_with_options(self, bucket, channel, headers, runtime):
         host_map = {}
@@ -1364,10 +1358,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def get_live_channel_info(self, bucket, channel):
+    def get_live_channel_history(self, bucket, channel):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_live_channel_info_with_options(bucket, channel, headers, runtime)
+        return self.get_live_channel_history_with_options(bucket, channel, headers, runtime)
 
     def get_live_channel_info_with_options(self, bucket, channel, headers, runtime):
         host_map = {}
@@ -1392,10 +1386,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def get_live_channel_stat(self, bucket, channel):
+    def get_live_channel_info(self, bucket, channel):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_live_channel_stat_with_options(bucket, channel, headers, runtime)
+        return self.get_live_channel_info_with_options(bucket, channel, headers, runtime)
 
     def get_live_channel_stat_with_options(self, bucket, channel, headers, runtime):
         host_map = {}
@@ -1420,12 +1414,29 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def get_object(self, bucket, key, request):
+    def get_live_channel_stat(self, bucket, channel):
         runtime = util_models.RuntimeOptions()
-        headers = oss_20190517_models.GetObjectHeaders()
-        return self.get_object_with_options(bucket, key, request, headers, runtime)
+        headers = {}
+        return self.get_live_channel_stat_with_options(bucket, channel, headers, runtime)
 
     def get_object_with_options(self, bucket, key, request, headers, runtime):
+        """
+        *Usage notes**\
+        - By default, the GetObject operation supports access over HTTP and HTTPS. To impose a limit on access to a bucket only over HTTPS, configure a bucket policy for the bucket to specify the access method. For more information, see [Configure bucket policies to authorize other users to access OSS resources](~~85111~~).
+        - If the storage class of the object that you want to query is Archive, you must send a RestoreObject request to restore the object before you call the GetObject operation.
+        **Versioning**\
+        By default, only the current version of an object is returned after GetObject is called.
+        If the version ID of the object is specified in the request, OSS returns the specified version of the object. If the version ID is set to null in the request, OSS returns the version of the object whose version ID is null.
+        
+
+        @param request: GetObjectRequest
+
+        @param headers: GetObjectHeaders
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetObjectResponse
+        """
         UtilClient.validate_model(request)
         host_map = {}
         host_map['bucket'] = bucket
@@ -1478,10 +1489,23 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def get_object_acl(self, bucket, key, request):
+    def get_object(self, bucket, key, request):
+        """
+        *Usage notes**\
+        - By default, the GetObject operation supports access over HTTP and HTTPS. To impose a limit on access to a bucket only over HTTPS, configure a bucket policy for the bucket to specify the access method. For more information, see [Configure bucket policies to authorize other users to access OSS resources](~~85111~~).
+        - If the storage class of the object that you want to query is Archive, you must send a RestoreObject request to restore the object before you call the GetObject operation.
+        **Versioning**\
+        By default, only the current version of an object is returned after GetObject is called.
+        If the version ID of the object is specified in the request, OSS returns the specified version of the object. If the version ID is set to null in the request, OSS returns the version of the object whose version ID is null.
+        
+
+        @param request: GetObjectRequest
+
+        @return: GetObjectResponse
+        """
         runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.get_object_acl_with_options(bucket, key, request, headers, runtime)
+        headers = oss_20190517_models.GetObjectHeaders()
+        return self.get_object_with_options(bucket, key, request, headers, runtime)
 
     def get_object_acl_with_options(self, bucket, key, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1511,10 +1535,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def get_object_meta(self, bucket, key, request):
+    def get_object_acl(self, bucket, key, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_object_meta_with_options(bucket, key, request, headers, runtime)
+        return self.get_object_acl_with_options(bucket, key, request, headers, runtime)
 
     def get_object_meta_with_options(self, bucket, key, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1544,10 +1568,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def get_object_tagging(self, bucket, key, request):
+    def get_object_meta(self, bucket, key, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_object_tagging_with_options(bucket, key, request, headers, runtime)
+        return self.get_object_meta_with_options(bucket, key, request, headers, runtime)
 
     def get_object_tagging_with_options(self, bucket, key, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1577,10 +1601,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def get_symlink(self, bucket, key, request):
+    def get_object_tagging(self, bucket, key, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_symlink_with_options(bucket, key, request, headers, runtime)
+        return self.get_object_tagging_with_options(bucket, key, request, headers, runtime)
 
     def get_symlink_with_options(self, bucket, key, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1610,10 +1634,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def get_vod_playlist(self, bucket, channel, request):
+    def get_symlink(self, bucket, key, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_vod_playlist_with_options(bucket, channel, request, headers, runtime)
+        return self.get_symlink_with_options(bucket, key, request, headers, runtime)
 
     def get_vod_playlist_with_options(self, bucket, channel, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1645,12 +1669,25 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def head_object(self, bucket, key, request):
+    def get_vod_playlist(self, bucket, channel, request):
         runtime = util_models.RuntimeOptions()
-        headers = oss_20190517_models.HeadObjectHeaders()
-        return self.head_object_with_options(bucket, key, request, headers, runtime)
+        headers = {}
+        return self.get_vod_playlist_with_options(bucket, channel, request, headers, runtime)
 
     def head_object_with_options(self, bucket, key, request, headers, runtime):
+        """
+        - When you call this operation, the object content is not returned in the results.
+        - By default, you can call the HeadObject operation to query the metadata of the object of the current version. If the current version of the object is a delete marker, OSS returns 404 Not Found. If you specify a version ID in the request, OSS returns the metadata of the object of the specified version.
+        
+
+        @param request: HeadObjectRequest
+
+        @param headers: HeadObjectHeaders
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: HeadObjectResponse
+        """
         UtilClient.validate_model(request)
         host_map = {}
         host_map['bucket'] = bucket
@@ -1689,10 +1726,19 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def initiate_bucket_worm(self, bucket, request):
+    def head_object(self, bucket, key, request):
+        """
+        - When you call this operation, the object content is not returned in the results.
+        - By default, you can call the HeadObject operation to query the metadata of the object of the current version. If the current version of the object is a delete marker, OSS returns 404 Not Found. If you specify a version ID in the request, OSS returns the metadata of the object of the specified version.
+        
+
+        @param request: HeadObjectRequest
+
+        @return: HeadObjectResponse
+        """
         runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.initiate_bucket_worm_with_options(bucket, request, headers, runtime)
+        headers = oss_20190517_models.HeadObjectHeaders()
+        return self.head_object_with_options(bucket, key, request, headers, runtime)
 
     def initiate_bucket_worm_with_options(self, bucket, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1701,7 +1747,7 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             host_map=host_map,
             headers=headers,
-            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.initiate_worm_configuration))
+            body=OpenApiUtilClient.parse_to_map(request.initiate_worm_configuration)
         )
         params = open_api_models.Params(
             action='InitiateBucketWorm',
@@ -1719,12 +1765,26 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def initiate_multipart_upload(self, bucket, key, request):
+    def initiate_bucket_worm(self, bucket, request):
         runtime = util_models.RuntimeOptions()
-        headers = oss_20190517_models.InitiateMultipartUploadHeaders()
-        return self.initiate_multipart_upload_with_options(bucket, key, request, headers, runtime)
+        headers = {}
+        return self.initiate_bucket_worm_with_options(bucket, request, headers, runtime)
 
     def initiate_multipart_upload_with_options(self, bucket, key, request, headers, runtime):
+        """
+        - When you call the InitiateMultipartUpload operation, OSS creates and returns a unique upload ID to identify the multipart upload task. You can initiate operations such as stopping or querying the multipart upload task by using this upload ID.
+        - When you initiate a multipart upload request to upload an object, the existing object that has the same name is not affected.
+        - If you want to calculate the signature for authentication when you call this operation, you must add `?uploads` to `CanonicalizedResource`.
+        
+
+        @param request: InitiateMultipartUploadRequest
+
+        @param headers: InitiateMultipartUploadHeaders
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: InitiateMultipartUploadResponse
+        """
         UtilClient.validate_model(request)
         host_map = {}
         host_map['bucket'] = bucket
@@ -1775,10 +1835,20 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def list_bucket_inventory(self, bucket, request):
+    def initiate_multipart_upload(self, bucket, key, request):
+        """
+        - When you call the InitiateMultipartUpload operation, OSS creates and returns a unique upload ID to identify the multipart upload task. You can initiate operations such as stopping or querying the multipart upload task by using this upload ID.
+        - When you initiate a multipart upload request to upload an object, the existing object that has the same name is not affected.
+        - If you want to calculate the signature for authentication when you call this operation, you must add `?uploads` to `CanonicalizedResource`.
+        
+
+        @param request: InitiateMultipartUploadRequest
+
+        @return: InitiateMultipartUploadResponse
+        """
         runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.list_bucket_inventory_with_options(bucket, request, headers, runtime)
+        headers = oss_20190517_models.InitiateMultipartUploadHeaders()
+        return self.initiate_multipart_upload_with_options(bucket, key, request, headers, runtime)
 
     def list_bucket_inventory_with_options(self, bucket, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1808,10 +1878,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def list_buckets(self, request):
+    def list_bucket_inventory(self, bucket, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_buckets_with_options(request, headers, runtime)
+        return self.list_bucket_inventory_with_options(bucket, request, headers, runtime)
 
     def list_buckets_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1822,8 +1892,13 @@ class Client(OpenApiClient):
             query['max-keys'] = request.max_keys
         if not UtilClient.is_unset(request.prefix):
             query['prefix'] = request.prefix
+        real_headers = {}
+        if not UtilClient.is_unset(headers.common_headers):
+            real_headers = headers.common_headers
+        if not UtilClient.is_unset(headers.x_oss_resource_group_id):
+            real_headers['x-oss-resource-group-id'] = UtilClient.to_jsonstring(headers.x_oss_resource_group_id)
         req = open_api_models.OpenApiRequest(
-            headers=headers,
+            headers=real_headers,
             query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
@@ -1842,10 +1917,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def list_live_channel(self, bucket, request):
+    def list_buckets(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.list_live_channel_with_options(bucket, request, headers, runtime)
+        headers = oss_20190517_models.ListBucketsHeaders()
+        return self.list_buckets_with_options(request, headers, runtime)
 
     def list_live_channel_with_options(self, bucket, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1879,10 +1954,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def list_multipart_uploads(self, bucket, request):
+    def list_live_channel(self, bucket, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_multipart_uploads_with_options(bucket, request, headers, runtime)
+        return self.list_live_channel_with_options(bucket, request, headers, runtime)
 
     def list_multipart_uploads_with_options(self, bucket, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1922,10 +1997,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def list_object_versions(self, bucket, request):
+    def list_multipart_uploads(self, bucket, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_object_versions_with_options(bucket, request, headers, runtime)
+        return self.list_multipart_uploads_with_options(bucket, request, headers, runtime)
 
     def list_object_versions_with_options(self, bucket, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1965,10 +2040,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def list_objects(self, bucket, request):
+    def list_object_versions(self, bucket, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_objects_with_options(bucket, request, headers, runtime)
+        return self.list_object_versions_with_options(bucket, request, headers, runtime)
 
     def list_objects_with_options(self, bucket, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2006,10 +2081,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def list_objects_v2(self, bucket, request):
+    def list_objects(self, bucket, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_objects_v2with_options(bucket, request, headers, runtime)
+        return self.list_objects_with_options(bucket, request, headers, runtime)
 
     def list_objects_v2with_options(self, bucket, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2051,10 +2126,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def list_parts(self, bucket, key, request):
+    def list_objects_v2(self, bucket, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_parts_with_options(bucket, key, request, headers, runtime)
+        return self.list_objects_v2with_options(bucket, request, headers, runtime)
 
     def list_parts_with_options(self, bucket, key, tmp_req, headers, runtime):
         UtilClient.validate_model(tmp_req)
@@ -2094,10 +2169,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def option_object(self, bucket, key):
+    def list_parts(self, bucket, key, request):
         runtime = util_models.RuntimeOptions()
-        headers = oss_20190517_models.OptionObjectHeaders()
-        return self.option_object_with_options(bucket, key, headers, runtime)
+        headers = {}
+        return self.list_parts_with_options(bucket, key, request, headers, runtime)
 
     def option_object_with_options(self, bucket, key, headers, runtime):
         host_map = {}
@@ -2131,12 +2206,44 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def post_object(self, bucket):
+    def option_object(self, bucket, key):
         runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.post_object_with_options(bucket, headers, runtime)
+        headers = oss_20190517_models.OptionObjectHeaders()
+        return self.option_object_with_options(bucket, key, headers, runtime)
 
     def post_object_with_options(self, bucket, headers, runtime):
+        """
+        -\
+        The object that is uploaded by calling the PostObject operation cannot be
+        larger than 5 GB in size.
+        -\
+        To initiate a PostObject request to a bucket, you must have write permissions
+        on the bucket. If the ACL of the bucket to which you want to initiate a
+        PostObject request is public-read-write, you do not need to sign the
+        PostObject request. In other cases, Object Storage Service (OSS) verifies the
+        signature information contained in the request.
+        -\
+        Unlike the PutObject operation, the PostObject operation uses an AccessKey
+        secret to calculate the signature for the policy form field. The calculated
+        signature string is used as the value of the Signature form field. OSS checks
+        this value to verify the validity of the signature.
+        -\
+        The URL of the submitted form is the domain name of the bucket. You do not
+        need to specify the object that you want to upload in the URL. In other words,
+        the request line is in the format of `POST T/ HTTP/1.1` instead of `POST
+        /ObjectName HTTP/1.1`.
+        -\
+        OSS does not check the signature information that is contained in headers or
+        URLs in PostObject requests.
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: PostObjectResponse
+        """
         host_map = {}
         host_map['bucket'] = bucket
         req = open_api_models.OpenApiRequest(
@@ -2159,10 +2266,37 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def post_vod_playlist(self, bucket, channel, playlist, request):
+    def post_object(self, bucket):
+        """
+        -\
+        The object that is uploaded by calling the PostObject operation cannot be
+        larger than 5 GB in size.
+        -\
+        To initiate a PostObject request to a bucket, you must have write permissions
+        on the bucket. If the ACL of the bucket to which you want to initiate a
+        PostObject request is public-read-write, you do not need to sign the
+        PostObject request. In other cases, Object Storage Service (OSS) verifies the
+        signature information contained in the request.
+        -\
+        Unlike the PutObject operation, the PostObject operation uses an AccessKey
+        secret to calculate the signature for the policy form field. The calculated
+        signature string is used as the value of the Signature form field. OSS checks
+        this value to verify the validity of the signature.
+        -\
+        The URL of the submitted form is the domain name of the bucket. You do not
+        need to specify the object that you want to upload in the URL. In other words,
+        the request line is in the format of `POST T/ HTTP/1.1` instead of `POST
+        /ObjectName HTTP/1.1`.
+        -\
+        OSS does not check the signature information that is contained in headers or
+        URLs in PostObject requests.
+        
+
+        @return: PostObjectResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.post_vod_playlist_with_options(bucket, channel, playlist, request, headers, runtime)
+        return self.post_object_with_options(bucket, headers, runtime)
 
     def post_vod_playlist_with_options(self, bucket, channel, playlist, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2194,10 +2328,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def put_bucket(self, bucket, request):
+    def post_vod_playlist(self, bucket, channel, playlist, request):
         runtime = util_models.RuntimeOptions()
-        headers = oss_20190517_models.PutBucketHeaders()
-        return self.put_bucket_with_options(bucket, request, headers, runtime)
+        headers = {}
+        return self.post_vod_playlist_with_options(bucket, channel, playlist, request, headers, runtime)
 
     def put_bucket_with_options(self, bucket, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2208,10 +2342,12 @@ class Client(OpenApiClient):
             real_headers = headers.common_headers
         if not UtilClient.is_unset(headers.acl):
             real_headers['x-oss-acl'] = UtilClient.to_jsonstring(headers.acl)
+        if not UtilClient.is_unset(headers.x_oss_resource_group_id):
+            real_headers['x-oss-resource-group-id'] = UtilClient.to_jsonstring(headers.x_oss_resource_group_id)
         req = open_api_models.OpenApiRequest(
             host_map=host_map,
             headers=real_headers,
-            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.create_bucket_configuration))
+            body=OpenApiUtilClient.parse_to_map(request.create_bucket_configuration)
         )
         params = open_api_models.Params(
             action='PutBucket',
@@ -2229,10 +2365,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def put_bucket_acl(self, bucket):
+    def put_bucket(self, bucket, request):
         runtime = util_models.RuntimeOptions()
-        headers = oss_20190517_models.PutBucketAclHeaders()
-        return self.put_bucket_acl_with_options(bucket, headers, runtime)
+        headers = oss_20190517_models.PutBucketHeaders()
+        return self.put_bucket_with_options(bucket, request, headers, runtime)
 
     def put_bucket_acl_with_options(self, bucket, headers, runtime):
         host_map = {}
@@ -2262,10 +2398,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def put_bucket_cors(self, bucket, request):
+    def put_bucket_acl(self, bucket):
         runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.put_bucket_cors_with_options(bucket, request, headers, runtime)
+        headers = oss_20190517_models.PutBucketAclHeaders()
+        return self.put_bucket_acl_with_options(bucket, headers, runtime)
 
     def put_bucket_cors_with_options(self, bucket, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2274,7 +2410,7 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             host_map=host_map,
             headers=headers,
-            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.c_orsconfiguration))
+            body=OpenApiUtilClient.parse_to_map(request.c_orsconfiguration)
         )
         params = open_api_models.Params(
             action='PutBucketCors',
@@ -2292,10 +2428,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def put_bucket_encryption(self, bucket, request):
+    def put_bucket_cors(self, bucket, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.put_bucket_encryption_with_options(bucket, request, headers, runtime)
+        return self.put_bucket_cors_with_options(bucket, request, headers, runtime)
 
     def put_bucket_encryption_with_options(self, bucket, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2304,7 +2440,7 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             host_map=host_map,
             headers=headers,
-            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.server_side_encryption_rule))
+            body=OpenApiUtilClient.parse_to_map(request.server_side_encryption_rule)
         )
         params = open_api_models.Params(
             action='PutBucketEncryption',
@@ -2322,10 +2458,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def put_bucket_inventory(self, bucket, request):
+    def put_bucket_encryption(self, bucket, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.put_bucket_inventory_with_options(bucket, request, headers, runtime)
+        return self.put_bucket_encryption_with_options(bucket, request, headers, runtime)
 
     def put_bucket_inventory_with_options(self, bucket, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2338,7 +2474,7 @@ class Client(OpenApiClient):
             host_map=host_map,
             headers=headers,
             query=OpenApiUtilClient.query(query),
-            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.inventory_configuration))
+            body=OpenApiUtilClient.parse_to_map(request.inventory_configuration)
         )
         params = open_api_models.Params(
             action='PutBucketInventory',
@@ -2356,10 +2492,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def put_bucket_lifecycle(self, bucket, request):
+    def put_bucket_inventory(self, bucket, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.put_bucket_lifecycle_with_options(bucket, request, headers, runtime)
+        return self.put_bucket_inventory_with_options(bucket, request, headers, runtime)
 
     def put_bucket_lifecycle_with_options(self, bucket, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2368,7 +2504,7 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             host_map=host_map,
             headers=headers,
-            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.lifecycle_configuration))
+            body=OpenApiUtilClient.parse_to_map(request.lifecycle_configuration)
         )
         params = open_api_models.Params(
             action='PutBucketLifecycle',
@@ -2386,10 +2522,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def put_bucket_logging(self, bucket, request):
+    def put_bucket_lifecycle(self, bucket, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.put_bucket_logging_with_options(bucket, request, headers, runtime)
+        return self.put_bucket_lifecycle_with_options(bucket, request, headers, runtime)
 
     def put_bucket_logging_with_options(self, bucket, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2398,7 +2534,7 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             host_map=host_map,
             headers=headers,
-            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.bucket_logging_status))
+            body=OpenApiUtilClient.parse_to_map(request.bucket_logging_status)
         )
         params = open_api_models.Params(
             action='PutBucketLogging',
@@ -2416,10 +2552,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def put_bucket_policy(self, bucket, request):
+    def put_bucket_logging(self, bucket, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.put_bucket_policy_with_options(bucket, request, headers, runtime)
+        return self.put_bucket_logging_with_options(bucket, request, headers, runtime)
 
     def put_bucket_policy_with_options(self, bucket, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2446,10 +2582,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def put_bucket_referer(self, bucket, request):
+    def put_bucket_policy(self, bucket, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.put_bucket_referer_with_options(bucket, request, headers, runtime)
+        return self.put_bucket_policy_with_options(bucket, request, headers, runtime)
 
     def put_bucket_referer_with_options(self, bucket, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2458,7 +2594,7 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             host_map=host_map,
             headers=headers,
-            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.referer_configuration))
+            body=OpenApiUtilClient.parse_to_map(request.referer_configuration)
         )
         params = open_api_models.Params(
             action='PutBucketReferer',
@@ -2476,10 +2612,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def put_bucket_replication(self, bucket, request):
+    def put_bucket_referer(self, bucket, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.put_bucket_replication_with_options(bucket, request, headers, runtime)
+        return self.put_bucket_referer_with_options(bucket, request, headers, runtime)
 
     def put_bucket_replication_with_options(self, bucket, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2488,7 +2624,7 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             host_map=host_map,
             headers=headers,
-            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.replication_configuration))
+            body=OpenApiUtilClient.parse_to_map(request.replication_configuration)
         )
         params = open_api_models.Params(
             action='PutBucketReplication',
@@ -2506,10 +2642,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def put_bucket_request_payment(self, bucket, request):
+    def put_bucket_replication(self, bucket, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.put_bucket_request_payment_with_options(bucket, request, headers, runtime)
+        return self.put_bucket_replication_with_options(bucket, request, headers, runtime)
 
     def put_bucket_request_payment_with_options(self, bucket, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2518,7 +2654,7 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             host_map=host_map,
             headers=headers,
-            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.request_payment_configuration))
+            body=OpenApiUtilClient.parse_to_map(request.request_payment_configuration)
         )
         params = open_api_models.Params(
             action='PutBucketRequestPayment',
@@ -2536,10 +2672,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def put_bucket_tags(self, bucket, request):
+    def put_bucket_request_payment(self, bucket, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.put_bucket_tags_with_options(bucket, request, headers, runtime)
+        return self.put_bucket_request_payment_with_options(bucket, request, headers, runtime)
 
     def put_bucket_tags_with_options(self, bucket, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2548,7 +2684,7 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             host_map=host_map,
             headers=headers,
-            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.tagging))
+            body=OpenApiUtilClient.parse_to_map(request.tagging)
         )
         params = open_api_models.Params(
             action='PutBucketTags',
@@ -2566,10 +2702,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def put_bucket_transfer_acceleration(self, bucket, request):
+    def put_bucket_tags(self, bucket, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.put_bucket_transfer_acceleration_with_options(bucket, request, headers, runtime)
+        return self.put_bucket_tags_with_options(bucket, request, headers, runtime)
 
     def put_bucket_transfer_acceleration_with_options(self, bucket, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2578,7 +2714,7 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             host_map=host_map,
             headers=headers,
-            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.transfer_acceleration_configuration))
+            body=OpenApiUtilClient.parse_to_map(request.transfer_acceleration_configuration)
         )
         params = open_api_models.Params(
             action='PutBucketTransferAcceleration',
@@ -2596,10 +2732,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def put_bucket_versioning(self, bucket, request):
+    def put_bucket_transfer_acceleration(self, bucket, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.put_bucket_versioning_with_options(bucket, request, headers, runtime)
+        return self.put_bucket_transfer_acceleration_with_options(bucket, request, headers, runtime)
 
     def put_bucket_versioning_with_options(self, bucket, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2608,7 +2744,7 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             host_map=host_map,
             headers=headers,
-            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.versioning_configuration))
+            body=OpenApiUtilClient.parse_to_map(request.versioning_configuration)
         )
         params = open_api_models.Params(
             action='PutBucketVersioning',
@@ -2626,10 +2762,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def put_bucket_website(self, bucket, request):
+    def put_bucket_versioning(self, bucket, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.put_bucket_website_with_options(bucket, request, headers, runtime)
+        return self.put_bucket_versioning_with_options(bucket, request, headers, runtime)
 
     def put_bucket_website_with_options(self, bucket, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2638,7 +2774,7 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             host_map=host_map,
             headers=headers,
-            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.website_configuration))
+            body=OpenApiUtilClient.parse_to_map(request.website_configuration)
         )
         params = open_api_models.Params(
             action='PutBucketWebsite',
@@ -2656,10 +2792,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def put_live_channel(self, bucket, channel, request):
+    def put_bucket_website(self, bucket, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.put_live_channel_with_options(bucket, channel, request, headers, runtime)
+        return self.put_bucket_website_with_options(bucket, request, headers, runtime)
 
     def put_live_channel_with_options(self, bucket, channel, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2668,7 +2804,7 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             host_map=host_map,
             headers=headers,
-            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.live_channel_configuration))
+            body=OpenApiUtilClient.parse_to_map(request.live_channel_configuration)
         )
         params = open_api_models.Params(
             action='PutLiveChannel',
@@ -2686,10 +2822,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def put_live_channel_status(self, bucket, channel, request):
+    def put_live_channel(self, bucket, channel, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.put_live_channel_status_with_options(bucket, channel, request, headers, runtime)
+        return self.put_live_channel_with_options(bucket, channel, request, headers, runtime)
 
     def put_live_channel_status_with_options(self, bucket, channel, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2719,10 +2855,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def put_object(self, bucket, key, request):
+    def put_live_channel_status(self, bucket, channel, request):
         runtime = util_models.RuntimeOptions()
-        headers = oss_20190517_models.PutObjectHeaders()
-        return self.put_object_with_options(bucket, key, request, headers, runtime)
+        headers = {}
+        return self.put_live_channel_status_with_options(bucket, channel, request, headers, runtime)
 
     def put_object_with_options(self, bucket, key, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2769,10 +2905,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def put_object_acl(self, bucket, key, request):
+    def put_object(self, bucket, key, request):
         runtime = util_models.RuntimeOptions()
-        headers = oss_20190517_models.PutObjectAclHeaders()
-        return self.put_object_acl_with_options(bucket, key, request, headers, runtime)
+        headers = oss_20190517_models.PutObjectHeaders()
+        return self.put_object_with_options(bucket, key, request, headers, runtime)
 
     def put_object_acl_with_options(self, bucket, key, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2807,10 +2943,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def put_object_tagging(self, bucket, key, request):
+    def put_object_acl(self, bucket, key, request):
         runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.put_object_tagging_with_options(bucket, key, request, headers, runtime)
+        headers = oss_20190517_models.PutObjectAclHeaders()
+        return self.put_object_acl_with_options(bucket, key, request, headers, runtime)
 
     def put_object_tagging_with_options(self, bucket, key, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2823,7 +2959,7 @@ class Client(OpenApiClient):
             host_map=host_map,
             headers=headers,
             query=OpenApiUtilClient.query(query),
-            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.tagging))
+            body=OpenApiUtilClient.parse_to_map(request.tagging)
         )
         params = open_api_models.Params(
             action='PutObjectTagging',
@@ -2841,10 +2977,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def put_symlink(self, bucket, key):
+    def put_object_tagging(self, bucket, key, request):
         runtime = util_models.RuntimeOptions()
-        headers = oss_20190517_models.PutSymlinkHeaders()
-        return self.put_symlink_with_options(bucket, key, headers, runtime)
+        headers = {}
+        return self.put_object_tagging_with_options(bucket, key, request, headers, runtime)
 
     def put_symlink_with_options(self, bucket, key, headers, runtime):
         host_map = {}
@@ -2880,10 +3016,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def restore_object(self, bucket, key, request):
+    def put_symlink(self, bucket, key):
         runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.restore_object_with_options(bucket, key, request, headers, runtime)
+        headers = oss_20190517_models.PutSymlinkHeaders()
+        return self.put_symlink_with_options(bucket, key, headers, runtime)
 
     def restore_object_with_options(self, bucket, key, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2896,7 +3032,7 @@ class Client(OpenApiClient):
             host_map=host_map,
             headers=headers,
             query=OpenApiUtilClient.query(query),
-            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.restore_request))
+            body=OpenApiUtilClient.parse_to_map(request.restore_request)
         )
         params = open_api_models.Params(
             action='RestoreObject',
@@ -2914,10 +3050,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def select_object(self, bucket, key, request):
+    def restore_object(self, bucket, key, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.select_object_with_options(bucket, key, request, headers, runtime)
+        return self.restore_object_with_options(bucket, key, request, headers, runtime)
 
     def select_object_with_options(self, bucket, key, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2926,7 +3062,7 @@ class Client(OpenApiClient):
         req = open_api_models.OpenApiRequest(
             host_map=host_map,
             headers=headers,
-            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.select_request))
+            body=OpenApiUtilClient.parse_to_map(request.select_request)
         )
         params = open_api_models.Params(
             action='SelectObject',
@@ -2944,10 +3080,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def upload_part(self, bucket, key, request):
+    def select_object(self, bucket, key, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.upload_part_with_options(bucket, key, request, headers, runtime)
+        return self.select_object_with_options(bucket, key, request, headers, runtime)
 
     def upload_part_with_options(self, bucket, key, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2981,10 +3117,10 @@ class Client(OpenApiClient):
             self.execute(params, req, runtime)
         )
 
-    def upload_part_copy(self, bucket, key, request):
+    def upload_part(self, bucket, key, request):
         runtime = util_models.RuntimeOptions()
-        headers = oss_20190517_models.UploadPartCopyHeaders()
-        return self.upload_part_copy_with_options(bucket, key, request, headers, runtime)
+        headers = {}
+        return self.upload_part_with_options(bucket, key, request, headers, runtime)
 
     def upload_part_copy_with_options(self, bucket, key, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3030,3 +3166,8 @@ class Client(OpenApiClient):
             oss_20190517_models.UploadPartCopyResponse(),
             self.execute(params, req, runtime)
         )
+
+    def upload_part_copy(self, bucket, key, request):
+        runtime = util_models.RuntimeOptions()
+        headers = oss_20190517_models.UploadPartCopyHeaders()
+        return self.upload_part_copy_with_options(bucket, key, request, headers, runtime)
