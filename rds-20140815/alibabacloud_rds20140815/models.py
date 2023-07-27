@@ -49827,7 +49827,7 @@ class ModifyDBInstanceSpecRequest(TeaModel):
                  dbinstance_id=None, dbinstance_storage=None, dbinstance_storage_type=None, dedicated_host_group_id=None,
                  direction=None, effective_time=None, engine_version=None, owner_account=None, owner_id=None, pay_type=None,
                  resource_group_id=None, resource_owner_account=None, resource_owner_id=None, serverless_configuration=None,
-                 source_biz=None, switch_time=None, used_time=None, zone_id=None):
+                 source_biz=None, switch_time=None, target_minor_version=None, used_time=None, zone_id=None):
         self.auto_use_coupon = auto_use_coupon  # type: bool
         self.bursting_enabled = bursting_enabled  # type: bool
         self.category = category  # type: str
@@ -49869,6 +49869,7 @@ class ModifyDBInstanceSpecRequest(TeaModel):
         self.source_biz = source_biz  # type: str
         # The response parameters.
         self.switch_time = switch_time  # type: str
+        self.target_minor_version = target_minor_version  # type: str
         # The ID of the order.
         self.used_time = used_time  # type: long
         # The RDS edition of the instance. Valid values:
@@ -49931,6 +49932,8 @@ class ModifyDBInstanceSpecRequest(TeaModel):
             result['SourceBiz'] = self.source_biz
         if self.switch_time is not None:
             result['SwitchTime'] = self.switch_time
+        if self.target_minor_version is not None:
+            result['TargetMinorVersion'] = self.target_minor_version
         if self.used_time is not None:
             result['UsedTime'] = self.used_time
         if self.zone_id is not None:
@@ -49980,6 +49983,8 @@ class ModifyDBInstanceSpecRequest(TeaModel):
             self.source_biz = m.get('SourceBiz')
         if m.get('SwitchTime') is not None:
             self.switch_time = m.get('SwitchTime')
+        if m.get('TargetMinorVersion') is not None:
+            self.target_minor_version = m.get('TargetMinorVersion')
         if m.get('UsedTime') is not None:
             self.used_time = m.get('UsedTime')
         if m.get('ZoneId') is not None:
@@ -49992,7 +49997,7 @@ class ModifyDBInstanceSpecShrinkRequest(TeaModel):
                  dbinstance_id=None, dbinstance_storage=None, dbinstance_storage_type=None, dedicated_host_group_id=None,
                  direction=None, effective_time=None, engine_version=None, owner_account=None, owner_id=None, pay_type=None,
                  resource_group_id=None, resource_owner_account=None, resource_owner_id=None, serverless_configuration_shrink=None,
-                 source_biz=None, switch_time=None, used_time=None, zone_id=None):
+                 source_biz=None, switch_time=None, target_minor_version=None, used_time=None, zone_id=None):
         self.auto_use_coupon = auto_use_coupon  # type: bool
         self.bursting_enabled = bursting_enabled  # type: bool
         self.category = category  # type: str
@@ -50034,6 +50039,7 @@ class ModifyDBInstanceSpecShrinkRequest(TeaModel):
         self.source_biz = source_biz  # type: str
         # The response parameters.
         self.switch_time = switch_time  # type: str
+        self.target_minor_version = target_minor_version  # type: str
         # The ID of the order.
         self.used_time = used_time  # type: long
         # The RDS edition of the instance. Valid values:
@@ -50095,6 +50101,8 @@ class ModifyDBInstanceSpecShrinkRequest(TeaModel):
             result['SourceBiz'] = self.source_biz
         if self.switch_time is not None:
             result['SwitchTime'] = self.switch_time
+        if self.target_minor_version is not None:
+            result['TargetMinorVersion'] = self.target_minor_version
         if self.used_time is not None:
             result['UsedTime'] = self.used_time
         if self.zone_id is not None:
@@ -50143,6 +50151,8 @@ class ModifyDBInstanceSpecShrinkRequest(TeaModel):
             self.source_biz = m.get('SourceBiz')
         if m.get('SwitchTime') is not None:
             self.switch_time = m.get('SwitchTime')
+        if m.get('TargetMinorVersion') is not None:
+            self.target_minor_version = m.get('TargetMinorVersion')
         if m.get('UsedTime') is not None:
             self.used_time = m.get('UsedTime')
         if m.get('ZoneId') is not None:
