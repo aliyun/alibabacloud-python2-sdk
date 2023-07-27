@@ -1,3 +1,6 @@
+2023-07-27 Version: 1.1.5
+- Generated python2 2020-03-31 for ResourceManager.
+
 2023-06-05 Version: 1.1.4
 - Modify endpoint for resourcemanager.
 
