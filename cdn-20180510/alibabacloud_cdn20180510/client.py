@@ -1497,6 +1497,34 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_cdn_certificate_list_with_options(request, runtime)
 
+    def describe_cdn_condition_ipbinfo_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.data_id):
+            query['DataId'] = request.data_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeCdnConditionIPBInfo',
+            version='2018-05-10',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cdn_20180510_models.DescribeCdnConditionIPBInfoResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_cdn_condition_ipbinfo(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_cdn_condition_ipbinfo_with_options(request, runtime)
+
     def describe_cdn_deleted_domains_with_options(self, request, runtime):
         """
         > You can call this operation up to 10 times per second per account.
@@ -6965,6 +6993,44 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_realtime_log_delivery_infos_with_options(runtime)
 
+    def list_tag_resources_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.resource_id):
+            query['ResourceId'] = request.resource_id
+        if not UtilClient.is_unset(request.resource_type):
+            query['ResourceType'] = request.resource_type
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
+        if not UtilClient.is_unset(request.tag_owner_bid):
+            query['TagOwnerBid'] = request.tag_owner_bid
+        if not UtilClient.is_unset(request.tag_owner_uid):
+            query['TagOwnerUid'] = request.tag_owner_uid
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListTagResources',
+            version='2018-05-10',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cdn_20180510_models.ListTagResourcesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_tag_resources(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_tag_resources_with_options(request, runtime)
+
     def list_user_custom_log_config_with_options(self, runtime):
         """
         > You can call this operation up to 100 times per second per account.
@@ -7058,6 +7124,32 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.modify_cdn_domain_with_options(request, runtime)
+
+    def modify_cdn_domain_owner_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyCdnDomainOwner',
+            version='2018-05-10',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cdn_20180510_models.ModifyCdnDomainOwnerResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_cdn_domain_owner(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_cdn_domain_owner_with_options(request, runtime)
 
     def modify_cdn_domain_schdm_by_property_with_options(self, request, runtime):
         """
