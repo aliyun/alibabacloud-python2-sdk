@@ -5116,7 +5116,7 @@ class Client(OpenApiClient):
 
     def search_alert_rules_with_options(self, request, runtime):
         """
-        Queries alert rules.
+        The current operation is no longer maintained. You can call the GetAlertRules operation of Alert Management (New) to query existing alert rules.
         
 
         @param request: SearchAlertRulesRequest
@@ -5170,7 +5170,7 @@ class Client(OpenApiClient):
 
     def search_alert_rules(self, request):
         """
-        Queries alert rules.
+        The current operation is no longer maintained. You can call the GetAlertRules operation of Alert Management (New) to query existing alert rules.
         
 
         @param request: SearchAlertRulesRequest

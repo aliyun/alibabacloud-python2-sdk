@@ -8129,9 +8129,13 @@ class CreateRetcodeAppResponseBodyRetcodeAppDataBean(TeaModel):
 
 
 class CreateRetcodeAppResponseBody(TeaModel):
-    def __init__(self, request_id=None, retcode_app_data_bean=None):
+    def __init__(self, code=None, data=None, message=None, request_id=None, retcode_app_data_bean=None, success=None):
+        self.code = code  # type: int
+        self.data = data  # type: str
+        self.message = message  # type: str
         self.request_id = request_id  # type: str
         self.retcode_app_data_bean = retcode_app_data_bean  # type: CreateRetcodeAppResponseBodyRetcodeAppDataBean
+        self.success = success  # type: bool
 
     def validate(self):
         if self.retcode_app_data_bean:
@@ -8143,19 +8147,35 @@ class CreateRetcodeAppResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.message is not None:
+            result['Message'] = self.message
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         if self.retcode_app_data_bean is not None:
             result['RetcodeAppDataBean'] = self.retcode_app_data_bean.to_map()
+        if self.success is not None:
+            result['Success'] = self.success
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         if m.get('RetcodeAppDataBean') is not None:
             temp_model = CreateRetcodeAppResponseBodyRetcodeAppDataBean()
             self.retcode_app_data_bean = temp_model.from_map(m['RetcodeAppDataBean'])
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
         return self
 
 
@@ -11562,9 +11582,12 @@ class DeleteRetcodeAppRequest(TeaModel):
 
 
 class DeleteRetcodeAppResponseBody(TeaModel):
-    def __init__(self, data=None, request_id=None):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        self.code = code  # type: int
         self.data = data  # type: str
+        self.message = message  # type: str
         self.request_id = request_id  # type: str
+        self.success = success  # type: bool
 
     def validate(self):
         pass
@@ -11575,18 +11598,30 @@ class DeleteRetcodeAppResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
         if self.data is not None:
             result['Data'] = self.data
+        if self.message is not None:
+            result['Message'] = self.message
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
         if m.get('Data') is not None:
             self.data = m.get('Data')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
         return self
 
 
@@ -31051,7 +31086,20 @@ class SearchAlertHistoriesResponse(TeaModel):
 
 class SearchAlertRulesRequestTags(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the tag. The following system preset fields are provided:
+        # 
+        # *   traceId: the ID of the trace.
+        # *   serverApp: the name of the server application.
+        # *   clientApp: the name of the client application.
+        # *   service: the name of the operation.
+        # *   rpc: the type of the call.
+        # *   msOfSpan: the duration exceeds a specific value.
+        # *   clientIp: the IP address of the client.
+        # *   serverIp: the IP address of the server.
+        # *   isError: specifies whether the call is abnormal.
+        # *   hasTprof: contains only thread profiling.
         self.key = key  # type: str
+        # The tag value.
         self.value = value  # type: str
 
     def validate(self):
@@ -31082,15 +31130,36 @@ class SearchAlertRulesRequest(TeaModel):
     def __init__(self, alert_rule_id=None, app_type=None, current_page=None, page_size=None, pid=None,
                  region_id=None, resource_group_id=None, system_region_id=None, tags=None, title=None, type=None):
         self.alert_rule_id = alert_rule_id  # type: str
+        # The type of the application that is associated with the alert rule. Valid values:
+        # 
+        # *   `TRACE`: application
+        # *   `RETCODE`: browser
         self.app_type = app_type  # type: str
+        # The page number of the page to return. Default value: `1`.
         self.current_page = current_page  # type: int
+        # The number of entries to return per page. Default value: `10`.
         self.page_size = page_size  # type: int
+        # The process identifier (PID) of the application that is associated with the alert rule. For more information about how to obtain the PID, see [Obtain the PID of an application](https://help.aliyun.com/document_detail/186100.html?spm=a2c4g.11186623.6.792.1b50654cqcDPyk#title-imy-7gj-qhr).
         self.pid = pid  # type: str
+        # The region ID of the alert data. For more information about the mappings between **RegionId** and **SystemRegionId**, see the detailed description below the table.
         self.region_id = region_id  # type: str
         self.resource_group_id = resource_group_id  # type: str
+        # The region ID of the alert rule. For more information about the mappings between **RegionId** and **SystemRegionId**, see the detailed description below the table.
         self.system_region_id = system_region_id  # type: str
+        # The list of tags.
         self.tags = tags  # type: list[SearchAlertRulesRequestTags]
+        # The alert rule name.
         self.title = title  # type: str
+        # The alert rule type. Valid values:
+        # 
+        # *   `1`: custom alert rules that are used to monitor drill-down data sets
+        # *   `3`: custom alert rules that are used to monitor tiled data sets
+        # *   `4`: alert rules that are used to monitor the browser, including the default frontend alert rules
+        # *   `5`: alert rules that are used to monitor applications, including the default application alert rules
+        # *   `6`: the default browser alert rules
+        # *   `7`: the default application alert rules
+        # *   `8`: Tracing Analysis alert rules
+        # *   `101`: Prometheus alert rules
         self.type = type  # type: str
 
     def validate(self):
@@ -31163,9 +31232,13 @@ class SearchAlertRulesRequest(TeaModel):
 
 class SearchAlertRulesResponseBodyPageBeanAlertRulesAlarmContext(TeaModel):
     def __init__(self, alarm_content_sub_title=None, alarm_content_template=None, content=None, sub_title=None):
+        # The sub-title of the alert notification content.
         self.alarm_content_sub_title = alarm_content_sub_title  # type: str
+        # The template of the alert notification.
         self.alarm_content_template = alarm_content_template  # type: str
+        # The content of the alert notification.
         self.content = content  # type: str
+        # The sub-title of the alert notification.
         self.sub_title = sub_title  # type: str
 
     def validate(self):
@@ -31202,11 +31275,31 @@ class SearchAlertRulesResponseBodyPageBeanAlertRulesAlarmContext(TeaModel):
 
 class SearchAlertRulesResponseBodyPageBeanAlertRulesAlertRuleRules(TeaModel):
     def __init__(self, aggregates=None, alias=None, measure=None, nvalue=None, operator=None, value=None):
+        # The aggregation logic of the metric data of the alert rule. Valid values:
+        # 
+        # *   `AVG`: calculates the average value for each minute
+        # *   `SUM`: calculates the total value for each minute
+        # *   `MAX`: calculates the maximum value for each minute
+        # *   `MIN`: calculates the minimum value for each minute
         self.aggregates = aggregates  # type: str
+        # The displayed description of the alert metric.
         self.alias = alias  # type: str
+        # The metric based on which alerts are triggered. For more information, see the "[Alert metrics](https://help.aliyun.com/document_detail/175825.html#h2-url-4)" section in this topic.
         self.measure = measure  # type: str
+        # The time range when data is requested. Unit: minutes. For example, a value of 5 indicates that the alert rule applies to the data in the last 5 minutes.
         self.nvalue = nvalue  # type: int
+        # The operation logic of the condition. Valid values:
+        # 
+        # *   CURRENT_GTE: greater than or equal to
+        # *   CURRENT_LTE: less than or equal to
+        # *   PREVIOUS_UP: the increase percentage compared with the last period
+        # *   PREVIOUS_DOWN: the decrease percentage compared with the last period
+        # *   HOH_UP: the increase percentage compared with the last hour
+        # *   HOH_DOWN: the decrease percentage compared with the last hour
+        # *   DOD_UP: the increase percentage compared with the last day
+        # *   DOD_DOWN: the decrease percentage compared with the last day
         self.operator = operator  # type: str
+        # The threshold of the condition.
         self.value = value  # type: float
 
     def validate(self):
@@ -31251,7 +31344,9 @@ class SearchAlertRulesResponseBodyPageBeanAlertRulesAlertRuleRules(TeaModel):
 
 class SearchAlertRulesResponseBodyPageBeanAlertRulesAlertRule(TeaModel):
     def __init__(self, operator=None, rules=None):
+        # The logical operator between conditions. Valid values: `&`: AND. `|`: OR.
         self.operator = operator  # type: str
+        # The condition of the alert rule.
         self.rules = rules  # type: list[SearchAlertRulesResponseBodyPageBeanAlertRulesAlertRuleRules]
 
     def validate(self):
@@ -31288,8 +31383,20 @@ class SearchAlertRulesResponseBodyPageBeanAlertRulesAlertRule(TeaModel):
 
 class SearchAlertRulesResponseBodyPageBeanAlertRulesMetricParamDimensions(TeaModel):
     def __init__(self, key=None, type=None, value=None):
+        # The key of the dimension. Valid values:
+        # 
+        # *   `rpc`: the name of the API
+        # *   `rpcType`: the type of the API call, such as HTTP or DUBBO
+        # *   `endpoint`: the name of the database
+        # *   `rootIp`: the IP address of the host
         self.key = key  # type: str
+        # The type of the dimension. Valid values:
+        # 
+        # *   `STATIC`: checks only the value of this dimension. In this case, you must set the **dimensions.value** parameter.
+        # *   `ALL`: checks the values of all dimensions. The metrics of all API calls are checked. If an API call triggers an alert, the name of the API is displayed in the alert notification. In this case, you do not need to set the **dimensions.value** parameter.
+        # *   `DISABLE`: aggregates the values of all dimensions. In this case, you do not need to set the **dimensions.value** parameter.
         self.type = type  # type: str
+        # The value of the dimension.
         self.value = value  # type: str
 
     def validate(self):
@@ -31322,10 +31429,22 @@ class SearchAlertRulesResponseBodyPageBeanAlertRulesMetricParamDimensions(TeaMod
 
 class SearchAlertRulesResponseBodyPageBeanAlertRulesMetricParam(TeaModel):
     def __init__(self, app_group_id=None, app_id=None, dimensions=None, pid=None, type=None):
+        # The ID of the application group that is associated with the alert rule. This parameter is applicable to Enterprise Distributed Application Service (EDAS) applications.
         self.app_group_id = app_group_id  # type: str
+        # The auto-increment ID of the ARMS application. You can ignore this ID.
         self.app_id = app_id  # type: str
+        # The dimensions in the condition.
         self.dimensions = dimensions  # type: list[SearchAlertRulesResponseBodyPageBeanAlertRulesMetricParamDimensions]
+        # The PID of the application that is associated with the alert rule.
         self.pid = pid  # type: str
+        # The type of the metric. Valid values:
+        # 
+        # *   `txn`: the number of API calls during application monitoring
+        # *   `txn_type`: the types of API calls during application monitoring
+        # *   `db`: database metrics
+        # *   `jvm`: Java virtual machine (JVM) metrics
+        # *   `host`: host metrics
+        # *   `exception`: API call errors
         self.type = type  # type: str
 
     def validate(self):
@@ -31374,9 +31493,13 @@ class SearchAlertRulesResponseBodyPageBeanAlertRulesMetricParam(TeaModel):
 
 class SearchAlertRulesResponseBodyPageBeanAlertRulesNotice(TeaModel):
     def __init__(self, end_time=None, notice_end_time=None, notice_start_time=None, start_time=None):
+        # The end of the time range when the alert rule takes effect within 24 hours per day. This value is a UNIX timestamp. The year, month, and day that are indicated by the timestamp are not displayed in this value. Only the hour, minute, and second are displayed.
         self.end_time = end_time  # type: long
+        # The end of the time range when alert notifications are sent based on the alert rule within 24 hours per day. This value is a UNIX timestamp. The year, month, and day that are indicated by the timestamp are not displayed in this value. Only the hour, minute, and second are displayed.
         self.notice_end_time = notice_end_time  # type: long
+        # The beginning of the time range when alert notifications are sent based on the alert rule within 24 hours per day. This value is a UNIX timestamp. The year, month, and day that are indicated by the timestamp are not displayed in this value. Only the hour, minute, and second are displayed.
         self.notice_start_time = notice_start_time  # type: long
+        # The beginning of the time range when the alert rule takes effect within 24 hours per day. This value is a UNIX timestamp. The year, month, and day that are indicated by the timestamp are not displayed in this value. Only the hour, minute, and second are displayed.
         self.start_time = start_time  # type: long
 
     def validate(self):
@@ -31416,28 +31539,72 @@ class SearchAlertRulesResponseBodyPageBeanAlertRules(TeaModel):
                  alert_version=None, alert_ways=None, config=None, contact_group_id_list=None, contact_group_ids=None,
                  create_time=None, host_by_alert_manager=None, id=None, metric_param=None, notice=None, region_id=None,
                  resource_group_id=None, status=None, task_id=None, task_status=None, title=None, update_time=None, user_id=None):
+        # The format of the alert notification.
         self.alarm_context = alarm_context  # type: SearchAlertRulesResponseBodyPageBeanAlertRulesAlarmContext
+        # The severity of the alerts. Only the value `WARN` is supported.
         self.alert_level = alert_level  # type: str
+        # The conditions of the alert rule. Multiple conditions are separated by the AND or OR logical operators.
         self.alert_rule = alert_rule  # type: SearchAlertRulesResponseBodyPageBeanAlertRulesAlertRule
+        # The name of the alert rule.
         self.alert_title = alert_title  # type: str
+        # The type of the alert rule. Valid values:
+        # 
+        # *   `1`: custom alert rules that are used to monitor drill-down data sets
+        # *   `3`: custom alert rules that are used to monitor tiled data sets
+        # *   `4`: alert rules that are used to monitor the browser, including the default frontend alert rules
+        # *   `5`: alert rules that are used to monitor applications, including the default application alert rules
+        # *   `6`: the default browser alert rules
+        # *   `7`: the default application alert rules
+        # *   `8`: Tracing Analysis alert rules
+        # *   `101`: Prometheus alert rules
         self.alert_type = alert_type  # type: int
+        # The version of the alert rule. Default value: `1`.
         self.alert_version = alert_version  # type: int
         self.alert_ways = alert_ways  # type: list[str]
+        # The configuration items of the alert rule. The value is a JSON string.
+        # 
+        # The configuration item **continuous** indicates whether alert notifications are continuously sent. Valid values:
+        # 
+        # *   `true`: Alert notifications are sent every minute.
+        # *   `false`: The alert silence feature is enabled.
+        # 
+        # The configuration item **dataRevision** indicates the data revision policy that is used if no data is obtained or the data is null. Default value: 2. Valid values:
+        # 
+        # *   `0`: overwrites the data by using the value 0
+        # *   `1`: overwrites the data by using the value 1
+        # *   `2`: overwrites the data by using the value null. This value indicates that no alert is triggered if no data exists
         self.config = config  # type: str
+        # The ID of the contact group. Multiple IDs are separated by commas (,).
         self.contact_group_id_list = contact_group_id_list  # type: str
+        # The IDs of the alert contact groups. The value is a JSON array.
         self.contact_group_ids = contact_group_ids  # type: str
+        # The timestamp that shows when the alert rule was created.
         self.create_time = create_time  # type: long
+        # Indicates whether the alert is sent through the alert center. Valid values:
+        # 
+        # *   `true`
+        # *   `false`
         self.host_by_alert_manager = host_by_alert_manager  # type: bool
+        # The ID of the alert rule.
         self.id = id  # type: long
+        # The information about the application that is associated with the alert rule.
         self.metric_param = metric_param  # type: SearchAlertRulesResponseBodyPageBeanAlertRulesMetricParam
+        # The time ranges when the alert rule takes effect and when alert notifications are sent.
         self.notice = notice  # type: SearchAlertRulesResponseBodyPageBeanAlertRulesNotice
+        # The ID of the region to which the alert rule belongs.
         self.region_id = region_id  # type: str
         self.resource_group_id = resource_group_id  # type: str
+        # The status of the alert rule. `RUNNING`: The alert rule is enabled. `STOPPED`: The alert rule is disabled.
         self.status = status  # type: str
+        # The ID of the Application Real-Time Monitoring Service (ARMS) task that is associated with the alert rule.
         self.task_id = task_id  # type: long
+        # The status of the task. This parameter is hidden from users.
         self.task_status = task_status  # type: str
+        # The name of the alert.
         self.title = title  # type: str
+        # The timestamp that shows when the alert rule was updated.
         self.update_time = update_time  # type: long
+        # The ID of the user to which the alert rule belongs.
         self.user_id = user_id  # type: str
 
     def validate(self):
@@ -31561,9 +31728,13 @@ class SearchAlertRulesResponseBodyPageBeanAlertRules(TeaModel):
 
 class SearchAlertRulesResponseBodyPageBean(TeaModel):
     def __init__(self, alert_rules=None, page_number=None, page_size=None, total_count=None):
+        # The details of the alert rules.
         self.alert_rules = alert_rules  # type: list[SearchAlertRulesResponseBodyPageBeanAlertRules]
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The total number of returned entries.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -31608,7 +31779,9 @@ class SearchAlertRulesResponseBodyPageBean(TeaModel):
 
 class SearchAlertRulesResponseBody(TeaModel):
     def __init__(self, page_bean=None, request_id=None):
+        # The returned struct.
         self.page_bean = page_bean  # type: SearchAlertRulesResponseBodyPageBean
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -34317,6 +34490,7 @@ class SyncRecordingRulesResponse(TeaModel):
 
 class TagResourcesRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # http://arms.${regionId}.aliyun-inc.com:8099/tag/TagResources.json
         self.key = key  # type: str
         self.value = value  # type: str
 
@@ -34346,8 +34520,18 @@ class TagResourcesRequestTag(TeaModel):
 
 class TagResourcesRequest(TeaModel):
     def __init__(self, resource_id=None, resource_type=None, tag=None):
+        # Schema of Response
         self.resource_id = resource_id  # type: list[str]
+        # The resource type.
+        # 
+        # WEB-front-end monitoring
+        # APPLICATION-Application Monitoring
+        # PROMETHEUS-PROM monitoring
+        # SYNTHETICTASK-Cloud dial test
+        # ALERTRULE - Application Monitoring Similar
+        # PROMETHEUSALERTRULE - Prometheus monitoring
         self.resource_type = resource_type  # type: str
+        # The returned result.
         self.tag = tag  # type: list[TagResourcesRequestTag]
 
     def validate(self):
@@ -34389,6 +34573,7 @@ class TagResourcesRequest(TeaModel):
 class TagResourcesResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
         self.data = data  # type: str
+        # Id of the request
         self.request_id = request_id  # type: str
 
     def validate(self):
