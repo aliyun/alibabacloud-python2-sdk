@@ -87,6 +87,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.call_time_list_shrink):
             query['CallTimeList'] = request.call_time_list_shrink
+        if not UtilClient.is_unset(request.callback_url):
+            query['CallbackUrl'] = request.callback_url
         if not UtilClient.is_unset(request.max_concurrency):
             query['MaxConcurrency'] = request.max_concurrency
         if not UtilClient.is_unset(request.name):
@@ -309,6 +311,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.call_time_list_shrink):
             query['CallTimeList'] = request.call_time_list_shrink
+        if not UtilClient.is_unset(request.callback_url):
+            query['CallbackUrl'] = request.callback_url
         if not UtilClient.is_unset(request.max_concurrency):
             query['MaxConcurrency'] = request.max_concurrency
         if not UtilClient.is_unset(request.name):

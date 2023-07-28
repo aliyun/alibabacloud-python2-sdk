@@ -252,7 +252,7 @@ class AddTaskRequestSendSmsPlan(TeaModel):
     def __init__(self, intent_tags=None, sms_template_id=None):
         # 意向标签
         self.intent_tags = intent_tags  # type: list[str]
-        # 重呼条件
+        # 短信模板ID
         self.sms_template_id = sms_template_id  # type: long
 
     def validate(self):
@@ -280,12 +280,14 @@ class AddTaskRequestSendSmsPlan(TeaModel):
 
 
 class AddTaskRequest(TeaModel):
-    def __init__(self, call_time_list=None, max_concurrency=None, name=None, owner_id=None, play_sleep_val=None,
-                 play_times=None, recall_type=None, record_path=None, repeat_count=None, repeat_interval=None,
+    def __init__(self, call_time_list=None, callback_url=None, max_concurrency=None, name=None, owner_id=None,
+                 play_sleep_val=None, play_times=None, recall_type=None, record_path=None, repeat_count=None, repeat_interval=None,
                  repeat_reason=None, repeat_times=None, resource_owner_account=None, resource_owner_id=None, send_sms_plan=None,
                  start_time=None, task_type=None, template_id=None, template_type=None):
         # 外呼时间
         self.call_time_list = call_time_list  # type: list[AddTaskRequestCallTimeList]
+        # 回调地址
+        self.callback_url = callback_url  # type: str
         # 并发数
         self.max_concurrency = max_concurrency  # type: long
         # 任务名称
@@ -340,6 +342,8 @@ class AddTaskRequest(TeaModel):
         if self.call_time_list is not None:
             for k in self.call_time_list:
                 result['CallTimeList'].append(k.to_map() if k else None)
+        if self.callback_url is not None:
+            result['CallbackUrl'] = self.callback_url
         if self.max_concurrency is not None:
             result['MaxConcurrency'] = self.max_concurrency
         if self.name is not None:
@@ -387,6 +391,8 @@ class AddTaskRequest(TeaModel):
             for k in m.get('CallTimeList'):
                 temp_model = AddTaskRequestCallTimeList()
                 self.call_time_list.append(temp_model.from_map(k))
+        if m.get('CallbackUrl') is not None:
+            self.callback_url = m.get('CallbackUrl')
         if m.get('MaxConcurrency') is not None:
             self.max_concurrency = m.get('MaxConcurrency')
         if m.get('Name') is not None:
@@ -430,12 +436,15 @@ class AddTaskRequest(TeaModel):
 
 
 class AddTaskShrinkRequest(TeaModel):
-    def __init__(self, call_time_list_shrink=None, max_concurrency=None, name=None, owner_id=None,
-                 play_sleep_val=None, play_times=None, recall_type=None, record_path=None, repeat_count=None, repeat_interval=None,
-                 repeat_reason_shrink=None, repeat_times_shrink=None, resource_owner_account=None, resource_owner_id=None,
-                 send_sms_plan_shrink=None, start_time=None, task_type=None, template_id=None, template_type=None):
+    def __init__(self, call_time_list_shrink=None, callback_url=None, max_concurrency=None, name=None,
+                 owner_id=None, play_sleep_val=None, play_times=None, recall_type=None, record_path=None, repeat_count=None,
+                 repeat_interval=None, repeat_reason_shrink=None, repeat_times_shrink=None, resource_owner_account=None,
+                 resource_owner_id=None, send_sms_plan_shrink=None, start_time=None, task_type=None, template_id=None,
+                 template_type=None):
         # 外呼时间
         self.call_time_list_shrink = call_time_list_shrink  # type: str
+        # 回调地址
+        self.callback_url = callback_url  # type: str
         # 并发数
         self.max_concurrency = max_concurrency  # type: long
         # 任务名称
@@ -481,6 +490,8 @@ class AddTaskShrinkRequest(TeaModel):
         result = dict()
         if self.call_time_list_shrink is not None:
             result['CallTimeList'] = self.call_time_list_shrink
+        if self.callback_url is not None:
+            result['CallbackUrl'] = self.callback_url
         if self.max_concurrency is not None:
             result['MaxConcurrency'] = self.max_concurrency
         if self.name is not None:
@@ -523,6 +534,8 @@ class AddTaskShrinkRequest(TeaModel):
         m = m or dict()
         if m.get('CallTimeList') is not None:
             self.call_time_list_shrink = m.get('CallTimeList')
+        if m.get('CallbackUrl') is not None:
+            self.callback_url = m.get('CallbackUrl')
         if m.get('MaxConcurrency') is not None:
             self.max_concurrency = m.get('MaxConcurrency')
         if m.get('Name') is not None:
@@ -1632,12 +1645,14 @@ class EditTaskRequestSendSmsPlan(TeaModel):
 
 
 class EditTaskRequest(TeaModel):
-    def __init__(self, call_time_list=None, max_concurrency=None, name=None, owner_id=None, play_sleep_val=None,
-                 play_times=None, recall_type=None, record_path=None, repeat_count=None, repeat_interval=None,
+    def __init__(self, call_time_list=None, callback_url=None, max_concurrency=None, name=None, owner_id=None,
+                 play_sleep_val=None, play_times=None, recall_type=None, record_path=None, repeat_count=None, repeat_interval=None,
                  repeat_reason=None, repeat_times=None, resource_owner_account=None, resource_owner_id=None, send_sms_plan=None,
                  status=None, task_id=None, template_id=None, template_type=None):
         # 外呼时间
         self.call_time_list = call_time_list  # type: list[EditTaskRequestCallTimeList]
+        # 回调地址
+        self.callback_url = callback_url  # type: str
         # 并发数
         self.max_concurrency = max_concurrency  # type: long
         # 任务名称
@@ -1692,6 +1707,8 @@ class EditTaskRequest(TeaModel):
         if self.call_time_list is not None:
             for k in self.call_time_list:
                 result['CallTimeList'].append(k.to_map() if k else None)
+        if self.callback_url is not None:
+            result['CallbackUrl'] = self.callback_url
         if self.max_concurrency is not None:
             result['MaxConcurrency'] = self.max_concurrency
         if self.name is not None:
@@ -1739,6 +1756,8 @@ class EditTaskRequest(TeaModel):
             for k in m.get('CallTimeList'):
                 temp_model = EditTaskRequestCallTimeList()
                 self.call_time_list.append(temp_model.from_map(k))
+        if m.get('CallbackUrl') is not None:
+            self.callback_url = m.get('CallbackUrl')
         if m.get('MaxConcurrency') is not None:
             self.max_concurrency = m.get('MaxConcurrency')
         if m.get('Name') is not None:
@@ -1782,12 +1801,14 @@ class EditTaskRequest(TeaModel):
 
 
 class EditTaskShrinkRequest(TeaModel):
-    def __init__(self, call_time_list_shrink=None, max_concurrency=None, name=None, owner_id=None,
-                 play_sleep_val=None, play_times=None, recall_type=None, record_path=None, repeat_count=None, repeat_interval=None,
-                 repeat_reason_shrink=None, repeat_times_shrink=None, resource_owner_account=None, resource_owner_id=None,
-                 send_sms_plan_shrink=None, status=None, task_id=None, template_id=None, template_type=None):
+    def __init__(self, call_time_list_shrink=None, callback_url=None, max_concurrency=None, name=None,
+                 owner_id=None, play_sleep_val=None, play_times=None, recall_type=None, record_path=None, repeat_count=None,
+                 repeat_interval=None, repeat_reason_shrink=None, repeat_times_shrink=None, resource_owner_account=None,
+                 resource_owner_id=None, send_sms_plan_shrink=None, status=None, task_id=None, template_id=None, template_type=None):
         # 外呼时间
         self.call_time_list_shrink = call_time_list_shrink  # type: str
+        # 回调地址
+        self.callback_url = callback_url  # type: str
         # 并发数
         self.max_concurrency = max_concurrency  # type: long
         # 任务名称
@@ -1833,6 +1854,8 @@ class EditTaskShrinkRequest(TeaModel):
         result = dict()
         if self.call_time_list_shrink is not None:
             result['CallTimeList'] = self.call_time_list_shrink
+        if self.callback_url is not None:
+            result['CallbackUrl'] = self.callback_url
         if self.max_concurrency is not None:
             result['MaxConcurrency'] = self.max_concurrency
         if self.name is not None:
@@ -1875,6 +1898,8 @@ class EditTaskShrinkRequest(TeaModel):
         m = m or dict()
         if m.get('CallTimeList') is not None:
             self.call_time_list_shrink = m.get('CallTimeList')
+        if m.get('CallbackUrl') is not None:
+            self.callback_url = m.get('CallbackUrl')
         if m.get('MaxConcurrency') is not None:
             self.max_concurrency = m.get('MaxConcurrency')
         if m.get('Name') is not None:
