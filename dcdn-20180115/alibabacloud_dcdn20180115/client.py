@@ -354,9 +354,8 @@ class Client(OpenApiClient):
 
     def batch_delete_dcdn_domain_configs_with_options(self, request, runtime):
         """
-        >
-        *   You can specify up to 50 domain names in each request.
-        *   You can call this operation up to 30 times per second per account.
+        > - You can specify up to 50 domain names in each request.
+        > - You can call this operation up to 30 times per second per account.
         
 
         @param request: BatchDeleteDcdnDomainConfigsRequest
@@ -398,9 +397,8 @@ class Client(OpenApiClient):
 
     def batch_delete_dcdn_domain_configs(self, request):
         """
-        >
-        *   You can specify up to 50 domain names in each request.
-        *   You can call this operation up to 30 times per second per account.
+        > - You can specify up to 50 domain names in each request.
+        > - You can call this operation up to 30 times per second per account.
         
 
         @param request: BatchDeleteDcdnDomainConfigsRequest
@@ -462,7 +460,6 @@ class Client(OpenApiClient):
 
     def batch_modify_dcdn_waf_rules_with_options(self, request, runtime):
         """
-        ## Usage notes
         You can call this operation up to 20 times per second per account.
         
 
@@ -499,7 +496,6 @@ class Client(OpenApiClient):
 
     def batch_modify_dcdn_waf_rules(self, request):
         """
-        ## Usage notes
         You can call this operation up to 20 times per second per account.
         
 
@@ -735,6 +731,118 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.batch_set_dcdn_waf_domain_configs_with_options(request, runtime)
+
+    def batch_start_dcdn_domain_with_options(self, request, runtime):
+        """
+        >
+        *   If an accelerated domain name is in invalid state or your account has an overdue payment, the accelerated domain name cannot be enabled.
+        *   You can specify up to 50 domain names in each request.
+        *   You can call this operation up to 30 times per second per account.
+        
+
+        @param request: BatchStartDcdnDomainRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: BatchStartDcdnDomainResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_names):
+            query['DomainNames'] = request.domain_names
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='BatchStartDcdnDomain',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dcdn_20180115_models.BatchStartDcdnDomainResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def batch_start_dcdn_domain(self, request):
+        """
+        >
+        *   If an accelerated domain name is in invalid state or your account has an overdue payment, the accelerated domain name cannot be enabled.
+        *   You can specify up to 50 domain names in each request.
+        *   You can call this operation up to 30 times per second per account.
+        
+
+        @param request: BatchStartDcdnDomainRequest
+
+        @return: BatchStartDcdnDomainResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.batch_start_dcdn_domain_with_options(request, runtime)
+
+    def batch_stop_dcdn_domain_with_options(self, request, runtime):
+        """
+        >
+        *   After an accelerated domain name is disabled, Dynamic Content Delivery Network (DCDN) retains the domain name information. The system automatically reroutes all requests that are destined for the accelerated domain name to the origin.
+        *   You can specify up to 50 domain names in each request.
+        *   You can call this operation up to 30 times per second per account.
+        
+
+        @param request: BatchStopDcdnDomainRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: BatchStopDcdnDomainResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_names):
+            query['DomainNames'] = request.domain_names
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='BatchStopDcdnDomain',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dcdn_20180115_models.BatchStopDcdnDomainResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def batch_stop_dcdn_domain(self, request):
+        """
+        >
+        *   After an accelerated domain name is disabled, Dynamic Content Delivery Network (DCDN) retains the domain name information. The system automatically reroutes all requests that are destined for the accelerated domain name to the origin.
+        *   You can specify up to 50 domain names in each request.
+        *   You can call this operation up to 30 times per second per account.
+        
+
+        @param request: BatchStopDcdnDomainRequest
+
+        @return: BatchStopDcdnDomainResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.batch_stop_dcdn_domain_with_options(request, runtime)
 
     def check_dcdn_project_exist_with_options(self, request, runtime):
         """
@@ -1397,6 +1505,34 @@ class Client(OpenApiClient):
     def delete_dcdn_kv(self, request):
         runtime = util_models.RuntimeOptions()
         return self.delete_dcdn_kv_with_options(request, runtime)
+
+    def delete_dcdn_kv_namespace_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.namespace):
+            query['Namespace'] = request.namespace
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteDcdnKvNamespace',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dcdn_20180115_models.DeleteDcdnKvNamespaceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_dcdn_kv_namespace(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_dcdn_kv_namespace_with_options(request, runtime)
 
     def delete_dcdn_real_time_log_project_with_options(self, request, runtime):
         """
@@ -3576,11 +3712,16 @@ class Client(OpenApiClient):
 
     def describe_dcdn_domain_real_time_byte_hit_rate_data_with_options(self, request, runtime):
         """
-        # Usage notes
-        *   You can call this operation up to 10 times per second per account.
-        *   The network traffic destined for different domain names may be redirected to the same origin server. Therefore, the byte hit ratios may be inaccurate. The accuracy of query results is based on the actual configurations.
-        *   If you do not set the **StartTime** or **EndTime** parameter, the request returns the data collected in the last hour. If you set both the **StartTime** and **EndTime** parameters, the request returns the data collected within the specified time range.
-        **Time granularity** The time granularity varies with the time range specified by the StartTime and EndTime parameters. The following table describes the time period within which historical data is available and the data delay. | Time granularity | Maximum time range per query | Historical data available | Data delay | |---------------|--------| | 1 minute | 1 hour | 7 days | 5 minutes | | 5 minutes | 3 days | 93 days | 15 minutes | | 1 hour | 31 days | 186 days | 4 hours |
+        You can call this operation up to 10 times per second per account.
+        * The network traffic destined for different domain names may be redirected to the same origin server. Therefore, the byte hit ratios may be inaccurate. The accuracy of query results is based on the actual configurations.
+        * If you do not set the **StartTime** or **EndTime** parameter, the request returns the data collected in the last hour. If you set both the **StartTime** and **EndTime** parameters, the request returns the data collected within the specified time range.
+        **Time granularity**\
+        The time granularity varies with the time range specified by the StartTime and EndTime parameters. The following table describes the time period within which historical data is available and the data delay.
+        | Time granularity | Maximum time range per query | Historical data available | Data delay |
+        |----|------|-----|--------|
+        | 1 minute | 1 hour | 7 days | 5 minutes |
+        | 5 minutes | 3 days | 93 days | 15 minutes |
+        | 1 hour | 31 days | 186 days | 4 hours |
         
 
         @param request: DescribeDcdnDomainRealTimeByteHitRateDataRequest
@@ -3612,11 +3753,16 @@ class Client(OpenApiClient):
 
     def describe_dcdn_domain_real_time_byte_hit_rate_data(self, request):
         """
-        # Usage notes
-        *   You can call this operation up to 10 times per second per account.
-        *   The network traffic destined for different domain names may be redirected to the same origin server. Therefore, the byte hit ratios may be inaccurate. The accuracy of query results is based on the actual configurations.
-        *   If you do not set the **StartTime** or **EndTime** parameter, the request returns the data collected in the last hour. If you set both the **StartTime** and **EndTime** parameters, the request returns the data collected within the specified time range.
-        **Time granularity** The time granularity varies with the time range specified by the StartTime and EndTime parameters. The following table describes the time period within which historical data is available and the data delay. | Time granularity | Maximum time range per query | Historical data available | Data delay | |---------------|--------| | 1 minute | 1 hour | 7 days | 5 minutes | | 5 minutes | 3 days | 93 days | 15 minutes | | 1 hour | 31 days | 186 days | 4 hours |
+        You can call this operation up to 10 times per second per account.
+        * The network traffic destined for different domain names may be redirected to the same origin server. Therefore, the byte hit ratios may be inaccurate. The accuracy of query results is based on the actual configurations.
+        * If you do not set the **StartTime** or **EndTime** parameter, the request returns the data collected in the last hour. If you set both the **StartTime** and **EndTime** parameters, the request returns the data collected within the specified time range.
+        **Time granularity**\
+        The time granularity varies with the time range specified by the StartTime and EndTime parameters. The following table describes the time period within which historical data is available and the data delay.
+        | Time granularity | Maximum time range per query | Historical data available | Data delay |
+        |----|------|-----|--------|
+        | 1 minute | 1 hour | 7 days | 5 minutes |
+        | 5 minutes | 3 days | 93 days | 15 minutes |
+        | 1 hour | 31 days | 186 days | 4 hours |
         
 
         @param request: DescribeDcdnDomainRealTimeByteHitRateDataRequest
@@ -3854,10 +4000,14 @@ class Client(OpenApiClient):
 
     def describe_dcdn_domain_real_time_src_bps_data_with_options(self, request, runtime):
         """
-        #
-        *   You can call this operation up to 10 times per second per account.
+        You can call this operation up to 10 times per second per account.
         *   If you do not set the StartTime or EndTime parameter, the request returns the data collected in the last hour. If you set both the parameters, the request returns the data collected within the specified time range.
-        **Time granularity** The time granularity varies with the time range specified by the StartTime and EndTime parameters. The following table describes the time period within which historical data is available and the data delay. | Time granularity | Maximum time range per query | Historical data available | Data delay | |---------------|--------| | 1 minute | 1 hour | 7 days | 5 minutes | | 5 minutes | 3 days | 93 days | 15 minutes | | 1 hour | 31 days | 186 days | 4 hours |
+        **Time granularity**\
+        The time granularity varies with the time range specified by the StartTime and EndTime parameters. The following table describes the time period within which historical data is available and the data delay.
+        | Time granularity | Maximum time range per query | Historical data available | Data delay |
+        |-----|-----|-----|--------|
+        | 1 minute | 1 hour | 7 days | 5 minutes |
+        | 5 minutes | 3 days | 93 days | 15 minutes | | 1 hour | 31 days | 186 days | 4 hours |
         
 
         @param request: DescribeDcdnDomainRealTimeSrcBpsDataRequest
@@ -3895,10 +4045,14 @@ class Client(OpenApiClient):
 
     def describe_dcdn_domain_real_time_src_bps_data(self, request):
         """
-        #
-        *   You can call this operation up to 10 times per second per account.
+        You can call this operation up to 10 times per second per account.
         *   If you do not set the StartTime or EndTime parameter, the request returns the data collected in the last hour. If you set both the parameters, the request returns the data collected within the specified time range.
-        **Time granularity** The time granularity varies with the time range specified by the StartTime and EndTime parameters. The following table describes the time period within which historical data is available and the data delay. | Time granularity | Maximum time range per query | Historical data available | Data delay | |---------------|--------| | 1 minute | 1 hour | 7 days | 5 minutes | | 5 minutes | 3 days | 93 days | 15 minutes | | 1 hour | 31 days | 186 days | 4 hours |
+        **Time granularity**\
+        The time granularity varies with the time range specified by the StartTime and EndTime parameters. The following table describes the time period within which historical data is available and the data delay.
+        | Time granularity | Maximum time range per query | Historical data available | Data delay |
+        |-----|-----|-----|--------|
+        | 1 minute | 1 hour | 7 days | 5 minutes |
+        | 5 minutes | 3 days | 93 days | 15 minutes | | 1 hour | 31 days | 186 days | 4 hours |
         
 
         @param request: DescribeDcdnDomainRealTimeSrcBpsDataRequest
@@ -5173,6 +5327,76 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.describe_dcdn_ipa_user_domains_with_options(request, runtime)
+
+    def describe_dcdn_kv_account_with_options(self, runtime):
+        req = open_api_models.OpenApiRequest()
+        params = open_api_models.Params(
+            action='DescribeDcdnKvAccount',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dcdn_20180115_models.DescribeDcdnKvAccountResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_dcdn_kv_account(self):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_dcdn_kv_account_with_options(runtime)
+
+    def describe_dcdn_kv_account_status_with_options(self, runtime):
+        req = open_api_models.OpenApiRequest()
+        params = open_api_models.Params(
+            action='DescribeDcdnKvAccountStatus',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dcdn_20180115_models.DescribeDcdnKvAccountStatusResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_dcdn_kv_account_status(self):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_dcdn_kv_account_status_with_options(runtime)
+
+    def describe_dcdn_kv_namespace_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDcdnKvNamespace',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dcdn_20180115_models.DescribeDcdnKvNamespaceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_dcdn_kv_namespace(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_dcdn_kv_namespace_with_options(request, runtime)
 
     def describe_dcdn_l2ips_with_options(self, runtime):
         req = open_api_models.OpenApiRequest()
@@ -8110,6 +8334,32 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_dcdn_kv_with_options(request, runtime)
 
+    def list_dcdn_kv_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListDcdnKv',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dcdn_20180115_models.ListDcdnKvResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_dcdn_kv(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_dcdn_kv_with_options(request, runtime)
+
     def list_dcdn_real_time_delivery_project_with_options(self, request, runtime):
         """
         > You can call this operation up to 100 times per second per account.
@@ -8209,6 +8459,38 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.modify_dcdn_domain_schdm_by_property_with_options(request, runtime)
+
+    def modify_dcdn_waf_group_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.id):
+            body['Id'] = request.id
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.rules):
+            body['Rules'] = request.rules
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ModifyDcdnWafGroup',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dcdn_20180115_models.ModifyDcdnWafGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_dcdn_waf_group(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_dcdn_waf_group_with_options(request, runtime)
 
     def modify_dcdn_waf_policy_with_options(self, request, runtime):
         """
@@ -8647,6 +8929,36 @@ class Client(OpenApiClient):
     def put_dcdn_kv(self, request):
         runtime = util_models.RuntimeOptions()
         return self.put_dcdn_kv_with_options(request, runtime)
+
+    def put_dcdn_kv_namespace_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.description):
+            body['Description'] = request.description
+        if not UtilClient.is_unset(request.namespace):
+            body['Namespace'] = request.namespace
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='PutDcdnKvNamespace',
+            version='2018-01-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            dcdn_20180115_models.PutDcdnKvNamespaceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def put_dcdn_kv_namespace(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.put_dcdn_kv_namespace_with_options(request, runtime)
 
     def refresh_dcdn_object_caches_with_options(self, request, runtime):
         """
