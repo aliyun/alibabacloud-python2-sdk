@@ -132,9 +132,13 @@ class Client(OpenApiClient):
         UtilClient.validate_model(tmp_req)
         request = oos_20190601_models.CreateApplicationShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.alarm_config):
+            request.alarm_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.alarm_config, 'AlarmConfig', 'json')
         if not UtilClient.is_unset(tmp_req.tags):
             request.tags_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.tags, 'Tags', 'json')
         query = {}
+        if not UtilClient.is_unset(request.alarm_config_shrink):
+            query['AlarmConfig'] = request.alarm_config_shrink
         if not UtilClient.is_unset(request.client_token):
             query['ClientToken'] = request.client_token
         if not UtilClient.is_unset(request.description):
@@ -2746,9 +2750,15 @@ class Client(OpenApiClient):
         UtilClient.validate_model(tmp_req)
         request = oos_20190601_models.UpdateApplicationShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.alarm_config):
+            request.alarm_config_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.alarm_config, 'AlarmConfig', 'json')
         if not UtilClient.is_unset(tmp_req.tags):
             request.tags_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.tags, 'Tags', 'json')
         query = {}
+        if not UtilClient.is_unset(request.alarm_config_shrink):
+            query['AlarmConfig'] = request.alarm_config_shrink
+        if not UtilClient.is_unset(request.delete_alarm_rules_before_update):
+            query['DeleteAlarmRulesBeforeUpdate'] = request.delete_alarm_rules_before_update
         if not UtilClient.is_unset(request.description):
             query['Description'] = request.description
         if not UtilClient.is_unset(request.name):

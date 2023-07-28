@@ -321,9 +321,44 @@ class ContinueDeployApplicationGroupResponse(TeaModel):
         return self
 
 
+class CreateApplicationRequestAlarmConfig(TeaModel):
+    def __init__(self, contact_groups=None, health_check_url=None, template_ids=None):
+        self.contact_groups = contact_groups  # type: list[str]
+        self.health_check_url = health_check_url  # type: str
+        self.template_ids = template_ids  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateApplicationRequestAlarmConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.contact_groups is not None:
+            result['ContactGroups'] = self.contact_groups
+        if self.health_check_url is not None:
+            result['HealthCheckUrl'] = self.health_check_url
+        if self.template_ids is not None:
+            result['TemplateIds'] = self.template_ids
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ContactGroups') is not None:
+            self.contact_groups = m.get('ContactGroups')
+        if m.get('HealthCheckUrl') is not None:
+            self.health_check_url = m.get('HealthCheckUrl')
+        if m.get('TemplateIds') is not None:
+            self.template_ids = m.get('TemplateIds')
+        return self
+
+
 class CreateApplicationRequest(TeaModel):
-    def __init__(self, client_token=None, description=None, name=None, region_id=None, resource_group_id=None,
-                 tags=None):
+    def __init__(self, alarm_config=None, client_token=None, description=None, name=None, region_id=None,
+                 resource_group_id=None, tags=None):
+        self.alarm_config = alarm_config  # type: CreateApplicationRequestAlarmConfig
         # The client token that is used to ensure the idempotence of the request.
         self.client_token = client_token  # type: str
         # The description of the application.
@@ -338,7 +373,8 @@ class CreateApplicationRequest(TeaModel):
         self.tags = tags  # type: dict[str, any]
 
     def validate(self):
-        pass
+        if self.alarm_config:
+            self.alarm_config.validate()
 
     def to_map(self):
         _map = super(CreateApplicationRequest, self).to_map()
@@ -346,6 +382,8 @@ class CreateApplicationRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.alarm_config is not None:
+            result['AlarmConfig'] = self.alarm_config.to_map()
         if self.client_token is not None:
             result['ClientToken'] = self.client_token
         if self.description is not None:
@@ -362,6 +400,9 @@ class CreateApplicationRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AlarmConfig') is not None:
+            temp_model = CreateApplicationRequestAlarmConfig()
+            self.alarm_config = temp_model.from_map(m['AlarmConfig'])
         if m.get('ClientToken') is not None:
             self.client_token = m.get('ClientToken')
         if m.get('Description') is not None:
@@ -378,8 +419,9 @@ class CreateApplicationRequest(TeaModel):
 
 
 class CreateApplicationShrinkRequest(TeaModel):
-    def __init__(self, client_token=None, description=None, name=None, region_id=None, resource_group_id=None,
-                 tags_shrink=None):
+    def __init__(self, alarm_config_shrink=None, client_token=None, description=None, name=None, region_id=None,
+                 resource_group_id=None, tags_shrink=None):
+        self.alarm_config_shrink = alarm_config_shrink  # type: str
         # The client token that is used to ensure the idempotence of the request.
         self.client_token = client_token  # type: str
         # The description of the application.
@@ -402,6 +444,8 @@ class CreateApplicationShrinkRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.alarm_config_shrink is not None:
+            result['AlarmConfig'] = self.alarm_config_shrink
         if self.client_token is not None:
             result['ClientToken'] = self.client_token
         if self.description is not None:
@@ -418,6 +462,8 @@ class CreateApplicationShrinkRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AlarmConfig') is not None:
+            self.alarm_config_shrink = m.get('AlarmConfig')
         if m.get('ClientToken') is not None:
             self.client_token = m.get('ClientToken')
         if m.get('Description') is not None:
@@ -4196,9 +4242,44 @@ class GetApplicationRequest(TeaModel):
         return self
 
 
+class GetApplicationResponseBodyApplicationAlarmConfig(TeaModel):
+    def __init__(self, contact_groups=None, health_check_url=None, template_ids=None):
+        self.contact_groups = contact_groups  # type: list[str]
+        self.health_check_url = health_check_url  # type: str
+        self.template_ids = template_ids  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetApplicationResponseBodyApplicationAlarmConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.contact_groups is not None:
+            result['ContactGroups'] = self.contact_groups
+        if self.health_check_url is not None:
+            result['HealthCheckUrl'] = self.health_check_url
+        if self.template_ids is not None:
+            result['TemplateIds'] = self.template_ids
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ContactGroups') is not None:
+            self.contact_groups = m.get('ContactGroups')
+        if m.get('HealthCheckUrl') is not None:
+            self.health_check_url = m.get('HealthCheckUrl')
+        if m.get('TemplateIds') is not None:
+            self.template_ids = m.get('TemplateIds')
+        return self
+
+
 class GetApplicationResponseBodyApplication(TeaModel):
-    def __init__(self, application_type=None, create_date=None, description=None, name=None, resource_group_id=None,
-                 tags=None, update_date=None):
+    def __init__(self, alarm_config=None, application_type=None, create_date=None, description=None, name=None,
+                 resource_group_id=None, tags=None, update_date=None):
+        self.alarm_config = alarm_config  # type: GetApplicationResponseBodyApplicationAlarmConfig
         self.application_type = application_type  # type: str
         # The time when the application was created.
         self.create_date = create_date  # type: str
@@ -4214,7 +4295,8 @@ class GetApplicationResponseBodyApplication(TeaModel):
         self.update_date = update_date  # type: str
 
     def validate(self):
-        pass
+        if self.alarm_config:
+            self.alarm_config.validate()
 
     def to_map(self):
         _map = super(GetApplicationResponseBodyApplication, self).to_map()
@@ -4222,6 +4304,8 @@ class GetApplicationResponseBodyApplication(TeaModel):
             return _map
 
         result = dict()
+        if self.alarm_config is not None:
+            result['AlarmConfig'] = self.alarm_config.to_map()
         if self.application_type is not None:
             result['ApplicationType'] = self.application_type
         if self.create_date is not None:
@@ -4240,6 +4324,9 @@ class GetApplicationResponseBodyApplication(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AlarmConfig') is not None:
+            temp_model = GetApplicationResponseBodyApplicationAlarmConfig()
+            self.alarm_config = temp_model.from_map(m['AlarmConfig'])
         if m.get('ApplicationType') is not None:
             self.application_type = m.get('ApplicationType')
         if m.get('CreateDate') is not None:
@@ -15240,8 +15327,45 @@ class UntagResourcesResponse(TeaModel):
         return self
 
 
+class UpdateApplicationRequestAlarmConfig(TeaModel):
+    def __init__(self, contact_groups=None, health_check_url=None, template_ids=None):
+        self.contact_groups = contact_groups  # type: list[str]
+        self.health_check_url = health_check_url  # type: str
+        self.template_ids = template_ids  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateApplicationRequestAlarmConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.contact_groups is not None:
+            result['ContactGroups'] = self.contact_groups
+        if self.health_check_url is not None:
+            result['HealthCheckUrl'] = self.health_check_url
+        if self.template_ids is not None:
+            result['TemplateIds'] = self.template_ids
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ContactGroups') is not None:
+            self.contact_groups = m.get('ContactGroups')
+        if m.get('HealthCheckUrl') is not None:
+            self.health_check_url = m.get('HealthCheckUrl')
+        if m.get('TemplateIds') is not None:
+            self.template_ids = m.get('TemplateIds')
+        return self
+
+
 class UpdateApplicationRequest(TeaModel):
-    def __init__(self, description=None, name=None, region_id=None, tags=None):
+    def __init__(self, alarm_config=None, delete_alarm_rules_before_update=None, description=None, name=None,
+                 region_id=None, tags=None):
+        self.alarm_config = alarm_config  # type: UpdateApplicationRequestAlarmConfig
+        self.delete_alarm_rules_before_update = delete_alarm_rules_before_update  # type: bool
         # The description to be updated for the application.
         self.description = description  # type: str
         # The application name.
@@ -15252,7 +15376,8 @@ class UpdateApplicationRequest(TeaModel):
         self.tags = tags  # type: dict[str, any]
 
     def validate(self):
-        pass
+        if self.alarm_config:
+            self.alarm_config.validate()
 
     def to_map(self):
         _map = super(UpdateApplicationRequest, self).to_map()
@@ -15260,6 +15385,10 @@ class UpdateApplicationRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.alarm_config is not None:
+            result['AlarmConfig'] = self.alarm_config.to_map()
+        if self.delete_alarm_rules_before_update is not None:
+            result['DeleteAlarmRulesBeforeUpdate'] = self.delete_alarm_rules_before_update
         if self.description is not None:
             result['Description'] = self.description
         if self.name is not None:
@@ -15272,6 +15401,11 @@ class UpdateApplicationRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AlarmConfig') is not None:
+            temp_model = UpdateApplicationRequestAlarmConfig()
+            self.alarm_config = temp_model.from_map(m['AlarmConfig'])
+        if m.get('DeleteAlarmRulesBeforeUpdate') is not None:
+            self.delete_alarm_rules_before_update = m.get('DeleteAlarmRulesBeforeUpdate')
         if m.get('Description') is not None:
             self.description = m.get('Description')
         if m.get('Name') is not None:
@@ -15284,7 +15418,10 @@ class UpdateApplicationRequest(TeaModel):
 
 
 class UpdateApplicationShrinkRequest(TeaModel):
-    def __init__(self, description=None, name=None, region_id=None, tags_shrink=None):
+    def __init__(self, alarm_config_shrink=None, delete_alarm_rules_before_update=None, description=None,
+                 name=None, region_id=None, tags_shrink=None):
+        self.alarm_config_shrink = alarm_config_shrink  # type: str
+        self.delete_alarm_rules_before_update = delete_alarm_rules_before_update  # type: bool
         # The description to be updated for the application.
         self.description = description  # type: str
         # The application name.
@@ -15303,6 +15440,10 @@ class UpdateApplicationShrinkRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.alarm_config_shrink is not None:
+            result['AlarmConfig'] = self.alarm_config_shrink
+        if self.delete_alarm_rules_before_update is not None:
+            result['DeleteAlarmRulesBeforeUpdate'] = self.delete_alarm_rules_before_update
         if self.description is not None:
             result['Description'] = self.description
         if self.name is not None:
@@ -15315,6 +15456,10 @@ class UpdateApplicationShrinkRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AlarmConfig') is not None:
+            self.alarm_config_shrink = m.get('AlarmConfig')
+        if m.get('DeleteAlarmRulesBeforeUpdate') is not None:
+            self.delete_alarm_rules_before_update = m.get('DeleteAlarmRulesBeforeUpdate')
         if m.get('Description') is not None:
             self.description = m.get('Description')
         if m.get('Name') is not None:
