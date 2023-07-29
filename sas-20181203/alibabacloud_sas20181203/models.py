@@ -2357,6 +2357,64 @@ class ChangeCheckConfigRequestAddedCheck(TeaModel):
         return self
 
 
+class ChangeCheckConfigRequestConfigRequirementIds(TeaModel):
+    def __init__(self, add_ids=None, remove_ids=None):
+        self.add_ids = add_ids  # type: list[long]
+        self.remove_ids = remove_ids  # type: list[long]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ChangeCheckConfigRequestConfigRequirementIds, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.add_ids is not None:
+            result['AddIds'] = self.add_ids
+        if self.remove_ids is not None:
+            result['RemoveIds'] = self.remove_ids
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AddIds') is not None:
+            self.add_ids = m.get('AddIds')
+        if m.get('RemoveIds') is not None:
+            self.remove_ids = m.get('RemoveIds')
+        return self
+
+
+class ChangeCheckConfigRequestConfigStandardIds(TeaModel):
+    def __init__(self, add_ids=None, remove_ids=None):
+        self.add_ids = add_ids  # type: list[long]
+        self.remove_ids = remove_ids  # type: list[long]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ChangeCheckConfigRequestConfigStandardIds, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.add_ids is not None:
+            result['AddIds'] = self.add_ids
+        if self.remove_ids is not None:
+            result['RemoveIds'] = self.remove_ids
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AddIds') is not None:
+            self.add_ids = m.get('AddIds')
+        if m.get('RemoveIds') is not None:
+            self.remove_ids = m.get('RemoveIds')
+        return self
+
+
 class ChangeCheckConfigRequestRemovedCheck(TeaModel):
     def __init__(self, check_id=None, section_id=None):
         self.check_id = check_id  # type: long
@@ -2387,9 +2445,12 @@ class ChangeCheckConfigRequestRemovedCheck(TeaModel):
 
 
 class ChangeCheckConfigRequest(TeaModel):
-    def __init__(self, added_check=None, cycle_days=None, enable_add_check=None, enable_auto_check=None,
-                 end_time=None, region_id=None, removed_check=None, standard_ids=None, start_time=None):
+    def __init__(self, added_check=None, config_requirement_ids=None, config_standard_ids=None, cycle_days=None,
+                 enable_add_check=None, enable_auto_check=None, end_time=None, region_id=None, removed_check=None, standard_ids=None,
+                 start_time=None):
         self.added_check = added_check  # type: list[ChangeCheckConfigRequestAddedCheck]
+        self.config_requirement_ids = config_requirement_ids  # type: ChangeCheckConfigRequestConfigRequirementIds
+        self.config_standard_ids = config_standard_ids  # type: ChangeCheckConfigRequestConfigStandardIds
         self.cycle_days = cycle_days  # type: list[int]
         self.enable_add_check = enable_add_check  # type: bool
         self.enable_auto_check = enable_auto_check  # type: bool
@@ -2415,6 +2476,10 @@ class ChangeCheckConfigRequest(TeaModel):
             for k in self.added_check:
                 if k:
                     k.validate()
+        if self.config_requirement_ids:
+            self.config_requirement_ids.validate()
+        if self.config_standard_ids:
+            self.config_standard_ids.validate()
         if self.removed_check:
             for k in self.removed_check:
                 if k:
@@ -2430,6 +2495,10 @@ class ChangeCheckConfigRequest(TeaModel):
         if self.added_check is not None:
             for k in self.added_check:
                 result['AddedCheck'].append(k.to_map() if k else None)
+        if self.config_requirement_ids is not None:
+            result['ConfigRequirementIds'] = self.config_requirement_ids.to_map()
+        if self.config_standard_ids is not None:
+            result['ConfigStandardIds'] = self.config_standard_ids.to_map()
         if self.cycle_days is not None:
             result['CycleDays'] = self.cycle_days
         if self.enable_add_check is not None:
@@ -2457,6 +2526,12 @@ class ChangeCheckConfigRequest(TeaModel):
             for k in m.get('AddedCheck'):
                 temp_model = ChangeCheckConfigRequestAddedCheck()
                 self.added_check.append(temp_model.from_map(k))
+        if m.get('ConfigRequirementIds') is not None:
+            temp_model = ChangeCheckConfigRequestConfigRequirementIds()
+            self.config_requirement_ids = temp_model.from_map(m['ConfigRequirementIds'])
+        if m.get('ConfigStandardIds') is not None:
+            temp_model = ChangeCheckConfigRequestConfigStandardIds()
+            self.config_standard_ids = temp_model.from_map(m['ConfigStandardIds'])
         if m.get('CycleDays') is not None:
             self.cycle_days = m.get('CycleDays')
         if m.get('EnableAddCheck') is not None:
@@ -2471,6 +2546,168 @@ class ChangeCheckConfigRequest(TeaModel):
         if m.get('RemovedCheck') is not None:
             for k in m.get('RemovedCheck'):
                 temp_model = ChangeCheckConfigRequestRemovedCheck()
+                self.removed_check.append(temp_model.from_map(k))
+        if m.get('StandardIds') is not None:
+            self.standard_ids = m.get('StandardIds')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        return self
+
+
+class ChangeCheckConfigShrinkRequestAddedCheck(TeaModel):
+    def __init__(self, check_id=None, section_id=None):
+        self.check_id = check_id  # type: long
+        self.section_id = section_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ChangeCheckConfigShrinkRequestAddedCheck, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.check_id is not None:
+            result['CheckId'] = self.check_id
+        if self.section_id is not None:
+            result['SectionId'] = self.section_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CheckId') is not None:
+            self.check_id = m.get('CheckId')
+        if m.get('SectionId') is not None:
+            self.section_id = m.get('SectionId')
+        return self
+
+
+class ChangeCheckConfigShrinkRequestRemovedCheck(TeaModel):
+    def __init__(self, check_id=None, section_id=None):
+        self.check_id = check_id  # type: long
+        self.section_id = section_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ChangeCheckConfigShrinkRequestRemovedCheck, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.check_id is not None:
+            result['CheckId'] = self.check_id
+        if self.section_id is not None:
+            result['SectionId'] = self.section_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CheckId') is not None:
+            self.check_id = m.get('CheckId')
+        if m.get('SectionId') is not None:
+            self.section_id = m.get('SectionId')
+        return self
+
+
+class ChangeCheckConfigShrinkRequest(TeaModel):
+    def __init__(self, added_check=None, config_requirement_ids_shrink=None, config_standard_ids_shrink=None,
+                 cycle_days=None, enable_add_check=None, enable_auto_check=None, end_time=None, region_id=None,
+                 removed_check=None, standard_ids=None, start_time=None):
+        self.added_check = added_check  # type: list[ChangeCheckConfigShrinkRequestAddedCheck]
+        self.config_requirement_ids_shrink = config_requirement_ids_shrink  # type: str
+        self.config_standard_ids_shrink = config_standard_ids_shrink  # type: str
+        self.cycle_days = cycle_days  # type: list[int]
+        self.enable_add_check = enable_add_check  # type: bool
+        self.enable_auto_check = enable_auto_check  # type: bool
+        # The end time of the check. The value specifies a point in time in a day. The time period that is specified by the start time and end time must be one of the following time periods:
+        # 
+        # *   **00:00 to 06:00:** If you set the StartTime parameter to 0, you must set the EndTime parameter to 6.
+        # *   **06:00 to 12:00**: If you set the StartTime parameter to 6, you must set the EndTime parameter to 12.
+        # *   **12:00 to 18:00**: If you set the StartTime parameter to 12, you must set the EndTime parameter to 18.
+        # *  **18:00 to 24:00:** If you set the StartTime parameter to 18, you must set the EndTime parameter to 24.
+        self.end_time = end_time  # type: int
+        # The region ID of the bastion host to query.
+        # 
+        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
+        self.region_id = region_id  # type: str
+        self.removed_check = removed_check  # type: list[ChangeCheckConfigShrinkRequestRemovedCheck]
+        # An array that consists of the information about the check item.
+        self.standard_ids = standard_ids  # type: list[long]
+        # The start time of the check. The value specifies a point in time in a day.
+        self.start_time = start_time  # type: int
+
+    def validate(self):
+        if self.added_check:
+            for k in self.added_check:
+                if k:
+                    k.validate()
+        if self.removed_check:
+            for k in self.removed_check:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ChangeCheckConfigShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['AddedCheck'] = []
+        if self.added_check is not None:
+            for k in self.added_check:
+                result['AddedCheck'].append(k.to_map() if k else None)
+        if self.config_requirement_ids_shrink is not None:
+            result['ConfigRequirementIds'] = self.config_requirement_ids_shrink
+        if self.config_standard_ids_shrink is not None:
+            result['ConfigStandardIds'] = self.config_standard_ids_shrink
+        if self.cycle_days is not None:
+            result['CycleDays'] = self.cycle_days
+        if self.enable_add_check is not None:
+            result['EnableAddCheck'] = self.enable_add_check
+        if self.enable_auto_check is not None:
+            result['EnableAutoCheck'] = self.enable_auto_check
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        result['RemovedCheck'] = []
+        if self.removed_check is not None:
+            for k in self.removed_check:
+                result['RemovedCheck'].append(k.to_map() if k else None)
+        if self.standard_ids is not None:
+            result['StandardIds'] = self.standard_ids
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.added_check = []
+        if m.get('AddedCheck') is not None:
+            for k in m.get('AddedCheck'):
+                temp_model = ChangeCheckConfigShrinkRequestAddedCheck()
+                self.added_check.append(temp_model.from_map(k))
+        if m.get('ConfigRequirementIds') is not None:
+            self.config_requirement_ids_shrink = m.get('ConfigRequirementIds')
+        if m.get('ConfigStandardIds') is not None:
+            self.config_standard_ids_shrink = m.get('ConfigStandardIds')
+        if m.get('CycleDays') is not None:
+            self.cycle_days = m.get('CycleDays')
+        if m.get('EnableAddCheck') is not None:
+            self.enable_add_check = m.get('EnableAddCheck')
+        if m.get('EnableAutoCheck') is not None:
+            self.enable_auto_check = m.get('EnableAutoCheck')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        self.removed_check = []
+        if m.get('RemovedCheck') is not None:
+            for k in m.get('RemovedCheck'):
+                temp_model = ChangeCheckConfigShrinkRequestRemovedCheck()
                 self.removed_check.append(temp_model.from_map(k))
         if m.get('StandardIds') is not None:
             self.standard_ids = m.get('StandardIds')
@@ -14128,6 +14365,155 @@ class DescribeAssetsSecurityEventSummaryResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeAssetsSecurityEventSummaryResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeAttachRecordsRequest(TeaModel):
+    def __init__(self, application_id=None, ecs_uuidlist=None):
+        self.application_id = application_id  # type: str
+        self.ecs_uuidlist = ecs_uuidlist  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeAttachRecordsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.application_id is not None:
+            result['ApplicationId'] = self.application_id
+        if self.ecs_uuidlist is not None:
+            result['EcsUUIDList'] = self.ecs_uuidlist
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ApplicationId') is not None:
+            self.application_id = m.get('ApplicationId')
+        if m.get('EcsUUIDList') is not None:
+            self.ecs_uuidlist = m.get('EcsUUIDList')
+        return self
+
+
+class DescribeAttachRecordsResponseBodyAccessList(TeaModel):
+    def __init__(self, attach_state=None, attach_switch=None, ecs_uuid=None, install_msg=None, install_state=None):
+        self.attach_state = attach_state  # type: long
+        self.attach_switch = attach_switch  # type: str
+        self.ecs_uuid = ecs_uuid  # type: str
+        self.install_msg = install_msg  # type: str
+        self.install_state = install_state  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeAttachRecordsResponseBodyAccessList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.attach_state is not None:
+            result['AttachState'] = self.attach_state
+        if self.attach_switch is not None:
+            result['AttachSwitch'] = self.attach_switch
+        if self.ecs_uuid is not None:
+            result['EcsUUID'] = self.ecs_uuid
+        if self.install_msg is not None:
+            result['InstallMsg'] = self.install_msg
+        if self.install_state is not None:
+            result['InstallState'] = self.install_state
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AttachState') is not None:
+            self.attach_state = m.get('AttachState')
+        if m.get('AttachSwitch') is not None:
+            self.attach_switch = m.get('AttachSwitch')
+        if m.get('EcsUUID') is not None:
+            self.ecs_uuid = m.get('EcsUUID')
+        if m.get('InstallMsg') is not None:
+            self.install_msg = m.get('InstallMsg')
+        if m.get('InstallState') is not None:
+            self.install_state = m.get('InstallState')
+        return self
+
+
+class DescribeAttachRecordsResponseBody(TeaModel):
+    def __init__(self, access_list=None, request_id=None):
+        self.access_list = access_list  # type: list[DescribeAttachRecordsResponseBodyAccessList]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.access_list:
+            for k in self.access_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeAttachRecordsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['AccessList'] = []
+        if self.access_list is not None:
+            for k in self.access_list:
+                result['AccessList'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.access_list = []
+        if m.get('AccessList') is not None:
+            for k in m.get('AccessList'):
+                temp_model = DescribeAttachRecordsResponseBodyAccessList()
+                self.access_list.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeAttachRecordsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeAttachRecordsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeAttachRecordsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeAttachRecordsResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -74573,6 +74959,98 @@ class InstallPmAgentResponse(TeaModel):
         return self
 
 
+class InstallRaspAttachRequest(TeaModel):
+    def __init__(self, application_id=None, ecs_uuidlist=None):
+        self.application_id = application_id  # type: str
+        self.ecs_uuidlist = ecs_uuidlist  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(InstallRaspAttachRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.application_id is not None:
+            result['ApplicationId'] = self.application_id
+        if self.ecs_uuidlist is not None:
+            result['EcsUUIDList'] = self.ecs_uuidlist
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ApplicationId') is not None:
+            self.application_id = m.get('ApplicationId')
+        if m.get('EcsUUIDList') is not None:
+            self.ecs_uuidlist = m.get('EcsUUIDList')
+        return self
+
+
+class InstallRaspAttachResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(InstallRaspAttachResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class InstallRaspAttachResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: InstallRaspAttachResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(InstallRaspAttachResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = InstallRaspAttachResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class InstallUniBackupAgentRequest(TeaModel):
     def __init__(self, policy_id=None):
         # The ID of the anti-ransomware policy.
@@ -75578,6 +76056,121 @@ class ListAgentlessTaskResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListAgentlessTaskResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListAssetCleanConfigResponseBodyData(TeaModel):
+    def __init__(self, clean_days=None, status=None, type=None):
+        self.clean_days = clean_days  # type: int
+        self.status = status  # type: int
+        self.type = type  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListAssetCleanConfigResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.clean_days is not None:
+            result['CleanDays'] = self.clean_days
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.type is not None:
+            result['Type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CleanDays') is not None:
+            self.clean_days = m.get('CleanDays')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        return self
+
+
+class ListAssetCleanConfigResponseBody(TeaModel):
+    def __init__(self, count=None, data=None, request_id=None):
+        self.count = count  # type: int
+        self.data = data  # type: list[ListAssetCleanConfigResponseBodyData]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListAssetCleanConfigResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.count is not None:
+            result['Count'] = self.count
+        result['Data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['Data'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Count') is not None:
+            self.count = m.get('Count')
+        self.data = []
+        if m.get('Data') is not None:
+            for k in m.get('Data'):
+                temp_model = ListAssetCleanConfigResponseBodyData()
+                self.data.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ListAssetCleanConfigResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListAssetCleanConfigResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListAssetCleanConfigResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListAssetCleanConfigResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -78906,6 +79499,176 @@ class ListCloudAssetInstancesResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListCloudAssetInstancesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListCloudVendorRegionsRequest(TeaModel):
+    def __init__(self, lang=None, vendor=None):
+        self.lang = lang  # type: str
+        self.vendor = vendor  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListCloudVendorRegionsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.lang is not None:
+            result['Lang'] = self.lang
+        if self.vendor is not None:
+            result['Vendor'] = self.vendor
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Lang') is not None:
+            self.lang = m.get('Lang')
+        if m.get('Vendor') is not None:
+            self.vendor = m.get('Vendor')
+        return self
+
+
+class ListCloudVendorRegionsResponseBodyData(TeaModel):
+    def __init__(self, area=None, disable=None, region_id=None, selected=None):
+        self.area = area  # type: str
+        self.disable = disable  # type: int
+        self.region_id = region_id  # type: str
+        self.selected = selected  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListCloudVendorRegionsResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.area is not None:
+            result['Area'] = self.area
+        if self.disable is not None:
+            result['Disable'] = self.disable
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.selected is not None:
+            result['Selected'] = self.selected
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Area') is not None:
+            self.area = m.get('Area')
+        if m.get('Disable') is not None:
+            self.disable = m.get('Disable')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('Selected') is not None:
+            self.selected = m.get('Selected')
+        return self
+
+
+class ListCloudVendorRegionsResponseBody(TeaModel):
+    def __init__(self, code=None, count=None, data=None, http_status_code=None, message=None, request_id=None,
+                 success=None):
+        self.code = code  # type: str
+        self.count = count  # type: int
+        self.data = data  # type: list[ListCloudVendorRegionsResponseBodyData]
+        self.http_status_code = http_status_code  # type: int
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListCloudVendorRegionsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.count is not None:
+            result['Count'] = self.count
+        result['Data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['Data'].append(k.to_map() if k else None)
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Count') is not None:
+            self.count = m.get('Count')
+        self.data = []
+        if m.get('Data') is not None:
+            for k in m.get('Data'):
+                temp_model = ListCloudVendorRegionsResponseBodyData()
+                self.data.append(temp_model.from_map(k))
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class ListCloudVendorRegionsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListCloudVendorRegionsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListCloudVendorRegionsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListCloudVendorRegionsResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -85955,6 +86718,140 @@ class ModifyAppVulScanCycleResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ModifyAppVulScanCycleResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ModifyAssetCleanConfigRequestAssetCleanConfigs(TeaModel):
+    def __init__(self, clean_days=None, status=None, type=None):
+        self.clean_days = clean_days  # type: int
+        self.status = status  # type: int
+        self.type = type  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyAssetCleanConfigRequestAssetCleanConfigs, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.clean_days is not None:
+            result['CleanDays'] = self.clean_days
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.type is not None:
+            result['Type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CleanDays') is not None:
+            self.clean_days = m.get('CleanDays')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        return self
+
+
+class ModifyAssetCleanConfigRequest(TeaModel):
+    def __init__(self, asset_clean_configs=None):
+        self.asset_clean_configs = asset_clean_configs  # type: list[ModifyAssetCleanConfigRequestAssetCleanConfigs]
+
+    def validate(self):
+        if self.asset_clean_configs:
+            for k in self.asset_clean_configs:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ModifyAssetCleanConfigRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['AssetCleanConfigs'] = []
+        if self.asset_clean_configs is not None:
+            for k in self.asset_clean_configs:
+                result['AssetCleanConfigs'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.asset_clean_configs = []
+        if m.get('AssetCleanConfigs') is not None:
+            for k in m.get('AssetCleanConfigs'):
+                temp_model = ModifyAssetCleanConfigRequestAssetCleanConfigs()
+                self.asset_clean_configs.append(temp_model.from_map(k))
+        return self
+
+
+class ModifyAssetCleanConfigResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: bool
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyAssetCleanConfigResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ModifyAssetCleanConfigResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ModifyAssetCleanConfigResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ModifyAssetCleanConfigResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ModifyAssetCleanConfigResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -98250,6 +99147,98 @@ class UninstallBackupClientResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = UninstallBackupClientResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UninstallRaspAttachRequest(TeaModel):
+    def __init__(self, application_id=None, ecs_uuidlist=None):
+        self.application_id = application_id  # type: str
+        self.ecs_uuidlist = ecs_uuidlist  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UninstallRaspAttachRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.application_id is not None:
+            result['ApplicationId'] = self.application_id
+        if self.ecs_uuidlist is not None:
+            result['EcsUUIDList'] = self.ecs_uuidlist
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ApplicationId') is not None:
+            self.application_id = m.get('ApplicationId')
+        if m.get('EcsUUIDList') is not None:
+            self.ecs_uuidlist = m.get('EcsUUIDList')
+        return self
+
+
+class UninstallRaspAttachResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UninstallRaspAttachResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class UninstallRaspAttachResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UninstallRaspAttachResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UninstallRaspAttachResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UninstallRaspAttachResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 

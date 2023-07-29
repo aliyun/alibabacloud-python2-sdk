@@ -639,11 +639,21 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.change_asset_refresh_task_config_with_options(request, runtime)
 
-    def change_check_config_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
+    def change_check_config_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = sas_20181203_models.ChangeCheckConfigShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.config_requirement_ids):
+            request.config_requirement_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.config_requirement_ids, 'ConfigRequirementIds', 'json')
+        if not UtilClient.is_unset(tmp_req.config_standard_ids):
+            request.config_standard_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.config_standard_ids, 'ConfigStandardIds', 'json')
         query = {}
         if not UtilClient.is_unset(request.added_check):
             query['AddedCheck'] = request.added_check
+        if not UtilClient.is_unset(request.config_requirement_ids_shrink):
+            query['ConfigRequirementIds'] = request.config_requirement_ids_shrink
+        if not UtilClient.is_unset(request.config_standard_ids_shrink):
+            query['ConfigStandardIds'] = request.config_standard_ids_shrink
         if not UtilClient.is_unset(request.cycle_days):
             query['CycleDays'] = request.cycle_days
         if not UtilClient.is_unset(request.enable_add_check):
@@ -3220,6 +3230,36 @@ class Client(OpenApiClient):
     def describe_assets_security_event_summary(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_assets_security_event_summary_with_options(request, runtime)
+
+    def describe_attach_records_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.application_id):
+            query['ApplicationId'] = request.application_id
+        if not UtilClient.is_unset(request.ecs_uuidlist):
+            query['EcsUUIDList'] = request.ecs_uuidlist
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeAttachRecords',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.DescribeAttachRecordsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_attach_records(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_attach_records_with_options(request, runtime)
 
     def describe_attack_analysis_data_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -12541,6 +12581,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.install_pm_agent_with_options(request, runtime)
 
+    def install_rasp_attach_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.application_id):
+            query['ApplicationId'] = request.application_id
+        if not UtilClient.is_unset(request.ecs_uuidlist):
+            query['EcsUUIDList'] = request.ecs_uuidlist
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='InstallRaspAttach',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.InstallRaspAttachResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def install_rasp_attach(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.install_rasp_attach_with_options(request, runtime)
+
     def install_uni_backup_agent_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -12748,6 +12818,28 @@ class Client(OpenApiClient):
     def list_agentless_task(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_agentless_task_with_options(request, runtime)
+
+    def list_asset_clean_config_with_options(self, runtime):
+        req = open_api_models.OpenApiRequest()
+        params = open_api_models.Params(
+            action='ListAssetCleanConfig',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.ListAssetCleanConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_asset_clean_config(self):
+        runtime = util_models.RuntimeOptions()
+        return self.list_asset_clean_config_with_options(runtime)
 
     def list_asset_refresh_task_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -13192,6 +13284,36 @@ class Client(OpenApiClient):
     def list_cloud_asset_instances(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_cloud_asset_instances_with_options(request, runtime)
+
+    def list_cloud_vendor_regions_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.vendor):
+            query['Vendor'] = request.vendor
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListCloudVendorRegions',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.ListCloudVendorRegionsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_cloud_vendor_regions(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_cloud_vendor_regions_with_options(request, runtime)
 
     def list_cluster_cnnf_status_detail_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -14166,6 +14288,34 @@ class Client(OpenApiClient):
     def modify_app_vul_scan_cycle(self, request):
         runtime = util_models.RuntimeOptions()
         return self.modify_app_vul_scan_cycle_with_options(request, runtime)
+
+    def modify_asset_clean_config_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.asset_clean_configs):
+            query['AssetCleanConfigs'] = request.asset_clean_configs
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyAssetCleanConfig',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.ModifyAssetCleanConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_asset_clean_config(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_asset_clean_config_with_options(request, runtime)
 
     def modify_asset_group_with_options(self, request, runtime):
         """
@@ -17524,6 +17674,36 @@ class Client(OpenApiClient):
     def uninstall_backup_client(self, request):
         runtime = util_models.RuntimeOptions()
         return self.uninstall_backup_client_with_options(request, runtime)
+
+    def uninstall_rasp_attach_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.application_id):
+            query['ApplicationId'] = request.application_id
+        if not UtilClient.is_unset(request.ecs_uuidlist):
+            query['EcsUUIDList'] = request.ecs_uuidlist
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UninstallRaspAttach',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.UninstallRaspAttachResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def uninstall_rasp_attach(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.uninstall_rasp_attach_with_options(request, runtime)
 
     def uninstall_uni_backup_agent_with_options(self, request, runtime):
         UtilClient.validate_model(request)
