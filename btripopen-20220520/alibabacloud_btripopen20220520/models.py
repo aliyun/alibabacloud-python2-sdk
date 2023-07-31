@@ -44912,15 +44912,16 @@ class TrainOrderListQueryResponseBodyModuleUserAffiliateList(TeaModel):
 
 
 class TrainOrderListQueryResponseBodyModule(TeaModel):
-    def __init__(self, apply_id=None, arr_city=None, arr_station=None, arr_time=None, btrip_title=None,
-                 contact_name=None, corp_id=None, corp_name=None, cost_center=None, dep_city=None, dep_station=None,
-                 dep_time=None, depart_id=None, depart_name=None, gmt_create=None, gmt_modified=None, id=None, invoice=None,
-                 price_info_list=None, project_code=None, project_id=None, project_title=None, rider_name=None, run_time=None,
-                 seat_type=None, status=None, third_part_project_id=None, thirdpart_apply_id=None,
-                 thirdpart_itinerary_id=None, ticket_count=None, ticket_no_12306=None, train_number=None, train_type=None,
-                 user_affiliate_list=None, user_id=None, user_name=None):
+    def __init__(self, apply_id=None, arr_city=None, arr_city_ad_code=None, arr_station=None, arr_time=None,
+                 btrip_title=None, contact_name=None, corp_id=None, corp_name=None, cost_center=None, dep_city=None,
+                 dep_city_ad_code=None, dep_station=None, dep_time=None, depart_id=None, depart_name=None, gmt_create=None,
+                 gmt_modified=None, id=None, invoice=None, price_info_list=None, project_code=None, project_id=None,
+                 project_title=None, rider_name=None, run_time=None, seat_type=None, status=None, third_part_project_id=None,
+                 thirdpart_apply_id=None, thirdpart_itinerary_id=None, ticket_count=None, ticket_no_12306=None, train_number=None,
+                 train_type=None, user_affiliate_list=None, user_id=None, user_name=None):
         self.apply_id = apply_id  # type: long
         self.arr_city = arr_city  # type: str
+        self.arr_city_ad_code = arr_city_ad_code  # type: str
         self.arr_station = arr_station  # type: str
         self.arr_time = arr_time  # type: str
         self.btrip_title = btrip_title  # type: str
@@ -44929,6 +44930,7 @@ class TrainOrderListQueryResponseBodyModule(TeaModel):
         self.corp_name = corp_name  # type: str
         self.cost_center = cost_center  # type: TrainOrderListQueryResponseBodyModuleCostCenter
         self.dep_city = dep_city  # type: str
+        self.dep_city_ad_code = dep_city_ad_code  # type: str
         self.dep_station = dep_station  # type: str
         self.dep_time = dep_time  # type: str
         self.depart_id = depart_id  # type: str
@@ -44980,6 +44982,8 @@ class TrainOrderListQueryResponseBodyModule(TeaModel):
             result['apply_id'] = self.apply_id
         if self.arr_city is not None:
             result['arr_city'] = self.arr_city
+        if self.arr_city_ad_code is not None:
+            result['arr_city_ad_code'] = self.arr_city_ad_code
         if self.arr_station is not None:
             result['arr_station'] = self.arr_station
         if self.arr_time is not None:
@@ -44996,6 +45000,8 @@ class TrainOrderListQueryResponseBodyModule(TeaModel):
             result['cost_center'] = self.cost_center.to_map()
         if self.dep_city is not None:
             result['dep_city'] = self.dep_city
+        if self.dep_city_ad_code is not None:
+            result['dep_city_ad_code'] = self.dep_city_ad_code
         if self.dep_station is not None:
             result['dep_station'] = self.dep_station
         if self.dep_time is not None:
@@ -45060,6 +45066,8 @@ class TrainOrderListQueryResponseBodyModule(TeaModel):
             self.apply_id = m.get('apply_id')
         if m.get('arr_city') is not None:
             self.arr_city = m.get('arr_city')
+        if m.get('arr_city_ad_code') is not None:
+            self.arr_city_ad_code = m.get('arr_city_ad_code')
         if m.get('arr_station') is not None:
             self.arr_station = m.get('arr_station')
         if m.get('arr_time') is not None:
@@ -45077,6 +45085,8 @@ class TrainOrderListQueryResponseBodyModule(TeaModel):
             self.cost_center = temp_model.from_map(m['cost_center'])
         if m.get('dep_city') is not None:
             self.dep_city = m.get('dep_city')
+        if m.get('dep_city_ad_code') is not None:
+            self.dep_city_ad_code = m.get('dep_city_ad_code')
         if m.get('dep_station') is not None:
             self.dep_station = m.get('dep_station')
         if m.get('dep_time') is not None:
