@@ -1,3 +1,8 @@
+2023-07-31 Version: 2.2.28
+- UpdateStack supports parameter analysis for replacement update.
+- UpdateStack supports DryRunOptions.
+- ValidateTemplate supports UpdateInfoOptions.
+
 2023-07-14 Version: 2.2.27
 - GetStack returns StackOperationProgress and StackActionProgress in ResourceProgress if ShowResourceProgress is set to PercentageOnly.
 
