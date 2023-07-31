@@ -96,6 +96,80 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.close_timed_reset_operate_with_options(request, runtime)
 
+    def create_2d_avatar_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.callback):
+            query['Callback'] = request.callback
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.image):
+            query['Image'] = request.image
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.orientation):
+            query['Orientation'] = request.orientation
+        if not UtilClient.is_unset(request.portrait):
+            query['Portrait'] = request.portrait
+        if not UtilClient.is_unset(request.tenant_id):
+            query['TenantId'] = request.tenant_id
+        if not UtilClient.is_unset(request.transparent):
+            query['Transparent'] = request.transparent
+        if not UtilClient.is_unset(request.video):
+            query['Video'] = request.video
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='Create2dAvatar',
+            version='2022-01-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            avatar_20220130_models.Create2dAvatarResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_2d_avatar(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_2d_avatar_with_options(request, runtime)
+
+    def delete_avatar_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.code):
+            query['Code'] = request.code
+        if not UtilClient.is_unset(request.tenant_id):
+            query['TenantId'] = request.tenant_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteAvatar',
+            version='2022-01-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            avatar_20220130_models.DeleteAvatarResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_avatar(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_avatar_with_options(request, runtime)
+
     def duplex_decision_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
         request = avatar_20220130_models.DuplexDecisionShrinkRequest()
@@ -212,7 +286,11 @@ class Client(OpenApiClient):
 
     def query_avatar_with_options(self, request, runtime):
         UtilClient.validate_model(request)
-        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        query = {}
+        if not UtilClient.is_unset(request.code):
+            query['Code'] = request.code
+        if not UtilClient.is_unset(request.tenant_id):
+            query['TenantId'] = request.tenant_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -221,7 +299,7 @@ class Client(OpenApiClient):
             version='2022-01-30',
             protocol='HTTPS',
             pathname='/',
-            method='GET',
+            method='POST',
             auth_type='AK',
             style='RPC',
             req_body_type='formData',
@@ -821,3 +899,49 @@ class Client(OpenApiClient):
     def submit_text_to_3davatar_video_task(self, request):
         runtime = util_models.RuntimeOptions()
         return self.submit_text_to_3davatar_video_task_with_options(request, runtime)
+
+    def update_2d_avatar_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.callback):
+            query['Callback'] = request.callback
+        if not UtilClient.is_unset(request.code):
+            query['Code'] = request.code
+        if not UtilClient.is_unset(request.description):
+            query['Description'] = request.description
+        if not UtilClient.is_unset(request.image):
+            query['Image'] = request.image
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.orientation):
+            query['Orientation'] = request.orientation
+        if not UtilClient.is_unset(request.portrait):
+            query['Portrait'] = request.portrait
+        if not UtilClient.is_unset(request.tenant_id):
+            query['TenantId'] = request.tenant_id
+        if not UtilClient.is_unset(request.transparent):
+            query['Transparent'] = request.transparent
+        if not UtilClient.is_unset(request.video):
+            query['Video'] = request.video
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='Update2dAvatar',
+            version='2022-01-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            avatar_20220130_models.Update2dAvatarResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_2d_avatar(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_2d_avatar_with_options(request, runtime)

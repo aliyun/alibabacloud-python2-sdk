@@ -360,6 +360,287 @@ class CloseTimedResetOperateResponse(TeaModel):
         return self
 
 
+class Create2dAvatarRequest(TeaModel):
+    def __init__(self, callback=None, description=None, image=None, name=None, orientation=None, portrait=None,
+                 tenant_id=None, transparent=None, video=None):
+        self.callback = callback  # type: bool
+        self.description = description  # type: str
+        self.image = image  # type: str
+        self.name = name  # type: str
+        self.orientation = orientation  # type: int
+        self.portrait = portrait  # type: str
+        self.tenant_id = tenant_id  # type: long
+        self.transparent = transparent  # type: bool
+        self.video = video  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(Create2dAvatarRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.callback is not None:
+            result['Callback'] = self.callback
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.image is not None:
+            result['Image'] = self.image
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.orientation is not None:
+            result['Orientation'] = self.orientation
+        if self.portrait is not None:
+            result['Portrait'] = self.portrait
+        if self.tenant_id is not None:
+            result['TenantId'] = self.tenant_id
+        if self.transparent is not None:
+            result['Transparent'] = self.transparent
+        if self.video is not None:
+            result['Video'] = self.video
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Callback') is not None:
+            self.callback = m.get('Callback')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('Image') is not None:
+            self.image = m.get('Image')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('Orientation') is not None:
+            self.orientation = m.get('Orientation')
+        if m.get('Portrait') is not None:
+            self.portrait = m.get('Portrait')
+        if m.get('TenantId') is not None:
+            self.tenant_id = m.get('TenantId')
+        if m.get('Transparent') is not None:
+            self.transparent = m.get('Transparent')
+        if m.get('Video') is not None:
+            self.video = m.get('Video')
+        return self
+
+
+class Create2dAvatarResponseBodyData(TeaModel):
+    def __init__(self, code=None):
+        self.code = code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(Create2dAvatarResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        return self
+
+
+class Create2dAvatarResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: Create2dAvatarResponseBodyData
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(Create2dAvatarResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = Create2dAvatarResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class Create2dAvatarResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: Create2dAvatarResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(Create2dAvatarResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = Create2dAvatarResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DeleteAvatarRequest(TeaModel):
+    def __init__(self, code=None, tenant_id=None):
+        self.code = code  # type: str
+        self.tenant_id = tenant_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteAvatarRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.tenant_id is not None:
+            result['TenantId'] = self.tenant_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('TenantId') is not None:
+            self.tenant_id = m.get('TenantId')
+        return self
+
+
+class DeleteAvatarResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteAvatarResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class DeleteAvatarResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteAvatarResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteAvatarResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteAvatarResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DuplexDecisionRequestDialogContextHistories(TeaModel):
     def __init__(self, robot=None, user=None):
         self.robot = robot  # type: str
@@ -1250,11 +1531,13 @@ class QueryAvatarResponseBodyDataSupportedResolutions(TeaModel):
 
 
 class QueryAvatarResponseBodyData(TeaModel):
-    def __init__(self, avatar_type=None, description=None, image=None, model_type=None, name=None, portrait=None,
-                 supported_resolutions=None):
+    def __init__(self, avatar_type=None, description=None, image=None, make_fail_reason=None, make_status=None,
+                 model_type=None, name=None, portrait=None, supported_resolutions=None):
         self.avatar_type = avatar_type  # type: str
         self.description = description  # type: str
         self.image = image  # type: str
+        self.make_fail_reason = make_fail_reason  # type: str
+        self.make_status = make_status  # type: str
         self.model_type = model_type  # type: str
         self.name = name  # type: str
         self.portrait = portrait  # type: str
@@ -1276,6 +1559,10 @@ class QueryAvatarResponseBodyData(TeaModel):
             result['Description'] = self.description
         if self.image is not None:
             result['Image'] = self.image
+        if self.make_fail_reason is not None:
+            result['MakeFailReason'] = self.make_fail_reason
+        if self.make_status is not None:
+            result['MakeStatus'] = self.make_status
         if self.model_type is not None:
             result['ModelType'] = self.model_type
         if self.name is not None:
@@ -1294,6 +1581,10 @@ class QueryAvatarResponseBodyData(TeaModel):
             self.description = m.get('Description')
         if m.get('Image') is not None:
             self.image = m.get('Image')
+        if m.get('MakeFailReason') is not None:
+            self.make_fail_reason = m.get('MakeFailReason')
+        if m.get('MakeStatus') is not None:
+            self.make_status = m.get('MakeStatus')
         if m.get('ModelType') is not None:
             self.model_type = m.get('ModelType')
         if m.get('Name') is not None:
@@ -1545,12 +1836,14 @@ class QueryAvatarListResponseBodyDataListSupportedResolutions(TeaModel):
 
 
 class QueryAvatarListResponseBodyDataList(TeaModel):
-    def __init__(self, avatar_type=None, code=None, description=None, image=None, model_type=None, name=None,
-                 portrait=None, supported_resolutions=None):
+    def __init__(self, avatar_type=None, code=None, description=None, image=None, make_fail_reason=None,
+                 make_status=None, model_type=None, name=None, portrait=None, supported_resolutions=None):
         self.avatar_type = avatar_type  # type: str
         self.code = code  # type: str
         self.description = description  # type: str
         self.image = image  # type: str
+        self.make_fail_reason = make_fail_reason  # type: str
+        self.make_status = make_status  # type: str
         self.model_type = model_type  # type: str
         self.name = name  # type: str
         self.portrait = portrait  # type: str
@@ -1574,6 +1867,10 @@ class QueryAvatarListResponseBodyDataList(TeaModel):
             result['Description'] = self.description
         if self.image is not None:
             result['Image'] = self.image
+        if self.make_fail_reason is not None:
+            result['MakeFailReason'] = self.make_fail_reason
+        if self.make_status is not None:
+            result['MakeStatus'] = self.make_status
         if self.model_type is not None:
             result['ModelType'] = self.model_type
         if self.name is not None:
@@ -1594,6 +1891,10 @@ class QueryAvatarListResponseBodyDataList(TeaModel):
             self.description = m.get('Description')
         if m.get('Image') is not None:
             self.image = m.get('Image')
+        if m.get('MakeFailReason') is not None:
+            self.make_fail_reason = m.get('MakeFailReason')
+        if m.get('MakeStatus') is not None:
+            self.make_status = m.get('MakeStatus')
         if m.get('ModelType') is not None:
             self.model_type = m.get('ModelType')
         if m.get('Name') is not None:
@@ -5310,6 +5611,185 @@ class SubmitTextTo3DAvatarVideoTaskResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = SubmitTextTo3DAvatarVideoTaskResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class Update2dAvatarRequest(TeaModel):
+    def __init__(self, callback=None, code=None, description=None, image=None, name=None, orientation=None,
+                 portrait=None, tenant_id=None, transparent=None, video=None):
+        self.callback = callback  # type: bool
+        self.code = code  # type: str
+        self.description = description  # type: str
+        self.image = image  # type: str
+        self.name = name  # type: str
+        self.orientation = orientation  # type: int
+        self.portrait = portrait  # type: str
+        self.tenant_id = tenant_id  # type: long
+        self.transparent = transparent  # type: bool
+        self.video = video  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(Update2dAvatarRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.callback is not None:
+            result['Callback'] = self.callback
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.image is not None:
+            result['Image'] = self.image
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.orientation is not None:
+            result['Orientation'] = self.orientation
+        if self.portrait is not None:
+            result['Portrait'] = self.portrait
+        if self.tenant_id is not None:
+            result['TenantId'] = self.tenant_id
+        if self.transparent is not None:
+            result['Transparent'] = self.transparent
+        if self.video is not None:
+            result['Video'] = self.video
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Callback') is not None:
+            self.callback = m.get('Callback')
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('Image') is not None:
+            self.image = m.get('Image')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('Orientation') is not None:
+            self.orientation = m.get('Orientation')
+        if m.get('Portrait') is not None:
+            self.portrait = m.get('Portrait')
+        if m.get('TenantId') is not None:
+            self.tenant_id = m.get('TenantId')
+        if m.get('Transparent') is not None:
+            self.transparent = m.get('Transparent')
+        if m.get('Video') is not None:
+            self.video = m.get('Video')
+        return self
+
+
+class Update2dAvatarResponseBodyData(TeaModel):
+    def __init__(self, code=None):
+        self.code = code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(Update2dAvatarResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        return self
+
+
+class Update2dAvatarResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: Update2dAvatarResponseBodyData
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(Update2dAvatarResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = Update2dAvatarResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class Update2dAvatarResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: Update2dAvatarResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(Update2dAvatarResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = Update2dAvatarResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
