@@ -43,12 +43,11 @@ class AddGroupMemberRequest(TeaModel):
 
 
 class AddGroupMemberResponseBodyResult(TeaModel):
-    def __init__(self, access_level=None, avatar_url=None, email=None, extern_uid=None, id=None, name=None,
-                 source_id=None, state=None, username=None):
+    def __init__(self, access_level=None, avatar_url=None, email=None, id=None, name=None, source_id=None, state=None,
+                 username=None):
         self.access_level = access_level  # type: int
         self.avatar_url = avatar_url  # type: str
         self.email = email  # type: str
-        self.extern_uid = extern_uid  # type: str
         self.id = id  # type: long
         self.name = name  # type: str
         self.source_id = source_id  # type: long
@@ -70,8 +69,6 @@ class AddGroupMemberResponseBodyResult(TeaModel):
             result['avatarUrl'] = self.avatar_url
         if self.email is not None:
             result['email'] = self.email
-        if self.extern_uid is not None:
-            result['externUid'] = self.extern_uid
         if self.id is not None:
             result['id'] = self.id
         if self.name is not None:
@@ -92,8 +89,6 @@ class AddGroupMemberResponseBodyResult(TeaModel):
             self.avatar_url = m.get('avatarUrl')
         if m.get('email') is not None:
             self.email = m.get('email')
-        if m.get('externUid') is not None:
-            self.extern_uid = m.get('externUid')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('name') is not None:
@@ -345,11 +340,10 @@ class AddRepositoryMemberRequest(TeaModel):
 
 
 class AddRepositoryMemberResponseBodyResult(TeaModel):
-    def __init__(self, access_level=None, avatar_url=None, email=None, extern_user_id=None, id=None, state=None):
+    def __init__(self, access_level=None, avatar_url=None, email=None, id=None, state=None):
         self.access_level = access_level  # type: int
         self.avatar_url = avatar_url  # type: str
         self.email = email  # type: str
-        self.extern_user_id = extern_user_id  # type: str
         self.id = id  # type: long
         self.state = state  # type: str
 
@@ -368,8 +362,6 @@ class AddRepositoryMemberResponseBodyResult(TeaModel):
             result['avatarUrl'] = self.avatar_url
         if self.email is not None:
             result['email'] = self.email
-        if self.extern_user_id is not None:
-            result['externUserId'] = self.extern_user_id
         if self.id is not None:
             result['id'] = self.id
         if self.state is not None:
@@ -384,8 +376,6 @@ class AddRepositoryMemberResponseBodyResult(TeaModel):
             self.avatar_url = m.get('avatarUrl')
         if m.get('email') is not None:
             self.email = m.get('email')
-        if m.get('externUserId') is not None:
-            self.extern_user_id = m.get('externUserId')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('state') is not None:
@@ -7477,11 +7467,10 @@ class DeleteGroupMemberRequest(TeaModel):
 
 
 class DeleteGroupMemberResponseBodyResult(TeaModel):
-    def __init__(self, access_level=None, avatar_url=None, extern_uid=None, id=None, member_type=None, name=None,
-                 source_id=None, state=None, username=None):
+    def __init__(self, access_level=None, avatar_url=None, id=None, member_type=None, name=None, source_id=None,
+                 state=None, username=None):
         self.access_level = access_level  # type: int
         self.avatar_url = avatar_url  # type: str
-        self.extern_uid = extern_uid  # type: str
         self.id = id  # type: long
         self.member_type = member_type  # type: str
         self.name = name  # type: str
@@ -7502,8 +7491,6 @@ class DeleteGroupMemberResponseBodyResult(TeaModel):
             result['accessLevel'] = self.access_level
         if self.avatar_url is not None:
             result['avatarUrl'] = self.avatar_url
-        if self.extern_uid is not None:
-            result['externUid'] = self.extern_uid
         if self.id is not None:
             result['id'] = self.id
         if self.member_type is not None:
@@ -7524,8 +7511,6 @@ class DeleteGroupMemberResponseBodyResult(TeaModel):
             self.access_level = m.get('accessLevel')
         if m.get('avatarUrl') is not None:
             self.avatar_url = m.get('avatarUrl')
-        if m.get('externUid') is not None:
-            self.extern_uid = m.get('externUid')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('memberType') is not None:
@@ -8533,11 +8518,10 @@ class DeleteRepositoryMemberRequest(TeaModel):
 
 
 class DeleteRepositoryMemberResponseBodyResult(TeaModel):
-    def __init__(self, access_level=None, create_at=None, extern_uid=None, id=None, source_id=None, source_type=None,
-                 update_at=None, user_id=None):
+    def __init__(self, access_level=None, create_at=None, id=None, source_id=None, source_type=None, update_at=None,
+                 user_id=None):
         self.access_level = access_level  # type: int
         self.create_at = create_at  # type: str
-        self.extern_uid = extern_uid  # type: str
         self.id = id  # type: long
         self.source_id = source_id  # type: long
         self.source_type = source_type  # type: str
@@ -8557,8 +8541,6 @@ class DeleteRepositoryMemberResponseBodyResult(TeaModel):
             result['accessLevel'] = self.access_level
         if self.create_at is not None:
             result['createAt'] = self.create_at
-        if self.extern_uid is not None:
-            result['externUid'] = self.extern_uid
         if self.id is not None:
             result['id'] = self.id
         if self.source_id is not None:
@@ -8577,8 +8559,6 @@ class DeleteRepositoryMemberResponseBodyResult(TeaModel):
             self.access_level = m.get('accessLevel')
         if m.get('createAt') is not None:
             self.create_at = m.get('createAt')
-        if m.get('externUid') is not None:
-            self.extern_uid = m.get('externUid')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('sourceId') is not None:
@@ -9956,15 +9936,12 @@ class GetBranchInfoRequest(TeaModel):
 
 
 class GetBranchInfoResponseBodyResultCommitAuthor(TeaModel):
-    def __init__(self, avatar_url=None, email=None, extern_uid=None, id=None, name=None, state=None, tb_user_id=None,
-                 username=None):
+    def __init__(self, avatar_url=None, email=None, id=None, name=None, state=None, username=None):
         self.avatar_url = avatar_url  # type: str
         self.email = email  # type: str
-        self.extern_uid = extern_uid  # type: str
         self.id = id  # type: long
         self.name = name  # type: str
         self.state = state  # type: str
-        self.tb_user_id = tb_user_id  # type: str
         self.username = username  # type: str
 
     def validate(self):
@@ -9980,16 +9957,12 @@ class GetBranchInfoResponseBodyResultCommitAuthor(TeaModel):
             result['avatarUrl'] = self.avatar_url
         if self.email is not None:
             result['email'] = self.email
-        if self.extern_uid is not None:
-            result['externUid'] = self.extern_uid
         if self.id is not None:
             result['id'] = self.id
         if self.name is not None:
             result['name'] = self.name
         if self.state is not None:
             result['state'] = self.state
-        if self.tb_user_id is not None:
-            result['tbUserId'] = self.tb_user_id
         if self.username is not None:
             result['username'] = self.username
         return result
@@ -10000,31 +9973,24 @@ class GetBranchInfoResponseBodyResultCommitAuthor(TeaModel):
             self.avatar_url = m.get('avatarUrl')
         if m.get('email') is not None:
             self.email = m.get('email')
-        if m.get('externUid') is not None:
-            self.extern_uid = m.get('externUid')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('name') is not None:
             self.name = m.get('name')
         if m.get('state') is not None:
             self.state = m.get('state')
-        if m.get('tbUserId') is not None:
-            self.tb_user_id = m.get('tbUserId')
         if m.get('username') is not None:
             self.username = m.get('username')
         return self
 
 
 class GetBranchInfoResponseBodyResultCommitCommitter(TeaModel):
-    def __init__(self, avatar_url=None, email=None, extern_uid=None, id=None, name=None, state=None, tb_user_id=None,
-                 username=None):
+    def __init__(self, avatar_url=None, email=None, id=None, name=None, state=None, username=None):
         self.avatar_url = avatar_url  # type: str
         self.email = email  # type: str
-        self.extern_uid = extern_uid  # type: str
         self.id = id  # type: long
         self.name = name  # type: str
         self.state = state  # type: str
-        self.tb_user_id = tb_user_id  # type: str
         self.username = username  # type: str
 
     def validate(self):
@@ -10040,16 +10006,12 @@ class GetBranchInfoResponseBodyResultCommitCommitter(TeaModel):
             result['avatarUrl'] = self.avatar_url
         if self.email is not None:
             result['email'] = self.email
-        if self.extern_uid is not None:
-            result['externUid'] = self.extern_uid
         if self.id is not None:
             result['id'] = self.id
         if self.name is not None:
             result['name'] = self.name
         if self.state is not None:
             result['state'] = self.state
-        if self.tb_user_id is not None:
-            result['tbUserId'] = self.tb_user_id
         if self.username is not None:
             result['username'] = self.username
         return result
@@ -10060,16 +10022,12 @@ class GetBranchInfoResponseBodyResultCommitCommitter(TeaModel):
             self.avatar_url = m.get('avatarUrl')
         if m.get('email') is not None:
             self.email = m.get('email')
-        if m.get('externUid') is not None:
-            self.extern_uid = m.get('externUid')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('name') is not None:
             self.name = m.get('name')
         if m.get('state') is not None:
             self.state = m.get('state')
-        if m.get('tbUserId') is not None:
-            self.tb_user_id = m.get('tbUserId')
         if m.get('username') is not None:
             self.username = m.get('username')
         return self
@@ -10549,16 +10507,13 @@ class GetCompareDetailRequest(TeaModel):
 
 
 class GetCompareDetailResponseBodyResultCommitsAuthor(TeaModel):
-    def __init__(self, avatar_url=None, email=None, extern_uid=None, id=None, name=None, state=None, username=None,
-                 website_url=None):
+    def __init__(self, avatar_url=None, email=None, id=None, name=None, state=None, username=None):
         self.avatar_url = avatar_url  # type: str
         self.email = email  # type: str
-        self.extern_uid = extern_uid  # type: str
         self.id = id  # type: long
         self.name = name  # type: str
         self.state = state  # type: str
         self.username = username  # type: str
-        self.website_url = website_url  # type: str
 
     def validate(self):
         pass
@@ -10573,8 +10528,6 @@ class GetCompareDetailResponseBodyResultCommitsAuthor(TeaModel):
             result['avatarUrl'] = self.avatar_url
         if self.email is not None:
             result['email'] = self.email
-        if self.extern_uid is not None:
-            result['externUid'] = self.extern_uid
         if self.id is not None:
             result['id'] = self.id
         if self.name is not None:
@@ -10583,8 +10536,6 @@ class GetCompareDetailResponseBodyResultCommitsAuthor(TeaModel):
             result['state'] = self.state
         if self.username is not None:
             result['username'] = self.username
-        if self.website_url is not None:
-            result['websiteUrl'] = self.website_url
         return result
 
     def from_map(self, m=None):
@@ -10593,8 +10544,6 @@ class GetCompareDetailResponseBodyResultCommitsAuthor(TeaModel):
             self.avatar_url = m.get('avatarUrl')
         if m.get('email') is not None:
             self.email = m.get('email')
-        if m.get('externUid') is not None:
-            self.extern_uid = m.get('externUid')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('name') is not None:
@@ -10603,22 +10552,17 @@ class GetCompareDetailResponseBodyResultCommitsAuthor(TeaModel):
             self.state = m.get('state')
         if m.get('username') is not None:
             self.username = m.get('username')
-        if m.get('websiteUrl') is not None:
-            self.website_url = m.get('websiteUrl')
         return self
 
 
 class GetCompareDetailResponseBodyResultCommitsCommitter(TeaModel):
-    def __init__(self, avatar_url=None, email=None, extern_uid=None, id=None, name=None, state=None, username=None,
-                 website_url=None):
+    def __init__(self, avatar_url=None, email=None, id=None, name=None, state=None, username=None):
         self.avatar_url = avatar_url  # type: str
         self.email = email  # type: str
-        self.extern_uid = extern_uid  # type: str
         self.id = id  # type: long
         self.name = name  # type: str
         self.state = state  # type: str
         self.username = username  # type: str
-        self.website_url = website_url  # type: str
 
     def validate(self):
         pass
@@ -10633,8 +10577,6 @@ class GetCompareDetailResponseBodyResultCommitsCommitter(TeaModel):
             result['avatarUrl'] = self.avatar_url
         if self.email is not None:
             result['email'] = self.email
-        if self.extern_uid is not None:
-            result['externUid'] = self.extern_uid
         if self.id is not None:
             result['id'] = self.id
         if self.name is not None:
@@ -10643,8 +10585,6 @@ class GetCompareDetailResponseBodyResultCommitsCommitter(TeaModel):
             result['state'] = self.state
         if self.username is not None:
             result['username'] = self.username
-        if self.website_url is not None:
-            result['websiteUrl'] = self.website_url
         return result
 
     def from_map(self, m=None):
@@ -10653,8 +10593,6 @@ class GetCompareDetailResponseBodyResultCommitsCommitter(TeaModel):
             self.avatar_url = m.get('avatarUrl')
         if m.get('email') is not None:
             self.email = m.get('email')
-        if m.get('externUid') is not None:
-            self.extern_uid = m.get('externUid')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('name') is not None:
@@ -10663,8 +10601,6 @@ class GetCompareDetailResponseBodyResultCommitsCommitter(TeaModel):
             self.state = m.get('state')
         if m.get('username') is not None:
             self.username = m.get('username')
-        if m.get('websiteUrl') is not None:
-            self.website_url = m.get('websiteUrl')
         return self
 
 
@@ -13923,10 +13859,9 @@ class GetProjectMemberRequest(TeaModel):
 
 
 class GetProjectMemberResponseBodyResult(TeaModel):
-    def __init__(self, access_level=None, avatar_url=None, extern_user_id=None, id=None, name=None):
+    def __init__(self, access_level=None, avatar_url=None, id=None, name=None):
         self.access_level = access_level  # type: int
         self.avatar_url = avatar_url  # type: str
-        self.extern_user_id = extern_user_id  # type: str
         self.id = id  # type: long
         self.name = name  # type: str
 
@@ -13943,8 +13878,6 @@ class GetProjectMemberResponseBodyResult(TeaModel):
             result['accessLevel'] = self.access_level
         if self.avatar_url is not None:
             result['avatarUrl'] = self.avatar_url
-        if self.extern_user_id is not None:
-            result['externUserId'] = self.extern_user_id
         if self.id is not None:
             result['id'] = self.id
         if self.name is not None:
@@ -13957,8 +13890,6 @@ class GetProjectMemberResponseBodyResult(TeaModel):
             self.access_level = m.get('accessLevel')
         if m.get('avatarUrl') is not None:
             self.avatar_url = m.get('avatarUrl')
-        if m.get('externUserId') is not None:
-            self.extern_user_id = m.get('externUserId')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('name') is not None:
@@ -14385,15 +14316,12 @@ class GetRepositoryCommitRequest(TeaModel):
 
 
 class GetRepositoryCommitResponseBodyResultAuthor(TeaModel):
-    def __init__(self, avatar_url=None, email=None, extern_uid=None, id=None, name=None, state=None, tb_user_id=None,
-                 username=None, website_url=None):
+    def __init__(self, avatar_url=None, email=None, id=None, name=None, state=None, username=None, website_url=None):
         self.avatar_url = avatar_url  # type: str
         self.email = email  # type: str
-        self.extern_uid = extern_uid  # type: str
         self.id = id  # type: long
         self.name = name  # type: str
         self.state = state  # type: str
-        self.tb_user_id = tb_user_id  # type: str
         self.username = username  # type: str
         self.website_url = website_url  # type: str
 
@@ -14410,16 +14338,12 @@ class GetRepositoryCommitResponseBodyResultAuthor(TeaModel):
             result['avatarUrl'] = self.avatar_url
         if self.email is not None:
             result['email'] = self.email
-        if self.extern_uid is not None:
-            result['externUid'] = self.extern_uid
         if self.id is not None:
             result['id'] = self.id
         if self.name is not None:
             result['name'] = self.name
         if self.state is not None:
             result['state'] = self.state
-        if self.tb_user_id is not None:
-            result['tbUserId'] = self.tb_user_id
         if self.username is not None:
             result['username'] = self.username
         if self.website_url is not None:
@@ -14432,16 +14356,12 @@ class GetRepositoryCommitResponseBodyResultAuthor(TeaModel):
             self.avatar_url = m.get('avatarUrl')
         if m.get('email') is not None:
             self.email = m.get('email')
-        if m.get('externUid') is not None:
-            self.extern_uid = m.get('externUid')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('name') is not None:
             self.name = m.get('name')
         if m.get('state') is not None:
             self.state = m.get('state')
-        if m.get('tbUserId') is not None:
-            self.tb_user_id = m.get('tbUserId')
         if m.get('username') is not None:
             self.username = m.get('username')
         if m.get('websiteUrl') is not None:
@@ -14450,15 +14370,12 @@ class GetRepositoryCommitResponseBodyResultAuthor(TeaModel):
 
 
 class GetRepositoryCommitResponseBodyResultCommitter(TeaModel):
-    def __init__(self, avatar_url=None, email=None, extern_uid=None, id=None, name=None, state=None, tb_user_id=None,
-                 username=None, website_url=None):
+    def __init__(self, avatar_url=None, email=None, id=None, name=None, state=None, username=None, website_url=None):
         self.avatar_url = avatar_url  # type: str
         self.email = email  # type: str
-        self.extern_uid = extern_uid  # type: str
         self.id = id  # type: long
         self.name = name  # type: str
         self.state = state  # type: str
-        self.tb_user_id = tb_user_id  # type: str
         self.username = username  # type: str
         self.website_url = website_url  # type: str
 
@@ -14475,16 +14392,12 @@ class GetRepositoryCommitResponseBodyResultCommitter(TeaModel):
             result['avatarUrl'] = self.avatar_url
         if self.email is not None:
             result['email'] = self.email
-        if self.extern_uid is not None:
-            result['externUid'] = self.extern_uid
         if self.id is not None:
             result['id'] = self.id
         if self.name is not None:
             result['name'] = self.name
         if self.state is not None:
             result['state'] = self.state
-        if self.tb_user_id is not None:
-            result['tbUserId'] = self.tb_user_id
         if self.username is not None:
             result['username'] = self.username
         if self.website_url is not None:
@@ -14497,16 +14410,12 @@ class GetRepositoryCommitResponseBodyResultCommitter(TeaModel):
             self.avatar_url = m.get('avatarUrl')
         if m.get('email') is not None:
             self.email = m.get('email')
-        if m.get('externUid') is not None:
-            self.extern_uid = m.get('externUid')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('name') is not None:
             self.name = m.get('name')
         if m.get('state') is not None:
             self.state = m.get('state')
-        if m.get('tbUserId') is not None:
-            self.tb_user_id = m.get('tbUserId')
         if m.get('username') is not None:
             self.username = m.get('username')
         if m.get('websiteUrl') is not None:
@@ -16135,10 +16044,9 @@ class GetUserInfoRequest(TeaModel):
 
 
 class GetUserInfoResponseBodyResult(TeaModel):
-    def __init__(self, avatar_url=None, email=None, extern_uid=None, id=None, name=None, username=None):
+    def __init__(self, avatar_url=None, email=None, id=None, name=None, username=None):
         self.avatar_url = avatar_url  # type: str
         self.email = email  # type: str
-        self.extern_uid = extern_uid  # type: str
         self.id = id  # type: long
         self.name = name  # type: str
         self.username = username  # type: str
@@ -16156,8 +16064,6 @@ class GetUserInfoResponseBodyResult(TeaModel):
             result['avatarUrl'] = self.avatar_url
         if self.email is not None:
             result['email'] = self.email
-        if self.extern_uid is not None:
-            result['externUid'] = self.extern_uid
         if self.id is not None:
             result['id'] = self.id
         if self.name is not None:
@@ -16172,8 +16078,6 @@ class GetUserInfoResponseBodyResult(TeaModel):
             self.avatar_url = m.get('avatarUrl')
         if m.get('email') is not None:
             self.email = m.get('email')
-        if m.get('externUid') is not None:
-            self.extern_uid = m.get('externUid')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('name') is not None:
@@ -18931,12 +18835,11 @@ class ListGroupMemberRequest(TeaModel):
 
 
 class ListGroupMemberResponseBodyResult(TeaModel):
-    def __init__(self, access_level=None, avatar_url=None, email=None, extern_uid=None, id=None, member_type=None,
-                 name=None, source_id=None, state=None, username=None):
+    def __init__(self, access_level=None, avatar_url=None, email=None, id=None, member_type=None, name=None,
+                 source_id=None, state=None, username=None):
         self.access_level = access_level  # type: int
         self.avatar_url = avatar_url  # type: str
         self.email = email  # type: str
-        self.extern_uid = extern_uid  # type: str
         self.id = id  # type: long
         self.member_type = member_type  # type: str
         self.name = name  # type: str
@@ -18959,8 +18862,6 @@ class ListGroupMemberResponseBodyResult(TeaModel):
             result['avatarUrl'] = self.avatar_url
         if self.email is not None:
             result['email'] = self.email
-        if self.extern_uid is not None:
-            result['externUid'] = self.extern_uid
         if self.id is not None:
             result['id'] = self.id
         if self.member_type is not None:
@@ -18983,8 +18884,6 @@ class ListGroupMemberResponseBodyResult(TeaModel):
             self.avatar_url = m.get('avatarUrl')
         if m.get('email') is not None:
             self.email = m.get('email')
-        if m.get('externUid') is not None:
-            self.extern_uid = m.get('externUid')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('memberType') is not None:
@@ -22354,12 +22253,11 @@ class ListProtectedBranchesRequest(TeaModel):
 
 
 class ListProtectedBranchesResponseBodyResultAllowMergeUsers(TeaModel):
-    def __init__(self, avatar=None, email=None, id=None, name=None, tb_user_id=None, username=None):
+    def __init__(self, avatar=None, email=None, id=None, name=None, username=None):
         self.avatar = avatar  # type: str
         self.email = email  # type: str
         self.id = id  # type: long
         self.name = name  # type: str
-        self.tb_user_id = tb_user_id  # type: str
         self.username = username  # type: str
 
     def validate(self):
@@ -22379,8 +22277,6 @@ class ListProtectedBranchesResponseBodyResultAllowMergeUsers(TeaModel):
             result['id'] = self.id
         if self.name is not None:
             result['name'] = self.name
-        if self.tb_user_id is not None:
-            result['tbUserId'] = self.tb_user_id
         if self.username is not None:
             result['username'] = self.username
         return result
@@ -22395,20 +22291,17 @@ class ListProtectedBranchesResponseBodyResultAllowMergeUsers(TeaModel):
             self.id = m.get('id')
         if m.get('name') is not None:
             self.name = m.get('name')
-        if m.get('tbUserId') is not None:
-            self.tb_user_id = m.get('tbUserId')
         if m.get('username') is not None:
             self.username = m.get('username')
         return self
 
 
 class ListProtectedBranchesResponseBodyResultAllowPushUsers(TeaModel):
-    def __init__(self, avatar=None, email=None, id=None, name=None, tb_user_id=None, username=None):
+    def __init__(self, avatar=None, email=None, id=None, name=None, username=None):
         self.avatar = avatar  # type: str
         self.email = email  # type: str
         self.id = id  # type: long
         self.name = name  # type: str
-        self.tb_user_id = tb_user_id  # type: str
         self.username = username  # type: str
 
     def validate(self):
@@ -22428,8 +22321,6 @@ class ListProtectedBranchesResponseBodyResultAllowPushUsers(TeaModel):
             result['id'] = self.id
         if self.name is not None:
             result['name'] = self.name
-        if self.tb_user_id is not None:
-            result['tbUserId'] = self.tb_user_id
         if self.username is not None:
             result['username'] = self.username
         return result
@@ -22444,20 +22335,17 @@ class ListProtectedBranchesResponseBodyResultAllowPushUsers(TeaModel):
             self.id = m.get('id')
         if m.get('name') is not None:
             self.name = m.get('name')
-        if m.get('tbUserId') is not None:
-            self.tb_user_id = m.get('tbUserId')
         if m.get('username') is not None:
             self.username = m.get('username')
         return self
 
 
 class ListProtectedBranchesResponseBodyResultMergeRequestSettingDefaultAssignees(TeaModel):
-    def __init__(self, avatar=None, email=None, id=None, name=None, tb_user_id=None, username=None):
+    def __init__(self, avatar=None, email=None, id=None, name=None, username=None):
         self.avatar = avatar  # type: str
         self.email = email  # type: str
         self.id = id  # type: long
         self.name = name  # type: str
-        self.tb_user_id = tb_user_id  # type: str
         self.username = username  # type: str
 
     def validate(self):
@@ -22477,8 +22365,6 @@ class ListProtectedBranchesResponseBodyResultMergeRequestSettingDefaultAssignees
             result['id'] = self.id
         if self.name is not None:
             result['name'] = self.name
-        if self.tb_user_id is not None:
-            result['tbUserId'] = self.tb_user_id
         if self.username is not None:
             result['username'] = self.username
         return result
@@ -22493,8 +22379,6 @@ class ListProtectedBranchesResponseBodyResultMergeRequestSettingDefaultAssignees
             self.id = m.get('id')
         if m.get('name') is not None:
             self.name = m.get('name')
-        if m.get('tbUserId') is not None:
-            self.tb_user_id = m.get('tbUserId')
         if m.get('username') is not None:
             self.username = m.get('username')
         return self
@@ -23805,15 +23689,12 @@ class ListRepositoryCommitsRequest(TeaModel):
 
 
 class ListRepositoryCommitsResponseBodyResultAuthor(TeaModel):
-    def __init__(self, avatar_url=None, email=None, extern_uid=None, id=None, name=None, state=None, tb_user_id=None,
-                 username=None, website_url=None):
+    def __init__(self, avatar_url=None, email=None, id=None, name=None, state=None, username=None, website_url=None):
         self.avatar_url = avatar_url  # type: str
         self.email = email  # type: str
-        self.extern_uid = extern_uid  # type: str
         self.id = id  # type: long
         self.name = name  # type: str
         self.state = state  # type: str
-        self.tb_user_id = tb_user_id  # type: str
         self.username = username  # type: str
         self.website_url = website_url  # type: str
 
@@ -23830,16 +23711,12 @@ class ListRepositoryCommitsResponseBodyResultAuthor(TeaModel):
             result['avatarUrl'] = self.avatar_url
         if self.email is not None:
             result['email'] = self.email
-        if self.extern_uid is not None:
-            result['externUid'] = self.extern_uid
         if self.id is not None:
             result['id'] = self.id
         if self.name is not None:
             result['name'] = self.name
         if self.state is not None:
             result['state'] = self.state
-        if self.tb_user_id is not None:
-            result['tbUserId'] = self.tb_user_id
         if self.username is not None:
             result['username'] = self.username
         if self.website_url is not None:
@@ -23852,16 +23729,12 @@ class ListRepositoryCommitsResponseBodyResultAuthor(TeaModel):
             self.avatar_url = m.get('avatarUrl')
         if m.get('email') is not None:
             self.email = m.get('email')
-        if m.get('externUid') is not None:
-            self.extern_uid = m.get('externUid')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('name') is not None:
             self.name = m.get('name')
         if m.get('state') is not None:
             self.state = m.get('state')
-        if m.get('tbUserId') is not None:
-            self.tb_user_id = m.get('tbUserId')
         if m.get('username') is not None:
             self.username = m.get('username')
         if m.get('websiteUrl') is not None:
@@ -23870,15 +23743,12 @@ class ListRepositoryCommitsResponseBodyResultAuthor(TeaModel):
 
 
 class ListRepositoryCommitsResponseBodyResultCommitter(TeaModel):
-    def __init__(self, avatar_url=None, email=None, extern_uid=None, id=None, name=None, state=None, tb_user_id=None,
-                 username=None, website_url=None):
+    def __init__(self, avatar_url=None, email=None, id=None, name=None, state=None, username=None, website_url=None):
         self.avatar_url = avatar_url  # type: str
         self.email = email  # type: str
-        self.extern_uid = extern_uid  # type: str
         self.id = id  # type: long
         self.name = name  # type: str
         self.state = state  # type: str
-        self.tb_user_id = tb_user_id  # type: str
         self.username = username  # type: str
         self.website_url = website_url  # type: str
 
@@ -23895,16 +23765,12 @@ class ListRepositoryCommitsResponseBodyResultCommitter(TeaModel):
             result['avatarUrl'] = self.avatar_url
         if self.email is not None:
             result['email'] = self.email
-        if self.extern_uid is not None:
-            result['externUid'] = self.extern_uid
         if self.id is not None:
             result['id'] = self.id
         if self.name is not None:
             result['name'] = self.name
         if self.state is not None:
             result['state'] = self.state
-        if self.tb_user_id is not None:
-            result['tbUserId'] = self.tb_user_id
         if self.username is not None:
             result['username'] = self.username
         if self.website_url is not None:
@@ -23917,16 +23783,12 @@ class ListRepositoryCommitsResponseBodyResultCommitter(TeaModel):
             self.avatar_url = m.get('avatarUrl')
         if m.get('email') is not None:
             self.email = m.get('email')
-        if m.get('externUid') is not None:
-            self.extern_uid = m.get('externUid')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('name') is not None:
             self.name = m.get('name')
         if m.get('state') is not None:
             self.state = m.get('state')
-        if m.get('tbUserId') is not None:
-            self.tb_user_id = m.get('tbUserId')
         if m.get('username') is not None:
             self.username = m.get('username')
         if m.get('websiteUrl') is not None:
@@ -24521,12 +24383,11 @@ class ListRepositoryMemberWithInheritedResponseBodyResultInherited(TeaModel):
 
 
 class ListRepositoryMemberWithInheritedResponseBodyResult(TeaModel):
-    def __init__(self, access_level=None, avatar_url=None, email=None, extern_user_id=None, id=None, inherited=None,
-                 name=None, state=None, username=None):
+    def __init__(self, access_level=None, avatar_url=None, email=None, id=None, inherited=None, name=None, state=None,
+                 username=None):
         self.access_level = access_level  # type: int
         self.avatar_url = avatar_url  # type: str
         self.email = email  # type: str
-        self.extern_user_id = extern_user_id  # type: str
         self.id = id  # type: long
         self.inherited = inherited  # type: ListRepositoryMemberWithInheritedResponseBodyResultInherited
         self.name = name  # type: str
@@ -24549,8 +24410,6 @@ class ListRepositoryMemberWithInheritedResponseBodyResult(TeaModel):
             result['avatarUrl'] = self.avatar_url
         if self.email is not None:
             result['email'] = self.email
-        if self.extern_user_id is not None:
-            result['externUserId'] = self.extern_user_id
         if self.id is not None:
             result['id'] = self.id
         if self.inherited is not None:
@@ -24571,8 +24430,6 @@ class ListRepositoryMemberWithInheritedResponseBodyResult(TeaModel):
             self.avatar_url = m.get('avatarUrl')
         if m.get('email') is not None:
             self.email = m.get('email')
-        if m.get('externUserId') is not None:
-            self.extern_user_id = m.get('externUserId')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('inherited') is not None:
@@ -27459,6 +27316,576 @@ class ListUserKeysResponse(TeaModel):
         return self
 
 
+class ListUserResourcesRequest(TeaModel):
+    def __init__(self, access_token=None, organization_id=None, page=None, page_size=None, user_ids=None):
+        self.access_token = access_token  # type: str
+        self.organization_id = organization_id  # type: str
+        self.page = page  # type: long
+        self.page_size = page_size  # type: long
+        self.user_ids = user_ids  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListUserResourcesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_token is not None:
+            result['accessToken'] = self.access_token
+        if self.organization_id is not None:
+            result['organizationId'] = self.organization_id
+        if self.page is not None:
+            result['page'] = self.page
+        if self.page_size is not None:
+            result['pageSize'] = self.page_size
+        if self.user_ids is not None:
+            result['userIds'] = self.user_ids
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('accessToken') is not None:
+            self.access_token = m.get('accessToken')
+        if m.get('organizationId') is not None:
+            self.organization_id = m.get('organizationId')
+        if m.get('page') is not None:
+            self.page = m.get('page')
+        if m.get('pageSize') is not None:
+            self.page_size = m.get('pageSize')
+        if m.get('userIds') is not None:
+            self.user_ids = m.get('userIds')
+        return self
+
+
+class ListUserResourcesResponseBodyResultGroupInfosGroupInfo(TeaModel):
+    def __init__(self, created_at=None, description=None, id=None, name=None, name_with_namespace=None,
+                 owner_id=None, parent_id=None, path=None, path_with_namespace=None, updated_at=None, visibility_level=None):
+        self.created_at = created_at  # type: str
+        self.description = description  # type: str
+        self.id = id  # type: long
+        self.name = name  # type: str
+        self.name_with_namespace = name_with_namespace  # type: str
+        self.owner_id = owner_id  # type: long
+        self.parent_id = parent_id  # type: long
+        self.path = path  # type: str
+        self.path_with_namespace = path_with_namespace  # type: str
+        self.updated_at = updated_at  # type: str
+        self.visibility_level = visibility_level  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListUserResourcesResponseBodyResultGroupInfosGroupInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.created_at is not None:
+            result['createdAt'] = self.created_at
+        if self.description is not None:
+            result['description'] = self.description
+        if self.id is not None:
+            result['id'] = self.id
+        if self.name is not None:
+            result['name'] = self.name
+        if self.name_with_namespace is not None:
+            result['nameWithNamespace'] = self.name_with_namespace
+        if self.owner_id is not None:
+            result['ownerId'] = self.owner_id
+        if self.parent_id is not None:
+            result['parentId'] = self.parent_id
+        if self.path is not None:
+            result['path'] = self.path
+        if self.path_with_namespace is not None:
+            result['pathWithNamespace'] = self.path_with_namespace
+        if self.updated_at is not None:
+            result['updatedAt'] = self.updated_at
+        if self.visibility_level is not None:
+            result['visibilityLevel'] = self.visibility_level
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('createdAt') is not None:
+            self.created_at = m.get('createdAt')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('nameWithNamespace') is not None:
+            self.name_with_namespace = m.get('nameWithNamespace')
+        if m.get('ownerId') is not None:
+            self.owner_id = m.get('ownerId')
+        if m.get('parentId') is not None:
+            self.parent_id = m.get('parentId')
+        if m.get('path') is not None:
+            self.path = m.get('path')
+        if m.get('pathWithNamespace') is not None:
+            self.path_with_namespace = m.get('pathWithNamespace')
+        if m.get('updatedAt') is not None:
+            self.updated_at = m.get('updatedAt')
+        if m.get('visibilityLevel') is not None:
+            self.visibility_level = m.get('visibilityLevel')
+        return self
+
+
+class ListUserResourcesResponseBodyResultGroupInfosGroupRole(TeaModel):
+    def __init__(self, access_level=None, cn_role_name=None, en_role_name=None, source_id=None, source_type=None):
+        self.access_level = access_level  # type: int
+        self.cn_role_name = cn_role_name  # type: str
+        self.en_role_name = en_role_name  # type: str
+        self.source_id = source_id  # type: long
+        self.source_type = source_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListUserResourcesResponseBodyResultGroupInfosGroupRole, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_level is not None:
+            result['accessLevel'] = self.access_level
+        if self.cn_role_name is not None:
+            result['cnRoleName'] = self.cn_role_name
+        if self.en_role_name is not None:
+            result['enRoleName'] = self.en_role_name
+        if self.source_id is not None:
+            result['sourceId'] = self.source_id
+        if self.source_type is not None:
+            result['sourceType'] = self.source_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('accessLevel') is not None:
+            self.access_level = m.get('accessLevel')
+        if m.get('cnRoleName') is not None:
+            self.cn_role_name = m.get('cnRoleName')
+        if m.get('enRoleName') is not None:
+            self.en_role_name = m.get('enRoleName')
+        if m.get('sourceId') is not None:
+            self.source_id = m.get('sourceId')
+        if m.get('sourceType') is not None:
+            self.source_type = m.get('sourceType')
+        return self
+
+
+class ListUserResourcesResponseBodyResultGroupInfos(TeaModel):
+    def __init__(self, group_info=None, group_role=None):
+        self.group_info = group_info  # type: ListUserResourcesResponseBodyResultGroupInfosGroupInfo
+        self.group_role = group_role  # type: ListUserResourcesResponseBodyResultGroupInfosGroupRole
+
+    def validate(self):
+        if self.group_info:
+            self.group_info.validate()
+        if self.group_role:
+            self.group_role.validate()
+
+    def to_map(self):
+        _map = super(ListUserResourcesResponseBodyResultGroupInfos, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.group_info is not None:
+            result['groupInfo'] = self.group_info.to_map()
+        if self.group_role is not None:
+            result['groupRole'] = self.group_role.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('groupInfo') is not None:
+            temp_model = ListUserResourcesResponseBodyResultGroupInfosGroupInfo()
+            self.group_info = temp_model.from_map(m['groupInfo'])
+        if m.get('groupRole') is not None:
+            temp_model = ListUserResourcesResponseBodyResultGroupInfosGroupRole()
+            self.group_role = temp_model.from_map(m['groupRole'])
+        return self
+
+
+class ListUserResourcesResponseBodyResultRepositoryInfosRepositoryInfo(TeaModel):
+    def __init__(self, access_level=None, archived=None, created_at=None, creator_id=None, description=None,
+                 encrypted=None, id=None, last_activity_at=None, name=None, name_with_namespace=None, namespace_id=None,
+                 path=None, path_with_namespace=None, updated_at=None, visibility_level=None):
+        self.access_level = access_level  # type: int
+        self.archived = archived  # type: bool
+        self.created_at = created_at  # type: str
+        self.creator_id = creator_id  # type: long
+        self.description = description  # type: str
+        self.encrypted = encrypted  # type: bool
+        self.id = id  # type: long
+        self.last_activity_at = last_activity_at  # type: str
+        self.name = name  # type: str
+        self.name_with_namespace = name_with_namespace  # type: str
+        self.namespace_id = namespace_id  # type: long
+        self.path = path  # type: str
+        self.path_with_namespace = path_with_namespace  # type: str
+        self.updated_at = updated_at  # type: str
+        self.visibility_level = visibility_level  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListUserResourcesResponseBodyResultRepositoryInfosRepositoryInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_level is not None:
+            result['accessLevel'] = self.access_level
+        if self.archived is not None:
+            result['archived'] = self.archived
+        if self.created_at is not None:
+            result['createdAt'] = self.created_at
+        if self.creator_id is not None:
+            result['creatorId'] = self.creator_id
+        if self.description is not None:
+            result['description'] = self.description
+        if self.encrypted is not None:
+            result['encrypted'] = self.encrypted
+        if self.id is not None:
+            result['id'] = self.id
+        if self.last_activity_at is not None:
+            result['lastActivityAt'] = self.last_activity_at
+        if self.name is not None:
+            result['name'] = self.name
+        if self.name_with_namespace is not None:
+            result['nameWithNamespace'] = self.name_with_namespace
+        if self.namespace_id is not None:
+            result['namespaceId'] = self.namespace_id
+        if self.path is not None:
+            result['path'] = self.path
+        if self.path_with_namespace is not None:
+            result['pathWithNamespace'] = self.path_with_namespace
+        if self.updated_at is not None:
+            result['updatedAt'] = self.updated_at
+        if self.visibility_level is not None:
+            result['visibilityLevel'] = self.visibility_level
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('accessLevel') is not None:
+            self.access_level = m.get('accessLevel')
+        if m.get('archived') is not None:
+            self.archived = m.get('archived')
+        if m.get('createdAt') is not None:
+            self.created_at = m.get('createdAt')
+        if m.get('creatorId') is not None:
+            self.creator_id = m.get('creatorId')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('encrypted') is not None:
+            self.encrypted = m.get('encrypted')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('lastActivityAt') is not None:
+            self.last_activity_at = m.get('lastActivityAt')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('nameWithNamespace') is not None:
+            self.name_with_namespace = m.get('nameWithNamespace')
+        if m.get('namespaceId') is not None:
+            self.namespace_id = m.get('namespaceId')
+        if m.get('path') is not None:
+            self.path = m.get('path')
+        if m.get('pathWithNamespace') is not None:
+            self.path_with_namespace = m.get('pathWithNamespace')
+        if m.get('updatedAt') is not None:
+            self.updated_at = m.get('updatedAt')
+        if m.get('visibilityLevel') is not None:
+            self.visibility_level = m.get('visibilityLevel')
+        return self
+
+
+class ListUserResourcesResponseBodyResultRepositoryInfosRepositoryRole(TeaModel):
+    def __init__(self, access_level=None, cn_role_name=None, en_role_name=None, source_id=None, source_type=None):
+        self.access_level = access_level  # type: int
+        self.cn_role_name = cn_role_name  # type: str
+        self.en_role_name = en_role_name  # type: str
+        self.source_id = source_id  # type: long
+        self.source_type = source_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListUserResourcesResponseBodyResultRepositoryInfosRepositoryRole, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_level is not None:
+            result['accessLevel'] = self.access_level
+        if self.cn_role_name is not None:
+            result['cnRoleName'] = self.cn_role_name
+        if self.en_role_name is not None:
+            result['enRoleName'] = self.en_role_name
+        if self.source_id is not None:
+            result['sourceId'] = self.source_id
+        if self.source_type is not None:
+            result['sourceType'] = self.source_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('accessLevel') is not None:
+            self.access_level = m.get('accessLevel')
+        if m.get('cnRoleName') is not None:
+            self.cn_role_name = m.get('cnRoleName')
+        if m.get('enRoleName') is not None:
+            self.en_role_name = m.get('enRoleName')
+        if m.get('sourceId') is not None:
+            self.source_id = m.get('sourceId')
+        if m.get('sourceType') is not None:
+            self.source_type = m.get('sourceType')
+        return self
+
+
+class ListUserResourcesResponseBodyResultRepositoryInfos(TeaModel):
+    def __init__(self, repository_info=None, repository_role=None):
+        self.repository_info = repository_info  # type: ListUserResourcesResponseBodyResultRepositoryInfosRepositoryInfo
+        self.repository_role = repository_role  # type: ListUserResourcesResponseBodyResultRepositoryInfosRepositoryRole
+
+    def validate(self):
+        if self.repository_info:
+            self.repository_info.validate()
+        if self.repository_role:
+            self.repository_role.validate()
+
+    def to_map(self):
+        _map = super(ListUserResourcesResponseBodyResultRepositoryInfos, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.repository_info is not None:
+            result['repositoryInfo'] = self.repository_info.to_map()
+        if self.repository_role is not None:
+            result['repositoryRole'] = self.repository_role.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('repositoryInfo') is not None:
+            temp_model = ListUserResourcesResponseBodyResultRepositoryInfosRepositoryInfo()
+            self.repository_info = temp_model.from_map(m['repositoryInfo'])
+        if m.get('repositoryRole') is not None:
+            temp_model = ListUserResourcesResponseBodyResultRepositoryInfosRepositoryRole()
+            self.repository_role = temp_model.from_map(m['repositoryRole'])
+        return self
+
+
+class ListUserResourcesResponseBodyResultUserInfo(TeaModel):
+    def __init__(self, avatar_url=None, email=None, id=None, name=None, state=None, username=None):
+        self.avatar_url = avatar_url  # type: str
+        self.email = email  # type: str
+        self.id = id  # type: long
+        self.name = name  # type: str
+        self.state = state  # type: str
+        self.username = username  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListUserResourcesResponseBodyResultUserInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.avatar_url is not None:
+            result['avatarUrl'] = self.avatar_url
+        if self.email is not None:
+            result['email'] = self.email
+        if self.id is not None:
+            result['id'] = self.id
+        if self.name is not None:
+            result['name'] = self.name
+        if self.state is not None:
+            result['state'] = self.state
+        if self.username is not None:
+            result['username'] = self.username
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('avatarUrl') is not None:
+            self.avatar_url = m.get('avatarUrl')
+        if m.get('email') is not None:
+            self.email = m.get('email')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('state') is not None:
+            self.state = m.get('state')
+        if m.get('username') is not None:
+            self.username = m.get('username')
+        return self
+
+
+class ListUserResourcesResponseBodyResult(TeaModel):
+    def __init__(self, group_infos=None, repository_infos=None, user_info=None):
+        self.group_infos = group_infos  # type: list[ListUserResourcesResponseBodyResultGroupInfos]
+        self.repository_infos = repository_infos  # type: list[ListUserResourcesResponseBodyResultRepositoryInfos]
+        self.user_info = user_info  # type: ListUserResourcesResponseBodyResultUserInfo
+
+    def validate(self):
+        if self.group_infos:
+            for k in self.group_infos:
+                if k:
+                    k.validate()
+        if self.repository_infos:
+            for k in self.repository_infos:
+                if k:
+                    k.validate()
+        if self.user_info:
+            self.user_info.validate()
+
+    def to_map(self):
+        _map = super(ListUserResourcesResponseBodyResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['groupInfos'] = []
+        if self.group_infos is not None:
+            for k in self.group_infos:
+                result['groupInfos'].append(k.to_map() if k else None)
+        result['repositoryInfos'] = []
+        if self.repository_infos is not None:
+            for k in self.repository_infos:
+                result['repositoryInfos'].append(k.to_map() if k else None)
+        if self.user_info is not None:
+            result['userInfo'] = self.user_info.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.group_infos = []
+        if m.get('groupInfos') is not None:
+            for k in m.get('groupInfos'):
+                temp_model = ListUserResourcesResponseBodyResultGroupInfos()
+                self.group_infos.append(temp_model.from_map(k))
+        self.repository_infos = []
+        if m.get('repositoryInfos') is not None:
+            for k in m.get('repositoryInfos'):
+                temp_model = ListUserResourcesResponseBodyResultRepositoryInfos()
+                self.repository_infos.append(temp_model.from_map(k))
+        if m.get('userInfo') is not None:
+            temp_model = ListUserResourcesResponseBodyResultUserInfo()
+            self.user_info = temp_model.from_map(m['userInfo'])
+        return self
+
+
+class ListUserResourcesResponseBody(TeaModel):
+    def __init__(self, error_code=None, error_message=None, request_id=None, result=None, success=None, total=None):
+        self.error_code = error_code  # type: str
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.result = result  # type: list[ListUserResourcesResponseBodyResult]
+        self.success = success  # type: bool
+        self.total = total  # type: long
+
+    def validate(self):
+        if self.result:
+            for k in self.result:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListUserResourcesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_code is not None:
+            result['errorCode'] = self.error_code
+        if self.error_message is not None:
+            result['errorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        result['result'] = []
+        if self.result is not None:
+            for k in self.result:
+                result['result'].append(k.to_map() if k else None)
+        if self.success is not None:
+            result['success'] = self.success
+        if self.total is not None:
+            result['total'] = self.total
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('errorCode') is not None:
+            self.error_code = m.get('errorCode')
+        if m.get('errorMessage') is not None:
+            self.error_message = m.get('errorMessage')
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        self.result = []
+        if m.get('result') is not None:
+            for k in m.get('result'):
+                temp_model = ListUserResourcesResponseBodyResult()
+                self.result.append(temp_model.from_map(k))
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('total') is not None:
+            self.total = m.get('total')
+        return self
+
+
+class ListUserResourcesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListUserResourcesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListUserResourcesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListUserResourcesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListVariableGroupsRequest(TeaModel):
     def __init__(self, max_results=None, next_token=None, page_order=None, page_sort=None):
         self.max_results = max_results  # type: int
@@ -30291,6 +30718,247 @@ class StopVMDeployOrderResponse(TeaModel):
         return self
 
 
+class TransferRepositoryRequest(TeaModel):
+    def __init__(self, access_token=None, group_id=None, organization_id=None, repository_id=None):
+        self.access_token = access_token  # type: str
+        self.group_id = group_id  # type: str
+        self.organization_id = organization_id  # type: str
+        self.repository_id = repository_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(TransferRepositoryRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_token is not None:
+            result['accessToken'] = self.access_token
+        if self.group_id is not None:
+            result['groupId'] = self.group_id
+        if self.organization_id is not None:
+            result['organizationId'] = self.organization_id
+        if self.repository_id is not None:
+            result['repositoryId'] = self.repository_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('accessToken') is not None:
+            self.access_token = m.get('accessToken')
+        if m.get('groupId') is not None:
+            self.group_id = m.get('groupId')
+        if m.get('organizationId') is not None:
+            self.organization_id = m.get('organizationId')
+        if m.get('repositoryId') is not None:
+            self.repository_id = m.get('repositoryId')
+        return self
+
+
+class TransferRepositoryResponseBodyResult(TeaModel):
+    def __init__(self, access_level=None, archived=None, created_at=None, creator_id=None, demo_project=None,
+                 description=None, encrypted=None, id=None, last_activity_at=None, name=None, name_with_namespace=None,
+                 namespace_id=None, path=None, path_with_namespace=None, star_count=None, starred=None, updated_at=None,
+                 visibility_level=None, web_url=None):
+        self.access_level = access_level  # type: int
+        self.archived = archived  # type: bool
+        self.created_at = created_at  # type: str
+        self.creator_id = creator_id  # type: long
+        self.demo_project = demo_project  # type: bool
+        self.description = description  # type: str
+        self.encrypted = encrypted  # type: bool
+        self.id = id  # type: long
+        self.last_activity_at = last_activity_at  # type: str
+        self.name = name  # type: str
+        self.name_with_namespace = name_with_namespace  # type: str
+        self.namespace_id = namespace_id  # type: long
+        self.path = path  # type: str
+        self.path_with_namespace = path_with_namespace  # type: str
+        self.star_count = star_count  # type: long
+        self.starred = starred  # type: bool
+        self.updated_at = updated_at  # type: str
+        self.visibility_level = visibility_level  # type: int
+        self.web_url = web_url  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(TransferRepositoryResponseBodyResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.access_level is not None:
+            result['accessLevel'] = self.access_level
+        if self.archived is not None:
+            result['archived'] = self.archived
+        if self.created_at is not None:
+            result['createdAt'] = self.created_at
+        if self.creator_id is not None:
+            result['creatorId'] = self.creator_id
+        if self.demo_project is not None:
+            result['demoProject'] = self.demo_project
+        if self.description is not None:
+            result['description'] = self.description
+        if self.encrypted is not None:
+            result['encrypted'] = self.encrypted
+        if self.id is not None:
+            result['id'] = self.id
+        if self.last_activity_at is not None:
+            result['lastActivityAt'] = self.last_activity_at
+        if self.name is not None:
+            result['name'] = self.name
+        if self.name_with_namespace is not None:
+            result['nameWithNamespace'] = self.name_with_namespace
+        if self.namespace_id is not None:
+            result['namespaceId'] = self.namespace_id
+        if self.path is not None:
+            result['path'] = self.path
+        if self.path_with_namespace is not None:
+            result['pathWithNamespace'] = self.path_with_namespace
+        if self.star_count is not None:
+            result['starCount'] = self.star_count
+        if self.starred is not None:
+            result['starred'] = self.starred
+        if self.updated_at is not None:
+            result['updatedAt'] = self.updated_at
+        if self.visibility_level is not None:
+            result['visibilityLevel'] = self.visibility_level
+        if self.web_url is not None:
+            result['webUrl'] = self.web_url
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('accessLevel') is not None:
+            self.access_level = m.get('accessLevel')
+        if m.get('archived') is not None:
+            self.archived = m.get('archived')
+        if m.get('createdAt') is not None:
+            self.created_at = m.get('createdAt')
+        if m.get('creatorId') is not None:
+            self.creator_id = m.get('creatorId')
+        if m.get('demoProject') is not None:
+            self.demo_project = m.get('demoProject')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('encrypted') is not None:
+            self.encrypted = m.get('encrypted')
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('lastActivityAt') is not None:
+            self.last_activity_at = m.get('lastActivityAt')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('nameWithNamespace') is not None:
+            self.name_with_namespace = m.get('nameWithNamespace')
+        if m.get('namespaceId') is not None:
+            self.namespace_id = m.get('namespaceId')
+        if m.get('path') is not None:
+            self.path = m.get('path')
+        if m.get('pathWithNamespace') is not None:
+            self.path_with_namespace = m.get('pathWithNamespace')
+        if m.get('starCount') is not None:
+            self.star_count = m.get('starCount')
+        if m.get('starred') is not None:
+            self.starred = m.get('starred')
+        if m.get('updatedAt') is not None:
+            self.updated_at = m.get('updatedAt')
+        if m.get('visibilityLevel') is not None:
+            self.visibility_level = m.get('visibilityLevel')
+        if m.get('webUrl') is not None:
+            self.web_url = m.get('webUrl')
+        return self
+
+
+class TransferRepositoryResponseBody(TeaModel):
+    def __init__(self, error_code=None, error_message=None, request_id=None, result=None, success=None):
+        self.error_code = error_code  # type: str
+        self.error_message = error_message  # type: str
+        self.request_id = request_id  # type: str
+        self.result = result  # type: TransferRepositoryResponseBodyResult
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.result:
+            self.result.validate()
+
+    def to_map(self):
+        _map = super(TransferRepositoryResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_code is not None:
+            result['errorCode'] = self.error_code
+        if self.error_message is not None:
+            result['errorMessage'] = self.error_message
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.result is not None:
+            result['result'] = self.result.to_map()
+        if self.success is not None:
+            result['success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('errorCode') is not None:
+            self.error_code = m.get('errorCode')
+        if m.get('errorMessage') is not None:
+            self.error_message = m.get('errorMessage')
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('result') is not None:
+            temp_model = TransferRepositoryResponseBodyResult()
+            self.result = temp_model.from_map(m['result'])
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        return self
+
+
+class TransferRepositoryResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: TransferRepositoryResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(TransferRepositoryResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = TransferRepositoryResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class TriggerRepositoryMirrorSyncRequest(TeaModel):
     def __init__(self, access_token=None, account=None, organization_id=None, token=None):
         self.access_token = access_token  # type: str
@@ -31098,12 +31766,11 @@ class UpdateGroupMemberRequest(TeaModel):
 
 
 class UpdateGroupMemberResponseBodyResult(TeaModel):
-    def __init__(self, access_level=None, avatar_url=None, email=None, extern_uid=None, id=None, member_type=None,
-                 name=None, source_id=None, state=None, username=None):
+    def __init__(self, access_level=None, avatar_url=None, email=None, id=None, member_type=None, name=None,
+                 source_id=None, state=None, username=None):
         self.access_level = access_level  # type: int
         self.avatar_url = avatar_url  # type: str
         self.email = email  # type: str
-        self.extern_uid = extern_uid  # type: str
         self.id = id  # type: long
         self.member_type = member_type  # type: str
         self.name = name  # type: str
@@ -31126,8 +31793,6 @@ class UpdateGroupMemberResponseBodyResult(TeaModel):
             result['avatarUrl'] = self.avatar_url
         if self.email is not None:
             result['email'] = self.email
-        if self.extern_uid is not None:
-            result['externUid'] = self.extern_uid
         if self.id is not None:
             result['id'] = self.id
         if self.member_type is not None:
@@ -31150,8 +31815,6 @@ class UpdateGroupMemberResponseBodyResult(TeaModel):
             self.avatar_url = m.get('avatarUrl')
         if m.get('email') is not None:
             self.email = m.get('email')
-        if m.get('externUid') is not None:
-            self.extern_uid = m.get('externUid')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('memberType') is not None:
@@ -33415,14 +34078,12 @@ class UpdateRepositoryMemberRequest(TeaModel):
 
 
 class UpdateRepositoryMemberResponseBodyResult(TeaModel):
-    def __init__(self, access_level=None, avatar_url=None, email=None, expire_at=None, extern_uid=None, id=None,
-                 member_name=None, member_type=None, name=None, source_id=None, source_type=None, state=None, tb_user_id=None,
-                 username=None, web_url=None):
+    def __init__(self, access_level=None, avatar_url=None, email=None, expire_at=None, id=None, member_name=None,
+                 member_type=None, name=None, source_id=None, source_type=None, state=None, username=None, web_url=None):
         self.access_level = access_level  # type: int
         self.avatar_url = avatar_url  # type: str
         self.email = email  # type: str
         self.expire_at = expire_at  # type: str
-        self.extern_uid = extern_uid  # type: str
         self.id = id  # type: long
         self.member_name = member_name  # type: str
         self.member_type = member_type  # type: str
@@ -33430,7 +34091,6 @@ class UpdateRepositoryMemberResponseBodyResult(TeaModel):
         self.source_id = source_id  # type: long
         self.source_type = source_type  # type: str
         self.state = state  # type: str
-        self.tb_user_id = tb_user_id  # type: str
         self.username = username  # type: str
         # web url
         self.web_url = web_url  # type: str
@@ -33452,8 +34112,6 @@ class UpdateRepositoryMemberResponseBodyResult(TeaModel):
             result['email'] = self.email
         if self.expire_at is not None:
             result['expireAt'] = self.expire_at
-        if self.extern_uid is not None:
-            result['externUid'] = self.extern_uid
         if self.id is not None:
             result['id'] = self.id
         if self.member_name is not None:
@@ -33468,8 +34126,6 @@ class UpdateRepositoryMemberResponseBodyResult(TeaModel):
             result['sourceType'] = self.source_type
         if self.state is not None:
             result['state'] = self.state
-        if self.tb_user_id is not None:
-            result['tbUserId'] = self.tb_user_id
         if self.username is not None:
             result['username'] = self.username
         if self.web_url is not None:
@@ -33486,8 +34142,6 @@ class UpdateRepositoryMemberResponseBodyResult(TeaModel):
             self.email = m.get('email')
         if m.get('expireAt') is not None:
             self.expire_at = m.get('expireAt')
-        if m.get('externUid') is not None:
-            self.extern_uid = m.get('externUid')
         if m.get('id') is not None:
             self.id = m.get('id')
         if m.get('memberName') is not None:
@@ -33502,8 +34156,6 @@ class UpdateRepositoryMemberResponseBodyResult(TeaModel):
             self.source_type = m.get('sourceType')
         if m.get('state') is not None:
             self.state = m.get('state')
-        if m.get('tbUserId') is not None:
-            self.tb_user_id = m.get('tbUserId')
         if m.get('username') is not None:
             self.username = m.get('username')
         if m.get('webUrl') is not None:
