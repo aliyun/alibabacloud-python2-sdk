@@ -5914,6 +5914,140 @@ class GenerateUserAccessTokenResponse(TeaModel):
         return self
 
 
+class GetAgentInfoRequest(TeaModel):
+    def __init__(self, instance_id=None):
+        self.instance_id = instance_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetAgentInfoRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        return self
+
+
+class GetAgentInfoResponseBodyData(TeaModel):
+    def __init__(self, agent_key=None, agent_name=None):
+        self.agent_key = agent_key  # type: str
+        self.agent_name = agent_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetAgentInfoResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.agent_key is not None:
+            result['AgentKey'] = self.agent_key
+        if self.agent_name is not None:
+            result['AgentName'] = self.agent_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AgentKey') is not None:
+            self.agent_key = m.get('AgentKey')
+        if m.get('AgentName') is not None:
+            self.agent_name = m.get('AgentName')
+        return self
+
+
+class GetAgentInfoResponseBody(TeaModel):
+    def __init__(self, data=None, message=None, request_id=None, success=None):
+        self.data = data  # type: GetAgentInfoResponseBodyData
+        self.message = message  # type: str
+        # Id of the request
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(GetAgentInfoResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            temp_model = GetAgentInfoResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class GetAgentInfoResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetAgentInfoResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetAgentInfoResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetAgentInfoResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class GetAsyncResultRequest(TeaModel):
     def __init__(self, agent_key=None, task_id=None):
         self.agent_key = agent_key  # type: str
@@ -8018,6 +8152,348 @@ class ListLgfResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListLgfResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListSaasInfoRequest(TeaModel):
+    def __init__(self, agent_key=None, saas_group_codes=None, saas_name=None):
+        self.agent_key = agent_key  # type: str
+        self.saas_group_codes = saas_group_codes  # type: str
+        self.saas_name = saas_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListSaasInfoRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.agent_key is not None:
+            result['AgentKey'] = self.agent_key
+        if self.saas_group_codes is not None:
+            result['SaasGroupCodes'] = self.saas_group_codes
+        if self.saas_name is not None:
+            result['SaasName'] = self.saas_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AgentKey') is not None:
+            self.agent_key = m.get('AgentKey')
+        if m.get('SaasGroupCodes') is not None:
+            self.saas_group_codes = m.get('SaasGroupCodes')
+        if m.get('SaasName') is not None:
+            self.saas_name = m.get('SaasName')
+        return self
+
+
+class ListSaasInfoResponseBodyData(TeaModel):
+    def __init__(self, code=None, en_name=None, name=None, service_url=None, url=None):
+        self.code = code  # type: str
+        self.en_name = en_name  # type: str
+        self.name = name  # type: str
+        self.service_url = service_url  # type: str
+        self.url = url  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListSaasInfoResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.en_name is not None:
+            result['EnName'] = self.en_name
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.service_url is not None:
+            result['ServiceUrl'] = self.service_url
+        if self.url is not None:
+            result['Url'] = self.url
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('EnName') is not None:
+            self.en_name = m.get('EnName')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('ServiceUrl') is not None:
+            self.service_url = m.get('ServiceUrl')
+        if m.get('Url') is not None:
+            self.url = m.get('Url')
+        return self
+
+
+class ListSaasInfoResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None, saas_token=None):
+        self.data = data  # type: list[ListSaasInfoResponseBodyData]
+        # Id of the request
+        self.request_id = request_id  # type: str
+        self.saas_token = saas_token  # type: str
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListSaasInfoResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['Data'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.saas_token is not None:
+            result['SaasToken'] = self.saas_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.data = []
+        if m.get('Data') is not None:
+            for k in m.get('Data'):
+                temp_model = ListSaasInfoResponseBodyData()
+                self.data.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('SaasToken') is not None:
+            self.saas_token = m.get('SaasToken')
+        return self
+
+
+class ListSaasInfoResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListSaasInfoResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListSaasInfoResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListSaasInfoResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListSaasPermissionGroupInfosRequest(TeaModel):
+    def __init__(self, agent_key=None):
+        self.agent_key = agent_key  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListSaasPermissionGroupInfosRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.agent_key is not None:
+            result['AgentKey'] = self.agent_key
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AgentKey') is not None:
+            self.agent_key = m.get('AgentKey')
+        return self
+
+
+class ListSaasPermissionGroupInfosResponseBodyDataPgInfos(TeaModel):
+    def __init__(self, pg_code=None, pg_en_name=None, pg_name=None):
+        self.pg_code = pg_code  # type: str
+        self.pg_en_name = pg_en_name  # type: str
+        self.pg_name = pg_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListSaasPermissionGroupInfosResponseBodyDataPgInfos, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.pg_code is not None:
+            result['PgCode'] = self.pg_code
+        if self.pg_en_name is not None:
+            result['PgEnName'] = self.pg_en_name
+        if self.pg_name is not None:
+            result['PgName'] = self.pg_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('PgCode') is not None:
+            self.pg_code = m.get('PgCode')
+        if m.get('PgEnName') is not None:
+            self.pg_en_name = m.get('PgEnName')
+        if m.get('PgName') is not None:
+            self.pg_name = m.get('PgName')
+        return self
+
+
+class ListSaasPermissionGroupInfosResponseBodyData(TeaModel):
+    def __init__(self, en_name=None, name=None, pg_infos=None, saas_code=None):
+        self.en_name = en_name  # type: str
+        self.name = name  # type: str
+        self.pg_infos = pg_infos  # type: list[ListSaasPermissionGroupInfosResponseBodyDataPgInfos]
+        self.saas_code = saas_code  # type: str
+
+    def validate(self):
+        if self.pg_infos:
+            for k in self.pg_infos:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListSaasPermissionGroupInfosResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.en_name is not None:
+            result['EnName'] = self.en_name
+        if self.name is not None:
+            result['Name'] = self.name
+        result['PgInfos'] = []
+        if self.pg_infos is not None:
+            for k in self.pg_infos:
+                result['PgInfos'].append(k.to_map() if k else None)
+        if self.saas_code is not None:
+            result['SaasCode'] = self.saas_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EnName') is not None:
+            self.en_name = m.get('EnName')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        self.pg_infos = []
+        if m.get('PgInfos') is not None:
+            for k in m.get('PgInfos'):
+                temp_model = ListSaasPermissionGroupInfosResponseBodyDataPgInfos()
+                self.pg_infos.append(temp_model.from_map(k))
+        if m.get('SaasCode') is not None:
+            self.saas_code = m.get('SaasCode')
+        return self
+
+
+class ListSaasPermissionGroupInfosResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: list[ListSaasPermissionGroupInfosResponseBodyData]
+        # Id of the request
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListSaasPermissionGroupInfosResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['Data'].append(k.to_map() if k else None)
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.data = []
+        if m.get('Data') is not None:
+            for k in m.get('Data'):
+                temp_model = ListSaasPermissionGroupInfosResponseBodyData()
+                self.data.append(temp_model.from_map(k))
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ListSaasPermissionGroupInfosResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListSaasPermissionGroupInfosResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListSaasPermissionGroupInfosResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListSaasPermissionGroupInfosResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 

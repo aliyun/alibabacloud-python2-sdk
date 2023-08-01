@@ -1400,6 +1400,34 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.generate_user_access_token_with_options(request, runtime)
 
+    def get_agent_info_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetAgentInfo',
+            version='2022-04-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            chatbot_20220408_models.GetAgentInfoResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_agent_info(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_agent_info_with_options(request, runtime)
+
     def get_async_result_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1845,6 +1873,66 @@ class Client(OpenApiClient):
     def list_lgf(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_lgf_with_options(request, runtime)
+
+    def list_saas_info_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.agent_key):
+            query['AgentKey'] = request.agent_key
+        if not UtilClient.is_unset(request.saas_group_codes):
+            query['SaasGroupCodes'] = request.saas_group_codes
+        if not UtilClient.is_unset(request.saas_name):
+            query['SaasName'] = request.saas_name
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListSaasInfo',
+            version='2022-04-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            chatbot_20220408_models.ListSaasInfoResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_saas_info(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_saas_info_with_options(request, runtime)
+
+    def list_saas_permission_group_infos_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.agent_key):
+            query['AgentKey'] = request.agent_key
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListSaasPermissionGroupInfos',
+            version='2022-04-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            chatbot_20220408_models.ListSaasPermissionGroupInfosResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_saas_permission_group_infos(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_saas_permission_group_infos_with_options(request, runtime)
 
     def list_sim_question_with_options(self, request, runtime):
         UtilClient.validate_model(request)
