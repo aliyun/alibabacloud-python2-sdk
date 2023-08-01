@@ -257,6 +257,45 @@ class StandardComponentsValue(TeaModel):
         return self
 
 
+class QuotasValue(TeaModel):
+    def __init__(self, quota=None, operation_code=None, adjustable=None, unit=None):
+        self.quota = quota  # type: str
+        self.operation_code = operation_code  # type: str
+        self.adjustable = adjustable  # type: bool
+        self.unit = unit  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QuotasValue, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.quota is not None:
+            result['quota'] = self.quota
+        if self.operation_code is not None:
+            result['operation_code'] = self.operation_code
+        if self.adjustable is not None:
+            result['adjustable'] = self.adjustable
+        if self.unit is not None:
+            result['unit'] = self.unit
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('quota') is not None:
+            self.quota = m.get('quota')
+        if m.get('operation_code') is not None:
+            self.operation_code = m.get('operation_code')
+        if m.get('adjustable') is not None:
+            self.adjustable = m.get('adjustable')
+        if m.get('unit') is not None:
+            self.unit = m.get('unit')
+        return self
+
+
 class AttachInstancesRequest(TeaModel):
     def __init__(self, cpu_policy=None, format_disk=None, image_id=None, instances=None, is_edge_worker=None,
                  keep_instance_name=None, key_pair=None, nodepool_id=None, password=None, rds_instances=None, runtime=None, tags=None,
@@ -356,8 +395,11 @@ class AttachInstancesRequest(TeaModel):
 
 class AttachInstancesResponseBodyList(TeaModel):
     def __init__(self, code=None, instance_id=None, message=None):
+        # The code that indicates the task result.
         self.code = code  # type: str
+        # The ID of the instance.
         self.instance_id = instance_id  # type: str
+        # Indicates whether the ECS instances are successfully added to the ACK cluster.
         self.message = message  # type: str
 
     def validate(self):
@@ -390,7 +432,9 @@ class AttachInstancesResponseBodyList(TeaModel):
 
 class AttachInstancesResponseBody(TeaModel):
     def __init__(self, list=None, task_id=None):
+        # The details of the added nodes.
         self.list = list  # type: list[AttachInstancesResponseBodyList]
+        # The ID of the task.
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -460,6 +504,113 @@ class AttachInstancesResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = AttachInstancesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class AttachInstancesToNodePoolRequest(TeaModel):
+    def __init__(self, format_disk=None, instances=None, keep_instance_name=None, password=None):
+        self.format_disk = format_disk  # type: bool
+        self.instances = instances  # type: list[str]
+        self.keep_instance_name = keep_instance_name  # type: bool
+        self.password = password  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(AttachInstancesToNodePoolRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.format_disk is not None:
+            result['format_disk'] = self.format_disk
+        if self.instances is not None:
+            result['instances'] = self.instances
+        if self.keep_instance_name is not None:
+            result['keep_instance_name'] = self.keep_instance_name
+        if self.password is not None:
+            result['password'] = self.password
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('format_disk') is not None:
+            self.format_disk = m.get('format_disk')
+        if m.get('instances') is not None:
+            self.instances = m.get('instances')
+        if m.get('keep_instance_name') is not None:
+            self.keep_instance_name = m.get('keep_instance_name')
+        if m.get('password') is not None:
+            self.password = m.get('password')
+        return self
+
+
+class AttachInstancesToNodePoolResponseBody(TeaModel):
+    def __init__(self, request_id=None, task_id=None):
+        self.request_id = request_id  # type: str
+        self.task_id = task_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(AttachInstancesToNodePoolResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.task_id is not None:
+            result['task_id'] = self.task_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('task_id') is not None:
+            self.task_id = m.get('task_id')
+        return self
+
+
+class AttachInstancesToNodePoolResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: AttachInstancesToNodePoolResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(AttachInstancesToNodePoolResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = AttachInstancesToNodePoolResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -608,14 +759,101 @@ class CancelWorkflowResponse(TeaModel):
         return self
 
 
+class CheckControlPlaneLogEnableResponseBody(TeaModel):
+    def __init__(self, aliuid=None, components=None, log_project=None, log_ttl=None):
+        self.aliuid = aliuid  # type: str
+        self.components = components  # type: list[str]
+        self.log_project = log_project  # type: str
+        self.log_ttl = log_ttl  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CheckControlPlaneLogEnableResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.aliuid is not None:
+            result['aliuid'] = self.aliuid
+        if self.components is not None:
+            result['components'] = self.components
+        if self.log_project is not None:
+            result['log_project'] = self.log_project
+        if self.log_ttl is not None:
+            result['log_ttl'] = self.log_ttl
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('aliuid') is not None:
+            self.aliuid = m.get('aliuid')
+        if m.get('components') is not None:
+            self.components = m.get('components')
+        if m.get('log_project') is not None:
+            self.log_project = m.get('log_project')
+        if m.get('log_ttl') is not None:
+            self.log_ttl = m.get('log_ttl')
+        return self
+
+
+class CheckControlPlaneLogEnableResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CheckControlPlaneLogEnableResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CheckControlPlaneLogEnableResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CheckControlPlaneLogEnableResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CreateAutoscalingConfigRequest(TeaModel):
-    def __init__(self, cool_down_duration=None, expander=None, gpu_utilization_threshold=None,
-                 scale_down_enabled=None, scan_interval=None, unneeded_duration=None, utilization_threshold=None):
+    def __init__(self, cool_down_duration=None, daemonset_eviction_for_nodes=None, expander=None,
+                 gpu_utilization_threshold=None, max_graceful_termination_sec=None, min_replica_count=None,
+                 recycle_node_deletion_enabled=None, scale_down_enabled=None, scale_up_from_zero=None, scan_interval=None,
+                 skip_nodes_with_local_storage=None, skip_nodes_with_system_pods=None, unneeded_duration=None, utilization_threshold=None):
         self.cool_down_duration = cool_down_duration  # type: str
+        self.daemonset_eviction_for_nodes = daemonset_eviction_for_nodes  # type: bool
         self.expander = expander  # type: str
         self.gpu_utilization_threshold = gpu_utilization_threshold  # type: str
+        self.max_graceful_termination_sec = max_graceful_termination_sec  # type: int
+        self.min_replica_count = min_replica_count  # type: int
+        self.recycle_node_deletion_enabled = recycle_node_deletion_enabled  # type: bool
         self.scale_down_enabled = scale_down_enabled  # type: bool
+        self.scale_up_from_zero = scale_up_from_zero  # type: bool
         self.scan_interval = scan_interval  # type: str
+        self.skip_nodes_with_local_storage = skip_nodes_with_local_storage  # type: bool
+        self.skip_nodes_with_system_pods = skip_nodes_with_system_pods  # type: bool
         self.unneeded_duration = unneeded_duration  # type: str
         self.utilization_threshold = utilization_threshold  # type: str
 
@@ -630,14 +868,28 @@ class CreateAutoscalingConfigRequest(TeaModel):
         result = dict()
         if self.cool_down_duration is not None:
             result['cool_down_duration'] = self.cool_down_duration
+        if self.daemonset_eviction_for_nodes is not None:
+            result['daemonset_eviction_for_nodes'] = self.daemonset_eviction_for_nodes
         if self.expander is not None:
             result['expander'] = self.expander
         if self.gpu_utilization_threshold is not None:
             result['gpu_utilization_threshold'] = self.gpu_utilization_threshold
+        if self.max_graceful_termination_sec is not None:
+            result['max_graceful_termination_sec'] = self.max_graceful_termination_sec
+        if self.min_replica_count is not None:
+            result['min_replica_count'] = self.min_replica_count
+        if self.recycle_node_deletion_enabled is not None:
+            result['recycle_node_deletion_enabled'] = self.recycle_node_deletion_enabled
         if self.scale_down_enabled is not None:
             result['scale_down_enabled'] = self.scale_down_enabled
+        if self.scale_up_from_zero is not None:
+            result['scale_up_from_zero'] = self.scale_up_from_zero
         if self.scan_interval is not None:
             result['scan_interval'] = self.scan_interval
+        if self.skip_nodes_with_local_storage is not None:
+            result['skip_nodes_with_local_storage'] = self.skip_nodes_with_local_storage
+        if self.skip_nodes_with_system_pods is not None:
+            result['skip_nodes_with_system_pods'] = self.skip_nodes_with_system_pods
         if self.unneeded_duration is not None:
             result['unneeded_duration'] = self.unneeded_duration
         if self.utilization_threshold is not None:
@@ -648,14 +900,28 @@ class CreateAutoscalingConfigRequest(TeaModel):
         m = m or dict()
         if m.get('cool_down_duration') is not None:
             self.cool_down_duration = m.get('cool_down_duration')
+        if m.get('daemonset_eviction_for_nodes') is not None:
+            self.daemonset_eviction_for_nodes = m.get('daemonset_eviction_for_nodes')
         if m.get('expander') is not None:
             self.expander = m.get('expander')
         if m.get('gpu_utilization_threshold') is not None:
             self.gpu_utilization_threshold = m.get('gpu_utilization_threshold')
+        if m.get('max_graceful_termination_sec') is not None:
+            self.max_graceful_termination_sec = m.get('max_graceful_termination_sec')
+        if m.get('min_replica_count') is not None:
+            self.min_replica_count = m.get('min_replica_count')
+        if m.get('recycle_node_deletion_enabled') is not None:
+            self.recycle_node_deletion_enabled = m.get('recycle_node_deletion_enabled')
         if m.get('scale_down_enabled') is not None:
             self.scale_down_enabled = m.get('scale_down_enabled')
+        if m.get('scale_up_from_zero') is not None:
+            self.scale_up_from_zero = m.get('scale_up_from_zero')
         if m.get('scan_interval') is not None:
             self.scan_interval = m.get('scan_interval')
+        if m.get('skip_nodes_with_local_storage') is not None:
+            self.skip_nodes_with_local_storage = m.get('skip_nodes_with_local_storage')
+        if m.get('skip_nodes_with_system_pods') is not None:
+            self.skip_nodes_with_system_pods = m.get('skip_nodes_with_system_pods')
         if m.get('unneeded_duration') is not None:
             self.unneeded_duration = m.get('unneeded_duration')
         if m.get('utilization_threshold') is not None:
@@ -1250,8 +1516,11 @@ class CreateClusterRequest(TeaModel):
 
 class CreateClusterResponseBody(TeaModel):
     def __init__(self, cluster_id=None, request_id=None, task_id=None):
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The ID of the task.
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -1606,6 +1875,35 @@ class CreateClusterNodePoolRequestNodepoolInfo(TeaModel):
         return self
 
 
+class CreateClusterNodePoolRequestScalingGroupPrivatePoolOptions(TeaModel):
+    def __init__(self, id=None, match_criteria=None):
+        self.id = id  # type: str
+        self.match_criteria = match_criteria  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateClusterNodePoolRequestScalingGroupPrivatePoolOptions, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.match_criteria is not None:
+            result['match_criteria'] = self.match_criteria
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('match_criteria') is not None:
+            self.match_criteria = m.get('match_criteria')
+        return self
+
+
 class CreateClusterNodePoolRequestScalingGroupSpotPriceLimit(TeaModel):
     def __init__(self, instance_type=None, price_limit=None):
         self.instance_type = instance_type  # type: str
@@ -1669,10 +1967,10 @@ class CreateClusterNodePoolRequestScalingGroup(TeaModel):
                  deploymentset_id=None, desired_size=None, image_id=None, image_type=None, instance_charge_type=None,
                  instance_types=None, internet_charge_type=None, internet_max_bandwidth_out=None, key_pair=None,
                  login_password=None, multi_az_policy=None, on_demand_base_capacity=None,
-                 on_demand_percentage_above_base_capacity=None, period=None, period_unit=None, platform=None, rds_instances=None, scaling_policy=None,
-                 security_group_id=None, security_group_ids=None, spot_instance_pools=None, spot_instance_remedy=None,
-                 spot_price_limit=None, spot_strategy=None, system_disk_category=None, system_disk_performance_level=None,
-                 system_disk_size=None, tags=None, vswitch_ids=None):
+                 on_demand_percentage_above_base_capacity=None, period=None, period_unit=None, platform=None, private_pool_options=None, rds_instances=None,
+                 scaling_policy=None, security_group_id=None, security_group_ids=None, spot_instance_pools=None,
+                 spot_instance_remedy=None, spot_price_limit=None, spot_strategy=None, system_disk_category=None,
+                 system_disk_performance_level=None, system_disk_size=None, tags=None, vswitch_ids=None):
         self.auto_renew = auto_renew  # type: bool
         self.auto_renew_period = auto_renew_period  # type: long
         self.compensate_with_on_demand = compensate_with_on_demand  # type: bool
@@ -1693,6 +1991,7 @@ class CreateClusterNodePoolRequestScalingGroup(TeaModel):
         self.period = period  # type: long
         self.period_unit = period_unit  # type: str
         self.platform = platform  # type: str
+        self.private_pool_options = private_pool_options  # type: CreateClusterNodePoolRequestScalingGroupPrivatePoolOptions
         self.rds_instances = rds_instances  # type: list[str]
         self.scaling_policy = scaling_policy  # type: str
         self.security_group_id = security_group_id  # type: str
@@ -1712,6 +2011,8 @@ class CreateClusterNodePoolRequestScalingGroup(TeaModel):
             for k in self.data_disks:
                 if k:
                     k.validate()
+        if self.private_pool_options:
+            self.private_pool_options.validate()
         if self.spot_price_limit:
             for k in self.spot_price_limit:
                 if k:
@@ -1769,6 +2070,8 @@ class CreateClusterNodePoolRequestScalingGroup(TeaModel):
             result['period_unit'] = self.period_unit
         if self.platform is not None:
             result['platform'] = self.platform
+        if self.private_pool_options is not None:
+            result['private_pool_options'] = self.private_pool_options.to_map()
         if self.rds_instances is not None:
             result['rds_instances'] = self.rds_instances
         if self.scaling_policy is not None:
@@ -1846,6 +2149,9 @@ class CreateClusterNodePoolRequestScalingGroup(TeaModel):
             self.period_unit = m.get('period_unit')
         if m.get('platform') is not None:
             self.platform = m.get('platform')
+        if m.get('private_pool_options') is not None:
+            temp_model = CreateClusterNodePoolRequestScalingGroupPrivatePoolOptions()
+            self.private_pool_options = temp_model.from_map(m['private_pool_options'])
         if m.get('rds_instances') is not None:
             self.rds_instances = m.get('rds_instances')
         if m.get('scaling_policy') is not None:
@@ -1997,6 +2303,7 @@ class CreateClusterNodePoolRequest(TeaModel):
 
 class CreateClusterNodePoolResponseBody(TeaModel):
     def __init__(self, nodepool_id=None):
+        # The ID of the node pool that is created.
         self.nodepool_id = nodepool_id  # type: str
 
     def validate(self):
@@ -2094,7 +2401,9 @@ class CreateEdgeMachineRequest(TeaModel):
 
 class CreateEdgeMachineResponseBody(TeaModel):
     def __init__(self, edge_machine_id=None, request_id=None):
+        # The ID of the cloud-native box.
         self.edge_machine_id = edge_machine_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2201,10 +2510,20 @@ class CreateKubernetesTriggerRequest(TeaModel):
 
 class CreateKubernetesTriggerResponseBody(TeaModel):
     def __init__(self, action=None, cluster_id=None, id=None, project_id=None, type=None):
+        # The action that the trigger performs. For example, a value of `redeploy` indicates that the trigger redeploys the application.
         self.action = action  # type: str
+        # The ID of the ACK cluster.
         self.cluster_id = cluster_id  # type: str
+        # The ID of the trigger.
         self.id = id  # type: str
+        # The name of the project.
         self.project_id = project_id  # type: str
+        # The type of trigger.
+        # 
+        # Valid values:
+        # 
+        # *   `deployment`: performs actions on Deployments.
+        # *   `application`: performs actions on applications that are deployed in Application Center.
         self.type = type  # type: str
 
     def validate(self):
@@ -2328,6 +2647,7 @@ class CreateTemplateRequest(TeaModel):
 
 class CreateTemplateResponseBody(TeaModel):
     def __init__(self, template_id=None):
+        # The ID of the template.
         self.template_id = template_id  # type: str
 
     def validate(self):
@@ -2430,10 +2750,15 @@ class CreateTriggerRequest(TeaModel):
 
 class CreateTriggerResponseBody(TeaModel):
     def __init__(self, action=None, cluster_id=None, id=None, project_id=None, type=None):
+        # The action that the trigger performs. For example, a value of `redeploy` indicates that the trigger redeploys the application.
         self.action = action  # type: str
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The ID of the trigger.
         self.id = id  # type: str
+        # The name of the project.
         self.project_id = project_id  # type: str
+        # The type of trigger. Default value: deployment.
         self.type = type  # type: str
 
     def validate(self):
@@ -2639,14 +2964,43 @@ class DeleteClusterShrinkRequest(TeaModel):
         return self
 
 
+class DeleteClusterResponseBody(TeaModel):
+    def __init__(self, task_id=None):
+        # 任务ID。
+        self.task_id = task_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteClusterResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.task_id is not None:
+            result['task_id'] = self.task_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('task_id') is not None:
+            self.task_id = m.get('task_id')
+        return self
+
+
 class DeleteClusterResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None):
+    def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
         self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteClusterResponseBody
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
         self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
 
     def to_map(self):
         _map = super(DeleteClusterResponse, self).to_map()
@@ -2658,6 +3012,8 @@ class DeleteClusterResponse(TeaModel):
             result['headers'] = self.headers
         if self.status_code is not None:
             result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
         return result
 
     def from_map(self, m=None):
@@ -2666,11 +3022,15 @@ class DeleteClusterResponse(TeaModel):
             self.headers = m.get('headers')
         if m.get('statusCode') is not None:
             self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteClusterResponseBody()
+            self.body = temp_model.from_map(m['body'])
         return self
 
 
 class DeleteClusterNodepoolRequest(TeaModel):
     def __init__(self, force=None):
+        # false
         self.force = force  # type: bool
 
     def validate(self):
@@ -2695,6 +3055,7 @@ class DeleteClusterNodepoolRequest(TeaModel):
 
 class DeleteClusterNodepoolResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2792,8 +3153,11 @@ class DeleteClusterNodesRequest(TeaModel):
 
 class DeleteClusterNodesResponseBody(TeaModel):
     def __init__(self, cluster_id=None, request_id=None, task_id=None):
+        # The ID of the ACK cluster.
         self.cluster_id = cluster_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The ID of the task.
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -2973,6 +3337,7 @@ class DeletePolicyInstanceRequest(TeaModel):
 
 class DeletePolicyInstanceResponseBody(TeaModel):
     def __init__(self, instances=None):
+        # The policy instances that are deleted.
         self.instances = instances  # type: list[str]
 
     def validate(self):
@@ -3130,6 +3495,7 @@ class DeployPolicyInstanceRequest(TeaModel):
 
 class DeployPolicyInstanceResponseBody(TeaModel):
     def __init__(self, instances=None):
+        # The policy instances that are deployed.
         self.instances = instances  # type: list[str]
 
     def validate(self):
@@ -3194,16 +3560,27 @@ class DeployPolicyInstanceResponse(TeaModel):
 class DescirbeWorkflowResponseBody(TeaModel):
     def __init__(self, create_time=None, duration=None, finish_time=None, input_data_size=None, job_name=None,
                  job_namespace=None, output_data_size=None, status=None, total_bases=None, total_reads=None, user_input_data=None):
+        # The time when the workflow was created.
         self.create_time = create_time  # type: str
+        # The duration of the workflow.
         self.duration = duration  # type: str
+        # The time when the workflow ended.
         self.finish_time = finish_time  # type: str
+        # The size of the input data.
         self.input_data_size = input_data_size  # type: str
+        # The name of the workflow.
         self.job_name = job_name  # type: str
+        # The namespace to which the workflow belongs.
         self.job_namespace = job_namespace  # type: str
+        # The size of the output data.
         self.output_data_size = output_data_size  # type: str
+        # The current state of the workflow.
         self.status = status  # type: str
+        # The number of base pairs.
         self.total_bases = total_bases  # type: str
+        # The number of reads.
         self.total_reads = total_reads  # type: str
+        # The user input parameters.
         self.user_input_data = user_input_data  # type: str
 
     def validate(self):
@@ -3306,8 +3683,12 @@ class DescirbeWorkflowResponse(TeaModel):
 
 
 class DescribeAddonsRequest(TeaModel):
-    def __init__(self, cluster_type=None, region=None):
+    def __init__(self, cluster_profile=None, cluster_spec=None, cluster_type=None, cluster_version=None,
+                 region=None):
+        self.cluster_profile = cluster_profile  # type: str
+        self.cluster_spec = cluster_spec  # type: str
         self.cluster_type = cluster_type  # type: str
+        self.cluster_version = cluster_version  # type: str
         self.region = region  # type: str
 
     def validate(self):
@@ -3319,16 +3700,28 @@ class DescribeAddonsRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.cluster_profile is not None:
+            result['cluster_profile'] = self.cluster_profile
+        if self.cluster_spec is not None:
+            result['cluster_spec'] = self.cluster_spec
         if self.cluster_type is not None:
             result['cluster_type'] = self.cluster_type
+        if self.cluster_version is not None:
+            result['cluster_version'] = self.cluster_version
         if self.region is not None:
             result['region'] = self.region
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('cluster_profile') is not None:
+            self.cluster_profile = m.get('cluster_profile')
+        if m.get('cluster_spec') is not None:
+            self.cluster_spec = m.get('cluster_spec')
         if m.get('cluster_type') is not None:
             self.cluster_type = m.get('cluster_type')
+        if m.get('cluster_version') is not None:
+            self.cluster_version = m.get('cluster_version')
         if m.get('region') is not None:
             self.region = m.get('region')
         return self
@@ -3336,6 +3729,7 @@ class DescribeAddonsRequest(TeaModel):
 
 class DescribeAddonsResponseBodyComponentGroupsItems(TeaModel):
     def __init__(self, name=None):
+        # The name of the component.
         self.name = name  # type: str
 
     def validate(self):
@@ -3360,7 +3754,9 @@ class DescribeAddonsResponseBodyComponentGroupsItems(TeaModel):
 
 class DescribeAddonsResponseBodyComponentGroups(TeaModel):
     def __init__(self, group_name=None, items=None):
+        # The name of the component group.
         self.group_name = group_name  # type: str
+        # The names of the components in the component group.
         self.items = items  # type: list[DescribeAddonsResponseBodyComponentGroupsItems]
 
     def validate(self):
@@ -3397,6 +3793,7 @@ class DescribeAddonsResponseBodyComponentGroups(TeaModel):
 
 class DescribeAddonsResponseBody(TeaModel):
     def __init__(self, component_groups=None, standard_components=None):
+        # The details of the returned components.
         self.component_groups = component_groups  # type: list[DescribeAddonsResponseBodyComponentGroups]
         self.standard_components = standard_components  # type: dict[str, StandardComponentsValue]
 
@@ -3480,10 +3877,91 @@ class DescribeAddonsResponse(TeaModel):
         return self
 
 
+class DescribeClusterAddonInstanceResponseBody(TeaModel):
+    def __init__(self, config=None, name=None, state=None, version=None):
+        self.config = config  # type: str
+        self.name = name  # type: str
+        self.state = state  # type: str
+        self.version = version  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeClusterAddonInstanceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.config is not None:
+            result['config'] = self.config
+        if self.name is not None:
+            result['name'] = self.name
+        if self.state is not None:
+            result['state'] = self.state
+        if self.version is not None:
+            result['version'] = self.version
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('config') is not None:
+            self.config = m.get('config')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('state') is not None:
+            self.state = m.get('state')
+        if m.get('version') is not None:
+            self.version = m.get('version')
+        return self
+
+
+class DescribeClusterAddonInstanceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeClusterAddonInstanceResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeClusterAddonInstanceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeClusterAddonInstanceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeClusterAddonMetadataResponseBody(TeaModel):
     def __init__(self, config_schema=None, name=None, version=None):
+        # The schema of component parameters.
         self.config_schema = config_schema  # type: str
+        # The name of the component.
         self.name = name  # type: str
+        # The version of the component.
         self.version = version  # type: str
 
     def validate(self):
@@ -3799,37 +4277,114 @@ class DescribeClusterDetailResponseBody(TeaModel):
     def __init__(self, cluster_id=None, cluster_spec=None, cluster_type=None, created=None, current_version=None,
                  deletion_protection=None, docker_version=None, external_loadbalancer_id=None, init_version=None,
                  maintenance_window=None, master_url=None, meta_data=None, name=None, network_mode=None, next_version=None,
-                 private_zone=None, profile=None, region_id=None, resource_group_id=None, security_group_id=None, size=None,
-                 state=None, subnet_cidr=None, tags=None, updated=None, vpc_id=None, vswitch_id=None,
+                 parameters=None, private_zone=None, profile=None, region_id=None, resource_group_id=None,
+                 security_group_id=None, size=None, state=None, subnet_cidr=None, tags=None, updated=None, vpc_id=None, vswitch_id=None,
                  worker_ram_role_name=None, zone_id=None):
+        # The ID of the queried ACK cluster.
         self.cluster_id = cluster_id  # type: str
+        # The type of the managed Kubernetes cluster. This parameter is returned for a managed Kubernetes cluster. Valid values:
+        # 
+        # *   `ack.pro.small`: professional managed Kubernetes cluster.
+        # *   `ack.standard`: standard managed Kubernetes cluster.
         self.cluster_spec = cluster_spec  # type: str
+        # The type of the cluster. Valid values:
+        # 
+        # *   `Kubernetes`: dedicated Kubernetes cluster
+        # *   `ManagedKubernetes`: managed Kubernetes cluster
+        # *   `Ask`: ASK cluster
+        # *   `ExternalKubernetes`: registered external Kubernetes cluster
         self.cluster_type = cluster_type  # type: str
+        # The time when the cluster was created.
         self.created = created  # type: str
+        # The current Kubernetes version of the cluster. For more information about the Kubernetes versions supported by ACK, see [Release notes for Kubernetes versions](~~185269~~).
         self.current_version = current_version  # type: str
+        # Indicates whether deletion protection is enabled. If deletion protection is enabled, the cluster cannot be deleted in the ACK console or by calling the API. Valid values:
+        # 
+        # *   `true`: Deletion protection is enabled. You cannot delete the cluster in the ACK console or by calling the API.
+        # *   `false`: Deletion protection is not enabled. You can delete the cluster in the ACK console or by calling the API.
         self.deletion_protection = deletion_protection  # type: bool
+        # The Docker version that is used by the cluster.
         self.docker_version = docker_version  # type: str
+        # The ID of the Server Load Balancer (SLB) instance that is used for the Ingress of the cluster.
         self.external_loadbalancer_id = external_loadbalancer_id  # type: str
+        # The Kubernetes version that is initially used by the cluster.
         self.init_version = init_version  # type: str
+        # The maintenance window of the cluster. This feature is available in only professional managed Kubernetes clusters.
         self.maintenance_window = maintenance_window  # type: MaintenanceWindow
+        # The address of the cluster. It includes an internal endpoint and a public endpoint.
         self.master_url = master_url  # type: str
+        # The metadata of the cluster.
         self.meta_data = meta_data  # type: str
+        # The name of the cluster.
+        # 
+        # The name must be 1 to 63 characters in length, and can contain digits, letters, and hyphens (-). It cannot start with a hyphen (-).
         self.name = name  # type: str
+        # The network mode of the cluster. Valid values:
+        # 
+        # *   `classic`: the classic network
+        # *   `vpc`: virtual private cloud (VPC)
+        # *   `overlay`: overlay network
+        # *   `calico`: network powered by Calico
+        # 
+        # Default value`: vpc`.
         self.network_mode = network_mode  # type: str
+        # The Kubernetes version to which the cluster can be upgraded.
         self.next_version = next_version  # type: str
+        self.parameters = parameters  # type: dict[str, str]
+        # Indicates whether Alibaba Cloud DNS PrivateZone is enabled.
+        # 
+        # *   `true`: indicates that Alibaba Cloud DNS PrivateZone is enabled.
+        # *   `false`: indicates that Alibaba Cloud DNS PrivateZone is not enabled.
         self.private_zone = private_zone  # type: bool
+        # Indicates the scenario in which the cluster is used. Valid values:
+        # 
+        # *   `Default`: indicates that the cluster is used in non-edge computing scenarios.
+        # *   `Edge`: indicates that the ACK cluster is used in edge computing scenarios.
         self.profile = profile  # type: str
+        # The ID of the region where the cluster is deployed.
         self.region_id = region_id  # type: str
+        # The ID of the resource group to which the cluster belongs.
         self.resource_group_id = resource_group_id  # type: str
+        # The ID of the security group to which the instances of the cluster belong.
         self.security_group_id = security_group_id  # type: str
+        # The number of nodes in the cluster. Master nodes and worker nodes are included.
         self.size = size  # type: long
+        # The state of the cluster. Valid values:
+        # 
+        # *   `initial`: The cluster is being created.
+        # *   `failed`: The cluster failed to be created.
+        # *   `running`: The cluster is running.
+        # *   `updating`: The cluster is being upgraded.
+        # *   `updating_failed`: The cluster failed to be upgraded.
+        # *   `scaling`: The cluster is being scaled.
+        # *   `waiting`: The registered cluster is waiting for connecting.
+        # *   `disconnected`: The registeredcluster is disconnected.
+        # *   `stopped`: The cluster is stopped.
+        # *   `deleting`: The cluster is being deleted.
+        # *   `deleted`: The cluster is deleted.
+        # *   `delete_failed`: The cluster failed to be deleted.
         self.state = state  # type: str
+        # The pod CIDR block. It must be a valid and private CIDR block, and must be one of the following CIDR blocks or their subnets:
+        # 
+        # *   10.0.0.0/8
+        # *   172.16-31.0.0/12-16
+        # *   192.168.0.0/16
+        # 
+        # The pod CIDR block cannot overlap with that of the VPC or those of the ACK clusters that are deployed in the VPC.
+        # 
+        # For more information about the network segmentation of ACK clusters, see [Plan CIDR blocks for ACK clusters in a VPC](~~186964~~).
         self.subnet_cidr = subnet_cidr  # type: str
+        # The labels of the cluster.
         self.tags = tags  # type: list[Tag]
+        # The time when the cluster was updated.
         self.updated = updated  # type: str
+        # The ID of the VPC where the cluster is deployed. This parameter is required when you create an ACK cluster.
         self.vpc_id = vpc_id  # type: str
+        # The IDs of the vSwitches. You can select one to three vSwitches when you create an ACK cluster. vSwitches in different zones are recommended to ensure high availability.
         self.vswitch_id = vswitch_id  # type: str
+        # The name of the worker RAM role. The RAM role is assigned to the worker nodes of the cluster and allows the worker nodes to manage Elastic Compute Service (ECS) instances.
         self.worker_ram_role_name = worker_ram_role_name  # type: str
+        # The ID of the zone where the cluster is deployed.
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -3876,6 +4431,8 @@ class DescribeClusterDetailResponseBody(TeaModel):
             result['network_mode'] = self.network_mode
         if self.next_version is not None:
             result['next_version'] = self.next_version
+        if self.parameters is not None:
+            result['parameters'] = self.parameters
         if self.private_zone is not None:
             result['private_zone'] = self.private_zone
         if self.profile is not None:
@@ -3941,6 +4498,8 @@ class DescribeClusterDetailResponseBody(TeaModel):
             self.network_mode = m.get('network_mode')
         if m.get('next_version') is not None:
             self.next_version = m.get('next_version')
+        if m.get('parameters') is not None:
+            self.parameters = m.get('parameters')
         if m.get('private_zone') is not None:
             self.private_zone = m.get('private_zone')
         if m.get('profile') is not None:
@@ -4018,7 +4577,7 @@ class DescribeClusterEventsRequest(TeaModel):
     def __init__(self, page_number=None, page_size=None, task_id=None):
         self.page_number = page_number  # type: long
         self.page_size = page_size  # type: long
-        self.task_id = task_id  # type: long
+        self.task_id = task_id  # type: str
 
     def validate(self):
         pass
@@ -4343,12 +4902,33 @@ class DescribeClusterLogsResponse(TeaModel):
 class DescribeClusterNodePoolDetailResponseBodyAutoScaling(TeaModel):
     def __init__(self, eip_bandwidth=None, eip_internet_charge_type=None, enable=None, is_bond_eip=None,
                  max_instances=None, min_instances=None, type=None):
+        # The peak bandwidth of the elastic IP address (EIP) that is associated with the node pool.
         self.eip_bandwidth = eip_bandwidth  # type: long
+        # The billing method of the EIP. Valid values:
+        # 
+        # *   `PayByBandwidth`: pay-by-bandwidth
+        # *   `PayByTraffic`: pay-by-data-transfer
         self.eip_internet_charge_type = eip_internet_charge_type  # type: str
+        # Indicates whether auto scaling is enabled. Valid values:
+        # 
+        # *   `true`: Auto scaling is enabled.
+        # *   `false`: Auto scaling is disabled. If this parameter is set to false, other parameters in the `auto_scaling` section do not take effect.
         self.enable = enable  # type: bool
+        # Indicates whether an EIP is associated with the node pool. Valid values:
+        # 
+        # *   `true`: An EIP is associated with the node pool.
+        # *   `false`: No EIP is associated with the node pool.
         self.is_bond_eip = is_bond_eip  # type: bool
+        # The maximum number of Elastic Compute Service (ECS) instances supported by the node pool.
         self.max_instances = max_instances  # type: long
+        # The minimum number of ECS instances that must be kept in the node pool.
         self.min_instances = min_instances  # type: long
+        # The instance types that can be used for the auto scaling of the node pool. Valid values:
+        # 
+        # *   `cpu`: regular instance
+        # *   `gpu`: GPU-accelerated instance
+        # *   `gpushare`: shared GPU-accelerated instance
+        # *   `spot`: preemptible instance
         self.type = type  # type: str
 
     def validate(self):
@@ -4442,13 +5022,35 @@ class DescribeClusterNodePoolDetailResponseBodyInterconnectConfig(TeaModel):
 class DescribeClusterNodePoolDetailResponseBodyKubernetesConfig(TeaModel):
     def __init__(self, cms_enabled=None, cpu_policy=None, labels=None, node_name_mode=None, runtime=None,
                  runtime_version=None, taints=None, user_data=None):
+        # Indicates whether the CloudMonitor agent is installed on ECS nodes in the cluster. After the CloudMonitor agent is installed, you can view monitoring information about the ECS instances in the CloudMonitor console. Installation is recommended. Valid values:
+        # 
+        # *   `true`: The CloudMonitor agent is installed on ECS nodes.
+        # *   `false`: The CloudMonitor agent is not installed on ECS nodes.
         self.cms_enabled = cms_enabled  # type: bool
+        # The CPU management policy of the nodes in the node pool. The following policies are supported if the Kubernetes version of the cluster is 1.12.6 or later.
+        # 
+        # *   `static`: allows pods with specific resource characteristics on the node to be granted enhanced CPU affinity and exclusivity.
+        # *   `none`: indicates that the default CPU affinity is used.
         self.cpu_policy = cpu_policy  # type: str
+        # The labels of the nodes in the node pool. You can add labels to the nodes in the cluster. You must add labels based on the following rules:
+        # 
+        # *   Each label is a case-sensitive key-value pair. You can add up to 20 labels.
+        # *   A key must be unique and cannot exceed 64 characters in length. A value can be empty and cannot exceed 128 characters in length. Keys and values cannot start with `aliyun`, `acs:`, `https://`, or `http://`. For more information, see [Labels and Selectors](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set).
         self.labels = labels  # type: list[Tag]
+        # A custom node name consists of a prefix, an IP substring, and a suffix.
+        # 
+        # *   The prefix and suffix can contain multiple parts that are separated by periods (.). Each part can contain lowercase letters, digits, and hyphens (-). A custom node name must start and end with a digit or lowercase letter.
+        # *   The IP substring length specifies the number of digits to be truncated from the end of the node IP address. The IP substring length ranges from 5 to 12.
+        # 
+        # For example, if the node IP address is 192.168.0.55, the prefix is aliyun.com, the IP substring length is 5, and the suffix is test, the node name will be aliyun.com00055test.
         self.node_name_mode = node_name_mode  # type: str
+        # The name of the container runtime.
         self.runtime = runtime  # type: str
+        # The version of the container runtime.
         self.runtime_version = runtime_version  # type: str
+        # The taints of the nodes. Taints are added to nodes to prevent pods from being scheduled to inappropriate nodes. However, toleration rules allow pods to be scheduled to nodes with matching taints. For more information, see [taint-and-toleration](https://kubernetes.io/zh/docs/concepts/scheduling-eviction/taint-and-toleration/).
         self.taints = taints  # type: list[Taint]
+        # The user-defined data of the node pool. For more information, see [Generate user-defined data](~~49121~~).
         self.user_data = user_data  # type: str
 
     def validate(self):
@@ -4518,9 +5120,18 @@ class DescribeClusterNodePoolDetailResponseBodyKubernetesConfig(TeaModel):
 
 class DescribeClusterNodePoolDetailResponseBodyManagementUpgradeConfig(TeaModel):
     def __init__(self, auto_upgrade=None, max_unavailable=None, surge=None, surge_percentage=None):
+        # Indicates whether auto upgrade is enabled. Valid values:
+        # 
+        # *   `true`: Auto upgrade is enabled.
+        # *   `false`: Auto upgrade is disabled.
         self.auto_upgrade = auto_upgrade  # type: bool
+        # The maximum number of nodes that can be in the Unavailable state. Valid values: 1 to 1000.
+        # 
+        # Default value: 1
         self.max_unavailable = max_unavailable  # type: long
+        # The number of nodes that are temporarily added to the node pool during an auto upgrade.
         self.surge = surge  # type: long
+        # The percentage of temporary nodes to the nodes in the node pool. You must set this parameter or `surge`.
         self.surge_percentage = surge_percentage  # type: long
 
     def validate(self):
@@ -4557,8 +5168,17 @@ class DescribeClusterNodePoolDetailResponseBodyManagementUpgradeConfig(TeaModel)
 
 class DescribeClusterNodePoolDetailResponseBodyManagement(TeaModel):
     def __init__(self, auto_repair=None, enable=None, upgrade_config=None):
+        # Indicates whether enable auto repair is enabled. This parameter takes effect only when `enable=true` is specified.
+        # 
+        # *   `true`: Auto repair is enabled.
+        # *   `false`: Auto repair is disabled.
         self.auto_repair = auto_repair  # type: bool
+        # Indicates whether to enable the managed node pool feature is enabled. Valid values:
+        # 
+        # *   `true`: The managed node pool feature is enabled.
+        # *   `false`: The managed node pool feature is disabled. Other parameters in this section take effect only when `enable=true` is specified.
         self.enable = enable  # type: bool
+        # The configurations of auto upgrade. The configurations take effect only when `enable=true` is specified.
         self.upgrade_config = upgrade_config  # type: DescribeClusterNodePoolDetailResponseBodyManagementUpgradeConfig
 
     def validate(self):
@@ -4594,13 +5214,27 @@ class DescribeClusterNodePoolDetailResponseBodyManagement(TeaModel):
 class DescribeClusterNodePoolDetailResponseBodyNodepoolInfo(TeaModel):
     def __init__(self, created=None, is_default=None, name=None, nodepool_id=None, region_id=None,
                  resource_group_id=None, type=None, updated=None):
+        # The time when the node pool was created.
         self.created = created  # type: str
+        # Indicates whether the node pool is a default node pool. A Container Service for Kubernetes (ACK) cluster usually has only one default node pool. Valid values:
+        # 
+        # `true`: The node pool is a default node pool.
+        # 
+        # `false`: The node pool is not a default node pool.
         self.is_default = is_default  # type: bool
+        # The name of the node pool.
+        # 
+        # The name must be 1 to 63 characters in length, and can contain digits, letters, and hyphens (-). It cannot start with a hyphen (-).
         self.name = name  # type: str
+        # The ID of the node pool.
         self.nodepool_id = nodepool_id  # type: str
+        # The ID of the region where the node pool is deployed.
         self.region_id = region_id  # type: str
+        # The ID of the resource group to which the node pool belongs.
         self.resource_group_id = resource_group_id  # type: str
+        # The type of the node pool.
         self.type = type  # type: str
+        # The time when the node pool was last updated.
         self.updated = updated  # type: str
 
     def validate(self):
@@ -4651,9 +5285,48 @@ class DescribeClusterNodePoolDetailResponseBodyNodepoolInfo(TeaModel):
         return self
 
 
+class DescribeClusterNodePoolDetailResponseBodyScalingGroupPrivatePoolOptions(TeaModel):
+    def __init__(self, id=None, match_criteria=None):
+        # The ID of the private node pool.
+        self.id = id  # type: str
+        # The type of private node pool. This parameter specifies the type of the private pool that you want to use to create instances. A private pool is generated when an elasticity assurance or a capacity reservation takes effect. You can select a private pool to start instances. Valid values:
+        # 
+        # *   `Open`: open private pool. The system selects an open private pool to start instances. If no matching open private pools are available, the resources in the public pool are used.
+        # *   `Target`: specific private pool. The system uses the resources of the specified private pool to start instances. If the specified private pool is unavailable, instances cannot be started.
+        # *   `None`: no private pool is used. The resources of private pools are not used to start instances.
+        self.match_criteria = match_criteria  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeClusterNodePoolDetailResponseBodyScalingGroupPrivatePoolOptions, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.match_criteria is not None:
+            result['match_criteria'] = self.match_criteria
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('match_criteria') is not None:
+            self.match_criteria = m.get('match_criteria')
+        return self
+
+
 class DescribeClusterNodePoolDetailResponseBodyScalingGroupSpotPriceLimit(TeaModel):
     def __init__(self, instance_type=None, price_limit=None):
+        # The instance type of preemptible instances.
         self.instance_type = instance_type  # type: str
+        # The price limit of a preemptible instance.
+        # 
+        # Unit: USD/hour.
         self.price_limit = price_limit  # type: str
 
     def validate(self):
@@ -4685,43 +5358,132 @@ class DescribeClusterNodePoolDetailResponseBodyScalingGroup(TeaModel):
                  deploymentset_id=None, desired_size=None, image_id=None, instance_charge_type=None, instance_types=None,
                  internet_charge_type=None, internet_max_bandwidth_out=None, key_pair=None, login_password=None, multi_az_policy=None,
                  on_demand_base_capacity=None, on_demand_percentage_above_base_capacity=None, period=None, period_unit=None, platform=None,
-                 ram_policy=None, rds_instances=None, scaling_group_id=None, scaling_policy=None, security_group_id=None,
-                 security_group_ids=None, spot_instance_pools=None, spot_instance_remedy=None, spot_price_limit=None,
-                 spot_strategy=None, system_disk_category=None, system_disk_performance_level=None, system_disk_size=None,
-                 tags=None, vswitch_ids=None):
+                 private_pool_options=None, ram_policy=None, rds_instances=None, scaling_group_id=None, scaling_policy=None,
+                 security_group_id=None, security_group_ids=None, spot_instance_pools=None, spot_instance_remedy=None,
+                 spot_price_limit=None, spot_strategy=None, system_disk_category=None, system_disk_performance_level=None,
+                 system_disk_size=None, tags=None, vswitch_ids=None):
+        # Indicates whether auto-renewal is enabled for the nodes in the node pool. This parameter takes effect only when `instance_charge_type` is set to `PrePaid`. Valid values:
+        # 
+        # *   `true`: Auto-renewal is enabled.
+        # *   `false`: Auto-renewal is disabled.
         self.auto_renew = auto_renew  # type: bool
+        # The duration of the auto-renewal. This parameter takes effect and is required only when `instance_charge_type` is set to `PrePaid`.
+        # 
+        # If you specify `PeriodUnit=Month`, the valid values are 1, 2, 3, 6, and 12.
         self.auto_renew_period = auto_renew_period  # type: long
+        # Indicates whether pay-as-you-go instances are automatically created to meet the required number of ECS instances if preemptible instances cannot be created due to reasons such as cost or insufficient inventory. This parameter takes effect when `multi_az_policy` is set to `COST_OPTIMIZED`. Valid values:
+        # 
+        # *   `true`: Pay-as-you-go instances are automatically created to meet the required number of ECS instances if preemptible instances cannot be created.
+        # *   `false`: Pay-as-you-go instances are not automatically created to meet the required number of ECS instances if preemptible instances cannot be created.
         self.compensate_with_on_demand = compensate_with_on_demand  # type: bool
+        # The configurations of the data disks that are attached to the nodes in the node pool. The configurations include the disk type and disk size.
         self.data_disks = data_disks  # type: list[DataDisk]
+        # The ID of the deployment set to which the ECS instances in the node pool belong.
         self.deploymentset_id = deploymentset_id  # type: str
+        # The expected number of nodes in the node pool.
         self.desired_size = desired_size  # type: long
+        # The ID of the custom image. You can call the `DescribeKubernetesVersionMetadata` operation to query the images supported by ACK.
         self.image_id = image_id  # type: str
+        # The billing method of the nodes in the node pool. Valid values:
+        # 
+        # *   `PrePaid`: subscription
+        # *   `PostPaid`: pay-as-you-go
         self.instance_charge_type = instance_charge_type  # type: str
+        # The instance types of the nodes in the node pool.
         self.instance_types = instance_types  # type: list[str]
+        # The billing method of the public IP address of the node.
         self.internet_charge_type = internet_charge_type  # type: str
+        # The maximum outbound bandwidth of the public IP address of the node. Unit: Mbit/s. Valid values: 1 to 100.
         self.internet_max_bandwidth_out = internet_max_bandwidth_out  # type: long
+        # The name of the key pair. You must set this parameter or the `login_password` parameter. You must set `key_pair` if the node pool is a managed node pool.
         self.key_pair = key_pair  # type: str
+        # The password for SSH logon. You must set this parameter or the `key_pair` parameter. The password must be 8 to 30 characters in length, and must contain at least three of the following character types: uppercase letters, lowercase letters, digits, and special characters.
+        # 
+        # For security purposes, the returned password is encrypted.
         self.login_password = login_password  # type: str
+        # The ECS instance scaling policy for a multi-zone scaling group. Valid values:
+        # 
+        # *   `PRIORITY`: the scaling group is scaled based on the VSwitchIds.N parameter. If an ECS instance cannot be created in the zone where the vSwitch that has the highest priority resides, Auto Scaling creates the ECS instance in the zone where the vSwitch that has the next highest priority resides.
+        # 
+        # *   `COST_OPTIMIZED`: ECS instances are created based on the vCPU unit price in ascending order. Preemptible instances are preferably created when preemptible instance types are specified in the scaling configuration. You can set the `CompensateWithOnDemand` parameter to specify whether to automatically create pay-as-you-go instances when preemptible instances cannot be created due to insufficient resources.
+        # 
+        #     **\
+        # 
+        #     **Note** `COST_OPTIMIZED` is valid only when multiple instance types are specified or at least one preemptible instance type is specified.
+        # 
+        # *   `BALANCE`: ECS instances are evenly distributed across multiple zones specified by the scaling group. If ECS instances become imbalanced among multiple zones due to insufficient inventory, you can call the RebalanceInstances operation of Auto Scaling to balance the instance distribution among zones. For more information, see [RebalanceInstances](~~71516~~)
+        # 
+        # Default value: `PRIORITY`
         self.multi_az_policy = multi_az_policy  # type: str
+        # The minimum number of pay-as-you-go instances that must be kept in the scaling group. Valid values: 0 to 1000. If the number of pay-as-you-go instances is less than the value of this parameter, Auto Scaling preferably creates pay-as-you-go instances.
         self.on_demand_base_capacity = on_demand_base_capacity  # type: long
+        # The percentage of pay-as-you-go instances among the extra instances that exceed the number specified by `on_demand_base_capacity`. Valid values: 0 to 100.
         self.on_demand_percentage_above_base_capacity = on_demand_percentage_above_base_capacity  # type: long
+        # The subscription duration of worker nodes. This parameter takes effect and is required only when `instance_charge_type` is set to `PrePaid`.
+        # 
+        # If `PeriodUnit=Month` is specified, the valid values are 1, 2, 3, 6, 12, 24, 36, 48, and 60.
         self.period = period  # type: long
+        # The billing cycle of the nodes. This parameter is required if `instance_charge_type` is set to `PrePaid`.
+        # 
+        # Valid value: `Month`
         self.period_unit = period_unit  # type: str
+        # The release version of the operating system. Valid values:
+        # 
+        # *   `CentOS`
+        # *   `AliyunLinux`
+        # *   `Windows`
+        # *   `WindowsCore`
         self.platform = platform  # type: str
+        # The configurations of the private node pool.
+        self.private_pool_options = private_pool_options  # type: DescribeClusterNodePoolDetailResponseBodyScalingGroupPrivatePoolOptions
+        # The name of the worker Resource Access Management (RAM) role. The RAM role is assigned to the worker nodes of the cluster to allow the worker nodes to manage ECS instances.
         self.ram_policy = ram_policy  # type: str
+        # The IDs of the ApsaraDB RDS instances.
         self.rds_instances = rds_instances  # type: list[str]
+        # The ID of the scaling group.
         self.scaling_group_id = scaling_group_id  # type: str
+        # The scaling mode of the scaling group. Valid values:
+        # 
+        # *   `release`: the standard mode. ECS instances are created and released based on the resource usage.
+        # *   `recycle`: the swift mode. ECS instances are created, stopped, or started during scaling events. This reduces the time required for the next scale-out event. When the instance is stopped, you are charged only for the storage service. This does not apply to ECS instances attached with local disks.
         self.scaling_policy = scaling_policy  # type: str
+        # The ID of the security group to which the node pool is added. If the node pool is added to multiple security groups, the first ID in the value of `security_group_ids` is returned.
         self.security_group_id = security_group_id  # type: str
+        # The IDs of the security groups to which the node pool is added.
         self.security_group_ids = security_group_ids  # type: list[str]
+        # The number of instance types that are available for creating preemptible instances. Auto Scaling creates preemptible instances of multiple instance types that are available at the lowest cost. Valid values: 1 to 10.
         self.spot_instance_pools = spot_instance_pools  # type: long
+        # Indicates whether preemptible instances are supplemented when the number of preemptible instances drops below the specified minimum number. If this parameter is set to true, when the scaling group receives a system message that a preemptible instance is to be reclaimed, the scaling group attempts to create a new instance to replace this instance. Valid values: Valid values:
+        # 
+        # *   `true`: Supplementation of preemptible instances is enabled.
+        # *   `false`: Supplementation of preemptible instances is disabled.
         self.spot_instance_remedy = spot_instance_remedy  # type: bool
+        # The bid configurations of preemptible instances.
         self.spot_price_limit = spot_price_limit  # type: list[DescribeClusterNodePoolDetailResponseBodyScalingGroupSpotPriceLimit]
+        # The bidding policy of preemptible instances. Valid values:
+        # 
+        # *   NoSpot: a non-preemptible instance.
+        # *   SpotWithPriceLimit: a preemptible instance that is configured with the highest bid price.
+        # *   SpotAsPriceGo: a preemptible instance for which the system automatically bids based on the current market price.
+        # 
+        # For more information, see [Preemptible instances](~~157759~~).
         self.spot_strategy = spot_strategy  # type: str
+        # The type of system disk. Valid values:
+        # 
+        # *   `cloud_efficiency`: ultra disk
+        # *   `cloud_ssd`: standard SSD
         self.system_disk_category = system_disk_category  # type: str
+        # The performance level (PL) of the system disk that you want to use for the node. This parameter takes effect only for enhanced SSDs (ESSDs).
         self.system_disk_performance_level = system_disk_performance_level  # type: str
+        # The system disk size of a node. Unit: GiB.
+        # 
+        # Valid values: 20 to 500
         self.system_disk_size = system_disk_size  # type: long
+        # The labels that you want to add to the ECS instances.
+        # 
+        # A key must be unique and cannot exceed 128 characters in length. Neither keys nor values can start with aliyun or acs:. Neither keys nor values can contain https:// or http://.
         self.tags = tags  # type: list[Tag]
+        # The IDs of vSwitches.
         self.vswitch_ids = vswitch_ids  # type: list[str]
 
     def validate(self):
@@ -4729,6 +5491,8 @@ class DescribeClusterNodePoolDetailResponseBodyScalingGroup(TeaModel):
             for k in self.data_disks:
                 if k:
                     k.validate()
+        if self.private_pool_options:
+            self.private_pool_options.validate()
         if self.spot_price_limit:
             for k in self.spot_price_limit:
                 if k:
@@ -4784,6 +5548,8 @@ class DescribeClusterNodePoolDetailResponseBodyScalingGroup(TeaModel):
             result['period_unit'] = self.period_unit
         if self.platform is not None:
             result['platform'] = self.platform
+        if self.private_pool_options is not None:
+            result['private_pool_options'] = self.private_pool_options.to_map()
         if self.ram_policy is not None:
             result['ram_policy'] = self.ram_policy
         if self.rds_instances is not None:
@@ -4863,6 +5629,9 @@ class DescribeClusterNodePoolDetailResponseBodyScalingGroup(TeaModel):
             self.period_unit = m.get('period_unit')
         if m.get('platform') is not None:
             self.platform = m.get('platform')
+        if m.get('private_pool_options') is not None:
+            temp_model = DescribeClusterNodePoolDetailResponseBodyScalingGroupPrivatePoolOptions()
+            self.private_pool_options = temp_model.from_map(m['private_pool_options'])
         if m.get('ram_policy') is not None:
             self.ram_policy = m.get('ram_policy')
         if m.get('rds_instances') is not None:
@@ -4964,6 +5733,10 @@ class DescribeClusterNodePoolDetailResponseBodyStatus(TeaModel):
 
 class DescribeClusterNodePoolDetailResponseBodyTeeConfig(TeaModel):
     def __init__(self, tee_enable=None):
+        # Indicates whether confidential computing is enabled. Valid values:
+        # 
+        # *   `true`: Confidential computing is enabled.
+        # *   `false`: Confidential computing is disabled.
         self.tee_enable = tee_enable  # type: bool
 
     def validate(self):
@@ -4989,15 +5762,23 @@ class DescribeClusterNodePoolDetailResponseBodyTeeConfig(TeaModel):
 class DescribeClusterNodePoolDetailResponseBody(TeaModel):
     def __init__(self, auto_scaling=None, interconnect_config=None, interconnect_mode=None, kubernetes_config=None,
                  management=None, max_nodes=None, nodepool_info=None, scaling_group=None, status=None, tee_config=None):
+        # The auto scaling configurations of the queried node pool.
         self.auto_scaling = auto_scaling  # type: DescribeClusterNodePoolDetailResponseBodyAutoScaling
         self.interconnect_config = interconnect_config  # type: DescribeClusterNodePoolDetailResponseBodyInterconnectConfig
+        # The network type of the edge node pool. Valid values: basic and enhanced. This parameter takes effect only for edge node pools.
         self.interconnect_mode = interconnect_mode  # type: str
+        # The configurations of the cluster where the node pool is deployed.
         self.kubernetes_config = kubernetes_config  # type: DescribeClusterNodePoolDetailResponseBodyKubernetesConfig
+        # The configurations about the managed node pool feature.
         self.management = management  # type: DescribeClusterNodePoolDetailResponseBodyManagement
+        # The maximum number of nodes that are supported by the edge node pool. The value of this parameter must be equal to or greater than 0. A value of 0 indicates that the number of nodes in the node pool is limited only by the quota of nodes in the cluster. In most cases, this parameter is set to a value larger than 0 for edge node pools. This parameter is set to 0 for node pools of the ess type or default edge node pools.
         self.max_nodes = max_nodes  # type: long
+        # The configurations of the node pool.
         self.nodepool_info = nodepool_info  # type: DescribeClusterNodePoolDetailResponseBodyNodepoolInfo
+        # The configurations of the scaling group.
         self.scaling_group = scaling_group  # type: DescribeClusterNodePoolDetailResponseBodyScalingGroup
         self.status = status  # type: DescribeClusterNodePoolDetailResponseBodyStatus
+        # The configurations of confidential computing.
         self.tee_config = tee_config  # type: DescribeClusterNodePoolDetailResponseBodyTeeConfig
 
     def validate(self):
@@ -5121,12 +5902,33 @@ class DescribeClusterNodePoolDetailResponse(TeaModel):
 class DescribeClusterNodePoolsResponseBodyNodepoolsAutoScaling(TeaModel):
     def __init__(self, eip_bandwidth=None, eip_internet_charge_type=None, enable=None, is_bond_eip=None,
                  max_instances=None, min_instances=None, type=None):
+        # The peak bandwidth of the elastic IP address (EIP).
         self.eip_bandwidth = eip_bandwidth  # type: long
+        # The billing method of the EIP. Valid values:
+        # 
+        # *   `PayByBandwidth`: pay-by-bandwidth
+        # *   `PayByTraffic`: pay-by-data-transfer
         self.eip_internet_charge_type = eip_internet_charge_type  # type: str
+        # Indicates whether auto scaling is enabled.
+        # 
+        # *   `true`: Auto scaling is enabled for the node pool.
+        # *   `false`: Auto scaling is disabled for the node pool. If you set this parameter to `false`, other parameters in the `auto_scaling` section does not take effect.
         self.enable = enable  # type: bool
+        # Indicates whether an EIP is associated with the node pool. Valid values:
+        # 
+        # *   `true`: An EIP is associated with the node pool.
+        # *   `false`: No EIP is associated with the node pool.
         self.is_bond_eip = is_bond_eip  # type: bool
+        # The maximum number of Elastic Compute Service (ECS) instances supported by the node pool.
         self.max_instances = max_instances  # type: long
+        # The minimum number of ECS instances.
         self.min_instances = min_instances  # type: long
+        # The minimum number of ECS instances that must be kept in the node pool. Valid values:
+        # 
+        # *   `cpu`: regular instance
+        # *   `gpu`: GPU-accelerated instance
+        # *   `gpushare`: shared GPU-accelerated instance
+        # *   `spot`: preemptible instance
         self.type = type  # type: str
 
     def validate(self):
@@ -5220,13 +6022,29 @@ class DescribeClusterNodePoolsResponseBodyNodepoolsInterconnectConfig(TeaModel):
 class DescribeClusterNodePoolsResponseBodyNodepoolsKubernetesConfig(TeaModel):
     def __init__(self, cms_enabled=None, cpu_policy=None, labels=None, node_name_mode=None, runtime=None,
                  runtime_version=None, taints=None, user_data=None):
+        # Indicates where the CloudMonitor agent is installed on ECS nodes of the cluster. After the CloudMonitor agent is installed, you can view monitoring information about the ECS instances in the CloudMonitor console. Installation is recommended. Valid values:
+        # 
+        # *   `true` The CloudMonitor agent is installed on ECS nodes.
+        # *   `false`: The CloudMonitor agent is not installed on ECS nodes.
         self.cms_enabled = cms_enabled  # type: bool
+        # The CPU management policy. The following policies are supported if the Kubernetes version of the cluster is 1.12.6 or later.
+        # 
+        # *   `static`: This policy allows pods with specific resource characteristics on the node to be granted with enhanced CPU affinity and exclusivity.
+        # *   `none`: indicates that the default CPU affinity is used.
         self.cpu_policy = cpu_policy  # type: str
+        # The labels of the nodes. You can add labels to the nodes in the cluster. You must add labels based on the following rules:
+        # 
+        # *   Each label is a case-sensitive key-value pair. You can add up to 20 labels.
+        # *   A key must be unique and cannot exceed 64 characters in length. A value can be empty and cannot exceed 128 characters in length. Keys and values cannot start with `aliyun`, `acs:`, `https://`, or `http://`. For more information, see [Labels and Selectors](https://kubernetes.io/docs/concepts/overview/working-with-objects/labels/#syntax-and-character-set).
         self.labels = labels  # type: list[Tag]
         self.node_name_mode = node_name_mode  # type: str
+        # The name of the container runtime.
         self.runtime = runtime  # type: str
+        # The version of the container runtime.
         self.runtime_version = runtime_version  # type: str
+        # The taints that are added to nodes. Taints are added to nodes to prevent pods from being scheduled to inappropriate nodes. However, toleration rules allow pods to be scheduled to nodes with matching taints. For more information, see [taint-and-toleration](https://kubernetes.io/zh/docs/concepts/scheduling-eviction/taint-and-toleration/).
         self.taints = taints  # type: list[Taint]
+        # The user-defined data of the node pool. For more information, see [Generate user-defined data](~~49121~~).
         self.user_data = user_data  # type: str
 
     def validate(self):
@@ -5296,9 +6114,20 @@ class DescribeClusterNodePoolsResponseBodyNodepoolsKubernetesConfig(TeaModel):
 
 class DescribeClusterNodePoolsResponseBodyNodepoolsManagementUpgradeConfig(TeaModel):
     def __init__(self, auto_upgrade=None, max_unavailable=None, surge=None, surge_percentage=None):
+        # Indicates whether auto upgrade is enabled. Valid values:
+        # 
+        # *   `true`: Auto upgrade is enabled.
+        # *   `true`: Auto upgrade is disabled.
         self.auto_upgrade = auto_upgrade  # type: bool
+        # The maximum number of nodes that can be in the unschedulable state. Valid values: 1 to 1000.
+        # 
+        # Default value: 1
         self.max_unavailable = max_unavailable  # type: long
+        # The number of nodes that are temporarily added to the node pool during an auto upgrade.
         self.surge = surge  # type: long
+        # The percentage of temporary nodes to the nodes in the node pool. You must set this parameter or `surge`.
+        # 
+        # The number of extra nodes = The percentage of extra nodes × The number of nodes in the node pool. For example, the percentage of extra nodes is set to 50% and the number of nodes in the node pool is six. The number of extra nodes will be three.
         self.surge_percentage = surge_percentage  # type: long
 
     def validate(self):
@@ -5335,8 +6164,17 @@ class DescribeClusterNodePoolsResponseBodyNodepoolsManagementUpgradeConfig(TeaMo
 
 class DescribeClusterNodePoolsResponseBodyNodepoolsManagement(TeaModel):
     def __init__(self, auto_repair=None, enable=None, upgrade_config=None):
+        # Indicates whether auto repair is enabled. Auto repair is enabled only when `enable=true` is specified.
+        # 
+        # *   `true`: Auto repair is enabled.
+        # *   `false`: Auto repair is disabled.
         self.auto_repair = auto_repair  # type: bool
+        # Indicates whether managed node pools are enabled. Valid values:
+        # 
+        # *   `true`: Managed node pools are enabled.
+        # *   `false`: Managed node pools are disabled. Other parameters in this section take effect only when `enable=true` is specified.
         self.enable = enable  # type: bool
+        # The configurations of auto upgrade. The configurations take effect only when `enable=true` is specified.
         self.upgrade_config = upgrade_config  # type: DescribeClusterNodePoolsResponseBodyNodepoolsManagementUpgradeConfig
 
     def validate(self):
@@ -5372,13 +6210,29 @@ class DescribeClusterNodePoolsResponseBodyNodepoolsManagement(TeaModel):
 class DescribeClusterNodePoolsResponseBodyNodepoolsNodepoolInfo(TeaModel):
     def __init__(self, created=None, is_default=None, name=None, nodepool_id=None, region_id=None,
                  resource_group_id=None, type=None, updated=None):
+        # The time when the node pool was created.
         self.created = created  # type: str
+        # Indicates whether the node pool is a default node pool. An ACK cluster usually has only one default node pool. Valid values:
+        # 
+        # *   `true`: The node pool is a default node pool.
+        # *   `false`: The node pool is not a default node pool.
         self.is_default = is_default  # type: bool
+        # The name of the node pool.
+        # 
+        # The name must be 1 to 63 characters in length, and can contain digits, letters, and hyphens (-). It cannot start with a hyphen (-).
         self.name = name  # type: str
+        # The ID of the node pool.
         self.nodepool_id = nodepool_id  # type: str
+        # The ID of the region where the node pool is deployed.
         self.region_id = region_id  # type: str
+        # The ID of the resource group to which the node pool belongs.
         self.resource_group_id = resource_group_id  # type: str
+        # The type of the node pool. Valid values:
+        # 
+        # *   `edge`: edge node pools.
+        # *   `ess`: cloud node pools.
         self.type = type  # type: str
+        # The time when the node pool was last updated.
         self.updated = updated  # type: str
 
     def validate(self):
@@ -5429,9 +6283,40 @@ class DescribeClusterNodePoolsResponseBodyNodepoolsNodepoolInfo(TeaModel):
         return self
 
 
+class DescribeClusterNodePoolsResponseBodyNodepoolsScalingGroupPrivatePoolOptions(TeaModel):
+    def __init__(self, id=None, match_criteria=None):
+        self.id = id  # type: str
+        self.match_criteria = match_criteria  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeClusterNodePoolsResponseBodyNodepoolsScalingGroupPrivatePoolOptions, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.match_criteria is not None:
+            result['match_criteria'] = self.match_criteria
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('match_criteria') is not None:
+            self.match_criteria = m.get('match_criteria')
+        return self
+
+
 class DescribeClusterNodePoolsResponseBodyNodepoolsScalingGroupSpotPriceLimit(TeaModel):
     def __init__(self, instance_type=None, price_limit=None):
+        # The instance type for preemptible instances.
         self.instance_type = instance_type  # type: str
+        # The price limit of a preemptible instance. Unit: USD/hour.
         self.price_limit = price_limit  # type: str
 
     def validate(self):
@@ -5463,43 +6348,128 @@ class DescribeClusterNodePoolsResponseBodyNodepoolsScalingGroup(TeaModel):
                  deploymentset_id=None, desired_size=None, image_id=None, instance_charge_type=None, instance_types=None,
                  internet_charge_type=None, internet_max_bandwidth_out=None, key_pair=None, login_password=None, multi_az_policy=None,
                  on_demand_base_capacity=None, on_demand_percentage_above_base_capacity=None, period=None, period_unit=None, platform=None,
-                 ram_policy=None, rds_instances=None, scaling_group_id=None, scaling_policy=None, security_group_id=None,
-                 security_group_ids=None, spot_instance_pools=None, spot_instance_remedy=None, spot_price_limit=None,
-                 spot_strategy=None, system_disk_category=None, system_disk_performance_level=None, system_disk_size=None,
-                 tags=None, vswitch_ids=None):
+                 private_pool_options=None, ram_policy=None, rds_instances=None, scaling_group_id=None, scaling_policy=None,
+                 security_group_id=None, security_group_ids=None, spot_instance_pools=None, spot_instance_remedy=None,
+                 spot_price_limit=None, spot_strategy=None, system_disk_category=None, system_disk_performance_level=None,
+                 system_disk_size=None, tags=None, vswitch_ids=None):
+        # Indicates whether auto-renewal is enabled for the nodes in the node pool. This parameter takes effect only when `instance_charge_type` is set to `PrePaid`. Valid values:
+        # 
+        # *   `true`: Auto-renewal is enabled.
+        # *   `false`: Auto-renewal is disabled.
         self.auto_renew = auto_renew  # type: bool
+        # The duration of the auto-renewal. This parameter takes effect and is required only when `instance_charge_type` is set to `PrePaid`.
+        # 
+        # If `PeriodUnit=Month` is specified, the valid values are 1, 2, 3, 6, and 12.
         self.auto_renew_period = auto_renew_period  # type: long
+        # Indicates whether pay-as-you-go instances are automatically created to meet the required number of ECS instances when the preemptible instances cannot be created due to reasons such as the cost or inventory availability. This parameter takes effect when `multi_az_policy` is set to `COST_OPTIMIZED`. Valid values:
+        # 
+        # *   `true`: Pay-as-you-go instances are automatically created to meet the required number of ECS instances if preemptible instances cannot be created.
+        # *   `false`: Pay-as-you-go instances are not created to meet the required number of ECS instances if preemptible instances cannot be created.
         self.compensate_with_on_demand = compensate_with_on_demand  # type: bool
+        # The configurations of the data disks attached to the nodes in the node pool. The configurations include the disk type and disk size.
         self.data_disks = data_disks  # type: list[DataDisk]
         self.deploymentset_id = deploymentset_id  # type: str
         self.desired_size = desired_size  # type: long
+        # The ID of the custom image. You can call `DescribeKubernetesVersionMetadata` to query the images supported by ACK.
         self.image_id = image_id  # type: str
+        # The billing method of the nodes in the node pool. Valid values:
+        # 
+        # *   `PrePaid`: subscription
+        # *   `PostPaid`: pay-as-you-go
         self.instance_charge_type = instance_charge_type  # type: str
+        # The instance types of the nodes in the node pool.
         self.instance_types = instance_types  # type: list[str]
+        # The billing method of the public IP address of the node.
         self.internet_charge_type = internet_charge_type  # type: str
+        # The maximum outbound bandwidth of the public IP address of the node. Unit: Mbit/s. Valid values: 1 to 100.
         self.internet_max_bandwidth_out = internet_max_bandwidth_out  # type: long
+        # The name of the key pair. You must set this parameter or the `login_password` parameter.
+        # 
+        # You must set `key_pair` if the node pool is a managed node pool.
         self.key_pair = key_pair  # type: str
+        # The password for SSH logon. You must set this parameter or the `key_pair` parameter. The password must be 8 to 30 characters in length, and must contain at least three of the following character types: uppercase letters, lowercase letters, digits, and special characters.
+        # 
+        # For security purposes, the returned password is encrypted.
         self.login_password = login_password  # type: str
+        # The ECS instance scaling policy for a multi-zone scaling group. Valid values:
+        # 
+        # *   `PRIORITY`: the scaling group is scaled based on the VSwitchIds.N parameter. When an ECS instance cannot be created in the zone where the vSwitch with the highest priority resides, the system uses the vSwitch with the next highest priority to create the ECS instance.
+        # 
+        # *   `COST_OPTIMIZED`: ECS instances are created based on the vCPU unit price in ascending order. Preemptible instances are preferentially created when multiple instance types are specified in the scaling configurations. You can set the `CompensateWithOnDemand` parameter to specify whether to automatically create pay-as-you-go instances when preemptible instances cannot be created due to insufficient resources.
+        # 
+        #     **\
+        # 
+        #     **Note** `COST_OPTIMIZED` is valid only when multiple instance types are specified or at least one preemptible instance type is specified.
+        # 
+        # *   `BALANCE`: ECS instances are evenly distributed across multiple zones specified by the scaling group. If ECS instances become imbalanced among multiple zones due to insufficient inventory, you can call `RebalanceInstances` of Auto Scaling (ESS) to balance the instance distribution among zones. For more information, see [RebalanceInstances](~~71516~~).
         self.multi_az_policy = multi_az_policy  # type: str
+        # The minimum number of pay-as-you-go instances that must be kept in the scaling group. Valid values: 0 to 1000. When the number of pay-as-you-go instances is lower than this value, pay-as-you-go instances are preferentially created to meet the required number.
         self.on_demand_base_capacity = on_demand_base_capacity  # type: long
+        # The percentage of pay-as-you-go instances among the extra instances that exceed the number specified by `on_demand_base_capacity`. Valid values: 0 to 100.
         self.on_demand_percentage_above_base_capacity = on_demand_percentage_above_base_capacity  # type: long
+        # The subscription duration of worker nodes. This parameter takes effect and is required only when `instance_charge_type` is set to `PrePaid`.
+        # 
+        # If `PeriodUnit=Month` is specified, the valid values are 1, 2, 3, 6, 12, 24, 36, 48, and 60.
         self.period = period  # type: long
+        # The billing cycle of the nodes. This parameter takes effect only when `instance_charge_type` is set to `PrePaid`.
+        # 
+        # Valid value: `Month`
         self.period_unit = period_unit  # type: str
+        # The release version of the operating system. Valid values:
+        # 
+        # *   `CentOS`
+        # *   `AliyunLinux`
+        # *   `Windows`
+        # *   `WindowsCore`
         self.platform = platform  # type: str
+        self.private_pool_options = private_pool_options  # type: DescribeClusterNodePoolsResponseBodyNodepoolsScalingGroupPrivatePoolOptions
+        # The name of the worker Resource Access Management (RAM) role. The RAM role is assigned to the worker nodes of the cluster to allow the worker nodes to manage ECS instances.
         self.ram_policy = ram_policy  # type: str
+        # The IDs of the ApsaraDB RDS instances.
         self.rds_instances = rds_instances  # type: list[str]
+        # The ID of the scaling group.
         self.scaling_group_id = scaling_group_id  # type: str
+        # The scaling mode of the scaling group. Valid values:
+        # 
+        # *   `release`: the standard mode. ECS instances are created and released based on the resource usage.
+        # *   `recycle`: the swift mode. ECS instances are created, stopped, or started during scaling events. This reduces the time required for the next scale-out event. When the instance is stopped, you are charged only for the storage service. This does not apply to ECS instances attached with local disks.
         self.scaling_policy = scaling_policy  # type: str
+        # The ID of the security group to which the node pool is added. If the node pool is added to multiple security groups, the first ID in the value of `security_group_ids` is returned.
         self.security_group_id = security_group_id  # type: str
+        # The IDs of the security groups to which the node pool is added.
         self.security_group_ids = security_group_ids  # type: list[str]
+        # The number of available instance types. The scaling group creates preemptible instances of multiple instance types at the lowest cost. Valid values: 1 to 10.
         self.spot_instance_pools = spot_instance_pools  # type: long
+        # Indicates whether preemptible instances are supplemented when the number of preemptible instances drops below the specified minimum number. If this parameter is set to true, when the scaling group receives a system message that a preemptible instance is to be reclaimed, the scaling group attempts to create a new instance to replace this instance. Valid values:
+        # 
+        # *   `true`: Supplement to preemptible instances is enabled.
+        # *   `false`: Supplement to preemptible instances is disabled.
         self.spot_instance_remedy = spot_instance_remedy  # type: bool
+        # The bid configurations of preemptible instances.
         self.spot_price_limit = spot_price_limit  # type: list[DescribeClusterNodePoolsResponseBodyNodepoolsScalingGroupSpotPriceLimit]
+        # The bidding policy of preemptible instances. Valid values:
+        # 
+        # *   NoSpot: non-preemptible instance.
+        # *   SpotWithPriceLimit: specifies the highest bid for the preemptible instance.
+        # *   SpotAsPriceGo: automatically submits bids based on the up-to-date market price.
+        # 
+        # For more information, see [Preemptible instances](~~157759~~).
         self.spot_strategy = spot_strategy  # type: str
+        # The type of system disk. Valid values:
+        # 
+        # *   `cloud_efficiency`: ultra disk
+        # *   `cloud_ssd`: standard SSD
         self.system_disk_category = system_disk_category  # type: str
         self.system_disk_performance_level = system_disk_performance_level  # type: str
+        # The system disk size of a worker node. Unit: GiB.
+        # 
+        # Valid values: 20 to 500
         self.system_disk_size = system_disk_size  # type: long
+        # The labels that are added only to ECS instances.
+        # 
+        # A key must be unique and cannot exceed 128 characters in length. Neither keys nor values can start with aliyun or acs:. Neither keys nor values can contain https:// or http://.
         self.tags = tags  # type: list[Tag]
+        # The IDs of vSwitches.
         self.vswitch_ids = vswitch_ids  # type: list[str]
 
     def validate(self):
@@ -5507,6 +6477,8 @@ class DescribeClusterNodePoolsResponseBodyNodepoolsScalingGroup(TeaModel):
             for k in self.data_disks:
                 if k:
                     k.validate()
+        if self.private_pool_options:
+            self.private_pool_options.validate()
         if self.spot_price_limit:
             for k in self.spot_price_limit:
                 if k:
@@ -5562,6 +6534,8 @@ class DescribeClusterNodePoolsResponseBodyNodepoolsScalingGroup(TeaModel):
             result['period_unit'] = self.period_unit
         if self.platform is not None:
             result['platform'] = self.platform
+        if self.private_pool_options is not None:
+            result['private_pool_options'] = self.private_pool_options.to_map()
         if self.ram_policy is not None:
             result['ram_policy'] = self.ram_policy
         if self.rds_instances is not None:
@@ -5641,6 +6615,9 @@ class DescribeClusterNodePoolsResponseBodyNodepoolsScalingGroup(TeaModel):
             self.period_unit = m.get('period_unit')
         if m.get('platform') is not None:
             self.platform = m.get('platform')
+        if m.get('private_pool_options') is not None:
+            temp_model = DescribeClusterNodePoolsResponseBodyNodepoolsScalingGroupPrivatePoolOptions()
+            self.private_pool_options = temp_model.from_map(m['private_pool_options'])
         if m.get('ram_policy') is not None:
             self.ram_policy = m.get('ram_policy')
         if m.get('rds_instances') is not None:
@@ -5683,13 +6660,27 @@ class DescribeClusterNodePoolsResponseBodyNodepoolsScalingGroup(TeaModel):
 class DescribeClusterNodePoolsResponseBodyNodepoolsStatus(TeaModel):
     def __init__(self, failed_nodes=None, healthy_nodes=None, initial_nodes=None, offline_nodes=None,
                  removing_nodes=None, serving_nodes=None, state=None, total_nodes=None):
+        # The number of failed nodes.
         self.failed_nodes = failed_nodes  # type: long
+        # The number of healthy nodes.
         self.healthy_nodes = healthy_nodes  # type: long
+        # The number of nodes that are being created.
         self.initial_nodes = initial_nodes  # type: long
+        # The number of offline nodes.
         self.offline_nodes = offline_nodes  # type: long
+        # The number of nodes that are being removed.
         self.removing_nodes = removing_nodes  # type: long
+        # The number of running nodes.
         self.serving_nodes = serving_nodes  # type: long
+        # The status of the node pool. Valid values:
+        # 
+        # *   `active`: The node pool is active.
+        # *   `scaling`: The node pool is being scaled.
+        # *   `removing`: Nodes are being removed from the node pool.
+        # *   `deleting`: The node pool is being deleted.
+        # *   `updating`: The node pool is being updated.
         self.state = state  # type: str
+        # The total number of nodes in the node pool.
         self.total_nodes = total_nodes  # type: long
 
     def validate(self):
@@ -5742,6 +6733,10 @@ class DescribeClusterNodePoolsResponseBodyNodepoolsStatus(TeaModel):
 
 class DescribeClusterNodePoolsResponseBodyNodepoolsTeeConfig(TeaModel):
     def __init__(self, tee_enable=None):
+        # Indicates whether confidential computing is enabled. Valid values:
+        # 
+        # *   `true`: confidential computing is enabled.
+        # *   `false`: confidential computing is disabled.
         self.tee_enable = tee_enable  # type: bool
 
     def validate(self):
@@ -5767,15 +6762,22 @@ class DescribeClusterNodePoolsResponseBodyNodepoolsTeeConfig(TeaModel):
 class DescribeClusterNodePoolsResponseBodyNodepools(TeaModel):
     def __init__(self, auto_scaling=None, interconnect_config=None, interconnect_mode=None, kubernetes_config=None,
                  management=None, max_nodes=None, nodepool_info=None, scaling_group=None, status=None, tee_config=None):
+        # The configurations of auto scaling.
         self.auto_scaling = auto_scaling  # type: DescribeClusterNodePoolsResponseBodyNodepoolsAutoScaling
         self.interconnect_config = interconnect_config  # type: DescribeClusterNodePoolsResponseBodyNodepoolsInterconnectConfig
         self.interconnect_mode = interconnect_mode  # type: str
+        # The configurations of the cluster.
         self.kubernetes_config = kubernetes_config  # type: DescribeClusterNodePoolsResponseBodyNodepoolsKubernetesConfig
+        # The configurations of managed node pools. Managed node pools are available only in professional managed Kubernetes clusters.
         self.management = management  # type: DescribeClusterNodePoolsResponseBodyNodepoolsManagement
         self.max_nodes = max_nodes  # type: long
+        # The information about the node pool.
         self.nodepool_info = nodepool_info  # type: DescribeClusterNodePoolsResponseBodyNodepoolsNodepoolInfo
+        # The configurations of the scaling group.
         self.scaling_group = scaling_group  # type: DescribeClusterNodePoolsResponseBodyNodepoolsScalingGroup
+        # The status details about the node pool.
         self.status = status  # type: DescribeClusterNodePoolsResponseBodyNodepoolsStatus
+        # The configurations of confidential computing.
         self.tee_config = tee_config  # type: DescribeClusterNodePoolsResponseBodyNodepoolsTeeConfig
 
     def validate(self):
@@ -5859,6 +6861,7 @@ class DescribeClusterNodePoolsResponseBodyNodepools(TeaModel):
 
 class DescribeClusterNodePoolsResponseBody(TeaModel):
     def __init__(self, nodepools=None):
+        # The list of the returned node pools.
         self.nodepools = nodepools  # type: list[DescribeClusterNodePoolsResponseBodyNodepools]
 
     def validate(self):
@@ -5977,25 +6980,69 @@ class DescribeClusterNodesResponseBodyNodes(TeaModel):
                  instance_charge_type=None, instance_id=None, instance_name=None, instance_role=None, instance_status=None,
                  instance_type=None, instance_type_family=None, ip_address=None, is_aliyun_node=None, node_name=None,
                  node_status=None, nodepool_id=None, source=None, spot_strategy=None, state=None):
+        # The time when the node was created.
         self.creation_time = creation_time  # type: str
+        # The error message that was generated when the node was created.
         self.error_message = error_message  # type: str
+        # The expiration time of the node.
         self.expired_time = expired_time  # type: str
+        # The name of the host.
         self.host_name = host_name  # type: str
+        # The ID of the system image that is used by the node.
         self.image_id = image_id  # type: str
+        # The billing method of the instance on which the node is deployed. Valid values:
+        # 
+        # *   `PrePaid`: the subscription billing method. If the value is PrePaid, make sure that you have a sufficient balance or credit in your account. Otherwise, an `InvalidPayMethod` error is returned.
+        # *   `PostPaid`: the pay-as-you-go billing method.
         self.instance_charge_type = instance_charge_type  # type: str
+        # The ID of the instance on which the node is deployed.
         self.instance_id = instance_id  # type: str
+        # The name of the instance on which the node is deployed.
         self.instance_name = instance_name  # type: str
+        # The role of the node. Valid values:
+        # 
+        # *   Master: master node
+        # *   Worker: worker node
         self.instance_role = instance_role  # type: str
+        # The status of the node.
         self.instance_status = instance_status  # type: str
+        # The instance type of the node.
         self.instance_type = instance_type  # type: str
+        # The Elastic Compute Service (ECS) instance family of the node.
         self.instance_type_family = instance_type_family  # type: str
+        # The IP address of the node.
         self.ip_address = ip_address  # type: list[str]
+        # Indicates whether the instance on which the node is deployed is provided by Alibaba Cloud. Valid values:
+        # 
+        # *   `true`: The instance is provided by Alibaba Cloud.
+        # *   `false`: The instance is not provided by Alibaba Cloud.
         self.is_aliyun_node = is_aliyun_node  # type: bool
+        # The name of the node. This name is the identifier of the node in the cluster.
         self.node_name = node_name  # type: str
+        # Indicates whether the node is ready. Valid values:
+        # 
+        # *   `Ready`: The node is ready.
+        # *   `NotReady`: The node is not ready.
+        # *   `Unknown`: The status of the node is unknown.
+        # *   `Offline`: The node is offline.
         self.node_status = node_status  # type: str
+        # The ID of the node pool.
         self.nodepool_id = nodepool_id  # type: str
+        # Indicates how the node is initialized. A node can be manually created or created by using Resource Orchestration Service (ROS).
         self.source = source  # type: str
+        # The type of the preemptible instance. Valid values:
+        # 
+        # *   NoSpot: a non-preemptible instance.
+        # *   SpotWithPriceLimit: a preemptible instance that is configured with the highest bid price.
+        # *   SpotAsPriceGo: a preemptible instance for which the system automatically bids based on the current market price.
         self.spot_strategy = spot_strategy  # type: str
+        # The status of the node. Valid values:
+        # 
+        # *   `pending`: The node is being created.
+        # *   `running`: The node is running.
+        # *   `starting`: The node is being started.
+        # *   `stopping`: The node is being stopped.
+        # *   `stopped`: The node is stopped.
         self.state = state  # type: str
 
     def validate(self):
@@ -6096,8 +7143,11 @@ class DescribeClusterNodesResponseBodyNodes(TeaModel):
 
 class DescribeClusterNodesResponseBodyPage(TeaModel):
     def __init__(self, page_number=None, page_size=None, total_count=None):
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -6130,7 +7180,9 @@ class DescribeClusterNodesResponseBodyPage(TeaModel):
 
 class DescribeClusterNodesResponseBody(TeaModel):
     def __init__(self, nodes=None, page=None):
+        # The details of the nodes that are returned.
         self.nodes = nodes  # type: list[DescribeClusterNodesResponseBodyNodes]
+        # The pagination details.
         self.page = page  # type: DescribeClusterNodesResponseBodyPage
 
     def validate(self):
@@ -6536,7 +7588,9 @@ class DescribeClusterUserKubeconfigRequest(TeaModel):
 
 class DescribeClusterUserKubeconfigResponseBody(TeaModel):
     def __init__(self, config=None, expiration=None):
+        # The content of the kubeconfig file. For more information about the content of the kubeconfig file, see [Configure cluster credentials](~~86494~~).
         self.config = config  # type: str
+        # The expiration time of the kubeconfig file. The value is the UTC time displayed in RFC3339 format.
         self.expiration = expiration  # type: str
 
     def validate(self):
@@ -6689,9 +7743,142 @@ class DescribeClusterV2UserKubeconfigResponse(TeaModel):
         return self
 
 
+class DescribeClusterVulsResponseBodyVulRecords(TeaModel):
+    def __init__(self, cve_list=None, necessity=None, node_count=None, nodepool_id=None, nodepool_name=None,
+                 vul_alias_name=None, vul_name=None, vul_type=None):
+        self.cve_list = cve_list  # type: list[str]
+        self.necessity = necessity  # type: str
+        self.node_count = node_count  # type: int
+        self.nodepool_id = nodepool_id  # type: str
+        self.nodepool_name = nodepool_name  # type: str
+        self.vul_alias_name = vul_alias_name  # type: str
+        self.vul_name = vul_name  # type: str
+        self.vul_type = vul_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeClusterVulsResponseBodyVulRecords, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cve_list is not None:
+            result['cve_list'] = self.cve_list
+        if self.necessity is not None:
+            result['necessity'] = self.necessity
+        if self.node_count is not None:
+            result['node_count'] = self.node_count
+        if self.nodepool_id is not None:
+            result['nodepool_id'] = self.nodepool_id
+        if self.nodepool_name is not None:
+            result['nodepool_name'] = self.nodepool_name
+        if self.vul_alias_name is not None:
+            result['vul_alias_name'] = self.vul_alias_name
+        if self.vul_name is not None:
+            result['vul_name'] = self.vul_name
+        if self.vul_type is not None:
+            result['vul_type'] = self.vul_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('cve_list') is not None:
+            self.cve_list = m.get('cve_list')
+        if m.get('necessity') is not None:
+            self.necessity = m.get('necessity')
+        if m.get('node_count') is not None:
+            self.node_count = m.get('node_count')
+        if m.get('nodepool_id') is not None:
+            self.nodepool_id = m.get('nodepool_id')
+        if m.get('nodepool_name') is not None:
+            self.nodepool_name = m.get('nodepool_name')
+        if m.get('vul_alias_name') is not None:
+            self.vul_alias_name = m.get('vul_alias_name')
+        if m.get('vul_name') is not None:
+            self.vul_name = m.get('vul_name')
+        if m.get('vul_type') is not None:
+            self.vul_type = m.get('vul_type')
+        return self
+
+
+class DescribeClusterVulsResponseBody(TeaModel):
+    def __init__(self, vul_records=None):
+        self.vul_records = vul_records  # type: list[DescribeClusterVulsResponseBodyVulRecords]
+
+    def validate(self):
+        if self.vul_records:
+            for k in self.vul_records:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeClusterVulsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['vul_records'] = []
+        if self.vul_records is not None:
+            for k in self.vul_records:
+                result['vul_records'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.vul_records = []
+        if m.get('vul_records') is not None:
+            for k in m.get('vul_records'):
+                temp_model = DescribeClusterVulsResponseBodyVulRecords()
+                self.vul_records.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeClusterVulsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeClusterVulsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeClusterVulsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeClusterVulsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeClustersRequest(TeaModel):
     def __init__(self, cluster_type=None, name=None):
+        # The cluster type.
         self.cluster_type = cluster_type  # type: str
+        # The cluster name based on which the system performs fuzzy searches among the clusters that belong to the current Alibaba Cloud account.
         self.name = name  # type: str
 
     def validate(self):
@@ -7031,34 +8218,110 @@ class DescribeClustersV1ResponseBodyClusters(TeaModel):
                  private_zone=None, profile=None, region_id=None, resource_group_id=None, security_group_id=None, size=None,
                  state=None, subnet_cidr=None, tags=None, updated=None, vpc_id=None, vswitch_id=None,
                  worker_ram_role_name=None, zone_id=None):
+        # The ID of the queried cluster.
         self.cluster_id = cluster_id  # type: str
+        # The type of the managed Kubernetes cluster. This parameter is returned for a managed Kubernetes cluster. Valid values:
+        # 
+        # *   `ack.pro.small`: professional managed Kubernetes cluster
+        # *   `ack.standard`: standard managed Kubernetes cluster
         self.cluster_spec = cluster_spec  # type: str
+        # The type of the cluster. Valid values:
+        # 
+        # *   `Kubernetes`: dedicated Kubernetes cluster
+        # *   `ManagedKubernetes`: managed Kubernetes cluster
+        # *   `Ask`: ASK cluster
+        # *   `ExternalKubernetes`: registered external cluster
         self.cluster_type = cluster_type  # type: str
+        # The time when the cluster was created.
         self.created = created  # type: str
+        # The Kubernetes version of the cluster.
         self.current_version = current_version  # type: str
+        # Indicates whether deletion protection is enabled for the cluster. After deletion protection is enabled, the cluster cannot be deleted in the console or by calling API operations. Valid values:
+        # 
+        # *   `true`: deletion protection is enabled for the cluster. The cluster cannot be deleted in the ACK console or by calling API operations.
+        # *   `false`: deletion protection is disabled for the cluster. The cluster can be deleted in the ACK console or by calling API operations.
         self.deletion_protection = deletion_protection  # type: bool
+        # The Docker version that is used by the cluster.
         self.docker_version = docker_version  # type: str
+        # The ID of the Server Load Balancer (SLB) instance that is used for the Ingress of the cluster.
+        # 
+        # The default SLB specification is slb.s1.small, which belongs to the high-performance instance type.
         self.external_loadbalancer_id = external_loadbalancer_id  # type: str
+        # The Kubernetes version of the cluster. The Kubernetes versions provided by ACK are consistent with the open source Kubernetes versions. We recommend that you select the latest Kubernetes version. If you do not specify a Kubernetes version, the latest Kubernetes version is used by default.
+        # 
+        # You can create clusters of the latest two Kubernetes versions in the ACK console. You can create ACK clusters of earlier Kubernetes versions by calling API operations. For more information about the Kubernetes versions supported by ACK, see [Release notes for Kubernetes versions](~~185269~~).
         self.init_version = init_version  # type: str
+        # The maintenance window of the cluster. This feature is available only in professional managed Kubernetes clusters.
         self.maintenance_window = maintenance_window  # type: MaintenanceWindow
+        # The address of the cluster API server. It includes an internal endpoint and a public endpoint.
         self.master_url = master_url  # type: str
+        # The metadata of the cluster.
         self.meta_data = meta_data  # type: str
+        # The name of the cluster.
+        # 
+        # The name must be 1 to 63 characters in length, and can contain digits, letters, and hyphens (-). It cannot start with a hyphen (-).
         self.name = name  # type: str
+        # The network mode of the cluster. Valid values:
+        # 
+        # *   `classic`: classic network
+        # *   `vpc`: virtual private cloud (VPC)
+        # *   `overlay`: overlay network
+        # *   `calico`: network powered by Calico
         self.network_mode = network_mode  # type: str
+        # The Kubernetes version to which the cluster can be upgraded.
         self.next_version = next_version  # type: str
+        # Indicates whether Alibaba Cloud DNS PrivateZone is enabled. Valid values:
+        # 
+        # *   `true`: Alibaba Cloud DNS PrivateZone is enabled.
+        # *   `false`: Alibaba Cloud DNS PrivateZone is disabled.
         self.private_zone = private_zone  # type: bool
+        # The identifier of the cluster. Valid values:
+        # 
+        # *   `Edge`: The cluster is a managed edge Kubernetes cluster.
+        # *   `Default`: The cluster is not a managed edge Kubernetes cluster.
         self.profile = profile  # type: str
+        # The ID of the region where the cluster is deployed.
         self.region_id = region_id  # type: str
+        # The ID of the resource group to which the cluster belongs.
         self.resource_group_id = resource_group_id  # type: str
+        # The ID of the security group to which the instances of the cluster belong.
         self.security_group_id = security_group_id  # type: str
+        # The number of nodes in the cluster. Master nodes and worker nodes are included.
         self.size = size  # type: long
+        # The status of the cluster. Valid values:
+        # 
+        # *   `initial`: The cluster is being created.
+        # *   `failed`: The cluster failed to be created.
+        # *   `running`: The cluster is running.
+        # *   `updating`: The cluster is being upgraded.
+        # *   `updating_failed`: The cluster failed to be upgraded.
+        # *   `scaling`: The cluster is being scaled.
+        # *   `stopped`: The cluster is stopped.
+        # *   `deleting`: The cluster is being deleted.
+        # *   `deleted`: The cluster is deleted.
+        # *   `delete_failed`: The cluster failed to be deleted.
         self.state = state  # type: str
+        # The pod CIDR block. It must be a valid and private CIDR block, and must be one of the following CIDR blocks or their subnets:
+        # 
+        # *   10.0.0.0/8
+        # *   172.16-31.0.0/12-16
+        # *   192.168.0.0/16
+        # 
+        # The CIDR block of pods cannot overlap with the CIDR block of the VPC in which the cluster is deployed and the CIDR blocks of existing clusters in the VPC. You cannot modify the pod CIDR block after the cluster is created.
+        # 
+        # For more information about subnetting for ACK clusters, see [Plan CIDR blocks for ACK clusters in a VPC](~~86500~~).
         self.subnet_cidr = subnet_cidr  # type: str
+        # The labels of the cluster.
         self.tags = tags  # type: list[Tag]
+        # The time when the cluster was updated.
         self.updated = updated  # type: str
+        # The ID of the VPC where the cluster is deployed. You must specify a VPC when you create a cluster.
         self.vpc_id = vpc_id  # type: str
+        # The IDs of the vSwitches. You can select one to three vSwitches when you create a cluster. We recommend that you select vSwitches in different zones to ensure high availability.
         self.vswitch_id = vswitch_id  # type: str
+        # The name of the worker Resource Access Management (RAM) role. The RAM role is assigned to the worker nodes that are created on Elastic Compute Service (ECS) instances.
         self.worker_ram_role_name = worker_ram_role_name  # type: str
+        # The ID of the zone where the cluster is deployed.
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -7206,8 +8469,11 @@ class DescribeClustersV1ResponseBodyClusters(TeaModel):
 
 class DescribeClustersV1ResponseBodyPageInfo(TeaModel):
     def __init__(self, page_number=None, page_size=None, total_count=None):
+        # The number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -7240,7 +8506,9 @@ class DescribeClustersV1ResponseBodyPageInfo(TeaModel):
 
 class DescribeClustersV1ResponseBody(TeaModel):
     def __init__(self, clusters=None, page_info=None):
+        # The list of the details of the queried cluster.
         self.clusters = clusters  # type: list[DescribeClustersV1ResponseBodyClusters]
+        # The pagination details.
         self.page_info = page_info  # type: DescribeClustersV1ResponseBodyPageInfo
 
     def validate(self):
@@ -7319,10 +8587,15 @@ class DescribeClustersV1Response(TeaModel):
 
 class DescribeEdgeMachineActiveProcessResponseBody(TeaModel):
     def __init__(self, logs=None, progress=None, request_id=None, state=None, step=None):
+        # The list of details about the activation progress.
         self.logs = logs  # type: str
+        # The activation progress.
         self.progress = progress  # type: long
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The status of the cloud-native box.
         self.state = state  # type: str
+        # The current step of the activation process.
         self.step = step  # type: str
 
     def validate(self):
@@ -7403,13 +8676,21 @@ class DescribeEdgeMachineActiveProcessResponse(TeaModel):
 class DescribeEdgeMachineModelsResponseBodyModels(TeaModel):
     def __init__(self, cpu=None, cpu_arch=None, created=None, description=None, manage_runtime=None, memory=None,
                  model=None, model_id=None):
+        # The number of CPU cores.
         self.cpu = cpu  # type: int
+        # The CPU architecture.
         self.cpu_arch = cpu_arch  # type: str
+        # The time when the cloud-native box was created.
         self.created = created  # type: str
+        # The description.
         self.description = description  # type: str
+        # Indicates whether the Docker runtime is managed.
         self.manage_runtime = manage_runtime  # type: int
+        # The memory size. Unit: GB.
         self.memory = memory  # type: int
+        # The model of the cloud-native box.
         self.model = model  # type: str
+        # The ID of the cloud-native box.
         self.model_id = model_id  # type: str
 
     def validate(self):
@@ -7462,6 +8743,7 @@ class DescribeEdgeMachineModelsResponseBodyModels(TeaModel):
 
 class DescribeEdgeMachineModelsResponseBody(TeaModel):
     def __init__(self, models=None):
+        # The list of details about the models of cloud-native boxes.
         self.models = models  # type: list[DescribeEdgeMachineModelsResponseBodyModels]
 
     def validate(self):
@@ -7534,12 +8816,19 @@ class DescribeEdgeMachineModelsResponse(TeaModel):
 class DescribeEdgeMachineTunnelConfigDetailResponseBody(TeaModel):
     def __init__(self, device_name=None, model=None, product_key=None, request_id=None, sn=None, token=None,
                  tunnel_endpoint=None):
+        # The name of the cloud-native box.
         self.device_name = device_name  # type: str
+        # The model of the cloud-native box.
         self.model = model  # type: str
+        # The product key.
         self.product_key = product_key  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The serial number of the cloud-native box.
         self.sn = sn  # type: str
+        # The token.
         self.token = token  # type: str
+        # The backend endpoint of the tunnel.
         self.tunnel_endpoint = tunnel_endpoint  # type: str
 
     def validate(self):
@@ -7678,15 +8967,25 @@ class DescribeEdgeMachinesRequest(TeaModel):
 class DescribeEdgeMachinesResponseBodyEdgeMachines(TeaModel):
     def __init__(self, active_time=None, created=None, edge_machine_id=None, hostname=None, life_state=None,
                  model=None, name=None, online_state=None, sn=None, updated=None):
+        # The time when the cloud-native box was activated.
         self.active_time = active_time  # type: str
+        # The time when the cloud-native box was created.
         self.created = created  # type: str
+        # The ID of the cloud-native box.
         self.edge_machine_id = edge_machine_id  # type: str
+        # The `hostname` of the cloud-native box.
         self.hostname = hostname  # type: str
+        # The lifecycle status of the cloud-native box.
         self.life_state = life_state  # type: str
+        # The model of the cloud-native box.
         self.model = model  # type: str
+        # The name of the cloud-native box.
         self.name = name  # type: str
+        # The online status of the cloud-native box.
         self.online_state = online_state  # type: str
+        # The serial number of the cloud-native box.
         self.sn = sn  # type: str
+        # The time when the cloud-native box was last updated.
         self.updated = updated  # type: str
 
     def validate(self):
@@ -7747,8 +9046,11 @@ class DescribeEdgeMachinesResponseBodyEdgeMachines(TeaModel):
 
 class DescribeEdgeMachinesResponseBodyPageInfo(TeaModel):
     def __init__(self, page_number=None, page_size=None, total_count=None):
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -7781,7 +9083,9 @@ class DescribeEdgeMachinesResponseBodyPageInfo(TeaModel):
 
 class DescribeEdgeMachinesResponseBody(TeaModel):
     def __init__(self, edge_machines=None, page_info=None):
+        # The list of details about cloud-native boxes.
         self.edge_machines = edge_machines  # type: list[DescribeEdgeMachinesResponseBodyEdgeMachines]
+        # The pagination details.
         self.page_info = page_info  # type: DescribeEdgeMachinesResponseBodyPageInfo
 
     def validate(self):
@@ -7899,8 +9203,11 @@ class DescribeEventsRequest(TeaModel):
 
 class DescribeEventsResponseBodyEventsData(TeaModel):
     def __init__(self, level=None, message=None, reason=None):
+        # The level of the event.
         self.level = level  # type: str
+        # The details of the event.
         self.message = message  # type: str
+        # The state of the event.
         self.reason = reason  # type: str
 
     def validate(self):
@@ -7933,12 +9240,36 @@ class DescribeEventsResponseBodyEventsData(TeaModel):
 
 class DescribeEventsResponseBodyEvents(TeaModel):
     def __init__(self, cluster_id=None, data=None, event_id=None, source=None, subject=None, time=None, type=None):
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The description of the event.
         self.data = data  # type: DescribeEventsResponseBodyEventsData
+        # The ID of the event.
         self.event_id = event_id  # type: str
+        # The source of the event.
         self.source = source  # type: str
+        # The subject of the event.
         self.subject = subject  # type: str
+        # The time when the event started.
         self.time = time  # type: str
+        # The type of the event. Valid values:
+        # 
+        # *   `cluster_create`: cluster creation.
+        # *   `cluster_scaleout`: cluster scale-out.
+        # *   `cluster_attach`: adding existing nodes.
+        # *   `cluster_delete`: cluster deletion.
+        # *   `cluster_upgrade`: cluster upgrades.
+        # *   `cluster_migrate`: cluster migration.
+        # *   `cluster_node_delete`: node removal.
+        # *   `cluster_node_drain`: node draining.
+        # *   `cluster_modify`: cluster modifications.
+        # *   `cluster_configuration_modify`: modifications to cluster control configurations.
+        # *   `cluster_addon_install`: component installation.
+        # *   `cluster_addon_upgrade`: component upgrades.
+        # *   `cluster_addon_uninstall`: component uninstallation.
+        # *   `runtime_upgrade`: runtime upgrades.
+        # *   `nodepool_upgrade`: node pool upgrades.
+        # *   `nodepool_update`: node pool updates.
         self.type = type  # type: str
 
     def validate(self):
@@ -8023,6 +9354,7 @@ class DescribeEventsResponseBodyPageInfo(TeaModel):
 
 class DescribeEventsResponseBody(TeaModel):
     def __init__(self, events=None, page_info=None):
+        # The details of the event.
         self.events = events  # type: list[DescribeEventsResponseBodyEvents]
         self.page_info = page_info  # type: DescribeEventsResponseBodyPageInfo
 
@@ -8126,6 +9458,7 @@ class DescribeExternalAgentRequest(TeaModel):
 
 class DescribeExternalAgentResponseBody(TeaModel):
     def __init__(self, config=None):
+        # The agent configurations in YAML format.
         self.config = config  # type: str
 
     def validate(self):
@@ -8188,9 +9521,11 @@ class DescribeExternalAgentResponse(TeaModel):
 
 
 class DescribeKubernetesVersionMetadataRequest(TeaModel):
-    def __init__(self, cluster_type=None, kubernetes_version=None, profile=None, region=None, runtime=None):
+    def __init__(self, cluster_type=None, kubernetes_version=None, mode=None, profile=None, region=None,
+                 runtime=None):
         self.cluster_type = cluster_type  # type: str
         self.kubernetes_version = kubernetes_version  # type: str
+        self.mode = mode  # type: str
         self.profile = profile  # type: str
         self.region = region  # type: str
         self.runtime = runtime  # type: str
@@ -8208,6 +9543,8 @@ class DescribeKubernetesVersionMetadataRequest(TeaModel):
             result['ClusterType'] = self.cluster_type
         if self.kubernetes_version is not None:
             result['KubernetesVersion'] = self.kubernetes_version
+        if self.mode is not None:
+            result['Mode'] = self.mode
         if self.profile is not None:
             result['Profile'] = self.profile
         if self.region is not None:
@@ -8222,6 +9559,8 @@ class DescribeKubernetesVersionMetadataRequest(TeaModel):
             self.cluster_type = m.get('ClusterType')
         if m.get('KubernetesVersion') is not None:
             self.kubernetes_version = m.get('KubernetesVersion')
+        if m.get('Mode') is not None:
+            self.mode = m.get('Mode')
         if m.get('Profile') is not None:
             self.profile = m.get('Profile')
         if m.get('Region') is not None:
@@ -8292,13 +9631,16 @@ class DescribeKubernetesVersionMetadataResponseBodyImages(TeaModel):
 
 
 class DescribeKubernetesVersionMetadataResponseBody(TeaModel):
-    def __init__(self, capabilities=None, images=None, meta_data=None, runtimes=None, version=None, multi_az=None):
+    def __init__(self, capabilities=None, images=None, meta_data=None, runtimes=None, version=None,
+                 release_date=None, expiration_date=None, creatable=None):
         self.capabilities = capabilities  # type: dict[str, any]
         self.images = images  # type: list[DescribeKubernetesVersionMetadataResponseBodyImages]
         self.meta_data = meta_data  # type: dict[str, any]
         self.runtimes = runtimes  # type: list[Runtime]
         self.version = version  # type: str
-        self.multi_az = multi_az  # type: str
+        self.release_date = release_date  # type: str
+        self.expiration_date = expiration_date  # type: str
+        self.creatable = creatable  # type: bool
 
     def validate(self):
         if self.images:
@@ -8330,8 +9672,12 @@ class DescribeKubernetesVersionMetadataResponseBody(TeaModel):
                 result['runtimes'].append(k.to_map() if k else None)
         if self.version is not None:
             result['version'] = self.version
-        if self.multi_az is not None:
-            result['multi_az'] = self.multi_az
+        if self.release_date is not None:
+            result['release_date'] = self.release_date
+        if self.expiration_date is not None:
+            result['expiration_date'] = self.expiration_date
+        if self.creatable is not None:
+            result['creatable'] = self.creatable
         return result
 
     def from_map(self, m=None):
@@ -8352,8 +9698,12 @@ class DescribeKubernetesVersionMetadataResponseBody(TeaModel):
                 self.runtimes.append(temp_model.from_map(k))
         if m.get('version') is not None:
             self.version = m.get('version')
-        if m.get('multi_az') is not None:
-            self.multi_az = m.get('multi_az')
+        if m.get('release_date') is not None:
+            self.release_date = m.get('release_date')
+        if m.get('expiration_date') is not None:
+            self.expiration_date = m.get('expiration_date')
+        if m.get('creatable') is not None:
+            self.creatable = m.get('creatable')
         return self
 
 
@@ -8402,6 +9752,30 @@ class DescribeKubernetesVersionMetadataResponse(TeaModel):
         return self
 
 
+class DescribeNodePoolVulsRequest(TeaModel):
+    def __init__(self, necessity=None):
+        self.necessity = necessity  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeNodePoolVulsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.necessity is not None:
+            result['necessity'] = self.necessity
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('necessity') is not None:
+            self.necessity = m.get('necessity')
+        return self
+
+
 class DescribeNodePoolVulsResponseBodyVulRecordsVulList(TeaModel):
     def __init__(self, alias_name=None, cve_list=None, name=None, necessity=None):
         self.alias_name = alias_name  # type: str
@@ -8442,8 +9816,9 @@ class DescribeNodePoolVulsResponseBodyVulRecordsVulList(TeaModel):
 
 
 class DescribeNodePoolVulsResponseBodyVulRecords(TeaModel):
-    def __init__(self, instance_id=None, vul_list=None):
+    def __init__(self, instance_id=None, node_name=None, vul_list=None):
         self.instance_id = instance_id  # type: str
+        self.node_name = node_name  # type: str
         self.vul_list = vul_list  # type: list[DescribeNodePoolVulsResponseBodyVulRecordsVulList]
 
     def validate(self):
@@ -8460,6 +9835,8 @@ class DescribeNodePoolVulsResponseBodyVulRecords(TeaModel):
         result = dict()
         if self.instance_id is not None:
             result['instance_id'] = self.instance_id
+        if self.node_name is not None:
+            result['node_name'] = self.node_name
         result['vul_list'] = []
         if self.vul_list is not None:
             for k in self.vul_list:
@@ -8470,6 +9847,8 @@ class DescribeNodePoolVulsResponseBodyVulRecords(TeaModel):
         m = m or dict()
         if m.get('instance_id') is not None:
             self.instance_id = m.get('instance_id')
+        if m.get('node_name') is not None:
+            self.node_name = m.get('node_name')
         self.vul_list = []
         if m.get('vul_list') is not None:
             for k in m.get('vul_list'):
@@ -8593,13 +9972,34 @@ class DescribePoliciesResponse(TeaModel):
 class DescribePolicyDetailsResponseBody(TeaModel):
     def __init__(self, action=None, category=None, description=None, is_deleted=None, name=None, no_config=None,
                  severity=None, template=None):
+        # The action of the policy. Valid values:
+        # 
+        # *   `enforce`: blocks deployments that match the policy.
+        # *   `inform`: generates alerts for deployments that match the policy.
         self.action = action  # type: str
+        # The type of the policy.
         self.category = category  # type: str
+        # The description of the policy.
         self.description = description  # type: str
+        # Indicates whether the policy is deleted. Valid values:
+        # 
+        # *   0: The policy is not deleted.
+        # *   1: The policy is deleted.
         self.is_deleted = is_deleted  # type: int
+        # The name of the policy that is returned.
         self.name = name  # type: str
+        # Indicates whether parameters are required. Valid values:
+        # 
+        # *   0: Parameters are required.
+        # *   1: Parameters are optional.
         self.no_config = no_config  # type: int
+        # The severity level of the policy. Valid values:
+        # 
+        # *   `high`
+        # *   `medium`
+        # *   `low`
         self.severity = severity  # type: str
+        # The content of the policy.
         self.template = template  # type: str
 
     def validate(self):
@@ -8692,11 +10092,17 @@ class DescribePolicyDetailsResponse(TeaModel):
 class DescribePolicyGovernanceInClusterResponseBodyAdmitLogLog(TeaModel):
     def __init__(self, cluster_id=None, constraint_kind=None, msg=None, resource_kind=None, resource_name=None,
                  resource_namespace=None):
+        # The ID of the cluster that you want to query.
         self.cluster_id = cluster_id  # type: str
+        # The type of the policy.
         self.constraint_kind = constraint_kind  # type: str
+        # The message that appears when an event is generated by a policy.
         self.msg = msg  # type: str
+        # The type of the resource.
         self.resource_kind = resource_kind  # type: str
+        # The name of the resource.
         self.resource_name = resource_name  # type: str
+        # The namespace to which the resource belongs.
         self.resource_namespace = resource_namespace  # type: str
 
     def validate(self):
@@ -8741,8 +10147,14 @@ class DescribePolicyGovernanceInClusterResponseBodyAdmitLogLog(TeaModel):
 
 class DescribePolicyGovernanceInClusterResponseBodyAdmitLog(TeaModel):
     def __init__(self, count=None, log=None, progress=None):
+        # The number of audit log entries.
         self.count = count  # type: long
+        # The audit log content.
         self.log = log  # type: DescribePolicyGovernanceInClusterResponseBodyAdmitLogLog
+        # The status of the query. Valid values:
+        # 
+        # *   `Complete`: The query succeeded and the complete query result is returned.
+        # *   `Incomplete`: The query succeeded but the query result is incomplete. To obtain the complete query result, you must repeat the request.
         self.progress = progress  # type: str
 
     def validate(self):
@@ -8777,8 +10189,11 @@ class DescribePolicyGovernanceInClusterResponseBodyAdmitLog(TeaModel):
 
 class DescribePolicyGovernanceInClusterResponseBodyOnState(TeaModel):
     def __init__(self, enabled_count=None, severity=None, total=None):
+        # The number of policies that are enabled.
         self.enabled_count = enabled_count  # type: int
+        # The severity level of the policy.
         self.severity = severity  # type: str
+        # The total number of policies of the severity level.
         self.total = total  # type: int
 
     def validate(self):
@@ -9015,7 +10430,9 @@ class DescribePolicyGovernanceInClusterResponseBodyViolations(TeaModel):
 
 class DescribePolicyGovernanceInClusterResponseBody(TeaModel):
     def __init__(self, admit_log=None, on_state=None, total_violations=None, violations=None):
+        # The audit logs of policies in the cluster.
         self.admit_log = admit_log  # type: DescribePolicyGovernanceInClusterResponseBodyAdmitLog
+        # Details about the policies of different severity levels that are enabled for the cluster.
         self.on_state = on_state  # type: list[DescribePolicyGovernanceInClusterResponseBodyOnState]
         self.total_violations = total_violations  # type: DescribePolicyGovernanceInClusterResponseBodyTotalViolations
         self.violations = violations  # type: DescribePolicyGovernanceInClusterResponseBodyViolations
@@ -9255,10 +10672,15 @@ class DescribePolicyInstancesResponse(TeaModel):
 class DescribePolicyInstancesStatusResponseBodyPolicyInstances(TeaModel):
     def __init__(self, policy_category=None, policy_description=None, policy_instances_count=None,
                  policy_name=None, policy_severity=None):
+        # The type of the policy. For more information about different types of policies and their descriptions, see [Predefined security policies of ACK](https://www.alibabacloud.com/help/doc-detail/359819.html).
         self.policy_category = policy_category  # type: str
+        # The description of the policy.
         self.policy_description = policy_description  # type: str
+        # The number of policy instances that are deployed. If this parameter is empty, it indicates that no policy instance is deployed from the policy.
         self.policy_instances_count = policy_instances_count  # type: long
+        # The name of the policy.
         self.policy_name = policy_name  # type: str
+        # The severity level of the policy.
         self.policy_severity = policy_severity  # type: str
 
     def validate(self):
@@ -9299,7 +10721,9 @@ class DescribePolicyInstancesStatusResponseBodyPolicyInstances(TeaModel):
 
 class DescribePolicyInstancesStatusResponseBody(TeaModel):
     def __init__(self, instances_severity_count=None, policy_instances=None):
+        # Information about the number of policy instances of each severity level.
         self.instances_severity_count = instances_severity_count  # type: dict[str, any]
+        # Details about policy instances of different types.
         self.policy_instances = policy_instances  # type: list[DescribePolicyInstancesStatusResponseBodyPolicyInstances]
 
     def validate(self):
@@ -9369,6 +10793,105 @@ class DescribePolicyInstancesStatusResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribePolicyInstancesStatusResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeSubaccountK8sClusterUserConfigRequest(TeaModel):
+    def __init__(self, private_ip_address=None, temporary_duration_minutes=None):
+        self.private_ip_address = private_ip_address  # type: bool
+        self.temporary_duration_minutes = temporary_duration_minutes  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeSubaccountK8sClusterUserConfigRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.private_ip_address is not None:
+            result['PrivateIpAddress'] = self.private_ip_address
+        if self.temporary_duration_minutes is not None:
+            result['TemporaryDurationMinutes'] = self.temporary_duration_minutes
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('PrivateIpAddress') is not None:
+            self.private_ip_address = m.get('PrivateIpAddress')
+        if m.get('TemporaryDurationMinutes') is not None:
+            self.temporary_duration_minutes = m.get('TemporaryDurationMinutes')
+        return self
+
+
+class DescribeSubaccountK8sClusterUserConfigResponseBody(TeaModel):
+    def __init__(self, config=None, expiration=None):
+        # The content of the KubeConfig file. For more information about the content of the KubeConfig file, see [Configure cluster credentials](~~86494~~).
+        self.config = config  # type: str
+        # The expiration time of the KubeConfig file. The value is the UTC time displayed in RFC3339 format.
+        self.expiration = expiration  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeSubaccountK8sClusterUserConfigResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.config is not None:
+            result['config'] = self.config
+        if self.expiration is not None:
+            result['expiration'] = self.expiration
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('config') is not None:
+            self.config = m.get('config')
+        if m.get('expiration') is not None:
+            self.expiration = m.get('expiration')
+        return self
+
+
+class DescribeSubaccountK8sClusterUserConfigResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeSubaccountK8sClusterUserConfigResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeSubaccountK8sClusterUserConfigResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeSubaccountK8sClusterUserConfigResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -9526,7 +11049,13 @@ class DescribeTaskInfoResponseBodyTarget(TeaModel):
 
 class DescribeTaskInfoResponseBodyTaskResult(TeaModel):
     def __init__(self, data=None, status=None):
+        # The resources that are managed by the task. For a scale-out task, the value of this parameter the ID of the instance that is added by the task.
         self.data = data  # type: str
+        # The state of the scaling of the resource. Valid values:
+        # 
+        # *   `success`: The scale-out task is successful.
+        # *   `failed`: The scale-out task failed.
+        # *   `initail`: The scale-out task is initializing.
         self.status = status  # type: str
 
     def validate(self):
@@ -9556,18 +11085,29 @@ class DescribeTaskInfoResponseBodyTaskResult(TeaModel):
 class DescribeTaskInfoResponseBody(TeaModel):
     def __init__(self, cluster_id=None, created=None, current_stage=None, error=None, events=None, parameters=None,
                  stages=None, state=None, target=None, task_id=None, task_result=None, task_type=None, updated=None):
+        # The ID of the ACK cluster.
         self.cluster_id = cluster_id  # type: str
+        # The time when the task was created.
         self.created = created  # type: str
         self.current_stage = current_stage  # type: str
         self.error = error  # type: DescribeTaskInfoResponseBodyError
         self.events = events  # type: list[DescribeTaskInfoResponseBodyEvents]
         self.parameters = parameters  # type: dict[str, any]
         self.stages = stages  # type: list[DescribeTaskInfoResponseBodyStages]
+        # The state of the task. Valid values:
+        # 
+        # *   `running`: The task is running.
+        # *   `fail`: The task failed.
+        # *   `success`: The task is complete.
         self.state = state  # type: str
         self.target = target  # type: DescribeTaskInfoResponseBodyTarget
+        # The ID of the task.
         self.task_id = task_id  # type: str
+        # The execution result of the task.
         self.task_result = task_result  # type: list[DescribeTaskInfoResponseBodyTaskResult]
+        # The task type. A value of `cluster_scaleout` indicates a scale-out task.
         self.task_type = task_type  # type: str
+        # The time when the task was updated.
         self.updated = updated  # type: str
 
     def validate(self):
@@ -9884,8 +11424,11 @@ class DescribeTemplatesRequest(TeaModel):
 
 class DescribeTemplatesResponseBodyPageInfo(TeaModel):
     def __init__(self, page_number=None, page_size=None, total_count=None):
+        # The page number of the returned page.
         self.page_number = page_number  # type: long
+        # The maximum number of entries returned per page.
         self.page_size = page_size  # type: long
+        # The total number of entries returned.
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -9919,15 +11462,34 @@ class DescribeTemplatesResponseBodyPageInfo(TeaModel):
 class DescribeTemplatesResponseBodyTemplates(TeaModel):
     def __init__(self, acl=None, created=None, description=None, id=None, name=None, tags=None, template=None,
                  template_type=None, template_with_hist_id=None, updated=None):
+        # The access control policy of the template. Valid values:
+        # 
+        # *   `private`: The template is private.
+        # *   `public`: The template is public.
+        # *   `shared`: The template can be shared.
+        # 
+        # Default value: `private`.
         self.acl = acl  # type: str
+        # The time when the template was created.
         self.created = created  # type: str
+        # The description of the template.
         self.description = description  # type: str
+        # The ID of the template.
         self.id = id  # type: str
+        # The name of the template.
         self.name = name  # type: str
+        # The tag of the template. By default, the value is the name of the template.
         self.tags = tags  # type: str
+        # The template content in YAML format.
         self.template = template  # type: str
+        # The type of the template. The value can be a custom value.
+        # 
+        # *   If the value is `kubernetes`, it indicates that the template is displayed on the Templates page in the ACK console.
+        # *   If the value is `compose`, it indicates that the template is displayed on the Container Service - Swarm page in the console. However, Container Service for Swarm is deprecated.
         self.template_type = template_type  # type: str
+        # The ID of the parent template. The value of `template_with_hist_id` is the same for each template version. This allows you to manage different template versions.
         self.template_with_hist_id = template_with_hist_id  # type: str
+        # The time when the template was updated.
         self.updated = updated  # type: str
 
     def validate(self):
@@ -9988,7 +11550,9 @@ class DescribeTemplatesResponseBodyTemplates(TeaModel):
 
 class DescribeTemplatesResponseBody(TeaModel):
     def __init__(self, page_info=None, templates=None):
+        # The pagination details.
         self.page_info = page_info  # type: DescribeTemplatesResponseBodyPageInfo
+        # The list of the templates returned .
         self.templates = templates  # type: list[DescribeTemplatesResponseBodyTemplates]
 
     def validate(self):
@@ -10203,6 +11767,42 @@ class DescribeTriggerResponse(TeaModel):
         return self
 
 
+class DescribeUserClusterNamespacesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: list[str]
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+
+    def to_map(self):
+        _map = super(DescribeUserClusterNamespacesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            self.body = m.get('body')
+        return self
+
+
 class DescribeUserPermissionResponseBody(TeaModel):
     def __init__(self, resource_id=None, resource_type=None, role_name=None, role_type=None, is_owner=None,
                  is_ram_role=None):
@@ -10300,8 +11900,13 @@ class DescribeUserPermissionResponse(TeaModel):
 
 class DescribeUserQuotaResponseBodyEdgeImprovedNodepoolQuota(TeaModel):
     def __init__(self, bandwidth=None, count=None, period=None):
+        # The maximum bandwidth of each enhanced node pool. Unit: Mbit/s.
         self.bandwidth = bandwidth  # type: int
+        # The quota of enhanced edge node pools within an Alibaba Cloud account.
         self.count = count  # type: int
+        # The maximum subscription duration of an enhanced edge node pool. Unit: months.
+        # 
+        # >  Enhanced node pools use the pay-as-you-go billing method. Therefore, this parameter is not required.
         self.period = period  # type: int
 
     def validate(self):
@@ -10334,17 +11939,28 @@ class DescribeUserQuotaResponseBodyEdgeImprovedNodepoolQuota(TeaModel):
 
 class DescribeUserQuotaResponseBody(TeaModel):
     def __init__(self, amk_cluster_quota=None, ask_cluster_quota=None, cluster_nodepool_quota=None,
-                 cluster_quota=None, edge_improved_nodepool_quota=None, node_quota=None):
+                 cluster_quota=None, edge_improved_nodepool_quota=None, node_quota=None, quotas=None):
+        # The quota of Container Service for Kubernetes (ACK) managed clusters. Default value: 20. To increase the quota, [go to the Quota Center page to submit a ticket](https://quotas.console.aliyun.com/products/csk/quotas).
         self.amk_cluster_quota = amk_cluster_quota  # type: long
+        # The quota of serverless Kubernetes (ASK) clusters. Default value: 20. To increase the quota, [go to the Quota Center page to submit a ticket](https://quotas.console.aliyun.com/products/csk/quotas).
         self.ask_cluster_quota = ask_cluster_quota  # type: long
+        # The quota of node pools in an ACK cluster. Default value: 20. To increase the quota, [go to the Quota Center page to submit a ticket](https://quotas.console.aliyun.com/products/csk/quotas).
         self.cluster_nodepool_quota = cluster_nodepool_quota  # type: long
+        # The quota of clusters within an Alibaba Cloud account. Default value: 50. To increase the quota, [go to the Quota Center page to submit a ticket](https://quotas.console.aliyun.com/products/csk/quotas).
         self.cluster_quota = cluster_quota  # type: long
+        # The quota of enhanced edge node pools.
         self.edge_improved_nodepool_quota = edge_improved_nodepool_quota  # type: DescribeUserQuotaResponseBodyEdgeImprovedNodepoolQuota
+        # The quota of nodes in an ACK cluster. Default value: 100. To increase the quota, [go to the Quota Center page to submit a ticket](https://quotas.console.aliyun.com/products/csk/quotas).
         self.node_quota = node_quota  # type: long
+        self.quotas = quotas  # type: dict[str, QuotasValue]
 
     def validate(self):
         if self.edge_improved_nodepool_quota:
             self.edge_improved_nodepool_quota.validate()
+        if self.quotas:
+            for v in self.quotas.values():
+                if v:
+                    v.validate()
 
     def to_map(self):
         _map = super(DescribeUserQuotaResponseBody, self).to_map()
@@ -10364,6 +11980,10 @@ class DescribeUserQuotaResponseBody(TeaModel):
             result['edge_improved_nodepool_quota'] = self.edge_improved_nodepool_quota.to_map()
         if self.node_quota is not None:
             result['node_quota'] = self.node_quota
+        result['quotas'] = {}
+        if self.quotas is not None:
+            for k, v in self.quotas.items():
+                result['quotas'][k] = v.to_map()
         return result
 
     def from_map(self, m=None):
@@ -10381,6 +12001,11 @@ class DescribeUserQuotaResponseBody(TeaModel):
             self.edge_improved_nodepool_quota = temp_model.from_map(m['edge_improved_nodepool_quota'])
         if m.get('node_quota') is not None:
             self.node_quota = m.get('node_quota')
+        self.quotas = {}
+        if m.get('quotas') is not None:
+            for k, v in m.get('quotas').items():
+                temp_model = QuotasValue()
+                self.quotas[k] = temp_model.from_map(v)
         return self
 
 
@@ -10425,8 +12050,11 @@ class DescribeUserQuotaResponse(TeaModel):
 
 class DescribeWorkflowsResponseBodyJobs(TeaModel):
     def __init__(self, cluster_id=None, create_time=None, job_name=None):
+        # The ID of the ACK cluster.
         self.cluster_id = cluster_id  # type: str
+        # The time when the workflow was created.
         self.create_time = create_time  # type: str
+        # The name of the workflow.
         self.job_name = job_name  # type: str
 
     def validate(self):
@@ -10459,6 +12087,7 @@ class DescribeWorkflowsResponseBodyJobs(TeaModel):
 
 class DescribeWorkflowsResponseBody(TeaModel):
     def __init__(self, jobs=None):
+        # The list of the jobs.
         self.jobs = jobs  # type: list[DescribeWorkflowsResponseBodyJobs]
 
     def validate(self):
@@ -10564,7 +12193,9 @@ class EdgeClusterAddEdgeMachineRequest(TeaModel):
 
 class EdgeClusterAddEdgeMachineResponseBody(TeaModel):
     def __init__(self, edge_machine_id=None, request_id=None):
+        # The ID of the cloud-native box.
         self.edge_machine_id = edge_machine_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -10655,10 +12286,10 @@ class FixNodePoolVulsRequestRolloutPolicy(TeaModel):
 
 
 class FixNodePoolVulsRequest(TeaModel):
-    def __init__(self, nodes=None, rollout_policy=None, vul_list=None):
+    def __init__(self, nodes=None, rollout_policy=None, vuls=None):
         self.nodes = nodes  # type: list[str]
         self.rollout_policy = rollout_policy  # type: FixNodePoolVulsRequestRolloutPolicy
-        self.vul_list = vul_list  # type: list[str]
+        self.vuls = vuls  # type: list[str]
 
     def validate(self):
         if self.rollout_policy:
@@ -10674,8 +12305,8 @@ class FixNodePoolVulsRequest(TeaModel):
             result['nodes'] = self.nodes
         if self.rollout_policy is not None:
             result['rollout_policy'] = self.rollout_policy.to_map()
-        if self.vul_list is not None:
-            result['vul_list'] = self.vul_list
+        if self.vuls is not None:
+            result['vuls'] = self.vuls
         return result
 
     def from_map(self, m=None):
@@ -10685,8 +12316,8 @@ class FixNodePoolVulsRequest(TeaModel):
         if m.get('rollout_policy') is not None:
             temp_model = FixNodePoolVulsRequestRolloutPolicy()
             self.rollout_policy = temp_model.from_map(m['rollout_policy'])
-        if m.get('vul_list') is not None:
-            self.vul_list = m.get('vul_list')
+        if m.get('vuls') is not None:
+            self.vuls = m.get('vuls')
         return self
 
 
@@ -10800,6 +12431,7 @@ class GetKubernetesTriggerResponseBody(TeaModel):
         self.project_id = project_id  # type: str
         self.type = type  # type: str
         self.action = action  # type: str
+        # Token
         self.token = token  # type: str
 
     def validate(self):
@@ -10893,7 +12525,13 @@ class GetKubernetesTriggerResponse(TeaModel):
 
 class GetUpgradeStatusResponseBodyUpgradeTask(TeaModel):
     def __init__(self, message=None, status=None):
+        # The description of the update task.
         self.message = message  # type: str
+        # The status of the update task. Valid values:
+        # 
+        # *   `running`: The update task is being executed.
+        # *   `Success`: The update task is successfully executed.
+        # *   `Failed`: The update task failed.
         self.status = status  # type: str
 
     def validate(self):
@@ -10923,10 +12561,26 @@ class GetUpgradeStatusResponseBodyUpgradeTask(TeaModel):
 class GetUpgradeStatusResponseBody(TeaModel):
     def __init__(self, error_message=None, precheck_report_id=None, status=None, upgrade_step=None,
                  upgrade_task=None):
+        # The error message returned during the update.
         self.error_message = error_message  # type: str
+        # The ID of the precheck report.
         self.precheck_report_id = precheck_report_id  # type: str
+        # The status of the update. Valid values:
+        # 
+        # *   `success`: The update is successful.
+        # *   `fail`: The update failed.
+        # *   `pause`: The update is paused.
+        # *   `running`: The update is in progress.
         self.status = status  # type: str
+        # The current phase of the update. Valid values:
+        # 
+        # *   `not_start`: The update is not started.
+        # *   `prechecking`: The precheck is in progress.
+        # *   `upgrading`: The update is in progress.
+        # *   `pause`: The update is paused.
+        # *   `success`: The update is successful.
         self.upgrade_step = upgrade_step  # type: str
+        # The details of the update task.
         self.upgrade_task = upgrade_task  # type: GetUpgradeStatusResponseBodyUpgradeTask
 
     def validate(self):
@@ -11313,9 +12967,13 @@ class ListTagResourcesShrinkRequest(TeaModel):
 
 class ListTagResourcesResponseBodyTagResourcesTagResource(TeaModel):
     def __init__(self, resource_id=None, resource_type=None, tag_key=None, tag_value=None):
+        # The ID of the resource.
         self.resource_id = resource_id  # type: str
+        # The type of the resource. For more information, see [Labels](~~110425~~).
         self.resource_type = resource_type  # type: str
+        # The key of the label.
         self.tag_key = tag_key  # type: str
+        # The value of the label.
         self.tag_value = tag_value  # type: str
 
     def validate(self):
@@ -11352,6 +13010,7 @@ class ListTagResourcesResponseBodyTagResourcesTagResource(TeaModel):
 
 class ListTagResourcesResponseBodyTagResources(TeaModel):
     def __init__(self, tag_resource=None):
+        # The labels of the resource.
         self.tag_resource = tag_resource  # type: list[ListTagResourcesResponseBodyTagResourcesTagResource]
 
     def validate(self):
@@ -11384,8 +13043,11 @@ class ListTagResourcesResponseBodyTagResources(TeaModel):
 
 class ListTagResourcesResponseBody(TeaModel):
     def __init__(self, next_token=None, request_id=None, tag_resources=None):
+        # The token that is used to start the next query.
         self.next_token = next_token  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The details of the queried labels and resources.
         self.tag_resources = tag_resources  # type: ListTagResourcesResponseBodyTagResources
 
     def validate(self):
@@ -11488,8 +13150,11 @@ class MigrateClusterRequest(TeaModel):
 
 class MigrateClusterResponseBody(TeaModel):
     def __init__(self, cluster_id=None, request_id=None, task_id=None):
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The ID of the task.
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -11629,8 +13294,11 @@ class ModifyClusterRequest(TeaModel):
 
 class ModifyClusterResponseBody(TeaModel):
     def __init__(self, cluster_id=None, request_id=None, task_id=None):
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The ID of the task.
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -12113,6 +13781,35 @@ class ModifyClusterNodePoolRequestNodepoolInfo(TeaModel):
         return self
 
 
+class ModifyClusterNodePoolRequestScalingGroupPrivatePoolOptions(TeaModel):
+    def __init__(self, id=None, match_criteria=None):
+        self.id = id  # type: str
+        self.match_criteria = match_criteria  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyClusterNodePoolRequestScalingGroupPrivatePoolOptions, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.match_criteria is not None:
+            result['match_criteria'] = self.match_criteria
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('match_criteria') is not None:
+            self.match_criteria = m.get('match_criteria')
+        return self
+
+
 class ModifyClusterNodePoolRequestScalingGroupSpotPriceLimit(TeaModel):
     def __init__(self, instance_type=None, price_limit=None):
         self.instance_type = instance_type  # type: str
@@ -12146,9 +13843,10 @@ class ModifyClusterNodePoolRequestScalingGroup(TeaModel):
     def __init__(self, auto_renew=None, auto_renew_period=None, compensate_with_on_demand=None, data_disks=None,
                  desired_size=None, image_id=None, instance_charge_type=None, instance_types=None, internet_charge_type=None,
                  internet_max_bandwidth_out=None, key_pair=None, login_password=None, multi_az_policy=None, on_demand_base_capacity=None,
-                 on_demand_percentage_above_base_capacity=None, period=None, period_unit=None, platform=None, rds_instances=None, scaling_policy=None,
-                 spot_instance_pools=None, spot_instance_remedy=None, spot_price_limit=None, spot_strategy=None,
-                 system_disk_category=None, system_disk_performance_level=None, system_disk_size=None, tags=None, vswitch_ids=None):
+                 on_demand_percentage_above_base_capacity=None, period=None, period_unit=None, platform=None, private_pool_options=None, rds_instances=None,
+                 scaling_policy=None, spot_instance_pools=None, spot_instance_remedy=None, spot_price_limit=None,
+                 spot_strategy=None, system_disk_category=None, system_disk_performance_level=None, system_disk_size=None,
+                 tags=None, vswitch_ids=None):
         self.auto_renew = auto_renew  # type: bool
         self.auto_renew_period = auto_renew_period  # type: long
         self.compensate_with_on_demand = compensate_with_on_demand  # type: bool
@@ -12167,6 +13865,7 @@ class ModifyClusterNodePoolRequestScalingGroup(TeaModel):
         self.period = period  # type: long
         self.period_unit = period_unit  # type: str
         self.platform = platform  # type: str
+        self.private_pool_options = private_pool_options  # type: ModifyClusterNodePoolRequestScalingGroupPrivatePoolOptions
         self.rds_instances = rds_instances  # type: list[str]
         self.scaling_policy = scaling_policy  # type: str
         self.spot_instance_pools = spot_instance_pools  # type: long
@@ -12184,6 +13883,8 @@ class ModifyClusterNodePoolRequestScalingGroup(TeaModel):
             for k in self.data_disks:
                 if k:
                     k.validate()
+        if self.private_pool_options:
+            self.private_pool_options.validate()
         if self.spot_price_limit:
             for k in self.spot_price_limit:
                 if k:
@@ -12237,6 +13938,8 @@ class ModifyClusterNodePoolRequestScalingGroup(TeaModel):
             result['period_unit'] = self.period_unit
         if self.platform is not None:
             result['platform'] = self.platform
+        if self.private_pool_options is not None:
+            result['private_pool_options'] = self.private_pool_options.to_map()
         if self.rds_instances is not None:
             result['rds_instances'] = self.rds_instances
         if self.scaling_policy is not None:
@@ -12306,6 +14009,9 @@ class ModifyClusterNodePoolRequestScalingGroup(TeaModel):
             self.period_unit = m.get('period_unit')
         if m.get('platform') is not None:
             self.platform = m.get('platform')
+        if m.get('private_pool_options') is not None:
+            temp_model = ModifyClusterNodePoolRequestScalingGroupPrivatePoolOptions()
+            self.private_pool_options = temp_model.from_map(m['private_pool_options'])
         if m.get('rds_instances') is not None:
             self.rds_instances = m.get('rds_instances')
         if m.get('scaling_policy') is not None:
@@ -12435,7 +14141,9 @@ class ModifyClusterNodePoolRequest(TeaModel):
 
 class ModifyClusterNodePoolResponseBody(TeaModel):
     def __init__(self, nodepool_id=None, task_id=None):
+        # The ID of the node pool.
         self.nodepool_id = nodepool_id  # type: str
+        # The ID of the task.
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -12821,6 +14529,7 @@ class ModifyPolicyInstanceRequest(TeaModel):
 
 class ModifyPolicyInstanceResponseBody(TeaModel):
     def __init__(self, instances=None):
+        # The policy instance that is updated.
         self.instances = instances  # type: list[str]
 
     def validate(self):
@@ -12908,7 +14617,9 @@ class OpenAckServiceRequest(TeaModel):
 
 class OpenAckServiceResponseBody(TeaModel):
     def __init__(self, order_id=None, request_id=None):
+        # The ID of the order.
         self.order_id = order_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -13129,9 +14840,14 @@ class RemoveClusterNodesResponse(TeaModel):
 
 
 class RemoveNodePoolNodesRequest(TeaModel):
-    def __init__(self, drain_node=None, nodes=None, release_node=None):
+    def __init__(self, drain_node=None, instance_ids=None, nodes=None, release_node=None):
+        # true
         self.drain_node = drain_node  # type: bool
+        # i-bp1c70fqbv1nlu9xxxxx
+        self.instance_ids = instance_ids  # type: list[str]
+        # cn-hangzhou.172.16.xxx.xxx
         self.nodes = nodes  # type: list[str]
+        # true
         self.release_node = release_node  # type: bool
 
     def validate(self):
@@ -13145,6 +14861,8 @@ class RemoveNodePoolNodesRequest(TeaModel):
         result = dict()
         if self.drain_node is not None:
             result['drain_node'] = self.drain_node
+        if self.instance_ids is not None:
+            result['instance_ids'] = self.instance_ids
         if self.nodes is not None:
             result['nodes'] = self.nodes
         if self.release_node is not None:
@@ -13155,6 +14873,8 @@ class RemoveNodePoolNodesRequest(TeaModel):
         m = m or dict()
         if m.get('drain_node') is not None:
             self.drain_node = m.get('drain_node')
+        if m.get('instance_ids') is not None:
+            self.instance_ids = m.get('instance_ids')
         if m.get('nodes') is not None:
             self.nodes = m.get('nodes')
         if m.get('release_node') is not None:
@@ -13163,9 +14883,14 @@ class RemoveNodePoolNodesRequest(TeaModel):
 
 
 class RemoveNodePoolNodesShrinkRequest(TeaModel):
-    def __init__(self, drain_node=None, nodes_shrink=None, release_node=None):
+    def __init__(self, drain_node=None, instance_ids_shrink=None, nodes_shrink=None, release_node=None):
+        # true
         self.drain_node = drain_node  # type: bool
+        # i-bp1c70fqbv1nlu9xxxxx
+        self.instance_ids_shrink = instance_ids_shrink  # type: str
+        # cn-hangzhou.172.16.xxx.xxx
         self.nodes_shrink = nodes_shrink  # type: str
+        # true
         self.release_node = release_node  # type: bool
 
     def validate(self):
@@ -13179,6 +14904,8 @@ class RemoveNodePoolNodesShrinkRequest(TeaModel):
         result = dict()
         if self.drain_node is not None:
             result['drain_node'] = self.drain_node
+        if self.instance_ids_shrink is not None:
+            result['instance_ids'] = self.instance_ids_shrink
         if self.nodes_shrink is not None:
             result['nodes'] = self.nodes_shrink
         if self.release_node is not None:
@@ -13189,6 +14916,8 @@ class RemoveNodePoolNodesShrinkRequest(TeaModel):
         m = m or dict()
         if m.get('drain_node') is not None:
             self.drain_node = m.get('drain_node')
+        if m.get('instance_ids') is not None:
+            self.instance_ids_shrink = m.get('instance_ids')
         if m.get('nodes') is not None:
             self.nodes_shrink = m.get('nodes')
         if m.get('release_node') is not None:
@@ -13198,7 +14927,9 @@ class RemoveNodePoolNodesShrinkRequest(TeaModel):
 
 class RemoveNodePoolNodesResponseBody(TeaModel):
     def __init__(self, request_id=None, task_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The ID of the task.
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -13320,7 +15051,9 @@ class RepairClusterNodePoolRequest(TeaModel):
 
 class RepairClusterNodePoolResponseBody(TeaModel):
     def __init__(self, request_id=None, task_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The ID of the task.
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -13811,6 +15544,7 @@ class ScaleClusterNodePoolRequest(TeaModel):
 
 class ScaleClusterNodePoolResponseBody(TeaModel):
     def __init__(self, task_id=None):
+        # The ID of the scaling task.
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -14070,8 +15804,11 @@ class ScaleOutClusterRequest(TeaModel):
 
 class ScaleOutClusterResponseBody(TeaModel):
     def __init__(self, cluster_id=None, request_id=None, task_id=None):
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The ID of the task.
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -14137,6 +15874,144 @@ class ScaleOutClusterResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ScaleOutClusterResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ScanClusterVulsResponseBody(TeaModel):
+    def __init__(self, request_id=None, task_id=None):
+        self.request_id = request_id  # type: str
+        self.task_id = task_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ScanClusterVulsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['request_id'] = self.request_id
+        if self.task_id is not None:
+            result['task_id'] = self.task_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('request_id') is not None:
+            self.request_id = m.get('request_id')
+        if m.get('task_id') is not None:
+            self.task_id = m.get('task_id')
+        return self
+
+
+class ScanClusterVulsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ScanClusterVulsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ScanClusterVulsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ScanClusterVulsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class StartAlertResponseBody(TeaModel):
+    def __init__(self, msg=None, status=None):
+        # The message returned.
+        self.msg = msg  # type: str
+        # The status.
+        self.status = status  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(StartAlertResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.msg is not None:
+            result['msg'] = self.msg
+        if self.status is not None:
+            result['status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('msg') is not None:
+            self.msg = m.get('msg')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        return self
+
+
+class StartAlertResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: StartAlertResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(StartAlertResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = StartAlertResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -14261,6 +16136,7 @@ class StartWorkflowRequest(TeaModel):
 
 class StartWorkflowResponseBody(TeaModel):
     def __init__(self, job_name=None):
+        # The name of the workflow that is created.
         self.job_name = job_name  # type: str
 
     def validate(self):
@@ -14318,6 +16194,139 @@ class StartWorkflowResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = StartWorkflowResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class StopAlertResponseBody(TeaModel):
+    def __init__(self, msg=None, status=None):
+        # The error message returned if the call fails.
+        self.msg = msg  # type: str
+        # A value of True indicates that the call succeeds. A value of False indicates that the call failed.
+        self.status = status  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(StopAlertResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.msg is not None:
+            result['msg'] = self.msg
+        if self.status is not None:
+            result['status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('msg') is not None:
+            self.msg = m.get('msg')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        return self
+
+
+class StopAlertResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: StopAlertResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(StopAlertResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = StopAlertResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class SyncClusterNodePoolResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SyncClusterNodePoolResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class SyncClusterNodePoolResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: SyncClusterNodePoolResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SyncClusterNodePoolResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = SyncClusterNodePoolResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -14562,8 +16571,53 @@ class UntagResourcesRequest(TeaModel):
         return self
 
 
+class UntagResourcesShrinkRequest(TeaModel):
+    def __init__(self, all=None, region_id=None, resource_ids_shrink=None, resource_type=None, tag_keys_shrink=None):
+        self.all = all  # type: bool
+        self.region_id = region_id  # type: str
+        self.resource_ids_shrink = resource_ids_shrink  # type: str
+        self.resource_type = resource_type  # type: str
+        self.tag_keys_shrink = tag_keys_shrink  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UntagResourcesShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.all is not None:
+            result['all'] = self.all
+        if self.region_id is not None:
+            result['region_id'] = self.region_id
+        if self.resource_ids_shrink is not None:
+            result['resource_ids'] = self.resource_ids_shrink
+        if self.resource_type is not None:
+            result['resource_type'] = self.resource_type
+        if self.tag_keys_shrink is not None:
+            result['tag_keys'] = self.tag_keys_shrink
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('all') is not None:
+            self.all = m.get('all')
+        if m.get('region_id') is not None:
+            self.region_id = m.get('region_id')
+        if m.get('resource_ids') is not None:
+            self.resource_ids_shrink = m.get('resource_ids')
+        if m.get('resource_type') is not None:
+            self.resource_type = m.get('resource_type')
+        if m.get('tag_keys') is not None:
+            self.tag_keys_shrink = m.get('tag_keys')
+        return self
+
+
 class UntagResourcesResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -14636,6 +16690,75 @@ class UpdateContactGroupForAlertResponse(TeaModel):
 
     def to_map(self):
         _map = super(UpdateContactGroupForAlertResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        return self
+
+
+class UpdateControlPlaneLogRequest(TeaModel):
+    def __init__(self, aliuid=None, components=None, log_project=None, log_ttl=None):
+        self.aliuid = aliuid  # type: str
+        self.components = components  # type: list[str]
+        self.log_project = log_project  # type: str
+        self.log_ttl = log_ttl  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateControlPlaneLogRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.aliuid is not None:
+            result['aliuid'] = self.aliuid
+        if self.components is not None:
+            result['components'] = self.components
+        if self.log_project is not None:
+            result['log_project'] = self.log_project
+        if self.log_ttl is not None:
+            result['log_ttl'] = self.log_ttl
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('aliuid') is not None:
+            self.aliuid = m.get('aliuid')
+        if m.get('components') is not None:
+            self.components = m.get('components')
+        if m.get('log_project') is not None:
+            self.log_project = m.get('log_project')
+        if m.get('log_ttl') is not None:
+            self.log_ttl = m.get('log_ttl')
+        return self
+
+
+class UpdateControlPlaneLogResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+
+    def to_map(self):
+        _map = super(UpdateControlPlaneLogResponse, self).to_map()
         if _map is not None:
             return _map
 
@@ -14789,8 +16912,9 @@ class UpdateTemplateResponse(TeaModel):
 
 
 class UpgradeClusterRequest(TeaModel):
-    def __init__(self, component_name=None, next_version=None, version=None):
+    def __init__(self, component_name=None, master_only=None, next_version=None, version=None):
         self.component_name = component_name  # type: str
+        self.master_only = master_only  # type: bool
         self.next_version = next_version  # type: str
         self.version = version  # type: str
 
@@ -14805,6 +16929,8 @@ class UpgradeClusterRequest(TeaModel):
         result = dict()
         if self.component_name is not None:
             result['component_name'] = self.component_name
+        if self.master_only is not None:
+            result['master_only'] = self.master_only
         if self.next_version is not None:
             result['next_version'] = self.next_version
         if self.version is not None:
@@ -14815,6 +16941,8 @@ class UpgradeClusterRequest(TeaModel):
         m = m or dict()
         if m.get('component_name') is not None:
             self.component_name = m.get('component_name')
+        if m.get('master_only') is not None:
+            self.master_only = m.get('master_only')
         if m.get('next_version') is not None:
             self.next_version = m.get('next_version')
         if m.get('version') is not None:
@@ -14853,10 +16981,11 @@ class UpgradeClusterResponse(TeaModel):
 
 
 class UpgradeClusterAddonsRequestBody(TeaModel):
-    def __init__(self, component_name=None, config=None, next_version=None, version=None):
+    def __init__(self, component_name=None, config=None, next_version=None, policy=None, version=None):
         self.component_name = component_name  # type: str
         self.config = config  # type: str
         self.next_version = next_version  # type: str
+        self.policy = policy  # type: str
         self.version = version  # type: str
 
     def validate(self):
@@ -14874,6 +17003,8 @@ class UpgradeClusterAddonsRequestBody(TeaModel):
             result['config'] = self.config
         if self.next_version is not None:
             result['next_version'] = self.next_version
+        if self.policy is not None:
+            result['policy'] = self.policy
         if self.version is not None:
             result['version'] = self.version
         return result
@@ -14886,6 +17017,8 @@ class UpgradeClusterAddonsRequestBody(TeaModel):
             self.config = m.get('config')
         if m.get('next_version') is not None:
             self.next_version = m.get('next_version')
+        if m.get('policy') is not None:
+            self.policy = m.get('policy')
         if m.get('version') is not None:
             self.version = m.get('version')
         return self
@@ -14954,9 +17087,10 @@ class UpgradeClusterAddonsResponse(TeaModel):
 
 
 class UpgradeClusterNodepoolRequest(TeaModel):
-    def __init__(self, image_id=None, kubernetes_version=None, runtime_version=None):
+    def __init__(self, image_id=None, kubernetes_version=None, runtime_type=None, runtime_version=None):
         self.image_id = image_id  # type: str
         self.kubernetes_version = kubernetes_version  # type: str
+        self.runtime_type = runtime_type  # type: str
         self.runtime_version = runtime_version  # type: str
 
     def validate(self):
@@ -14972,6 +17106,8 @@ class UpgradeClusterNodepoolRequest(TeaModel):
             result['image_id'] = self.image_id
         if self.kubernetes_version is not None:
             result['kubernetes_version'] = self.kubernetes_version
+        if self.runtime_type is not None:
+            result['runtime_type'] = self.runtime_type
         if self.runtime_version is not None:
             result['runtime_version'] = self.runtime_version
         return result
@@ -14982,14 +17118,18 @@ class UpgradeClusterNodepoolRequest(TeaModel):
             self.image_id = m.get('image_id')
         if m.get('kubernetes_version') is not None:
             self.kubernetes_version = m.get('kubernetes_version')
+        if m.get('runtime_type') is not None:
+            self.runtime_type = m.get('runtime_type')
         if m.get('runtime_version') is not None:
             self.runtime_version = m.get('runtime_version')
         return self
 
 
 class UpgradeClusterNodepoolResponseBody(TeaModel):
-    def __init__(self, request_id=None):
+    def __init__(self, request_id=None, task_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        self.task_id = task_id  # type: str
 
     def validate(self):
         pass
@@ -15002,12 +17142,16 @@ class UpgradeClusterNodepoolResponseBody(TeaModel):
         result = dict()
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.task_id is not None:
+            result['task_id'] = self.task_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('task_id') is not None:
+            self.task_id = m.get('task_id')
         return self
 
 

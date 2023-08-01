@@ -64,11 +64,6 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
-    def attach_instances(self, cluster_id, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.attach_instances_with_options(cluster_id, request, headers, runtime)
-
     def attach_instances_with_options(self, cluster_id, request, headers, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -118,10 +113,46 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def cancel_cluster_upgrade(self, cluster_id):
+    def attach_instances(self, cluster_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.cancel_cluster_upgrade_with_options(cluster_id, headers, runtime)
+        return self.attach_instances_with_options(cluster_id, request, headers, runtime)
+
+    def attach_instances_to_node_pool_with_options(self, cluster_id, nodepool_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.format_disk):
+            body['format_disk'] = request.format_disk
+        if not UtilClient.is_unset(request.instances):
+            body['instances'] = request.instances
+        if not UtilClient.is_unset(request.keep_instance_name):
+            body['keep_instance_name'] = request.keep_instance_name
+        if not UtilClient.is_unset(request.password):
+            body['password'] = request.password
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='AttachInstancesToNodePool',
+            version='2015-12-15',
+            protocol='HTTPS',
+            pathname='/clusters/%s/nodepools/%s/attach' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(nodepool_id))),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cs20151215_models.AttachInstancesToNodePoolResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def attach_instances_to_node_pool(self, cluster_id, nodepool_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.attach_instances_to_node_pool_with_options(cluster_id, nodepool_id, request, headers, runtime)
 
     def cancel_cluster_upgrade_with_options(self, cluster_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -143,10 +174,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def cancel_component_upgrade(self, cluster_id, component_id):
+    def cancel_cluster_upgrade(self, cluster_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.cancel_component_upgrade_with_options(cluster_id, component_id, headers, runtime)
+        return self.cancel_cluster_upgrade_with_options(cluster_id, headers, runtime)
 
     def cancel_component_upgrade_with_options(self, cluster_id, component_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -168,10 +199,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def cancel_task(self, task_id):
+    def cancel_component_upgrade(self, cluster_id, component_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.cancel_task_with_options(task_id, headers, runtime)
+        return self.cancel_component_upgrade_with_options(cluster_id, component_id, headers, runtime)
 
     def cancel_task_with_options(self, task_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -193,10 +224,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def cancel_workflow(self, workflow_name, request):
+    def cancel_task(self, task_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.cancel_workflow_with_options(workflow_name, request, headers, runtime)
+        return self.cancel_task_with_options(task_id, headers, runtime)
 
     def cancel_workflow_with_options(self, workflow_name, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -223,24 +254,63 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_autoscaling_config(self, cluster_id, request):
+    def cancel_workflow(self, workflow_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_autoscaling_config_with_options(cluster_id, request, headers, runtime)
+        return self.cancel_workflow_with_options(workflow_name, request, headers, runtime)
+
+    def check_control_plane_log_enable_with_options(self, cluster_id, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='CheckControlPlaneLogEnable',
+            version='2015-12-15',
+            protocol='HTTPS',
+            pathname='/clusters/%s/controlplanelog' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cs20151215_models.CheckControlPlaneLogEnableResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def check_control_plane_log_enable(self, cluster_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.check_control_plane_log_enable_with_options(cluster_id, headers, runtime)
 
     def create_autoscaling_config_with_options(self, cluster_id, request, headers, runtime):
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.cool_down_duration):
             body['cool_down_duration'] = request.cool_down_duration
+        if not UtilClient.is_unset(request.daemonset_eviction_for_nodes):
+            body['daemonset_eviction_for_nodes'] = request.daemonset_eviction_for_nodes
         if not UtilClient.is_unset(request.expander):
             body['expander'] = request.expander
         if not UtilClient.is_unset(request.gpu_utilization_threshold):
             body['gpu_utilization_threshold'] = request.gpu_utilization_threshold
+        if not UtilClient.is_unset(request.max_graceful_termination_sec):
+            body['max_graceful_termination_sec'] = request.max_graceful_termination_sec
+        if not UtilClient.is_unset(request.min_replica_count):
+            body['min_replica_count'] = request.min_replica_count
+        if not UtilClient.is_unset(request.recycle_node_deletion_enabled):
+            body['recycle_node_deletion_enabled'] = request.recycle_node_deletion_enabled
         if not UtilClient.is_unset(request.scale_down_enabled):
             body['scale_down_enabled'] = request.scale_down_enabled
+        if not UtilClient.is_unset(request.scale_up_from_zero):
+            body['scale_up_from_zero'] = request.scale_up_from_zero
         if not UtilClient.is_unset(request.scan_interval):
             body['scan_interval'] = request.scan_interval
+        if not UtilClient.is_unset(request.skip_nodes_with_local_storage):
+            body['skip_nodes_with_local_storage'] = request.skip_nodes_with_local_storage
+        if not UtilClient.is_unset(request.skip_nodes_with_system_pods):
+            body['skip_nodes_with_system_pods'] = request.skip_nodes_with_system_pods
         if not UtilClient.is_unset(request.unneeded_duration):
             body['unneeded_duration'] = request.unneeded_duration
         if not UtilClient.is_unset(request.utilization_threshold):
@@ -265,10 +335,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_cluster(self, request):
+    def create_autoscaling_config(self, cluster_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_cluster_with_options(request, headers, runtime)
+        return self.create_autoscaling_config_with_options(cluster_id, request, headers, runtime)
 
     def create_cluster_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -469,10 +539,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_cluster_node_pool(self, cluster_id, request):
+    def create_cluster(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_cluster_node_pool_with_options(cluster_id, request, headers, runtime)
+        return self.create_cluster_with_options(request, headers, runtime)
 
     def create_cluster_node_pool_with_options(self, cluster_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -517,10 +587,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_edge_machine(self, request):
+    def create_cluster_node_pool(self, cluster_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_edge_machine_with_options(request, headers, runtime)
+        return self.create_cluster_node_pool_with_options(cluster_id, request, headers, runtime)
 
     def create_edge_machine_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -551,10 +621,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_kubernetes_trigger(self, request):
+    def create_edge_machine(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_kubernetes_trigger_with_options(request, headers, runtime)
+        return self.create_edge_machine_with_options(request, headers, runtime)
 
     def create_kubernetes_trigger_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -587,10 +657,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_template(self, request):
+    def create_kubernetes_trigger(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_template_with_options(request, headers, runtime)
+        return self.create_kubernetes_trigger_with_options(request, headers, runtime)
 
     def create_template_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -625,10 +695,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_trigger(self, cluster_id, request):
+    def create_template(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_trigger_with_options(cluster_id, request, headers, runtime)
+        return self.create_template_with_options(request, headers, runtime)
 
     def create_trigger_with_options(self, cluster_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -661,10 +731,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_alert_contact(self):
+    def create_trigger(self, cluster_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_alert_contact_with_options(headers, runtime)
+        return self.create_trigger_with_options(cluster_id, request, headers, runtime)
 
     def delete_alert_contact_with_options(self, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -686,10 +756,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_alert_contact_group(self):
+    def delete_alert_contact(self):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_alert_contact_group_with_options(headers, runtime)
+        return self.delete_alert_contact_with_options(headers, runtime)
 
     def delete_alert_contact_group_with_options(self, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -711,10 +781,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_cluster(self, cluster_id, request):
+    def delete_alert_contact_group(self):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_cluster_with_options(cluster_id, request, headers, runtime)
+        return self.delete_alert_contact_group_with_options(headers, runtime)
 
     def delete_cluster_with_options(self, cluster_id, tmp_req, headers, runtime):
         UtilClient.validate_model(tmp_req)
@@ -742,17 +812,17 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='json',
-            body_type='none'
+            body_type='json'
         )
         return TeaCore.from_map(
             cs20151215_models.DeleteClusterResponse(),
             self.call_api(params, req, runtime)
         )
 
-    def delete_cluster_nodepool(self, cluster_id, nodepool_id, request):
+    def delete_cluster(self, cluster_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_cluster_nodepool_with_options(cluster_id, nodepool_id, request, headers, runtime)
+        return self.delete_cluster_with_options(cluster_id, request, headers, runtime)
 
     def delete_cluster_nodepool_with_options(self, cluster_id, nodepool_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -779,12 +849,29 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_cluster_nodes(self, cluster_id, request):
+    def delete_cluster_nodepool(self, cluster_id, nodepool_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_cluster_nodes_with_options(cluster_id, request, headers, runtime)
+        return self.delete_cluster_nodepool_with_options(cluster_id, nodepool_id, request, headers, runtime)
 
     def delete_cluster_nodes_with_options(self, cluster_id, request, headers, runtime):
+        """
+        >
+        *   When you remove a node, the pods that run on the node are migrated to other nodes. This may cause service interruptions. We recommend that you remove nodes during off-peak hours.
+        *   Unknown errors may occur when you remove nodes. Before you remove nodes, back up the data on the nodes.
+        *   Nodes remain in the unschedulable state when they are being removed.
+        *   You can remove only worker nodes by calling this operation.
+        
+
+        @param request: DeleteClusterNodesRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteClusterNodesResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.drain_node):
@@ -813,10 +900,22 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_edge_machine(self, edge_machineid, request):
+    def delete_cluster_nodes(self, cluster_id, request):
+        """
+        >
+        *   When you remove a node, the pods that run on the node are migrated to other nodes. This may cause service interruptions. We recommend that you remove nodes during off-peak hours.
+        *   Unknown errors may occur when you remove nodes. Before you remove nodes, back up the data on the nodes.
+        *   Nodes remain in the unschedulable state when they are being removed.
+        *   You can remove only worker nodes by calling this operation.
+        
+
+        @param request: DeleteClusterNodesRequest
+
+        @return: DeleteClusterNodesResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_edge_machine_with_options(edge_machineid, request, headers, runtime)
+        return self.delete_cluster_nodes_with_options(cluster_id, request, headers, runtime)
 
     def delete_edge_machine_with_options(self, edge_machineid, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -843,10 +942,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_kubernetes_trigger(self, id):
+    def delete_edge_machine(self, edge_machineid, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_kubernetes_trigger_with_options(id, headers, runtime)
+        return self.delete_edge_machine_with_options(edge_machineid, request, headers, runtime)
 
     def delete_kubernetes_trigger_with_options(self, id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -868,10 +967,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_policy_instance(self, cluster_id, policy_name, request):
+    def delete_kubernetes_trigger(self, id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_policy_instance_with_options(cluster_id, policy_name, request, headers, runtime)
+        return self.delete_kubernetes_trigger_with_options(id, headers, runtime)
 
     def delete_policy_instance_with_options(self, cluster_id, policy_name, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -898,10 +997,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_template(self, template_id):
+    def delete_policy_instance(self, cluster_id, policy_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_template_with_options(template_id, headers, runtime)
+        return self.delete_policy_instance_with_options(cluster_id, policy_name, request, headers, runtime)
 
     def delete_template_with_options(self, template_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -923,10 +1022,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_trigger(self, cluster_id, id):
+    def delete_template(self, template_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_trigger_with_options(cluster_id, id, headers, runtime)
+        return self.delete_template_with_options(template_id, headers, runtime)
 
     def delete_trigger_with_options(self, cluster_id, id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -948,10 +1047,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def deploy_policy_instance(self, cluster_id, policy_name, request):
+    def delete_trigger(self, cluster_id, id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.deploy_policy_instance_with_options(cluster_id, policy_name, request, headers, runtime)
+        return self.delete_trigger_with_options(cluster_id, id, headers, runtime)
 
     def deploy_policy_instance_with_options(self, cluster_id, policy_name, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -982,10 +1081,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def descirbe_workflow(self, workflow_name):
+    def deploy_policy_instance(self, cluster_id, policy_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.descirbe_workflow_with_options(workflow_name, headers, runtime)
+        return self.deploy_policy_instance_with_options(cluster_id, policy_name, request, headers, runtime)
 
     def descirbe_workflow_with_options(self, workflow_name, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1007,16 +1106,22 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_addons(self, request):
+    def descirbe_workflow(self, workflow_name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_addons_with_options(request, headers, runtime)
+        return self.descirbe_workflow_with_options(workflow_name, headers, runtime)
 
     def describe_addons_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.cluster_profile):
+            query['cluster_profile'] = request.cluster_profile
+        if not UtilClient.is_unset(request.cluster_spec):
+            query['cluster_spec'] = request.cluster_spec
         if not UtilClient.is_unset(request.cluster_type):
             query['cluster_type'] = request.cluster_type
+        if not UtilClient.is_unset(request.cluster_version):
+            query['cluster_version'] = request.cluster_version
         if not UtilClient.is_unset(request.region):
             query['region'] = request.region
         req = open_api_models.OpenApiRequest(
@@ -1039,10 +1144,35 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_cluster_addon_metadata(self, cluster_id, component_id, version):
+    def describe_addons(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_cluster_addon_metadata_with_options(cluster_id, component_id, version, headers, runtime)
+        return self.describe_addons_with_options(request, headers, runtime)
+
+    def describe_cluster_addon_instance_with_options(self, cluster_id, addon_name, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='DescribeClusterAddonInstance',
+            version='2015-12-15',
+            protocol='HTTPS',
+            pathname='/clusters/%s/components/%s/instance' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(addon_name))),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cs20151215_models.DescribeClusterAddonInstanceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_cluster_addon_instance(self, cluster_id, addon_name):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.describe_cluster_addon_instance_with_options(cluster_id, addon_name, headers, runtime)
 
     def describe_cluster_addon_metadata_with_options(self, cluster_id, component_id, version, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1064,12 +1194,24 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_cluster_addon_upgrade_status(self, cluster_id, component_id):
+    def describe_cluster_addon_metadata(self, cluster_id, component_id, version):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_cluster_addon_upgrade_status_with_options(cluster_id, component_id, headers, runtime)
+        return self.describe_cluster_addon_metadata_with_options(cluster_id, component_id, version, headers, runtime)
 
     def describe_cluster_addon_upgrade_status_with_options(self, cluster_id, component_id, headers, runtime):
+        """
+        @deprecated
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeClusterAddonUpgradeStatusResponse
+        Deprecated
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1089,10 +1231,17 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_cluster_addons_upgrade_status(self, cluster_id, request):
+    def describe_cluster_addon_upgrade_status(self, cluster_id, component_id):
+        """
+        @deprecated
+        
+
+        @return: DescribeClusterAddonUpgradeStatusResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_cluster_addons_upgrade_status_with_options(cluster_id, request, headers, runtime)
+        return self.describe_cluster_addon_upgrade_status_with_options(cluster_id, component_id, headers, runtime)
 
     def describe_cluster_addons_upgrade_status_with_options(self, cluster_id, tmp_req, headers, runtime):
         UtilClient.validate_model(tmp_req)
@@ -1123,10 +1272,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_cluster_addons_version(self, cluster_id):
+    def describe_cluster_addons_upgrade_status(self, cluster_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_cluster_addons_version_with_options(cluster_id, headers, runtime)
+        return self.describe_cluster_addons_upgrade_status_with_options(cluster_id, request, headers, runtime)
 
     def describe_cluster_addons_version_with_options(self, cluster_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1148,10 +1297,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_cluster_attach_scripts(self, cluster_id, request):
+    def describe_cluster_addons_version(self, cluster_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_cluster_attach_scripts_with_options(cluster_id, request, headers, runtime)
+        return self.describe_cluster_addons_version_with_options(cluster_id, headers, runtime)
 
     def describe_cluster_attach_scripts_with_options(self, cluster_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1188,10 +1337,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_cluster_detail(self, cluster_id):
+    def describe_cluster_attach_scripts(self, cluster_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_cluster_detail_with_options(cluster_id, headers, runtime)
+        return self.describe_cluster_attach_scripts_with_options(cluster_id, request, headers, runtime)
 
     def describe_cluster_detail_with_options(self, cluster_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1213,10 +1362,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_cluster_events(self, cluster_id, request):
+    def describe_cluster_detail(self, cluster_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_cluster_events_with_options(cluster_id, request, headers, runtime)
+        return self.describe_cluster_detail_with_options(cluster_id, headers, runtime)
 
     def describe_cluster_events_with_options(self, cluster_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1247,10 +1396,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_cluster_logs(self, cluster_id):
+    def describe_cluster_events(self, cluster_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_cluster_logs_with_options(cluster_id, headers, runtime)
+        return self.describe_cluster_events_with_options(cluster_id, request, headers, runtime)
 
     def describe_cluster_logs_with_options(self, cluster_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1272,10 +1421,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_cluster_node_pool_detail(self, cluster_id, nodepool_id):
+    def describe_cluster_logs(self, cluster_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_cluster_node_pool_detail_with_options(cluster_id, nodepool_id, headers, runtime)
+        return self.describe_cluster_logs_with_options(cluster_id, headers, runtime)
 
     def describe_cluster_node_pool_detail_with_options(self, cluster_id, nodepool_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1297,10 +1446,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_cluster_node_pools(self, cluster_id):
+    def describe_cluster_node_pool_detail(self, cluster_id, nodepool_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_cluster_node_pools_with_options(cluster_id, headers, runtime)
+        return self.describe_cluster_node_pool_detail_with_options(cluster_id, nodepool_id, headers, runtime)
 
     def describe_cluster_node_pools_with_options(self, cluster_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1322,10 +1471,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_cluster_nodes(self, cluster_id, request):
+    def describe_cluster_node_pools(self, cluster_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_cluster_nodes_with_options(cluster_id, request, headers, runtime)
+        return self.describe_cluster_node_pools_with_options(cluster_id, headers, runtime)
 
     def describe_cluster_nodes_with_options(self, cluster_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1360,10 +1509,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_cluster_resources(self, cluster_id):
+    def describe_cluster_nodes(self, cluster_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_cluster_resources_with_options(cluster_id, headers, runtime)
+        return self.describe_cluster_nodes_with_options(cluster_id, request, headers, runtime)
 
     def describe_cluster_resources_with_options(self, cluster_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1385,10 +1534,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_cluster_tasks(self, cluster_id):
+    def describe_cluster_resources(self, cluster_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_cluster_tasks_with_options(cluster_id, headers, runtime)
+        return self.describe_cluster_resources_with_options(cluster_id, headers, runtime)
 
     def describe_cluster_tasks_with_options(self, cluster_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1410,10 +1559,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_cluster_user_kubeconfig(self, cluster_id, request):
+    def describe_cluster_tasks(self, cluster_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_cluster_user_kubeconfig_with_options(cluster_id, request, headers, runtime)
+        return self.describe_cluster_tasks_with_options(cluster_id, headers, runtime)
 
     def describe_cluster_user_kubeconfig_with_options(self, cluster_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1442,12 +1591,26 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_cluster_v2user_kubeconfig(self, cluster_id, request):
+    def describe_cluster_user_kubeconfig(self, cluster_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_cluster_v2user_kubeconfig_with_options(cluster_id, request, headers, runtime)
+        return self.describe_cluster_user_kubeconfig_with_options(cluster_id, request, headers, runtime)
 
     def describe_cluster_v2user_kubeconfig_with_options(self, cluster_id, request, headers, runtime):
+        """
+        @deprecated
+        
+
+        @param request: DescribeClusterV2UserKubeconfigRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeClusterV2UserKubeconfigResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.private_ip_address):
@@ -1472,12 +1635,60 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_clusters(self, request):
+    def describe_cluster_v2user_kubeconfig(self, cluster_id, request):
+        """
+        @deprecated
+        
+
+        @param request: DescribeClusterV2UserKubeconfigRequest
+
+        @return: DescribeClusterV2UserKubeconfigResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_clusters_with_options(request, headers, runtime)
+        return self.describe_cluster_v2user_kubeconfig_with_options(cluster_id, request, headers, runtime)
+
+    def describe_cluster_vuls_with_options(self, cluster_id, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='DescribeClusterVuls',
+            version='2015-12-15',
+            protocol='HTTPS',
+            pathname='/clusters/%s/vuls' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cs20151215_models.DescribeClusterVulsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_cluster_vuls(self, cluster_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.describe_cluster_vuls_with_options(cluster_id, headers, runtime)
 
     def describe_clusters_with_options(self, request, headers, runtime):
+        """
+        @deprecated
+        
+
+        @param request: DescribeClustersRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeClustersResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.cluster_type):
@@ -1504,10 +1715,19 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_clusters_v1(self, request):
+    def describe_clusters(self, request):
+        """
+        @deprecated
+        
+
+        @param request: DescribeClustersRequest
+
+        @return: DescribeClustersResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_clusters_v1with_options(request, headers, runtime)
+        return self.describe_clusters_with_options(request, headers, runtime)
 
     def describe_clusters_v1with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1546,10 +1766,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_edge_machine_active_process(self, edge_machineid):
+    def describe_clusters_v1(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_edge_machine_active_process_with_options(edge_machineid, headers, runtime)
+        return self.describe_clusters_v1with_options(request, headers, runtime)
 
     def describe_edge_machine_active_process_with_options(self, edge_machineid, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1571,10 +1791,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_edge_machine_models(self):
+    def describe_edge_machine_active_process(self, edge_machineid):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_edge_machine_models_with_options(headers, runtime)
+        return self.describe_edge_machine_active_process_with_options(edge_machineid, headers, runtime)
 
     def describe_edge_machine_models_with_options(self, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1596,10 +1816,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_edge_machine_tunnel_config_detail(self, edge_machineid):
+    def describe_edge_machine_models(self):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_edge_machine_tunnel_config_detail_with_options(edge_machineid, headers, runtime)
+        return self.describe_edge_machine_models_with_options(headers, runtime)
 
     def describe_edge_machine_tunnel_config_detail_with_options(self, edge_machineid, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1621,10 +1841,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_edge_machines(self, request):
+    def describe_edge_machine_tunnel_config_detail(self, edge_machineid):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_edge_machines_with_options(request, headers, runtime)
+        return self.describe_edge_machine_tunnel_config_detail_with_options(edge_machineid, headers, runtime)
 
     def describe_edge_machines_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1661,10 +1881,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_events(self, request):
+    def describe_edge_machines(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_events_with_options(request, headers, runtime)
+        return self.describe_edge_machines_with_options(request, headers, runtime)
 
     def describe_events_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1697,12 +1917,25 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_external_agent(self, cluster_id, request):
+    def describe_events(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_external_agent_with_options(cluster_id, request, headers, runtime)
+        return self.describe_events_with_options(request, headers, runtime)
 
     def describe_external_agent_with_options(self, cluster_id, request, headers, runtime):
+        """
+        For more information, see [Register an external Kubernetes cluster](~~121053~~).
+        
+
+        @param request: DescribeExternalAgentRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeExternalAgentResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.private_ip_address):
@@ -1727,10 +1960,18 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_kubernetes_version_metadata(self, request):
+    def describe_external_agent(self, cluster_id, request):
+        """
+        For more information, see [Register an external Kubernetes cluster](~~121053~~).
+        
+
+        @param request: DescribeExternalAgentRequest
+
+        @return: DescribeExternalAgentResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_kubernetes_version_metadata_with_options(request, headers, runtime)
+        return self.describe_external_agent_with_options(cluster_id, request, headers, runtime)
 
     def describe_kubernetes_version_metadata_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1739,6 +1980,8 @@ class Client(OpenApiClient):
             query['ClusterType'] = request.cluster_type
         if not UtilClient.is_unset(request.kubernetes_version):
             query['KubernetesVersion'] = request.kubernetes_version
+        if not UtilClient.is_unset(request.mode):
+            query['Mode'] = request.mode
         if not UtilClient.is_unset(request.profile):
             query['Profile'] = request.profile
         if not UtilClient.is_unset(request.region):
@@ -1765,14 +2008,19 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_node_pool_vuls(self, cluster_id, nodepool_id):
+    def describe_kubernetes_version_metadata(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_node_pool_vuls_with_options(cluster_id, nodepool_id, headers, runtime)
+        return self.describe_kubernetes_version_metadata_with_options(request, headers, runtime)
 
-    def describe_node_pool_vuls_with_options(self, cluster_id, nodepool_id, headers, runtime):
+    def describe_node_pool_vuls_with_options(self, cluster_id, nodepool_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.necessity):
+            query['necessity'] = request.necessity
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
             action='DescribeNodePoolVuls',
@@ -1790,10 +2038,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_policies(self):
+    def describe_node_pool_vuls(self, cluster_id, nodepool_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_policies_with_options(headers, runtime)
+        return self.describe_node_pool_vuls_with_options(cluster_id, nodepool_id, request, headers, runtime)
 
     def describe_policies_with_options(self, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1815,10 +2063,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_policy_details(self, policy_name):
+    def describe_policies(self):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_policy_details_with_options(policy_name, headers, runtime)
+        return self.describe_policies_with_options(headers, runtime)
 
     def describe_policy_details_with_options(self, policy_name, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1840,10 +2088,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_policy_governance_in_cluster(self, cluster_id):
+    def describe_policy_details(self, policy_name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_policy_governance_in_cluster_with_options(cluster_id, headers, runtime)
+        return self.describe_policy_details_with_options(policy_name, headers, runtime)
 
     def describe_policy_governance_in_cluster_with_options(self, cluster_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1865,10 +2113,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_policy_instances(self, cluster_id, request):
+    def describe_policy_governance_in_cluster(self, cluster_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_policy_instances_with_options(cluster_id, request, headers, runtime)
+        return self.describe_policy_governance_in_cluster_with_options(cluster_id, headers, runtime)
 
     def describe_policy_instances_with_options(self, cluster_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1897,10 +2145,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_policy_instances_status(self, cluster_id):
+    def describe_policy_instances(self, cluster_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_policy_instances_status_with_options(cluster_id, headers, runtime)
+        return self.describe_policy_instances_with_options(cluster_id, request, headers, runtime)
 
     def describe_policy_instances_status_with_options(self, cluster_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1922,10 +2170,63 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_task_info(self, task_id):
+    def describe_policy_instances_status(self, cluster_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_task_info_with_options(task_id, headers, runtime)
+        return self.describe_policy_instances_status_with_options(cluster_id, headers, runtime)
+
+    def describe_subaccount_k8s_cluster_user_config_with_options(self, cluster_id, uid, request, headers, runtime):
+        """
+        >  You can call this operation only with an Alibaba Cloud account.
+        
+
+        @param request: DescribeSubaccountK8sClusterUserConfigRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeSubaccountK8sClusterUserConfigResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.private_ip_address):
+            query['PrivateIpAddress'] = request.private_ip_address
+        if not UtilClient.is_unset(request.temporary_duration_minutes):
+            query['TemporaryDurationMinutes'] = request.temporary_duration_minutes
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeSubaccountK8sClusterUserConfig',
+            version='2015-12-15',
+            protocol='HTTPS',
+            pathname='/k8s/%s/users/%s/user_config' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(uid))),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cs20151215_models.DescribeSubaccountK8sClusterUserConfigResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_subaccount_k8s_cluster_user_config(self, cluster_id, uid, request):
+        """
+        >  You can call this operation only with an Alibaba Cloud account.
+        
+
+        @param request: DescribeSubaccountK8sClusterUserConfigRequest
+
+        @return: DescribeSubaccountK8sClusterUserConfigResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.describe_subaccount_k8s_cluster_user_config_with_options(cluster_id, uid, request, headers, runtime)
 
     def describe_task_info_with_options(self, task_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1947,10 +2248,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_template_attribute(self, template_id, request):
+    def describe_task_info(self, task_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_template_attribute_with_options(template_id, request, headers, runtime)
+        return self.describe_task_info_with_options(task_id, headers, runtime)
 
     def describe_template_attribute_with_options(self, template_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1977,10 +2278,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_templates(self, request):
+    def describe_template_attribute(self, template_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_templates_with_options(request, headers, runtime)
+        return self.describe_template_attribute_with_options(template_id, request, headers, runtime)
 
     def describe_templates_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2011,10 +2312,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_trigger(self, cluster_id, request):
+    def describe_templates(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_trigger_with_options(cluster_id, request, headers, runtime)
+        return self.describe_templates_with_options(request, headers, runtime)
 
     def describe_trigger_with_options(self, cluster_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2035,7 +2336,7 @@ class Client(OpenApiClient):
             action='DescribeTrigger',
             version='2015-12-15',
             protocol='HTTPS',
-            pathname='/clusters/%5Bcluster_id%5D/triggers',
+            pathname='/clusters/%s/triggers' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -2047,10 +2348,35 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_user_permission(self, uid):
+    def describe_trigger(self, cluster_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_user_permission_with_options(uid, headers, runtime)
+        return self.describe_trigger_with_options(cluster_id, request, headers, runtime)
+
+    def describe_user_cluster_namespaces_with_options(self, cluster_id, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='DescribeUserClusterNamespaces',
+            version='2015-12-15',
+            protocol='HTTPS',
+            pathname='/api/v2/k8s/%s/namespaces' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='array'
+        )
+        return TeaCore.from_map(
+            cs20151215_models.DescribeUserClusterNamespacesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_user_cluster_namespaces(self, cluster_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.describe_user_cluster_namespaces_with_options(cluster_id, headers, runtime)
 
     def describe_user_permission_with_options(self, uid, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -2072,10 +2398,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_user_quota(self):
+    def describe_user_permission(self, uid):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_user_quota_with_options(headers, runtime)
+        return self.describe_user_permission_with_options(uid, headers, runtime)
 
     def describe_user_quota_with_options(self, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -2097,10 +2423,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_workflows(self):
+    def describe_user_quota(self):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_workflows_with_options(headers, runtime)
+        return self.describe_user_quota_with_options(headers, runtime)
 
     def describe_workflows_with_options(self, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -2122,10 +2448,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def edge_cluster_add_edge_machine(self, clusterid, edge_machineid, request):
+    def describe_workflows(self):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.edge_cluster_add_edge_machine_with_options(clusterid, edge_machineid, request, headers, runtime)
+        return self.describe_workflows_with_options(headers, runtime)
 
     def edge_cluster_add_edge_machine_with_options(self, clusterid, edge_machineid, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2156,10 +2482,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def fix_node_pool_vuls(self, cluster_id, nodepool_id, request):
+    def edge_cluster_add_edge_machine(self, clusterid, edge_machineid, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.fix_node_pool_vuls_with_options(cluster_id, nodepool_id, request, headers, runtime)
+        return self.edge_cluster_add_edge_machine_with_options(clusterid, edge_machineid, request, headers, runtime)
 
     def fix_node_pool_vuls_with_options(self, cluster_id, nodepool_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2168,8 +2494,8 @@ class Client(OpenApiClient):
             body['nodes'] = request.nodes
         if not UtilClient.is_unset(request.rollout_policy):
             body['rollout_policy'] = request.rollout_policy
-        if not UtilClient.is_unset(request.vul_list):
-            body['vul_list'] = request.vul_list
+        if not UtilClient.is_unset(request.vuls):
+            body['vuls'] = request.vuls
         req = open_api_models.OpenApiRequest(
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
@@ -2190,10 +2516,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_kubernetes_trigger(self, cluster_id, request):
+    def fix_node_pool_vuls(self, cluster_id, nodepool_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_kubernetes_trigger_with_options(cluster_id, request, headers, runtime)
+        return self.fix_node_pool_vuls_with_options(cluster_id, nodepool_id, request, headers, runtime)
 
     def get_kubernetes_trigger_with_options(self, cluster_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2226,10 +2552,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_upgrade_status(self, cluster_id):
+    def get_kubernetes_trigger(self, cluster_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_upgrade_status_with_options(cluster_id, headers, runtime)
+        return self.get_kubernetes_trigger_with_options(cluster_id, request, headers, runtime)
 
     def get_upgrade_status_with_options(self, cluster_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -2251,12 +2577,29 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def grant_permissions(self, uid, request):
+    def get_upgrade_status(self, cluster_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.grant_permissions_with_options(uid, request, headers, runtime)
+        return self.get_upgrade_status_with_options(cluster_id, headers, runtime)
 
     def grant_permissions_with_options(self, uid, request, headers, runtime):
+        """
+        *Precautions**:
+        *   Make sure that you have granted the specified RAM user at least read permissions on the specified cluster by attaching RAM policies. Otherwise, the `ErrorRamPolicyConfig` error will be returned.
+        For more information about how to authorize a RAM user by attaching RAM policies, see [Create a custom RAM policy](~~86485~~).
+        *   If you call this operation as a RAM user, make sure that this RAM user has the permissions to grant other RAM users the permissions to manage ACK clusters. Otherwise, the `StatusForbidden` or `ForbiddenGrantPermissions` errors will be returned. For more information, see [Use a RAM user to grant RBAC permissions to other RAM users](~~119035~~).
+        *   This operation overwrites the permissions that have been granted to the specified RAM user. When you call this operation, make sure that the required permissions are included.
+        
+
+        @param request: GrantPermissionsRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GrantPermissionsResponse
+        """
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             headers=headers,
@@ -2278,10 +2621,22 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def install_cluster_addons(self, cluster_id, request):
+    def grant_permissions(self, uid, request):
+        """
+        *Precautions**:
+        *   Make sure that you have granted the specified RAM user at least read permissions on the specified cluster by attaching RAM policies. Otherwise, the `ErrorRamPolicyConfig` error will be returned.
+        For more information about how to authorize a RAM user by attaching RAM policies, see [Create a custom RAM policy](~~86485~~).
+        *   If you call this operation as a RAM user, make sure that this RAM user has the permissions to grant other RAM users the permissions to manage ACK clusters. Otherwise, the `StatusForbidden` or `ForbiddenGrantPermissions` errors will be returned. For more information, see [Use a RAM user to grant RBAC permissions to other RAM users](~~119035~~).
+        *   This operation overwrites the permissions that have been granted to the specified RAM user. When you call this operation, make sure that the required permissions are included.
+        
+
+        @param request: GrantPermissionsRequest
+
+        @return: GrantPermissionsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.install_cluster_addons_with_options(cluster_id, request, headers, runtime)
+        return self.grant_permissions_with_options(uid, request, headers, runtime)
 
     def install_cluster_addons_with_options(self, cluster_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2305,10 +2660,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_tag_resources(self, request):
+    def install_cluster_addons(self, cluster_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_tag_resources_with_options(request, headers, runtime)
+        return self.install_cluster_addons_with_options(cluster_id, request, headers, runtime)
 
     def list_tag_resources_with_options(self, tmp_req, headers, runtime):
         UtilClient.validate_model(tmp_req)
@@ -2349,10 +2704,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def migrate_cluster(self, cluster_id, request):
+    def list_tag_resources(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.migrate_cluster_with_options(cluster_id, request, headers, runtime)
+        return self.list_tag_resources_with_options(request, headers, runtime)
 
     def migrate_cluster_with_options(self, cluster_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2381,10 +2736,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def modify_cluster(self, cluster_id, request):
+    def migrate_cluster(self, cluster_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.modify_cluster_with_options(cluster_id, request, headers, runtime)
+        return self.migrate_cluster_with_options(cluster_id, request, headers, runtime)
 
     def modify_cluster_with_options(self, cluster_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2427,12 +2782,28 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def modify_cluster_addon(self, cluster_id, component_id, request):
+    def modify_cluster(self, cluster_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.modify_cluster_addon_with_options(cluster_id, component_id, request, headers, runtime)
+        return self.modify_cluster_with_options(cluster_id, request, headers, runtime)
 
     def modify_cluster_addon_with_options(self, cluster_id, component_id, request, headers, runtime):
+        """
+        You can use this API operation to modify the components in a Container Service for Kubernetes (ACK) cluster or the control plane components in an ACK Pro cluster.
+        *   To query the customizable parameters of a component, call the `DescribeClusterAddonMetadata` API operation. For more information, see [Query the metadata of a specified component version](https://www.alibabacloud.com/help/zh/container-service-for-kubernetes/latest/query).
+        *   For more information about the customizable parameters of control plane components in ACK Pro clusters, see [Customize the parameters of control plane components in ACK Pro clusters](https://www.alibabacloud.com/help/zh/container-service-for-kubernetes/latest/customize-control-plane-parameters-for-a-professional-kubernetes-cluster).
+        After you call this operation, the component may be redeployed and restarted. We recommend that you evaluate the impact before you call this operation.
+        
+
+        @param request: ModifyClusterAddonRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyClusterAddonResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.config):
@@ -2457,10 +2828,21 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def modify_cluster_configuration(self, cluster_id, request):
+    def modify_cluster_addon(self, cluster_id, component_id, request):
+        """
+        You can use this API operation to modify the components in a Container Service for Kubernetes (ACK) cluster or the control plane components in an ACK Pro cluster.
+        *   To query the customizable parameters of a component, call the `DescribeClusterAddonMetadata` API operation. For more information, see [Query the metadata of a specified component version](https://www.alibabacloud.com/help/zh/container-service-for-kubernetes/latest/query).
+        *   For more information about the customizable parameters of control plane components in ACK Pro clusters, see [Customize the parameters of control plane components in ACK Pro clusters](https://www.alibabacloud.com/help/zh/container-service-for-kubernetes/latest/customize-control-plane-parameters-for-a-professional-kubernetes-cluster).
+        After you call this operation, the component may be redeployed and restarted. We recommend that you evaluate the impact before you call this operation.
+        
+
+        @param request: ModifyClusterAddonRequest
+
+        @return: ModifyClusterAddonResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.modify_cluster_configuration_with_options(cluster_id, request, headers, runtime)
+        return self.modify_cluster_addon_with_options(cluster_id, component_id, request, headers, runtime)
 
     def modify_cluster_configuration_with_options(self, cluster_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2487,10 +2869,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def modify_cluster_node_pool(self, cluster_id, nodepool_id, request):
+    def modify_cluster_configuration(self, cluster_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.modify_cluster_node_pool_with_options(cluster_id, nodepool_id, request, headers, runtime)
+        return self.modify_cluster_configuration_with_options(cluster_id, request, headers, runtime)
 
     def modify_cluster_node_pool_with_options(self, cluster_id, nodepool_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2529,10 +2911,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def modify_cluster_tags(self, cluster_id, request):
+    def modify_cluster_node_pool(self, cluster_id, nodepool_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.modify_cluster_tags_with_options(cluster_id, request, headers, runtime)
+        return self.modify_cluster_node_pool_with_options(cluster_id, nodepool_id, request, headers, runtime)
 
     def modify_cluster_tags_with_options(self, cluster_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2556,10 +2938,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def modify_node_pool_node_config(self, cluster_id, nodepool_id, request):
+    def modify_cluster_tags(self, cluster_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.modify_node_pool_node_config_with_options(cluster_id, nodepool_id, request, headers, runtime)
+        return self.modify_cluster_tags_with_options(cluster_id, request, headers, runtime)
 
     def modify_node_pool_node_config_with_options(self, cluster_id, nodepool_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2588,10 +2970,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def modify_policy_instance(self, cluster_id, policy_name, request):
+    def modify_node_pool_node_config(self, cluster_id, nodepool_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.modify_policy_instance_with_options(cluster_id, policy_name, request, headers, runtime)
+        return self.modify_node_pool_node_config_with_options(cluster_id, nodepool_id, request, headers, runtime)
 
     def modify_policy_instance_with_options(self, cluster_id, policy_name, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2624,12 +3006,25 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def open_ack_service(self, request):
+    def modify_policy_instance(self, cluster_id, policy_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.open_ack_service_with_options(request, headers, runtime)
+        return self.modify_policy_instance_with_options(cluster_id, policy_name, request, headers, runtime)
 
     def open_ack_service_with_options(self, request, headers, runtime):
+        """
+        You can activate ACK with Alibaba Cloud accounts or RAM users that have the authority of AdministratorAccess.
+        
+
+        @param request: OpenAckServiceRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: OpenAckServiceResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.type):
@@ -2654,10 +3049,18 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def pause_cluster_upgrade(self, cluster_id):
+    def open_ack_service(self, request):
+        """
+        You can activate ACK with Alibaba Cloud accounts or RAM users that have the authority of AdministratorAccess.
+        
+
+        @param request: OpenAckServiceRequest
+
+        @return: OpenAckServiceResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.pause_cluster_upgrade_with_options(cluster_id, headers, runtime)
+        return self.open_ack_service_with_options(request, headers, runtime)
 
     def pause_cluster_upgrade_with_options(self, cluster_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -2679,10 +3082,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def pause_component_upgrade(self, clusterid, componentid):
+    def pause_cluster_upgrade(self, cluster_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.pause_component_upgrade_with_options(clusterid, componentid, headers, runtime)
+        return self.pause_cluster_upgrade_with_options(cluster_id, headers, runtime)
 
     def pause_component_upgrade_with_options(self, clusterid, componentid, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -2704,10 +3107,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def pause_task(self, task_id):
+    def pause_component_upgrade(self, clusterid, componentid):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.pause_task_with_options(task_id, headers, runtime)
+        return self.pause_component_upgrade_with_options(clusterid, componentid, headers, runtime)
 
     def pause_task_with_options(self, task_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -2729,12 +3132,26 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def remove_cluster_nodes(self, cluster_id, request):
+    def pause_task(self, task_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.remove_cluster_nodes_with_options(cluster_id, request, headers, runtime)
+        return self.pause_task_with_options(task_id, headers, runtime)
 
     def remove_cluster_nodes_with_options(self, cluster_id, request, headers, runtime):
+        """
+        @deprecated
+        
+
+        @param request: RemoveClusterNodesRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RemoveClusterNodesResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.drain_node):
@@ -2763,20 +3180,50 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def remove_node_pool_nodes(self, cluster_id, nodepool_id, request):
+    def remove_cluster_nodes(self, cluster_id, request):
+        """
+        @deprecated
+        
+
+        @param request: RemoveClusterNodesRequest
+
+        @return: RemoveClusterNodesResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.remove_node_pool_nodes_with_options(cluster_id, nodepool_id, request, headers, runtime)
+        return self.remove_cluster_nodes_with_options(cluster_id, request, headers, runtime)
 
     def remove_node_pool_nodes_with_options(self, cluster_id, nodepool_id, tmp_req, headers, runtime):
+        """
+        >
+        *   When you remove a node, the pods that run on the node are migrated to other nodes. This may cause service interruptions. We recommend that you remove nodes during off-peak hours.
+        *   Unknown errors may occur when you remove nodes. Before you remove nodes, back up the data on the nodes.
+        *   Nodes remain in the Unschedulable state when they are being removed.
+        *   You can remove only worker nodes. You cannot remove control planes.
+        
+
+        @param tmp_req: RemoveNodePoolNodesRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RemoveNodePoolNodesResponse
+        """
         UtilClient.validate_model(tmp_req)
         request = cs20151215_models.RemoveNodePoolNodesShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.instance_ids):
+            request.instance_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.instance_ids, 'instance_ids', 'json')
         if not UtilClient.is_unset(tmp_req.nodes):
             request.nodes_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.nodes, 'nodes', 'json')
         query = {}
         if not UtilClient.is_unset(request.drain_node):
             query['drain_node'] = request.drain_node
+        if not UtilClient.is_unset(request.instance_ids_shrink):
+            query['instance_ids'] = request.instance_ids_shrink
         if not UtilClient.is_unset(request.nodes_shrink):
             query['nodes'] = request.nodes_shrink
         if not UtilClient.is_unset(request.release_node):
@@ -2801,10 +3248,22 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def remove_workflow(self, workflow_name):
+    def remove_node_pool_nodes(self, cluster_id, nodepool_id, request):
+        """
+        >
+        *   When you remove a node, the pods that run on the node are migrated to other nodes. This may cause service interruptions. We recommend that you remove nodes during off-peak hours.
+        *   Unknown errors may occur when you remove nodes. Before you remove nodes, back up the data on the nodes.
+        *   Nodes remain in the Unschedulable state when they are being removed.
+        *   You can remove only worker nodes. You cannot remove control planes.
+        
+
+        @param request: RemoveNodePoolNodesRequest
+
+        @return: RemoveNodePoolNodesResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.remove_workflow_with_options(workflow_name, headers, runtime)
+        return self.remove_node_pool_nodes_with_options(cluster_id, nodepool_id, request, headers, runtime)
 
     def remove_workflow_with_options(self, workflow_name, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -2826,10 +3285,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def repair_cluster_node_pool(self, cluster_id, nodepool_id, request):
+    def remove_workflow(self, workflow_name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.repair_cluster_node_pool_with_options(cluster_id, nodepool_id, request, headers, runtime)
+        return self.remove_workflow_with_options(workflow_name, headers, runtime)
 
     def repair_cluster_node_pool_with_options(self, cluster_id, nodepool_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2856,10 +3315,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def resume_component_upgrade(self, clusterid, componentid):
+    def repair_cluster_node_pool(self, cluster_id, nodepool_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.resume_component_upgrade_with_options(clusterid, componentid, headers, runtime)
+        return self.repair_cluster_node_pool_with_options(cluster_id, nodepool_id, request, headers, runtime)
 
     def resume_component_upgrade_with_options(self, clusterid, componentid, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -2881,10 +3340,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def resume_task(self, task_id):
+    def resume_component_upgrade(self, clusterid, componentid):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.resume_task_with_options(task_id, headers, runtime)
+        return self.resume_component_upgrade_with_options(clusterid, componentid, headers, runtime)
 
     def resume_task_with_options(self, task_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -2906,10 +3365,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def resume_upgrade_cluster(self, cluster_id):
+    def resume_task(self, task_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.resume_upgrade_cluster_with_options(cluster_id, headers, runtime)
+        return self.resume_task_with_options(task_id, headers, runtime)
 
     def resume_upgrade_cluster_with_options(self, cluster_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -2931,12 +3390,26 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def scale_cluster(self, cluster_id, request):
+    def resume_upgrade_cluster(self, cluster_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.scale_cluster_with_options(cluster_id, request, headers, runtime)
+        return self.resume_upgrade_cluster_with_options(cluster_id, headers, runtime)
 
     def scale_cluster_with_options(self, cluster_id, request, headers, runtime):
+        """
+        @deprecated
+        
+
+        @param request: ScaleClusterRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ScaleClusterResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.cloud_monitor_flags):
@@ -2997,10 +3470,19 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def scale_cluster_node_pool(self, cluster_id, nodepool_id, request):
+    def scale_cluster(self, cluster_id, request):
+        """
+        @deprecated
+        
+
+        @param request: ScaleClusterRequest
+
+        @return: ScaleClusterResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.scale_cluster_node_pool_with_options(cluster_id, nodepool_id, request, headers, runtime)
+        return self.scale_cluster_with_options(cluster_id, request, headers, runtime)
 
     def scale_cluster_node_pool_with_options(self, cluster_id, nodepool_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3027,12 +3509,25 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def scale_out_cluster(self, cluster_id, request):
+    def scale_cluster_node_pool(self, cluster_id, nodepool_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.scale_out_cluster_with_options(cluster_id, request, headers, runtime)
+        return self.scale_cluster_node_pool_with_options(cluster_id, nodepool_id, request, headers, runtime)
 
     def scale_out_cluster_with_options(self, cluster_id, request, headers, runtime):
+        """
+        >  The ScaleOutCluster API operation is phased out. You must call the node pool-related API operations to manage nodes. If you want to add worker nodes to an ACK cluster, call the ScaleClusterNodePool API operation. For more information, see [ScaleClusterNodePool](~~184928~~).
+        
+
+        @param request: ScaleOutClusterRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ScaleOutClusterResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.cloud_monitor_flags):
@@ -3097,10 +3592,68 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def start_workflow(self, request):
+    def scale_out_cluster(self, cluster_id, request):
+        """
+        >  The ScaleOutCluster API operation is phased out. You must call the node pool-related API operations to manage nodes. If you want to add worker nodes to an ACK cluster, call the ScaleClusterNodePool API operation. For more information, see [ScaleClusterNodePool](~~184928~~).
+        
+
+        @param request: ScaleOutClusterRequest
+
+        @return: ScaleOutClusterResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.start_workflow_with_options(request, headers, runtime)
+        return self.scale_out_cluster_with_options(cluster_id, request, headers, runtime)
+
+    def scan_cluster_vuls_with_options(self, cluster_id, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='ScanClusterVuls',
+            version='2015-12-15',
+            protocol='HTTPS',
+            pathname='/clusters/%s/vuls/scan' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cs20151215_models.ScanClusterVulsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def scan_cluster_vuls(self, cluster_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.scan_cluster_vuls_with_options(cluster_id, headers, runtime)
+
+    def start_alert_with_options(self, cluster_id, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='StartAlert',
+            version='2015-12-15',
+            protocol='HTTPS',
+            pathname='/alert/%s/alert_rule/start' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cs20151215_models.StartAlertResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def start_alert(self, cluster_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.start_alert_with_options(cluster_id, headers, runtime)
 
     def start_workflow_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3163,10 +3716,60 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def tag_resources(self, request):
+    def start_workflow(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.tag_resources_with_options(request, headers, runtime)
+        return self.start_workflow_with_options(request, headers, runtime)
+
+    def stop_alert_with_options(self, cluster_id, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='StopAlert',
+            version='2015-12-15',
+            protocol='HTTPS',
+            pathname='/alert/%s/alert_rule/stop' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cs20151215_models.StopAlertResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def stop_alert(self, cluster_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.stop_alert_with_options(cluster_id, headers, runtime)
+
+    def sync_cluster_node_pool_with_options(self, cluster_id, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='SyncClusterNodePool',
+            version='2015-12-15',
+            protocol='HTTPS',
+            pathname='/clusters/%s/sync_nodepools' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cs20151215_models.SyncClusterNodePoolResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def sync_cluster_node_pool(self, cluster_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.sync_cluster_node_pool_with_options(cluster_id, headers, runtime)
 
     def tag_resources_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3199,10 +3802,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def un_install_cluster_addons(self, cluster_id, request):
+    def tag_resources(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.un_install_cluster_addons_with_options(cluster_id, request, headers, runtime)
+        return self.tag_resources_with_options(request, headers, runtime)
 
     def un_install_cluster_addons_with_options(self, cluster_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3226,24 +3829,30 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def untag_resources(self, request):
+    def un_install_cluster_addons(self, cluster_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.untag_resources_with_options(request, headers, runtime)
+        return self.un_install_cluster_addons_with_options(cluster_id, request, headers, runtime)
 
-    def untag_resources_with_options(self, request, headers, runtime):
-        UtilClient.validate_model(request)
+    def untag_resources_with_options(self, tmp_req, headers, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = cs20151215_models.UntagResourcesShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.resource_ids):
+            request.resource_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.resource_ids, 'resource_ids', 'json')
+        if not UtilClient.is_unset(tmp_req.tag_keys):
+            request.tag_keys_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.tag_keys, 'tag_keys', 'json')
         query = {}
         if not UtilClient.is_unset(request.all):
             query['all'] = request.all
         if not UtilClient.is_unset(request.region_id):
             query['region_id'] = request.region_id
-        if not UtilClient.is_unset(request.resource_ids):
-            query['resource_ids'] = request.resource_ids
+        if not UtilClient.is_unset(request.resource_ids_shrink):
+            query['resource_ids'] = request.resource_ids_shrink
         if not UtilClient.is_unset(request.resource_type):
             query['resource_type'] = request.resource_type
-        if not UtilClient.is_unset(request.tag_keys):
-            query['tag_keys'] = request.tag_keys
+        if not UtilClient.is_unset(request.tag_keys_shrink):
+            query['tag_keys'] = request.tag_keys_shrink
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)
@@ -3264,10 +3873,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_contact_group_for_alert(self, cluster_id):
+    def untag_resources(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_contact_group_for_alert_with_options(cluster_id, headers, runtime)
+        return self.untag_resources_with_options(request, headers, runtime)
 
     def update_contact_group_for_alert_with_options(self, cluster_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -3289,12 +3898,63 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_k8s_cluster_user_config_expire(self, cluster_id, request):
+    def update_contact_group_for_alert(self, cluster_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_k8s_cluster_user_config_expire_with_options(cluster_id, request, headers, runtime)
+        return self.update_contact_group_for_alert_with_options(cluster_id, headers, runtime)
+
+    def update_control_plane_log_with_options(self, cluster_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.aliuid):
+            body['aliuid'] = request.aliuid
+        if not UtilClient.is_unset(request.components):
+            body['components'] = request.components
+        if not UtilClient.is_unset(request.log_project):
+            body['log_project'] = request.log_project
+        if not UtilClient.is_unset(request.log_ttl):
+            body['log_ttl'] = request.log_ttl
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateControlPlaneLog',
+            version='2015-12-15',
+            protocol='HTTPS',
+            pathname='/clusters/%s/controlplanelog' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(cluster_id)),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            cs20151215_models.UpdateControlPlaneLogResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_control_plane_log(self, cluster_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_control_plane_log_with_options(cluster_id, request, headers, runtime)
 
     def update_k8s_cluster_user_config_expire_with_options(self, cluster_id, request, headers, runtime):
+        """
+        >
+        *   You can call this operation only with an Alibaba Cloud account.
+        *   After you revoke the kubeconfig file of a cluster, the validity period of the kubeconfig file that you specified becomes invalid. You can call this API operation to specify the validity period again.
+        
+
+        @param request: UpdateK8sClusterUserConfigExpireRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateK8sClusterUserConfigExpireResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.expire_hour):
@@ -3321,10 +3981,20 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_template(self, template_id, request):
+    def update_k8s_cluster_user_config_expire(self, cluster_id, request):
+        """
+        >
+        *   You can call this operation only with an Alibaba Cloud account.
+        *   After you revoke the kubeconfig file of a cluster, the validity period of the kubeconfig file that you specified becomes invalid. You can call this API operation to specify the validity period again.
+        
+
+        @param request: UpdateK8sClusterUserConfigExpireRequest
+
+        @return: UpdateK8sClusterUserConfigExpireResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_template_with_options(template_id, request, headers, runtime)
+        return self.update_k8s_cluster_user_config_expire_with_options(cluster_id, request, headers, runtime)
 
     def update_template_with_options(self, template_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3359,16 +4029,18 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def upgrade_cluster(self, cluster_id, request):
+    def update_template(self, template_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.upgrade_cluster_with_options(cluster_id, request, headers, runtime)
+        return self.update_template_with_options(template_id, request, headers, runtime)
 
     def upgrade_cluster_with_options(self, cluster_id, request, headers, runtime):
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.component_name):
             body['component_name'] = request.component_name
+        if not UtilClient.is_unset(request.master_only):
+            body['master_only'] = request.master_only
         if not UtilClient.is_unset(request.next_version):
             body['next_version'] = request.next_version
         if not UtilClient.is_unset(request.version):
@@ -3393,10 +4065,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def upgrade_cluster_addons(self, cluster_id, request):
+    def upgrade_cluster(self, cluster_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.upgrade_cluster_addons_with_options(cluster_id, request, headers, runtime)
+        return self.upgrade_cluster_with_options(cluster_id, request, headers, runtime)
 
     def upgrade_cluster_addons_with_options(self, cluster_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3420,18 +4092,33 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def upgrade_cluster_nodepool(self, cluster_id, nodepool_id, request):
+    def upgrade_cluster_addons(self, cluster_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.upgrade_cluster_nodepool_with_options(cluster_id, nodepool_id, request, headers, runtime)
+        return self.upgrade_cluster_addons_with_options(cluster_id, request, headers, runtime)
 
     def upgrade_cluster_nodepool_with_options(self, cluster_id, nodepool_id, request, headers, runtime):
+        """
+        You can call the UpgradeClusterNodepool operation to update the Kubernetes version, OS version, or container runtime version of the nodes in a node pool.
+        
+
+        @param request: UpgradeClusterNodepoolRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpgradeClusterNodepoolResponse
+        """
         UtilClient.validate_model(request)
         body = {}
         if not UtilClient.is_unset(request.image_id):
             body['image_id'] = request.image_id
         if not UtilClient.is_unset(request.kubernetes_version):
             body['kubernetes_version'] = request.kubernetes_version
+        if not UtilClient.is_unset(request.runtime_type):
+            body['runtime_type'] = request.runtime_type
         if not UtilClient.is_unset(request.runtime_version):
             body['runtime_version'] = request.runtime_version
         req = open_api_models.OpenApiRequest(
@@ -3453,3 +4140,16 @@ class Client(OpenApiClient):
             cs20151215_models.UpgradeClusterNodepoolResponse(),
             self.call_api(params, req, runtime)
         )
+
+    def upgrade_cluster_nodepool(self, cluster_id, nodepool_id, request):
+        """
+        You can call the UpgradeClusterNodepool operation to update the Kubernetes version, OS version, or container runtime version of the nodes in a node pool.
+        
+
+        @param request: UpgradeClusterNodepoolRequest
+
+        @return: UpgradeClusterNodepoolResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.upgrade_cluster_nodepool_with_options(cluster_id, nodepool_id, request, headers, runtime)
