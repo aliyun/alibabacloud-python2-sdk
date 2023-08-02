@@ -5891,7 +5891,8 @@ class DescribeDBInstanceIndexUsageResponse(TeaModel):
 
 
 class DescribeDBInstanceNetInfoRequest(TeaModel):
-    def __init__(self, dbinstance_id=None):
+    def __init__(self, connection_string=None, dbinstance_id=None):
+        self.connection_string = connection_string  # type: str
         # The ID of the instance.
         # 
         # >  You can call the [DescribeDBInstances](~~86911~~) operation to query details about all AnalyticDB for PostgreSQL instances in a specific region, including instance IDs.
@@ -5906,12 +5907,16 @@ class DescribeDBInstanceNetInfoRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.connection_string is not None:
+            result['ConnectionString'] = self.connection_string
         if self.dbinstance_id is not None:
             result['DBInstanceId'] = self.dbinstance_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('ConnectionString') is not None:
+            self.connection_string = m.get('ConnectionString')
         if m.get('DBInstanceId') is not None:
             self.dbinstance_id = m.get('DBInstanceId')
         return self
@@ -13904,6 +13909,124 @@ class GrantCollectionResponse(TeaModel):
         return self
 
 
+class InitVectorDatabaseRequest(TeaModel):
+    def __init__(self, dbinstance_id=None, manager_account=None, manager_account_password=None, owner_id=None,
+                 region_id=None):
+        self.dbinstance_id = dbinstance_id  # type: str
+        self.manager_account = manager_account  # type: str
+        self.manager_account_password = manager_account_password  # type: str
+        self.owner_id = owner_id  # type: long
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(InitVectorDatabaseRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbinstance_id is not None:
+            result['DBInstanceId'] = self.dbinstance_id
+        if self.manager_account is not None:
+            result['ManagerAccount'] = self.manager_account
+        if self.manager_account_password is not None:
+            result['ManagerAccountPassword'] = self.manager_account_password
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBInstanceId') is not None:
+            self.dbinstance_id = m.get('DBInstanceId')
+        if m.get('ManagerAccount') is not None:
+            self.manager_account = m.get('ManagerAccount')
+        if m.get('ManagerAccountPassword') is not None:
+            self.manager_account_password = m.get('ManagerAccountPassword')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class InitVectorDatabaseResponseBody(TeaModel):
+    def __init__(self, message=None, request_id=None, status=None):
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.status = status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(InitVectorDatabaseResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class InitVectorDatabaseResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: InitVectorDatabaseResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(InitVectorDatabaseResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = InitVectorDatabaseResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListCollectionsRequest(TeaModel):
     def __init__(self, dbinstance_id=None, namespace=None, namespace_password=None, owner_id=None, region_id=None):
         self.dbinstance_id = dbinstance_id  # type: str
@@ -16198,9 +16321,10 @@ class QueryCollectionDataResponseBodyMatchesMatchValues(TeaModel):
 
 
 class QueryCollectionDataResponseBodyMatchesMatch(TeaModel):
-    def __init__(self, id=None, metadata=None, values=None):
+    def __init__(self, id=None, metadata=None, similarity=None, values=None):
         self.id = id  # type: str
         self.metadata = metadata  # type: dict[str, str]
+        self.similarity = similarity  # type: float
         self.values = values  # type: QueryCollectionDataResponseBodyMatchesMatchValues
 
     def validate(self):
@@ -16217,6 +16341,8 @@ class QueryCollectionDataResponseBodyMatchesMatch(TeaModel):
             result['Id'] = self.id
         if self.metadata is not None:
             result['Metadata'] = self.metadata
+        if self.similarity is not None:
+            result['Similarity'] = self.similarity
         if self.values is not None:
             result['Values'] = self.values.to_map()
         return result
@@ -16227,6 +16353,8 @@ class QueryCollectionDataResponseBodyMatchesMatch(TeaModel):
             self.id = m.get('Id')
         if m.get('Metadata') is not None:
             self.metadata = m.get('Metadata')
+        if m.get('Similarity') is not None:
+            self.similarity = m.get('Similarity')
         if m.get('Values') is not None:
             temp_model = QueryCollectionDataResponseBodyMatchesMatchValues()
             self.values = temp_model.from_map(m['Values'])
@@ -16266,8 +16394,9 @@ class QueryCollectionDataResponseBodyMatches(TeaModel):
 
 
 class QueryCollectionDataResponseBody(TeaModel):
-    def __init__(self, matches=None, request_id=None, status=None):
+    def __init__(self, matches=None, message=None, request_id=None, status=None):
         self.matches = matches  # type: QueryCollectionDataResponseBodyMatches
+        self.message = message  # type: str
         self.request_id = request_id  # type: str
         self.status = status  # type: str
 
@@ -16283,6 +16412,8 @@ class QueryCollectionDataResponseBody(TeaModel):
         result = dict()
         if self.matches is not None:
             result['Matches'] = self.matches.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         if self.status is not None:
@@ -16294,6 +16425,8 @@ class QueryCollectionDataResponseBody(TeaModel):
         if m.get('Matches') is not None:
             temp_model = QueryCollectionDataResponseBodyMatches()
             self.matches = temp_model.from_map(m['Matches'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         if m.get('Status') is not None:
