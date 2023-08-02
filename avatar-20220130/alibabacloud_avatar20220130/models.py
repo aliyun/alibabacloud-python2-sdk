@@ -1063,8 +1063,9 @@ class GetVideoTaskInfoShrinkRequest(TeaModel):
 
 
 class GetVideoTaskInfoResponseBodyDataTaskResult(TeaModel):
-    def __init__(self, fail_code=None, fail_reason=None, subtitles_url=None, video_duration=None, video_url=None,
-                 word_subtitles_url=None):
+    def __init__(self, alpha_url=None, fail_code=None, fail_reason=None, subtitles_url=None, video_duration=None,
+                 video_url=None, word_subtitles_url=None):
+        self.alpha_url = alpha_url  # type: str
         self.fail_code = fail_code  # type: str
         self.fail_reason = fail_reason  # type: str
         self.subtitles_url = subtitles_url  # type: str
@@ -1082,6 +1083,8 @@ class GetVideoTaskInfoResponseBodyDataTaskResult(TeaModel):
             return _map
 
         result = dict()
+        if self.alpha_url is not None:
+            result['AlphaUrl'] = self.alpha_url
         if self.fail_code is not None:
             result['FailCode'] = self.fail_code
         if self.fail_reason is not None:
@@ -1098,6 +1101,8 @@ class GetVideoTaskInfoResponseBodyDataTaskResult(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AlphaUrl') is not None:
+            self.alpha_url = m.get('AlphaUrl')
         if m.get('FailCode') is not None:
             self.fail_code = m.get('FailCode')
         if m.get('FailReason') is not None:
@@ -4388,7 +4393,7 @@ class SubmitAudioTo2DAvatarVideoTaskResponseBody(TeaModel):
         self.data = data  # type: SubmitAudioTo2DAvatarVideoTaskResponseBodyData
         self.message = message  # type: str
         self.request_id = request_id  # type: str
-        self.success = success  # type: str
+        self.success = success  # type: bool
 
     def validate(self):
         if self.data:
@@ -4737,7 +4742,7 @@ class SubmitAudioTo3DAvatarVideoTaskResponseBody(TeaModel):
         self.data = data  # type: SubmitAudioTo3DAvatarVideoTaskResponseBodyData
         self.message = message  # type: str
         self.request_id = request_id  # type: str
-        self.success = success  # type: str
+        self.success = success  # type: bool
 
     def validate(self):
         if self.data:
@@ -4905,12 +4910,13 @@ class SubmitTextTo2DAvatarVideoTaskRequestAvatarInfo(TeaModel):
 
 class SubmitTextTo2DAvatarVideoTaskRequestVideoInfo(TeaModel):
     def __init__(self, alpha_format=None, background_image_url=None, is_alpha=None, is_subtitles=None,
-                 resolution=None):
+                 resolution=None, subtitle_embedded=None):
         self.alpha_format = alpha_format  # type: int
         self.background_image_url = background_image_url  # type: str
         self.is_alpha = is_alpha  # type: bool
         self.is_subtitles = is_subtitles  # type: bool
         self.resolution = resolution  # type: int
+        self.subtitle_embedded = subtitle_embedded  # type: bool
 
     def validate(self):
         pass
@@ -4931,6 +4937,8 @@ class SubmitTextTo2DAvatarVideoTaskRequestVideoInfo(TeaModel):
             result['IsSubtitles'] = self.is_subtitles
         if self.resolution is not None:
             result['Resolution'] = self.resolution
+        if self.subtitle_embedded is not None:
+            result['SubtitleEmbedded'] = self.subtitle_embedded
         return result
 
     def from_map(self, m=None):
@@ -4945,6 +4953,8 @@ class SubmitTextTo2DAvatarVideoTaskRequestVideoInfo(TeaModel):
             self.is_subtitles = m.get('IsSubtitles')
         if m.get('Resolution') is not None:
             self.resolution = m.get('Resolution')
+        if m.get('SubtitleEmbedded') is not None:
+            self.subtitle_embedded = m.get('SubtitleEmbedded')
         return self
 
 
@@ -5312,12 +5322,13 @@ class SubmitTextTo3DAvatarVideoTaskRequestAvatarInfo(TeaModel):
 
 class SubmitTextTo3DAvatarVideoTaskRequestVideoInfo(TeaModel):
     def __init__(self, alpha_format=None, background_image_url=None, is_alpha=None, is_subtitles=None,
-                 resolution=None):
+                 resolution=None, subtitle_embedded=None):
         self.alpha_format = alpha_format  # type: int
         self.background_image_url = background_image_url  # type: str
         self.is_alpha = is_alpha  # type: bool
         self.is_subtitles = is_subtitles  # type: bool
         self.resolution = resolution  # type: int
+        self.subtitle_embedded = subtitle_embedded  # type: bool
 
     def validate(self):
         pass
@@ -5338,6 +5349,8 @@ class SubmitTextTo3DAvatarVideoTaskRequestVideoInfo(TeaModel):
             result['IsSubtitles'] = self.is_subtitles
         if self.resolution is not None:
             result['Resolution'] = self.resolution
+        if self.subtitle_embedded is not None:
+            result['SubtitleEmbedded'] = self.subtitle_embedded
         return result
 
     def from_map(self, m=None):
@@ -5352,6 +5365,8 @@ class SubmitTextTo3DAvatarVideoTaskRequestVideoInfo(TeaModel):
             self.is_subtitles = m.get('IsSubtitles')
         if m.get('Resolution') is not None:
             self.resolution = m.get('Resolution')
+        if m.get('SubtitleEmbedded') is not None:
+            self.subtitle_embedded = m.get('SubtitleEmbedded')
         return self
 
 
