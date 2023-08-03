@@ -19580,6 +19580,181 @@ class DescribeDomainResponse(TeaModel):
         return self
 
 
+class DescribeGroupQpsRequest(TeaModel):
+    def __init__(self, end_time=None, group_id=None, security_token=None, stage_name=None, start_time=None):
+        self.end_time = end_time  # type: str
+        self.group_id = group_id  # type: str
+        self.security_token = security_token  # type: str
+        self.stage_name = stage_name  # type: str
+        self.start_time = start_time  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeGroupQpsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.group_id is not None:
+            result['GroupId'] = self.group_id
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
+        if self.stage_name is not None:
+            result['StageName'] = self.stage_name
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('GroupId') is not None:
+            self.group_id = m.get('GroupId')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
+        if m.get('StageName') is not None:
+            self.stage_name = m.get('StageName')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        return self
+
+
+class DescribeGroupQpsResponseBodyGroupQpsMonitorItem(TeaModel):
+    def __init__(self, item_time=None, item_value=None):
+        self.item_time = item_time  # type: str
+        self.item_value = item_value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeGroupQpsResponseBodyGroupQpsMonitorItem, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.item_time is not None:
+            result['ItemTime'] = self.item_time
+        if self.item_value is not None:
+            result['ItemValue'] = self.item_value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ItemTime') is not None:
+            self.item_time = m.get('ItemTime')
+        if m.get('ItemValue') is not None:
+            self.item_value = m.get('ItemValue')
+        return self
+
+
+class DescribeGroupQpsResponseBodyGroupQps(TeaModel):
+    def __init__(self, monitor_item=None):
+        self.monitor_item = monitor_item  # type: list[DescribeGroupQpsResponseBodyGroupQpsMonitorItem]
+
+    def validate(self):
+        if self.monitor_item:
+            for k in self.monitor_item:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeGroupQpsResponseBodyGroupQps, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['MonitorItem'] = []
+        if self.monitor_item is not None:
+            for k in self.monitor_item:
+                result['MonitorItem'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.monitor_item = []
+        if m.get('MonitorItem') is not None:
+            for k in m.get('MonitorItem'):
+                temp_model = DescribeGroupQpsResponseBodyGroupQpsMonitorItem()
+                self.monitor_item.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeGroupQpsResponseBody(TeaModel):
+    def __init__(self, group_qps=None, request_id=None):
+        self.group_qps = group_qps  # type: DescribeGroupQpsResponseBodyGroupQps
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.group_qps:
+            self.group_qps.validate()
+
+    def to_map(self):
+        _map = super(DescribeGroupQpsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.group_qps is not None:
+            result['GroupQps'] = self.group_qps.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('GroupQps') is not None:
+            temp_model = DescribeGroupQpsResponseBodyGroupQps()
+            self.group_qps = temp_model.from_map(m['GroupQps'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeGroupQpsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeGroupQpsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeGroupQpsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeGroupQpsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeHistoryApisRequest(TeaModel):
     def __init__(self, api_id=None, api_name=None, group_id=None, page_number=None, page_size=None,
                  security_token=None, stage_name=None):

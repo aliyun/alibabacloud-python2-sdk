@@ -3622,6 +3622,42 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_domain_with_options(request, runtime)
 
+    def describe_group_qps_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.security_token):
+            query['SecurityToken'] = request.security_token
+        if not UtilClient.is_unset(request.stage_name):
+            query['StageName'] = request.stage_name
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeGroupQps',
+            version='2016-07-14',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloud_api20160714_models.DescribeGroupQpsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_group_qps(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_group_qps_with_options(request, runtime)
+
     def describe_history_apis_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
