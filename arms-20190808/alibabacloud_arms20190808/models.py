@@ -11579,9 +11579,13 @@ class DeletePrometheusRemoteWriteResponse(TeaModel):
 
 class DeleteRetcodeAppRequest(TeaModel):
     def __init__(self, app_id=None, app_name=None, pid=None, region_id=None):
+        # The application ID.
         self.app_id = app_id  # type: str
+        # The name of the application.
         self.app_name = app_name  # type: str
+        # The process identifier (PID) of the application.
         self.pid = pid  # type: str
+        # The region ID.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -11618,10 +11622,25 @@ class DeleteRetcodeAppRequest(TeaModel):
 
 class DeleteRetcodeAppResponseBody(TeaModel):
     def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        # The status code. The status code 200 indicates that the request was successful. If another status code is returned, the request failed.
         self.code = code  # type: int
+        # Indicates whether the Browser Monitoring task was deleted. Valid values:
+        # 
+        # *   `true`
+        # *   `false`
         self.data = data  # type: str
+        # The message returned for the operation. Valid values:
+        # 
+        # *   **Success** is returned if the operation is successful.
+        # *   An error message is returned if the operation fails.
         self.message = message  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the request was successful. Valid values:
+        # 
+        # true: The request was successful.
+        # 
+        # false: The request failed.
         self.success = success  # type: bool
 
     def validate(self):
@@ -12135,10 +12154,130 @@ class DeleteSyntheticTaskResponse(TeaModel):
         return self
 
 
+class DeleteTraceAppRequestDeleteReasonReasonIds(TeaModel):
+    def __init__(self, id=None, name=None):
+        self.id = id  # type: int
+        self.name = name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteTraceAppRequestDeleteReasonReasonIds, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.name is not None:
+            result['Name'] = self.name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        return self
+
+
+class DeleteTraceAppRequestDeleteReason(TeaModel):
+    def __init__(self, reason_ids=None, remark=None):
+        self.reason_ids = reason_ids  # type: list[DeleteTraceAppRequestDeleteReasonReasonIds]
+        self.remark = remark  # type: str
+
+    def validate(self):
+        if self.reason_ids:
+            for k in self.reason_ids:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DeleteTraceAppRequestDeleteReason, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['ReasonIds'] = []
+        if self.reason_ids is not None:
+            for k in self.reason_ids:
+                result['ReasonIds'].append(k.to_map() if k else None)
+        if self.remark is not None:
+            result['Remark'] = self.remark
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.reason_ids = []
+        if m.get('ReasonIds') is not None:
+            for k in m.get('ReasonIds'):
+                temp_model = DeleteTraceAppRequestDeleteReasonReasonIds()
+                self.reason_ids.append(temp_model.from_map(k))
+        if m.get('Remark') is not None:
+            self.remark = m.get('Remark')
+        return self
+
+
 class DeleteTraceAppRequest(TeaModel):
-    def __init__(self, app_id=None, pid=None, region_id=None, type=None):
+    def __init__(self, app_id=None, delete_reason=None, pid=None, region_id=None, type=None):
         # The ID of the application that you want to delete. You can call the SearchTraceAppByName operation to query the application ID. For more information, see [SearchTraceAppByName](~~130676~~).
         self.app_id = app_id  # type: str
+        self.delete_reason = delete_reason  # type: DeleteTraceAppRequestDeleteReason
+        # The PID of the application that you want to delete. For more information about how to obtain the PID, see [Obtain the PID of an application](https://www.alibabacloud.com/help/zh/doc-detail/186100.htm?spm=a2cdw.13409063.0.0.7a72281f0bkTfx#title-imy-7gj-qhr).
+        self.pid = pid  # type: str
+        # The ID of the region.
+        self.region_id = region_id  # type: str
+        # The type of the application that you want to delete. You can call the SearchTraceAppByName operation to query the application type. For more information, see [SearchTraceAppByName](~~130676~~). Valid values:
+        # 
+        # *   `TRACE`: application monitoring
+        # *   `RETCODE`: frontend monitoring
+        self.type = type  # type: str
+
+    def validate(self):
+        if self.delete_reason:
+            self.delete_reason.validate()
+
+    def to_map(self):
+        _map = super(DeleteTraceAppRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_id is not None:
+            result['AppId'] = self.app_id
+        if self.delete_reason is not None:
+            result['DeleteReason'] = self.delete_reason.to_map()
+        if self.pid is not None:
+            result['Pid'] = self.pid
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.type is not None:
+            result['Type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppId') is not None:
+            self.app_id = m.get('AppId')
+        if m.get('DeleteReason') is not None:
+            temp_model = DeleteTraceAppRequestDeleteReason()
+            self.delete_reason = temp_model.from_map(m['DeleteReason'])
+        if m.get('Pid') is not None:
+            self.pid = m.get('Pid')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        return self
+
+
+class DeleteTraceAppShrinkRequest(TeaModel):
+    def __init__(self, app_id=None, delete_reason_shrink=None, pid=None, region_id=None, type=None):
+        # The ID of the application that you want to delete. You can call the SearchTraceAppByName operation to query the application ID. For more information, see [SearchTraceAppByName](~~130676~~).
+        self.app_id = app_id  # type: str
+        self.delete_reason_shrink = delete_reason_shrink  # type: str
         # The PID of the application that you want to delete. For more information about how to obtain the PID, see [Obtain the PID of an application](https://www.alibabacloud.com/help/zh/doc-detail/186100.htm?spm=a2cdw.13409063.0.0.7a72281f0bkTfx#title-imy-7gj-qhr).
         self.pid = pid  # type: str
         # The ID of the region.
@@ -12153,13 +12292,15 @@ class DeleteTraceAppRequest(TeaModel):
         pass
 
     def to_map(self):
-        _map = super(DeleteTraceAppRequest, self).to_map()
+        _map = super(DeleteTraceAppShrinkRequest, self).to_map()
         if _map is not None:
             return _map
 
         result = dict()
         if self.app_id is not None:
             result['AppId'] = self.app_id
+        if self.delete_reason_shrink is not None:
+            result['DeleteReason'] = self.delete_reason_shrink
         if self.pid is not None:
             result['Pid'] = self.pid
         if self.region_id is not None:
@@ -12172,6 +12313,8 @@ class DeleteTraceAppRequest(TeaModel):
         m = m or dict()
         if m.get('AppId') is not None:
             self.app_id = m.get('AppId')
+        if m.get('DeleteReason') is not None:
+            self.delete_reason_shrink = m.get('DeleteReason')
         if m.get('Pid') is not None:
             self.pid = m.get('Pid')
         if m.get('RegionId') is not None:
@@ -12182,11 +12325,14 @@ class DeleteTraceAppRequest(TeaModel):
 
 
 class DeleteTraceAppResponseBody(TeaModel):
-    def __init__(self, data=None, request_id=None):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        self.code = code  # type: long
         # The response in JSON format, including the HTTP status code, error code, response message, and trace ID.
         self.data = data  # type: str
+        self.message = message  # type: str
         # The ID of the request.
         self.request_id = request_id  # type: str
+        self.success = success  # type: bool
 
     def validate(self):
         pass
@@ -12197,18 +12343,30 @@ class DeleteTraceAppResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
         if self.data is not None:
             result['Data'] = self.data
+        if self.message is not None:
+            result['Message'] = self.message
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
         if m.get('Data') is not None:
             self.data = m.get('Data')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
         return self
 
 
@@ -13533,6 +13691,7 @@ class DescribeIMRobotsResponse(TeaModel):
 
 class DescribePrometheusAlertRuleRequest(TeaModel):
     def __init__(self, alert_id=None, cluster_id=None):
+        # The ID of the alert rule. You can call the ListPrometheusAlertRules operation to query the ID of the alert rule.
         self.alert_id = alert_id  # type: long
         self.cluster_id = cluster_id  # type: str
 
@@ -13562,7 +13721,9 @@ class DescribePrometheusAlertRuleRequest(TeaModel):
 
 class DescribePrometheusAlertRuleResponseBodyPrometheusAlertRuleAnnotations(TeaModel):
     def __init__(self, name=None, value=None):
+        # The name of the annotation.
         self.name = name  # type: str
+        # The value of the annotation.
         self.value = value  # type: str
 
     def validate(self):
@@ -13591,7 +13752,9 @@ class DescribePrometheusAlertRuleResponseBodyPrometheusAlertRuleAnnotations(TeaM
 
 class DescribePrometheusAlertRuleResponseBodyPrometheusAlertRuleLabels(TeaModel):
     def __init__(self, name=None, value=None):
+        # The name of the tag.
         self.name = name  # type: str
+        # The value of the tag.
         self.value = value  # type: str
 
     def validate(self):
@@ -13621,17 +13784,35 @@ class DescribePrometheusAlertRuleResponseBodyPrometheusAlertRuleLabels(TeaModel)
 class DescribePrometheusAlertRuleResponseBodyPrometheusAlertRule(TeaModel):
     def __init__(self, alert_id=None, alert_name=None, annotations=None, cluster_id=None, dispatch_rule_id=None,
                  duration=None, expression=None, labels=None, message=None, notify_type=None, status=None, type=None):
+        # The ID of the alert rule.
         self.alert_id = alert_id  # type: long
+        # The name of the alert rule.
         self.alert_name = alert_name  # type: str
+        # The annotations of the alert rule.
         self.annotations = annotations  # type: list[DescribePrometheusAlertRuleResponseBodyPrometheusAlertRuleAnnotations]
+        # The ID of the cluster.
         self.cluster_id = cluster_id  # type: str
+        # The ID of the notification policy. This parameter is returned if the **NotifyType** parameter is set to `DISPATCH_RULE`.
         self.dispatch_rule_id = dispatch_rule_id  # type: long
+        # The duration of the alert. Valid values: 1 to 1440. Unit: minutes.
         self.duration = duration  # type: str
+        # The expression of the alert rule.
         self.expression = expression  # type: str
+        # The tags of the alert rule.
         self.labels = labels  # type: list[DescribePrometheusAlertRuleResponseBodyPrometheusAlertRuleLabels]
+        # The alert message. Tags can be referenced in the {{$labels.xxx}} format.
         self.message = message  # type: str
+        # The method of that is used to send alert notifications. Valid values:
+        # 
+        # *   `ALERT_MANAGER`: Alert notifications are sent by Operation Center.
+        # *   `DISPATCH_RULE`: Alert notifications are sent based on the specified notification policy.
         self.notify_type = notify_type  # type: str
+        # Indicates whether the alert rule is enabled. Valid values:
+        # 
+        # *   `1`: The alert rule is enabled.
+        # *   `0`: The alert rule is disabled.
         self.status = status  # type: int
+        # The type of the alert rule.
         self.type = type  # type: str
 
     def validate(self):
@@ -13719,7 +13900,9 @@ class DescribePrometheusAlertRuleResponseBody(TeaModel):
     def __init__(self, code=None, message=None, prometheus_alert_rule=None, request_id=None, success=None):
         self.code = code  # type: long
         self.message = message  # type: str
+        # The returned struct.
         self.prometheus_alert_rule = prometheus_alert_rule  # type: DescribePrometheusAlertRuleResponseBodyPrometheusAlertRule
+        # The ID of the request.
         self.request_id = request_id  # type: str
         self.success = success  # type: bool
 
@@ -30291,9 +30474,12 @@ class SaveTraceAppConfigRequest(TeaModel):
 
 
 class SaveTraceAppConfigResponseBody(TeaModel):
-    def __init__(self, data=None, request_id=None):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        self.code = code  # type: long
         self.data = data  # type: str
+        self.message = message  # type: str
         self.request_id = request_id  # type: str
+        self.success = success  # type: bool
 
     def validate(self):
         pass
@@ -30304,18 +30490,30 @@ class SaveTraceAppConfigResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
         if self.data is not None:
             result['Data'] = self.data
+        if self.message is not None:
+            result['Message'] = self.message
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
         if m.get('Data') is not None:
             self.data = m.get('Data')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
         return self
 
 
@@ -36306,12 +36504,14 @@ class UpdatePrometheusAlertRuleResponse(TeaModel):
 
 
 class UpdatePrometheusGlobalViewRequest(TeaModel):
-    def __init__(self, all_sub_clusters_success=None, cluster_id=None, region_id=None, resource_group_id=None,
-                 sub_clusters_json=None):
+    def __init__(self, all_sub_clusters_success=None, cluster_id=None, group_name=None, most_region_id=None,
+                 region_id=None, resource_group_id=None, sub_clusters_json=None):
         # 创建GlobalView时，是否要求所有子实例都校验成功时，才创建GlobalView实例。默认是false，即可以部分成功。
         self.all_sub_clusters_success = all_sub_clusters_success  # type: bool
         # The ID of the Prometheus instance.
         self.cluster_id = cluster_id  # type: str
+        self.group_name = group_name  # type: str
+        self.most_region_id = most_region_id  # type: str
         # The region ID.
         self.region_id = region_id  # type: str
         # The ID of the resource group to which the Prometheus instance belongs.
@@ -36332,6 +36532,10 @@ class UpdatePrometheusGlobalViewRequest(TeaModel):
             result['AllSubClustersSuccess'] = self.all_sub_clusters_success
         if self.cluster_id is not None:
             result['ClusterId'] = self.cluster_id
+        if self.group_name is not None:
+            result['GroupName'] = self.group_name
+        if self.most_region_id is not None:
+            result['MostRegionId'] = self.most_region_id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         if self.resource_group_id is not None:
@@ -36346,6 +36550,10 @@ class UpdatePrometheusGlobalViewRequest(TeaModel):
             self.all_sub_clusters_success = m.get('AllSubClustersSuccess')
         if m.get('ClusterId') is not None:
             self.cluster_id = m.get('ClusterId')
+        if m.get('GroupName') is not None:
+            self.group_name = m.get('GroupName')
+        if m.get('MostRegionId') is not None:
+            self.most_region_id = m.get('MostRegionId')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         if m.get('ResourceGroupId') is not None:
