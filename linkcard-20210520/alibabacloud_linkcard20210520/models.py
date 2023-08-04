@@ -3836,9 +3836,9 @@ class ListCardInfoRequest(TeaModel):
     def __init__(self, active_time_end=None, active_time_start=None, ali_fee=None, aliyun_order_id=None,
                  apn_name=None, certify_type=None, credential_no=None, data_level=None, data_type=None,
                  directional_group_id=None, expire_time_end=None, expire_time_start=None, iccid=None, imsi=None, is_auto_recharge=None,
-                 max_flow=None, max_rest_flow_percentage=None, min_flow=None, msisdn=None, notify_id=None, os_status=None,
-                 page_no=None, page_size=None, period=None, pool_id=None, sim_type=None, status=None, tag_name=None,
-                 vendor=None):
+                 max_flow=None, max_rest_flow_percentage=None, min_flow=None, msisdn=None, network_type=None, notify_id=None,
+                 os_status=None, page_no=None, page_size=None, period=None, pool_id=None, sim_type=None, status=None,
+                 tag_name=None, vendor=None):
         self.active_time_end = active_time_end  # type: str
         self.active_time_start = active_time_start  # type: str
         self.ali_fee = ali_fee  # type: str
@@ -3858,6 +3858,7 @@ class ListCardInfoRequest(TeaModel):
         self.max_rest_flow_percentage = max_rest_flow_percentage  # type: float
         self.min_flow = min_flow  # type: str
         self.msisdn = msisdn  # type: str
+        self.network_type = network_type  # type: str
         self.notify_id = notify_id  # type: str
         self.os_status = os_status  # type: str
         self.page_no = page_no  # type: int
@@ -3916,6 +3917,8 @@ class ListCardInfoRequest(TeaModel):
             result['MinFlow'] = self.min_flow
         if self.msisdn is not None:
             result['Msisdn'] = self.msisdn
+        if self.network_type is not None:
+            result['NetworkType'] = self.network_type
         if self.notify_id is not None:
             result['NotifyId'] = self.notify_id
         if self.os_status is not None:
@@ -3978,6 +3981,8 @@ class ListCardInfoRequest(TeaModel):
             self.min_flow = m.get('MinFlow')
         if m.get('Msisdn') is not None:
             self.msisdn = m.get('Msisdn')
+        if m.get('NetworkType') is not None:
+            self.network_type = m.get('NetworkType')
         if m.get('NotifyId') is not None:
             self.notify_id = m.get('NotifyId')
         if m.get('OsStatus') is not None:
@@ -4033,10 +4038,11 @@ class ListCardInfoResponseBodyDataListTagList(TeaModel):
 class ListCardInfoResponseBodyDataList(TeaModel):
     def __init__(self, active_time=None, active_type=None, ali_fee=None, aliyun_order_id=None, apn_name=None,
                  certify_type=None, credential_instance_id=None, credential_no=None, credential_type=None, data_level=None,
-                 data_type=None, directional_group_id=None, directional_group_name=None, expire_time=None, iccid=None,
-                 imsi=None, is_auto_recharge=None, msisdn=None, notify_id=None, open_account_time=None, os_status=None,
-                 period=None, period_add_flow=None, period_rest_flow=None, period_sms_use=None,
-                 private_network_segment=None, remark=None, sim_type=None, status=None, tag_list=None, vendor=None, vsim_instance_id=None):
+                 data_type=None, directional_group_id=None, directional_group_name=None, expire_time=None,
+                 flow_latest_modified_time=None, iccid=None, imsi=None, is_auto_recharge=None, msisdn=None, network_type=None, notify_id=None,
+                 open_account_time=None, os_status=None, period=None, period_add_flow=None, period_rest_flow=None,
+                 period_sms_use=None, private_network_segment=None, remark=None, sim_type=None, status=None, tag_list=None,
+                 vendor=None, vsim_instance_id=None):
         self.active_time = active_time  # type: str
         self.active_type = active_type  # type: str
         self.ali_fee = ali_fee  # type: str
@@ -4051,10 +4057,12 @@ class ListCardInfoResponseBodyDataList(TeaModel):
         self.directional_group_id = directional_group_id  # type: long
         self.directional_group_name = directional_group_name  # type: str
         self.expire_time = expire_time  # type: str
+        self.flow_latest_modified_time = flow_latest_modified_time  # type: str
         self.iccid = iccid  # type: str
         self.imsi = imsi  # type: list[str]
         self.is_auto_recharge = is_auto_recharge  # type: bool
         self.msisdn = msisdn  # type: list[str]
+        self.network_type = network_type  # type: str
         self.notify_id = notify_id  # type: str
         self.open_account_time = open_account_time  # type: str
         self.os_status = os_status  # type: str
@@ -4110,6 +4118,8 @@ class ListCardInfoResponseBodyDataList(TeaModel):
             result['DirectionalGroupName'] = self.directional_group_name
         if self.expire_time is not None:
             result['ExpireTime'] = self.expire_time
+        if self.flow_latest_modified_time is not None:
+            result['FlowLatestModifiedTime'] = self.flow_latest_modified_time
         if self.iccid is not None:
             result['Iccid'] = self.iccid
         if self.imsi is not None:
@@ -4118,6 +4128,8 @@ class ListCardInfoResponseBodyDataList(TeaModel):
             result['IsAutoRecharge'] = self.is_auto_recharge
         if self.msisdn is not None:
             result['Msisdn'] = self.msisdn
+        if self.network_type is not None:
+            result['NetworkType'] = self.network_type
         if self.notify_id is not None:
             result['NotifyId'] = self.notify_id
         if self.open_account_time is not None:
@@ -4180,6 +4192,8 @@ class ListCardInfoResponseBodyDataList(TeaModel):
             self.directional_group_name = m.get('DirectionalGroupName')
         if m.get('ExpireTime') is not None:
             self.expire_time = m.get('ExpireTime')
+        if m.get('FlowLatestModifiedTime') is not None:
+            self.flow_latest_modified_time = m.get('FlowLatestModifiedTime')
         if m.get('Iccid') is not None:
             self.iccid = m.get('Iccid')
         if m.get('Imsi') is not None:
@@ -4188,6 +4202,8 @@ class ListCardInfoResponseBodyDataList(TeaModel):
             self.is_auto_recharge = m.get('IsAutoRecharge')
         if m.get('Msisdn') is not None:
             self.msisdn = m.get('Msisdn')
+        if m.get('NetworkType') is not None:
+            self.network_type = m.get('NetworkType')
         if m.get('NotifyId') is not None:
             self.notify_id = m.get('NotifyId')
         if m.get('OpenAccountTime') is not None:
@@ -4950,8 +4966,8 @@ class ListOrderResponseBodyDataListDeliveryInfo(TeaModel):
 class ListOrderResponseBodyDataList(TeaModel):
     def __init__(self, ali_fee=None, apn_name=None, apn_region=None, billing_cycle=None, buy_num=None,
                  card_pay_count=None, credential_no=None, credential_package=None, data_level=None, delivery_info=None,
-                 express_no_list=None, flow_type=None, function_fee=None, order_detail_url=None, order_id=None, order_info=None,
-                 order_status=None, order_type=None, pay_duration=None, pay_time=None, pool_capacity=None,
+                 express_no_list=None, flow_type=None, function_fee=None, network_type=None, order_detail_url=None, order_id=None,
+                 order_info=None, order_status=None, order_type=None, pay_duration=None, pay_time=None, pool_capacity=None,
                  pool_capacity_unit=None, pool_no=None, resource_quantity=None, vendor=None):
         self.ali_fee = ali_fee  # type: str
         self.apn_name = apn_name  # type: str
@@ -4966,6 +4982,7 @@ class ListOrderResponseBodyDataList(TeaModel):
         self.express_no_list = express_no_list  # type: list[str]
         self.flow_type = flow_type  # type: str
         self.function_fee = function_fee  # type: int
+        self.network_type = network_type  # type: str
         self.order_detail_url = order_detail_url  # type: str
         self.order_id = order_id  # type: str
         self.order_info = order_info  # type: str
@@ -5015,6 +5032,8 @@ class ListOrderResponseBodyDataList(TeaModel):
             result['FlowType'] = self.flow_type
         if self.function_fee is not None:
             result['FunctionFee'] = self.function_fee
+        if self.network_type is not None:
+            result['NetworkType'] = self.network_type
         if self.order_detail_url is not None:
             result['OrderDetailUrl'] = self.order_detail_url
         if self.order_id is not None:
@@ -5070,6 +5089,8 @@ class ListOrderResponseBodyDataList(TeaModel):
             self.flow_type = m.get('FlowType')
         if m.get('FunctionFee') is not None:
             self.function_fee = m.get('FunctionFee')
+        if m.get('NetworkType') is not None:
+            self.network_type = m.get('NetworkType')
         if m.get('OrderDetailUrl') is not None:
             self.order_detail_url = m.get('OrderDetailUrl')
         if m.get('OrderId') is not None:

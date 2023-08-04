@@ -666,6 +666,8 @@ class Client(OpenApiClient):
             query['MinFlow'] = request.min_flow
         if not UtilClient.is_unset(request.msisdn):
             query['Msisdn'] = request.msisdn
+        if not UtilClient.is_unset(request.network_type):
+            query['NetworkType'] = request.network_type
         if not UtilClient.is_unset(request.notify_id):
             query['NotifyId'] = request.notify_id
         if not UtilClient.is_unset(request.os_status):
