@@ -6117,13 +6117,22 @@ class CreateInterceptionRuleResponse(TeaModel):
 class CreateInterceptionTargetRequest(TeaModel):
     def __init__(self, app_name=None, cluster_id=None, cluster_name=None, image_list=None, namespace=None,
                  tag_list=None, target_name=None, target_type=None):
+        # The name of the application to which the network object belongs.
         self.app_name = app_name  # type: str
+        # The cluster ID.
         self.cluster_id = cluster_id  # type: str
+        # The cluster name.
         self.cluster_name = cluster_name  # type: str
+        # An array that consists of the images of the network object.
         self.image_list = image_list  # type: list[str]
+        # The namespace to which the network object belongs.
         self.namespace = namespace  # type: str
+        # An array that consists of the labels specified for the network object.
         self.tag_list = tag_list  # type: list[str]
+        # The object name.
         self.target_name = target_name  # type: str
+        # The object type. Valid value: 
+        # - **IMAGE**: specifies an image
         self.target_type = target_type  # type: str
 
     def validate(self):
@@ -6176,7 +6185,9 @@ class CreateInterceptionTargetRequest(TeaModel):
 
 class CreateInterceptionTargetResponseBody(TeaModel):
     def __init__(self, request_id=None, result=None):
+        # The request ID.
         self.request_id = request_id  # type: str
+        # The response parameters.
         self.result = result  # type: bool
 
     def validate(self):
@@ -9441,7 +9452,11 @@ class DeleteInstallCodeResponse(TeaModel):
 
 class DeleteInterceptionRuleRequest(TeaModel):
     def __init__(self, cluster_id=None, rule_ids=None):
+        # The ID of the cluster that you want to query.
+        # 
+        # > You can call the [DescribeGroupedContainerInstances](~~DescribeGroupedContainerInstances~~) operation to query the IDs of clusters.
         self.cluster_id = cluster_id  # type: str
+        # The IDs of the rules that you want to delete.
         self.rule_ids = rule_ids  # type: list[long]
 
     def validate(self):
@@ -9470,6 +9485,7 @@ class DeleteInterceptionRuleRequest(TeaModel):
 
 class DeleteInterceptionRuleResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -9533,6 +9549,7 @@ class DeleteInterceptionRuleResponse(TeaModel):
 
 class DeleteInterceptionTargetRequest(TeaModel):
     def __init__(self, target_ids=None):
+        # The IDs of the network objects that you want to remove. You can call the [ListInterceptionTargetPage](~~ListInterceptionTargetPage~~) operation to query the IDs of the network objects.
         self.target_ids = target_ids  # type: str
 
     def validate(self):
@@ -9557,7 +9574,12 @@ class DeleteInterceptionTargetRequest(TeaModel):
 
 class DeleteInterceptionTargetResponseBody(TeaModel):
     def __init__(self, request_id=None, result=None):
+        # The request ID.
         self.request_id = request_id  # type: str
+        # Indicates whether the network objects are removed. Valid values:
+        # 
+        # *   **true**: The network objects are removed.
+        # *   **false**: The network objects fail to be removed.
         self.result = result  # type: bool
 
     def validate(self):
@@ -18166,7 +18188,7 @@ class DescribeCheckWarningsRequest(TeaModel):
         # *   **hc.check.type.attack_defense**: intrusion prevention
         # *   **hc.check.type.others**: others
         self.check_type = check_type  # type: str
-        # The name of container.
+        # The name of the container.
         self.container_name = container_name  # type: str
         # The number of the page to return. Default value: **1**.
         self.current_page = current_page  # type: int
@@ -24114,7 +24136,7 @@ class DescribeEmgVulItemRequest(TeaModel):
 
 class DescribeEmgVulItemResponseBodyGroupedVulItems(TeaModel):
     def __init__(self, alias_name=None, check_type=None, gmt_last_check=None, gmt_publish=None, name=None,
-                 pending_count=None, progress=None, status=None, type=None):
+                 pending_count=None, progress=None, rasp_defend=None, status=None, type=None):
         # The name of the urgent vulnerability.
         self.alias_name = alias_name  # type: str
         # The check method.
@@ -24131,6 +24153,7 @@ class DescribeEmgVulItemResponseBodyGroupedVulItems(TeaModel):
         # 
         # > This parameter is returned only when an urgent vulnerability is being detected.
         self.progress = progress  # type: int
+        self.rasp_defend = rasp_defend  # type: int
         # The detection status of the urgent vulnerability. Valid values:
         # 
         # *   **10**: The urgent vulnerability is not detected.
@@ -24166,6 +24189,8 @@ class DescribeEmgVulItemResponseBodyGroupedVulItems(TeaModel):
             result['PendingCount'] = self.pending_count
         if self.progress is not None:
             result['Progress'] = self.progress
+        if self.rasp_defend is not None:
+            result['RaspDefend'] = self.rasp_defend
         if self.status is not None:
             result['Status'] = self.status
         if self.type is not None:
@@ -24188,6 +24213,8 @@ class DescribeEmgVulItemResponseBodyGroupedVulItems(TeaModel):
             self.pending_count = m.get('PendingCount')
         if m.get('Progress') is not None:
             self.progress = m.get('Progress')
+        if m.get('RaspDefend') is not None:
+            self.rasp_defend = m.get('RaspDefend')
         if m.get('Status') is not None:
             self.status = m.get('Status')
         if m.get('Type') is not None:
@@ -25293,7 +25320,7 @@ class DescribeExposedInstanceDetailRequest(TeaModel):
     def __init__(self, uuid=None):
         # The UUID of the server that is exposed on the Internet.
         # 
-        # >  You can call the [DescribeExposedInstanceList](~~DescribeExposedInstanceList~~) operation to query the UUIDs of servers.
+        # > You can call the [DescribeExposedInstanceList](~~DescribeExposedInstanceList~~) operation to query the UUIDs of servers.
         self.uuid = uuid  # type: str
 
     def validate(self):
@@ -25328,16 +25355,16 @@ class DescribeExposedInstanceDetailResponseBodyExposedChainsAllVulList(TeaModel)
         # *   **later**: medium
         # *   **nntf**: low
         # 
-        # >  We recommend that you fix the vulnerabilities that have the **high** priority at the earliest opportunity.
+        # > We recommend that you fix the vulnerabilities that have the **high** priority at the earliest opportunity.
         self.necessity = necessity  # type: str
         # The type of the vulnerability. Valid values:
         # 
-        # *   **cve**: Linux software vulnerabilities
-        # *   **sys**: Windows system vulnerabilities
-        # *   **cms**: Web-CMS vulnerabilities
-        # *   **app**: application vulnerabilities
-        # *   **emg**: urgent vulnerabilities
-        # *   **sca**: middleware vulnerabilities
+        # *   **cve**: Linux software vulnerability
+        # *   **sys**: Windows system vulnerability
+        # *   **cms**: Web-CMS vulnerability
+        # *   **app**: application vulnerability
+        # *   **emg**: urgent vulnerability
+        # *   **sca**: middleware vulnerability
         self.type = type  # type: str
         # The UUID of the server.
         self.uuid = uuid  # type: str
@@ -25390,16 +25417,16 @@ class DescribeExposedInstanceDetailResponseBodyExposedChainsRealVulList(TeaModel
         # *   **later**: medium
         # *   **nntf**: low
         # 
-        # >  We recommend that you fix the vulnerabilities that have the **high** priority at the earliest opportunity.
+        # > We recommend that you fix the vulnerabilities that have the **high** priority at the earliest opportunity.
         self.necessity = necessity  # type: str
         # The type of the vulnerability. Valid values:
         # 
-        # *   **cve**: Linux software vulnerabilities
-        # *   **sys**: Windows system vulnerabilities
-        # *   **cms**: Web-CMS vulnerabilities
-        # *   **app**: application vulnerabilities
-        # *   **emg**: urgent vulnerabilities
-        # *   **sca**: middleware vulnerabilities
+        # *   **cve**: Linux software vulnerability
+        # *   **sys**: Windows system vulnerability
+        # *   **cms**: Web-CMS vulnerability
+        # *   **app**: application vulnerability
+        # *   **emg**: urgent vulnerability
+        # *   **sca**: middleware vulnerability
         self.type = type  # type: str
         # The UUID of the server.
         self.uuid = uuid  # type: str
@@ -25444,11 +25471,11 @@ class DescribeExposedInstanceDetailResponseBodyExposedChains(TeaModel):
     def __init__(self, all_vul_list=None, exposure_component=None, exposure_ip=None, exposure_port=None,
                  exposure_type=None, exposure_type_id=None, group_no=None, instance_id=None, instance_name=None, internet_ip=None,
                  intranet_ip=None, real_vul_list=None, region_id=None, uuid=None):
-        # The information about all vulnerabilities on the server.
+        # The details of all vulnerabilities on the server.
         self.all_vul_list = all_vul_list  # type: list[DescribeExposedInstanceDetailResponseBodyExposedChainsAllVulList]
         # The server component that is exposed on the Internet.
         self.exposure_component = exposure_component  # type: str
-        # The public IP address.
+        # The IP address that is exposed.
         self.exposure_ip = exposure_ip  # type: str
         # The port that is exposed on the Internet.
         self.exposure_port = exposure_port  # type: str
@@ -25459,16 +25486,16 @@ class DescribeExposedInstanceDetailResponseBodyExposedChains(TeaModel):
         # *   **EIP**: an elastic IP address (EIP)
         # *   **DNAT**: the NAT gateway that connects to the Internet by using the DNAT feature
         self.exposure_type = exposure_type  # type: str
-        # The ID of the instance to which the resource belongs. The valid values of this parameter vary based on the value of the ExposureType parameter.
+        # The ID of the instance to which the resource belongs. The valid values of this parameter vary based on the ExposureType parameter.
         # 
-        # *   If the value of the ExposureType parameter is **INTERNET_IP**, the value of this parameter is an empty string.
-        # *   If the value of the ExposureType parameter is **SLB**, the value of this parameter is the ID of the Internet-facing SLB instance.
+        # *   If the value of the ExposureType parameter is **INTERNET_IP**, this parameter is empty.
+        # *   If the value of the ExposureType parameter is **SLB**, the value of this parameter is the ID of the SLB instance.
         # *   If the value of the ExposureType parameter is **EIP**, the value of this parameter is the ID of the EIP.
         # *   If the value of the ExposureType parameter is **DNAT**, the value of this parameter is the ID of the NAT gateway.
         self.exposure_type_id = exposure_type_id  # type: str
         # The server group to which the server belongs.
         self.group_no = group_no  # type: str
-        # The ID of the server.
+        # The instance ID of the server.
         self.instance_id = instance_id  # type: str
         # The name of the server.
         self.instance_name = instance_name  # type: str
@@ -25480,7 +25507,7 @@ class DescribeExposedInstanceDetailResponseBodyExposedChains(TeaModel):
         self.real_vul_list = real_vul_list  # type: list[DescribeExposedInstanceDetailResponseBodyExposedChainsRealVulList]
         # The region in which the server resides.
         # 
-        # >  For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
+        # > For more information about the mapping between region IDs and region names, see [Regions and zones](~~40654~~).
         self.region_id = region_id  # type: str
         # The UUID of the server.
         self.uuid = uuid  # type: str
@@ -25576,7 +25603,7 @@ class DescribeExposedInstanceDetailResponseBodyExposedChains(TeaModel):
 
 class DescribeExposedInstanceDetailResponseBody(TeaModel):
     def __init__(self, exposed_chains=None, request_id=None):
-        # The exposure details about the server.
+        # The list of exposure details of the server.
         self.exposed_chains = exposed_chains  # type: list[DescribeExposedInstanceDetailResponseBodyExposedChains]
         # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
@@ -65733,8 +65760,17 @@ class GetAlarmMachineCountResponse(TeaModel):
 
 class GetAppNetworkRequest(TeaModel):
     def __init__(self, cluster_id=None, end_time=None, start_time=None):
+        # The ID of the cluster to which the container belongs.
+        # 
+        # > You can call the [DescribeGroupedContainerInstances](~~DescribeGroupedContainerInstances~~) operation to query the IDs of container clusters.
         self.cluster_id = cluster_id  # type: str
+        # The end timestamp of the query. Unit: milliseconds.
+        # 
+        # > The days between the start timestamp and the end timestamp cannot exceed **seven** days.
         self.end_time = end_time  # type: long
+        # The start timestamp of the query. Unit: milliseconds.
+        # 
+        # > The days between the start timestamp and the end timestamp cannot exceed **seven** days.
         self.start_time = start_time  # type: long
 
     def validate(self):
@@ -65768,11 +65804,23 @@ class GetAppNetworkRequest(TeaModel):
 class GetAppNetworkResponseBodyAppNetworkEdge(TeaModel):
     def __init__(self, dst_node_id=None, dst_node_type=None, id=None, port=None, src_node_id=None,
                  src_node_type=None):
+        # The ID of the destination node.
         self.dst_node_id = dst_node_id  # type: str
+        # The type of the destination node. Valid values:
+        # 
+        # *   **app**: an application
+        # *   **internet**: a network node in another cluster
         self.dst_node_type = dst_node_type  # type: str
+        # The ID of the edge.
         self.id = id  # type: str
+        # The number of the destination port.
         self.port = port  # type: str
+        # The ID of the source node.
         self.src_node_id = src_node_id  # type: str
+        # The type of the source node. Valid values:
+        # 
+        # *   **app**: an application
+        # *   **internet**: a network node in another cluster
         self.src_node_type = src_node_type  # type: str
 
     def validate(self):
@@ -65817,7 +65865,9 @@ class GetAppNetworkResponseBodyAppNetworkEdge(TeaModel):
 
 class GetAppNetworkResponseBodyAppNetworkNamespace(TeaModel):
     def __init__(self, id=None, name=None):
+        # The ID of the namespace.
         self.id = id  # type: str
+        # The name of the custom namespace.
         self.name = name  # type: str
 
     def validate(self):
@@ -65846,11 +65896,26 @@ class GetAppNetworkResponseBodyAppNetworkNamespace(TeaModel):
 
 class GetAppNetworkResponseBodyAppNetworkNode(TeaModel):
     def __init__(self, container_ids=None, id=None, name=None, namespace_id=None, risk_level=None, type=None):
+        # The list of the container IDs.
         self.container_ids = container_ids  # type: list[str]
+        # The ID of the node.
         self.id = id  # type: str
+        # The name of the node.
         self.name = name  # type: str
+        # The ID of the namespace.
         self.namespace_id = namespace_id  # type: str
+        # The risk level. Valid values:
+        # 
+        # *   **3**: high
+        # *   **2**: medium
+        # *   **1**: low
+        # *   **0**: warning
+        # *   **-1**: unknown
         self.risk_level = risk_level  # type: str
+        # The type of the node. Valid values:
+        # 
+        # *   **app**: an application
+        # *   **internet**: a network node in another cluster
         self.type = type  # type: str
 
     def validate(self):
@@ -65895,8 +65960,11 @@ class GetAppNetworkResponseBodyAppNetworkNode(TeaModel):
 
 class GetAppNetworkResponseBodyAppNetwork(TeaModel):
     def __init__(self, edge=None, namespace=None, node=None):
+        # The information about the topology edge.
         self.edge = edge  # type: list[GetAppNetworkResponseBodyAppNetworkEdge]
+        # The namespace.
         self.namespace = namespace  # type: list[GetAppNetworkResponseBodyAppNetworkNamespace]
+        # The information about the application node.
         self.node = node  # type: list[GetAppNetworkResponseBodyAppNetworkNode]
 
     def validate(self):
@@ -65955,7 +66023,9 @@ class GetAppNetworkResponseBodyAppNetwork(TeaModel):
 
 class GetAppNetworkResponseBody(TeaModel):
     def __init__(self, app_network=None, request_id=None):
+        # The information about the application network topology.
         self.app_network = app_network  # type: GetAppNetworkResponseBodyAppNetwork
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -71933,7 +72003,13 @@ class GetImageScanNumInPeriodResponse(TeaModel):
 
 class GetInterceptionRuleDetailRequest(TeaModel):
     def __init__(self, cluster_id=None, rule_id=None):
+        # The ID of the container cluster.
+        # 
+        # > You can call the [DescribeGroupedContainerInstances](~~DescribeGroupedContainerInstances~~) operation to query the IDs of container clusters.
         self.cluster_id = cluster_id  # type: str
+        # The ID of the rule.
+        # 
+        # > You can call the [ListInterceptionRulePage](~~ListInterceptionRulePage~~) operation to query the IDs of rules.
         self.rule_id = rule_id  # type: str
 
     def validate(self):
@@ -71963,14 +72039,23 @@ class GetInterceptionRuleDetailRequest(TeaModel):
 class GetInterceptionRuleDetailResponseBodyInterceptionRuleDetailDstTarget(TeaModel):
     def __init__(self, app_name=None, image_list=None, namespace=None, ports=None, rule_type=None, tag_list=None,
                  target_id=None, target_name=None, target_type=None):
+        # The name of the application.
         self.app_name = app_name  # type: str
+        # An array that consists of the name of the image specified for the network object.
         self.image_list = image_list  # type: list[str]
+        # The namespace to which the network object belongs.
         self.namespace = namespace  # type: str
+        # An array that consists of the port range of the destination network object.
         self.ports = ports  # type: list[str]
+        # The type of the rule.
         self.rule_type = rule_type  # type: str
+        # An array that consists of the labels specified for the network object.
         self.tag_list = tag_list  # type: list[str]
+        # The ID of the network object.
         self.target_id = target_id  # type: int
+        # The name of the object.
         self.target_name = target_name  # type: str
+        # The type of the network object.
         self.target_type = target_type  # type: str
 
     def validate(self):
@@ -72028,13 +72113,21 @@ class GetInterceptionRuleDetailResponseBodyInterceptionRuleDetailDstTarget(TeaMo
 class GetInterceptionRuleDetailResponseBodyInterceptionRuleDetailSrcTarget(TeaModel):
     def __init__(self, app_name=None, image_list=None, namespace=None, rule_type=None, tag_list=None, target_id=None,
                  target_name=None, target_type=None):
+        # The name of the application.
         self.app_name = app_name  # type: str
+        # The images of the network object.
         self.image_list = image_list  # type: list[str]
+        # The namespace to which the network object belongs.
         self.namespace = namespace  # type: str
+        # The type of the rule.
         self.rule_type = rule_type  # type: str
+        # The labels specified for the network object.
         self.tag_list = tag_list  # type: list[str]
+        # The ID of the network object.
         self.target_id = target_id  # type: int
+        # The name of the object.
         self.target_name = target_name  # type: str
+        # The type of the network object.
         self.target_type = target_type  # type: str
 
     def validate(self):
@@ -72088,13 +72181,32 @@ class GetInterceptionRuleDetailResponseBodyInterceptionRuleDetailSrcTarget(TeaMo
 class GetInterceptionRuleDetailResponseBodyInterceptionRuleDetail(TeaModel):
     def __init__(self, dst_target=None, intercept_type=None, order_index=None, rule_id=None, rule_name=None,
                  rule_switch=None, rule_type=None, src_target=None):
+        # The destination network object.
         self.dst_target = dst_target  # type: GetInterceptionRuleDetailResponseBodyInterceptionRuleDetailDstTarget
+        # The interception mode. Valid values:
+        # 
+        # *   **0**: monitor
+        # *   **1**: block
+        # *   **2**: alert
+        # *   **3**: allow
         self.intercept_type = intercept_type  # type: long
+        # The priority of the rule. Valid values: 1 to 1000. A smaller value indicates a higher priority.
         self.order_index = order_index  # type: long
+        # The ID of the rule.
         self.rule_id = rule_id  # type: long
+        # The name of the rule.
         self.rule_name = rule_name  # type: str
+        # The status of the defense rule. Valid values:
+        # 
+        # *   **1**: The rule is enabled.
+        # *   **0**: The rule is disabled.
         self.rule_switch = rule_switch  # type: int
+        # The type of the rule. Valid values:
+        # 
+        # *   **suggest**: a suggestion rule
+        # *   **customize**: a custom rule
         self.rule_type = rule_type  # type: str
+        # The source network object.
         self.src_target = src_target  # type: GetInterceptionRuleDetailResponseBodyInterceptionRuleDetailSrcTarget
 
     def validate(self):
@@ -72152,7 +72264,9 @@ class GetInterceptionRuleDetailResponseBodyInterceptionRuleDetail(TeaModel):
 
 class GetInterceptionRuleDetailResponseBody(TeaModel):
     def __init__(self, interception_rule_detail=None, request_id=None):
+        # The details of the rule.
         self.interception_rule_detail = interception_rule_detail  # type: GetInterceptionRuleDetailResponseBodyInterceptionRuleDetail
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -72222,6 +72336,9 @@ class GetInterceptionRuleDetailResponse(TeaModel):
 
 class GetInterceptionSummaryRequest(TeaModel):
     def __init__(self, cluster_id=None):
+        # The ID of the cluster.
+        # 
+        # > You can call the [DescribeGroupedContainerInstances](~~421736~~) operation to query the IDs of clusters.
         self.cluster_id = cluster_id  # type: str
 
     def validate(self):
@@ -72248,15 +72365,25 @@ class GetInterceptionSummaryResponseBodyInterceptionSummary(TeaModel):
     def __init__(self, close_cluster_count=None, close_rule_count=None, cluster_count=None,
                  interception_count_in_days=None, open_cluster_count=None, open_rule_count=None, risk_count_180day=None,
                  risk_count_30day=None, risk_count_today=None, rule_count=None):
+        # The number of clusters that are not protected.
         self.close_cluster_count = close_cluster_count  # type: int
+        # The number of disabled cluster defense rules.
         self.close_rule_count = close_rule_count  # type: int
+        # The total number of clusters.
         self.cluster_count = cluster_count  # type: int
+        # The total number of interception records for the specified cluster.
         self.interception_count_in_days = interception_count_in_days  # type: int
+        # The number of clusters that are protected.
         self.open_cluster_count = open_cluster_count  # type: int
+        # The number of enabled cluster defense rules.
         self.open_rule_count = open_rule_count  # type: int
+        # The number of security risks that are detected in the last 180 days.
         self.risk_count_180day = risk_count_180day  # type: long
+        # The number of security risks that are detected in the last 30 days.
         self.risk_count_30day = risk_count_30day  # type: long
+        # The number of security risks that are detected in the last 24 hours.
         self.risk_count_today = risk_count_today  # type: long
+        # The total number of cluster defense rules.
         self.rule_count = rule_count  # type: int
 
     def validate(self):
@@ -72317,7 +72444,9 @@ class GetInterceptionSummaryResponseBodyInterceptionSummary(TeaModel):
 
 class GetInterceptionSummaryResponseBody(TeaModel):
     def __init__(self, interception_summary=None, request_id=None):
+        # The statistics.
         self.interception_summary = interception_summary  # type: GetInterceptionSummaryResponseBodyInterceptionSummary
+        # The ID of the request, which is used to locate and troubleshoot issues.
         self.request_id = request_id  # type: str
 
     def validate(self):
