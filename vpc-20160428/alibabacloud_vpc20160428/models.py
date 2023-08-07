@@ -7,9 +7,13 @@ class ActivateRouterInterfaceRequest(TeaModel):
     def __init__(self, owner_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None,
                  router_interface_id=None):
         self.owner_id = owner_id  # type: long
+        # The ID of the region to which the router interface belongs.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The ID of the router interface.
         self.router_interface_id = router_interface_id  # type: str
 
     def validate(self):
@@ -50,6 +54,7 @@ class ActivateRouterInterfaceRequest(TeaModel):
 
 class ActivateRouterInterfaceResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -923,9 +928,10 @@ class AddPublicIpAddressPoolCidrBlockRequest(TeaModel):
     def __init__(self, cidr_block=None, cidr_mask=None, client_token=None, dry_run=None, owner_account=None,
                  owner_id=None, public_ip_address_pool_id=None, region_id=None, resource_owner_account=None,
                  resource_owner_id=None):
-        # The region ID of the IP address pool to which you want to add the CIDR block.
+        # The CIDR block.
+        # 
+        # >  You cannot set the **CidrBlock** and **CidrMask** parameters at the same time.
         self.cidr_block = cidr_block  # type: str
-        self.cidr_mask = cidr_mask  # type: int
         # The subnet mask of the CIDR block.
         # 
         # After you enter the subnet mask, the system automatically allocates IP addresses.
@@ -933,16 +939,21 @@ class AddPublicIpAddressPoolCidrBlockRequest(TeaModel):
         # Valid values: **24** to **30**.
         # 
         # >  You cannot set the **CidrBlock** and **CidrMask** parameters at the same time. Set one of them.
+        self.cidr_mask = cidr_mask  # type: int
+        # The client token that is used to ensure the idempotence of the request.
+        # 
+        # You can use the client to generate the value, but you must make sure that it is unique among all requests. The token can contain only ASCII characters.
         self.client_token = client_token  # type: str
-        # The ID of the request.
-        self.dry_run = dry_run  # type: bool
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
         # Specifies whether to perform a dry run. Valid values:
         # 
         # *   **true**: performs a dry run. The system checks the required parameters, request syntax, and limits. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.
         # *   **false** (default): performs a dry run and sends the request. If the request passes the dry run, a 2xx HTTP status code is returned and the operation is performed.
+        self.dry_run = dry_run  # type: bool
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The ID of the IP address pool.
         self.public_ip_address_pool_id = public_ip_address_pool_id  # type: str
+        # The region ID of the IP address pool to which you want to add the CIDR block.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -1005,6 +1016,7 @@ class AddPublicIpAddressPoolCidrBlockRequest(TeaModel):
 
 class AddPublicIpAddressPoolCidrBlockResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1069,20 +1081,28 @@ class AddPublicIpAddressPoolCidrBlockResponse(TeaModel):
 class AddSourcesToTrafficMirrorSessionRequest(TeaModel):
     def __init__(self, client_token=None, dry_run=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None, traffic_mirror_session_id=None, traffic_mirror_source_ids=None):
-        # The ID of the traffic mirror session.
+        # The client token that is used to ensure the idempotence of the request.
+        # 
+        # You can use the client to generate the value, but you must make sure that it is unique among different requests. The client token can contain only ASCII characters.
+        # 
+        # >  If you do not set this parameter, the system uses **RequestId** as **ClientToken**. **RequestId** may be different for each API request.
         self.client_token = client_token  # type: str
-        # The ID of the traffic mirror source. You can specify only an elastic network interface (ENI) as the traffic mirror source. The default value of **N** is **1**, which indicates that you can add only one traffic mirror source to a traffic mirror session.
+        # Specifies whether to check the request without performing the operation. Valid values:
+        # 
+        # *   **true**: checks the request without performing the operation. The system checks the required parameters, request format, and limits. If the request fails the check, an error message is returned. If the request passes the check, the `DryRunOperation` error code is returned.
+        # *   **false** (default): sends the request. After the request passes the check, the operation is performed.
         self.dry_run = dry_run  # type: bool
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        self.region_id = region_id  # type: str
-        self.resource_owner_account = resource_owner_account  # type: str
-        self.resource_owner_id = resource_owner_id  # type: long
         # The ID of the region to which the traffic mirror session belongs.
         # 
         # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         # 
         # For more information about regions that support traffic mirroring, see [Overview of traffic mirroring](~~207513~~).
+        self.region_id = region_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        # The ID of the traffic mirror session.
         self.traffic_mirror_session_id = traffic_mirror_session_id  # type: str
         self.traffic_mirror_source_ids = traffic_mirror_source_ids  # type: list[str]
 
@@ -1140,6 +1160,7 @@ class AddSourcesToTrafficMirrorSessionRequest(TeaModel):
 
 class AddSourcesToTrafficMirrorSessionResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1207,75 +1228,35 @@ class AllocateEipAddressRequest(TeaModel):
                  name=None, netmode=None, owner_account=None, owner_id=None, period=None, pricing_cycle=None,
                  public_ip_address_pool_id=None, region_id=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None,
                  security_protection_types=None, zone=None):
-        # The billing cycle of the subscription EIP. Valid values:
-        # 
-        # *   **Month** (default): The EIP is billed on a monthly basis.
-        # *   **Year**: The EIP is billed on an annual basis.
-        # 
-        # When **InstanceChargeType** is set to **PrePaid**, this parameter is required. When **InstanceChargeType** is set to **PostPaid**, this parameter is not required.
-        self.activity_id = activity_id  # type: long
-        # The metering method of the EIP. Valid values:
-        # 
-        # *   **PayByBandwidth** (default): pay-by-bandwidth
-        # *   **PayByTraffic**: pay-by-data-transfer
-        # 
-        # When **InstanceChargeType** is set to **PrePaid**, you must set **InternetChargeType** to **PayByBandwidth**.
-        # 
-        # When **InstanceChargeType** is set to **PostPaid**, set **InternetChargeType** to **PayByBandwidth** or **PayByTraffic**.
-        self.auto_pay = auto_pay  # type: bool
         # The promotion code. Ignore this parameter.
-        self.bandwidth = bandwidth  # type: str
-        # The edition of Anti-DDoS.
-        # 
-        # *   If you do not set this parameter, Anti-DDoS Origin Basic is used by default.
-        # *   If you set the value to **AntiDDoS_Enhanced**, Anti-DDoS Pro/Premium is used.
-        # 
-        # You can set up to 10 editions of Anti-DDoS.
-        self.client_token = client_token  # type: str
-        # The ID of the request.
-        self.description = description  # type: str
+        self.activity_id = activity_id  # type: long
         # Specifies whether to enable automatic payment. Default value: false. Valid values:
         # 
         # *   **false**: disables automatic payment. This is the default value. If you select this option, you must go to the Order Center to complete the payment after an order is generated.
         # *   **true**: enables automatic payment. Payments are automatically completed.
         # 
         # When **InstanceChargeType** is set to **PrePaid**, this parameter is required. When **InstanceChargeType** is set to **PostPaid**, this parameter is not required.
-        self.isp = isp  # type: str
+        self.auto_pay = auto_pay  # type: bool
+        # The maximum bandwidth of the EIP. Unit: Mbit/s.
+        # 
+        # *   When **InstanceChargeType** is set to **PostPaid** and **InternetChargeType** is set to **PayByBandwidth**, valid values for **Bandwidth** are **1** to **500**.
+        # *   When **InstanceChargeType** is set to **PostPaid** and **InternetChargeType** is set to **PayByTraffic**, valid values for **Bandwidth** are **1** to **200**.
+        # *   When **InstanceChargeType** is set to **PrePaid**, valid values for **Bandwidth** are **1** to **1000**.
+        # 
+        # Default value: **5**. Unit: Mbit/s.
+        self.bandwidth = bandwidth  # type: str
         # The client token that is used to ensure the idempotence of the request.
         # 
         # You can use the client to generate the token, but you must make sure that the token is unique among different requests. The **token** can contain only ASCII characters.
         # 
         # >  If you do not set this parameter, the system automatically uses the value of **RequestId** as the value of **ClientToken**. The value of **RequestId** for each API request is different.
-        self.instance_charge_type = instance_charge_type  # type: str
-        self.instance_id = instance_id  # type: str
-        # The name of the EIP.
+        self.client_token = client_token  # type: str
+        # The description of the EIP.
         # 
-        # The name must be 1 to 128 characters in length, and can contain letters, digits, periods (.), underscores (\_), and hyphens (-). It must start with a letter.
+        # The description must be 2 to 256 characters in length. It must start with a letter but cannot start with `http://` or `https://`.
         # 
         # >  This parameter is unavailable when you create a subscription EIP.
-        self.internet_charge_type = internet_charge_type  # type: str
-        self.ip_address = ip_address  # type: str
-        # The ID of the IP address pool.
-        # 
-        # The EIP is allocated from the IP address pool.
-        # 
-        # You cannot use the IP address pool feature by default. To use the IP address pool feature, apply for the privilege in the Quota Center console. For more information, see [Request a quota increase in the Quota Center console](~~108213~~).
-        self.name = name  # type: str
-        # The billing method of the EIP. Valid values:
-        # 
-        # *   **PrePaid**: subscription
-        # *   **PostPaid** (default): pay-as-you-go
-        # 
-        # When **InstanceChargeType** is set to **PrePaid**, set **InternetChargeType** to **PayByBandwidth**. When **InstanceChargeType** is set to **PostPaid**, set **InternetChargeType** to **PayByBandwidth** or **PayByTraffic**.
-        self.netmode = netmode  # type: str
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
-        # The network type. Set the value to **public**, which specifies the Internet.
-        self.period = period  # type: int
-        # The ID of the resource group.
-        self.pricing_cycle = pricing_cycle  # type: str
-        # The ID of the resource group. This parameter is returned only when **InstanceChargeType** is set to **PostPaid**.
-        self.public_ip_address_pool_id = public_ip_address_pool_id  # type: str
+        self.description = description  # type: str
         # The line type. Valid values:
         # 
         # *   **BGP** (default): BGP (Multi-ISP) lines All regions support BGP (Multi-ISP) EIPs.
@@ -1293,12 +1274,61 @@ class AllocateEipAddressRequest(TeaModel):
         #     *   **ChinaMobile_L2**: China Mobile L2
         # 
         # *   If your services are deployed in China East 1 Finance, this parameter is required and you must set the value to **BGP_FinanceCloud**.
-        self.region_id = region_id  # type: str
-        # The description of the EIP.
+        self.isp = isp  # type: str
+        # The billing method of the EIP. Valid values:
         # 
-        # The description must be 2 to 256 characters in length. It must start with a letter but cannot start with `http://` or `https://`.
+        # *   **PrePaid**: subscription
+        # *   **PostPaid** (default): pay-as-you-go
+        # 
+        # When **InstanceChargeType** is set to **PrePaid**, set **InternetChargeType** to **PayByBandwidth**. When **InstanceChargeType** is set to **PostPaid**, set **InternetChargeType** to **PayByBandwidth** or **PayByTraffic**.
+        self.instance_charge_type = instance_charge_type  # type: str
+        self.instance_id = instance_id  # type: str
+        # The metering method of the EIP. Valid values:
+        # 
+        # *   **PayByBandwidth** (default): pay-by-bandwidth
+        # *   **PayByTraffic**: pay-by-data-transfer
+        # 
+        # When **InstanceChargeType** is set to **PrePaid**, you must set **InternetChargeType** to **PayByBandwidth**.
+        # 
+        # When **InstanceChargeType** is set to **PostPaid**, set **InternetChargeType** to **PayByBandwidth** or **PayByTraffic**.
+        self.internet_charge_type = internet_charge_type  # type: str
+        self.ip_address = ip_address  # type: str
+        # The name of the EIP.
+        # 
+        # The name must be 1 to 128 characters in length, and can contain letters, digits, periods (.), underscores (\_), and hyphens (-). It must start with a letter.
         # 
         # >  This parameter is unavailable when you create a subscription EIP.
+        self.name = name  # type: str
+        # The network type. Set the value to **public**, which specifies the Internet.
+        self.netmode = netmode  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The subscription duration of the instance.
+        # 
+        # When **PricingCycle** is set to **Month**, set **Period** to a value from **1** to **9**.
+        # 
+        # When **PricingCycle** is set to **Year**, set **Period** to a value from **1** to **5**.
+        # 
+        # This parameter is required when **InstanceChargeType** is set to **PrePaid**. This parameter is optional when **InstanceChargeType** is set to **PostPaid**.
+        self.period = period  # type: int
+        # The billing cycle of the subscription EIP. Valid values:
+        # 
+        # *   **Month** (default): The EIP is billed on a monthly basis.
+        # *   **Year**: The EIP is billed on an annual basis.
+        # 
+        # When **InstanceChargeType** is set to **PrePaid**, this parameter is required. When **InstanceChargeType** is set to **PostPaid**, this parameter is not required.
+        self.pricing_cycle = pricing_cycle  # type: str
+        # The ID of the IP address pool.
+        # 
+        # The EIP is allocated from the IP address pool.
+        # 
+        # You cannot use the IP address pool feature by default. To use the IP address pool feature, apply for the privilege in the Quota Center console. For more information, see [Request a quota increase in the Quota Center console](~~108213~~).
+        self.public_ip_address_pool_id = public_ip_address_pool_id  # type: str
+        # The ID of the region to which the EIP belongs.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
+        self.region_id = region_id  # type: str
+        # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -1415,12 +1445,15 @@ class AllocateEipAddressRequest(TeaModel):
 
 class AllocateEipAddressResponseBody(TeaModel):
     def __init__(self, allocation_id=None, eip_address=None, order_id=None, request_id=None, resource_group_id=None):
-        self.allocation_id = allocation_id  # type: str
-        self.eip_address = eip_address  # type: str
         # The ID of the EIP.
-        self.order_id = order_id  # type: long
+        self.allocation_id = allocation_id  # type: str
         # The EIP that is allocated. This parameter is returned only when **InstanceChargeType** is set to **PostPaid**.
+        self.eip_address = eip_address  # type: str
+        # The ID of the order. This parameter is returned only when **InstanceChargeType** is set to **PrePaid**.
+        self.order_id = order_id  # type: long
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The ID of the resource group. This parameter is returned only when **InstanceChargeType** is set to **PostPaid**.
         self.resource_group_id = resource_group_id  # type: str
 
     def validate(self):
@@ -1503,15 +1536,27 @@ class AllocateEipAddressProRequest(TeaModel):
                  instance_id=None, internet_charge_type=None, ip_address=None, netmode=None, owner_account=None, owner_id=None,
                  period=None, pricing_cycle=None, public_ip_address_pool_id=None, region_id=None, resource_group_id=None,
                  resource_owner_account=None, resource_owner_id=None, security_protection_types=None):
-        # The billing method of the specified EIP. Valid values:
+        # Specifies whether to enable automatic payment. Valid values:
         # 
-        # *   **PrePaid**: subscription
-        # *   **PostPaid** (default): pay-as-you-go
+        # *   **false**: disables automatic payment. After an order is generated, you must go to the Order Center to complete the payment.
+        # *   **true**: enabled. Payments are automatically completed.
         # 
-        # When **InstanceChargeType** is set to **PrePaid**, you must set **InternetChargeType** to **PayByBandwidth**.
-        # 
-        # When **InstanceChargeType** is set to **PostPaid**, you must set **InternetChargeType** to **PayByBandwidth** or **PayByTraffic**.
+        # When **InstanceChargeType** is set to **PrePaid**, this parameter is required. When **InstanceChargeType** is set to **PostPaid**, this parameter is not required.
         self.auto_pay = auto_pay  # type: bool
+        # The maximum bandwidth of the specified EIP. Unit: Mbit/s.
+        # 
+        # *   When **InstanceChargeType** is set to **PostPaid** and **InternetChargeType** is set to **PayByBandwidth**, valid values for **Bandwidth** are **1** to **500**.
+        # *   When **InstanceChargeType** is set to **PostPaid** and **InternetChargeType** is set to **PayByTraffic**, valid values for **Bandwidth** are **1** to **200**.
+        # *   When **InstanceChargeType** is set to **PrePaid**, valid values for **Bandwidth** are **1** to **1000**.
+        # 
+        # Default value: **5**. Unit: Mbit/s.
+        self.bandwidth = bandwidth  # type: str
+        # The client token that is used to ensure the idempotence of the request.
+        # 
+        # You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters.
+        # 
+        # >  If you do not set this parameter, **ClientToken** is set to the value of **RequestId**. The value of **RequestId** for each API request may be different.
+        self.client_token = client_token  # type: str
         # The line type. Valid values:
         # 
         # *   **BGP** (default): BGP (Multi-ISP) lines All regions support BGP (Multi-ISP) EIPs.
@@ -1529,56 +1574,20 @@ class AllocateEipAddressProRequest(TeaModel):
         #     *   **ChinaMobile_L2**: China Mobile L2
         # 
         # *   If your services are deployed in China East 1 Finance, this parameter is required and you must set the value to **BGP_FinanceCloud**.
-        self.bandwidth = bandwidth  # type: str
-        # The ID of the IP address pool.
-        # 
-        # The EIP is allocated from the IP address pool.
-        # 
-        # You cannot use the IP address pool feature by default. To use this feature, apply for the privilege in the Quota Center console. For more information, see [Request a quota increase in the Quota Center console](~~108213~~).
-        self.client_token = client_token  # type: str
-        # Specifies whether to enable automatic payment. Valid values:
-        # 
-        # *   **false**: disables automatic payment. After an order is generated, you must go to the Order Center to complete the payment.
-        # *   **true**: enabled. Payments are automatically completed.
-        # 
-        # When **InstanceChargeType** is set to **PrePaid**, this parameter is required. When **InstanceChargeType** is set to **PostPaid**, this parameter is not required.
         self.isp = isp  # type: str
-        # The ID of the resource group to which the EIP belongs.
+        # The billing method of the specified EIP. Valid values:
+        # 
+        # *   **PrePaid**: subscription
+        # *   **PostPaid** (default): pay-as-you-go
+        # 
+        # When **InstanceChargeType** is set to **PrePaid**, you must set **InternetChargeType** to **PayByBandwidth**.
+        # 
+        # When **InstanceChargeType** is set to **PostPaid**, you must set **InternetChargeType** to **PayByBandwidth** or **PayByTraffic**.
         self.instance_charge_type = instance_charge_type  # type: str
-        # The subscription duration of the bandwidth plan.
+        # The ID of the EIP.
         # 
-        # *   If **PricingCycle** is set to **Month**, set **Period** to a value from **1 to 9**.
-        # *   If **PricingCycle** is set to **Year**, set **Period** to a value from **1 to 3**.
-        # 
-        # When **InstanceChargeType** is set to **PrePaid**, this parameter is required.
-        # 
-        # Ignore this parameter when **InstanceChargeType** is set to **PostPaid**.
+        # Set **IpAddress** or **InstanceId**. If you leave both parameters empty, the system randomly allocates an EIP.
         self.instance_id = instance_id  # type: str
-        # The client token that is used to ensure the idempotence of the request.
-        # 
-        # You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters.
-        # 
-        # >  If you do not set this parameter, **ClientToken** is set to the value of **RequestId**. The value of **RequestId** for each API request may be different.
-        self.internet_charge_type = internet_charge_type  # type: str
-        # The maximum bandwidth of the specified EIP. Unit: Mbit/s.
-        # 
-        # *   When **InstanceChargeType** is set to **PostPaid** and **InternetChargeType** is set to **PayByBandwidth**, valid values for **Bandwidth** are **1** to **500**.
-        # *   When **InstanceChargeType** is set to **PostPaid** and **InternetChargeType** is set to **PayByTraffic**, valid values for **Bandwidth** are **1** to **200**.
-        # *   When **InstanceChargeType** is set to **PrePaid**, valid values for **Bandwidth** are **1** to **1000**.
-        # 
-        # Default value: **5**. Unit: Mbit/s.
-        self.ip_address = ip_address  # type: str
-        # The billing cycle of the subscription EIP. Valid values:
-        # 
-        # *   **Month** (default): The EIP is billed on a monthly basis.
-        # *   **Year**: The EIP is billed on an annual basis.
-        # 
-        # When **InstanceChargeType** is set to **PrePaid**, this parameter is required. When **InstanceChargeType** is set to **PostPaid**, this parameter is not required.
-        self.netmode = netmode  # type: str
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
-        # The network type. Set the value to **public**, which specifies the Internet.
-        self.period = period  # type: int
         # The metering method of the specified EIP. Valid values:
         # 
         # *   **PayByBandwidth** (default): pay-by-bandwidth
@@ -1587,19 +1596,42 @@ class AllocateEipAddressProRequest(TeaModel):
         # When **InstanceChargeType** is set to **PrePaid**, you must set **InternetChargeType** to **PayByBandwidth**.
         # 
         # When **InstanceChargeType** is set to **PostPaid**, you must set **InternetChargeType** to **PayByBandwidth** or **PayByTraffic**.
-        self.pricing_cycle = pricing_cycle  # type: str
-        # The order number. This parameter is returned only when **InstanceChargeType** is set to **PrePaid**.
-        self.public_ip_address_pool_id = public_ip_address_pool_id  # type: str
-        # The ID of the EIP.
+        self.internet_charge_type = internet_charge_type  # type: str
+        # The IP address of the EIP that you want to request.
         # 
         # Set **IpAddress** or **InstanceId**. If you leave both parameters empty, the system randomly allocates an EIP.
+        self.ip_address = ip_address  # type: str
+        # The network type. Set the value to **public**, which specifies the Internet.
+        self.netmode = netmode  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The subscription duration of the bandwidth plan.
+        # 
+        # *   If **PricingCycle** is set to **Month**, set **Period** to a value from **1 to 9**.
+        # *   If **PricingCycle** is set to **Year**, set **Period** to a value from **1 to 3**.
+        # 
+        # When **InstanceChargeType** is set to **PrePaid**, this parameter is required.
+        # 
+        # Ignore this parameter when **InstanceChargeType** is set to **PostPaid**.
+        self.period = period  # type: int
+        # The billing cycle of the subscription EIP. Valid values:
+        # 
+        # *   **Month** (default): The EIP is billed on a monthly basis.
+        # *   **Year**: The EIP is billed on an annual basis.
+        # 
+        # When **InstanceChargeType** is set to **PrePaid**, this parameter is required. When **InstanceChargeType** is set to **PostPaid**, this parameter is not required.
+        self.pricing_cycle = pricing_cycle  # type: str
+        # The ID of the IP address pool.
+        # 
+        # The EIP is allocated from the IP address pool.
+        # 
+        # You cannot use the IP address pool feature by default. To use this feature, apply for the privilege in the Quota Center console. For more information, see [Request a quota increase in the Quota Center console](~~108213~~).
+        self.public_ip_address_pool_id = public_ip_address_pool_id  # type: str
+        # The ID of the region where you want to request a specified EIP.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
-        # The edition of Anti-DDoS.
-        # 
-        # *   If you do not set this parameter, Anti-DDoS Origin Basic is used by default.
-        # *   If you set the value to **AntiDDoS_Enhanced**, Anti-DDoS Pro/Premium is used.
-        # 
-        # You can configure Anti-DDoS for at most 10 EIPs.
+        # The ID of the resource group to which the EIP belongs.
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -1699,13 +1731,15 @@ class AllocateEipAddressProRequest(TeaModel):
 
 class AllocateEipAddressProResponseBody(TeaModel):
     def __init__(self, allocation_id=None, eip_address=None, order_id=None, request_id=None, resource_group_id=None):
-        self.allocation_id = allocation_id  # type: str
-        self.eip_address = eip_address  # type: str
-        # The IP address of the requested EIP.
-        self.order_id = order_id  # type: long
-        # The ID of the resource group.
-        self.request_id = request_id  # type: str
         # The ID of the specified EIP.
+        self.allocation_id = allocation_id  # type: str
+        # The IP address of the requested EIP.
+        self.eip_address = eip_address  # type: str
+        # The order number. This parameter is returned only when **InstanceChargeType** is set to **PrePaid**.
+        self.order_id = order_id  # type: long
+        # The ID of the request.
+        self.request_id = request_id  # type: str
+        # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
 
     def validate(self):
@@ -1787,6 +1821,20 @@ class AllocateEipSegmentAddressRequest(TeaModel):
     def __init__(self, bandwidth=None, client_token=None, eip_mask=None, internet_charge_type=None, isp=None,
                  netmode=None, owner_account=None, owner_id=None, region_id=None, resource_group_id=None,
                  resource_owner_account=None, resource_owner_id=None, zone=None):
+        # The maximum bandwidth of the EIP. Unit: Mbit/s.
+        # 
+        # *   When **InstanceChargeType** is set to **PostPaid** and **InternetChargeType** is set to **PayByBandwidth**, the valid values for **Bandwidth** are **1** to **500**.
+        # *   When **InstanceChargeType** is set to **PostPaid** and **InternetChargeType** is set to **PayByTraffic**, the valid values for **Bandwidth** are **1** to **200**.
+        # *   When **InstanceChargeType** is set to **PrePaid**, the valid values for **Bandwidth** are **1** to **1000**.
+        # 
+        # Default value: **5**. Unit: Mbit/s.
+        self.bandwidth = bandwidth  # type: str
+        # The client token that is used to ensure the idempotence of the request. 
+        # 
+        # You can use the client to generate the token, but you must make sure that the token is unique among all requests. The **client token** can contain only ASCII characters. 
+        # 
+        # >  If you do not specify this parameter, the system uses **RequestId** as **ClientToken**. The value of **RequestId** for each API request may be different.
+        self.client_token = client_token  # type: str
         # The subnet mask length of the contiguous EIPs. Valid values:
         # 
         # - **28**: applies for 16 contiguous EIPs in each call.
@@ -1796,20 +1844,12 @@ class AllocateEipSegmentAddressRequest(TeaModel):
         # - **24**: applies for 256 contiguous EIPs in each call.
         # 
         # >  The number of contiguous EIPs allocated by the system may be less than the requested number because one, three, or four EIPs may be reserved.
-        self.bandwidth = bandwidth  # type: str
-        # The maximum bandwidth of the EIP. Unit: Mbit/s.
-        # 
-        # *   When **InstanceChargeType** is set to **PostPaid** and **InternetChargeType** is set to **PayByBandwidth**, the valid values for **Bandwidth** are **1** to **500**.
-        # *   When **InstanceChargeType** is set to **PostPaid** and **InternetChargeType** is set to **PayByTraffic**, the valid values for **Bandwidth** are **1** to **200**.
-        # *   When **InstanceChargeType** is set to **PrePaid**, the valid values for **Bandwidth** are **1** to **1000**.
-        # 
-        # Default value: **5**. Unit: Mbit/s.
-        self.client_token = client_token  # type: str
+        self.eip_mask = eip_mask  # type: str
         # The metering method of the contiguous EIPs. Valid values:
         # 
         # *   **PayByBandwidth** (default): pay-by-bandwidth
         # *   **PayByTraffic**: pay-by-data-transfer
-        self.eip_mask = eip_mask  # type: str
+        self.internet_charge_type = internet_charge_type  # type: str
         # The line type. Valid values:
         # 
         # *   **BGP** (default): BGP (Multi-ISP) lines All regions support BGP (Multi-ISP) EIPs.
@@ -1827,16 +1867,16 @@ class AllocateEipSegmentAddressRequest(TeaModel):
         # *   **ChinaMobile_L2**: China Mobile L2
         # 
         # If your services are deployed in China East 1 Finance, this parameter is required and you must set the value to **BGP_FinanceCloud**.
-        self.internet_charge_type = internet_charge_type  # type: str
-        # The ID of the contiguous EIP group.
         self.isp = isp  # type: str
-        # The ID of the resource group.
+        # Set the value to **public**, which specifies the Internet.
         self.netmode = netmode  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # Set the value to **public**, which specifies the Internet.
+        # The region ID of the contiguous EIPs.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
-        # The ID of the request.
+        # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -1912,7 +1952,9 @@ class AllocateEipSegmentAddressRequest(TeaModel):
 
 class AllocateEipSegmentAddressResponseBody(TeaModel):
     def __init__(self, eip_segment_instance_id=None, request_id=None):
+        # The ID of the contiguous EIP group.
         self.eip_segment_instance_id = eip_segment_instance_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2538,6 +2580,22 @@ class AssociateEipAddressRequest(TeaModel):
     def __init__(self, allocation_id=None, client_token=None, instance_id=None, instance_region_id=None,
                  instance_type=None, mode=None, owner_account=None, owner_id=None, private_ip_address=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None, vpc_id=None):
+        # The ID of the EIP that you want to associate with an instance.
+        self.allocation_id = allocation_id  # type: str
+        # The client token that is used to ensure the idempotence of the request.
+        # 
+        # You can use the client to generate the value, but you must make sure that it is unique among different requests. ClientToken can contain only ASCII characters.
+        # 
+        # >  If you do not set this parameter, the system sets **ClientToken** to the value of **RequestId**. The value of **RequestId** for each API request may be different.
+        self.client_token = client_token  # type: str
+        # The ID of the instance with which you want to associate the EIP.
+        # 
+        # You can enter the ID of a NAT gateway, CLB instance, ECS instance, secondary ENI, HAVIP, or IP address.
+        self.instance_id = instance_id  # type: str
+        # The region ID of the instance with which you want to associate the EIP.
+        # 
+        # >  This parameter is required only when the EIP is associated with a shared-bandwidth Global Accelerator (GA) instance.
+        self.instance_region_id = instance_region_id  # type: str
         # The type of instance with which you want to associate the EIP. Valid values:
         # 
         # *   **Nat**: a NAT gateway
@@ -2548,12 +2606,7 @@ class AssociateEipAddressRequest(TeaModel):
         # *   **IpAddress**: an IP address
         # 
         # >  If you do not set this parameter, the type of the instance with which you want to associate the EIP is **EcsInstance**. If the type of the instance with which you want to associate the EIP is not **EcsInstance**, this parameter is required.
-        self.allocation_id = allocation_id  # type: str
-        self.client_token = client_token  # type: str
-        # The region ID of the instance with which you want to associate the EIP.
-        # 
-        # >  This parameter is required only when the EIP is associated with a shared-bandwidth Global Accelerator (GA) instance.
-        self.instance_id = instance_id  # type: str
+        self.instance_type = instance_type  # type: str
         # The association mode. Valid values:
         # 
         # *   **NAT** (default): NAT mode
@@ -2561,32 +2614,24 @@ class AssociateEipAddressRequest(TeaModel):
         # *   **BINDED**: cut-through mode
         # 
         # >  This parameter is required only when **InstanceType** is set to **NetworkInterface**.
-        self.instance_region_id = instance_region_id  # type: str
-        # An IP address in the CIDR block of the vSwitch.
-        # 
-        # If you do not set this parameter, the system allocates a private IP address based on the VPC ID and vSwitch ID.
-        self.instance_type = instance_type  # type: str
-        # The client token that is used to ensure the idempotence of the request.
-        # 
-        # You can use the client to generate the value, but you must make sure that it is unique among different requests. ClientToken can contain only ASCII characters.
-        # 
-        # >  If you do not set this parameter, the system sets **ClientToken** to the value of **RequestId**. The value of **RequestId** for each API request may be different.
         self.mode = mode  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # An IP address in the CIDR block of the vSwitch.
+        # 
+        # If you do not set this parameter, the system allocates a private IP address based on the VPC ID and vSwitch ID.
+        self.private_ip_address = private_ip_address  # type: str
+        # The ID of the region to which the EIP belongs.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
+        self.region_id = region_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
         # The ID of the VPC that has IPv4 gateways enabled and that is deployed in the same region as the EIP.
         # 
         # When you associate an EIP with an IP address, the system can enable the IP address to access the Internet based on VPC route configurations.
         # 
         # >  This parameter is required if **InstanceType** is set to **IpAddress**. In this case, the EIP is associated with an IP address.
-        self.private_ip_address = private_ip_address  # type: str
-        # The ID of the instance with which you want to associate the EIP.
-        # 
-        # You can enter the ID of a NAT gateway, CLB instance, ECS instance, secondary ENI, HAVIP, or IP address.
-        self.region_id = region_id  # type: str
-        self.resource_owner_account = resource_owner_account  # type: str
-        self.resource_owner_id = resource_owner_id  # type: long
-        # The ID of the request.
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
@@ -2659,6 +2704,7 @@ class AssociateEipAddressRequest(TeaModel):
 
 class AssociateEipAddressResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3150,9 +3196,11 @@ class AssociateHaVipResponse(TeaModel):
 
 class AssociateNetworkAclRequestResource(TeaModel):
     def __init__(self, resource_id=None, resource_type=None):
-        # The region ID of the network ACL. You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
+        # The ID of the resource with which you want to associate the network ACL.
         self.resource_id = resource_id  # type: str
-        # The ID of the network ACL.
+        # The type of resource with which you want to associate the network ACL. Set the value to **VSwitch**.
+        # 
+        # Valid values of **N**: **0** to **29**. You can associate a network ACL with up to 30 vSwitches.
         self.resource_type = resource_type  # type: str
 
     def validate(self):
@@ -3182,16 +3230,16 @@ class AssociateNetworkAclRequestResource(TeaModel):
 class AssociateNetworkAclRequest(TeaModel):
     def __init__(self, client_token=None, network_acl_id=None, owner_id=None, region_id=None, resource=None,
                  resource_owner_account=None, resource_owner_id=None):
-        # The ID of the request.
-        self.client_token = client_token  # type: str
         # The client token that is used to ensure the idempotence of the request.
         # 
         # You can use the client to generate the value, but you must make sure that it is unique among all requests. ClientToken can contain only ASCII characters.
         # 
         # >  If you do not set this parameter, **ClientToken** is set to the value of **RequestId**. The value of **RequestId** may be different for each API request.
+        self.client_token = client_token  # type: str
+        # The ID of the network ACL.
         self.network_acl_id = network_acl_id  # type: str
         self.owner_id = owner_id  # type: long
-        # The operation that you want to perform. Set the value to **AssociateNetworkAcl**.
+        # The region ID of the network ACL. You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource = resource  # type: list[AssociateNetworkAclRequestResource]
         self.resource_owner_account = resource_owner_account  # type: str
@@ -3251,6 +3299,7 @@ class AssociateNetworkAclRequest(TeaModel):
 
 class AssociateNetworkAclResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3317,55 +3366,58 @@ class AssociatePhysicalConnectionToVirtualBorderRouterRequest(TeaModel):
                  local_ipv_6gateway_ip=None, owner_account=None, owner_id=None, peer_gateway_ip=None, peer_ipv_6gateway_ip=None,
                  peering_ipv_6subnet_mask=None, peering_subnet_mask=None, physical_connection_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None, vbr_id=None, vlan_id=None):
-        # The IP address of the gateway device in the data center.
+        # The circuit code of the Express Connect circuit. The circuit code is provided by the connectivity provider.
         # 
-        # *   Only the owner of the VBR can set or modify this parameter.
-        # *   When you create a VBR for the owner of the Express Connect circuit, this parameter is required.
+        # >  Only the owner of the Express Connect circuit can set this parameter.
         self.circuit_code = circuit_code  # type: str
-        # The IPv6 address of the gateway device in the data center.
-        # 
-        # *   Only the owner of the VBR can set or modify this parameter.
-        # *   When you create a VBR for the owner of the Express Connect circuit, this parameter is required.
-        self.client_token = client_token  # type: str
-        self.enable_ipv_6 = enable_ipv_6  # type: str
-        # The subnet mask of the IP addresses of the VBR and the gateway device in the data center.
-        # 
-        # The two IP addresses must fall within the same subnet.
-        self.local_gateway_ip = local_gateway_ip  # type: str
-        # The subnet mask of the IPv6 addresses of the VBR and the gateway device in the data center.
-        # 
-        # The two IPv6 addresses must fall within the same subnet.
-        self.local_ipv_6gateway_ip = local_ipv_6gateway_ip  # type: str
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
-        # The operation that you want to perform. Set the value to **AssociatePhysicalConnectionToVirtualBorderRouter**.
-        self.peer_gateway_ip = peer_gateway_ip  # type: str
-        # Specifies whether to enable IPv6. Valid values:
-        # 
-        # *   **true**: enables IPv6
-        # *   **false** (default): disables IPv6
-        self.peer_ipv_6gateway_ip = peer_ipv_6gateway_ip  # type: str
-        # The ID of the request.
-        self.peering_ipv_6subnet_mask = peering_ipv_6subnet_mask  # type: str
         # The client token that is used to ensure the idempotence of the request.
         # 
         # You can use the client to generate the value, but you must make sure that it is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length.
         # 
         # >  If you do not set this parameter, the system automatically uses **RequestId** as **ClientToken**. **RequestId** may be different for each API request.
-        self.peering_subnet_mask = peering_subnet_mask  # type: str
-        # The circuit code of the Express Connect circuit. The circuit code is provided by the connectivity provider.
+        self.client_token = client_token  # type: str
+        # Specifies whether to enable IPv6. Valid values:
         # 
-        # >  Only the owner of the Express Connect circuit can set this parameter.
-        self.physical_connection_id = physical_connection_id  # type: str
+        # *   **true**: enables IPv6
+        # *   **false** (default): disables IPv6
+        self.enable_ipv_6 = enable_ipv_6  # type: str
+        # The IP address of the VBR.
+        self.local_gateway_ip = local_gateway_ip  # type: str
+        # The IPv6 address of the VBR.
+        self.local_ipv_6gateway_ip = local_ipv_6gateway_ip  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The IP address of the gateway device in the data center.
+        # 
+        # *   Only the owner of the VBR can set or modify this parameter.
+        # *   When you create a VBR for the owner of the Express Connect circuit, this parameter is required.
+        self.peer_gateway_ip = peer_gateway_ip  # type: str
+        # The IPv6 address of the gateway device in the data center.
+        # 
+        # *   Only the owner of the VBR can set or modify this parameter.
+        # *   When you create a VBR for the owner of the Express Connect circuit, this parameter is required.
+        self.peer_ipv_6gateway_ip = peer_ipv_6gateway_ip  # type: str
+        # The subnet mask of the IPv6 addresses of the VBR and the gateway device in the data center.
+        # 
+        # The two IPv6 addresses must fall within the same subnet.
+        self.peering_ipv_6subnet_mask = peering_ipv_6subnet_mask  # type: str
+        # The subnet mask of the IP addresses of the VBR and the gateway device in the data center.
+        # 
+        # The two IP addresses must fall within the same subnet.
+        self.peering_subnet_mask = peering_subnet_mask  # type: str
         # The ID of the Express Connect circuit.
+        self.physical_connection_id = physical_connection_id  # type: str
+        # The ID of the region where the Express Connect circuit is deployed.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The ID of the VBR.
+        self.vbr_id = vbr_id  # type: str
         # The VLAN ID of the VBR. Valid values: **0 to 2999**.
         # 
         # >  Only the owner of the Express Connect circuit can set this parameter. The VLAN IDs of two VBRs of the same the Express Connect circuit must be different.
-        self.vbr_id = vbr_id  # type: str
-        # The IP address of the VBR.
         self.vlan_id = vlan_id  # type: str
 
     def validate(self):
@@ -3454,6 +3506,7 @@ class AssociatePhysicalConnectionToVirtualBorderRouterRequest(TeaModel):
 
 class AssociatePhysicalConnectionToVirtualBorderRouterResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3652,27 +3705,30 @@ class AssociateRouteTableResponse(TeaModel):
 class AssociateRouteTableWithGatewayRequest(TeaModel):
     def __init__(self, client_token=None, dry_run=None, gateway_id=None, owner_account=None, owner_id=None,
                  region_id=None, resource_owner_account=None, resource_owner_id=None, route_table_id=None):
-        # The ID of the IPv4 gateway.
-        # 
-        # The IPv4 gateway must be in the **Activated** state.
-        self.client_token = client_token  # type: str
-        # The ID of the request.
-        self.dry_run = dry_run  # type: bool
-        self.gateway_id = gateway_id  # type: str
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
         # The client token that is used to ensure the idempotence of the request.
         # 
         # You can use the client to generate the value, but you must make sure that it is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length.
         # 
         # >  If you do not set this parameter, the system automatically uses **RequestId** as **ClientToken**. **RequestId** of each API request may be different.
-        self.region_id = region_id  # type: str
-        self.resource_owner_account = resource_owner_account  # type: str
-        self.resource_owner_id = resource_owner_id  # type: long
+        self.client_token = client_token  # type: str
         # Specifies whether to check the request without performing the operation. Valid values:
         # 
         # *   **true**: prechecks the request without performing the operation. The system prechecks the required parameters, request syntax, and limits. If the request fails the precheck, an error message is returned. If the request passes the precheck, the `DryRunOperation` error code is returned.
         # *   **false** (default): sends the request. After the request passes the precheck, a 2xx HTTP status code is returned and the operation is performed.
+        self.dry_run = dry_run  # type: bool
+        # The ID of the IPv4 gateway.
+        # 
+        # The IPv4 gateway must be in the **Activated** state.
+        self.gateway_id = gateway_id  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The region ID of the IPv4 gateway with which you want to associate the gateway route table.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
+        self.region_id = region_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        # The ID of the gateway route table.
         self.route_table_id = route_table_id  # type: str
 
     def validate(self):
@@ -3729,6 +3785,7 @@ class AssociateRouteTableWithGatewayRequest(TeaModel):
 
 class AssociateRouteTableWithGatewayResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3793,18 +3850,22 @@ class AssociateRouteTableWithGatewayResponse(TeaModel):
 class AssociateRouteTablesWithVpcGatewayEndpointRequest(TeaModel):
     def __init__(self, client_token=None, dry_run=None, endpoint_id=None, owner_account=None, owner_id=None,
                  region_id=None, resource_owner_account=None, resource_owner_id=None, route_table_ids=None):
-        # The region ID of the gateway endpoint.
-        # 
-        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
-        self.client_token = client_token  # type: str
-        # The ID of the request.
-        self.dry_run = dry_run  # type: bool
         # The client token that is used to ensure the idempotence of the request. You can use the client to generate a client token. Make sure that a unique client token is used for each request. The **client token** can contain only ASCII characters and cannot exceed 64 characters in length.
         # 
         # >  If you do not set this parameter, the system uses **RequestId** as **ClientToken**. The value of **RequestId** of each API request may be different.
+        self.client_token = client_token  # type: str
+        # Specifies whether to perform a dry run. Valid values:
+        # 
+        # *   **true**: performs a dry run. The system checks your AccessKey pair, the RAM user permissions, and the required parameters. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.
+        # *   **false** (default): performs a dry run and sends the request. If the request passes the dry run, a 2xx HTTP status code is returned and the operation is performed.
+        self.dry_run = dry_run  # type: bool
+        # The ID of the gateway endpoint to be associated with the route table.
         self.endpoint_id = endpoint_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID of the gateway endpoint.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -3864,6 +3925,7 @@ class AssociateRouteTablesWithVpcGatewayEndpointRequest(TeaModel):
 
 class AssociateRouteTablesWithVpcGatewayEndpointResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3929,6 +3991,33 @@ class AssociateVpcCidrBlockRequest(TeaModel):
     def __init__(self, ipv_6cidr_block=None, ip_version=None, ipam_pool_id=None, ipv_6isp=None, owner_account=None,
                  owner_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None,
                  secondary_cidr_block=None, vpc_id=None):
+        # The IPv6 CIDR block.
+        # 
+        # >  You must set one of the **SecondaryCidrBlock** and **Ipv6CidrBlock** parameters.
+        self.ipv_6cidr_block = ipv_6cidr_block  # type: str
+        # The IP version. Valid values:
+        # 
+        # *   **IPV4**: IPv4
+        # *   **IPV6**: IPv6. If you set **IpVersion** to **IPV6** and do not set **SecondaryCidrBlock**, you can add IPv6 CIDR blocks to the VPC.
+        self.ip_version = ip_version  # type: str
+        self.ipam_pool_id = ipam_pool_id  # type: str
+        # The type of the IPv6 CIDR block. Valid values:
+        # 
+        # *   **BGP** (default): Alibaba Cloud Border Gateway Protocol (BGP) IPv6
+        # *   **ChinaMobile**: China Mobile (single line)
+        # *   **ChinaUnicom**: China Unicom (single line)
+        # *   **ChinaTelecom**: China Telecom (single line)
+        # 
+        # >  If your Alibaba Cloud account is allowed to use single-ISP bandwidth, valid values are: **ChinaTelecom**, **ChinaUnicom**, and **ChinaMobile**.
+        self.ipv_6isp = ipv_6isp  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The region ID of the VPC to which you want to add a secondary CIDR block.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
+        self.region_id = region_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
         # The secondary IPv4 CIDR block. Take note of the following requirements:
         # 
         # *   You can specify one of the following standard IPv4 CIDR blocks or their subnets as the secondary IPv4 CIDR block: 192.168.0.0/16, 172.16.0.0/12, and 10.0.0.0/8.
@@ -3940,37 +4029,8 @@ class AssociateVpcCidrBlockRequest(TeaModel):
         # *   The secondary CIDR block cannot overlap with the primary CIDR block or an existing secondary CIDR block.
         # 
         # >  You must set one of the **SecondaryCidrBlock** and **Ipv6CidrBlock** parameters.
-        self.ipv_6cidr_block = ipv_6cidr_block  # type: str
-        # The type of the IPv6 CIDR block. Valid values:
-        # 
-        # *   **BGP** (default): Alibaba Cloud Border Gateway Protocol (BGP) IPv6
-        # *   **ChinaMobile**: China Mobile (single line)
-        # *   **ChinaUnicom**: China Unicom (single line)
-        # *   **ChinaTelecom**: China Telecom (single line)
-        # 
-        # >  If your Alibaba Cloud account is allowed to use single-ISP bandwidth, valid values are: **ChinaTelecom**, **ChinaUnicom**, and **ChinaMobile**.
-        self.ip_version = ip_version  # type: str
-        self.ipam_pool_id = ipam_pool_id  # type: str
-        # The IPv6 CIDR block.
-        # 
-        # >  You must set one of the **SecondaryCidrBlock** and **Ipv6CidrBlock** parameters.
-        self.ipv_6isp = ipv_6isp  # type: str
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
-        # *   The following list describes the limits on the maximum number of secondary CIDR blocks that can be added:
-        # 
-        #     *   You can add up to five secondary IPv4 CIDR blocks to each VPC.
-        #     *   You can add up to three secondary IPv6 CIDR blocks to each VPC.
-        # 
-        # *   You cannot repeatedly call the **AssociateVpcCidrBlock** operation to add secondary CIDR blocks to a VPC within the specified period of time.
-        self.region_id = region_id  # type: str
-        self.resource_owner_account = resource_owner_account  # type: str
-        self.resource_owner_id = resource_owner_id  # type: long
-        # The ID of the VPC.
         self.secondary_cidr_block = secondary_cidr_block  # type: str
-        # The region ID of the VPC to which you want to add a secondary CIDR block.
-        # 
-        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
+        # The ID of the VPC.
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
@@ -4035,7 +4095,7 @@ class AssociateVpcCidrBlockRequest(TeaModel):
 
 class AssociateVpcCidrBlockResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The operation that you want to perform. Set the value to **AssociateVpcCidrBlock**.
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4861,23 +4921,22 @@ class ChangeResourceGroupResponse(TeaModel):
 class CheckCanAllocateVpcPrivateIpAddressRequest(TeaModel):
     def __init__(self, ip_version=None, owner_account=None, owner_id=None, private_ip_address=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None, v_switch_id=None):
-        # Indicates whether the private IP address is available. Valid values:
-        # 
-        # *   **true**: yes
-        # *   **false**: no
-        self.ip_version = ip_version  # type: str
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
-        # The operation that you want to perform. Set the value to **CheckCanAllocateVpcPrivateIpAddress**.
-        self.private_ip_address = private_ip_address  # type: str
-        # To query whether a private IP address is available, the private IP address must belong to the vSwitch specified by the **VSwitchId** parameter.
-        self.region_id = region_id  # type: str
-        self.resource_owner_account = resource_owner_account  # type: str
-        self.resource_owner_id = resource_owner_id  # type: long
         # The version of the private IP address. Valid values:
         # 
         # *   **ipv4**: IPv4 If you want to query an IPv4 address, this parameter is optional.
         # *   **ipv6**: IPv6 If you want to query an IPv6 address, this parameter is required.
+        self.ip_version = ip_version  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # To query whether a private IP address is available, the private IP address must belong to the vSwitch specified by the **VSwitchId** parameter.
+        self.private_ip_address = private_ip_address  # type: str
+        # The region ID of the vSwitch to which the private IP address that you want to query belongs.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
+        self.region_id = region_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        # The ID of the vSwitch to which the private IP address to be queried belongs.
         self.v_switch_id = v_switch_id  # type: str
 
     def validate(self):
@@ -4930,7 +4989,12 @@ class CheckCanAllocateVpcPrivateIpAddressRequest(TeaModel):
 
 class CheckCanAllocateVpcPrivateIpAddressResponseBody(TeaModel):
     def __init__(self, can_allocate=None, request_id=None):
+        # Indicates whether the private IP address is available. Valid values:
+        # 
+        # *   **true**: yes
+        # *   **false**: no
         self.can_allocate = can_allocate  # type: bool
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -6127,35 +6191,20 @@ class CreateCommonBandwidthPackageRequest(TeaModel):
     def __init__(self, bandwidth=None, client_token=None, description=None, isp=None, internet_charge_type=None,
                  name=None, owner_account=None, owner_id=None, ratio=None, region_id=None, resource_group_id=None,
                  resource_owner_account=None, resource_owner_id=None, security_protection_types=None, zone=None):
-        # The billing method of the EIP bandwidth plan. Set the value to **PayByTraffic**, which refers to the pay-by-data-transfer metering method.
-        self.bandwidth = bandwidth  # type: int
         # The maximum bandwidth of the EIP bandwidth plan.
         # 
         # Valid values: **1** to **1000**. Unit: Mbit/s.
-        self.client_token = client_token  # type: str
-        # The ID of the resource group.
-        self.description = description  # type: str
-        # The description of the EIP bandwidth plan.
-        # 
-        # The description must be 2 to 256 characters in length. It must start with a letter but cannot start with `http://` or `https://`.
-        self.isp = isp  # type: str
-        # The ID of the EIP bandwidth plan.
-        self.internet_charge_type = internet_charge_type  # type: str
+        self.bandwidth = bandwidth  # type: int
         # The client token that is used to ensure the idempotence of the request.
         # 
         # You can use the client to generate the value, but you must make sure that it is unique among different requests. The token can contain only ASCII characters.
         # 
         # >  If you do not set this parameter, the system automatically sets the **ClientToken** parameter to the value of **RequestId**. The value of **RequestId** may be different for each API request.
-        self.name = name  # type: str
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
-        # The edition of Anti-DDoS.
+        self.client_token = client_token  # type: str
+        # The description of the EIP bandwidth plan.
         # 
-        # *   If you do not set this parameter, Anti-DDoS Origin Basic is used.
-        # *   If you set the value to **AntiDDoS_Enhanced**, Anti-DDoS Pro/Premium is used.
-        # 
-        # Valid values of **N**: **1** to **10**. You can specify only one Anti-DDoS edition. If you specify more than one edition, the operation may fail.
-        self.ratio = ratio  # type: int
+        # The description must be 2 to 256 characters in length. It must start with a letter but cannot start with `http://` or `https://`.
+        self.description = description  # type: str
         # The line type. Valid values:
         # 
         # *   **BGP**: BGP (Multi-ISP) lines. BGP (Multi-ISP) lines are available in all regions.
@@ -6171,17 +6220,31 @@ class CreateCommonBandwidthPackageRequest(TeaModel):
         # *   **ChinaMobile_L2**: China Mobile L2
         # 
         # If your services are deployed in China East 1 Finance, you must set this parameter to **BGP_FinanceCloud**.
-        self.region_id = region_id  # type: str
+        self.isp = isp  # type: str
+        # The billing method of the EIP bandwidth plan. Set the value to **PayByTraffic**, which refers to the pay-by-data-transfer metering method.
+        self.internet_charge_type = internet_charge_type  # type: str
+        # The name of the EIP bandwidth plan.
+        # 
+        # The name must be 2 to 128 characters in length, and can contain letters, digits, underscores (\_), and hyphens (-). The name must start with a letter.
+        self.name = name  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
         # The percentage of the minimum bandwidth commitment. Set the parameter to **20**.
         # 
         # >  This parameter is available only on the Alibaba Cloud China site.
+        self.ratio = ratio  # type: int
+        # The region ID of the EIP bandwidth plan.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to obtain the region ID.
+        self.region_id = region_id  # type: str
+        # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
         self.security_protection_types = security_protection_types  # type: list[str]
-        # The name of the EIP bandwidth plan.
+        # The zone of the EIP bandwidth plan.
         # 
-        # The name must be 2 to 128 characters in length, and can contain letters, digits, underscores (\_), and hyphens (-). The name must start with a letter.
+        # You do not need to set this parameter.
         self.zone = zone  # type: str
 
     def validate(self):
@@ -6262,9 +6325,11 @@ class CreateCommonBandwidthPackageRequest(TeaModel):
 
 class CreateCommonBandwidthPackageResponseBody(TeaModel):
     def __init__(self, bandwidth_package_id=None, request_id=None, resource_group_id=None):
-        # The ID of the resource group.
+        # The ID of the EIP bandwidth plan.
         self.bandwidth_package_id = bandwidth_package_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
 
     def validate(self):
@@ -6389,15 +6454,15 @@ class CreateCustomerGatewayRequest(TeaModel):
         self.auth_key = auth_key  # type: str
         # The client token that is used to ensure the idempotence of the request.
         # 
-        # You can use the client to generate the value, but you must make sure that it is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length.
+        # You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length.
         # 
-        # >  If you do not set this parameter, **ClientToken** is set to the value of **RequestId**. The value of **RequestId** for each API request may be different.
+        # > If you do not specify this parameter, the system automatically uses the **request ID** as the **client token**. The **request ID** may be different for each request.
         self.client_token = client_token  # type: str
         # The description of the customer gateway.
         # 
         # The description must be 1 to 100 characters in length, and cannot start with `http://` or `https://`.
         self.description = description  # type: str
-        # The static public IP address of the gateway device in the data center.
+        # The public IP address of the gateway device in the data center.
         self.ip_address = ip_address  # type: str
         # The name of the customer gateway.
         # 
@@ -6411,6 +6476,11 @@ class CreateCustomerGatewayRequest(TeaModel):
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The tag value.
+        # 
+        # The tag value can be an empty string and cannot exceed 128 characters in length. It cannot start with `aliyun` or `acs:`, and cannot contain `http://` or `https://`.
+        # 
+        # Each tag key corresponds to one tag value. You can specify up to 20 tag values in each call.
         self.tags = tags  # type: list[CreateCustomerGatewayRequestTags]
 
     def validate(self):
@@ -6496,11 +6566,11 @@ class CreateCustomerGatewayResponseBody(TeaModel):
         self.customer_gateway_id = customer_gateway_id  # type: str
         # The description of the customer gateway.
         self.description = description  # type: str
-        # The static public IP address of the gateway device in the data center.
+        # The public IP address of the gateway device in the data center.
         self.ip_address = ip_address  # type: str
         # The name of the customer gateway.
         self.name = name  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -6887,28 +6957,98 @@ class CreateDefaultVpcResponse(TeaModel):
         return self
 
 
+class CreateDhcpOptionsSetRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateDhcpOptionsSetRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
 class CreateDhcpOptionsSetRequest(TeaModel):
     def __init__(self, client_token=None, dhcp_options_set_description=None, dhcp_options_set_name=None,
                  domain_name=None, domain_name_servers=None, dry_run=None, ipv_6lease_time=None, lease_time=None,
                  owner_account=None, owner_id=None, region_id=None, resource_group_id=None, resource_owner_account=None,
-                 resource_owner_id=None):
+                 resource_owner_id=None, tag=None):
+        # The client token that is used to ensure the idempotence of the request.
+        # 
+        # You can use the client to generate the value, but you must make sure that the value is unique among different requests. The token can contain only ASCII characters.
+        # 
+        # >  If you do not set this parameter, the system uses **RequestId** as **ClientToken**. **RequestId** may be different for each API request.
         self.client_token = client_token  # type: str
+        # The description of the DHCP options set.
+        # 
+        # The description must be 2 to 256 characters in length. It must start with a letter and cannot start with `http://` or `https://`. You can also leave the description empty.
         self.dhcp_options_set_description = dhcp_options_set_description  # type: str
+        # The name of the DHCP options set.
+        # 
+        # The name must be 2 to 128 characters in length, and can contain letters, digits, underscores (\_), and hyphens (-). The name must start with a letter.
         self.dhcp_options_set_name = dhcp_options_set_name  # type: str
+        # The root domain. For example, you can set the value to example.com.
+        # 
+        # After a DHCP options set is associated with a virtual private cloud (VPC), the root domain in the DHCP options set is automatically synchronized with the ECS instances in the VPC.
         self.domain_name = domain_name  # type: str
+        # The IP address of the DNS server. You can enter at most four DNS server IP addresses. Separate IP addresses with commas (,).
+        # 
+        # >  If you do not specify a DNS server IP address, Elastic Compute Service (ECS) instances use the IP addresses of the Alibaba Cloud DNS servers, which are 100.100.2.136 and 100.100.2.138.
         self.domain_name_servers = domain_name_servers  # type: str
+        # Specifies whether to perform a dry run. Valid values:
+        # 
+        # **true**: performs a dry run. The system checks the required parameters, request format, and limits. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.
+        # 
+        # **false** (default): performs a dry run and sends the request. If the request passes the dry run, a 2xx HTTP status code is returned and the operation is performed.
         self.dry_run = dry_run  # type: bool
+        # The lease time of the IPv6 addresses for the DHCP options set.
+        # 
+        # *   If you use hours as the unit, valid values are **24h to 1176h** and **87600h to 175200h**. Default value: **87600h**.
+        # *   If you use days as the unit, valid values are **1d to 49d** and **3650d to 7300d**. Default value: **3650d**.
+        # 
+        # >  When you specify a value, you must also specify the unit.
         self.ipv_6lease_time = ipv_6lease_time  # type: str
+        # The lease time of the IPv4 addresses for the DHCP options set.
+        # 
+        # *   If you use hours as the unit, valid values are **24h to 1176h** and **87600h to 175200h**. Default value: **87600h**.
+        # *   If you use days as the unit, valid values are **1d to 49d** and **3650d to 7300d**. Default value: **3650d**.
+        # 
+        # >  When you specify a value, you must also specify the unit.
         self.lease_time = lease_time  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The region to which the DHCP options set belongs.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        self.tag = tag  # type: list[CreateDhcpOptionsSetRequestTag]
 
     def validate(self):
-        pass
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(CreateDhcpOptionsSetRequest, self).to_map()
@@ -6944,6 +7084,10 @@ class CreateDhcpOptionsSetRequest(TeaModel):
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
             result['ResourceOwnerId'] = self.resource_owner_id
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m=None):
@@ -6976,12 +7120,19 @@ class CreateDhcpOptionsSetRequest(TeaModel):
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
             self.resource_owner_id = m.get('ResourceOwnerId')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = CreateDhcpOptionsSetRequestTag()
+                self.tag.append(temp_model.from_map(k))
         return self
 
 
 class CreateDhcpOptionsSetResponseBody(TeaModel):
     def __init__(self, dhcp_options_set_id=None, request_id=None, resource_group_id=None):
+        # The ID of the DHCP options set that is created.
         self.dhcp_options_set_id = dhcp_options_set_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
         self.resource_group_id = resource_group_id  # type: str
 
@@ -7249,10 +7400,39 @@ class CreateExpressCloudConnectionResponse(TeaModel):
         return self
 
 
+class CreateFlowLogRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateFlowLogRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
 class CreateFlowLogRequest(TeaModel):
     def __init__(self, aggregation_interval=None, description=None, flow_log_name=None, log_store_name=None,
                  owner_account=None, owner_id=None, project_name=None, region_id=None, resource_group_id=None, resource_id=None,
-                 resource_owner_account=None, resource_owner_id=None, resource_type=None, traffic_path=None, traffic_type=None):
+                 resource_owner_account=None, resource_owner_id=None, resource_type=None, tag=None, traffic_path=None, traffic_type=None):
         # The sampling interval of the flow log. Unit: seconds. Valid values: **1**, **5**, and **10** (default).
         self.aggregation_interval = aggregation_interval  # type: int
         # The description of the flow log.
@@ -7291,6 +7471,7 @@ class CreateFlowLogRequest(TeaModel):
         # *   **VSwitch**: all ENIs in a vSwitch
         # *   **VPC**: all ENIs in a virtual private cloud (VPC)
         self.resource_type = resource_type  # type: str
+        self.tag = tag  # type: list[CreateFlowLogRequestTag]
         self.traffic_path = traffic_path  # type: list[str]
         # The type of traffic that you want to capture. Valid values:
         # 
@@ -7300,7 +7481,10 @@ class CreateFlowLogRequest(TeaModel):
         self.traffic_type = traffic_type  # type: str
 
     def validate(self):
-        pass
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(CreateFlowLogRequest, self).to_map()
@@ -7334,6 +7518,10 @@ class CreateFlowLogRequest(TeaModel):
             result['ResourceOwnerId'] = self.resource_owner_id
         if self.resource_type is not None:
             result['ResourceType'] = self.resource_type
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
         if self.traffic_path is not None:
             result['TrafficPath'] = self.traffic_path
         if self.traffic_type is not None:
@@ -7368,6 +7556,11 @@ class CreateFlowLogRequest(TeaModel):
             self.resource_owner_id = m.get('ResourceOwnerId')
         if m.get('ResourceType') is not None:
             self.resource_type = m.get('ResourceType')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = CreateFlowLogRequestTag()
+                self.tag.append(temp_model.from_map(k))
         if m.get('TrafficPath') is not None:
             self.traffic_path = m.get('TrafficPath')
         if m.get('TrafficType') is not None:
@@ -7464,25 +7657,15 @@ class CreateForwardEntryRequest(TeaModel):
     def __init__(self, client_token=None, external_ip=None, external_port=None, forward_entry_name=None,
                  forward_table_id=None, internal_ip=None, internal_port=None, ip_protocol=None, owner_account=None, owner_id=None,
                  port_break=None, region_id=None, resource_owner_account=None, resource_owner_id=None):
-        # The ID of the DNAT entry.
+        # The client token that is used to ensure the idempotence of the request.
+        # 
+        # You can use the client to generate the value, but you must make sure that it is unique among different requests. The client token can contain only ASCII characters.
+        # 
+        # >  If you do not set this parameter, the system automatically uses **RequestId** as **ClientToken**. The value of **RequestId** in each API request may be different.
         self.client_token = client_token  # type: str
-        # *   The private IP address of the ECS instance that needs to communicate with the Internet when you configure a DNAT entry for an Internet NAT gateway. The private IP address must meet the following requirements:
-        # 
-        #     *   It must belong to the CIDR block of the VPC where the NAT gateway is deployed.
-        #     *   The DNAT entry takes effect only if the private IP address is assigned to an ECS instance and the ECS instance is not associated with an EIP.
-        # 
-        # *   The private IP address that uses DNAT when you add a DNAT entry to a VPC NAT gateway.
+        # *   The EIP that can be accessed over the Internet when you configure a DNAT entry for an Internet NAT gateway.
+        # *   The NAT IP address that can be accessed by external networks when you configure a DNAT entry for a VPC NAT gateway.
         self.external_ip = external_ip  # type: str
-        # *   The internal port or port range that is used for port forwarding when you configure a DNAT entry for an Internet NAT gateway. Valid values: **1** to **65535**.
-        # *   The port of the destination ECS instance to be mapped when you configure a DNAT entry for a VPC NAT gateway. Valid values: **1** to **65535**.
-        self.external_port = external_port  # type: str
-        # Specifies whether to remove limits on the port range. Valid values:
-        # 
-        # *   **true**: yes
-        # *   **false** (default): no
-        # 
-        # >  If an SNAT entry and a DNAT entry use the same public IP address, and you want to specify a port number greater than 1024, set **Portbreak** to **true**.
-        self.forward_entry_name = forward_entry_name  # type: str
         # *   The external port range that is used for port forwarding when you configure a DNAT entry for an Internet NAT gateway.
         # 
         #     *   Valid values: **1** to **65535**.
@@ -7490,29 +7673,41 @@ class CreateForwardEntryRequest(TeaModel):
         #     *   If you set **ExternalPort** to a port range, you must also set **InternalPort** to a port range, and the number of ports specified by these parameters must be the same. For example, if you set **ExternalPort** to `10/20`, you can set **InternalPort** to `80/90`.
         # 
         # *   The port that can be accessed by external networks when you configure a DNAT entry for a VPC NAT gateway. Valid values: **1** to **65535**.
+        self.external_port = external_port  # type: str
+        # The name of the DNAT entry.
+        # 
+        # The name must be 2 to 128 characters in length. It must start with a letter but cannot start with `http://` or `https://`.
+        self.forward_entry_name = forward_entry_name  # type: str
+        # The ID of the DNAT table.
         self.forward_table_id = forward_table_id  # type: str
+        # *   The private IP address of the ECS instance that needs to communicate with the Internet when you configure a DNAT entry for an Internet NAT gateway. The private IP address must meet the following requirements:
+        # 
+        #     *   It must belong to the CIDR block of the VPC where the NAT gateway is deployed.
+        #     *   The DNAT entry takes effect only if the private IP address is assigned to an ECS instance and the ECS instance is not associated with an EIP.
+        # 
+        # *   The private IP address that uses DNAT when you add a DNAT entry to a VPC NAT gateway.
+        self.internal_ip = internal_ip  # type: str
+        # *   The internal port or port range that is used for port forwarding when you configure a DNAT entry for an Internet NAT gateway. Valid values: **1** to **65535**.
+        # *   The port of the destination ECS instance to be mapped when you configure a DNAT entry for a VPC NAT gateway. Valid values: **1** to **65535**.
+        self.internal_port = internal_port  # type: str
         # The protocol. Valid values:
         # 
         # *   **TCP**: The NAT gateway forwards TCP packets.
         # *   **UDP**: The NAT gateway forwards UDP packets.
         # *   **Any**: The NAT gateway forwards packets of all protocols. If you set **IpProtocol** to **Any**, you must also set **ExternalPort** and **InternalPort** to **Any** to implement DNAT IP mapping.
-        self.internal_ip = internal_ip  # type: str
-        # The name of the DNAT entry.
-        # 
-        # The name must be 2 to 128 characters in length. It must start with a letter but cannot start with `http://` or `https://`.
-        self.internal_port = internal_port  # type: str
-        # The client token that is used to ensure the idempotence of the request.
-        # 
-        # You can use the client to generate the value, but you must make sure that it is unique among different requests. The client token can contain only ASCII characters.
-        # 
-        # >  If you do not set this parameter, the system automatically uses **RequestId** as **ClientToken**. The value of **RequestId** in each API request may be different.
         self.ip_protocol = ip_protocol  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The ID of the request.
+        # Specifies whether to remove limits on the port range. Valid values:
+        # 
+        # *   **true**: yes
+        # *   **false** (default): no
+        # 
+        # >  If an SNAT entry and a DNAT entry use the same public IP address, and you want to specify a port number greater than 1024, set **Portbreak** to **true**.
         self.port_break = port_break  # type: bool
-        # *   The EIP that can be accessed over the Internet when you configure a DNAT entry for an Internet NAT gateway.
-        # *   The NAT IP address that can be accessed by external networks when you configure a DNAT entry for a VPC NAT gateway.
+        # The region ID of the NAT gateway.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -7591,7 +7786,9 @@ class CreateForwardEntryRequest(TeaModel):
 
 class CreateForwardEntryResponseBody(TeaModel):
     def __init__(self, forward_entry_id=None, request_id=None):
+        # The ID of the DNAT entry.
         self.forward_entry_id = forward_entry_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -7662,41 +7859,45 @@ class CreateFullNatEntryRequest(TeaModel):
                  full_nat_entry_description=None, full_nat_entry_name=None, full_nat_table_id=None, ip_protocol=None, nat_ip=None,
                  nat_ip_port=None, network_interface_id=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None):
-        # The protocol of the packets that are forwarded by the port. Valid values:
-        # 
-        # *   **TCP**: forwards TCP packets.
-        # *   **UDP**: forwards UDP packets.
+        # The backend IP address to be modified in FULLNAT address translation.
         self.access_ip = access_ip  # type: str
-        # The name of the FULLNAT entry. The name must be 2 to 128 characters in length. It must start with a letter but cannot start with http:// or https://.
+        # The backend port to be modified in FULLNAT port mapping. Valid values: **1** to **65535**.
         self.access_port = access_port  # type: str
-        # The ID of the FULLNAT table to which the FULLNAT entry belongs.
-        self.client_token = client_token  # type: str
-        # The ID of the request.
-        self.dry_run = dry_run  # type: bool
-        # The region ID of the Virtual Private Cloud (VPC) NAT gateway to which the FULLNAT entry to be added belongs.
+        # The client token that is used to ensure the idempotence of the request.
         # 
-        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
-        self.full_nat_entry_description = full_nat_entry_description  # type: str
+        # You can use the client to generate the value, but you must make sure that it is unique among different requests. The client token can contain only ASCII characters.
+        # 
+        # >  If you do not set this parameter, **ClientToken** is set to the value of **RequestId**. The value of **RequestId** for each API request may be different.
+        self.client_token = client_token  # type: str
         # Specifies whether only to precheck this request. Valid values:
         # 
         # *   **true**: prechecks the request but does not add the FULLNAT entry. The system checks your AccessKey pair, the RAM user permissions, and the required parameters. If the request fails the precheck, an error code is returned. If the request passes the check, the `DryRunOperation` error code is returned.
         # *   **false**: sends the API request. After the request passes the precheck, a 2XX HTTP status code is returned and the FULLNAT entry is added. This is the default value.
-        self.full_nat_entry_name = full_nat_entry_name  # type: str
-        # The NAT IP address that provides address translation.
-        self.full_nat_table_id = full_nat_table_id  # type: str
+        self.dry_run = dry_run  # type: bool
         # The description of the FULLNAT entry.
         # 
         # This parameter is optional. If you enter a description, the description must be 2 to 256 characters in length, and cannot start with `http://` or `https://`.
+        self.full_nat_entry_description = full_nat_entry_description  # type: str
+        # The name of the FULLNAT entry. The name must be 2 to 128 characters in length. It must start with a letter but cannot start with http:// or https://.
+        self.full_nat_entry_name = full_nat_entry_name  # type: str
+        # The ID of the FULLNAT table to which the FULLNAT entry belongs.
+        self.full_nat_table_id = full_nat_table_id  # type: str
+        # The protocol of the packets that are forwarded by the port. Valid values:
+        # 
+        # *   **TCP**: forwards TCP packets.
+        # *   **UDP**: forwards UDP packets.
         self.ip_protocol = ip_protocol  # type: str
-        # The backend IP address to be modified in FULLNAT address translation.
+        # The NAT IP address that provides address translation.
         self.nat_ip = nat_ip  # type: str
-        # The backend port to be modified in FULLNAT port mapping. Valid values: **1** to **65535**.
-        self.nat_ip_port = nat_ip_port  # type: str
         # The frontend port to be modified in FULLNAT port mapping. Valid values: **1** to **65535**.
+        self.nat_ip_port = nat_ip_port  # type: str
+        # The ID of the elastic network interface (ENI).
         self.network_interface_id = network_interface_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The ID of the FULLNAT entry.
+        # The region ID of the Virtual Private Cloud (VPC) NAT gateway to which the FULLNAT entry to be added belongs.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -7783,7 +7984,9 @@ class CreateFullNatEntryRequest(TeaModel):
 
 class CreateFullNatEntryResponseBody(TeaModel):
     def __init__(self, full_nat_entry_id=None, request_id=None):
+        # The ID of the FULLNAT entry.
         self.full_nat_entry_id = full_nat_entry_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -8026,10 +8229,39 @@ class CreateGlobalAccelerationInstanceResponse(TeaModel):
         return self
 
 
+class CreateHaVipRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateHaVipRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
 class CreateHaVipRequest(TeaModel):
     def __init__(self, client_token=None, description=None, ip_address=None, name=None, owner_account=None,
                  owner_id=None, region_id=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None,
-                 v_switch_id=None):
+                 tag=None, v_switch_id=None):
         # The client token that is used to ensure the idempotence of the request.
         # 
         # You can use the client to generate the value, but you must make sure that the value is unique among all requests. The token can contain only ASCII characters.
@@ -8056,11 +8288,15 @@ class CreateHaVipRequest(TeaModel):
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        self.tag = tag  # type: list[CreateHaVipRequestTag]
         # The ID of the vSwitch to which the HAVIP belongs.
         self.v_switch_id = v_switch_id  # type: str
 
     def validate(self):
-        pass
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(CreateHaVipRequest, self).to_map()
@@ -8088,6 +8324,10 @@ class CreateHaVipRequest(TeaModel):
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
             result['ResourceOwnerId'] = self.resource_owner_id
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
         if self.v_switch_id is not None:
             result['VSwitchId'] = self.v_switch_id
         return result
@@ -8114,6 +8354,11 @@ class CreateHaVipRequest(TeaModel):
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
             self.resource_owner_id = m.get('ResourceOwnerId')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = CreateHaVipRequestTag()
+                self.tag.append(temp_model.from_map(k))
         if m.get('VSwitchId') is not None:
             self.v_switch_id = m.get('VSwitchId')
         return self
@@ -8940,10 +9185,39 @@ class CreateIpsecServerResponse(TeaModel):
         return self
 
 
+class CreateIpv4GatewayRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateIpv4GatewayRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
 class CreateIpv4GatewayRequest(TeaModel):
     def __init__(self, client_token=None, dry_run=None, ipv_4gateway_description=None, ipv_4gateway_name=None,
                  owner_account=None, owner_id=None, region_id=None, resource_group_id=None, resource_owner_account=None,
-                 resource_owner_id=None, vpc_id=None):
+                 resource_owner_id=None, tag=None, vpc_id=None):
         # The client token that is used to ensure the idempotence of the request.
         # 
         # You can use the client to generate the value, but you must make sure that it is unique among different requests. ClientToken can contain only ASCII characters.
@@ -8973,13 +9247,17 @@ class CreateIpv4GatewayRequest(TeaModel):
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        self.tag = tag  # type: list[CreateIpv4GatewayRequestTag]
         # The ID of the VPC where you want to create the IPv4 gateway.
         # 
         # You can create only one IPv4 gateway in a VPC.
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
-        pass
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(CreateIpv4GatewayRequest, self).to_map()
@@ -9007,6 +9285,10 @@ class CreateIpv4GatewayRequest(TeaModel):
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
             result['ResourceOwnerId'] = self.resource_owner_id
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
         if self.vpc_id is not None:
             result['VpcId'] = self.vpc_id
         return result
@@ -9033,6 +9315,11 @@ class CreateIpv4GatewayRequest(TeaModel):
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
             self.resource_owner_id = m.get('ResourceOwnerId')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = CreateIpv4GatewayRequestTag()
+                self.tag.append(temp_model.from_map(k))
         if m.get('VpcId') is not None:
             self.vpc_id = m.get('VpcId')
         return self
@@ -9279,9 +9566,39 @@ class CreateIpv6EgressOnlyRuleResponse(TeaModel):
         return self
 
 
+class CreateIpv6GatewayRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateIpv6GatewayRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
 class CreateIpv6GatewayRequest(TeaModel):
     def __init__(self, client_token=None, description=None, name=None, owner_account=None, owner_id=None,
-                 region_id=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None, vpc_id=None):
+                 region_id=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None, tag=None,
+                 vpc_id=None):
         # The client token that is used to ensure the idempotence of the request.
         # 
         # You can use the client to generate the value, but you must ensure that the value is unique among different requests. ClientToken can contain only ASCII characters.
@@ -9304,11 +9621,15 @@ class CreateIpv6GatewayRequest(TeaModel):
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        self.tag = tag  # type: list[CreateIpv6GatewayRequestTag]
         # The ID of the VPC for which you want to create the IPv6 gateway.
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
-        pass
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(CreateIpv6GatewayRequest, self).to_map()
@@ -9334,6 +9655,10 @@ class CreateIpv6GatewayRequest(TeaModel):
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
             result['ResourceOwnerId'] = self.resource_owner_id
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
         if self.vpc_id is not None:
             result['VpcId'] = self.vpc_id
         return result
@@ -9358,6 +9683,11 @@ class CreateIpv6GatewayRequest(TeaModel):
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
             self.resource_owner_id = m.get('ResourceOwnerId')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = CreateIpv6GatewayRequestTag()
+                self.tag.append(temp_model.from_map(k))
         if m.get('VpcId') is not None:
             self.vpc_id = m.get('VpcId')
         return self
@@ -9840,36 +10170,38 @@ class CreateNatIpRequest(TeaModel):
     def __init__(self, client_token=None, dry_run=None, nat_gateway_id=None, nat_ip=None, nat_ip_cidr=None,
                  nat_ip_description=None, nat_ip_name=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None):
-        # The ID of the CIDR block to which the NAT IP address belongs.
-        self.client_token = client_token  # type: str
-        # The CIDR block to which the NAT IP address belongs.
-        self.dry_run = dry_run  # type: bool
-        # The description of the NAT IP address.
-        # 
-        # The description must be 2 to 256 characters in length. It must start with a letter but cannot start with `http://` or `https://`.
-        self.nat_gateway_id = nat_gateway_id  # type: str
-        # The NAT IP address.
-        self.nat_ip = nat_ip  # type: str
-        # The NAT IP address that you want to create.
-        # 
-        # If you do not specify an IP address, the system selects a random IP address from the specified CIDR block.
-        self.nat_ip_cidr = nat_ip_cidr  # type: str
         # The client token that is used to ensure the idempotence of the request.
         # 
         # You can use the client to generate the value, but you must make sure that it is unique among different requests. The client token can contain only ASCII characters.
         # 
         # >  If you do not set this parameter, **ClientToken** is set to the value of **RequestId**. The value of **RequestId** for each API request may be different.
-        self.nat_ip_description = nat_ip_description  # type: str
+        self.client_token = client_token  # type: str
         # Specifies whether only to precheck this request. Valid values:
         # 
         # *   **true**: sends the precheck request but does not create the NAT IP address. The system checks your AccessKey pair, the Resource Access Management (RAM) user permissions, and the required parameters. If the request fails the precheck, an error message is returned. If the request passes the precheck, the `DryRunOperation` error code is returned.
         # *   **false** (default): sends the request. If the request passes the precheck, a 2xx HTTP status code is returned and the NAT IP address is created.
-        self.nat_ip_name = nat_ip_name  # type: str
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
+        self.dry_run = dry_run  # type: bool
+        # The ID of the Virtual Private Cloud (VPC) NAT gateway for which you want to create the NAT IP address.
+        self.nat_gateway_id = nat_gateway_id  # type: str
+        # The NAT IP address that you want to create.
+        # 
+        # If you do not specify an IP address, the system selects a random IP address from the specified CIDR block.
+        self.nat_ip = nat_ip  # type: str
+        # The CIDR block to which the NAT IP address belongs.
+        self.nat_ip_cidr = nat_ip_cidr  # type: str
+        # The description of the NAT IP address.
+        # 
+        # The description must be 2 to 256 characters in length. It must start with a letter but cannot start with `http://` or `https://`.
+        self.nat_ip_description = nat_ip_description  # type: str
         # The name of the NAT IP address.
         # 
         # The name must be 2 to 128 characters in length, and can contain letters, digits, periods (.), underscores (\_), and hyphens (-). It must start with a letter. It cannot start with `http://` or `https://`.
+        self.nat_ip_name = nat_ip_name  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The region ID of the NAT gateway to which the NAT IP address that you want to create belongs.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -9940,9 +10272,11 @@ class CreateNatIpRequest(TeaModel):
 
 class CreateNatIpResponseBody(TeaModel):
     def __init__(self, nat_ip=None, nat_ip_id=None, request_id=None):
-        # The ID of the NAT IP address.
+        # The NAT IP address.
         self.nat_ip = nat_ip  # type: str
+        # The ID of the NAT IP address.
         self.nat_ip_id = nat_ip_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -10016,8 +10350,19 @@ class CreateNatIpCidrRequest(TeaModel):
     def __init__(self, client_token=None, dry_run=None, nat_gateway_id=None, nat_ip_cidr=None,
                  nat_ip_cidr_description=None, nat_ip_cidr_name=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None):
-        # The operation that you want to perform. Set the value to **CreateNatIpCidr**.
+        # The client token that is used to ensure the idempotence of the request.
+        # 
+        # You can use the client to generate the value, but you must make sure that it is unique among different requests. The client token can contain only ASCII characters.
+        # 
+        # >  If you do not set this parameter, the system automatically uses **RequestId** as **ClientToken**. **RequestId** of each API request may be different.
         self.client_token = client_token  # type: str
+        # Specifies whether to check the request without performing the operation. Valid values:
+        # 
+        # *   **true**: prechecks the request but does not create the NAT CIDR block. The system checks the required parameters, request syntax, and limits. If the request fails check, an error message is returned. If the request passes the check, the `DryRunOperation` error code is returned.
+        # *   **false** (default): sends the request. If the request passes the check, an HTTP 2xx status code is returned and the NAT CIDR block is created.
+        self.dry_run = dry_run  # type: bool
+        # The ID of the Virtual Private Cloud (VPC) NAT gateway with which you want to associate the CIDR block.
+        self.nat_gateway_id = nat_gateway_id  # type: str
         # The NAT CIDR block that you want to associate with the NAT gateway.
         # 
         # The NAT CIDR block must meet the following conditions:
@@ -10026,29 +10371,20 @@ class CreateNatIpCidrRequest(TeaModel):
         # *   The subnet mask must be 16 to 32 bits in length.
         # *   The NAT CIDR block cannot overlap with the private CIDR block of the VPC to which the NAT gateway belongs. If you want to use other IP addresses from the private CIDR block of the VPC to provide NAT services, create a vSwitch and attach the vSwitch to another VPC NAT gateway.
         # *   If you want to use public IP addresses to provide NAT services, make sure that the public IP addresses fall within a customer CIDR block of the VPC to which the VPC NAT gateway belongs. For more information, see [What is customer CIDR block?](~~185311~~).
-        self.dry_run = dry_run  # type: bool
+        self.nat_ip_cidr = nat_ip_cidr  # type: str
         # The description of the NAT CIDR block.
         # 
         # The description must be 2 to 256 characters in length. It must start with a letter but cannot start with `http://` or `https://`.
-        self.nat_gateway_id = nat_gateway_id  # type: str
-        # The ID of the NAT CIDR block.
-        self.nat_ip_cidr = nat_ip_cidr  # type: str
-        # The client token that is used to ensure the idempotence of the request.
-        # 
-        # You can use the client to generate the value, but you must make sure that it is unique among different requests. The client token can contain only ASCII characters.
-        # 
-        # >  If you do not set this parameter, the system automatically uses **RequestId** as **ClientToken**. **RequestId** of each API request may be different.
         self.nat_ip_cidr_description = nat_ip_cidr_description  # type: str
-        # Specifies whether to check the request without performing the operation. Valid values:
-        # 
-        # *   **true**: prechecks the request but does not create the NAT CIDR block. The system checks the required parameters, request syntax, and limits. If the request fails check, an error message is returned. If the request passes the check, the `DryRunOperation` error code is returned.
-        # *   **false** (default): sends the request. If the request passes the check, an HTTP 2xx status code is returned and the NAT CIDR block is created.
-        self.nat_ip_cidr_name = nat_ip_cidr_name  # type: str
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
         # The name of the CIDR block.
         # 
         # The name must be 2 to 128 characters in length, and can contain letters, digits, periods (.), underscores (\_), and hyphens (-). It must start with a letter. It cannot start with `http://` or `https://`.
+        self.nat_ip_cidr_name = nat_ip_cidr_name  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The region ID of the NAT gateway with which you want to associate the CIDR block.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -10115,7 +10451,9 @@ class CreateNatIpCidrRequest(TeaModel):
 
 class CreateNatIpCidrResponseBody(TeaModel):
     def __init__(self, nat_ip_cidr_id=None, request_id=None):
+        # The ID of the NAT CIDR block.
         self.nat_ip_cidr_id = nat_ip_cidr_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -10181,25 +10519,77 @@ class CreateNatIpCidrResponse(TeaModel):
         return self
 
 
-class CreateNetworkAclRequest(TeaModel):
-    def __init__(self, client_token=None, description=None, network_acl_name=None, owner_id=None, region_id=None,
-                 resource_owner_account=None, resource_owner_id=None, vpc_id=None):
-        # The details about the inbound rule.
-        self.client_token = client_token  # type: str
-        # The ID of the network ACL.
-        self.description = description  # type: str
-        # The name of the network ACL.
-        self.network_acl_name = network_acl_name  # type: str
-        self.owner_id = owner_id  # type: long
-        # The region ID of the network ACL.
-        self.region_id = region_id  # type: str
-        self.resource_owner_account = resource_owner_account  # type: str
-        self.resource_owner_id = resource_owner_id  # type: long
-        # The description of the network ACL.
-        self.vpc_id = vpc_id  # type: str
+class CreateNetworkAclRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
 
     def validate(self):
         pass
+
+    def to_map(self):
+        _map = super(CreateNetworkAclRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class CreateNetworkAclRequest(TeaModel):
+    def __init__(self, client_token=None, description=None, network_acl_name=None, owner_id=None, region_id=None,
+                 resource_owner_account=None, resource_owner_id=None, tag=None, vpc_id=None):
+        # The client token that is used to ensure the idempotence of the request.
+        # 
+        # You can use the client to generate the value, but you must make sure that it is unique among different requests. The token can contain only ASCII characters.
+        # 
+        # >  If you do not specify this parameter, the system uses **RequestId** as **ClientToken**. **RequestId** may be different for each API request.
+        self.client_token = client_token  # type: str
+        # The description of the network ACL.
+        # 
+        # The description must be 1 to 256 characters in length and cannot start with `http://` or `https://`.
+        self.description = description  # type: str
+        # The name of the network ACL.
+        # 
+        # The name must be 1 to 128 characters in length and cannot start with `http://` or `https://`.
+        self.network_acl_name = network_acl_name  # type: str
+        self.owner_id = owner_id  # type: long
+        # The region ID of the network ACL.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
+        self.region_id = region_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        self.tag = tag  # type: list[CreateNetworkAclRequestTag]
+        # The ID of the virtual private cloud (VPC) to which the network ACL belongs.
+        # 
+        # If the VPC contains Elastic Compute Service (ECS) instances of the following instance families, you must upgrade the ECS instances or release the ECS instances. Otherwise, you cannot create a network ACL for the VPC.
+        # 
+        # ecs.c1, ecs.c2, ecs.c4, ecs.c5, ecs.ce4, ecs.cm4, ecs.d1, ecs.e3, ecs.e4, ecs.ga1, ecs.gn4, ecs.gn5, ecs.i1, ecs.m1, ecs.m2, ecs.mn4, ecs.n1, ecs.n2, ecs.n4, ecs.s1, ecs.s2, ecs.s3, ecs.se1, ecs.sn1, ecs.sn2, ecs.t1, and ecs.xn4.
+        # 
+        # *   For more information about how to upgrade an ECS instance, see [Upgrade subscription instances](~~25438~~) and [Change the specifications of pay-as-you-go instances](~~60051~~).
+        # *   For more information about how to release an ECS instance, see [Release an ECS instance](~~25442~~).
+        # 
+        # >  If your VPC contains ECS instances of the preceding instance families and you create a network ACL for the VPC, you must upgrade the ECS instances. Otherwise, the network ACL cannot work as expected.
+        self.vpc_id = vpc_id  # type: str
+
+    def validate(self):
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(CreateNetworkAclRequest, self).to_map()
@@ -10221,6 +10611,10 @@ class CreateNetworkAclRequest(TeaModel):
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
             result['ResourceOwnerId'] = self.resource_owner_id
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
         if self.vpc_id is not None:
             result['VpcId'] = self.vpc_id
         return result
@@ -10241,6 +10635,11 @@ class CreateNetworkAclRequest(TeaModel):
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
             self.resource_owner_id = m.get('ResourceOwnerId')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = CreateNetworkAclRequestTag()
+                self.tag.append(temp_model.from_map(k))
         if m.get('VpcId') is not None:
             self.vpc_id = m.get('VpcId')
         return self
@@ -10249,12 +10648,31 @@ class CreateNetworkAclRequest(TeaModel):
 class CreateNetworkAclResponseBodyNetworkAclAttributeEgressAclEntriesEgressAclEntry(TeaModel):
     def __init__(self, description=None, destination_cidr_ip=None, network_acl_entry_id=None,
                  network_acl_entry_name=None, policy=None, port=None, protocol=None):
+        # The description of the outbound rule.
         self.description = description  # type: str
+        # The destination CIDR block.
         self.destination_cidr_ip = destination_cidr_ip  # type: str
+        # The ID of the outbound rule.
         self.network_acl_entry_id = network_acl_entry_id  # type: str
+        # The name of the outbound rule.
         self.network_acl_entry_name = network_acl_entry_name  # type: str
+        # The action that is performed on network traffic that matches the rule. Valid values:
+        # 
+        # - **accept**: allows the network traffic.
+        # - **drop**: blocks the network traffic.
         self.policy = policy  # type: str
+        # The destination port range of the outbound rule. 
+        # 
+        # - If **Protocol** of the outbound rule is set to **all**, **icmp**, or **gre**, the port range is **-1/-1**, which indicates all ports.
+        # - If **Protocol** of the outbound rule is set to **tcp** or **udp**, the port range is in the following format: **1/200** or **80/80**. 1/200 indicates port 1 to port 200. 80/80 indicates port 80. Valid values for a port: **1** to **65535**.
         self.port = port  # type: str
+        # The protocol type. Valid values:
+        # 
+        # - **icmp**: ICMP
+        # - **gre**: GRE
+        # - **tcp**: TCP
+        # - **udp**: UDP
+        # - **all**: all protocols
         self.protocol = protocol  # type: str
 
     def validate(self):
@@ -10336,25 +10754,31 @@ class CreateNetworkAclResponseBodyNetworkAclAttributeEgressAclEntries(TeaModel):
 class CreateNetworkAclResponseBodyNetworkAclAttributeIngressAclEntriesIngressAclEntry(TeaModel):
     def __init__(self, description=None, network_acl_entry_id=None, network_acl_entry_name=None, policy=None,
                  port=None, protocol=None, source_cidr_ip=None):
-        # The association status of the resource. Valid values:
-        # 
-        # - **BINDED**: The resource is associated with the network ACL.
-        # - **BINDING**: The resource is being associated with the network ACL.
-        # - **UNBINDING**: The resource is disassociated from the network ACL.
+        # The description of the inbound rule.
         self.description = description  # type: str
-        # The destination CIDR block.
+        # The ID of the inbound rule.
         self.network_acl_entry_id = network_acl_entry_id  # type: str
-        # The destination port range of the outbound rule. 
-        # 
-        # - If **Protocol** of the outbound rule is set to **all**, **icmp**, or **gre**, the port range is **-1/-1**, which indicates all ports.
-        # - If **Protocol** of the outbound rule is set to **tcp** or **udp**, the port range is in the following format: **1/200** or **80/80**. 1/200 indicates port 1 to port 200. 80/80 indicates port 80. Valid values for a port: **1** to **65535**.
+        # The name of the inbound rule.
         self.network_acl_entry_name = network_acl_entry_name  # type: str
-        # The details about the resource that is associated with the network ACL.
+        # The action that is performed on network traffic that matches the rule. Valid values:
+        # 
+        # *   **accept**: allows the network traffic.
+        # *   **drop**: blocks the network traffic.
         self.policy = policy  # type: str
+        # The destination port range of the inbound rule.
+        # 
+        # *   If **Protocol** of the inbound rule is set to **all**, **icmp**, or **gre**, the port range is **-1/-1**, which indicates all ports.
+        # *   If **Protocol** of the inbound rule is set to **tcp** or **udp**, the port range is in the following format: **1/200** or **80/80**. 1/200 indicates port 1 to port 200. 80/80 indicates port 80. Valid values for a port: **1** to **65535**.
         self.port = port  # type: str
-        # The ID of the associated resource.
+        # The protocol type. Valid values:
+        # 
+        # *   **icmp**: ICMP
+        # *   **gre**: GRE
+        # *   **tcp**: TCP
+        # *   **udp**: UDP
+        # *   **all**: all protocols
         self.protocol = protocol  # type: str
-        # The type of the associated resource.
+        # The source CIDR block.
         self.source_cidr_ip = source_cidr_ip  # type: str
 
     def validate(self):
@@ -10435,8 +10859,15 @@ class CreateNetworkAclResponseBodyNetworkAclAttributeIngressAclEntries(TeaModel)
 
 class CreateNetworkAclResponseBodyNetworkAclAttributeResourcesResource(TeaModel):
     def __init__(self, resource_id=None, resource_type=None, status=None):
+        # The ID of the associated resource.
         self.resource_id = resource_id  # type: str
+        # The type of the associated resource.
         self.resource_type = resource_type  # type: str
+        # The association status of the resource. Valid values:
+        # 
+        # - **BINDED**: The resource is associated with the network ACL.
+        # - **BINDING**: The resource is being associated with the network ACL.
+        # - **UNBINDING**: The resource is disassociated from the network ACL.
         self.status = status  # type: str
 
     def validate(self):
@@ -10502,41 +10933,28 @@ class CreateNetworkAclResponseBodyNetworkAclAttributeResources(TeaModel):
 class CreateNetworkAclResponseBodyNetworkAclAttribute(TeaModel):
     def __init__(self, creation_time=None, description=None, egress_acl_entries=None, ingress_acl_entries=None,
                  network_acl_id=None, network_acl_name=None, region_id=None, resources=None, status=None, vpc_id=None):
-        # The destination port range of the inbound rule.
-        # 
-        # *   If **Protocol** of the inbound rule is set to **all**, **icmp**, or **gre**, the port range is **-1/-1**, which indicates all ports.
-        # *   If **Protocol** of the inbound rule is set to **tcp** or **udp**, the port range is in the following format: **1/200** or **80/80**. 1/200 indicates port 1 to port 200. 80/80 indicates port 80. Valid values for a port: **1** to **65535**.
+        # The time when the network ACL was created.
         self.creation_time = creation_time  # type: str
-        # The details about the outbound rule.
+        # The description of the network ACL.
         self.description = description  # type: str
+        # The details about the outbound rule.
         self.egress_acl_entries = egress_acl_entries  # type: CreateNetworkAclResponseBodyNetworkAclAttributeEgressAclEntries
-        # The protocol type. Valid values:
-        # 
-        # - **icmp**: ICMP
-        # - **gre**: GRE
-        # - **tcp**: TCP
-        # - **udp**: UDP
-        # - **all**: all protocols
+        # The details about the inbound rule.
         self.ingress_acl_entries = ingress_acl_entries  # type: CreateNetworkAclResponseBodyNetworkAclAttributeIngressAclEntries
-        # The name of the outbound rule.
+        # The ID of the network ACL.
         self.network_acl_id = network_acl_id  # type: str
-        # The ID of the outbound rule.
+        # The name of the network ACL.
         self.network_acl_name = network_acl_name  # type: str
-        # The action that is performed on network traffic that matches the rule. Valid values:
-        # 
-        # - **accept**: allows the network traffic.
-        # - **drop**: blocks the network traffic.
+        # The region ID of the network ACL.
         self.region_id = region_id  # type: str
+        # The details about the resource that is associated with the network ACL.
         self.resources = resources  # type: CreateNetworkAclResponseBodyNetworkAclAttributeResources
-        # The source CIDR block.
-        self.status = status  # type: str
-        # The protocol type. Valid values:
+        # The status of the network ACL. Valid values:
         # 
-        # *   **icmp**: ICMP
-        # *   **gre**: GRE
-        # *   **tcp**: TCP
-        # *   **udp**: UDP
-        # *   **all**: all protocols
+        # *   **Available**: The network ACL is available.
+        # *   **Modifying**: The network ACL is being configured.
+        self.status = status  # type: str
+        # The ID of the VPC to which the network ACL belongs.
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
@@ -10605,14 +11023,11 @@ class CreateNetworkAclResponseBodyNetworkAclAttribute(TeaModel):
 
 class CreateNetworkAclResponseBody(TeaModel):
     def __init__(self, network_acl_attribute=None, network_acl_id=None, request_id=None):
-        # The description of the inbound rule.
+        # The attributes of the network ACL.
         self.network_acl_attribute = network_acl_attribute  # type: CreateNetworkAclResponseBodyNetworkAclAttribute
-        # The name of the inbound rule.
+        # The ID of the network ACL.
         self.network_acl_id = network_acl_id  # type: str
-        # The action that is performed on network traffic that matches the rule. Valid values:
-        # 
-        # *   **accept**: allows the network traffic.
-        # *   **drop**: blocks the network traffic.
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -10718,6 +11133,20 @@ class CreatePhysicalConnectionRequest(TeaModel):
                  line_operator=None, name=None, owner_account=None, owner_id=None, peer_location=None, port_type=None,
                  redundant_physical_connection_id=None, region_id=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None,
                  tag=None, type=None, bandwidth=None):
+        # The access point ID of the Express Connect circuit.
+        self.access_point_id = access_point_id  # type: str
+        # The circuit code of the Express Connect circuit. The circuit code is provided by the connectivity provider.
+        self.circuit_code = circuit_code  # type: str
+        # The client token that is used to ensure the idempotence of the request.
+        # 
+        # You can use the client to generate the value, but you must ensure that the value is unique among all requests. The client token can contain only ASCII characters.
+        # 
+        # >  If you do not set this parameter, the system uses **RequestId** as **ClientToken**. **RequestId** might be different for each API request.
+        self.client_token = client_token  # type: str
+        # The description of the Express Connect circuit.
+        # 
+        # The description must be 2 to 256 characters in length. The description must start with a letter but cannot start with `http://` or `https://`.
+        self.description = description  # type: str
         # The connectivity provider of the Express Connect circuit. Valid values:
         # 
         # *   **CT**: China Telecom
@@ -10726,44 +11155,15 @@ class CreatePhysicalConnectionRequest(TeaModel):
         # *   **CO**: other connectivity providers in the Chinese mainland
         # *   **Equinix**: Equinix
         # *   **Other**: other connectivity providers outside the Chinese mainland
-        self.access_point_id = access_point_id  # type: str
-        # The operation that you want to perform. Set the value to **CreatePhysicalConnection**.
-        self.circuit_code = circuit_code  # type: str
-        # The ID of the resource group to which the Express Connect circuit belongs.
-        self.client_token = client_token  # type: str
-        # The circuit code of the Express Connect circuit. The circuit code is provided by the connectivity provider.
-        self.description = description  # type: str
-        # The geographical location of the data center.
         self.line_operator = line_operator  # type: str
-        # The client token that is used to ensure the idempotence of the request.
-        # 
-        # You can use the client to generate the value, but you must ensure that the value is unique among all requests. The client token can contain only ASCII characters.
-        # 
-        # >  If you do not set this parameter, the system uses **RequestId** as **ClientToken**. **RequestId** might be different for each API request.
-        self.name = name  # type: str
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
-        # The ID of the redundant Express Connect circuit. The redundant Express Connect circuit must be in the **Allocated**, **Confirmed**, or **Enabled** state.
-        self.peer_location = peer_location  # type: str
-        # The description of the Express Connect circuit.
-        # 
-        # The description must be 2 to 256 characters in length. The description must start with a letter but cannot start with `http://` or `https://`.
-        self.port_type = port_type  # type: str
         # The name of the Express Connect circuit.
         # 
         # The name must be 2 to 128 characters in length, and can contain letters, digits, underscores (\_), and hyphens (-). The name must start with a letter but cannot start with `http://` or `https://`.
-        self.redundant_physical_connection_id = redundant_physical_connection_id  # type: str
-        # The type of the Express Connect circuit. Default value: **VPC**.
-        self.region_id = region_id  # type: str
-        # The ID of the request.
-        self.resource_group_id = resource_group_id  # type: str
-        self.resource_owner_account = resource_owner_account  # type: str
-        self.resource_owner_id = resource_owner_id  # type: long
-        self.tag = tag  # type: list[CreatePhysicalConnectionRequestTag]
-        # The maximum bandwidth of the hosted connection. Unit: Mbit/s.
-        # 
-        # Valid values: **50**, **100**, **200**, **300**, **400**, **500**, **1000**, **2000**, **4000**, **5000**, **8000**, and **10000**.
-        self.type = type  # type: str
+        self.name = name  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The geographical location of the data center.
+        self.peer_location = peer_location  # type: str
         # The port type of the Express Connect circuit. Valid values:
         # 
         # *   **100Base-T**: 100 Mbit/s copper Ethernet port
@@ -10775,6 +11175,23 @@ class CreatePhysicalConnectionRequest(TeaModel):
         # *   **100GBase-LR**: 100,000 Mbit/s single-mode optical port
         # 
         # >  If you want to use the 40GBase-LR or 100GBase-LR port for an Express Connect circuit, you must first contact your account manager to obtain information about resource supplies.
+        self.port_type = port_type  # type: str
+        # The ID of the redundant Express Connect circuit. The redundant Express Connect circuit must be in the **Allocated**, **Confirmed**, or **Enabled** state.
+        self.redundant_physical_connection_id = redundant_physical_connection_id  # type: str
+        # The region ID of the Express Connect circuit.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
+        self.region_id = region_id  # type: str
+        # The ID of the resource group to which the Express Connect circuit belongs.
+        self.resource_group_id = resource_group_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        self.tag = tag  # type: list[CreatePhysicalConnectionRequestTag]
+        # The type of the Express Connect circuit. Default value: **VPC**.
+        self.type = type  # type: str
+        # The maximum bandwidth of the hosted connection. Unit: Mbit/s.
+        # 
+        # Valid values: **50**, **100**, **200**, **300**, **400**, **500**, **1000**, **2000**, **4000**, **5000**, **8000**, and **10000**.
         self.bandwidth = bandwidth  # type: int
 
     def validate(self):
@@ -10875,7 +11292,9 @@ class CreatePhysicalConnectionRequest(TeaModel):
 
 class CreatePhysicalConnectionResponseBody(TeaModel):
     def __init__(self, physical_connection_id=None, request_id=None):
+        # The ID of the Express Connect circuit.
         self.physical_connection_id = physical_connection_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -11321,9 +11740,39 @@ class CreatePhysicalConnectionSetupOrderResponse(TeaModel):
         return self
 
 
+class CreatePublicIpAddressPoolRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreatePublicIpAddressPoolRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
 class CreatePublicIpAddressPoolRequest(TeaModel):
     def __init__(self, client_token=None, description=None, dry_run=None, isp=None, name=None, owner_account=None,
-                 owner_id=None, region_id=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None):
+                 owner_id=None, region_id=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None,
+                 tag=None):
         # The client token that you want to use to ensure the idempotence of the request.
         # 
         # You can use the client to generate the value, but you must make sure that the value is unique among all requests. ClientToken can contain only ASCII characters.
@@ -11369,9 +11818,13 @@ class CreatePublicIpAddressPoolRequest(TeaModel):
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        self.tag = tag  # type: list[CreatePublicIpAddressPoolRequestTag]
 
     def validate(self):
-        pass
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(CreatePublicIpAddressPoolRequest, self).to_map()
@@ -11401,6 +11854,10 @@ class CreatePublicIpAddressPoolRequest(TeaModel):
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
             result['ResourceOwnerId'] = self.resource_owner_id
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m=None):
@@ -11427,6 +11884,11 @@ class CreatePublicIpAddressPoolRequest(TeaModel):
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
             self.resource_owner_id = m.get('ResourceOwnerId')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = CreatePublicIpAddressPoolRequestTag()
+                self.tag.append(temp_model.from_map(k))
         return self
 
 
@@ -11510,6 +11972,22 @@ class CreateRouteEntriesRequestRouteEntries(TeaModel):
     def __init__(self, description=None, dst_cidr_block=None, ip_version=None, name=None, next_hop=None,
                  next_hop_type=None, route_table_id=None):
         self.description = description  # type: str
+        # The destination CIDR block of the custom route entry. Both IPv4 and IPv6 CIDR blocks are supported. You can specify up to 50 destination CIDR blocks. Make sure that the destination CIDR block meets the following requirements:
+        # 
+        # *   The destination CIDR block is not 100.64.0.0/10 or a subset of 100.64.0.0/10.
+        # *   The destination CIDR block of the custom route entry is different from the destination CIDR blocks of other route entries in the same route table.
+        self.dst_cidr_block = dst_cidr_block  # type: str
+        # The version of the IP protocol. You can specify up to 50 IP protocol versions. Valid values:
+        # 
+        # *   **IPv4**\
+        # *   **IPv6**\
+        self.ip_version = ip_version  # type: int
+        # The name of the custom route entry that you want to add. You can specify up to 50 names.
+        # 
+        # The name must be 1 to 128 characters in length, and cannot start with `http://` or `https://`.
+        self.name = name  # type: str
+        # The ID of the next hop of the custom route entry. You can specify up to 50 next hop IDs.
+        self.next_hop = next_hop  # type: str
         # The type of next hop. You can specify up to 50 next hop types. Valid values:
         # 
         # *   **Instance**: Elastic Compute Service (ECS) instance. This is the default value.
@@ -11521,20 +11999,8 @@ class CreateRouteEntriesRequestRouteEntries(TeaModel):
         # *   **NatGateway**: NAT gateway.
         # *   **Attachment**: transit router.
         # *   **VpcPeer**: VPC peering connection.
-        self.dst_cidr_block = dst_cidr_block  # type: str
-        # The description of the custom route entry. You can specify up to 50 descriptions.
-        # 
-        # The description must be 1 to 256 characters in length, and cannot start with `http://` or `https://`.
-        self.ip_version = ip_version  # type: int
-        # The ID of the request.
-        self.name = name  # type: str
-        # The number of custom route entries that were successfully added.
-        self.next_hop = next_hop  # type: str
-        # The number of custom route entries that failed to be added.
         self.next_hop_type = next_hop_type  # type: str
-        # The name of the custom route entry that you want to add. You can specify up to 50 names.
-        # 
-        # The name must be 1 to 128 characters in length, and cannot start with `http://` or `https://`.
+        # The ID of the route table to which you want to add the custom route entry. You can specify up to 50 route table IDs.
         self.route_table_id = route_table_id  # type: str
 
     def validate(self):
@@ -11586,7 +12052,9 @@ class CreateRouteEntriesRequest(TeaModel):
                  resource_owner_id=None, route_entries=None):
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The ID of the next hop of the custom route entry. You can specify up to 50 next hop IDs.
+        # The ID of the region where the route table is created.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -11642,11 +12110,13 @@ class CreateRouteEntriesRequest(TeaModel):
 
 class CreateRouteEntriesResponseBodyFailedRouteEntries(TeaModel):
     def __init__(self, dst_cidr_block=None, failed_code=None, failed_message=None, next_hop=None):
-        # The error message.
+        # The destination CIDR block of the custom route entry that failed to be added.
         self.dst_cidr_block = dst_cidr_block  # type: str
+        # The error code.
         self.failed_code = failed_code  # type: str
+        # The error message.
         self.failed_message = failed_message  # type: str
-        # The ID of the custom route entry that was successfully added.
+        # The ID of the next hop of the custom route entry that failed to be added.
         self.next_hop = next_hop  # type: str
 
     def validate(self):
@@ -11684,14 +12154,15 @@ class CreateRouteEntriesResponseBodyFailedRouteEntries(TeaModel):
 class CreateRouteEntriesResponseBody(TeaModel):
     def __init__(self, failed_count=None, failed_route_entries=None, request_id=None, route_entry_ids=None,
                  success_count=None):
-        # The destination CIDR block of the custom route entry that failed to be added.
+        # The number of custom route entries that failed to be added.
         self.failed_count = failed_count  # type: int
-        # The error code.
-        self.failed_route_entries = failed_route_entries  # type: list[CreateRouteEntriesResponseBodyFailedRouteEntries]
-        # The ID of the next hop of the custom route entry that failed to be added.
-        self.request_id = request_id  # type: str
-        self.route_entry_ids = route_entry_ids  # type: list[str]
         # The details about the custom route entry that failed to be added.
+        self.failed_route_entries = failed_route_entries  # type: list[CreateRouteEntriesResponseBodyFailedRouteEntries]
+        # The ID of the request.
+        self.request_id = request_id  # type: str
+        # The ID of the custom route entry that was successfully added.
+        self.route_entry_ids = route_entry_ids  # type: list[str]
+        # The number of custom route entries that were successfully added.
         self.success_count = success_count  # type: int
 
     def validate(self):
@@ -11779,10 +12250,11 @@ class CreateRouteEntriesResponse(TeaModel):
 
 class CreateRouteEntryRequestNextHopList(TeaModel):
     def __init__(self, next_hop_id=None, next_hop_type=None, weight=None):
-        # The ID of the custom route entry.
+        # The ID of the next hop of the ECMP route.
         self.next_hop_id = next_hop_id  # type: str
+        # The type of next hop of the ECMP route entry. Set the value to **RouterInterface**.
         self.next_hop_type = next_hop_type  # type: str
-        # The ID of the request.
+        # The weight of the next hop of the ECMP route entry.
         self.weight = weight  # type: int
 
     def validate(self):
@@ -11817,6 +12289,24 @@ class CreateRouteEntryRequest(TeaModel):
     def __init__(self, client_token=None, description=None, destination_cidr_block=None, next_hop_id=None,
                  next_hop_list=None, next_hop_type=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None, route_entry_name=None, route_table_id=None):
+        # The client token that is used to ensure the idempotence of the request.
+        # 
+        # You can use the client to generate the value, but you must make sure that the value is unique among different requests. The ClientToken value can contain only ASCII characters.
+        # 
+        # >  If you do not specify this parameter, **ClientToken** is set to the value of **RequestId**. The value of **RequestId** for each API request may be different.
+        self.client_token = client_token  # type: str
+        # The description of the custom route entry.
+        # 
+        # The description must be 1 to 256 characters in length, and cannot start with `http://` or `https://`.
+        self.description = description  # type: str
+        # The destination CIDR block of the custom route entry. Both IPv4 and IPv6 CIDR blocks are supported. Make sure that the destination CIDR block meets the following requirements:
+        # 
+        # *   The destination CIDR block is not 100.64.0.0/10 or a subset of 100.64.0.0/10.
+        # *   The destination CIDR block of the custom route entry is different from the destination CIDR blocks of other route entries in the same route table.
+        self.destination_cidr_block = destination_cidr_block  # type: str
+        # The ID of the next hop.
+        self.next_hop_id = next_hop_id  # type: str
+        self.next_hop_list = next_hop_list  # type: list[CreateRouteEntryRequestNextHopList]
         # The type of next hop of the custom route entry. Valid values:
         # 
         # *   **Instance**: an Elastic Compute Service (ECS) instance. This is the default value.
@@ -11828,33 +12318,20 @@ class CreateRouteEntryRequest(TeaModel):
         # *   **NatGateway**: a NAT gateway.
         # *   **Attachment**: a transit router.
         # *   **VpcPeer**: a VPC peering connection.
-        self.client_token = client_token  # type: str
-        # The weight of the next hop of the ECMP route entry.
-        self.description = description  # type: str
-        # The name of the custom route entry that you want to add.
-        # 
-        # The name must be 1 to 128 characters in length, and cannot start with `http://` or `https://`.
-        self.destination_cidr_block = destination_cidr_block  # type: str
-        # The description of the custom route entry.
-        # 
-        # The description must be 1 to 256 characters in length, and cannot start with `http://` or `https://`.
-        self.next_hop_id = next_hop_id  # type: str
-        self.next_hop_list = next_hop_list  # type: list[CreateRouteEntryRequestNextHopList]
-        # The type of next hop of the ECMP route entry. Set the value to **RouterInterface**.
         self.next_hop_type = next_hop_type  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The ID of the next hop.
+        # The region ID of the route table.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The ID of the next hop of the ECMP route.
+        # The name of the custom route entry that you want to add.
+        # 
+        # The name must be 1 to 128 characters in length, and cannot start with `http://` or `https://`.
         self.route_entry_name = route_entry_name  # type: str
-        # The client token that is used to ensure the idempotence of the request.
-        # 
-        # You can use the client to generate the value, but you must make sure that the value is unique among different requests. The ClientToken value can contain only ASCII characters.
-        # 
-        # >  If you do not specify this parameter, **ClientToken** is set to the value of **RequestId**. The value of **RequestId** for each API request may be different.
+        # The ID of the route table to which you want to add a custom route entry.
         self.route_table_id = route_table_id  # type: str
 
     def validate(self):
@@ -11935,7 +12412,9 @@ class CreateRouteEntryRequest(TeaModel):
 
 class CreateRouteEntryResponseBody(TeaModel):
     def __init__(self, request_id=None, route_entry_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The ID of the custom route entry.
         self.route_entry_id = route_entry_id  # type: str
 
     def validate(self):
@@ -12001,9 +12480,39 @@ class CreateRouteEntryResponse(TeaModel):
         return self
 
 
+class CreateRouteTableRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateRouteTableRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
 class CreateRouteTableRequest(TeaModel):
     def __init__(self, associate_type=None, client_token=None, description=None, owner_account=None, owner_id=None,
-                 region_id=None, resource_owner_account=None, resource_owner_id=None, route_table_name=None, vpc_id=None):
+                 region_id=None, resource_owner_account=None, resource_owner_id=None, route_table_name=None, tag=None,
+                 vpc_id=None):
         # The type of the route table. Valid values:
         # 
         # *   **VSwitch** (default): vSwitch route table
@@ -12031,6 +12540,7 @@ class CreateRouteTableRequest(TeaModel):
         # 
         # The name must be 1 to 128 characters in length, and cannot start with `http://` or `https://`.
         self.route_table_name = route_table_name  # type: str
+        self.tag = tag  # type: list[CreateRouteTableRequestTag]
         # The ID of the VPC to which the custom route table belongs.
         # 
         # If a VPC contains an Elastic Compute Service (ECS) instance that belongs to one of the following instance families, you cannot create a custom route table for the VPC:
@@ -12046,7 +12556,10 @@ class CreateRouteTableRequest(TeaModel):
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
-        pass
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(CreateRouteTableRequest, self).to_map()
@@ -12072,6 +12585,10 @@ class CreateRouteTableRequest(TeaModel):
             result['ResourceOwnerId'] = self.resource_owner_id
         if self.route_table_name is not None:
             result['RouteTableName'] = self.route_table_name
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
         if self.vpc_id is not None:
             result['VpcId'] = self.vpc_id
         return result
@@ -12096,6 +12613,11 @@ class CreateRouteTableRequest(TeaModel):
             self.resource_owner_id = m.get('ResourceOwnerId')
         if m.get('RouteTableName') is not None:
             self.route_table_name = m.get('RouteTableName')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = CreateRouteTableRequestTag()
+                self.tag.append(temp_model.from_map(k))
         if m.get('VpcId') is not None:
             self.vpc_id = m.get('VpcId')
         return self
@@ -12171,13 +12693,42 @@ class CreateRouteTableResponse(TeaModel):
         return self
 
 
+class CreateRouterInterfaceRequestTags(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateRouterInterfaceRequestTags, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
 class CreateRouterInterfaceRequest(TeaModel):
     def __init__(self, access_point_id=None, auto_pay=None, auto_renew=None, client_token=None, description=None,
                  fast_link_mode=None, health_check_source_ip=None, health_check_target_ip=None, instance_charge_type=None,
                  name=None, opposite_access_point_id=None, opposite_interface_id=None,
                  opposite_interface_owner_id=None, opposite_region_id=None, opposite_router_id=None, opposite_router_type=None,
-                 owner_account=None, owner_id=None, period=None, pricing_cycle=None, region_id=None, resource_owner_account=None,
-                 resource_owner_id=None, role=None, router_id=None, router_type=None, spec=None):
+                 owner_account=None, owner_id=None, period=None, pricing_cycle=None, region_id=None, resource_group_id=None,
+                 resource_owner_account=None, resource_owner_id=None, role=None, router_id=None, router_type=None, spec=None, tags=None):
         # The ID of the access point to which the VBR belongs.
         # 
         # You can call the [DescribeAccessPoints](~~36062~~) operation to query the most recent access point list.
@@ -12265,6 +12816,7 @@ class CreateRouterInterfaceRequest(TeaModel):
         # 
         # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
         # The role of the router interface. Valid values:
@@ -12296,9 +12848,13 @@ class CreateRouterInterfaceRequest(TeaModel):
         # 
         # >  If **Role** is set to **AcceptingSide** (acceptor), set **Spec** to **Negative**. You do not need to specify specifications when you create an acceptor router interface.
         self.spec = spec  # type: str
+        self.tags = tags  # type: list[CreateRouterInterfaceRequestTags]
 
     def validate(self):
-        pass
+        if self.tags:
+            for k in self.tags:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(CreateRouterInterfaceRequest, self).to_map()
@@ -12348,6 +12904,8 @@ class CreateRouterInterfaceRequest(TeaModel):
             result['PricingCycle'] = self.pricing_cycle
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
@@ -12360,6 +12918,10 @@ class CreateRouterInterfaceRequest(TeaModel):
             result['RouterType'] = self.router_type
         if self.spec is not None:
             result['Spec'] = self.spec
+        result['Tags'] = []
+        if self.tags is not None:
+            for k in self.tags:
+                result['Tags'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m=None):
@@ -12406,6 +12968,8 @@ class CreateRouterInterfaceRequest(TeaModel):
             self.pricing_cycle = m.get('PricingCycle')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
@@ -12418,6 +12982,11 @@ class CreateRouterInterfaceRequest(TeaModel):
             self.router_type = m.get('RouterType')
         if m.get('Spec') is not None:
             self.spec = m.get('Spec')
+        self.tags = []
+        if m.get('Tags') is not None:
+            for k in m.get('Tags'):
+                temp_model = CreateRouterInterfaceRequestTags()
+                self.tags.append(temp_model.from_map(k))
         return self
 
 
@@ -13221,10 +13790,39 @@ class CreateTrafficMirrorFilterRequestIngressRules(TeaModel):
         return self
 
 
+class CreateTrafficMirrorFilterRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateTrafficMirrorFilterRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
 class CreateTrafficMirrorFilterRequest(TeaModel):
     def __init__(self, client_token=None, dry_run=None, egress_rules=None, ingress_rules=None, owner_account=None,
                  owner_id=None, region_id=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None,
-                 traffic_mirror_filter_description=None, traffic_mirror_filter_name=None):
+                 tag=None, traffic_mirror_filter_description=None, traffic_mirror_filter_name=None):
         # The client token that is used to ensure the idempotence of the request.
         # 
         # You can use the client to generate the value, but you must ensure that the value is unique among all requests. The client token can contain only ASCII characters.
@@ -13248,6 +13846,7 @@ class CreateTrafficMirrorFilterRequest(TeaModel):
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        self.tag = tag  # type: list[CreateTrafficMirrorFilterRequestTag]
         # The description of the filter.
         # 
         # The description must be 1 to 256 characters in length and cannot start with `http://` or `https://`.
@@ -13264,6 +13863,10 @@ class CreateTrafficMirrorFilterRequest(TeaModel):
                     k.validate()
         if self.ingress_rules:
             for k in self.ingress_rules:
+                if k:
+                    k.validate()
+        if self.tag:
+            for k in self.tag:
                 if k:
                     k.validate()
 
@@ -13297,6 +13900,10 @@ class CreateTrafficMirrorFilterRequest(TeaModel):
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
             result['ResourceOwnerId'] = self.resource_owner_id
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
         if self.traffic_mirror_filter_description is not None:
             result['TrafficMirrorFilterDescription'] = self.traffic_mirror_filter_description
         if self.traffic_mirror_filter_name is not None:
@@ -13331,6 +13938,11 @@ class CreateTrafficMirrorFilterRequest(TeaModel):
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
             self.resource_owner_id = m.get('ResourceOwnerId')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = CreateTrafficMirrorFilterRequestTag()
+                self.tag.append(temp_model.from_map(k))
         if m.get('TrafficMirrorFilterDescription') is not None:
             self.traffic_mirror_filter_description = m.get('TrafficMirrorFilterDescription')
         if m.get('TrafficMirrorFilterName') is not None:
@@ -13417,30 +14029,31 @@ class CreateTrafficMirrorFilterResponse(TeaModel):
 class CreateTrafficMirrorFilterRulesRequestEgressRules(TeaModel):
     def __init__(self, action=None, destination_cidr_block=None, destination_port_range=None, priority=None,
                  protocol=None, source_cidr_block=None, source_port_range=None):
+        # The action of the outbound rule. Valid values:
+        # 
+        # *   **accept**: accepts network traffic.
+        # *   **drop**: drops network traffic.
+        self.action = action  # type: str
+        # The destination CIDR block of the outbound traffic.
+        self.destination_cidr_block = destination_cidr_block  # type: str
+        # The destination port range of the outbound traffic. Valid values for a port: **1** to **65535**. Separate the first port and the last port with a forward slash (/). Examples: **1/200** and **80/80**. You cannot set this parameter to only **-1/-1**, which specifies all ports.
+        # 
+        # >  If you set **EgressRules.N.Protocol** to **ALL** or **ICMP**, you do not need to set this parameter. In this case, all ports are available.
+        self.destination_port_range = destination_port_range  # type: str
+        # The priority of the outbound rule. A smaller value indicates a higher priority. The maximum value of **N** is **10**. You can configure up to 10 outbound rules for a filter.
+        self.priority = priority  # type: int
         # The protocol that is used by the outbound traffic to be mirrored. Valid values:
         # 
         # *   **ALL**: all protocols
         # *   **ICMP**: ICMP
         # *   **TCP**: TCP
         # *   **UDP**: UDP
-        self.action = action  # type: str
-        # The ID of the region to which the mirrored traffic belongs.
-        # 
-        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list. For more information about regions that support traffic mirroring, see [Overview of traffic mirroring](~~207513~~).
-        self.destination_cidr_block = destination_cidr_block  # type: str
-        # The destination CIDR block of the outbound traffic.
-        self.destination_port_range = destination_port_range  # type: str
+        self.protocol = protocol  # type: str
+        # The source CIDR block of the outbound traffic.
+        self.source_cidr_block = source_cidr_block  # type: str
         # The source port range of the outbound traffic. Valid values for a port: **1** to **65535**. Separate the first port and the last port with a forward slash (/). Examples: **1/200** and **80/80**. You cannot set this parameter to only **-1/-1**, which specifies all ports.
         # 
         # >  If you set **EgressRules.N.Protocol** to **ALL** or **ICMP**, you do not need to set this parameter. In this case, all ports are available.
-        self.priority = priority  # type: int
-        # The priority of the outbound rule. A smaller value indicates a higher priority. The maximum value of **N** is **10**. You can configure up to 10 outbound rules for a filter.
-        self.protocol = protocol  # type: str
-        # The destination port range of the outbound traffic. Valid values for a port: **1** to **65535**. Separate the first port and the last port with a forward slash (/). Examples: **1/200** and **80/80**. You cannot set this parameter to only **-1/-1**, which specifies all ports.
-        # 
-        # >  If you set **EgressRules.N.Protocol** to **ALL** or **ICMP**, you do not need to set this parameter. In this case, all ports are available.
-        self.source_cidr_block = source_cidr_block  # type: str
-        # The ID of the request.
         self.source_port_range = source_port_range  # type: str
 
     def validate(self):
@@ -13490,31 +14103,31 @@ class CreateTrafficMirrorFilterRulesRequestEgressRules(TeaModel):
 class CreateTrafficMirrorFilterRulesRequestIngressRules(TeaModel):
     def __init__(self, action=None, destination_cidr_block=None, destination_port_range=None, priority=None,
                  protocol=None, source_cidr_block=None, source_port_range=None):
+        # The action of the inbound rule. Valid values:
+        # 
+        # *   **accept**: accepts network traffic.
+        # *   **drop**: drops network traffic.
+        self.action = action  # type: str
+        # The destination CIDR block of the inbound traffic.
+        self.destination_cidr_block = destination_cidr_block  # type: str
+        # The destination port range of the inbound traffic. Valid values for a port: **1** to **65535**. Separate the first port and the last port with a forward slash (/). Examples: **1/200** and **80/80**.
+        # 
+        # >  If you set **IngressRules.N.Protocol** to **ALL** or **ICMP**, you do not need to set this parameter. In this case, all ports are available.
+        self.destination_port_range = destination_port_range  # type: str
+        # The priority of the inbound rule. A smaller value indicates a higher priority. The maximum value of **N** is **10**. You can configure up to 10 inbound rules for a filter.
+        self.priority = priority  # type: int
         # The protocol that is used by the inbound traffic to be mirrored. Valid values:
         # 
         # *   **ALL**: all protocols
         # *   **ICMP**: Internet Control Message Protocol (ICMP)
         # *   **TCP**: TCP
         # *   **UDP**: User Datagram Protocol (UDP)
-        self.action = action  # type: str
-        # The action of the outbound rule. Valid values:
-        # 
-        # *   **accept**: accepts network traffic.
-        # *   **drop**: drops network traffic.
-        self.destination_cidr_block = destination_cidr_block  # type: str
-        # The destination CIDR block of the inbound traffic.
-        self.destination_port_range = destination_port_range  # type: str
+        self.protocol = protocol  # type: str
+        # The source CIDR block of the inbound traffic.
+        self.source_cidr_block = source_cidr_block  # type: str
         # The source port range of the inbound traffic. Valid values for a port: **1** to **65535**. Separate the first port and the last port with a forward slash (/). Examples: **1/200** and **80/80**. You cannot set this parameter to only **-1/-1**, which specifies all ports.
         # 
         # >  If you set **IngressRules.N.Protocol** to **ALL** or **ICMP**, you do not need to set this parameter. In this case, all ports are available.
-        self.priority = priority  # type: int
-        # The priority of the inbound rule. A smaller value indicates a higher priority. The maximum value of **N** is **10**. You can configure up to 10 inbound rules for a filter.
-        self.protocol = protocol  # type: str
-        # The destination port range of the inbound traffic. Valid values for a port: **1** to **65535**. Separate the first port and the last port with a forward slash (/). Examples: **1/200** and **80/80**.
-        # 
-        # >  If you set **IngressRules.N.Protocol** to **ALL** or **ICMP**, you do not need to set this parameter. In this case, all ports are available.
-        self.source_cidr_block = source_cidr_block  # type: str
-        # The source CIDR block of the outbound traffic.
         self.source_port_range = source_port_range  # type: str
 
     def validate(self):
@@ -13565,25 +14178,28 @@ class CreateTrafficMirrorFilterRulesRequest(TeaModel):
     def __init__(self, client_token=None, dry_run=None, egress_rules=None, ingress_rules=None, owner_account=None,
                  owner_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None,
                  traffic_mirror_filter_id=None):
-        # The action of the inbound rule. Valid values:
+        # The client token that is used to ensure the idempotence of the request.
         # 
-        # *   **accept**: accepts network traffic.
-        # *   **drop**: drops network traffic.
+        # You can use the client to generate the value, but you must make sure that it is unique among different requests. The client token can contain only ASCII characters.
+        # 
+        # >  If you do not set this parameter, the system uses **RequestId** as **ClientToken**. **RequestId** may be different for each API request.
         self.client_token = client_token  # type: str
-        # The source CIDR block of the inbound traffic.
+        # Specifies whether to check the request without performing the operation. Valid values:
+        # 
+        # *   **true**: checks the request without performing the operation. The system checks the required parameters, request format, and limits. If the request fails the precheck, an error message is returned. If the request passes the precheck, the `DryRunOperation` error code is returned.
+        # *   **false** (default): sends the request. After the request passes the check, the operation is performed.
         self.dry_run = dry_run  # type: bool
         self.egress_rules = egress_rules  # type: list[CreateTrafficMirrorFilterRulesRequestEgressRules]
         self.ingress_rules = ingress_rules  # type: list[CreateTrafficMirrorFilterRulesRequestIngressRules]
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The list of inbound rules.
+        # The ID of the region to which the mirrored traffic belongs.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list. For more information about regions that support traffic mirroring, see [Overview of traffic mirroring](~~207513~~).
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # Specifies whether to check the request without performing the operation. Valid values:
-        # 
-        # *   **true**: checks the request without performing the operation. The system checks the required parameters, request format, and limits. If the request fails the precheck, an error message is returned. If the request passes the precheck, the `DryRunOperation` error code is returned.
-        # *   **false** (default): sends the request. After the request passes the check, the operation is performed.
+        # The ID of the filter.
         self.traffic_mirror_filter_id = traffic_mirror_filter_id  # type: str
 
     def validate(self):
@@ -13661,6 +14277,7 @@ class CreateTrafficMirrorFilterRulesRequest(TeaModel):
 
 class CreateTrafficMirrorFilterRulesResponseBodyEgressRules(TeaModel):
     def __init__(self, instance_id=None):
+        # The ID of the outbound rule.
         self.instance_id = instance_id  # type: str
 
     def validate(self):
@@ -13685,7 +14302,7 @@ class CreateTrafficMirrorFilterRulesResponseBodyEgressRules(TeaModel):
 
 class CreateTrafficMirrorFilterRulesResponseBodyIngressRules(TeaModel):
     def __init__(self, instance_id=None):
-        # The ID of the outbound rule.
+        # The ID of the inbound rule.
         self.instance_id = instance_id  # type: str
 
     def validate(self):
@@ -13710,10 +14327,11 @@ class CreateTrafficMirrorFilterRulesResponseBodyIngressRules(TeaModel):
 
 class CreateTrafficMirrorFilterRulesResponseBody(TeaModel):
     def __init__(self, egress_rules=None, ingress_rules=None, request_id=None):
-        self.egress_rules = egress_rules  # type: list[CreateTrafficMirrorFilterRulesResponseBodyEgressRules]
         # The list of outbound rules.
+        self.egress_rules = egress_rules  # type: list[CreateTrafficMirrorFilterRulesResponseBodyEgressRules]
+        # The list of inbound rules.
         self.ingress_rules = ingress_rules  # type: list[CreateTrafficMirrorFilterRulesResponseBodyIngressRules]
-        # The ID of the inbound rule.
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -13800,63 +14418,100 @@ class CreateTrafficMirrorFilterRulesResponse(TeaModel):
         return self
 
 
+class CreateTrafficMirrorSessionRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateTrafficMirrorSessionRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
 class CreateTrafficMirrorSessionRequest(TeaModel):
     def __init__(self, client_token=None, dry_run=None, enabled=None, owner_account=None, owner_id=None,
                  packet_length=None, priority=None, region_id=None, resource_group_id=None, resource_owner_account=None,
-                 resource_owner_id=None, traffic_mirror_filter_id=None, traffic_mirror_session_description=None,
+                 resource_owner_id=None, tag=None, traffic_mirror_filter_id=None, traffic_mirror_session_description=None,
                  traffic_mirror_session_name=None, traffic_mirror_source_ids=None, traffic_mirror_target_id=None,
                  traffic_mirror_target_type=None, virtual_network_id=None):
-        # The ID of the traffic mirror destination. You can specify only an elastic network interface (ENI) or a Server Load Balancer (SLB) instance as a traffic mirror destination.
-        self.client_token = client_token  # type: str
-        # The type of the traffic mirror destination. Valid values:
-        # 
-        # *   **NetworkInterface**: an ENI
-        # *   **SLB**: an SLB instance
-        self.dry_run = dry_run  # type: bool
-        # The ID of the traffic mirror source. You can specify only an ENI as the traffic mirror source. The default value of **N** is **1**, which means that you can add only one traffic mirror source to a traffic mirror session.
-        self.enabled = enabled  # type: bool
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
-        # The ID of the region to which the traffic mirror session belongs. You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list. For more information about regions that support traffic mirroring, see [Overview of traffic mirroring](~~207513~~).
-        self.packet_length = packet_length  # type: int
-        # The maximum transmission unit (MTU). Default value: **1500**.
-        self.priority = priority  # type: int
-        # The ID of the traffic mirror session.
-        self.region_id = region_id  # type: str
-        # The ID of the request.
-        self.resource_group_id = resource_group_id  # type: str
-        self.resource_owner_account = resource_owner_account  # type: str
-        self.resource_owner_id = resource_owner_id  # type: long
-        # The priority of the traffic mirror session. Valid values: **1** to **32766**.
-        # 
-        # A smaller value indicates a higher priority. You cannot specify identical priorities for traffic mirror sessions that are created in the same region by using the same account.
-        self.traffic_mirror_filter_id = traffic_mirror_filter_id  # type: str
         # The client token that is used to ensure the idempotence of the request.
         # 
         # You can use the client to generate the value, but you must ensure that the value is unique among all requests. The client token can contain only ASCII characters.
         # 
         # >  If you do not set this parameter, the system uses **RequestId** as **ClientToken**. **RequestId** might be different for each API request.
-        self.traffic_mirror_session_description = traffic_mirror_session_description  # type: str
+        self.client_token = client_token  # type: str
         # Specifies whether to perform a dry run. Valid values:
         # 
         # *   **true**: performs a dry run. The system checks the required parameters, request format, and limits. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.
         # *   **false** (default): performs a dry run and sends the request. If the request passes the dry run, the operation is performed.
-        self.traffic_mirror_session_name = traffic_mirror_session_name  # type: str
-        self.traffic_mirror_source_ids = traffic_mirror_source_ids  # type: list[str]
-        # The ID of the filter.
-        self.traffic_mirror_target_id = traffic_mirror_target_id  # type: str
-        # The VXLAN network identifier (VNI). Valid values: **0** to **16777215**.
-        # 
-        # You can use VNIs to identify mirrored traffic from different sessions at the traffic mirror destination. You can specify a custom VNI or use a random VNI allocated by the system. If you want the system to randomly allocate a VNI, do not enter a value.
-        self.traffic_mirror_target_type = traffic_mirror_target_type  # type: str
+        self.dry_run = dry_run  # type: bool
         # Specifies whether to enable the traffic mirror session. Valid values:
         # 
         # *   **false** (default): does not enable the traffic mirror session.
         # *   **true**: enables the traffic mirror session.
+        self.enabled = enabled  # type: bool
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The maximum transmission unit (MTU). Default value: **1500**.
+        self.packet_length = packet_length  # type: int
+        # The priority of the traffic mirror session. Valid values: **1** to **32766**.
+        # 
+        # A smaller value indicates a higher priority. You cannot specify identical priorities for traffic mirror sessions that are created in the same region by using the same account.
+        self.priority = priority  # type: int
+        # The ID of the region to which the traffic mirror session belongs. You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list. For more information about regions that support traffic mirroring, see [Overview of traffic mirroring](~~207513~~).
+        self.region_id = region_id  # type: str
+        # The ID of the resource group to which the mirrored traffic belongs.
+        self.resource_group_id = resource_group_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        self.tag = tag  # type: list[CreateTrafficMirrorSessionRequestTag]
+        # The ID of the filter.
+        self.traffic_mirror_filter_id = traffic_mirror_filter_id  # type: str
+        # The description of the traffic mirror session.
+        # 
+        # The description must be 1 to 256 characters in length and cannot start with `http://` or `https://`.
+        self.traffic_mirror_session_description = traffic_mirror_session_description  # type: str
+        # The name of the traffic mirror session.
+        # 
+        # The name must be 1 to 128 characters in length, and cannot start with `http://` or `https://`.
+        self.traffic_mirror_session_name = traffic_mirror_session_name  # type: str
+        self.traffic_mirror_source_ids = traffic_mirror_source_ids  # type: list[str]
+        # The ID of the traffic mirror destination. You can specify only an elastic network interface (ENI) or a Server Load Balancer (SLB) instance as a traffic mirror destination.
+        self.traffic_mirror_target_id = traffic_mirror_target_id  # type: str
+        # The type of the traffic mirror destination. Valid values:
+        # 
+        # *   **NetworkInterface**: an ENI
+        # *   **SLB**: an SLB instance
+        self.traffic_mirror_target_type = traffic_mirror_target_type  # type: str
+        # The VXLAN network identifier (VNI). Valid values: **0** to **16777215**.
+        # 
+        # You can use VNIs to identify mirrored traffic from different sessions at the traffic mirror destination. You can specify a custom VNI or use a random VNI allocated by the system. If you want the system to randomly allocate a VNI, do not enter a value.
         self.virtual_network_id = virtual_network_id  # type: int
 
     def validate(self):
-        pass
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(CreateTrafficMirrorSessionRequest, self).to_map()
@@ -13886,6 +14541,10 @@ class CreateTrafficMirrorSessionRequest(TeaModel):
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
             result['ResourceOwnerId'] = self.resource_owner_id
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
         if self.traffic_mirror_filter_id is not None:
             result['TrafficMirrorFilterId'] = self.traffic_mirror_filter_id
         if self.traffic_mirror_session_description is not None:
@@ -13926,6 +14585,11 @@ class CreateTrafficMirrorSessionRequest(TeaModel):
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
             self.resource_owner_id = m.get('ResourceOwnerId')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = CreateTrafficMirrorSessionRequestTag()
+                self.tag.append(temp_model.from_map(k))
         if m.get('TrafficMirrorFilterId') is not None:
             self.traffic_mirror_filter_id = m.get('TrafficMirrorFilterId')
         if m.get('TrafficMirrorSessionDescription') is not None:
@@ -13945,9 +14609,11 @@ class CreateTrafficMirrorSessionRequest(TeaModel):
 
 class CreateTrafficMirrorSessionResponseBody(TeaModel):
     def __init__(self, request_id=None, resource_group_id=None, traffic_mirror_session_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
-        self.resource_group_id = resource_group_id  # type: str
         # The ID of the resource group to which the mirrored traffic belongs.
+        self.resource_group_id = resource_group_id  # type: str
+        # The ID of the traffic mirror session.
         self.traffic_mirror_session_id = traffic_mirror_session_id  # type: str
 
     def validate(self):
@@ -14017,47 +14683,84 @@ class CreateTrafficMirrorSessionResponse(TeaModel):
         return self
 
 
+class CreateVSwitchRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateVSwitchRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
 class CreateVSwitchRequest(TeaModel):
     def __init__(self, cidr_block=None, client_token=None, description=None, ipv_6cidr_block=None,
-                 owner_account=None, owner_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None,
+                 owner_account=None, owner_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None, tag=None,
                  v_switch_name=None, vpc_id=None, vpc_ipv_6cidr_block=None, zone_id=None):
-        # The ID of the VPC where you want to create the vSwitch.
-        self.cidr_block = cidr_block  # type: str
-        # The ID of the vSwitch.
-        self.client_token = client_token  # type: str
-        # The IPv6 CIDR block of the VPC.
-        self.description = description  # type: str
-        # The name of the vSwitch.
-        # 
-        # The name must be 1 to 128 characters in length, and cannot start with `http://` or `https://`.
-        self.ipv_6cidr_block = ipv_6cidr_block  # type: int
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
-        # The last eight bits of the IPv6 CIDR block of the vSwitch. Valid values: **0** to **255**.
-        self.region_id = region_id  # type: str
-        self.resource_owner_account = resource_owner_account  # type: str
-        self.resource_owner_id = resource_owner_id  # type: long
-        # The client token that is used to ensure the idempotence of the request.
-        # 
-        # You can use the client to generate the value, but you must make sure that it is unique among all requests. The token can contain only ASCII characters.
-        # 
-        # >  If you do not specify this parameter, **ClientToken** is set to the value of **RequestId**. The value of **RequestId** may be different for each API request.
-        self.v_switch_name = v_switch_name  # type: str
-        # The description of the vSwitch.
-        # 
-        # The description must be 1 to 256 characters in length and cannot start with `http://` or `https://`.
-        self.vpc_id = vpc_id  # type: str
-        # The ID of the request.
-        self.vpc_ipv_6cidr_block = vpc_ipv_6cidr_block  # type: str
         # The CIDR block of the vSwitch. Take note of the following limits:
         # 
         # *   The subnet mask of the CIDR block must be 16 to 29 bits in length.
         # *   The CIDR block of the vSwitch must fall within the CIDR block of the VPC to which the vSwitch belongs.
         # *   The CIDR block of a vSwitch cannot be the same as the destination CIDR block in a route entry of the VPC. However, it can be a subset of the destination CIDR block.
+        self.cidr_block = cidr_block  # type: str
+        # The client token that is used to ensure the idempotence of the request.
+        # 
+        # You can use the client to generate the value, but you must make sure that it is unique among all requests. The token can contain only ASCII characters.
+        # 
+        # >  If you do not specify this parameter, **ClientToken** is set to the value of **RequestId**. The value of **RequestId** may be different for each API request.
+        self.client_token = client_token  # type: str
+        # The description of the vSwitch.
+        # 
+        # The description must be 1 to 256 characters in length and cannot start with `http://` or `https://`.
+        self.description = description  # type: str
+        # The last eight bits of the IPv6 CIDR block of the vSwitch. Valid values: **0** to **255**.
+        self.ipv_6cidr_block = ipv_6cidr_block  # type: int
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The region ID of the vSwitch.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
+        self.region_id = region_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        self.tag = tag  # type: list[CreateVSwitchRequestTag]
+        # The name of the vSwitch.
+        # 
+        # The name must be 1 to 128 characters in length, and cannot start with `http://` or `https://`.
+        self.v_switch_name = v_switch_name  # type: str
+        # The ID of the VPC where you want to create the vSwitch.
+        self.vpc_id = vpc_id  # type: str
+        # The IPv6 CIDR block of the VPC.
+        self.vpc_ipv_6cidr_block = vpc_ipv_6cidr_block  # type: str
+        # The zone ID of the vSwitch.
+        # 
+        # You can call the [DescribeZones](~~36064~~) operation to query the most recent zone list.
         self.zone_id = zone_id  # type: str
 
     def validate(self):
-        pass
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(CreateVSwitchRequest, self).to_map()
@@ -14083,6 +14786,10 @@ class CreateVSwitchRequest(TeaModel):
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
             result['ResourceOwnerId'] = self.resource_owner_id
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
         if self.v_switch_name is not None:
             result['VSwitchName'] = self.v_switch_name
         if self.vpc_id is not None:
@@ -14113,6 +14820,11 @@ class CreateVSwitchRequest(TeaModel):
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
             self.resource_owner_id = m.get('ResourceOwnerId')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = CreateVSwitchRequestTag()
+                self.tag.append(temp_model.from_map(k))
         if m.get('VSwitchName') is not None:
             self.v_switch_name = m.get('VSwitchName')
         if m.get('VpcId') is not None:
@@ -14126,7 +14838,9 @@ class CreateVSwitchRequest(TeaModel):
 
 class CreateVSwitchResponseBody(TeaModel):
     def __init__(self, request_id=None, v_switch_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The ID of the vSwitch.
         self.v_switch_id = v_switch_id  # type: str
 
     def validate(self):
@@ -14567,81 +15281,121 @@ class CreateVcoRouteEntryResponse(TeaModel):
         return self
 
 
+class CreateVirtualBorderRouterRequestTags(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateVirtualBorderRouterRequestTags, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
 class CreateVirtualBorderRouterRequest(TeaModel):
     def __init__(self, bandwidth=None, circuit_code=None, client_token=None, description=None, enable_ipv_6=None,
                  local_gateway_ip=None, local_ipv_6gateway_ip=None, name=None, owner_account=None, owner_id=None,
                  peer_gateway_ip=None, peer_ipv_6gateway_ip=None, peering_ipv_6subnet_mask=None, peering_subnet_mask=None,
-                 physical_connection_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None, vbr_owner_id=None,
-                 vlan_id=None):
-        # The ID of the request.
+                 physical_connection_id=None, region_id=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None,
+                 tags=None, vbr_owner_id=None, vlan_id=None):
+        # The bandwidth of the VBR. Unit: Mbit/s.
+        # 
+        # *   When you create a VBR for a dedicated connection, valid values are **50**, **100**, **200**, **300**, **400**, **500**, **1000**, **2048**, **5120**, **8192**, **10240**, **20480**, **40960**, **50120**, **61440**, and **102400**.
+        # *   You do not need to set this parameter when you create a VBR for a hosted connection. The bandwidth is already configured when the hosted connection is created.
         self.bandwidth = bandwidth  # type: long
-        # The IP address of the gateway device in the data center. Only the owner of the VBR can set or modify this parameter.
+        # The circuit code of the Express Connect circuit. The circuit code is provided by the connectivity provider.
         # 
-        # When you create a VBR for the owner of the Express Connect circuit, this parameter is required.
+        # >  Only the owner of the Express Connect circuit can set this parameter.
         self.circuit_code = circuit_code  # type: str
-        # The IPv6 address of the VBR. Only the owner of the VBR can set or modify this parameter.
-        # 
-        # When you create a VBR for the owner of the Express Connect circuit, this parameter is required.
-        self.client_token = client_token  # type: str
         # The client token that is used to ensure the idempotence of the request.
         # 
         # You can use the client to generate the value, but you must make sure that it is unique among different requests.
         # 
         # >  If you do not set this parameter, the system automatically sets **ClientToken** to the value of **RequestId**. The value of **RequestId** may be different for each API request.
-        self.description = description  # type: str
-        # The ID of the VBR.
-        self.enable_ipv_6 = enable_ipv_6  # type: bool
-        # The subnet mask of the IP addresses of the VBR and the gateway device in the data center.
-        # 
-        # The two IP addresses must fall within the same subnet.
-        self.local_gateway_ip = local_gateway_ip  # type: str
-        # The subnet mask of the IPv6 addresses of the VBR and the gateway device in the data center.
-        # 
-        # The two IPv6 addresses must fall within the same subnet.
-        self.local_ipv_6gateway_ip = local_ipv_6gateway_ip  # type: str
-        # The operation that you want to perform. Set the value to **CreateVirtualBorderRouter**.
-        self.name = name  # type: str
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
+        self.client_token = client_token  # type: str
         # The description of the VBR.
         # 
         # The description must be 2 to 256 characters in length. The description must start with a letter but cannot start with `http://` or `https://`.
-        self.peer_gateway_ip = peer_gateway_ip  # type: str
+        self.description = description  # type: str
         # Specifies whether to enable IPv6. Valid values:
         # 
         # *   **true**: enables IPv6.
         # *   **false** (default): disables IPv6.
-        self.peer_ipv_6gateway_ip = peer_ipv_6gateway_ip  # type: str
-        # The bandwidth of the VBR. Unit: Mbit/s.
-        # 
-        # *   When you create a VBR for a dedicated connection, valid values are **50**, **100**, **200**, **300**, **400**, **500**, **1000**, **2048**, **5120**, **8192**, **10240**, **20480**, **40960**, **50120**, **61440**, and **102400**.
-        # *   You do not need to set this parameter when you create a VBR for a hosted connection. The bandwidth is already configured when the hosted connection is created.
-        self.peering_ipv_6subnet_mask = peering_ipv_6subnet_mask  # type: str
-        # The name of the VBR.
-        # 
-        # The name must be 2 to 128 characters in length, and can contain letters, digits, underscores (\_), and hyphens (-). The name must start with a letter.
-        self.peering_subnet_mask = peering_subnet_mask  # type: str
-        # The VLAN ID of the VBR. Valid values: **0 to 2999**.
-        # 
-        # >  Only the owner of the Express Connect circuit can set this parameter. The VLAN IDs of two VBRs of the same the Express Connect circuit must be different.
-        self.physical_connection_id = physical_connection_id  # type: str
-        # The account ID of the VBR owner.
-        # 
-        # The default value is the ID of the current Alibaba Cloud account.
-        self.region_id = region_id  # type: str
-        self.resource_owner_account = resource_owner_account  # type: str
-        self.resource_owner_id = resource_owner_id  # type: long
-        # The circuit code of the Express Connect circuit. The circuit code is provided by the connectivity provider.
-        # 
-        # >  Only the owner of the Express Connect circuit can set this parameter.
-        self.vbr_owner_id = vbr_owner_id  # type: long
+        self.enable_ipv_6 = enable_ipv_6  # type: bool
         # The IP address of the VBR. Only the owner of the VBR can set or modify this parameter.
         # 
         # When you create a VBR for the owner of the Express Connect circuit, this parameter is required.
+        self.local_gateway_ip = local_gateway_ip  # type: str
+        # The IPv6 address of the VBR. Only the owner of the VBR can set or modify this parameter.
+        # 
+        # When you create a VBR for the owner of the Express Connect circuit, this parameter is required.
+        self.local_ipv_6gateway_ip = local_ipv_6gateway_ip  # type: str
+        # The name of the VBR.
+        # 
+        # The name must be 2 to 128 characters in length, and can contain letters, digits, underscores (\_), and hyphens (-). The name must start with a letter.
+        self.name = name  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The IP address of the gateway device in the data center. Only the owner of the VBR can set or modify this parameter.
+        # 
+        # When you create a VBR for the owner of the Express Connect circuit, this parameter is required.
+        self.peer_gateway_ip = peer_gateway_ip  # type: str
+        # The IPv6 address of the gateway device in the data center. Only the owner of the VBR can set or modify this parameter.
+        # 
+        # When you create a VBR for the owner of the Express Connect circuit, this parameter is required.
+        self.peer_ipv_6gateway_ip = peer_ipv_6gateway_ip  # type: str
+        # The subnet mask of the IPv6 addresses of the VBR and the gateway device in the data center.
+        # 
+        # The two IPv6 addresses must fall within the same subnet.
+        self.peering_ipv_6subnet_mask = peering_ipv_6subnet_mask  # type: str
+        # The subnet mask of the IP addresses of the VBR and the gateway device in the data center.
+        # 
+        # The two IP addresses must fall within the same subnet.
+        self.peering_subnet_mask = peering_subnet_mask  # type: str
+        # The ID of the Express Connect circuit.
+        # 
+        # You can create a VBR for a dedicated connection or a hosted connection.
+        self.physical_connection_id = physical_connection_id  # type: str
+        # The region ID of the Express Connect circuit.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
+        self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        self.tags = tags  # type: list[CreateVirtualBorderRouterRequestTags]
+        # The account ID of the VBR owner.
+        # 
+        # The default value is the ID of the current Alibaba Cloud account.
+        self.vbr_owner_id = vbr_owner_id  # type: long
+        # The VLAN ID of the VBR. Valid values: **0 to 2999**.
+        # 
+        # >  Only the owner of the Express Connect circuit can set this parameter. The VLAN IDs of two VBRs of the same the Express Connect circuit must be different.
         self.vlan_id = vlan_id  # type: int
 
     def validate(self):
-        pass
+        if self.tags:
+            for k in self.tags:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(CreateVirtualBorderRouterRequest, self).to_map()
@@ -14681,10 +15435,16 @@ class CreateVirtualBorderRouterRequest(TeaModel):
             result['PhysicalConnectionId'] = self.physical_connection_id
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
             result['ResourceOwnerId'] = self.resource_owner_id
+        result['Tags'] = []
+        if self.tags is not None:
+            for k in self.tags:
+                result['Tags'].append(k.to_map() if k else None)
         if self.vbr_owner_id is not None:
             result['VbrOwnerId'] = self.vbr_owner_id
         if self.vlan_id is not None:
@@ -14725,10 +15485,17 @@ class CreateVirtualBorderRouterRequest(TeaModel):
             self.physical_connection_id = m.get('PhysicalConnectionId')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
             self.resource_owner_id = m.get('ResourceOwnerId')
+        self.tags = []
+        if m.get('Tags') is not None:
+            for k in m.get('Tags'):
+                temp_model = CreateVirtualBorderRouterRequestTags()
+                self.tags.append(temp_model.from_map(k))
         if m.get('VbrOwnerId') is not None:
             self.vbr_owner_id = m.get('VbrOwnerId')
         if m.get('VlanId') is not None:
@@ -14738,7 +15505,9 @@ class CreateVirtualBorderRouterRequest(TeaModel):
 
 class CreateVirtualBorderRouterResponseBody(TeaModel):
     def __init__(self, request_id=None, vbr_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The ID of the VBR.
         self.vbr_id = vbr_id  # type: str
 
     def validate(self):
@@ -14836,17 +15605,31 @@ class CreateVirtualPhysicalConnectionRequestTag(TeaModel):
 class CreateVirtualPhysicalConnectionRequest(TeaModel):
     def __init__(self, description=None, dry_run=None, name=None, order_mode=None, physical_connection_id=None,
                  region_id=None, resource_group_id=None, spec=None, tag=None, token=None, vlan_id=None, vpconn_ali_uid=None):
-        # The ID of the request.
-        self.description = description  # type: str
-        # The region ID of the hosted connection.
+        # The description of the hosted connection.
         # 
-        # You can call the [DescribeRegions](~~36063~~) operation to obtain the region ID.
-        self.dry_run = dry_run  # type: bool
+        # The description must be 2 to 256 characters in length. The description must start with a letter but cannot start with `http://` or `https://`.
+        self.description = description  # type: str
         # Specifies whether to check the request without performing the operation. Valid values:
         # 
         # *   **true**: checks the request without performing the operation. The hosted connection is not created. The system checks the required parameters, request syntax, and instance status. If the request fails the check, an error message is returned. If the request passes the check, `DRYRUN.SUCCESS` is returned.
         # *   **false**: sends the request. If the request passes the check, the hosted connection is created. This is the default value.
+        self.dry_run = dry_run  # type: bool
+        # The name of the hosted connection.
+        # 
+        # The name must be 2 to 128 characters in length, and can contain letters, digits, underscores (\_), and hyphens (-). The name must start with a letter but cannot start with `http://` or `https://`.
         self.name = name  # type: str
+        # The payer for the hosted connection. Valid values:
+        # 
+        # *   **PayByPhysicalConnectionOwner**: The partner pays for the hosted connection.
+        # *   **PayByVirtualPhysicalConnectionOwner**: The tenant pays for the hosted connection.
+        self.order_mode = order_mode  # type: str
+        # The ID of the Express Connect circuit over which the hosted connection is created.
+        self.physical_connection_id = physical_connection_id  # type: str
+        # The region ID of the hosted connection.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to obtain the region ID.
+        self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         # The bandwidth value of the hosted connection.
         # 
         # Valid values: **50M**, **100M**, **200M**, **300M**, **400M**, **500M**, **1G**, **2G**, **5G**, **8G**, and **10G**.
@@ -14854,28 +15637,20 @@ class CreateVirtualPhysicalConnectionRequest(TeaModel):
         # >  By default, the values of **2G**, **5G**, **8G**, and **10G** are unavailable. If you want to specify these values, contact your customer manager.
         # 
         # **M** indicates Mbit/s, and **G** indicates Gbit/s.
-        self.order_mode = order_mode  # type: str
+        self.spec = spec  # type: str
+        self.tag = tag  # type: list[CreateVirtualPhysicalConnectionRequestTag]
         # The client token that is used to ensure the idempotence of the request.
         # 
         # You can use the client to generate the value, but you must make sure that the value is unique among different requests. The client token can contain only ASCII characters.
         # 
         # >  If you do not set this parameter, the system automatically sets **ClientToken** to the value of **RequestId**. The value of **RequestId** may be different for each API request.
-        self.physical_connection_id = physical_connection_id  # type: str
-        # The ID of the hosted connection.
-        self.region_id = region_id  # type: str
-        self.resource_group_id = resource_group_id  # type: str
-        # The ID of the Express Connect circuit over which the hosted connection is created.
-        self.spec = spec  # type: str
-        self.tag = tag  # type: list[CreateVirtualPhysicalConnectionRequestTag]
-        # The description of the hosted connection.
-        # 
-        # The description must be 2 to 256 characters in length. The description must start with a letter but cannot start with `http://` or `https://`.
         self.token = token  # type: str
-        # The Alibaba Cloud account ID of the tenant.
-        self.vlan_id = vlan_id  # type: long
-        # The name of the hosted connection.
+        # The virtual local area network (VLAN) ID of the hosted connection. Valid values: **0** to **2999**.
         # 
-        # The name must be 2 to 128 characters in length, and can contain letters, digits, underscores (\_), and hyphens (-). The name must start with a letter but cannot start with `http://` or `https://`.
+        # *   If the VLAN ID is set to **0**, it indicates that the switch port of the virtual border router (VBR) is a Layer 3 router interface instead of a VLAN interface. When a Layer 3 router interface is used, each Express Connect circuit corresponds to a VBR.
+        # *   If the VLAN ID is set to a value from **1** to **2999**, the switch port of the VBR is a Layer 3 VLAN subinterface. When a Layer 3 VLAN subinterface is used, each VLAN ID corresponds to one VBR. In this case, the Express Connect circuit with which the VBR is associated can be used to connect to VPCs that belong to different Alibaba Cloud accounts. VBRs in different VLANs are isolated from each other at Layer 2.
+        self.vlan_id = vlan_id  # type: long
+        # The Alibaba Cloud account ID of the tenant.
         self.vpconn_ali_uid = vpconn_ali_uid  # type: long
 
     def validate(self):
@@ -14952,7 +15727,9 @@ class CreateVirtualPhysicalConnectionRequest(TeaModel):
 
 class CreateVirtualPhysicalConnectionResponseBody(TeaModel):
     def __init__(self, request_id=None, virtual_physical_connection=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The ID of the hosted connection.
         self.virtual_physical_connection = virtual_physical_connection  # type: str
 
     def validate(self):
@@ -15018,10 +15795,39 @@ class CreateVirtualPhysicalConnectionResponse(TeaModel):
         return self
 
 
+class CreateVpcRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateVpcRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
 class CreateVpcRequest(TeaModel):
     def __init__(self, cidr_block=None, client_token=None, description=None, dry_run=None, enable_ipv_6=None,
                  ipv_4ipam_pool_id=None, ipv_6cidr_block=None, ipv_6isp=None, owner_account=None, owner_id=None, region_id=None,
-                 resource_group_id=None, resource_owner_account=None, resource_owner_id=None, user_cidr=None, vpc_name=None):
+                 resource_group_id=None, resource_owner_account=None, resource_owner_id=None, tag=None, user_cidr=None, vpc_name=None):
         # The CIDR block of the VPC.
         # 
         # *   You can specify one of the following CIDR blocks or their subsets as the primary IPv4 CIDR block of the VPC: 192.168.0.0/16, 172.16.0.0/12, and 10.0.0.0/8. These CIDR blocks are standard private CIDR blocks as defined by Request for Comments (RFC) documents. The subnet mask must be 8 to 28 bits in length.
@@ -15071,6 +15877,7 @@ class CreateVpcRequest(TeaModel):
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        self.tag = tag  # type: list[CreateVpcRequestTag]
         # The user CIDR block. Separate user CIDR blocks with commas (,). You can specify up to three user CIDR blocks.
         # 
         # For more information about user CIDR blocks, see the `What is a user CIDR block?` section in [VPC FAQ](~~185311~~).
@@ -15081,7 +15888,10 @@ class CreateVpcRequest(TeaModel):
         self.vpc_name = vpc_name  # type: str
 
     def validate(self):
-        pass
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(CreateVpcRequest, self).to_map()
@@ -15117,6 +15927,10 @@ class CreateVpcRequest(TeaModel):
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
             result['ResourceOwnerId'] = self.resource_owner_id
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
         if self.user_cidr is not None:
             result['UserCidr'] = self.user_cidr
         if self.vpc_name is not None:
@@ -15153,6 +15967,11 @@ class CreateVpcRequest(TeaModel):
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
             self.resource_owner_id = m.get('ResourceOwnerId')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = CreateVpcRequestTag()
+                self.tag.append(temp_model.from_map(k))
         if m.get('UserCidr') is not None:
             self.user_cidr = m.get('UserCidr')
         if m.get('VpcName') is not None:
@@ -15248,28 +16067,82 @@ class CreateVpcResponse(TeaModel):
         return self
 
 
+class CreateVpcGatewayEndpointRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateVpcGatewayEndpointRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
 class CreateVpcGatewayEndpointRequest(TeaModel):
     def __init__(self, client_token=None, dry_run=None, endpoint_description=None, endpoint_name=None,
                  owner_account=None, owner_id=None, policy_document=None, region_id=None, resource_group_id=None,
-                 resource_owner_account=None, resource_owner_id=None, service_name=None, vpc_id=None):
+                 resource_owner_account=None, resource_owner_id=None, service_name=None, tag=None, vpc_id=None):
+        # The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests. **ClientToken** can contain only ASCII characters and cannot exceed 64 characters in length.
+        # 
+        # >  If you do not set this parameter, the system uses **RequestId** as **ClientToken**. The value of **RequestId** of each API request may be different.
         self.client_token = client_token  # type: str
+        # Specifies whether to perform a dry run. Valid values:
+        # 
+        # *   **true**: performs a dry run. The system checks your AccessKey pair, the RAM user permissions, and the required parameters If the request fails the dry run, the corresponding error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.
+        # *   **false** (default): performs a dry run and sends the request. If the request passes the dry run, a 2xx HTTP status code is returned and the operation is performed.
         self.dry_run = dry_run  # type: bool
+        # The description of the gateway endpoint.
+        # 
+        # The description must be 1 to 255 characters in length.
         self.endpoint_description = endpoint_description  # type: str
+        # The name of the gateway endpoint.
+        # 
+        # The name must be 1 to 128 characters in length.
         self.endpoint_name = endpoint_name  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The access policy for the cloud service.
+        # 
+        # For more information about the syntax and structure of the access policy, see [Policy syntax and structure](~~93739~~).
         self.policy_document = policy_document  # type: str
+        # The region ID of the gateway endpoint.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The time when the gateway endpoint was created. The time follows the ISO 8601 standard in the YYYY-MM-DDThh:mm:ssZ format. The time must be in UTC.
+        # The name of the endpoint service.
         self.service_name = service_name  # type: str
-        # The name of the gateway endpoint.
+        self.tag = tag  # type: list[CreateVpcGatewayEndpointRequestTag]
+        # The ID of the virtual private cloud (VPC) where you want to create the gateway endpoint.
+        # 
+        # The VPC and gateway endpoint must be deployed in the same region.
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
-        pass
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(CreateVpcGatewayEndpointRequest, self).to_map()
@@ -15301,6 +16174,10 @@ class CreateVpcGatewayEndpointRequest(TeaModel):
             result['ResourceOwnerId'] = self.resource_owner_id
         if self.service_name is not None:
             result['ServiceName'] = self.service_name
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
         if self.vpc_id is not None:
             result['VpcId'] = self.vpc_id
         return result
@@ -15331,6 +16208,11 @@ class CreateVpcGatewayEndpointRequest(TeaModel):
             self.resource_owner_id = m.get('ResourceOwnerId')
         if m.get('ServiceName') is not None:
             self.service_name = m.get('ServiceName')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = CreateVpcGatewayEndpointRequestTag()
+                self.tag.append(temp_model.from_map(k))
         if m.get('VpcId') is not None:
             self.vpc_id = m.get('VpcId')
         return self
@@ -15339,11 +16221,16 @@ class CreateVpcGatewayEndpointRequest(TeaModel):
 class CreateVpcGatewayEndpointResponseBody(TeaModel):
     def __init__(self, creation_time=None, endpoint_id=None, endpoint_name=None, request_id=None,
                  resource_group_id=None, service_name=None):
+        # The time when the gateway endpoint was created. The time follows the ISO 8601 standard in the YYYY-MM-DDThh:mm:ssZ format. The time must be in UTC.
         self.creation_time = creation_time  # type: str
+        # The ID of the gateway endpoint.
         self.endpoint_id = endpoint_id  # type: str
+        # The name of the gateway endpoint.
         self.endpoint_name = endpoint_name  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
         self.resource_group_id = resource_group_id  # type: str
+        # The name of the endpoint service.
         self.service_name = service_name  # type: str
 
     def validate(self):
@@ -15458,10 +16345,39 @@ class CreateVpcPrefixListRequestPrefixListEntries(TeaModel):
         return self
 
 
+class CreateVpcPrefixListRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateVpcPrefixListRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
 class CreateVpcPrefixListRequest(TeaModel):
     def __init__(self, client_token=None, dry_run=None, ip_version=None, max_entries=None, owner_account=None,
                  owner_id=None, prefix_list_description=None, prefix_list_entries=None, prefix_list_name=None,
-                 region_id=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None):
+                 region_id=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None, tag=None):
         # The client token that is used to ensure the idempotence of the request.
         # 
         # You can use the client to generate the value, but you must make sure that it is unique among all requests. ClientToken can contain only ASCII characters.
@@ -15499,10 +16415,15 @@ class CreateVpcPrefixListRequest(TeaModel):
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        self.tag = tag  # type: list[CreateVpcPrefixListRequestTag]
 
     def validate(self):
         if self.prefix_list_entries:
             for k in self.prefix_list_entries:
+                if k:
+                    k.validate()
+        if self.tag:
+            for k in self.tag:
                 if k:
                     k.validate()
 
@@ -15540,6 +16461,10 @@ class CreateVpcPrefixListRequest(TeaModel):
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
             result['ResourceOwnerId'] = self.resource_owner_id
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m=None):
@@ -15573,6 +16498,11 @@ class CreateVpcPrefixListRequest(TeaModel):
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
             self.resource_owner_id = m.get('ResourceOwnerId')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = CreateVpcPrefixListRequestTag()
+                self.tag.append(temp_model.from_map(k))
         return self
 
 
@@ -15654,22 +16584,25 @@ class CreateVpcPrefixListResponse(TeaModel):
 
 class CreateVpconnFromVbrRequest(TeaModel):
     def __init__(self, dry_run=None, order_mode=None, region_id=None, token=None, vbr_id=None):
-        # The ID of the request.
-        self.dry_run = dry_run  # type: bool
-        # The client token that is used to ensure the idempotence of the request.
-        # 
-        # You can use the client to generate the value, but you must ensure that it is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length.
-        self.order_mode = order_mode  # type: str
-        # The ID of the shared Express Connect circuit.
-        self.region_id = region_id  # type: str
-        # The region ID of the shared Express Connect circuit.
-        # 
-        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
-        self.token = token  # type: str
         # Specifies whether to only precheck the request. Valid values:
         # 
         # *   **true**: checks the API request. If the request passes the precheck, the operation is not performed. Check items include the request format, instance status, and whether the required parameters are specified. If the request fails the precheck, the system returns an error. If the request passes the precheck, the system returns the ID of the request.
         # *   **false** (default): sends the API request. If the request passes the precheck, the operation is performed.
+        self.dry_run = dry_run  # type: bool
+        # Specifies the party that must pay for the shared Express Connect circuit. Valid values:
+        # 
+        # *   **PayByPhysicalConnectionOwner**: If you set the value to PayByPhysicalConnectionOwner, the Express Connect partner must pay for the shared Express Connect circuit.
+        # *   **PayByVirtualPhysicalConnectionOwner**: If you set the value to PayByVirtualPhysicalConnectionOwner, the tenant must pay for the shared Express Connect circuit.
+        self.order_mode = order_mode  # type: str
+        # The region ID of the shared Express Connect circuit.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
+        self.region_id = region_id  # type: str
+        # The client token that is used to ensure the idempotence of the request.
+        # 
+        # You can use the client to generate the value, but you must ensure that it is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length.
+        self.token = token  # type: str
+        # The ID of the associated VBR.
         self.vbr_id = vbr_id  # type: str
 
     def validate(self):
@@ -15710,7 +16643,9 @@ class CreateVpconnFromVbrRequest(TeaModel):
 
 class CreateVpconnFromVbrResponseBody(TeaModel):
     def __init__(self, request_id=None, virtual_physical_connection=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The ID of the shared Express Connect circuit.
         self.virtual_physical_connection = virtual_physical_connection  # type: str
 
     def validate(self):
@@ -15822,42 +16757,44 @@ class CreateVpnAttachmentRequest(TeaModel):
                  remote_ca_cert=None, remote_subnet=None, resource_owner_account=None, resource_owner_id=None, tags=None):
         # Specifies whether to automatically configure routes. Valid values:
         # 
-        # *   **true** (default): automatically configures routes.
-        # *   **false**: does not automatically configure routes.
+        # *   **true** (default)
+        # *   **false**\
         self.auto_config_route = auto_config_route  # type: bool
         # The Border Gateway Protocol (BGP) configuration:
         # 
         # *   **BgpConfig.EnableBgp**: specifies whether to enable BGP. Valid values: **true** and **false**. Default value: false.
         # *   **BgpConfig.LocalAsn**: the ASN on the Alibaba Cloud side. Valid values: **1** to **4294967295**. Default value: **45104**.
-        # *   **BgpConfig.TunnelCidr**: the CIDR block of the IPsec tunnel. The CIDR block must belong to 169.254.0.0/16. The subnet mask of the CIDR block must be 30 bits in length.
+        # *   **BgpConfig.TunnelCidr**: the CIDR block of the IPsec tunnel. The CIDR block must fall within 169.254.0.0/16. The subnet mask of the CIDR block must be 30 bits in length.
         # *   **LocalBgpIp**: the BGP IP address on the Alibaba Cloud side. This IP address must fall within the CIDR block of the IPsec tunnel.
         # 
         # > 
-        # *   Before you configure BGP, we recommend that you learn about how BGP works and the limits. For more information, see [BGP dynamic routing](~~170235~~).
-        # *   We recommend that you use a private ASN to establish a connection to Alibaba Cloud over BGP. Refer to the relevant documentation for the valid range of a private ASN.
+        # 
+        # *   Before you configure BGP, we recommend that you learn about how BGP works and its limits. For more information, see Notice of BGP dynamic routing.
+        # 
+        # *   We recommend that you use a private ASN to establish a connection with Alibaba Cloud over BGP. Refer to the relevant documentation for the private ASN range.
         self.bgp_config = bgp_config  # type: str
-        # The client token that you want to use to ensure the idempotence of the request.
+        # The client token that is used to ensure the idempotence of the request.
         # 
-        # You can use the client to generate the value, but you must make sure that it is unique among different requests. The token can contain only ASCII characters.
+        # You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters.
         # 
-        # >  If you do not set this parameter, the system automatically uses **RequestId** as **ClientToken**. The value of **RequestId** for each API request may be different.
+        # > If you do not specify this parameter, the system automatically uses the **request ID** as the **client token**. The **request ID** may be different for each request.
         self.client_token = client_token  # type: str
         # The ID of the customer gateway.
         self.customer_gateway_id = customer_gateway_id  # type: str
-        # Specifies whether to immediately start IPsec negotiations. Valid values:
+        # Specifies whether to immediately start IPsec negotiations after the configuration takes effect. Valid values:
         # 
         # *   **true**: immediately starts IPsec negotiations after the configuration is complete.
-        # *   **false**: starts IPsec negotiations when inbound traffic is detected. This is the default value.
+        # *   **false** (default): starts IPsec negotiations when inbound traffic is received.
         self.effect_immediately = effect_immediately  # type: bool
         # Specifies whether to enable the dead peer detection (DPD) feature. Valid values:
         # 
-        # *   **true** (default): enables DPD. The initiator of the IPsec-VPN connection sends DPD packets to verify the existence and availability of the peer. If no response is received from the peer within a specified period of time, the connection fails. ISAKMP SAs and IPsec SAs are deleted. The IPsec tunnel is also deleted.
-        # *   **false**: disables DPD. The initiator of the IPsec-VPN connection does not send DPD packets.
+        # *   **true** (default) The initiator of the IPsec-VPN connection sends DPD packets to verify the existence and availability of the peer. If no response is received from the peer within a specified period of time, the connection fails. ISAKMP SAs and IPsec SAs are deleted. The IPsec tunnel is also deleted.
+        # *   **false**\
         self.enable_dpd = enable_dpd  # type: bool
         # Specifies whether to enable NAT traversal. Valid values:
         # 
-        # *   **true** (default): enables NAT traversal. After NAT traversal is enabled, the initiator does not check the UDP ports during IKE negotiations and can automatically discover NAT gateway devices along the VPN tunnel.
-        # *   **false**: disables NAT traversal.
+        # *   **true** (default) After NAT traversal is enabled, the initiator does not check the UDP ports during IKE negotiations and can automatically discover NAT gateway devices along the VPN tunnel.
+        # *   **false**\
         self.enable_nat_traversal = enable_nat_traversal  # type: bool
         # The health check configuration:
         # 
@@ -15873,18 +16810,18 @@ class CreateVpnAttachmentRequest(TeaModel):
         # 
         # *   **HealthCheckConfig.Policy**: specifies whether to withdraw published routes when health checks fail. Valid values:
         # 
-        #     *   **revoke_route** (default): withdraws published routes.
-        #     *   **reserve_route**: does not withdraw published routes.
+        #         - **revoke_route**(default): revokes published routes. 
+        #           - **reserve_route**: does not revoke published routes.
         self.health_check_config = health_check_config  # type: str
         # The configuration of Phase 1 negotiations:
         # 
         # *   **IkeConfig.Psk**: The pre-shared key that is used for authentication between the VPN gateway and the data center. The key must be 1 to 100 characters in length.
         # 
-        #     If you do not specify a pre-shared key, the system generates a random 16-bit string as the pre-shared key. You can call the [DescribeVpnConnection](~~120374~~) operation to query the pre-shared key that is generated by the system.
+        #         If you do not specify a pre-shared key, the system generates a random 16-character string as the pre-shared key. You can call the DescribeVpnConnection operation to query the pre-shared key generated by the system. 
         # 
-        # > The pre-shared key of the IPsec-VPN connection must be the same as the authentication key of the data center. Otherwise, you cannot establish a connection between the data center and the VPN gateway.
+        #           The pre-shared key of the IPsec-VPN connection must be the same as the authentication key of the data center. Otherwise, the connection between the data center and the VPN gateway cannot be established. 
         # 
-        # *   **IkeConfig.IkeVersion**: the version of the IKE protocol. Valid values: **ikev1** and **ikev2**. Default value: **ikev1**.
+        # *   **IkeConfig.IkeVersion**: the IKE version. Valid values: **ikev1** and **ikev2**. Default value: **ikev1**.
         # 
         # *   **IkeConfig.IkeMode**: the negotiation mode. Valid values: **main** and **aggressive**. Default value: **main**.
         # 
@@ -15900,7 +16837,7 @@ class CreateVpnAttachmentRequest(TeaModel):
         # 
         # *   **IkeConfig.RemoteId**: the identifier on the data center side. The identifier cannot exceed 100 characters in length. The default value is the IP address of the customer gateway.
         self.ike_config = ike_config  # type: str
-        # The configuration of Phase 2 negotiations:
+        # The configurations of Phase 2 negotiations:
         # 
         # *   **IpsecConfig.IpsecEncAlg**: the encryption algorithm that is used in Phase 2 negotiations. Valid values: **aes**, **aes192**, **aes256**, **des**, and **3des**. Default value: **aes**.
         # *   **IpsecConfig. IpsecAuthAlg**: the authentication algorithm that is used in Phase 2 negotiations. Valid values: **md5**, **sha1**, **sha256**, **sha384**, and **sha512**. Default value: **md5**.
@@ -15918,15 +16855,15 @@ class CreateVpnAttachmentRequest(TeaModel):
         self.local_subnet = local_subnet  # type: str
         # The name of the IPsec-VPN connection.
         # 
-        # The name must be 1 to 100 characters in length, and cannot start with `http://` or `https://`.
+        # The name must be 1 to 100 characters in length and cannot start with `http://` or `https://`.
         self.name = name  # type: str
         # The network type of the IPsec-VPN connection. Valid values:
         # 
-        # *   **public**: an encrypted connection over the Internet. This is the default value.
-        # *   **private**: an encrypted connection over private networks.
+        # *   **public** (default)
+        # *   **private**\
         self.network_type = network_type  # type: str
         self.owner_account = owner_account  # type: str
-        # The ID of the region to which the IPsec-VPN connection belongs.
+        # The ID of the region where the IPsec-VPN connection is established.
         # 
         # You can call the [DescribeRegions](~~36063~~) operation to query the most recent list of regions.
         self.region_id = region_id  # type: str
@@ -15943,6 +16880,11 @@ class CreateVpnAttachmentRequest(TeaModel):
         self.remote_subnet = remote_subnet  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The tag value.
+        # 
+        # The tag value can be an empty string and cannot exceed 128 characters in length. It cannot start with `aliyun` or `acs:`, and cannot contain `http://` or `https://`.
+        # 
+        # Each tag key corresponds to one tag value. You can specify up to 20 tag values in each call.
         self.tags = tags  # type: list[CreateVpnAttachmentRequestTags]
 
     def validate(self):
@@ -16062,12 +17004,12 @@ class CreateVpnAttachmentResponseBody(TeaModel):
         self.message = message  # type: str
         # The name of the IPsec-VPN connection.
         self.name = name  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
         # Indicates whether the current operation is successful.
         # 
-        # *   **true**: The operation is successful.
-        # *   **false**: The operation failed.
+        # *   **true**\
+        # *   **false**\
         self.success = success  # type: bool
         # The ID of the IPsec-VPN connection.
         self.vpn_connection_id = vpn_connection_id  # type: str
@@ -16196,8 +17138,17 @@ class CreateVpnConnectionRequestTags(TeaModel):
 
 class CreateVpnConnectionRequestTunnelOptionsSpecificationTunnelBgpConfig(TeaModel):
     def __init__(self, local_asn=None, local_bgp_ip=None, tunnel_cidr=None):
+        # 隧道本端（阿里云侧）的自治系统号。自治系统号取值范围：**1**~**4294967295**。默认值：**45104**。
+        # 
+        # > - 当您为IPsec连接开启BGP功能后（即指定**EnableTunnelsBgp**参数的值为**true**）需要配置该参数。
+        # - 在添加BGP配置前，建议您先了解BGP动态路由功能的工作机制和使用限制。更多信息，请参见[VPN网关支持BGP动态路由公告](~~170235~~)。
+        # - 建议您使用自治系统号的私有号码与阿里云建立BGP连接。自治系统号的私有号码范围请自行查阅文档。
         self.local_asn = local_asn  # type: long
+        # 隧道本端（阿里云侧）的BGP地址。该地址为BGP网段内的一个IP地址。
         self.local_bgp_ip = local_bgp_ip  # type: str
+        # 隧道的BGP网段。该网段需是一个在169.254.0.0/16内的掩码长度为30的网段。
+        # 
+        # >在一个VPN网关实例下，每个隧道的BGP网段需保持唯一。
         self.tunnel_cidr = tunnel_cidr  # type: str
 
     def validate(self):
@@ -16231,14 +17182,56 @@ class CreateVpnConnectionRequestTunnelOptionsSpecificationTunnelBgpConfig(TeaMod
 class CreateVpnConnectionRequestTunnelOptionsSpecificationTunnelIkeConfig(TeaModel):
     def __init__(self, ike_auth_alg=None, ike_enc_alg=None, ike_lifetime=None, ike_mode=None, ike_pfs=None,
                  ike_version=None, local_id=None, psk=None, remote_id=None):
+        # 第一阶段协商的认证算法。
+        # 
+        # <props="intl"><ph>取值：**md5**、**sha1**、**sha256**、**sha384**、**sha512**。默认值：**md5**。</ph></props>
+        # 
+        # <props="china"><ph>如果VPN网关实例类型为普通型，则取值：**md5**、**sha1**、**sha256**、**sha384**、**sha512**。默认值：**md5**。</ph></props>
+        # 
+        # <props="china"><ph>如果VPN网关实例类型为国密型，则取值为**sm3**（默认值）。</ph></props>
         self.ike_auth_alg = ike_auth_alg  # type: str
+        # 第一阶段协商的加密算法。
+        # 
+        # <props="intl"><ph>取值：**aes**、**aes192**、**aes256**、**des**或**3des**。默认值：**aes**。 </ph></props>
+        # 
+        # <props="china"><ph>如果VPN网关实例类型为普通型，则取值为**aes**、**aes192**、**aes256**、**des**或**3des**。默认值：**aes**。</ph></props>
+        # 
+        # <props="china"><ph>如果VPN网关实例类型为国密型，则取值为**sm4**（默认值）。</ph></props>
         self.ike_enc_alg = ike_enc_alg  # type: str
+        # 第一阶段协商出的SA的生存周期。单位：秒。
+        # 
+        # 取值范围：**0**~**86400**。默认值：**86400**。
         self.ike_lifetime = ike_lifetime  # type: long
+        # IKE版本的协商模式。取值：**main**或**aggressive**。默认值：**main**。   
+        # 
+        # - **main**：主模式，协商过程安全性高。
+        # - **aggressive**：野蛮模式，协商快速且协商成功率高。
+        # 
+        # <props="china"><ph>如果VPN网关实例类型为国密型，则协商模式仅支持**main**。</ph></props>
         self.ike_mode = ike_mode  # type: str
+        # 第一阶段协商使用的Diffie-Hellman密钥交换算法。默认值：**group2**。   
+        # 取值：**group1**、**group2**、**group5**、**group14**。
         self.ike_pfs = ike_pfs  # type: str
+        # IKE协议的版本。取值：**ikev1**或**ikev2**。默认值：**ikev1**。
+        # 
+        # 相对于IKEv1版本，IKEv2版本简化了SA的协商过程并且对于多网段的场景提供了更好的支持。
+        #    
+        # <props="china"><ph>如果VPN网关实例类型为国密型，则IKE版本仅支持**ikev1**。</ph></props>
         self.ike_version = ike_version  # type: str
+        # 隧道本端（阿里云侧）的标识，用于第一阶段的协商。长度限制为100个字符。默认值为隧道的IP地址。
+        # 
+        # **LocalId**支持FQDN格式，如果您使用FQDN格式，协商模式建议选择为**aggressive**（野蛮模式）。
         self.local_id = local_id  # type: str
+        # 预共享密钥，用于隧道与隧道对端之间的身份认证。
+        # 
+        #     - 密钥长度为1~100个字符，支持数字、大小写英文字母以及以下字符。```~!\`@#$%^&*()_-+={}[]|;:\",.<>/?```
+        #     - 若您未指定预共享密钥，系统会随机生成一个16位的字符串作为预共享密钥。您可以调用[DescribeVpnConnection](~~120374~~)接口查询系统自动生成的预共享密钥。     
+        # 
+        #         > 隧道及隧道对端的预共享密钥需一致，否则系统无法正常建立隧道。
         self.psk = psk  # type: str
+        # 隧道对端的标识，用于第一阶段的协商。长度限制为100个字符。默认值为隧道关联的用户网关的IP地址。
+        # 
+        # **RemoteId**支持FQDN格式，如果您使用FQDN格式，协商模式建议选择为**aggressive**（野蛮模式）。
         self.remote_id = remote_id  # type: str
 
     def validate(self):
@@ -16295,9 +17288,29 @@ class CreateVpnConnectionRequestTunnelOptionsSpecificationTunnelIkeConfig(TeaMod
 
 class CreateVpnConnectionRequestTunnelOptionsSpecificationTunnelIpsecConfig(TeaModel):
     def __init__(self, ipsec_auth_alg=None, ipsec_enc_alg=None, ipsec_lifetime=None, ipsec_pfs=None):
+        # 第二阶段协商的认证算法。
+        # 
+        # <props="intl"><ph>取值：**md5**、**sha1**、**sha256**、**sha384**、**sha512**。默认值：**md5**。</ph></props>
+        # 
+        # <props="china"><ph>如果VPN网关实例类型为普通型，则取值：**md5**、**sha1**、**sha256**、**sha384**、**sha512**。默认值：**md5**。</ph></props>
+        # 
+        # <props="china"><ph>如果VPN网关实例类型为国密型，则取值为**sm3**（默认值）。</ph></props>
         self.ipsec_auth_alg = ipsec_auth_alg  # type: str
+        # 第二阶段协商的加密算法。
+        # 
+        # <props="intl"><ph>取值：**aes**、**aes192**、**aes256**、**des**或**3des**。默认值：**aes**。 </ph></props>
+        # 
+        # <props="china"><ph>如果VPN网关实例类型为普通型，则取值为**aes**、**aes192**、**aes256**、**des**或**3des**。默认值：**aes**。</ph></props>
+        # 
+        # <props="china"><ph>如果VPN网关实例类型为国密型，则取值为**sm4**（默认值）。</ph></props>
         self.ipsec_enc_alg = ipsec_enc_alg  # type: str
+        # 第二阶段协商出的SA的生存周期。单位：秒。
+        # 
+        # 取值范围：**0**~**86400**。默认值：**86400**。
         self.ipsec_lifetime = ipsec_lifetime  # type: long
+        # 第二阶段协商使用的Diffie-Hellman密钥交换算法。默认值：**group2**。   
+        # 
+        # 取值：**disabled**、**group1**、**group2**、**group5**、**group14**。
         self.ipsec_pfs = ipsec_pfs  # type: str
 
     def validate(self):
@@ -16335,13 +17348,39 @@ class CreateVpnConnectionRequestTunnelOptionsSpecificationTunnelIpsecConfig(TeaM
 class CreateVpnConnectionRequestTunnelOptionsSpecification(TeaModel):
     def __init__(self, customer_gateway_id=None, enable_dpd=None, enable_nat_traversal=None,
                  remote_ca_certificate=None, role=None, tunnel_bgp_config=None, tunnel_ike_config=None, tunnel_ipsec_config=None):
+        # 隧道关联的用户网关ID。
+        # 
+        # > - 在VPN网关实例支持创建双隧道模式的IPsec-VPN连接的场景下，本参数必填。
+        # - 如果当前VPN网关实例支持创建双隧道模式的IPsec-VPN连接，您必须同时为IPsec-VPN连接添加主隧道和备隧道的配置（即配置**TunnelOptionsSpecification**数组下的参数）。一个IPsec-VPN连接仅支持添加主备两条隧道。
         self.customer_gateway_id = customer_gateway_id  # type: str
+        # 是否为隧道开启DPD（对等体存活检测）功能。取值：
+        # 
+        # - **true**（默认值）：开启DPD功能。IPsec发起端会发送DPD报文用来检测对端的设备是否存活，如果在设定时间内未收到正确回应则认为对端已经断线，IPsec将删除ISAKMP SA和相应的IPsec SA，安全隧道同样也会被删除。
+        # 
+        # - **false**：不开启DPD功能，IPsec发起端不会发送DPD探测报文。
         self.enable_dpd = enable_dpd  # type: bool
+        # 是否为隧道开启NAT穿越功能。取值：
+        # 
+        # - **true**（默认值）：开启NAT穿越功能。开启后，IKE协商过程会删除对UDP端口号的验证过程，同时实现对隧道中NAT网关设备的发现功能。
+        # 
+        # - **false**：不开启NAT穿越功能。
         self.enable_nat_traversal = enable_nat_traversal  # type: bool
+        # 如果当前VPN网关实例为国密型VPN网关，您需要为隧道配置对端的CA证书。
+        # 
+        # - 对于国密型VPN网关，此项必填。
+        # 
+        # - 对于普通型VPN网关，此项需要为空。
         self.remote_ca_certificate = remote_ca_certificate  # type: str
+        # 隧道的角色。取值：
+        # 
+        # - **master**：表示当前隧道为主隧道。
+        # - **slave**：表示当前隧道为备隧道。
         self.role = role  # type: str
+        # 为隧道添加BGP配置。
         self.tunnel_bgp_config = tunnel_bgp_config  # type: CreateVpnConnectionRequestTunnelOptionsSpecificationTunnelBgpConfig
+        # 第一阶段协商的配置信息。
         self.tunnel_ike_config = tunnel_ike_config  # type: CreateVpnConnectionRequestTunnelOptionsSpecificationTunnelIkeConfig
+        # 第二阶段协商的配置信息。
         self.tunnel_ipsec_config = tunnel_ipsec_config  # type: CreateVpnConnectionRequestTunnelOptionsSpecificationTunnelIpsecConfig
 
     def validate(self):
@@ -16408,50 +17447,53 @@ class CreateVpnConnectionRequest(TeaModel):
                  resource_owner_id=None, tags=None, tunnel_options_specification=None, vpn_gateway_id=None):
         # Specifies whether to automatically configure routes. Valid values:
         # 
-        # *   **true** (default): automatically configures routes.
-        # *   **false**: does not automatically configure routes.
+        # *   **true** (default)
+        # *   **false**\
         self.auto_config_route = auto_config_route  # type: bool
         # The Border Gateway Protocol (BGP) configuration:
         # 
         # *   **BgpConfig.EnableBgp**: specifies whether to enable BGP. Valid values: **true** and **false**. Default value: false.
-        # *   **BgpConfig.LocalAsn**: the autonomous system number (ASN) of Alibaba Cloud. Valid values: **1** to **4294967295**. Default value: **45104**.
-        # *   **BgpConfig.TunnelCidr**: the CIDR block of the IPsec tunnel. The CIDR block must belong to 169.254.0.0/16. The subnet mask of the CIDR block must be 30 bits in length.
+        # *   **BgpConfig.LocalAsn**: the ASN on the Alibaba Cloud side. Valid values: **1** to **4294967295**. Default value: **45104**.
+        # *   **BgpConfig.TunnelCidr**: the CIDR block of the IPsec tunnel. The CIDR block must fall within 169.254.0.0/16. The subnet mask of the CIDR block must be 30 bits in length.
         # *   **LocalBgpIp**: the BGP IP address on the Alibaba Cloud side. This IP address must fall within the CIDR block of the IPsec tunnel.
         # 
         # > 
+        # 
         # *   This parameter is required when the VPN gateway has dynamic BGP enabled.
-        # *   Before you configure BGP, we recommend that you learn about how BGP works and the limits. For more information, see [VPN Gateway supports BGP dynamic routing](~~170235~~).
-        # *   We recommend that you use a private ASN to establish a connection with Alibaba Cloud over BGP. Refer to the relevant documentation for the valid range of a private ASN.
+        # 
+        # *   Before you configure BGP, we recommend that you learn about how BGP works and its limits. For more information, see [VPN Gateway supports BGP dynamic routing](~~170235~~).
+        # *   We recommend that you use a private ASN to establish a connection with Alibaba Cloud over BGP. Refer to the relevant documentation for the private ASN range.
         self.bgp_config = bgp_config  # type: str
         # The client token that is used to ensure the idempotence of the request.
         # 
-        # You can use the client to generate the value, but you must make sure that the value is unique among different requests. The token can contain only ASCII characters.
+        # You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters.
         # 
-        # >  If you do not set this parameter, the system automatically uses **RequestId** as **ClientToken**. The value of **RequestId** for each API request may be different.
+        # > If you do not specify this parameter, the system automatically uses the **request ID** as the **client token**. The **request ID** may be different for each request.
         self.client_token = client_token  # type: str
         # The ID of the customer gateway.
         self.customer_gateway_id = customer_gateway_id  # type: str
-        # Specifies whether to immediately start IPsec negotiations. Valid values:
+        # Specify whether to immediately start IPsec negotiations after the configuration takes effect. Valid values:
         # 
         # *   **true**: immediately starts IPsec negotiations after the configuration is complete.
-        # *   **false**: starts IPsec negotiations when inbound traffic is detected. This is the default value.
+        # *   **false** (default): starts IPsec negotiations when inbound traffic is received.
         self.effect_immediately = effect_immediately  # type: bool
         # Specifies whether to enable the dead peer detection (DPD) feature. Valid values:
         # 
-        # *   **true** (default): enables DPD. The initiator of the IPsec-VPN connection sends DPD packets to verify the existence and availability of the peer. If no feedback is received from the peer within a specified period of time, the connection fails. ISAKMP SAs and IPsec SAs are deleted. The IPsec tunnel is also deleted.
-        # *   **false**: disables DPD. The initiator of the IPsec-VPN connection does not send DPD packets.
+        # *   **true** (default) The initiator of the IPsec-VPN connection sends DPD packets to verify the existence and availability of the peer. If no response is received from the peer within a specified period of time, the connection fails. ISAKMP SAs and IPsec SAs are deleted. The IPsec tunnel is also deleted.
+        # *   **false**: disables DPD. The IPsec initiator does not send DPD packets.
         self.enable_dpd = enable_dpd  # type: bool
         # Specifies whether to enable NAT traversal. Valid values:
         # 
-        # *   **true** (default): yes After NAT traversal is enabled, the initiator does not check the UDP ports during IKE negotiations and can automatically discover NAT gateway devices along the VPN tunnel.
-        # *   **false**: no
+        # *   **true** (default) After NAT traversal is enabled, the initiator does not check the UDP ports during IKE negotiations and can automatically discover NAT gateway devices along the VPN tunnel.
+        # *   **false**\
         self.enable_nat_traversal = enable_nat_traversal  # type: bool
+        # 是否为隧道开启BGP功能。取值：**true**或**false**（默认值）。
         self.enable_tunnels_bgp = enable_tunnels_bgp  # type: bool
         # The health check configuration:
         # 
         # *   **HealthCheckConfig.enable**: specifies whether to enable health checks. Valid values: **true** and **false**. Default value: false.
         # *   **HealthCheckConfig.dip**: the destination IP address configured for health checks.
-        # *   **HealthCheckConfig.sip**: the source IP address configured for health checks.
+        # *   **HealthCheckConfig.sip:** the source IP address that is used for health checks.
         # *   **HealthCheckConfig.interval**: the time interval of health check retries. Unit: seconds. Default value: **3**.
         # *   **HealthCheckConfig.retry**: the maximum number of health check retries. Default value: **3**.
         self.health_check_config = health_check_config  # type: str
@@ -16459,11 +17501,11 @@ class CreateVpnConnectionRequest(TeaModel):
         # 
         # *   **IkeConfig.Psk**: The pre-shared key that is used for authentication between the VPN gateway and the data center. The key must be 1 to 100 characters in length.
         # 
-        #     If you do not specify a pre-shared key, the system generates a random 16-bit string as the pre-shared key. You can call the [DescribeVpnConnection](~~120374~~) operation to query the pre-shared key that is generated by the system.
+        #         If you do not specify a pre-shared key, the system generates a random 16-character string as the pre-shared key. You can call the DescribeVpnConnection operation to query the pre-shared key generated by the system. 
         # 
-        # > The pre-shared key of the IPsec-VPN connection must be the same as the authentication key of the data center. Otherwise, you cannot establish a connection between the data center and the VPN gateway.
+        #           The pre-shared key of the IPsec-VPN connection must be the same as the authentication key of the data center. Otherwise, the connection between the data center and the VPN gateway cannot be established. 
         # 
-        # *   **IkeConfig.IkeVersion**: the version of the IKE protocol. Valid values: **ikev1** and **ikev2**. Default value: **ikev1**.
+        # *   **IkeConfig.IkeVersion**: the IKE version. Valid values: **ikev1** and **ikev2**. Default value: **ikev1**.
         # 
         # *   **IkeConfig.IkeMode**: the negotiation mode of IKEv1. Valid values: **main** and **aggressive**. Default value: **main**.
         # 
@@ -16479,14 +17521,14 @@ class CreateVpnConnectionRequest(TeaModel):
         # 
         # *   **IkeConfig.RemoteId**: the identifier of the customer gateway. The identifier of the customer gateway cannot exceed 100 characters in length. The default value is the IP address of the customer gateway.
         self.ike_config = ike_config  # type: str
-        # The configuration of Phase 2 negotiations:
+        # The configurations of Phase 2 negotiations:
         # 
         # *   **IpsecConfig.IpsecEncAlg**: the encryption algorithm that is used in Phase 2 negotiations. Valid values: **aes**, **aes192**, **aes256**, **des**, and **3des**. Default value: **aes**.
         # *   **IpsecConfig. IpsecAuthAlg**: the authentication algorithm that is used in Phase 2 negotiations. Valid values: **md5**, **sha1**, **sha256**, **sha384**, and **sha512**. Default value: **md5**.
         # *   **IpsecConfig. IpsecPfs**: the Diffie-Hellman key exchange algorithm that is used in Phase 2 negotiations. Valid values: **disabled**, **group1**, **group2**, **group5**, and **group14**. Default value: **group2**.
-        # *   **IpsecConfig. IpsecLifetime**: the SA lifetime determined by Phase 2 negotiations. Unit: seconds. Valid values: **0** to **86400**. Default value: **86400**.
+        # *   **IpsecConfig. IpsecLifetime**: the SA lifetime that is determined by Phase 2 negotiations. Unit: seconds. Valid values: **0** to **86400**. Default value: **86400**.
         self.ipsec_config = ipsec_config  # type: str
-        # The CIDR block on the VPC side. The CIDR block is used in Phase 2 negotiations.
+        # The CIDR block on the virtual private cloud (VPC) side. The CIDR block is used in Phase 2 negotiations.
         # 
         # Separate CIDR blocks with commas (,). Example: 192.168.1.0/24,192.168.2.0/24.
         # 
@@ -16501,14 +17543,14 @@ class CreateVpnConnectionRequest(TeaModel):
         self.name = name  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The ID of the region where you want to create the IPsec-VPN connection. You can call the [DescribeRegions](~~36063~~) operation to query the most recent list of regions.
+        # The ID of the region where the IPsec-VPN connection is created. You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
-        # The certificate authority (CA) certificate of the peer when a ShangMi (SM) VPN gateway is used to create the IPsec-VPN connection.
+        # The peer CA certificate when a ShangMi (SM) VPN gateway is used to establish the IPsec-VPN connection.
         # 
-        # *   This parameter is required when an SM VPN gateway is used to create the IPsec-VPN connection.
+        # *   This parameter is required when an SM VPN gateway is used to establish the IPsec-VPN connection.
         # *   You can ignore this parameter when a standard VPN gateway is used to create the IPsec-VPN connection.
         self.remote_ca_certificate = remote_ca_certificate  # type: str
-        # The CIDR block of the data center. This CIDR block is used in Phase 2 negotiations.
+        # The CIDR block on the data center side. This CIDR block is used in Phase 2 negotiations.
         # 
         # Separate CIDR blocks with commas (,). Example: 192.168.3.0/24,192.168.4.0/24.
         # 
@@ -16519,7 +17561,15 @@ class CreateVpnConnectionRequest(TeaModel):
         self.remote_subnet = remote_subnet  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The tag value.
+        # 
+        # The tag value can be an empty string and cannot exceed 128 characters in length. It cannot start with `aliyun` or `acs:`, and cannot contain `http://` or `https://`.
+        # 
+        # Each tag key corresponds to one tag value. You can specify up to 20 tag values in each call.
         self.tags = tags  # type: list[CreateVpnConnectionRequestTags]
+        # 配置隧道。
+        # 
+        # 如果当前VPN网关实例支持创建双隧道模式的IPsec-VPN连接，您必须同时为IPsec-VPN连接添加主隧道和备隧道的配置（即配置**TunnelOptionsSpecification**数组下的参数）。一个IPsec-VPN连接下仅支持添加主备两条隧道。
         self.tunnel_options_specification = tunnel_options_specification  # type: list[CreateVpnConnectionRequestTunnelOptionsSpecification]
         # The ID of the VPN gateway.
         self.vpn_gateway_id = vpn_gateway_id  # type: str
@@ -16651,13 +17701,13 @@ class CreateVpnConnectionRequest(TeaModel):
 
 class CreateVpnConnectionResponseBody(TeaModel):
     def __init__(self, create_time=None, name=None, request_id=None, vpn_connection_id=None):
-        # The timestamp generated when the IPsec-VPN connection was created. Unit: milliseconds.
+        # The timestamp generated when the IPsec-VPN connection was established. Unit: milliseconds.
         # 
         # This value is a UNIX timestamp representing the number of milliseconds that have elapsed since the epoch time January 1, 1970, 00:00:00 UTC.
         self.create_time = create_time  # type: long
         # The name of the IPsec-VPN connection.
         self.name = name  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
         # The ID of the IPsec-VPN connection.
         self.vpn_connection_id = vpn_connection_id  # type: str
@@ -16738,61 +17788,72 @@ class CreateVpnGatewayRequest(TeaModel):
                  enable_ipsec=None, enable_ssl=None, instance_charge_type=None, name=None, network_type=None, owner_account=None,
                  owner_id=None, period=None, region_id=None, resource_owner_account=None, resource_owner_id=None,
                  ssl_connections=None, v_switch_id=None, vpc_id=None, vpn_type=None):
-        # Specifies whether to enable the IPsec-VPN feature. Valid values:
-        # 
-        # *   **true** (default): yes
-        # *   **false**: no
-        self.auto_pay = auto_pay  # type: bool
-        # Specifies whether to enable the SSL-VPN feature for the VPN gateway. Valid values:
-        # 
-        # *   **true**: yes
-        # *   **false** (default): no
-        self.bandwidth = bandwidth  # type: int
-        # The ID of the VPN gateway.
-        self.client_token = client_token  # type: str
-        self.disaster_recovery_vswitch_id = disaster_recovery_vswitch_id  # type: str
-        # The maximum number of clients that can be connected at the same time. Valid values: **5** (default), **10**, **20**, **50**, **100**, **200**, **500**, and **1000**.
-        self.enable_ipsec = enable_ipsec  # type: bool
-        # The ID of the vSwitch to which the VPN gateway belongs.
-        self.enable_ssl = enable_ssl  # type: bool
         # Specifies whether to enable automatic payment for the VPN gateway. Valid values:
         # 
-        # *   **true**: yes
-        # *   **false** (default): no
-        self.instance_charge_type = instance_charge_type  # type: str
-        # The billing method of the VPN gateway. Set the value to **POSTPAY**, which specifies the pay-as-you-go billing method.
-        self.name = name  # type: str
-        # The ID of the request.
-        self.network_type = network_type  # type: str
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
+        # *   **true**\
+        # *   **false** (default)
+        self.auto_pay = auto_pay  # type: bool
         # The maximum bandwidth of the VPN gateway. Unit: Mbit/s.
         # 
         # *   If you want to create a public VPN gateway, valid values are **10**, **100**, **200**, **500**, and **1000**.
         # *   If you want to create a private VPN gateway, valid values are **200** and **1000**.
         # 
-        # >  In some regions, the maximum bandwidth supported by a VPN gateway is 200 Mbit/s. For more information, see [Limits on VPN gateways](~~65290~~).
+        # >  The maximum bandwidth supported by VPN gateways in some regions is 200 Mbit/s. For more information, see [VPN gateway limits](~~65290~~).
+        self.bandwidth = bandwidth  # type: int
+        # The client token that is used to ensure the idempotence of the request.
+        # 
+        # You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters.
+        # 
+        # > If you do not specify this parameter, the system automatically uses the **request ID** as the **client token**. The **request ID** may be different for each request.
+        self.client_token = client_token  # type: str
+        # 指定VPN网关实例关联的第二个交换机实例。
+        # 
+        # - 如果当前地域支持创建双隧道模式的IPsec-VPN连接，则本参数必填。
+        # - 您需要从VPN网关实例关联的VPC实例下指定两个分布在不同可用区的交换机实例，以实现IPsec-VPN连接可用区级别的容灾。
+        # - 对于仅支持一个可用区的地域 ，不支持可用区级别的容灾，建议您在该可用区下指定两个不同的交换机实例以实现IPsec-VPN连接的高可用，支持指定相同的交换机实例。
+        # 
+        # 关于支持双隧道模式IPsec-VPN连接的地域和可用区的信息，请参见[IPsec-VPN连接升级为双隧道模式](~~2358946~~)。
+        self.disaster_recovery_vswitch_id = disaster_recovery_vswitch_id  # type: str
+        # Specifies whether to enable the IPsec-VPN feature. Valid values:
+        # 
+        # *   **true** (default)
+        # *   **false**\
+        self.enable_ipsec = enable_ipsec  # type: bool
+        # Specifies whether to enable the SSL-VPN feature for the VPN gateway. Valid values:
+        # 
+        # *   **true**\
+        # *   **false** (default)
+        self.enable_ssl = enable_ssl  # type: bool
+        # The billing method of the VPN gateway. Set the value to **POSTPAY**, which specifies the pay-as-you-go billing method.
+        # 
+        # >  This parameter is required when you create a VPN gateway.
+        self.instance_charge_type = instance_charge_type  # type: str
+        # The name of the VPN gateway. The default value is the ID of the VPN gateway.
+        # 
+        # The name must be 1 to 100 characters in length and cannot start with `http://` or `https://`.
+        self.name = name  # type: str
+        # The network type of the VPN gateway. Valid values:
+        # 
+        # *   **public** (default)
+        # *   **private**\
+        self.network_type = network_type  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The subscription duration. Unit: month. Valid values: **1** to **9**, **12**, **24**, and **36**.
         self.period = period  # type: int
-        # The ID of the virtual private cloud (VPC) where you want to create the VPN gateway.
+        # The region ID of the VPN gateway. You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The type of the VPN gateway. Valid values:
-        # 
-        # *   **Normal** (default): standard
+        # The maximum number of clients that can be connected at the same time. Valid values: **5** (default), **10**, **20**, **50**, **100**, **200**, **500**, and **1000**.
         self.ssl_connections = ssl_connections  # type: int
-        # The client token that is used to ensure the idempotence of the request.
-        # 
-        # You can use the client to generate the value, but you must make sure that it is unique among different requests. The token can contain only ASCII characters.
-        # 
-        # >  If you do not set this parameter, the system sets **ClientToken** to the value of **RequestId**. The value of **RequestId** may be different for each API request.
+        # The ID of the vSwitch to which the VPN gateway belongs.
         self.v_switch_id = v_switch_id  # type: str
-        # The subscription duration. Unit: months. Valid values: **1** to **9**, **12**, **24**, and **36**.
+        # The ID of the virtual private cloud (VPC) where you want to create the VPN gateway.
         self.vpc_id = vpc_id  # type: str
-        # The network type of the VPN gateway. Valid values:
+        # The type of the VPN gateway.
         # 
-        # *   **public** (default): public VPN gateway
-        # *   **private**: private VPN gateway
+        # Set the value to **Normal** (default), which specifies a standard NAT gateway.
         self.vpn_type = vpn_type  # type: str
 
     def validate(self):
@@ -16889,13 +17950,15 @@ class CreateVpnGatewayRequest(TeaModel):
 
 class CreateVpnGatewayResponseBody(TeaModel):
     def __init__(self, name=None, order_id=None, request_id=None, vpn_gateway_id=None):
+        # The name of the VPN gateway.
         self.name = name  # type: str
-        self.order_id = order_id  # type: long
-        # The ID of the order.
+        # The order ID.
         # 
         # If automatic payment is disabled, you must manually complete the payment for the VPN gateway in the [Alibaba Cloud Management console](https://usercenter2-intl.aliyun.com/billing/#/account/overview).
+        self.order_id = order_id  # type: long
+        # The request ID.
         self.request_id = request_id  # type: str
-        # The name of the VPN gateway.
+        # The ID of the VPN gateway.
         self.vpn_gateway_id = vpn_gateway_id  # type: str
 
     def validate(self):
@@ -18606,18 +19669,21 @@ class DeleteFlowLogResponse(TeaModel):
 class DeleteForwardEntryRequest(TeaModel):
     def __init__(self, client_token=None, forward_entry_id=None, forward_table_id=None, owner_account=None,
                  owner_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None):
-        self.client_token = client_token  # type: str
-        # The ID of the request.
-        self.forward_entry_id = forward_entry_id  # type: str
         # The client token that is used to ensure the idempotence of the request.
         # 
         # You can use the client to generate the value, but you must make sure that it is unique among different requests. The token can contain only ASCII characters.
         # 
         # >  If you do not specify this parameter, the system uses **RequestId** as **ClientToken**. **RequestId** may be different for each API request.
+        self.client_token = client_token  # type: str
+        # The ID of the DNAT entry to be deleted.
+        self.forward_entry_id = forward_entry_id  # type: str
+        # The ID of the DNAT table to which the DNAT entry belongs.
         self.forward_table_id = forward_table_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The ID of the DNAT entry to be deleted.
+        # The region ID of the NAT gateway.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -18672,6 +19738,7 @@ class DeleteForwardEntryRequest(TeaModel):
 
 class DeleteForwardEntryResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -18736,21 +19803,26 @@ class DeleteForwardEntryResponse(TeaModel):
 class DeleteFullNatEntryRequest(TeaModel):
     def __init__(self, client_token=None, dry_run=None, full_nat_entry_id=None, full_nat_table_id=None,
                  owner_account=None, owner_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None):
-        # The ID of the FULLNAT table to which the FULLNAT entry to be deleted belongs.
-        self.client_token = client_token  # type: str
-        # The ID of the request.
-        self.dry_run = dry_run  # type: bool
-        # The region ID of the VPC NAT gateway to which the FULLNAT entry to be deleted belongs.
+        # The client token that is used to ensure the idempotence of the request.
         # 
-        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
-        self.full_nat_entry_id = full_nat_entry_id  # type: str
+        # You can use the client to generate the value, but you must make sure that it is unique among all requests. The token can only contain ASCII characters.
+        # 
+        # >  If you do not specify this parameter, the system automatically uses **RequestId** as **ClientToken**. **RequestId** might be different for each API request.
+        self.client_token = client_token  # type: str
         # Specifies whether to to perform a dry run. Valid values:
         # 
         # *   **true**: performs a dry run. The system checks your AccessKey pair, the RAM user permissions, and the required parameters. If the request fails the dry run, an error message is returned. If the request passes the dry run, the DryRunOperation error code is returned.
         # *   **false** (default): performs a dry run and sends the request. If the request passes the dry run, a 2xx HTTP status code is returned and the operation is performed.
+        self.dry_run = dry_run  # type: bool
+        # The ID of the FULLNAT entry that you want to delete.
+        self.full_nat_entry_id = full_nat_entry_id  # type: str
+        # The ID of the FULLNAT table to which the FULLNAT entry to be deleted belongs.
         self.full_nat_table_id = full_nat_table_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID of the VPC NAT gateway to which the FULLNAT entry to be deleted belongs.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -18809,6 +19881,7 @@ class DeleteFullNatEntryRequest(TeaModel):
 
 class DeleteFullNatEntryResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -19611,21 +20684,24 @@ class DeleteIpsecServerResponse(TeaModel):
 class DeleteIpv4GatewayRequest(TeaModel):
     def __init__(self, client_token=None, dry_run=None, ipv_4gateway_id=None, owner_account=None, owner_id=None,
                  region_id=None, resource_owner_account=None, resource_owner_id=None):
-        # The ID of the request.
-        self.client_token = client_token  # type: str
-        self.dry_run = dry_run  # type: bool
         # The client token that is used to ensure the idempotence of the request.
         # 
         # You can use the client to generate the value, but you must make sure that it is unique among different requests. The client token can contain only ASCII characters.
         # 
         # >  If you do not specify this parameter, the system uses **RequestId** as **ClientToken**. **RequestId** may be different for each API request.
-        self.ipv_4gateway_id = ipv_4gateway_id  # type: str
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
+        self.client_token = client_token  # type: str
         # Specifies whether to only precheck the request. Valid values:
         # 
         # *   **true**: prechecks the request without performing the operation. The system prechecks the required parameters, request syntax, and limits. If the request fails to pass the precheck, an error message is returned. If the request passes the precheck, the `DryRunOperation` error code is returned.
         # *   **false** (default): sends the API request. After the request passes the precheck, a 2xx HTTP status code is returned, and the operation is performed.
+        self.dry_run = dry_run  # type: bool
+        # The ID of the IPv4 gateway that you want to delete.
+        self.ipv_4gateway_id = ipv_4gateway_id  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The region ID of the IPv4 gateway that you want to delete.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -19680,6 +20756,7 @@ class DeleteIpv4GatewayRequest(TeaModel):
 
 class DeleteIpv4GatewayResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -20114,11 +21191,6 @@ class DeleteIpv6InternetBandwidthResponse(TeaModel):
 class DeleteNatGatewayRequest(TeaModel):
     def __init__(self, force=None, nat_gateway_id=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None):
-        self.force = force  # type: bool
-        # The ID of the request.
-        self.nat_gateway_id = nat_gateway_id  # type: str
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
         # Specifies whether to forcefully delete the NAT gateway. Valid values:
         # 
         # *   **true**: yes If you set the value to **true**:
@@ -20134,6 +21206,14 @@ class DeleteNatGatewayRequest(TeaModel):
         #     *   If the NAT gateway has SNAT entries, delete them first.
         #     *   If the NAT gateway has DNAT entries, delete them first.
         #     *   If the NAT gateway is associated with an EIP, disassociate the EIP from the NAT gateway first.
+        self.force = force  # type: bool
+        # The ID of the NAT gateway that you want to delete.
+        self.nat_gateway_id = nat_gateway_id  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The ID of the region where the NAT gateway is deployed.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -20184,6 +21264,7 @@ class DeleteNatGatewayRequest(TeaModel):
 
 class DeleteNatGatewayResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -20248,22 +21329,24 @@ class DeleteNatGatewayResponse(TeaModel):
 class DeleteNatIpRequest(TeaModel):
     def __init__(self, client_token=None, dry_run=None, nat_ip_id=None, owner_account=None, owner_id=None,
                  region_id=None, resource_owner_account=None, resource_owner_id=None):
-        # The ID of the request.
-        self.client_token = client_token  # type: str
-        # The operation that you want to perform. Set the value to **DeleteNatIp**.
-        self.dry_run = dry_run  # type: bool
         # The client token that is used to ensure the idempotence of the request.
         # 
         # You can use the client to generate the value, but you must make sure that it is unique among different requests. The token can contain only ASCII characters.
         # 
         # >  If you do not set this parameter, **ClientToken** is set to the value of **RequestId**. **RequestId** of each API request may be different.
-        self.nat_ip_id = nat_ip_id  # type: str
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
+        self.client_token = client_token  # type: str
         # Specifies whether to check the request without performing the operation. Valid values:
         # 
         # *   **true**: checks the request without performing the operation. The system checks your AccessKey pair, the RAM user permissions, and the required parameters If the request fails to pass the check, the corresponding error message is returned. If the request passes the check, the `DryRunOperation` error code is returned.
         # *   **false**: sends the request. This is the default value. After the request passes the precheck, a 2XX HTTP status code is returned and the NAT IP address is deleted.
+        self.dry_run = dry_run  # type: bool
+        # The ID of the NAT IP address that you want to delete.
+        self.nat_ip_id = nat_ip_id  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The region ID of the NAT gateway to which the NAT IP address that you want to delete belongs.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -20318,6 +21401,7 @@ class DeleteNatIpRequest(TeaModel):
 
 class DeleteNatIpResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -20777,17 +21861,20 @@ class DeletePhysicalConnectionResponse(TeaModel):
 class DeletePublicIpAddressPoolRequest(TeaModel):
     def __init__(self, client_token=None, dry_run=None, owner_account=None, owner_id=None,
                  public_ip_address_pool_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None):
-        # The ID of the region where you want to create the IP address pool.
+        # The client token that is used to ensure the idempotence of the request.
+        # 
+        # You can use the client to generate the value, but you must make sure that it is unique among different requests. The client token can contain only ASCII characters.
         self.client_token = client_token  # type: str
-        # The ID of the request.
-        self.dry_run = dry_run  # type: bool
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
         # Specifies whether to perform a dry run. Valid values:
         # 
         # *   **true**: performs a dry run. The system checks the required parameters, request syntax, and limits. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.
         # *   **false** (default): performs a dry run and sends the request. If the request passes the dry run, a 2xx HTTP status code is returned and the operation is performed.
+        self.dry_run = dry_run  # type: bool
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The ID of the IP address pool.
         self.public_ip_address_pool_id = public_ip_address_pool_id  # type: str
+        # The ID of the region where you want to create the IP address pool.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -20842,6 +21929,7 @@ class DeletePublicIpAddressPoolRequest(TeaModel):
 
 class DeletePublicIpAddressPoolResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -20906,21 +21994,22 @@ class DeletePublicIpAddressPoolResponse(TeaModel):
 class DeletePublicIpAddressPoolCidrBlockRequest(TeaModel):
     def __init__(self, cidr_block=None, client_token=None, dry_run=None, owner_account=None, owner_id=None,
                  public_ip_address_pool_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None):
+        # The CIDR block.
+        self.cidr_block = cidr_block  # type: str
+        # The client token that is used to ensure the idempotence of the request.
+        # 
+        # You can use the client to generate the value, but you must make sure that it is unique among different requests. The client token can contain only ASCII characters.
+        self.client_token = client_token  # type: str
         # Specifies whether to perform a dry run. Valid values:
         # 
         # *   **true**: performs a dry run. The system checks the required parameters, request syntax, and limits. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.
         # *   **false** (default): performs a dry run and sends the request. If the request passes the dry run, a 2xx HTTP status code is returned and the operation is performed.
-        self.cidr_block = cidr_block  # type: str
-        # The region ID of the IP address pool from which you want to delete a CIDR block.
-        self.client_token = client_token  # type: str
-        # The ID of the request.
         self.dry_run = dry_run  # type: bool
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The client token that is used to ensure the idempotence of the request.
-        # 
-        # You can use the client to generate the value, but you must make sure that it is unique among different requests. The client token can contain only ASCII characters.
+        # The ID of the IP address pool.
         self.public_ip_address_pool_id = public_ip_address_pool_id  # type: str
+        # The region ID of the IP address pool from which you want to delete a CIDR block.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -20979,6 +22068,7 @@ class DeletePublicIpAddressPoolCidrBlockRequest(TeaModel):
 
 class DeletePublicIpAddressPoolCidrBlockResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -22113,19 +23203,24 @@ class DeleteSslVpnServerResponse(TeaModel):
 class DeleteTrafficMirrorFilterRequest(TeaModel):
     def __init__(self, client_token=None, dry_run=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None, traffic_mirror_filter_id=None):
-        # The ID of the region to which the mirrored traffic belongs. You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list. For more information about regions that support traffic mirroring, see [Overview of traffic mirroring](~~207513~~).
+        # The client token that is used to ensure the idempotence of the request.
+        # 
+        # You can use the client to generate the value, but you must make sure that it is unique among different requests. The client token can contain only ASCII characters.
+        # 
+        # >  If you do not set this parameter, the system uses **RequestId** as **ClientToken**. **RequestId** may be different for each API request.
         self.client_token = client_token  # type: str
-        # The ID of the request.
-        self.dry_run = dry_run  # type: bool
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
-        self.region_id = region_id  # type: str
-        self.resource_owner_account = resource_owner_account  # type: str
-        self.resource_owner_id = resource_owner_id  # type: long
         # Specifies whether to check the request without performing the operation. Valid values:
         # 
         # *   **true**: checks the request without performing the operation. The system checks the required parameters, request format, and limits. If the request fails the check, an error message is returned. If the request passes the check, the `DryRunOperation` error code is returned.
         # *   **false** (default): sends the request. After the request passes the check, the operation is performed.
+        self.dry_run = dry_run  # type: bool
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The ID of the region to which the mirrored traffic belongs. You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list. For more information about regions that support traffic mirroring, see [Overview of traffic mirroring](~~207513~~).
+        self.region_id = region_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        # The ID of the filter.
         self.traffic_mirror_filter_id = traffic_mirror_filter_id  # type: str
 
     def validate(self):
@@ -22178,6 +23273,7 @@ class DeleteTrafficMirrorFilterRequest(TeaModel):
 
 class DeleteTrafficMirrorFilterResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -22242,19 +23338,24 @@ class DeleteTrafficMirrorFilterResponse(TeaModel):
 class DeleteTrafficMirrorFilterRulesRequest(TeaModel):
     def __init__(self, client_token=None, dry_run=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None, traffic_mirror_filter_id=None, traffic_mirror_filter_rule_ids=None):
-        # The ID of the inbound or outbound rule.
+        # The client token that is used to ensure the idempotence of the request.
+        # 
+        # You can use the client to generate the value, but you must make sure that it is unique among different requests. The client token can contain only ASCII characters.
+        # 
+        # >  If you do not set this parameter, the system uses **RequestId** as **ClientToken**. **RequestId** may be different for each API request.
         self.client_token = client_token  # type: str
-        # The ID of the region to which the mirrored traffic belongs. You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list. For more information about regions that support traffic mirroring, see [Overview of traffic mirroring](~~207513~~).
-        self.dry_run = dry_run  # type: bool
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
-        self.region_id = region_id  # type: str
-        self.resource_owner_account = resource_owner_account  # type: str
-        self.resource_owner_id = resource_owner_id  # type: long
         # Specifies whether to check the request without performing the operation. Valid values:
         # 
         # *   **true**: checks the API request without performing the operation. The system checks the required parameters, request format, and limits. If the request fails the check, an error message is returned. If the request passes the check, the `DryRunOperation` error code is returned.
         # *   **false** (default): sends the request. After the request passes the check, the operation is performed.
+        self.dry_run = dry_run  # type: bool
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The ID of the region to which the mirrored traffic belongs. You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list. For more information about regions that support traffic mirroring, see [Overview of traffic mirroring](~~207513~~).
+        self.region_id = region_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        # The ID of the filter.
         self.traffic_mirror_filter_id = traffic_mirror_filter_id  # type: str
         self.traffic_mirror_filter_rule_ids = traffic_mirror_filter_rule_ids  # type: list[str]
 
@@ -22312,6 +23413,7 @@ class DeleteTrafficMirrorFilterRulesRequest(TeaModel):
 
 class DeleteTrafficMirrorFilterRulesResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -22376,16 +23478,24 @@ class DeleteTrafficMirrorFilterRulesResponse(TeaModel):
 class DeleteTrafficMirrorSessionRequest(TeaModel):
     def __init__(self, client_token=None, dry_run=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None, traffic_mirror_session_id=None):
-        # The ID of the traffic mirror session.
+        # The client token that is used to ensure the idempotence of the request.
+        # 
+        # You can use the client to generate the value, but you must make sure that it is unique among all requests. ClientToken can contain only ASCII characters.
+        # 
+        # >  If you do not specify this parameter, **ClientToken** is set to the value of **RequestId**. The value of **RequestId** for each API request may be different.
         self.client_token = client_token  # type: str
-        # The ID of the region to which the traffic mirror session belongs. You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list. For more information about regions that support traffic mirroring, see [Overview of traffic mirroring](~~207513~~).
+        # Specifies whether to to perform a dry run. Valid values:
+        # 
+        # *   **true**: performs a dry run. The system checks the required parameters, request format, and limits. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.
+        # *   **false** (default): performs a dry run and sends the request. If the request passes the dry run, the operation is performed.
         self.dry_run = dry_run  # type: bool
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The ID of the region to which the traffic mirror session belongs. You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list. For more information about regions that support traffic mirroring, see [Overview of traffic mirroring](~~207513~~).
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The ID of the request.
+        # The ID of the traffic mirror session.
         self.traffic_mirror_session_id = traffic_mirror_session_id  # type: str
 
     def validate(self):
@@ -22438,6 +23548,7 @@ class DeleteTrafficMirrorSessionRequest(TeaModel):
 
 class DeleteTrafficMirrorSessionResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -23159,11 +24270,22 @@ class DeleteVpcResponse(TeaModel):
 class DeleteVpcGatewayEndpointRequest(TeaModel):
     def __init__(self, client_token=None, dry_run=None, endpoint_id=None, owner_account=None, owner_id=None,
                  region_id=None, resource_owner_account=None, resource_owner_id=None):
+        # The client token that is used to ensure the idempotence of the request. You can use the client to generate the token, but you must make sure that the token is unique among different requests. The **token** can contain only ASCII characters and cannot exceed 64 characters in length.
+        # 
+        # > If you do not specify this parameter, the system automatically uses the request ID as the client token. The request ID may be different for each request.
         self.client_token = client_token  # type: str
+        # Specifies whether to perform only a dry run, without performing the actual request. Valid values:
+        # 
+        # *   **true**: performs a dry run. The system checks the request for potential issues, including the AccessKey pair, the permissions of the RAM user, and the required parameters. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.
+        # *   **false** (default): performs a dry run and performs the actual request. If the request passes the dry run, a 2xx HTTP status code is returned and the operation is performed.
         self.dry_run = dry_run  # type: bool
+        # The ID of the gateway endpoint.
         self.endpoint_id = endpoint_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID of the gateway endpoint.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -23218,6 +24340,7 @@ class DeleteVpcGatewayEndpointRequest(TeaModel):
 
 class DeleteVpcGatewayEndpointResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -23282,19 +24405,24 @@ class DeleteVpcGatewayEndpointResponse(TeaModel):
 class DeleteVpcPrefixListRequest(TeaModel):
     def __init__(self, client_token=None, dry_run=None, owner_account=None, owner_id=None, prefix_list_id=None,
                  region_id=None, resource_owner_account=None, resource_owner_id=None):
-        # The region ID of the prefix list.
+        # The client token that is used to ensure the idempotence of the request.
         # 
-        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
+        # You can use the client to generate the value, but you must make sure that it is unique among different requests. The client token can contain only ASCII characters.
+        # 
+        # >  If you do not set this parameter, the system uses **RequestId** as **ClientToken**. **RequestId** may be different for each API request.
         self.client_token = client_token  # type: str
-        # The ID of the request.
-        self.dry_run = dry_run  # type: bool
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
         # Specifies whether to check the request without performing the operation. Valid values:
         # 
         # *   **true**: checks the request without performing the operation. The system checks the required parameters, request syntax, and limits. If the request fails to pass the check, an error message is returned. If the request passes the check, the `DryRunOperation` error code is returned.
         # *   **false** (default): sends the request. If the request passes the check, a 2xx HTTP status code is returned and the operation is performed.
+        self.dry_run = dry_run  # type: bool
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The ID of the prefix list that you want to delete.
         self.prefix_list_id = prefix_list_id  # type: str
+        # The region ID of the prefix list.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -23349,6 +24477,7 @@ class DeleteVpcPrefixListRequest(TeaModel):
 
 class DeleteVpcPrefixListResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -25561,33 +26690,38 @@ class DescribeCommonBandwidthPackagesRequest(TeaModel):
     def __init__(self, bandwidth_package_id=None, dry_run=None, include_reservation_data=None, name=None,
                  owner_account=None, owner_id=None, page_number=None, page_size=None, region_id=None, resource_group_id=None,
                  resource_owner_account=None, resource_owner_id=None, security_protection_enabled=None, tag=None):
-        # The number of the page to return. Default value: **1**.
+        # The ID of the EIP bandwidth plan.
         self.bandwidth_package_id = bandwidth_package_id  # type: str
-        # The ID of the request.
-        self.dry_run = dry_run  # type: bool
-        # The ID of the resource group.
-        self.include_reservation_data = include_reservation_data  # type: bool
         # Specifies whether to perform a dry run. Valid values:
         # 
         # *   **true**: performs a dry run. The system checks the required parameters, request syntax, and instance status. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.
         # *   **false**: performs a dry run and sends the request. If the request passes the dry run, an HTTP 2xx status code is returned and the operation is performed. This is the default value.
+        self.dry_run = dry_run  # type: bool
+        # Specifies whether to return the information about pending orders. Valid values:
+        # 
+        # *   **false**: does not return the information about pending orders. This is the default value.
+        # *   **true**: returns the information about pending orders.
+        self.include_reservation_data = include_reservation_data  # type: bool
+        # The name of the EIP bandwidth plan.
         self.name = name  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The number of the page to return. Default value: **1**.
+        self.page_number = page_number  # type: int
+        # The number of entries to return on each page. Maximum value: **50**. Default value: **10**.
+        self.page_size = page_size  # type: int
+        # The region ID of the EIP bandwidth plan.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to obtain the region ID.
+        self.region_id = region_id  # type: str
+        # The ID of the resource group.
+        self.resource_group_id = resource_group_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
         # Specifies whether to enable Anti-DDoS Pro/Premium. Valid values:
         # 
         # *   **false**: disables Anti-DDoS Pro/Premium. This is the default value.
         # *   **true**: enables Anti-DDoS Pro/Premium.
-        self.page_number = page_number  # type: int
-        # The number of entries returned per page.
-        self.page_size = page_size  # type: int
-        # The name of the EIP bandwidth plan.
-        self.region_id = region_id  # type: str
-        # The number of entries to return on each page. Maximum value: **50**. Default value: **10**.
-        self.resource_group_id = resource_group_id  # type: str
-        self.resource_owner_account = resource_owner_account  # type: str
-        self.resource_owner_id = resource_owner_id  # type: long
-        # The number of the returned page.
         self.security_protection_enabled = security_protection_enabled  # type: bool
         self.tag = tag  # type: list[DescribeCommonBandwidthPackagesRequestTag]
 
@@ -25673,12 +26807,14 @@ class DescribeCommonBandwidthPackagesRequest(TeaModel):
 
 class DescribeCommonBandwidthPackagesResponseBodyCommonBandwidthPackagesCommonBandwidthPackagePublicIpAddressesPublicIpAddresse(TeaModel):
     def __init__(self, allocation_id=None, bandwidth_package_ip_relation_status=None, ip_address=None):
+        # The ID of the EIP.
         self.allocation_id = allocation_id  # type: str
-        self.bandwidth_package_ip_relation_status = bandwidth_package_ip_relation_status  # type: str
-        # The edition of Anti-DDoS. 
+        # Indicates whether the EIP is associated with the EIP bandwidth plan.
         # 
-        # - If this parameter is empty, it indicates that Anti-DDoS Origin Basic was enabled.
-        # - If **AntiDDoS_Enhanced** is returned, it indicates that Anti-DDoS Pro/Premium was enabled.
+        # *   **BINDED**: The EIP is associated with the EIP bandwidth plan.
+        # *   **BINDING**: The EIP is being associated with the EIP bandwidth plan.
+        self.bandwidth_package_ip_relation_status = bandwidth_package_ip_relation_status  # type: str
+        # The public IP address.
         self.ip_address = ip_address  # type: str
 
     def validate(self):
@@ -25833,38 +26969,32 @@ class DescribeCommonBandwidthPackagesResponseBodyCommonBandwidthPackagesCommonBa
                  reservation_active_time=None, reservation_bandwidth=None, reservation_internet_charge_type=None,
                  reservation_order_type=None, resource_group_id=None, security_protection_types=None, service_managed=None, status=None,
                  tags=None):
-        # The new maximum bandwidth. Unit: Mbit/s.
+        # The maximum bandwidth of the EIP bandwidth plan. Unit: Mbit/s.
         self.bandwidth = bandwidth  # type: str
-        # The description of the EIP bandwidth plan.
+        # The ID of the EIP bandwidth plan.
         self.bandwidth_package_id = bandwidth_package_id  # type: str
+        # The service state of the EIP bandwidth plan.
+        # 
+        # *   **Normal**: The EIP bandwidth plan works as expected.
+        # *   **FinancialLocked**: The EIP bandwidth plan has an overdue payment.
+        # *   **Unactivated**: The EIP bandwidth plan is not activated.
+        self.business_status = business_status  # type: str
+        # The time when the EIP bandwidth plan was created. The time is displayed in the `YYYY-MM-DDThh:mm:ssZ` format.
+        self.creation_time = creation_time  # type: str
+        # Indicates whether deletion protection was enabled.
+        # 
+        # *   **true**: Deletion protection was enabled.
+        # *   **false**: Deletion protection was disabled.
+        self.deletion_protection = deletion_protection  # type: bool
+        # The description of the EIP bandwidth plan.
+        self.description = description  # type: str
+        # The time when the EIP bandwidth plan expired. The time is displayed in the `YYYY-MM-DDThh:mm:ssZ` format.
+        self.expired_time = expired_time  # type: str
         # Indicates whether the information about pending orders was returned.
         # 
         # *   **false**: The information about pending orders was not returned.
         # *   **true**: The information about pending orders was returned.
-        self.business_status = business_status  # type: str
-        # The new metering method.
-        # 
-        # **PayByTraffic**: the pay-by-data-transfer metering method
-        self.creation_time = creation_time  # type: str
-        # The billing method of the EIP bandwidth plan.
-        # 
-        # **PostPaid**: the pay-as-you-go billing method
-        self.deletion_protection = deletion_protection  # type: bool
-        # The ID of the resource group.
-        self.description = description  # type: str
-        # The metering method of the EIP bandwidth plan.
-        # 
-        # **PayByTraffic**: the pay-by-data-transfer metering method.
-        self.expired_time = expired_time  # type: str
-        # The ID of the EIP.
         self.has_reservation_data = has_reservation_data  # type: str
-        # The public IP address.
-        self.isp = isp  # type: str
-        # Indicates whether the EIP bandwidth plan was created by the service account.
-        # 
-        # *   **0**: The EIP bandwidth plan was not created by the service account.
-        # *   **1**: The EIP bandwidth plan was created by the service account.
-        self.instance_charge_type = instance_charge_type  # type: str
         # The line type.
         # 
         # *   **BGP**: BGP (Multi-ISP) lines. BGP (Multi-ISP) lines are available in all regions.
@@ -25880,45 +27010,55 @@ class DescribeCommonBandwidthPackagesResponseBodyCommonBandwidthPackagesCommonBa
         # *   **ChinaMobile_L2**: China Mobile L2
         # 
         # If your services are deployed in China East 1 Finance, **BGP_FinanceCloud** is returned.
-        self.internet_charge_type = internet_charge_type  # type: str
-        # The elastic IP addresses (EIPs) associated with the EIP bandwidth plan.
-        self.name = name  # type: str
-        # Indicates whether the EIP is associated with the EIP bandwidth plan.
+        self.isp = isp  # type: str
+        # The billing method of the EIP bandwidth plan.
         # 
-        # *   **BINDED**: The EIP is associated with the EIP bandwidth plan.
-        # *   **BINDING**: The EIP is being associated with the EIP bandwidth plan.
+        # **PostPaid**: the pay-as-you-go billing method
+        self.instance_charge_type = instance_charge_type  # type: str
+        # The metering method of the EIP bandwidth plan.
+        # 
+        # **PayByTraffic**: the pay-by-data-transfer metering method.
+        self.internet_charge_type = internet_charge_type  # type: str
+        # The name of the EIP bandwidth plan.
+        self.name = name  # type: str
+        # The elastic IP addresses (EIPs) associated with the EIP bandwidth plan.
         self.public_ip_addresses = public_ip_addresses  # type: DescribeCommonBandwidthPackagesResponseBodyCommonBandwidthPackagesCommonBandwidthPackagePublicIpAddresses
-        # The ID of the EIP bandwidth plan.
+        # The percentage of the minimum bandwidth commitment. **20** is returned.
+        # 
+        # >  This parameter is available only on the Alibaba Cloud China site.
         self.ratio = ratio  # type: int
-        # The maximum bandwidth of the EIP bandwidth plan. Unit: Mbit/s.
+        # The region ID of the EIP bandwidth plan.
         self.region_id = region_id  # type: str
+        # The time when the renewal took effect. The time is displayed in the `YYYY-MM-DDThh:mm:ssZ` format.
+        self.reservation_active_time = reservation_active_time  # type: str
+        # The new maximum bandwidth. Unit: Mbit/s.
+        self.reservation_bandwidth = reservation_bandwidth  # type: str
+        # The new metering method.
+        # 
+        # **PayByTraffic**: the pay-by-data-transfer metering method
+        self.reservation_internet_charge_type = reservation_internet_charge_type  # type: str
         # The renewal method.
         # 
         # *   **RENEWCHANGE**: renewal with an upgrade or a downgrade
         # *   **TEMP_UPGRADE**: temporary upgrade
         # *   **UPGRADE**: upgrade
-        self.reservation_active_time = reservation_active_time  # type: str
-        # The service state of the EIP bandwidth plan.
-        # 
-        # *   **Normal**: The EIP bandwidth plan works as expected.
-        # *   **FinancialLocked**: The EIP bandwidth plan has an overdue payment.
-        # *   **Unactivated**: The EIP bandwidth plan is not activated.
-        self.reservation_bandwidth = reservation_bandwidth  # type: str
-        # The region ID of the EIP bandwidth plan.
-        self.reservation_internet_charge_type = reservation_internet_charge_type  # type: str
-        # The percentage of the minimum bandwidth commitment. **20** is returned.
-        # 
-        # >  This parameter is available only on the Alibaba Cloud China site.
         self.reservation_order_type = reservation_order_type  # type: str
-        # The name of the EIP bandwidth plan.
+        # The ID of the resource group.
         self.resource_group_id = resource_group_id  # type: str
-        self.security_protection_types = security_protection_types  # type: DescribeCommonBandwidthPackagesResponseBodyCommonBandwidthPackagesCommonBandwidthPackageSecurityProtectionTypes
-        # The time when the EIP bandwidth plan expired. The time is displayed in the `YYYY-MM-DDThh:mm:ssZ` format.
-        self.service_managed = service_managed  # type: int
-        # Indicates whether deletion protection was enabled.
+        # The edition of Anti-DDoS. 
         # 
-        # *   **true**: Deletion protection was enabled.
-        # *   **false**: Deletion protection was disabled.
+        # - If this parameter is empty, it indicates that Anti-DDoS Origin Basic was enabled.
+        # - If **AntiDDoS_Enhanced** is returned, it indicates that Anti-DDoS Pro/Premium was enabled.
+        self.security_protection_types = security_protection_types  # type: DescribeCommonBandwidthPackagesResponseBodyCommonBandwidthPackagesCommonBandwidthPackageSecurityProtectionTypes
+        # Indicates whether the EIP bandwidth plan was created by the service account.
+        # 
+        # *   **0**: The EIP bandwidth plan was not created by the service account.
+        # *   **1**: The EIP bandwidth plan was created by the service account.
+        self.service_managed = service_managed  # type: int
+        # The status of the EIP bandwidth plan. Valid values:
+        # 
+        # *   **Available**: The EIP bandwidth plan is available.
+        # *   **Modifying**: The EIP bandwidth plan is being modified.
         self.status = status  # type: str
         self.tags = tags  # type: DescribeCommonBandwidthPackagesResponseBodyCommonBandwidthPackagesCommonBandwidthPackageTags
 
@@ -26077,18 +27217,15 @@ class DescribeCommonBandwidthPackagesResponseBodyCommonBandwidthPackages(TeaMode
 class DescribeCommonBandwidthPackagesResponseBody(TeaModel):
     def __init__(self, common_bandwidth_packages=None, page_number=None, page_size=None, request_id=None,
                  total_count=None):
-        # The time when the EIP bandwidth plan was created. The time is displayed in the `YYYY-MM-DDThh:mm:ssZ` format.
-        self.common_bandwidth_packages = common_bandwidth_packages  # type: DescribeCommonBandwidthPackagesResponseBodyCommonBandwidthPackages
-        # The time when the renewal took effect. The time is displayed in the `YYYY-MM-DDThh:mm:ssZ` format.
-        self.page_number = page_number  # type: int
-        # The total number of entries returned.
-        self.page_size = page_size  # type: int
         # The details of the EIP bandwidth plan.
+        self.common_bandwidth_packages = common_bandwidth_packages  # type: DescribeCommonBandwidthPackagesResponseBodyCommonBandwidthPackages
+        # The number of the returned page.
+        self.page_number = page_number  # type: int
+        # The number of entries returned per page.
+        self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
-        # The status of the EIP bandwidth plan. Valid values:
-        # 
-        # *   **Available**: The EIP bandwidth plan is available.
-        # *   **Modifying**: The EIP bandwidth plan is being modified.
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -26446,7 +27583,7 @@ class DescribeCustomerGatewaysRequest(TeaModel):
                  page_size=None, region_id=None, resource_owner_account=None, resource_owner_id=None, tag=None):
         # The ID of the customer gateway.
         # 
-        # >  If you do not specify a customer gateway ID, the system queries all customer gateways in the current region by default.
+        # > If you do not specify a customer gateway ID, the system queries all customer gateways in the current region by default.
         self.customer_gateway_id = customer_gateway_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -26454,12 +27591,17 @@ class DescribeCustomerGatewaysRequest(TeaModel):
         self.page_number = page_number  # type: int
         # The number of entries to return on each page. Maximum value: **50**. Default value: **10**.
         self.page_size = page_size  # type: int
-        # The region ID of the customer gateway.
+        # The ID of the region where the customer gateway is deployed.
         # 
         # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The tag value.
+        # 
+        # The tag value can be an empty string and cannot exceed 128 characters in length. It cannot start with `aliyun` or `acs:`, and cannot contain `http://` or `https://`.
+        # 
+        # Each tag key corresponds to one tag value. You can specify up to 20 tag values in each call.
         self.tag = tag  # type: list[DescribeCustomerGatewaysRequestTag]
 
     def validate(self):
@@ -26691,15 +27833,15 @@ class DescribeCustomerGatewaysResponseBodyCustomerGateways(TeaModel):
 
 class DescribeCustomerGatewaysResponseBody(TeaModel):
     def __init__(self, customer_gateways=None, page_number=None, page_size=None, request_id=None, total_count=None):
-        # The list of customer gateways.
+        # The tag value.
         self.customer_gateways = customer_gateways  # type: DescribeCustomerGatewaysResponseBodyCustomerGateways
-        # The number of the returned page.
+        # The page number.
         self.page_number = page_number  # type: int
         # The number of entries returned per page.
         self.page_size = page_size  # type: int
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # The number of entries returned.
+        # The number of returned entries.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -26781,21 +27923,24 @@ class DescribeCustomerGatewaysResponse(TeaModel):
 
 class DescribeEcGrantRelationRequest(TeaModel):
     def __init__(self, instance_id=None, instance_type=None, page_number=None, page_size=None, vbr_region_no=None):
-        # The number of the page to return. Default value: **1**.
-        self.instance_id = instance_id  # type: str
         # The ID of the instance.
         # 
         # *   If you set **InstanceType** to **VBR**, specify a VBR ID.
         # *   If you set **InstanceType** to **VPC**, specify a VPC ID.
+        self.instance_id = instance_id  # type: str
+        # The type of instance. Valid values:
+        # 
+        # *   **VBR**: queries the permissions that are granted to a VBR.
+        # *   **VPC**: queries the permissions that are granted from a VPC.
         self.instance_type = instance_type  # type: str
-        # The number of entries to return on each page. Maximum value: **50**. Default value: **10**.
+        # The number of the page to return. Default value: **1**.
         self.page_number = page_number  # type: long
+        # The number of entries to return on each page. Maximum value: **50**. Default value: **10**.
+        self.page_size = page_size  # type: long
         # The ID of the region where the instance is deployed.
         # 
         # *   If **InstanceType** is set to **VBR**, this parameter is required.
         # *   If **InstanceType** is set to **VPC**, you can ignore this parameter.
-        self.page_size = page_size  # type: long
-        # The ID of the request.
         self.vbr_region_no = vbr_region_no  # type: str
 
     def validate(self):
@@ -26837,33 +27982,33 @@ class DescribeEcGrantRelationRequest(TeaModel):
 class DescribeEcGrantRelationResponseBodyEcGrantRelations(TeaModel):
     def __init__(self, ali_uid=None, gmt_create=None, grant_type=None, instance_id=None, instance_name=None,
                  instance_router_id=None, region_no=None, status=None, vbr_instance_id=None, vbr_owner_uid=None, vbr_region_no=None):
-        # The ID of the region where the VPC is deployed.
+        # The ID of the Alibaba Cloud account to which the VPC belongs.
         self.ali_uid = ali_uid  # type: long
+        # The time when permissions on the VPC were granted to the VBR.
+        self.gmt_create = gmt_create  # type: str
         # The VBRs that have permissions on the VPC. Valid values:
         # 
         # *   **All**: VBRs that reside in the specified region and belong to the specified Alibaba Cloud account all have permissions on the VPC.
         # *   **Specify**: Only the specified VBR has permissions on the VPC.
-        self.gmt_create = gmt_create  # type: str
-        # The total number of entries returned.
         self.grant_type = grant_type  # type: str
-        # The ID of the Alibaba Cloud account to which the VPC belongs.
+        # The ID of the VPC.
         self.instance_id = instance_id  # type: str
-        # The ID of the vRouter.
+        # The name of the VPC.
         self.instance_name = instance_name  # type: str
-        # The ID of the region where the VBR is deployed.
+        # The ID of the vRouter.
         self.instance_router_id = instance_router_id  # type: str
+        # The ID of the region where the VPC is deployed.
+        self.region_no = region_no  # type: str
         # The query result. Valid values:
         # 
         # *   **Created**: The VBR has permissions on the VPC.
         # *   **Deleted**: The VBR does not have permissions on the VPC.
-        self.region_no = region_no  # type: str
-        # The name of the VPC.
         self.status = status  # type: str
-        # The ID of the VPC.
-        self.vbr_instance_id = vbr_instance_id  # type: str
         # The ID of the VBR.
+        self.vbr_instance_id = vbr_instance_id  # type: str
+        # The ID of the Alibaba Cloud account to which the VBR belongs.
         self.vbr_owner_uid = vbr_owner_uid  # type: long
-        # The time when permissions on the VPC were granted to the VBR.
+        # The ID of the region where the VBR is deployed.
         self.vbr_region_no = vbr_region_no  # type: str
 
     def validate(self):
@@ -26929,14 +28074,15 @@ class DescribeEcGrantRelationResponseBodyEcGrantRelations(TeaModel):
 class DescribeEcGrantRelationResponseBody(TeaModel):
     def __init__(self, count=None, ec_grant_relations=None, page=None, page_size=None, request_id=None,
                  total_count=None):
-        # The number of the returned page.
+        # The total number of entries returned.
         self.count = count  # type: int
-        # The ID of the Alibaba Cloud account to which the VBR belongs.
-        self.ec_grant_relations = ec_grant_relations  # type: list[DescribeEcGrantRelationResponseBodyEcGrantRelations]
-        # The number of entries returned on each page.
-        self.page = page  # type: int
-        self.page_size = page_size  # type: int
         # The query results.
+        self.ec_grant_relations = ec_grant_relations  # type: list[DescribeEcGrantRelationResponseBodyEcGrantRelations]
+        # The number of the returned page.
+        self.page = page  # type: int
+        # The number of entries returned on each page.
+        self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
         # The total number of entries returned.
         self.total_count = total_count  # type: int
@@ -27030,11 +28176,9 @@ class DescribeEcGrantRelationResponse(TeaModel):
 
 class DescribeEipAddressesRequestFilter(TeaModel):
     def __init__(self, key=None, value=None):
-        # The name of the EIP.
-        # 
-        # The name must be 1 to 128 characters in length, and can contain letters, digits, underscores (\_), and hyphens (-). The name must start with a letter.
+        # The filter key used to query resources. Set the value to **CreationStartTime**, which indicates the time when the system started to create the resource.
         self.key = key  # type: str
-        # The IP address pool to which the EIP that you want to query belongs.
+        # The filter value used to query resources. Specify the time in the ISO 8601 standard in `YYYY-MM-DDThh:mmZ` format. The time must be in UTC.
         self.value = value  # type: str
 
     def validate(self):
@@ -27068,46 +28212,45 @@ class DescribeEipAddressesRequest(TeaModel):
                  public_ip_address_pool_id=None, region_id=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None,
                  security_protection_enabled=None, segment_instance_id=None, status=None):
         self.filter = filter  # type: list[DescribeEipAddressesRequestFilter]
-        # The filter value used to query resources. Specify the time in the ISO 8601 standard in `YYYY-MM-DDThh:mmZ` format. The time must be in UTC.
+        # The ID of the EIP that you want to query.
+        # 
+        # You can enter up to 50 IDs of EIPs. Separate multiple IDs with commas (,).
+        # 
+        # >  If both the **EipAddress** and **AllocationId** parameters are set, you can enter up to 50 IDs of EIPs in **AllocationId**, and enter up to 50 IP addresses of EIPs in **EipAddress**.
         self.allocation_id = allocation_id  # type: str
-        # The total number of entries returned.
-        self.associated_instance_id = associated_instance_id  # type: str
-        # The page number of the returned page.
-        self.associated_instance_type = associated_instance_type  # type: str
-        # The details about the EIP.
-        self.charge_type = charge_type  # type: str
-        # The time when the renewal takes effect. The time is displayed in `YYYY-MM-DDThh:mm:ssZ` format.
-        self.dry_run = dry_run  # type: bool
-        # The filter value used to query resources. Specify the time in the ISO 8601 standard in `YYYY-MM-DDThh:mmZ` format. The time must be in UTC.
-        self.eip_address = eip_address  # type: str
-        # The status of the EIP. Valid values:
-        # 
-        # *   **Associating**: being associated
-        # *   **Unassociating**: being disassociated
-        # *   **InUse**: allocated
-        # *   **Available**: available
-        # *   **Releasing**: being released
-        self.eip_name = eip_name  # type: str
-        # Specifies whether to perform a dry run. Valid values:
-        # 
-        # *   **true**: performs a dry run. The system checks the required parameters, request syntax, and limits. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.
-        # *   **false** (default): performs a dry run and sends the request. If the request passes the dry run, a 2xx HTTP status code is returned and the operation is performed.
-        self.isp = isp  # type: str
-        # The filter key used to query resources. Set the value to **CreationStartTime**, which indicates the time when the system started to create the resource.
-        self.include_reservation_data = include_reservation_data  # type: bool
-        # The ID of the request.
-        self.lock_reason = lock_reason  # type: str
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
         # The ID of the cloud resource.
-        self.page_number = page_number  # type: int
+        self.associated_instance_id = associated_instance_id  # type: str
+        # The type of the cloud resource with which you want to associate the EIP. Valid values:
+        # 
+        # *   **EcsInstance** (default): an Elastic Compute Service (ECS) instance in a virtual private cloud (VPC)
+        # *   **SlbInstance**: a Server Load Balancer (SLB) instance in a VPC
+        # *   **Nat**: a NAT gateway
+        # *   **HaVip**: a high-availability virtual IP address (HAVIP)
+        # *   **NetworkInterface**: a secondary ENI
+        # *   **IpAddress**: an IP address
+        # 
+        # >  You can associate only one EIP with each ECS instance, SLB instance, HAVIP, or IP address. You can associate multiple EIPs with each NAT gateway. The number of EIPs that you can associate with a secondary ENI depends on the association mode. For more information, see [EIP overview](~~72125~~).
+        self.associated_instance_type = associated_instance_type  # type: str
         # The billing method of the EIP. Valid values:
         # 
         # *   **PostPaid**: pay-as-you-go
         # *   **PrePaid**: subscription
-        self.page_size = page_size  # type: int
-        # The time when the EIP was created. The time is displayed in `YYYY-MM-DDThh:mm:ssZ` format.
-        self.public_ip_address_pool_id = public_ip_address_pool_id  # type: str
+        self.charge_type = charge_type  # type: str
+        # Specifies whether to perform a dry run. Valid values:
+        # 
+        # *   **true**: performs a dry run. The system checks the required parameters, request syntax, and limits. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.
+        # *   **false** (default): performs a dry run and sends the request. If the request passes the dry run, a 2xx HTTP status code is returned and the operation is performed.
+        self.dry_run = dry_run  # type: bool
+        # The IP address of the EIP that you want to query.
+        # 
+        # You can enter up to 50 IP addresses of EIPs. Separate multiple IP addresses with commas (,).
+        # 
+        # >  If both the **EipAddress** and **AllocationId** parameters are set, you can enter up to 50 IP addresses of EIPs in **EipAddress**, and enter up to 50 IDs of EIPs in **AllocationId**.
+        self.eip_address = eip_address  # type: str
+        # The name of the EIP.
+        # 
+        # The name must be 1 to 128 characters in length, and can contain letters, digits, underscores (\_), and hyphens (-). The name must start with a letter.
+        self.eip_name = eip_name  # type: str
         # The line type. Valid values:
         # 
         # *   **BGP** (default): BGP (Multi-ISP) lines. All regions support BGP (Multi-ISP) EIPs.
@@ -27125,32 +28268,47 @@ class DescribeEipAddressesRequest(TeaModel):
         # *   **ChinaMobile_L2**: China Mobile L2
         # 
         # If your services are deployed in China East 1 Finance, you must set this parameter to **BGP_FinanceCloud**.
-        self.region_id = region_id  # type: str
-        # The type of the cloud resource with which you want to associate the EIP. Valid values:
+        self.isp = isp  # type: str
+        # Specifies whether to return information about pending orders. Valid values:
         # 
-        # *   **EcsInstance** (default): an Elastic Compute Service (ECS) instance in a virtual private cloud (VPC)
-        # *   **SlbInstance**: a Server Load Balancer (SLB) instance in a VPC
-        # *   **Nat**: a NAT gateway
-        # *   **HaVip**: a high-availability virtual IP address (HAVIP)
-        # *   **NetworkInterface**: a secondary ENI
-        # *   **IpAddress**: an IP address
-        # 
-        # >  You can associate only one EIP with each ECS instance, SLB instance, HAVIP, or IP address. You can associate multiple EIPs with each NAT gateway. The number of EIPs that you can associate with a secondary ENI depends on the association mode. For more information, see [EIP overview](~~72125~~).
-        self.resource_group_id = resource_group_id  # type: str
-        self.resource_owner_account = resource_owner_account  # type: str
-        self.resource_owner_id = resource_owner_id  # type: long
-        # The type of the renewal order. Valid values:
-        # 
-        # *   **RENEWCHANGE**: renewal with an upgrade or a downgrade
-        # *   **TEMP_UPGRADE**: temporary upgrade
-        # *   **UPGRADE**: upgrade
-        self.security_protection_enabled = security_protection_enabled  # type: bool
+        # *   **false** (default): does not return information about pending orders.
+        # *   **true**: returns information about pending orders.
+        self.include_reservation_data = include_reservation_data  # type: bool
         # The reason why the EIP is locked. Valid values:
         # 
         # *   **financial**: The EIP is locked due to overdue payments.
         # *   **security**: The EIP is locked for security reasons.
+        self.lock_reason = lock_reason  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The number of the page to return. Default value: **1**.
+        self.page_number = page_number  # type: int
+        # The number of entries to return on each page. Maximum value: **100**. Default value: **10**.
+        self.page_size = page_size  # type: int
+        # The IP address pool to which the EIP that you want to query belongs.
+        self.public_ip_address_pool_id = public_ip_address_pool_id  # type: str
+        # The region ID of the EIP.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
+        self.region_id = region_id  # type: str
+        # The ID of the resource group to which the EIPs belong.
+        self.resource_group_id = resource_group_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        # Specifies whether to enable Anti-DDoS Pro/Premium. Valid values:
+        # 
+        # *   **false** (default): no
+        # *   **true**: yes
+        self.security_protection_enabled = security_protection_enabled  # type: bool
+        # The IDs of the contiguous EIPs.
         self.segment_instance_id = segment_instance_id  # type: str
-        # The filter key used to query resources. Set the value to **CreationEndTime**, which indicates the time when the system completed creating the resource.
+        # The status of the EIP. Valid values:
+        # 
+        # *   **Associating**: being associated
+        # *   **Unassociating**: being disassociated
+        # *   **InUse**: allocated
+        # *   **Available**: available
+        # *   **Releasing**: being released
         self.status = status  # type: str
 
     def validate(self):
@@ -27271,6 +28429,10 @@ class DescribeEipAddressesRequest(TeaModel):
 
 class DescribeEipAddressesResponseBodyEipAddressesEipAddressOperationLocksLockReason(TeaModel):
     def __init__(self, lock_reason=None):
+        # The reason why the EIP is locked. Valid values:
+        # 
+        # *   **financial**: The EIP is locked due to overdue payments.
+        # *   **security**: The EIP is locked for security reasons.
         self.lock_reason = lock_reason  # type: str
 
     def validate(self):
@@ -27351,7 +28513,9 @@ class DescribeEipAddressesResponseBodyEipAddressesEipAddressSecurityProtectionTy
 
 class DescribeEipAddressesResponseBodyEipAddressesEipAddressTagsTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The tag key of the EIP.
         self.key = key  # type: str
+        # The tag value of the EIP.
         self.value = value  # type: str
 
     def validate(self):
@@ -27420,15 +28584,49 @@ class DescribeEipAddressesResponseBodyEipAddressesEipAddress(TeaModel):
                  reservation_internet_charge_type=None, reservation_order_type=None, resource_group_id=None, second_limited=None,
                  security_protection_types=None, segment_instance_id=None, service_managed=None, status=None, tags=None, vpc_id=None,
                  zone=None):
-        # The tag key of the EIP.
+        # The ID of the EIP.
         self.allocation_id = allocation_id  # type: str
-        # The bandwidth after the renewal takes effect. Unit: Mbit/s.
+        # The time when the EIP was created. The time is displayed in `YYYY-MM-DDThh:mm:ssZ` format.
         self.allocation_time = allocation_time  # type: str
+        # The maximum bandwidth of the EIP. Unit: Mbit/s.
+        self.bandwidth = bandwidth  # type: str
+        # The maximum bandwidth of the EIP bandwidth plan with which the EIP is associated. Unit: Mbit/s.
+        self.bandwidth_package_bandwidth = bandwidth_package_bandwidth  # type: str
+        # The ID of the EIP bandwidth plan.
+        self.bandwidth_package_id = bandwidth_package_id  # type: str
+        # The type of the bandwidth. Only **CommonBandwidthPackage** (EIP Bandwidth Plan) is returned.
+        self.bandwidth_package_type = bandwidth_package_type  # type: str
+        # The service status of the EIP. Valid values:
+        # 
+        # *   **Normal**: active
+        # *   **FinancialLocked**: locked
+        self.business_status = business_status  # type: str
+        # The billing method of the EIP. Valid values:
+        # 
+        # *   **PostPaid**: pay-as-you-go
+        # *   **PrePaid**: subscription
+        self.charge_type = charge_type  # type: str
+        # Indicates whether deletion protection is enabled. Valid values:
+        # 
+        # *   **true**: enabled
+        # *   **false**: disabled
+        self.deletion_protection = deletion_protection  # type: bool
+        # The description of the EIP.
+        self.description = description  # type: str
+        # The maximum bandwidth of the EIP when it is not associated with an EIP bandwidth plan. Unit: Mbit/s.
+        self.eip_bandwidth = eip_bandwidth  # type: str
+        # The time when the EIP expires. The time is displayed in `YYYY-MM-DDThh:mm:ssZ` format.
+        self.expired_time = expired_time  # type: str
         # Indicates whether fine-grained monitoring is enabled for the EIP. Valid values:
         # 
         # *   **false**: no
         # *   **true**: yes
-        self.bandwidth = bandwidth  # type: str
+        self.hdmonitor_status = hdmonitor_status  # type: str
+        # Indicates whether renewal data is included.
+        # 
+        # *   **false**: no
+        # *   **true**: yes This parameter returns **true** only when the **IncludeReservationData** parameter is set to **true** and some orders have not taken effect.
+        self.has_reservation_data = has_reservation_data  # type: str
         # The line type.
         # 
         # *   **BGP**: BGP (Multi-ISP). All regions support BGP (Multi-ISP) EIPs.
@@ -27446,55 +28644,11 @@ class DescribeEipAddressesResponseBodyEipAddressesEipAddress(TeaModel):
         # *   **ChinaMobile_L2**: China Mobile L2
         # 
         # If your services are deployed in China East 1 Finance, **BGP_FinanceCloud** is returned.
-        self.bandwidth_package_bandwidth = bandwidth_package_bandwidth  # type: str
-        # Indicates whether level-2 throttling is configured. Valid values:
-        # 
-        # *   **true**: yes
-        # *   **false**: no
-        self.bandwidth_package_id = bandwidth_package_id  # type: str
-        # The ID of the IP address pool to which the EIP belongs.
-        self.bandwidth_package_type = bandwidth_package_type  # type: str
-        # The edition of Anti-DDoS. 
-        # 
-        # - If an empty value is returned, it indicates that Anti-DDoS Origin Basic is used.
-        # - If **AntiDDoS_Enhanced** is returned, it indicates that Anti-DDoS Pro/Premium is used.
-        self.business_status = business_status  # type: str
-        # The name of the EIP.
-        self.charge_type = charge_type  # type: str
-        # The ID of the resource group.
-        self.deletion_protection = deletion_protection  # type: bool
-        # The region ID of the associated instance.
-        self.description = description  # type: str
-        # The maximum bandwidth of the EIP bandwidth plan with which the EIP is associated. Unit: Mbit/s.
-        self.eip_bandwidth = eip_bandwidth  # type: str
-        # The reason why the EIP is locked. Valid values:
-        # 
-        # *   **financial**: The EIP is locked due to overdue payments.
-        # *   **security**: The EIP is locked for security reasons.
-        self.expired_time = expired_time  # type: str
-        # The type of the bandwidth. Only **CommonBandwidthPackage** (EIP Bandwidth Plan) is returned.
-        self.hdmonitor_status = hdmonitor_status  # type: str
-        # The ID of the VPC that has IPv4 gateways enabled and that is deployed in the same region as the EIP. 
-        # 
-        # When you associate an EIP with an IP address, the system can enable the IP address to access the Internet based on VPC route configurations. 
-        # 
-        # >  This parameter is returned if **InstanceType** is set to **IpAddress**. In this case, the EIP is associated with an IP address.
-        self.has_reservation_data = has_reservation_data  # type: str
-        # The zone of the EIP. 
-        # 
-        # This parameter is returned only if your account is included in the whitelist.
         self.isp = isp  # type: str
-        # The ID of the EIP.
+        # The ID of the associated instance.
         self.instance_id = instance_id  # type: str
-        # The time when the EIP expires. The time is displayed in `YYYY-MM-DDThh:mm:ssZ` format.
+        # The region ID of the associated instance.
         self.instance_region_id = instance_region_id  # type: str
-        # The service status of the EIP. Valid values:
-        # 
-        # *   **Normal**: active
-        # *   **FinancialLocked**: locked
-        self.instance_type = instance_type  # type: str
-        # The tag value of the EIP.
-        self.internet_charge_type = internet_charge_type  # type: str
         # The type of the associated instance. Valid values:
         # 
         # *   **EcsInstance**: an ECS instance in a VPC
@@ -27503,48 +28657,79 @@ class DescribeEipAddressesResponseBodyEipAddressesEipAddress(TeaModel):
         # *   **HaVip**: an HAVIP
         # *   **NetworkInterface**: a secondary ENI
         # *   **IpAddress**: an IP address
-        self.ip_address = ip_address  # type: str
-        # Indicates whether the resource is created by the service account.
-        # 
-        # *   **0**: no
-        # *   **1**: yes
-        self.name = name  # type: str
-        # The maximum bandwidth of the EIP when it is not associated with an EIP bandwidth plan. Unit: Mbit/s.
-        self.netmode = netmode  # type: str
-        self.operation_locks = operation_locks  # type: DescribeEipAddressesResponseBodyEipAddressesEipAddressOperationLocks
-        self.public_ip_address_pool_id = public_ip_address_pool_id  # type: str
-        # Indicates whether renewal data is included.
-        # 
-        # *   **false**: no
-        # *   **true**: yes This parameter returns **true** only when the **IncludeReservationData** parameter is set to **true** and some orders have not taken effect.
-        self.region_id = region_id  # type: str
-        # The ID of the EIP bandwidth plan.
-        self.reservation_active_time = reservation_active_time  # type: str
-        # The region ID of the EIP.
-        self.reservation_bandwidth = reservation_bandwidth  # type: str
-        # The ID of the associated instance.
-        self.reservation_internet_charge_type = reservation_internet_charge_type  # type: str
-        # The maximum bandwidth of the EIP. Unit: Mbit/s.
-        self.reservation_order_type = reservation_order_type  # type: str
-        # The tag list of the EIP.
-        self.resource_group_id = resource_group_id  # type: str
+        self.instance_type = instance_type  # type: str
         # The metering method of the EIP. Valid values:
         # 
         # *   **PayByBandwidth**: pay-by-bandwidth
         # *   **PayByTraffic**: pay-by-data-transfer
-        self.second_limited = second_limited  # type: bool
-        self.security_protection_types = security_protection_types  # type: DescribeEipAddressesResponseBodyEipAddressesEipAddressSecurityProtectionTypes
-        # Indicates whether deletion protection is enabled. Valid values:
-        # 
-        # *   **true**: enabled
-        # *   **false**: disabled
-        self.segment_instance_id = segment_instance_id  # type: str
-        # The details about the locked EIPs.
-        self.service_managed = service_managed  # type: int
+        self.internet_charge_type = internet_charge_type  # type: str
         # The IP address of the EIP.
+        self.ip_address = ip_address  # type: str
+        # The name of the EIP.
+        self.name = name  # type: str
+        # The network type. The value is set to **public**, which indicates the Internet.
+        self.netmode = netmode  # type: str
+        # The details about the locked EIPs.
+        self.operation_locks = operation_locks  # type: DescribeEipAddressesResponseBodyEipAddressesEipAddressOperationLocks
+        # The ID of the IP address pool to which the EIP belongs.
+        self.public_ip_address_pool_id = public_ip_address_pool_id  # type: str
+        # The region ID of the EIP.
+        self.region_id = region_id  # type: str
+        # The time when the renewal takes effect. The time is displayed in `YYYY-MM-DDThh:mm:ssZ` format.
+        self.reservation_active_time = reservation_active_time  # type: str
+        # The bandwidth after the renewal takes effect. Unit: Mbit/s.
+        self.reservation_bandwidth = reservation_bandwidth  # type: str
+        # The metering method that is used after the renewal takes effect. Valid values:
+        # 
+        # *   **PayByBandwidth**: pay-by-bandwidth
+        # *   **PayByTraffic**: pay-by-data-transfer
+        self.reservation_internet_charge_type = reservation_internet_charge_type  # type: str
+        # The type of the renewal order. Valid values:
+        # 
+        # *   **RENEWCHANGE**: renewal with an upgrade or a downgrade
+        # *   **TEMP_UPGRADE**: temporary upgrade
+        # *   **UPGRADE**: upgrade
+        self.reservation_order_type = reservation_order_type  # type: str
+        # The ID of the resource group.
+        self.resource_group_id = resource_group_id  # type: str
+        # Indicates whether level-2 throttling is configured. Valid values:
+        # 
+        # *   **true**: yes
+        # *   **false**: no
+        self.second_limited = second_limited  # type: bool
+        # The edition of Anti-DDoS. 
+        # 
+        # - If an empty value is returned, it indicates that Anti-DDoS Origin Basic is used.
+        # - If **AntiDDoS_Enhanced** is returned, it indicates that Anti-DDoS Pro/Premium is used.
+        self.security_protection_types = security_protection_types  # type: DescribeEipAddressesResponseBodyEipAddressesEipAddressSecurityProtectionTypes
+        # The IDs of contiguous EIPs.
+        # 
+        # This value is returned only when you query contiguous EIP groups.
+        self.segment_instance_id = segment_instance_id  # type: str
+        # Indicates whether the resource is created by the service account.
+        # 
+        # *   **0**: no
+        # *   **1**: yes
+        self.service_managed = service_managed  # type: int
+        # The status of the EIP. Valid values:
+        # 
+        # *   **Associating**: being associated
+        # *   **Unassociating**: being disassociated
+        # *   **InUse**: allocated
+        # *   **Available**: available
+        # *   **Releasing**: being released
         self.status = status  # type: str
+        # The tag list of the EIP.
         self.tags = tags  # type: DescribeEipAddressesResponseBodyEipAddressesEipAddressTags
+        # The ID of the VPC that has IPv4 gateways enabled and that is deployed in the same region as the EIP. 
+        # 
+        # When you associate an EIP with an IP address, the system can enable the IP address to access the Internet based on VPC route configurations. 
+        # 
+        # >  This parameter is returned if **InstanceType** is set to **IpAddress**. In this case, the EIP is associated with an IP address.
         self.vpc_id = vpc_id  # type: str
+        # The zone of the EIP. 
+        # 
+        # This parameter is returned only if your account is included in the whitelist.
         self.zone = zone  # type: str
 
     def validate(self):
@@ -27757,23 +28942,15 @@ class DescribeEipAddressesResponseBodyEipAddresses(TeaModel):
 
 class DescribeEipAddressesResponseBody(TeaModel):
     def __init__(self, eip_addresses=None, page_number=None, page_size=None, request_id=None, total_count=None):
-        # The metering method that is used after the renewal takes effect. Valid values:
-        # 
-        # *   **PayByBandwidth**: pay-by-bandwidth
-        # *   **PayByTraffic**: pay-by-data-transfer
+        # The details about the EIP.
         self.eip_addresses = eip_addresses  # type: DescribeEipAddressesResponseBodyEipAddresses
-        # The description of the EIP.
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
-        # The network type. The value is set to **public**, which indicates the Internet.
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
-        # The billing method of the EIP. Valid values:
-        # 
-        # *   **PostPaid**: pay-as-you-go
-        # *   **PrePaid**: subscription
+        # The ID of the request.
         self.request_id = request_id  # type: str
-        # The IDs of contiguous EIPs.
-        # 
-        # This value is returned only when you query contiguous EIP groups.
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -28850,9 +30027,9 @@ class DescribeFlowLogsResponseBodyFlowLogsFlowLogTrafficPath(TeaModel):
 
 class DescribeFlowLogsResponseBodyFlowLogsFlowLog(TeaModel):
     def __init__(self, aggregation_interval=None, business_status=None, creation_time=None, description=None,
-                 flow_log_id=None, flow_log_name=None, log_store_name=None, project_name=None, region_id=None,
-                 resource_group_id=None, resource_id=None, resource_type=None, service_type=None, status=None, tags=None,
-                 traffic_path=None, traffic_type=None):
+                 flow_log_deliver_error_message=None, flow_log_deliver_status=None, flow_log_id=None, flow_log_name=None, log_store_name=None,
+                 project_name=None, region_id=None, resource_group_id=None, resource_id=None, resource_type=None,
+                 service_type=None, status=None, tags=None, traffic_path=None, traffic_type=None):
         # The sampling interval of the flow log. Unit: seconds.
         self.aggregation_interval = aggregation_interval  # type: int
         # The business status of the flow log. Valid values:
@@ -28864,6 +30041,8 @@ class DescribeFlowLogsResponseBodyFlowLogsFlowLog(TeaModel):
         self.creation_time = creation_time  # type: str
         # The description of the flow log.
         self.description = description  # type: str
+        self.flow_log_deliver_error_message = flow_log_deliver_error_message  # type: str
+        self.flow_log_deliver_status = flow_log_deliver_status  # type: str
         # The ID of the flow log.
         self.flow_log_id = flow_log_id  # type: str
         # The name of the flow log.
@@ -28933,6 +30112,10 @@ class DescribeFlowLogsResponseBodyFlowLogsFlowLog(TeaModel):
             result['CreationTime'] = self.creation_time
         if self.description is not None:
             result['Description'] = self.description
+        if self.flow_log_deliver_error_message is not None:
+            result['FlowLogDeliverErrorMessage'] = self.flow_log_deliver_error_message
+        if self.flow_log_deliver_status is not None:
+            result['FlowLogDeliverStatus'] = self.flow_log_deliver_status
         if self.flow_log_id is not None:
             result['FlowLogId'] = self.flow_log_id
         if self.flow_log_name is not None:
@@ -28971,6 +30154,10 @@ class DescribeFlowLogsResponseBodyFlowLogsFlowLog(TeaModel):
             self.creation_time = m.get('CreationTime')
         if m.get('Description') is not None:
             self.description = m.get('Description')
+        if m.get('FlowLogDeliverErrorMessage') is not None:
+            self.flow_log_deliver_error_message = m.get('FlowLogDeliverErrorMessage')
+        if m.get('FlowLogDeliverStatus') is not None:
+            self.flow_log_deliver_status = m.get('FlowLogDeliverStatus')
         if m.get('FlowLogId') is not None:
             self.flow_log_id = m.get('FlowLogId')
         if m.get('FlowLogName') is not None:
@@ -30023,7 +31210,7 @@ class DescribeGrantRulesToCenRequest(TeaModel):
         self.owner_id = owner_id  # type: long
         # The number of the page to return. Default value: **1**.
         self.page_number = page_number  # type: int
-        # The number of entries returned per page.
+        # The number of entries to return on each page. Maximum value: **50**. Default value: **10**.
         self.page_size = page_size  # type: int
         # The region ID of the network instance that you want to query.
         self.region_id = region_id  # type: str
@@ -30094,10 +31281,11 @@ class DescribeGrantRulesToCenRequest(TeaModel):
 
 class DescribeGrantRulesToCenResponseBodyCenGrantRulesCbnGrantRule(TeaModel):
     def __init__(self, cen_instance_id=None, cen_owner_id=None, creation_time=None):
-        # The UID of the Alibaba Cloud account to which the authorized CEN instance belongs.
+        # The ID of the authorized CEN instance.
         self.cen_instance_id = cen_instance_id  # type: str
-        # The time when the instance was created.
+        # The UID of the Alibaba Cloud account to which the authorized CEN instance belongs.
         self.cen_owner_id = cen_owner_id  # type: long
+        # The time when the instance was created.
         self.creation_time = creation_time  # type: str
 
     def validate(self):
@@ -30162,15 +31350,15 @@ class DescribeGrantRulesToCenResponseBodyCenGrantRules(TeaModel):
 
 class DescribeGrantRulesToCenResponseBody(TeaModel):
     def __init__(self, cen_grant_rules=None, page_number=None, page_size=None, request_id=None, total_count=None):
-        # The ID of the authorized CEN instance.
-        self.cen_grant_rules = cen_grant_rules  # type: DescribeGrantRulesToCenResponseBodyCenGrantRules
-        # The total number of entries returned.
-        self.page_number = page_number  # type: int
-        # The ID of the request.
-        self.page_size = page_size  # type: int
-        # The page number of the returned page.
-        self.request_id = request_id  # type: str
         # The information about the authorization.
+        self.cen_grant_rules = cen_grant_rules  # type: DescribeGrantRulesToCenResponseBodyCenGrantRules
+        # The page number of the returned page.
+        self.page_number = page_number  # type: int
+        # The number of entries returned per page.
+        self.page_size = page_size  # type: int
+        # The ID of the request.
+        self.request_id = request_id  # type: str
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -34458,15 +35646,18 @@ class DescribeNatGatewaysResponse(TeaModel):
 class DescribeNetworkAclAttributesRequest(TeaModel):
     def __init__(self, client_token=None, network_acl_id=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None):
-        # The action to be performed on network traffic that matches the rule. Valid values:
+        # The client token that is used to ensure the idempotence of the request.
         # 
-        # *   **accept**: allows network traffic.
-        # *   **drop**: blocks network traffic.
+        # You can use the client to generate the value, but you must make sure that it is unique among different requests. ClientToken can contain only ASCII characters.
+        # 
+        # >  If you do not set this parameter, the system sets **ClientToken** to the value of **RequestId**. The value of **RequestId** for each API request may be different.
         self.client_token = client_token  # type: str
-        # The ID of the inbound rule.
+        # The ID of the network ACL.
         self.network_acl_id = network_acl_id  # type: str
         self.owner_id = owner_id  # type: long
-        # The name of the inbound rule.
+        # The region ID of the network ACL.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -34514,12 +35705,31 @@ class DescribeNetworkAclAttributesRequest(TeaModel):
 class DescribeNetworkAclAttributesResponseBodyNetworkAclAttributeEgressAclEntriesEgressAclEntry(TeaModel):
     def __init__(self, description=None, destination_cidr_ip=None, network_acl_entry_id=None,
                  network_acl_entry_name=None, policy=None, port=None, protocol=None):
+        # The description of the outbound rule.
         self.description = description  # type: str
+        # The destination CIDR block.
         self.destination_cidr_ip = destination_cidr_ip  # type: str
+        # The ID of the outbound rule.
         self.network_acl_entry_id = network_acl_entry_id  # type: str
+        # The name of the outbound rule.
         self.network_acl_entry_name = network_acl_entry_name  # type: str
+        # The action to be performed on network traffic that matches the rule. Valid values:
+        # 
+        # - **accept**: allows network traffic.
+        # - **drop**: blocks network traffic.
         self.policy = policy  # type: str
+        # The destination port range of the outbound traffic. 
+        # 
+        # - If **Protocol** of the outbound rule is set to **all**, **icmp**, or **gre**, the port range is **-1/-1**, which indicates all ports.
+        # - If **Protocol** of the outbound rule is set to **tcp** or **udp**, the port range is in the following format: **1/200** or **80/80**, which indicates port 1 to port 200, or port 80. Valid values for a port: **1** to **65535**.
         self.port = port  # type: str
+        # The protocol. Valid values:
+        # 
+        # - **icmp**: ICMP
+        # - **gre**: GRE
+        # - **tcp**: TCP
+        # - **udp**: UDP
+        # - **all**: all protocols
         self.protocol = protocol  # type: str
 
     def validate(self):
@@ -34601,22 +35811,31 @@ class DescribeNetworkAclAttributesResponseBodyNetworkAclAttributeEgressAclEntrie
 class DescribeNetworkAclAttributesResponseBodyNetworkAclAttributeIngressAclEntriesIngressAclEntry(TeaModel):
     def __init__(self, description=None, network_acl_entry_id=None, network_acl_entry_name=None, policy=None,
                  port=None, protocol=None, source_cidr_ip=None):
-        # The tag list.
+        # The description of the inbound rule.
         self.description = description  # type: str
-        # The status of the associated resource. Valid values:
-        # 
-        # - **BINDED**: The resource is associated with the network ACL.
-        # - **BINDING**: The resource is being associated with the network ACL.
-        # - **UNBINDING**: The resource is disassociated from the network ACL.
+        # The ID of the inbound rule.
         self.network_acl_entry_id = network_acl_entry_id  # type: str
-        # The type of resource with which you want to associate the network ACL. The value is set to **VSwitch**.
+        # The name of the inbound rule.
         self.network_acl_entry_name = network_acl_entry_name  # type: str
-        # The ID of the associated resource.
+        # The action to be performed on network traffic that matches the rule. Valid values:
+        # 
+        # *   **accept**: allows network traffic.
+        # *   **drop**: blocks network traffic.
         self.policy = policy  # type: str
+        # The destination port range of the inbound traffic.
+        # 
+        # *   If **Protocol** of the inbound rule is set to **all**, **icmp**, or **gre**, the port range is **-1/-1**, which indicates all ports.
+        # *   If **Protocol** of the inbound rule is set to **tcp** or **udp**, the port range is in the following format: **1/200** or **80/80**, which indicates port 1 to port 200, or port 80. Valid values for a port: **1** to **65535**.
         self.port = port  # type: str
-        # The tag value.
+        # The protocol. Valid values:
+        # 
+        # *   **icmp**: ICMP
+        # *   **gre**: GRE
+        # *   **tcp**: TCP
+        # *   **udp**: UDP
+        # *   **all**: all protocols
         self.protocol = protocol  # type: str
-        # The tag key.
+        # The source CIDR block.
         self.source_cidr_ip = source_cidr_ip  # type: str
 
     def validate(self):
@@ -34697,8 +35916,15 @@ class DescribeNetworkAclAttributesResponseBodyNetworkAclAttributeIngressAclEntri
 
 class DescribeNetworkAclAttributesResponseBodyNetworkAclAttributeResourcesResource(TeaModel):
     def __init__(self, resource_id=None, resource_type=None, status=None):
+        # The ID of the associated resource.
         self.resource_id = resource_id  # type: str
+        # The type of resource with which you want to associate the network ACL. The value is set to **VSwitch**.
         self.resource_type = resource_type  # type: str
+        # The status of the associated resource. Valid values:
+        # 
+        # - **BINDED**: The resource is associated with the network ACL.
+        # - **BINDING**: The resource is being associated with the network ACL.
+        # - **UNBINDING**: The resource is disassociated from the network ACL.
         self.status = status  # type: str
 
     def validate(self):
@@ -34763,7 +35989,9 @@ class DescribeNetworkAclAttributesResponseBodyNetworkAclAttributeResources(TeaMo
 
 class DescribeNetworkAclAttributesResponseBodyNetworkAclAttributeTagsTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The tag key.
         self.key = key  # type: str
+        # The tag value.
         self.value = value  # type: str
 
     def validate(self):
@@ -34826,38 +36054,32 @@ class DescribeNetworkAclAttributesResponseBodyNetworkAclAttribute(TeaModel):
     def __init__(self, creation_time=None, description=None, egress_acl_entries=None, ingress_acl_entries=None,
                  network_acl_id=None, network_acl_name=None, owner_id=None, region_id=None, resources=None, status=None, tags=None,
                  vpc_id=None):
-        # The ID of the outbound rule.
+        # The time when the network ACL was created.
         self.creation_time = creation_time  # type: str
-        # The name of the outbound rule.
+        # The description of the network ACL.
         self.description = description  # type: str
-        self.egress_acl_entries = egress_acl_entries  # type: DescribeNetworkAclAttributesResponseBodyNetworkAclAttributeEgressAclEntries
-        # The details about the resource that is associated with the network ACL.
-        self.ingress_acl_entries = ingress_acl_entries  # type: DescribeNetworkAclAttributesResponseBodyNetworkAclAttributeIngressAclEntries
-        # The description of the outbound rule.
-        self.network_acl_id = network_acl_id  # type: str
-        # The action to be performed on network traffic that matches the rule. Valid values:
-        # 
-        # - **accept**: allows network traffic.
-        # - **drop**: blocks network traffic.
-        self.network_acl_name = network_acl_name  # type: str
-        # The protocol. Valid values:
-        # 
-        # - **icmp**: ICMP
-        # - **gre**: GRE
-        # - **tcp**: TCP
-        # - **udp**: UDP
-        # - **all**: all protocols
-        self.owner_id = owner_id  # type: long
-        # The destination CIDR block.
-        self.region_id = region_id  # type: str
-        self.resources = resources  # type: DescribeNetworkAclAttributesResponseBodyNetworkAclAttributeResources
-        # The destination port range of the inbound traffic.
-        # 
-        # *   If **Protocol** of the inbound rule is set to **all**, **icmp**, or **gre**, the port range is **-1/-1**, which indicates all ports.
-        # *   If **Protocol** of the inbound rule is set to **tcp** or **udp**, the port range is in the following format: **1/200** or **80/80**, which indicates port 1 to port 200, or port 80. Valid values for a port: **1** to **65535**.
-        self.status = status  # type: str
-        self.tags = tags  # type: DescribeNetworkAclAttributesResponseBodyNetworkAclAttributeTags
         # The information about the outbound rules of the network ACL.
+        self.egress_acl_entries = egress_acl_entries  # type: DescribeNetworkAclAttributesResponseBodyNetworkAclAttributeEgressAclEntries
+        # The information about the inbound rules of the network ACL.
+        self.ingress_acl_entries = ingress_acl_entries  # type: DescribeNetworkAclAttributesResponseBodyNetworkAclAttributeIngressAclEntries
+        # The ID of the network ACL.
+        self.network_acl_id = network_acl_id  # type: str
+        # The name of the network ACL.
+        self.network_acl_name = network_acl_name  # type: str
+        # The ID of the Alibaba Cloud account to which the network ACL belongs.
+        self.owner_id = owner_id  # type: long
+        # The region ID of the network ACL.
+        self.region_id = region_id  # type: str
+        # The details about the resource that is associated with the network ACL.
+        self.resources = resources  # type: DescribeNetworkAclAttributesResponseBodyNetworkAclAttributeResources
+        # The status of the associated resource. Valid values:
+        # 
+        # *   **Available**\
+        # *   **Modifying**\
+        self.status = status  # type: str
+        # The tag list.
+        self.tags = tags  # type: DescribeNetworkAclAttributesResponseBodyNetworkAclAttributeTags
+        # The ID of the virtual private cloud (VPC) with which the network ACL is associated.
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
@@ -34937,15 +36159,9 @@ class DescribeNetworkAclAttributesResponseBodyNetworkAclAttribute(TeaModel):
 
 class DescribeNetworkAclAttributesResponseBody(TeaModel):
     def __init__(self, network_acl_attribute=None, request_id=None):
-        # The protocol. Valid values:
-        # 
-        # *   **icmp**: ICMP
-        # *   **gre**: GRE
-        # *   **tcp**: TCP
-        # *   **udp**: UDP
-        # *   **all**: all protocols
+        # The details about the network ACL.
         self.network_acl_attribute = network_acl_attribute  # type: DescribeNetworkAclAttributesResponseBodyNetworkAclAttribute
-        # The source CIDR block.
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -35015,9 +36231,13 @@ class DescribeNetworkAclAttributesResponse(TeaModel):
 
 class DescribeNetworkAclsRequestTags(TeaModel):
     def __init__(self, key=None, value=None):
-        # The ID of the Alibaba Cloud account to which the network ACL belongs.
+        # The tag key. You can specify at most 20 tag keys. It cannot be an empty string.
+        # 
+        # The key cannot exceed 64 characters in length, and can contain digits, periods (.), underscores (\_), and hyphens (-). The key must start with a letter but cannot start with `aliyun` or `acs:`. The key cannot contain `http://` or `https://`.
         self.key = key  # type: str
-        # The region ID of the network ACL.
+        # The tag value. You can specify at most 20 tag values. It can be an empty string.
+        # 
+        # The tag value cannot exceed 128 characters in length, and can contain digits, periods (.), underscores (\_), and hyphens (-). It must start with a letter but cannot start with `aliyun` or `acs:`. It cannot contain `http://` or `https://`.
         self.value = value  # type: str
 
     def validate(self):
@@ -35048,30 +36268,37 @@ class DescribeNetworkAclsRequest(TeaModel):
     def __init__(self, client_token=None, network_acl_id=None, network_acl_name=None, owner_id=None,
                  page_number=None, page_size=None, region_id=None, resource_id=None, resource_owner_account=None,
                  resource_owner_id=None, resource_type=None, tags=None, vpc_id=None):
-        # The ID of the inbound rule.
+        # The client token that you want to use to ensure the idempotence of the request.
+        # 
+        # You can use the client to generate the value, but you must make sure that the value is unique among different requests. ClientToken can contain only ASCII characters.
+        # 
+        # >  If you do not set this parameter, the system sets **ClientToken** to the value of **RequestId**. The value of **RequestId** for each API request may be different.
         self.client_token = client_token  # type: str
-        # The total number of entries returned.
+        # The ID of the network ACL.
         self.network_acl_id = network_acl_id  # type: str
-        # The details about the network ACL.
+        # The name of the network ACL.
+        # 
+        # The name must be 1 to 128 characters in length, and cannot start with `http://` or `https://`.
         self.network_acl_name = network_acl_name  # type: str
         self.owner_id = owner_id  # type: long
-        # The description of the network ACL.
+        # The number of the page to return. Default value: **1**.
         self.page_number = page_number  # type: int
-        # The name of the network ACL.
+        # The number of entries to return on each page. Maximum value: **50**. Default value: **10**.
         self.page_size = page_size  # type: int
-        # The ID of the network ACL.
+        # The region ID of the network ACL.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
-        # The time when the network ACL was created.
+        # The ID of the associated instance.
         self.resource_id = resource_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The ID of the associated VPC.
+        # The type of the associated instance. Set the value to **VSwitch**.
+        # 
+        # This parameter is valid only if **ResourceType** and **ResourceId** are both set.
         self.resource_type = resource_type  # type: str
         self.tags = tags  # type: list[DescribeNetworkAclsRequestTags]
-        # The status of the network ACL. Valid values:
-        # 
-        # *   **Available**\
-        # *   **Modifying**\
+        # The ID of the virtual private cloud (VPC) to which the network ACL belongs.
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
@@ -35153,12 +36380,31 @@ class DescribeNetworkAclsRequest(TeaModel):
 class DescribeNetworkAclsResponseBodyNetworkAclsNetworkAclEgressAclEntriesEgressAclEntry(TeaModel):
     def __init__(self, description=None, destination_cidr_ip=None, network_acl_entry_id=None,
                  network_acl_entry_name=None, policy=None, port=None, protocol=None):
+        # The description of the outbound rule.
         self.description = description  # type: str
+        # The destination CIDR block.
         self.destination_cidr_ip = destination_cidr_ip  # type: str
+        # The ID of the outbound rule.
         self.network_acl_entry_id = network_acl_entry_id  # type: str
+        # The name of the outbound rule.
         self.network_acl_entry_name = network_acl_entry_name  # type: str
+        # The action to be performed on network traffic that matches the rule. Valid values:
+        # 
+        # - **accept**: allows network traffic.
+        # - **drop**: blocks network traffic.
         self.policy = policy  # type: str
+        # The destination port range of the outbound traffic. 
+        # 
+        # - If **Protocol** of the outbound rule is set to **all**, **icmp**, or **gre**, the port range is **-1/-1**, which specifies all ports.
+        # - If **Protocol** of the outbound rule is set to **tcp** or **udp**, the port range is in the following format: **1/200** or **80/80**. 1/200 indicates port 1 to port 200. 80/80 indicates port 80. Valid values for a port: **1** to **65535**.
         self.port = port  # type: str
+        # The protocol. Valid values:
+        # 
+        # - **icmp**: ICMP
+        # - **gre**: GRE
+        # - **tcp**: TCP
+        # - **udp**: UDP
+        # - **all**: all protocols
         self.protocol = protocol  # type: str
 
     def validate(self):
@@ -35240,17 +36486,31 @@ class DescribeNetworkAclsResponseBodyNetworkAclsNetworkAclEgressAclEntries(TeaMo
 class DescribeNetworkAclsResponseBodyNetworkAclsNetworkAclIngressAclEntriesIngressAclEntry(TeaModel):
     def __init__(self, description=None, network_acl_entry_id=None, network_acl_entry_name=None, policy=None,
                  port=None, protocol=None, source_cidr_ip=None):
-        # The tag key.
+        # The description of the inbound rule.
         self.description = description  # type: str
-        # The type of the associated resource.
+        # The ID of the inbound rule.
         self.network_acl_entry_id = network_acl_entry_id  # type: str
-        # The ID of the associated resource.
+        # The name of the inbound rule.
         self.network_acl_entry_name = network_acl_entry_name  # type: str
-        # The tag list.
+        # The action to be performed on network traffic that matches the rule. Valid values:
+        # 
+        # *   **accept**: allows network traffic.
+        # *   **drop**: blocks network traffic.
         self.policy = policy  # type: str
+        # The destination port range of the inbound traffic.
+        # 
+        # *   If **Protocol** of the inbound rule is set to **all**, **icmp**, or **gre**, the port range is **-1/-1**, which indicates all ports.
+        # *   If **Protocol** of the inbound rule is set to **tcp** or **udp**, the port range is in the following format: **1/200** or **80/80**. 1/200 indicates port 1 to port 200. 80/80 indicates port 80. Valid values for a port: **1** to **65535**.
         self.port = port  # type: str
+        # The protocol. Valid values:
+        # 
+        # *   **icmp**: ICMP
+        # *   **gre**: GRE
+        # *   **tcp**: TCP
+        # *   **udp**: UDP
+        # *   **all**: all protocols
         self.protocol = protocol  # type: str
-        # The tag value.
+        # The source CIDR block.
         self.source_cidr_ip = source_cidr_ip  # type: str
 
     def validate(self):
@@ -35331,8 +36591,15 @@ class DescribeNetworkAclsResponseBodyNetworkAclsNetworkAclIngressAclEntries(TeaM
 
 class DescribeNetworkAclsResponseBodyNetworkAclsNetworkAclResourcesResource(TeaModel):
     def __init__(self, resource_id=None, resource_type=None, status=None):
+        # The ID of the associated resource.
         self.resource_id = resource_id  # type: str
+        # The type of the associated resource.
         self.resource_type = resource_type  # type: str
+        # The association status of the resource. Valid values:
+        # 
+        # - **BINDED**: associated
+        # - **BINDING**: being associated
+        # - **UNBINDING**: disassociated
         self.status = status  # type: str
 
     def validate(self):
@@ -35397,7 +36664,9 @@ class DescribeNetworkAclsResponseBodyNetworkAclsNetworkAclResources(TeaModel):
 
 class DescribeNetworkAclsResponseBodyNetworkAclsNetworkAclTagsTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The tag key.
         self.key = key  # type: str
+        # The tag value.
         self.value = value  # type: str
 
     def validate(self):
@@ -35460,42 +36729,32 @@ class DescribeNetworkAclsResponseBodyNetworkAclsNetworkAcl(TeaModel):
     def __init__(self, creation_time=None, description=None, egress_acl_entries=None, ingress_acl_entries=None,
                  network_acl_id=None, network_acl_name=None, owner_id=None, region_id=None, resources=None, status=None, tags=None,
                  vpc_id=None):
-        # The name of the outbound rule.
+        # The time when the network ACL was created.
         self.creation_time = creation_time  # type: str
-        # The action to be performed on network traffic that matches the rule. Valid values:
-        # 
-        # - **accept**: allows network traffic.
-        # - **drop**: blocks network traffic.
+        # The description of the network ACL.
         self.description = description  # type: str
-        self.egress_acl_entries = egress_acl_entries  # type: DescribeNetworkAclsResponseBodyNetworkAclsNetworkAclEgressAclEntries
-        # The association status of the resource. Valid values:
-        # 
-        # - **BINDED**: associated
-        # - **BINDING**: being associated
-        # - **UNBINDING**: disassociated
-        self.ingress_acl_entries = ingress_acl_entries  # type: DescribeNetworkAclsResponseBodyNetworkAclsNetworkAclIngressAclEntries
-        # The protocol. Valid values:
-        # 
-        # - **icmp**: ICMP
-        # - **gre**: GRE
-        # - **tcp**: TCP
-        # - **udp**: UDP
-        # - **all**: all protocols
-        self.network_acl_id = network_acl_id  # type: str
-        # The description of the outbound rule.
-        self.network_acl_name = network_acl_name  # type: str
-        # The destination CIDR block.
-        self.owner_id = owner_id  # type: long
-        # The destination port range of the outbound traffic. 
-        # 
-        # - If **Protocol** of the outbound rule is set to **all**, **icmp**, or **gre**, the port range is **-1/-1**, which specifies all ports.
-        # - If **Protocol** of the outbound rule is set to **tcp** or **udp**, the port range is in the following format: **1/200** or **80/80**. 1/200 indicates port 1 to port 200. 80/80 indicates port 80. Valid values for a port: **1** to **65535**.
-        self.region_id = region_id  # type: str
-        self.resources = resources  # type: DescribeNetworkAclsResponseBodyNetworkAclsNetworkAclResources
         # The outbound rules.
+        self.egress_acl_entries = egress_acl_entries  # type: DescribeNetworkAclsResponseBodyNetworkAclsNetworkAclEgressAclEntries
+        # The inbound rules.
+        self.ingress_acl_entries = ingress_acl_entries  # type: DescribeNetworkAclsResponseBodyNetworkAclsNetworkAclIngressAclEntries
+        # The ID of the network ACL.
+        self.network_acl_id = network_acl_id  # type: str
+        # The name of the network ACL.
+        self.network_acl_name = network_acl_name  # type: str
+        # The ID of the Alibaba Cloud account to which the network ACL belongs.
+        self.owner_id = owner_id  # type: long
+        # The region ID of the network ACL.
+        self.region_id = region_id  # type: str
+        # The resources that are associated with the network ACL.
+        self.resources = resources  # type: DescribeNetworkAclsResponseBodyNetworkAclsNetworkAclResources
+        # The status of the network ACL. Valid values:
+        # 
+        # *   **Available**\
+        # *   **Modifying**\
         self.status = status  # type: str
+        # The tag list.
         self.tags = tags  # type: DescribeNetworkAclsResponseBodyNetworkAclsNetworkAclTags
-        # The ID of the outbound rule.
+        # The ID of the associated VPC.
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
@@ -35607,27 +36866,15 @@ class DescribeNetworkAclsResponseBodyNetworkAcls(TeaModel):
 
 class DescribeNetworkAclsResponseBody(TeaModel):
     def __init__(self, network_acls=None, page_number=None, page_size=None, request_id=None, total_count=None):
-        # The destination port range of the inbound traffic.
-        # 
-        # *   If **Protocol** of the inbound rule is set to **all**, **icmp**, or **gre**, the port range is **-1/-1**, which indicates all ports.
-        # *   If **Protocol** of the inbound rule is set to **tcp** or **udp**, the port range is in the following format: **1/200** or **80/80**. 1/200 indicates port 1 to port 200. 80/80 indicates port 80. Valid values for a port: **1** to **65535**.
+        # The details about the network ACL.
         self.network_acls = network_acls  # type: DescribeNetworkAclsResponseBodyNetworkAcls
-        # The source CIDR block.
+        # The page number of the returned page.
         self.page_number = page_number  # type: str
-        # The action to be performed on network traffic that matches the rule. Valid values:
-        # 
-        # *   **accept**: allows network traffic.
-        # *   **drop**: blocks network traffic.
+        # The number of entries returned on each page.
         self.page_size = page_size  # type: str
-        # The description of the inbound rule.
+        # The ID of the request.
         self.request_id = request_id  # type: str
-        # The protocol. Valid values:
-        # 
-        # *   **icmp**: ICMP
-        # *   **gre**: GRE
-        # *   **tcp**: TCP
-        # *   **udp**: UDP
-        # *   **all**: all protocols
+        # The total number of entries returned.
         self.total_count = total_count  # type: str
 
     def validate(self):
@@ -37566,37 +38813,66 @@ class DescribeRouteEntryListResponse(TeaModel):
         return self
 
 
-class DescribeRouteTableListRequest(TeaModel):
-    def __init__(self, owner_account=None, owner_id=None, page_number=None, page_size=None, region_id=None,
-                 resource_group_id=None, resource_owner_account=None, resource_owner_id=None, route_table_id=None,
-                 route_table_name=None, router_id=None, router_type=None, vpc_id=None):
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
-        # The number of entries to return on each page. Maximum value: **50**. Default value: **10**.
-        self.page_number = page_number  # type: int
-        # The ID of the resource group to which the route table to be queried belongs.
-        self.page_size = page_size  # type: int
-        # The ID of the request.
-        self.region_id = region_id  # type: str
-        # The operation that you want to perform. Set the value to **DescribeRouteTableList**.
-        self.resource_group_id = resource_group_id  # type: str
-        self.resource_owner_account = resource_owner_account  # type: str
-        self.resource_owner_id = resource_owner_id  # type: long
-        # The name of the route table that you want to query.
-        self.route_table_id = route_table_id  # type: str
-        # The number of the page to return. Default value: **1**.
-        self.route_table_name = route_table_name  # type: str
-        # The ID of the virtual private cloud (VPC) to which the route table belongs.
-        # 
-        # After this parameter is set, the value of the **RouterType** parameter is automatically set to **VRouter**.
-        self.router_id = router_id  # type: str
-        # The ID of the router to which the route table belongs.
-        self.router_type = router_type  # type: str
-        # The ID of the route table that you want to query.
-        self.vpc_id = vpc_id  # type: str
+class DescribeRouteTableListRequestTag(TeaModel):
+    def __init__(self):
+        pass
 
     def validate(self):
         pass
+
+    def to_map(self):
+        _map = super(DescribeRouteTableListRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        return self
+
+
+class DescribeRouteTableListRequest(TeaModel):
+    def __init__(self, owner_account=None, owner_id=None, page_number=None, page_size=None, region_id=None,
+                 resource_group_id=None, resource_owner_account=None, resource_owner_id=None, route_table_id=None,
+                 route_table_name=None, router_id=None, router_type=None, tag=None, vpc_id=None):
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The number of the page to return. Default value: **1**.
+        self.page_number = page_number  # type: int
+        # The number of entries to return on each page. Maximum value: **50**. Default value: **10**.
+        self.page_size = page_size  # type: int
+        # The region ID of the VPC to which the route table belongs.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
+        self.region_id = region_id  # type: str
+        # The ID of the resource group to which the route table to be queried belongs.
+        self.resource_group_id = resource_group_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        # The ID of the route table that you want to query.
+        self.route_table_id = route_table_id  # type: str
+        # The name of the route table that you want to query.
+        self.route_table_name = route_table_name  # type: str
+        # The ID of the router to which the route table belongs.
+        self.router_id = router_id  # type: str
+        # The type of the router to which the route table belongs. Valid values:
+        # 
+        # *   **VRouter** (default): a vRouter
+        # *   **VBR**: a virtual border router (VBR)
+        self.router_type = router_type  # type: str
+        self.tag = tag  # type: list[DescribeRouteTableListRequestTag]
+        # The ID of the virtual private cloud (VPC) to which the route table belongs.
+        # 
+        # After this parameter is set, the value of the **RouterType** parameter is automatically set to **VRouter**.
+        self.vpc_id = vpc_id  # type: str
+
+    def validate(self):
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(DescribeRouteTableListRequest, self).to_map()
@@ -37628,6 +38904,10 @@ class DescribeRouteTableListRequest(TeaModel):
             result['RouterId'] = self.router_id
         if self.router_type is not None:
             result['RouterType'] = self.router_type
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
         if self.vpc_id is not None:
             result['VpcId'] = self.vpc_id
         return result
@@ -37658,6 +38938,11 @@ class DescribeRouteTableListRequest(TeaModel):
             self.router_id = m.get('RouterId')
         if m.get('RouterType') is not None:
             self.router_type = m.get('RouterType')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = DescribeRouteTableListRequestTag()
+                self.tag.append(temp_model.from_map(k))
         if m.get('VpcId') is not None:
             self.vpc_id = m.get('VpcId')
         return self
@@ -37689,9 +38974,9 @@ class DescribeRouteTableListResponseBodyRouterTableListRouterTableListTypeGatewa
 
 class DescribeRouteTableListResponseBodyRouterTableListRouterTableListTypeTagsTag(TeaModel):
     def __init__(self, key=None, value=None):
-        # The value of the tag that is added to the route table.
+        # The key of the tag that is added to the route table.
         self.key = key  # type: str
-        # The ID of the vSwitch.
+        # The value of the tag that is added to the route table.
         self.value = value  # type: str
 
     def validate(self):
@@ -37778,47 +39063,48 @@ class DescribeRouteTableListResponseBodyRouterTableListRouterTableListType(TeaMo
     def __init__(self, associate_type=None, creation_time=None, description=None, gateway_ids=None, owner_id=None,
                  resource_group_id=None, route_table_id=None, route_table_name=None, route_table_type=None, router_id=None,
                  router_type=None, status=None, tags=None, v_switch_ids=None, vpc_id=None):
-        # The ID of the route table.
+        # The type of the cloud resource with which the route table is associated. Valid values:
+        # 
+        # *   **VSwitch**: a vSwitch
+        # *   **Gateway**: an IPv4 gateway
         self.associate_type = associate_type  # type: str
+        # The time when the route table was created.
+        self.creation_time = creation_time  # type: str
+        # The description of the route table.
+        self.description = description  # type: str
+        # The detailed information about the IPv4 gateway.
+        self.gateway_ids = gateway_ids  # type: DescribeRouteTableListResponseBodyRouterTableListRouterTableListTypeGatewayIds
+        # The ID of the Alibaba Cloud account to which the route table belongs.
+        self.owner_id = owner_id  # type: long
+        # The ID of the resource group to which the route table belongs.
+        self.resource_group_id = resource_group_id  # type: str
+        # The ID of the route table.
+        self.route_table_id = route_table_id  # type: str
+        # The name of the route table.
+        self.route_table_name = route_table_name  # type: str
+        # The type of the route table. Valid values:
+        # 
+        # *   **Custom**: a custom route table
+        # *   **System**: a system route table
+        self.route_table_type = route_table_type  # type: str
+        # The ID of the router to which the route table belongs.
+        self.router_id = router_id  # type: str
+        # The type of the router to which the route table belongs. Valid values:
+        # 
+        # *   **VRouter**: a vRouter
+        # *   **VBR**: a VBR
+        self.router_type = router_type  # type: str
         # The status of the route table. Valid values:
         # 
         # *   **Pending**: being created
         # *   **Available**: available
         # *   **Deleting**: being deleted
-        self.creation_time = creation_time  # type: str
-        # The type of the route table. Valid values:
-        # 
-        # *   **Custom**: a custom route table
-        # *   **System**: a system route table
-        self.description = description  # type: str
-        self.gateway_ids = gateway_ids  # type: DescribeRouteTableListResponseBodyRouterTableListRouterTableListTypeGatewayIds
-        # The description of the route table.
-        self.owner_id = owner_id  # type: long
-        # The type of the router to which the route table belongs. Valid values:
-        # 
-        # *   **VRouter**: a vRouter
-        # *   **VBR**: a VBR
-        self.resource_group_id = resource_group_id  # type: str
-        # The ID of the Alibaba Cloud account to which the route table belongs.
-        self.route_table_id = route_table_id  # type: str
-        # The tag added to the route table.
-        self.route_table_name = route_table_name  # type: str
-        # The ID of the resource group to which the route table belongs.
-        self.route_table_type = route_table_type  # type: str
-        # The type of the cloud resource with which the route table is associated. Valid values:
-        # 
-        # *   **VSwitch**: a vSwitch
-        # *   **Gateway**: an IPv4 gateway
-        self.router_id = router_id  # type: str
-        # The name of the route table.
-        self.router_type = router_type  # type: str
-        # The ID of the router to which the route table belongs.
         self.status = status  # type: str
-        # The key of the tag that is added to the route table.
+        # The tag added to the route table.
         self.tags = tags  # type: DescribeRouteTableListResponseBodyRouterTableListRouterTableListTypeTags
-        # The detailed information about the IPv4 gateway.
+        # The ID of the vSwitch.
         self.v_switch_ids = v_switch_ids  # type: DescribeRouteTableListResponseBodyRouterTableListRouterTableListTypeVSwitchIds
-        # The time when the route table was created.
+        # The ID of the VPC to which the route table belongs.
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
@@ -37939,15 +39225,15 @@ class DescribeRouteTableListResponseBodyRouterTableList(TeaModel):
 
 class DescribeRouteTableListResponseBody(TeaModel):
     def __init__(self, page_number=None, page_size=None, request_id=None, router_table_list=None, total_count=None):
-        # The number of entries returned.
-        self.page_number = page_number  # type: int
         # The page number of the returned page.
-        self.page_size = page_size  # type: int
+        self.page_number = page_number  # type: int
         # The number of entries returned per page.
+        self.page_size = page_size  # type: int
+        # The ID of the request.
         self.request_id = request_id  # type: str
-        # The ID of the VPC to which the route table belongs.
-        self.router_table_list = router_table_list  # type: DescribeRouteTableListResponseBodyRouterTableList
         # The detailed information about the route tables.
+        self.router_table_list = router_table_list  # type: DescribeRouteTableListResponseBodyRouterTableList
+        # The number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -38617,16 +39903,78 @@ class DescribeRouterInterfaceAttributeRequest(TeaModel):
         return self
 
 
+class DescribeRouterInterfaceAttributeResponseBodyTagsTags(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeRouterInterfaceAttributeResponseBodyTagsTags, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class DescribeRouterInterfaceAttributeResponseBodyTags(TeaModel):
+    def __init__(self, tags=None):
+        self.tags = tags  # type: list[DescribeRouterInterfaceAttributeResponseBodyTagsTags]
+
+    def validate(self):
+        if self.tags:
+            for k in self.tags:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeRouterInterfaceAttributeResponseBodyTags, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Tags'] = []
+        if self.tags is not None:
+            for k in self.tags:
+                result['Tags'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.tags = []
+        if m.get('Tags') is not None:
+            for k in m.get('Tags'):
+                temp_model = DescribeRouterInterfaceAttributeResponseBodyTagsTags()
+                self.tags.append(temp_model.from_map(k))
+        return self
+
+
 class DescribeRouterInterfaceAttributeResponseBody(TeaModel):
     def __init__(self, access_point_id=None, bandwidth=None, business_status=None, charge_type=None, code=None,
-                 connected_time=None, creation_time=None, cross_border=None, description=None, end_time=None, gmt_modified=None,
-                 has_reservation_data=None, hc_rate=None, hc_threshold=None, health_check_source_ip=None, health_check_status=None,
-                 health_check_target_ip=None, message=None, name=None, opposite_access_point_id=None, opposite_bandwidth=None,
-                 opposite_interface_business_status=None, opposite_interface_id=None, opposite_interface_owner_id=None, opposite_interface_spec=None,
-                 opposite_interface_status=None, opposite_region_id=None, opposite_router_id=None, opposite_router_type=None,
-                 opposite_vpc_instance_id=None, request_id=None, reservation_active_time=None, reservation_bandwidth=None,
-                 reservation_internet_charge_type=None, reservation_order_type=None, role=None, router_id=None, router_interface_id=None,
-                 router_type=None, spec=None, status=None, success=None, vpc_instance_id=None):
+                 connected_time=None, creation_time=None, cross_border=None, description=None, end_time=None, fast_link_mode=None,
+                 gmt_modified=None, has_reservation_data=None, hc_rate=None, hc_threshold=None, health_check_source_ip=None,
+                 health_check_status=None, health_check_target_ip=None, message=None, name=None, opposite_access_point_id=None,
+                 opposite_bandwidth=None, opposite_interface_business_status=None, opposite_interface_id=None,
+                 opposite_interface_owner_id=None, opposite_interface_spec=None, opposite_interface_status=None, opposite_region_id=None,
+                 opposite_router_id=None, opposite_router_type=None, opposite_vpc_instance_id=None, request_id=None,
+                 reservation_active_time=None, reservation_bandwidth=None, reservation_internet_charge_type=None,
+                 reservation_order_type=None, resource_group_id=None, role=None, router_id=None, router_interface_id=None,
+                 router_type=None, spec=None, status=None, success=None, tags=None, vpc_instance_id=None):
         # The ID of the access point.
         self.access_point_id = access_point_id  # type: str
         # The bandwidth of the router interface. Unit: Mbit/s.
@@ -38657,6 +40005,7 @@ class DescribeRouterInterfaceAttributeResponseBody(TeaModel):
         self.description = description  # type: str
         # The end of the time range queried.
         self.end_time = end_time  # type: str
+        self.fast_link_mode = fast_link_mode  # type: str
         # The time when the router interface was modified.
         self.gmt_modified = gmt_modified  # type: str
         # Indicates whether renewal data is included. Valid values:
@@ -38747,6 +40096,7 @@ class DescribeRouterInterfaceAttributeResponseBody(TeaModel):
         self.reservation_internet_charge_type = reservation_internet_charge_type  # type: str
         # The type of the renewal order. The value is set to **RENEW**, which indicates that the order is placed for service renewal.
         self.reservation_order_type = reservation_order_type  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         # Indicates whether the router interface is the requester or the acceptor of the peering connection.
         self.role = role  # type: str
         # The ID of the router to which the router interface belongs.
@@ -38787,11 +40137,13 @@ class DescribeRouterInterfaceAttributeResponseBody(TeaModel):
         self.status = status  # type: str
         # Indicates whether the operation is successful.
         self.success = success  # type: bool
+        self.tags = tags  # type: DescribeRouterInterfaceAttributeResponseBodyTags
         # The ID of the virtual private cloud (VPC) to which the router interface belongs.
         self.vpc_instance_id = vpc_instance_id  # type: str
 
     def validate(self):
-        pass
+        if self.tags:
+            self.tags.validate()
 
     def to_map(self):
         _map = super(DescribeRouterInterfaceAttributeResponseBody, self).to_map()
@@ -38819,6 +40171,8 @@ class DescribeRouterInterfaceAttributeResponseBody(TeaModel):
             result['Description'] = self.description
         if self.end_time is not None:
             result['EndTime'] = self.end_time
+        if self.fast_link_mode is not None:
+            result['FastLinkMode'] = self.fast_link_mode
         if self.gmt_modified is not None:
             result['GmtModified'] = self.gmt_modified
         if self.has_reservation_data is not None:
@@ -38869,6 +40223,8 @@ class DescribeRouterInterfaceAttributeResponseBody(TeaModel):
             result['ReservationInternetChargeType'] = self.reservation_internet_charge_type
         if self.reservation_order_type is not None:
             result['ReservationOrderType'] = self.reservation_order_type
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.role is not None:
             result['Role'] = self.role
         if self.router_id is not None:
@@ -38883,6 +40239,8 @@ class DescribeRouterInterfaceAttributeResponseBody(TeaModel):
             result['Status'] = self.status
         if self.success is not None:
             result['Success'] = self.success
+        if self.tags is not None:
+            result['Tags'] = self.tags.to_map()
         if self.vpc_instance_id is not None:
             result['VpcInstanceId'] = self.vpc_instance_id
         return result
@@ -38909,6 +40267,8 @@ class DescribeRouterInterfaceAttributeResponseBody(TeaModel):
             self.description = m.get('Description')
         if m.get('EndTime') is not None:
             self.end_time = m.get('EndTime')
+        if m.get('FastLinkMode') is not None:
+            self.fast_link_mode = m.get('FastLinkMode')
         if m.get('GmtModified') is not None:
             self.gmt_modified = m.get('GmtModified')
         if m.get('HasReservationData') is not None:
@@ -38959,6 +40319,8 @@ class DescribeRouterInterfaceAttributeResponseBody(TeaModel):
             self.reservation_internet_charge_type = m.get('ReservationInternetChargeType')
         if m.get('ReservationOrderType') is not None:
             self.reservation_order_type = m.get('ReservationOrderType')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('Role') is not None:
             self.role = m.get('Role')
         if m.get('RouterId') is not None:
@@ -38973,6 +40335,9 @@ class DescribeRouterInterfaceAttributeResponseBody(TeaModel):
             self.status = m.get('Status')
         if m.get('Success') is not None:
             self.success = m.get('Success')
+        if m.get('Tags') is not None:
+            temp_model = DescribeRouterInterfaceAttributeResponseBodyTags()
+            self.tags = temp_model.from_map(m['Tags'])
         if m.get('VpcInstanceId') is not None:
             self.vpc_instance_id = m.get('VpcInstanceId')
         return self
@@ -39060,9 +40425,38 @@ class DescribeRouterInterfacesRequestFilter(TeaModel):
         return self
 
 
+class DescribeRouterInterfacesRequestTags(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeRouterInterfacesRequestTags, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
 class DescribeRouterInterfacesRequest(TeaModel):
     def __init__(self, filter=None, include_reservation_data=None, owner_id=None, page_number=None, page_size=None,
-                 region_id=None, resource_owner_account=None, resource_owner_id=None):
+                 region_id=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None, tags=None):
         self.filter = filter  # type: list[DescribeRouterInterfacesRequestFilter]
         # Specifies whether renewal data is included. Default value: false. Valid values:
         # 
@@ -39078,12 +40472,18 @@ class DescribeRouterInterfacesRequest(TeaModel):
         # 
         # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        self.tags = tags  # type: list[DescribeRouterInterfacesRequestTags]
 
     def validate(self):
         if self.filter:
             for k in self.filter:
+                if k:
+                    k.validate()
+        if self.tags:
+            for k in self.tags:
                 if k:
                     k.validate()
 
@@ -39107,10 +40507,16 @@ class DescribeRouterInterfacesRequest(TeaModel):
             result['PageSize'] = self.page_size
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
             result['ResourceOwnerId'] = self.resource_owner_id
+        result['Tags'] = []
+        if self.tags is not None:
+            for k in self.tags:
+                result['Tags'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m=None):
@@ -39130,10 +40536,78 @@ class DescribeRouterInterfacesRequest(TeaModel):
             self.page_size = m.get('PageSize')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
             self.resource_owner_id = m.get('ResourceOwnerId')
+        self.tags = []
+        if m.get('Tags') is not None:
+            for k in m.get('Tags'):
+                temp_model = DescribeRouterInterfacesRequestTags()
+                self.tags.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeRouterInterfacesResponseBodyRouterInterfaceSetRouterInterfaceTypeTagsTags(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeRouterInterfacesResponseBodyRouterInterfaceSetRouterInterfaceTypeTagsTags, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class DescribeRouterInterfacesResponseBodyRouterInterfaceSetRouterInterfaceTypeTags(TeaModel):
+    def __init__(self, tags=None):
+        self.tags = tags  # type: list[DescribeRouterInterfacesResponseBodyRouterInterfaceSetRouterInterfaceTypeTagsTags]
+
+    def validate(self):
+        if self.tags:
+            for k in self.tags:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeRouterInterfacesResponseBodyRouterInterfaceSetRouterInterfaceTypeTags, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Tags'] = []
+        if self.tags is not None:
+            for k in self.tags:
+                result['Tags'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.tags = []
+        if m.get('Tags') is not None:
+            for k in m.get('Tags'):
+                temp_model = DescribeRouterInterfacesResponseBodyRouterInterfaceSetRouterInterfaceTypeTagsTags()
+                self.tags.append(temp_model.from_map(k))
         return self
 
 
@@ -39145,8 +40619,8 @@ class DescribeRouterInterfacesResponseBodyRouterInterfaceSetRouterInterfaceType(
                  opposite_interface_business_status=None, opposite_interface_id=None, opposite_interface_owner_id=None, opposite_interface_spec=None,
                  opposite_interface_status=None, opposite_region_id=None, opposite_router_id=None, opposite_router_type=None,
                  opposite_vpc_instance_id=None, reservation_active_time=None, reservation_bandwidth=None,
-                 reservation_internet_charge_type=None, reservation_order_type=None, role=None, router_id=None, router_interface_id=None,
-                 router_type=None, spec=None, status=None, vpc_instance_id=None):
+                 reservation_internet_charge_type=None, reservation_order_type=None, resource_group_id=None, role=None, router_id=None,
+                 router_interface_id=None, router_type=None, spec=None, status=None, tags=None, vpc_instance_id=None):
         # The ID of the access point.
         self.access_point_id = access_point_id  # type: str
         # The bandwidth of the router interface. Unit: Mbit/s.
@@ -39230,6 +40704,7 @@ class DescribeRouterInterfacesResponseBodyRouterInterfaceSetRouterInterfaceType(
         self.reservation_internet_charge_type = reservation_internet_charge_type  # type: str
         # The type of the renewal order.
         self.reservation_order_type = reservation_order_type  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         # Indicates whether the router interface is the initiator or acceptor of the peering connection.
         self.role = role  # type: str
         # The ID of the router to which the route entry belongs.
@@ -39245,11 +40720,13 @@ class DescribeRouterInterfacesResponseBodyRouterInterfaceSetRouterInterfaceType(
         self.spec = spec  # type: str
         # The status of the router interface.
         self.status = status  # type: str
+        self.tags = tags  # type: DescribeRouterInterfacesResponseBodyRouterInterfaceSetRouterInterfaceTypeTags
         # The ID of the local virtual private cloud (VPC) in the peering connection.
         self.vpc_instance_id = vpc_instance_id  # type: str
 
     def validate(self):
-        pass
+        if self.tags:
+            self.tags.validate()
 
     def to_map(self):
         _map = super(DescribeRouterInterfacesResponseBodyRouterInterfaceSetRouterInterfaceType, self).to_map()
@@ -39321,6 +40798,8 @@ class DescribeRouterInterfacesResponseBodyRouterInterfaceSetRouterInterfaceType(
             result['ReservationInternetChargeType'] = self.reservation_internet_charge_type
         if self.reservation_order_type is not None:
             result['ReservationOrderType'] = self.reservation_order_type
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.role is not None:
             result['Role'] = self.role
         if self.router_id is not None:
@@ -39333,6 +40812,8 @@ class DescribeRouterInterfacesResponseBodyRouterInterfaceSetRouterInterfaceType(
             result['Spec'] = self.spec
         if self.status is not None:
             result['Status'] = self.status
+        if self.tags is not None:
+            result['Tags'] = self.tags.to_map()
         if self.vpc_instance_id is not None:
             result['VpcInstanceId'] = self.vpc_instance_id
         return result
@@ -39403,6 +40884,8 @@ class DescribeRouterInterfacesResponseBodyRouterInterfaceSetRouterInterfaceType(
             self.reservation_internet_charge_type = m.get('ReservationInternetChargeType')
         if m.get('ReservationOrderType') is not None:
             self.reservation_order_type = m.get('ReservationOrderType')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('Role') is not None:
             self.role = m.get('Role')
         if m.get('RouterId') is not None:
@@ -39415,6 +40898,9 @@ class DescribeRouterInterfacesResponseBodyRouterInterfaceSetRouterInterfaceType(
             self.spec = m.get('Spec')
         if m.get('Status') is not None:
             self.status = m.get('Status')
+        if m.get('Tags') is not None:
+            temp_model = DescribeRouterInterfacesResponseBodyRouterInterfaceSetRouterInterfaceTypeTags()
+            self.tags = temp_model.from_map(m['Tags'])
         if m.get('VpcInstanceId') is not None:
             self.vpc_instance_id = m.get('VpcInstanceId')
         return self
@@ -40117,9 +41603,9 @@ class DescribeSslVpnClientCertResponseBody(TeaModel):
         self.ca_cert = ca_cert  # type: str
         # The client certificate.
         self.client_cert = client_cert  # type: str
-        # The configuration of the client.
+        # The client configuration.
         self.client_config = client_config  # type: str
-        # The key of the client.
+        # The client key.
         self.client_key = client_key  # type: str
         # The timestamp that indicates when the SSL client certificate was created. Unit: milliseconds.
         # 
@@ -40133,7 +41619,7 @@ class DescribeSslVpnClientCertResponseBody(TeaModel):
         self.name = name  # type: str
         # The ID of the region where the SSL client certificate is created.
         self.region_id = region_id  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
         # The ID of the SSL client certificate.
         self.ssl_vpn_client_cert_id = ssl_vpn_client_cert_id  # type: str
@@ -40141,9 +41627,9 @@ class DescribeSslVpnClientCertResponseBody(TeaModel):
         self.ssl_vpn_server_id = ssl_vpn_server_id  # type: str
         # The status of the SSL client certificate. Valid values:
         # 
-        # *   **expiring-soon**: The certificate expires in one week.
-        # *   **normal**: The certificate is active.
-        # *   **expired**: The certificate has expired.
+        # *   **expiring-soon**\
+        # *   **normal**\
+        # *   **expired**\
         self.status = status  # type: str
 
     def validate(self):
@@ -42246,9 +43732,9 @@ class DescribeVSwitchAttributesResponseBodyTags(TeaModel):
 
 class DescribeVSwitchAttributesResponseBody(TeaModel):
     def __init__(self, available_ip_address_count=None, cidr_block=None, creation_time=None, description=None,
-                 ipv_6cidr_block=None, is_default=None, network_acl_id=None, owner_id=None, request_id=None, resource_group_id=None,
-                 route_table=None, share_type=None, status=None, tags=None, v_switch_id=None, v_switch_name=None, vpc_id=None,
-                 zone_id=None):
+                 enabled_ipv_6=None, ipv_6cidr_block=None, is_default=None, network_acl_id=None, owner_id=None, request_id=None,
+                 resource_group_id=None, route_table=None, share_type=None, status=None, tags=None, v_switch_id=None,
+                 v_switch_name=None, vpc_id=None, zone_id=None):
         # The number of available IP addresses.
         self.available_ip_address_count = available_ip_address_count  # type: long
         # The CIDR block of the vSwitch.
@@ -42257,6 +43743,7 @@ class DescribeVSwitchAttributesResponseBody(TeaModel):
         self.creation_time = creation_time  # type: str
         # The description of the vSwitch.
         self.description = description  # type: str
+        self.enabled_ipv_6 = enabled_ipv_6  # type: bool
         # The IPv6 CIDR block of the vSwitch.
         self.ipv_6cidr_block = ipv_6cidr_block  # type: str
         # Indicates whether the vSwitch is the default vSwitch. Valid values:
@@ -42311,6 +43798,8 @@ class DescribeVSwitchAttributesResponseBody(TeaModel):
             result['CreationTime'] = self.creation_time
         if self.description is not None:
             result['Description'] = self.description
+        if self.enabled_ipv_6 is not None:
+            result['EnabledIpv6'] = self.enabled_ipv_6
         if self.ipv_6cidr_block is not None:
             result['Ipv6CidrBlock'] = self.ipv_6cidr_block
         if self.is_default is not None:
@@ -42351,6 +43840,8 @@ class DescribeVSwitchAttributesResponseBody(TeaModel):
             self.creation_time = m.get('CreationTime')
         if m.get('Description') is not None:
             self.description = m.get('Description')
+        if m.get('EnabledIpv6') is not None:
+            self.enabled_ipv_6 = m.get('EnabledIpv6')
         if m.get('Ipv6CidrBlock') is not None:
             self.ipv_6cidr_block = m.get('Ipv6CidrBlock')
         if m.get('IsDefault') is not None:
@@ -42423,53 +43914,89 @@ class DescribeVSwitchAttributesResponse(TeaModel):
         return self
 
 
+class DescribeVSwitchesRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeVSwitchesRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
 class DescribeVSwitchesRequest(TeaModel):
     def __init__(self, dry_run=None, is_default=None, owner_account=None, owner_id=None, page_number=None,
                  page_size=None, region_id=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None,
-                 route_table_id=None, v_switch_id=None, v_switch_name=None, v_switch_owner_id=None, vpc_id=None, zone_id=None):
-        # The ID of the resource group to which the vSwitch belongs.
+                 route_table_id=None, tag=None, v_switch_id=None, v_switch_name=None, v_switch_owner_id=None, vpc_id=None,
+                 zone_id=None):
+        # Specifies whether to check the request without performing the operation. Valid values:
+        # 
+        # *   **true**: checks the request without performing the operation. The system checks the required parameters, request syntax, and limits. If the request fails check, an error message is returned. If the request passes the check, the `DryRunOperation` error code is returned.
+        # *   **false**: sends the request. If the request passes the precheck, an HTTP 2xx status code is returned and the operation is performed. This is the default value.
         self.dry_run = dry_run  # type: bool
-        # The number of the page to return. Default value: **1**.
-        self.is_default = is_default  # type: bool
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
-        # The number of entries returned per page.
-        self.page_number = page_number  # type: int
-        # The ID of the request.
-        self.page_size = page_size  # type: int
         # Specifies whether to query the default vSwitch in the specified region. Valid values:
         # 
         # *   **true**: queries the default vSwitch in the specified region.
         # *   **false**: does not query the default vSwitch in the specified region.
         # 
         # If you do not specify this parameter, the system queries all vSwitches in the specified region by default.
-        self.region_id = region_id  # type: str
-        # The ID of the Alibaba Cloud account to which the resource belongs.
-        self.resource_group_id = resource_group_id  # type: str
-        self.resource_owner_account = resource_owner_account  # type: str
-        self.resource_owner_id = resource_owner_id  # type: long
+        self.is_default = is_default  # type: bool
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The number of the page to return. Default value: **1**.
+        self.page_number = page_number  # type: int
         # The number of entries to return on each page. Maximum value: **50**. Default value: **10**.
-        self.route_table_id = route_table_id  # type: str
-        # The name of the vSwitch.
-        # 
-        # The name must be 1 to 128 characters in length, and cannot start with `http://` or `https://`.
-        self.v_switch_id = v_switch_id  # type: str
-        # The ID of the route table.
-        self.v_switch_name = v_switch_name  # type: str
-        # The page number of the returned page.
-        self.v_switch_owner_id = v_switch_owner_id  # type: long
+        self.page_size = page_size  # type: int
         # The region ID of the vSwitch. You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         # 
         # >  You must set at least one of the **RegionId** and **VpcId** parameters.
-        self.vpc_id = vpc_id  # type: str
-        # Specifies whether to check the request without performing the operation. Valid values:
+        self.region_id = region_id  # type: str
+        # The ID of the resource group to which the vSwitch belongs.
+        self.resource_group_id = resource_group_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        # The ID of the route table.
+        self.route_table_id = route_table_id  # type: str
+        self.tag = tag  # type: list[DescribeVSwitchesRequestTag]
+        # The ID of the vSwitch that you want to query.
+        self.v_switch_id = v_switch_id  # type: str
+        # The name of the vSwitch.
         # 
-        # *   **true**: checks the request without performing the operation. The system checks the required parameters, request syntax, and limits. If the request fails check, an error message is returned. If the request passes the check, the `DryRunOperation` error code is returned.
-        # *   **false**: sends the request. If the request passes the precheck, an HTTP 2xx status code is returned and the operation is performed. This is the default value.
+        # The name must be 1 to 128 characters in length, and cannot start with `http://` or `https://`.
+        self.v_switch_name = v_switch_name  # type: str
+        # The ID of the Alibaba Cloud account to which the resource belongs.
+        self.v_switch_owner_id = v_switch_owner_id  # type: long
+        # The ID of the VPC to which the vSwitches belong.
+        # 
+        # >  You must set at least one of the **RegionId** and **VpcId** parameters.
+        self.vpc_id = vpc_id  # type: str
+        # The ID of the zone to which the vSwitch belongs. You can call the [DescribeZones](~~36064~~) operation to query the most recent zone list.
         self.zone_id = zone_id  # type: str
 
     def validate(self):
-        pass
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(DescribeVSwitchesRequest, self).to_map()
@@ -42499,6 +44026,10 @@ class DescribeVSwitchesRequest(TeaModel):
             result['ResourceOwnerId'] = self.resource_owner_id
         if self.route_table_id is not None:
             result['RouteTableId'] = self.route_table_id
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
         if self.v_switch_id is not None:
             result['VSwitchId'] = self.v_switch_id
         if self.v_switch_name is not None:
@@ -42535,6 +44066,11 @@ class DescribeVSwitchesRequest(TeaModel):
             self.resource_owner_id = m.get('ResourceOwnerId')
         if m.get('RouteTableId') is not None:
             self.route_table_id = m.get('RouteTableId')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = DescribeVSwitchesRequestTag()
+                self.tag.append(temp_model.from_map(k))
         if m.get('VSwitchId') is not None:
             self.v_switch_id = m.get('VSwitchId')
         if m.get('VSwitchName') is not None:
@@ -42550,7 +44086,12 @@ class DescribeVSwitchesRequest(TeaModel):
 
 class DescribeVSwitchesResponseBodyVSwitchesVSwitchRouteTable(TeaModel):
     def __init__(self, route_table_id=None, route_table_type=None):
+        # The ID of the route table that is associated with the vSwitch.
         self.route_table_id = route_table_id  # type: str
+        # The type of the route table that is associated with the vSwitch. Valid values:
+        # 
+        # - **System**: system route table
+        # - **Custom**: custom route table
         self.route_table_type = route_table_type  # type: str
 
     def validate(self):
@@ -42579,12 +44120,9 @@ class DescribeVSwitchesResponseBodyVSwitchesVSwitchRouteTable(TeaModel):
 
 class DescribeVSwitchesResponseBodyVSwitchesVSwitchTagsTag(TeaModel):
     def __init__(self, key=None, value=None):
-        # The ID of the route table that is associated with the vSwitch.
+        # The key of the tag that is added to the vSwitch.
         self.key = key  # type: str
-        # The type of the route table that is associated with the vSwitch. Valid values:
-        # 
-        # - **System**: system route table
-        # - **Custom**: custom route table
+        # The value of the tag that is added to the vSwitch.
         self.value = value  # type: str
 
     def validate(self):
@@ -42645,43 +44183,48 @@ class DescribeVSwitchesResponseBodyVSwitchesVSwitchTags(TeaModel):
 
 class DescribeVSwitchesResponseBodyVSwitchesVSwitch(TeaModel):
     def __init__(self, available_ip_address_count=None, cidr_block=None, creation_time=None, description=None,
-                 ipv_6cidr_block=None, is_default=None, network_acl_id=None, owner_id=None, resource_group_id=None,
-                 route_table=None, share_type=None, status=None, tags=None, v_switch_id=None, v_switch_name=None, vpc_id=None,
-                 zone_id=None):
-        # The ID of the vSwitch.
-        self.available_ip_address_count = available_ip_address_count  # type: long
-        # The ID of the zone to which the vSwitch belongs.
-        self.cidr_block = cidr_block  # type: str
-        # The ID of the network access control list (ACL).
-        self.creation_time = creation_time  # type: str
-        # The IPv6 CIDR block of the vSwitch.
-        self.description = description  # type: str
-        # The key of the tag that is added to the vSwitch.
-        self.ipv_6cidr_block = ipv_6cidr_block  # type: str
-        # The ID of the Alibaba Cloud account to which the resource belongs.
-        self.is_default = is_default  # type: bool
-        # The IPv4 CIDR block of the vSwitch.
-        self.network_acl_id = network_acl_id  # type: str
-        # The description of the vSwitches.
-        self.owner_id = owner_id  # type: long
-        # The name of the vSwitch.
-        self.resource_group_id = resource_group_id  # type: str
-        self.route_table = route_table  # type: DescribeVSwitchesResponseBodyVSwitchesVSwitchRouteTable
-        self.share_type = share_type  # type: str
+                 enabled_ipv_6=None, ipv_6cidr_block=None, is_default=None, network_acl_id=None, owner_id=None,
+                 resource_group_id=None, route_table=None, share_type=None, status=None, tags=None, v_switch_id=None,
+                 v_switch_name=None, vpc_id=None, zone_id=None):
         # The number of available IP addresses in the vSwitch.
-        self.status = status  # type: str
-        # The information about the route table.
-        self.tags = tags  # type: DescribeVSwitchesResponseBodyVSwitchesVSwitchTags
-        # The ID of the resource group to which the vSwitch belongs.
-        self.v_switch_id = v_switch_id  # type: str
-        # The value of the tag that is added to the vSwitch.
-        self.v_switch_name = v_switch_name  # type: str
+        self.available_ip_address_count = available_ip_address_count  # type: long
+        # The IPv4 CIDR block of the vSwitch.
+        self.cidr_block = cidr_block  # type: str
+        # The time when the vSwitch was created.
+        self.creation_time = creation_time  # type: str
+        # The description of the vSwitches.
+        self.description = description  # type: str
+        self.enabled_ipv_6 = enabled_ipv_6  # type: bool
+        # The IPv6 CIDR block of the vSwitch.
+        self.ipv_6cidr_block = ipv_6cidr_block  # type: str
         # Indicates whether the vSwitch is the default vSwitch. Valid values:
         # 
         # *   **true**: The vSwitch is the default vSwitch.
         # *   **false**: The vSwitch is not the default vSwitch.
-        self.vpc_id = vpc_id  # type: str
+        self.is_default = is_default  # type: bool
+        # The ID of the network access control list (ACL).
+        self.network_acl_id = network_acl_id  # type: str
+        # The ID of the Alibaba Cloud account to which the resource belongs.
+        self.owner_id = owner_id  # type: long
+        # The ID of the resource group to which the vSwitch belongs.
+        self.resource_group_id = resource_group_id  # type: str
+        # The information about the route table.
+        self.route_table = route_table  # type: DescribeVSwitchesResponseBodyVSwitchesVSwitchRouteTable
+        self.share_type = share_type  # type: str
+        # The status of the vSwitch. Valid values:
+        # 
+        # *   **Pending**: The vSwitch is being configured.
+        # *   **Available**: The vSwitch is available.
+        self.status = status  # type: str
         # The tag information about the vSwitch.
+        self.tags = tags  # type: DescribeVSwitchesResponseBodyVSwitchesVSwitchTags
+        # The ID of the vSwitch.
+        self.v_switch_id = v_switch_id  # type: str
+        # The name of the vSwitch.
+        self.v_switch_name = v_switch_name  # type: str
+        # The ID of the VPC to which the vSwitch belongs.
+        self.vpc_id = vpc_id  # type: str
+        # The ID of the zone to which the vSwitch belongs.
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -42704,6 +44247,8 @@ class DescribeVSwitchesResponseBodyVSwitchesVSwitch(TeaModel):
             result['CreationTime'] = self.creation_time
         if self.description is not None:
             result['Description'] = self.description
+        if self.enabled_ipv_6 is not None:
+            result['EnabledIpv6'] = self.enabled_ipv_6
         if self.ipv_6cidr_block is not None:
             result['Ipv6CidrBlock'] = self.ipv_6cidr_block
         if self.is_default is not None:
@@ -42742,6 +44287,8 @@ class DescribeVSwitchesResponseBodyVSwitchesVSwitch(TeaModel):
             self.creation_time = m.get('CreationTime')
         if m.get('Description') is not None:
             self.description = m.get('Description')
+        if m.get('EnabledIpv6') is not None:
+            self.enabled_ipv_6 = m.get('EnabledIpv6')
         if m.get('Ipv6CidrBlock') is not None:
             self.ipv_6cidr_block = m.get('Ipv6CidrBlock')
         if m.get('IsDefault') is not None:
@@ -42807,18 +44354,15 @@ class DescribeVSwitchesResponseBodyVSwitches(TeaModel):
 
 class DescribeVSwitchesResponseBody(TeaModel):
     def __init__(self, page_number=None, page_size=None, request_id=None, total_count=None, v_switches=None):
-        # The ID of the VPC to which the vSwitch belongs.
+        # The page number of the returned page.
         self.page_number = page_number  # type: int
-        # The total number of entries returned.
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
-        # The details about the vSwitch.
+        # The ID of the request.
         self.request_id = request_id  # type: str
-        # The status of the vSwitch. Valid values:
-        # 
-        # *   **Pending**: The vSwitch is being configured.
-        # *   **Available**: The vSwitch is available.
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
-        # The time when the vSwitch was created.
+        # The details about the vSwitch.
         self.v_switches = v_switches  # type: DescribeVSwitchesResponseBodyVSwitches
 
     def validate(self):
@@ -43399,9 +44943,38 @@ class DescribeVirtualBorderRoutersRequestFilter(TeaModel):
         return self
 
 
+class DescribeVirtualBorderRoutersRequestTags(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeVirtualBorderRoutersRequestTags, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
 class DescribeVirtualBorderRoutersRequest(TeaModel):
     def __init__(self, filter=None, include_cross_account_vbr=None, owner_id=None, page_number=None, page_size=None,
-                 region_id=None, resource_owner_account=None, resource_owner_id=None):
+                 region_id=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None, tags=None):
         self.filter = filter  # type: list[DescribeVirtualBorderRoutersRequestFilter]
         # Specifies whether cross-account VBRs are included.
         # 
@@ -43415,12 +44988,18 @@ class DescribeVirtualBorderRoutersRequest(TeaModel):
         self.page_size = page_size  # type: int
         # The ID of the region where the VBRs are deployed. You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        self.tags = tags  # type: list[DescribeVirtualBorderRoutersRequestTags]
 
     def validate(self):
         if self.filter:
             for k in self.filter:
+                if k:
+                    k.validate()
+        if self.tags:
+            for k in self.tags:
                 if k:
                     k.validate()
 
@@ -43444,10 +45023,16 @@ class DescribeVirtualBorderRoutersRequest(TeaModel):
             result['PageSize'] = self.page_size
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
             result['ResourceOwnerId'] = self.resource_owner_id
+        result['Tags'] = []
+        if self.tags is not None:
+            for k in self.tags:
+                result['Tags'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m=None):
@@ -43467,10 +45052,17 @@ class DescribeVirtualBorderRoutersRequest(TeaModel):
             self.page_size = m.get('PageSize')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
             self.resource_owner_id = m.get('ResourceOwnerId')
+        self.tags = []
+        if m.get('Tags') is not None:
+            for k in m.get('Tags'):
+                temp_model = DescribeVirtualBorderRoutersRequestTags()
+                self.tags.append(temp_model.from_map(k))
         return self
 
 
@@ -43721,6 +45313,67 @@ class DescribeVirtualBorderRoutersResponseBodyVirtualBorderRouterSetVirtualBorde
         return self
 
 
+class DescribeVirtualBorderRoutersResponseBodyVirtualBorderRouterSetVirtualBorderRouterTypeTagsTags(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeVirtualBorderRoutersResponseBodyVirtualBorderRouterSetVirtualBorderRouterTypeTagsTags, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class DescribeVirtualBorderRoutersResponseBodyVirtualBorderRouterSetVirtualBorderRouterTypeTags(TeaModel):
+    def __init__(self, tags=None):
+        self.tags = tags  # type: list[DescribeVirtualBorderRoutersResponseBodyVirtualBorderRouterSetVirtualBorderRouterTypeTagsTags]
+
+    def validate(self):
+        if self.tags:
+            for k in self.tags:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeVirtualBorderRoutersResponseBodyVirtualBorderRouterSetVirtualBorderRouterTypeTags, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Tags'] = []
+        if self.tags is not None:
+            for k in self.tags:
+                result['Tags'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.tags = []
+        if m.get('Tags') is not None:
+            for k in m.get('Tags'):
+                temp_model = DescribeVirtualBorderRoutersResponseBodyVirtualBorderRouterSetVirtualBorderRouterTypeTagsTags()
+                self.tags.append(temp_model.from_map(k))
+        return self
+
+
 class DescribeVirtualBorderRoutersResponseBodyVirtualBorderRouterSetVirtualBorderRouterType(TeaModel):
     def __init__(self, access_point_id=None, activation_time=None, associated_cens=None,
                  associated_physical_connections=None, bandwidth=None, circuit_code=None, cloud_box_instance_id=None, creation_time=None,
@@ -43728,8 +45381,9 @@ class DescribeVirtualBorderRoutersResponseBodyVirtualBorderRouterSetVirtualBorde
                  local_ipv_6gateway_ip=None, min_rx_interval=None, min_tx_interval=None, name=None, pconn_vbr_charge_type=None,
                  pconn_vbr_expire_time=None, peer_gateway_ip=None, peer_ipv_6gateway_ip=None, peering_ipv_6subnet_mask=None,
                  peering_subnet_mask=None, physical_connection_business_status=None, physical_connection_id=None,
-                 physical_connection_owner_uid=None, physical_connection_status=None, recovery_time=None, route_table_id=None, status=None,
-                 termination_time=None, type=None, vbr_id=None, vlan_id=None, vlan_interface_id=None):
+                 physical_connection_owner_uid=None, physical_connection_status=None, recovery_time=None, resource_group_id=None,
+                 route_table_id=None, status=None, tags=None, termination_time=None, type=None, vbr_id=None, vlan_id=None,
+                 vlan_interface_id=None):
         # The ID of the access point.
         self.access_point_id = access_point_id  # type: str
         # The first time when the VBR was activated.
@@ -43810,6 +45464,7 @@ class DescribeVirtualBorderRoutersResponseBodyVirtualBorderRouterSetVirtualBorde
         self.physical_connection_status = physical_connection_status  # type: str
         # The last time when the status of the VBR changed from **terminated** to **active**.
         self.recovery_time = recovery_time  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         # The ID of the VBR route table.
         self.route_table_id = route_table_id  # type: str
         # The status of the VBR. Valid values:
@@ -43821,6 +45476,7 @@ class DescribeVirtualBorderRoutersResponseBodyVirtualBorderRouterSetVirtualBorde
         # *   **recovering**: being enabled
         # *   **deleting:**: being deleted
         self.status = status  # type: str
+        self.tags = tags  # type: DescribeVirtualBorderRoutersResponseBodyVirtualBorderRouterSetVirtualBorderRouterTypeTags
         # The last time when the VBR was disabled.
         self.termination_time = termination_time  # type: str
         # The type of the VBR.
@@ -43837,6 +45493,8 @@ class DescribeVirtualBorderRoutersResponseBodyVirtualBorderRouterSetVirtualBorde
             self.associated_cens.validate()
         if self.associated_physical_connections:
             self.associated_physical_connections.validate()
+        if self.tags:
+            self.tags.validate()
 
     def to_map(self):
         _map = super(DescribeVirtualBorderRoutersResponseBodyVirtualBorderRouterSetVirtualBorderRouterType, self).to_map()
@@ -43900,10 +45558,14 @@ class DescribeVirtualBorderRoutersResponseBodyVirtualBorderRouterSetVirtualBorde
             result['PhysicalConnectionStatus'] = self.physical_connection_status
         if self.recovery_time is not None:
             result['RecoveryTime'] = self.recovery_time
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.route_table_id is not None:
             result['RouteTableId'] = self.route_table_id
         if self.status is not None:
             result['Status'] = self.status
+        if self.tags is not None:
+            result['Tags'] = self.tags.to_map()
         if self.termination_time is not None:
             result['TerminationTime'] = self.termination_time
         if self.type is not None:
@@ -43976,10 +45638,15 @@ class DescribeVirtualBorderRoutersResponseBodyVirtualBorderRouterSetVirtualBorde
             self.physical_connection_status = m.get('PhysicalConnectionStatus')
         if m.get('RecoveryTime') is not None:
             self.recovery_time = m.get('RecoveryTime')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('RouteTableId') is not None:
             self.route_table_id = m.get('RouteTableId')
         if m.get('Status') is not None:
             self.status = m.get('Status')
+        if m.get('Tags') is not None:
+            temp_model = DescribeVirtualBorderRoutersResponseBodyVirtualBorderRouterSetVirtualBorderRouterTypeTags()
+            self.tags = temp_model.from_map(m['Tags'])
         if m.get('TerminationTime') is not None:
             self.termination_time = m.get('TerminationTime')
         if m.get('Type') is not None:
@@ -44541,20 +46208,25 @@ class DescribeVirtualBorderRoutersForPhysicalConnectionResponse(TeaModel):
 class DescribeVpcAttributeRequest(TeaModel):
     def __init__(self, dry_run=None, is_default=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None, vpc_id=None):
-        # The region ID of the VPC.
+        # Specifies whether to check the request without performing the operation. Valid values:
+        # 
+        # *   **true**: checks the request without performing the operation. The system checks whether your AccessKey pair is valid, whether the Resource Access Management (RAM) user is authorized, and whether the required parameters are set. If the request fails the check, an error message is returned. If the request passes the check, the `DryRunOperation` error code is returned.
+        # *   **false**: sends the request. After the request passes the check, a 2xx HTTP status code is returned and the operation is performed. This is the default value.
         self.dry_run = dry_run  # type: bool
-        # The name of the VPC.
+        # Specifies whether the VPC is the default VPC. Valid values:
+        # 
+        # *   **false** (default): no
+        # *   **true**: yes
         self.is_default = is_default  # type: bool
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The ID of the Alibaba Cloud account to which the VPC belongs.
+        # The region ID of the VPC.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # Indicates whether the ClassicLink feature is enabled. Valid values:
-        # 
-        # *   **true**: yes
-        # *   **false** (default): no
+        # The ID of the VPC that you want to query.
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
@@ -44607,14 +46279,13 @@ class DescribeVpcAttributeRequest(TeaModel):
 
 class DescribeVpcAttributeResponseBodyAssociatedCensAssociatedCen(TeaModel):
     def __init__(self, cen_id=None, cen_owner_id=None, cen_status=None):
-        # Indicates whether the VPC supports IPv4 gateways. 
-        # 
-        # - **true**: yes
-        # - **false**: no
+        # The ID of the CEN instance to which the VPC is attached.
         self.cen_id = cen_id  # type: str
-        # The IPv6 CIDR block of the VPC.
+        # The ID of the Alibaba Cloud account to which the CEN instance belongs.
         self.cen_owner_id = cen_owner_id  # type: long
-        # The ID of the IPv4 gateway.
+        # The status of the CEN instance to which the VPC is attached.
+        # 
+        # **Attached** is returned only if the VPC is attached to a CEN instance.
         self.cen_status = cen_status  # type: str
 
     def validate(self):
@@ -44679,7 +46350,13 @@ class DescribeVpcAttributeResponseBodyAssociatedCens(TeaModel):
 
 class DescribeVpcAttributeResponseBodyCloudResourcesCloudResourceSetType(TeaModel):
     def __init__(self, resource_count=None, resource_type=None):
+        # The number of resources deployed in the VPC.
         self.resource_count = resource_count  # type: int
+        # The type of resources deployed in the VPC. Valid values:
+        # 
+        # - **VSwitch**: vSwitches
+        # - **VRouter**: vRouters
+        # - **RouteTable**: route tables
         self.resource_type = resource_type  # type: str
 
     def validate(self):
@@ -44740,7 +46417,16 @@ class DescribeVpcAttributeResponseBodyCloudResources(TeaModel):
 
 class DescribeVpcAttributeResponseBodyIpv6CidrBlocksIpv6CidrBlock(TeaModel):
     def __init__(self, ipv_6cidr_block=None, ipv_6isp=None):
+        # The IPv6 CIDR block of the VPC.
         self.ipv_6cidr_block = ipv_6cidr_block  # type: str
+        # The type of the IPv6 CIDR block. Valid values:
+        # 
+        # - **BGP** (default): an IPv6 CIDR block provided by Alibaba Cloud over Border Gateway Protocol (BGP)
+        # - **ChinaMobile**: an IPv6 CIDR block provided by China Mobile (single ISP)
+        # - **ChinaUnicom**: an IPv6 CIDR block provided by China Unicom (single ISP)
+        # - **ChinaTelecom**: an IPv6 CIDR block provided by China Telecom (single ISP)
+        # 
+        # >  If your Alibaba Cloud account is allowed to activate single-ISP bandwidth, valid values are: **ChinaTelecom**, **ChinaUnicom**, and **ChinaMobile**.
         self.ipv_6isp = ipv_6isp  # type: str
 
     def validate(self):
@@ -44938,70 +46624,73 @@ class DescribeVpcAttributeResponseBody(TeaModel):
                  ipv_4gateway_id=None, ipv_6cidr_block=None, ipv_6cidr_blocks=None, is_default=None, owner_id=None, region_id=None,
                  request_id=None, resource_group_id=None, secondary_cidr_blocks=None, status=None, support_ipv_4gateway=None,
                  tags=None, user_cidrs=None, vrouter_id=None, v_switch_ids=None, vpc_id=None, vpc_name=None):
-        # The type of the IPv6 CIDR block. Valid values:
-        # 
-        # - **BGP** (default): an IPv6 CIDR block provided by Alibaba Cloud over Border Gateway Protocol (BGP)
-        # - **ChinaMobile**: an IPv6 CIDR block provided by China Mobile (single ISP)
-        # - **ChinaUnicom**: an IPv6 CIDR block provided by China Unicom (single ISP)
-        # - **ChinaTelecom**: an IPv6 CIDR block provided by China Telecom (single ISP)
-        # 
-        # >  If your Alibaba Cloud account is allowed to activate single-ISP bandwidth, valid values are: **ChinaTelecom**, **ChinaUnicom**, and **ChinaMobile**.
-        self.associated_cens = associated_cens  # type: DescribeVpcAttributeResponseBodyAssociatedCens
-        # The secondary IPv4 CIDR block of the VPC.
-        self.cidr_block = cidr_block  # type: str
-        # The description of the VPC.
-        self.classic_link_enabled = classic_link_enabled  # type: bool
-        self.cloud_resources = cloud_resources  # type: DescribeVpcAttributeResponseBodyCloudResources
-        # The ID of the vRouter that belongs to the VPC.
-        self.creation_time = creation_time  # type: str
-        # The ID of the Alibaba Cloud account to which the CEN instance belongs.
-        self.description = description  # type: str
-        # The status of the CEN instance to which the VPC is attached.
-        # 
-        # **Attached** is returned only if the VPC is attached to a CEN instance.
-        self.dhcp_options_set_id = dhcp_options_set_id  # type: str
-        # The user CIDR block. Multiple CIDR blocks are separated by commas (,). At most three CIDR blocks are returned.
-        self.dhcp_options_set_status = dhcp_options_set_status  # type: str
-        self.ipv_4gateway_id = ipv_4gateway_id  # type: str
-        # The list of resources deployed in the VPC.
-        self.ipv_6cidr_block = ipv_6cidr_block  # type: str
-        self.ipv_6cidr_blocks = ipv_6cidr_blocks  # type: DescribeVpcAttributeResponseBodyIpv6CidrBlocks
-        # The ID of the request.
-        self.is_default = is_default  # type: bool
-        # The ID of the resource group.
-        self.owner_id = owner_id  # type: long
-        # The ID of the DHCP options set.
-        self.region_id = region_id  # type: str
         # The list of Cloud Enterprise Network (CEN) instances to which the VPC is attached.
         # 
         # If the VPC is not attached to a CEN instance, the parameter is not returned.
-        self.request_id = request_id  # type: str
-        # The ID of the CEN instance to which the VPC is attached.
-        self.resource_group_id = resource_group_id  # type: str
-        # The information about the IPv6 CIDR blocks of the VPC.
-        self.secondary_cidr_blocks = secondary_cidr_blocks  # type: DescribeVpcAttributeResponseBodySecondaryCidrBlocks
+        self.associated_cens = associated_cens  # type: DescribeVpcAttributeResponseBodyAssociatedCens
+        # The IPv4 CIDR block of the VPC.
+        self.cidr_block = cidr_block  # type: str
+        # Indicates whether the ClassicLink feature is enabled. Valid values:
+        # 
+        # *   **true**: yes
+        # *   **false** (default): no
+        self.classic_link_enabled = classic_link_enabled  # type: bool
+        # The list of resources deployed in the VPC.
+        self.cloud_resources = cloud_resources  # type: DescribeVpcAttributeResponseBodyCloudResources
+        # The time when the VPC was created.
+        self.creation_time = creation_time  # type: str
+        # The description of the VPC.
+        self.description = description  # type: str
+        # The ID of the DHCP options set.
+        self.dhcp_options_set_id = dhcp_options_set_id  # type: str
         # The status of the DHCP options set. Valid values:
         # 
         # *   **Available**: available
         # *   **InUse**: in use
         # *   **Deleted**: deleted
         # *   **Pending**: being configured
+        self.dhcp_options_set_status = dhcp_options_set_status  # type: str
+        # The ID of the IPv4 gateway.
+        self.ipv_4gateway_id = ipv_4gateway_id  # type: str
+        # The IPv6 CIDR block of the VPC.
+        self.ipv_6cidr_block = ipv_6cidr_block  # type: str
+        # The information about the IPv6 CIDR blocks of the VPC.
+        self.ipv_6cidr_blocks = ipv_6cidr_blocks  # type: DescribeVpcAttributeResponseBodyIpv6CidrBlocks
+        # Indicates whether the VPC is the default VPC. Valid values:
+        # 
+        # *   **true**: yes
+        # *   **false** (default): no
+        self.is_default = is_default  # type: bool
+        # The ID of the Alibaba Cloud account to which the VPC belongs.
+        self.owner_id = owner_id  # type: long
+        # The region ID of the VPC.
+        self.region_id = region_id  # type: str
+        # The ID of the request.
+        self.request_id = request_id  # type: str
+        # The ID of the resource group.
+        self.resource_group_id = resource_group_id  # type: str
+        # The secondary IPv4 CIDR block of the VPC.
+        self.secondary_cidr_blocks = secondary_cidr_blocks  # type: DescribeVpcAttributeResponseBodySecondaryCidrBlocks
+        # The status of the VPC. Valid values:
+        # 
+        # *   **Available**: available
+        # *   **Pending**: being configured
         self.status = status  # type: str
+        # Indicates whether the VPC supports IPv4 gateways. 
+        # 
+        # - **true**: yes
+        # - **false**: no
         self.support_ipv_4gateway = support_ipv_4gateway  # type: bool
         self.tags = tags  # type: DescribeVpcAttributeResponseBodyTags
-        # The type of resources deployed in the VPC. Valid values:
-        # 
-        # - **VSwitch**: vSwitches
-        # - **VRouter**: vRouters
-        # - **RouteTable**: route tables
+        # The user CIDR block. Multiple CIDR blocks are separated by commas (,). At most three CIDR blocks are returned.
         self.user_cidrs = user_cidrs  # type: DescribeVpcAttributeResponseBodyUserCidrs
-        # The list of vSwitches deployed in the VPC.
+        # The ID of the vRouter that belongs to the VPC.
         self.vrouter_id = vrouter_id  # type: str
-        # The number of resources deployed in the VPC.
+        # The list of vSwitches deployed in the VPC.
         self.v_switch_ids = v_switch_ids  # type: DescribeVpcAttributeResponseBodyVSwitchIds
-        # The IPv4 CIDR block of the VPC.
+        # The ID of the VPC.
         self.vpc_id = vpc_id  # type: str
-        # The IPv6 CIDR block of the VPC.
+        # The name of the VPC.
         self.vpc_name = vpc_name  # type: str
 
     def validate(self):
@@ -45179,43 +46868,80 @@ class DescribeVpcAttributeResponse(TeaModel):
         return self
 
 
-class DescribeVpcsRequest(TeaModel):
-    def __init__(self, dhcp_options_set_id=None, dry_run=None, is_default=None, owner_account=None, owner_id=None,
-                 page_number=None, page_size=None, region_id=None, resource_group_id=None, resource_owner_account=None,
-                 resource_owner_id=None, vpc_id=None, vpc_name=None, vpc_owner_id=None):
-        # Indicates whether the VPC is the default VPC in the region. Valid values:
-        # 
-        # *   **true**: yes
-        # *   **false**: no
-        self.dhcp_options_set_id = dhcp_options_set_id  # type: str
-        # The number of entries returned.
-        self.dry_run = dry_run  # type: bool
-        # The number of the returned page.
-        self.is_default = is_default  # type: bool
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
-        # The time when the VPC was created.
-        self.page_number = page_number  # type: int
-        # The status of the VPC. Valid values:
-        # 
-        # *   **Pending**: being configured
-        # *   **Available**: available
-        self.page_size = page_size  # type: int
-        # The number of entries returned per page.
-        self.region_id = region_id  # type: str
-        # The details of the VPCs.
-        self.resource_group_id = resource_group_id  # type: str
-        self.resource_owner_account = resource_owner_account  # type: str
-        self.resource_owner_id = resource_owner_id  # type: long
-        # The ID of the DHCP options set.
-        self.vpc_id = vpc_id  # type: str
-        # The ID of the request.
-        self.vpc_name = vpc_name  # type: str
-        # The ID of the VPC.
-        self.vpc_owner_id = vpc_owner_id  # type: long
+class DescribeVpcsRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
 
     def validate(self):
         pass
+
+    def to_map(self):
+        _map = super(DescribeVpcsRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class DescribeVpcsRequest(TeaModel):
+    def __init__(self, dhcp_options_set_id=None, dry_run=None, is_default=None, owner_account=None, owner_id=None,
+                 page_number=None, page_size=None, region_id=None, resource_group_id=None, resource_owner_account=None,
+                 resource_owner_id=None, tag=None, vpc_id=None, vpc_name=None, vpc_owner_id=None):
+        # The ID of the DHCP options set.
+        self.dhcp_options_set_id = dhcp_options_set_id  # type: str
+        # Specifies whether to check the request without performing the operation. Valid values:
+        # 
+        # *   **true**: checks the request but does not query VPCs. The system checks whether your AccessKey pair is valid, whether the Resource Access Management (RAM) user is authorized, and whether the required parameters are set. If the request fails to pass the check, an error message is returned. If the request passes the check, the `DryRunOperation` error code is returned.
+        # *   **false** (default): sends the request. If the request passes the check, a 2xx HTTP status code is returned and VPCs are queried.
+        self.dry_run = dry_run  # type: bool
+        # Specifies whether to query the default VPC in the specified region. Valid values:
+        # 
+        # *   **true** (default): yes
+        # *   **false**: no
+        self.is_default = is_default  # type: bool
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The number of the page to return. Default value: **1**.
+        self.page_number = page_number  # type: int
+        # The number of entries to return per page. Maximum value: **50**. Default value: **10**.
+        self.page_size = page_size  # type: int
+        # The region ID of the VPC.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
+        self.region_id = region_id  # type: str
+        # The ID of the resource group to which the VPC to be queried belongs.
+        self.resource_group_id = resource_group_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        self.tag = tag  # type: list[DescribeVpcsRequestTag]
+        # The ID of the VPC.
+        # 
+        # You can specify up to 20 VPC IDs. Separate multiple IDs with commas (,).
+        self.vpc_id = vpc_id  # type: str
+        # The name of the VPC.
+        self.vpc_name = vpc_name  # type: str
+        # The ID of the Alibaba Cloud account to which the VPC belongs.
+        self.vpc_owner_id = vpc_owner_id  # type: long
+
+    def validate(self):
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(DescribeVpcsRequest, self).to_map()
@@ -45245,6 +46971,10 @@ class DescribeVpcsRequest(TeaModel):
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
             result['ResourceOwnerId'] = self.resource_owner_id
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
         if self.vpc_id is not None:
             result['VpcId'] = self.vpc_id
         if self.vpc_name is not None:
@@ -45277,6 +47007,11 @@ class DescribeVpcsRequest(TeaModel):
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
             self.resource_owner_id = m.get('ResourceOwnerId')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = DescribeVpcsRequestTag()
+                self.tag.append(temp_model.from_map(k))
         if m.get('VpcId') is not None:
             self.vpc_id = m.get('VpcId')
         if m.get('VpcName') is not None:
@@ -45288,7 +47023,16 @@ class DescribeVpcsRequest(TeaModel):
 
 class DescribeVpcsResponseBodyVpcsVpcIpv6CidrBlocksIpv6CidrBlock(TeaModel):
     def __init__(self, ipv_6cidr_block=None, ipv_6isp=None):
+        # The IPv6 CIDR block of the VPC.
         self.ipv_6cidr_block = ipv_6cidr_block  # type: str
+        # The type of IPv6 CIDR block. Valid values:
+        # 
+        # - **BGP**: an IPv6 CIDR block provided by Alibaba Cloud over Border Gateway Protocol (BGP)
+        # - **ChinaMobile**: an IPv6 CIDR block provided by China Mobile (single ISP)
+        # - **ChinaUnicom**: an IPv6 CIDR block provided by China Unicom (single ISP)
+        # - **ChinaTelecom**: an IPv6 CIDR block provided by China Telecom (single ISP)
+        # 
+        # >  If your Alibaba Cloud account is allowed to activate single-ISP bandwidth, valid values are: **ChinaTelecom**, **ChinaUnicom**, and **ChinaMobile**.
         self.ipv_6isp = ipv_6isp  # type: str
 
     def validate(self):
@@ -45421,8 +47165,9 @@ class DescribeVpcsResponseBodyVpcsVpcSecondaryCidrBlocks(TeaModel):
 
 class DescribeVpcsResponseBodyVpcsVpcTagsTag(TeaModel):
     def __init__(self, key=None, value=None):
-        # The IDs of the route tables.
+        # The key of the tag that is added to the VPC.
         self.key = key  # type: str
+        # The value of the tag that is added to the VPC.
         self.value = value  # type: str
 
     def validate(self):
@@ -45535,54 +47280,64 @@ class DescribeVpcsResponseBodyVpcsVpc(TeaModel):
                  nat_gateway_ids=None, owner_id=None, region_id=None, resource_group_id=None, router_table_ids=None,
                  secondary_cidr_blocks=None, status=None, tags=None, user_cidrs=None, vrouter_id=None, v_switch_ids=None, vpc_id=None,
                  vpc_name=None):
-        # The list of user CIDR blocks.
-        self.cen_status = cen_status  # type: str
-        # The IPv6 CIDR blocks of the VPC.
-        self.cidr_block = cidr_block  # type: str
-        # The IPv4 CIDR block of the VPC.
-        self.creation_time = creation_time  # type: str
-        # The type of IPv6 CIDR block. Valid values:
-        # 
-        # - **BGP**: an IPv6 CIDR block provided by Alibaba Cloud over Border Gateway Protocol (BGP)
-        # - **ChinaMobile**: an IPv6 CIDR block provided by China Mobile (single ISP)
-        # - **ChinaUnicom**: an IPv6 CIDR block provided by China Unicom (single ISP)
-        # - **ChinaTelecom**: an IPv6 CIDR block provided by China Telecom (single ISP)
-        # 
-        # >  If your Alibaba Cloud account is allowed to activate single-ISP bandwidth, valid values are: **ChinaTelecom**, **ChinaUnicom**, and **ChinaMobile**.
-        self.description = description  # type: str
-        # The vSwitches in the VPC. 
-        # 
-        # You can query up to 300 vSwitches in the VPC. The information about the latest vSwitches is returned. If you want to query the information about all vSwitches in a VPC, call the [DescribeVSwitches](/help/en/virtual-private-cloud/latest/describevswitches) operation.
-        self.dhcp_options_set_id = dhcp_options_set_id  # type: str
-        # The value of the tag that is added to the VPC.
-        self.dhcp_options_set_status = dhcp_options_set_status  # type: str
-        # The secondary CIDR blocks of the VPC.
-        self.ipv_6cidr_block = ipv_6cidr_block  # type: str
-        self.ipv_6cidr_blocks = ipv_6cidr_blocks  # type: DescribeVpcsResponseBodyVpcsVpcIpv6CidrBlocks
-        # The ID of the DHCP options set.
-        self.is_default = is_default  # type: bool
-        self.nat_gateway_ids = nat_gateway_ids  # type: DescribeVpcsResponseBodyVpcsVpcNatGatewayIds
-        # The IPv6 CIDR block of the VPC.
-        self.owner_id = owner_id  # type: long
         # The status of the Cloud Enterprise Network (CEN) instance to which the VPC is attached.
         # 
         # **Attached** is returned only if the VPC is attached to a CEN instance.
-        self.region_id = region_id  # type: str
-        # The IPv6 CIDR block of the VPC.
-        self.resource_group_id = resource_group_id  # type: str
-        self.router_table_ids = router_table_ids  # type: DescribeVpcsResponseBodyVpcsVpcRouterTableIds
-        self.secondary_cidr_blocks = secondary_cidr_blocks  # type: DescribeVpcsResponseBodyVpcsVpcSecondaryCidrBlocks
+        self.cen_status = cen_status  # type: str
+        # The IPv4 CIDR block of the VPC.
+        self.cidr_block = cidr_block  # type: str
+        # The time when the VPC was created.
+        self.creation_time = creation_time  # type: str
         # The description of the VPC.
-        self.status = status  # type: str
+        self.description = description  # type: str
+        # The ID of the DHCP options set.
+        self.dhcp_options_set_id = dhcp_options_set_id  # type: str
+        # The status of the DHCP options set. Valid values:
+        # 
+        # *   **Available**: available
+        # *   **InUse**: in use
+        # *   **Deleted**: deleted
+        # *   **Pending**: being configured
+        self.dhcp_options_set_status = dhcp_options_set_status  # type: str
+        # The IPv6 CIDR block of the VPC.
+        self.ipv_6cidr_block = ipv_6cidr_block  # type: str
+        # The IPv6 CIDR blocks of the VPC.
+        self.ipv_6cidr_blocks = ipv_6cidr_blocks  # type: DescribeVpcsResponseBodyVpcsVpcIpv6CidrBlocks
+        # Indicates whether the VPC is the default VPC in the region. Valid values:
+        # 
+        # *   **true**: yes
+        # *   **false**: no
+        self.is_default = is_default  # type: bool
         # The IDs of the NAT gateways.
-        self.tags = tags  # type: DescribeVpcsResponseBodyVpcsVpcTags
-        self.user_cidrs = user_cidrs  # type: DescribeVpcsResponseBodyVpcsVpcUserCidrs
-        # The key of the tag that is added to the VPC.
-        self.vrouter_id = vrouter_id  # type: str
-        self.v_switch_ids = v_switch_ids  # type: DescribeVpcsResponseBodyVpcsVpcVSwitchIds
+        self.nat_gateway_ids = nat_gateway_ids  # type: DescribeVpcsResponseBodyVpcsVpcNatGatewayIds
+        # The ID of the Alibaba Cloud account to which the VPC belongs.
+        self.owner_id = owner_id  # type: long
+        # The ID of the region to which the VPC belongs.
+        self.region_id = region_id  # type: str
         # The ID of the resource group to which the VPC belongs.
-        self.vpc_id = vpc_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
+        # The IDs of the route tables.
+        self.router_table_ids = router_table_ids  # type: DescribeVpcsResponseBodyVpcsVpcRouterTableIds
+        # The secondary CIDR blocks of the VPC.
+        self.secondary_cidr_blocks = secondary_cidr_blocks  # type: DescribeVpcsResponseBodyVpcsVpcSecondaryCidrBlocks
+        # The status of the VPC. Valid values:
+        # 
+        # *   **Pending**: being configured
+        # *   **Available**: available
+        self.status = status  # type: str
         # The tag information about the VPC.
+        self.tags = tags  # type: DescribeVpcsResponseBodyVpcsVpcTags
+        # The list of user CIDR blocks.
+        self.user_cidrs = user_cidrs  # type: DescribeVpcsResponseBodyVpcsVpcUserCidrs
+        # The ID of the vRouter.
+        self.vrouter_id = vrouter_id  # type: str
+        # The vSwitches in the VPC. 
+        # 
+        # You can query up to 300 vSwitches in the VPC. The information about the latest vSwitches is returned. If you want to query the information about all vSwitches in a VPC, call the [DescribeVSwitches](/help/en/virtual-private-cloud/latest/describevswitches) operation.
+        self.v_switch_ids = v_switch_ids  # type: DescribeVpcsResponseBodyVpcsVpcVSwitchIds
+        # The ID of the VPC.
+        self.vpc_id = vpc_id  # type: str
+        # The name of the VPC.
         self.vpc_name = vpc_name  # type: str
 
     def validate(self):
@@ -45743,20 +47498,15 @@ class DescribeVpcsResponseBodyVpcs(TeaModel):
 
 class DescribeVpcsResponseBody(TeaModel):
     def __init__(self, page_number=None, page_size=None, request_id=None, total_count=None, vpcs=None):
-        # The name of the VPC.
+        # The number of the returned page.
         self.page_number = page_number  # type: int
-        # The ID of the Alibaba Cloud account to which the VPC belongs.
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
-        # The ID of the region to which the VPC belongs.
+        # The ID of the request.
         self.request_id = request_id  # type: str
-        # The ID of the vRouter.
+        # The number of entries returned.
         self.total_count = total_count  # type: int
-        # The status of the DHCP options set. Valid values:
-        # 
-        # *   **Available**: available
-        # *   **InUse**: in use
-        # *   **Deleted**: deleted
-        # *   **Pending**: being configured
+        # The details of the VPCs.
         self.vpcs = vpcs  # type: DescribeVpcsResponseBodyVpcs
 
     def validate(self):
@@ -46316,10 +48066,9 @@ class DescribeVpnConnectionResponseBodyTags(TeaModel):
 
 
 class DescribeVpnConnectionResponseBodyTunnelOptionsSpecificationTunnelOptionsTunnelBgpConfig(TeaModel):
-    def __init__(self, bgp_status=None, enable_bgp=None, local_asn=None, local_bgp_ip=None, peer_asn=None,
-                 peer_bgp_ip=None, tunnel_cidr=None):
+    def __init__(self, bgp_status=None, local_asn=None, local_bgp_ip=None, peer_asn=None, peer_bgp_ip=None,
+                 tunnel_cidr=None):
         self.bgp_status = bgp_status  # type: str
-        self.enable_bgp = enable_bgp  # type: str
         self.local_asn = local_asn  # type: str
         self.local_bgp_ip = local_bgp_ip  # type: str
         self.peer_asn = peer_asn  # type: str
@@ -46337,8 +48086,6 @@ class DescribeVpnConnectionResponseBodyTunnelOptionsSpecificationTunnelOptionsTu
         result = dict()
         if self.bgp_status is not None:
             result['BgpStatus'] = self.bgp_status
-        if self.enable_bgp is not None:
-            result['EnableBgp'] = self.enable_bgp
         if self.local_asn is not None:
             result['LocalAsn'] = self.local_asn
         if self.local_bgp_ip is not None:
@@ -46355,8 +48102,6 @@ class DescribeVpnConnectionResponseBodyTunnelOptionsSpecificationTunnelOptionsTu
         m = m or dict()
         if m.get('BgpStatus') is not None:
             self.bgp_status = m.get('BgpStatus')
-        if m.get('EnableBgp') is not None:
-            self.enable_bgp = m.get('EnableBgp')
         if m.get('LocalAsn') is not None:
             self.local_asn = m.get('LocalAsn')
         if m.get('LocalBgpIp') is not None:
@@ -47322,12 +49067,17 @@ class DescribeVpnConnectionsRequest(TeaModel):
         self.page_number = page_number  # type: int
         # The number of entries to return on each page. Default value: **10**. Valid values: **1** to **50**.
         self.page_size = page_size  # type: int
-        # The ID of the region where the IPsec-VPN connection is established.
+        # The ID of the region where the IPsec-VPN connection is created.
         # 
         # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The tag value.
+        # 
+        # The tag value can be an empty string and cannot exceed 128 characters in length. It cannot start with `aliyun` or `acs:`, and cannot contain `http://` or `https://`.
+        # 
+        # Each tag key corresponds to one tag value. You can specify up to 20 tag values in each call.
         self.tag = tag  # type: list[DescribeVpnConnectionsRequestTag]
         # The ID of the IPsec-VPN connection.
         self.vpn_connection_id = vpn_connection_id  # type: str
@@ -47591,14 +49341,22 @@ class DescribeVpnConnectionsResponseBodyVpnConnectionsVpnConnectionTag(TeaModel)
 
 
 class DescribeVpnConnectionsResponseBodyVpnConnectionsVpnConnectionTunnelOptionsSpecificationTunnelOptionsTunnelBgpConfig(TeaModel):
-    def __init__(self, bgp_status=None, enable_bgp=None, local_asn=None, local_bgp_ip=None, peer_asn=None,
-                 peer_bgp_ip=None, tunnel_cidr=None):
+    def __init__(self, bgp_status=None, local_asn=None, local_bgp_ip=None, peer_asn=None, peer_bgp_ip=None,
+                 tunnel_cidr=None):
+        # BGP的协商状态。
+        # 
+        # - **success**：正常。
+        # - **false**：异常。
         self.bgp_status = bgp_status  # type: str
-        self.enable_bgp = enable_bgp  # type: str
+        # 隧道本端（阿里云侧）的自治系统号。
         self.local_asn = local_asn  # type: str
+        # 隧道本端（阿里云侧）的BGP地址。
         self.local_bgp_ip = local_bgp_ip  # type: str
+        # 隧道对端的自治系统号。
         self.peer_asn = peer_asn  # type: str
+        # 隧道对端的BGP地址。
         self.peer_bgp_ip = peer_bgp_ip  # type: str
+        # 隧道的BGP网段。
         self.tunnel_cidr = tunnel_cidr  # type: str
 
     def validate(self):
@@ -47612,8 +49370,6 @@ class DescribeVpnConnectionsResponseBodyVpnConnectionsVpnConnectionTunnelOptions
         result = dict()
         if self.bgp_status is not None:
             result['BgpStatus'] = self.bgp_status
-        if self.enable_bgp is not None:
-            result['EnableBgp'] = self.enable_bgp
         if self.local_asn is not None:
             result['LocalAsn'] = self.local_asn
         if self.local_bgp_ip is not None:
@@ -47630,8 +49386,6 @@ class DescribeVpnConnectionsResponseBodyVpnConnectionsVpnConnectionTunnelOptions
         m = m or dict()
         if m.get('BgpStatus') is not None:
             self.bgp_status = m.get('BgpStatus')
-        if m.get('EnableBgp') is not None:
-            self.enable_bgp = m.get('EnableBgp')
         if m.get('LocalAsn') is not None:
             self.local_asn = m.get('LocalAsn')
         if m.get('LocalBgpIp') is not None:
@@ -47648,14 +49402,26 @@ class DescribeVpnConnectionsResponseBodyVpnConnectionsVpnConnectionTunnelOptions
 class DescribeVpnConnectionsResponseBodyVpnConnectionsVpnConnectionTunnelOptionsSpecificationTunnelOptionsTunnelIkeConfig(TeaModel):
     def __init__(self, ike_auth_alg=None, ike_enc_alg=None, ike_lifetime=None, ike_mode=None, ike_pfs=None,
                  ike_version=None, local_id=None, psk=None, remote_id=None):
+        # IKE阶段认证算法。
         self.ike_auth_alg = ike_auth_alg  # type: str
+        # IKE阶段加密算法。
         self.ike_enc_alg = ike_enc_alg  # type: str
+        # IKE阶段生存时间。单位：秒。
         self.ike_lifetime = ike_lifetime  # type: str
+        # IKE协商模式。
+        # 
+        # - **main**：主模式，协商过程安全性高。
+        # - **aggressive**：野蛮模式，协商快速且协商成功率高。
         self.ike_mode = ike_mode  # type: str
+        # IKE阶段DH分组。
         self.ike_pfs = ike_pfs  # type: str
+        # IKE协议版本。
         self.ike_version = ike_version  # type: str
+        # 隧道本端（阿里云侧）的标识。
         self.local_id = local_id  # type: str
+        # 预共享密钥。
         self.psk = psk  # type: str
+        # 隧道对端的标识。
         self.remote_id = remote_id  # type: str
 
     def validate(self):
@@ -47712,9 +49478,13 @@ class DescribeVpnConnectionsResponseBodyVpnConnectionsVpnConnectionTunnelOptions
 
 class DescribeVpnConnectionsResponseBodyVpnConnectionsVpnConnectionTunnelOptionsSpecificationTunnelOptionsTunnelIpsecConfig(TeaModel):
     def __init__(self, ipsec_auth_alg=None, ipsec_enc_alg=None, ipsec_lifetime=None, ipsec_pfs=None):
+        # IPsec阶段认证算法。
         self.ipsec_auth_alg = ipsec_auth_alg  # type: str
+        # IPsec阶段加密算法。
         self.ipsec_enc_alg = ipsec_enc_alg  # type: str
+        # IPsec阶段生存时间。单位：秒。
         self.ipsec_lifetime = ipsec_lifetime  # type: str
+        # IPsec阶段DH分组。
         self.ipsec_pfs = ipsec_pfs  # type: str
 
     def validate(self):
@@ -47753,18 +49523,60 @@ class DescribeVpnConnectionsResponseBodyVpnConnectionsVpnConnectionTunnelOptions
     def __init__(self, customer_gateway_id=None, enable_dpd=None, enable_nat_traversal=None, internet_ip=None,
                  remote_ca_certificate=None, role=None, state=None, status=None, tunnel_bgp_config=None, tunnel_id=None,
                  tunnel_ike_config=None, tunnel_ipsec_config=None, zone_no=None):
+        # 隧道关联的用户网关ID。
         self.customer_gateway_id = customer_gateway_id  # type: str
+        # 隧道是否已开启DPD（对等体存活检测）功能。
+        # - **false**：未开启。
+        # - **true**：已开启。
         self.enable_dpd = enable_dpd  # type: str
+        # 隧道是否已开启NAT穿越功能。
+        # 
+        # - **false**：未开启。
+        # - **true**：已开启。
         self.enable_nat_traversal = enable_nat_traversal  # type: str
+        # 隧道的IP地址。
         self.internet_ip = internet_ip  # type: str
+        # 隧道对端的CA证书。
+        # 
+        # 仅VPN网关实例的类型为国密型时才会返回当前参数。
         self.remote_ca_certificate = remote_ca_certificate  # type: str
+        # 隧道的角色。
+        # 
+        # - **master**：表示当前隧道为主隧道。
+        # - **slave**：表示当前隧道为备隧道。
         self.role = role  # type: str
+        # IPsec连接与转发路由器实例的绑定状态。
+        # 
+        # - **active**：IPsec连接已与VPN网关实例绑定，状态正常。
+        # - **init**：IPsec连接未绑定任何资源，IPsec连接初始化。
+        # - **attaching**：IPsec连接与转发路由器实例绑定中。
+        # - **attached**：IPsec连接已与转发路由器实例绑定。
+        # - **detaching**：IPsec连接与转发路由器实例解绑中。
+        # - **financialLocked**：欠费锁定。
+        # - **provisioning**：资源准备中。
+        # - **updating**：更新中。
+        # - **upgrading**：升级中。
+        # - **deleted**：已删除。
         self.state = state  # type: str
+        # IPsec连接的状态。
+        # 
+        # - **ike_sa_not_established**：第一阶段协商失败。
+        # 
+        # - **ike_sa_established**：第一阶段协商成功。
+        # 
+        # - **ipsec_sa_not_established**：第二阶段协商失败。
+        # 
+        # - **ipsec_sa_established**：第二阶段协商成功。
         self.status = status  # type: str
+        # 隧道的BGP配置信息。
         self.tunnel_bgp_config = tunnel_bgp_config  # type: DescribeVpnConnectionsResponseBodyVpnConnectionsVpnConnectionTunnelOptionsSpecificationTunnelOptionsTunnelBgpConfig
+        # 隧道ID。
         self.tunnel_id = tunnel_id  # type: str
+        # 第一阶段协商的配置。
         self.tunnel_ike_config = tunnel_ike_config  # type: DescribeVpnConnectionsResponseBodyVpnConnectionsVpnConnectionTunnelOptionsSpecificationTunnelOptionsTunnelIkeConfig
+        # 第二阶段协商的配置。
         self.tunnel_ipsec_config = tunnel_ipsec_config  # type: DescribeVpnConnectionsResponseBodyVpnConnectionsVpnConnectionTunnelOptionsSpecificationTunnelOptionsTunnelIpsecConfig
+        # 隧道部署的可用区。
         self.zone_no = zone_no  # type: str
 
     def validate(self):
@@ -48111,6 +49923,9 @@ class DescribeVpnConnectionsResponseBodyVpnConnectionsVpnConnection(TeaModel):
         self.transit_router_id = transit_router_id  # type: str
         # The name of the transit router.
         self.transit_router_name = transit_router_name  # type: str
+        # IPsec连接的隧道配置信息。
+        # 
+        # 仅查询双隧道模式的IPsec连接会返回**TunnelOptionsSpecification**数组下的参数。
         self.tunnel_options_specification = tunnel_options_specification  # type: DescribeVpnConnectionsResponseBodyVpnConnectionsVpnConnectionTunnelOptionsSpecification
         # The health check configurations.
         self.vco_health_check = vco_health_check  # type: DescribeVpnConnectionsResponseBodyVpnConnectionsVpnConnectionVcoHealthCheck
@@ -48300,15 +50115,15 @@ class DescribeVpnConnectionsResponseBodyVpnConnections(TeaModel):
 
 class DescribeVpnConnectionsResponseBody(TeaModel):
     def __init__(self, page_number=None, page_size=None, request_id=None, total_count=None, vpn_connections=None):
-        # The number of the returned page.
+        # The page number.
         self.page_number = page_number  # type: int
         # The number of entries returned per page.
         self.page_size = page_size  # type: int
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
         # The total number of entries returned.
         self.total_count = total_count  # type: int
-        # The information about the IPsec-VPN connection.
+        # The tag value.
         self.vpn_connections = vpn_connections  # type: DescribeVpnConnectionsResponseBodyVpnConnections
 
     def validate(self):
@@ -48619,20 +50434,20 @@ class DescribeVpnCrossAccountAuthorizationsResponse(TeaModel):
 class DescribeVpnGatewayRequest(TeaModel):
     def __init__(self, include_reservation_data=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None, vpn_gateway_id=None):
-        # The type of the VPN gateway.
+        # Specifies whether to return information about pending orders. Valid values:
         # 
-        # The value is set to **Normal**, which indicates a standard NAT gateway.
+        # *   **false** (default)
+        # *   **true**\
         self.include_reservation_data = include_reservation_data  # type: bool
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The ID of the VPN gateway.
+        # The region ID of the VPN gateway.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # Specifies whether to return information about pending orders. Valid values:
-        # 
-        # *   **false** (default): no
-        # *   **true**: yes
+        # The ID of the VPN gateway.
         self.vpn_gateway_id = vpn_gateway_id  # type: str
 
     def validate(self):
@@ -48682,31 +50497,34 @@ class DescribeVpnGatewayRequest(TeaModel):
 class DescribeVpnGatewayResponseBodyReservationData(TeaModel):
     def __init__(self, reservation_end_time=None, reservation_ipsec=None, reservation_max_connections=None,
                  reservation_order_type=None, reservation_spec=None, reservation_ssl=None, status=None):
-        # The custom tag of the VPN gateway.
-        self.reservation_end_time = reservation_end_time  # type: str
-        # The bandwidth specification of the pending order. Unit: Mbit/s.
-        self.reservation_ipsec = reservation_ipsec  # type: str
-        # If the order type is **TEMP_UPGRADE** (temporary upgrade), this parameter indicates the time when the temporary upgrade expires.
+        # If the order type is **TEMP_UPGRADE** (temporary upgrade), this parameter specifies the time when the temporary upgrade expires.
         # 
-        # If the order type is **RENEWCHANGE** (specification change) or **RENEW** (renewal), this parameter indicates the time when the renewal or specification change takes effect.
-        self.reservation_max_connections = reservation_max_connections  # type: int
+        # If the order type is **RENEWCHANGE** (renewal with a specification change) or **RENEW** (renewal), this parameter indicates the time when the renewal or renewal with a specification change takes effect.
+        self.reservation_end_time = reservation_end_time  # type: str
         # The IPsec-VPN status of the pending order. Valid values:
         # 
-        # *   **enable**: enabled
-        # *   **disable**: disabled
-        self.reservation_order_type = reservation_order_type  # type: str
-        # The SSL-VPN status of the pending order. Valid values:
-        # 
-        # *   **enable**: enabled
-        # *   **disable**: disabled
-        self.reservation_spec = reservation_spec  # type: str
-        # The maximum number of concurrent SSL-VPN connections for the pending order.
-        self.reservation_ssl = reservation_ssl  # type: str
+        # *   **enable**\
+        # *   **disable**\
+        self.reservation_ipsec = reservation_ipsec  # type: str
+        # The maximum number of concurrent SSL-VPN connections of the pending order.
+        self.reservation_max_connections = reservation_max_connections  # type: int
         # The type of the pending order. Valid values:
         # 
         # *   **RENEWCHANGE**: renewal with upgrade or downgrade
         # *   **TEMP_UPGRADE**: temporary upgrade
         # *   **RENEW**: renewal
+        self.reservation_order_type = reservation_order_type  # type: str
+        # The bandwidth of the pending order. Unit: Mbit/s.
+        self.reservation_spec = reservation_spec  # type: str
+        # The SSL-VPN status of the pending order. Valid values:
+        # 
+        # *   **enable**\
+        # *   **disable**\
+        self.reservation_ssl = reservation_ssl  # type: str
+        # The status of the pending order. Valid values:
+        # 
+        # *   **1**: indicates that the order of the renewal or specification change has not taken effect.
+        # *   **2**: indicates that the order is an order for temporary upgrade and the order has taken effect. After the temporary upgrade expires, the system restores the VPN gateway to its previous specifications. In this case, **ReservationIpsec**, **ReservationMaxConnections**, **ReservationSpec**, and **ReservationSsl** indicate the previous specification.
         self.status = status  # type: str
 
     def validate(self):
@@ -48755,12 +50573,9 @@ class DescribeVpnGatewayResponseBodyReservationData(TeaModel):
 
 class DescribeVpnGatewayResponseBodyTagsTag(TeaModel):
     def __init__(self, key=None, value=None):
-        # The tag value.
+        # The tag key
         self.key = key  # type: str
-        # The network type of the VPN gateway. 
-        # 
-        # - **public**: public VPN gateway
-        # - **private**: private VPN gateway
+        # The tag value.
         self.value = value  # type: str
 
     def validate(self):
@@ -48825,109 +50640,121 @@ class DescribeVpnGatewayResponseBody(TeaModel):
                  end_time=None, internet_ip=None, ipsec_vpn=None, name=None, network_type=None, request_id=None,
                  reservation_data=None, spec=None, ssl_max_connections=None, ssl_vpn=None, ssl_vpn_internet_ip=None, status=None,
                  tag=None, tags=None, v_switch_id=None, vpc_id=None, vpn_gateway_id=None, vpn_type=None):
-        # The billing method of the VPN gateway. Valid values:
+        # Indicates whether BGP routes are automatically advertised to the VPC. Valid values:
         # 
-        # Only **POSTPAY** is returned, which indicates the pay-as-you-go billing method.
+        # *   **true**\
+        # *   **false**\
         self.auto_propagate = auto_propagate  # type: bool
-        # The status of the SSL-VPN feature. Valid values:
-        # 
-        # *   **enable**: enabled
-        # *   **disable**: disabled
-        self.business_status = business_status  # type: str
-        # The ID of the VPN gateway.
-        self.charge_type = charge_type  # type: str
-        # Indicates whether BGP routes are automatically advertised to VPCs. Valid values:
-        # 
-        # *   **true**: yes
-        # *   **false**: no
-        self.create_time = create_time  # type: long
-        # Indicates whether BGP is enabled for the VPN gateway. Valid values:
-        # 
-        # *   **true**: yes
-        # *   **false**: no
-        self.description = description  # type: str
-        self.disaster_recovery_internet_ip = disaster_recovery_internet_ip  # type: str
-        self.disaster_recovery_vswitch_id = disaster_recovery_vswitch_id  # type: str
         # The payment status of the VPN gateway. Valid values:
         # 
-        # *   **Normal**: The VPN gateway is normal.
-        # *   **FinancialLocked**: The VPN gateway is locked due to overdue payments.
-        self.enable_bgp = enable_bgp  # type: bool
-        # The ID of the vSwitch to which the VPN gateway belongs.
-        self.end_time = end_time  # type: long
-        # The timestamp that indicates when the VPN gateway was created. Unit: milliseconds.
+        # *   **Normal**\
+        # *   **FinancialLocked**\
+        self.business_status = business_status  # type: str
+        # The billing method. Valid value:
+        # 
+        # **POSTPAY**: pay-as-you-go
+        self.charge_type = charge_type  # type: str
+        # The timestamp when the VPN gateway was created. Unit: milliseconds.
         # 
         # This value is a UNIX timestamp representing the number of milliseconds that have elapsed since the epoch time January 1, 1970, 00:00:00 UTC.
-        self.internet_ip = internet_ip  # type: str
-        # The timestamp that indicates when the VPN gateway expires. Unit: milliseconds.
-        # 
-        # This value is a UNIX timestamp representing the number of milliseconds that have elapsed since the epoch time January 1, 1970, 00:00:00 UTC.
-        self.ipsec_vpn = ipsec_vpn  # type: str
-        # The information about pending orders.
-        # 
-        # >  This parameter is returned only when **IncludeReservationData** is set to **true**.
-        self.name = name  # type: str
-        self.network_type = network_type  # type: str
+        self.create_time = create_time  # type: long
         # The description of the VPN gateway.
-        self.request_id = request_id  # type: str
-        # The status of the pending order. Valid values:
+        self.description = description  # type: str
+        # 系统为VPN网关实例分配的用于创建IPsec-VPN连接的第二个IP地址。
         # 
-        # *   **1**: indicates that the order of the renewal or specification change has not taken effect.
-        # *   **2**: indicates that the order of the temporary upgrade has taken effect. After the temporary upgrade expires, the system restores the VPN gateway to its previous specification. In this case, **ReservationIpsec**, **ReservationMaxConnections**, **ReservationSpec**, and **ReservationSsl** indicate the previous specifications.
-        self.reservation_data = reservation_data  # type: DescribeVpnGatewayResponseBodyReservationData
+        # 仅支持创建双隧道模式IPsec-VPN连接的VPN网关实例会返回当前参数。
+        self.disaster_recovery_internet_ip = disaster_recovery_internet_ip  # type: str
+        # VPN网关实例关联的第二个交换机ID。
+        # 
+        # 仅支持创建双隧道模式IPsec-VPN连接的VPN网关实例会返回当前参数。
+        self.disaster_recovery_vswitch_id = disaster_recovery_vswitch_id  # type: str
+        # Indicates whether BGP is enabled for the VPN gateway. Valid values:
+        # 
+        # *   **true**\
+        # *   **false**\
+        self.enable_bgp = enable_bgp  # type: bool
+        # The timestamp when the VPN gateway expires. Unit: milliseconds.
+        # 
+        # This value is a UNIX timestamp representing the number of milliseconds that have elapsed since the epoch time January 1, 1970, 00:00:00 UTC.
+        self.end_time = end_time  # type: long
         # The public IP address of the VPN gateway.
-        self.spec = spec  # type: str
-        # The maximum bandwidth of the VPN gateway. Unit: Mbit/s.
-        self.ssl_max_connections = ssl_max_connections  # type: long
-        # The name of the VPN gateway.
-        self.ssl_vpn = ssl_vpn  # type: str
-        self.ssl_vpn_internet_ip = ssl_vpn_internet_ip  # type: str
-        # The ID of the virtual private cloud (VPC) to which the VPN gateway belongs.
-        self.status = status  # type: str
+        self.internet_ip = internet_ip  # type: str
         # Indicates whether the IPsec-VPN feature is enabled. Valid values:
         # 
-        # *   **enable**: enabled
-        # *   **disable**: disabled
-        self.tag = tag  # type: str
-        # The tag key
-        self.tags = tags  # type: DescribeVpnGatewayResponseBodyTags
-        # The ID of the request.
-        self.v_switch_id = v_switch_id  # type: str
+        # *   **enable**\
+        # *   **disable**\
+        self.ipsec_vpn = ipsec_vpn  # type: str
+        # The name of the VPN gateway.
+        self.name = name  # type: str
+        # The network type of the VPN gateway.
+        # 
+        # *   **public**\
+        # *   **private**\
+        self.network_type = network_type  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # The information about pending orders.
+        # 
+        # > This set of parameters is returned only when **IncludeReservationData** is set to **true**.
+        self.reservation_data = reservation_data  # type: DescribeVpnGatewayResponseBodyReservationData
+        # The maximum bandwidth of the VPN gateway. Unit: Mbit/s.
+        self.spec = spec  # type: str
         # The maximum number of concurrent SSL-VPN connections.
-        self.vpc_id = vpc_id  # type: str
+        self.ssl_max_connections = ssl_max_connections  # type: long
+        # The status of the SSL-VPN feature. Valid values:
+        # 
+        # *   **enable**\
+        # *   **disable**\
+        self.ssl_vpn = ssl_vpn  # type: str
+        # SSL-VPN连接的IP地址。
+        # 
+        # 仅支持创建双隧道模式IPsec-VPN连接的公网网络类型的VPN网关实例开启SSL-VPN功能后，才会返回当前参数。
+        self.ssl_vpn_internet_ip = ssl_vpn_internet_ip  # type: str
+        # The status of the VPN gateway. Valid values:
+        # 
+        # *   **init**\
+        # *   **provisioning**\
+        # *   **active**\
+        # *   **updating**\
+        # *   **deleting**\
+        self.status = status  # type: str
         # The automatically generated tag of the VPN gateway.
         # 
         # *   **VpnEnableBgp**: indicates whether the VPN gateway supports BGP. Valid values:
         # 
-        #     *   **true**: yes
-        #     *   **false**: no
+        #     *   **true**\
+        #     *   **false**\
         # 
         # *   **VisuallySsl**: indicates whether the VPN gateway allows you to view information about connected SSL clients.
         # 
-        #     *   **true**: yes
-        #     *   **false**: no
+        #     *   **true**\
+        #     *   **false**\
         # 
         # *   **PbrPriority**: indicates whether the VPN gateway allows you to configure priorities for policy-based routes.
         # 
-        #     *   **true**: yes
-        #     *   **false**: no
+        #     *   **true**\
+        #     *   **false**\
         # 
         # *   **VpnNewImage**: indicates whether the VPN gateway is upgraded.
         # 
-        #     *   **true**: yes
-        #     *   **false**: no
+        #     *   **true**\
+        #     *   **false**\
         # 
-        # *   **description**: the description of the VPN gateway. This parameter is for internal system use only.
+        # *   **description**\
         # 
-        # *   **VpnVersion**: the version of the VPN gateway.
+        # *   **VpnVersion**\
+        self.tag = tag  # type: str
+        # The tag value.
+        self.tags = tags  # type: DescribeVpnGatewayResponseBodyTags
+        # The ID of the vSwitch to which the VPN gateway belongs.
+        self.v_switch_id = v_switch_id  # type: str
+        # The ID of the VPC to which the VPN gateway belongs.
+        self.vpc_id = vpc_id  # type: str
+        # The ID of the VPN gateway.
         self.vpn_gateway_id = vpn_gateway_id  # type: str
-        # The status of the VPN gateway. Valid values:
+        # The type of the VPN gateway.
         # 
-        # *   **init**: being initialized
-        # *   **provisioning**: being prepared
-        # *   **active**: active
-        # *   **updating**: being updated
-        # *   **deleting**: being deleted
+        # Only **Normal** may be returned, which indicates a standard NAT gateway.
         self.vpn_type = vpn_type  # type: str
 
     def validate(self):
@@ -49096,12 +50923,17 @@ class DescribeVpnGatewayResponse(TeaModel):
 
 class DescribeVpnGatewaysRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
-        # The status of the pending order.
+        # The tag key. The tag key cannot be an empty string.
         # 
-        # *   **1**: indicates that the order for renewal or the order for renewal with a specification change has not taken effect.
-        # *   **2**: indicates that the order for a temporary upgrade has taken effect. After the temporary upgrade expires, the system restores the VPN gateway to its previous specifications. In this case, **ReservationIpsec**, **ReservationMaxConnections**, **ReservationSpec**, and **ReservationSsl** indicate the previous specification.
+        # It can be at most 64 characters in length, and cannot contain `http://` or `https://`. It cannot start with `aliyun` or `acs:`.
+        # 
+        # You can specify at most 20 tag keys in each call.
         self.key = key  # type: str
-        # The ID of the VPC to which the VPN gateway belongs.
+        # The tag value.
+        # 
+        # The tag value can be an empty string and cannot exceed 128 characters in length. It cannot start with `aliyun` or `acs:`, and cannot contain `http://` or `https://`.
+        # 
+        # Each tag key corresponds to one tag value. You can specify at most 20 tag values in each call.
         self.value = value  # type: str
 
     def validate(self):
@@ -49132,36 +50964,45 @@ class DescribeVpnGatewaysRequest(TeaModel):
     def __init__(self, business_status=None, include_reservation_data=None, owner_account=None, owner_id=None,
                  page_number=None, page_size=None, region_id=None, resource_owner_account=None, resource_owner_id=None,
                  status=None, tag=None, vpc_id=None, vpn_gateway_id=None):
-        # The page number of the returned page.
-        self.business_status = business_status  # type: str
-        # The type of the VPN gateway.
+        # The payment status of the VPN gateway. Valid values:
         # 
-        # The value is set to **Normal**, which indicates a standard NAT gateway.
+        # *   **Normal**\
+        # *   **FinancialLocked**\
+        self.business_status = business_status  # type: str
+        # Specifies whether to return information about pending orders. Valid values:
+        # 
+        # *   **false** (default)
+        # *   **true**\
         self.include_reservation_data = include_reservation_data  # type: bool
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The total number of entries returned.
+        # The number of the page to return. Default value: **1**.
         self.page_number = page_number  # type: int
-        # The list of VPN gateways.
+        # The number of entries to return on each page. Valid values: **1** to **50**. Default value: **10**.
         self.page_size = page_size  # type: int
-        # The tag key. The tag key cannot be an empty string.
+        # The region ID of the VPN gateway.
         # 
-        # It can be at most 64 characters in length, and cannot contain `http://` or `https://`. It cannot start with `aliyun` or `acs:`.
-        # 
-        # You can specify at most 20 tag keys in each call.
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The ID of the request.
-        self.status = status  # type: str
-        self.tag = tag  # type: list[DescribeVpnGatewaysRequestTag]
-        # The tag value.
+        # The status of the VPN gateway. Valid values:
         # 
-        # The tag value can be an empty string and cannot exceed 128 characters in length. It cannot start with `aliyun` or `acs:`, and cannot contain `http://` or `https://`.
+        # *   **init**\
+        # *   **provisioning**\
+        # *   **active**\
+        # *   **updating**\
+        # *   **deleting**\
+        self.status = status  # type: str
+        # The value of tag N to add to the resource.
+        # 
+        # The value of this parameter can be an empty string and cannot exceed 128 characters in length. It cannot start with `aliyun` or `acs:`, and cannot contain `http://` or `https://`.
         # 
         # Each tag key corresponds to one tag value. You can specify at most 20 tag values in each call.
+        self.tag = tag  # type: list[DescribeVpnGatewaysRequestTag]
+        # The ID of the virtual private cloud (VPC) to which the VPN gateway belongs.
         self.vpc_id = vpc_id  # type: str
-        # The number of entries returned per page.
+        # The ID of the VPN gateway.
         self.vpn_gateway_id = vpn_gateway_id  # type: str
 
     def validate(self):
@@ -49243,12 +51084,34 @@ class DescribeVpnGatewaysRequest(TeaModel):
 class DescribeVpnGatewaysResponseBodyVpnGatewaysVpnGatewayReservationData(TeaModel):
     def __init__(self, reservation_end_time=None, reservation_ipsec=None, reservation_max_connections=None,
                  reservation_order_type=None, reservation_spec=None, reservation_ssl=None, status=None):
+        # If the order type is **TEMP_UPGRADE** (temporary upgrade), this parameter specifies the time when the temporary upgrade expires. 
+        # 
+        # If the order type is **RENEWCHANGE** (renewal with an upgrade or a downgrade) or **RENEW** (renewal), this parameter indicates the time when the renewal or renewal with an upgrade or a downgrade takes effect.
         self.reservation_end_time = reservation_end_time  # type: str
+        # The IPsec-VPN status of the order that has not taken effect. Valid values: 
+        # 
+        # - **enable**: enabled
+        # - **disable**: disabled
         self.reservation_ipsec = reservation_ipsec  # type: str
+        # The maximum number of concurrent SSL-VPN connections of the pending order.
         self.reservation_max_connections = reservation_max_connections  # type: int
+        # The type of the order that has not taken effect. Valid values: 
+        # 
+        # - **RENEWCHANGE**: renewal with a specification change
+        # - **TEMP_UPGRADE**: temporary upgrade
+        # - **RENEW**: renewal
         self.reservation_order_type = reservation_order_type  # type: str
+        # The bandwidth specification of the order that has not taken effect. Unit: Mbit/s.
         self.reservation_spec = reservation_spec  # type: str
+        # The SSL-VPN status of the order that has not taken effect. Valid values: 
+        # 
+        # - **enable**: enabled
+        # - **disable**: disabled
         self.reservation_ssl = reservation_ssl  # type: str
+        # The status of the pending order. 
+        # 
+        # - **1**: indicates that the order for renewal or the order for renewal with a specification change has not taken effect.
+        # - **2**: indicates that the order for a temporary upgrade has taken effect. After the temporary upgrade expires, the system restores the VPN gateway to its previous specifications. In this case, **ReservationIpsec**, **ReservationMaxConnections**, **ReservationSpec**, and **ReservationSsl** indicate the previous specification.
         self.status = status  # type: str
 
     def validate(self):
@@ -49297,11 +51160,9 @@ class DescribeVpnGatewaysResponseBodyVpnGatewaysVpnGatewayReservationData(TeaMod
 
 class DescribeVpnGatewaysResponseBodyVpnGatewaysVpnGatewayTagsTag(TeaModel):
     def __init__(self, key=None, value=None):
-        # The maximum number of concurrent SSL-VPN connections of the pending order.
+        # The tag key.
         self.key = key  # type: str
-        # If the order type is **TEMP_UPGRADE** (temporary upgrade), this parameter specifies the time when the temporary upgrade expires. 
-        # 
-        # If the order type is **RENEWCHANGE** (renewal with an upgrade or a downgrade) or **RENEW** (renewal), this parameter indicates the time when the renewal or renewal with an upgrade or a downgrade takes effect.
+        # The tag value.
         self.value = value  # type: str
 
     def validate(self):
@@ -49366,75 +51227,79 @@ class DescribeVpnGatewaysResponseBodyVpnGatewaysVpnGateway(TeaModel):
                  end_time=None, internet_ip=None, ipsec_vpn=None, name=None, network_type=None, reservation_data=None,
                  spec=None, ssl_max_connections=None, ssl_vpn=None, ssl_vpn_internet_ip=None, status=None, tag=None,
                  tags=None, v_switch_id=None, vpc_id=None, vpn_gateway_id=None, vpn_type=None):
-        # The BGP status of the VPN gateway.
+        # Indicates whether BGP routes are automatically advertised to the VPC. Valid values:
         # 
-        # *   **true**: enabled
-        # *   **false**: disabled
+        # *   **true**: yes
+        # *   **false**: no
         self.auto_propagate = auto_propagate  # type: bool
-        # The status of the pending order. 
-        # 
-        # - **1**: indicates that the order for renewal or the order for renewal with a specification change has not taken effect.
-        # - **2**: indicates that the order for a temporary upgrade has taken effect. After the temporary upgrade expires, the system restores the VPN gateway to its previous specifications. In this case, **ReservationIpsec**, **ReservationMaxConnections**, **ReservationSpec**, and **ReservationSsl** indicate the previous specification.
-        self.business_status = business_status  # type: str
         # The payment status of the VPN gateway.
         # 
         # *   **Normal:** The VPN gateway is running as expected.
         # *   **FinancialLocked**: The VPN gateway is locked due to overdue payments.
+        self.business_status = business_status  # type: str
+        # The billing method of the VPN gateway.
+        # 
+        # The value is set to **POSTPAY**, which indicates the pay-as-you-go billing method.
         self.charge_type = charge_type  # type: str
-        # The description of the VPN gateway.
+        # The timestamp when the VPN gateway was created. Unit: milliseconds.
+        # 
+        # This value is a UNIX timestamp representing the number of milliseconds that have elapsed since the epoch time January 1, 1970, 00:00:00 UTC.
         self.create_time = create_time  # type: long
-        # The tag value.
+        # The description of the VPN gateway.
         self.description = description  # type: str
+        # 系统为VPN网关实例分配的用于创建IPsec-VPN连接的第二个IP地址。
+        # 
+        # 仅支持创建双隧道模式IPsec-VPN连接的VPN网关实例会返回当前参数。
         self.disaster_recovery_internet_ip = disaster_recovery_internet_ip  # type: str
+        # VPN网关实例关联的第二个交换机ID。
+        # 
+        # 仅支持创建双隧道模式IPsec-VPN连接的VPN网关实例会返回当前参数。
         self.disaster_recovery_vswitch_id = disaster_recovery_vswitch_id  # type: str
-        # The information about the pending orders. 
+        # The BGP status of the VPN gateway.
         # 
-        # >  This parameter is returned only when **IncludeReservationData** is set to **true**.
+        # *   **true**: enabled
+        # *   **false**: disabled
         self.enable_bgp = enable_bgp  # type: bool
-        # The list of tags added to the VPN gateway.
-        self.end_time = end_time  # type: long
-        # The ID of the vSwitch to which the VPN gateway belongs.
-        self.internet_ip = internet_ip  # type: str
-        # The network type of the VPN gateway.
-        # 
-        # *   **public**: public VPN gateway
-        # *   **private**: private VPN gateway
-        self.ipsec_vpn = ipsec_vpn  # type: str
-        # The IPsec-VPN status of the order that has not taken effect. Valid values: 
-        # 
-        # - **enable**: enabled
-        # - **disable**: disabled
-        self.name = name  # type: str
-        # The bandwidth specification of the order that has not taken effect. Unit: Mbit/s.
-        self.network_type = network_type  # type: str
-        self.reservation_data = reservation_data  # type: DescribeVpnGatewaysResponseBodyVpnGatewaysVpnGatewayReservationData
         # The timestamp when the VPN gateway expires. Unit: milliseconds.
         # 
         # This value is a UNIX timestamp representing the number of milliseconds that have elapsed since the epoch time January 1, 1970, 00:00:00 UTC.
-        self.spec = spec  # type: str
+        self.end_time = end_time  # type: long
+        # The public IP address of the VPN gateway.
+        self.internet_ip = internet_ip  # type: str
         # Indicates whether IPsec-VPN is enabled for the VPN gateway.
         # 
         # *   **enable**: enabled
         # *   **disable**: disabled
-        self.ssl_max_connections = ssl_max_connections  # type: long
-        # The type of the order that has not taken effect. Valid values: 
-        # 
-        # - **RENEWCHANGE**: renewal with a specification change
-        # - **TEMP_UPGRADE**: temporary upgrade
-        # - **RENEW**: renewal
-        self.ssl_vpn = ssl_vpn  # type: str
-        self.ssl_vpn_internet_ip = ssl_vpn_internet_ip  # type: str
-        # The ID of the VPN gateway.
-        self.status = status  # type: str
+        self.ipsec_vpn = ipsec_vpn  # type: str
         # The name of the VPN gateway.
-        self.tag = tag  # type: str
-        # The SSL-VPN status of the order that has not taken effect. Valid values: 
+        self.name = name  # type: str
+        # The network type of the VPN gateway.
         # 
-        # - **enable**: enabled
-        # - **disable**: disabled
-        self.tags = tags  # type: DescribeVpnGatewaysResponseBodyVpnGatewaysVpnGatewayTags
-        # The tag key.
-        self.v_switch_id = v_switch_id  # type: str
+        # *   **public**: public VPN gateway
+        # *   **private**: private VPN gateway
+        self.network_type = network_type  # type: str
+        # The information about the pending orders. 
+        # 
+        # >  This parameter is returned only when **IncludeReservationData** is set to **true**.
+        self.reservation_data = reservation_data  # type: DescribeVpnGatewaysResponseBodyVpnGatewaysVpnGatewayReservationData
+        # The maximum bandwidth of the VPN gateway. **M** indicates Mbit/s.
+        self.spec = spec  # type: str
+        # The number of SSL-VPN connections supported by the VPN gateway.
+        self.ssl_max_connections = ssl_max_connections  # type: long
+        # Indicates whether SSL-VPN is enabled for the VPN gateway.
+        # 
+        # *   **enable**: enabled
+        # *   **disable**: disabled
+        self.ssl_vpn = ssl_vpn  # type: str
+        # SSL-VPN连接的IP地址。
+        # 
+        # 仅支持创建双隧道模式IPsec-VPN连接的公网网络类型的VPN网关实例开启SSL-VPN功能后，才会返回当前参数。
+        self.ssl_vpn_internet_ip = ssl_vpn_internet_ip  # type: str
+        # The status of the pending order.
+        # 
+        # *   **1**: indicates that the order for renewal or the order for renewal with a specification change has not taken effect.
+        # *   **2**: indicates that the order for a temporary upgrade has taken effect. After the temporary upgrade expires, the system restores the VPN gateway to its previous specifications. In this case, **ReservationIpsec**, **ReservationMaxConnections**, **ReservationSpec**, and **ReservationSsl** indicate the previous specification.
+        self.status = status  # type: str
         # The automatically generated tag of the VPN gateway.
         # 
         # *   **VpnEnableBgp**: indicates whether the VPN gateway supports BGP. Valid values:
@@ -49460,15 +51325,18 @@ class DescribeVpnGatewaysResponseBodyVpnGatewaysVpnGateway(TeaModel):
         # *   **description**: the description of the VPN gateway. This parameter is for internal system use only.
         # 
         # *   **VpnVersion**: the version of the VPN gateway.
+        self.tag = tag  # type: str
+        # The list of tags added to the VPN gateway.
+        self.tags = tags  # type: DescribeVpnGatewaysResponseBodyVpnGatewaysVpnGatewayTags
+        # The ID of the vSwitch to which the VPN gateway belongs.
+        self.v_switch_id = v_switch_id  # type: str
+        # The ID of the VPC to which the VPN gateway belongs.
         self.vpc_id = vpc_id  # type: str
-        # Indicates whether SSL-VPN is enabled for the VPN gateway.
-        # 
-        # *   **enable**: enabled
-        # *   **disable**: disabled
+        # The ID of the VPN gateway.
         self.vpn_gateway_id = vpn_gateway_id  # type: str
-        # The billing method of the VPN gateway.
+        # The type of the VPN gateway.
         # 
-        # The value is set to **POSTPAY**, which indicates the pay-as-you-go billing method.
+        # The value is set to **Normal**, which indicates a standard NAT gateway.
         self.vpn_type = vpn_type  # type: str
 
     def validate(self):
@@ -49626,20 +51494,17 @@ class DescribeVpnGatewaysResponseBodyVpnGateways(TeaModel):
 
 class DescribeVpnGatewaysResponseBody(TeaModel):
     def __init__(self, page_number=None, page_size=None, request_id=None, total_count=None, vpn_gateways=None):
-        # The public IP address of the VPN gateway.
+        # The number of the returned page.
         self.page_number = page_number  # type: int
-        # The number of SSL-VPN connections supported by the VPN gateway.
+        # The number of entries returned per page.
         self.page_size = page_size  # type: int
-        # The maximum bandwidth of the VPN gateway. **M** indicates Mbit/s.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # The timestamp when the VPN gateway was created. Unit: milliseconds.
-        # 
-        # This value is a UNIX timestamp representing the number of milliseconds that have elapsed since the epoch time January 1, 1970, 00:00:00 UTC.
+        # The number of entries returned.
         self.total_count = total_count  # type: int
-        # Indicates whether BGP routes are automatically advertised to the VPC. Valid values:
+        # If the order type is **TEMP_UPGRADE** (temporary upgrade), this parameter specifies the time when the temporary upgrade expires.
         # 
-        # *   **true**: yes
-        # *   **false**: no
+        # If the order type is **RENEWCHANGE** (renewal with a specification change) or **RENEW** (renewal), this parameter indicates the time when the renewal or renewal with a specification change takes effect.
         self.vpn_gateways = vpn_gateways  # type: DescribeVpnGatewaysResponseBodyVpnGateways
 
     def validate(self):
@@ -50708,26 +52573,27 @@ class DescribeZonesResponse(TeaModel):
 class DetachDhcpOptionsSetFromVpcRequest(TeaModel):
     def __init__(self, client_token=None, dhcp_options_set_id=None, dry_run=None, owner_account=None, owner_id=None,
                  region_id=None, resource_owner_account=None, resource_owner_id=None, vpc_id=None):
-        # The ID of the request.
-        self.client_token = client_token  # type: str
         # The client token that is used to ensure the idempotence of the request.
         # 
         # You can use the client to generate the value, but you must make sure that it is unique among different requests. The client token can contain only ASCII characters.
         # 
         # >  If you do not set this parameter, the system uses **RequestId** as **ClientToken**. **RequestId** may be different for each API request.
+        self.client_token = client_token  # type: str
+        # The ID of the DHCP options set to be disassociated from a VPC.
         self.dhcp_options_set_id = dhcp_options_set_id  # type: str
-        self.dry_run = dry_run  # type: bool
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
-        # The ID of the VPC.
-        self.region_id = region_id  # type: str
-        self.resource_owner_account = resource_owner_account  # type: str
-        self.resource_owner_id = resource_owner_id  # type: long
         # Specifies whether to check the request without performing the operation. Valid values:
         # 
         # **true**: checks the request without performing the operation. The system checks your AccessKey pair, the Resource Access Management (RAM) user permissions, and the required parameters. If the request fails to pass the check, the corresponding error message is returned. If the request passes the check, the `DryRunOperation` error code is returned.
         # 
         # **false** (default): sends the request. If the request passes the check, a 2XX HTTP status code is returned and the operation is performed.
+        self.dry_run = dry_run  # type: bool
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The region to which the DHCP options set belongs. You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
+        self.region_id = region_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        # The ID of the VPC.
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
@@ -50784,6 +52650,7 @@ class DetachDhcpOptionsSetFromVpcRequest(TeaModel):
 
 class DetachDhcpOptionsSetFromVpcResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -51218,25 +53085,28 @@ class DisableVpcClassicLinkResponse(TeaModel):
 class DissociateRouteTableFromGatewayRequest(TeaModel):
     def __init__(self, client_token=None, dry_run=None, gateway_id=None, owner_account=None, owner_id=None,
                  region_id=None, resource_owner_account=None, resource_owner_id=None, route_table_id=None):
-        # The ID of the IPv4 gateway.
-        self.client_token = client_token  # type: str
-        # The ID of the request.
-        self.dry_run = dry_run  # type: bool
-        self.gateway_id = gateway_id  # type: str
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
         # The client token that is used to ensure the idempotence of the request.
         # 
         # You can use the client to generate the value, but you must make sure that it is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length.
         # 
         # >  If you do not set this parameter, the system automatically uses **RequestId** as **ClientToken**. **RequestId** may be different for each API request.
-        self.region_id = region_id  # type: str
-        self.resource_owner_account = resource_owner_account  # type: str
-        self.resource_owner_id = resource_owner_id  # type: long
+        self.client_token = client_token  # type: str
         # Specifies whether to only precheck the request. Valid values:
         # 
         # *   **true**: prechecks the request without performing the operation. The system prechecks the required parameters, request syntax, and limits. If the request fails to pass the precheck, an error message is returned. If the request passes the precheck, the `DryRunOperation` error code is returned.
         # *   **false** (default): sends the request. After the request passes the precheck, a 2xx HTTP status code is returned and the operation is performed.
+        self.dry_run = dry_run  # type: bool
+        # The ID of the IPv4 gateway.
+        self.gateway_id = gateway_id  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The region ID of the IPv4 gateway from which you want to disassociate the gateway route table.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
+        self.region_id = region_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        # The ID of the gateway route table.
         self.route_table_id = route_table_id  # type: str
 
     def validate(self):
@@ -51293,6 +53163,7 @@ class DissociateRouteTableFromGatewayRequest(TeaModel):
 
 class DissociateRouteTableFromGatewayResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -51904,13 +53775,11 @@ class DownloadVpnConnectionConfigResponseBodyVpnConnectionConfigTunnelsConfigTun
 
 
 class DownloadVpnConnectionConfigResponseBodyVpnConnectionConfigTunnelsConfigTunnelConfig(TeaModel):
-    def __init__(self, ike_config=None, ipsec_config=None, local=None, remote=None, right_ca_cert=None,
-                 tunnel_id=None):
+    def __init__(self, ike_config=None, ipsec_config=None, local=None, remote=None, tunnel_id=None):
         self.ike_config = ike_config  # type: DownloadVpnConnectionConfigResponseBodyVpnConnectionConfigTunnelsConfigTunnelConfigIkeConfig
         self.ipsec_config = ipsec_config  # type: DownloadVpnConnectionConfigResponseBodyVpnConnectionConfigTunnelsConfigTunnelConfigIpsecConfig
         self.local = local  # type: str
         self.remote = remote  # type: str
-        self.right_ca_cert = right_ca_cert  # type: str
         self.tunnel_id = tunnel_id  # type: str
 
     def validate(self):
@@ -51933,8 +53802,6 @@ class DownloadVpnConnectionConfigResponseBodyVpnConnectionConfigTunnelsConfigTun
             result['Local'] = self.local
         if self.remote is not None:
             result['Remote'] = self.remote
-        if self.right_ca_cert is not None:
-            result['RightCaCert'] = self.right_ca_cert
         if self.tunnel_id is not None:
             result['TunnelId'] = self.tunnel_id
         return result
@@ -51951,8 +53818,6 @@ class DownloadVpnConnectionConfigResponseBodyVpnConnectionConfigTunnelsConfigTun
             self.local = m.get('Local')
         if m.get('Remote') is not None:
             self.remote = m.get('Remote')
-        if m.get('RightCaCert') is not None:
-            self.right_ca_cert = m.get('RightCaCert')
         if m.get('TunnelId') is not None:
             self.tunnel_id = m.get('TunnelId')
         return self
@@ -52239,15 +54104,17 @@ class EnableNatGatewayEcsMetricResponse(TeaModel):
 class EnablePhysicalConnectionRequest(TeaModel):
     def __init__(self, client_token=None, owner_account=None, owner_id=None, physical_connection_id=None,
                  region_id=None, resource_owner_account=None, resource_owner_id=None):
-        # The ID of the request.
+        # The client token that is used to ensure the idempotence of the request.
+        # 
+        # You can use the client to generate the value, but you must make sure that it is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length.
         self.client_token = client_token  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The operation that you want to perform.
-        # 
-        # Set the value to **EnablePhysicalConnection**.
-        self.physical_connection_id = physical_connection_id  # type: str
         # The ID of the Express Connect circuit.
+        self.physical_connection_id = physical_connection_id  # type: str
+        # The region ID of the Express Connect circuit.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -52298,6 +54165,7 @@ class EnablePhysicalConnectionRequest(TeaModel):
 
 class EnablePhysicalConnectionResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -52490,24 +54358,24 @@ class EnableVpcClassicLinkResponse(TeaModel):
 class EnableVpcIpv4GatewayRequest(TeaModel):
     def __init__(self, client_token=None, dry_run=None, ipv_4gateway_id=None, owner_account=None, owner_id=None,
                  region_id=None, resource_owner_account=None, resource_owner_id=None, route_table_list=None):
-        # The ID of the request.
-        self.client_token = client_token  # type: str
-        # The list of route tables. The system adds a 0.0.0.0/0 route that points to the IPv4 gateway to the route tables. The system supports at most 10 route tables.
-        # 
-        # >  The route table and the IPv4 gateway must belong to the same virtual private cloud (VPC).
-        self.dry_run = dry_run  # type: bool
-        # Specifies whether to check the request without performing the operation. Valid values:
-        # 
-        # *   **true**: checks the request without performing the operation. The system checks the required parameters, request syntax, and limits. If the request fails the check, an error message is returned. If the request passes the check, the `DryRunOperation` error code is returned.
-        # *   **false** (default): sends the API request. After the request passes the check, a 2xx HTTP status code is returned and the operation is performed.
-        self.ipv_4gateway_id = ipv_4gateway_id  # type: str
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
         # The client token that is used to ensure the idempotence of the request.
         # 
         # You can use the client to generate the value, but you must make sure that it is unique among different requests. The client token can contain only ASCII characters.
         # 
         # >  If you do not set this parameter, the system uses **RequestId** as **ClientToken**. **RequestId** may be different for each API request.
+        self.client_token = client_token  # type: str
+        # Specifies whether to check the request without performing the operation. Valid values:
+        # 
+        # *   **true**: checks the request without performing the operation. The system checks the required parameters, request syntax, and limits. If the request fails the check, an error message is returned. If the request passes the check, the `DryRunOperation` error code is returned.
+        # *   **false** (default): sends the API request. After the request passes the check, a 2xx HTTP status code is returned and the operation is performed.
+        self.dry_run = dry_run  # type: bool
+        # The ID of the IPv4 gateway that you want to activate.
+        self.ipv_4gateway_id = ipv_4gateway_id  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The ID of the region where the IPv4 gateway is deployed.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -52567,6 +54435,7 @@ class EnableVpcIpv4GatewayRequest(TeaModel):
 
 class EnableVpcIpv4GatewayResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -52631,16 +54500,13 @@ class EnableVpcIpv4GatewayResponse(TeaModel):
 class GetDhcpOptionsSetRequest(TeaModel):
     def __init__(self, dhcp_options_set_id=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None):
-        # The ID of the request.
+        # The ID of the DHCP options set.
         self.dhcp_options_set_id = dhcp_options_set_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The status of the DHCP options set. Valid values:
+        # The region ID of the DHCP options set that you want to query.
         # 
-        # *   **Available**: available
-        # *   **InUse**: in use
-        # *   **Deleted**: deleted
-        # *   **Pending**: being configured
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -52687,7 +54553,12 @@ class GetDhcpOptionsSetRequest(TeaModel):
 
 class GetDhcpOptionsSetResponseBodyAssociateVpcs(TeaModel):
     def __init__(self, associate_status=None, vpc_id=None):
+        # The status of the VPC that is associated with the DHCP options set. Valid values:
+        # 
+        # *   **InUse**: in use
+        # *   **Pending**: being configured
         self.associate_status = associate_status  # type: str
+        # The ID of the VPC that is associated with the DHCP options set.
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
@@ -52716,15 +54587,19 @@ class GetDhcpOptionsSetResponseBodyAssociateVpcs(TeaModel):
 
 class GetDhcpOptionsSetResponseBodyDhcpOptions(TeaModel):
     def __init__(self, domain_name=None, domain_name_servers=None, ipv_6lease_time=None, lease_time=None):
-        # The status of the VPC that is associated with the DHCP options set. Valid values:
-        # 
-        # *   **InUse**: in use
-        # *   **Pending**: being configured
+        # The suffix of the hostname.
         self.domain_name = domain_name  # type: str
-        # The information about the virtual private cloud (VPC) that is associated with the DHCP options set.
+        # The IP address of the DNS server.
         self.domain_name_servers = domain_name_servers  # type: str
+        # The lease time of the IPv6 addresses for the DHCP options set.
+        # 
+        # *   If you use hours as the unit, Valid values are **24h to 1176h** and **87600h to 175200h**. Default value: **87600h**.
+        # *   If you use days as the unit, Valid values are **1d to 49d** and **3650d to 7300d**. Default value: **3650d**.
         self.ipv_6lease_time = ipv_6lease_time  # type: str
-        # The ID of the VPC that is associated with the DHCP options set.
+        # The lease time of the IPv4 addresses for the DHCP options set.
+        # 
+        # *   If you use hours as the unit, valid values are **24h to 1176h** and **87600h to 175200h**. Default value: **87600h**.
+        # *   If you use days as the unit, valid values are **1d to 49d** and **3650d to 7300d**. Default value: **3650d**.
         self.lease_time = lease_time  # type: str
 
     def validate(self):
@@ -52792,27 +54667,27 @@ class GetDhcpOptionsSetResponseBody(TeaModel):
     def __init__(self, associate_vpcs=None, dhcp_options=None, dhcp_options_set_description=None,
                  dhcp_options_set_id=None, dhcp_options_set_name=None, owner_id=None, request_id=None, resource_group_id=None,
                  status=None, tags=None):
+        # The information about the virtual private cloud (VPC) that is associated with the DHCP options set.
         self.associate_vpcs = associate_vpcs  # type: list[GetDhcpOptionsSetResponseBodyAssociateVpcs]
-        # The lease time of the IPv6 addresses for the DHCP options set.
-        # 
-        # *   If you use hours as the unit, Valid values are **24h to 1176h** and **87600h to 175200h**. Default value: **87600h**.
-        # *   If you use days as the unit, Valid values are **1d to 49d** and **3650d to 7300d**. Default value: **3650d**.
-        self.dhcp_options = dhcp_options  # type: GetDhcpOptionsSetResponseBodyDhcpOptions
-        # The name of the DHCP options set.
-        self.dhcp_options_set_description = dhcp_options_set_description  # type: str
-        # The IP address of the DNS server.
-        self.dhcp_options_set_id = dhcp_options_set_id  # type: str
-        # The suffix of the hostname.
-        self.dhcp_options_set_name = dhcp_options_set_name  # type: str
-        # The lease time of the IPv4 addresses for the DHCP options set.
-        # 
-        # *   If you use hours as the unit, valid values are **24h to 1176h** and **87600h to 175200h**. Default value: **87600h**.
-        # *   If you use days as the unit, valid values are **1d to 49d** and **3650d to 7300d**. Default value: **3650d**.
-        self.owner_id = owner_id  # type: long
         # The configuration information about the DHCP options set.
+        self.dhcp_options = dhcp_options  # type: GetDhcpOptionsSetResponseBodyDhcpOptions
+        # The description of the DHCP options set.
+        self.dhcp_options_set_description = dhcp_options_set_description  # type: str
+        # The ID of the DHCP options set.
+        self.dhcp_options_set_id = dhcp_options_set_id  # type: str
+        # The name of the DHCP options set.
+        self.dhcp_options_set_name = dhcp_options_set_name  # type: str
+        # The ID of the Alibaba Cloud account to which the DHCP options set belongs.
+        self.owner_id = owner_id  # type: long
+        # The ID of the request.
         self.request_id = request_id  # type: str
         self.resource_group_id = resource_group_id  # type: str
-        # The ID of the Alibaba Cloud account to which the DHCP options set belongs.
+        # The status of the DHCP options set. Valid values:
+        # 
+        # *   **Available**: available
+        # *   **InUse**: in use
+        # *   **Deleted**: deleted
+        # *   **Pending**: being configured
         self.status = status  # type: str
         self.tags = tags  # type: list[GetDhcpOptionsSetResponseBodyTags]
 
@@ -53065,11 +54940,13 @@ class GetFlowLogServiceStatusResponse(TeaModel):
 class GetIpv4GatewayAttributeRequest(TeaModel):
     def __init__(self, ipv_4gateway_id=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None):
-        # The ID of the virtual private cloud (VPC) with which the IPv4 gateway is associated.
+        # The ID of the IPv4 gateway.
         self.ipv_4gateway_id = ipv_4gateway_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The operation that you want to perform. Set the value to **GetIpv4GatewayAttribute**.
+        # The region ID of the IPv4 gateway.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -53116,7 +54993,9 @@ class GetIpv4GatewayAttributeRequest(TeaModel):
 
 class GetIpv4GatewayAttributeResponseBodyTags(TeaModel):
     def __init__(self, key=None, value=None):
+        # The tag key.
         self.key = key  # type: str
+        # The tag value.
         self.value = value  # type: str
 
     def validate(self):
@@ -53147,30 +55026,37 @@ class GetIpv4GatewayAttributeResponseBody(TeaModel):
     def __init__(self, create_time=None, enabled=None, ipv_4gateway_description=None, ipv_4gateway_id=None,
                  ipv_4gateway_name=None, ipv_4gateway_route_table_id=None, request_id=None, resource_group_id=None, status=None,
                  tags=None, vpc_id=None):
-        # The tag list.
-        self.create_time = create_time  # type: str
-        # The name of the IPv4 gateway.
-        self.enabled = enabled  # type: bool
-        # The ID of the route table associated with the IPv4 gateway.
-        self.ipv_4gateway_description = ipv_4gateway_description  # type: str
-        # The description of the IPv4 gateway.
-        self.ipv_4gateway_id = ipv_4gateway_id  # type: str
-        # The ID of the resource group to which the IPv4 gateway belongs.
-        self.ipv_4gateway_name = ipv_4gateway_name  # type: str
         # The time when the IPv4 gateway was created.
-        self.ipv_4gateway_route_table_id = ipv_4gateway_route_table_id  # type: str
+        self.create_time = create_time  # type: str
         # Indicates whether the IPv4 gateway is activated. Valid values:
         # 
         # *   **true**: yes
         # *   **false**: no
-        self.request_id = request_id  # type: str
-        # The tag key.
-        self.resource_group_id = resource_group_id  # type: str
-        # The ID of the request.
-        self.status = status  # type: str
-        # The tag value.
-        self.tags = tags  # type: list[GetIpv4GatewayAttributeResponseBodyTags]
+        self.enabled = enabled  # type: bool
+        # The description of the IPv4 gateway.
+        self.ipv_4gateway_description = ipv_4gateway_description  # type: str
         # The ID of the IPv4 gateway.
+        self.ipv_4gateway_id = ipv_4gateway_id  # type: str
+        # The name of the IPv4 gateway.
+        self.ipv_4gateway_name = ipv_4gateway_name  # type: str
+        # The ID of the route table associated with the IPv4 gateway.
+        self.ipv_4gateway_route_table_id = ipv_4gateway_route_table_id  # type: str
+        # The ID of the request.
+        self.request_id = request_id  # type: str
+        # The ID of the resource group to which the IPv4 gateway belongs.
+        self.resource_group_id = resource_group_id  # type: str
+        # The status of the IPv4 gateway. Valid values:
+        # 
+        # *   **Creating**\
+        # *   **Created**\
+        # *   **Modifying**\
+        # *   **Deleting**\
+        # *   **Deleted**\
+        # *   **Activating**\
+        self.status = status  # type: str
+        # The tag list.
+        self.tags = tags  # type: list[GetIpv4GatewayAttributeResponseBodyTags]
+        # The ID of the virtual private cloud (VPC) with which the IPv4 gateway is associated.
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
@@ -54291,11 +56177,13 @@ class GetTrafficMirrorServiceStatusResponse(TeaModel):
 class GetVpcGatewayEndpointAttributeRequest(TeaModel):
     def __init__(self, endpoint_id=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None):
-        # The description of the gateway endpoint.
+        # The ID of the gateway endpoint.
         self.endpoint_id = endpoint_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The name of the endpoint service.
+        # The region ID of the gateway endpoint.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -54373,7 +56261,14 @@ class GetVpcGatewayEndpointAttributeResponseBody(TeaModel):
     def __init__(self, creation_time=None, endpoint_description=None, endpoint_id=None, endpoint_name=None,
                  endpoint_status=None, policy_document=None, request_id=None, resource_group_id=None, route_tables=None,
                  service_name=None, tags=None, vpc_id=None):
+        # The time when the endpoint was created. The time follows the ISO 8601 standard in UTC in the YYYY-MM-DDThh:mm:ssZ format.
         self.creation_time = creation_time  # type: str
+        # The description of the gateway endpoint.
+        self.endpoint_description = endpoint_description  # type: str
+        # The ID of the gateway endpoint.
+        self.endpoint_id = endpoint_id  # type: str
+        # The name of the gateway endpoint.
+        self.endpoint_name = endpoint_name  # type: str
         # The status of the gateway endpoint. Valid values:
         # 
         # *   **Creating**: being created
@@ -54382,20 +56277,18 @@ class GetVpcGatewayEndpointAttributeResponseBody(TeaModel):
         # *   **Associating**: being associated
         # *   **Dissociating**: being disassociated
         # *   **Deleting**: being deleted
-        self.endpoint_description = endpoint_description  # type: str
-        # The access policy for the cloud service.
-        self.endpoint_id = endpoint_id  # type: str
-        # The time when the endpoint was created. The time follows the ISO 8601 standard in UTC in the YYYY-MM-DDThh:mm:ssZ format.
-        self.endpoint_name = endpoint_name  # type: str
         self.endpoint_status = endpoint_status  # type: str
+        # The access policy for the cloud service.
         self.policy_document = policy_document  # type: str
-        # The ID of the virtual private cloud (VPC) to which the gateway endpoint belongs.
+        # The ID of the request.
         self.request_id = request_id  # type: str
         self.resource_group_id = resource_group_id  # type: str
-        self.route_tables = route_tables  # type: list[str]
         # The ID of the route table associated with the gateway endpoint.
+        self.route_tables = route_tables  # type: list[str]
+        # The name of the endpoint service.
         self.service_name = service_name  # type: str
         self.tags = tags  # type: list[GetVpcGatewayEndpointAttributeResponseBodyTags]
+        # The ID of the virtual private cloud (VPC) to which the gateway endpoint belongs.
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
@@ -56027,20 +57920,26 @@ class ListDhcpOptionsSetsRequest(TeaModel):
                  next_token=None, owner_account=None, owner_id=None, region_id=None, resource_group_id=None,
                  resource_owner_account=None, resource_owner_id=None, tags=None):
         self.dhcp_options_set_id = dhcp_options_set_id  # type: list[str]
-        # The list of the DHCP options sets.
+        # The name of the DHCP options set.
+        # 
+        # The name must be 2 to 128 characters in length and can contain letters, digits, underscores (\_), and hyphens (-). It must start with a letter.
         self.dhcp_options_set_name = dhcp_options_set_name  # type: str
-        # The ID of the request.
+        # The root domain. For example, you can set the value to example.com.
+        # 
+        # After a DHCP options set is associated with a virtual private cloud (VPC), the root domain in the DHCP options set is automatically synchronized with the Elastic Compute Service (ECS) instances in the VPC.
         self.domain_name = domain_name  # type: str
+        # The number of entries to return on each page. Valid values: **1** to **100**. Default value: **10**.
+        self.max_results = max_results  # type: int
         # The token that is used for the next query. Valid values:
         # 
-        # *   If **NextToken** is empty, it indicates that no next query is to be sent.
-        # *   If a value is returned for **NextToken**, the value is the token that is used for the next query.
-        self.max_results = max_results  # type: int
-        # The operation that you want to perform. Set the value to **ListDhcpOptionsSets**.
+        # *   If this is your first query or no next queries are to be sent, ignore this parameter.
+        # *   If a subsequent query is to be sent, set the value to the value of **NextToken** that is returned from the last call.
         self.next_token = next_token  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The ID of the DHCP options set. You can specify at most 20 IDs.
+        # The region ID of the DHCP options sets that you want to query.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
@@ -56121,9 +58020,19 @@ class ListDhcpOptionsSetsRequest(TeaModel):
 
 class ListDhcpOptionsSetsResponseBodyDhcpOptionsSetsDhcpOptions(TeaModel):
     def __init__(self, domain_name=None, domain_name_servers=None, ipv_6lease_time=None, lease_time=None):
+        # The suffix of the hostname.
         self.domain_name = domain_name  # type: str
+        # The DNS server IP address.
         self.domain_name_servers = domain_name_servers  # type: str
+        # The lease time of the IPv6 addresses for the DHCP options set.
+        # 
+        # *   If you use hours as the unit, valid values are **24h to 1176h** and **87600h to 175200h**. Default value: **87600h**.
+        # *   If you use days as the unit, valid values are **1d to 49d** and **3650d to 7300d**. Default value: **3650d**.
         self.ipv_6lease_time = ipv_6lease_time  # type: str
+        # The lease time of the IPv4 addresses for the DHCP options set.
+        # 
+        # *   If you use hours as the unit, valid values are **24h to 1176h** and **87600h to 175200h**. Default value: **87600h**.
+        # *   If you use days as the unit, valid values are **1d to 49d** and **3650d to 7300d**. Default value: **3650d**.
         self.lease_time = lease_time  # type: str
 
     def validate(self):
@@ -56190,25 +58099,25 @@ class ListDhcpOptionsSetsResponseBodyDhcpOptionsSetsTags(TeaModel):
 class ListDhcpOptionsSetsResponseBodyDhcpOptionsSets(TeaModel):
     def __init__(self, associate_vpc_count=None, dhcp_options=None, dhcp_options_set_description=None,
                  dhcp_options_set_id=None, dhcp_options_set_name=None, owner_id=None, resource_group_id=None, status=None, tags=None):
-        # The lease time of the IPv4 addresses for the DHCP options set.
-        # 
-        # *   If you use hours as the unit, valid values are **24h to 1176h** and **87600h to 175200h**. Default value: **87600h**.
-        # *   If you use days as the unit, valid values are **1d to 49d** and **3650d to 7300d**. Default value: **3650d**.
+        # The number of VPCs with which the DHCP options set is associated.
         self.associate_vpc_count = associate_vpc_count  # type: int
+        # The configuration information about the DHCP options set.
         self.dhcp_options = dhcp_options  # type: ListDhcpOptionsSetsResponseBodyDhcpOptionsSetsDhcpOptions
-        # The ID of the Alibaba Cloud account to which the DHCP options set belongs.
+        # The description of the DHCP options set.
         self.dhcp_options_set_description = dhcp_options_set_description  # type: str
-        # The DNS server IP address.
+        # The ID of the DHCP options set.
         self.dhcp_options_set_id = dhcp_options_set_id  # type: str
-        # The suffix of the hostname.
+        # The name of the DHCP options set.
         self.dhcp_options_set_name = dhcp_options_set_name  # type: str
-        # The lease time of the IPv6 addresses for the DHCP options set.
-        # 
-        # *   If you use hours as the unit, valid values are **24h to 1176h** and **87600h to 175200h**. Default value: **87600h**.
-        # *   If you use days as the unit, valid values are **1d to 49d** and **3650d to 7300d**. Default value: **3650d**.
+        # The ID of the Alibaba Cloud account to which the DHCP options set belongs.
         self.owner_id = owner_id  # type: long
         self.resource_group_id = resource_group_id  # type: str
-        # The configuration information about the DHCP options set.
+        # The status of the DHCP options set. Valid values:
+        # 
+        # *   **Available**: available
+        # *   **InUse**: in use
+        # *   **Pending**: being configured
+        # *   **Deleted**: deleted
         self.status = status  # type: str
         self.tags = tags  # type: list[ListDhcpOptionsSetsResponseBodyDhcpOptionsSetsTags]
 
@@ -56277,11 +58186,14 @@ class ListDhcpOptionsSetsResponseBodyDhcpOptionsSets(TeaModel):
 
 class ListDhcpOptionsSetsResponseBody(TeaModel):
     def __init__(self, dhcp_options_sets=None, next_token=None, request_id=None, total_count=None):
-        # The number of VPCs with which the DHCP options set is associated.
+        # The list of the DHCP options sets.
         self.dhcp_options_sets = dhcp_options_sets  # type: list[ListDhcpOptionsSetsResponseBodyDhcpOptionsSets]
-        # The ID of the DHCP options set.
+        # The token that is used for the next query. Valid values:
+        # 
+        # *   If **NextToken** is empty, it indicates that no next query is to be sent.
+        # *   If a value is returned for **NextToken**, the value is the token that is used for the next query.
         self.next_token = next_token  # type: str
-        # The name of the DHCP options set.
+        # The ID of the request.
         self.request_id = request_id  # type: str
         self.total_count = total_count  # type: str
 
@@ -56537,36 +58449,43 @@ class ListFullNatEntriesRequest(TeaModel):
                  full_nat_table_id=None, ip_protocol=None, max_results=None, nat_gateway_id=None, network_interface_ids=None,
                  next_token=None, owner_account=None, owner_id=None, region_id=None, resource_owner_account=None,
                  resource_owner_id=None):
+        # The client token that is used to ensure the idempotence of the request.
+        # 
+        # You can use the client to generate the value, but you must ensure that it is unique among all requests. The token can contain only ASCII characters.
+        # 
+        # >  If you do not specify this parameter, the system uses **RequestId** as **ClientToken**. **RequestId** may be different for each API request.
+        self.client_token = client_token  # type: str
+        # The ID of the FULLNAT entry that you want to query.
+        self.full_nat_entry_id = full_nat_entry_id  # type: str
+        # The name of the FULLNAT entry.
+        self.full_nat_entry_names = full_nat_entry_names  # type: list[str]
         # The ID of the FULLNAT table to which the FULLNAT entries to be queried belong.
         # 
         # >  You must specify at least one of the **FullNatTableId** and **NatGatewayId** parameters.
-        self.client_token = client_token  # type: str
-        # The ID of the elastic network interface (ENI) that you want to query. You can specify up to 20 ENIs.
-        self.full_nat_entry_id = full_nat_entry_id  # type: str
-        self.full_nat_entry_names = full_nat_entry_names  # type: list[str]
-        # The name of the FULLNAT entry that you want to query. You can enter the names of up to 20 FULLNAT entries.
-        # 
-        # The name must be 2 to 128 characters in length and can contain letters, digits, underscores (\_), and hyphens (-). The name must start with a letter.
         self.full_nat_table_id = full_nat_table_id  # type: str
-        # The ID of the request.
-        self.ip_protocol = ip_protocol  # type: str
         # The protocol of the packets that are forwarded by the port. Valid values:
         # 
         # *   **TCP**\
         # *   **UDP**\
+        self.ip_protocol = ip_protocol  # type: str
+        # The number of entries to return per page. Valid values: **1** to **100**. Default value: **20**.
         self.max_results = max_results  # type: long
-        # The ID of the VPC NAT gateway.
-        self.nat_gateway_id = nat_gateway_id  # type: str
-        self.network_interface_ids = network_interface_ids  # type: list[str]
-        # The region ID of the virtual private cloud (VPC) NAT gateway to which the FULLNAT entries to be queried belong.
-        # 
-        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
-        self.next_token = next_token  # type: str
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
         # The ID of the NAT gateway.
         # 
         # >  You must specify at least one of the **FullNatTableId** and **NatGatewayId** parameters.
+        self.nat_gateway_id = nat_gateway_id  # type: str
+        # The IDs of ENIs.
+        self.network_interface_ids = network_interface_ids  # type: list[str]
+        # The token that is used for the next query. Valid values:
+        # 
+        # *   If this is your first query or no next queries are to be sent, ignore this parameter.
+        # *   If a next query is to be sent, set the value to the value of **NextToken** that is returned from the last call.
+        self.next_token = next_token  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The region ID of the virtual private cloud (VPC) NAT gateway to which the FULLNAT entries to be queried belong.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -56647,41 +58566,43 @@ class ListFullNatEntriesResponseBodyFullNatEntries(TeaModel):
     def __init__(self, access_ip=None, access_port=None, creation_time=None, full_nat_entry_description=None,
                  full_nat_entry_id=None, full_nat_entry_name=None, full_nat_entry_status=None, full_nat_table_id=None,
                  ip_protocol=None, nat_ip=None, nat_ip_port=None, network_interface_id=None, network_interface_type=None):
-        # The protocol of the packets that are forwarded. Valid values:
-        # 
-        # *   **TCP**\
-        # *   **UDP**\
+        # The backend IP address that is used for FULLNAT address translation in FULLNAT entries.
         self.access_ip = access_ip  # type: str
-        # The ID of the ENI.
+        # The backend port that is used for port mapping in FULLNAT entries. Valid values: **1** to **65535**.
         self.access_port = access_port  # type: str
+        # The time when the FULLNAT entry was created.
+        self.creation_time = creation_time  # type: str
+        # The description of the FULLNAT entry.
+        # 
+        # The name must be 2 to 128 characters in length. It must start with a letter but cannot start with `http://` or `https://`.
+        self.full_nat_entry_description = full_nat_entry_description  # type: str
+        # The ID of the FULLNAT entry.
+        self.full_nat_entry_id = full_nat_entry_id  # type: str
+        # The name of the FULLNAT entry.
+        # 
+        # The name must be 2 to 128 characters in length and can contain letters, digits, underscores (\_), and hyphens (-). The name must start with a letter.
+        self.full_nat_entry_name = full_nat_entry_name  # type: str
         # The status of the FULLNAT entry. Valid values:
         # 
         # *   **Pending**: The FULLNAT entry is being configured.
         # *   **Available**: The FULLNAT entry is available.
         # *   **Deleting**: The FULLNAT entry is being deleted.
         # *   **Deleted**: The FULLNAT entry is deleted.
-        self.creation_time = creation_time  # type: str
-        # The ID of the FULLNAT entry.
-        self.full_nat_entry_description = full_nat_entry_description  # type: str
-        # The ID of the FULLNAT table to which the FULLNAT entry belongs.
-        self.full_nat_entry_id = full_nat_entry_id  # type: str
-        # The time when the FULLNAT entry was created.
-        self.full_nat_entry_name = full_nat_entry_name  # type: str
         self.full_nat_entry_status = full_nat_entry_status  # type: str
+        # The ID of the FULLNAT table to which the FULLNAT entry belongs.
         self.full_nat_table_id = full_nat_table_id  # type: str
-        # The type of the ENI. The value is set to **Endpoint**, which indicates a reverse endpoint.
+        # The protocol of the packets that are forwarded. Valid values:
+        # 
+        # *   **TCP**\
+        # *   **UDP**\
         self.ip_protocol = ip_protocol  # type: str
-        # The backend IP address that is used for FULLNAT address translation in FULLNAT entries.
+        # The NAT IP address that is used for address translation in FULLNAT entries.
         self.nat_ip = nat_ip  # type: str
-        # The backend port that is used for port mapping in FULLNAT entries. Valid values: **1** to **65535**.
+        # The frontend port that is used for port mapping in FULLNAT entries. Valid values: **1** to **65535**.
         self.nat_ip_port = nat_ip_port  # type: str
-        # The name of the FULLNAT entry.
-        # 
-        # The name must be 2 to 128 characters in length and can contain letters, digits, underscores (\_), and hyphens (-). The name must start with a letter.
+        # The ID of the ENI.
         self.network_interface_id = network_interface_id  # type: str
-        # The description of the FULLNAT entry.
-        # 
-        # The name must be 2 to 128 characters in length. It must start with a letter but cannot start with `http://` or `https://`.
+        # The type of the ENI. The value is set to **Endpoint**, which indicates a reverse endpoint.
         self.network_interface_type = network_interface_type  # type: str
 
     def validate(self):
@@ -56755,22 +58676,22 @@ class ListFullNatEntriesResponseBodyFullNatEntries(TeaModel):
 class ListFullNatEntriesResponseBody(TeaModel):
     def __init__(self, full_nat_entries=None, full_nat_table_id=None, max_results=None, nat_gateway_id=None,
                  next_token=None, request_id=None, total_count=None):
-        # The frontend port that is used for port mapping in FULLNAT entries. Valid values: **1** to **65535**.
+        # The information about the FULLNAT entries that are queried.
         self.full_nat_entries = full_nat_entries  # type: list[ListFullNatEntriesResponseBodyFullNatEntries]
+        # The ID of the FULLNAT table to which the queried FULLNAT entries belong.
+        self.full_nat_table_id = full_nat_table_id  # type: str
+        # The maximum number of entries returned.
+        self.max_results = max_results  # type: long
+        # The ID of the VPC NAT gateway.
+        self.nat_gateway_id = nat_gateway_id  # type: str
         # Indicates whether the token for the next query exists. Valid values:
         # 
         # *   If the value of **NextToken** is empty, no next queries are sent.
         # *   If the value of **NextToken** is returned, the value indicates the token that is used for the next query.
-        self.full_nat_table_id = full_nat_table_id  # type: str
-        # The NAT IP address that is used for address translation in FULLNAT entries.
-        self.max_results = max_results  # type: long
-        # The number of FULLNAT entries returned.
-        self.nat_gateway_id = nat_gateway_id  # type: str
-        # The information about the FULLNAT entries that are queried.
         self.next_token = next_token  # type: str
-        # The ID of the FULLNAT table to which the queried FULLNAT entries belong.
+        # The ID of the request.
         self.request_id = request_id  # type: str
-        # The maximum number of entries returned.
+        # The number of FULLNAT entries returned.
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -56867,23 +58788,22 @@ class ListFullNatEntriesResponse(TeaModel):
 class ListGatewayRouteTableEntriesRequest(TeaModel):
     def __init__(self, destination_cidr_block=None, gateway_route_table_id=None, max_results=None, next_token=None,
                  owner_account=None, owner_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None):
-        # The request ID.
-        self.destination_cidr_block = destination_cidr_block  # type: str
-        # The token that determines the start point of the query. Valid values:
-        # 
-        # *   If no value is returned for **NextToken**, no next queries are sent.
-        # *   If a value of **NextToken** is returned, the value is the token that is used for the subsequent query.
-        self.gateway_route_table_id = gateway_route_table_id  # type: str
-        # The ID of the gateway route table that you want to query.
-        self.max_results = max_results  # type: int
         # The destination CIDR block of the route in the gateway route table.
-        self.next_token = next_token  # type: str
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
+        self.destination_cidr_block = destination_cidr_block  # type: str
+        # The ID of the gateway route table that you want to query.
+        self.gateway_route_table_id = gateway_route_table_id  # type: str
+        # The number of entries to return on each page. Valid values: **1** to **100**. Default value: **10**.
+        self.max_results = max_results  # type: int
         # The token that determines the start point of the query. Valid values:
         # 
         # *   If this is your first query and no next queries are to be sent, ignore this parameter.
         # *   If a next query is to be sent, set the parameter to the value of NextToken that is returned from the last call.
+        self.next_token = next_token  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The region ID of the gateway route table.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -56942,14 +58862,25 @@ class ListGatewayRouteTableEntriesRequest(TeaModel):
 
 class ListGatewayRouteTableEntriesResponseBodyGatewayRouteEntryModelsNextHops(TeaModel):
     def __init__(self, enabled=None, next_hop_id=None, next_hop_type=None, weight=None):
-        self.enabled = enabled  # type: str
-        # The weight of the route.
-        self.next_hop_id = next_hop_id  # type: str
         # Indicates whether the route is available. Valid values:
         # 
         # *   **0**: unavailable
         # *   **1**: available
+        self.enabled = enabled  # type: str
+        # The ID of the next hop.
+        self.next_hop_id = next_hop_id  # type: str
+        # The type of the next hop. Valid values:
+        # 
+        # *   **Instance** (default): an ECS instance
+        # *   **HaVip**: a high-availability virtual IP address (HAVIP)
+        # *   **VpnGateway**: a VPN gateway
+        # *   **NatGateway**: a NAT gateway
+        # *   **NetworkInterface**: a secondary ENI
+        # *   **RouterInterface**: a router interface
+        # *   **IPv6Gateway**: an IPv6 gateway
+        # *   **Attachment**: a transit router
         self.next_hop_type = next_hop_type  # type: str
+        # The weight of the route.
         self.weight = weight  # type: str
 
     def validate(self):
@@ -56987,34 +58918,29 @@ class ListGatewayRouteTableEntriesResponseBodyGatewayRouteEntryModelsNextHops(Te
 class ListGatewayRouteTableEntriesResponseBodyGatewayRouteEntryModels(TeaModel):
     def __init__(self, description=None, destination_cidr_block=None, name=None, next_hop_id=None,
                  next_hop_type=None, next_hops=None, status=None):
-        # The destination CIDR block of the route.
+        # The name of the route.
         self.description = description  # type: str
-        # The information about the next hop.
+        # The destination CIDR block of the route.
         self.destination_cidr_block = destination_cidr_block  # type: str
-        # The ID of the next hop.
+        # The name of the route.
+        # 
+        # The name must be 2 to 128 characters in length, and can contain letters, digits, periods (.), underscores (\_), and hyphens (-). It must start with a letter.
         self.name = name  # type: str
+        # The ID of the next hop.
+        self.next_hop_id = next_hop_id  # type: str
         # The type of the next hop. Valid values:
         # 
         # *   **EcsInstance**: an Elastic Compute Service (ECS) instance
         # *   **NetworkInterface**: an elastic network interface (ENI)
         # *   **Local**: a local next hop
-        self.next_hop_id = next_hop_id  # type: str
-        # The name of the route.
-        # 
-        # The name must be 2 to 128 characters in length, and can contain letters, digits, periods (.), underscores (\_), and hyphens (-). It must start with a letter.
         self.next_hop_type = next_hop_type  # type: str
-        # The type of the next hop. Valid values:
-        # 
-        # *   **Instance** (default): an ECS instance
-        # *   **HaVip**: a high-availability virtual IP address (HAVIP)
-        # *   **VpnGateway**: a VPN gateway
-        # *   **NatGateway**: a NAT gateway
-        # *   **NetworkInterface**: a secondary ENI
-        # *   **RouterInterface**: a router interface
-        # *   **IPv6Gateway**: an IPv6 gateway
-        # *   **Attachment**: a transit router
+        # The information about the next hop.
         self.next_hops = next_hops  # type: list[ListGatewayRouteTableEntriesResponseBodyGatewayRouteEntryModelsNextHops]
-        # The name of the route.
+        # The status of the route. Valid values:
+        # 
+        # *   **Pending**\
+        # *   **Available**\
+        # *   **Modifying**\
         self.status = status  # type: str
 
     def validate(self):
@@ -57071,17 +58997,16 @@ class ListGatewayRouteTableEntriesResponseBodyGatewayRouteEntryModels(TeaModel):
 
 class ListGatewayRouteTableEntriesResponseBody(TeaModel):
     def __init__(self, gateway_route_entry_models=None, next_token=None, request_id=None, total_count=None):
-        # The ID of the next hop.
-        self.gateway_route_entry_models = gateway_route_entry_models  # type: list[ListGatewayRouteTableEntriesResponseBodyGatewayRouteEntryModels]
-        # The total number of entries returned.
-        self.next_token = next_token  # type: str
         # The details of the routes in the gateway route table.
-        self.request_id = request_id  # type: str
-        # The status of the route. Valid values:
+        self.gateway_route_entry_models = gateway_route_entry_models  # type: list[ListGatewayRouteTableEntriesResponseBodyGatewayRouteEntryModels]
+        # The token that determines the start point of the query. Valid values:
         # 
-        # *   **Pending**\
-        # *   **Available**\
-        # *   **Modifying**\
+        # *   If no value is returned for **NextToken**, no next queries are sent.
+        # *   If a value of **NextToken** is returned, the value is the token that is used for the subsequent query.
+        self.next_token = next_token  # type: str
+        # The request ID.
+        self.request_id = request_id  # type: str
+        # The total number of entries returned.
         self.total_count = total_count  # type: str
 
     def validate(self):
@@ -57411,17 +59336,18 @@ class ListIpsecServerLogsResponse(TeaModel):
 class ListIpsecServersRequest(TeaModel):
     def __init__(self, ipsec_server_id=None, ipsec_server_name=None, max_results=None, next_token=None,
                  region_id=None, vpn_gateway_id=None):
+        # The ID of the IPsec server.
         self.ipsec_server_id = ipsec_server_id  # type: list[str]
         # The name of the IPsec server.
         # 
-        # The name must be 1 to 100 characters in length, and cannot start with `http://` or `https://`.
+        # The name must be 1 to 100 characters in length and cannot start with `http://` or `https://`.
         self.ipsec_server_name = ipsec_server_name  # type: str
         # The number of entries to return on each page. Valid values: **1** to **20**. Default value: **10**.
         self.max_results = max_results  # type: int
-        # The token that is used for the next query. Valid values:
+        # The pagination token that is used in the next request to retrieve a new page of results. Valid values:
         # 
-        # *   If this is your first query or no subsequent query is to be sent, ignore this parameter.
-        # *   If a subsequent query is to be sent, set the value to the value of **NextToken** that is returned from the last call.
+        # *   If this is your first request and no next requests are to be performed, you do not need to specify this parameter.
+        # *   You must specify the token that is obtained from the previous query as the value of **NextToken**.
         self.next_token = next_token  # type: str
         # The ID of the region where the IPsec server is created.
         # 
@@ -57724,18 +59650,18 @@ class ListIpsecServersResponseBodyIpsecServers(TeaModel):
 
 class ListIpsecServersResponseBody(TeaModel):
     def __init__(self, ipsec_servers=None, max_results=None, next_token=None, request_id=None, total_count=None):
-        # The list of IPsec servers.
+        # The Diffie-Hellman key exchange algorithm.
         self.ipsec_servers = ipsec_servers  # type: list[ListIpsecServersResponseBodyIpsecServers]
-        # The number of entries returned on each page.
+        # The number of entries returned per page.
         self.max_results = max_results  # type: int
-        # The token that is used for the next query. Valid values:
+        # A pagination token. It can be used in the next request to retrieve a new page of results. Valid values:
         # 
-        # *   If a value of **NextToken** is not returned, it indicates that no subsequent query is to be sent.
-        # *   If a value of **NextToken** is returned, the value is the token that is used for the subsequent query.
+        # *   If no value is returned for **NextToken**, no next queries are sent.
+        # *   If a value is returned for **NextToken**, the value can be used in the next request to retrieve a new page of results.
         self.next_token = next_token  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # The number of entries returned.
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
 
     def validate(self):
@@ -59856,30 +61782,36 @@ class ListTagResourcesRequest(TeaModel):
                  resource_id=None, resource_owner_account=None, resource_owner_id=None, resource_type=None, tag=None):
         # The number of entries to return on each page. Valid values:**1** to **50**. Default value: **50**.
         self.max_results = max_results  # type: int
-        # The token that determines the start point of the query. Valid values:
+        # The pagination token that is used in the next request to retrieve a new page of results. Valid values:
         # 
-        # *   If this is your first query or no subsequent query is to be sent, ignore this parameter.
-        # *   If a next query is to be sent, set the value to the value of **NextToken** that is returned in the last call.
+        # *   You do not need to specify this parameter for the first request.
+        # *   You must specify the token that is obtained from the previous query as the value of **NextToken**.
         self.next_token = next_token  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The ID of the region to which the resource belongs.
+        # The region ID of the resource.
         # 
-        # You can call the [DescribeRegions](~~36063~~) operation to obtain the region ID.
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
+        # The resource ID. You can specify up to 20 resource IDs.
         self.resource_id = resource_id  # type: list[str]
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The type of the resource. Valid values:
+        # The resource type. Valid values:
         # 
-        # *   **VPC**: virtual private cloud (VPC)
-        # *   **VSWITCH**: vSwitch
-        # *   **ROUTETABLE**: route table
-        # *   **EIP**: EIP
-        # *   **VpnGateWay**: VPN gateway
-        # *   **NATGATEWAY**: NAT gateway
+        # *   **VPC**\
+        # *   **VSWITCH**\
+        # *   **ROUTETABLE**\
+        # *   **EIP**\
+        # *   **VpnGateway**\
+        # *   **NATGATEWAY**\
         # *   **COMMONBANDWIDTHPACKAGE**: EIP bandwidth plan
         self.resource_type = resource_type  # type: str
+        # The tag value. You can specify up to 20 tag values. It can be an empty string.
+        # 
+        # The value can be up to 128 characters in length and can contain letters, digits, periods (.), underscores (\_), and hyphens (-). The value must start with a letter but cannot start with `aliyun` or `acs:`. The value cannot contain `http://` or `https://`.
+        # 
+        # >  You must specify at least one of **ResourceId.N** and **Tag.N** (**Tag.N.Key** and **Tag.N.Value**).
         self.tag = tag  # type: list[ListTagResourcesRequestTag]
 
     def validate(self):
@@ -60031,14 +61963,14 @@ class ListTagResourcesResponseBodyTagResources(TeaModel):
 
 class ListTagResourcesResponseBody(TeaModel):
     def __init__(self, next_token=None, request_id=None, tag_resources=None):
-        # The token that determines the start point of the query. Valid values:
+        # A pagination token. It can be used in the next request to retrieve a new page of results. Valid values:
         # 
         # *   If no value is returned for **NextToken**, no next queries are sent.
-        # *   If a value of **NextToken** is returned, the value is the token that is used for the subsequent query.
+        # *   If a value is returned for **NextToken**, the value is used to retrieve a new page of results.
         self.next_token = next_token  # type: str
         # The request ID.
         self.request_id = request_id  # type: str
-        # The details about the resource to which the tags are added.
+        # The tag key.
         self.tag_resources = tag_resources  # type: ListTagResourcesResponseBodyTagResources
 
     def validate(self):
@@ -61898,22 +63830,22 @@ class ListVirtualPhysicalConnectionsResponse(TeaModel):
 class ListVpcEndpointServicesByEndUserRequest(TeaModel):
     def __init__(self, max_results=None, next_token=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None, service_name=None):
-        # The ID of the request.
+        # The number of entries to return per page. Valid values: **1** to **100**. Default value: **20**.
         self.max_results = max_results  # type: long
-        # The region ID of the gateway endpoint.
+        # The token that is used for the next query. Valid values:
         # 
-        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
+        # *   If this is your first query and no next queries are to be sent, ignore this parameter.
+        # *   If a next query is to be performed, set the value to the NextToken value returned in the last call to the ListListenerCertificates operation.
         self.next_token = next_token  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The token that is used for the next query. Valid values:
+        # The region ID of the gateway endpoint.
         # 
-        # *   If no value is returned for **NextToken**, no next queries are sent.
-        # *   If **NextToken** is returned, the value is the token that is used for the next query.
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The number of entries to return per page. Valid values: **1** to **100**. Default value: **20**.
+        # The name of the endpoint service that you want to query.
         self.service_name = service_name  # type: str
 
     def validate(self):
@@ -61967,16 +63899,18 @@ class ListVpcEndpointServicesByEndUserRequest(TeaModel):
 class ListVpcEndpointServicesByEndUserResponseBodyServices(TeaModel):
     def __init__(self, default_policy_document=None, service_domain=None, service_id=None, service_name=None,
                  support_policy=None):
-        # The domain name of the cloud service to which the endpoint service belongs.
-        self.default_policy_document = default_policy_document  # type: str
-        self.service_domain = service_domain  # type: str
         # The default access policy.
+        self.default_policy_document = default_policy_document  # type: str
+        # The domain name of the cloud service to which the endpoint service belongs.
+        self.service_domain = service_domain  # type: str
+        # The ID of the endpoint service.
         self.service_id = service_id  # type: str
+        # The name of the endpoint service.
+        self.service_name = service_name  # type: str
         # Indicate whether the endpoint service supports the access policy. Valid values:
         # 
         # *   **false**: no
         # *   **true**: yes
-        self.service_name = service_name  # type: str
         self.support_policy = support_policy  # type: bool
 
     def validate(self):
@@ -62017,13 +63951,16 @@ class ListVpcEndpointServicesByEndUserResponseBodyServices(TeaModel):
 
 class ListVpcEndpointServicesByEndUserResponseBody(TeaModel):
     def __init__(self, max_results=None, next_token=None, request_id=None, services=None):
-        # The ID of the endpoint service.
-        self.max_results = max_results  # type: long
-        # The list of entries returned.
-        self.next_token = next_token  # type: str
         # The number of entries returned per page.
+        self.max_results = max_results  # type: long
+        # The token that is used for the next query. Valid values:
+        # 
+        # *   If no value is returned for **NextToken**, no next queries are sent.
+        # *   If **NextToken** is returned, the value is the token that is used for the next query.
+        self.next_token = next_token  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
-        # The name of the endpoint service.
+        # The list of entries returned.
         self.services = services  # type: list[ListVpcEndpointServicesByEndUserResponseBodyServices]
 
     def validate(self):
@@ -62138,27 +64075,29 @@ class ListVpcGatewayEndpointsRequest(TeaModel):
     def __init__(self, endpoint_id=None, endpoint_name=None, max_results=None, next_token=None, owner_account=None,
                  owner_id=None, region_id=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None,
                  service_name=None, tags=None):
-        # The number of entries to return per page. Valid values: **1** to **100**. Default value: **20**.
+        # The ID of the gateway endpoint.
         self.endpoint_id = endpoint_id  # type: str
-        # The region ID of the gateway endpoint.
+        # The name of the gateway endpoint.
         # 
-        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
+        # The name must be 1 to 128 characters in length.
         self.endpoint_name = endpoint_name  # type: str
-        # The total number of entries returned.
+        # The number of entries to return per page. Valid values: **1** to **100**. Default value: **20**.
         self.max_results = max_results  # type: long
         # The token that is used for the next query. Valid values:
         # 
-        # *   If no value is returned for **NextToken**, no next queries are sent.
-        # *   If **NextToken** is not empty, the value indicates the token that is used for the next query.
+        # *   If this is your first query and no next queries are to be sent, ignore this parameter.
+        # *   If a next query is to be performed, set the value to the NextToken value returned in the last call to the ListListenerCertificates operation.
         self.next_token = next_token  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The list of gateway endpoints.
+        # The region ID of the gateway endpoint.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_group_id = resource_group_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The ID of the request.
+        # The name of the endpoint service.
         self.service_name = service_name  # type: str
         self.tags = tags  # type: list[ListVpcGatewayEndpointsRequestTags]
 
@@ -62267,20 +64206,16 @@ class ListVpcGatewayEndpointsResponseBodyEndpoints(TeaModel):
     def __init__(self, associated_route_tables=None, creation_time=None, endpoint_description=None,
                  endpoint_id=None, endpoint_name=None, endpoint_status=None, policy_document=None, resource_group_id=None,
                  service_name=None, tags=None, vpc_id=None):
+        # The ID of the route table associated with the gateway endpoint.
         self.associated_route_tables = associated_route_tables  # type: list[str]
-        self.creation_time = creation_time  # type: str
         # The time when the endpoint was created. The time follows the ISO 8601 standard in the YYYY-MM-DDThh:mm:ssZ format. The time must be in UTC.
+        self.creation_time = creation_time  # type: str
+        # The description of the gateway endpoint.
         self.endpoint_description = endpoint_description  # type: str
-        # The ID of the virtual private cloud (VPC) to which the gateway endpoint belongs.
+        # The ID of the gateway endpoint.
         self.endpoint_id = endpoint_id  # type: str
-        # The access policy for the cloud service.
-        # 
-        # For more information about the syntax and structure of the access policy, see [Policy syntax and structure](~~93739~~).
+        # The name of the gateway endpoint.
         self.endpoint_name = endpoint_name  # type: str
-        self.endpoint_status = endpoint_status  # type: str
-        # The number of entries returned per page.
-        self.policy_document = policy_document  # type: str
-        self.resource_group_id = resource_group_id  # type: str
         # The status of the gateway endpoint. Valid values:
         # 
         # *   **Creating**\
@@ -62289,9 +64224,16 @@ class ListVpcGatewayEndpointsResponseBodyEndpoints(TeaModel):
         # *   **Associating**\
         # *   **Dissociating**\
         # *   **Deleting**\
+        self.endpoint_status = endpoint_status  # type: str
+        # The access policy for the cloud service.
+        # 
+        # For more information about the syntax and structure of the access policy, see [Policy syntax and structure](~~93739~~).
+        self.policy_document = policy_document  # type: str
+        self.resource_group_id = resource_group_id  # type: str
+        # The name of the endpoint service.
         self.service_name = service_name  # type: str
         self.tags = tags  # type: list[ListVpcGatewayEndpointsResponseBodyEndpointsTags]
-        # The ID of the route table associated with the gateway endpoint.
+        # The ID of the virtual private cloud (VPC) to which the gateway endpoint belongs.
         self.vpc_id = vpc_id  # type: str
 
     def validate(self):
@@ -62364,14 +64306,18 @@ class ListVpcGatewayEndpointsResponseBodyEndpoints(TeaModel):
 
 class ListVpcGatewayEndpointsResponseBody(TeaModel):
     def __init__(self, endpoints=None, max_results=None, next_token=None, request_id=None, total_count=None):
-        # The name of the endpoint service.
+        # The list of gateway endpoints.
         self.endpoints = endpoints  # type: list[ListVpcGatewayEndpointsResponseBodyEndpoints]
+        # The number of entries returned per page.
         self.max_results = max_results  # type: long
-        # The name of the gateway endpoint.
+        # The token that is used for the next query. Valid values:
+        # 
+        # *   If no value is returned for **NextToken**, no next queries are sent.
+        # *   If **NextToken** is not empty, the value indicates the token that is used for the next query.
         self.next_token = next_token  # type: str
-        # The ID of the gateway endpoint.
+        # The ID of the request.
         self.request_id = request_id  # type: str
-        # The description of the gateway endpoint.
+        # The total number of entries returned.
         self.total_count = total_count  # type: long
 
     def validate(self):
@@ -63296,14 +65242,17 @@ class ModifyCommonBandwidthPackageIpBandwidthResponse(TeaModel):
 class ModifyCommonBandwidthPackageSpecRequest(TeaModel):
     def __init__(self, bandwidth=None, bandwidth_package_id=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None):
-        self.bandwidth = bandwidth  # type: str
-        # The ID of the request.
-        self.bandwidth_package_id = bandwidth_package_id  # type: str
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
         # The maximum bandwidth of the EIP bandwidth plan. Unit: Mbit/s.
         # 
         # Valid values: **1** to **1000**.
+        self.bandwidth = bandwidth  # type: str
+        # The ID of the EIP bandwidth plan.
+        self.bandwidth_package_id = bandwidth_package_id  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The region ID of the EIP bandwidth plan.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -63354,6 +65303,7 @@ class ModifyCommonBandwidthPackageSpecRequest(TeaModel):
 
 class ModifyCommonBandwidthPackageSpecResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -63601,22 +65551,26 @@ class ModifyCustomerGatewayAttributeResponse(TeaModel):
 class ModifyEipAddressAttributeRequest(TeaModel):
     def __init__(self, allocation_id=None, bandwidth=None, description=None, name=None, owner_account=None,
                  owner_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None):
-        # The region ID of the EIP.
-        # 
-        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
+        # The ID of the pay-as-you-go EIP.
         self.allocation_id = allocation_id  # type: str
-        # The new name of the EIP.
+        # The new maximum bandwidth of the EIP. Valid values:
         # 
-        # The name must be 1 to 128 characters in length, and can contain digits, periods (.), underscores (\_), and hyphens (-).
+        # *   **1** to **200** if the metering method is pay-by-data-transfer. Unit: Mbit/s.
+        # *   **1** to **500** if the metering method is pay-by-bandwidth. Unit: Mbit/s.
         self.bandwidth = bandwidth  # type: str
-        self.description = description  # type: str
-        # The ID of the request.
-        self.name = name  # type: str
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
         # The new description of the EIP.
         # 
         # The description must be 2 to 256 characters in length. It must start with a letter but cannot start with `http://` or `https://`.
+        self.description = description  # type: str
+        # The new name of the EIP.
+        # 
+        # The name must be 1 to 128 characters in length, and can contain digits, periods (.), underscores (\_), and hyphens (-).
+        self.name = name  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The region ID of the EIP.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -63675,6 +65629,7 @@ class ModifyEipAddressAttributeRequest(TeaModel):
 
 class ModifyEipAddressAttributeResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -64158,14 +66113,15 @@ class ModifyForwardEntryRequest(TeaModel):
                  forward_entry_name=None, forward_table_id=None, internal_ip=None, internal_port=None, ip_protocol=None,
                  owner_account=None, owner_id=None, port_break=None, region_id=None, resource_owner_account=None,
                  resource_owner_id=None):
-        # The ID of the request.
+        # The client token that is used to ensure the idempotence of the request.
+        # 
+        # You can use the client to generate the value, but you must make sure that it is unique among all requests. ClientToken can contain only ASCII characters.
+        # 
+        # >  If you do not specify this parameter, **ClientToken** is set to the value of **RequestId**. The value of **RequestId** for each API request may be different.
         self.client_token = client_token  # type: str
-        # *   The private IP address of the ECS instance that uses DNAT entries to communicate with the Internet when you modify DNAT entries of Internet NAT gateways.
-        # *   The private IP address that uses DNAT entries to communicate when you modify DNAT entries of VPC NAT gateways.
+        # *   When you modify DNAT entries of Internet NAT gateways, this parameter specifies the elastic IP addresses (EIPs) that are used to access the Internet.
+        # *   When you modify DNAT entries of Virtual Private Cloud (VPC) NAT gateways, this parameter specifies the NAT IP addresses that are accessed by external networks.
         self.external_ip = external_ip  # type: str
-        # *   The internal port or port range that is used to forward traffic when you modify DNAT entries of Internet NAT gateways. Valid values: **1** to **65535**.
-        # *   The port of the destination ECS instance to be mapped when you modify DNAT entries of VPC NAT gateways. Valid values: **1** to **65535**.
-        self.external_port = external_port  # type: str
         # *   The external port that is used to forward traffic when you modify DNAT entries of Internet NAT gateways.
         # 
         #     *   Valid values: **1** to **65535**.
@@ -64173,37 +66129,37 @@ class ModifyForwardEntryRequest(TeaModel):
         #     *   If you want to modify **ExternalPort** and **InternalPort** at the same time, and set **ExternalPort** to a port range, you must also set **InternalPort** to a port range. For example, you can set **ExternalPort** to `10/20` and set **InternalPor** to `80/90`.
         # 
         # *   The port that is accessed by external networks when you modify DNAT entries of VPC NAT gateways. Valid values: **1** to **65535**.
+        self.external_port = external_port  # type: str
+        # The ID of the DNAT entry.
         self.forward_entry_id = forward_entry_id  # type: str
-        # The client token that is used to ensure the idempotence of the request.
+        # The new name of the DNAT entry.
         # 
-        # You can use the client to generate the value, but you must make sure that it is unique among all requests. ClientToken can contain only ASCII characters.
-        # 
-        # >  If you do not specify this parameter, **ClientToken** is set to the value of **RequestId**. The value of **RequestId** for each API request may be different.
+        # The name must be 2 to 128 characters in length. It must start with a letter but cannot start with `http://` or `https://`.
         self.forward_entry_name = forward_entry_name  # type: str
-        # *   When you modify DNAT entries of Internet NAT gateways, this parameter specifies the elastic IP addresses (EIPs) that are used to access the Internet.
-        # *   When you modify DNAT entries of Virtual Private Cloud (VPC) NAT gateways, this parameter specifies the NAT IP addresses that are accessed by external networks.
+        # The ID of the DNAT table to which the DNAT entry belongs.
         self.forward_table_id = forward_table_id  # type: str
+        # *   The private IP address of the ECS instance that uses DNAT entries to communicate with the Internet when you modify DNAT entries of Internet NAT gateways.
+        # *   The private IP address that uses DNAT entries to communicate when you modify DNAT entries of VPC NAT gateways.
+        self.internal_ip = internal_ip  # type: str
+        # *   The internal port or port range that is used to forward traffic when you modify DNAT entries of Internet NAT gateways. Valid values: **1** to **65535**.
+        # *   The port of the destination ECS instance to be mapped when you modify DNAT entries of VPC NAT gateways. Valid values: **1** to **65535**.
+        self.internal_port = internal_port  # type: str
         # The protocol type. Valid values:
         # 
         # *   **TCP**: The NAT gateway forwards TCP packets.
         # *   **UDP**: The NAT gateway forwards UDP packets.
         # *   **Any**: The NAT gateway forwards packets of all protocols.
-        self.internal_ip = internal_ip  # type: str
-        # The new name of the DNAT entry.
-        # 
-        # The name must be 2 to 128 characters in length. It must start with a letter but cannot start with `http://` or `https://`.
-        self.internal_port = internal_port  # type: str
-        # The region ID of the NAT gateway.
-        # 
-        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.ip_protocol = ip_protocol  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        self.port_break = port_break  # type: bool
         # Specifies whether to remove limits on the port range. Valid values:
         # 
         # *   **true**: yes
         # *   **false**: no If an SNAT entry and a DNAT entry use the same public IP address, and you want to specify a port number greater than `1024`, set `PortBreak` to `true`.
+        self.port_break = port_break  # type: bool
+        # The region ID of the NAT gateway.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -64286,6 +66242,7 @@ class ModifyForwardEntryRequest(TeaModel):
 
 class ModifyForwardEntryResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -64352,44 +66309,49 @@ class ModifyFullNatEntryAttributeRequest(TeaModel):
                  full_nat_entry_description=None, full_nat_entry_id=None, full_nat_entry_name=None, full_nat_table_id=None, ip_protocol=None,
                  nat_ip=None, nat_ip_port=None, network_interface_id=None, owner_account=None, owner_id=None,
                  region_id=None, resource_owner_account=None, resource_owner_id=None):
-        # The protocol of the packets that are forwarded by the port. Valid values:
-        # 
-        # *   **TCP**: TCP
-        # *   **UDP**: UDP
+        # The backend IP address to be modified in FULLNAT address translation.
         self.access_ip = access_ip  # type: str
-        # The new name of the FULLNAT entry.
-        # 
-        # The name must be 2 to 128 characters in length. It must start with a letter but cannot start with `http://` or `https://`.
+        # The backend port to be modified in FULLNAT port mapping. Valid values: **1** to **65535**.
         self.access_port = access_port  # type: str
-        # The ID of the FULLNAT table to be modified.
-        self.client_token = client_token  # type: str
-        # The ID of the request.
-        self.dry_run = dry_run  # type: bool
-        # The region ID of the Virtual Private Cloud (VPC) NAT gateway to which the FULLNAT entry to be modified belongs.
+        # The client token that is used to ensure the idempotence of the request.
         # 
-        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
-        self.full_nat_entry_description = full_nat_entry_description  # type: str
-        # The NAT IP address to be modified.
-        self.full_nat_entry_id = full_nat_entry_id  # type: str
+        # You can use the client to generate the value, but you must make sure that it is unique among different requests. The client token can contain only ASCII characters.
+        # 
+        # >  If you do not set this parameter, **ClientToken** is set to the value of **RequestId**. The value of **RequestId** for each API request may be different.
+        self.client_token = client_token  # type: str
         # Specifies whether only to precheck this request. Valid values:
         # 
         # *   **true**: prechecks the request but does not modify the FULLNAT entry. The system checks your AccessKey pair, the RAM user permissions, and the required parameters. If the request fails the precheck, an error code is returned. If the request passes the check, the `DryRunOperation` error code is returned.
         # *   **false**: sends the API request. After the request passes the check, a 2XX HTTP status code is returned and the FULLNAT entry is modified. This is the default value.
-        self.full_nat_entry_name = full_nat_entry_name  # type: str
-        # The ID of the elastic network interface (ENI) to be modified.
-        self.full_nat_table_id = full_nat_table_id  # type: str
+        self.dry_run = dry_run  # type: bool
         # The new description of the FULLNAT entry.
         # 
         # This parameter is optional. If you enter a description, the description must be 2 to 256 characters in length, and cannot start with `http://` or `https://`.
+        self.full_nat_entry_description = full_nat_entry_description  # type: str
+        # The ID of the FULLNAT entry to be modified.
+        self.full_nat_entry_id = full_nat_entry_id  # type: str
+        # The new name of the FULLNAT entry.
+        # 
+        # The name must be 2 to 128 characters in length. It must start with a letter but cannot start with `http://` or `https://`.
+        self.full_nat_entry_name = full_nat_entry_name  # type: str
+        # The ID of the FULLNAT table to be modified.
+        self.full_nat_table_id = full_nat_table_id  # type: str
+        # The protocol of the packets that are forwarded by the port. Valid values:
+        # 
+        # *   **TCP**: TCP
+        # *   **UDP**: UDP
         self.ip_protocol = ip_protocol  # type: str
-        # The backend IP address to be modified in FULLNAT address translation.
+        # The NAT IP address to be modified.
         self.nat_ip = nat_ip  # type: str
-        # The backend port to be modified in FULLNAT port mapping. Valid values: **1** to **65535**.
-        self.nat_ip_port = nat_ip_port  # type: str
         # The frontend port to be modified in FULLNAT port mapping. Valid values: **1** to **65535**.
+        self.nat_ip_port = nat_ip_port  # type: str
+        # The ID of the elastic network interface (ENI) to be modified.
         self.network_interface_id = network_interface_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID of the Virtual Private Cloud (VPC) NAT gateway to which the FULLNAT entry to be modified belongs.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -64480,6 +66442,7 @@ class ModifyFullNatEntryAttributeRequest(TeaModel):
 
 class ModifyFullNatEntryAttributeResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -66513,30 +68476,32 @@ class ModifyNatGatewaySpecResponse(TeaModel):
 class ModifyNatIpAttributeRequest(TeaModel):
     def __init__(self, client_token=None, dry_run=None, nat_ip_description=None, nat_ip_id=None, nat_ip_name=None,
                  owner_account=None, owner_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None):
-        # The ID of the request.
-        self.client_token = client_token  # type: str
-        # The operation that you want to perform. Set the value to **ModifyNatIpAttribute**.
-        self.dry_run = dry_run  # type: bool
         # The client token that is used to ensure the idempotence of the request.
         # 
         # You can use the client to generate the value, but you must make sure that it is unique among different requests. The client token can contain only ASCII characters.
         # 
         # >  If you do not set this parameter, **ClientToken** is set to the value of **RequestId**. The value of **RequestId** for each API request may be different.
-        self.nat_ip_description = nat_ip_description  # type: str
-        # The description of the NAT IP address that you want to modify.
-        # 
-        # The description must be 2 to 256 characters in length. It must start with a letter but cannot start with `http://` or `https://`.
-        self.nat_ip_id = nat_ip_id  # type: str
+        self.client_token = client_token  # type: str
         # Specifies whether only to precheck this request. Valid values:
         # 
         # *   **true**: sends the precheck request but does not modify the name or description of the NAT IP address. The system checks your AccessKey pair, the Resource Access Management (RAM) user permissions, and the required parameters. If the request fails the precheck, an error message is returned. If the request passes the precheck, the `DryRunOperation` error code is returned.
         # *   **false** (default): sends the request. If the request passes the precheck, a 2xx HTTP status code is returned and the name and description of the NAT IP address are modified.
-        self.nat_ip_name = nat_ip_name  # type: str
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
+        self.dry_run = dry_run  # type: bool
+        # The description of the NAT IP address that you want to modify.
+        # 
+        # The description must be 2 to 256 characters in length. It must start with a letter but cannot start with `http://` or `https://`.
+        self.nat_ip_description = nat_ip_description  # type: str
+        # The ID of the NAT IP address that you want to modify.
+        self.nat_ip_id = nat_ip_id  # type: str
         # The name of the NAT IP address that you want to modify.
         # 
         # The name must be 2 to 128 characters in length, and can contain letters, digits, periods (.), underscores (\_), and hyphens (-). It must start with a letter. It cannot start with `http://` or `https://`.
+        self.nat_ip_name = nat_ip_name  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The region ID of the NAT gateway to which the NAT IP address that you want to modify belongs.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -66599,6 +68564,7 @@ class ModifyNatIpAttributeRequest(TeaModel):
 
 class ModifyNatIpAttributeResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -66664,30 +68630,34 @@ class ModifyNatIpCidrAttributeRequest(TeaModel):
     def __init__(self, client_token=None, dry_run=None, nat_gateway_id=None, nat_ip_cidr=None,
                  nat_ip_cidr_description=None, nat_ip_cidr_name=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None):
-        # The ID of the Virtual Private Cloud (VPC) NAT gateway to which the NAT CIDR block belongs.
-        self.client_token = client_token  # type: str
-        # The new description of the NAT CIDR block.
-        # 
-        # The description must be 2 to 256 characters in length. It must start with a letter but cannot start with `http://` or `https://`.
-        self.dry_run = dry_run  # type: bool
-        # The operation that you want to perform. Set the value to **ModifyNatIpCidrAttribute**.
-        self.nat_gateway_id = nat_gateway_id  # type: str
-        # The ID of the request.
-        self.nat_ip_cidr = nat_ip_cidr  # type: str
-        # The NAT CIDR block whose name and description you want to modify.
-        self.nat_ip_cidr_description = nat_ip_cidr_description  # type: str
         # The client token that is used to ensure the idempotence of the request.
         # 
         # You can use the client to generate the value, but you must make sure that it is unique among different requests. ClientToken can contain only ASCII characters.
         # 
         # >  If you do not set this parameter, the system automatically uses **RequestId** as **ClientToken**. **RequestId** may be different for each API request.
-        self.nat_ip_cidr_name = nat_ip_cidr_name  # type: str
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
+        self.client_token = client_token  # type: str
         # Specifies whether to check the request without performing the operation. Valid values:
         # 
         # *   **true**: checks the request but does not modify information about the NAT CIDR block. The system checks whether your AccessKey pair is valid, whether RAM users are granted required permissions, and whether the required parameters are set. If the request fails the check, an error message is returned. If the request passes the check, the `DryRunOperation` error code is returned.
         # *   **false**: sends the request. This is the default value. If the request passes the check, a 2xx HTTP status code is returned and information about the NAT CIDR block is modified.
+        self.dry_run = dry_run  # type: bool
+        # The ID of the Virtual Private Cloud (VPC) NAT gateway to which the NAT CIDR block belongs.
+        self.nat_gateway_id = nat_gateway_id  # type: str
+        # The NAT CIDR block whose name and description you want to modify.
+        self.nat_ip_cidr = nat_ip_cidr  # type: str
+        # The new description of the NAT CIDR block.
+        # 
+        # The description must be 2 to 256 characters in length. It must start with a letter but cannot start with `http://` or `https://`.
+        self.nat_ip_cidr_description = nat_ip_cidr_description  # type: str
+        # The new name of the NAT CIDR block.
+        # 
+        # The name must be 2 to 128 characters in length and can contain digits, periods (.), underscores (\_), and hyphens (-). It must start with a letter.
+        self.nat_ip_cidr_name = nat_ip_cidr_name  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The region ID of the NAT gateway to which the NAT CIDR block belongs.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -66754,6 +68724,7 @@ class ModifyNatIpCidrAttributeRequest(TeaModel):
 
 class ModifyNatIpCidrAttributeResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -68394,17 +70365,23 @@ class ModifySslVpnServerResponse(TeaModel):
 class ModifyVRouterAttributeRequest(TeaModel):
     def __init__(self, description=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None, vrouter_id=None, vrouter_name=None):
-        self.description = description  # type: str
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
         # The description of the vRouter.
         # 
         # The description must be 1 to 256 characters in length and cannot start with `http://` or `https://`.
+        self.description = description  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The ID of the region where the vRouter is deployed.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The ID of the request.
+        # The ID of the vRouter.
         self.vrouter_id = vrouter_id  # type: str
+        # The name of the vRouter.
+        # 
+        # The name must be 1 to 128 characters in length and cannot start with `http://` or `https://`.
         self.vrouter_name = vrouter_name  # type: str
 
     def validate(self):
@@ -68457,6 +70434,7 @@ class ModifyVRouterAttributeRequest(TeaModel):
 
 class ModifyVRouterAttributeResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -69268,9 +71246,13 @@ class ModifyVpcAttributeResponse(TeaModel):
 
 class ModifyVpcPrefixListRequestAddPrefixListEntry(TeaModel):
     def __init__(self, cidr=None, description=None):
-        # The CIDR block that you want to delete from the prefix list.
+        # The CIDR block to be added to the prefix list.
+        # 
+        # >  If the CIDR block already exists in the prefix list, you can only modify the description of the CIDR block by setting the **AddPrefixListEntry.N.Description** parameter.
         self.cidr = cidr  # type: str
-        # The description of the CIDR block that you want to delete.
+        # The description of the CIDR block to be added to the prefix list.
+        # 
+        # The description must be 1 to 256 characters in length, and cannot start with `http://` or `https://`.
         self.description = description  # type: str
 
     def validate(self):
@@ -69299,11 +71281,9 @@ class ModifyVpcPrefixListRequestAddPrefixListEntry(TeaModel):
 
 class ModifyVpcPrefixListRequestRemovePrefixListEntry(TeaModel):
     def __init__(self, cidr=None, description=None):
-        # The region ID of the prefix list.
+        # The CIDR block that you want to delete from the prefix list.
         self.cidr = cidr  # type: str
-        # The new description of the prefix list.
-        # 
-        # The description must be 1 to 256 characters in length, and cannot start with `http://` or `https://`.
+        # The description of the CIDR block that you want to delete.
         self.description = description  # type: str
 
     def validate(self):
@@ -69335,32 +71315,32 @@ class ModifyVpcPrefixListRequest(TeaModel):
                  owner_account=None, owner_id=None, prefix_list_description=None, prefix_list_id=None, prefix_list_name=None,
                  region_id=None, remove_prefix_list_entry=None, resource_owner_account=None, resource_owner_id=None):
         self.add_prefix_list_entry = add_prefix_list_entry  # type: list[ModifyVpcPrefixListRequestAddPrefixListEntry]
-        # The CIDR block to be added to the prefix list.
-        # 
-        # >  If the CIDR block already exists in the prefix list, you can only modify the description of the CIDR block by setting the **AddPrefixListEntry.N.Description** parameter.
-        self.client_token = client_token  # type: str
-        # The description of the CIDR block to be added to the prefix list.
-        # 
-        # The description must be 1 to 256 characters in length, and cannot start with `http://` or `https://`.
-        self.dry_run = dry_run  # type: bool
-        # The ID of the request.
-        self.max_entries = max_entries  # type: int
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
-        # The ID of the prefix list.
-        self.prefix_list_description = prefix_list_description  # type: str
         # The client token that is used to ensure the idempotence of the request.
         # 
         # You can use the client to generate the value, but you must make sure that it is unique among different requests. The token can contain only ASCII characters.
         # 
         # >  If you do not specify this parameter, the system uses **RequestId** as **ClientToken**. **RequestId** may be different for each API request.
-        self.prefix_list_id = prefix_list_id  # type: str
+        self.client_token = client_token  # type: str
         # Specifies whether to only precheck the request. Valid values:
         # 
         # *   **true**: checks the request without performing the operation. The system prechecks the required parameters, request syntax, and limits. If the request fails the precheck, an error message is returned. If the request passes the precheck, the `DryRunOperation` error code is returned.
         # *   **false** (default): sends the request. If the request passes the check, a 2xx HTTP status code is returned and the operation is performed.
-        self.prefix_list_name = prefix_list_name  # type: str
+        self.dry_run = dry_run  # type: bool
         # The maximum number of CIDR blocks supported by the prefix list after the configuration of the prefix list is modified.
+        self.max_entries = max_entries  # type: int
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The new description of the prefix list.
+        # 
+        # The description must be 1 to 256 characters in length, and cannot start with `http://` or `https://`.
+        self.prefix_list_description = prefix_list_description  # type: str
+        # The ID of the prefix list.
+        self.prefix_list_id = prefix_list_id  # type: str
+        # The new name of the prefix list.
+        # 
+        # The name must be 1 to 128 characters in length, and cannot start with `http://` or `https://`.
+        self.prefix_list_name = prefix_list_name  # type: str
+        # The region ID of the prefix list.
         self.region_id = region_id  # type: str
         self.remove_prefix_list_entry = remove_prefix_list_entry  # type: list[ModifyVpcPrefixListRequestRemovePrefixListEntry]
         self.resource_owner_account = resource_owner_account  # type: str
@@ -69453,7 +71433,9 @@ class ModifyVpcPrefixListRequest(TeaModel):
 
 class ModifyVpcPrefixListResponseBody(TeaModel):
     def __init__(self, prefix_list_id=None, request_id=None):
+        # The ID of the prefix list.
         self.prefix_list_id = prefix_list_id  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -70784,10 +72766,7 @@ class ModifyVpnConnectionAttributeResponseBodyIpsecConfig(TeaModel):
 
 
 class ModifyVpnConnectionAttributeResponseBodyTunnelOptionsSpecificationTunnelOptionsTunnelBgpConfig(TeaModel):
-    def __init__(self, bgp_status=None, enable_bgp=None, local_asn=None, local_bgp_ip=None, peer_asn=None,
-                 peer_bgp_ip=None, tunnel_cidr=None):
-        self.bgp_status = bgp_status  # type: str
-        self.enable_bgp = enable_bgp  # type: bool
+    def __init__(self, local_asn=None, local_bgp_ip=None, peer_asn=None, peer_bgp_ip=None, tunnel_cidr=None):
         self.local_asn = local_asn  # type: long
         self.local_bgp_ip = local_bgp_ip  # type: str
         self.peer_asn = peer_asn  # type: long
@@ -70803,10 +72782,6 @@ class ModifyVpnConnectionAttributeResponseBodyTunnelOptionsSpecificationTunnelOp
             return _map
 
         result = dict()
-        if self.bgp_status is not None:
-            result['BgpStatus'] = self.bgp_status
-        if self.enable_bgp is not None:
-            result['EnableBgp'] = self.enable_bgp
         if self.local_asn is not None:
             result['LocalAsn'] = self.local_asn
         if self.local_bgp_ip is not None:
@@ -70821,10 +72796,6 @@ class ModifyVpnConnectionAttributeResponseBodyTunnelOptionsSpecificationTunnelOp
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('BgpStatus') is not None:
-            self.bgp_status = m.get('BgpStatus')
-        if m.get('EnableBgp') is not None:
-            self.enable_bgp = m.get('EnableBgp')
         if m.get('LocalAsn') is not None:
             self.local_asn = m.get('LocalAsn')
         if m.get('LocalBgpIp') is not None:
@@ -70944,8 +72915,8 @@ class ModifyVpnConnectionAttributeResponseBodyTunnelOptionsSpecificationTunnelOp
 
 class ModifyVpnConnectionAttributeResponseBodyTunnelOptionsSpecificationTunnelOptions(TeaModel):
     def __init__(self, customer_gateway_id=None, enable_dpd=None, enable_nat_traversal=None, internet_ip=None,
-                 remote_ca_certificate=None, role=None, state=None, status=None, tunnel_bgp_config=None, tunnel_id=None,
-                 tunnel_ike_config=None, tunnel_ipsec_config=None, zone_no=None):
+                 remote_ca_certificate=None, role=None, state=None, tunnel_bgp_config=None, tunnel_id=None, tunnel_ike_config=None,
+                 tunnel_ipsec_config=None, zone_no=None):
         self.customer_gateway_id = customer_gateway_id  # type: str
         self.enable_dpd = enable_dpd  # type: bool
         self.enable_nat_traversal = enable_nat_traversal  # type: bool
@@ -70953,7 +72924,6 @@ class ModifyVpnConnectionAttributeResponseBodyTunnelOptionsSpecificationTunnelOp
         self.remote_ca_certificate = remote_ca_certificate  # type: str
         self.role = role  # type: str
         self.state = state  # type: str
-        self.status = status  # type: str
         self.tunnel_bgp_config = tunnel_bgp_config  # type: ModifyVpnConnectionAttributeResponseBodyTunnelOptionsSpecificationTunnelOptionsTunnelBgpConfig
         self.tunnel_id = tunnel_id  # type: str
         self.tunnel_ike_config = tunnel_ike_config  # type: ModifyVpnConnectionAttributeResponseBodyTunnelOptionsSpecificationTunnelOptionsTunnelIkeConfig
@@ -70988,8 +72958,6 @@ class ModifyVpnConnectionAttributeResponseBodyTunnelOptionsSpecificationTunnelOp
             result['Role'] = self.role
         if self.state is not None:
             result['State'] = self.state
-        if self.status is not None:
-            result['Status'] = self.status
         if self.tunnel_bgp_config is not None:
             result['TunnelBgpConfig'] = self.tunnel_bgp_config.to_map()
         if self.tunnel_id is not None:
@@ -71018,8 +72986,6 @@ class ModifyVpnConnectionAttributeResponseBodyTunnelOptionsSpecificationTunnelOp
             self.role = m.get('Role')
         if m.get('State') is not None:
             self.state = m.get('State')
-        if m.get('Status') is not None:
-            self.status = m.get('Status')
         if m.get('TunnelBgpConfig') is not None:
             temp_model = ModifyVpnConnectionAttributeResponseBodyTunnelOptionsSpecificationTunnelOptionsTunnelBgpConfig()
             self.tunnel_bgp_config = temp_model.from_map(m['TunnelBgpConfig'])
@@ -73017,17 +74983,22 @@ class PublishVpnRouteEntryResponse(TeaModel):
 
 class RecoverPhysicalConnectionRequest(TeaModel):
     def __init__(self, dry_run=None, instance_id=None, region_id=None, token=None):
-        # The ID of the request.
-        self.dry_run = dry_run  # type: bool
         # Specifies whether to precheck the request only. Valid values:
         # 
         # *   **true**: only prechecks the request but does not resume the Express Connect circuit. The system prechecks the request syntax, instance status, and whether the required parameters are specified. An error message is returned if the request fails to pass the precheck. If the request passes the precheck, the system returns the ID of the request.
         # *   **false** (default): sends the request. If the request passes the precheck, the Express Connect circuit is resumed.
+        self.dry_run = dry_run  # type: bool
+        # The ID of the Express Connect circuit.
+        # 
+        # >  You can resume only shared Express Connect circuits.
         self.instance_id = instance_id  # type: str
-        self.region_id = region_id  # type: str
         # The region ID of the Express Connect circuit.
         # 
         # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
+        self.region_id = region_id  # type: str
+        # The client token that is used to ensure the idempotence of the request.
+        # 
+        # You can use the client to generate a token, but you must make sure that it is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length.
         self.token = token  # type: str
 
     def validate(self):
@@ -73064,6 +75035,7 @@ class RecoverPhysicalConnectionRequest(TeaModel):
 
 class RecoverPhysicalConnectionResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -73890,16 +75862,24 @@ class RemoveIPv6TranslatorAclListEntryResponse(TeaModel):
 class RemoveSourcesFromTrafficMirrorSessionRequest(TeaModel):
     def __init__(self, client_token=None, dry_run=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None, traffic_mirror_session_id=None, traffic_mirror_source_ids=None):
-        # The ID of the traffic mirror session from which you want to delete a traffic mirror source.
+        # The client token that is used to ensure the idempotence of the request.
+        # 
+        # You can use the client to generate the value, but you must make sure that the value is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length.
+        # 
+        # >  If you do not set this parameter, the system uses **RequestId** as **ClientToken**. **RequestId** may be different for each API request.
         self.client_token = client_token  # type: str
-        # The ID of the traffic mirror source to be deleted. Maximum value of **N**: **10**.
+        # Specifies whether to check the request without performing the operation. Valid values:
+        # 
+        # *   **true**: checks the request without performing the operation. The system checks the required parameters, request format, and limits. If the request fails the check, an error message is returned. If the request passes the check, the `DryRunOperation` error code is returned.
+        # *   **false** (default): sends the request. After the request passes the check, the operation is performed.
         self.dry_run = dry_run  # type: bool
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The ID of the region to which the traffic mirror session belongs. You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list. For more information about regions that support traffic mirroring, see [Overview of traffic mirroring](~~207513~~).
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
-        # The ID of the region to which the traffic mirror session belongs. You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list. For more information about regions that support traffic mirroring, see [Overview of traffic mirroring](~~207513~~).
+        # The ID of the traffic mirror session from which you want to delete a traffic mirror source.
         self.traffic_mirror_session_id = traffic_mirror_session_id  # type: str
         self.traffic_mirror_source_ids = traffic_mirror_source_ids  # type: list[str]
 
@@ -73957,6 +75937,7 @@ class RemoveSourcesFromTrafficMirrorSessionRequest(TeaModel):
 
 class RemoveSourcesFromTrafficMirrorSessionResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -74647,6 +76628,213 @@ class RevokeInstanceFromVbrResponse(TeaModel):
         return self
 
 
+class SecondApplyPhysicalConnectionLOARequestPMInfo(TeaModel):
+    def __init__(self, pmcertificate_no=None, pmcertificate_type=None, pmcontact_info=None, pmgender=None,
+                 pmname=None):
+        self.pmcertificate_no = pmcertificate_no  # type: str
+        self.pmcertificate_type = pmcertificate_type  # type: str
+        self.pmcontact_info = pmcontact_info  # type: str
+        self.pmgender = pmgender  # type: str
+        self.pmname = pmname  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SecondApplyPhysicalConnectionLOARequestPMInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.pmcertificate_no is not None:
+            result['PMCertificateNo'] = self.pmcertificate_no
+        if self.pmcertificate_type is not None:
+            result['PMCertificateType'] = self.pmcertificate_type
+        if self.pmcontact_info is not None:
+            result['PMContactInfo'] = self.pmcontact_info
+        if self.pmgender is not None:
+            result['PMGender'] = self.pmgender
+        if self.pmname is not None:
+            result['PMName'] = self.pmname
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('PMCertificateNo') is not None:
+            self.pmcertificate_no = m.get('PMCertificateNo')
+        if m.get('PMCertificateType') is not None:
+            self.pmcertificate_type = m.get('PMCertificateType')
+        if m.get('PMContactInfo') is not None:
+            self.pmcontact_info = m.get('PMContactInfo')
+        if m.get('PMGender') is not None:
+            self.pmgender = m.get('PMGender')
+        if m.get('PMName') is not None:
+            self.pmname = m.get('PMName')
+        return self
+
+
+class SecondApplyPhysicalConnectionLOARequest(TeaModel):
+    def __init__(self, bandwidth=None, client_token=None, company_name=None, construction_time=None,
+                 instance_id=None, line_type=None, owner_account=None, owner_id=None, pminfo=None, peer_location=None,
+                 region_id=None, resource_owner_account=None, resource_owner_id=None, si=None):
+        self.bandwidth = bandwidth  # type: int
+        self.client_token = client_token  # type: str
+        self.company_name = company_name  # type: str
+        self.construction_time = construction_time  # type: str
+        self.instance_id = instance_id  # type: str
+        self.line_type = line_type  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        self.pminfo = pminfo  # type: list[SecondApplyPhysicalConnectionLOARequestPMInfo]
+        self.peer_location = peer_location  # type: str
+        self.region_id = region_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        self.si = si  # type: str
+
+    def validate(self):
+        if self.pminfo:
+            for k in self.pminfo:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(SecondApplyPhysicalConnectionLOARequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.bandwidth is not None:
+            result['Bandwidth'] = self.bandwidth
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.company_name is not None:
+            result['CompanyName'] = self.company_name
+        if self.construction_time is not None:
+            result['ConstructionTime'] = self.construction_time
+        if self.instance_id is not None:
+            result['InstanceId'] = self.instance_id
+        if self.line_type is not None:
+            result['LineType'] = self.line_type
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        result['PMInfo'] = []
+        if self.pminfo is not None:
+            for k in self.pminfo:
+                result['PMInfo'].append(k.to_map() if k else None)
+        if self.peer_location is not None:
+            result['PeerLocation'] = self.peer_location
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        if self.si is not None:
+            result['Si'] = self.si
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Bandwidth') is not None:
+            self.bandwidth = m.get('Bandwidth')
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('CompanyName') is not None:
+            self.company_name = m.get('CompanyName')
+        if m.get('ConstructionTime') is not None:
+            self.construction_time = m.get('ConstructionTime')
+        if m.get('InstanceId') is not None:
+            self.instance_id = m.get('InstanceId')
+        if m.get('LineType') is not None:
+            self.line_type = m.get('LineType')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        self.pminfo = []
+        if m.get('PMInfo') is not None:
+            for k in m.get('PMInfo'):
+                temp_model = SecondApplyPhysicalConnectionLOARequestPMInfo()
+                self.pminfo.append(temp_model.from_map(k))
+        if m.get('PeerLocation') is not None:
+            self.peer_location = m.get('PeerLocation')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        if m.get('Si') is not None:
+            self.si = m.get('Si')
+        return self
+
+
+class SecondApplyPhysicalConnectionLOAResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SecondApplyPhysicalConnectionLOAResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class SecondApplyPhysicalConnectionLOAResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: SecondApplyPhysicalConnectionLOAResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SecondApplyPhysicalConnectionLOAResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = SecondApplyPhysicalConnectionLOAResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class SetHighDefinitionMonitorLogStatusRequest(TeaModel):
     def __init__(self, instance_id=None, instance_type=None, log_project=None, log_store=None, owner_account=None,
                  owner_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None, status=None):
@@ -74803,7 +76991,13 @@ class SetHighDefinitionMonitorLogStatusResponse(TeaModel):
 
 class TagResourcesRequestTag(TeaModel):
     def __init__(self, key=None, value=None):
+        # The key of the tag that is added to the resource. You can specify at most 20 tag keys. The tag value cannot be an empty string.
+        # 
+        # The key cannot exceed 64 characters in length, and can contain digits, periods (.), underscores (\_), and hyphens (-). The key must start with a letter but cannot start with `aliyun` or `acs:`. The key cannot contain `http://` or `https://`.
         self.key = key  # type: str
+        # The value of the tag that is added to the resource. You can specify at most 20 tag values. The tag value can be an empty string.
+        # 
+        # The tag value cannot exceed 128 characters in length, and can contain digits, periods (.), underscores (\_), and hyphens (-). The key must start with a letter but cannot start with `aliyun` or `acs:`. The key cannot contain `http://` or `https://`.
         self.value = value  # type: str
 
     def validate(self):
@@ -74835,11 +77029,29 @@ class TagResourcesRequest(TeaModel):
                  resource_owner_account=None, resource_owner_id=None, resource_type=None, tag=None):
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID of the resource.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
+        # The resource ID. You can specify at most 20 IDs.
         self.resource_id = resource_id  # type: list[str]
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The resource type. Valid values:
+        # 
+        # *   **VPC**: a VPC
+        # *   **VSWITCH**: a vSwitch
+        # *   **ROUTETABLE**: a route table
+        # *   **EIP**: an EIP
+        # *   **VpnGateway**: a VPN gateway
+        # *   **NATGATEWAY**: a NAT gateway
+        # *   **COMMONBANDWIDTHPACKAGE**: an EIP bandwidth plan
         self.resource_type = resource_type  # type: str
+        # The tag value of the resource. You must enter at least one tag value and at most 20 tag values. It can be an empty string.
+        # 
+        # The tag value cannot exceed 128 characters in length, and can contain digits, periods (.), underscores (\_), and hyphens (-). The key must start with a letter but cannot start with `aliyun` or `acs:`. The key cannot contain `http://` or `https://`.
+        # 
+        # >  When you call this operation, **Tag.N.Value** is required.
         self.tag = tag  # type: list[TagResourcesRequestTag]
 
     def validate(self):
@@ -74900,6 +77112,7 @@ class TagResourcesRequest(TeaModel):
 
 class TagResourcesResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -75391,28 +77604,32 @@ class UnTagResourcesRequest(TeaModel):
                  resource_owner_account=None, resource_owner_id=None, resource_type=None, tag_key=None):
         # Specifies whether to remove all tags from the specified resource. Valid values:
         # 
-        # *   **true**: removes all tags from the specified resource.
-        # *   **false**: does not remove all tags from the specified resource. This is the default value.
+        # *   **true**\
+        # *   **false** (default)
         self.all = all  # type: bool
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The ID of the region to which the resource belongs.
+        # The region ID of the resource.
         # 
         # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
+        # The resource ID. You can specify up to 20 resource IDs.
         self.resource_id = resource_id  # type: list[str]
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
         # The resource type. Valid values:
         # 
-        # *   **VPC**: a virtual private cloud (VPC)
-        # *   **VSWITCH**: a vSwitch
-        # *   **ROUTETABLE**: a route table
-        # *   **EIP**: an elastic IP address (EIP)
-        # *   **VpnGateway**: a VPN gateway
-        # *   **NATGATEWAY**: a NAT gateway
-        # *   **COMMONBANDWIDTHPACKAGE**: an EIP bandwidth plan
+        # *   **VPC**\
+        # *   **VSWITCH**\
+        # *   **ROUTETABLE**\
+        # *   **EIP**\
+        # *   **VpnGateway**\
+        # *   **NATGATEWAY**\
+        # *   **COMMONBANDWIDTHPACKAGE**: EIP bandwidth plan
         self.resource_type = resource_type  # type: str
+        # The key of the tag that you want to remove. You can specify at most 20 tag keys. It can be an empty string.
+        # 
+        # The key cannot exceed 64 characters in length, and can contain digits, periods (.), underscores (\_), and hyphens (-). The key must start with a letter but cannot start with `aliyun` or `acs:`. The key cannot contain `http://` or `https://`.
         self.tag_key = tag_key  # type: list[str]
 
     def validate(self):
@@ -75469,7 +77686,7 @@ class UnTagResourcesRequest(TeaModel):
 
 class UnTagResourcesResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -75535,6 +77752,21 @@ class UnassociateEipAddressRequest(TeaModel):
     def __init__(self, allocation_id=None, client_token=None, force=None, instance_id=None, instance_type=None,
                  owner_account=None, owner_id=None, private_ip_address=None, region_id=None, resource_owner_account=None,
                  resource_owner_id=None):
+        # The ID of the EIP that you want to disassociate.
+        self.allocation_id = allocation_id  # type: str
+        # The client token that is used to ensure the idempotence of the request.
+        # 
+        # You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters.
+        # 
+        # >  If you do not set this parameter, the system uses **RequestId** as **ClientToken**. **RequestId** might be different for each API request.
+        self.client_token = client_token  # type: str
+        # Specifies whether to disassociate the EIP from a NAT gateway if a DNAT or SNAT entry is added to the NAT gateway. Valid values:
+        # 
+        # *   **false** (default): does not disassociate the EIP from a NAT gateway if a DNAT or SNAT entry is added to the NAT gateway.
+        # *   **true**: disassociates the EIP from a NAT gateway if a DNAT or SNAT entry is added to the NAT gateway.
+        self.force = force  # type: bool
+        # The ID of the instance from which you want to disassociate the EIP.
+        self.instance_id = instance_id  # type: str
         # The type of instance from which you want to disassociate the EIP. Valid values:
         # 
         # *   **EcsInstance** (default): an Elastic Compute Service (ECS) instance in a virtual private cloud (VPC)
@@ -75542,23 +77774,14 @@ class UnassociateEipAddressRequest(TeaModel):
         # *   **NetworkInterface**: a secondary elastic network interface (ENI) in a VPC
         # *   **Nat**: a NAT gateway
         # *   **HaVip**: a high-availability virtual IP address (HAVIP)
-        self.allocation_id = allocation_id  # type: str
-        self.client_token = client_token  # type: str
-        # The ID of the EIP that you want to disassociate.
-        self.force = force  # type: bool
-        # The private IP address of the ECS instance or the secondary ENI from which you want to disassociate the EIP.
-        self.instance_id = instance_id  # type: str
-        # The client token that is used to ensure the idempotence of the request.
-        # 
-        # You can use the client to generate the token, but you must make sure that the token is unique among different requests. The token can contain only ASCII characters.
-        # 
-        # >  If you do not set this parameter, the system uses **RequestId** as **ClientToken**. **RequestId** might be different for each API request.
         self.instance_type = instance_type  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The ID of the request.
+        # The private IP address of the ECS instance or the secondary ENI from which you want to disassociate the EIP.
         self.private_ip_address = private_ip_address  # type: str
-        # The ID of the instance from which you want to disassociate the EIP.
+        # The ID of the region to which the EIP belongs.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -75625,6 +77848,7 @@ class UnassociateEipAddressRequest(TeaModel):
 
 class UnassociateEipAddressResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -75817,28 +78041,31 @@ class UnassociateGlobalAccelerationInstanceResponse(TeaModel):
 class UnassociateHaVipRequest(TeaModel):
     def __init__(self, client_token=None, force=None, ha_vip_id=None, instance_id=None, instance_type=None,
                  owner_account=None, owner_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None):
-        # The ID of the HAVIP that you want to disassociate.
+        # The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must make sure that the value is unique among different requests. The `ClientToken` value can contain only ASCII characters and cannot exceed 64 characters in length.
         self.client_token = client_token  # type: str
-        # The ID of the request.
-        self.force = force  # type: str
         # Specifies whether to forcefully disassociate the HAVIP from the ECS instance or ENI. Valid values:
         # 
         # *   **True**: yes
         # *   **False** (default): no
         # 
         # >  If you set the value to **False**, you cannot disassociate the HAVIP from the primary instance.
+        self.force = force  # type: str
+        # The ID of the HAVIP that you want to disassociate.
         self.ha_vip_id = ha_vip_id  # type: str
+        # The ID of the ECS instance or ENI from which you want to disassociate the HAVIP.
+        self.instance_id = instance_id  # type: str
         # The type of the instance from which you want to disassociate the HAVIP. Valid values:
         # 
         # *   **EcsInstance**: an ECS instance
         # *   **NetworkInterface**: an ENI
         # 
         # >  If you want to disassociate the HAVIP from an ENI, this parameter is required.
-        self.instance_id = instance_id  # type: str
         self.instance_type = instance_type  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The ID of the ECS instance or ENI from which you want to disassociate the HAVIP.
+        # The ID of the region to which the HAVIP belongs.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -75901,6 +78128,7 @@ class UnassociateHaVipRequest(TeaModel):
 
 class UnassociateHaVipResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -75964,9 +78192,11 @@ class UnassociateHaVipResponse(TeaModel):
 
 class UnassociateNetworkAclRequestResource(TeaModel):
     def __init__(self, resource_id=None, resource_type=None):
-        # The region ID of the network ACL. You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
+        # The ID of the resource from which you want to disassociate the network ACL.
         self.resource_id = resource_id  # type: str
-        # The ID of the network ACL that you want to disassociate from a resource.
+        # The type of the resource from which you want to disassociate the network ACL. Set the value to **VSwitch**.
+        # 
+        # Valid values of **N**: 0 to 29. You can disassociate a network ACL from at most 30 resources at a time.
         self.resource_type = resource_type  # type: str
 
     def validate(self):
@@ -75996,16 +78226,16 @@ class UnassociateNetworkAclRequestResource(TeaModel):
 class UnassociateNetworkAclRequest(TeaModel):
     def __init__(self, client_token=None, network_acl_id=None, owner_id=None, region_id=None, resource=None,
                  resource_owner_account=None, resource_owner_id=None):
-        # The ID of the request.
-        self.client_token = client_token  # type: str
         # The client token that is used to ensure the idempotence of the request.
         # 
         # You can use the client to generate the value, but you must make sure that the value is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length.
         # 
         # >  If you do not set this parameter, the system uses the value of **RequestId** as **ClientToken**. The value of **RequestId** may be different for each API request.
+        self.client_token = client_token  # type: str
+        # The ID of the network ACL that you want to disassociate from a resource.
         self.network_acl_id = network_acl_id  # type: str
         self.owner_id = owner_id  # type: long
-        # The operation that you want to perform. Set the value to **UnassociateNetworkAcl**.
+        # The region ID of the network ACL. You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource = resource  # type: list[UnassociateNetworkAclRequestResource]
         self.resource_owner_account = resource_owner_account  # type: str
@@ -76065,6 +78295,7 @@ class UnassociateNetworkAclRequest(TeaModel):
 
 class UnassociateNetworkAclResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -76861,9 +79092,29 @@ class UpdateGatewayRouteTableEntryAttributeRequest(TeaModel):
     def __init__(self, client_token=None, description=None, destination_cidr_block=None, dry_run=None,
                  ipv_4gateway_route_table_id=None, name=None, next_hop_id=None, next_hop_type=None, owner_account=None, owner_id=None,
                  region_id=None, resource_owner_account=None, resource_owner_id=None):
-        # The destination CIDR block of the route entry.
+        # The client token that is used to ensure the idempotence of the request.
+        # 
+        # You can use the client to generate the value, but you must make sure that it is unique among all requests. The client token can contain only ASCII characters.
+        # 
+        # >  If you do not specify this parameter, the system automatically uses the value of **RequestId** as the value of **ClientToken**. The value of **RequestId** may be different for each API request.
         self.client_token = client_token  # type: str
+        # The description of the gateway route table.
+        # 
+        # The description must be 2 to 256 characters in length. The description must start with a letter but cannot start with `http://` or `https://`.
         self.description = description  # type: str
+        # The destination CIDR block of the route entry.
+        self.destination_cidr_block = destination_cidr_block  # type: str
+        # Specifies whether to check the request without performing the operation. Valid values:
+        # 
+        # *   **true**: checks the request but does not modify the route entry. The system checks the required parameters, request syntax, and limits. If the request fails to pass the check, an error message is returned. If the request passes the check, the `DryRunOperation` error code is returned.
+        # *   **false** (default): sends the request. If the request passes the check, a 2xx HTTP status code is returned and the route entry is modified.
+        self.dry_run = dry_run  # type: bool
+        # The ID of the gateway route table that you want to modify.
+        self.ipv_4gateway_route_table_id = ipv_4gateway_route_table_id  # type: str
+        # The name of the gateway route table.
+        # 
+        # The name must be 2 to 128 characters in length and can contain letter, digits, periods (.), underscores (\_), and hyphens (-). The name must start with a letter.
+        self.name = name  # type: str
         # The next hop ID of the route entry after the route entry is modified.
         # 
         # *   If you set **NextHopType** to **Instance**, specify an ECS instance ID for the **NextHopId** parameter.
@@ -76871,35 +79122,18 @@ class UpdateGatewayRouteTableEntryAttributeRequest(TeaModel):
         # *   If you set **NextHopType** to **Local**, leave the **NextHopId** parameter empty, which specifies a local next hop.
         # 
         # >  If you want to modify a route entry whose next hop type is **Instance** or **NetworkInterface**, you must first change the value of the **NextHopType** parameter to **Local**. Then, change the value of **NextHopType** to **Instance** or **NetworkInterface** and specify the **NextHopId** parameter. When you modify a route entry whose next hop type is Instance or NetworkInterface, you cannot directly specify a different ENI ID or ECS instance ID for the NextHopId parameter.
-        self.destination_cidr_block = destination_cidr_block  # type: str
+        self.next_hop_id = next_hop_id  # type: str
         # The next hop type of the route entry after the route entry is modified. Valid values:
         # 
         # *   **EcsInstance**: an Elastic Compute Service (ECS) instance
         # *   **NetworkInterface**: an elastic network interface (ENI)
         # *   **Local**: a local next hop
-        self.dry_run = dry_run  # type: bool
-        # Specifies whether to check the request without performing the operation. Valid values:
-        # 
-        # *   **true**: checks the request but does not modify the route entry. The system checks the required parameters, request syntax, and limits. If the request fails to pass the check, an error message is returned. If the request passes the check, the `DryRunOperation` error code is returned.
-        # *   **false** (default): sends the request. If the request passes the check, a 2xx HTTP status code is returned and the route entry is modified.
-        self.ipv_4gateway_route_table_id = ipv_4gateway_route_table_id  # type: str
-        # The ID of the request.
-        self.name = name  # type: str
-        # The description of the gateway route table.
-        # 
-        # The description must be 2 to 256 characters in length. The description must start with a letter but cannot start with `http://` or `https://`.
-        self.next_hop_id = next_hop_id  # type: str
-        # The name of the gateway route table.
-        # 
-        # The name must be 2 to 128 characters in length and can contain letter, digits, periods (.), underscores (\_), and hyphens (-). The name must start with a letter.
         self.next_hop_type = next_hop_type  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The client token that is used to ensure the idempotence of the request.
+        # The ID of the region to which the gateway route table that you want to modify belongs.
         # 
-        # You can use the client to generate the value, but you must make sure that it is unique among all requests. The client token can contain only ASCII characters.
-        # 
-        # >  If you do not specify this parameter, the system automatically uses the value of **RequestId** as the value of **ClientToken**. The value of **RequestId** may be different for each API request.
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -76974,6 +79208,7 @@ class UpdateGatewayRouteTableEntryAttributeRequest(TeaModel):
 
 class UpdateGatewayRouteTableEntryAttributeResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -77234,27 +79469,28 @@ class UpdateIpv4GatewayAttributeRequest(TeaModel):
     def __init__(self, client_token=None, dry_run=None, ipv_4gateway_description=None, ipv_4gateway_id=None,
                  ipv_4gateway_name=None, owner_account=None, owner_id=None, region_id=None, resource_owner_account=None,
                  resource_owner_id=None):
-        # The new description of the IPv4 gateway.
-        self.client_token = client_token  # type: str
-        # The region ID of the IPv4 gateway whose name or description you want to modify.
-        # 
-        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
-        self.dry_run = dry_run  # type: bool
-        # The ID of the request.
-        self.ipv_4gateway_description = ipv_4gateway_description  # type: str
         # The client token that is used to ensure the idempotence of the request.
         # 
         # You can use the client to generate the value, but you must make sure that it is unique among different requests. The client token can contain only ASCII characters.
         # 
         # >  If you do not set this parameter, the system uses **RequestId** as **ClientToken**. **RequestId** may be different for each API request.
-        self.ipv_4gateway_id = ipv_4gateway_id  # type: str
+        self.client_token = client_token  # type: str
         # Specifies whether to check the request without performing the operation. Valid values:
         # 
         # *   **true**: checks the request without performing the operation. The system checks the required parameters, request syntax, and limits. If the request fails the check, an error message is returned. If the request passes the check, the `DryRunOperation` error code is returned.
         # *   **false** (default): sends the request. If the request passes the check, a 2xx HTTP status code is returned and the operation is performed.
+        self.dry_run = dry_run  # type: bool
+        # The new description of the IPv4 gateway.
+        self.ipv_4gateway_description = ipv_4gateway_description  # type: str
+        # The ID of the IPv4 gateway whose name or description you want to modify.
+        self.ipv_4gateway_id = ipv_4gateway_id  # type: str
+        # The new name of the IPv4 gateway.
         self.ipv_4gateway_name = ipv_4gateway_name  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID of the IPv4 gateway whose name or description you want to modify.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -77317,6 +79553,7 @@ class UpdateIpv4GatewayAttributeRequest(TeaModel):
 
 class UpdateIpv4GatewayAttributeResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -77875,27 +80112,30 @@ class UpdatePublicIpAddressPoolAttributeRequest(TeaModel):
     def __init__(self, client_token=None, description=None, dry_run=None, name=None, owner_account=None,
                  owner_id=None, public_ip_address_pool_id=None, region_id=None, resource_owner_account=None,
                  resource_owner_id=None):
-        # The region ID of the IP address pool that you want to modify.
-        self.client_token = client_token  # type: str
-        # Specifies whether to perform a dry run. Valid values:
-        # 
-        # *   **true**: performs a dry run. The system checks the required parameters, request syntax, and limits. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.
-        # *   **false** (default): performs a dry run and sends the request. If the request passes the dry run, a 2xx HTTP status code is returned and the operation is performed.
-        self.description = description  # type: str
-        # The ID of the request.
-        self.dry_run = dry_run  # type: bool
         # The client token that is used to ensure the idempotence of the request.
         # 
         # You can use the client to generate the value, but you must make sure that it is unique among different requests. The token can contain only ASCII characters.
         # 
         # >  If you do not specify this parameter, the system uses **RequestId** as **ClientToken**. The value of **RequestId** may be different for each API request.
-        self.name = name  # type: str
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
+        self.client_token = client_token  # type: str
         # The description of the IP address pool.
         # 
         # This parameter is optional. If you enter a description, the description must be 2 to 256 characters in length, and cannot start with http:// or https://.
+        self.description = description  # type: str
+        # Specifies whether to perform a dry run. Valid values:
+        # 
+        # *   **true**: performs a dry run. The system checks the required parameters, request syntax, and limits. If the request fails the dry run, an error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.
+        # *   **false** (default): performs a dry run and sends the request. If the request passes the dry run, a 2xx HTTP status code is returned and the operation is performed.
+        self.dry_run = dry_run  # type: bool
+        # The name of the IP address pool.
+        # 
+        # This parameter is optional. If you enter a name, the name must be 1 to 128 characters in length and can contain digits, periods (.), underscores (\_), and hyphens (-). The name must start with a letter but cannot start with `http://` or `https://`.
+        self.name = name  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The ID of the IP address pool.
         self.public_ip_address_pool_id = public_ip_address_pool_id  # type: str
+        # The region ID of the IP address pool that you want to modify.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -77958,6 +80198,7 @@ class UpdatePublicIpAddressPoolAttributeRequest(TeaModel):
 
 class UpdatePublicIpAddressPoolAttributeResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -78023,31 +80264,34 @@ class UpdateTrafficMirrorFilterAttributeRequest(TeaModel):
     def __init__(self, client_token=None, dry_run=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None, traffic_mirror_filter_description=None,
                  traffic_mirror_filter_id=None, traffic_mirror_filter_name=None):
-        # The ID of the region to which the mirrored traffic belongs.
-        # 
-        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list. For more information about regions that support traffic mirroring, see [Overview of traffic mirroring](~~207513~~).
-        self.client_token = client_token  # type: str
-        # The ID of the request.
-        self.dry_run = dry_run  # type: bool
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
-        self.region_id = region_id  # type: str
-        self.resource_owner_account = resource_owner_account  # type: str
-        self.resource_owner_id = resource_owner_id  # type: long
         # The client token that is used to ensure the idempotence of the request.
         # 
         # You can use the client to generate the value, but you must make sure that it is unique among different requests. The token can contain only ASCII characters.
         # 
         # >  If you do not specify this parameter, the system uses **RequestId** as **ClientToken**. **RequestId** may be different for each API request.
-        self.traffic_mirror_filter_description = traffic_mirror_filter_description  # type: str
-        # The name of the filter.
-        # 
-        # The name must be 1 to 128 characters in length and cannot start with `http://` or `https://`.
-        self.traffic_mirror_filter_id = traffic_mirror_filter_id  # type: str
+        self.client_token = client_token  # type: str
         # Specifies whether to check the request without performing the operation. Valid values:
         # 
         # *   **true**: checks the request without performing the operation. The system checks the required parameters, request syntax, and limits. If the request fails the check, an error message is returned. If the request passes the check, the `DryRunOperation` error code is returned.
         # *   **false** (default): sends the request. If the request passes the check, a 2xx HTTP status code is returned and the operation is performed.
+        self.dry_run = dry_run  # type: bool
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The ID of the region to which the mirrored traffic belongs.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list. For more information about regions that support traffic mirroring, see [Overview of traffic mirroring](~~207513~~).
+        self.region_id = region_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        # The description of the filter.
+        # 
+        # The description must be 1 to 256 characters in length and cannot start with `http://` or `https://`.
+        self.traffic_mirror_filter_description = traffic_mirror_filter_description  # type: str
+        # The ID of the filter.
+        self.traffic_mirror_filter_id = traffic_mirror_filter_id  # type: str
+        # The name of the filter.
+        # 
+        # The name must be 1 to 128 characters in length and cannot start with `http://` or `https://`.
         self.traffic_mirror_filter_name = traffic_mirror_filter_name  # type: str
 
     def validate(self):
@@ -78108,6 +80352,7 @@ class UpdateTrafficMirrorFilterAttributeRequest(TeaModel):
 
 class UpdateTrafficMirrorFilterAttributeResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -78174,47 +80419,52 @@ class UpdateTrafficMirrorFilterRuleAttributeRequest(TeaModel):
                  owner_account=None, owner_id=None, priority=None, protocol=None, region_id=None, resource_owner_account=None,
                  resource_owner_id=None, rule_action=None, source_cidr_block=None, source_port_range=None,
                  traffic_mirror_filter_rule_id=None):
-        # The new priority of the inbound or outbound rule. A smaller value indicates a higher priority.
+        # The client token that is used to ensure the idempotence of the request.
+        # 
+        # You can use the client to generate the value, but you must make sure that it is unique among different requests. The client token can contain only ASCII characters.
+        # 
+        # >  If you do not set this parameter, the system uses **RequestId** as **ClientToken**. **RequestId** may be different for each API request.
         self.client_token = client_token  # type: str
+        # The new destination CIDR block of the inbound or outbound traffic.
+        self.destination_cidr_block = destination_cidr_block  # type: str
         # The new destination port range of the inbound or outbound traffic.
         # 
         # >  If you set **Protocol** to **ICMP**, you cannot change the port range.
-        self.destination_cidr_block = destination_cidr_block  # type: str
-        # The ID of the region to which the mirrored traffic belongs.
-        # 
-        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list. For more information about regions that support traffic mirroring, see [Overview of traffic mirroring](~~207513~~).
         self.destination_port_range = destination_port_range  # type: str
+        # Specifies whether to check the request without performing the operation. Valid values:
+        # 
+        # *   **true**: only checks the API request. The configuration of the inbound or outbound rule is not modified. The system checks the required parameters, request syntax, and limits. If the request fails to pass the check, an error message is returned. If the request passes the precheck, the `DryRunOperation` error code is returned.
+        # *   **false**: sends the request. This is the default value. If the request passes the check, a 2xx HTTP status code is returned and the configuration of the inbound or outbound rule is modified.
+        self.dry_run = dry_run  # type: bool
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The new priority of the inbound or outbound rule. A smaller value indicates a higher priority.
+        self.priority = priority  # type: int
         # The new protocol that is used by the traffic to be mirrored by the inbound or outbound rule. Valid values:
         # 
         # *   **ALL**: all protocols
         # *   **ICMP**: Internet Control Message Protocol (ICMP)
         # *   **TCP**: TCP
         # *   **UDP**: User Datagram Protocol (UDP)
-        self.dry_run = dry_run  # type: bool
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
+        self.protocol = protocol  # type: str
+        # The ID of the region to which the mirrored traffic belongs.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list. For more information about regions that support traffic mirroring, see [Overview of traffic mirroring](~~207513~~).
+        self.region_id = region_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
         # The new action of the inbound or outbound rule. Valid values:
         # 
         # *   **accept**: accepts network traffic.
         # *   **drop**: drops network traffic.
-        self.priority = priority  # type: int
-        # The new destination CIDR block of the inbound or outbound traffic.
-        self.protocol = protocol  # type: str
-        self.region_id = region_id  # type: str
-        self.resource_owner_account = resource_owner_account  # type: str
-        self.resource_owner_id = resource_owner_id  # type: long
-        # The new source CIDR block of the inbound or outbound traffic.
         self.rule_action = rule_action  # type: str
+        # The new source CIDR block of the inbound or outbound traffic.
+        self.source_cidr_block = source_cidr_block  # type: str
         # The new source port range of the inbound or outbound traffic.
         # 
         # >  If you set **Protocol** to **ICMP**, you cannot change the port range.
-        self.source_cidr_block = source_cidr_block  # type: str
-        # The ID of the request.
         self.source_port_range = source_port_range  # type: str
-        # Specifies whether to check the request without performing the operation. Valid values:
-        # 
-        # *   **true**: only checks the API request. The configuration of the inbound or outbound rule is not modified. The system checks the required parameters, request syntax, and limits. If the request fails to pass the check, an error message is returned. If the request passes the precheck, the `DryRunOperation` error code is returned.
-        # *   **false**: sends the request. This is the default value. If the request passes the check, a 2xx HTTP status code is returned and the configuration of the inbound or outbound rule is modified.
+        # The ID of the inbound or outbound rule.
         self.traffic_mirror_filter_rule_id = traffic_mirror_filter_rule_id  # type: str
 
     def validate(self):
@@ -78295,6 +80545,7 @@ class UpdateTrafficMirrorFilterRuleAttributeRequest(TeaModel):
 
 class UpdateTrafficMirrorFilterRuleAttributeResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -78361,50 +80612,55 @@ class UpdateTrafficMirrorSessionAttributeRequest(TeaModel):
                  packet_length=None, priority=None, region_id=None, resource_owner_account=None, resource_owner_id=None,
                  traffic_mirror_filter_id=None, traffic_mirror_session_description=None, traffic_mirror_session_id=None,
                  traffic_mirror_session_name=None, traffic_mirror_target_id=None, traffic_mirror_target_type=None, virtual_network_id=None):
-        # The ID of the traffic mirror session.
-        self.client_token = client_token  # type: str
-        # The ID of the traffic mirror destination.
-        self.dry_run = dry_run  # type: bool
-        # The ID of the request.
-        self.enabled = enabled  # type: bool
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
-        self.packet_length = packet_length  # type: int
-        # The region ID of the traffic mirror session. You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list. For more information about regions that support traffic mirroring, see [Overview of traffic mirroring](~~207513~~).
-        self.priority = priority  # type: int
-        self.region_id = region_id  # type: str
-        self.resource_owner_account = resource_owner_account  # type: str
-        self.resource_owner_id = resource_owner_id  # type: long
-        # The priority of the traffic mirror session. Valid values: **1** to **32766**.
-        # 
-        # A smaller value specifies a higher priority. You cannot specify identical priorities for traffic mirror sessions that are created in the same region by using the same account.
-        self.traffic_mirror_filter_id = traffic_mirror_filter_id  # type: str
         # The client token that is used to ensure the idempotence of the request.
         # 
         # You can use the client to generate the value, but you must make sure that it is unique among different requests. The token can contain only ASCII characters.
         # 
         # >  If you do not specify this parameter, the system uses **RequestId** as **ClientToken**. **RequestId** may be different for each API request.
-        self.traffic_mirror_session_description = traffic_mirror_session_description  # type: str
-        # The type of the traffic mirror destination. Valid values:
-        # 
-        # *   **NetworkInterface**: an ENI
-        # *   **SLB**: an internal-facing Server Load Balancer (SLB) instance
-        self.traffic_mirror_session_id = traffic_mirror_session_id  # type: str
+        self.client_token = client_token  # type: str
         # Specifies whether to precheck the request without performing the operation. Valid values:
         # 
         # *   **true**: checks the request without performing the operation. The system prechecks the required parameters, request syntax, and limits. If the request fails the precheck, an error message is returned. If the request passes the precheck, the `DryRunOperation` error code is returned.
         # *   **false**: sends the request. If the request passes the check, a 2xx HTTP status code is returned and the operation is performed. This is the default value.
-        self.traffic_mirror_session_name = traffic_mirror_session_name  # type: str
-        # The ID of the traffic mirror filter.
-        self.traffic_mirror_target_id = traffic_mirror_target_id  # type: str
-        # The VXLAN network identifier (VNI) that is used to distinguish different mirrored traffic. Valid values: **0** to **16777215**.
-        # 
-        # You can use VNIs to identify mirrored traffic from different sessions at the traffic mirror destination. If you do not specify a VNI, the system randomly allocates a VNI. If you want the system to randomly allocate a VNI, ignore this parameter.
-        self.traffic_mirror_target_type = traffic_mirror_target_type  # type: str
+        self.dry_run = dry_run  # type: bool
         # Specifies whether to enable the traffic mirror session.
         # 
         # *   **false**: disables the traffic mirror session. This is the default value.
         # *   **true**: enables the traffic mirror session.
+        self.enabled = enabled  # type: bool
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        self.packet_length = packet_length  # type: int
+        # The priority of the traffic mirror session. Valid values: **1** to **32766**.
+        # 
+        # A smaller value specifies a higher priority. You cannot specify identical priorities for traffic mirror sessions that are created in the same region by using the same account.
+        self.priority = priority  # type: int
+        # The region ID of the traffic mirror session. You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list. For more information about regions that support traffic mirroring, see [Overview of traffic mirroring](~~207513~~).
+        self.region_id = region_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        # The ID of the traffic mirror filter.
+        self.traffic_mirror_filter_id = traffic_mirror_filter_id  # type: str
+        # The description of the traffic mirror session.
+        # 
+        # The description must be 1 to 256 characters in length and cannot start with `http://` or `https://`.
+        self.traffic_mirror_session_description = traffic_mirror_session_description  # type: str
+        # The ID of the traffic mirror session.
+        self.traffic_mirror_session_id = traffic_mirror_session_id  # type: str
+        # The name of the traffic mirror session.
+        # 
+        # The name must be 1 to 128 characters in length and cannot start with `http://` or `https://`.
+        self.traffic_mirror_session_name = traffic_mirror_session_name  # type: str
+        # The ID of the traffic mirror destination.
+        self.traffic_mirror_target_id = traffic_mirror_target_id  # type: str
+        # The type of the traffic mirror destination. Valid values:
+        # 
+        # *   **NetworkInterface**: an ENI
+        # *   **SLB**: an internal-facing Server Load Balancer (SLB) instance
+        self.traffic_mirror_target_type = traffic_mirror_target_type  # type: str
+        # The VXLAN network identifier (VNI) that is used to distinguish different mirrored traffic. Valid values: **0** to **16777215**.
+        # 
+        # You can use VNIs to identify mirrored traffic from different sessions at the traffic mirror destination. If you do not specify a VNI, the system randomly allocates a VNI. If you want the system to randomly allocate a VNI, ignore this parameter.
         self.virtual_network_id = virtual_network_id  # type: int
 
     def validate(self):
@@ -78493,6 +80749,7 @@ class UpdateTrafficMirrorSessionAttributeRequest(TeaModel):
 
 class UpdateTrafficMirrorSessionAttributeResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -78717,22 +80974,11 @@ class UpdateVirtualBorderBandwidthResponse(TeaModel):
 
 class UpdateVirtualPhysicalConnectionRequest(TeaModel):
     def __init__(self, dry_run=None, expect_spec=None, instance_id=None, region_id=None, token=None, vlan_id=None):
-        # The region ID of the hosted connection.
-        # 
-        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
-        self.dry_run = dry_run  # type: bool
-        # The ID of the request.
-        self.expect_spec = expect_spec  # type: str
         # Specifies whether to check the request without performing the operation. Valid values:
         # 
         # *   **true**: checks the request without performing the operation. The VLAN ID of the hosted connection is not changed. The system checks the required parameters, request syntax, and instance status. If the check fails, the corresponding error message is returned. If the request passes the check, the system returns the ID of the request.
         # *   **false** (default): sends the request. If the request passes the check, the VLAN ID of the hosted connection is changed.
-        self.instance_id = instance_id  # type: str
-        # Indicates whether the VLAN ID of the hosted connection is changed. Valid values:
-        # 
-        # *   **true**: The VLAN ID of the hosted connection is changed.
-        # *   **false**: The VLAN ID of the hosted connection is not changed.
-        self.region_id = region_id  # type: str
+        self.dry_run = dry_run  # type: bool
         # The estimated bandwidth value of the hosted connection. The estimated bandwidth value takes effect after the payment is completed.
         # 
         # Valid values: **50M**, **100M**, **200M**, **300M**, **400M**, **500M**, **1G**, **2G**, **5G**, **8G**, and **10G**.
@@ -78740,12 +80986,23 @@ class UpdateVirtualPhysicalConnectionRequest(TeaModel):
         # >  By default, the values of **2G**, **5G**, **8G**, and **10G** are unavailable. If you want to specify these values, contact your customer manager.
         # 
         # **M** indicates Mbit/s and **G** indicates Gbit/s.
-        self.token = token  # type: str
+        self.expect_spec = expect_spec  # type: str
+        # The ID of the shared Express Connect circuit.
+        self.instance_id = instance_id  # type: str
+        # The region ID of the hosted connection.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
+        self.region_id = region_id  # type: str
         # The client token that is used to ensure the idempotence of the request.
         # 
         # You can use the client to generate the value, but you must make sure that it is unique among all requests. The token can contain only ASCII characters.
         # 
         # >  If you do not specify this parameter, the system automatically uses **RequestId** as **ClientToken**. The value of **RequestId** in each API request may be different.
+        self.token = token  # type: str
+        # The VLAN ID of the hosted connection. Valid values: **0** to **2999**.
+        # 
+        # *   If the VLAN ID is set to **0**, it indicates that the switch port of the virtual border router (VBR) is a Layer 3 router interface instead of a VLAN interface. When a Layer 3 router interface is used, each Express Connect circuit corresponds to a VBR.
+        # *   If the VLAN ID is set to a value from **1** to **2999**, the switch port of the VBR is a Layer 3 VLAN subinterface. When a Layer 3 VLAN subinterface is used, each VLAN ID corresponds to one VBR. In this case, the Express Connect circuit with which the VBR is associated can be used to connect to VPCs that belong to different Alibaba Cloud accounts. VBRs in different VLANs are isolated from each other at Layer 2.
         self.vlan_id = vlan_id  # type: long
 
     def validate(self):
@@ -78790,7 +81047,12 @@ class UpdateVirtualPhysicalConnectionRequest(TeaModel):
 
 class UpdateVirtualPhysicalConnectionResponseBody(TeaModel):
     def __init__(self, request_id=None, success=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # Indicates whether the VLAN ID of the hosted connection is changed. Valid values:
+        # 
+        # *   **true**: The VLAN ID of the hosted connection is changed.
+        # *   **false**: The VLAN ID of the hosted connection is not changed.
         self.success = success  # type: str
 
     def validate(self):
@@ -78860,33 +81122,36 @@ class UpdateVpcGatewayEndpointAttributeRequest(TeaModel):
     def __init__(self, client_token=None, dry_run=None, endpoint_description=None, endpoint_id=None,
                  endpoint_name=None, owner_account=None, owner_id=None, policy_document=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None):
-        # The region ID of the gateway endpoint.
-        # 
-        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
-        self.client_token = client_token  # type: str
-        # The ID of the request.
-        self.dry_run = dry_run  # type: bool
         # The client token that is used to ensure the idempotence of the request.
         # 
         # You can use the client to generate the token, but you must make sure that the token is unique among all requests. The token can contain only ASCII characters.
         # 
         # >  If you do not set this parameter, the system uses **RequestId** as **ClientToken**. The value of **RequestId** of each API request may be different.
-        self.endpoint_description = endpoint_description  # type: str
-        # The new description of the gateway endpoint.
-        # 
-        # The description must be 1 to 255 characters in length.
-        self.endpoint_id = endpoint_id  # type: str
-        # The access policy for the cloud service.
-        # 
-        # For more information about the syntax and structure of the access policy, see [Policy syntax and structure](~~93739~~).
-        self.endpoint_name = endpoint_name  # type: str
-        self.owner_account = owner_account  # type: str
-        self.owner_id = owner_id  # type: long
+        self.client_token = client_token  # type: str
         # Specifies whether to perform a dry run. Valid values:
         # 
         # *   **true**: performs a dry run. The system checks your AccessKey pair, the RAM user permissions, and the required parameters If the request fails the dry run, the corresponding error message is returned. If the request passes the dry run, the `DryRunOperation` error code is returned.
         # *   **false** (default): performs a dry run and sends the request. If the request passes the dry run, a 2xx HTTP status code is returned and the operation is performed.
+        self.dry_run = dry_run  # type: bool
+        # The new description of the gateway endpoint.
+        # 
+        # The description must be 1 to 255 characters in length.
+        self.endpoint_description = endpoint_description  # type: str
+        # The ID of the gateway endpoint that you want to modify.
+        self.endpoint_id = endpoint_id  # type: str
+        # The new name of the gateway endpoint.
+        # 
+        # The name must be 1 to 128 characters in length.
+        self.endpoint_name = endpoint_name  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        # The access policy for the cloud service.
+        # 
+        # For more information about the syntax and structure of the access policy, see [Policy syntax and structure](~~93739~~).
         self.policy_document = policy_document  # type: str
+        # The region ID of the gateway endpoint.
+        # 
+        # You can call the [DescribeRegions](~~36063~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -78953,6 +81218,7 @@ class UpdateVpcGatewayEndpointAttributeRequest(TeaModel):
 
 class UpdateVpcGatewayEndpointAttributeResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
