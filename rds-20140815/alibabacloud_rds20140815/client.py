@@ -3112,6 +3112,26 @@ class Client(OpenApiClient):
         return self.delete_backup_file_with_options(request, runtime)
 
     def delete_dbinstance_with_options(self, request, runtime):
+        """
+        ### Supported database engines
+        *   MySQL
+        *   PostgreSQL
+        *   SQL Server
+        *   MariaDB
+        ### References
+        > Note Before you call this operation, read the following documentation and make sure that you fully understand the prerequisites and impacts of this operation.
+        *   [Release an ApsaraDB RDS for MySQL instance](~~96057~~)
+        *   [Release an ApsaraDB RDS for PostgreSQL instance](~~96749~~)
+        *   [Release an ApsaraDB RDS for SQL Server instance](~~95662~~)
+        *   [Release an ApsaraDB RDS for MariaDB instance](~~97128~~)
+        
+
+        @param request: DeleteDBInstanceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteDBInstanceResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbinstance_id):
@@ -3146,6 +3166,24 @@ class Client(OpenApiClient):
         )
 
     def delete_dbinstance(self, request):
+        """
+        ### Supported database engines
+        *   MySQL
+        *   PostgreSQL
+        *   SQL Server
+        *   MariaDB
+        ### References
+        > Note Before you call this operation, read the following documentation and make sure that you fully understand the prerequisites and impacts of this operation.
+        *   [Release an ApsaraDB RDS for MySQL instance](~~96057~~)
+        *   [Release an ApsaraDB RDS for PostgreSQL instance](~~96749~~)
+        *   [Release an ApsaraDB RDS for SQL Server instance](~~95662~~)
+        *   [Release an ApsaraDB RDS for MariaDB instance](~~97128~~)
+        
+
+        @param request: DeleteDBInstanceRequest
+
+        @return: DeleteDBInstanceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_dbinstance_with_options(request, runtime)
 
@@ -3310,6 +3348,22 @@ class Client(OpenApiClient):
         return self.delete_dbnodes_with_options(request, runtime)
 
     def delete_dbproxy_endpoint_address_with_options(self, request, runtime):
+        """
+        ### Supported database engines
+        *   MySQL
+        *   PostgreSQL
+        ### References
+        > Before you call this operation, carefully read the following documentation. Make sure that you fully understand the prerequisites and impacts for calling this operation.
+        *   [Configure the dedicated proxy endpoint of an ApsaraDB RDS for MySQL instance](~~184921~~)
+        *   [Configure the dedicated proxy endpoint for an ApsaraDB RDS for PostgreSQL instance](~~418274~~)
+        
+
+        @param request: DeleteDBProxyEndpointAddressRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteDBProxyEndpointAddressResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbinstance_id):
@@ -3344,6 +3398,20 @@ class Client(OpenApiClient):
         )
 
     def delete_dbproxy_endpoint_address(self, request):
+        """
+        ### Supported database engines
+        *   MySQL
+        *   PostgreSQL
+        ### References
+        > Before you call this operation, carefully read the following documentation. Make sure that you fully understand the prerequisites and impacts for calling this operation.
+        *   [Configure the dedicated proxy endpoint of an ApsaraDB RDS for MySQL instance](~~184921~~)
+        *   [Configure the dedicated proxy endpoint for an ApsaraDB RDS for PostgreSQL instance](~~418274~~)
+        
+
+        @param request: DeleteDBProxyEndpointAddressRequest
+
+        @return: DeleteDBProxyEndpointAddressResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_dbproxy_endpoint_address_with_options(request, runtime)
 
@@ -6861,7 +6929,11 @@ class Client(OpenApiClient):
 
     def describe_databases_with_options(self, request, runtime):
         """
-        >  If the specified request parameters are invalid, no database information is returned.
+        ### Supported database engines
+        *   MySQL
+        *   PostgreSQL
+        *   SQL Server
+        *   MariaDB
         
 
         @param request: DescribeDatabasesRequest
@@ -6913,7 +6985,11 @@ class Client(OpenApiClient):
 
     def describe_databases(self, request):
         """
-        >  If the specified request parameters are invalid, no database information is returned.
+        ### Supported database engines
+        *   MySQL
+        *   PostgreSQL
+        *   SQL Server
+        *   MariaDB
         
 
         @param request: DescribeDatabasesRequest
