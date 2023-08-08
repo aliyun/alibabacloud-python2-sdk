@@ -38,12 +38,14 @@ class Addon(TeaModel):
 
 
 class DataDisk(TeaModel):
-    def __init__(self, auto_snapshot_policy_id=None, category=None, encrypted=None, performance_level=None,
-                 size=None):
+    def __init__(self, auto_snapshot_policy_id=None, bursting_enabled=None, category=None, encrypted=None,
+                 performance_level=None, provisioned_iops=None, size=None):
         self.auto_snapshot_policy_id = auto_snapshot_policy_id  # type: str
+        self.bursting_enabled = bursting_enabled  # type: bool
         self.category = category  # type: str
         self.encrypted = encrypted  # type: str
         self.performance_level = performance_level  # type: str
+        self.provisioned_iops = provisioned_iops  # type: long
         self.size = size  # type: long
 
     def validate(self):
@@ -57,12 +59,16 @@ class DataDisk(TeaModel):
         result = dict()
         if self.auto_snapshot_policy_id is not None:
             result['auto_snapshot_policy_id'] = self.auto_snapshot_policy_id
+        if self.bursting_enabled is not None:
+            result['bursting_enabled'] = self.bursting_enabled
         if self.category is not None:
             result['category'] = self.category
         if self.encrypted is not None:
             result['encrypted'] = self.encrypted
         if self.performance_level is not None:
             result['performance_level'] = self.performance_level
+        if self.provisioned_iops is not None:
+            result['provisioned_iops'] = self.provisioned_iops
         if self.size is not None:
             result['size'] = self.size
         return result
@@ -71,12 +77,16 @@ class DataDisk(TeaModel):
         m = m or dict()
         if m.get('auto_snapshot_policy_id') is not None:
             self.auto_snapshot_policy_id = m.get('auto_snapshot_policy_id')
+        if m.get('bursting_enabled') is not None:
+            self.bursting_enabled = m.get('bursting_enabled')
         if m.get('category') is not None:
             self.category = m.get('category')
         if m.get('encrypted') is not None:
             self.encrypted = m.get('encrypted')
         if m.get('performance_level') is not None:
             self.performance_level = m.get('performance_level')
+        if m.get('provisioned_iops') is not None:
+            self.provisioned_iops = m.get('provisioned_iops')
         if m.get('size') is not None:
             self.size = m.get('size')
         return self
@@ -118,6 +128,728 @@ class MaintenanceWindow(TeaModel):
             self.maintenance_time = m.get('maintenance_time')
         if m.get('weekly_period') is not None:
             self.weekly_period = m.get('weekly_period')
+        return self
+
+
+class NodepoolAutoScaling(TeaModel):
+    def __init__(self, eip_bandwidth=None, eip_internet_charge_type=None, enable=None, is_bond_eip=None,
+                 max_instances=None, min_instances=None, type=None):
+        self.eip_bandwidth = eip_bandwidth  # type: long
+        self.eip_internet_charge_type = eip_internet_charge_type  # type: str
+        self.enable = enable  # type: bool
+        self.is_bond_eip = is_bond_eip  # type: bool
+        self.max_instances = max_instances  # type: long
+        self.min_instances = min_instances  # type: long
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(NodepoolAutoScaling, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.eip_bandwidth is not None:
+            result['eip_bandwidth'] = self.eip_bandwidth
+        if self.eip_internet_charge_type is not None:
+            result['eip_internet_charge_type'] = self.eip_internet_charge_type
+        if self.enable is not None:
+            result['enable'] = self.enable
+        if self.is_bond_eip is not None:
+            result['is_bond_eip'] = self.is_bond_eip
+        if self.max_instances is not None:
+            result['max_instances'] = self.max_instances
+        if self.min_instances is not None:
+            result['min_instances'] = self.min_instances
+        if self.type is not None:
+            result['type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('eip_bandwidth') is not None:
+            self.eip_bandwidth = m.get('eip_bandwidth')
+        if m.get('eip_internet_charge_type') is not None:
+            self.eip_internet_charge_type = m.get('eip_internet_charge_type')
+        if m.get('enable') is not None:
+            self.enable = m.get('enable')
+        if m.get('is_bond_eip') is not None:
+            self.is_bond_eip = m.get('is_bond_eip')
+        if m.get('max_instances') is not None:
+            self.max_instances = m.get('max_instances')
+        if m.get('min_instances') is not None:
+            self.min_instances = m.get('min_instances')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        return self
+
+
+class NodepoolInterconnectConfig(TeaModel):
+    def __init__(self, bandwidth=None, ccn_id=None, ccn_region_id=None, cen_id=None, improved_period=None):
+        self.bandwidth = bandwidth  # type: long
+        self.ccn_id = ccn_id  # type: str
+        self.ccn_region_id = ccn_region_id  # type: str
+        self.cen_id = cen_id  # type: str
+        self.improved_period = improved_period  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(NodepoolInterconnectConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.bandwidth is not None:
+            result['bandwidth'] = self.bandwidth
+        if self.ccn_id is not None:
+            result['ccn_id'] = self.ccn_id
+        if self.ccn_region_id is not None:
+            result['ccn_region_id'] = self.ccn_region_id
+        if self.cen_id is not None:
+            result['cen_id'] = self.cen_id
+        if self.improved_period is not None:
+            result['improved_period'] = self.improved_period
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('bandwidth') is not None:
+            self.bandwidth = m.get('bandwidth')
+        if m.get('ccn_id') is not None:
+            self.ccn_id = m.get('ccn_id')
+        if m.get('ccn_region_id') is not None:
+            self.ccn_region_id = m.get('ccn_region_id')
+        if m.get('cen_id') is not None:
+            self.cen_id = m.get('cen_id')
+        if m.get('improved_period') is not None:
+            self.improved_period = m.get('improved_period')
+        return self
+
+
+class NodepoolKubernetesConfig(TeaModel):
+    def __init__(self, cms_enabled=None, cpu_policy=None, labels=None, node_name_mode=None, runtime=None,
+                 runtime_version=None, taints=None, user_data=None):
+        self.cms_enabled = cms_enabled  # type: bool
+        self.cpu_policy = cpu_policy  # type: str
+        self.labels = labels  # type: list[Tag]
+        self.node_name_mode = node_name_mode  # type: str
+        self.runtime = runtime  # type: str
+        self.runtime_version = runtime_version  # type: str
+        self.taints = taints  # type: list[Taint]
+        self.user_data = user_data  # type: str
+
+    def validate(self):
+        if self.labels:
+            for k in self.labels:
+                if k:
+                    k.validate()
+        if self.taints:
+            for k in self.taints:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(NodepoolKubernetesConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cms_enabled is not None:
+            result['cms_enabled'] = self.cms_enabled
+        if self.cpu_policy is not None:
+            result['cpu_policy'] = self.cpu_policy
+        result['labels'] = []
+        if self.labels is not None:
+            for k in self.labels:
+                result['labels'].append(k.to_map() if k else None)
+        if self.node_name_mode is not None:
+            result['node_name_mode'] = self.node_name_mode
+        if self.runtime is not None:
+            result['runtime'] = self.runtime
+        if self.runtime_version is not None:
+            result['runtime_version'] = self.runtime_version
+        result['taints'] = []
+        if self.taints is not None:
+            for k in self.taints:
+                result['taints'].append(k.to_map() if k else None)
+        if self.user_data is not None:
+            result['user_data'] = self.user_data
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('cms_enabled') is not None:
+            self.cms_enabled = m.get('cms_enabled')
+        if m.get('cpu_policy') is not None:
+            self.cpu_policy = m.get('cpu_policy')
+        self.labels = []
+        if m.get('labels') is not None:
+            for k in m.get('labels'):
+                temp_model = Tag()
+                self.labels.append(temp_model.from_map(k))
+        if m.get('node_name_mode') is not None:
+            self.node_name_mode = m.get('node_name_mode')
+        if m.get('runtime') is not None:
+            self.runtime = m.get('runtime')
+        if m.get('runtime_version') is not None:
+            self.runtime_version = m.get('runtime_version')
+        self.taints = []
+        if m.get('taints') is not None:
+            for k in m.get('taints'):
+                temp_model = Taint()
+                self.taints.append(temp_model.from_map(k))
+        if m.get('user_data') is not None:
+            self.user_data = m.get('user_data')
+        return self
+
+
+class NodepoolManagementUpgradeConfig(TeaModel):
+    def __init__(self, auto_upgrade=None, max_unavailable=None, surge=None, surge_percentage=None):
+        self.auto_upgrade = auto_upgrade  # type: bool
+        self.max_unavailable = max_unavailable  # type: long
+        self.surge = surge  # type: long
+        self.surge_percentage = surge_percentage  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(NodepoolManagementUpgradeConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auto_upgrade is not None:
+            result['auto_upgrade'] = self.auto_upgrade
+        if self.max_unavailable is not None:
+            result['max_unavailable'] = self.max_unavailable
+        if self.surge is not None:
+            result['surge'] = self.surge
+        if self.surge_percentage is not None:
+            result['surge_percentage'] = self.surge_percentage
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('auto_upgrade') is not None:
+            self.auto_upgrade = m.get('auto_upgrade')
+        if m.get('max_unavailable') is not None:
+            self.max_unavailable = m.get('max_unavailable')
+        if m.get('surge') is not None:
+            self.surge = m.get('surge')
+        if m.get('surge_percentage') is not None:
+            self.surge_percentage = m.get('surge_percentage')
+        return self
+
+
+class NodepoolManagement(TeaModel):
+    def __init__(self, auto_repair=None, enable=None, upgrade_config=None):
+        self.auto_repair = auto_repair  # type: bool
+        self.enable = enable  # type: bool
+        self.upgrade_config = upgrade_config  # type: NodepoolManagementUpgradeConfig
+
+    def validate(self):
+        if self.upgrade_config:
+            self.upgrade_config.validate()
+
+    def to_map(self):
+        _map = super(NodepoolManagement, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auto_repair is not None:
+            result['auto_repair'] = self.auto_repair
+        if self.enable is not None:
+            result['enable'] = self.enable
+        if self.upgrade_config is not None:
+            result['upgrade_config'] = self.upgrade_config.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('auto_repair') is not None:
+            self.auto_repair = m.get('auto_repair')
+        if m.get('enable') is not None:
+            self.enable = m.get('enable')
+        if m.get('upgrade_config') is not None:
+            temp_model = NodepoolManagementUpgradeConfig()
+            self.upgrade_config = temp_model.from_map(m['upgrade_config'])
+        return self
+
+
+class NodepoolNodepoolInfo(TeaModel):
+    def __init__(self, name=None, resource_group_id=None, type=None):
+        self.name = name  # type: str
+        self.resource_group_id = resource_group_id  # type: str
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(NodepoolNodepoolInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.name is not None:
+            result['name'] = self.name
+        if self.resource_group_id is not None:
+            result['resource_group_id'] = self.resource_group_id
+        if self.type is not None:
+            result['type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('resource_group_id') is not None:
+            self.resource_group_id = m.get('resource_group_id')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        return self
+
+
+class NodepoolScalingGroupPrivatePoolOptions(TeaModel):
+    def __init__(self, id=None, match_criteria=None):
+        self.id = id  # type: str
+        self.match_criteria = match_criteria  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(NodepoolScalingGroupPrivatePoolOptions, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['id'] = self.id
+        if self.match_criteria is not None:
+            result['match_criteria'] = self.match_criteria
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('id') is not None:
+            self.id = m.get('id')
+        if m.get('match_criteria') is not None:
+            self.match_criteria = m.get('match_criteria')
+        return self
+
+
+class NodepoolScalingGroupSpotPriceLimit(TeaModel):
+    def __init__(self, instance_type=None, price_limit=None):
+        self.instance_type = instance_type  # type: str
+        self.price_limit = price_limit  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(NodepoolScalingGroupSpotPriceLimit, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.instance_type is not None:
+            result['instance_type'] = self.instance_type
+        if self.price_limit is not None:
+            result['price_limit'] = self.price_limit
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('instance_type') is not None:
+            self.instance_type = m.get('instance_type')
+        if m.get('price_limit') is not None:
+            self.price_limit = m.get('price_limit')
+        return self
+
+
+class NodepoolScalingGroupTags(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(NodepoolScalingGroupTags, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['key'] = self.key
+        if self.value is not None:
+            result['value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('key') is not None:
+            self.key = m.get('key')
+        if m.get('value') is not None:
+            self.value = m.get('value')
+        return self
+
+
+class NodepoolScalingGroup(TeaModel):
+    def __init__(self, auto_renew=None, auto_renew_period=None, compensate_with_on_demand=None, data_disks=None,
+                 deploymentset_id=None, desired_size=None, image_id=None, image_type=None, instance_charge_type=None,
+                 instance_types=None, internet_charge_type=None, internet_max_bandwidth_out=None, key_pair=None,
+                 login_password=None, multi_az_policy=None, on_demand_base_capacity=None,
+                 on_demand_percentage_above_base_capacity=None, period=None, period_unit=None, platform=None, private_pool_options=None, rds_instances=None,
+                 scaling_policy=None, security_group_id=None, security_group_ids=None, spot_instance_pools=None,
+                 spot_instance_remedy=None, spot_price_limit=None, spot_strategy=None, system_disk_bursting_enabled=None,
+                 system_disk_category=None, system_disk_performance_level=None, system_disk_provisioned_iops=None,
+                 system_disk_size=None, tags=None, vswitch_ids=None):
+        self.auto_renew = auto_renew  # type: bool
+        self.auto_renew_period = auto_renew_period  # type: long
+        self.compensate_with_on_demand = compensate_with_on_demand  # type: bool
+        self.data_disks = data_disks  # type: list[DataDisk]
+        self.deploymentset_id = deploymentset_id  # type: str
+        self.desired_size = desired_size  # type: long
+        self.image_id = image_id  # type: str
+        self.image_type = image_type  # type: str
+        self.instance_charge_type = instance_charge_type  # type: str
+        self.instance_types = instance_types  # type: list[str]
+        self.internet_charge_type = internet_charge_type  # type: str
+        self.internet_max_bandwidth_out = internet_max_bandwidth_out  # type: long
+        self.key_pair = key_pair  # type: str
+        self.login_password = login_password  # type: str
+        self.multi_az_policy = multi_az_policy  # type: str
+        self.on_demand_base_capacity = on_demand_base_capacity  # type: long
+        self.on_demand_percentage_above_base_capacity = on_demand_percentage_above_base_capacity  # type: long
+        self.period = period  # type: long
+        self.period_unit = period_unit  # type: str
+        self.platform = platform  # type: str
+        self.private_pool_options = private_pool_options  # type: NodepoolScalingGroupPrivatePoolOptions
+        self.rds_instances = rds_instances  # type: list[str]
+        self.scaling_policy = scaling_policy  # type: str
+        self.security_group_id = security_group_id  # type: str
+        self.security_group_ids = security_group_ids  # type: list[str]
+        self.spot_instance_pools = spot_instance_pools  # type: long
+        self.spot_instance_remedy = spot_instance_remedy  # type: bool
+        self.spot_price_limit = spot_price_limit  # type: list[NodepoolScalingGroupSpotPriceLimit]
+        self.spot_strategy = spot_strategy  # type: str
+        self.system_disk_bursting_enabled = system_disk_bursting_enabled  # type: bool
+        self.system_disk_category = system_disk_category  # type: str
+        self.system_disk_performance_level = system_disk_performance_level  # type: str
+        self.system_disk_provisioned_iops = system_disk_provisioned_iops  # type: long
+        self.system_disk_size = system_disk_size  # type: long
+        self.tags = tags  # type: list[NodepoolScalingGroupTags]
+        self.vswitch_ids = vswitch_ids  # type: list[str]
+
+    def validate(self):
+        if self.data_disks:
+            for k in self.data_disks:
+                if k:
+                    k.validate()
+        if self.private_pool_options:
+            self.private_pool_options.validate()
+        if self.spot_price_limit:
+            for k in self.spot_price_limit:
+                if k:
+                    k.validate()
+        if self.tags:
+            for k in self.tags:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(NodepoolScalingGroup, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auto_renew is not None:
+            result['auto_renew'] = self.auto_renew
+        if self.auto_renew_period is not None:
+            result['auto_renew_period'] = self.auto_renew_period
+        if self.compensate_with_on_demand is not None:
+            result['compensate_with_on_demand'] = self.compensate_with_on_demand
+        result['data_disks'] = []
+        if self.data_disks is not None:
+            for k in self.data_disks:
+                result['data_disks'].append(k.to_map() if k else None)
+        if self.deploymentset_id is not None:
+            result['deploymentset_id'] = self.deploymentset_id
+        if self.desired_size is not None:
+            result['desired_size'] = self.desired_size
+        if self.image_id is not None:
+            result['image_id'] = self.image_id
+        if self.image_type is not None:
+            result['image_type'] = self.image_type
+        if self.instance_charge_type is not None:
+            result['instance_charge_type'] = self.instance_charge_type
+        if self.instance_types is not None:
+            result['instance_types'] = self.instance_types
+        if self.internet_charge_type is not None:
+            result['internet_charge_type'] = self.internet_charge_type
+        if self.internet_max_bandwidth_out is not None:
+            result['internet_max_bandwidth_out'] = self.internet_max_bandwidth_out
+        if self.key_pair is not None:
+            result['key_pair'] = self.key_pair
+        if self.login_password is not None:
+            result['login_password'] = self.login_password
+        if self.multi_az_policy is not None:
+            result['multi_az_policy'] = self.multi_az_policy
+        if self.on_demand_base_capacity is not None:
+            result['on_demand_base_capacity'] = self.on_demand_base_capacity
+        if self.on_demand_percentage_above_base_capacity is not None:
+            result['on_demand_percentage_above_base_capacity'] = self.on_demand_percentage_above_base_capacity
+        if self.period is not None:
+            result['period'] = self.period
+        if self.period_unit is not None:
+            result['period_unit'] = self.period_unit
+        if self.platform is not None:
+            result['platform'] = self.platform
+        if self.private_pool_options is not None:
+            result['private_pool_options'] = self.private_pool_options.to_map()
+        if self.rds_instances is not None:
+            result['rds_instances'] = self.rds_instances
+        if self.scaling_policy is not None:
+            result['scaling_policy'] = self.scaling_policy
+        if self.security_group_id is not None:
+            result['security_group_id'] = self.security_group_id
+        if self.security_group_ids is not None:
+            result['security_group_ids'] = self.security_group_ids
+        if self.spot_instance_pools is not None:
+            result['spot_instance_pools'] = self.spot_instance_pools
+        if self.spot_instance_remedy is not None:
+            result['spot_instance_remedy'] = self.spot_instance_remedy
+        result['spot_price_limit'] = []
+        if self.spot_price_limit is not None:
+            for k in self.spot_price_limit:
+                result['spot_price_limit'].append(k.to_map() if k else None)
+        if self.spot_strategy is not None:
+            result['spot_strategy'] = self.spot_strategy
+        if self.system_disk_bursting_enabled is not None:
+            result['system_disk_bursting_enabled'] = self.system_disk_bursting_enabled
+        if self.system_disk_category is not None:
+            result['system_disk_category'] = self.system_disk_category
+        if self.system_disk_performance_level is not None:
+            result['system_disk_performance_level'] = self.system_disk_performance_level
+        if self.system_disk_provisioned_iops is not None:
+            result['system_disk_provisioned_iops'] = self.system_disk_provisioned_iops
+        if self.system_disk_size is not None:
+            result['system_disk_size'] = self.system_disk_size
+        result['tags'] = []
+        if self.tags is not None:
+            for k in self.tags:
+                result['tags'].append(k.to_map() if k else None)
+        if self.vswitch_ids is not None:
+            result['vswitch_ids'] = self.vswitch_ids
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('auto_renew') is not None:
+            self.auto_renew = m.get('auto_renew')
+        if m.get('auto_renew_period') is not None:
+            self.auto_renew_period = m.get('auto_renew_period')
+        if m.get('compensate_with_on_demand') is not None:
+            self.compensate_with_on_demand = m.get('compensate_with_on_demand')
+        self.data_disks = []
+        if m.get('data_disks') is not None:
+            for k in m.get('data_disks'):
+                temp_model = DataDisk()
+                self.data_disks.append(temp_model.from_map(k))
+        if m.get('deploymentset_id') is not None:
+            self.deploymentset_id = m.get('deploymentset_id')
+        if m.get('desired_size') is not None:
+            self.desired_size = m.get('desired_size')
+        if m.get('image_id') is not None:
+            self.image_id = m.get('image_id')
+        if m.get('image_type') is not None:
+            self.image_type = m.get('image_type')
+        if m.get('instance_charge_type') is not None:
+            self.instance_charge_type = m.get('instance_charge_type')
+        if m.get('instance_types') is not None:
+            self.instance_types = m.get('instance_types')
+        if m.get('internet_charge_type') is not None:
+            self.internet_charge_type = m.get('internet_charge_type')
+        if m.get('internet_max_bandwidth_out') is not None:
+            self.internet_max_bandwidth_out = m.get('internet_max_bandwidth_out')
+        if m.get('key_pair') is not None:
+            self.key_pair = m.get('key_pair')
+        if m.get('login_password') is not None:
+            self.login_password = m.get('login_password')
+        if m.get('multi_az_policy') is not None:
+            self.multi_az_policy = m.get('multi_az_policy')
+        if m.get('on_demand_base_capacity') is not None:
+            self.on_demand_base_capacity = m.get('on_demand_base_capacity')
+        if m.get('on_demand_percentage_above_base_capacity') is not None:
+            self.on_demand_percentage_above_base_capacity = m.get('on_demand_percentage_above_base_capacity')
+        if m.get('period') is not None:
+            self.period = m.get('period')
+        if m.get('period_unit') is not None:
+            self.period_unit = m.get('period_unit')
+        if m.get('platform') is not None:
+            self.platform = m.get('platform')
+        if m.get('private_pool_options') is not None:
+            temp_model = NodepoolScalingGroupPrivatePoolOptions()
+            self.private_pool_options = temp_model.from_map(m['private_pool_options'])
+        if m.get('rds_instances') is not None:
+            self.rds_instances = m.get('rds_instances')
+        if m.get('scaling_policy') is not None:
+            self.scaling_policy = m.get('scaling_policy')
+        if m.get('security_group_id') is not None:
+            self.security_group_id = m.get('security_group_id')
+        if m.get('security_group_ids') is not None:
+            self.security_group_ids = m.get('security_group_ids')
+        if m.get('spot_instance_pools') is not None:
+            self.spot_instance_pools = m.get('spot_instance_pools')
+        if m.get('spot_instance_remedy') is not None:
+            self.spot_instance_remedy = m.get('spot_instance_remedy')
+        self.spot_price_limit = []
+        if m.get('spot_price_limit') is not None:
+            for k in m.get('spot_price_limit'):
+                temp_model = NodepoolScalingGroupSpotPriceLimit()
+                self.spot_price_limit.append(temp_model.from_map(k))
+        if m.get('spot_strategy') is not None:
+            self.spot_strategy = m.get('spot_strategy')
+        if m.get('system_disk_bursting_enabled') is not None:
+            self.system_disk_bursting_enabled = m.get('system_disk_bursting_enabled')
+        if m.get('system_disk_category') is not None:
+            self.system_disk_category = m.get('system_disk_category')
+        if m.get('system_disk_performance_level') is not None:
+            self.system_disk_performance_level = m.get('system_disk_performance_level')
+        if m.get('system_disk_provisioned_iops') is not None:
+            self.system_disk_provisioned_iops = m.get('system_disk_provisioned_iops')
+        if m.get('system_disk_size') is not None:
+            self.system_disk_size = m.get('system_disk_size')
+        self.tags = []
+        if m.get('tags') is not None:
+            for k in m.get('tags'):
+                temp_model = NodepoolScalingGroupTags()
+                self.tags.append(temp_model.from_map(k))
+        if m.get('vswitch_ids') is not None:
+            self.vswitch_ids = m.get('vswitch_ids')
+        return self
+
+
+class NodepoolTeeConfig(TeaModel):
+    def __init__(self, tee_enable=None):
+        self.tee_enable = tee_enable  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(NodepoolTeeConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.tee_enable is not None:
+            result['tee_enable'] = self.tee_enable
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('tee_enable') is not None:
+            self.tee_enable = m.get('tee_enable')
+        return self
+
+
+class Nodepool(TeaModel):
+    def __init__(self, auto_scaling=None, count=None, interconnect_config=None, interconnect_mode=None,
+                 kubernetes_config=None, management=None, max_nodes=None, nodepool_info=None, scaling_group=None, tee_config=None):
+        self.auto_scaling = auto_scaling  # type: NodepoolAutoScaling
+        self.count = count  # type: long
+        self.interconnect_config = interconnect_config  # type: NodepoolInterconnectConfig
+        self.interconnect_mode = interconnect_mode  # type: str
+        self.kubernetes_config = kubernetes_config  # type: NodepoolKubernetesConfig
+        self.management = management  # type: NodepoolManagement
+        self.max_nodes = max_nodes  # type: long
+        self.nodepool_info = nodepool_info  # type: NodepoolNodepoolInfo
+        self.scaling_group = scaling_group  # type: NodepoolScalingGroup
+        self.tee_config = tee_config  # type: NodepoolTeeConfig
+
+    def validate(self):
+        if self.auto_scaling:
+            self.auto_scaling.validate()
+        if self.interconnect_config:
+            self.interconnect_config.validate()
+        if self.kubernetes_config:
+            self.kubernetes_config.validate()
+        if self.management:
+            self.management.validate()
+        if self.nodepool_info:
+            self.nodepool_info.validate()
+        if self.scaling_group:
+            self.scaling_group.validate()
+        if self.tee_config:
+            self.tee_config.validate()
+
+    def to_map(self):
+        _map = super(Nodepool, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auto_scaling is not None:
+            result['auto_scaling'] = self.auto_scaling.to_map()
+        if self.count is not None:
+            result['count'] = self.count
+        if self.interconnect_config is not None:
+            result['interconnect_config'] = self.interconnect_config.to_map()
+        if self.interconnect_mode is not None:
+            result['interconnect_mode'] = self.interconnect_mode
+        if self.kubernetes_config is not None:
+            result['kubernetes_config'] = self.kubernetes_config.to_map()
+        if self.management is not None:
+            result['management'] = self.management.to_map()
+        if self.max_nodes is not None:
+            result['max_nodes'] = self.max_nodes
+        if self.nodepool_info is not None:
+            result['nodepool_info'] = self.nodepool_info.to_map()
+        if self.scaling_group is not None:
+            result['scaling_group'] = self.scaling_group.to_map()
+        if self.tee_config is not None:
+            result['tee_config'] = self.tee_config.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('auto_scaling') is not None:
+            temp_model = NodepoolAutoScaling()
+            self.auto_scaling = temp_model.from_map(m['auto_scaling'])
+        if m.get('count') is not None:
+            self.count = m.get('count')
+        if m.get('interconnect_config') is not None:
+            temp_model = NodepoolInterconnectConfig()
+            self.interconnect_config = temp_model.from_map(m['interconnect_config'])
+        if m.get('interconnect_mode') is not None:
+            self.interconnect_mode = m.get('interconnect_mode')
+        if m.get('kubernetes_config') is not None:
+            temp_model = NodepoolKubernetesConfig()
+            self.kubernetes_config = temp_model.from_map(m['kubernetes_config'])
+        if m.get('management') is not None:
+            temp_model = NodepoolManagement()
+            self.management = temp_model.from_map(m['management'])
+        if m.get('max_nodes') is not None:
+            self.max_nodes = m.get('max_nodes')
+        if m.get('nodepool_info') is not None:
+            temp_model = NodepoolNodepoolInfo()
+            self.nodepool_info = temp_model.from_map(m['nodepool_info'])
+        if m.get('scaling_group') is not None:
+            temp_model = NodepoolScalingGroup()
+            self.scaling_group = temp_model.from_map(m['scaling_group'])
+        if m.get('tee_config') is not None:
+            temp_model = NodepoolTeeConfig()
+            self.tee_config = temp_model.from_map(m['tee_config'])
         return self
 
 
