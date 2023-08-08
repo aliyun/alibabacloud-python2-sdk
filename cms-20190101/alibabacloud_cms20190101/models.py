@@ -7047,8 +7047,8 @@ class CreateMonitoringAgentProcessResponse(TeaModel):
 
 
 class CreateSiteMonitorRequest(TeaModel):
-    def __init__(self, address=None, alert_ids=None, interval=None, isp_cities=None, options_json=None,
-                 region_id=None, task_name=None, task_type=None):
+    def __init__(self, address=None, alert_ids=None, custom_schedule=None, interval=None, isp_cities=None,
+                 options_json=None, region_id=None, task_name=None, task_type=None):
         # The name of the site monitoring task.
         # 
         # The name must be 4 to 100 characters in length, and can contain letters, digits, and underscores (\_).
@@ -7058,6 +7058,7 @@ class CreateSiteMonitorRequest(TeaModel):
         # *   true
         # *   false
         self.alert_ids = alert_ids  # type: str
+        self.custom_schedule = custom_schedule  # type: str
         # The operation that you want to perform. Set the value to **CreateSiteMonitor**.
         self.interval = interval  # type: str
         # The information of the detection points. If you leave this parameter empty, the system randomly selects three detection points.
@@ -7091,6 +7092,8 @@ class CreateSiteMonitorRequest(TeaModel):
             result['Address'] = self.address
         if self.alert_ids is not None:
             result['AlertIds'] = self.alert_ids
+        if self.custom_schedule is not None:
+            result['CustomSchedule'] = self.custom_schedule
         if self.interval is not None:
             result['Interval'] = self.interval
         if self.isp_cities is not None:
@@ -7111,6 +7114,8 @@ class CreateSiteMonitorRequest(TeaModel):
             self.address = m.get('Address')
         if m.get('AlertIds') is not None:
             self.alert_ids = m.get('AlertIds')
+        if m.get('CustomSchedule') is not None:
+            self.custom_schedule = m.get('CustomSchedule')
         if m.get('Interval') is not None:
             self.interval = m.get('Interval')
         if m.get('IspCities') is not None:
@@ -30391,6 +30396,71 @@ class DescribeSiteMonitorAttributeResponseBodyMetricRules(TeaModel):
         return self
 
 
+class DescribeSiteMonitorAttributeResponseBodySiteMonitorsCustomScheduleDays(TeaModel):
+    def __init__(self, days=None):
+        self.days = days  # type: list[int]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeSiteMonitorAttributeResponseBodySiteMonitorsCustomScheduleDays, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.days is not None:
+            result['days'] = self.days
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('days') is not None:
+            self.days = m.get('days')
+        return self
+
+
+class DescribeSiteMonitorAttributeResponseBodySiteMonitorsCustomSchedule(TeaModel):
+    def __init__(self, days=None, end_hour=None, start_hour=None, time_zone=None):
+        self.days = days  # type: DescribeSiteMonitorAttributeResponseBodySiteMonitorsCustomScheduleDays
+        self.end_hour = end_hour  # type: int
+        self.start_hour = start_hour  # type: int
+        self.time_zone = time_zone  # type: str
+
+    def validate(self):
+        if self.days:
+            self.days.validate()
+
+    def to_map(self):
+        _map = super(DescribeSiteMonitorAttributeResponseBodySiteMonitorsCustomSchedule, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.days is not None:
+            result['days'] = self.days.to_map()
+        if self.end_hour is not None:
+            result['end_hour'] = self.end_hour
+        if self.start_hour is not None:
+            result['start_hour'] = self.start_hour
+        if self.time_zone is not None:
+            result['time_zone'] = self.time_zone
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('days') is not None:
+            temp_model = DescribeSiteMonitorAttributeResponseBodySiteMonitorsCustomScheduleDays()
+            self.days = temp_model.from_map(m['days'])
+        if m.get('end_hour') is not None:
+            self.end_hour = m.get('end_hour')
+        if m.get('start_hour') is not None:
+            self.start_hour = m.get('start_hour')
+        if m.get('time_zone') is not None:
+            self.time_zone = m.get('time_zone')
+        return self
+
+
 class DescribeSiteMonitorAttributeResponseBodySiteMonitorsIspCitiesIspCity(TeaModel):
     def __init__(self, city=None, city_name=None, isp=None, isp_name=None):
         # The ID of the carrier.
@@ -30703,11 +30773,12 @@ class DescribeSiteMonitorAttributeResponseBodySiteMonitorsOptionJson(TeaModel):
 
 
 class DescribeSiteMonitorAttributeResponseBodySiteMonitors(TeaModel):
-    def __init__(self, address=None, agent_group=None, interval=None, isp_cities=None, option_json=None,
-                 task_id=None, task_name=None, task_state=None, task_type=None):
+    def __init__(self, address=None, agent_group=None, custom_schedule=None, interval=None, isp_cities=None,
+                 option_json=None, task_id=None, task_name=None, task_state=None, task_type=None):
         # The information of detection points. The information includes the carriers that provide the detection points and the cities where the detection points reside.
         self.address = address  # type: str
         self.agent_group = agent_group  # type: str
+        self.custom_schedule = custom_schedule  # type: DescribeSiteMonitorAttributeResponseBodySiteMonitorsCustomSchedule
         # The name of the site monitoring task.
         self.interval = interval  # type: str
         # The name of the carrier.
@@ -30726,6 +30797,8 @@ class DescribeSiteMonitorAttributeResponseBodySiteMonitors(TeaModel):
         self.task_type = task_type  # type: str
 
     def validate(self):
+        if self.custom_schedule:
+            self.custom_schedule.validate()
         if self.isp_cities:
             self.isp_cities.validate()
         if self.option_json:
@@ -30741,6 +30814,8 @@ class DescribeSiteMonitorAttributeResponseBodySiteMonitors(TeaModel):
             result['Address'] = self.address
         if self.agent_group is not None:
             result['AgentGroup'] = self.agent_group
+        if self.custom_schedule is not None:
+            result['CustomSchedule'] = self.custom_schedule.to_map()
         if self.interval is not None:
             result['Interval'] = self.interval
         if self.isp_cities is not None:
@@ -30763,6 +30838,9 @@ class DescribeSiteMonitorAttributeResponseBodySiteMonitors(TeaModel):
             self.address = m.get('Address')
         if m.get('AgentGroup') is not None:
             self.agent_group = m.get('AgentGroup')
+        if m.get('CustomSchedule') is not None:
+            temp_model = DescribeSiteMonitorAttributeResponseBodySiteMonitorsCustomSchedule()
+            self.custom_schedule = temp_model.from_map(m['CustomSchedule'])
         if m.get('Interval') is not None:
             self.interval = m.get('Interval')
         if m.get('IspCities') is not None:
@@ -38434,12 +38512,13 @@ class ModifyMonitorGroupInstancesResponse(TeaModel):
 
 
 class ModifySiteMonitorRequest(TeaModel):
-    def __init__(self, address=None, alert_ids=None, interval=None, interval_unit=None, isp_cities=None,
-                 options_json=None, region_id=None, task_id=None, task_name=None):
+    def __init__(self, address=None, alert_ids=None, custom_schedule=None, interval=None, interval_unit=None,
+                 isp_cities=None, options_json=None, region_id=None, task_id=None, task_name=None):
         # The ID of the site monitoring task.
         self.address = address  # type: str
         # The returned message.
         self.alert_ids = alert_ids  # type: str
+        self.custom_schedule = custom_schedule  # type: str
         # The HTTP status code.
         # 
         # >  The status code 200 indicates that the call was successful.
@@ -38471,6 +38550,8 @@ class ModifySiteMonitorRequest(TeaModel):
             result['Address'] = self.address
         if self.alert_ids is not None:
             result['AlertIds'] = self.alert_ids
+        if self.custom_schedule is not None:
+            result['CustomSchedule'] = self.custom_schedule
         if self.interval is not None:
             result['Interval'] = self.interval
         if self.interval_unit is not None:
@@ -38493,6 +38574,8 @@ class ModifySiteMonitorRequest(TeaModel):
             self.address = m.get('Address')
         if m.get('AlertIds') is not None:
             self.alert_ids = m.get('AlertIds')
+        if m.get('CustomSchedule') is not None:
+            self.custom_schedule = m.get('CustomSchedule')
         if m.get('Interval') is not None:
             self.interval = m.get('Interval')
         if m.get('IntervalUnit') is not None:

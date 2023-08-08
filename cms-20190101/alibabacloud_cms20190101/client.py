@@ -1277,6 +1277,8 @@ class Client(OpenApiClient):
             query['Address'] = request.address
         if not UtilClient.is_unset(request.alert_ids):
             query['AlertIds'] = request.alert_ids
+        if not UtilClient.is_unset(request.custom_schedule):
+            query['CustomSchedule'] = request.custom_schedule
         if not UtilClient.is_unset(request.interval):
             query['Interval'] = request.interval
         if not UtilClient.is_unset(request.isp_cities):
@@ -6155,6 +6157,8 @@ class Client(OpenApiClient):
             query['Address'] = request.address
         if not UtilClient.is_unset(request.alert_ids):
             query['AlertIds'] = request.alert_ids
+        if not UtilClient.is_unset(request.custom_schedule):
+            query['CustomSchedule'] = request.custom_schedule
         if not UtilClient.is_unset(request.interval):
             query['Interval'] = request.interval
         if not UtilClient.is_unset(request.interval_unit):
