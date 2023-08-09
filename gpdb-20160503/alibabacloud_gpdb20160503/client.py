@@ -210,18 +210,24 @@ class Client(OpenApiClient):
             query['Dimension'] = request.dimension
         if not UtilClient.is_unset(request.full_text_retrieval_fields):
             query['FullTextRetrievalFields'] = request.full_text_retrieval_fields
+        if not UtilClient.is_unset(request.hnsw_m):
+            query['HnswM'] = request.hnsw_m
         if not UtilClient.is_unset(request.manager_account):
             query['ManagerAccount'] = request.manager_account
         if not UtilClient.is_unset(request.manager_account_password):
             query['ManagerAccountPassword'] = request.manager_account_password
         if not UtilClient.is_unset(request.metadata):
             query['Metadata'] = request.metadata
+        if not UtilClient.is_unset(request.metrics):
+            query['Metrics'] = request.metrics
         if not UtilClient.is_unset(request.namespace):
             query['Namespace'] = request.namespace
         if not UtilClient.is_unset(request.owner_id):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.parser):
             query['Parser'] = request.parser
+        if not UtilClient.is_unset(request.pq_enable):
+            query['PqEnable'] = request.pq_enable
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
@@ -576,6 +582,8 @@ class Client(OpenApiClient):
             query['DBInstanceId'] = request.dbinstance_id
         if not UtilClient.is_unset(request.dimension):
             query['Dimension'] = request.dimension
+        if not UtilClient.is_unset(request.hnsw_m):
+            query['HnswM'] = request.hnsw_m
         if not UtilClient.is_unset(request.manager_account):
             query['ManagerAccount'] = request.manager_account
         if not UtilClient.is_unset(request.manager_account_password):
@@ -586,6 +594,8 @@ class Client(OpenApiClient):
             query['Namespace'] = request.namespace
         if not UtilClient.is_unset(request.owner_id):
             query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.pq_enable):
+            query['PqEnable'] = request.pq_enable
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(

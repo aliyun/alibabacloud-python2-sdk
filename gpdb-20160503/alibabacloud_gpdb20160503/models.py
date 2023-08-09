@@ -374,18 +374,21 @@ class CreateAccountResponse(TeaModel):
 
 class CreateCollectionRequest(TeaModel):
     def __init__(self, collection=None, dbinstance_id=None, dimension=None, full_text_retrieval_fields=None,
-                 manager_account=None, manager_account_password=None, metadata=None, namespace=None, owner_id=None, parser=None,
-                 region_id=None):
+                 hnsw_m=None, manager_account=None, manager_account_password=None, metadata=None, metrics=None,
+                 namespace=None, owner_id=None, parser=None, pq_enable=None, region_id=None):
         self.collection = collection  # type: str
         self.dbinstance_id = dbinstance_id  # type: str
         self.dimension = dimension  # type: long
         self.full_text_retrieval_fields = full_text_retrieval_fields  # type: str
+        self.hnsw_m = hnsw_m  # type: int
         self.manager_account = manager_account  # type: str
         self.manager_account_password = manager_account_password  # type: str
         self.metadata = metadata  # type: str
+        self.metrics = metrics  # type: str
         self.namespace = namespace  # type: str
         self.owner_id = owner_id  # type: long
         self.parser = parser  # type: str
+        self.pq_enable = pq_enable  # type: int
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -405,18 +408,24 @@ class CreateCollectionRequest(TeaModel):
             result['Dimension'] = self.dimension
         if self.full_text_retrieval_fields is not None:
             result['FullTextRetrievalFields'] = self.full_text_retrieval_fields
+        if self.hnsw_m is not None:
+            result['HnswM'] = self.hnsw_m
         if self.manager_account is not None:
             result['ManagerAccount'] = self.manager_account
         if self.manager_account_password is not None:
             result['ManagerAccountPassword'] = self.manager_account_password
         if self.metadata is not None:
             result['Metadata'] = self.metadata
+        if self.metrics is not None:
+            result['Metrics'] = self.metrics
         if self.namespace is not None:
             result['Namespace'] = self.namespace
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
         if self.parser is not None:
             result['Parser'] = self.parser
+        if self.pq_enable is not None:
+            result['PqEnable'] = self.pq_enable
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         return result
@@ -431,18 +440,24 @@ class CreateCollectionRequest(TeaModel):
             self.dimension = m.get('Dimension')
         if m.get('FullTextRetrievalFields') is not None:
             self.full_text_retrieval_fields = m.get('FullTextRetrievalFields')
+        if m.get('HnswM') is not None:
+            self.hnsw_m = m.get('HnswM')
         if m.get('ManagerAccount') is not None:
             self.manager_account = m.get('ManagerAccount')
         if m.get('ManagerAccountPassword') is not None:
             self.manager_account_password = m.get('ManagerAccountPassword')
         if m.get('Metadata') is not None:
             self.metadata = m.get('Metadata')
+        if m.get('Metrics') is not None:
+            self.metrics = m.get('Metrics')
         if m.get('Namespace') is not None:
             self.namespace = m.get('Namespace')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
         if m.get('Parser') is not None:
             self.parser = m.get('Parser')
+        if m.get('PqEnable') is not None:
+            self.pq_enable = m.get('PqEnable')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         return self
@@ -1531,17 +1546,19 @@ class CreateServiceLinkedRoleResponse(TeaModel):
 
 
 class CreateVectorIndexRequest(TeaModel):
-    def __init__(self, collection=None, dbinstance_id=None, dimension=None, manager_account=None,
-                 manager_account_password=None, metrics=None, namespace=None, owner_id=None, region_id=None):
+    def __init__(self, collection=None, dbinstance_id=None, dimension=None, hnsw_m=None, manager_account=None,
+                 manager_account_password=None, metrics=None, namespace=None, owner_id=None, pq_enable=None, region_id=None):
         self.collection = collection  # type: str
         self.dbinstance_id = dbinstance_id  # type: str
         self.dimension = dimension  # type: int
+        self.hnsw_m = hnsw_m  # type: int
         self.manager_account = manager_account  # type: str
         self.manager_account_password = manager_account_password  # type: str
         # Distance Metrics。
         self.metrics = metrics  # type: str
         self.namespace = namespace  # type: str
         self.owner_id = owner_id  # type: long
+        self.pq_enable = pq_enable  # type: int
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -1559,6 +1576,8 @@ class CreateVectorIndexRequest(TeaModel):
             result['DBInstanceId'] = self.dbinstance_id
         if self.dimension is not None:
             result['Dimension'] = self.dimension
+        if self.hnsw_m is not None:
+            result['HnswM'] = self.hnsw_m
         if self.manager_account is not None:
             result['ManagerAccount'] = self.manager_account
         if self.manager_account_password is not None:
@@ -1569,6 +1588,8 @@ class CreateVectorIndexRequest(TeaModel):
             result['Namespace'] = self.namespace
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
+        if self.pq_enable is not None:
+            result['PqEnable'] = self.pq_enable
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         return result
@@ -1581,6 +1602,8 @@ class CreateVectorIndexRequest(TeaModel):
             self.dbinstance_id = m.get('DBInstanceId')
         if m.get('Dimension') is not None:
             self.dimension = m.get('Dimension')
+        if m.get('HnswM') is not None:
+            self.hnsw_m = m.get('HnswM')
         if m.get('ManagerAccount') is not None:
             self.manager_account = m.get('ManagerAccount')
         if m.get('ManagerAccountPassword') is not None:
@@ -1591,6 +1614,8 @@ class CreateVectorIndexRequest(TeaModel):
             self.namespace = m.get('Namespace')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
+        if m.get('PqEnable') is not None:
+            self.pq_enable = m.get('PqEnable')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         return self
@@ -14634,18 +14659,18 @@ class ListTagResourcesResponse(TeaModel):
 
 class ModifyAccountDescriptionRequest(TeaModel):
     def __init__(self, account_description=None, account_name=None, dbinstance_id=None):
-        # The description of the account. The description must meet the following requirements:
+        # The new description of the database account.
         # 
         # *   The description must start with a letter.
-        # *   The description can contain letters, digits, underscores (\_), and hyphens (-).
         # *   The description cannot start with `http://` or `https://`.
+        # *   The description can contain letters, underscores (\_), hyphens (-), and digits.
         # *   The description must be 2 to 256 characters in length.
         self.account_description = account_description  # type: str
         # The name of the database account.
-        # 
-        # > You can call the [DescribeAccounts](~~~~) operation to query the information about database accounts in a cluster, including the database account name.
         self.account_name = account_name  # type: str
-        # The ID of the instance.
+        # The instance ID.
+        # 
+        # > You can call the [DescribeDBInstances](~~86911~~) operation to query the IDs of all AnalyticDB for PostgreSQL instances within a region.
         self.dbinstance_id = dbinstance_id  # type: str
 
     def validate(self):
@@ -14678,7 +14703,7 @@ class ModifyAccountDescriptionRequest(TeaModel):
 
 class ModifyAccountDescriptionResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -16321,10 +16346,10 @@ class QueryCollectionDataResponseBodyMatchesMatchValues(TeaModel):
 
 
 class QueryCollectionDataResponseBodyMatchesMatch(TeaModel):
-    def __init__(self, id=None, metadata=None, similarity=None, values=None):
+    def __init__(self, id=None, metadata=None, score=None, values=None):
         self.id = id  # type: str
         self.metadata = metadata  # type: dict[str, str]
-        self.similarity = similarity  # type: float
+        self.score = score  # type: float
         self.values = values  # type: QueryCollectionDataResponseBodyMatchesMatchValues
 
     def validate(self):
@@ -16341,8 +16366,8 @@ class QueryCollectionDataResponseBodyMatchesMatch(TeaModel):
             result['Id'] = self.id
         if self.metadata is not None:
             result['Metadata'] = self.metadata
-        if self.similarity is not None:
-            result['Similarity'] = self.similarity
+        if self.score is not None:
+            result['Score'] = self.score
         if self.values is not None:
             result['Values'] = self.values.to_map()
         return result
@@ -16353,8 +16378,8 @@ class QueryCollectionDataResponseBodyMatchesMatch(TeaModel):
             self.id = m.get('Id')
         if m.get('Metadata') is not None:
             self.metadata = m.get('Metadata')
-        if m.get('Similarity') is not None:
-            self.similarity = m.get('Similarity')
+        if m.get('Score') is not None:
+            self.score = m.get('Score')
         if m.get('Values') is not None:
             temp_model = QueryCollectionDataResponseBodyMatchesMatchValues()
             self.values = temp_model.from_map(m['Values'])
