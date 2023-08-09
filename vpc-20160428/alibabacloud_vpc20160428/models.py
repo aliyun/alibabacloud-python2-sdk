@@ -11770,9 +11770,10 @@ class CreatePublicIpAddressPoolRequestTag(TeaModel):
 
 
 class CreatePublicIpAddressPoolRequest(TeaModel):
-    def __init__(self, client_token=None, description=None, dry_run=None, isp=None, name=None, owner_account=None,
-                 owner_id=None, region_id=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None,
-                 tag=None):
+    def __init__(self, biz_type=None, client_token=None, description=None, dry_run=None, isp=None, name=None,
+                 owner_account=None, owner_id=None, region_id=None, resource_group_id=None, resource_owner_account=None,
+                 resource_owner_id=None, tag=None, zones=None):
+        self.biz_type = biz_type  # type: str
         # The client token that you want to use to ensure the idempotence of the request.
         # 
         # You can use the client to generate the value, but you must make sure that the value is unique among all requests. ClientToken can contain only ASCII characters.
@@ -11819,6 +11820,7 @@ class CreatePublicIpAddressPoolRequest(TeaModel):
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
         self.tag = tag  # type: list[CreatePublicIpAddressPoolRequestTag]
+        self.zones = zones  # type: list[str]
 
     def validate(self):
         if self.tag:
@@ -11832,6 +11834,8 @@ class CreatePublicIpAddressPoolRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.biz_type is not None:
+            result['BizType'] = self.biz_type
         if self.client_token is not None:
             result['ClientToken'] = self.client_token
         if self.description is not None:
@@ -11858,10 +11862,14 @@ class CreatePublicIpAddressPoolRequest(TeaModel):
         if self.tag is not None:
             for k in self.tag:
                 result['Tag'].append(k.to_map() if k else None)
+        if self.zones is not None:
+            result['Zones'] = self.zones
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('BizType') is not None:
+            self.biz_type = m.get('BizType')
         if m.get('ClientToken') is not None:
             self.client_token = m.get('ClientToken')
         if m.get('Description') is not None:
@@ -11889,6 +11897,8 @@ class CreatePublicIpAddressPoolRequest(TeaModel):
             for k in m.get('Tag'):
                 temp_model = CreatePublicIpAddressPoolRequestTag()
                 self.tag.append(temp_model.from_map(k))
+        if m.get('Zones') is not None:
+            self.zones = m.get('Zones')
         return self
 
 
@@ -26963,16 +26973,17 @@ class DescribeCommonBandwidthPackagesResponseBodyCommonBandwidthPackagesCommonBa
 
 
 class DescribeCommonBandwidthPackagesResponseBodyCommonBandwidthPackagesCommonBandwidthPackage(TeaModel):
-    def __init__(self, bandwidth=None, bandwidth_package_id=None, business_status=None, creation_time=None,
-                 deletion_protection=None, description=None, expired_time=None, has_reservation_data=None, isp=None,
-                 instance_charge_type=None, internet_charge_type=None, name=None, public_ip_addresses=None, ratio=None, region_id=None,
-                 reservation_active_time=None, reservation_bandwidth=None, reservation_internet_charge_type=None,
-                 reservation_order_type=None, resource_group_id=None, security_protection_types=None, service_managed=None, status=None,
-                 tags=None):
+    def __init__(self, bandwidth=None, bandwidth_package_id=None, biz_type=None, business_status=None,
+                 creation_time=None, deletion_protection=None, description=None, expired_time=None, has_reservation_data=None,
+                 isp=None, instance_charge_type=None, internet_charge_type=None, name=None, public_ip_addresses=None,
+                 ratio=None, region_id=None, reservation_active_time=None, reservation_bandwidth=None,
+                 reservation_internet_charge_type=None, reservation_order_type=None, resource_group_id=None, security_protection_types=None,
+                 service_managed=None, status=None, tags=None, zone=None):
         # The maximum bandwidth of the EIP bandwidth plan. Unit: Mbit/s.
         self.bandwidth = bandwidth  # type: str
         # The ID of the EIP bandwidth plan.
         self.bandwidth_package_id = bandwidth_package_id  # type: str
+        self.biz_type = biz_type  # type: str
         # The service state of the EIP bandwidth plan.
         # 
         # *   **Normal**: The EIP bandwidth plan works as expected.
@@ -27061,6 +27072,7 @@ class DescribeCommonBandwidthPackagesResponseBodyCommonBandwidthPackagesCommonBa
         # *   **Modifying**: The EIP bandwidth plan is being modified.
         self.status = status  # type: str
         self.tags = tags  # type: DescribeCommonBandwidthPackagesResponseBodyCommonBandwidthPackagesCommonBandwidthPackageTags
+        self.zone = zone  # type: str
 
     def validate(self):
         if self.public_ip_addresses:
@@ -27080,6 +27092,8 @@ class DescribeCommonBandwidthPackagesResponseBodyCommonBandwidthPackagesCommonBa
             result['Bandwidth'] = self.bandwidth
         if self.bandwidth_package_id is not None:
             result['BandwidthPackageId'] = self.bandwidth_package_id
+        if self.biz_type is not None:
+            result['BizType'] = self.biz_type
         if self.business_status is not None:
             result['BusinessStatus'] = self.business_status
         if self.creation_time is not None:
@@ -27124,6 +27138,8 @@ class DescribeCommonBandwidthPackagesResponseBodyCommonBandwidthPackagesCommonBa
             result['Status'] = self.status
         if self.tags is not None:
             result['Tags'] = self.tags.to_map()
+        if self.zone is not None:
+            result['Zone'] = self.zone
         return result
 
     def from_map(self, m=None):
@@ -27132,6 +27148,8 @@ class DescribeCommonBandwidthPackagesResponseBodyCommonBandwidthPackagesCommonBa
             self.bandwidth = m.get('Bandwidth')
         if m.get('BandwidthPackageId') is not None:
             self.bandwidth_package_id = m.get('BandwidthPackageId')
+        if m.get('BizType') is not None:
+            self.biz_type = m.get('BizType')
         if m.get('BusinessStatus') is not None:
             self.business_status = m.get('BusinessStatus')
         if m.get('CreationTime') is not None:
@@ -27179,6 +27197,8 @@ class DescribeCommonBandwidthPackagesResponseBodyCommonBandwidthPackagesCommonBa
         if m.get('Tags') is not None:
             temp_model = DescribeCommonBandwidthPackagesResponseBodyCommonBandwidthPackagesCommonBandwidthPackageTags()
             self.tags = temp_model.from_map(m['Tags'])
+        if m.get('Zone') is not None:
+            self.zone = m.get('Zone')
         return self
 
 
@@ -28576,7 +28596,7 @@ class DescribeEipAddressesResponseBodyEipAddressesEipAddressTags(TeaModel):
 
 class DescribeEipAddressesResponseBodyEipAddressesEipAddress(TeaModel):
     def __init__(self, allocation_id=None, allocation_time=None, bandwidth=None, bandwidth_package_bandwidth=None,
-                 bandwidth_package_id=None, bandwidth_package_type=None, business_status=None, charge_type=None,
+                 bandwidth_package_id=None, bandwidth_package_type=None, biz_type=None, business_status=None, charge_type=None,
                  deletion_protection=None, description=None, eip_bandwidth=None, expired_time=None, hdmonitor_status=None,
                  has_reservation_data=None, isp=None, instance_id=None, instance_region_id=None, instance_type=None,
                  internet_charge_type=None, ip_address=None, name=None, netmode=None, operation_locks=None,
@@ -28596,6 +28616,7 @@ class DescribeEipAddressesResponseBodyEipAddressesEipAddress(TeaModel):
         self.bandwidth_package_id = bandwidth_package_id  # type: str
         # The type of the bandwidth. Only **CommonBandwidthPackage** (EIP Bandwidth Plan) is returned.
         self.bandwidth_package_type = bandwidth_package_type  # type: str
+        self.biz_type = biz_type  # type: str
         # The service status of the EIP. Valid values:
         # 
         # *   **Normal**: active
@@ -28758,6 +28779,8 @@ class DescribeEipAddressesResponseBodyEipAddressesEipAddress(TeaModel):
             result['BandwidthPackageId'] = self.bandwidth_package_id
         if self.bandwidth_package_type is not None:
             result['BandwidthPackageType'] = self.bandwidth_package_type
+        if self.biz_type is not None:
+            result['BizType'] = self.biz_type
         if self.business_status is not None:
             result['BusinessStatus'] = self.business_status
         if self.charge_type is not None:
@@ -28838,6 +28861,8 @@ class DescribeEipAddressesResponseBodyEipAddressesEipAddress(TeaModel):
             self.bandwidth_package_id = m.get('BandwidthPackageId')
         if m.get('BandwidthPackageType') is not None:
             self.bandwidth_package_type = m.get('BandwidthPackageType')
+        if m.get('BizType') is not None:
+            self.biz_type = m.get('BizType')
         if m.get('BusinessStatus') is not None:
             self.business_status = m.get('BusinessStatus')
         if m.get('ChargeType') is not None:
@@ -37500,6 +37525,67 @@ class DescribePhysicalConnectionsRequest(TeaModel):
         return self
 
 
+class DescribePhysicalConnectionsResponseBodyPhysicalConnectionSetPhysicalConnectionTypeTagsTags(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribePhysicalConnectionsResponseBodyPhysicalConnectionSetPhysicalConnectionTypeTagsTags, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class DescribePhysicalConnectionsResponseBodyPhysicalConnectionSetPhysicalConnectionTypeTags(TeaModel):
+    def __init__(self, tags=None):
+        self.tags = tags  # type: list[DescribePhysicalConnectionsResponseBodyPhysicalConnectionSetPhysicalConnectionTypeTagsTags]
+
+    def validate(self):
+        if self.tags:
+            for k in self.tags:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribePhysicalConnectionsResponseBodyPhysicalConnectionSetPhysicalConnectionTypeTags, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['tags'] = []
+        if self.tags is not None:
+            for k in self.tags:
+                result['tags'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.tags = []
+        if m.get('tags') is not None:
+            for k in m.get('tags'):
+                temp_model = DescribePhysicalConnectionsResponseBodyPhysicalConnectionSetPhysicalConnectionTypeTagsTags()
+                self.tags.append(temp_model.from_map(k))
+        return self
+
+
 class DescribePhysicalConnectionsResponseBodyPhysicalConnectionSetPhysicalConnectionType(TeaModel):
     def __init__(self, access_point_id=None, access_point_type=None, ad_detail_location=None, ad_location=None,
                  bandwidth=None, business_status=None, charge_type=None, circuit_code=None, creation_time=None,
@@ -37507,8 +37593,8 @@ class DescribePhysicalConnectionsResponseBodyPhysicalConnectionSetPhysicalConnec
                  line_operator=None, loa_status=None, name=None, order_mode=None, parent_physical_connection_ali_uid=None,
                  parent_physical_connection_id=None, peer_location=None, physical_connection_id=None, port_number=None, port_type=None,
                  product_type=None, redundant_physical_connection_id=None, reservation_active_time=None,
-                 reservation_internet_charge_type=None, reservation_order_type=None, resource_group_id=None, spec=None, status=None, type=None,
-                 virtual_physical_connection_count=None, vlan_id=None, vpconn_status=None):
+                 reservation_internet_charge_type=None, reservation_order_type=None, resource_group_id=None, spec=None, status=None, tags=None,
+                 type=None, virtual_physical_connection_count=None, vlan_id=None, vpconn_status=None):
         # The ID of the access point.
         self.access_point_id = access_point_id  # type: str
         # The type of the access point.
@@ -37633,6 +37719,7 @@ class DescribePhysicalConnectionsResponseBodyPhysicalConnectionSetPhysicalConnec
         # *   **Terminating**: The Express Connect circuit is being disabled.
         # *   **Terminated**: The Express Connect circuit is disabled.
         self.status = status  # type: str
+        self.tags = tags  # type: DescribePhysicalConnectionsResponseBodyPhysicalConnectionSetPhysicalConnectionTypeTags
         # The type of the Express Connect circuit. The value is set to **VPC**.
         self.type = type  # type: str
         # The number of hosted connections that are established over the Express Connect circuit.
@@ -37647,7 +37734,8 @@ class DescribePhysicalConnectionsResponseBodyPhysicalConnectionSetPhysicalConnec
         self.vpconn_status = vpconn_status  # type: str
 
     def validate(self):
-        pass
+        if self.tags:
+            self.tags.validate()
 
     def to_map(self):
         _map = super(DescribePhysicalConnectionsResponseBodyPhysicalConnectionSetPhysicalConnectionType, self).to_map()
@@ -37719,6 +37807,8 @@ class DescribePhysicalConnectionsResponseBodyPhysicalConnectionSetPhysicalConnec
             result['Spec'] = self.spec
         if self.status is not None:
             result['Status'] = self.status
+        if self.tags is not None:
+            result['Tags'] = self.tags.to_map()
         if self.type is not None:
             result['Type'] = self.type
         if self.virtual_physical_connection_count is not None:
@@ -37795,6 +37885,9 @@ class DescribePhysicalConnectionsResponseBodyPhysicalConnectionSetPhysicalConnec
             self.spec = m.get('Spec')
         if m.get('Status') is not None:
             self.status = m.get('Status')
+        if m.get('Tags') is not None:
+            temp_model = DescribePhysicalConnectionsResponseBodyPhysicalConnectionSetPhysicalConnectionTypeTags()
+            self.tags = temp_model.from_map(m['Tags'])
         if m.get('Type') is not None:
             self.type = m.get('Type')
         if m.get('VirtualPhysicalConnectionCount') is not None:
@@ -54102,8 +54195,9 @@ class EnableNatGatewayEcsMetricResponse(TeaModel):
 
 
 class EnablePhysicalConnectionRequest(TeaModel):
-    def __init__(self, client_token=None, owner_account=None, owner_id=None, physical_connection_id=None,
-                 region_id=None, resource_owner_account=None, resource_owner_id=None):
+    def __init__(self, by_pass_sp=None, client_token=None, owner_account=None, owner_id=None,
+                 physical_connection_id=None, region_id=None, resource_owner_account=None, resource_owner_id=None):
+        self.by_pass_sp = by_pass_sp  # type: bool
         # The client token that is used to ensure the idempotence of the request.
         # 
         # You can use the client to generate the value, but you must make sure that it is unique among different requests. The token can contain only ASCII characters and cannot exceed 64 characters in length.
@@ -54128,6 +54222,8 @@ class EnablePhysicalConnectionRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.by_pass_sp is not None:
+            result['ByPassSp'] = self.by_pass_sp
         if self.client_token is not None:
             result['ClientToken'] = self.client_token
         if self.owner_account is not None:
@@ -54146,6 +54242,8 @@ class EnablePhysicalConnectionRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('ByPassSp') is not None:
+            self.by_pass_sp = m.get('ByPassSp')
         if m.get('ClientToken') is not None:
             self.client_token = m.get('ClientToken')
         if m.get('OwnerAccount') is not None:
@@ -61502,9 +61600,10 @@ class ListPublicIpAddressPoolsResponseBodyPublicIpAddressPoolListTags(TeaModel):
 
 
 class ListPublicIpAddressPoolsResponseBodyPublicIpAddressPoolList(TeaModel):
-    def __init__(self, creation_time=None, description=None, ip_address_remaining=None, isp=None, name=None,
-                 owner_id=None, public_ip_address_pool_id=None, region_id=None, resource_group_id=None, share_type=None,
-                 status=None, tags=None, total_ip_num=None, used_ip_num=None, user_type=None):
+    def __init__(self, biz_type=None, creation_time=None, description=None, ip_address_remaining=None, isp=None,
+                 name=None, owner_id=None, public_ip_address_pool_id=None, region_id=None, resource_group_id=None,
+                 share_type=None, status=None, tags=None, total_ip_num=None, used_ip_num=None, user_type=None, zones=None):
+        self.biz_type = biz_type  # type: str
         # The region ID of the IP address pool.
         self.creation_time = creation_time  # type: str
         # The status of the IP address pool. Valid values:
@@ -61560,6 +61659,7 @@ class ListPublicIpAddressPoolsResponseBodyPublicIpAddressPoolList(TeaModel):
         # The total number of IP addresses in the public IP address pool.
         self.used_ip_num = used_ip_num  # type: int
         self.user_type = user_type  # type: bool
+        self.zones = zones  # type: list[str]
 
     def validate(self):
         if self.tags:
@@ -61573,6 +61673,8 @@ class ListPublicIpAddressPoolsResponseBodyPublicIpAddressPoolList(TeaModel):
             return _map
 
         result = dict()
+        if self.biz_type is not None:
+            result['BizType'] = self.biz_type
         if self.creation_time is not None:
             result['CreationTime'] = self.creation_time
         if self.description is not None:
@@ -61605,10 +61707,14 @@ class ListPublicIpAddressPoolsResponseBodyPublicIpAddressPoolList(TeaModel):
             result['UsedIpNum'] = self.used_ip_num
         if self.user_type is not None:
             result['UserType'] = self.user_type
+        if self.zones is not None:
+            result['Zones'] = self.zones
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('BizType') is not None:
+            self.biz_type = m.get('BizType')
         if m.get('CreationTime') is not None:
             self.creation_time = m.get('CreationTime')
         if m.get('Description') is not None:
@@ -61642,6 +61748,8 @@ class ListPublicIpAddressPoolsResponseBodyPublicIpAddressPoolList(TeaModel):
             self.used_ip_num = m.get('UsedIpNum')
         if m.get('UserType') is not None:
             self.user_type = m.get('UserType')
+        if m.get('Zones') is not None:
+            self.zones = m.get('Zones')
         return self
 
 
@@ -63468,13 +63576,43 @@ class ListVirtualPhysicalConnectionsRequest(TeaModel):
         return self
 
 
+class ListVirtualPhysicalConnectionsResponseBodyVirtualPhysicalConnectionsTags(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListVirtualPhysicalConnectionsResponseBodyVirtualPhysicalConnectionsTags, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
 class ListVirtualPhysicalConnectionsResponseBodyVirtualPhysicalConnections(TeaModel):
     def __init__(self, access_point_id=None, ad_location=None, ali_uid=None, bandwidth=None, business_status=None,
                  charge_type=None, circuit_code=None, creation_time=None, description=None, enabled_time=None, end_time=None,
                  expect_spec=None, line_operator=None, loa_status=None, name=None, order_mode=None,
                  parent_physical_connection_ali_uid=None, parent_physical_connection_id=None, peer_location=None, physical_connection_id=None,
                  port_number=None, port_type=None, product_type=None, redundant_physical_connection_id=None,
-                 resource_group_id=None, spec=None, status=None, type=None, virtual_physical_connection_status=None, vlan_id=None):
+                 resource_group_id=None, spec=None, status=None, tags=None, type=None, virtual_physical_connection_status=None,
+                 vlan_id=None):
         # The ID of the access point that is associated with the Express Connect circuit.
         self.access_point_id = access_point_id  # type: str
         # The geographical location of the access device.
@@ -63580,6 +63718,7 @@ class ListVirtualPhysicalConnectionsResponseBodyVirtualPhysicalConnections(TeaMo
         # *   **Allocation Failed**: The system failed to allocate resources.
         # *   **Terminated**: The Express Connect circuit is disabled.
         self.status = status  # type: str
+        self.tags = tags  # type: list[ListVirtualPhysicalConnectionsResponseBodyVirtualPhysicalConnectionsTags]
         # The type of Express Connect circuit. Default value: **VPC**.
         self.type = type  # type: str
         # The service status of the hosted connection. Valid values:
@@ -63592,7 +63731,10 @@ class ListVirtualPhysicalConnectionsResponseBodyVirtualPhysicalConnections(TeaMo
         self.vlan_id = vlan_id  # type: str
 
     def validate(self):
-        pass
+        if self.tags:
+            for k in self.tags:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(ListVirtualPhysicalConnectionsResponseBodyVirtualPhysicalConnections, self).to_map()
@@ -63654,6 +63796,10 @@ class ListVirtualPhysicalConnectionsResponseBodyVirtualPhysicalConnections(TeaMo
             result['Spec'] = self.spec
         if self.status is not None:
             result['Status'] = self.status
+        result['Tags'] = []
+        if self.tags is not None:
+            for k in self.tags:
+                result['Tags'].append(k.to_map() if k else None)
         if self.type is not None:
             result['Type'] = self.type
         if self.virtual_physical_connection_status is not None:
@@ -63718,6 +63864,11 @@ class ListVirtualPhysicalConnectionsResponseBodyVirtualPhysicalConnections(TeaMo
             self.spec = m.get('Spec')
         if m.get('Status') is not None:
             self.status = m.get('Status')
+        self.tags = []
+        if m.get('Tags') is not None:
+            for k in m.get('Tags'):
+                temp_model = ListVirtualPhysicalConnectionsResponseBodyVirtualPhysicalConnectionsTags()
+                self.tags.append(temp_model.from_map(k))
         if m.get('Type') is not None:
             self.type = m.get('Type')
         if m.get('VirtualPhysicalConnectionStatus') is not None:
@@ -65840,13 +65991,10 @@ class ModifyExpressCloudConnectionAttributeResponse(TeaModel):
 class ModifyExpressCloudConnectionBandwidthRequest(TeaModel):
     def __init__(self, bandwidth=None, ecc_id=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None):
-        # The bandwidth of the ECC instance.
         self.bandwidth = bandwidth  # type: str
-        # The ID of the ECC instance.
         self.ecc_id = ecc_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
-        # The region ID.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -65897,7 +66045,6 @@ class ModifyExpressCloudConnectionBandwidthRequest(TeaModel):
 
 class ModifyExpressCloudConnectionBandwidthResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
