@@ -1741,9 +1741,9 @@ class CreateClusterRequest(TeaModel):
                  master_count=None, master_instance_charge_type=None, master_instance_types=None, master_period=None,
                  master_period_unit=None, master_system_disk_category=None, master_system_disk_performance_level=None,
                  master_system_disk_size=None, master_system_disk_snapshot_policy_id=None, master_vswitch_ids=None, name=None,
-                 nat_gateway=None, node_cidr_mask=None, node_name_mode=None, node_port_range=None, num_of_nodes=None,
-                 os_type=None, period=None, period_unit=None, platform=None, pod_vswitch_ids=None, profile=None,
-                 proxy_mode=None, rds_instances=None, region_id=None, resource_group_id=None, runtime=None,
+                 nat_gateway=None, node_cidr_mask=None, node_name_mode=None, node_port_range=None, nodepools=None,
+                 num_of_nodes=None, os_type=None, period=None, period_unit=None, platform=None, pod_vswitch_ids=None,
+                 profile=None, proxy_mode=None, rds_instances=None, region_id=None, resource_group_id=None, runtime=None,
                  security_group_id=None, service_account_issuer=None, service_cidr=None, service_discovery_types=None,
                  snat_entry=None, soc_enabled=None, ssh_flags=None, tags=None, taints=None, timeout_mins=None, timezone=None,
                  user_ca=None, user_data=None, vpcid=None, vswitch_ids=None, worker_auto_renew=None,
@@ -1799,6 +1799,7 @@ class CreateClusterRequest(TeaModel):
         self.node_cidr_mask = node_cidr_mask  # type: str
         self.node_name_mode = node_name_mode  # type: str
         self.node_port_range = node_port_range  # type: str
+        self.nodepools = nodepools  # type: list[Nodepool]
         self.num_of_nodes = num_of_nodes  # type: long
         self.os_type = os_type  # type: str
         self.period = period  # type: long
@@ -1843,6 +1844,10 @@ class CreateClusterRequest(TeaModel):
     def validate(self):
         if self.addons:
             for k in self.addons:
+                if k:
+                    k.validate()
+        if self.nodepools:
+            for k in self.nodepools:
                 if k:
                     k.validate()
         if self.runtime:
@@ -1964,6 +1969,10 @@ class CreateClusterRequest(TeaModel):
             result['node_name_mode'] = self.node_name_mode
         if self.node_port_range is not None:
             result['node_port_range'] = self.node_port_range
+        result['nodepools'] = []
+        if self.nodepools is not None:
+            for k in self.nodepools:
+                result['nodepools'].append(k.to_map() if k else None)
         if self.num_of_nodes is not None:
             result['num_of_nodes'] = self.num_of_nodes
         if self.os_type is not None:
@@ -2153,6 +2162,11 @@ class CreateClusterRequest(TeaModel):
             self.node_name_mode = m.get('node_name_mode')
         if m.get('node_port_range') is not None:
             self.node_port_range = m.get('node_port_range')
+        self.nodepools = []
+        if m.get('nodepools') is not None:
+            for k in m.get('nodepools'):
+                temp_model = Nodepool()
+                self.nodepools.append(temp_model.from_map(k))
         if m.get('num_of_nodes') is not None:
             self.num_of_nodes = m.get('num_of_nodes')
         if m.get('os_type') is not None:
@@ -2701,8 +2715,9 @@ class CreateClusterNodePoolRequestScalingGroup(TeaModel):
                  login_password=None, multi_az_policy=None, on_demand_base_capacity=None,
                  on_demand_percentage_above_base_capacity=None, period=None, period_unit=None, platform=None, private_pool_options=None, rds_instances=None,
                  scaling_policy=None, security_group_id=None, security_group_ids=None, spot_instance_pools=None,
-                 spot_instance_remedy=None, spot_price_limit=None, spot_strategy=None, system_disk_category=None,
-                 system_disk_performance_level=None, system_disk_size=None, tags=None, vswitch_ids=None):
+                 spot_instance_remedy=None, spot_price_limit=None, spot_strategy=None, system_disk_bursting_enabled=None,
+                 system_disk_category=None, system_disk_performance_level=None, system_disk_provisioned_iops=None,
+                 system_disk_size=None, tags=None, vswitch_ids=None):
         self.auto_renew = auto_renew  # type: bool
         self.auto_renew_period = auto_renew_period  # type: long
         self.compensate_with_on_demand = compensate_with_on_demand  # type: bool
@@ -2732,8 +2747,10 @@ class CreateClusterNodePoolRequestScalingGroup(TeaModel):
         self.spot_instance_remedy = spot_instance_remedy  # type: bool
         self.spot_price_limit = spot_price_limit  # type: list[CreateClusterNodePoolRequestScalingGroupSpotPriceLimit]
         self.spot_strategy = spot_strategy  # type: str
+        self.system_disk_bursting_enabled = system_disk_bursting_enabled  # type: bool
         self.system_disk_category = system_disk_category  # type: str
         self.system_disk_performance_level = system_disk_performance_level  # type: str
+        self.system_disk_provisioned_iops = system_disk_provisioned_iops  # type: long
         self.system_disk_size = system_disk_size  # type: long
         self.tags = tags  # type: list[CreateClusterNodePoolRequestScalingGroupTags]
         self.vswitch_ids = vswitch_ids  # type: list[str]
@@ -2822,10 +2839,14 @@ class CreateClusterNodePoolRequestScalingGroup(TeaModel):
                 result['spot_price_limit'].append(k.to_map() if k else None)
         if self.spot_strategy is not None:
             result['spot_strategy'] = self.spot_strategy
+        if self.system_disk_bursting_enabled is not None:
+            result['system_disk_bursting_enabled'] = self.system_disk_bursting_enabled
         if self.system_disk_category is not None:
             result['system_disk_category'] = self.system_disk_category
         if self.system_disk_performance_level is not None:
             result['system_disk_performance_level'] = self.system_disk_performance_level
+        if self.system_disk_provisioned_iops is not None:
+            result['system_disk_provisioned_iops'] = self.system_disk_provisioned_iops
         if self.system_disk_size is not None:
             result['system_disk_size'] = self.system_disk_size
         result['tags'] = []
@@ -2903,10 +2924,14 @@ class CreateClusterNodePoolRequestScalingGroup(TeaModel):
                 self.spot_price_limit.append(temp_model.from_map(k))
         if m.get('spot_strategy') is not None:
             self.spot_strategy = m.get('spot_strategy')
+        if m.get('system_disk_bursting_enabled') is not None:
+            self.system_disk_bursting_enabled = m.get('system_disk_bursting_enabled')
         if m.get('system_disk_category') is not None:
             self.system_disk_category = m.get('system_disk_category')
         if m.get('system_disk_performance_level') is not None:
             self.system_disk_performance_level = m.get('system_disk_performance_level')
+        if m.get('system_disk_provisioned_iops') is not None:
+            self.system_disk_provisioned_iops = m.get('system_disk_provisioned_iops')
         if m.get('system_disk_size') is not None:
             self.system_disk_size = m.get('system_disk_size')
         self.tags = []
