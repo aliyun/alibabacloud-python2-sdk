@@ -28225,12 +28225,41 @@ class DescribeEipAddressesRequestFilter(TeaModel):
         return self
 
 
+class DescribeEipAddressesRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeEipAddressesRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
 class DescribeEipAddressesRequest(TeaModel):
     def __init__(self, filter=None, allocation_id=None, associated_instance_id=None, associated_instance_type=None,
                  charge_type=None, dry_run=None, eip_address=None, eip_name=None, isp=None, include_reservation_data=None,
                  lock_reason=None, owner_account=None, owner_id=None, page_number=None, page_size=None,
                  public_ip_address_pool_id=None, region_id=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None,
-                 security_protection_enabled=None, segment_instance_id=None, status=None):
+                 security_protection_enabled=None, segment_instance_id=None, status=None, tag=None):
         self.filter = filter  # type: list[DescribeEipAddressesRequestFilter]
         # The ID of the EIP that you want to query.
         # 
@@ -28330,10 +28359,15 @@ class DescribeEipAddressesRequest(TeaModel):
         # *   **Available**: available
         # *   **Releasing**: being released
         self.status = status  # type: str
+        self.tag = tag  # type: list[DescribeEipAddressesRequestTag]
 
     def validate(self):
         if self.filter:
             for k in self.filter:
+                if k:
+                    k.validate()
+        if self.tag:
+            for k in self.tag:
                 if k:
                     k.validate()
 
@@ -28391,6 +28425,10 @@ class DescribeEipAddressesRequest(TeaModel):
             result['SegmentInstanceId'] = self.segment_instance_id
         if self.status is not None:
             result['Status'] = self.status
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m=None):
@@ -28444,6 +28482,11 @@ class DescribeEipAddressesRequest(TeaModel):
             self.segment_instance_id = m.get('SegmentInstanceId')
         if m.get('Status') is not None:
             self.status = m.get('Status')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = DescribeEipAddressesRequestTag()
+                self.tag.append(temp_model.from_map(k))
         return self
 
 
@@ -30485,7 +30528,7 @@ class DescribeForwardTableEntriesRequest(TeaModel):
 
 class DescribeForwardTableEntriesResponseBodyForwardTableEntriesForwardTableEntry(TeaModel):
     def __init__(self, external_ip=None, external_port=None, forward_entry_id=None, forward_entry_name=None,
-                 forward_table_id=None, internal_ip=None, internal_port=None, ip_protocol=None, status=None):
+                 forward_table_id=None, internal_ip=None, internal_port=None, ip_protocol=None, nat_gateway_id=None, status=None):
         # *   The EIPs that can be accessed over the Internet when you query DNAT entries of Internet NAT gateways.
         # *   The NAT IP addresses that can be accessed by external networks when you query DNAT entries of VPC NAT gateways.
         self.external_ip = external_ip  # type: str
@@ -30512,6 +30555,7 @@ class DescribeForwardTableEntriesResponseBodyForwardTableEntriesForwardTableEntr
         # *   **UDP**: The NAT gateway forwards UDP packets.
         # *   **Any**: The NAT gateway forwards packets of all protocols.
         self.ip_protocol = ip_protocol  # type: str
+        self.nat_gateway_id = nat_gateway_id  # type: str
         # The status of the DNAT entry. Valid values:
         # 
         # *   **Pending**: being created or modified
@@ -30544,6 +30588,8 @@ class DescribeForwardTableEntriesResponseBodyForwardTableEntriesForwardTableEntr
             result['InternalPort'] = self.internal_port
         if self.ip_protocol is not None:
             result['IpProtocol'] = self.ip_protocol
+        if self.nat_gateway_id is not None:
+            result['NatGatewayId'] = self.nat_gateway_id
         if self.status is not None:
             result['Status'] = self.status
         return result
@@ -30566,6 +30612,8 @@ class DescribeForwardTableEntriesResponseBodyForwardTableEntriesForwardTableEntr
             self.internal_port = m.get('InternalPort')
         if m.get('IpProtocol') is not None:
             self.ip_protocol = m.get('IpProtocol')
+        if m.get('NatGatewayId') is not None:
+            self.nat_gateway_id = m.get('NatGatewayId')
         if m.get('Status') is not None:
             self.status = m.get('Status')
         return self
@@ -41447,8 +41495,9 @@ class DescribeSnatTableEntriesRequest(TeaModel):
 
 
 class DescribeSnatTableEntriesResponseBodySnatTableEntriesSnatTableEntry(TeaModel):
-    def __init__(self, snat_entry_id=None, snat_entry_name=None, snat_ip=None, snat_table_id=None, source_cidr=None,
-                 source_vswitch_id=None, status=None):
+    def __init__(self, nat_gateway_id=None, snat_entry_id=None, snat_entry_name=None, snat_ip=None,
+                 snat_table_id=None, source_cidr=None, source_vswitch_id=None, status=None):
+        self.nat_gateway_id = nat_gateway_id  # type: str
         # The ID of the SNAT entry.
         self.snat_entry_id = snat_entry_id  # type: str
         # The name of the SNAT entry.
@@ -41479,6 +41528,8 @@ class DescribeSnatTableEntriesResponseBodySnatTableEntriesSnatTableEntry(TeaMode
             return _map
 
         result = dict()
+        if self.nat_gateway_id is not None:
+            result['NatGatewayId'] = self.nat_gateway_id
         if self.snat_entry_id is not None:
             result['SnatEntryId'] = self.snat_entry_id
         if self.snat_entry_name is not None:
@@ -41497,6 +41548,8 @@ class DescribeSnatTableEntriesResponseBodySnatTableEntriesSnatTableEntry(TeaMode
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('NatGatewayId') is not None:
+            self.nat_gateway_id = m.get('NatGatewayId')
         if m.get('SnatEntryId') is not None:
             self.snat_entry_id = m.get('SnatEntryId')
         if m.get('SnatEntryName') is not None:
@@ -65991,10 +66044,13 @@ class ModifyExpressCloudConnectionAttributeResponse(TeaModel):
 class ModifyExpressCloudConnectionBandwidthRequest(TeaModel):
     def __init__(self, bandwidth=None, ecc_id=None, owner_account=None, owner_id=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None):
+        # The bandwidth of the ECC instance.
         self.bandwidth = bandwidth  # type: str
+        # The ID of the ECC instance.
         self.ecc_id = ecc_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
+        # The region ID.
         self.region_id = region_id  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
@@ -66045,6 +66101,7 @@ class ModifyExpressCloudConnectionBandwidthRequest(TeaModel):
 
 class ModifyExpressCloudConnectionBandwidthResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -70505,6 +70562,557 @@ class ModifySslVpnServerResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ModifySslVpnServerResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ModifyTunnelAttributeRequestTunnelOptionsSpecificationTunnelBgpConfig(TeaModel):
+    def __init__(self, local_asn=None, local_bgp_ip=None, tunnel_cidr=None):
+        self.local_asn = local_asn  # type: long
+        self.local_bgp_ip = local_bgp_ip  # type: str
+        self.tunnel_cidr = tunnel_cidr  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyTunnelAttributeRequestTunnelOptionsSpecificationTunnelBgpConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.local_asn is not None:
+            result['LocalAsn'] = self.local_asn
+        if self.local_bgp_ip is not None:
+            result['LocalBgpIp'] = self.local_bgp_ip
+        if self.tunnel_cidr is not None:
+            result['TunnelCidr'] = self.tunnel_cidr
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('LocalAsn') is not None:
+            self.local_asn = m.get('LocalAsn')
+        if m.get('LocalBgpIp') is not None:
+            self.local_bgp_ip = m.get('LocalBgpIp')
+        if m.get('TunnelCidr') is not None:
+            self.tunnel_cidr = m.get('TunnelCidr')
+        return self
+
+
+class ModifyTunnelAttributeRequestTunnelOptionsSpecificationTunnelIkeConfig(TeaModel):
+    def __init__(self, ike_auth_alg=None, ike_enc_alg=None, ike_lifetime=None, ike_mode=None, ike_pfs=None,
+                 ike_version=None, local_id=None, psk=None, remote_id=None):
+        self.ike_auth_alg = ike_auth_alg  # type: str
+        self.ike_enc_alg = ike_enc_alg  # type: str
+        self.ike_lifetime = ike_lifetime  # type: long
+        self.ike_mode = ike_mode  # type: str
+        self.ike_pfs = ike_pfs  # type: str
+        self.ike_version = ike_version  # type: str
+        self.local_id = local_id  # type: str
+        self.psk = psk  # type: str
+        self.remote_id = remote_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyTunnelAttributeRequestTunnelOptionsSpecificationTunnelIkeConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ike_auth_alg is not None:
+            result['IkeAuthAlg'] = self.ike_auth_alg
+        if self.ike_enc_alg is not None:
+            result['IkeEncAlg'] = self.ike_enc_alg
+        if self.ike_lifetime is not None:
+            result['IkeLifetime'] = self.ike_lifetime
+        if self.ike_mode is not None:
+            result['IkeMode'] = self.ike_mode
+        if self.ike_pfs is not None:
+            result['IkePfs'] = self.ike_pfs
+        if self.ike_version is not None:
+            result['IkeVersion'] = self.ike_version
+        if self.local_id is not None:
+            result['LocalId'] = self.local_id
+        if self.psk is not None:
+            result['Psk'] = self.psk
+        if self.remote_id is not None:
+            result['RemoteId'] = self.remote_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('IkeAuthAlg') is not None:
+            self.ike_auth_alg = m.get('IkeAuthAlg')
+        if m.get('IkeEncAlg') is not None:
+            self.ike_enc_alg = m.get('IkeEncAlg')
+        if m.get('IkeLifetime') is not None:
+            self.ike_lifetime = m.get('IkeLifetime')
+        if m.get('IkeMode') is not None:
+            self.ike_mode = m.get('IkeMode')
+        if m.get('IkePfs') is not None:
+            self.ike_pfs = m.get('IkePfs')
+        if m.get('IkeVersion') is not None:
+            self.ike_version = m.get('IkeVersion')
+        if m.get('LocalId') is not None:
+            self.local_id = m.get('LocalId')
+        if m.get('Psk') is not None:
+            self.psk = m.get('Psk')
+        if m.get('RemoteId') is not None:
+            self.remote_id = m.get('RemoteId')
+        return self
+
+
+class ModifyTunnelAttributeRequestTunnelOptionsSpecificationTunnelIpsecConfig(TeaModel):
+    def __init__(self, ipsec_auth_alg=None, ipsec_enc_alg=None, ipsec_lifetime=None, ipsec_pfs=None):
+        self.ipsec_auth_alg = ipsec_auth_alg  # type: str
+        self.ipsec_enc_alg = ipsec_enc_alg  # type: str
+        self.ipsec_lifetime = ipsec_lifetime  # type: long
+        self.ipsec_pfs = ipsec_pfs  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyTunnelAttributeRequestTunnelOptionsSpecificationTunnelIpsecConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ipsec_auth_alg is not None:
+            result['IpsecAuthAlg'] = self.ipsec_auth_alg
+        if self.ipsec_enc_alg is not None:
+            result['IpsecEncAlg'] = self.ipsec_enc_alg
+        if self.ipsec_lifetime is not None:
+            result['IpsecLifetime'] = self.ipsec_lifetime
+        if self.ipsec_pfs is not None:
+            result['IpsecPfs'] = self.ipsec_pfs
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('IpsecAuthAlg') is not None:
+            self.ipsec_auth_alg = m.get('IpsecAuthAlg')
+        if m.get('IpsecEncAlg') is not None:
+            self.ipsec_enc_alg = m.get('IpsecEncAlg')
+        if m.get('IpsecLifetime') is not None:
+            self.ipsec_lifetime = m.get('IpsecLifetime')
+        if m.get('IpsecPfs') is not None:
+            self.ipsec_pfs = m.get('IpsecPfs')
+        return self
+
+
+class ModifyTunnelAttributeRequestTunnelOptionsSpecification(TeaModel):
+    def __init__(self, enable_dpd=None, enable_nat_traversal=None, remote_ca_certificate=None,
+                 tunnel_bgp_config=None, tunnel_ike_config=None, tunnel_ipsec_config=None):
+        self.enable_dpd = enable_dpd  # type: bool
+        self.enable_nat_traversal = enable_nat_traversal  # type: bool
+        self.remote_ca_certificate = remote_ca_certificate  # type: str
+        self.tunnel_bgp_config = tunnel_bgp_config  # type: ModifyTunnelAttributeRequestTunnelOptionsSpecificationTunnelBgpConfig
+        self.tunnel_ike_config = tunnel_ike_config  # type: ModifyTunnelAttributeRequestTunnelOptionsSpecificationTunnelIkeConfig
+        self.tunnel_ipsec_config = tunnel_ipsec_config  # type: ModifyTunnelAttributeRequestTunnelOptionsSpecificationTunnelIpsecConfig
+
+    def validate(self):
+        if self.tunnel_bgp_config:
+            self.tunnel_bgp_config.validate()
+        if self.tunnel_ike_config:
+            self.tunnel_ike_config.validate()
+        if self.tunnel_ipsec_config:
+            self.tunnel_ipsec_config.validate()
+
+    def to_map(self):
+        _map = super(ModifyTunnelAttributeRequestTunnelOptionsSpecification, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.enable_dpd is not None:
+            result['EnableDpd'] = self.enable_dpd
+        if self.enable_nat_traversal is not None:
+            result['EnableNatTraversal'] = self.enable_nat_traversal
+        if self.remote_ca_certificate is not None:
+            result['RemoteCaCertificate'] = self.remote_ca_certificate
+        if self.tunnel_bgp_config is not None:
+            result['TunnelBgpConfig'] = self.tunnel_bgp_config.to_map()
+        if self.tunnel_ike_config is not None:
+            result['TunnelIkeConfig'] = self.tunnel_ike_config.to_map()
+        if self.tunnel_ipsec_config is not None:
+            result['TunnelIpsecConfig'] = self.tunnel_ipsec_config.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EnableDpd') is not None:
+            self.enable_dpd = m.get('EnableDpd')
+        if m.get('EnableNatTraversal') is not None:
+            self.enable_nat_traversal = m.get('EnableNatTraversal')
+        if m.get('RemoteCaCertificate') is not None:
+            self.remote_ca_certificate = m.get('RemoteCaCertificate')
+        if m.get('TunnelBgpConfig') is not None:
+            temp_model = ModifyTunnelAttributeRequestTunnelOptionsSpecificationTunnelBgpConfig()
+            self.tunnel_bgp_config = temp_model.from_map(m['TunnelBgpConfig'])
+        if m.get('TunnelIkeConfig') is not None:
+            temp_model = ModifyTunnelAttributeRequestTunnelOptionsSpecificationTunnelIkeConfig()
+            self.tunnel_ike_config = temp_model.from_map(m['TunnelIkeConfig'])
+        if m.get('TunnelIpsecConfig') is not None:
+            temp_model = ModifyTunnelAttributeRequestTunnelOptionsSpecificationTunnelIpsecConfig()
+            self.tunnel_ipsec_config = temp_model.from_map(m['TunnelIpsecConfig'])
+        return self
+
+
+class ModifyTunnelAttributeRequest(TeaModel):
+    def __init__(self, client_token=None, owner_account=None, owner_id=None, region_id=None,
+                 resource_owner_account=None, resource_owner_id=None, tunnel_id=None, tunnel_options_specification=None,
+                 vpn_connection_id=None):
+        self.client_token = client_token  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        self.region_id = region_id  # type: str
+        self.resource_owner_account = resource_owner_account  # type: str
+        self.resource_owner_id = resource_owner_id  # type: long
+        self.tunnel_id = tunnel_id  # type: str
+        self.tunnel_options_specification = tunnel_options_specification  # type: ModifyTunnelAttributeRequestTunnelOptionsSpecification
+        self.vpn_connection_id = vpn_connection_id  # type: str
+
+    def validate(self):
+        if self.tunnel_options_specification:
+            self.tunnel_options_specification.validate()
+
+    def to_map(self):
+        _map = super(ModifyTunnelAttributeRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_owner_account is not None:
+            result['ResourceOwnerAccount'] = self.resource_owner_account
+        if self.resource_owner_id is not None:
+            result['ResourceOwnerId'] = self.resource_owner_id
+        if self.tunnel_id is not None:
+            result['TunnelId'] = self.tunnel_id
+        if self.tunnel_options_specification is not None:
+            result['TunnelOptionsSpecification'] = self.tunnel_options_specification.to_map()
+        if self.vpn_connection_id is not None:
+            result['VpnConnectionId'] = self.vpn_connection_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceOwnerAccount') is not None:
+            self.resource_owner_account = m.get('ResourceOwnerAccount')
+        if m.get('ResourceOwnerId') is not None:
+            self.resource_owner_id = m.get('ResourceOwnerId')
+        if m.get('TunnelId') is not None:
+            self.tunnel_id = m.get('TunnelId')
+        if m.get('TunnelOptionsSpecification') is not None:
+            temp_model = ModifyTunnelAttributeRequestTunnelOptionsSpecification()
+            self.tunnel_options_specification = temp_model.from_map(m['TunnelOptionsSpecification'])
+        if m.get('VpnConnectionId') is not None:
+            self.vpn_connection_id = m.get('VpnConnectionId')
+        return self
+
+
+class ModifyTunnelAttributeResponseBodyTunnelBgpConfig(TeaModel):
+    def __init__(self, enable_bgp=None, local_asn=None, local_bgp_ip=None, peer_asn=None, peer_bgp_ip=None,
+                 tunnel_cidr=None):
+        self.enable_bgp = enable_bgp  # type: bool
+        self.local_asn = local_asn  # type: long
+        self.local_bgp_ip = local_bgp_ip  # type: str
+        self.peer_asn = peer_asn  # type: long
+        self.peer_bgp_ip = peer_bgp_ip  # type: str
+        self.tunnel_cidr = tunnel_cidr  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyTunnelAttributeResponseBodyTunnelBgpConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.enable_bgp is not None:
+            result['EnableBgp'] = self.enable_bgp
+        if self.local_asn is not None:
+            result['LocalAsn'] = self.local_asn
+        if self.local_bgp_ip is not None:
+            result['LocalBgpIp'] = self.local_bgp_ip
+        if self.peer_asn is not None:
+            result['PeerAsn'] = self.peer_asn
+        if self.peer_bgp_ip is not None:
+            result['PeerBgpIp'] = self.peer_bgp_ip
+        if self.tunnel_cidr is not None:
+            result['TunnelCidr'] = self.tunnel_cidr
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EnableBgp') is not None:
+            self.enable_bgp = m.get('EnableBgp')
+        if m.get('LocalAsn') is not None:
+            self.local_asn = m.get('LocalAsn')
+        if m.get('LocalBgpIp') is not None:
+            self.local_bgp_ip = m.get('LocalBgpIp')
+        if m.get('PeerAsn') is not None:
+            self.peer_asn = m.get('PeerAsn')
+        if m.get('PeerBgpIp') is not None:
+            self.peer_bgp_ip = m.get('PeerBgpIp')
+        if m.get('TunnelCidr') is not None:
+            self.tunnel_cidr = m.get('TunnelCidr')
+        return self
+
+
+class ModifyTunnelAttributeResponseBodyTunnelIkeConfig(TeaModel):
+    def __init__(self, ike_auth_alg=None, ike_enc_alg=None, ike_lifetime=None, ike_mode=None, ike_pfs=None,
+                 ike_version=None, local_id=None, psk=None, remote_id=None):
+        self.ike_auth_alg = ike_auth_alg  # type: str
+        self.ike_enc_alg = ike_enc_alg  # type: str
+        self.ike_lifetime = ike_lifetime  # type: long
+        self.ike_mode = ike_mode  # type: str
+        self.ike_pfs = ike_pfs  # type: str
+        self.ike_version = ike_version  # type: str
+        self.local_id = local_id  # type: str
+        self.psk = psk  # type: str
+        self.remote_id = remote_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyTunnelAttributeResponseBodyTunnelIkeConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ike_auth_alg is not None:
+            result['IkeAuthAlg'] = self.ike_auth_alg
+        if self.ike_enc_alg is not None:
+            result['IkeEncAlg'] = self.ike_enc_alg
+        if self.ike_lifetime is not None:
+            result['IkeLifetime'] = self.ike_lifetime
+        if self.ike_mode is not None:
+            result['IkeMode'] = self.ike_mode
+        if self.ike_pfs is not None:
+            result['IkePfs'] = self.ike_pfs
+        if self.ike_version is not None:
+            result['IkeVersion'] = self.ike_version
+        if self.local_id is not None:
+            result['LocalId'] = self.local_id
+        if self.psk is not None:
+            result['Psk'] = self.psk
+        if self.remote_id is not None:
+            result['RemoteId'] = self.remote_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('IkeAuthAlg') is not None:
+            self.ike_auth_alg = m.get('IkeAuthAlg')
+        if m.get('IkeEncAlg') is not None:
+            self.ike_enc_alg = m.get('IkeEncAlg')
+        if m.get('IkeLifetime') is not None:
+            self.ike_lifetime = m.get('IkeLifetime')
+        if m.get('IkeMode') is not None:
+            self.ike_mode = m.get('IkeMode')
+        if m.get('IkePfs') is not None:
+            self.ike_pfs = m.get('IkePfs')
+        if m.get('IkeVersion') is not None:
+            self.ike_version = m.get('IkeVersion')
+        if m.get('LocalId') is not None:
+            self.local_id = m.get('LocalId')
+        if m.get('Psk') is not None:
+            self.psk = m.get('Psk')
+        if m.get('RemoteId') is not None:
+            self.remote_id = m.get('RemoteId')
+        return self
+
+
+class ModifyTunnelAttributeResponseBodyTunnelIpsecConfig(TeaModel):
+    def __init__(self, ipsec_auth_alg=None, ipsec_enc_alg=None, ipsec_lifetime=None, ipsec_pfs=None):
+        self.ipsec_auth_alg = ipsec_auth_alg  # type: str
+        self.ipsec_enc_alg = ipsec_enc_alg  # type: str
+        self.ipsec_lifetime = ipsec_lifetime  # type: long
+        self.ipsec_pfs = ipsec_pfs  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyTunnelAttributeResponseBodyTunnelIpsecConfig, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ipsec_auth_alg is not None:
+            result['IpsecAuthAlg'] = self.ipsec_auth_alg
+        if self.ipsec_enc_alg is not None:
+            result['IpsecEncAlg'] = self.ipsec_enc_alg
+        if self.ipsec_lifetime is not None:
+            result['IpsecLifetime'] = self.ipsec_lifetime
+        if self.ipsec_pfs is not None:
+            result['IpsecPfs'] = self.ipsec_pfs
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('IpsecAuthAlg') is not None:
+            self.ipsec_auth_alg = m.get('IpsecAuthAlg')
+        if m.get('IpsecEncAlg') is not None:
+            self.ipsec_enc_alg = m.get('IpsecEncAlg')
+        if m.get('IpsecLifetime') is not None:
+            self.ipsec_lifetime = m.get('IpsecLifetime')
+        if m.get('IpsecPfs') is not None:
+            self.ipsec_pfs = m.get('IpsecPfs')
+        return self
+
+
+class ModifyTunnelAttributeResponseBody(TeaModel):
+    def __init__(self, customer_gateway_id=None, enable_dpd=None, enable_nat_traversal=None, internet_ip=None,
+                 remote_ca_certificate=None, request_id=None, role=None, state=None, tunnel_bgp_config=None, tunnel_id=None,
+                 tunnel_ike_config=None, tunnel_ipsec_config=None, zone_no=None):
+        self.customer_gateway_id = customer_gateway_id  # type: str
+        self.enable_dpd = enable_dpd  # type: bool
+        self.enable_nat_traversal = enable_nat_traversal  # type: bool
+        self.internet_ip = internet_ip  # type: str
+        self.remote_ca_certificate = remote_ca_certificate  # type: str
+        self.request_id = request_id  # type: str
+        self.role = role  # type: str
+        self.state = state  # type: str
+        self.tunnel_bgp_config = tunnel_bgp_config  # type: ModifyTunnelAttributeResponseBodyTunnelBgpConfig
+        self.tunnel_id = tunnel_id  # type: str
+        self.tunnel_ike_config = tunnel_ike_config  # type: ModifyTunnelAttributeResponseBodyTunnelIkeConfig
+        self.tunnel_ipsec_config = tunnel_ipsec_config  # type: ModifyTunnelAttributeResponseBodyTunnelIpsecConfig
+        self.zone_no = zone_no  # type: str
+
+    def validate(self):
+        if self.tunnel_bgp_config:
+            self.tunnel_bgp_config.validate()
+        if self.tunnel_ike_config:
+            self.tunnel_ike_config.validate()
+        if self.tunnel_ipsec_config:
+            self.tunnel_ipsec_config.validate()
+
+    def to_map(self):
+        _map = super(ModifyTunnelAttributeResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.customer_gateway_id is not None:
+            result['CustomerGatewayId'] = self.customer_gateway_id
+        if self.enable_dpd is not None:
+            result['EnableDpd'] = self.enable_dpd
+        if self.enable_nat_traversal is not None:
+            result['EnableNatTraversal'] = self.enable_nat_traversal
+        if self.internet_ip is not None:
+            result['InternetIp'] = self.internet_ip
+        if self.remote_ca_certificate is not None:
+            result['RemoteCaCertificate'] = self.remote_ca_certificate
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.role is not None:
+            result['Role'] = self.role
+        if self.state is not None:
+            result['State'] = self.state
+        if self.tunnel_bgp_config is not None:
+            result['TunnelBgpConfig'] = self.tunnel_bgp_config.to_map()
+        if self.tunnel_id is not None:
+            result['TunnelId'] = self.tunnel_id
+        if self.tunnel_ike_config is not None:
+            result['TunnelIkeConfig'] = self.tunnel_ike_config.to_map()
+        if self.tunnel_ipsec_config is not None:
+            result['TunnelIpsecConfig'] = self.tunnel_ipsec_config.to_map()
+        if self.zone_no is not None:
+            result['ZoneNo'] = self.zone_no
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CustomerGatewayId') is not None:
+            self.customer_gateway_id = m.get('CustomerGatewayId')
+        if m.get('EnableDpd') is not None:
+            self.enable_dpd = m.get('EnableDpd')
+        if m.get('EnableNatTraversal') is not None:
+            self.enable_nat_traversal = m.get('EnableNatTraversal')
+        if m.get('InternetIp') is not None:
+            self.internet_ip = m.get('InternetIp')
+        if m.get('RemoteCaCertificate') is not None:
+            self.remote_ca_certificate = m.get('RemoteCaCertificate')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Role') is not None:
+            self.role = m.get('Role')
+        if m.get('State') is not None:
+            self.state = m.get('State')
+        if m.get('TunnelBgpConfig') is not None:
+            temp_model = ModifyTunnelAttributeResponseBodyTunnelBgpConfig()
+            self.tunnel_bgp_config = temp_model.from_map(m['TunnelBgpConfig'])
+        if m.get('TunnelId') is not None:
+            self.tunnel_id = m.get('TunnelId')
+        if m.get('TunnelIkeConfig') is not None:
+            temp_model = ModifyTunnelAttributeResponseBodyTunnelIkeConfig()
+            self.tunnel_ike_config = temp_model.from_map(m['TunnelIkeConfig'])
+        if m.get('TunnelIpsecConfig') is not None:
+            temp_model = ModifyTunnelAttributeResponseBodyTunnelIpsecConfig()
+            self.tunnel_ipsec_config = temp_model.from_map(m['TunnelIpsecConfig'])
+        if m.get('ZoneNo') is not None:
+            self.zone_no = m.get('ZoneNo')
+        return self
+
+
+class ModifyTunnelAttributeResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ModifyTunnelAttributeResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ModifyTunnelAttributeResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ModifyTunnelAttributeResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
