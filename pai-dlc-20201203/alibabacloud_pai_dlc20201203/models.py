@@ -1345,12 +1345,13 @@ class JobItem(TeaModel):
 
 
 class JobSettings(TeaModel):
-    def __init__(self, advanced_settings=None, business_user_id=None, caller=None,
+    def __init__(self, advanced_settings=None, business_user_id=None, caller=None, driver=None,
                  enable_error_monitoring_in_aimaster=None, enable_oss_append=None, enable_rdma=None, enable_tide_resource=None,
                  error_monitoring_args=None, oversold_type=None, pipeline_id=None, tags=None):
         self.advanced_settings = advanced_settings  # type: dict[str, any]
         self.business_user_id = business_user_id  # type: str
         self.caller = caller  # type: str
+        self.driver = driver  # type: str
         self.enable_error_monitoring_in_aimaster = enable_error_monitoring_in_aimaster  # type: bool
         self.enable_oss_append = enable_oss_append  # type: bool
         self.enable_rdma = enable_rdma  # type: bool
@@ -1375,6 +1376,8 @@ class JobSettings(TeaModel):
             result['BusinessUserId'] = self.business_user_id
         if self.caller is not None:
             result['Caller'] = self.caller
+        if self.driver is not None:
+            result['Driver'] = self.driver
         if self.enable_error_monitoring_in_aimaster is not None:
             result['EnableErrorMonitoringInAIMaster'] = self.enable_error_monitoring_in_aimaster
         if self.enable_oss_append is not None:
@@ -1401,6 +1404,8 @@ class JobSettings(TeaModel):
             self.business_user_id = m.get('BusinessUserId')
         if m.get('Caller') is not None:
             self.caller = m.get('Caller')
+        if m.get('Driver') is not None:
+            self.driver = m.get('Driver')
         if m.get('EnableErrorMonitoringInAIMaster') is not None:
             self.enable_error_monitoring_in_aimaster = m.get('EnableErrorMonitoringInAIMaster')
         if m.get('EnableOssAppend') is not None:
@@ -4629,14 +4634,15 @@ class ListJobsResponse(TeaModel):
 
 class ListTensorboardsRequest(TeaModel):
     def __init__(self, display_name=None, end_time=None, job_id=None, order=None, page_number=None, page_size=None,
-                 sort_by=None, source_id=None, source_type=None, start_time=None, status=None, tensorboard_id=None,
-                 verbose=None, workspace_id=None):
+                 show_own=None, sort_by=None, source_id=None, source_type=None, start_time=None, status=None,
+                 tensorboard_id=None, verbose=None, workspace_id=None):
         self.display_name = display_name  # type: str
         self.end_time = end_time  # type: str
         self.job_id = job_id  # type: str
         self.order = order  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
+        self.show_own = show_own  # type: bool
         self.sort_by = sort_by  # type: str
         self.source_id = source_id  # type: str
         self.source_type = source_type  # type: str
@@ -4667,6 +4673,8 @@ class ListTensorboardsRequest(TeaModel):
             result['PageNumber'] = self.page_number
         if self.page_size is not None:
             result['PageSize'] = self.page_size
+        if self.show_own is not None:
+            result['ShowOwn'] = self.show_own
         if self.sort_by is not None:
             result['SortBy'] = self.sort_by
         if self.source_id is not None:
@@ -4699,6 +4707,8 @@ class ListTensorboardsRequest(TeaModel):
             self.page_number = m.get('PageNumber')
         if m.get('PageSize') is not None:
             self.page_size = m.get('PageSize')
+        if m.get('ShowOwn') is not None:
+            self.show_own = m.get('ShowOwn')
         if m.get('SortBy') is not None:
             self.sort_by = m.get('SortBy')
         if m.get('SourceId') is not None:
