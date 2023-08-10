@@ -31,22 +31,17 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
-    def bind_esuser_analyzer(self, app_group_identity, es_instance_id):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.bind_esuser_analyzer_with_options(app_group_identity, es_instance_id, headers, runtime)
-
-    def bind_esuser_analyzer_with_options(self, app_group_identity, es_instance_id, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        es_instance_id = OpenApiUtilClient.get_encode_param(es_instance_id)
+    def bind_esuser_analyzer_with_options(self, app_group_identity, es_instance_id, request, headers, runtime):
+        UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            body=request.body
         )
         params = open_api_models.Params(
             action='BindESUserAnalyzer',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/es/%s/actions/bind-analyzer' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(es_instance_id)),
+            pathname='/v4/openapi/app-groups/%s/es/%s/actions/bind-analyzer' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(es_instance_id))),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -58,21 +53,25 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def bind_es_instance(self, app_group_identity):
+    def bind_esuser_analyzer(self, app_group_identity, es_instance_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.bind_es_instance_with_options(app_group_identity, headers, runtime)
+        return self.bind_esuser_analyzer_with_options(app_group_identity, es_instance_id, request, headers, runtime)
 
-    def bind_es_instance_with_options(self, app_group_identity, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
+    def bind_es_instance_with_options(self, app_group_identity, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.body):
+            body['body'] = request.body
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='BindEsInstance',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/actions/bind-es-instance' % TeaConverter.to_unicode(app_group_identity),
+            pathname='/v4/openapi/app-groups/%s/actions/bind-es-instance' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -84,15 +83,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def compile_sort_script(self, app_group_identity, script_name, app_version_id):
+    def bind_es_instance(self, app_group_identity, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.compile_sort_script_with_options(app_group_identity, script_name, app_version_id, headers, runtime)
+        return self.bind_es_instance_with_options(app_group_identity, request, headers, runtime)
 
     def compile_sort_script_with_options(self, app_group_identity, script_name, app_version_id, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        script_name = OpenApiUtilClient.get_encode_param(script_name)
-        app_version_id = OpenApiUtilClient.get_encode_param(app_version_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -100,7 +96,7 @@ class Client(OpenApiClient):
             action='CompileSortScript',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/apps/%s/sort-scripts/%s/actions/compiling' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(app_version_id), TeaConverter.to_unicode(script_name)),
+            pathname='/v4/openapi/app-groups/%s/apps/%s/sort-scripts/%s/actions/compiling' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_version_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(script_name))),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -112,23 +108,26 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_abtest_experiment(self, app_group_identity, scene_id, group_id):
+    def compile_sort_script(self, app_group_identity, script_name, app_version_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_abtest_experiment_with_options(app_group_identity, scene_id, group_id, headers, runtime)
+        return self.compile_sort_script_with_options(app_group_identity, script_name, app_version_id, headers, runtime)
 
-    def create_abtest_experiment_with_options(self, app_group_identity, scene_id, group_id, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        scene_id = OpenApiUtilClient.get_encode_param(scene_id)
-        group_id = OpenApiUtilClient.get_encode_param(group_id)
+    def create_abtest_experiment_with_options(self, app_group_identity, scene_id, group_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dry_run):
+            query['dryRun'] = request.dry_run
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(request.body)
         )
         params = open_api_models.Params(
             action='CreateABTestExperiment',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/scenes/%s/groups/%s/experiments' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(scene_id), TeaConverter.to_unicode(group_id)),
+            pathname='/v4/openapi/app-groups/%s/scenes/%s/groups/%s/experiments' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(scene_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(group_id))),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -140,22 +139,26 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_abtest_group(self, app_group_identity, scene_id):
+    def create_abtest_experiment(self, app_group_identity, scene_id, group_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_abtest_group_with_options(app_group_identity, scene_id, headers, runtime)
+        return self.create_abtest_experiment_with_options(app_group_identity, scene_id, group_id, request, headers, runtime)
 
-    def create_abtest_group_with_options(self, app_group_identity, scene_id, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        scene_id = OpenApiUtilClient.get_encode_param(scene_id)
+    def create_abtest_group_with_options(self, app_group_identity, scene_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dry_run):
+            query['dryRun'] = request.dry_run
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(request.body)
         )
         params = open_api_models.Params(
             action='CreateABTestGroup',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/scenes/%s/groups' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(scene_id)),
+            pathname='/v4/openapi/app-groups/%s/scenes/%s/groups' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(scene_id))),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -167,21 +170,26 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_abtest_scene(self, app_group_identity):
+    def create_abtest_group(self, app_group_identity, scene_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_abtest_scene_with_options(app_group_identity, headers, runtime)
+        return self.create_abtest_group_with_options(app_group_identity, scene_id, request, headers, runtime)
 
-    def create_abtest_scene_with_options(self, app_group_identity, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
+    def create_abtest_scene_with_options(self, app_group_identity, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dry_run):
+            query['dryRun'] = request.dry_run
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(request.body)
         )
         params = open_api_models.Params(
             action='CreateABTestScene',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/scenes' % TeaConverter.to_unicode(app_group_identity),
+            pathname='/v4/openapi/app-groups/%s/scenes' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -193,26 +201,42 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_app(self, app_group_identity, request):
+    def create_abtest_scene(self, app_group_identity, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_app_with_options(app_group_identity, request, headers, runtime)
+        return self.create_abtest_scene_with_options(app_group_identity, request, headers, runtime)
 
     def create_app_with_options(self, app_group_identity, request, headers, runtime):
+        """
+        When you create a standard application, a new version of the application is created if the specified application name already exists.
+        *   When you create a version of an existing application, you must set the autoSwitch and realtimeShared parameters.
+        *   When you create a version of an existing application, the value of the quota parameter is the same as that of the quota parameter in the previous version of the application.
+        *   When you create a version of an existing application, the modification of the quota parameter does not take effect.
+        
+
+        @param request: CreateAppRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateAppResponse
+        """
         UtilClient.validate_model(request)
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
         query = {}
         if not UtilClient.is_unset(request.dry_run):
             query['dryRun'] = request.dry_run
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(request.body)
         )
         params = open_api_models.Params(
             action='CreateApp',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/apps' % TeaConverter.to_unicode(app_group_identity),
+            pathname='/v4/openapi/app-groups/%s/apps' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -224,14 +248,27 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_app_group(self):
+    def create_app(self, app_group_identity, request):
+        """
+        When you create a standard application, a new version of the application is created if the specified application name already exists.
+        *   When you create a version of an existing application, you must set the autoSwitch and realtimeShared parameters.
+        *   When you create a version of an existing application, the value of the quota parameter is the same as that of the quota parameter in the previous version of the application.
+        *   When you create a version of an existing application, the modification of the quota parameter does not take effect.
+        
+
+        @param request: CreateAppRequest
+
+        @return: CreateAppResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_app_group_with_options(headers, runtime)
+        return self.create_app_with_options(app_group_identity, request, headers, runtime)
 
-    def create_app_group_with_options(self, headers, runtime):
+    def create_app_group_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(request.body)
         )
         params = open_api_models.Params(
             action='CreateAppGroup',
@@ -249,53 +286,26 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_data_collection(self, app_group_identity):
+    def create_app_group(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_data_collection_with_options(app_group_identity, headers, runtime)
-
-    def create_data_collection_with_options(self, app_group_identity, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        req = open_api_models.OpenApiRequest(
-            headers=headers
-        )
-        params = open_api_models.Params(
-            action='CreateDataCollection',
-            version='2017-12-25',
-            protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/data-collections' % TeaConverter.to_unicode(app_group_identity),
-            method='POST',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            open_search_20171225_models.CreateDataCollectionResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def create_first_rank(self, app_group_identity, app_id, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.create_first_rank_with_options(app_group_identity, app_id, request, headers, runtime)
+        return self.create_app_group_with_options(request, headers, runtime)
 
     def create_first_rank_with_options(self, app_group_identity, app_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        app_id = OpenApiUtilClient.get_encode_param(app_id)
         query = {}
         if not UtilClient.is_unset(request.dry_run):
             query['dryRun'] = request.dry_run
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(request.body)
         )
         params = open_api_models.Params(
             action='CreateFirstRank',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/apps/%s/first-ranks' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(app_id)),
+            pathname='/v4/openapi/app-groups/%s/apps/%s/first-ranks' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_id))),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -307,15 +317,26 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_function_instance(self, app_group_identity, function_name, request):
+    def create_first_rank(self, app_group_identity, app_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_function_instance_with_options(app_group_identity, function_name, request, headers, runtime)
+        return self.create_first_rank_with_options(app_group_identity, app_id, request, headers, runtime)
 
     def create_function_instance_with_options(self, app_group_identity, function_name, request, headers, runtime):
+        """
+        You can call the [GetFunctionCurrentVersion](~~421377~~) operation to query the latest version of the current feature. The response of the operation includes the createParameters parameter that is used to create an algorithm instance, the usageParameters parameter, and the requirements for setting these parameters.
+        
+
+        @param request: CreateFunctionInstanceRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateFunctionInstanceResponse
+        """
         UtilClient.validate_model(request)
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        function_name = OpenApiUtilClient.get_encode_param(function_name)
         body = {}
         if not UtilClient.is_unset(request.create_parameters):
             body['createParameters'] = request.create_parameters
@@ -339,7 +360,7 @@ class Client(OpenApiClient):
             action='CreateFunctionInstance',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/functions/%s/instances' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(function_name)),
+            pathname='/v4/openapi/app-groups/%s/functions/%s/instances' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(function_name))),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -351,15 +372,20 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_function_task(self, app_group_identity, function_name, instance_name):
+    def create_function_instance(self, app_group_identity, function_name, request):
+        """
+        You can call the [GetFunctionCurrentVersion](~~421377~~) operation to query the latest version of the current feature. The response of the operation includes the createParameters parameter that is used to create an algorithm instance, the usageParameters parameter, and the requirements for setting these parameters.
+        
+
+        @param request: CreateFunctionInstanceRequest
+
+        @return: CreateFunctionInstanceResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_function_task_with_options(app_group_identity, function_name, instance_name, headers, runtime)
+        return self.create_function_instance_with_options(app_group_identity, function_name, request, headers, runtime)
 
     def create_function_task_with_options(self, app_group_identity, function_name, instance_name, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        function_name = OpenApiUtilClient.get_encode_param(function_name)
-        instance_name = OpenApiUtilClient.get_encode_param(instance_name)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -367,7 +393,7 @@ class Client(OpenApiClient):
             action='CreateFunctionTask',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/functions/%s/instances/%s/tasks' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(function_name), TeaConverter.to_unicode(instance_name)),
+            pathname='/v4/openapi/app-groups/%s/functions/%s/instances/%s/tasks' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(function_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_name))),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -379,14 +405,27 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_intervention_dictionary(self):
+    def create_function_task(self, app_group_identity, function_name, instance_name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_intervention_dictionary_with_options(headers, runtime)
+        return self.create_function_task_with_options(app_group_identity, function_name, instance_name, headers, runtime)
 
-    def create_intervention_dictionary_with_options(self, headers, runtime):
+    def create_intervention_dictionary_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dry_run):
+            query['dryRun'] = request.dry_run
+        body = {}
+        if not UtilClient.is_unset(request.analyzer_type):
+            body['analyzerType'] = request.analyzer_type
+        if not UtilClient.is_unset(request.name):
+            body['name'] = request.name
+        if not UtilClient.is_unset(request.type):
+            body['type'] = request.type
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='CreateInterventionDictionary',
@@ -404,53 +443,26 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_model(self, app_group_identity):
+    def create_intervention_dictionary(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_model_with_options(app_group_identity, headers, runtime)
-
-    def create_model_with_options(self, app_group_identity, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        req = open_api_models.OpenApiRequest(
-            headers=headers
-        )
-        params = open_api_models.Params(
-            action='CreateModel',
-            version='2017-12-25',
-            protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/algorithm/models' % TeaConverter.to_unicode(app_group_identity),
-            method='POST',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            open_search_20171225_models.CreateModelResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def create_query_processor(self, app_group_identity, app_id, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.create_query_processor_with_options(app_group_identity, app_id, request, headers, runtime)
+        return self.create_intervention_dictionary_with_options(request, headers, runtime)
 
     def create_query_processor_with_options(self, app_group_identity, app_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        app_id = OpenApiUtilClient.get_encode_param(app_id)
         query = {}
         if not UtilClient.is_unset(request.dry_run):
             query['dryRun'] = request.dry_run
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='CreateQueryProcessor',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/apps/%s/query-processors' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(app_id)),
+            pathname='/v4/openapi/app-groups/%s/apps/%s/query-processors' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_id))),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -462,21 +474,35 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_scheduled_task(self, app_group_identity):
+    def create_query_processor(self, app_group_identity, app_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_scheduled_task_with_options(app_group_identity, headers, runtime)
+        return self.create_query_processor_with_options(app_group_identity, app_id, request, headers, runtime)
 
-    def create_scheduled_task_with_options(self, app_group_identity, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
+    def create_scheduled_task_with_options(self, app_group_identity, request, headers, runtime):
+        """
+        ***\
+        
+
+        @param request: CreateScheduledTaskRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateScheduledTaskResponse
+        """
+        UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(request.body)
         )
         params = open_api_models.Params(
             action='CreateScheduledTask',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/scheduled-tasks' % TeaConverter.to_unicode(app_group_identity),
+            pathname='/v4/openapi/app-groups/%s/scheduled-tasks' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -488,22 +514,30 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_search_strategy(self, app_group_identity, app_id):
+    def create_scheduled_task(self, app_group_identity, request):
+        """
+        ***\
+        
+
+        @param request: CreateScheduledTaskRequest
+
+        @return: CreateScheduledTaskResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_search_strategy_with_options(app_group_identity, app_id, headers, runtime)
+        return self.create_scheduled_task_with_options(app_group_identity, request, headers, runtime)
 
-    def create_search_strategy_with_options(self, app_group_identity, app_id, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        app_id = OpenApiUtilClient.get_encode_param(app_id)
+    def create_search_strategy_with_options(self, app_group_identity, app_id, request, headers, runtime):
+        UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(request.body)
         )
         params = open_api_models.Params(
             action='CreateSearchStrategy',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/apps/%s/search-strategies' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(app_id)),
+            pathname='/v4/openapi/app-groups/%s/apps/%s/search-strategies' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_id))),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -515,27 +549,26 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_second_rank(self, app_group_identity, app_id, request):
+    def create_search_strategy(self, app_group_identity, app_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_second_rank_with_options(app_group_identity, app_id, request, headers, runtime)
+        return self.create_search_strategy_with_options(app_group_identity, app_id, request, headers, runtime)
 
     def create_second_rank_with_options(self, app_group_identity, app_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        app_id = OpenApiUtilClient.get_encode_param(app_id)
         query = {}
         if not UtilClient.is_unset(request.dry_run):
             query['dryRun'] = request.dry_run
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(request.body)
         )
         params = open_api_models.Params(
             action='CreateSecondRank',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/apps/%s/second-ranks' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(app_id)),
+            pathname='/v4/openapi/app-groups/%s/apps/%s/second-ranks' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_id))),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -547,14 +580,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_sort_script(self, app_group_identity, app_version_id):
+    def create_second_rank(self, app_group_identity, app_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_sort_script_with_options(app_group_identity, app_version_id, headers, runtime)
+        return self.create_second_rank_with_options(app_group_identity, app_id, request, headers, runtime)
 
     def create_sort_script_with_options(self, app_group_identity, app_version_id, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        app_version_id = OpenApiUtilClient.get_encode_param(app_version_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -562,7 +593,7 @@ class Client(OpenApiClient):
             action='CreateSortScript',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/apps/%s/sort-scripts' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(app_version_id)),
+            pathname='/v4/openapi/app-groups/%s/apps/%s/sort-scripts' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_version_id))),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -574,14 +605,31 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_user_analyzer(self):
+    def create_sort_script(self, app_group_identity, app_version_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_user_analyzer_with_options(headers, runtime)
+        return self.create_sort_script_with_options(app_group_identity, app_version_id, headers, runtime)
 
-    def create_user_analyzer_with_options(self, headers, runtime):
+    def create_user_analyzer_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dry_run):
+            query['dryRun'] = request.dry_run
+        body = {}
+        if not UtilClient.is_unset(request.business):
+            body['business'] = request.business
+        if not UtilClient.is_unset(request.business_app_group_id):
+            body['businessAppGroupId'] = request.business_app_group_id
+        if not UtilClient.is_unset(request.business_type):
+            body['businessType'] = request.business_type
+        if not UtilClient.is_unset(request.name):
+            body['name'] = request.name
+        if not UtilClient.is_unset(request.type):
+            body['type'] = request.type
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='CreateUserAnalyzer',
@@ -599,16 +647,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_abtest_experiment(self, app_group_identity, scene_id, group_id, experiment_id):
+    def create_user_analyzer(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_abtest_experiment_with_options(app_group_identity, scene_id, group_id, experiment_id, headers, runtime)
+        return self.create_user_analyzer_with_options(request, headers, runtime)
 
     def delete_abtest_experiment_with_options(self, app_group_identity, scene_id, group_id, experiment_id, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        scene_id = OpenApiUtilClient.get_encode_param(scene_id)
-        group_id = OpenApiUtilClient.get_encode_param(group_id)
-        experiment_id = OpenApiUtilClient.get_encode_param(experiment_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -616,7 +660,7 @@ class Client(OpenApiClient):
             action='DeleteABTestExperiment',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/scenes/%s/groups/%s/experiments/%s' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(scene_id), TeaConverter.to_unicode(group_id), TeaConverter.to_unicode(experiment_id)),
+            pathname='/v4/openapi/app-groups/%s/scenes/%s/groups/%s/experiments/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(scene_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(group_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(experiment_id))),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -628,15 +672,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_abtest_group(self, app_group_identity, scene_id, group_id):
+    def delete_abtest_experiment(self, app_group_identity, scene_id, group_id, experiment_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_abtest_group_with_options(app_group_identity, scene_id, group_id, headers, runtime)
+        return self.delete_abtest_experiment_with_options(app_group_identity, scene_id, group_id, experiment_id, headers, runtime)
 
     def delete_abtest_group_with_options(self, app_group_identity, scene_id, group_id, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        scene_id = OpenApiUtilClient.get_encode_param(scene_id)
-        group_id = OpenApiUtilClient.get_encode_param(group_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -644,7 +685,7 @@ class Client(OpenApiClient):
             action='DeleteABTestGroup',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/scenes/%s/groups/%s' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(scene_id), TeaConverter.to_unicode(group_id)),
+            pathname='/v4/openapi/app-groups/%s/scenes/%s/groups/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(scene_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(group_id))),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -656,14 +697,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_abtest_scene(self, app_group_identity, scene_id):
+    def delete_abtest_group(self, app_group_identity, scene_id, group_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_abtest_scene_with_options(app_group_identity, scene_id, headers, runtime)
+        return self.delete_abtest_group_with_options(app_group_identity, scene_id, group_id, headers, runtime)
 
     def delete_abtest_scene_with_options(self, app_group_identity, scene_id, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        scene_id = OpenApiUtilClient.get_encode_param(scene_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -671,7 +710,7 @@ class Client(OpenApiClient):
             action='DeleteABTestScene',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/scenes/%s' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(scene_id)),
+            pathname='/v4/openapi/app-groups/%s/scenes/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(scene_id))),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -683,15 +722,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_function_instance(self, app_group_identity, function_name, instance_name):
+    def delete_abtest_scene(self, app_group_identity, scene_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_function_instance_with_options(app_group_identity, function_name, instance_name, headers, runtime)
+        return self.delete_abtest_scene_with_options(app_group_identity, scene_id, headers, runtime)
 
     def delete_function_instance_with_options(self, app_group_identity, function_name, instance_name, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        function_name = OpenApiUtilClient.get_encode_param(function_name)
-        instance_name = OpenApiUtilClient.get_encode_param(instance_name)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -699,7 +735,7 @@ class Client(OpenApiClient):
             action='DeleteFunctionInstance',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/functions/%s/instances/%s' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(function_name), TeaConverter.to_unicode(instance_name)),
+            pathname='/v4/openapi/app-groups/%s/functions/%s/instances/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(function_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_name))),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -711,16 +747,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_function_task(self, app_group_identity, function_name, instance_name, generation):
+    def delete_function_instance(self, app_group_identity, function_name, instance_name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_function_task_with_options(app_group_identity, function_name, instance_name, generation, headers, runtime)
+        return self.delete_function_instance_with_options(app_group_identity, function_name, instance_name, headers, runtime)
 
     def delete_function_task_with_options(self, app_group_identity, function_name, instance_name, generation, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        function_name = OpenApiUtilClient.get_encode_param(function_name)
-        instance_name = OpenApiUtilClient.get_encode_param(instance_name)
-        generation = OpenApiUtilClient.get_encode_param(generation)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -728,7 +760,7 @@ class Client(OpenApiClient):
             action='DeleteFunctionTask',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/functions/%s/instances/%s/tasks/%s' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(function_name), TeaConverter.to_unicode(instance_name), TeaConverter.to_unicode(generation)),
+            pathname='/v4/openapi/app-groups/%s/functions/%s/instances/%s/tasks/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(function_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(generation))),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -740,42 +772,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_model(self, app_group_identity, model_name):
+    def delete_function_task(self, app_group_identity, function_name, instance_name, generation):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_model_with_options(app_group_identity, model_name, headers, runtime)
-
-    def delete_model_with_options(self, app_group_identity, model_name, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        model_name = OpenApiUtilClient.get_encode_param(model_name)
-        req = open_api_models.OpenApiRequest(
-            headers=headers
-        )
-        params = open_api_models.Params(
-            action='DeleteModel',
-            version='2017-12-25',
-            protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/algorithm/models/%s' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(model_name)),
-            method='DELETE',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            open_search_20171225_models.DeleteModelResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def delete_sort_script(self, app_group_identity, script_name, app_version_id):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.delete_sort_script_with_options(app_group_identity, script_name, app_version_id, headers, runtime)
+        return self.delete_function_task_with_options(app_group_identity, function_name, instance_name, generation, headers, runtime)
 
     def delete_sort_script_with_options(self, app_group_identity, script_name, app_version_id, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        script_name = OpenApiUtilClient.get_encode_param(script_name)
-        app_version_id = OpenApiUtilClient.get_encode_param(app_version_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -783,7 +785,7 @@ class Client(OpenApiClient):
             action='DeleteSortScript',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/apps/%s/sort-scripts/%s' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(app_version_id), TeaConverter.to_unicode(script_name)),
+            pathname='/v4/openapi/app-groups/%s/apps/%s/sort-scripts/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_version_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(script_name))),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -795,16 +797,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_sort_script_file(self, app_group_identity, app_version_id, script_name, file_name):
+    def delete_sort_script(self, app_group_identity, script_name, app_version_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_sort_script_file_with_options(app_group_identity, app_version_id, script_name, file_name, headers, runtime)
+        return self.delete_sort_script_with_options(app_group_identity, script_name, app_version_id, headers, runtime)
 
     def delete_sort_script_file_with_options(self, app_group_identity, app_version_id, script_name, file_name, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        app_version_id = OpenApiUtilClient.get_encode_param(app_version_id)
-        script_name = OpenApiUtilClient.get_encode_param(script_name)
-        file_name = OpenApiUtilClient.get_encode_param(file_name)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -812,7 +810,7 @@ class Client(OpenApiClient):
             action='DeleteSortScriptFile',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/apps/%s/sort-scripts/%s/files/src/%s' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(app_version_id), TeaConverter.to_unicode(script_name), TeaConverter.to_unicode(file_name)),
+            pathname='/v4/openapi/app-groups/%s/apps/%s/sort-scripts/%s/files/src/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_version_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(script_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(file_name))),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -824,16 +822,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_abtest_experiment(self, app_group_identity, scene_id, group_id, experiment_id):
+    def delete_sort_script_file(self, app_group_identity, app_version_id, script_name, file_name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_abtest_experiment_with_options(app_group_identity, scene_id, group_id, experiment_id, headers, runtime)
+        return self.delete_sort_script_file_with_options(app_group_identity, app_version_id, script_name, file_name, headers, runtime)
 
     def describe_abtest_experiment_with_options(self, app_group_identity, scene_id, group_id, experiment_id, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        scene_id = OpenApiUtilClient.get_encode_param(scene_id)
-        group_id = OpenApiUtilClient.get_encode_param(group_id)
-        experiment_id = OpenApiUtilClient.get_encode_param(experiment_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -841,7 +835,7 @@ class Client(OpenApiClient):
             action='DescribeABTestExperiment',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/scenes/%s/groups/%s/experiments/%s' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(scene_id), TeaConverter.to_unicode(group_id), TeaConverter.to_unicode(experiment_id)),
+            pathname='/v4/openapi/app-groups/%s/scenes/%s/groups/%s/experiments/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(scene_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(group_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(experiment_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -853,15 +847,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_abtest_group(self, app_group_identity, scene_id, group_id):
+    def describe_abtest_experiment(self, app_group_identity, scene_id, group_id, experiment_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_abtest_group_with_options(app_group_identity, scene_id, group_id, headers, runtime)
+        return self.describe_abtest_experiment_with_options(app_group_identity, scene_id, group_id, experiment_id, headers, runtime)
 
     def describe_abtest_group_with_options(self, app_group_identity, scene_id, group_id, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        scene_id = OpenApiUtilClient.get_encode_param(scene_id)
-        group_id = OpenApiUtilClient.get_encode_param(group_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -869,7 +860,7 @@ class Client(OpenApiClient):
             action='DescribeABTestGroup',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/scenes/%s/groups/%s' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(scene_id), TeaConverter.to_unicode(group_id)),
+            pathname='/v4/openapi/app-groups/%s/scenes/%s/groups/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(scene_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(group_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -881,14 +872,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_abtest_scene(self, app_group_identity, scene_id):
+    def describe_abtest_group(self, app_group_identity, scene_id, group_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_abtest_scene_with_options(app_group_identity, scene_id, headers, runtime)
+        return self.describe_abtest_group_with_options(app_group_identity, scene_id, group_id, headers, runtime)
 
     def describe_abtest_scene_with_options(self, app_group_identity, scene_id, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        scene_id = OpenApiUtilClient.get_encode_param(scene_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -896,7 +885,7 @@ class Client(OpenApiClient):
             action='DescribeABTestScene',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/scenes/%s' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(scene_id)),
+            pathname='/v4/openapi/app-groups/%s/scenes/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(scene_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -908,14 +897,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_app(self, app_group_identity, app_id):
+    def describe_abtest_scene(self, app_group_identity, scene_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_app_with_options(app_group_identity, app_id, headers, runtime)
+        return self.describe_abtest_scene_with_options(app_group_identity, scene_id, headers, runtime)
 
     def describe_app_with_options(self, app_group_identity, app_id, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        app_id = OpenApiUtilClient.get_encode_param(app_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -923,7 +910,7 @@ class Client(OpenApiClient):
             action='DescribeApp',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/apps/%s' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(app_id)),
+            pathname='/v4/openapi/app-groups/%s/apps/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -935,13 +922,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_app_group(self, app_group_identity):
+    def describe_app(self, app_group_identity, app_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_app_group_with_options(app_group_identity, headers, runtime)
+        return self.describe_app_with_options(app_group_identity, app_id, headers, runtime)
 
     def describe_app_group_with_options(self, app_group_identity, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -949,7 +935,7 @@ class Client(OpenApiClient):
             action='DescribeAppGroup',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s' % TeaConverter.to_unicode(app_group_identity),
+            pathname='/v4/openapi/app-groups/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -961,73 +947,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_app_group_data_report(self, app_group_identity, request):
+    def describe_app_group(self, app_group_identity):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_app_group_data_report_with_options(app_group_identity, request, headers, runtime)
-
-    def describe_app_group_data_report_with_options(self, app_group_identity, request, headers, runtime):
-        UtilClient.validate_model(request)
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        query = {}
-        if not UtilClient.is_unset(request.end_time):
-            query['endTime'] = request.end_time
-        if not UtilClient.is_unset(request.start_time):
-            query['startTime'] = request.start_time
-        req = open_api_models.OpenApiRequest(
-            headers=headers,
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='DescribeAppGroupDataReport',
-            version='2017-12-25',
-            protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/data-report' % TeaConverter.to_unicode(app_group_identity),
-            method='GET',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            open_search_20171225_models.DescribeAppGroupDataReportResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def describe_app_group_statistics(self, app_group_identity):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.describe_app_group_statistics_with_options(app_group_identity, headers, runtime)
-
-    def describe_app_group_statistics_with_options(self, app_group_identity, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        req = open_api_models.OpenApiRequest(
-            headers=headers
-        )
-        params = open_api_models.Params(
-            action='DescribeAppGroupStatistics',
-            version='2017-12-25',
-            protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/statistics' % TeaConverter.to_unicode(app_group_identity),
-            method='GET',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            open_search_20171225_models.DescribeAppGroupStatisticsResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def describe_app_statistics(self, app_group_identity, app_id):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.describe_app_statistics_with_options(app_group_identity, app_id, headers, runtime)
+        return self.describe_app_group_with_options(app_group_identity, headers, runtime)
 
     def describe_app_statistics_with_options(self, app_group_identity, app_id, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        app_id = OpenApiUtilClient.get_encode_param(app_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1035,7 +960,7 @@ class Client(OpenApiClient):
             action='DescribeAppStatistics',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/apps/%s/statistics' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(app_id)),
+            pathname='/v4/openapi/app-groups/%s/apps/%s/statistics' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1047,13 +972,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_apps(self, app_group_identity):
+    def describe_app_statistics(self, app_group_identity, app_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_apps_with_options(app_group_identity, headers, runtime)
+        return self.describe_app_statistics_with_options(app_group_identity, app_id, headers, runtime)
 
     def describe_apps_with_options(self, app_group_identity, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1061,7 +985,7 @@ class Client(OpenApiClient):
             action='DescribeApps',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/apps' % TeaConverter.to_unicode(app_group_identity),
+            pathname='/v4/openapi/app-groups/%s/apps' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1073,14 +997,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_data_collction(self, app_group_identity, data_collection_identity):
+    def describe_apps(self, app_group_identity):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_data_collction_with_options(app_group_identity, data_collection_identity, headers, runtime)
+        return self.describe_apps_with_options(app_group_identity, headers, runtime)
 
     def describe_data_collction_with_options(self, app_group_identity, data_collection_identity, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        data_collection_identity = OpenApiUtilClient.get_encode_param(data_collection_identity)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1088,7 +1010,7 @@ class Client(OpenApiClient):
             action='DescribeDataCollction',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/data-collections/%s' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(data_collection_identity)),
+            pathname='/v4/openapi/app-groups/%s/data-collections/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(data_collection_identity))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1100,15 +1022,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_first_rank(self, app_group_identity, app_id, name):
+    def describe_data_collction(self, app_group_identity, data_collection_identity):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_first_rank_with_options(app_group_identity, app_id, name, headers, runtime)
+        return self.describe_data_collction_with_options(app_group_identity, data_collection_identity, headers, runtime)
 
     def describe_first_rank_with_options(self, app_group_identity, app_id, name, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        app_id = OpenApiUtilClient.get_encode_param(app_id)
-        name = OpenApiUtilClient.get_encode_param(name)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1116,7 +1035,7 @@ class Client(OpenApiClient):
             action='DescribeFirstRank',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/apps/%s/first-ranks/%s' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(app_id), TeaConverter.to_unicode(name)),
+            pathname='/v4/openapi/app-groups/%s/apps/%s/first-ranks/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(name))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1128,13 +1047,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_intervention_dictionary(self, name):
+    def describe_first_rank(self, app_group_identity, app_id, name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_intervention_dictionary_with_options(name, headers, runtime)
+        return self.describe_first_rank_with_options(app_group_identity, app_id, name, headers, runtime)
 
     def describe_intervention_dictionary_with_options(self, name, headers, runtime):
-        name = OpenApiUtilClient.get_encode_param(name)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1142,7 +1060,7 @@ class Client(OpenApiClient):
             action='DescribeInterventionDictionary',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/intervention-dictionaries/%s' % TeaConverter.to_unicode(name),
+            pathname='/v4/openapi/intervention-dictionaries/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(name)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1154,42 +1072,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_model(self, app_group_identity, model_name):
+    def describe_intervention_dictionary(self, name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_model_with_options(app_group_identity, model_name, headers, runtime)
-
-    def describe_model_with_options(self, app_group_identity, model_name, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        model_name = OpenApiUtilClient.get_encode_param(model_name)
-        req = open_api_models.OpenApiRequest(
-            headers=headers
-        )
-        params = open_api_models.Params(
-            action='DescribeModel',
-            version='2017-12-25',
-            protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/algorithm/models/%s' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(model_name)),
-            method='GET',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            open_search_20171225_models.DescribeModelResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def describe_query_processor(self, app_group_identity, app_id, name):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.describe_query_processor_with_options(app_group_identity, app_id, name, headers, runtime)
+        return self.describe_intervention_dictionary_with_options(name, headers, runtime)
 
     def describe_query_processor_with_options(self, app_group_identity, app_id, name, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        app_id = OpenApiUtilClient.get_encode_param(app_id)
-        name = OpenApiUtilClient.get_encode_param(name)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1197,7 +1085,7 @@ class Client(OpenApiClient):
             action='DescribeQueryProcessor',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/apps/%s/query-processors/%s' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(app_id), TeaConverter.to_unicode(name)),
+            pathname='/v4/openapi/app-groups/%s/apps/%s/query-processors/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(name))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1209,10 +1097,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_region(self):
+    def describe_query_processor(self, app_group_identity, app_id, name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_region_with_options(headers, runtime)
+        return self.describe_query_processor_with_options(app_group_identity, app_id, name, headers, runtime)
 
     def describe_region_with_options(self, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1234,10 +1122,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_regions(self):
+    def describe_region(self):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_regions_with_options(headers, runtime)
+        return self.describe_region_with_options(headers, runtime)
 
     def describe_regions_with_options(self, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1259,14 +1147,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_scheduled_task(self, app_group_identity, task_id):
+    def describe_regions(self):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_scheduled_task_with_options(app_group_identity, task_id, headers, runtime)
+        return self.describe_regions_with_options(headers, runtime)
 
     def describe_scheduled_task_with_options(self, app_group_identity, task_id, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        task_id = OpenApiUtilClient.get_encode_param(task_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1274,7 +1160,7 @@ class Client(OpenApiClient):
             action='DescribeScheduledTask',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/scheduled-tasks/%s' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(task_id)),
+            pathname='/v4/openapi/app-groups/%s/scheduled-tasks/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(task_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1286,15 +1172,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_second_rank(self, app_group_identity, app_id, name):
+    def describe_scheduled_task(self, app_group_identity, task_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_second_rank_with_options(app_group_identity, app_id, name, headers, runtime)
+        return self.describe_scheduled_task_with_options(app_group_identity, task_id, headers, runtime)
 
     def describe_second_rank_with_options(self, app_group_identity, app_id, name, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        app_id = OpenApiUtilClient.get_encode_param(app_id)
-        name = OpenApiUtilClient.get_encode_param(name)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1302,7 +1185,7 @@ class Client(OpenApiClient):
             action='DescribeSecondRank',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/apps/%s/second-ranks/%s' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(app_id), TeaConverter.to_unicode(name)),
+            pathname='/v4/openapi/app-groups/%s/apps/%s/second-ranks/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(name))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1314,13 +1197,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_slow_query_status(self, app_group_identity):
+    def describe_second_rank(self, app_group_identity, app_id, name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_slow_query_status_with_options(app_group_identity, headers, runtime)
+        return self.describe_second_rank_with_options(app_group_identity, app_id, name, headers, runtime)
 
     def describe_slow_query_status_with_options(self, app_group_identity, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1328,7 +1210,7 @@ class Client(OpenApiClient):
             action='DescribeSlowQueryStatus',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/optimizers/slow-query' % TeaConverter.to_unicode(app_group_identity),
+            pathname='/v4/openapi/app-groups/%s/optimizers/slow-query' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1340,14 +1222,13 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_user_analyzer(self, name, request):
+    def describe_slow_query_status(self, app_group_identity):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_user_analyzer_with_options(name, request, headers, runtime)
+        return self.describe_slow_query_status_with_options(app_group_identity, headers, runtime)
 
     def describe_user_analyzer_with_options(self, name, request, headers, runtime):
         UtilClient.validate_model(request)
-        name = OpenApiUtilClient.get_encode_param(name)
         query = {}
         if not UtilClient.is_unset(request.with_):
             query['with'] = request.with_
@@ -1359,7 +1240,7 @@ class Client(OpenApiClient):
             action='DescribeUserAnalyzer',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/user-analyzers/%s' % TeaConverter.to_unicode(name),
+            pathname='/v4/openapi/user-analyzers/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(name)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1371,13 +1252,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def disable_slow_query(self, app_group_identity):
+    def describe_user_analyzer(self, name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.disable_slow_query_with_options(app_group_identity, headers, runtime)
+        return self.describe_user_analyzer_with_options(name, request, headers, runtime)
 
     def disable_slow_query_with_options(self, app_group_identity, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1385,7 +1265,7 @@ class Client(OpenApiClient):
             action='DisableSlowQuery',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/optimizers/slow-query/actions/disable' % TeaConverter.to_unicode(app_group_identity),
+            pathname='/v4/openapi/app-groups/%s/optimizers/slow-query/actions/disable' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -1397,13 +1277,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def enable_slow_query(self, app_group_identity):
+    def disable_slow_query(self, app_group_identity):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.enable_slow_query_with_options(app_group_identity, headers, runtime)
+        return self.disable_slow_query_with_options(app_group_identity, headers, runtime)
 
     def enable_slow_query_with_options(self, app_group_identity, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1411,7 +1290,7 @@ class Client(OpenApiClient):
             action='EnableSlowQuery',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/optimizers/slow-query/actions/enable' % TeaConverter.to_unicode(app_group_identity),
+            pathname='/v4/openapi/app-groups/%s/optimizers/slow-query/actions/enable' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -1423,10 +1302,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def generate_merged_table(self, request):
+    def enable_slow_query(self, app_group_identity):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.generate_merged_table_with_options(request, headers, runtime)
+        return self.enable_slow_query_with_options(app_group_identity, headers, runtime)
 
     def generate_merged_table_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1435,7 +1314,8 @@ class Client(OpenApiClient):
             query['spec'] = request.spec
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(request.body)
         )
         params = open_api_models.Params(
             action='GenerateMergedTable',
@@ -1453,14 +1333,13 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_domain(self, domain_name, request):
+    def generate_merged_table(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_domain_with_options(domain_name, request, headers, runtime)
+        return self.generate_merged_table_with_options(request, headers, runtime)
 
     def get_domain_with_options(self, domain_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        domain_name = OpenApiUtilClient.get_encode_param(domain_name)
         query = {}
         if not UtilClient.is_unset(request.app_group_identity):
             query['appGroupIdentity'] = request.app_group_identity
@@ -1472,7 +1351,7 @@ class Client(OpenApiClient):
             action='GetDomain',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/domains/%s' % TeaConverter.to_unicode(domain_name),
+            pathname='/v4/openapi/domains/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(domain_name)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1484,14 +1363,13 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_function_current_version(self, function_name, request):
+    def get_domain(self, domain_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_function_current_version_with_options(function_name, request, headers, runtime)
+        return self.get_domain_with_options(domain_name, request, headers, runtime)
 
     def get_function_current_version_with_options(self, function_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        function_name = OpenApiUtilClient.get_encode_param(function_name)
         query = {}
         if not UtilClient.is_unset(request.category):
             query['category'] = request.category
@@ -1509,7 +1387,7 @@ class Client(OpenApiClient):
             action='GetFunctionCurrentVersion',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/functions/%s/current-version' % TeaConverter.to_unicode(function_name),
+            pathname='/v4/openapi/functions/%s/current-version' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(function_name)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1521,14 +1399,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_function_default_instance(self, app_group_identity, function_name):
+    def get_function_current_version(self, function_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_function_default_instance_with_options(app_group_identity, function_name, headers, runtime)
+        return self.get_function_current_version_with_options(function_name, request, headers, runtime)
 
     def get_function_default_instance_with_options(self, app_group_identity, function_name, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        function_name = OpenApiUtilClient.get_encode_param(function_name)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1536,7 +1412,7 @@ class Client(OpenApiClient):
             action='GetFunctionDefaultInstance',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/functions/%s/default-instance' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(function_name)),
+            pathname='/v4/openapi/app-groups/%s/functions/%s/default-instance' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(function_name))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1548,16 +1424,13 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_function_instance(self, app_group_identity, function_name, instance_name, request):
+    def get_function_default_instance(self, app_group_identity, function_name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_function_instance_with_options(app_group_identity, function_name, instance_name, request, headers, runtime)
+        return self.get_function_default_instance_with_options(app_group_identity, function_name, headers, runtime)
 
     def get_function_instance_with_options(self, app_group_identity, function_name, instance_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        function_name = OpenApiUtilClient.get_encode_param(function_name)
-        instance_name = OpenApiUtilClient.get_encode_param(instance_name)
         query = {}
         if not UtilClient.is_unset(request.output):
             query['output'] = request.output
@@ -1569,7 +1442,7 @@ class Client(OpenApiClient):
             action='GetFunctionInstance',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/functions/%s/instances/%s' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(function_name), TeaConverter.to_unicode(instance_name)),
+            pathname='/v4/openapi/app-groups/%s/functions/%s/instances/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(function_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_name))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1581,16 +1454,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_function_task(self, app_group_identity, function_name, instance_name, generation):
+    def get_function_instance(self, app_group_identity, function_name, instance_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_function_task_with_options(app_group_identity, function_name, instance_name, generation, headers, runtime)
+        return self.get_function_instance_with_options(app_group_identity, function_name, instance_name, request, headers, runtime)
 
     def get_function_task_with_options(self, app_group_identity, function_name, instance_name, generation, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        function_name = OpenApiUtilClient.get_encode_param(function_name)
-        instance_name = OpenApiUtilClient.get_encode_param(instance_name)
-        generation = OpenApiUtilClient.get_encode_param(generation)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1598,7 +1467,7 @@ class Client(OpenApiClient):
             action='GetFunctionTask',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/functions/%s/instances/%s/tasks/%s' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(function_name), TeaConverter.to_unicode(instance_name), TeaConverter.to_unicode(generation)),
+            pathname='/v4/openapi/app-groups/%s/functions/%s/instances/%s/tasks/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(function_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(generation))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1610,14 +1479,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_function_version(self, function_name, version_id):
+    def get_function_task(self, app_group_identity, function_name, instance_name, generation):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_function_version_with_options(function_name, version_id, headers, runtime)
+        return self.get_function_task_with_options(app_group_identity, function_name, instance_name, generation, headers, runtime)
 
     def get_function_version_with_options(self, function_name, version_id, headers, runtime):
-        function_name = OpenApiUtilClient.get_encode_param(function_name)
-        version_id = OpenApiUtilClient.get_encode_param(version_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1625,7 +1492,7 @@ class Client(OpenApiClient):
             action='GetFunctionVersion',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/functions/%s/versions/%s' % (TeaConverter.to_unicode(function_name), TeaConverter.to_unicode(version_id)),
+            pathname='/v4/openapi/functions/%s/versions/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(function_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(version_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1637,41 +1504,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_model_progress(self, app_group_identity, model_name):
+    def get_function_version(self, function_name, version_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_model_progress_with_options(app_group_identity, model_name, headers, runtime)
-
-    def get_model_progress_with_options(self, app_group_identity, model_name, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        model_name = OpenApiUtilClient.get_encode_param(model_name)
-        req = open_api_models.OpenApiRequest(
-            headers=headers
-        )
-        params = open_api_models.Params(
-            action='GetModelProgress',
-            version='2017-12-25',
-            protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/algorithm/models/%s/progress' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(model_name)),
-            method='GET',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            open_search_20171225_models.GetModelProgressResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def get_model_report(self, app_group_identity, model_name):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.get_model_report_with_options(app_group_identity, model_name, headers, runtime)
+        return self.get_function_version_with_options(function_name, version_id, headers, runtime)
 
     def get_model_report_with_options(self, app_group_identity, model_name, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        model_name = OpenApiUtilClient.get_encode_param(model_name)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1679,7 +1517,7 @@ class Client(OpenApiClient):
             action='GetModelReport',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/algorithm/models/%s/report' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(model_name)),
+            pathname='/v4/openapi/app-groups/%s/algorithm/models/%s/report' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(model_name))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1691,15 +1529,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_script_file_names(self, app_group_identity, app_version_id, script_name):
+    def get_model_report(self, app_group_identity, model_name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_script_file_names_with_options(app_group_identity, app_version_id, script_name, headers, runtime)
+        return self.get_model_report_with_options(app_group_identity, model_name, headers, runtime)
 
     def get_script_file_names_with_options(self, app_group_identity, app_version_id, script_name, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        app_version_id = OpenApiUtilClient.get_encode_param(app_version_id)
-        script_name = OpenApiUtilClient.get_encode_param(script_name)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1707,7 +1542,7 @@ class Client(OpenApiClient):
             action='GetScriptFileNames',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/apps/%s/sort-scripts/%s/file-names' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(app_version_id), TeaConverter.to_unicode(script_name)),
+            pathname='/v4/openapi/app-groups/%s/apps/%s/sort-scripts/%s/file-names' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_version_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(script_name))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1719,15 +1554,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_search_strategy(self, app_group_identity, app_id, strategy_name):
+    def get_script_file_names(self, app_group_identity, app_version_id, script_name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_search_strategy_with_options(app_group_identity, app_id, strategy_name, headers, runtime)
+        return self.get_script_file_names_with_options(app_group_identity, app_version_id, script_name, headers, runtime)
 
     def get_search_strategy_with_options(self, app_group_identity, app_id, strategy_name, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        app_id = OpenApiUtilClient.get_encode_param(app_id)
-        strategy_name = OpenApiUtilClient.get_encode_param(strategy_name)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1735,7 +1567,7 @@ class Client(OpenApiClient):
             action='GetSearchStrategy',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/apps/%s/search-strategies/%s' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(app_id), TeaConverter.to_unicode(strategy_name)),
+            pathname='/v4/openapi/app-groups/%s/apps/%s/search-strategies/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(strategy_name))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1747,15 +1579,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_sort_script(self, app_group_identity, script_name, app_version_id):
+    def get_search_strategy(self, app_group_identity, app_id, strategy_name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_sort_script_with_options(app_group_identity, script_name, app_version_id, headers, runtime)
+        return self.get_search_strategy_with_options(app_group_identity, app_id, strategy_name, headers, runtime)
 
     def get_sort_script_with_options(self, app_group_identity, script_name, app_version_id, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        script_name = OpenApiUtilClient.get_encode_param(script_name)
-        app_version_id = OpenApiUtilClient.get_encode_param(app_version_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1763,7 +1592,7 @@ class Client(OpenApiClient):
             action='GetSortScript',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/apps/%s/sort-scripts/%s' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(app_version_id), TeaConverter.to_unicode(script_name)),
+            pathname='/v4/openapi/app-groups/%s/apps/%s/sort-scripts/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_version_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(script_name))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1775,16 +1604,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_sort_script_file(self, app_group_identity, script_name, app_version_id, file_name):
+    def get_sort_script(self, app_group_identity, script_name, app_version_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_sort_script_file_with_options(app_group_identity, script_name, app_version_id, file_name, headers, runtime)
+        return self.get_sort_script_with_options(app_group_identity, script_name, app_version_id, headers, runtime)
 
     def get_sort_script_file_with_options(self, app_group_identity, script_name, app_version_id, file_name, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        script_name = OpenApiUtilClient.get_encode_param(script_name)
-        app_version_id = OpenApiUtilClient.get_encode_param(app_version_id)
-        file_name = OpenApiUtilClient.get_encode_param(file_name)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1792,7 +1617,7 @@ class Client(OpenApiClient):
             action='GetSortScriptFile',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/apps/%s/sort-scripts/%s/files/src/%s' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(app_version_id), TeaConverter.to_unicode(script_name), TeaConverter.to_unicode(file_name)),
+            pathname='/v4/openapi/app-groups/%s/apps/%s/sort-scripts/%s/files/src/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_version_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(script_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(file_name))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1804,77 +1629,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_validation_error(self, app_group_identity, request):
+    def get_sort_script_file(self, app_group_identity, script_name, app_version_id, file_name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_validation_error_with_options(app_group_identity, request, headers, runtime)
-
-    def get_validation_error_with_options(self, app_group_identity, request, headers, runtime):
-        UtilClient.validate_model(request)
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        query = {}
-        if not UtilClient.is_unset(request.error_code):
-            query['errorCode'] = request.error_code
-        req = open_api_models.OpenApiRequest(
-            headers=headers,
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='GetValidationError',
-            version='2017-12-25',
-            protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/algorithm/data/validation-error' % TeaConverter.to_unicode(app_group_identity),
-            method='GET',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            open_search_20171225_models.GetValidationErrorResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def get_validation_report(self, app_group_identity, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.get_validation_report_with_options(app_group_identity, request, headers, runtime)
-
-    def get_validation_report_with_options(self, app_group_identity, request, headers, runtime):
-        UtilClient.validate_model(request)
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        query = {}
-        if not UtilClient.is_unset(request.type):
-            query['type'] = request.type
-        req = open_api_models.OpenApiRequest(
-            headers=headers,
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='GetValidationReport',
-            version='2017-12-25',
-            protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/algorithm/data/validation-report' % TeaConverter.to_unicode(app_group_identity),
-            method='GET',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            open_search_20171225_models.GetValidationReportResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def list_abtest_experiments(self, app_group_identity, scene_id, group_id):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.list_abtest_experiments_with_options(app_group_identity, scene_id, group_id, headers, runtime)
+        return self.get_sort_script_file_with_options(app_group_identity, script_name, app_version_id, file_name, headers, runtime)
 
     def list_abtest_experiments_with_options(self, app_group_identity, scene_id, group_id, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        scene_id = OpenApiUtilClient.get_encode_param(scene_id)
-        group_id = OpenApiUtilClient.get_encode_param(group_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1882,7 +1642,7 @@ class Client(OpenApiClient):
             action='ListABTestExperiments',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/scenes/%s/groups/%s/experiments' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(scene_id), TeaConverter.to_unicode(group_id)),
+            pathname='/v4/openapi/app-groups/%s/scenes/%s/groups/%s/experiments' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(scene_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(group_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1894,16 +1654,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_abtest_fixed_flow_dividers(self, app_group_identity, scene_id, group_id, experiment_id):
+    def list_abtest_experiments(self, app_group_identity, scene_id, group_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_abtest_fixed_flow_dividers_with_options(app_group_identity, scene_id, group_id, experiment_id, headers, runtime)
+        return self.list_abtest_experiments_with_options(app_group_identity, scene_id, group_id, headers, runtime)
 
     def list_abtest_fixed_flow_dividers_with_options(self, app_group_identity, scene_id, group_id, experiment_id, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        scene_id = OpenApiUtilClient.get_encode_param(scene_id)
-        group_id = OpenApiUtilClient.get_encode_param(group_id)
-        experiment_id = OpenApiUtilClient.get_encode_param(experiment_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1911,7 +1667,7 @@ class Client(OpenApiClient):
             action='ListABTestFixedFlowDividers',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/scenes/%s/groups/%s/experiments/%s/fixed-flow-dividers' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(scene_id), TeaConverter.to_unicode(group_id), TeaConverter.to_unicode(experiment_id)),
+            pathname='/v4/openapi/app-groups/%s/scenes/%s/groups/%s/experiments/%s/fixed-flow-dividers' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(scene_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(group_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(experiment_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1923,14 +1679,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_abtest_groups(self, app_group_identity, scene_id):
+    def list_abtest_fixed_flow_dividers(self, app_group_identity, scene_id, group_id, experiment_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_abtest_groups_with_options(app_group_identity, scene_id, headers, runtime)
+        return self.list_abtest_fixed_flow_dividers_with_options(app_group_identity, scene_id, group_id, experiment_id, headers, runtime)
 
     def list_abtest_groups_with_options(self, app_group_identity, scene_id, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        scene_id = OpenApiUtilClient.get_encode_param(scene_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1938,7 +1692,7 @@ class Client(OpenApiClient):
             action='ListABTestGroups',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/scenes/%s/groups' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(scene_id)),
+            pathname='/v4/openapi/app-groups/%s/scenes/%s/groups' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(scene_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -1950,41 +1704,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_abtest_metrics(self, app_group_identity, scene_id, group_id):
+    def list_abtest_groups(self, app_group_identity, scene_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_abtest_metrics_with_options(app_group_identity, scene_id, group_id, headers, runtime)
-
-    def list_abtest_metrics_with_options(self, app_group_identity, scene_id, group_id, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        scene_id = OpenApiUtilClient.get_encode_param(scene_id)
-        group_id = OpenApiUtilClient.get_encode_param(group_id)
-        req = open_api_models.OpenApiRequest(
-            headers=headers
-        )
-        params = open_api_models.Params(
-            action='ListABTestMetrics',
-            version='2017-12-25',
-            protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/scenes/%s/groups/%s/metrics' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(scene_id), TeaConverter.to_unicode(group_id)),
-            method='GET',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            open_search_20171225_models.ListABTestMetricsResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def list_abtest_scenes(self, app_group_identity):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.list_abtest_scenes_with_options(app_group_identity, headers, runtime)
+        return self.list_abtest_groups_with_options(app_group_identity, scene_id, headers, runtime)
 
     def list_abtest_scenes_with_options(self, app_group_identity, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -1992,7 +1717,7 @@ class Client(OpenApiClient):
             action='ListABTestScenes',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/scenes' % TeaConverter.to_unicode(app_group_identity),
+            pathname='/v4/openapi/app-groups/%s/scenes' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -2004,89 +1729,32 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_app_group_errors(self, app_group_identity, request):
+    def list_abtest_scenes(self, app_group_identity):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_app_group_errors_with_options(app_group_identity, request, headers, runtime)
+        return self.list_abtest_scenes_with_options(app_group_identity, headers, runtime)
 
-    def list_app_group_errors_with_options(self, app_group_identity, request, headers, runtime):
-        UtilClient.validate_model(request)
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        query = {}
-        if not UtilClient.is_unset(request.app_id):
-            query['appId'] = request.app_id
-        if not UtilClient.is_unset(request.page_number):
-            query['pageNumber'] = request.page_number
-        if not UtilClient.is_unset(request.page_size):
-            query['pageSize'] = request.page_size
-        if not UtilClient.is_unset(request.start_time):
-            query['startTime'] = request.start_time
-        if not UtilClient.is_unset(request.stop_time):
-            query['stopTime'] = request.stop_time
-        req = open_api_models.OpenApiRequest(
-            headers=headers,
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='ListAppGroupErrors',
-            version='2017-12-25',
-            protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/errors' % TeaConverter.to_unicode(app_group_identity),
-            method='GET',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            open_search_20171225_models.ListAppGroupErrorsResponse(),
-            self.call_api(params, req, runtime)
-        )
+    def list_app_groups_with_options(self, tmp_req, headers, runtime):
+        """
+        This operation allows you to query applications by application name, instance ID, and application type.
+        *   This operation can sort the applications based on their creation time.
+        *   This operation supports the parameters for paging.
+        
 
-    def list_app_group_metrics(self, app_group_identity, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.list_app_group_metrics_with_options(app_group_identity, request, headers, runtime)
+        @param tmp_req: ListAppGroupsRequest
 
-    def list_app_group_metrics_with_options(self, app_group_identity, request, headers, runtime):
-        UtilClient.validate_model(request)
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        query = {}
-        if not UtilClient.is_unset(request.end_time):
-            query['endTime'] = request.end_time
-        if not UtilClient.is_unset(request.indexes):
-            query['indexes'] = request.indexes
-        if not UtilClient.is_unset(request.metric_type):
-            query['metricType'] = request.metric_type
-        if not UtilClient.is_unset(request.start_time):
-            query['startTime'] = request.start_time
-        req = open_api_models.OpenApiRequest(
-            headers=headers,
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='ListAppGroupMetrics',
-            version='2017-12-25',
-            protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/metrics' % TeaConverter.to_unicode(app_group_identity),
-            method='GET',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            open_search_20171225_models.ListAppGroupMetricsResponse(),
-            self.call_api(params, req, runtime)
-        )
+        @type headers: dict
+        @param headers: map
 
-    def list_app_groups(self, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.list_app_groups_with_options(request, headers, runtime)
+        @param runtime: runtime options for this request RuntimeOptions
 
-    def list_app_groups_with_options(self, request, headers, runtime):
-        UtilClient.validate_model(request)
+        @return: ListAppGroupsResponse
+        """
+        UtilClient.validate_model(tmp_req)
+        request = open_search_20171225_models.ListAppGroupsShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.tags):
+            request.tags_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.tags, 'tags', 'json')
         query = {}
         if not UtilClient.is_unset(request.instance_id):
             query['instanceId'] = request.instance_id
@@ -2100,6 +1768,8 @@ class Client(OpenApiClient):
             query['resourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.sort_by):
             query['sortBy'] = request.sort_by
+        if not UtilClient.is_unset(request.tags_shrink):
+            query['tags'] = request.tags_shrink
         if not UtilClient.is_unset(request.type):
             query['type'] = request.type
         req = open_api_models.OpenApiRequest(
@@ -2122,10 +1792,20 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_apps(self, request):
+    def list_app_groups(self, request):
+        """
+        This operation allows you to query applications by application name, instance ID, and application type.
+        *   This operation can sort the applications based on their creation time.
+        *   This operation supports the parameters for paging.
+        
+
+        @param request: ListAppGroupsRequest
+
+        @return: ListAppGroupsResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_apps_with_options(request, headers, runtime)
+        return self.list_app_groups_with_options(request, headers, runtime)
 
     def list_apps_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2156,14 +1836,13 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_data_collections(self, app_group_identity, request):
+    def list_apps(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_data_collections_with_options(app_group_identity, request, headers, runtime)
+        return self.list_apps_with_options(request, headers, runtime)
 
     def list_data_collections_with_options(self, app_group_identity, request, headers, runtime):
         UtilClient.validate_model(request)
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
         query = {}
         if not UtilClient.is_unset(request.page_number):
             query['pageNumber'] = request.page_number
@@ -2177,7 +1856,7 @@ class Client(OpenApiClient):
             action='ListDataCollections',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/data-collections' % TeaConverter.to_unicode(app_group_identity),
+            pathname='/v4/openapi/app-groups/%s/data-collections' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -2189,17 +1868,18 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_data_source_table_fields(self, data_source_type, request):
+    def list_data_collections(self, app_group_identity, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_data_source_table_fields_with_options(data_source_type, request, headers, runtime)
+        return self.list_data_collections_with_options(app_group_identity, request, headers, runtime)
 
     def list_data_source_table_fields_with_options(self, data_source_type, request, headers, runtime):
         UtilClient.validate_model(request)
-        data_source_type = OpenApiUtilClient.get_encode_param(data_source_type)
         query = {}
         if not UtilClient.is_unset(request.params):
             query['params'] = request.params
+        if not UtilClient.is_unset(request.raw_type):
+            query['rawType'] = request.raw_type
         req = open_api_models.OpenApiRequest(
             headers=headers,
             query=OpenApiUtilClient.query(query)
@@ -2208,7 +1888,7 @@ class Client(OpenApiClient):
             action='ListDataSourceTableFields',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/assist/data-sources/%s/fields' % TeaConverter.to_unicode(data_source_type),
+            pathname='/v4/openapi/assist/data-sources/%s/fields' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(data_source_type)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -2220,14 +1900,13 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_data_source_tables(self, data_source_type, request):
+    def list_data_source_table_fields(self, data_source_type, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_data_source_tables_with_options(data_source_type, request, headers, runtime)
+        return self.list_data_source_table_fields_with_options(data_source_type, request, headers, runtime)
 
     def list_data_source_tables_with_options(self, data_source_type, request, headers, runtime):
         UtilClient.validate_model(request)
-        data_source_type = OpenApiUtilClient.get_encode_param(data_source_type)
         query = {}
         if not UtilClient.is_unset(request.params):
             query['params'] = request.params
@@ -2239,7 +1918,7 @@ class Client(OpenApiClient):
             action='ListDataSourceTables',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/assist/data-sources/%s/tables' % TeaConverter.to_unicode(data_source_type),
+            pathname='/v4/openapi/assist/data-sources/%s/tables' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(data_source_type)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -2251,47 +1930,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_deployed_algorithm_models(self, app_group_identity, request):
+    def list_data_source_tables(self, data_source_type, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_deployed_algorithm_models_with_options(app_group_identity, request, headers, runtime)
-
-    def list_deployed_algorithm_models_with_options(self, app_group_identity, request, headers, runtime):
-        UtilClient.validate_model(request)
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        query = {}
-        if not UtilClient.is_unset(request.algorithm_type):
-            query['algorithmType'] = request.algorithm_type
-        if not UtilClient.is_unset(request.in_service_only):
-            query['inServiceOnly'] = request.in_service_only
-        req = open_api_models.OpenApiRequest(
-            headers=headers,
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='ListDeployedAlgorithmModels',
-            version='2017-12-25',
-            protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/deployed-algorithm-models' % TeaConverter.to_unicode(app_group_identity),
-            method='GET',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            open_search_20171225_models.ListDeployedAlgorithmModelsResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def list_first_ranks(self, app_group_identity, app_id):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.list_first_ranks_with_options(app_group_identity, app_id, headers, runtime)
+        return self.list_data_source_tables_with_options(data_source_type, request, headers, runtime)
 
     def list_first_ranks_with_options(self, app_group_identity, app_id, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        app_id = OpenApiUtilClient.get_encode_param(app_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -2299,7 +1943,7 @@ class Client(OpenApiClient):
             action='ListFirstRanks',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/apps/%s/first-ranks' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(app_id)),
+            pathname='/v4/openapi/app-groups/%s/apps/%s/first-ranks' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -2311,15 +1955,13 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_function_instances(self, app_group_identity, function_name, request):
+    def list_first_ranks(self, app_group_identity, app_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_function_instances_with_options(app_group_identity, function_name, request, headers, runtime)
+        return self.list_first_ranks_with_options(app_group_identity, app_id, headers, runtime)
 
     def list_function_instances_with_options(self, app_group_identity, function_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        function_name = OpenApiUtilClient.get_encode_param(function_name)
         query = {}
         if not UtilClient.is_unset(request.function_type):
             query['functionType'] = request.function_type
@@ -2341,7 +1983,7 @@ class Client(OpenApiClient):
             action='ListFunctionInstances',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/functions/%s/instances' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(function_name)),
+            pathname='/v4/openapi/app-groups/%s/functions/%s/instances' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(function_name))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -2353,16 +1995,13 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_function_tasks(self, app_group_identity, function_name, instance_name, request):
+    def list_function_instances(self, app_group_identity, function_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_function_tasks_with_options(app_group_identity, function_name, instance_name, request, headers, runtime)
+        return self.list_function_instances_with_options(app_group_identity, function_name, request, headers, runtime)
 
     def list_function_tasks_with_options(self, app_group_identity, function_name, instance_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        function_name = OpenApiUtilClient.get_encode_param(function_name)
-        instance_name = OpenApiUtilClient.get_encode_param(instance_name)
         query = {}
         if not UtilClient.is_unset(request.end_time):
             query['endTime'] = request.end_time
@@ -2382,7 +2021,7 @@ class Client(OpenApiClient):
             action='ListFunctionTasks',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/functions/%s/instances/%s/tasks' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(function_name), TeaConverter.to_unicode(instance_name)),
+            pathname='/v4/openapi/app-groups/%s/functions/%s/instances/%s/tasks' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(function_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_name))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -2394,10 +2033,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_intervention_dictionaries(self, request):
+    def list_function_tasks(self, app_group_identity, function_name, instance_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_intervention_dictionaries_with_options(request, headers, runtime)
+        return self.list_function_tasks_with_options(app_group_identity, function_name, instance_name, request, headers, runtime)
 
     def list_intervention_dictionaries_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2428,14 +2067,13 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_intervention_dictionary_entries(self, name, request):
+    def list_intervention_dictionaries(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_intervention_dictionary_entries_with_options(name, request, headers, runtime)
+        return self.list_intervention_dictionaries_with_options(request, headers, runtime)
 
     def list_intervention_dictionary_entries_with_options(self, name, request, headers, runtime):
         UtilClient.validate_model(request)
-        name = OpenApiUtilClient.get_encode_param(name)
         query = {}
         if not UtilClient.is_unset(request.page_number):
             query['pageNumber'] = request.page_number
@@ -2451,7 +2089,7 @@ class Client(OpenApiClient):
             action='ListInterventionDictionaryEntries',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/intervention-dictionaries/%s/entries' % TeaConverter.to_unicode(name),
+            pathname='/v4/openapi/intervention-dictionaries/%s/entries' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(name)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -2463,14 +2101,13 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_intervention_dictionary_ner_results(self, name, request):
+    def list_intervention_dictionary_entries(self, name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_intervention_dictionary_ner_results_with_options(name, request, headers, runtime)
+        return self.list_intervention_dictionary_entries_with_options(name, request, headers, runtime)
 
     def list_intervention_dictionary_ner_results_with_options(self, name, request, headers, runtime):
         UtilClient.validate_model(request)
-        name = OpenApiUtilClient.get_encode_param(name)
         query = {}
         if not UtilClient.is_unset(request.query):
             query['query'] = request.query
@@ -2482,7 +2119,7 @@ class Client(OpenApiClient):
             action='ListInterventionDictionaryNerResults',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/intervention-dictionaries/%s/ner-results' % TeaConverter.to_unicode(name),
+            pathname='/v4/openapi/intervention-dictionaries/%s/ner-results' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(name)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -2494,13 +2131,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_intervention_dictionary_related_entities(self, name):
+    def list_intervention_dictionary_ner_results(self, name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_intervention_dictionary_related_entities_with_options(name, headers, runtime)
+        return self.list_intervention_dictionary_ner_results_with_options(name, request, headers, runtime)
 
     def list_intervention_dictionary_related_entities_with_options(self, name, headers, runtime):
-        name = OpenApiUtilClient.get_encode_param(name)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -2508,7 +2144,7 @@ class Client(OpenApiClient):
             action='ListInterventionDictionaryRelatedEntities',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/intervention-dictionaries/%s/related' % TeaConverter.to_unicode(name),
+            pathname='/v4/openapi/intervention-dictionaries/%s/related' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(name)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -2520,14 +2156,13 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_models(self, app_group_identity, request):
+    def list_intervention_dictionary_related_entities(self, name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_models_with_options(app_group_identity, request, headers, runtime)
+        return self.list_intervention_dictionary_related_entities_with_options(name, headers, runtime)
 
     def list_models_with_options(self, app_group_identity, request, headers, runtime):
         UtilClient.validate_model(request)
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
         query = {}
         if not UtilClient.is_unset(request.page_number):
             query['pageNumber'] = request.page_number
@@ -2543,7 +2178,7 @@ class Client(OpenApiClient):
             action='ListModels',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/algorithm/models' % TeaConverter.to_unicode(app_group_identity),
+            pathname='/v4/openapi/app-groups/%s/algorithm/models' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -2555,14 +2190,13 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_proceedings(self, app_group_identity, request):
+    def list_models(self, app_group_identity, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_proceedings_with_options(app_group_identity, request, headers, runtime)
+        return self.list_models_with_options(app_group_identity, request, headers, runtime)
 
     def list_proceedings_with_options(self, app_group_identity, request, headers, runtime):
         UtilClient.validate_model(request)
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
         query = {}
         if not UtilClient.is_unset(request.filter_finished):
             query['filterFinished'] = request.filter_finished
@@ -2574,7 +2208,7 @@ class Client(OpenApiClient):
             action='ListProceedings',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/proceedings' % TeaConverter.to_unicode(app_group_identity),
+            pathname='/v4/openapi/app-groups/%s/proceedings' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -2586,16 +2220,13 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_query_processor_analyzer_results(self, app_group_identity, app_id, name, request):
+    def list_proceedings(self, app_group_identity, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_query_processor_analyzer_results_with_options(app_group_identity, app_id, name, request, headers, runtime)
+        return self.list_proceedings_with_options(app_group_identity, request, headers, runtime)
 
     def list_query_processor_analyzer_results_with_options(self, app_group_identity, app_id, name, request, headers, runtime):
         UtilClient.validate_model(request)
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        app_id = OpenApiUtilClient.get_encode_param(app_id)
-        name = OpenApiUtilClient.get_encode_param(name)
         query = {}
         if not UtilClient.is_unset(request.text):
             query['text'] = request.text
@@ -2607,7 +2238,7 @@ class Client(OpenApiClient):
             action='ListQueryProcessorAnalyzerResults',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/apps/%s/query-processors/%s/analyze' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(app_id), TeaConverter.to_unicode(name)),
+            pathname='/v4/openapi/app-groups/%s/apps/%s/query-processors/%s/analyze' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(name))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -2619,10 +2250,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_query_processor_ners(self, request):
+    def list_query_processor_analyzer_results(self, app_group_identity, app_id, name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_query_processor_ners_with_options(request, headers, runtime)
+        return self.list_query_processor_analyzer_results_with_options(app_group_identity, app_id, name, request, headers, runtime)
 
     def list_query_processor_ners_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2649,15 +2280,13 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_query_processors(self, app_group_identity, app_id, request):
+    def list_query_processor_ners(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_query_processors_with_options(app_group_identity, app_id, request, headers, runtime)
+        return self.list_query_processor_ners_with_options(request, headers, runtime)
 
     def list_query_processors_with_options(self, app_group_identity, app_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        app_id = OpenApiUtilClient.get_encode_param(app_id)
         query = {}
         if not UtilClient.is_unset(request.is_active):
             query['isActive'] = request.is_active
@@ -2669,7 +2298,7 @@ class Client(OpenApiClient):
             action='ListQueryProcessors',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/apps/%s/query-processors' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(app_id)),
+            pathname='/v4/openapi/app-groups/%s/apps/%s/query-processors' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -2681,14 +2310,13 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_quota_review_tasks(self, app_group_identity, request):
+    def list_query_processors(self, app_group_identity, app_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_quota_review_tasks_with_options(app_group_identity, request, headers, runtime)
+        return self.list_query_processors_with_options(app_group_identity, app_id, request, headers, runtime)
 
     def list_quota_review_tasks_with_options(self, app_group_identity, request, headers, runtime):
         UtilClient.validate_model(request)
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
         query = {}
         if not UtilClient.is_unset(request.page_number):
             query['pageNumber'] = request.page_number
@@ -2702,7 +2330,7 @@ class Client(OpenApiClient):
             action='ListQuotaReviewTasks',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/quota-review-tasks' % TeaConverter.to_unicode(app_group_identity),
+            pathname='/v4/openapi/app-groups/%s/quota-review-tasks' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -2714,39 +2342,13 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_ram_roles(self):
+    def list_quota_review_tasks(self, app_group_identity, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_ram_roles_with_options(headers, runtime)
-
-    def list_ram_roles_with_options(self, headers, runtime):
-        req = open_api_models.OpenApiRequest(
-            headers=headers
-        )
-        params = open_api_models.Params(
-            action='ListRamRoles',
-            version='2017-12-25',
-            protocol='HTTPS',
-            pathname='/v4/openapi/assist/ram/roles',
-            method='GET',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            open_search_20171225_models.ListRamRolesResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def list_scheduled_tasks(self, app_group_identity, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.list_scheduled_tasks_with_options(app_group_identity, request, headers, runtime)
+        return self.list_quota_review_tasks_with_options(app_group_identity, request, headers, runtime)
 
     def list_scheduled_tasks_with_options(self, app_group_identity, request, headers, runtime):
         UtilClient.validate_model(request)
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
         query = {}
         if not UtilClient.is_unset(request.page_number):
             query['pageNumber'] = request.page_number
@@ -2762,7 +2364,7 @@ class Client(OpenApiClient):
             action='ListScheduledTasks',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/scheduled-tasks' % TeaConverter.to_unicode(app_group_identity),
+            pathname='/v4/openapi/app-groups/%s/scheduled-tasks' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -2774,14 +2376,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_search_strategies(self, app_group_identity, app_id):
+    def list_scheduled_tasks(self, app_group_identity, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_search_strategies_with_options(app_group_identity, app_id, headers, runtime)
+        return self.list_scheduled_tasks_with_options(app_group_identity, request, headers, runtime)
 
     def list_search_strategies_with_options(self, app_group_identity, app_id, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        app_id = OpenApiUtilClient.get_encode_param(app_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -2789,7 +2389,7 @@ class Client(OpenApiClient):
             action='ListSearchStrategies',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/apps/%s/search-strategies' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(app_id)),
+            pathname='/v4/openapi/app-groups/%s/apps/%s/search-strategies' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -2801,14 +2401,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_second_ranks(self, app_group_identity, app_id):
+    def list_search_strategies(self, app_group_identity, app_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_second_ranks_with_options(app_group_identity, app_id, headers, runtime)
+        return self.list_search_strategies_with_options(app_group_identity, app_id, headers, runtime)
 
     def list_second_ranks_with_options(self, app_group_identity, app_id, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        app_id = OpenApiUtilClient.get_encode_param(app_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -2816,7 +2414,7 @@ class Client(OpenApiClient):
             action='ListSecondRanks',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/apps/%s/second-ranks' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(app_id)),
+            pathname='/v4/openapi/app-groups/%s/apps/%s/second-ranks' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -2828,13 +2426,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_slow_query_categories(self, app_group_identity):
+    def list_second_ranks(self, app_group_identity, app_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_slow_query_categories_with_options(app_group_identity, headers, runtime)
+        return self.list_second_ranks_with_options(app_group_identity, app_id, headers, runtime)
 
     def list_slow_query_categories_with_options(self, app_group_identity, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -2842,7 +2439,7 @@ class Client(OpenApiClient):
             action='ListSlowQueryCategories',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/optimizers/slow-query/categories' % TeaConverter.to_unicode(app_group_identity),
+            pathname='/v4/openapi/app-groups/%s/optimizers/slow-query/categories' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -2854,14 +2451,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_slow_query_queries(self, app_group_identity, category_index):
+    def list_slow_query_categories(self, app_group_identity):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_slow_query_queries_with_options(app_group_identity, category_index, headers, runtime)
+        return self.list_slow_query_categories_with_options(app_group_identity, headers, runtime)
 
     def list_slow_query_queries_with_options(self, app_group_identity, category_index, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        category_index = OpenApiUtilClient.get_encode_param(category_index)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -2869,7 +2464,7 @@ class Client(OpenApiClient):
             action='ListSlowQueryQueries',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/optimizers/slow-query/categories/%s/queries' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(category_index)),
+            pathname='/v4/openapi/app-groups/%s/optimizers/slow-query/categories/%s/queries' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(category_index))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -2881,14 +2476,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_sort_expressions(self, app_group_identity, app_id):
+    def list_slow_query_queries(self, app_group_identity, category_index):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_sort_expressions_with_options(app_group_identity, app_id, headers, runtime)
+        return self.list_slow_query_queries_with_options(app_group_identity, category_index, headers, runtime)
 
     def list_sort_expressions_with_options(self, app_group_identity, app_id, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        app_id = OpenApiUtilClient.get_encode_param(app_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -2896,7 +2489,7 @@ class Client(OpenApiClient):
             action='ListSortExpressions',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/apps/%s/sort-expressions' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(app_id)),
+            pathname='/v4/openapi/app-groups/%s/apps/%s/sort-expressions' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -2908,14 +2501,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_sort_scripts(self, app_group_identity, app_version_id):
+    def list_sort_expressions(self, app_group_identity, app_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_sort_scripts_with_options(app_group_identity, app_version_id, headers, runtime)
+        return self.list_sort_expressions_with_options(app_group_identity, app_id, headers, runtime)
 
     def list_sort_scripts_with_options(self, app_group_identity, app_version_id, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        app_version_id = OpenApiUtilClient.get_encode_param(app_version_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -2923,7 +2514,7 @@ class Client(OpenApiClient):
             action='ListSortScripts',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/apps/%s/sort-scripts' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(app_version_id)),
+            pathname='/v4/openapi/app-groups/%s/apps/%s/sort-scripts' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_version_id))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -2935,15 +2526,13 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_statistic_logs(self, app_group_identity, module_name, request):
+    def list_sort_scripts(self, app_group_identity, app_version_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_statistic_logs_with_options(app_group_identity, module_name, request, headers, runtime)
+        return self.list_sort_scripts_with_options(app_group_identity, app_version_id, headers, runtime)
 
     def list_statistic_logs_with_options(self, app_group_identity, module_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        module_name = OpenApiUtilClient.get_encode_param(module_name)
         query = {}
         if not UtilClient.is_unset(request.columns):
             query['columns'] = request.columns
@@ -2969,7 +2558,7 @@ class Client(OpenApiClient):
             action='ListStatisticLogs',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/statistic-logs/%s' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(module_name)),
+            pathname='/v4/openapi/app-groups/%s/statistic-logs/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(module_name))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -2981,15 +2570,13 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_statistic_report(self, app_group_identity, module_name, request):
+    def list_statistic_logs(self, app_group_identity, module_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_statistic_report_with_options(app_group_identity, module_name, request, headers, runtime)
+        return self.list_statistic_logs_with_options(app_group_identity, module_name, request, headers, runtime)
 
     def list_statistic_report_with_options(self, app_group_identity, module_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        module_name = OpenApiUtilClient.get_encode_param(module_name)
         query = {}
         if not UtilClient.is_unset(request.columns):
             query['columns'] = request.columns
@@ -3011,7 +2598,7 @@ class Client(OpenApiClient):
             action='ListStatisticReport',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/statistic-report/%s' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(module_name)),
+            pathname='/v4/openapi/app-groups/%s/statistic-report/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(module_name))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -3023,14 +2610,55 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_user_analyzer_entries(self, name, request):
+    def list_statistic_report(self, app_group_identity, module_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_user_analyzer_entries_with_options(name, request, headers, runtime)
+        return self.list_statistic_report_with_options(app_group_identity, module_name, request, headers, runtime)
+
+    def list_tag_resources_with_options(self, tmp_req, headers, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = open_search_20171225_models.ListTagResourcesShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.resource_id):
+            request.resource_id_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.resource_id, 'resourceId', 'json')
+        if not UtilClient.is_unset(tmp_req.tag):
+            request.tag_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.tag, 'tag', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.next_token):
+            query['nextToken'] = request.next_token
+        if not UtilClient.is_unset(request.resource_id_shrink):
+            query['resourceId'] = request.resource_id_shrink
+        if not UtilClient.is_unset(request.resource_type):
+            query['resourceType'] = request.resource_type
+        if not UtilClient.is_unset(request.tag_shrink):
+            query['tag'] = request.tag_shrink
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListTagResources',
+            version='2017-12-25',
+            protocol='HTTPS',
+            pathname='/v4/openapi/resource-tags',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            open_search_20171225_models.ListTagResourcesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_tag_resources(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_tag_resources_with_options(request, headers, runtime)
 
     def list_user_analyzer_entries_with_options(self, name, request, headers, runtime):
         UtilClient.validate_model(request)
-        name = OpenApiUtilClient.get_encode_param(name)
         query = {}
         if not UtilClient.is_unset(request.page_number):
             query['pageNumber'] = request.page_number
@@ -3046,7 +2674,7 @@ class Client(OpenApiClient):
             action='ListUserAnalyzerEntries',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/user-analyzers/%s/entries' % TeaConverter.to_unicode(name),
+            pathname='/v4/openapi/user-analyzers/%s/entries' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(name)),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -3058,10 +2686,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_user_analyzers(self, request):
+    def list_user_analyzer_entries(self, name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_user_analyzers_with_options(request, headers, runtime)
+        return self.list_user_analyzer_entries_with_options(name, request, headers, runtime)
 
     def list_user_analyzers_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3090,21 +2718,49 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def modify_app_group(self, app_group_identity):
+    def list_user_analyzers(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.modify_app_group_with_options(app_group_identity, headers, runtime)
+        return self.list_user_analyzers_with_options(request, headers, runtime)
 
-    def modify_app_group_with_options(self, app_group_identity, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
+    def modify_app_group_with_options(self, app_group_identity, request, headers, runtime):
+        """
+        ## Debugging
+        [OpenAPI Explorer automatically calculates the signature value. For your convenience, we recommend that you call this operation in OpenAPI Explorer. OpenAPI Explorer dynamically generates the sample code of the operation for different SDKs.](https://api.aliyun.com/#product=OpenSearch\\&api=ModifyAppGroup\\&type=ROA\\&version=2017-12-25)
+        
+
+        @param request: ModifyAppGroupRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyAppGroupResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dry_run):
+            query['dryRun'] = request.dry_run
+        body = {}
+        if not UtilClient.is_unset(request.current_version):
+            body['currentVersion'] = request.current_version
+        if not UtilClient.is_unset(request.description):
+            body['description'] = request.description
+        if not UtilClient.is_unset(request.domain):
+            body['domain'] = request.domain
+        if not UtilClient.is_unset(request.resource_group_id):
+            body['resourceGroupId'] = request.resource_group_id
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='ModifyAppGroup',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s' % TeaConverter.to_unicode(app_group_identity),
+            pathname='/v4/openapi/app-groups/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -3116,21 +2772,35 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def modify_app_group_quota(self, app_group_identity):
+    def modify_app_group(self, app_group_identity, request):
+        """
+        ## Debugging
+        [OpenAPI Explorer automatically calculates the signature value. For your convenience, we recommend that you call this operation in OpenAPI Explorer. OpenAPI Explorer dynamically generates the sample code of the operation for different SDKs.](https://api.aliyun.com/#product=OpenSearch\\&api=ModifyAppGroup\\&type=ROA\\&version=2017-12-25)
+        
+
+        @param request: ModifyAppGroupRequest
+
+        @return: ModifyAppGroupResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.modify_app_group_quota_with_options(app_group_identity, headers, runtime)
+        return self.modify_app_group_with_options(app_group_identity, request, headers, runtime)
 
-    def modify_app_group_quota_with_options(self, app_group_identity, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
+    def modify_app_group_quota_with_options(self, app_group_identity, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dry_run):
+            query['dryRun'] = request.dry_run
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(request.body)
         )
         params = open_api_models.Params(
             action='ModifyAppGroupQuota',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/quota' % TeaConverter.to_unicode(app_group_identity),
+            pathname='/v4/openapi/app-groups/%s/quota' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -3142,28 +2812,26 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def modify_first_rank(self, app_group_identity, app_id, name, request):
+    def modify_app_group_quota(self, app_group_identity, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.modify_first_rank_with_options(app_group_identity, app_id, name, request, headers, runtime)
+        return self.modify_app_group_quota_with_options(app_group_identity, request, headers, runtime)
 
     def modify_first_rank_with_options(self, app_group_identity, app_id, name, request, headers, runtime):
         UtilClient.validate_model(request)
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        app_id = OpenApiUtilClient.get_encode_param(app_id)
-        name = OpenApiUtilClient.get_encode_param(name)
         query = {}
         if not UtilClient.is_unset(request.dry_run):
             query['dryRun'] = request.dry_run
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(request.body)
         )
         params = open_api_models.Params(
             action='ModifyFirstRank',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/apps/%s/first-ranks/%s' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(app_id), TeaConverter.to_unicode(name)),
+            pathname='/v4/openapi/app-groups/%s/apps/%s/first-ranks/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(name))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -3175,55 +2843,26 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def modify_model(self, app_group_identity, model_name):
+    def modify_first_rank(self, app_group_identity, app_id, name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.modify_model_with_options(app_group_identity, model_name, headers, runtime)
-
-    def modify_model_with_options(self, app_group_identity, model_name, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        model_name = OpenApiUtilClient.get_encode_param(model_name)
-        req = open_api_models.OpenApiRequest(
-            headers=headers
-        )
-        params = open_api_models.Params(
-            action='ModifyModel',
-            version='2017-12-25',
-            protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/algorithm/models/%s' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(model_name)),
-            method='PUT',
-            auth_type='AK',
-            style='ROA',
-            req_body_type='json',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            open_search_20171225_models.ModifyModelResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def modify_query_processor(self, app_group_identity, app_id, name, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.modify_query_processor_with_options(app_group_identity, app_id, name, request, headers, runtime)
+        return self.modify_first_rank_with_options(app_group_identity, app_id, name, request, headers, runtime)
 
     def modify_query_processor_with_options(self, app_group_identity, app_id, name, request, headers, runtime):
         UtilClient.validate_model(request)
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        app_id = OpenApiUtilClient.get_encode_param(app_id)
-        name = OpenApiUtilClient.get_encode_param(name)
         query = {}
         if not UtilClient.is_unset(request.dry_run):
             query['dryRun'] = request.dry_run
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='ModifyQueryProcessor',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/apps/%s/query-processors/%s' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(app_id), TeaConverter.to_unicode(name)),
+            pathname='/v4/openapi/app-groups/%s/apps/%s/query-processors/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(name))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -3235,22 +2874,22 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def modify_scheduled_task(self, app_group_identity, task_id):
+    def modify_query_processor(self, app_group_identity, app_id, name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.modify_scheduled_task_with_options(app_group_identity, task_id, headers, runtime)
+        return self.modify_query_processor_with_options(app_group_identity, app_id, name, request, headers, runtime)
 
-    def modify_scheduled_task_with_options(self, app_group_identity, task_id, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        task_id = OpenApiUtilClient.get_encode_param(task_id)
+    def modify_scheduled_task_with_options(self, app_group_identity, task_id, request, headers, runtime):
+        UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            body=request.body
         )
         params = open_api_models.Params(
             action='ModifyScheduledTask',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/scheduled-tasks/%s' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(task_id)),
+            pathname='/v4/openapi/app-groups/%s/scheduled-tasks/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(task_id))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -3262,28 +2901,26 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def modify_second_rank(self, app_group_identity, app_id, name, request):
+    def modify_scheduled_task(self, app_group_identity, task_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.modify_second_rank_with_options(app_group_identity, app_id, name, request, headers, runtime)
+        return self.modify_scheduled_task_with_options(app_group_identity, task_id, request, headers, runtime)
 
     def modify_second_rank_with_options(self, app_group_identity, app_id, name, request, headers, runtime):
         UtilClient.validate_model(request)
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        app_id = OpenApiUtilClient.get_encode_param(app_id)
-        name = OpenApiUtilClient.get_encode_param(name)
         query = {}
         if not UtilClient.is_unset(request.dry_run):
             query['dryRun'] = request.dry_run
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(request.body)
         )
         params = open_api_models.Params(
             action='ModifySecondRank',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/apps/%s/second-ranks/%s' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(app_id), TeaConverter.to_unicode(name)),
+            pathname='/v4/openapi/app-groups/%s/apps/%s/second-ranks/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(name))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -3295,15 +2932,13 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def preview_model(self, app_group_identity, model_name, request):
+    def modify_second_rank(self, app_group_identity, app_id, name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.preview_model_with_options(app_group_identity, model_name, request, headers, runtime)
+        return self.modify_second_rank_with_options(app_group_identity, app_id, name, request, headers, runtime)
 
     def preview_model_with_options(self, app_group_identity, model_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        model_name = OpenApiUtilClient.get_encode_param(model_name)
         query = {}
         if not UtilClient.is_unset(request.query):
             query['query'] = request.query
@@ -3315,7 +2950,7 @@ class Client(OpenApiClient):
             action='PreviewModel',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/algorithm/models/%s/actions/preview' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(model_name)),
+            pathname='/v4/openapi/app-groups/%s/algorithm/models/%s/actions/preview' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(model_name))),
             method='GET',
             auth_type='AK',
             style='ROA',
@@ -3327,21 +2962,26 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def push_intervention_dictionary_entries(self, name):
+    def preview_model(self, app_group_identity, model_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.push_intervention_dictionary_entries_with_options(name, headers, runtime)
+        return self.preview_model_with_options(app_group_identity, model_name, request, headers, runtime)
 
-    def push_intervention_dictionary_entries_with_options(self, name, headers, runtime):
-        name = OpenApiUtilClient.get_encode_param(name)
+    def push_intervention_dictionary_entries_with_options(self, name, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dry_run):
+            query['dryRun'] = request.dry_run
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=UtilClient.to_array(request.body)
         )
         params = open_api_models.Params(
             action='PushInterventionDictionaryEntries',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/intervention-dictionaries/%s/entries/actions/bulk' % TeaConverter.to_unicode(name),
+            pathname='/v4/openapi/intervention-dictionaries/%s/entries/actions/bulk' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(name)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -3353,21 +2993,29 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def push_user_analyzer_entries(self, name):
+    def push_intervention_dictionary_entries(self, name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.push_user_analyzer_entries_with_options(name, headers, runtime)
+        return self.push_intervention_dictionary_entries_with_options(name, request, headers, runtime)
 
-    def push_user_analyzer_entries_with_options(self, name, headers, runtime):
-        name = OpenApiUtilClient.get_encode_param(name)
+    def push_user_analyzer_entries_with_options(self, name, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dry_run):
+            query['dryRun'] = request.dry_run
+        body = {}
+        if not UtilClient.is_unset(request.entries):
+            body['entries'] = request.entries
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='PushUserAnalyzerEntries',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/user-analyzers/%s/entries/actions/bulk' % TeaConverter.to_unicode(name),
+            pathname='/v4/openapi/user-analyzers/%s/entries/actions/bulk' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(name)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -3379,14 +3027,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def rank_preview_query(self, app_group_identity, model_name):
+    def push_user_analyzer_entries(self, name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.rank_preview_query_with_options(app_group_identity, model_name, headers, runtime)
+        return self.push_user_analyzer_entries_with_options(name, request, headers, runtime)
 
     def rank_preview_query_with_options(self, app_group_identity, model_name, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        model_name = OpenApiUtilClient.get_encode_param(model_name)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -3394,7 +3040,7 @@ class Client(OpenApiClient):
             action='RankPreviewQuery',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/algorithm/models/%s/actions/query-rank' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(model_name)),
+            pathname='/v4/openapi/app-groups/%s/algorithm/models/%s/actions/query-rank' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(model_name))),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -3406,15 +3052,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def release_sort_script(self, app_group_identity, script_name, app_version_id):
+    def rank_preview_query(self, app_group_identity, model_name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.release_sort_script_with_options(app_group_identity, script_name, app_version_id, headers, runtime)
+        return self.rank_preview_query_with_options(app_group_identity, model_name, headers, runtime)
 
     def release_sort_script_with_options(self, app_group_identity, script_name, app_version_id, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        script_name = OpenApiUtilClient.get_encode_param(script_name)
-        app_version_id = OpenApiUtilClient.get_encode_param(app_version_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -3422,7 +3065,7 @@ class Client(OpenApiClient):
             action='ReleaseSortScript',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/apps/%s/sort-scripts/%s/actions/release' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(app_version_id), TeaConverter.to_unicode(script_name)),
+            pathname='/v4/openapi/app-groups/%s/apps/%s/sort-scripts/%s/actions/release' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_version_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(script_name))),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -3434,14 +3077,23 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def remove_app(self, app_group_identity, app_id):
+    def release_sort_script(self, app_group_identity, script_name, app_version_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.remove_app_with_options(app_group_identity, app_id, headers, runtime)
+        return self.release_sort_script_with_options(app_group_identity, script_name, app_version_id, headers, runtime)
 
     def remove_app_with_options(self, app_group_identity, app_id, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        app_id = OpenApiUtilClient.get_encode_param(app_id)
+        """
+        > If an application has two versions, you can delete only the offline version.
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RemoveAppResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -3449,7 +3101,7 @@ class Client(OpenApiClient):
             action='RemoveApp',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/apps/%s' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(app_id)),
+            pathname='/v4/openapi/app-groups/%s/apps/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_id))),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -3461,13 +3113,30 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def remove_app_group(self, app_group_identity):
+    def remove_app(self, app_group_identity, app_id):
+        """
+        > If an application has two versions, you can delete only the offline version.
+        
+
+        @return: RemoveAppResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.remove_app_group_with_options(app_group_identity, headers, runtime)
+        return self.remove_app_with_options(app_group_identity, app_id, headers, runtime)
 
     def remove_app_group_with_options(self, app_group_identity, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
+        """
+        ## Debugging
+        [OpenAPI Explorer automatically calculates the signature value. For your convenience, we recommend that you call this operation in OpenAPI Explorer. OpenAPI Explorer dynamically generates the sample code of the operation for different SDKs.](https://api.aliyun.com/#product=OpenSearch\\&api=RemoveAppGroup\\&type=ROA\\&version=2017-12-25)
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RemoveAppGroupResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -3475,7 +3144,7 @@ class Client(OpenApiClient):
             action='RemoveAppGroup',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s' % TeaConverter.to_unicode(app_group_identity),
+            pathname='/v4/openapi/app-groups/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -3487,14 +3156,19 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def remove_data_collection(self, app_group_identity, data_collection_identity):
+    def remove_app_group(self, app_group_identity):
+        """
+        ## Debugging
+        [OpenAPI Explorer automatically calculates the signature value. For your convenience, we recommend that you call this operation in OpenAPI Explorer. OpenAPI Explorer dynamically generates the sample code of the operation for different SDKs.](https://api.aliyun.com/#product=OpenSearch\\&api=RemoveAppGroup\\&type=ROA\\&version=2017-12-25)
+        
+
+        @return: RemoveAppGroupResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.remove_data_collection_with_options(app_group_identity, data_collection_identity, headers, runtime)
+        return self.remove_app_group_with_options(app_group_identity, headers, runtime)
 
     def remove_data_collection_with_options(self, app_group_identity, data_collection_identity, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        data_collection_identity = OpenApiUtilClient.get_encode_param(data_collection_identity)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -3502,7 +3176,7 @@ class Client(OpenApiClient):
             action='RemoveDataCollection',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/data-collections/%s' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(data_collection_identity)),
+            pathname='/v4/openapi/app-groups/%s/data-collections/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(data_collection_identity))),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -3514,15 +3188,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def remove_first_rank(self, app_group_identity, app_id, name):
+    def remove_data_collection(self, app_group_identity, data_collection_identity):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.remove_first_rank_with_options(app_group_identity, app_id, name, headers, runtime)
+        return self.remove_data_collection_with_options(app_group_identity, data_collection_identity, headers, runtime)
 
     def remove_first_rank_with_options(self, app_group_identity, app_id, name, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        app_id = OpenApiUtilClient.get_encode_param(app_id)
-        name = OpenApiUtilClient.get_encode_param(name)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -3530,7 +3201,7 @@ class Client(OpenApiClient):
             action='RemoveFirstRank',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/apps/%s/first-ranks/%s' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(app_id), TeaConverter.to_unicode(name)),
+            pathname='/v4/openapi/app-groups/%s/apps/%s/first-ranks/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(name))),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -3542,13 +3213,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def remove_intervention_dictionary(self, name):
+    def remove_first_rank(self, app_group_identity, app_id, name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.remove_intervention_dictionary_with_options(name, headers, runtime)
+        return self.remove_first_rank_with_options(app_group_identity, app_id, name, headers, runtime)
 
     def remove_intervention_dictionary_with_options(self, name, headers, runtime):
-        name = OpenApiUtilClient.get_encode_param(name)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -3556,7 +3226,7 @@ class Client(OpenApiClient):
             action='RemoveInterventionDictionary',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/intervention-dictionaries/%s' % TeaConverter.to_unicode(name),
+            pathname='/v4/openapi/intervention-dictionaries/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(name)),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -3568,15 +3238,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def remove_query_processor(self, app_group_identity, app_id, name):
+    def remove_intervention_dictionary(self, name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.remove_query_processor_with_options(app_group_identity, app_id, name, headers, runtime)
+        return self.remove_intervention_dictionary_with_options(name, headers, runtime)
 
     def remove_query_processor_with_options(self, app_group_identity, app_id, name, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        app_id = OpenApiUtilClient.get_encode_param(app_id)
-        name = OpenApiUtilClient.get_encode_param(name)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -3584,7 +3251,7 @@ class Client(OpenApiClient):
             action='RemoveQueryProcessor',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/apps/%s/query-processors/%s' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(app_id), TeaConverter.to_unicode(name)),
+            pathname='/v4/openapi/app-groups/%s/apps/%s/query-processors/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(name))),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -3596,14 +3263,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def remove_scheduled_task(self, app_group_identity, task_id):
+    def remove_query_processor(self, app_group_identity, app_id, name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.remove_scheduled_task_with_options(app_group_identity, task_id, headers, runtime)
+        return self.remove_query_processor_with_options(app_group_identity, app_id, name, headers, runtime)
 
     def remove_scheduled_task_with_options(self, app_group_identity, task_id, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        task_id = OpenApiUtilClient.get_encode_param(task_id)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -3611,7 +3276,7 @@ class Client(OpenApiClient):
             action='RemoveScheduledTask',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/scheduled-tasks/%s' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(task_id)),
+            pathname='/v4/openapi/app-groups/%s/scheduled-tasks/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(task_id))),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -3623,15 +3288,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def remove_search_strategy(self, app_group_identity, app_id, strategy_name):
+    def remove_scheduled_task(self, app_group_identity, task_id):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.remove_search_strategy_with_options(app_group_identity, app_id, strategy_name, headers, runtime)
+        return self.remove_scheduled_task_with_options(app_group_identity, task_id, headers, runtime)
 
     def remove_search_strategy_with_options(self, app_group_identity, app_id, strategy_name, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        app_id = OpenApiUtilClient.get_encode_param(app_id)
-        strategy_name = OpenApiUtilClient.get_encode_param(strategy_name)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -3639,7 +3301,7 @@ class Client(OpenApiClient):
             action='RemoveSearchStrategy',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/apps/%s/search-strategies/%s' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(app_id), TeaConverter.to_unicode(strategy_name)),
+            pathname='/v4/openapi/app-groups/%s/apps/%s/search-strategies/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(strategy_name))),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -3651,15 +3313,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def remove_second_rank(self, app_group_identity, app_id, name):
+    def remove_search_strategy(self, app_group_identity, app_id, strategy_name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.remove_second_rank_with_options(app_group_identity, app_id, name, headers, runtime)
+        return self.remove_search_strategy_with_options(app_group_identity, app_id, strategy_name, headers, runtime)
 
     def remove_second_rank_with_options(self, app_group_identity, app_id, name, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        app_id = OpenApiUtilClient.get_encode_param(app_id)
-        name = OpenApiUtilClient.get_encode_param(name)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -3667,7 +3326,7 @@ class Client(OpenApiClient):
             action='RemoveSecondRank',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/apps/%s/second-ranks/%s' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(app_id), TeaConverter.to_unicode(name)),
+            pathname='/v4/openapi/app-groups/%s/apps/%s/second-ranks/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(name))),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -3679,13 +3338,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def remove_user_analyzer(self, name):
+    def remove_second_rank(self, app_group_identity, app_id, name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.remove_user_analyzer_with_options(name, headers, runtime)
+        return self.remove_second_rank_with_options(app_group_identity, app_id, name, headers, runtime)
 
     def remove_user_analyzer_with_options(self, name, headers, runtime):
-        name = OpenApiUtilClient.get_encode_param(name)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -3693,7 +3351,7 @@ class Client(OpenApiClient):
             action='RemoveUserAnalyzer',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/user-analyzers/%s' % TeaConverter.to_unicode(name),
+            pathname='/v4/openapi/user-analyzers/%s' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(name)),
             method='DELETE',
             auth_type='AK',
             style='ROA',
@@ -3705,21 +3363,26 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def renew_app_group(self, app_group_identity):
+    def remove_user_analyzer(self, name):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.renew_app_group_with_options(app_group_identity, headers, runtime)
+        return self.remove_user_analyzer_with_options(name, headers, runtime)
 
-    def renew_app_group_with_options(self, app_group_identity, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
+    def renew_app_group_with_options(self, app_group_identity, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['clientToken'] = request.client_token
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(request.body)
         )
         params = open_api_models.Params(
             action='RenewAppGroup',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/actions/renew' % TeaConverter.to_unicode(app_group_identity),
+            pathname='/v4/openapi/app-groups/%s/actions/renew' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -3731,13 +3394,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def replace_app_group_commodity_code(self, app_group_identity):
+    def renew_app_group(self, app_group_identity, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.replace_app_group_commodity_code_with_options(app_group_identity, headers, runtime)
+        return self.renew_app_group_with_options(app_group_identity, request, headers, runtime)
 
     def replace_app_group_commodity_code_with_options(self, app_group_identity, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -3745,7 +3407,7 @@ class Client(OpenApiClient):
             action='ReplaceAppGroupCommodityCode',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/actions/to-instance-typed' % TeaConverter.to_unicode(app_group_identity),
+            pathname='/v4/openapi/app-groups/%s/actions/to-instance-typed' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -3757,24 +3419,27 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def save_sort_script_file(self, app_group_identity, script_name, app_version_id, file_name):
+    def replace_app_group_commodity_code(self, app_group_identity):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.save_sort_script_file_with_options(app_group_identity, script_name, app_version_id, file_name, headers, runtime)
+        return self.replace_app_group_commodity_code_with_options(app_group_identity, headers, runtime)
 
-    def save_sort_script_file_with_options(self, app_group_identity, script_name, app_version_id, file_name, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        script_name = OpenApiUtilClient.get_encode_param(script_name)
-        app_version_id = OpenApiUtilClient.get_encode_param(app_version_id)
-        file_name = OpenApiUtilClient.get_encode_param(file_name)
+    def save_sort_script_file_with_options(self, app_group_identity, script_name, app_version_id, file_name, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.content):
+            body['content'] = request.content
+        if not UtilClient.is_unset(request.version):
+            body['version'] = request.version
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='SaveSortScriptFile',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/apps/%s/sort-scripts/%s/files/src/%s' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(app_version_id), TeaConverter.to_unicode(script_name), TeaConverter.to_unicode(file_name)),
+            pathname='/v4/openapi/app-groups/%s/apps/%s/sort-scripts/%s/files/src/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_version_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(script_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(file_name))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -3786,13 +3451,12 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def start_slow_query_analyzer(self, app_group_identity):
+    def save_sort_script_file(self, app_group_identity, script_name, app_version_id, file_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.start_slow_query_analyzer_with_options(app_group_identity, headers, runtime)
+        return self.save_sort_script_file_with_options(app_group_identity, script_name, app_version_id, file_name, request, headers, runtime)
 
     def start_slow_query_analyzer_with_options(self, app_group_identity, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -3800,7 +3464,7 @@ class Client(OpenApiClient):
             action='StartSlowQueryAnalyzer',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/optimizers/slow-query/actions/run' % TeaConverter.to_unicode(app_group_identity),
+            pathname='/v4/openapi/app-groups/%s/optimizers/slow-query/actions/run' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -3812,22 +3476,29 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def train_model(self, app_group_identity, model_name):
+    def start_slow_query_analyzer(self, app_group_identity):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.train_model_with_options(app_group_identity, model_name, headers, runtime)
+        return self.start_slow_query_analyzer_with_options(app_group_identity, headers, runtime)
 
-    def train_model_with_options(self, app_group_identity, model_name, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        model_name = OpenApiUtilClient.get_encode_param(model_name)
+    def tag_resources_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.resource_id):
+            body['resourceId'] = request.resource_id
+        if not UtilClient.is_unset(request.resource_type):
+            body['resourceType'] = request.resource_type
+        if not UtilClient.is_unset(request.tag):
+            body['tag'] = request.tag
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
-            action='TrainModel',
+            action='TagResources',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/algorithm/models/%s/actions/train' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(model_name)),
+            pathname='/v4/openapi/resource-tags',
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -3835,26 +3506,39 @@ class Client(OpenApiClient):
             body_type='json'
         )
         return TeaCore.from_map(
-            open_search_20171225_models.TrainModelResponse(),
+            open_search_20171225_models.TagResourcesResponse(),
             self.call_api(params, req, runtime)
         )
 
-    def unbind_esuser_analyzer(self, app_group_identity, es_instance_id):
+    def tag_resources(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.unbind_esuser_analyzer_with_options(app_group_identity, es_instance_id, headers, runtime)
+        return self.tag_resources_with_options(request, headers, runtime)
 
-    def unbind_esuser_analyzer_with_options(self, app_group_identity, es_instance_id, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        es_instance_id = OpenApiUtilClient.get_encode_param(es_instance_id)
+    def unbind_esuser_analyzer_with_options(self, app_group_identity, es_instance_id, request, headers, runtime):
+        """
+        The ID of the request.
+        
+
+        @param request: UnbindESUserAnalyzerRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UnbindESUserAnalyzerResponse
+        """
+        UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            body=request.body
         )
         params = open_api_models.Params(
             action='UnbindESUserAnalyzer',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/es/%s/actions/unbind-analyzer' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(es_instance_id)),
+            pathname='/v4/openapi/app-groups/%s/es/%s/actions/unbind-analyzer' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(es_instance_id))),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -3866,13 +3550,20 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def unbind_es_instance(self, app_group_identity):
+    def unbind_esuser_analyzer(self, app_group_identity, es_instance_id, request):
+        """
+        The ID of the request.
+        
+
+        @param request: UnbindESUserAnalyzerRequest
+
+        @return: UnbindESUserAnalyzerResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.unbind_es_instance_with_options(app_group_identity, headers, runtime)
+        return self.unbind_esuser_analyzer_with_options(app_group_identity, es_instance_id, request, headers, runtime)
 
     def unbind_es_instance_with_options(self, app_group_identity, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -3880,7 +3571,7 @@ class Client(OpenApiClient):
             action='UnbindEsInstance',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/actions/unbind-es-instance' % TeaConverter.to_unicode(app_group_identity),
+            pathname='/v4/openapi/app-groups/%s/actions/unbind-es-instance' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)),
             method='POST',
             auth_type='AK',
             style='ROA',
@@ -3892,24 +3583,68 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_abtest_experiment(self, app_group_identity, scene_id, group_id, experiment_id):
+    def unbind_es_instance(self, app_group_identity):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_abtest_experiment_with_options(app_group_identity, scene_id, group_id, experiment_id, headers, runtime)
+        return self.unbind_es_instance_with_options(app_group_identity, headers, runtime)
 
-    def update_abtest_experiment_with_options(self, app_group_identity, scene_id, group_id, experiment_id, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        scene_id = OpenApiUtilClient.get_encode_param(scene_id)
-        group_id = OpenApiUtilClient.get_encode_param(group_id)
-        experiment_id = OpenApiUtilClient.get_encode_param(experiment_id)
+    def untag_resources_with_options(self, tmp_req, headers, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = open_search_20171225_models.UntagResourcesShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.resource_id):
+            request.resource_id_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.resource_id, 'resourceId', 'json')
+        if not UtilClient.is_unset(tmp_req.tag_key):
+            request.tag_key_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.tag_key, 'tagKey', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.all):
+            query['all'] = request.all
+        if not UtilClient.is_unset(request.resource_id_shrink):
+            query['resourceId'] = request.resource_id_shrink
+        if not UtilClient.is_unset(request.resource_type):
+            query['resourceType'] = request.resource_type
+        if not UtilClient.is_unset(request.tag_key_shrink):
+            query['tagKey'] = request.tag_key_shrink
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UntagResources',
+            version='2017-12-25',
+            protocol='HTTPS',
+            pathname='/v4/openapi/resource-tags',
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            open_search_20171225_models.UntagResourcesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def untag_resources(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.untag_resources_with_options(request, headers, runtime)
+
+    def update_abtest_experiment_with_options(self, app_group_identity, scene_id, group_id, experiment_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dry_run):
+            query['dryRun'] = request.dry_run
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(request.body)
         )
         params = open_api_models.Params(
             action='UpdateABTestExperiment',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/scenes/%s/groups/%s/experiments/%s' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(scene_id), TeaConverter.to_unicode(group_id), TeaConverter.to_unicode(experiment_id)),
+            pathname='/v4/openapi/app-groups/%s/scenes/%s/groups/%s/experiments/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(scene_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(group_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(experiment_id))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -3921,24 +3656,22 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_abtest_fixed_flow_dividers(self, app_group_identity, scene_id, group_id, experiment_id):
+    def update_abtest_experiment(self, app_group_identity, scene_id, group_id, experiment_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_abtest_fixed_flow_dividers_with_options(app_group_identity, scene_id, group_id, experiment_id, headers, runtime)
+        return self.update_abtest_experiment_with_options(app_group_identity, scene_id, group_id, experiment_id, request, headers, runtime)
 
-    def update_abtest_fixed_flow_dividers_with_options(self, app_group_identity, scene_id, group_id, experiment_id, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        scene_id = OpenApiUtilClient.get_encode_param(scene_id)
-        group_id = OpenApiUtilClient.get_encode_param(group_id)
-        experiment_id = OpenApiUtilClient.get_encode_param(experiment_id)
+    def update_abtest_fixed_flow_dividers_with_options(self, app_group_identity, scene_id, group_id, experiment_id, request, headers, runtime):
+        UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            body=request.body
         )
         params = open_api_models.Params(
             action='UpdateABTestFixedFlowDividers',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/scenes/%s/groups/%s/experiments/%s/fixed-flow-dividers' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(scene_id), TeaConverter.to_unicode(group_id), TeaConverter.to_unicode(experiment_id)),
+            pathname='/v4/openapi/app-groups/%s/scenes/%s/groups/%s/experiments/%s/fixed-flow-dividers' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(scene_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(group_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(experiment_id))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -3950,23 +3683,26 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_abtest_group(self, app_group_identity, scene_id, group_id):
+    def update_abtest_fixed_flow_dividers(self, app_group_identity, scene_id, group_id, experiment_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_abtest_group_with_options(app_group_identity, scene_id, group_id, headers, runtime)
+        return self.update_abtest_fixed_flow_dividers_with_options(app_group_identity, scene_id, group_id, experiment_id, request, headers, runtime)
 
-    def update_abtest_group_with_options(self, app_group_identity, scene_id, group_id, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        scene_id = OpenApiUtilClient.get_encode_param(scene_id)
-        group_id = OpenApiUtilClient.get_encode_param(group_id)
+    def update_abtest_group_with_options(self, app_group_identity, scene_id, group_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dry_run):
+            query['dryRun'] = request.dry_run
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(request.body)
         )
         params = open_api_models.Params(
             action='UpdateABTestGroup',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/scenes/%s/groups/%s' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(scene_id), TeaConverter.to_unicode(group_id)),
+            pathname='/v4/openapi/app-groups/%s/scenes/%s/groups/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(scene_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(group_id))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -3978,22 +3714,26 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_abtest_scene(self, app_group_identity, scene_id):
+    def update_abtest_group(self, app_group_identity, scene_id, group_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_abtest_scene_with_options(app_group_identity, scene_id, headers, runtime)
+        return self.update_abtest_group_with_options(app_group_identity, scene_id, group_id, request, headers, runtime)
 
-    def update_abtest_scene_with_options(self, app_group_identity, scene_id, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        scene_id = OpenApiUtilClient.get_encode_param(scene_id)
+    def update_abtest_scene_with_options(self, app_group_identity, scene_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dry_run):
+            query['dryRun'] = request.dry_run
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(request.body)
         )
         params = open_api_models.Params(
             action='UpdateABTestScene',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/scenes/%s' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(scene_id)),
+            pathname='/v4/openapi/app-groups/%s/scenes/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(scene_id))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -4005,27 +3745,26 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_fetch_fields(self, app_group_identity, app_id, request):
+    def update_abtest_scene(self, app_group_identity, scene_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_fetch_fields_with_options(app_group_identity, app_id, request, headers, runtime)
+        return self.update_abtest_scene_with_options(app_group_identity, scene_id, request, headers, runtime)
 
     def update_fetch_fields_with_options(self, app_group_identity, app_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        app_id = OpenApiUtilClient.get_encode_param(app_id)
         query = {}
         if not UtilClient.is_unset(request.dry_run):
             query['dryRun'] = request.dry_run
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=request.body
         )
         params = open_api_models.Params(
             action='UpdateFetchFields',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/apps/%s/fetch-fields' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(app_id)),
+            pathname='/v4/openapi/app-groups/%s/apps/%s/fetch-fields' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_id))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -4037,15 +3776,13 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_function_default_instance(self, app_group_identity, function_name, request):
+    def update_fetch_fields(self, app_group_identity, app_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_function_default_instance_with_options(app_group_identity, function_name, request, headers, runtime)
+        return self.update_fetch_fields_with_options(app_group_identity, app_id, request, headers, runtime)
 
     def update_function_default_instance_with_options(self, app_group_identity, function_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        function_name = OpenApiUtilClient.get_encode_param(function_name)
         body = {}
         if not UtilClient.is_unset(request.instance_name):
             body['instanceName'] = request.instance_name
@@ -4057,7 +3794,7 @@ class Client(OpenApiClient):
             action='UpdateFunctionDefaultInstance',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/functions/%s/default-instance' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(function_name)),
+            pathname='/v4/openapi/app-groups/%s/functions/%s/default-instance' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(function_name))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -4069,16 +3806,13 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_function_instance(self, app_group_identity, function_name, instance_name, request):
+    def update_function_default_instance(self, app_group_identity, function_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_function_instance_with_options(app_group_identity, function_name, instance_name, request, headers, runtime)
+        return self.update_function_default_instance_with_options(app_group_identity, function_name, request, headers, runtime)
 
     def update_function_instance_with_options(self, app_group_identity, function_name, instance_name, request, headers, runtime):
         UtilClient.validate_model(request)
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        function_name = OpenApiUtilClient.get_encode_param(function_name)
-        instance_name = OpenApiUtilClient.get_encode_param(instance_name)
         body = {}
         if not UtilClient.is_unset(request.create_parameters):
             body['createParameters'] = request.create_parameters
@@ -4096,7 +3830,7 @@ class Client(OpenApiClient):
             action='UpdateFunctionInstance',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/functions/%s/instances/%s' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(function_name), TeaConverter.to_unicode(instance_name)),
+            pathname='/v4/openapi/app-groups/%s/functions/%s/instances/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(function_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(instance_name))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -4108,23 +3842,22 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_search_strategy(self, app_group_identity, app_id, strategy_name):
+    def update_function_instance(self, app_group_identity, function_name, instance_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_search_strategy_with_options(app_group_identity, app_id, strategy_name, headers, runtime)
+        return self.update_function_instance_with_options(app_group_identity, function_name, instance_name, request, headers, runtime)
 
-    def update_search_strategy_with_options(self, app_group_identity, app_id, strategy_name, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        app_id = OpenApiUtilClient.get_encode_param(app_id)
-        strategy_name = OpenApiUtilClient.get_encode_param(strategy_name)
+    def update_search_strategy_with_options(self, app_group_identity, app_id, strategy_name, request, headers, runtime):
+        UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(request.body)
         )
         params = open_api_models.Params(
             action='UpdateSearchStrategy',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/apps/%s/search-strategies/%s' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(app_id), TeaConverter.to_unicode(strategy_name)),
+            pathname='/v4/openapi/app-groups/%s/apps/%s/search-strategies/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(strategy_name))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -4136,15 +3869,23 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_sort_script(self, app_group_identity, app_version_id, script_name):
+    def update_search_strategy(self, app_group_identity, app_id, strategy_name, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_sort_script_with_options(app_group_identity, app_version_id, script_name, headers, runtime)
+        return self.update_search_strategy_with_options(app_group_identity, app_id, strategy_name, request, headers, runtime)
 
     def update_sort_script_with_options(self, app_group_identity, app_version_id, script_name, headers, runtime):
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        app_version_id = OpenApiUtilClient.get_encode_param(app_version_id)
-        script_name = OpenApiUtilClient.get_encode_param(script_name)
+        """
+        You can call this operation to modify the description of a sort script.
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateSortScriptResponse
+        """
         req = open_api_models.OpenApiRequest(
             headers=headers
         )
@@ -4152,7 +3893,7 @@ class Client(OpenApiClient):
             action='UpdateSortScript',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/apps/%s/sort-scripts/%s' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(app_version_id), TeaConverter.to_unicode(script_name)),
+            pathname='/v4/openapi/app-groups/%s/apps/%s/sort-scripts/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_version_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(script_name))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -4164,27 +3905,32 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_summaries(self, app_group_identity, app_id, request):
+    def update_sort_script(self, app_group_identity, app_version_id, script_name):
+        """
+        You can call this operation to modify the description of a sort script.
+        
+
+        @return: UpdateSortScriptResponse
+        """
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_summaries_with_options(app_group_identity, app_id, request, headers, runtime)
+        return self.update_sort_script_with_options(app_group_identity, app_version_id, script_name, headers, runtime)
 
     def update_summaries_with_options(self, app_group_identity, app_id, request, headers, runtime):
         UtilClient.validate_model(request)
-        app_group_identity = OpenApiUtilClient.get_encode_param(app_group_identity)
-        app_id = OpenApiUtilClient.get_encode_param(app_id)
         query = {}
         if not UtilClient.is_unset(request.dry_run):
             query['dryRun'] = request.dry_run
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=UtilClient.to_array(request.body)
         )
         params = open_api_models.Params(
             action='UpdateSummaries',
             version='2017-12-25',
             protocol='HTTPS',
-            pathname='/v4/openapi/app-groups/%s/apps/%s/summaries' % (TeaConverter.to_unicode(app_group_identity), TeaConverter.to_unicode(app_id)),
+            pathname='/v4/openapi/app-groups/%s/apps/%s/summaries' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_group_identity)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(app_id))),
             method='PUT',
             auth_type='AK',
             style='ROA',
@@ -4196,14 +3942,16 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def validate_data_sources(self):
+    def update_summaries(self, app_group_identity, app_id, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.validate_data_sources_with_options(headers, runtime)
+        return self.update_summaries_with_options(app_group_identity, app_id, request, headers, runtime)
 
-    def validate_data_sources_with_options(self, headers, runtime):
+    def validate_data_sources_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
-            headers=headers
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(request.body)
         )
         params = open_api_models.Params(
             action='ValidateDataSources',
@@ -4220,3 +3968,8 @@ class Client(OpenApiClient):
             open_search_20171225_models.ValidateDataSourcesResponse(),
             self.call_api(params, req, runtime)
         )
+
+    def validate_data_sources(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.validate_data_sources_with_options(request, headers, runtime)
