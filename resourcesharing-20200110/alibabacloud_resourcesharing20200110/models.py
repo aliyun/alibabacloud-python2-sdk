@@ -5,7 +5,9 @@ from Tea.model import TeaModel
 
 class AcceptResourceShareInvitationRequest(TeaModel):
     def __init__(self, resource_share_invitation_id=None):
-        # The ID of the invitation.
+        # The ID of the resource sharing invitation.
+        # 
+        # You can call the [ListResourceShareInvitations](~~450564~~) operation to obtain the ID of a resource sharing invitation.
         self.resource_share_invitation_id = resource_share_invitation_id  # type: str
 
     def validate(self):
@@ -31,14 +33,18 @@ class AcceptResourceShareInvitationRequest(TeaModel):
 class AcceptResourceShareInvitationResponseBodyResourceShareInvitation(TeaModel):
     def __init__(self, create_time=None, receiver_account_id=None, resource_share_id=None,
                  resource_share_invitation_id=None, resource_share_name=None, sender_account_id=None, status=None):
-        self.create_time = create_time  # type: str
-        self.receiver_account_id = receiver_account_id  # type: str
-        # The Alibaba Cloud account ID of the invitee.
-        self.resource_share_id = resource_share_id  # type: str
-        # The Alibaba Cloud account ID of the inviter.
-        self.resource_share_invitation_id = resource_share_invitation_id  # type: str
         # The time when the invitation was created. The time is displayed in UTC.
+        self.create_time = create_time  # type: str
+        # The Alibaba Cloud account ID of the invitee.
+        self.receiver_account_id = receiver_account_id  # type: str
+        # The ID of the resource share.
+        self.resource_share_id = resource_share_id  # type: str
+        # The ID of the invitation.
+        self.resource_share_invitation_id = resource_share_invitation_id  # type: str
+        # The name of the resource share.
         self.resource_share_name = resource_share_name  # type: str
+        # The Alibaba Cloud account ID of the inviter.
+        self.sender_account_id = sender_account_id  # type: str
         # The status of the invitation. Valid values:
         # 
         # *   Pending: The invitation is waiting for confirmation.
@@ -46,7 +52,6 @@ class AcceptResourceShareInvitationResponseBodyResourceShareInvitation(TeaModel)
         # *   Cancelled: The invitation is canceled.
         # *   Rejected: The invitation is rejected.
         # *   Expired: The invitation has expired.
-        self.sender_account_id = sender_account_id  # type: str
         self.status = status  # type: str
 
     def validate(self):
@@ -95,9 +100,9 @@ class AcceptResourceShareInvitationResponseBodyResourceShareInvitation(TeaModel)
 
 class AcceptResourceShareInvitationResponseBody(TeaModel):
     def __init__(self, request_id=None, resource_share_invitation=None):
-        # The ID of the resource share.
+        # The ID of the request.
         self.request_id = request_id  # type: str
-        # The name of the resource share.
+        # The information of the resource sharing invitation.
         self.resource_share_invitation = resource_share_invitation  # type: AcceptResourceShareInvitationResponseBodyResourceShareInvitation
 
     def validate(self):
@@ -167,16 +172,19 @@ class AcceptResourceShareInvitationResponse(TeaModel):
 
 class AssociateResourceShareRequestResources(TeaModel):
     def __init__(self, resource_id=None, resource_type=None):
-        # The name of a permission. If you do not configure this parameter, the system automatically associates the default permission for the specified resource type with the resource share. For more information, see [Permission library](~~465474~~).
+        # The ID of a shared resource.
+        # 
+        # Valid values of N: 1 to 5. This indicates that a maximum of five shared resources can be specified at a time.
+        # 
+        # >  Resources.N.ResourceId and Resources.N.ResourceType must be used in pairs.
         self.resource_id = resource_id  # type: str
-        # The ID of a principal.
+        # The type of a shared resource.
         # 
-        # *   If the value of `AllowExternalTargets` for the resource share is `false` in the response of the ListResourceShares operation, the resource share supports only resource sharing within a resource directory. In this case, you can set this parameter to the ID of the resource directory, ID of a folder in the resource directory, or ID of a member in the resource directory.
-        # *   If the value of `AllowExternalTargets` for the resource share is `true` in the response of the ListResourceShares operation, the resource share supports both resource sharing within a resource directory and resource sharing outside a resource directory. In this case, you can set this parameter to the ID of an independent Alibaba Cloud account, ID of the resource directory, ID of a folder in the resource directory, or ID of a member in the resource directory.
+        # Valid values of N: 1 to 5. This indicates that a maximum of five shared resources can be specified at a time.
         # 
-        # For more information, see [Resource sharing modes](~~160622~~), [View the ID of a resource directory](~~111217~~), [View the ID of a folder](~~111223~~), or [View the ID of a member](~~111624~~).
+        # For more information about the types of resources that can be shared, see [Services that work with Resource Sharing](~~450526~~).
         # 
-        # Valid values of N: 1 to 5. This indicates that a maximum of five principals can be specified at a time.
+        # >  `Resources.N.ResourceId` and `Resources.N.ResourceType` must be used in pairs.
         self.resource_type = resource_type  # type: str
 
     def validate(self):
@@ -206,11 +214,7 @@ class AssociateResourceShareRequestResources(TeaModel):
 class AssociateResourceShareRequest(TeaModel):
     def __init__(self, permission_names=None, resource_share_id=None, resources=None, targets=None):
         self.permission_names = permission_names  # type: list[str]
-        # The ID of a shared resource.
-        # 
-        # Valid values of N: 1 to 5. This indicates that a maximum of five shared resources can be specified at a time.
-        # 
-        # >  Resources.N.ResourceId and Resources.N.ResourceType must be used in pairs.
+        # The ID of the resource share.
         self.resource_share_id = resource_share_id  # type: str
         self.resources = resources  # type: list[AssociateResourceShareRequestResources]
         self.targets = targets  # type: list[str]
@@ -259,7 +263,6 @@ class AssociateResourceShareResponseBodyResourceShareAssociations(TeaModel):
     def __init__(self, association_status=None, association_status_message=None, association_type=None,
                  create_time=None, entity_id=None, entity_type=None, resource_share_id=None, resource_share_name=None,
                  update_time=None):
-        self.association_status = association_status  # type: str
         # The association status. Valid values:
         # 
         # *   Associating: The entity is being associated.
@@ -269,28 +272,37 @@ class AssociateResourceShareResponseBodyResourceShareAssociations(TeaModel):
         # *   Disassociated: The entity is disassociated.
         # 
         # >  The system deletes the records of entities in the `Failed` or `Disassociated` state within 48 hours to 96 hours.
-        self.association_status_message = association_status_message  # type: str
-        self.association_type = association_type  # type: str
-        # The ID of the resource share.
-        self.create_time = create_time  # type: str
-        # The time when the association of the entity was created. The value of this parameter depends on the value of the AssociationType parameter:
-        # 
-        # *   If the value of `AssociationType` is `Resource`, the value of this parameter is the time when the shared resource was associated with the resource share.
-        # *   If the value of `AssociationType` is `Target`, the value of this parameter is the time when the principal was associated with the resource share.
-        self.entity_id = entity_id  # type: str
+        self.association_status = association_status  # type: str
         # The cause of the association failure.
-        self.entity_type = entity_type  # type: str
+        self.association_status_message = association_status_message  # type: str
         # The association type. Valid values:
         # 
         # *   Resource
         # *   Target
-        self.resource_share_id = resource_share_id  # type: str
+        self.association_type = association_type  # type: str
+        # The time when the association of the entity was created. The value of this parameter depends on the value of the AssociationType parameter:
+        # 
+        # *   If the value of `AssociationType` is `Resource`, the value of this parameter is the time when the shared resource was associated with the resource share.
+        # *   If the value of `AssociationType` is `Target`, the value of this parameter is the time when the principal was associated with the resource share.
+        self.create_time = create_time  # type: str
+        # The ID of the entity. The value of this parameter depends on the value of the AssociationType parameter:
+        # 
+        # *   If the value of `AssociationType` is `Resource`, the value of this parameter is the ID of the shared resource.
+        # *   If the value of `AssociationType` is `Target`, the value of this parameter is the ID of the principal.
+        self.entity_id = entity_id  # type: str
         # The type of the entity. The value of this parameter depends on the value of the AssociationType parameter:
         # 
         # *   If the value of AssociationType is Resource, the value of this parameter is the type of the shared resource. For more information about the types of resources that can be shared, see [Services that work with Resource Sharing](~~450526~~).
         # *   If the value of AssociationType is Target, the value of this parameter is `Account`.
-        self.resource_share_name = resource_share_name  # type: str
+        self.entity_type = entity_type  # type: str
+        # The ID of the resource share.
+        self.resource_share_id = resource_share_id  # type: str
         # The name of the resource share.
+        self.resource_share_name = resource_share_name  # type: str
+        # The time when the association of the entity was updated. The value of this parameter depends on the value of the AssociationType parameter:
+        # 
+        # *   If the value of `AssociationType` is `Resource`, the value of this parameter is the time when the association of the shared resource was updated.
+        # *   If the value of `AssociationType` is `Target`, the value of this parameter is the time when the association of the principal was updated.
         self.update_time = update_time  # type: str
 
     def validate(self):
@@ -347,15 +359,9 @@ class AssociateResourceShareResponseBodyResourceShareAssociations(TeaModel):
 
 class AssociateResourceShareResponseBody(TeaModel):
     def __init__(self, request_id=None, resource_share_associations=None):
-        # The time when the association of the entity was updated. The value of this parameter depends on the value of the AssociationType parameter:
-        # 
-        # *   If the value of `AssociationType` is `Resource`, the value of this parameter is the time when the association of the shared resource was updated.
-        # *   If the value of `AssociationType` is `Target`, the value of this parameter is the time when the association of the principal was updated.
+        # The ID of the request.
         self.request_id = request_id  # type: str
-        # The ID of the entity. The value of this parameter depends on the value of the AssociationType parameter:
-        # 
-        # *   If the value of `AssociationType` is `Resource`, the value of this parameter is the ID of the shared resource.
-        # *   If the value of `AssociationType` is `Target`, the value of this parameter is the ID of the principal.
+        # The information of the entities that are associated with the resource share.
         self.resource_share_associations = resource_share_associations  # type: list[AssociateResourceShareResponseBodyResourceShareAssociations]
 
     def validate(self):
@@ -431,8 +437,14 @@ class AssociateResourceShareResponse(TeaModel):
 
 class AssociateResourceSharePermissionRequest(TeaModel):
     def __init__(self, permission_name=None, replace=None, resource_share_id=None):
+        # The name of the permission.
         self.permission_name = permission_name  # type: str
+        # Specifies whether to use the specified permission to replace an existing permission. Valid values:
+        # 
+        # *   false: does not use the specified permission to replace an existing permission. This is the default value. If you set the value to false for a resource share that does not have associated permissions, the system associates the specified permission with the resource share. In a resource share, one resource type can have only one permission. If you set the value to false for a resource share that already has a permission for the resource type indicated by the specified permission, the system reports an error. This prevents you from replacing the existing permission by mistake.
+        # *   true: uses the specified permission to replace an existing permission of the same resource type.
         self.replace = replace  # type: bool
+        # The ID of the resource share.
         self.resource_share_id = resource_share_id  # type: str
 
     def validate(self):
@@ -465,6 +477,7 @@ class AssociateResourceSharePermissionRequest(TeaModel):
 
 class AssociateResourceSharePermissionResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -526,18 +539,186 @@ class AssociateResourceSharePermissionResponse(TeaModel):
         return self
 
 
+class ChangeResourceGroupRequest(TeaModel):
+    def __init__(self, resource_group_id=None, resource_id=None, resource_region_id=None):
+        self.resource_group_id = resource_group_id  # type: str
+        self.resource_id = resource_id  # type: str
+        self.resource_region_id = resource_region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ChangeResourceGroupRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
+        if self.resource_id is not None:
+            result['ResourceId'] = self.resource_id
+        if self.resource_region_id is not None:
+            result['ResourceRegionId'] = self.resource_region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('ResourceId') is not None:
+            self.resource_id = m.get('ResourceId')
+        if m.get('ResourceRegionId') is not None:
+            self.resource_region_id = m.get('ResourceRegionId')
+        return self
+
+
+class ChangeResourceGroupResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ChangeResourceGroupResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ChangeResourceGroupResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ChangeResourceGroupResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ChangeResourceGroupResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ChangeResourceGroupResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class CheckSharingWithResourceDirectoryStatusResponseBody(TeaModel):
+    def __init__(self, enable_sharing_with_rd=None, request_id=None):
+        self.enable_sharing_with_rd = enable_sharing_with_rd  # type: bool
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CheckSharingWithResourceDirectoryStatusResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.enable_sharing_with_rd is not None:
+            result['EnableSharingWithRd'] = self.enable_sharing_with_rd
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('EnableSharingWithRd') is not None:
+            self.enable_sharing_with_rd = m.get('EnableSharingWithRd')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class CheckSharingWithResourceDirectoryStatusResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CheckSharingWithResourceDirectoryStatusResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CheckSharingWithResourceDirectoryStatusResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CheckSharingWithResourceDirectoryStatusResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CreateResourceShareRequestResources(TeaModel):
     def __init__(self, resource_id=None, resource_type=None):
-        # The name of a permission. If you do not configure this parameter, the system automatically associates the default permission for the specified resource type with the resource share. For more information, see [Permission library](~~465474~~).
+        # The ID of a shared resource.
+        # 
+        # Valid values of N: 1 to 5. This indicates that a maximum of five shared resources can be specified at a time.
+        # 
+        # >  `Resources.N.ResourceId` and `Resources.N.ResourceType` must be used in pairs.
         self.resource_id = resource_id  # type: str
-        # The ID of a principal. Valid values:
+        # The type of a shared resource.
         # 
-        # *   If you set `AllowExternalTargets` to `false`, set this parameter to the ID of a resource directory, ID of a folder in a resource directory, or ID of a member in a resource directory.
-        # *   If you set `AllowExternalTargets` to `true`, set this parameter to the ID of an independent Alibaba Cloud account, ID of a resource directory, ID of a folder in a resource directory, or ID of a member in a resource directory.
+        # Valid values of N: 1 to 5. This indicates that a maximum of five shared resources can be specified at a time.
         # 
-        # For more information, see [Resource sharing modes](~~160622~~), [View the ID of a resource directory](~~111217~~), [View the ID of a folder](~~111223~~), or [View the ID of a member](~~111624~~).
+        # For more information about the types of resources that can be shared, see [Services that work with Resource Sharing](~~450526~~).
         # 
-        # Valid values of N: 1 to 5. This indicates that a maximum of five principals can be specified at a time.
+        # >  `Resources.N.ResourceId` and `Resources.N.ResourceType` must be used in pairs.
         self.resource_type = resource_type  # type: str
 
     def validate(self):
@@ -567,14 +748,17 @@ class CreateResourceShareRequestResources(TeaModel):
 class CreateResourceShareRequest(TeaModel):
     def __init__(self, allow_external_targets=None, permission_names=None, resource_share_name=None,
                  resources=None, targets=None):
-        # The information of the resource share.
+        # Specifies whether resources in the resource share can be shared with accounts outside the resource directory. Valid values:
+        # 
+        # *   false: Resources in the resource share can be shared only with accounts in the resource directory. This is the default value.
+        # *   true: Resources in the resource share can be shared with both accounts in the resource directory and accounts outside the resource directory.
         self.allow_external_targets = allow_external_targets  # type: bool
         self.permission_names = permission_names  # type: list[str]
-        # The ID of a shared resource.
+        # The name of the resource share.
         # 
-        # Valid values of N: 1 to 5. This indicates that a maximum of five shared resources can be specified at a time.
+        # The name must be 1 to 50 characters in length.
         # 
-        # >  `Resources.N.ResourceId` and `Resources.N.ResourceType` must be used in pairs.
+        # The name can contain letters, digits, periods (.), underscores (\_), and hyphens (-).
         self.resource_share_name = resource_share_name  # type: str
         self.resources = resources  # type: list[CreateResourceShareRequestResources]
         self.targets = targets  # type: list[str]
@@ -626,7 +810,19 @@ class CreateResourceShareRequest(TeaModel):
 class CreateResourceShareResponseBodyResourceShare(TeaModel):
     def __init__(self, allow_external_targets=None, create_time=None, resource_share_id=None,
                  resource_share_name=None, resource_share_owner=None, resource_share_status=None, update_time=None):
+        # Indicates whether resources in the resource share can be shared with accounts outside the resource directory. Valid values:
+        # 
+        # *   false: Resources in the resource share can be shared only with accounts in the resource directory.
+        # *   true: Resources in the resource share can be shared with both accounts in the resource directory and accounts outside the resource directory.
         self.allow_external_targets = allow_external_targets  # type: bool
+        # The time when the resource share was created.
+        self.create_time = create_time  # type: str
+        # The ID of the resource share.
+        self.resource_share_id = resource_share_id  # type: str
+        # The name of the resource share.
+        self.resource_share_name = resource_share_name  # type: str
+        # The owner of the resource share.
+        self.resource_share_owner = resource_share_owner  # type: str
         # The status of the resource share. Valid values:
         # 
         # *   Active: The resource share is enabled.
@@ -635,18 +831,8 @@ class CreateResourceShareResponseBodyResourceShare(TeaModel):
         # *   Deleted: The resource share is deleted.
         # 
         # >  The system deletes the records of resource shares in the Deleted state within 48 hours to 96 hours after you delete the resource shares.
-        self.create_time = create_time  # type: str
-        # Indicates whether resources in the resource share can be shared with accounts outside the resource directory. Valid values:
-        # 
-        # *   false: Resources in the resource share can be shared only with accounts in the resource directory.
-        # *   true: Resources in the resource share can be shared with both accounts in the resource directory and accounts outside the resource directory.
-        self.resource_share_id = resource_share_id  # type: str
-        # The time when the resource share was created.
-        self.resource_share_name = resource_share_name  # type: str
-        # The ID of the resource share.
-        self.resource_share_owner = resource_share_owner  # type: str
         self.resource_share_status = resource_share_status  # type: str
-        # The owner of the resource share.
+        # The time when the resource share was updated.
         self.update_time = update_time  # type: str
 
     def validate(self):
@@ -695,9 +881,9 @@ class CreateResourceShareResponseBodyResourceShare(TeaModel):
 
 class CreateResourceShareResponseBody(TeaModel):
     def __init__(self, request_id=None, resource_share=None):
-        # The time when the resource share was updated.
+        # The ID of the request.
         self.request_id = request_id  # type: str
-        # The name of the resource share.
+        # The information of the resource share.
         self.resource_share = resource_share  # type: CreateResourceShareResponseBodyResourceShare
 
     def validate(self):
@@ -767,6 +953,7 @@ class CreateResourceShareResponse(TeaModel):
 
 class DeleteResourceShareRequest(TeaModel):
     def __init__(self, resource_share_id=None):
+        # The ID of the resource share.
         self.resource_share_id = resource_share_id  # type: str
 
     def validate(self):
@@ -791,6 +978,7 @@ class DeleteResourceShareRequest(TeaModel):
 
 class DeleteResourceShareResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -997,14 +1185,19 @@ class DescribeRegionsResponse(TeaModel):
 
 class DisassociateResourceShareRequestResources(TeaModel):
     def __init__(self, resource_id=None, resource_type=None):
-        # The owner of the resource share. Valid values:
+        # The ID of a shared resource.
         # 
-        # *   Self: The resource share belongs to the current account. This is the default value. If you are the management account or a member of a resource directory and you want to remove resources or principals from a resource share, set this parameter to Self.
-        # *   OtherAccounts: The resource share belongs to another account. If you are not the management account or a member of a resource directory and you want to exit a resource share, set this parameter to OtherAccounts.
+        # Valid values of N: 1 to 5. This indicates that a maximum of five shared resources can be specified at a time.
+        # 
+        # >  Resources.N.ResourceId and Resources.N.ResourceType must be used in pairs.
         self.resource_id = resource_id  # type: str
-        # The ID of a principal.
+        # The type of a shared resource.
         # 
-        # Valid values of N: 1 to 5. This indicates that a maximum of five principals can be specified at a time.
+        # Valid values of N: 1 to 5. This indicates that a maximum of five shared resources can be specified at a time.
+        # 
+        # For more information about the types of resources that can be shared, see [Services that work with Resource Sharing](~~450526~~).
+        # 
+        # >  Resources.N.ResourceId and Resources.N.ResourceType must be used in pairs.
         self.resource_type = resource_type  # type: str
 
     def validate(self):
@@ -1033,13 +1226,12 @@ class DisassociateResourceShareRequestResources(TeaModel):
 
 class DisassociateResourceShareRequest(TeaModel):
     def __init__(self, resource_owner=None, resource_share_id=None, resources=None, targets=None):
-        # The information of the entities that are associated with the resource share.
+        # The owner of the resource share. Valid values:
+        # 
+        # *   Self: The resource share belongs to the current account. This is the default value. If you are the management account or a member of a resource directory and you want to remove resources or principals from a resource share, set this parameter to Self.
+        # *   OtherAccounts: The resource share belongs to another account. If you are not the management account or a member of a resource directory and you want to exit a resource share, set this parameter to OtherAccounts.
         self.resource_owner = resource_owner  # type: str
-        # The ID of a shared resource.
-        # 
-        # Valid values of N: 1 to 5. This indicates that a maximum of five shared resources can be specified at a time.
-        # 
-        # >  Resources.N.ResourceId and Resources.N.ResourceType must be used in pairs.
+        # The ID of the resource share.
         self.resource_share_id = resource_share_id  # type: str
         self.resources = resources  # type: list[DisassociateResourceShareRequestResources]
         self.targets = targets  # type: list[str]
@@ -1088,7 +1280,6 @@ class DisassociateResourceShareResponseBodyResourceShareAssociations(TeaModel):
     def __init__(self, association_status=None, association_status_message=None, association_type=None,
                  create_time=None, entity_id=None, entity_type=None, resource_share_id=None, resource_share_name=None,
                  update_time=None):
-        self.association_status = association_status  # type: str
         # The association status. Valid values:
         # 
         # *   Associating: The entity is being associated.
@@ -1098,28 +1289,37 @@ class DisassociateResourceShareResponseBodyResourceShareAssociations(TeaModel):
         # *   Disassociated: The entity is disassociated.
         # 
         # >  The system deletes the records of entities in the `Failed` or `Disassociated` state within 48 hours to 96 hours.
-        self.association_status_message = association_status_message  # type: str
-        self.association_type = association_type  # type: str
-        # The ID of the resource share.
-        self.create_time = create_time  # type: str
-        # The time when the disassociation of the entity was performed. The value of this parameter depends on the value of the AssociationType parameter:
-        # 
-        # *   If the value of `AssociationType` is `Resource`, the value of this parameter is the time when the resource was disassociated from the resource share.
-        # *   If the value of `AssociationType` is `Target`, the value of this parameter is the time when the principal was disassociated from the resource share.
-        self.entity_id = entity_id  # type: str
+        self.association_status = association_status  # type: str
         # The cause of the disassociation failure.
-        self.entity_type = entity_type  # type: str
+        self.association_status_message = association_status_message  # type: str
         # The association type. Valid values:
         # 
         # *   Resource
         # *   Target
-        self.resource_share_id = resource_share_id  # type: str
+        self.association_type = association_type  # type: str
+        # The time when the disassociation of the entity was performed. The value of this parameter depends on the value of the AssociationType parameter:
+        # 
+        # *   If the value of `AssociationType` is `Resource`, the value of this parameter is the time when the resource was disassociated from the resource share.
+        # *   If the value of `AssociationType` is `Target`, the value of this parameter is the time when the principal was disassociated from the resource share.
+        self.create_time = create_time  # type: str
+        # The ID of the entity. The value of this parameter depends on the value of the AssociationType parameter:
+        # 
+        # *   If the value of `AssociationType` is `Resource`, the value of this parameter is the ID of the resource.
+        # *   If the value of `AssociationType` is `Target`, the value of this parameter is the ID of the resource directory, folder, or member.
+        self.entity_id = entity_id  # type: str
         # The type of the entity. The value of this parameter depends on the value of the AssociationType parameter:
         # 
         # *   If the value of AssociationType is Resource, the value of this parameter is the type of the resource. For more information about the types of resources that can be shared, see [Services that work with Resource Sharing](~~450526~~).
         # *   If the value of AssociationType is Target, the value of this parameter is Account.
-        self.resource_share_name = resource_share_name  # type: str
+        self.entity_type = entity_type  # type: str
+        # The ID of the resource share.
+        self.resource_share_id = resource_share_id  # type: str
         # The name of the resource share.
+        self.resource_share_name = resource_share_name  # type: str
+        # The time when the disassociation of the entity was updated. The value of this parameter depends on the value of the AssociationType parameter:
+        # 
+        # *   If the value of `AssociationType` is `Resource`, the value of this parameter is the time when the disassociation of the resource was updated.
+        # *   If the value of `AssociationType` is `Target`, the value of this parameter is the time when the disassociation of the principal was updated.
         self.update_time = update_time  # type: str
 
     def validate(self):
@@ -1176,15 +1376,9 @@ class DisassociateResourceShareResponseBodyResourceShareAssociations(TeaModel):
 
 class DisassociateResourceShareResponseBody(TeaModel):
     def __init__(self, request_id=None, resource_share_associations=None):
-        # The time when the disassociation of the entity was updated. The value of this parameter depends on the value of the AssociationType parameter:
-        # 
-        # *   If the value of `AssociationType` is `Resource`, the value of this parameter is the time when the disassociation of the resource was updated.
-        # *   If the value of `AssociationType` is `Target`, the value of this parameter is the time when the disassociation of the principal was updated.
+        # The ID of the request.
         self.request_id = request_id  # type: str
-        # The ID of the entity. The value of this parameter depends on the value of the AssociationType parameter:
-        # 
-        # *   If the value of `AssociationType` is `Resource`, the value of this parameter is the ID of the resource.
-        # *   If the value of `AssociationType` is `Target`, the value of this parameter is the ID of the resource directory, folder, or member.
+        # The information of the entities that are associated with the resource share.
         self.resource_share_associations = resource_share_associations  # type: list[DisassociateResourceShareResponseBodyResourceShareAssociations]
 
     def validate(self):
@@ -1260,9 +1454,9 @@ class DisassociateResourceShareResponse(TeaModel):
 
 class DisassociateResourceSharePermissionRequest(TeaModel):
     def __init__(self, permission_name=None, resource_share_id=None):
-        # The ID of the request.
-        self.permission_name = permission_name  # type: str
         # The name of the permission. For more information, see [Permission library](~~465474~~).
+        self.permission_name = permission_name  # type: str
+        # The ID of the resource share.
         self.resource_share_id = resource_share_id  # type: str
 
     def validate(self):
@@ -1291,6 +1485,7 @@ class DisassociateResourceSharePermissionRequest(TeaModel):
 
 class DisassociateResourceSharePermissionResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1354,6 +1549,7 @@ class DisassociateResourceSharePermissionResponse(TeaModel):
 
 class EnableSharingWithResourceDirectoryResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1449,23 +1645,29 @@ class GetPermissionRequest(TeaModel):
 class GetPermissionResponseBodyPermission(TeaModel):
     def __init__(self, create_time=None, default_permission=None, default_version=None, permission=None,
                  permission_name=None, permission_version=None, resource_type=None, update_time=None):
-        self.create_time = create_time  # type: str
-        self.default_permission = default_permission  # type: bool
-        self.default_version = default_version  # type: bool
-        # The update time.
-        self.permission = permission  # type: str
-        # Indicates whether the version is the default version. Valid values:
-        # 
-        # *   false: The version is not the default version.
-        # *   true: The version is the default version.
-        self.permission_name = permission_name  # type: str
         # The creation time.
-        self.permission_version = permission_version  # type: str
+        self.create_time = create_time  # type: str
         # Indicates whether the permission is the default permission. Valid values:
         # 
         # *   false: The permission is not the default permission.
         # *   true: The permission is the default permission.
+        self.default_permission = default_permission  # type: bool
+        # Indicates whether the version is the default version. Valid values:
+        # 
+        # *   false: The version is not the default version.
+        # *   true: The version is the default version.
+        self.default_version = default_version  # type: bool
+        # The document of the policy related to the permission.
+        self.permission = permission  # type: str
+        # The name of the permission.
+        self.permission_name = permission_name  # type: str
+        # The version of the permission.
+        self.permission_version = permission_version  # type: str
+        # The type of the shared resources.
+        # 
+        # For more information about the types of resources that can be shared, see [Services that work with Resource Sharing](~~450526~~).
         self.resource_type = resource_type  # type: str
+        # The update time.
         self.update_time = update_time  # type: str
 
     def validate(self):
@@ -1518,11 +1720,9 @@ class GetPermissionResponseBodyPermission(TeaModel):
 
 class GetPermissionResponseBody(TeaModel):
     def __init__(self, permission=None, request_id=None):
-        # The type of the shared resources.
-        # 
-        # For more information about the types of resources that can be shared, see [Services that work with Resource Sharing](~~450526~~).
+        # The information about the permission.
         self.permission = permission  # type: GetPermissionResponseBodyPermission
-        # The document of the policy related to the permission.
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1592,11 +1792,13 @@ class GetPermissionResponse(TeaModel):
 
 class ListPermissionVersionsRequest(TeaModel):
     def __init__(self, max_results=None, next_token=None, permission_name=None):
-        # The information about the permission.
+        # The maximum number of entries to return for a single request.
+        # 
+        # Valid values: 1 to 100. Default value: 20.
         self.max_results = max_results  # type: int
-        # The name of the permission.
+        # The `token` that is used to initiate the next request. If the response of the current request is truncated, you can use the token to initiate another request and obtain the remaining records.
         self.next_token = next_token  # type: str
-        # The ID of the request.
+        # The name of the permission.
         self.permission_name = permission_name  # type: str
 
     def validate(self):
@@ -1630,20 +1832,27 @@ class ListPermissionVersionsRequest(TeaModel):
 class ListPermissionVersionsResponseBodyPermissions(TeaModel):
     def __init__(self, create_time=None, default_permission=None, default_version=None, permission_name=None,
                  permission_version=None, resource_type=None, update_time=None):
+        # The creation time.
         self.create_time = create_time  # type: str
-        self.default_permission = default_permission  # type: bool
         # Indicates whether the permission is the default permission. Valid values:
         # 
         # *   false: The permission is not the default permission.
         # *   true: The permission is the default permission.
+        self.default_permission = default_permission  # type: bool
+        # Indicates whether the version is the default version. Valid values:
+        # 
+        # *   false: The version is not the default version.
+        # *   true: The version is the default version.
         self.default_version = default_version  # type: bool
-        # The update time.
+        # The name of the permission.
         self.permission_name = permission_name  # type: str
+        # The version of the permission.
+        self.permission_version = permission_version  # type: str
         # The type of the shared resources.
         # 
         # For more information about the types of resources that can be shared, see [Services that work with Resource Sharing](~~450526~~).
-        self.permission_version = permission_version  # type: str
         self.resource_type = resource_type  # type: str
+        # The update time.
         self.update_time = update_time  # type: str
 
     def validate(self):
@@ -1692,14 +1901,11 @@ class ListPermissionVersionsResponseBodyPermissions(TeaModel):
 
 class ListPermissionVersionsResponseBody(TeaModel):
     def __init__(self, next_token=None, permissions=None, request_id=None):
-        # The version of the permission.
+        # The token that is used to initiate the next request. If the response of the current request is truncated, you can use the token to initiate another request and obtain the remaining records.
         self.next_token = next_token  # type: str
-        # The creation time.
+        # The information about the permission.
         self.permissions = permissions  # type: list[ListPermissionVersionsResponseBodyPermissions]
-        # Indicates whether the version is the default version. Valid values:
-        # 
-        # *   false: The version is not the default version.
-        # *   true: The version is the default version.
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1779,11 +1985,15 @@ class ListPermissionVersionsResponse(TeaModel):
 
 class ListPermissionsRequest(TeaModel):
     def __init__(self, max_results=None, next_token=None, resource_type=None):
-        # The information about the permission.
+        # The maximum number of entries to return for a single request.
+        # 
+        # Valid values: 1 to 100. Default value: 20.
         self.max_results = max_results  # type: int
-        # The name of the permission.
+        # The `token` that is used to initiate the next request. If the response of the current request is truncated, you can use the token to initiate another request and obtain the remaining records.
         self.next_token = next_token  # type: str
-        # The ID of the request.
+        # The type of the shared resources.
+        # 
+        # For more information about the types of resources that can be shared, see [Services that work with Resource Sharing](~~450526~~).
         self.resource_type = resource_type  # type: str
 
     def validate(self):
@@ -1817,20 +2027,27 @@ class ListPermissionsRequest(TeaModel):
 class ListPermissionsResponseBodyPermissions(TeaModel):
     def __init__(self, create_time=None, default_permission=None, default_version=None, permission_name=None,
                  permission_version=None, resource_type=None, update_time=None):
+        # The creation time.
         self.create_time = create_time  # type: str
-        self.default_permission = default_permission  # type: bool
         # Indicates whether the permission is the default permission. Valid values:
         # 
         # *   false: The permission is not the default permission.
         # *   true: The permission is the default permission.
+        self.default_permission = default_permission  # type: bool
+        # Indicates whether the version is the default version. Valid values:
+        # 
+        # *   false: The version is not the default version.
+        # *   true: The version is the default version.
         self.default_version = default_version  # type: bool
-        # The update time.
+        # The name of the permission.
         self.permission_name = permission_name  # type: str
+        # The version of the permission.
+        self.permission_version = permission_version  # type: str
         # The type of the shared resources.
         # 
         # For more information about the types of resources that can be shared, see [Services that work with Resource Sharing](~~450526~~).
-        self.permission_version = permission_version  # type: str
         self.resource_type = resource_type  # type: str
+        # The update time.
         self.update_time = update_time  # type: str
 
     def validate(self):
@@ -1879,14 +2096,11 @@ class ListPermissionsResponseBodyPermissions(TeaModel):
 
 class ListPermissionsResponseBody(TeaModel):
     def __init__(self, next_token=None, permissions=None, request_id=None):
-        # The version of the permission.
+        # The token that is used to initiate the next request. If the response of the current request is truncated, you can use the token to initiate another request and obtain the remaining records.
         self.next_token = next_token  # type: str
-        # The creation time.
+        # The information about the permission.
         self.permissions = permissions  # type: list[ListPermissionsResponseBodyPermissions]
-        # Indicates whether the version is the default version. Valid values:
-        # 
-        # *   false: The version is not the default version.
-        # *   true: The version is the default version.
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2236,7 +2450,9 @@ class ListResourceShareAssociationsResponse(TeaModel):
 class ListResourceShareInvitationsRequest(TeaModel):
     def __init__(self, max_results=None, next_token=None, resource_share_ids=None,
                  resource_share_invitation_ids=None):
-        # The IDs of the resource sharing invitations.
+        # The maximum number of entries to return for a single request.
+        # 
+        # Valid values: 1 to 100. Default value: 20.
         self.max_results = max_results  # type: int
         # The `token` that is used to initiate the next request. If the response of the current request is truncated, you can use the token to initiate another request and obtain the remaining records.
         self.next_token = next_token  # type: str
@@ -2278,16 +2494,25 @@ class ListResourceShareInvitationsRequest(TeaModel):
 class ListResourceShareInvitationsResponseBodyResourceShareInvitations(TeaModel):
     def __init__(self, create_time=None, receiver_account_id=None, resource_share_id=None,
                  resource_share_invitation_id=None, resource_share_name=None, sender_account_id=None, status=None):
-        # The Alibaba Cloud account ID of the inviter.
+        # The time when the invitation was created. The time is displayed in UTC.
         self.create_time = create_time  # type: str
-        self.receiver_account_id = receiver_account_id  # type: str
         # The Alibaba Cloud account ID of the invitee.
+        self.receiver_account_id = receiver_account_id  # type: str
+        # The ID of the resource share.
         self.resource_share_id = resource_share_id  # type: str
-        self.resource_share_invitation_id = resource_share_invitation_id  # type: str
         # The ID of the invitation.
-        self.resource_share_name = resource_share_name  # type: str
-        self.sender_account_id = sender_account_id  # type: str
+        self.resource_share_invitation_id = resource_share_invitation_id  # type: str
         # The name of the resource share.
+        self.resource_share_name = resource_share_name  # type: str
+        # The Alibaba Cloud account ID of the inviter.
+        self.sender_account_id = sender_account_id  # type: str
+        # The status of the invitation. Valid values:
+        # 
+        # *   Pending: The invitation is waiting for confirmation.
+        # *   Accepted: The invitation is accepted.
+        # *   Cancelled: The invitation is canceled.
+        # *   Rejected: The invitation is rejected.
+        # *   Expired: The invitation has expired.
         self.status = status  # type: str
 
     def validate(self):
@@ -2336,17 +2561,11 @@ class ListResourceShareInvitationsResponseBodyResourceShareInvitations(TeaModel)
 
 class ListResourceShareInvitationsResponseBody(TeaModel):
     def __init__(self, next_token=None, request_id=None, resource_share_invitations=None):
-        # The status of the invitation. Valid values:
-        # 
-        # *   Pending: The invitation is waiting for confirmation.
-        # *   Accepted: The invitation is accepted.
-        # *   Cancelled: The invitation is canceled.
-        # *   Rejected: The invitation is rejected.
-        # *   Expired: The invitation has expired.
+        # The `token` that is used to initiate the next request. If the response of the current request is truncated, you can use the token to initiate another request and obtain the remaining records.
         self.next_token = next_token  # type: str
-        # The time when the invitation was created. The time is displayed in UTC.
+        # The ID of the request.
         self.request_id = request_id  # type: str
-        # The ID of the resource share.
+        # The information of the resource sharing invitations.
         self.resource_share_invitations = resource_share_invitations  # type: list[ListResourceShareInvitationsResponseBodyResourceShareInvitations]
 
     def validate(self):
@@ -2426,13 +2645,18 @@ class ListResourceShareInvitationsResponse(TeaModel):
 
 class ListResourceSharePermissionsRequest(TeaModel):
     def __init__(self, max_results=None, next_token=None, resource_owner=None, resource_share_id=None):
-        # The ID of the request.
+        # The maximum number of entries to return for a single request.
+        # 
+        # Valid values: 1 to 100. Default value: 20.
         self.max_results = max_results  # type: int
-        # The information about the permissions.
-        self.next_token = next_token  # type: str
-        # The name of the permission.
-        self.resource_owner = resource_owner  # type: str
         # The `token` that is used to initiate the next request. If the response of the current request is truncated, you can use the token to initiate another request and obtain the remaining records.
+        self.next_token = next_token  # type: str
+        # The owner of the resource share. Valid values:
+        # 
+        # *   Self: the current account
+        # *   OtherAccounts: an account other than the current account
+        self.resource_owner = resource_owner  # type: str
+        # The ID of the resource share.
         self.resource_share_id = resource_share_id  # type: str
 
     def validate(self):
@@ -2470,20 +2694,27 @@ class ListResourceSharePermissionsRequest(TeaModel):
 class ListResourceSharePermissionsResponseBodyPermissions(TeaModel):
     def __init__(self, create_time=None, default_permission=None, default_version=None, permission_name=None,
                  permission_version=None, resource_type=None, update_time=None):
+        # The creation time.
         self.create_time = create_time  # type: str
-        self.default_permission = default_permission  # type: bool
         # Indicates whether the permission is the default permission. Valid values:
         # 
         # *   false: The permission is not the default permission.
         # *   true: The permission is the default permission.
+        self.default_permission = default_permission  # type: bool
+        # Indicates whether the version is the default version. Valid values:
+        # 
+        # *   false: The version is not the default version.
+        # *   true: The version is the default version.
         self.default_version = default_version  # type: bool
-        # The update time.
+        # The name of the permission.
         self.permission_name = permission_name  # type: str
+        # The version of the permission.
+        self.permission_version = permission_version  # type: str
         # The type of the shared resources.
         # 
         # For more information about the types of resources that can be shared, see [Services that work with Resource Sharing](~~450526~~).
-        self.permission_version = permission_version  # type: str
         self.resource_type = resource_type  # type: str
+        # The update time.
         self.update_time = update_time  # type: str
 
     def validate(self):
@@ -2532,14 +2763,11 @@ class ListResourceSharePermissionsResponseBodyPermissions(TeaModel):
 
 class ListResourceSharePermissionsResponseBody(TeaModel):
     def __init__(self, next_token=None, permissions=None, request_id=None):
-        # The version of the permission.
+        # The `token` that is used to initiate the next request. If the response of the current request is truncated, you can use the token to initiate another request and obtain the remaining records.
         self.next_token = next_token  # type: str
-        # The creation time.
+        # The information about the permissions.
         self.permissions = permissions  # type: list[ListResourceSharePermissionsResponseBodyPermissions]
-        # Indicates whether the version is the default version. Valid values:
-        # 
-        # *   false: The version is not the default version.
-        # *   true: The version is the default version.
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2620,12 +2848,22 @@ class ListResourceSharePermissionsResponse(TeaModel):
 class ListResourceSharesRequest(TeaModel):
     def __init__(self, max_results=None, next_token=None, permission_name=None, resource_owner=None,
                  resource_share_ids=None, resource_share_name=None, resource_share_status=None):
-        # The ID of a resource share.
+        # The maximum number of entries to return for a single request.
+        # 
+        # Valid values: 1 to 100. Default value: 20.
         self.max_results = max_results  # type: int
-        # The name of the permission. For more information, see [Permission library](~~465474~~).
+        # The `token` that is used to initiate the next request. If the response of the current request is truncated, you can use the token to initiate another request and obtain the remaining records.
         self.next_token = next_token  # type: str
-        # The ID of the request.
+        # The name of the permission. For more information, see [Permission library](~~465474~~).
         self.permission_name = permission_name  # type: str
+        # The owner of the resource shares. Valid values:
+        # 
+        # *   Self: the current account
+        # *   OtherAccounts: an account other than the current account
+        self.resource_owner = resource_owner  # type: str
+        self.resource_share_ids = resource_share_ids  # type: list[str]
+        # The name of the resource share.
+        self.resource_share_name = resource_share_name  # type: str
         # The status of the resource share. Valid values:
         # 
         # *   Active: The resource share is enabled.
@@ -2634,13 +2872,6 @@ class ListResourceSharesRequest(TeaModel):
         # *   Deleted: The resource share is deleted.
         # 
         # >  The system deletes the records of resource shares in the Deleted state within 48 hours to 96 hours after you delete the resource shares.
-        self.resource_owner = resource_owner  # type: str
-        self.resource_share_ids = resource_share_ids  # type: list[str]
-        # The maximum number of entries to return for a single request.
-        # 
-        # Valid values: 1 to 100. Default value: 20.
-        self.resource_share_name = resource_share_name  # type: str
-        # The `token` that is used to initiate the next request. If the response of the current request is truncated, you can use the token to initiate another request and obtain the remaining records.
         self.resource_share_status = resource_share_status  # type: str
 
     def validate(self):
@@ -2690,7 +2921,19 @@ class ListResourceSharesRequest(TeaModel):
 class ListResourceSharesResponseBodyResourceShares(TeaModel):
     def __init__(self, allow_external_targets=None, create_time=None, resource_share_id=None,
                  resource_share_name=None, resource_share_owner=None, resource_share_status=None, update_time=None):
+        # Indicates whether resources in the resource share can be shared with accounts outside the resource directory. Valid values:
+        # 
+        # *   false: Resources in the resource share can be shared only with accounts in the resource directory.
+        # *   true: Resources in the resource share can be shared with both accounts in the resource directory and accounts outside the resource directory.
         self.allow_external_targets = allow_external_targets  # type: bool
+        # The time when the resource share was created.
+        self.create_time = create_time  # type: str
+        # The ID of the resource share.
+        self.resource_share_id = resource_share_id  # type: str
+        # The name of the resource share.
+        self.resource_share_name = resource_share_name  # type: str
+        # The owner of the resource share.
+        self.resource_share_owner = resource_share_owner  # type: str
         # The status of the resource share. Valid values:
         # 
         # *   Active: The resource share is enabled.
@@ -2699,18 +2942,8 @@ class ListResourceSharesResponseBodyResourceShares(TeaModel):
         # *   Deleted: The resource share is deleted.
         # 
         # >  The system deletes the records of resource shares in the Deleted state within 48 hours to 96 hours after you delete the resource shares.
-        self.create_time = create_time  # type: str
-        # Indicates whether resources in the resource share can be shared with accounts outside the resource directory. Valid values:
-        # 
-        # *   false: Resources in the resource share can be shared only with accounts in the resource directory.
-        # *   true: Resources in the resource share can be shared with both accounts in the resource directory and accounts outside the resource directory.
-        self.resource_share_id = resource_share_id  # type: str
-        # The time when the resource share was created.
-        self.resource_share_name = resource_share_name  # type: str
-        # The ID of the resource share.
-        self.resource_share_owner = resource_share_owner  # type: str
         self.resource_share_status = resource_share_status  # type: str
-        # The owner of the resource share.
+        # The time when the resource share was updated.
         self.update_time = update_time  # type: str
 
     def validate(self):
@@ -2759,11 +2992,11 @@ class ListResourceSharesResponseBodyResourceShares(TeaModel):
 
 class ListResourceSharesResponseBody(TeaModel):
     def __init__(self, next_token=None, request_id=None, resource_shares=None):
-        # The information of the resource shares.
+        # The `token` that is used to initiate the next request. If the response of the current request is truncated, you can use the token to initiate another request and obtain the remaining records.
         self.next_token = next_token  # type: str
-        # The time when the resource share was updated.
+        # The ID of the request.
         self.request_id = request_id  # type: str
-        # The name of the resource share.
+        # The information of the resource shares.
         self.resource_shares = resource_shares  # type: list[ListResourceSharesResponseBodyResourceShares]
 
     def validate(self):
@@ -3274,7 +3507,9 @@ class ListSharedTargetsResponse(TeaModel):
 
 class RejectResourceShareInvitationRequest(TeaModel):
     def __init__(self, resource_share_invitation_id=None):
-        # The ID of the invitation.
+        # The ID of the resource sharing invitation.
+        # 
+        # You can call the [ListResourceShareInvitations](~~450564~~) operation to obtain the ID of a resource sharing invitation.
         self.resource_share_invitation_id = resource_share_invitation_id  # type: str
 
     def validate(self):
@@ -3300,14 +3535,18 @@ class RejectResourceShareInvitationRequest(TeaModel):
 class RejectResourceShareInvitationResponseBodyResourceShareInvitation(TeaModel):
     def __init__(self, create_time=None, receiver_account_id=None, resource_share_id=None,
                  resource_share_invitation_id=None, resource_share_name=None, sender_account_id=None, status=None):
-        self.create_time = create_time  # type: str
-        self.receiver_account_id = receiver_account_id  # type: str
-        # The Alibaba Cloud account ID of the invitee.
-        self.resource_share_id = resource_share_id  # type: str
-        # The Alibaba Cloud account ID of the inviter.
-        self.resource_share_invitation_id = resource_share_invitation_id  # type: str
         # The time when the invitation was created. The time is displayed in UTC.
+        self.create_time = create_time  # type: str
+        # The Alibaba Cloud account ID of the invitee.
+        self.receiver_account_id = receiver_account_id  # type: str
+        # The ID of the resource share.
+        self.resource_share_id = resource_share_id  # type: str
+        # The ID of the invitation.
+        self.resource_share_invitation_id = resource_share_invitation_id  # type: str
+        # The name of the resource share.
         self.resource_share_name = resource_share_name  # type: str
+        # The Alibaba Cloud account ID of the inviter.
+        self.sender_account_id = sender_account_id  # type: str
         # The status of the invitation. Valid values:
         # 
         # *   Pending: The invitation is waiting for confirmation.
@@ -3315,7 +3554,6 @@ class RejectResourceShareInvitationResponseBodyResourceShareInvitation(TeaModel)
         # *   Cancelled: The invitation is canceled.
         # *   Rejected: The invitation is rejected.
         # *   Expired: The invitation has expired.
-        self.sender_account_id = sender_account_id  # type: str
         self.status = status  # type: str
 
     def validate(self):
@@ -3364,9 +3602,9 @@ class RejectResourceShareInvitationResponseBodyResourceShareInvitation(TeaModel)
 
 class RejectResourceShareInvitationResponseBody(TeaModel):
     def __init__(self, request_id=None, resource_share_invitation=None):
-        # The ID of the resource share.
+        # The ID of the request.
         self.request_id = request_id  # type: str
-        # The name of the resource share.
+        # The information of the resource sharing invitation.
         self.resource_share_invitation = resource_share_invitation  # type: RejectResourceShareInvitationResponseBodyResourceShareInvitation
 
     def validate(self):
@@ -3436,14 +3674,18 @@ class RejectResourceShareInvitationResponse(TeaModel):
 
 class UpdateResourceShareRequest(TeaModel):
     def __init__(self, allow_external_targets=None, resource_share_id=None, resource_share_name=None):
-        # The information of the resource share.
-        self.allow_external_targets = allow_external_targets  # type: bool
         # Specifies whether resources in the resource share can be shared with accounts outside the resource directory. Valid values:
         # 
         # *   false: Resources in the resource share can be shared only with accounts in the resource directory.
         # *   true: Resources in the resource share can be shared with both accounts in the resource directory and accounts outside the resource directory.
+        self.allow_external_targets = allow_external_targets  # type: bool
+        # The ID of the resource share.
         self.resource_share_id = resource_share_id  # type: str
-        # The ID of the request.
+        # The new name of the resource share.
+        # 
+        # The name must be 1 to 50 characters in length.
+        # 
+        # The name can contain letters, digits, periods (.), underscores (\_), and hyphens (-).
         self.resource_share_name = resource_share_name  # type: str
 
     def validate(self):
@@ -3477,7 +3719,19 @@ class UpdateResourceShareRequest(TeaModel):
 class UpdateResourceShareResponseBodyResourceShare(TeaModel):
     def __init__(self, allow_external_targets=None, create_time=None, resource_share_id=None,
                  resource_share_name=None, resource_share_owner=None, resource_share_status=None, update_time=None):
+        # Indicates whether resources in the resource share can be shared with accounts outside the resource directory. Valid values:
+        # 
+        # *   false: Resources in the resource share can be shared only with accounts in the resource directory.
+        # *   true: Resources in the resource share can be shared with both accounts in the resource directory and accounts outside the resource directory.
         self.allow_external_targets = allow_external_targets  # type: bool
+        # The time when the resource share was created.
+        self.create_time = create_time  # type: str
+        # The ID of the resource share.
+        self.resource_share_id = resource_share_id  # type: str
+        # The name of the resource share.
+        self.resource_share_name = resource_share_name  # type: str
+        # The owner of the resource share.
+        self.resource_share_owner = resource_share_owner  # type: str
         # The status of the resource share. Valid values:
         # 
         # *   Active: The resource share is enabled.
@@ -3486,18 +3740,8 @@ class UpdateResourceShareResponseBodyResourceShare(TeaModel):
         # *   Deleted: The resource share is deleted.
         # 
         # >  The system deletes the records of resource shares in the Deleted state within 48 hours to 96 hours after you delete the resource shares.
-        self.create_time = create_time  # type: str
-        # Indicates whether resources in the resource share can be shared with accounts outside the resource directory. Valid values:
-        # 
-        # *   false: Resources in the resource share can be shared only with accounts in the resource directory.
-        # *   true: Resources in the resource share can be shared with both accounts in the resource directory and accounts outside the resource directory.
-        self.resource_share_id = resource_share_id  # type: str
-        # The time when the resource share was created.
-        self.resource_share_name = resource_share_name  # type: str
-        # The ID of the resource share.
-        self.resource_share_owner = resource_share_owner  # type: str
         self.resource_share_status = resource_share_status  # type: str
-        # The owner of the resource share.
+        # The time when the resource share was updated.
         self.update_time = update_time  # type: str
 
     def validate(self):
@@ -3546,9 +3790,9 @@ class UpdateResourceShareResponseBodyResourceShare(TeaModel):
 
 class UpdateResourceShareResponseBody(TeaModel):
     def __init__(self, request_id=None, resource_share=None):
-        # The time when the resource share was updated.
+        # The ID of the request.
         self.request_id = request_id  # type: str
-        # The name of the resource share.
+        # The information of the resource share.
         self.resource_share = resource_share  # type: UpdateResourceShareResponseBodyResourceShare
 
     def validate(self):
