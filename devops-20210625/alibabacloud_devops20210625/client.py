@@ -759,6 +759,112 @@ class Client(OpenApiClient):
         headers = {}
         return self.create_resource_member_with_options(organization_id, resource_type, resource_id, request, headers, runtime)
 
+    def create_service_auth_with_options(self, organization_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.service_auth_type):
+            query['serviceAuthType'] = request.service_auth_type
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateServiceAuth',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/serviceAuths' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.CreateServiceAuthResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_service_auth(self, organization_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_service_auth_with_options(organization_id, request, headers, runtime)
+
+    def create_service_connection_with_options(self, organization_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.auth_type):
+            body['authType'] = request.auth_type
+        if not UtilClient.is_unset(request.connection_name):
+            body['connectionName'] = request.connection_name
+        if not UtilClient.is_unset(request.connection_type):
+            body['connectionType'] = request.connection_type
+        if not UtilClient.is_unset(request.scope):
+            body['scope'] = request.scope
+        if not UtilClient.is_unset(request.service_auth_id):
+            body['serviceAuthId'] = request.service_auth_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateServiceConnection',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/createServiceConnection' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.CreateServiceConnectionResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_service_connection(self, organization_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_service_connection_with_options(organization_id, request, headers, runtime)
+
+    def create_service_credential_with_options(self, organization_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.name):
+            body['name'] = request.name
+        if not UtilClient.is_unset(request.password):
+            body['password'] = request.password
+        if not UtilClient.is_unset(request.scope):
+            body['scope'] = request.scope
+        if not UtilClient.is_unset(request.type):
+            body['type'] = request.type
+        if not UtilClient.is_unset(request.username):
+            body['username'] = request.username
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateServiceCredential',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/serviceCredentials' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.CreateServiceCredentialResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_service_credential(self, organization_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_service_credential_with_options(organization_id, request, headers, runtime)
+
     def create_sprint_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -4275,6 +4381,36 @@ class Client(OpenApiClient):
         headers = {}
         return self.list_search_source_code_with_options(request, headers, runtime)
 
+    def list_service_auths_with_options(self, organization_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.service_auth_type):
+            query['serviceAuthType'] = request.service_auth_type
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListServiceAuths',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/serviceAuths' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.ListServiceAuthsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_service_auths(self, organization_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_service_auths_with_options(organization_id, request, headers, runtime)
+
     def list_service_connections_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -4304,6 +4440,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_service_connections_with_options(organization_id, request, headers, runtime)
+
+    def list_service_credentials_with_options(self, organization_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.service_credential_type):
+            query['serviceCredentialType'] = request.service_credential_type
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListServiceCredentials',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/serviceCredentials' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.ListServiceCredentialsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_service_credentials(self, organization_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_service_credentials_with_options(organization_id, request, headers, runtime)
 
     def list_sprints_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4554,6 +4720,31 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_work_item_work_flow_status_with_options(organization_id, request, headers, runtime)
+
+    def list_workitem_estimate_with_options(self, organization_id, workitem_id, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='ListWorkitemEstimate',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/workitems/%s/estimate/list' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(workitem_id))),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.ListWorkitemEstimateResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_workitem_estimate(self, organization_id, workitem_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_workitem_estimate_with_options(organization_id, workitem_id, headers, runtime)
 
     def list_workitem_time_with_options(self, organization_id, workitem_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -5463,6 +5654,40 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_pipeline_group_with_options(organization_id, group_id, request, headers, runtime)
+
+    def update_project_field_with_options(self, organization_id, identifier, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.status_identifier):
+            body['statusIdentifier'] = request.status_identifier
+        if not UtilClient.is_unset(request.update_basic_field_request_list):
+            body['updateBasicFieldRequestList'] = request.update_basic_field_request_list
+        if not UtilClient.is_unset(request.update_for_open_api_list):
+            body['updateForOpenApiList'] = request.update_for_open_api_list
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateProjectField',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/organization/%s/project/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(organization_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(identifier))),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.UpdateProjectFieldResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_project_field(self, organization_id, identifier, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_project_field_with_options(organization_id, identifier, request, headers, runtime)
 
     def update_project_member_with_options(self, organization_id, project_id, request, headers, runtime):
         UtilClient.validate_model(request)
