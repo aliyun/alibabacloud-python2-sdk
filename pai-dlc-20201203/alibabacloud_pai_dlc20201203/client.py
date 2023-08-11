@@ -443,6 +443,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.jod_id):
             query['JodId'] = request.jod_id
+        if not UtilClient.is_unset(request.token):
+            query['Token'] = request.token
         if not UtilClient.is_unset(request.workspace_id):
             query['WorkspaceId'] = request.workspace_id
         req = open_api_models.OpenApiRequest(
@@ -469,6 +471,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.get_tensorboard_with_options(tensorboard_id, request, headers, runtime)
+
+    def get_tensorboard_shared_url_with_options(self, tensorboard_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.expire_time_seconds):
+            query['ExpireTimeSeconds'] = request.expire_time_seconds
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetTensorboardSharedUrl',
+            version='2020-12-03',
+            protocol='HTTPS',
+            pathname='/api/v1/tensorboards/%s/sharedurl' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(tensorboard_id)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            pai_dlc_20201203_models.GetTensorboardSharedUrlResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_tensorboard_shared_url(self, tensorboard_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_tensorboard_shared_url_with_options(tensorboard_id, request, headers, runtime)
 
     def get_token_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
