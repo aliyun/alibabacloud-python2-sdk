@@ -1183,6 +1183,8 @@ class Client(OpenApiClient):
             query['ClusterType'] = request.cluster_type
         if not UtilClient.is_unset(request.grafana_instance_id):
             query['GrafanaInstanceId'] = request.grafana_instance_id
+        if not UtilClient.is_unset(request.param_json):
+            query['ParamJson'] = request.param_json
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.resource_group_id):
@@ -1365,6 +1367,70 @@ class Client(OpenApiClient):
     def create_synthetic_task(self, request):
         runtime = util_models.RuntimeOptions()
         return self.create_synthetic_task_with_options(request, runtime)
+
+    def create_timing_synthetic_task_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = arms20190808_models.CreateTimingSyntheticTaskShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.available_assertions):
+            request.available_assertions_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.available_assertions, 'AvailableAssertions', 'json')
+        if not UtilClient.is_unset(tmp_req.common_setting):
+            request.common_setting_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.common_setting, 'CommonSetting', 'json')
+        if not UtilClient.is_unset(tmp_req.custom_period):
+            request.custom_period_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.custom_period, 'CustomPeriod', 'json')
+        if not UtilClient.is_unset(tmp_req.monitor_conf):
+            request.monitor_conf_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.monitor_conf, 'MonitorConf', 'json')
+        if not UtilClient.is_unset(tmp_req.monitors):
+            request.monitors_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.monitors, 'Monitors', 'json')
+        if not UtilClient.is_unset(tmp_req.tags):
+            request.tags_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.tags, 'Tags', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.available_assertions_shrink):
+            query['AvailableAssertions'] = request.available_assertions_shrink
+        if not UtilClient.is_unset(request.common_setting_shrink):
+            query['CommonSetting'] = request.common_setting_shrink
+        if not UtilClient.is_unset(request.custom_period_shrink):
+            query['CustomPeriod'] = request.custom_period_shrink
+        if not UtilClient.is_unset(request.frequency):
+            query['Frequency'] = request.frequency
+        if not UtilClient.is_unset(request.monitor_category):
+            query['MonitorCategory'] = request.monitor_category
+        if not UtilClient.is_unset(request.monitor_conf_shrink):
+            query['MonitorConf'] = request.monitor_conf_shrink
+        if not UtilClient.is_unset(request.monitors_shrink):
+            query['Monitors'] = request.monitors_shrink
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.tags_shrink):
+            query['Tags'] = request.tags_shrink
+        if not UtilClient.is_unset(request.task_type):
+            query['TaskType'] = request.task_type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateTimingSyntheticTask',
+            version='2019-08-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            arms20190808_models.CreateTimingSyntheticTaskResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_timing_synthetic_task(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_timing_synthetic_task_with_options(request, runtime)
 
     def create_webhook_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -2165,6 +2231,36 @@ class Client(OpenApiClient):
     def delete_synthetic_task(self, request):
         runtime = util_models.RuntimeOptions()
         return self.delete_synthetic_task_with_options(request, runtime)
+
+    def delete_timing_synthetic_task_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteTimingSyntheticTask',
+            version='2019-08-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            arms20190808_models.DeleteTimingSyntheticTaskResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_timing_synthetic_task(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_timing_synthetic_task_with_options(request, runtime)
 
     def delete_trace_app_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
@@ -3290,6 +3386,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_stack_with_options(request, runtime)
 
+    def get_synthetic_monitors_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = arms20190808_models.GetSyntheticMonitorsShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.filter):
+            request.filter_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.filter, 'Filter', 'json')
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetSyntheticMonitors',
+            version='2019-08-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            arms20190808_models.GetSyntheticMonitorsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_synthetic_monitors(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_synthetic_monitors_with_options(request, runtime)
+
     def get_synthetic_task_detail_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -3391,6 +3517,32 @@ class Client(OpenApiClient):
     def get_synthetic_task_monitors(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_synthetic_task_monitors_with_options(request, runtime)
+
+    def get_timing_synthetic_task_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetTimingSyntheticTask',
+            version='2019-08-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            arms20190808_models.GetTimingSyntheticTaskResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_timing_synthetic_task(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_timing_synthetic_task_with_options(request, runtime)
 
     def get_trace_with_options(self, request, runtime):
         """
@@ -4508,9 +4660,43 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_silence_policies_with_options(request, runtime)
 
+    def list_timing_synthetic_tasks_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = arms20190808_models.ListTimingSyntheticTasksShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.search):
+            request.search_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.search, 'Search', 'json')
+        if not UtilClient.is_unset(tmp_req.tags):
+            request.tags_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.tags, 'Tags', 'json')
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListTimingSyntheticTasks',
+            version='2019-08-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            arms20190808_models.ListTimingSyntheticTasksResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_timing_synthetic_tasks(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_timing_synthetic_tasks_with_options(request, runtime)
+
     def list_trace_apps_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.region):
+            query['Region'] = request.region
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.resource_group_id):
@@ -5608,6 +5794,40 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.start_alert_with_options(request, runtime)
 
+    def start_timing_synthetic_task_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = arms20190808_models.StartTimingSyntheticTaskShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.task_ids):
+            request.task_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.task_ids, 'TaskIds', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.task_ids_shrink):
+            query['TaskIds'] = request.task_ids_shrink
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='StartTimingSyntheticTask',
+            version='2019-08-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            arms20190808_models.StartTimingSyntheticTaskResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def start_timing_synthetic_task(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.start_timing_synthetic_task_with_options(request, runtime)
+
     def stop_alert_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -5637,6 +5857,40 @@ class Client(OpenApiClient):
     def stop_alert(self, request):
         runtime = util_models.RuntimeOptions()
         return self.stop_alert_with_options(request, runtime)
+
+    def stop_timing_synthetic_task_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = arms20190808_models.StopTimingSyntheticTaskShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.task_ids):
+            request.task_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.task_ids, 'TaskIds', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.task_ids_shrink):
+            query['TaskIds'] = request.task_ids_shrink
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='StopTimingSyntheticTask',
+            version='2019-08-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            arms20190808_models.StopTimingSyntheticTaskResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def stop_timing_synthetic_task(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.stop_timing_synthetic_task_with_options(request, runtime)
 
     def switch_synthetic_task_status_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -6127,6 +6381,8 @@ class Client(OpenApiClient):
             query['GroupName'] = request.group_name
         if not UtilClient.is_unset(request.most_region_id):
             query['MostRegionId'] = request.most_region_id
+        if not UtilClient.is_unset(request.param_json):
+            query['ParamJson'] = request.param_json
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.resource_group_id):
@@ -6301,6 +6557,72 @@ class Client(OpenApiClient):
     def update_prometheus_remote_write(self, request):
         runtime = util_models.RuntimeOptions()
         return self.update_prometheus_remote_write_with_options(request, runtime)
+
+    def update_timing_synthetic_task_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = arms20190808_models.UpdateTimingSyntheticTaskShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.available_assertions):
+            request.available_assertions_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.available_assertions, 'AvailableAssertions', 'json')
+        if not UtilClient.is_unset(tmp_req.common_setting):
+            request.common_setting_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.common_setting, 'CommonSetting', 'json')
+        if not UtilClient.is_unset(tmp_req.custom_period):
+            request.custom_period_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.custom_period, 'CustomPeriod', 'json')
+        if not UtilClient.is_unset(tmp_req.monitor_conf):
+            request.monitor_conf_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.monitor_conf, 'MonitorConf', 'json')
+        if not UtilClient.is_unset(tmp_req.monitors):
+            request.monitors_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.monitors, 'Monitors', 'json')
+        if not UtilClient.is_unset(tmp_req.tags):
+            request.tags_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.tags, 'Tags', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.available_assertions_shrink):
+            query['AvailableAssertions'] = request.available_assertions_shrink
+        if not UtilClient.is_unset(request.common_setting_shrink):
+            query['CommonSetting'] = request.common_setting_shrink
+        if not UtilClient.is_unset(request.custom_period_shrink):
+            query['CustomPeriod'] = request.custom_period_shrink
+        if not UtilClient.is_unset(request.frequency):
+            query['Frequency'] = request.frequency
+        if not UtilClient.is_unset(request.monitor_category):
+            query['MonitorCategory'] = request.monitor_category
+        if not UtilClient.is_unset(request.monitor_conf_shrink):
+            query['MonitorConf'] = request.monitor_conf_shrink
+        if not UtilClient.is_unset(request.monitors_shrink):
+            query['Monitors'] = request.monitors_shrink
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.tags_shrink):
+            query['Tags'] = request.tags_shrink
+        if not UtilClient.is_unset(request.task_id):
+            query['TaskId'] = request.task_id
+        if not UtilClient.is_unset(request.task_type):
+            query['TaskType'] = request.task_type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateTimingSyntheticTask',
+            version='2019-08-08',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            arms20190808_models.UpdateTimingSyntheticTaskResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_timing_synthetic_task(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_timing_synthetic_task_with_options(request, runtime)
 
     def update_webhook_with_options(self, request, runtime):
         """
