@@ -30,6 +30,42 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
+    def continue_deploy_service_instance_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dry_run):
+            query['DryRun'] = request.dry_run
+        if not UtilClient.is_unset(request.parameters):
+            query['Parameters'] = request.parameters
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.service_instance_id):
+            query['ServiceInstanceId'] = request.service_instance_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ContinueDeployServiceInstance',
+            version='2021-05-21',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            compute_nest_supplier_20210521_models.ContinueDeployServiceInstanceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def continue_deploy_service_instance(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.continue_deploy_service_instance_with_options(request, runtime)
+
     def create_artifact_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
         request = compute_nest_supplier_20210521_models.CreateArtifactShrinkRequest()
@@ -93,6 +129,8 @@ class Client(OpenApiClient):
             query['IsSupportOperated'] = request.is_support_operated
         if not UtilClient.is_unset(request.license_metadata):
             query['LicenseMetadata'] = request.license_metadata
+        if not UtilClient.is_unset(request.log_metadata):
+            query['LogMetadata'] = request.log_metadata
         if not UtilClient.is_unset(request.operation_metadata):
             query['OperationMetadata'] = request.operation_metadata
         if not UtilClient.is_unset(request.policy_names):
@@ -109,6 +147,10 @@ class Client(OpenApiClient):
             query['ServiceType'] = request.service_type
         if not UtilClient.is_unset(request.share_type):
             query['ShareType'] = request.share_type
+        if not UtilClient.is_unset(request.source_service_id):
+            query['SourceServiceId'] = request.source_service_id
+        if not UtilClient.is_unset(request.source_service_version):
+            query['SourceServiceVersion'] = request.source_service_version
         if not UtilClient.is_unset(request.tag):
             query['Tag'] = request.tag
         if not UtilClient.is_unset(request.tenant_type):
@@ -141,6 +183,60 @@ class Client(OpenApiClient):
     def create_service(self, request):
         runtime = util_models.RuntimeOptions()
         return self.create_service_with_options(request, runtime)
+
+    def create_service_instance_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = compute_nest_supplier_20210521_models.CreateServiceInstanceShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.parameters):
+            request.parameters_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.parameters, 'Parameters', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dry_run):
+            query['DryRun'] = request.dry_run
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.parameters_shrink):
+            query['Parameters'] = request.parameters_shrink
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.service_id):
+            query['ServiceId'] = request.service_id
+        if not UtilClient.is_unset(request.service_version):
+            query['ServiceVersion'] = request.service_version
+        if not UtilClient.is_unset(request.specification_name):
+            query['SpecificationName'] = request.specification_name
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
+        if not UtilClient.is_unset(request.template_name):
+            query['TemplateName'] = request.template_name
+        if not UtilClient.is_unset(request.user_id):
+            query['UserId'] = request.user_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateServiceInstance',
+            version='2021-05-21',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            compute_nest_supplier_20210521_models.CreateServiceInstanceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_service_instance(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_service_instance_with_options(request, runtime)
 
     def delete_artifact_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -205,6 +301,38 @@ class Client(OpenApiClient):
     def delete_service(self, request):
         runtime = util_models.RuntimeOptions()
         return self.delete_service_with_options(request, runtime)
+
+    def delete_service_instances_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.service_instance_id):
+            query['ServiceInstanceId'] = request.service_instance_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteServiceInstances',
+            version='2021-05-21',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            compute_nest_supplier_20210521_models.DeleteServiceInstancesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_service_instances(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_service_instances_with_options(request, runtime)
 
     def get_artifact_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -271,12 +399,18 @@ class Client(OpenApiClient):
     def get_service_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.filter_ali_uid):
+            query['FilterAliUid'] = request.filter_ali_uid
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.service_id):
             query['ServiceId'] = request.service_id
         if not UtilClient.is_unset(request.service_version):
             query['ServiceVersion'] = request.service_version
+        if not UtilClient.is_unset(request.shared_account_type):
+            query['SharedAccountType'] = request.shared_account_type
+        if not UtilClient.is_unset(request.show_detail):
+            query['ShowDetail'] = request.show_detail
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -477,6 +611,8 @@ class Client(OpenApiClient):
             query['NextToken'] = request.next_token
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.show_deleted):
             query['ShowDeleted'] = request.show_deleted
         if not UtilClient.is_unset(request.tag):
@@ -576,6 +712,38 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_services_with_options(request, runtime)
 
+    def modify_service_instance_resources_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.resources):
+            query['Resources'] = request.resources
+        if not UtilClient.is_unset(request.service_instance_id):
+            query['ServiceInstanceId'] = request.service_instance_id
+        if not UtilClient.is_unset(request.service_instance_resources_action):
+            query['ServiceInstanceResourcesAction'] = request.service_instance_resources_action
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyServiceInstanceResources',
+            version='2021-05-21',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            compute_nest_supplier_20210521_models.ModifyServiceInstanceResourcesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_service_instance_resources(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_service_instance_resources_with_options(request, runtime)
+
     def release_artifact_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -661,6 +829,8 @@ class Client(OpenApiClient):
             query['IsSupportOperated'] = request.is_support_operated
         if not UtilClient.is_unset(request.license_metadata):
             query['LicenseMetadata'] = request.license_metadata
+        if not UtilClient.is_unset(request.log_metadata):
+            query['LogMetadata'] = request.log_metadata
         if not UtilClient.is_unset(request.operation_metadata):
             query['OperationMetadata'] = request.operation_metadata
         if not UtilClient.is_unset(request.policy_names):
