@@ -603,14 +603,19 @@ class CreateMyBaseRequestECSClassList(TeaModel):
 
 class CreateMyBaseRequest(TeaModel):
     def __init__(self, auto_renew=None, client_token=None, dedicated_host_group_description=None,
-                 dedicated_host_group_id=None, ecsclass_list=None, engine=None, image_id=None, key_pair_name=None, os_password=None,
-                 owner_id=None, password_inherit=None, pay_type=None, period=None, period_type=None, region_id=None,
-                 resource_owner_account=None, resource_owner_id=None, security_group_id=None, v_switch_id=None, vpc_id=None, zone_id=None):
+                 dedicated_host_group_id=None, ecsclass_list=None, ecs_deployment_set_id=None, ecs_host_name=None, ecs_instance_name=None,
+                 ecs_unique_suffix=None, engine=None, image_id=None, key_pair_name=None, os_password=None, owner_id=None,
+                 password_inherit=None, pay_type=None, period=None, period_type=None, region_id=None, resource_owner_account=None,
+                 resource_owner_id=None, security_group_id=None, v_switch_id=None, vpc_id=None, zone_id=None):
         self.auto_renew = auto_renew  # type: str
         self.client_token = client_token  # type: str
         self.dedicated_host_group_description = dedicated_host_group_description  # type: str
         self.dedicated_host_group_id = dedicated_host_group_id  # type: str
         self.ecsclass_list = ecsclass_list  # type: list[CreateMyBaseRequestECSClassList]
+        self.ecs_deployment_set_id = ecs_deployment_set_id  # type: str
+        self.ecs_host_name = ecs_host_name  # type: str
+        self.ecs_instance_name = ecs_instance_name  # type: str
+        self.ecs_unique_suffix = ecs_unique_suffix  # type: str
         self.engine = engine  # type: str
         self.image_id = image_id  # type: str
         self.key_pair_name = key_pair_name  # type: str
@@ -652,6 +657,14 @@ class CreateMyBaseRequest(TeaModel):
         if self.ecsclass_list is not None:
             for k in self.ecsclass_list:
                 result['ECSClassList'].append(k.to_map() if k else None)
+        if self.ecs_deployment_set_id is not None:
+            result['EcsDeploymentSetId'] = self.ecs_deployment_set_id
+        if self.ecs_host_name is not None:
+            result['EcsHostName'] = self.ecs_host_name
+        if self.ecs_instance_name is not None:
+            result['EcsInstanceName'] = self.ecs_instance_name
+        if self.ecs_unique_suffix is not None:
+            result['EcsUniqueSuffix'] = self.ecs_unique_suffix
         if self.engine is not None:
             result['Engine'] = self.engine
         if self.image_id is not None:
@@ -701,6 +714,14 @@ class CreateMyBaseRequest(TeaModel):
             for k in m.get('ECSClassList'):
                 temp_model = CreateMyBaseRequestECSClassList()
                 self.ecsclass_list.append(temp_model.from_map(k))
+        if m.get('EcsDeploymentSetId') is not None:
+            self.ecs_deployment_set_id = m.get('EcsDeploymentSetId')
+        if m.get('EcsHostName') is not None:
+            self.ecs_host_name = m.get('EcsHostName')
+        if m.get('EcsInstanceName') is not None:
+            self.ecs_instance_name = m.get('EcsInstanceName')
+        if m.get('EcsUniqueSuffix') is not None:
+            self.ecs_unique_suffix = m.get('EcsUniqueSuffix')
         if m.get('Engine') is not None:
             self.engine = m.get('Engine')
         if m.get('ImageId') is not None:
@@ -738,7 +759,8 @@ class CreateMyBaseRequest(TeaModel):
 
 class CreateMyBaseShrinkRequest(TeaModel):
     def __init__(self, auto_renew=None, client_token=None, dedicated_host_group_description=None,
-                 dedicated_host_group_id=None, ecsclass_list_shrink=None, engine=None, image_id=None, key_pair_name=None, os_password=None,
+                 dedicated_host_group_id=None, ecsclass_list_shrink=None, ecs_deployment_set_id=None, ecs_host_name=None,
+                 ecs_instance_name=None, ecs_unique_suffix=None, engine=None, image_id=None, key_pair_name=None, os_password=None,
                  owner_id=None, password_inherit=None, pay_type=None, period=None, period_type=None, region_id=None,
                  resource_owner_account=None, resource_owner_id=None, security_group_id=None, v_switch_id=None, vpc_id=None, zone_id=None):
         self.auto_renew = auto_renew  # type: str
@@ -746,6 +768,10 @@ class CreateMyBaseShrinkRequest(TeaModel):
         self.dedicated_host_group_description = dedicated_host_group_description  # type: str
         self.dedicated_host_group_id = dedicated_host_group_id  # type: str
         self.ecsclass_list_shrink = ecsclass_list_shrink  # type: str
+        self.ecs_deployment_set_id = ecs_deployment_set_id  # type: str
+        self.ecs_host_name = ecs_host_name  # type: str
+        self.ecs_instance_name = ecs_instance_name  # type: str
+        self.ecs_unique_suffix = ecs_unique_suffix  # type: str
         self.engine = engine  # type: str
         self.image_id = image_id  # type: str
         self.key_pair_name = key_pair_name  # type: str
@@ -782,6 +808,14 @@ class CreateMyBaseShrinkRequest(TeaModel):
             result['DedicatedHostGroupId'] = self.dedicated_host_group_id
         if self.ecsclass_list_shrink is not None:
             result['ECSClassList'] = self.ecsclass_list_shrink
+        if self.ecs_deployment_set_id is not None:
+            result['EcsDeploymentSetId'] = self.ecs_deployment_set_id
+        if self.ecs_host_name is not None:
+            result['EcsHostName'] = self.ecs_host_name
+        if self.ecs_instance_name is not None:
+            result['EcsInstanceName'] = self.ecs_instance_name
+        if self.ecs_unique_suffix is not None:
+            result['EcsUniqueSuffix'] = self.ecs_unique_suffix
         if self.engine is not None:
             result['Engine'] = self.engine
         if self.image_id is not None:
@@ -828,6 +862,14 @@ class CreateMyBaseShrinkRequest(TeaModel):
             self.dedicated_host_group_id = m.get('DedicatedHostGroupId')
         if m.get('ECSClassList') is not None:
             self.ecsclass_list_shrink = m.get('ECSClassList')
+        if m.get('EcsDeploymentSetId') is not None:
+            self.ecs_deployment_set_id = m.get('EcsDeploymentSetId')
+        if m.get('EcsHostName') is not None:
+            self.ecs_host_name = m.get('EcsHostName')
+        if m.get('EcsInstanceName') is not None:
+            self.ecs_instance_name = m.get('EcsInstanceName')
+        if m.get('EcsUniqueSuffix') is not None:
+            self.ecs_unique_suffix = m.get('EcsUniqueSuffix')
         if m.get('Engine') is not None:
             self.engine = m.get('Engine')
         if m.get('ImageId') is not None:
@@ -864,8 +906,9 @@ class CreateMyBaseShrinkRequest(TeaModel):
 
 
 class CreateMyBaseResponseBodyOrderListOrderList(TeaModel):
-    def __init__(self, create_timestamp=None, ecsinstance_ids=None, order_id=None):
+    def __init__(self, create_timestamp=None, dedicated_host_group_name=None, ecsinstance_ids=None, order_id=None):
         self.create_timestamp = create_timestamp  # type: long
+        self.dedicated_host_group_name = dedicated_host_group_name  # type: str
         self.ecsinstance_ids = ecsinstance_ids  # type: str
         self.order_id = order_id  # type: str
 
@@ -880,6 +923,8 @@ class CreateMyBaseResponseBodyOrderListOrderList(TeaModel):
         result = dict()
         if self.create_timestamp is not None:
             result['CreateTimestamp'] = self.create_timestamp
+        if self.dedicated_host_group_name is not None:
+            result['DedicatedHostGroupName'] = self.dedicated_host_group_name
         if self.ecsinstance_ids is not None:
             result['ECSInstanceIds'] = self.ecsinstance_ids
         if self.order_id is not None:
@@ -890,6 +935,8 @@ class CreateMyBaseResponseBodyOrderListOrderList(TeaModel):
         m = m or dict()
         if m.get('CreateTimestamp') is not None:
             self.create_timestamp = m.get('CreateTimestamp')
+        if m.get('DedicatedHostGroupName') is not None:
+            self.dedicated_host_group_name = m.get('DedicatedHostGroupName')
         if m.get('ECSInstanceIds') is not None:
             self.ecsinstance_ids = m.get('ECSInstanceIds')
         if m.get('OrderId') is not None:
@@ -1313,6 +1360,7 @@ class DescribeDedicatedHostAttributeResponseBody(TeaModel):
         self.request_id = request_id  # type: str
         self.storage_used = storage_used  # type: str
         self.vpcid = vpcid  # type: str
+        # VSwitch ID。
         self.v_switch_id = v_switch_id  # type: str
         self.zone_id = zone_id  # type: str
 
