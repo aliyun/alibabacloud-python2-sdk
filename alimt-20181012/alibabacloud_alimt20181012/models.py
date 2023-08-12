@@ -3,6 +3,165 @@
 from Tea.model import TeaModel
 
 
+class CreateAsyncTranslateRequest(TeaModel):
+    def __init__(self, api_type=None, format_type=None, scene=None, source_language=None, source_text=None,
+                 target_language=None):
+        self.api_type = api_type  # type: str
+        self.format_type = format_type  # type: str
+        self.scene = scene  # type: str
+        self.source_language = source_language  # type: str
+        self.source_text = source_text  # type: str
+        self.target_language = target_language  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateAsyncTranslateRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.api_type is not None:
+            result['ApiType'] = self.api_type
+        if self.format_type is not None:
+            result['FormatType'] = self.format_type
+        if self.scene is not None:
+            result['Scene'] = self.scene
+        if self.source_language is not None:
+            result['SourceLanguage'] = self.source_language
+        if self.source_text is not None:
+            result['SourceText'] = self.source_text
+        if self.target_language is not None:
+            result['TargetLanguage'] = self.target_language
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ApiType') is not None:
+            self.api_type = m.get('ApiType')
+        if m.get('FormatType') is not None:
+            self.format_type = m.get('FormatType')
+        if m.get('Scene') is not None:
+            self.scene = m.get('Scene')
+        if m.get('SourceLanguage') is not None:
+            self.source_language = m.get('SourceLanguage')
+        if m.get('SourceText') is not None:
+            self.source_text = m.get('SourceText')
+        if m.get('TargetLanguage') is not None:
+            self.target_language = m.get('TargetLanguage')
+        return self
+
+
+class CreateAsyncTranslateResponseBodyData(TeaModel):
+    def __init__(self, job_id=None, status=None):
+        self.job_id = job_id  # type: str
+        self.status = status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateAsyncTranslateResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.job_id is not None:
+            result['JobId'] = self.job_id
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('JobId') is not None:
+            self.job_id = m.get('JobId')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class CreateAsyncTranslateResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None):
+        self.code = code  # type: int
+        self.data = data  # type: CreateAsyncTranslateResponseBodyData
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(CreateAsyncTranslateResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = CreateAsyncTranslateResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class CreateAsyncTranslateResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CreateAsyncTranslateResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CreateAsyncTranslateResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CreateAsyncTranslateResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CreateDocTranslateTaskRequest(TeaModel):
     def __init__(self, callback_url=None, client_token=None, file_url=None, scene=None, source_language=None,
                  target_language=None):
@@ -320,6 +479,149 @@ class CreateImageTranslateTaskResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = CreateImageTranslateTaskResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetAsyncTranslateRequest(TeaModel):
+    def __init__(self, job_id=None):
+        self.job_id = job_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetAsyncTranslateRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.job_id is not None:
+            result['JobId'] = self.job_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('JobId') is not None:
+            self.job_id = m.get('JobId')
+        return self
+
+
+class GetAsyncTranslateResponseBodyData(TeaModel):
+    def __init__(self, detected_language=None, status=None, translated_text=None, word_count=None):
+        self.detected_language = detected_language  # type: str
+        self.status = status  # type: str
+        self.translated_text = translated_text  # type: str
+        self.word_count = word_count  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetAsyncTranslateResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.detected_language is not None:
+            result['DetectedLanguage'] = self.detected_language
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.translated_text is not None:
+            result['TranslatedText'] = self.translated_text
+        if self.word_count is not None:
+            result['WordCount'] = self.word_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DetectedLanguage') is not None:
+            self.detected_language = m.get('DetectedLanguage')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('TranslatedText') is not None:
+            self.translated_text = m.get('TranslatedText')
+        if m.get('WordCount') is not None:
+            self.word_count = m.get('WordCount')
+        return self
+
+
+class GetAsyncTranslateResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None):
+        self.code = code  # type: int
+        self.data = data  # type: GetAsyncTranslateResponseBodyData
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(GetAsyncTranslateResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = GetAsyncTranslateResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class GetAsyncTranslateResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetAsyncTranslateResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetAsyncTranslateResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetAsyncTranslateResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
