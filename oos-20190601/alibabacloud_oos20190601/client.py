@@ -355,6 +355,8 @@ class Client(OpenApiClient):
             query['RejectedPatches'] = request.rejected_patches_shrink
         if not UtilClient.is_unset(request.rejected_patches_action):
             query['RejectedPatchesAction'] = request.rejected_patches_action
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.sources_shrink):
             query['Sources'] = request.sources_shrink
         if not UtilClient.is_unset(request.tags_shrink):
@@ -2989,6 +2991,8 @@ class Client(OpenApiClient):
             query['RejectedPatches'] = request.rejected_patches_shrink
         if not UtilClient.is_unset(request.rejected_patches_action):
             query['RejectedPatchesAction'] = request.rejected_patches_action
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.sources_shrink):
             query['Sources'] = request.sources_shrink
         if not UtilClient.is_unset(request.tags_shrink):

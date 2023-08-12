@@ -1529,7 +1529,7 @@ class CreatePatchBaselineRequestTags(TeaModel):
 class CreatePatchBaselineRequest(TeaModel):
     def __init__(self, approval_rules=None, approved_patches=None, approved_patches_enable_non_security=None,
                  client_token=None, description=None, name=None, operation_system=None, region_id=None, rejected_patches=None,
-                 rejected_patches_action=None, sources=None, tags=None):
+                 rejected_patches_action=None, resource_group_id=None, sources=None, tags=None):
         # The rules of scanning and installing patches for the specified operating system.
         self.approval_rules = approval_rules  # type: str
         self.approved_patches = approved_patches  # type: list[str]
@@ -1555,6 +1555,7 @@ class CreatePatchBaselineRequest(TeaModel):
         self.region_id = region_id  # type: str
         self.rejected_patches = rejected_patches  # type: list[str]
         self.rejected_patches_action = rejected_patches_action  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.sources = sources  # type: list[str]
         self.tags = tags  # type: list[CreatePatchBaselineRequestTags]
 
@@ -1590,6 +1591,8 @@ class CreatePatchBaselineRequest(TeaModel):
             result['RejectedPatches'] = self.rejected_patches
         if self.rejected_patches_action is not None:
             result['RejectedPatchesAction'] = self.rejected_patches_action
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.sources is not None:
             result['Sources'] = self.sources
         result['Tags'] = []
@@ -1620,6 +1623,8 @@ class CreatePatchBaselineRequest(TeaModel):
             self.rejected_patches = m.get('RejectedPatches')
         if m.get('RejectedPatchesAction') is not None:
             self.rejected_patches_action = m.get('RejectedPatchesAction')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('Sources') is not None:
             self.sources = m.get('Sources')
         self.tags = []
@@ -1633,7 +1638,7 @@ class CreatePatchBaselineRequest(TeaModel):
 class CreatePatchBaselineShrinkRequest(TeaModel):
     def __init__(self, approval_rules=None, approved_patches_shrink=None,
                  approved_patches_enable_non_security=None, client_token=None, description=None, name=None, operation_system=None, region_id=None,
-                 rejected_patches_shrink=None, rejected_patches_action=None, sources_shrink=None, tags_shrink=None):
+                 rejected_patches_shrink=None, rejected_patches_action=None, resource_group_id=None, sources_shrink=None, tags_shrink=None):
         # The rules of scanning and installing patches for the specified operating system.
         self.approval_rules = approval_rules  # type: str
         self.approved_patches_shrink = approved_patches_shrink  # type: str
@@ -1659,6 +1664,7 @@ class CreatePatchBaselineShrinkRequest(TeaModel):
         self.region_id = region_id  # type: str
         self.rejected_patches_shrink = rejected_patches_shrink  # type: str
         self.rejected_patches_action = rejected_patches_action  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.sources_shrink = sources_shrink  # type: str
         self.tags_shrink = tags_shrink  # type: str
 
@@ -1691,6 +1697,8 @@ class CreatePatchBaselineShrinkRequest(TeaModel):
             result['RejectedPatches'] = self.rejected_patches_shrink
         if self.rejected_patches_action is not None:
             result['RejectedPatchesAction'] = self.rejected_patches_action
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.sources_shrink is not None:
             result['Sources'] = self.sources_shrink
         if self.tags_shrink is not None:
@@ -1719,6 +1727,8 @@ class CreatePatchBaselineShrinkRequest(TeaModel):
             self.rejected_patches_shrink = m.get('RejectedPatches')
         if m.get('RejectedPatchesAction') is not None:
             self.rejected_patches_action = m.get('RejectedPatchesAction')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('Sources') is not None:
             self.sources_shrink = m.get('Sources')
         if m.get('Tags') is not None:
@@ -1758,8 +1768,8 @@ class CreatePatchBaselineResponseBodyPatchBaselineTags(TeaModel):
 class CreatePatchBaselineResponseBodyPatchBaseline(TeaModel):
     def __init__(self, approval_rules=None, approved_patches=None, approved_patches_enable_non_security=None,
                  created_by=None, created_date=None, description=None, id=None, name=None, operation_system=None,
-                 rejected_patches=None, rejected_patches_action=None, share_type=None, sources=None, tags=None, updated_by=None,
-                 updated_date=None):
+                 rejected_patches=None, rejected_patches_action=None, resource_group_id=None, share_type=None, sources=None,
+                 tags=None, updated_by=None, updated_date=None):
         # The rules of scanning and installing patches for the specified operating system.
         self.approval_rules = approval_rules  # type: str
         self.approved_patches = approved_patches  # type: list[str]
@@ -1778,6 +1788,7 @@ class CreatePatchBaselineResponseBodyPatchBaseline(TeaModel):
         self.operation_system = operation_system  # type: str
         self.rejected_patches = rejected_patches  # type: list[str]
         self.rejected_patches_action = rejected_patches_action  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         # The share type of the patch baseline.
         self.share_type = share_type  # type: str
         self.sources = sources  # type: list[str]
@@ -1821,6 +1832,8 @@ class CreatePatchBaselineResponseBodyPatchBaseline(TeaModel):
             result['RejectedPatches'] = self.rejected_patches
         if self.rejected_patches_action is not None:
             result['RejectedPatchesAction'] = self.rejected_patches_action
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.share_type is not None:
             result['ShareType'] = self.share_type
         if self.sources is not None:
@@ -1859,6 +1872,8 @@ class CreatePatchBaselineResponseBodyPatchBaseline(TeaModel):
             self.rejected_patches = m.get('RejectedPatches')
         if m.get('RejectedPatchesAction') is not None:
             self.rejected_patches_action = m.get('RejectedPatchesAction')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ShareType') is not None:
             self.share_type = m.get('ShareType')
         if m.get('Sources') is not None:
@@ -5967,8 +5982,8 @@ class GetPatchBaselineResponseBodyPatchBaselineTags(TeaModel):
 class GetPatchBaselineResponseBodyPatchBaseline(TeaModel):
     def __init__(self, approval_rules=None, approved_patches=None, approved_patches_enable_non_security=None,
                  created_by=None, created_date=None, description=None, id=None, is_default=None, name=None,
-                 operation_system=None, rejected_patches=None, rejected_patches_action=None, share_type=None, sources=None,
-                 tags=None, updated_by=None, updated_date=None):
+                 operation_system=None, rejected_patches=None, rejected_patches_action=None, resource_group_id=None,
+                 share_type=None, sources=None, tags=None, updated_by=None, updated_date=None):
         # The rules of scanning and installing patches for the specified operating system.
         self.approval_rules = approval_rules  # type: str
         self.approved_patches = approved_patches  # type: list[str]
@@ -5989,6 +6004,7 @@ class GetPatchBaselineResponseBodyPatchBaseline(TeaModel):
         self.operation_system = operation_system  # type: str
         self.rejected_patches = rejected_patches  # type: list[str]
         self.rejected_patches_action = rejected_patches_action  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         # The share type of the patch baseline.
         self.share_type = share_type  # type: str
         self.sources = sources  # type: list[str]
@@ -6034,6 +6050,8 @@ class GetPatchBaselineResponseBodyPatchBaseline(TeaModel):
             result['RejectedPatches'] = self.rejected_patches
         if self.rejected_patches_action is not None:
             result['RejectedPatchesAction'] = self.rejected_patches_action
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.share_type is not None:
             result['ShareType'] = self.share_type
         if self.sources is not None:
@@ -6074,6 +6092,8 @@ class GetPatchBaselineResponseBodyPatchBaseline(TeaModel):
             self.rejected_patches = m.get('RejectedPatches')
         if m.get('RejectedPatchesAction') is not None:
             self.rejected_patches_action = m.get('RejectedPatchesAction')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ShareType') is not None:
             self.share_type = m.get('ShareType')
         if m.get('Sources') is not None:
@@ -13884,7 +13904,7 @@ class RegisterDefaultPatchBaselineRequest(TeaModel):
 
 class RegisterDefaultPatchBaselineResponseBodyPatchBaseline(TeaModel):
     def __init__(self, approval_rules=None, created_by=None, created_date=None, description=None, id=None, name=None,
-                 operation_system=None, share_type=None, updated_by=None, updated_date=None):
+                 operation_system=None, resource_group_id=None, share_type=None, updated_by=None, updated_date=None):
         # The rules of scanning and installing patches for the specified operating system.
         self.approval_rules = approval_rules  # type: str
         # The user who created the patch baseline.
@@ -13899,6 +13919,7 @@ class RegisterDefaultPatchBaselineResponseBodyPatchBaseline(TeaModel):
         self.name = name  # type: str
         # The type of the operating system.
         self.operation_system = operation_system  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         # The share type of the patch baseline.
         self.share_type = share_type  # type: str
         # The user who last updated the patch baseline.
@@ -13929,6 +13950,8 @@ class RegisterDefaultPatchBaselineResponseBodyPatchBaseline(TeaModel):
             result['Name'] = self.name
         if self.operation_system is not None:
             result['OperationSystem'] = self.operation_system
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.share_type is not None:
             result['ShareType'] = self.share_type
         if self.updated_by is not None:
@@ -13953,6 +13976,8 @@ class RegisterDefaultPatchBaselineResponseBodyPatchBaseline(TeaModel):
             self.name = m.get('Name')
         if m.get('OperationSystem') is not None:
             self.operation_system = m.get('OperationSystem')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ShareType') is not None:
             self.share_type = m.get('ShareType')
         if m.get('UpdatedBy') is not None:
@@ -16515,7 +16540,7 @@ class UpdatePatchBaselineRequestTags(TeaModel):
 class UpdatePatchBaselineRequest(TeaModel):
     def __init__(self, approval_rules=None, approved_patches=None, approved_patches_enable_non_security=None,
                  client_token=None, description=None, name=None, region_id=None, rejected_patches=None,
-                 rejected_patches_action=None, sources=None, tags=None):
+                 rejected_patches_action=None, resource_group_id=None, sources=None, tags=None):
         # The rules of scanning and installing patches for the specified operating system.
         self.approval_rules = approval_rules  # type: str
         self.approved_patches = approved_patches  # type: list[str]
@@ -16530,6 +16555,7 @@ class UpdatePatchBaselineRequest(TeaModel):
         self.region_id = region_id  # type: str
         self.rejected_patches = rejected_patches  # type: list[str]
         self.rejected_patches_action = rejected_patches_action  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.sources = sources  # type: list[str]
         self.tags = tags  # type: list[UpdatePatchBaselineRequestTags]
 
@@ -16563,6 +16589,8 @@ class UpdatePatchBaselineRequest(TeaModel):
             result['RejectedPatches'] = self.rejected_patches
         if self.rejected_patches_action is not None:
             result['RejectedPatchesAction'] = self.rejected_patches_action
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.sources is not None:
             result['Sources'] = self.sources
         result['Tags'] = []
@@ -16591,6 +16619,8 @@ class UpdatePatchBaselineRequest(TeaModel):
             self.rejected_patches = m.get('RejectedPatches')
         if m.get('RejectedPatchesAction') is not None:
             self.rejected_patches_action = m.get('RejectedPatchesAction')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('Sources') is not None:
             self.sources = m.get('Sources')
         self.tags = []
@@ -16604,7 +16634,7 @@ class UpdatePatchBaselineRequest(TeaModel):
 class UpdatePatchBaselineShrinkRequest(TeaModel):
     def __init__(self, approval_rules=None, approved_patches_shrink=None,
                  approved_patches_enable_non_security=None, client_token=None, description=None, name=None, region_id=None, rejected_patches_shrink=None,
-                 rejected_patches_action=None, sources_shrink=None, tags_shrink=None):
+                 rejected_patches_action=None, resource_group_id=None, sources_shrink=None, tags_shrink=None):
         # The rules of scanning and installing patches for the specified operating system.
         self.approval_rules = approval_rules  # type: str
         self.approved_patches_shrink = approved_patches_shrink  # type: str
@@ -16619,6 +16649,7 @@ class UpdatePatchBaselineShrinkRequest(TeaModel):
         self.region_id = region_id  # type: str
         self.rejected_patches_shrink = rejected_patches_shrink  # type: str
         self.rejected_patches_action = rejected_patches_action  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.sources_shrink = sources_shrink  # type: str
         self.tags_shrink = tags_shrink  # type: str
 
@@ -16649,6 +16680,8 @@ class UpdatePatchBaselineShrinkRequest(TeaModel):
             result['RejectedPatches'] = self.rejected_patches_shrink
         if self.rejected_patches_action is not None:
             result['RejectedPatchesAction'] = self.rejected_patches_action
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.sources_shrink is not None:
             result['Sources'] = self.sources_shrink
         if self.tags_shrink is not None:
@@ -16675,6 +16708,8 @@ class UpdatePatchBaselineShrinkRequest(TeaModel):
             self.rejected_patches_shrink = m.get('RejectedPatches')
         if m.get('RejectedPatchesAction') is not None:
             self.rejected_patches_action = m.get('RejectedPatchesAction')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('Sources') is not None:
             self.sources_shrink = m.get('Sources')
         if m.get('Tags') is not None:
@@ -16714,8 +16749,8 @@ class UpdatePatchBaselineResponseBodyPatchBaselineTags(TeaModel):
 class UpdatePatchBaselineResponseBodyPatchBaseline(TeaModel):
     def __init__(self, approval_rules=None, approved_patches=None, approved_patches_enable_non_security=None,
                  created_by=None, created_date=None, description=None, id=None, name=None, operation_system=None,
-                 rejected_patches=None, rejected_patches_action=None, share_type=None, sources=None, tags=None, updated_by=None,
-                 updated_date=None):
+                 rejected_patches=None, rejected_patches_action=None, resource_group_id=None, share_type=None, sources=None,
+                 tags=None, updated_by=None, updated_date=None):
         # The rules of scanning and installing patches for the specified operating system.
         self.approval_rules = approval_rules  # type: str
         self.approved_patches = approved_patches  # type: list[str]
@@ -16734,6 +16769,7 @@ class UpdatePatchBaselineResponseBodyPatchBaseline(TeaModel):
         self.operation_system = operation_system  # type: str
         self.rejected_patches = rejected_patches  # type: list[str]
         self.rejected_patches_action = rejected_patches_action  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         # The share type of the patch baseline.
         self.share_type = share_type  # type: str
         self.sources = sources  # type: list[str]
@@ -16777,6 +16813,8 @@ class UpdatePatchBaselineResponseBodyPatchBaseline(TeaModel):
             result['RejectedPatches'] = self.rejected_patches
         if self.rejected_patches_action is not None:
             result['RejectedPatchesAction'] = self.rejected_patches_action
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.share_type is not None:
             result['ShareType'] = self.share_type
         if self.sources is not None:
@@ -16815,6 +16853,8 @@ class UpdatePatchBaselineResponseBodyPatchBaseline(TeaModel):
             self.rejected_patches = m.get('RejectedPatches')
         if m.get('RejectedPatchesAction') is not None:
             self.rejected_patches_action = m.get('RejectedPatchesAction')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ShareType') is not None:
             self.share_type = m.get('ShareType')
         if m.get('Sources') is not None:
