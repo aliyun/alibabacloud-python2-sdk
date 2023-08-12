@@ -370,20 +370,12 @@ class Client(OpenApiClient):
 
     def create_stack_group_with_options(self, tmp_req, runtime):
         """
-        | Error code | Error message | HTTP status code | Description |
-        | ---------- | ------------- | ---------------- | ----------- |
-        | CircularDependency | Circular Dependency Found: {reason}. | 400 | The error message returned because the template contains circular dependencies. reason indicates the cause of the error. |
-        | InvalidSchema | {reason}. | 400 | The error message returned because the template format is invalid. reason indicates the cause of the error. |
-        | InvalidTemplateAttribute | The Referenced Attribute ({resource} {name}) is incorrect. | 400 | The error message returned because the resource property that is referenced in the Outputs section of the template is invalid. resource indicates the resource name. name indicates the property name. |
-        | InvalidTemplatePropertyType | The specified value type of ({resource} {section}) is incorrect. | 400 | The error message returned because the type of the resource property that is defined in a template section is invalid. resource indicates the resource name. section indicates the section name. |
-        | InvalidTemplateReference | The specified reference "{name}" (in {referencer}) is incorrect. | 400 | The error message returned because the template contains an invalid reference. name indicates the reference name. referencer indicates the referencer name. |
-        | InvalidTemplateSection | The template section is invalid: {section}. | 400 | The error message returned because the template contains an invalid section. section indicates the section name. |
-        | InvalidTemplateVersion | The template version is invalid: {reason}. | 400 | The error message returned because the template version is invalid. reason indicates the cause of the error. |
-        | UnknownUserParameter | The Parameter ({name}) was not defined in template. | 400 | The error message returned because the specified parameter is not defined in the template. name indicates the parameter name. |
-        | UserParameterMissing | The Parameter {name} was not provided. | 400 | The error message returned because no value is specified for a parameter in the template. name indicates the parameter name. |
-        | StackGroupExists | The StackGroup ({name}) already exists. | 409 | The error message returned because a stack group that has the same name already exists. name indicates the name of the stack group. |
-        | TemplateNotFound | The Tempalte ({ ID }) could not be found. | 404 | The error message returned because the template does not exist. ID indicates the ID of the template. |
-        | TemplateNotFound | The Template { ID } with version { version } could not be found. | 404 | The error message returned because the specified template or template version does not exist. ID indicates the ID of the template. version indicates the version of the template. |
+        A stack group is a collection of ROS stacks that you can manage as a unit. You can use an ROS template of a stack group to create stacks within Alibaba Cloud accounts across regions.
+        You can create a stack group that is granted self-managed or service-managed permissions:
+        *   If you use an Alibaba Cloud account to create a self-managed stack group, the administrator account and the execution account are Alibaba Cloud accounts.
+        *   If you enable a resource directory and use the management account or a delegated administrator account of the resource directory to create a service-managed stack group, the administrator account is the management account or delegated administrator account, and the execution account is a member account of the resource directory.
+        For more information about stack groups, see [Overview](~~154578~~).
+        In this topic, a stack group named `MyStackGroup` is created in the `China (Hangzhou)` region and granted the self-managed permissions. In this example, the template whose ID is `5ecd1e10-b0e9-4389-a565-e4c15efc****` is used.
         
 
         @param tmp_req: CreateStackGroupRequest
@@ -451,20 +443,12 @@ class Client(OpenApiClient):
 
     def create_stack_group(self, request):
         """
-        | Error code | Error message | HTTP status code | Description |
-        | ---------- | ------------- | ---------------- | ----------- |
-        | CircularDependency | Circular Dependency Found: {reason}. | 400 | The error message returned because the template contains circular dependencies. reason indicates the cause of the error. |
-        | InvalidSchema | {reason}. | 400 | The error message returned because the template format is invalid. reason indicates the cause of the error. |
-        | InvalidTemplateAttribute | The Referenced Attribute ({resource} {name}) is incorrect. | 400 | The error message returned because the resource property that is referenced in the Outputs section of the template is invalid. resource indicates the resource name. name indicates the property name. |
-        | InvalidTemplatePropertyType | The specified value type of ({resource} {section}) is incorrect. | 400 | The error message returned because the type of the resource property that is defined in a template section is invalid. resource indicates the resource name. section indicates the section name. |
-        | InvalidTemplateReference | The specified reference "{name}" (in {referencer}) is incorrect. | 400 | The error message returned because the template contains an invalid reference. name indicates the reference name. referencer indicates the referencer name. |
-        | InvalidTemplateSection | The template section is invalid: {section}. | 400 | The error message returned because the template contains an invalid section. section indicates the section name. |
-        | InvalidTemplateVersion | The template version is invalid: {reason}. | 400 | The error message returned because the template version is invalid. reason indicates the cause of the error. |
-        | UnknownUserParameter | The Parameter ({name}) was not defined in template. | 400 | The error message returned because the specified parameter is not defined in the template. name indicates the parameter name. |
-        | UserParameterMissing | The Parameter {name} was not provided. | 400 | The error message returned because no value is specified for a parameter in the template. name indicates the parameter name. |
-        | StackGroupExists | The StackGroup ({name}) already exists. | 409 | The error message returned because a stack group that has the same name already exists. name indicates the name of the stack group. |
-        | TemplateNotFound | The Tempalte ({ ID }) could not be found. | 404 | The error message returned because the template does not exist. ID indicates the ID of the template. |
-        | TemplateNotFound | The Template { ID } with version { version } could not be found. | 404 | The error message returned because the specified template or template version does not exist. ID indicates the ID of the template. version indicates the version of the template. |
+        A stack group is a collection of ROS stacks that you can manage as a unit. You can use an ROS template of a stack group to create stacks within Alibaba Cloud accounts across regions.
+        You can create a stack group that is granted self-managed or service-managed permissions:
+        *   If you use an Alibaba Cloud account to create a self-managed stack group, the administrator account and the execution account are Alibaba Cloud accounts.
+        *   If you enable a resource directory and use the management account or a delegated administrator account of the resource directory to create a service-managed stack group, the administrator account is the management account or delegated administrator account, and the execution account is a member account of the resource directory.
+        For more information about stack groups, see [Overview](~~154578~~).
+        In this topic, a stack group named `MyStackGroup` is created in the `China (Hangzhou)` region and granted the self-managed permissions. In this example, the template whose ID is `5ecd1e10-b0e9-4389-a565-e4c15efc****` is used.
         
 
         @param request: CreateStackGroupRequest
@@ -554,7 +538,7 @@ class Client(OpenApiClient):
 
     def create_template_with_options(self, request, runtime):
         """
-        This topic provides an example on how to create a template. In this example, a template named `MyTemplate` is created in the `China (Hangzhou)` region. The `TemplateBody` parameter is set to `{"ROSTemplateFormatVersion": "2015-09-01"}`.
+        In this topic, a custom template named `MyTemplate` is created in the `cn-hangzhou` region. The `TemplateBody` parameter of the template is set to `{"ROSTemplateFormatVersion": "2015-09-01"}`.
         
 
         @param request: CreateTemplateRequest
@@ -598,7 +582,7 @@ class Client(OpenApiClient):
 
     def create_template(self, request):
         """
-        This topic provides an example on how to create a template. In this example, a template named `MyTemplate` is created in the `China (Hangzhou)` region. The `TemplateBody` parameter is set to `{"ROSTemplateFormatVersion": "2015-09-01"}`.
+        In this topic, a custom template named `MyTemplate` is created in the `cn-hangzhou` region. The `TemplateBody` parameter of the template is set to `{"ROSTemplateFormatVersion": "2015-09-01"}`.
         
 
         @param request: CreateTemplateRequest
@@ -610,8 +594,9 @@ class Client(OpenApiClient):
 
     def create_template_scratch_with_options(self, tmp_req, runtime):
         """
+        ###
         You can call this operation to create a scenario that allows you to specify a resource scope on a visualized interface and easily replicate and manage the resources that you specify. For more information about scenarios, see [Overview](~~352074~~).
-        This topic provides an example on how to create a scenario of the resource replication type in the China (Hangzhou) region. In this example, a virtual private cloud (VPC) named `vpc-bp1m6fww66xbntjyc****` is replicated by using the scenario.
+        In this example, a scenario of the Resource Replication type is created in the China (Hangzhou) region. In the scenario, the virtual private cloud (VPC) whose ID is `vpc-bp1m6fww66xbntjyc****` is replicated.
         
 
         @param tmp_req: CreateTemplateScratchRequest
@@ -675,8 +660,9 @@ class Client(OpenApiClient):
 
     def create_template_scratch(self, request):
         """
+        ###
         You can call this operation to create a scenario that allows you to specify a resource scope on a visualized interface and easily replicate and manage the resources that you specify. For more information about scenarios, see [Overview](~~352074~~).
-        This topic provides an example on how to create a scenario of the resource replication type in the China (Hangzhou) region. In this example, a virtual private cloud (VPC) named `vpc-bp1m6fww66xbntjyc****` is replicated by using the scenario.
+        In this example, a scenario of the Resource Replication type is created in the China (Hangzhou) region. In the scenario, the virtual private cloud (VPC) whose ID is `vpc-bp1m6fww66xbntjyc****` is replicated.
         
 
         @param request: CreateTemplateScratchRequest
@@ -688,14 +674,13 @@ class Client(OpenApiClient):
 
     def delete_change_set_with_options(self, request, runtime):
         """
-        Limits:
-        *   Before you call this operation, make sure that the following requirements are met:
+        Before you call this operation, make sure that the following requirements are met:
         *   The status of the change set is CREATE_COMPLETE, CREATE_FAILED, or DELETE_FAILED.
         *   The execution status is UNAVAILABLE or AVAILABLE.
-        *   After a change set is executed, other change sets associated with the same stack as this change set are deleted.
+        *   After a change set is executed, other change sets associated with the same stack as this change set are also deleted.
         *   After a stack is deleted, change sets associated with the stack are deleted.
         *   If a change set of the CREATE type is deleted, you must delete stacks associated with the change set.
-        In this example, a change set in the China (Hangzhou) region whose ID is `1f6521a4-05af-4975-afe9-bc4b45ad****` is deleted.
+        In this example, a change set whose ID is `1f6521a4-05af-4975-afe9-bc4b45ad****` is deleted. The change set is created in the China (Hangzhou) region.
         
 
         @param request: DeleteChangeSetRequest
@@ -731,14 +716,13 @@ class Client(OpenApiClient):
 
     def delete_change_set(self, request):
         """
-        Limits:
-        *   Before you call this operation, make sure that the following requirements are met:
+        Before you call this operation, make sure that the following requirements are met:
         *   The status of the change set is CREATE_COMPLETE, CREATE_FAILED, or DELETE_FAILED.
         *   The execution status is UNAVAILABLE or AVAILABLE.
-        *   After a change set is executed, other change sets associated with the same stack as this change set are deleted.
+        *   After a change set is executed, other change sets associated with the same stack as this change set are also deleted.
         *   After a stack is deleted, change sets associated with the stack are deleted.
         *   If a change set of the CREATE type is deleted, you must delete stacks associated with the change set.
-        In this example, a change set in the China (Hangzhou) region whose ID is `1f6521a4-05af-4975-afe9-bc4b45ad****` is deleted.
+        In this example, a change set whose ID is `1f6521a4-05af-4975-afe9-bc4b45ad****` is deleted. The change set is created in the China (Hangzhou) region.
         
 
         @param request: DeleteChangeSetRequest
@@ -910,7 +894,7 @@ class Client(OpenApiClient):
 
     def delete_template_with_options(self, request, runtime):
         """
-        If the template is shared with other Alibaba Cloud accounts, you must unshare the template before you delete it.
+        If a template is shared with other Alibaba Cloud accounts, you must unshare the template before you delete it.
         
 
         @param request: DeleteTemplateRequest
@@ -944,7 +928,7 @@ class Client(OpenApiClient):
 
     def delete_template(self, request):
         """
-        If the template is shared with other Alibaba Cloud accounts, you must unshare the template before you delete it.
+        If a template is shared with other Alibaba Cloud accounts, you must unshare the template before you delete it.
         
 
         @param request: DeleteTemplateRequest
@@ -956,7 +940,7 @@ class Client(OpenApiClient):
 
     def delete_template_scratch_with_options(self, request, runtime):
         """
-        This topic describes how to delete a scenario. In this topic, the `ts-4f83704400994409***` scenario in the China (Hangzhou) region is deleted.
+        In this topic, a scenario whose ID is `ts-4f83704400994409***` is deleted in the China (Hangzhou) region.
         
 
         @param request: DeleteTemplateScratchRequest
@@ -992,7 +976,7 @@ class Client(OpenApiClient):
 
     def delete_template_scratch(self, request):
         """
-        This topic describes how to delete a scenario. In this topic, the `ts-4f83704400994409***` scenario in the China (Hangzhou) region is deleted.
+        In this topic, a scenario whose ID is `ts-4f83704400994409***` is deleted in the China (Hangzhou) region.
         
 
         @param request: DeleteTemplateScratchRequest
@@ -1168,7 +1152,7 @@ class Client(OpenApiClient):
 
     def execute_change_set_with_options(self, request, runtime):
         """
-        In this example, a change set in the `China (Hangzhou)` region whose ID is `1f6521a4-05af-4975-afe9-bc4b45ad***` is executed.
+        In this example, the change set whose ID is `1f6521a4-05af-4975-afe9-bc4b45ad***` is executed. The change set is created in the `China (Hangzhou)` region.
         
 
         @param request: ExecuteChangeSetRequest
@@ -1206,7 +1190,7 @@ class Client(OpenApiClient):
 
     def execute_change_set(self, request):
         """
-        In this example, a change set in the `China (Hangzhou)` region whose ID is `1f6521a4-05af-4975-afe9-bc4b45ad***` is executed.
+        In this example, the change set whose ID is `1f6521a4-05af-4975-afe9-bc4b45ad***` is executed. The change set is created in the `China (Hangzhou)` region.
         
 
         @param request: ExecuteChangeSetRequest
@@ -1218,7 +1202,7 @@ class Client(OpenApiClient):
 
     def generate_template_by_scratch_with_options(self, request, runtime):
         """
-        This topic describes how to create a template for a scenario. In this topic, the `ts-aa9c62feab844a6b***` scenario of the Resource Management type in the China (Hangzhou) region is used.
+        In this example, a template is created for the scenario whose ID is `ts-aa9c62feab844a6b***`. The scenario is of the Resource Management type and resides in the China (Hangzhou) region.
         
 
         @param request: GenerateTemplateByScratchRequest
@@ -1258,7 +1242,7 @@ class Client(OpenApiClient):
 
     def generate_template_by_scratch(self, request):
         """
-        This topic describes how to create a template for a scenario. In this topic, the `ts-aa9c62feab844a6b***` scenario of the Resource Management type in the China (Hangzhou) region is used.
+        In this example, a template is created for the scenario whose ID is `ts-aa9c62feab844a6b***`. The scenario is of the Resource Management type and resides in the China (Hangzhou) region.
         
 
         @param request: GenerateTemplateByScratchRequest
@@ -1326,7 +1310,7 @@ class Client(OpenApiClient):
 
     def get_change_set_with_options(self, request, runtime):
         """
-        In this example, the information of the change set whose ID is `4c11658d-bd47-4dd0-ba64-727edc62***` is queried.
+        In this example, the details of a change set whose ID is `4c11658d-bd47-4dd0-ba64-727edc62***` is queried. The change set is created in the China (Hangzhou) region.
         
 
         @param request: GetChangeSetRequest
@@ -1364,7 +1348,7 @@ class Client(OpenApiClient):
 
     def get_change_set(self, request):
         """
-        In this example, the information of the change set whose ID is `4c11658d-bd47-4dd0-ba64-727edc62***` is queried.
+        In this example, the details of a change set whose ID is `4c11658d-bd47-4dd0-ba64-727edc62***` is queried. The change set is created in the China (Hangzhou) region.
         
 
         @param request: GetChangeSetRequest
@@ -1506,8 +1490,9 @@ class Client(OpenApiClient):
 
     def get_service_provisions_with_options(self, request, runtime):
         """
+        ### Description
         This topic describes how to query the activation status and the RAM roles of an Alibaba Cloud service. In this example, the Elastic High Performance Computing (E-HPC) service that is deployed in the China (Hangzhou) region is queried.
-        >  Make sure that you have obtained the permissions on the [GetRole](~~28711~~) operation.
+        > Make sure that you have the permissions to call the [GetRole](~~28711~~) operation.
         
 
         @param request: GetServiceProvisionsRequest
@@ -1553,8 +1538,9 @@ class Client(OpenApiClient):
 
     def get_service_provisions(self, request):
         """
+        ### Description
         This topic describes how to query the activation status and the RAM roles of an Alibaba Cloud service. In this example, the Elastic High Performance Computing (E-HPC) service that is deployed in the China (Hangzhou) region is queried.
-        >  Make sure that you have obtained the permissions on the [GetRole](~~28711~~) operation.
+        > Make sure that you have the permissions to call the [GetRole](~~28711~~) operation.
         
 
         @param request: GetServiceProvisionsRequest
@@ -1720,7 +1706,7 @@ class Client(OpenApiClient):
 
     def get_stack_group_operation_with_options(self, request, runtime):
         """
-        In this example, the operation ID `6da106ca-1784-4a6f-a7e1-e723863d∗∗∗∗` is set to query the details of an operation that you perform on a stack group named `MyStackGroup`. The stack group is granted self-managed permissions and deployed in the China (Hangzhou) region.
+        In this example, the information about the stack group operation whose ID is `6da106ca-1784-4a6f-a7e1-e723863d***` is queried. The stack group named `MyStackGroup` is granted self-managed permissions and deployed in the China (Hangzhou) region.
         
 
         @param request: GetStackGroupOperationRequest
@@ -1756,7 +1742,7 @@ class Client(OpenApiClient):
 
     def get_stack_group_operation(self, request):
         """
-        In this example, the operation ID `6da106ca-1784-4a6f-a7e1-e723863d∗∗∗∗` is set to query the details of an operation that you perform on a stack group named `MyStackGroup`. The stack group is granted self-managed permissions and deployed in the China (Hangzhou) region.
+        In this example, the information about the stack group operation whose ID is `6da106ca-1784-4a6f-a7e1-e723863d***` is queried. The stack group named `MyStackGroup` is granted self-managed permissions and deployed in the China (Hangzhou) region.
         
 
         @param request: GetStackGroupOperationRequest
@@ -1768,7 +1754,7 @@ class Client(OpenApiClient):
 
     def get_stack_instance_with_options(self, request, runtime):
         """
-        In this example, the details of a stack that is deployed in the China (Beijing) region within the `151266687691***` Alibaba Cloud account are queried. The stack is deployed in a stack group named `MyStackGroup`. The stack group is granted self-managed permissions and deployed in the China (Hangzhou) region.
+        In this example, the information about a stack instance associated with a stack group named `MyStackGroup` is queried. The stack instance is deployed in the China (Beijing) region within the `151266687691***` Alibaba Cloud account. The stack group is granted self-managed permissions and deployed in the China (Hangzhou) region.
         
 
         @param request: GetStackInstanceRequest
@@ -1808,7 +1794,7 @@ class Client(OpenApiClient):
 
     def get_stack_instance(self, request):
         """
-        In this example, the details of a stack that is deployed in the China (Beijing) region within the `151266687691***` Alibaba Cloud account are queried. The stack is deployed in a stack group named `MyStackGroup`. The stack group is granted self-managed permissions and deployed in the China (Hangzhou) region.
+        In this example, the information about a stack instance associated with a stack group named `MyStackGroup` is queried. The stack instance is deployed in the China (Beijing) region within the `151266687691***` Alibaba Cloud account. The stack group is granted self-managed permissions and deployed in the China (Hangzhou) region.
         
 
         @param request: GetStackInstanceRequest
@@ -1930,7 +1916,7 @@ class Client(OpenApiClient):
 
     def get_template_with_options(self, request, runtime):
         """
-        In this example, the details of a template whose ID is `5ecd1e10-b0e9-4389-a565-e4c15efc***` and region ID is `cn-hangzhou` are queried.
+        In this example, the details of a template whose ID is `5ecd1e10-b0e9-4389-a565-e4c15efc***` is queried. The region ID of the template is `cn-hangzhou`.
         
 
         @param request: GetTemplateRequest
@@ -1980,7 +1966,7 @@ class Client(OpenApiClient):
 
     def get_template(self, request):
         """
-        In this example, the details of a template whose ID is `5ecd1e10-b0e9-4389-a565-e4c15efc***` and region ID is `cn-hangzhou` are queried.
+        In this example, the details of a template whose ID is `5ecd1e10-b0e9-4389-a565-e4c15efc***` is queried. The region ID of the template is `cn-hangzhou`.
         
 
         @param request: GetTemplateRequest
@@ -3042,9 +3028,10 @@ class Client(OpenApiClient):
 
     def list_tag_resources_with_options(self, request, runtime):
         """
-        To specify the query object, you must specify the ResourceId.N or Tag.N parameter in the request. Tag.N consists of Tag.N.Key and Tag.N.Value.
-        *   If you specify the Tag.N and ResourceId.N parameters, ROS resources that match both the parameters are returned.
-        This topic provides an example on how to query the tags that are added to a resource in a stack. In this example, the resource ID is `6bc589b5-9c02-4944-8fc3-f3624234****`. The stack is deployed in the China (Hangzhou) region.
+        ###
+        *   To specify the query object, specify ResourceId or Tag in the request. Tag consists of Key and Value.
+        *   If you specify Tag and ResourceId, ROS resources that match both the parameters are returned.
+        This topic provides an example on how to query the tags that are added to a stack. In this example, the stack ID is `6bc589b5-9c02-4944-8fc3-f3624234****`. The stack is deployed in the China (Hangzhou) region.
         
 
         @param request: ListTagResourcesRequest
@@ -3086,9 +3073,10 @@ class Client(OpenApiClient):
 
     def list_tag_resources(self, request):
         """
-        To specify the query object, you must specify the ResourceId.N or Tag.N parameter in the request. Tag.N consists of Tag.N.Key and Tag.N.Value.
-        *   If you specify the Tag.N and ResourceId.N parameters, ROS resources that match both the parameters are returned.
-        This topic provides an example on how to query the tags that are added to a resource in a stack. In this example, the resource ID is `6bc589b5-9c02-4944-8fc3-f3624234****`. The stack is deployed in the China (Hangzhou) region.
+        ###
+        *   To specify the query object, specify ResourceId or Tag in the request. Tag consists of Key and Value.
+        *   If you specify Tag and ResourceId, ROS resources that match both the parameters are returned.
+        This topic provides an example on how to query the tags that are added to a stack. In this example, the stack ID is `6bc589b5-9c02-4944-8fc3-f3624234****`. The stack is deployed in the China (Hangzhou) region.
         
 
         @param request: ListTagResourcesRequest
@@ -3152,7 +3140,7 @@ class Client(OpenApiClient):
 
     def list_template_scratches_with_options(self, request, runtime):
         """
-        This topic provides an example on how to query the list of scenarios. In this example, the scenarios that are created in the China (Hangzhou) region are queried. The following scenarios are returned: resource management and resource replication scenarios.
+        In this example, the scenarios that are created in the China (Hangzhou) region are queried. In the response, a scenario of the Resource Management and a scenario of the Resource Replication type are returned.
         
 
         @param request: ListTemplateScratchesRequest
@@ -3198,7 +3186,7 @@ class Client(OpenApiClient):
 
     def list_template_scratches(self, request):
         """
-        This topic provides an example on how to query the list of scenarios. In this example, the scenarios that are created in the China (Hangzhou) region are queried. The following scenarios are returned: resource management and resource replication scenarios.
+        In this example, the scenarios that are created in the China (Hangzhou) region are queried. In the response, a scenario of the Resource Management and a scenario of the Resource Replication type are returned.
         
 
         @param request: ListTemplateScratchesRequest
@@ -3334,7 +3322,7 @@ class Client(OpenApiClient):
 
     def preview_stack_with_options(self, request, runtime):
         """
-        This topic provides an example on how to create a stack named `MyStack` in the China (Hangzhou) region and preview the information about the stack. In this example, the template body of the stack is `{"ROSTemplateFormatVersion":"2015-09-01"}`.
+        This topic provides an example on how to create a stack named `MyStack` in the China (Hangzhou) region by using a template and preview the information about the stack. In this example, the `template body` is `{"ROSTemplateFormatVersion":"2015-09-01"}`.
         
 
         @param request: PreviewStackRequest
@@ -3400,7 +3388,7 @@ class Client(OpenApiClient):
 
     def preview_stack(self, request):
         """
-        This topic provides an example on how to create a stack named `MyStack` in the China (Hangzhou) region and preview the information about the stack. In this example, the template body of the stack is `{"ROSTemplateFormatVersion":"2015-09-01"}`.
+        This topic provides an example on how to create a stack named `MyStack` in the China (Hangzhou) region by using a template and preview the information about the stack. In this example, the `template body` is `{"ROSTemplateFormatVersion":"2015-09-01"}`.
         
 
         @param request: PreviewStackRequest
@@ -3570,8 +3558,8 @@ class Client(OpenApiClient):
 
     def set_template_permission_with_options(self, request, runtime):
         """
-        In this example, a template whose ID is `5ecd1e10-b0e9-4389-a565-e4c15efc***` is shared with an Alibaba Cloud account whose ID is `151266687691****`.
-        >  The account can authorize an RAM user to use the shared template.``
+        In this example, the template whose ID is `5ecd1e10-b0e9-4389-a565-e4c15efc***` is shared with an Alibaba Cloud account. The ID of the Alibaba Cloud account is `151266687691****`.
+        > The recipient Alibaba Cloud account (ID: `151266687691****`) can authorize RAM users to use the shared template.
         
 
         @param request: SetTemplatePermissionRequest
@@ -3613,8 +3601,8 @@ class Client(OpenApiClient):
 
     def set_template_permission(self, request):
         """
-        In this example, a template whose ID is `5ecd1e10-b0e9-4389-a565-e4c15efc***` is shared with an Alibaba Cloud account whose ID is `151266687691****`.
-        >  The account can authorize an RAM user to use the shared template.``
+        In this example, the template whose ID is `5ecd1e10-b0e9-4389-a565-e4c15efc***` is shared with an Alibaba Cloud account. The ID of the Alibaba Cloud account is `151266687691****`.
+        > The recipient Alibaba Cloud account (ID: `151266687691****`) can authorize RAM users to use the shared template.
         
 
         @param request: SetTemplatePermissionRequest
@@ -3712,7 +3700,7 @@ class Client(OpenApiClient):
 
     def tag_resources_with_options(self, request, runtime):
         """
-        This topic provides an example on how to create a tag and add the tag to a resource in a stack. In this example, the resource ID is `7fee80e1-8c48-4c2f-8300-0f6dc40b***`, the tag key is `FinanceDept`, and the tag value is `FinanceJoshua`.
+        This topic provides an example on how to create a tag and add the tag to a stack. In this example, the stack ID is `7fee80e1-8c48-4c2f-8300-0f6dc40b***`, the tag key is `FinanceDept`, and the tag value is `FinanceJoshua`.
         
 
         @param request: TagResourcesRequest
@@ -3752,7 +3740,7 @@ class Client(OpenApiClient):
 
     def tag_resources(self, request):
         """
-        This topic provides an example on how to create a tag and add the tag to a resource in a stack. In this example, the resource ID is `7fee80e1-8c48-4c2f-8300-0f6dc40b***`, the tag key is `FinanceDept`, and the tag value is `FinanceJoshua`.
+        This topic provides an example on how to create a tag and add the tag to a stack. In this example, the stack ID is `7fee80e1-8c48-4c2f-8300-0f6dc40b***`, the tag key is `FinanceDept`, and the tag value is `FinanceJoshua`.
         
 
         @param request: TagResourcesRequest
@@ -3764,7 +3752,7 @@ class Client(OpenApiClient):
 
     def untag_resources_with_options(self, request, runtime):
         """
-        This topic provides an example on how to remove all tags from a stack that is deployed in the China (Hangzhou) region. In this example, the ID of the stack is `46ec7b78-9d5e-4b21-aefd-448c90aa***`.
+        This topic provides an example on how to remove all tags from a stack that is deployed in the China (Hangzhou) region. In this example, the stack ID is `46ec7b78-9d5e-4b21-aefd-448c90aa***`.
         
 
         @param request: UntagResourcesRequest
@@ -3806,7 +3794,7 @@ class Client(OpenApiClient):
 
     def untag_resources(self, request):
         """
-        This topic provides an example on how to remove all tags from a stack that is deployed in the China (Hangzhou) region. In this example, the ID of the stack is `46ec7b78-9d5e-4b21-aefd-448c90aa***`.
+        This topic provides an example on how to remove all tags from a stack that is deployed in the China (Hangzhou) region. In this example, the stack ID is `46ec7b78-9d5e-4b21-aefd-448c90aa***`.
         
 
         @param request: UntagResourcesRequest
@@ -4140,9 +4128,9 @@ class Client(OpenApiClient):
 
     def update_template_with_options(self, request, runtime):
         """
-        Take note of the following items:
-        *   If you specify the TemplateBody or TemplateURL parameter, the existing version number is automatically incremented by 1 after the template is updated. For example, the version is changed from v1 to V2.
-        *   If you do not specify the TemplateBody or TemplateURL parameter, the version number remains unchanged.
+        When you update a template, take note of the following items:
+        *   If you specify TemplateBody or TemplateURL, the existing version number is automatically incremented by 1 after the template is updated. For example, the version is changed from v1 to v2.
+        *   If you do not specify TemplateBody or TemplateURL, the version number remains unchanged.
         *   A template can have up to 100 versions. If the number of templates reaches the upper limit, the template fails to be updated. You must create another template.
         
 
@@ -4185,9 +4173,9 @@ class Client(OpenApiClient):
 
     def update_template(self, request):
         """
-        Take note of the following items:
-        *   If you specify the TemplateBody or TemplateURL parameter, the existing version number is automatically incremented by 1 after the template is updated. For example, the version is changed from v1 to V2.
-        *   If you do not specify the TemplateBody or TemplateURL parameter, the version number remains unchanged.
+        When you update a template, take note of the following items:
+        *   If you specify TemplateBody or TemplateURL, the existing version number is automatically incremented by 1 after the template is updated. For example, the version is changed from v1 to v2.
+        *   If you do not specify TemplateBody or TemplateURL, the version number remains unchanged.
         *   A template can have up to 100 versions. If the number of templates reaches the upper limit, the template fails to be updated. You must create another template.
         
 
@@ -4200,7 +4188,7 @@ class Client(OpenApiClient):
 
     def update_template_scratch_with_options(self, tmp_req, runtime):
         """
-        In this topic, the `ts-7f7a704cf71c49a6***` scenario that is created in the China (Hangzhou) region is updated. In this scenario, the ID of the virtual private cloud (VPC) is updated to `ts-7f7a704cf71c49a6****`.
+        In this example, a scenario whose ID is `ts-7f7a704cf71c49a6***` is used. The scenario is created in the China (Hangzhou) region. In the scenario, the ID of a virtual private cloud (VPC) is updated to `vpc-bp1m6fww66xbntjyc****`.
         
 
         @param tmp_req: UpdateTemplateScratchRequest
@@ -4262,7 +4250,7 @@ class Client(OpenApiClient):
 
     def update_template_scratch(self, request):
         """
-        In this topic, the `ts-7f7a704cf71c49a6***` scenario that is created in the China (Hangzhou) region is updated. In this scenario, the ID of the virtual private cloud (VPC) is updated to `ts-7f7a704cf71c49a6****`.
+        In this example, a scenario whose ID is `ts-7f7a704cf71c49a6***` is used. The scenario is created in the China (Hangzhou) region. In the scenario, the ID of a virtual private cloud (VPC) is updated to `vpc-bp1m6fww66xbntjyc****`.
         
 
         @param request: UpdateTemplateScratchRequest
@@ -4274,7 +4262,7 @@ class Client(OpenApiClient):
 
     def validate_template_with_options(self, request, runtime):
         """
-        The description of the template.
+        In this example, a template that you want to use to create a stack is validated. `TemplateURL` is set to `oss://ros/template/demo`.
         
 
         @param request: ValidateTemplateRequest
@@ -4320,7 +4308,7 @@ class Client(OpenApiClient):
 
     def validate_template(self, request):
         """
-        The description of the template.
+        In this example, a template that you want to use to create a stack is validated. `TemplateURL` is set to `oss://ros/template/demo`.
         
 
         @param request: ValidateTemplateRequest
