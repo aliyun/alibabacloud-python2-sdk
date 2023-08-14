@@ -57,22 +57,6 @@ class Client(OpenApiClient):
         return self.cancel_task_with_options(task_id, headers, runtime)
 
     def create_resource_with_options(self, request_path, request, headers, runtime):
-        """
-        POST /api/v1/providers/{provider}/products/{product}/resources/{parentResourcePath}/{resourceTypeCode}。
-        
-
-        @type request_path: str
-        @param request_path: the whole path of resource string
-
-        @param request: CreateResourceRequest
-
-        @type headers: dict
-        @param headers: map
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: CreateResourceResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -101,38 +85,11 @@ class Client(OpenApiClient):
         )
 
     def create_resource(self, request_path, request):
-        """
-        POST /api/v1/providers/{provider}/products/{product}/resources/{parentResourcePath}/{resourceTypeCode}。
-        
-
-        @type request_path: str
-        @param request_path: the whole path of resource string
-
-        @param request: CreateResourceRequest
-
-        @return: CreateResourceResponse
-        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.create_resource_with_options(request_path, request, headers, runtime)
 
     def delete_resource_with_options(self, request_path, request, headers, runtime):
-        """
-        DELETE /api/v1/providers/{provider}/products/{product}/resources/{parentResourcePath}/{resourceTypeCode}/{resourceId}。
-        
-
-        @type request_path: str
-        @param request_path: the whole path of resource string
-
-        @param request: DeleteResourceRequest
-
-        @type headers: dict
-        @param headers: map
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: DeleteResourceResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -160,17 +117,6 @@ class Client(OpenApiClient):
         )
 
     def delete_resource(self, request_path, request):
-        """
-        DELETE /api/v1/providers/{provider}/products/{product}/resources/{parentResourcePath}/{resourceTypeCode}/{resourceId}。
-        
-
-        @type request_path: str
-        @param request_path: the whole path of resource string
-
-        @param request: DeleteResourceRequest
-
-        @return: DeleteResourceResponse
-        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.delete_resource_with_options(request_path, request, headers, runtime)
@@ -288,22 +234,6 @@ class Client(OpenApiClient):
         return self.get_task_with_options(task_id, headers, runtime)
 
     def list_data_sources_with_options(self, request_path, tmp_req, headers, runtime):
-        """
-        GET /api/v1/providers/{provider}/products/{product}/dataSources/{resourceType}。
-        
-
-        @type request_path: str
-        @param request_path: the whole path of resource string
-
-        @param tmp_req: ListDataSourcesRequest
-
-        @type headers: dict
-        @param headers: map
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: ListDataSourcesResponse
-        """
         UtilClient.validate_model(tmp_req)
         request = cloudcontrol_20220830_models.ListDataSourcesShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
@@ -335,17 +265,6 @@ class Client(OpenApiClient):
         )
 
     def list_data_sources(self, request_path, request):
-        """
-        GET /api/v1/providers/{provider}/products/{product}/dataSources/{resourceType}。
-        
-
-        @type request_path: str
-        @param request_path: the whole path of resource string
-
-        @param request: ListDataSourcesRequest
-
-        @return: ListDataSourcesResponse
-        """
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_data_sources_with_options(request_path, request, headers, runtime)
