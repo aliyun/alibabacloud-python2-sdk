@@ -46754,12 +46754,59 @@ class IsvUserSaveHeaders(TeaModel):
         return self
 
 
+class IsvUserSaveRequestUserListCertList(TeaModel):
+    def __init__(self, cert_expired_time=None, cert_nation=None, cert_no=None, cert_type=None, nationality=None):
+        self.cert_expired_time = cert_expired_time  # type: str
+        self.cert_nation = cert_nation  # type: str
+        self.cert_no = cert_no  # type: str
+        self.cert_type = cert_type  # type: int
+        self.nationality = nationality  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(IsvUserSaveRequestUserListCertList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cert_expired_time is not None:
+            result['cert_expired_time'] = self.cert_expired_time
+        if self.cert_nation is not None:
+            result['cert_nation'] = self.cert_nation
+        if self.cert_no is not None:
+            result['cert_no'] = self.cert_no
+        if self.cert_type is not None:
+            result['cert_type'] = self.cert_type
+        if self.nationality is not None:
+            result['nationality'] = self.nationality
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('cert_expired_time') is not None:
+            self.cert_expired_time = m.get('cert_expired_time')
+        if m.get('cert_nation') is not None:
+            self.cert_nation = m.get('cert_nation')
+        if m.get('cert_no') is not None:
+            self.cert_no = m.get('cert_no')
+        if m.get('cert_type') is not None:
+            self.cert_type = m.get('cert_type')
+        if m.get('nationality') is not None:
+            self.nationality = m.get('nationality')
+        return self
+
+
 class IsvUserSaveRequestUserList(TeaModel):
-    def __init__(self, depart_id=None, email=None, job_no=None, leave_status=None, manager_user_id=None, phone=None,
-                 position=None, position_level=None, real_name_en=None, third_depart_id=None, third_depart_id_list=None,
-                 user_id=None, user_name=None):
+    def __init__(self, birthday=None, cert_list=None, depart_id=None, email=None, gender=None, job_no=None,
+                 leave_status=None, manager_user_id=None, phone=None, position=None, position_level=None, real_name_en=None,
+                 third_depart_id=None, third_depart_id_list=None, user_id=None, user_name=None):
+        self.birthday = birthday  # type: str
+        self.cert_list = cert_list  # type: list[IsvUserSaveRequestUserListCertList]
         self.depart_id = depart_id  # type: long
         self.email = email  # type: str
+        self.gender = gender  # type: str
         self.job_no = job_no  # type: str
         self.leave_status = leave_status  # type: int
         self.manager_user_id = manager_user_id  # type: str
@@ -46773,7 +46820,10 @@ class IsvUserSaveRequestUserList(TeaModel):
         self.user_name = user_name  # type: str
 
     def validate(self):
-        pass
+        if self.cert_list:
+            for k in self.cert_list:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(IsvUserSaveRequestUserList, self).to_map()
@@ -46781,10 +46831,18 @@ class IsvUserSaveRequestUserList(TeaModel):
             return _map
 
         result = dict()
+        if self.birthday is not None:
+            result['birthday'] = self.birthday
+        result['cert_list'] = []
+        if self.cert_list is not None:
+            for k in self.cert_list:
+                result['cert_list'].append(k.to_map() if k else None)
         if self.depart_id is not None:
             result['depart_id'] = self.depart_id
         if self.email is not None:
             result['email'] = self.email
+        if self.gender is not None:
+            result['gender'] = self.gender
         if self.job_no is not None:
             result['job_no'] = self.job_no
         if self.leave_status is not None:
@@ -46811,10 +46869,19 @@ class IsvUserSaveRequestUserList(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('birthday') is not None:
+            self.birthday = m.get('birthday')
+        self.cert_list = []
+        if m.get('cert_list') is not None:
+            for k in m.get('cert_list'):
+                temp_model = IsvUserSaveRequestUserListCertList()
+                self.cert_list.append(temp_model.from_map(k))
         if m.get('depart_id') is not None:
             self.depart_id = m.get('depart_id')
         if m.get('email') is not None:
             self.email = m.get('email')
+        if m.get('gender') is not None:
+            self.gender = m.get('gender')
         if m.get('job_no') is not None:
             self.job_no = m.get('job_no')
         if m.get('leave_status') is not None:
