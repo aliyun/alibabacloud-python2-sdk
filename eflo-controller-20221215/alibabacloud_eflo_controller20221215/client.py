@@ -511,6 +511,8 @@ class Client(OpenApiClient):
             body['IgnoreFailedNodeTasks'] = request.ignore_failed_node_tasks
         if not UtilClient.is_unset(request.nodes_shrink):
             body['Nodes'] = request.nodes_shrink
+        if not UtilClient.is_unset(request.user_data):
+            body['UserData'] = request.user_data
         req = open_api_models.OpenApiRequest(
             body=OpenApiUtilClient.parse_to_map(body)
         )

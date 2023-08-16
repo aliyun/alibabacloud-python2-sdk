@@ -626,12 +626,13 @@ class CreateClusterRequestNodeGroupsNodes(TeaModel):
 
 class CreateClusterRequestNodeGroups(TeaModel):
     def __init__(self, image_id=None, machine_type=None, node_group_description=None, node_group_name=None,
-                 nodes=None, zone_id=None):
+                 nodes=None, user_data=None, zone_id=None):
         self.image_id = image_id  # type: str
         self.machine_type = machine_type  # type: str
         self.node_group_description = node_group_description  # type: str
         self.node_group_name = node_group_name  # type: str
         self.nodes = nodes  # type: list[CreateClusterRequestNodeGroupsNodes]
+        self.user_data = user_data  # type: str
         self.zone_id = zone_id  # type: str
 
     def validate(self):
@@ -658,6 +659,8 @@ class CreateClusterRequestNodeGroups(TeaModel):
         if self.nodes is not None:
             for k in self.nodes:
                 result['Nodes'].append(k.to_map() if k else None)
+        if self.user_data is not None:
+            result['UserData'] = self.user_data
         if self.zone_id is not None:
             result['ZoneId'] = self.zone_id
         return result
@@ -677,6 +680,8 @@ class CreateClusterRequestNodeGroups(TeaModel):
             for k in m.get('Nodes'):
                 temp_model = CreateClusterRequestNodeGroupsNodes()
                 self.nodes.append(temp_model.from_map(k))
+        if m.get('UserData') is not None:
+            self.user_data = m.get('UserData')
         if m.get('ZoneId') is not None:
             self.zone_id = m.get('ZoneId')
         return self
@@ -2307,9 +2312,10 @@ class ExtendClusterRequestNodeGroupsNodes(TeaModel):
 
 
 class ExtendClusterRequestNodeGroups(TeaModel):
-    def __init__(self, node_group_id=None, nodes=None):
+    def __init__(self, node_group_id=None, nodes=None, user_data=None):
         self.node_group_id = node_group_id  # type: str
         self.nodes = nodes  # type: list[ExtendClusterRequestNodeGroupsNodes]
+        self.user_data = user_data  # type: str
 
     def validate(self):
         if self.nodes:
@@ -2329,6 +2335,8 @@ class ExtendClusterRequestNodeGroups(TeaModel):
         if self.nodes is not None:
             for k in self.nodes:
                 result['Nodes'].append(k.to_map() if k else None)
+        if self.user_data is not None:
+            result['UserData'] = self.user_data
         return result
 
     def from_map(self, m=None):
@@ -2340,6 +2348,8 @@ class ExtendClusterRequestNodeGroups(TeaModel):
             for k in m.get('Nodes'):
                 temp_model = ExtendClusterRequestNodeGroupsNodes()
                 self.nodes.append(temp_model.from_map(k))
+        if m.get('UserData') is not None:
+            self.user_data = m.get('UserData')
         return self
 
 
@@ -3529,10 +3539,11 @@ class ReimageNodesRequestNodes(TeaModel):
 
 
 class ReimageNodesRequest(TeaModel):
-    def __init__(self, cluster_id=None, ignore_failed_node_tasks=None, nodes=None):
+    def __init__(self, cluster_id=None, ignore_failed_node_tasks=None, nodes=None, user_data=None):
         self.cluster_id = cluster_id  # type: str
         self.ignore_failed_node_tasks = ignore_failed_node_tasks  # type: bool
         self.nodes = nodes  # type: list[ReimageNodesRequestNodes]
+        self.user_data = user_data  # type: str
 
     def validate(self):
         if self.nodes:
@@ -3554,6 +3565,8 @@ class ReimageNodesRequest(TeaModel):
         if self.nodes is not None:
             for k in self.nodes:
                 result['Nodes'].append(k.to_map() if k else None)
+        if self.user_data is not None:
+            result['UserData'] = self.user_data
         return result
 
     def from_map(self, m=None):
@@ -3567,14 +3580,17 @@ class ReimageNodesRequest(TeaModel):
             for k in m.get('Nodes'):
                 temp_model = ReimageNodesRequestNodes()
                 self.nodes.append(temp_model.from_map(k))
+        if m.get('UserData') is not None:
+            self.user_data = m.get('UserData')
         return self
 
 
 class ReimageNodesShrinkRequest(TeaModel):
-    def __init__(self, cluster_id=None, ignore_failed_node_tasks=None, nodes_shrink=None):
+    def __init__(self, cluster_id=None, ignore_failed_node_tasks=None, nodes_shrink=None, user_data=None):
         self.cluster_id = cluster_id  # type: str
         self.ignore_failed_node_tasks = ignore_failed_node_tasks  # type: bool
         self.nodes_shrink = nodes_shrink  # type: str
+        self.user_data = user_data  # type: str
 
     def validate(self):
         pass
@@ -3591,6 +3607,8 @@ class ReimageNodesShrinkRequest(TeaModel):
             result['IgnoreFailedNodeTasks'] = self.ignore_failed_node_tasks
         if self.nodes_shrink is not None:
             result['Nodes'] = self.nodes_shrink
+        if self.user_data is not None:
+            result['UserData'] = self.user_data
         return result
 
     def from_map(self, m=None):
@@ -3601,6 +3619,8 @@ class ReimageNodesShrinkRequest(TeaModel):
             self.ignore_failed_node_tasks = m.get('IgnoreFailedNodeTasks')
         if m.get('Nodes') is not None:
             self.nodes_shrink = m.get('Nodes')
+        if m.get('UserData') is not None:
+            self.user_data = m.get('UserData')
         return self
 
 
