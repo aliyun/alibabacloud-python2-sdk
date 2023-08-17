@@ -583,6 +583,8 @@ class Client(OpenApiClient):
             body['IsvCode'] = request.isv_code
         if not UtilClient.is_unset(request.language):
             body['Language'] = request.language
+        if not UtilClient.is_unset(request.message_send_ttl_seconds):
+            body['MessageSendTtlSeconds'] = request.message_send_ttl_seconds
         if not UtilClient.is_unset(request.name):
             body['Name'] = request.name
         if not UtilClient.is_unset(request.template_type):
@@ -926,9 +928,39 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_phone_number_verification_status_with_options(request, runtime)
 
+    def get_pre_validate_phone_id_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.phone_number):
+            body['PhoneNumber'] = request.phone_number
+        if not UtilClient.is_unset(request.verify_code):
+            body['VerifyCode'] = request.verify_code
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='GetPreValidatePhoneId',
+            version='2020-06-06',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cams_20200606_models.GetPreValidatePhoneIdResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_pre_validate_phone_id(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_pre_validate_phone_id_with_options(request, runtime)
+
     def isv_get_app_id_with_options(self, request, runtime):
         """
-        The message ID.
+        You can call this operation up to 10 times per second per account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
 
         @param request: IsvGetAppIdRequest
@@ -962,7 +994,7 @@ class Client(OpenApiClient):
 
     def isv_get_app_id(self, request):
         """
-        The message ID.
+        You can call this operation up to 10 times per second per account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
 
         @param request: IsvGetAppIdRequest
@@ -1071,6 +1103,8 @@ class Client(OpenApiClient):
             body['IsvCode'] = request.isv_code
         if not UtilClient.is_unset(request.language):
             body['Language'] = request.language
+        if not UtilClient.is_unset(request.message_send_ttl_seconds):
+            body['MessageSendTtlSeconds'] = request.message_send_ttl_seconds
         if not UtilClient.is_unset(request.template_code):
             body['TemplateCode'] = request.template_code
         if not UtilClient.is_unset(request.template_type):
@@ -1108,7 +1142,7 @@ class Client(OpenApiClient):
 
     def modify_phone_business_profile_with_options(self, tmp_req, runtime):
         """
-        You can call this operation up to 10 times per second per account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        ModifyPhoneBusinessProfile
         
 
         @param tmp_req: ModifyPhoneBusinessProfileRequest
@@ -1160,7 +1194,7 @@ class Client(OpenApiClient):
 
     def modify_phone_business_profile(self, request):
         """
-        You can call this operation up to 10 times per second per account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
+        ModifyPhoneBusinessProfile
         
 
         @param request: ModifyPhoneBusinessProfileRequest
@@ -1458,6 +1492,8 @@ class Client(OpenApiClient):
         OpenApiUtilClient.convert(tmp_req, request)
         if not UtilClient.is_unset(tmp_req.payload):
             request.payload_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.payload, 'Payload', 'json')
+        if not UtilClient.is_unset(tmp_req.product_action):
+            request.product_action_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.product_action, 'ProductAction', 'json')
         if not UtilClient.is_unset(tmp_req.template_params):
             request.template_params_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.template_params, 'TemplateParams', 'json')
         query = {}
@@ -1490,6 +1526,8 @@ class Client(OpenApiClient):
             body['Language'] = request.language
         if not UtilClient.is_unset(request.message_type):
             body['MessageType'] = request.message_type
+        if not UtilClient.is_unset(request.product_action_shrink):
+            body['ProductAction'] = request.product_action_shrink
         if not UtilClient.is_unset(request.tag):
             body['Tag'] = request.tag
         if not UtilClient.is_unset(request.task_id):

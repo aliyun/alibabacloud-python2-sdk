@@ -202,7 +202,8 @@ class BeeBotAssociateResponseBodyData(TeaModel):
 
 
 class BeeBotAssociateResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, message=None, request_id=None):
+    def __init__(self, access_denied_detail=None, code=None, data=None, message=None, request_id=None):
+        self.access_denied_detail = access_denied_detail  # type: str
         # If OK is returned, the request is successful.
         self.code = code  # type: str
         # The data returned.
@@ -222,6 +223,8 @@ class BeeBotAssociateResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.access_denied_detail is not None:
+            result['AccessDeniedDetail'] = self.access_denied_detail
         if self.code is not None:
             result['Code'] = self.code
         if self.data is not None:
@@ -234,6 +237,8 @@ class BeeBotAssociateResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AccessDeniedDetail') is not None:
+            self.access_denied_detail = m.get('AccessDeniedDetail')
         if m.get('Code') is not None:
             self.code = m.get('Code')
         if m.get('Data') is not None:
@@ -866,7 +871,8 @@ class BeeBotChatResponseBodyData(TeaModel):
 
 
 class BeeBotChatResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, message=None, request_id=None):
+    def __init__(self, access_denied_detail=None, code=None, data=None, message=None, request_id=None):
+        self.access_denied_detail = access_denied_detail  # type: str
         # If OK is returned, the request is successful.
         self.code = code  # type: str
         # The data returned.
@@ -886,6 +892,8 @@ class BeeBotChatResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.access_denied_detail is not None:
+            result['AccessDeniedDetail'] = self.access_denied_detail
         if self.code is not None:
             result['Code'] = self.code
         if self.data is not None:
@@ -898,6 +906,8 @@ class BeeBotChatResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AccessDeniedDetail') is not None:
+            self.access_denied_detail = m.get('AccessDeniedDetail')
         if m.get('Code') is not None:
             self.code = m.get('Code')
         if m.get('Data') is not None:
@@ -1006,7 +1016,8 @@ class ChatappBindWabaResponseBodyData(TeaModel):
 
 
 class ChatappBindWabaResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, message=None, request_id=None):
+    def __init__(self, access_denied_detail=None, code=None, data=None, message=None, request_id=None):
+        self.access_denied_detail = access_denied_detail  # type: str
         # The HTTP status code returned.
         # 
         # *   A value of OK indicates that the call is successful.
@@ -1029,6 +1040,8 @@ class ChatappBindWabaResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.access_denied_detail is not None:
+            result['AccessDeniedDetail'] = self.access_denied_detail
         if self.code is not None:
             result['Code'] = self.code
         if self.data is not None:
@@ -1041,6 +1054,8 @@ class ChatappBindWabaResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AccessDeniedDetail') is not None:
+            self.access_denied_detail = m.get('AccessDeniedDetail')
         if m.get('Code') is not None:
             self.code = m.get('Code')
         if m.get('Data') is not None:
@@ -1168,7 +1183,8 @@ class ChatappEmbedSignUpResponseBodyWabas(TeaModel):
 
 
 class ChatappEmbedSignUpResponseBody(TeaModel):
-    def __init__(self, code=None, message=None, request_id=None, wabas=None):
+    def __init__(self, access_denied_detail=None, code=None, message=None, request_id=None, wabas=None):
+        self.access_denied_detail = access_denied_detail  # type: str
         # The HTTP status code returned.
         # 
         # *   A value of OK indicates that the call is successful.
@@ -1193,6 +1209,8 @@ class ChatappEmbedSignUpResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.access_denied_detail is not None:
+            result['AccessDeniedDetail'] = self.access_denied_detail
         if self.code is not None:
             result['Code'] = self.code
         if self.message is not None:
@@ -1207,6 +1225,8 @@ class ChatappEmbedSignUpResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AccessDeniedDetail') is not None:
+            self.access_denied_detail = m.get('AccessDeniedDetail')
         if m.get('Code') is not None:
             self.code = m.get('Code')
         if m.get('Message') is not None:
@@ -1292,7 +1312,8 @@ class ChatappMigrationRegisterRequest(TeaModel):
 
 
 class ChatappMigrationRegisterResponseBody(TeaModel):
-    def __init__(self, code=None, message=None, request_id=None):
+    def __init__(self, access_denied_detail=None, code=None, message=None, request_id=None):
+        self.access_denied_detail = access_denied_detail  # type: str
         # The HTTP status code returned.
         # 
         # *   A value of OK indicates that the call is successful.
@@ -1312,6 +1333,8 @@ class ChatappMigrationRegisterResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.access_denied_detail is not None:
+            result['AccessDeniedDetail'] = self.access_denied_detail
         if self.code is not None:
             result['Code'] = self.code
         if self.message is not None:
@@ -1322,6 +1345,8 @@ class ChatappMigrationRegisterResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AccessDeniedDetail') is not None:
+            self.access_denied_detail = m.get('AccessDeniedDetail')
         if m.get('Code') is not None:
             self.code = m.get('Code')
         if m.get('Message') is not None:
@@ -1439,7 +1464,8 @@ class ChatappMigrationVerifiedResponseBodyData(TeaModel):
 
 
 class ChatappMigrationVerifiedResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, message=None, request_id=None):
+    def __init__(self, access_denied_detail=None, code=None, data=None, message=None, request_id=None):
+        self.access_denied_detail = access_denied_detail  # type: str
         # The HTTP status code returned.
         # 
         # *   A value of OK indicates that the call is successful.
@@ -1462,6 +1488,8 @@ class ChatappMigrationVerifiedResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.access_denied_detail is not None:
+            result['AccessDeniedDetail'] = self.access_denied_detail
         if self.code is not None:
             result['Code'] = self.code
         if self.data is not None:
@@ -1474,6 +1502,8 @@ class ChatappMigrationVerifiedResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AccessDeniedDetail') is not None:
+            self.access_denied_detail = m.get('AccessDeniedDetail')
         if m.get('Code') is not None:
             self.code = m.get('Code')
         if m.get('Data') is not None:
@@ -1557,7 +1587,8 @@ class ChatappPhoneNumberRegisterRequest(TeaModel):
 
 
 class ChatappPhoneNumberRegisterResponseBody(TeaModel):
-    def __init__(self, code=None, message=None, request_id=None):
+    def __init__(self, access_denied_detail=None, code=None, message=None, request_id=None):
+        self.access_denied_detail = access_denied_detail  # type: str
         # The HTTP status code returned.
         # 
         # *   A value of OK indicates that the call is successful.
@@ -1577,6 +1608,8 @@ class ChatappPhoneNumberRegisterResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.access_denied_detail is not None:
+            result['AccessDeniedDetail'] = self.access_denied_detail
         if self.code is not None:
             result['Code'] = self.code
         if self.message is not None:
@@ -1587,6 +1620,8 @@ class ChatappPhoneNumberRegisterResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AccessDeniedDetail') is not None:
+            self.access_denied_detail = m.get('AccessDeniedDetail')
         if m.get('Code') is not None:
             self.code = m.get('Code')
         if m.get('Message') is not None:
@@ -1754,7 +1789,8 @@ class ChatappSyncPhoneNumberResponseBodyPhoneNumbers(TeaModel):
 
 
 class ChatappSyncPhoneNumberResponseBody(TeaModel):
-    def __init__(self, code=None, message=None, phone_numbers=None, request_id=None):
+    def __init__(self, access_denied_detail=None, code=None, message=None, phone_numbers=None, request_id=None):
+        self.access_denied_detail = access_denied_detail  # type: str
         # The HTTP status code returned.
         # 
         # *   A value of OK indicates that the call is successful.
@@ -1779,6 +1815,8 @@ class ChatappSyncPhoneNumberResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.access_denied_detail is not None:
+            result['AccessDeniedDetail'] = self.access_denied_detail
         if self.code is not None:
             result['Code'] = self.code
         if self.message is not None:
@@ -1793,6 +1831,8 @@ class ChatappSyncPhoneNumberResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AccessDeniedDetail') is not None:
+            self.access_denied_detail = m.get('AccessDeniedDetail')
         if m.get('Code') is not None:
             self.code = m.get('Code')
         if m.get('Message') is not None:
@@ -1884,7 +1924,8 @@ class ChatappVerifyAndRegisterRequest(TeaModel):
 
 
 class ChatappVerifyAndRegisterResponseBody(TeaModel):
-    def __init__(self, code=None, message=None, request_id=None):
+    def __init__(self, access_denied_detail=None, code=None, message=None, request_id=None):
+        self.access_denied_detail = access_denied_detail  # type: str
         # The HTTP status code returned.
         # 
         # *   A value of OK indicates that the call is successful.
@@ -1904,6 +1945,8 @@ class ChatappVerifyAndRegisterResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.access_denied_detail is not None:
+            result['AccessDeniedDetail'] = self.access_denied_detail
         if self.code is not None:
             result['Code'] = self.code
         if self.message is not None:
@@ -1914,6 +1957,8 @@ class ChatappVerifyAndRegisterResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AccessDeniedDetail') is not None:
+            self.access_denied_detail = m.get('AccessDeniedDetail')
         if m.get('Code') is not None:
             self.code = m.get('Code')
         if m.get('Message') is not None:
@@ -2031,7 +2076,8 @@ class CreateChatappMigrationInitiateResponseBodyData(TeaModel):
 
 
 class CreateChatappMigrationInitiateResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, message=None, request_id=None):
+    def __init__(self, access_denied_detail=None, code=None, data=None, message=None, request_id=None):
+        self.access_denied_detail = access_denied_detail  # type: str
         self.code = code  # type: str
         self.data = data  # type: CreateChatappMigrationInitiateResponseBodyData
         self.message = message  # type: str
@@ -2047,6 +2093,8 @@ class CreateChatappMigrationInitiateResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.access_denied_detail is not None:
+            result['AccessDeniedDetail'] = self.access_denied_detail
         if self.code is not None:
             result['Code'] = self.code
         if self.data is not None:
@@ -2059,6 +2107,8 @@ class CreateChatappMigrationInitiateResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AccessDeniedDetail') is not None:
+            self.access_denied_detail = m.get('AccessDeniedDetail')
         if m.get('Code') is not None:
             self.code = m.get('Code')
         if m.get('Data') is not None:
@@ -2113,14 +2163,37 @@ class CreateChatappMigrationInitiateResponse(TeaModel):
 class CreateChatappTemplateRequestComponentsButtons(TeaModel):
     def __init__(self, autofill_text=None, is_opt_out=None, package_name=None, phone_number=None,
                  signature_hash=None, text=None, type=None, url=None, url_type=None):
+        # The text of the one-tap autofill button. AutofillText is required if Category is set to AUTHENTICATION in a WhatsApp message template and the Type sub-parameter of the Buttons parameter is set to ONE_TAP.
         self.autofill_text = autofill_text  # type: str
+        # The unsubscribe button in a WhatsApp marketing template. This parameter is valid if Category is set to MARKETING in a WhatsApp message template and the Type sub-parameter of the Buttons parameter is set to QUICK_REPLY. After you tap this button and customers configure the feature for unsubscribing from a WhatsApp marketing template in the ChatAPP console, subsequent marketing messages are not sent to you.
         self.is_opt_out = is_opt_out  # type: bool
+        # The package name of the app. PackageName is required if Category is set to AUTHENTICATION in a WhatsApp message template and the Type sub-parameter of the Buttons parameter is set to ONE_TAP.
         self.package_name = package_name  # type: str
+        # The phone number. This parameter is valid only if the Type sub-parameter of the Buttons parameter is set to **PHONE_NUMBER**.
         self.phone_number = phone_number  # type: str
+        # The hash value of the app signing key. SignatureHash is required if Category is set to AUTHENTICATION in a WhatsApp message template and the Type sub-parameter of the Buttons parameter is set to ONE_TAP.
         self.signature_hash = signature_hash  # type: str
+        # The display name of the button.
         self.text = text  # type: str
+        # The type of the button. Valid values:
+        # 
+        # *   **PHONE_NUMBER**: the phone call button
+        # *   **URL**: the URL button
+        # *   **QUICK_REPLY**: the quick reply button
+        # *   **COPY_CODE**: the copy code button if Category is set to AUTHENTICATION
+        # *   **ONE_TAP**: the one-tap autofill button if Category is set to AUTHENTICATION
+        # 
+        # > - In a WhatsApp message template, the quick reply button cannot be used together with the phone call button or the URL button.
+        # > - You can add a combination of two URL buttons or a combination of a URL button and a phone call button to a WhatsApp message template.
+        # > -  If Category is set to AUTHENTICATION in a WhatsApp message template, you can add only one button to the WhatsApp message template and you must set the Type sub-parameter of the Buttons parameter to COPY_CODE or ONE_TAP. If the Type sub-parameter of the Buttons parameter is set to COPY_CODE, the Text sub-parameter of the Buttons parameter is required. If the Type sub-parameter of the Buttons parameter is set to ONE_TAP, the Text, SignatureHash, PackageName, and AutofillText sub-parameters of the Buttons parameter are required. The value of Text is displayed if the desired app is not installed on the terminal. It indicates that you must manually copy the verification code.
+        # > - You can add only one button to a Viber message template, and you must set the Type sub-parameter of the Buttons parameter to URL.
         self.type = type  # type: str
+        # The URL to be accessed when you click the URL button.
         self.url = url  # type: str
+        # The type of the URL. Valid values:
+        # 
+        # *   **static**\
+        # *   **dynamic**\
         self.url_type = url_type  # type: str
 
     def validate(self):
@@ -2178,17 +2251,46 @@ class CreateChatappTemplateRequestComponentsButtons(TeaModel):
 class CreateChatappTemplateRequestComponents(TeaModel):
     def __init__(self, add_secret_recommendation=None, buttons=None, caption=None, code_expiration_minutes=None,
                  duration=None, file_name=None, file_type=None, format=None, text=None, thumb_url=None, type=None, url=None):
+        # The prompt message indicating that the verification code must be kept secret. This parameter is valid if Category is set to AUTHENTICATION in a WhatsApp message template and the Type sub-parameter of the Components parameter is set to BODY. The prompt message is displayed in the BODY component.
         self.add_secret_recommendation = add_secret_recommendation  # type: bool
+        # The buttons. This parameter applies only to **BUTTONS** components.
         self.buttons = buttons  # type: list[CreateChatappTemplateRequestComponentsButtons]
+        # The description of the document.
         self.caption = caption  # type: str
+        # The validity period of the verification code in a WhatsApp message template. Unit: minutes. This parameter is valid if Category is set to AUTHENTICATION in a WhatsApp message template and the Type sub-parameter of the Components parameter is set to FOOTER. The value of CodeExpirationMinutes is displayed in the FOOTER component.
         self.code_expiration_minutes = code_expiration_minutes  # type: int
+        # The length of the video in the Viber message template. Valid values: 0 to 600. Unit: seconds.
         self.duration = duration  # type: int
+        # The name of the document.
         self.file_name = file_name  # type: str
+        # The type of the document attached in the Viber message template.
         self.file_type = file_type  # type: str
+        # The type of the media resources that are included in the message. Valid values:
+        # 
+        # *   **TEXT**\
+        # *   **IMAGE**\
+        # *   **DOCUMENT**\
+        # *   **VIDEO**\
         self.format = format  # type: str
+        # The text of the message that you want to send.
+        # 
+        # > If Category is set to AUTHENTICATION, the Text sub-parameter of the Components parameter is empty.
         self.text = text  # type: str
+        # The thumbnail URL of the video in the Viber message template.
         self.thumb_url = thumb_url  # type: str
+        # The type of the component. Valid values:
+        # 
+        # *   **BODY**\
+        # *   **HEADER**\
+        # *   **FOOTER**\
+        # *   **BUTTONS**\
+        # > - The following limits apply to components in WhatsApp message templates: A **BODY** component cannot exceed 1,024 characters in length. A **HEADER** or **FOOTER** component cannot exceed 60 characters in length.
+        # > - **FOOTER** components are not supported in Viber message templates.
+        # > - In a Viber message template, a media resource, such as an image, a video, or a document, is placed in the **HEADER** component. If a Viber message contains text and an image, the image is placed under the text in the message received on a terminal.
         self.type = type  # type: str
+        # The URL of the media resource.
+        # 
+        # > We recommend that the resolution of the image in the Viber message template is 800 × 800.
         self.url = url  # type: str
 
     def validate(self):
@@ -2265,18 +2367,40 @@ class CreateChatappTemplateRequestComponents(TeaModel):
 
 class CreateChatappTemplateRequest(TeaModel):
     def __init__(self, allow_category_change=None, category=None, components=None, cust_space_id=None,
-                 cust_waba_id=None, example=None, isv_code=None, language=None, name=None, template_type=None):
-        # 是否允许facebook自动变更模板的目录（这样能提高模板的审核通过率）此属性只对TemplateType=WHATSAPP有效
+                 cust_waba_id=None, example=None, isv_code=None, language=None, message_send_ttl_seconds=None, name=None,
+                 template_type=None):
+        # Specifies whether to allow Facebook to automatically change the directory of the template. If you set this parameter to true, the review success rate of the template is improved. This parameter is valid only if TemplateType is set to WHATSAPP.
         self.allow_category_change = allow_category_change  # type: bool
-        # The returned data.
+        # The category of the template if TemplateType is set to WHATSAPP. Valid values:
+        # 
+        # *   **UTILITY**: the transaction template
+        # *   **MARKETING**: the marketing template
+        # *   **AUTHENTICATION**: the authentication template
+        # 
+        # The category of the template if TemplateType is set to VIBER. Valid values:
+        # 
+        # *   **text**: the template that contains only text
+        # *   **image**: the template that contains only images
+        # *   **text_image_button**: the template that contains text, images, and buttons
+        # *   **text_button**: the template that contains text and buttons
+        # *   **document**: the template that contains only documents
+        # *   **video**: the template that contains only videos
+        # *   **text_video**: the template that contains text and videos
+        # *   **text_video_button**: the template that contains text, videos, and buttons
+        # *   **text_image**: the template that contains text and images
         self.category = category  # type: str
-        # The name of the message template.
+        # The components of the message template.
+        # 
+        # > If Category is set to AUTHENTICATION, the Type sub-parameter of the Components parameter cannot be set to HEADER. If the value of Type is BODY or FOOTER, the Text sub-parameter of the Components parameter is empty.
         self.components = components  # type: list[CreateChatappTemplateRequestComponents]
+        # The space ID of the user within the independent software vendor (ISV) account.
         self.cust_space_id = cust_space_id  # type: str
         self.cust_waba_id = cust_waba_id  # type: str
+        # The examples of variables that are used when you create the message template.
         self.example = example  # type: dict[str, str]
         self.isv_code = isv_code  # type: str
         self.language = language  # type: str
+        self.message_send_ttl_seconds = message_send_ttl_seconds  # type: int
         self.name = name  # type: str
         self.template_type = template_type  # type: str
 
@@ -2310,6 +2434,8 @@ class CreateChatappTemplateRequest(TeaModel):
             result['IsvCode'] = self.isv_code
         if self.language is not None:
             result['Language'] = self.language
+        if self.message_send_ttl_seconds is not None:
+            result['MessageSendTtlSeconds'] = self.message_send_ttl_seconds
         if self.name is not None:
             result['Name'] = self.name
         if self.template_type is not None:
@@ -2337,6 +2463,8 @@ class CreateChatappTemplateRequest(TeaModel):
             self.isv_code = m.get('IsvCode')
         if m.get('Language') is not None:
             self.language = m.get('Language')
+        if m.get('MessageSendTtlSeconds') is not None:
+            self.message_send_ttl_seconds = m.get('MessageSendTtlSeconds')
         if m.get('Name') is not None:
             self.name = m.get('Name')
         if m.get('TemplateType') is not None:
@@ -2346,18 +2474,40 @@ class CreateChatappTemplateRequest(TeaModel):
 
 class CreateChatappTemplateShrinkRequest(TeaModel):
     def __init__(self, allow_category_change=None, category=None, components_shrink=None, cust_space_id=None,
-                 cust_waba_id=None, example_shrink=None, isv_code=None, language=None, name=None, template_type=None):
-        # 是否允许facebook自动变更模板的目录（这样能提高模板的审核通过率）此属性只对TemplateType=WHATSAPP有效
+                 cust_waba_id=None, example_shrink=None, isv_code=None, language=None, message_send_ttl_seconds=None, name=None,
+                 template_type=None):
+        # Specifies whether to allow Facebook to automatically change the directory of the template. If you set this parameter to true, the review success rate of the template is improved. This parameter is valid only if TemplateType is set to WHATSAPP.
         self.allow_category_change = allow_category_change  # type: bool
-        # The returned data.
+        # The category of the template if TemplateType is set to WHATSAPP. Valid values:
+        # 
+        # *   **UTILITY**: the transaction template
+        # *   **MARKETING**: the marketing template
+        # *   **AUTHENTICATION**: the authentication template
+        # 
+        # The category of the template if TemplateType is set to VIBER. Valid values:
+        # 
+        # *   **text**: the template that contains only text
+        # *   **image**: the template that contains only images
+        # *   **text_image_button**: the template that contains text, images, and buttons
+        # *   **text_button**: the template that contains text and buttons
+        # *   **document**: the template that contains only documents
+        # *   **video**: the template that contains only videos
+        # *   **text_video**: the template that contains text and videos
+        # *   **text_video_button**: the template that contains text, videos, and buttons
+        # *   **text_image**: the template that contains text and images
         self.category = category  # type: str
-        # The name of the message template.
+        # The components of the message template.
+        # 
+        # > If Category is set to AUTHENTICATION, the Type sub-parameter of the Components parameter cannot be set to HEADER. If the value of Type is BODY or FOOTER, the Text sub-parameter of the Components parameter is empty.
         self.components_shrink = components_shrink  # type: str
+        # The space ID of the user within the independent software vendor (ISV) account.
         self.cust_space_id = cust_space_id  # type: str
         self.cust_waba_id = cust_waba_id  # type: str
+        # The examples of variables that are used when you create the message template.
         self.example_shrink = example_shrink  # type: str
         self.isv_code = isv_code  # type: str
         self.language = language  # type: str
+        self.message_send_ttl_seconds = message_send_ttl_seconds  # type: int
         self.name = name  # type: str
         self.template_type = template_type  # type: str
 
@@ -2386,6 +2536,8 @@ class CreateChatappTemplateShrinkRequest(TeaModel):
             result['IsvCode'] = self.isv_code
         if self.language is not None:
             result['Language'] = self.language
+        if self.message_send_ttl_seconds is not None:
+            result['MessageSendTtlSeconds'] = self.message_send_ttl_seconds
         if self.name is not None:
             result['Name'] = self.name
         if self.template_type is not None:
@@ -2410,6 +2562,8 @@ class CreateChatappTemplateShrinkRequest(TeaModel):
             self.isv_code = m.get('IsvCode')
         if m.get('Language') is not None:
             self.language = m.get('Language')
+        if m.get('MessageSendTtlSeconds') is not None:
+            self.message_send_ttl_seconds = m.get('MessageSendTtlSeconds')
         if m.get('Name') is not None:
             self.name = m.get('Name')
         if m.get('TemplateType') is not None:
@@ -2447,10 +2601,12 @@ class CreateChatappTemplateResponseBodyData(TeaModel):
 
 
 class CreateChatappTemplateResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, message=None, request_id=None):
+    def __init__(self, access_denied_detail=None, code=None, data=None, message=None, request_id=None):
+        self.access_denied_detail = access_denied_detail  # type: str
         self.code = code  # type: str
         self.data = data  # type: CreateChatappTemplateResponseBodyData
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2463,6 +2619,8 @@ class CreateChatappTemplateResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.access_denied_detail is not None:
+            result['AccessDeniedDetail'] = self.access_denied_detail
         if self.code is not None:
             result['Code'] = self.code
         if self.data is not None:
@@ -2475,6 +2633,8 @@ class CreateChatappTemplateResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AccessDeniedDetail') is not None:
+            self.access_denied_detail = m.get('AccessDeniedDetail')
         if m.get('Code') is not None:
             self.code = m.get('Code')
         if m.get('Data') is not None:
@@ -2570,7 +2730,8 @@ class DeleteChatappTemplateRequest(TeaModel):
 
 
 class DeleteChatappTemplateResponseBody(TeaModel):
-    def __init__(self, code=None, message=None, request_id=None):
+    def __init__(self, access_denied_detail=None, code=None, message=None, request_id=None):
+        self.access_denied_detail = access_denied_detail  # type: str
         # The HTTP status code returned.
         # 
         # *   A value of OK indicates that the call is successful.
@@ -2590,6 +2751,8 @@ class DeleteChatappTemplateResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.access_denied_detail is not None:
+            result['AccessDeniedDetail'] = self.access_denied_detail
         if self.code is not None:
             result['Code'] = self.code
         if self.message is not None:
@@ -2600,6 +2763,8 @@ class DeleteChatappTemplateResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AccessDeniedDetail') is not None:
+            self.access_denied_detail = m.get('AccessDeniedDetail')
         if m.get('Code') is not None:
             self.code = m.get('Code')
         if m.get('Message') is not None:
@@ -2946,14 +3111,16 @@ class GetChatappTemplateDetailResponseBodyDataComponents(TeaModel):
 
 
 class GetChatappTemplateDetailResponseBodyData(TeaModel):
-    def __init__(self, audit_status=None, category=None, components=None, example=None, language=None, name=None,
-                 template_code=None, template_type=None):
+    def __init__(self, audit_status=None, category=None, components=None, example=None, language=None,
+                 message_send_ttl_seconds=None, name=None, quality_score=None, template_code=None, template_type=None):
         self.audit_status = audit_status  # type: str
         self.category = category  # type: str
         self.components = components  # type: list[GetChatappTemplateDetailResponseBodyDataComponents]
         self.example = example  # type: dict[str, str]
         self.language = language  # type: str
+        self.message_send_ttl_seconds = message_send_ttl_seconds  # type: int
         self.name = name  # type: str
+        self.quality_score = quality_score  # type: str
         self.template_code = template_code  # type: str
         self.template_type = template_type  # type: str
 
@@ -2981,8 +3148,12 @@ class GetChatappTemplateDetailResponseBodyData(TeaModel):
             result['Example'] = self.example
         if self.language is not None:
             result['Language'] = self.language
+        if self.message_send_ttl_seconds is not None:
+            result['MessageSendTtlSeconds'] = self.message_send_ttl_seconds
         if self.name is not None:
             result['Name'] = self.name
+        if self.quality_score is not None:
+            result['QualityScore'] = self.quality_score
         if self.template_code is not None:
             result['TemplateCode'] = self.template_code
         if self.template_type is not None:
@@ -3004,8 +3175,12 @@ class GetChatappTemplateDetailResponseBodyData(TeaModel):
             self.example = m.get('Example')
         if m.get('Language') is not None:
             self.language = m.get('Language')
+        if m.get('MessageSendTtlSeconds') is not None:
+            self.message_send_ttl_seconds = m.get('MessageSendTtlSeconds')
         if m.get('Name') is not None:
             self.name = m.get('Name')
+        if m.get('QualityScore') is not None:
+            self.quality_score = m.get('QualityScore')
         if m.get('TemplateCode') is not None:
             self.template_code = m.get('TemplateCode')
         if m.get('TemplateType') is not None:
@@ -3014,7 +3189,8 @@ class GetChatappTemplateDetailResponseBodyData(TeaModel):
 
 
 class GetChatappTemplateDetailResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, message=None, request_id=None):
+    def __init__(self, access_denied_detail=None, code=None, data=None, message=None, request_id=None):
+        self.access_denied_detail = access_denied_detail  # type: str
         self.code = code  # type: str
         self.data = data  # type: GetChatappTemplateDetailResponseBodyData
         self.message = message  # type: str
@@ -3030,6 +3206,8 @@ class GetChatappTemplateDetailResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.access_denied_detail is not None:
+            result['AccessDeniedDetail'] = self.access_denied_detail
         if self.code is not None:
             result['Code'] = self.code
         if self.data is not None:
@@ -3042,6 +3220,8 @@ class GetChatappTemplateDetailResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AccessDeniedDetail') is not None:
+            self.access_denied_detail = m.get('AccessDeniedDetail')
         if m.get('Code') is not None:
             self.code = m.get('Code')
         if m.get('Data') is not None:
@@ -3181,7 +3361,8 @@ class GetChatappUploadAuthorizationResponseBodyData(TeaModel):
 
 
 class GetChatappUploadAuthorizationResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, message=None, request_id=None):
+    def __init__(self, access_denied_detail=None, code=None, data=None, message=None, request_id=None):
+        self.access_denied_detail = access_denied_detail  # type: str
         # The HTTP status code returned.
         # 
         # *   A value of OK indicates that the call is successful.
@@ -3204,6 +3385,8 @@ class GetChatappUploadAuthorizationResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.access_denied_detail is not None:
+            result['AccessDeniedDetail'] = self.access_denied_detail
         if self.code is not None:
             result['Code'] = self.code
         if self.data is not None:
@@ -3216,6 +3399,8 @@ class GetChatappUploadAuthorizationResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AccessDeniedDetail') is not None:
+            self.access_denied_detail = m.get('AccessDeniedDetail')
         if m.get('Code') is not None:
             self.code = m.get('Code')
         if m.get('Data') is not None:
@@ -3311,7 +3496,8 @@ class GetChatappVerifyCodeRequest(TeaModel):
 
 
 class GetChatappVerifyCodeResponseBody(TeaModel):
-    def __init__(self, code=None, message=None, request_id=None):
+    def __init__(self, access_denied_detail=None, code=None, message=None, request_id=None):
+        self.access_denied_detail = access_denied_detail  # type: str
         # The HTTP status code returned.
         # 
         # *   A value of OK indicates that the call is successful.
@@ -3331,6 +3517,8 @@ class GetChatappVerifyCodeResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.access_denied_detail is not None:
+            result['AccessDeniedDetail'] = self.access_denied_detail
         if self.code is not None:
             result['Code'] = self.code
         if self.message is not None:
@@ -3341,6 +3529,8 @@ class GetChatappVerifyCodeResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AccessDeniedDetail') is not None:
+            self.access_denied_detail = m.get('AccessDeniedDetail')
         if m.get('Code') is not None:
             self.code = m.get('Code')
         if m.get('Message') is not None:
@@ -3458,7 +3648,8 @@ class GetMigrationVerifyCodeResponseBodyData(TeaModel):
 
 
 class GetMigrationVerifyCodeResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, message=None, request_id=None):
+    def __init__(self, access_denied_detail=None, code=None, data=None, message=None, request_id=None):
+        self.access_denied_detail = access_denied_detail  # type: str
         self.code = code  # type: str
         self.data = data  # type: GetMigrationVerifyCodeResponseBodyData
         self.message = message  # type: str
@@ -3474,6 +3665,8 @@ class GetMigrationVerifyCodeResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.access_denied_detail is not None:
+            result['AccessDeniedDetail'] = self.access_denied_detail
         if self.code is not None:
             result['Code'] = self.code
         if self.data is not None:
@@ -3486,6 +3679,8 @@ class GetMigrationVerifyCodeResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AccessDeniedDetail') is not None:
+            self.access_denied_detail = m.get('AccessDeniedDetail')
         if m.get('Code') is not None:
             self.code = m.get('Code')
         if m.get('Data') is not None:
@@ -3692,8 +3887,148 @@ class GetPhoneNumberVerificationStatusResponse(TeaModel):
         return self
 
 
+class GetPreValidatePhoneIdRequest(TeaModel):
+    def __init__(self, phone_number=None, verify_code=None):
+        self.phone_number = phone_number  # type: str
+        self.verify_code = verify_code  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetPreValidatePhoneIdRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.phone_number is not None:
+            result['PhoneNumber'] = self.phone_number
+        if self.verify_code is not None:
+            result['VerifyCode'] = self.verify_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('PhoneNumber') is not None:
+            self.phone_number = m.get('PhoneNumber')
+        if m.get('VerifyCode') is not None:
+            self.verify_code = m.get('VerifyCode')
+        return self
+
+
+class GetPreValidatePhoneIdResponseBodyData(TeaModel):
+    def __init__(self, phone_number=None, phone_number_id=None):
+        self.phone_number = phone_number  # type: str
+        self.phone_number_id = phone_number_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetPreValidatePhoneIdResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.phone_number is not None:
+            result['PhoneNumber'] = self.phone_number
+        if self.phone_number_id is not None:
+            result['PhoneNumberId'] = self.phone_number_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('PhoneNumber') is not None:
+            self.phone_number = m.get('PhoneNumber')
+        if m.get('PhoneNumberId') is not None:
+            self.phone_number_id = m.get('PhoneNumberId')
+        return self
+
+
+class GetPreValidatePhoneIdResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None):
+        self.code = code  # type: str
+        self.data = data  # type: GetPreValidatePhoneIdResponseBodyData
+        self.message = message  # type: str
+        # Id of the request
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(GetPreValidatePhoneIdResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = GetPreValidatePhoneIdResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class GetPreValidatePhoneIdResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetPreValidatePhoneIdResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetPreValidatePhoneIdResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetPreValidatePhoneIdResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class IsvGetAppIdRequest(TeaModel):
     def __init__(self, type=None):
+        # The type of the application. Set the value to WHATSAPP.
         self.type = type  # type: str
 
     def validate(self):
@@ -3717,10 +4052,18 @@ class IsvGetAppIdRequest(TeaModel):
 
 
 class IsvGetAppIdResponseBody(TeaModel):
-    def __init__(self, app_id=None, code=None, message=None, request_id=None):
+    def __init__(self, access_denied_detail=None, app_id=None, code=None, message=None, request_id=None):
+        self.access_denied_detail = access_denied_detail  # type: str
+        # The message ID.
         self.app_id = app_id  # type: str
+        # The HTTP status code returned.
+        # 
+        # *   A value of OK indicates that the call is successful.
+        # *   Other values indicate that the call fails. For more information, see [Error codes](~~196974~~).
         self.code = code  # type: str
+        # The error message returned.
         self.message = message  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3732,6 +4075,8 @@ class IsvGetAppIdResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.access_denied_detail is not None:
+            result['AccessDeniedDetail'] = self.access_denied_detail
         if self.app_id is not None:
             result['AppId'] = self.app_id
         if self.code is not None:
@@ -3744,6 +4089,8 @@ class IsvGetAppIdResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AccessDeniedDetail') is not None:
+            self.access_denied_detail = m.get('AccessDeniedDetail')
         if m.get('AppId') is not None:
             self.app_id = m.get('AppId')
         if m.get('Code') is not None:
@@ -4047,7 +4394,9 @@ class ListChatappTemplateResponseBodyListTemplate(TeaModel):
 
 
 class ListChatappTemplateResponseBody(TeaModel):
-    def __init__(self, code=None, list_template=None, message=None, request_id=None, total=None):
+    def __init__(self, access_denied_detail=None, code=None, list_template=None, message=None, request_id=None,
+                 total=None):
+        self.access_denied_detail = access_denied_detail  # type: str
         # The HTTP status code returned.
         # 
         # *   A value of OK indicates that the call is successful.
@@ -4074,6 +4423,8 @@ class ListChatappTemplateResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.access_denied_detail is not None:
+            result['AccessDeniedDetail'] = self.access_denied_detail
         if self.code is not None:
             result['Code'] = self.code
         result['ListTemplate'] = []
@@ -4090,6 +4441,8 @@ class ListChatappTemplateResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AccessDeniedDetail') is not None:
+            self.access_denied_detail = m.get('AccessDeniedDetail')
         if m.get('Code') is not None:
             self.code = m.get('Code')
         self.list_template = []
@@ -4300,7 +4653,7 @@ class ModifyChatappTemplateRequestComponents(TeaModel):
 
 class ModifyChatappTemplateRequest(TeaModel):
     def __init__(self, category=None, components=None, cust_space_id=None, cust_waba_id=None, example=None,
-                 isv_code=None, language=None, template_code=None, template_type=None):
+                 isv_code=None, language=None, message_send_ttl_seconds=None, template_code=None, template_type=None):
         self.category = category  # type: str
         self.components = components  # type: list[ModifyChatappTemplateRequestComponents]
         self.cust_space_id = cust_space_id  # type: str
@@ -4308,6 +4661,7 @@ class ModifyChatappTemplateRequest(TeaModel):
         self.example = example  # type: dict[str, str]
         self.isv_code = isv_code  # type: str
         self.language = language  # type: str
+        self.message_send_ttl_seconds = message_send_ttl_seconds  # type: int
         self.template_code = template_code  # type: str
         self.template_type = template_type  # type: str
 
@@ -4339,6 +4693,8 @@ class ModifyChatappTemplateRequest(TeaModel):
             result['IsvCode'] = self.isv_code
         if self.language is not None:
             result['Language'] = self.language
+        if self.message_send_ttl_seconds is not None:
+            result['MessageSendTtlSeconds'] = self.message_send_ttl_seconds
         if self.template_code is not None:
             result['TemplateCode'] = self.template_code
         if self.template_type is not None:
@@ -4364,6 +4720,8 @@ class ModifyChatappTemplateRequest(TeaModel):
             self.isv_code = m.get('IsvCode')
         if m.get('Language') is not None:
             self.language = m.get('Language')
+        if m.get('MessageSendTtlSeconds') is not None:
+            self.message_send_ttl_seconds = m.get('MessageSendTtlSeconds')
         if m.get('TemplateCode') is not None:
             self.template_code = m.get('TemplateCode')
         if m.get('TemplateType') is not None:
@@ -4373,7 +4731,8 @@ class ModifyChatappTemplateRequest(TeaModel):
 
 class ModifyChatappTemplateShrinkRequest(TeaModel):
     def __init__(self, category=None, components_shrink=None, cust_space_id=None, cust_waba_id=None,
-                 example_shrink=None, isv_code=None, language=None, template_code=None, template_type=None):
+                 example_shrink=None, isv_code=None, language=None, message_send_ttl_seconds=None, template_code=None,
+                 template_type=None):
         self.category = category  # type: str
         self.components_shrink = components_shrink  # type: str
         self.cust_space_id = cust_space_id  # type: str
@@ -4381,6 +4740,7 @@ class ModifyChatappTemplateShrinkRequest(TeaModel):
         self.example_shrink = example_shrink  # type: str
         self.isv_code = isv_code  # type: str
         self.language = language  # type: str
+        self.message_send_ttl_seconds = message_send_ttl_seconds  # type: int
         self.template_code = template_code  # type: str
         self.template_type = template_type  # type: str
 
@@ -4407,6 +4767,8 @@ class ModifyChatappTemplateShrinkRequest(TeaModel):
             result['IsvCode'] = self.isv_code
         if self.language is not None:
             result['Language'] = self.language
+        if self.message_send_ttl_seconds is not None:
+            result['MessageSendTtlSeconds'] = self.message_send_ttl_seconds
         if self.template_code is not None:
             result['TemplateCode'] = self.template_code
         if self.template_type is not None:
@@ -4429,6 +4791,8 @@ class ModifyChatappTemplateShrinkRequest(TeaModel):
             self.isv_code = m.get('IsvCode')
         if m.get('Language') is not None:
             self.language = m.get('Language')
+        if m.get('MessageSendTtlSeconds') is not None:
+            self.message_send_ttl_seconds = m.get('MessageSendTtlSeconds')
         if m.get('TemplateCode') is not None:
             self.template_code = m.get('TemplateCode')
         if m.get('TemplateType') is not None:
@@ -4466,7 +4830,8 @@ class ModifyChatappTemplateResponseBodyData(TeaModel):
 
 
 class ModifyChatappTemplateResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, message=None, request_id=None):
+    def __init__(self, access_denied_detail=None, code=None, data=None, message=None, request_id=None):
+        self.access_denied_detail = access_denied_detail  # type: str
         self.code = code  # type: str
         self.data = data  # type: ModifyChatappTemplateResponseBodyData
         self.message = message  # type: str
@@ -4482,6 +4847,8 @@ class ModifyChatappTemplateResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.access_denied_detail is not None:
+            result['AccessDeniedDetail'] = self.access_denied_detail
         if self.code is not None:
             result['Code'] = self.code
         if self.data is not None:
@@ -4494,6 +4861,8 @@ class ModifyChatappTemplateResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AccessDeniedDetail') is not None:
+            self.access_denied_detail = m.get('AccessDeniedDetail')
         if m.get('Code') is not None:
             self.code = m.get('Code')
         if m.get('Data') is not None:
@@ -4548,21 +4917,23 @@ class ModifyChatappTemplateResponse(TeaModel):
 class ModifyPhoneBusinessProfileRequest(TeaModel):
     def __init__(self, address=None, cust_space_id=None, description=None, email=None, phone_number=None,
                  profile_picture_url=None, vertical=None, websites=None):
-        # The address.
-        self.address = address  # type: str
         # The space ID of the user under the independent software vendor (ISV) account.
+        self.address = address  # type: str
+        # Modifies the business information of the account to which a specified phone number is bound.
         self.cust_space_id = cust_space_id  # type: str
-        # The description.
+        # The address.
         self.description = description  # type: str
-        # The email address.
+        # The description.
         self.email = email  # type: str
-        # The phone number.
+        # You can call this operation up to 10 times per second per account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         self.phone_number = phone_number  # type: str
-        # The URL of the profile picture.
-        self.profile_picture_url = profile_picture_url  # type: str
         # The industry.
+        # 
+        # > Enum: {OTHER, AUTO, BEAUTY, APPAREL, EDU, ENTERTAIN, EVENT_PLAN, FINANCE, GROCERY, GOVT, HOTEL, HEALTH, NONPROFIT, PROF_SERVICES, RETAIL, TRAVEL, RESTAURANT}
+        self.profile_picture_url = profile_picture_url  # type: str
+        # Sichuan
         self.vertical = vertical  # type: str
-        # The websites.
+        # The email address.
         self.websites = websites  # type: list[str]
 
     def validate(self):
@@ -4616,21 +4987,23 @@ class ModifyPhoneBusinessProfileRequest(TeaModel):
 class ModifyPhoneBusinessProfileShrinkRequest(TeaModel):
     def __init__(self, address=None, cust_space_id=None, description=None, email=None, phone_number=None,
                  profile_picture_url=None, vertical=None, websites_shrink=None):
-        # The address.
-        self.address = address  # type: str
         # The space ID of the user under the independent software vendor (ISV) account.
+        self.address = address  # type: str
+        # Modifies the business information of the account to which a specified phone number is bound.
         self.cust_space_id = cust_space_id  # type: str
-        # The description.
+        # The address.
         self.description = description  # type: str
-        # The email address.
+        # The description.
         self.email = email  # type: str
-        # The phone number.
+        # You can call this operation up to 10 times per second per account. If the number of calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         self.phone_number = phone_number  # type: str
-        # The URL of the profile picture.
-        self.profile_picture_url = profile_picture_url  # type: str
         # The industry.
+        # 
+        # > Enum: {OTHER, AUTO, BEAUTY, APPAREL, EDU, ENTERTAIN, EVENT_PLAN, FINANCE, GROCERY, GOVT, HOTEL, HEALTH, NONPROFIT, PROF_SERVICES, RETAIL, TRAVEL, RESTAURANT}
+        self.profile_picture_url = profile_picture_url  # type: str
+        # Sichuan
         self.vertical = vertical  # type: str
-        # The websites.
+        # The email address.
         self.websites_shrink = websites_shrink  # type: str
 
     def validate(self):
@@ -4682,15 +5055,13 @@ class ModifyPhoneBusinessProfileShrinkRequest(TeaModel):
 
 
 class ModifyPhoneBusinessProfileResponseBody(TeaModel):
-    def __init__(self, code=None, message=None, request_id=None):
-        # The HTTP status code returned.
-        # 
-        # *   A value of OK indicates that the call is successful.
-        # *   Other values indicate that the call fails. For more information, see [Error codes](~~196974~~).
+    def __init__(self, access_denied_detail=None, code=None, message=None, request_id=None):
+        self.access_denied_detail = access_denied_detail  # type: str
+        # The URL of the website.
         self.code = code  # type: str
-        # The error message returned.
-        self.message = message  # type: str
         # The ID of the request.
+        self.message = message  # type: str
+        # The websites.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4702,6 +5073,8 @@ class ModifyPhoneBusinessProfileResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.access_denied_detail is not None:
+            result['AccessDeniedDetail'] = self.access_denied_detail
         if self.code is not None:
             result['Code'] = self.code
         if self.message is not None:
@@ -4712,6 +5085,8 @@ class ModifyPhoneBusinessProfileResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AccessDeniedDetail') is not None:
+            self.access_denied_detail = m.get('AccessDeniedDetail')
         if m.get('Code') is not None:
             self.code = m.get('Code')
         if m.get('Message') is not None:
@@ -4842,7 +5217,8 @@ class QueryChatappBindWabaResponseBodyData(TeaModel):
 
 
 class QueryChatappBindWabaResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, message=None, request_id=None):
+    def __init__(self, access_denied_detail=None, code=None, data=None, message=None, request_id=None):
+        self.access_denied_detail = access_denied_detail  # type: str
         # The HTTP status code returned.
         # 
         # *   A value of OK indicates that the call is successful.
@@ -4865,6 +5241,8 @@ class QueryChatappBindWabaResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.access_denied_detail is not None:
+            result['AccessDeniedDetail'] = self.access_denied_detail
         if self.code is not None:
             result['Code'] = self.code
         if self.data is not None:
@@ -4877,6 +5255,8 @@ class QueryChatappBindWabaResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AccessDeniedDetail') is not None:
+            self.access_denied_detail = m.get('AccessDeniedDetail')
         if m.get('Code') is not None:
             self.code = m.get('Code')
         if m.get('Data') is not None:
@@ -5070,7 +5450,8 @@ class QueryChatappPhoneNumbersResponseBodyPhoneNumbers(TeaModel):
 
 
 class QueryChatappPhoneNumbersResponseBody(TeaModel):
-    def __init__(self, code=None, message=None, phone_numbers=None, request_id=None):
+    def __init__(self, access_denied_detail=None, code=None, message=None, phone_numbers=None, request_id=None):
+        self.access_denied_detail = access_denied_detail  # type: str
         # The HTTP status code returned.
         # 
         # *   A value of OK indicates that the call is successful.
@@ -5095,6 +5476,8 @@ class QueryChatappPhoneNumbersResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.access_denied_detail is not None:
+            result['AccessDeniedDetail'] = self.access_denied_detail
         if self.code is not None:
             result['Code'] = self.code
         if self.message is not None:
@@ -5109,6 +5492,8 @@ class QueryChatappPhoneNumbersResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AccessDeniedDetail') is not None:
+            self.access_denied_detail = m.get('AccessDeniedDetail')
         if m.get('Code') is not None:
             self.code = m.get('Code')
         if m.get('Message') is not None:
@@ -5250,7 +5635,8 @@ class QueryPhoneBusinessProfileResponseBodyData(TeaModel):
 
 
 class QueryPhoneBusinessProfileResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, message=None, request_id=None):
+    def __init__(self, access_denied_detail=None, code=None, data=None, message=None, request_id=None):
+        self.access_denied_detail = access_denied_detail  # type: str
         # The HTTP status code returned.
         # 
         # *   A value of OK indicates that the call is successful.
@@ -5273,6 +5659,8 @@ class QueryPhoneBusinessProfileResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.access_denied_detail is not None:
+            result['AccessDeniedDetail'] = self.access_denied_detail
         if self.code is not None:
             result['Code'] = self.code
         if self.data is not None:
@@ -5285,6 +5673,8 @@ class QueryPhoneBusinessProfileResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AccessDeniedDetail') is not None:
+            self.access_denied_detail = m.get('AccessDeniedDetail')
         if m.get('Code') is not None:
             self.code = m.get('Code')
         if m.get('Data') is not None:
@@ -5411,7 +5801,8 @@ class QueryWabaBusinessInfoResponseBodyData(TeaModel):
 
 
 class QueryWabaBusinessInfoResponseBody(TeaModel):
-    def __init__(self, code=None, data=None, message=None, request_id=None):
+    def __init__(self, access_denied_detail=None, code=None, data=None, message=None, request_id=None):
+        self.access_denied_detail = access_denied_detail  # type: str
         # The HTTP status code returned.
         # 
         # *   A value of OK indicates that the call is successful.
@@ -5434,6 +5825,8 @@ class QueryWabaBusinessInfoResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.access_denied_detail is not None:
+            result['AccessDeniedDetail'] = self.access_denied_detail
         if self.code is not None:
             result['Code'] = self.code
         if self.data is not None:
@@ -5446,6 +5839,8 @@ class QueryWabaBusinessInfoResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AccessDeniedDetail') is not None:
+            self.access_denied_detail = m.get('AccessDeniedDetail')
         if m.get('Code') is not None:
             self.code = m.get('Code')
         if m.get('Data') is not None:
@@ -5497,17 +5892,117 @@ class QueryWabaBusinessInfoResponse(TeaModel):
         return self
 
 
+class SendChatappMassMessageRequestSenderListProductActionSectionsProductItems(TeaModel):
+    def __init__(self, product_retailer_id=None):
+        self.product_retailer_id = product_retailer_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SendChatappMassMessageRequestSenderListProductActionSectionsProductItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.product_retailer_id is not None:
+            result['ProductRetailerId'] = self.product_retailer_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ProductRetailerId') is not None:
+            self.product_retailer_id = m.get('ProductRetailerId')
+        return self
+
+
+class SendChatappMassMessageRequestSenderListProductActionSections(TeaModel):
+    def __init__(self, product_items=None, title=None):
+        self.product_items = product_items  # type: list[SendChatappMassMessageRequestSenderListProductActionSectionsProductItems]
+        self.title = title  # type: str
+
+    def validate(self):
+        if self.product_items:
+            for k in self.product_items:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(SendChatappMassMessageRequestSenderListProductActionSections, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['ProductItems'] = []
+        if self.product_items is not None:
+            for k in self.product_items:
+                result['ProductItems'].append(k.to_map() if k else None)
+        if self.title is not None:
+            result['Title'] = self.title
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.product_items = []
+        if m.get('ProductItems') is not None:
+            for k in m.get('ProductItems'):
+                temp_model = SendChatappMassMessageRequestSenderListProductActionSectionsProductItems()
+                self.product_items.append(temp_model.from_map(k))
+        if m.get('Title') is not None:
+            self.title = m.get('Title')
+        return self
+
+
+class SendChatappMassMessageRequestSenderListProductAction(TeaModel):
+    def __init__(self, sections=None, thumbnail_product_retailer_id=None):
+        self.sections = sections  # type: list[SendChatappMassMessageRequestSenderListProductActionSections]
+        self.thumbnail_product_retailer_id = thumbnail_product_retailer_id  # type: str
+
+    def validate(self):
+        if self.sections:
+            for k in self.sections:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(SendChatappMassMessageRequestSenderListProductAction, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Sections'] = []
+        if self.sections is not None:
+            for k in self.sections:
+                result['Sections'].append(k.to_map() if k else None)
+        if self.thumbnail_product_retailer_id is not None:
+            result['ThumbnailProductRetailerId'] = self.thumbnail_product_retailer_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.sections = []
+        if m.get('Sections') is not None:
+            for k in m.get('Sections'):
+                temp_model = SendChatappMassMessageRequestSenderListProductActionSections()
+                self.sections.append(temp_model.from_map(k))
+        if m.get('ThumbnailProductRetailerId') is not None:
+            self.thumbnail_product_retailer_id = m.get('ThumbnailProductRetailerId')
+        return self
+
+
 class SendChatappMassMessageRequestSenderList(TeaModel):
-    def __init__(self, payload=None, template_params=None, to=None):
+    def __init__(self, payload=None, product_action=None, template_params=None, to=None):
         # payload
         self.payload = payload  # type: list[str]
+        self.product_action = product_action  # type: SendChatappMassMessageRequestSenderListProductAction
         # The parameters of the message template.
         self.template_params = template_params  # type: dict[str, str]
         # The phone number that receives the message.
         self.to = to  # type: str
 
     def validate(self):
-        pass
+        if self.product_action:
+            self.product_action.validate()
 
     def to_map(self):
         _map = super(SendChatappMassMessageRequestSenderList, self).to_map()
@@ -5517,6 +6012,8 @@ class SendChatappMassMessageRequestSenderList(TeaModel):
         result = dict()
         if self.payload is not None:
             result['Payload'] = self.payload
+        if self.product_action is not None:
+            result['ProductAction'] = self.product_action.to_map()
         if self.template_params is not None:
             result['TemplateParams'] = self.template_params
         if self.to is not None:
@@ -5527,6 +6024,9 @@ class SendChatappMassMessageRequestSenderList(TeaModel):
         m = m or dict()
         if m.get('Payload') is not None:
             self.payload = m.get('Payload')
+        if m.get('ProductAction') is not None:
+            temp_model = SendChatappMassMessageRequestSenderListProductAction()
+            self.product_action = temp_model.from_map(m['ProductAction'])
         if m.get('TemplateParams') is not None:
             self.template_params = m.get('TemplateParams')
         if m.get('To') is not None:
@@ -5765,7 +6265,8 @@ class SendChatappMassMessageShrinkRequest(TeaModel):
 
 
 class SendChatappMassMessageResponseBody(TeaModel):
-    def __init__(self, code=None, group_message_id=None, message=None, request_id=None):
+    def __init__(self, access_denied_detail=None, code=None, group_message_id=None, message=None, request_id=None):
+        self.access_denied_detail = access_denied_detail  # type: str
         # The HTTP status code returned.
         # 
         # *   A value of OK indicates that the call is successful.
@@ -5787,6 +6288,8 @@ class SendChatappMassMessageResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.access_denied_detail is not None:
+            result['AccessDeniedDetail'] = self.access_denied_detail
         if self.code is not None:
             result['Code'] = self.code
         if self.group_message_id is not None:
@@ -5799,6 +6302,8 @@ class SendChatappMassMessageResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AccessDeniedDetail') is not None:
+            self.access_denied_detail = m.get('AccessDeniedDetail')
         if m.get('Code') is not None:
             self.code = m.get('Code')
         if m.get('GroupMessageId') is not None:
@@ -5849,11 +6354,109 @@ class SendChatappMassMessageResponse(TeaModel):
         return self
 
 
+class SendChatappMessageRequestProductActionSectionsProductItems(TeaModel):
+    def __init__(self, product_retailer_id=None):
+        self.product_retailer_id = product_retailer_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SendChatappMessageRequestProductActionSectionsProductItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.product_retailer_id is not None:
+            result['ProductRetailerId'] = self.product_retailer_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ProductRetailerId') is not None:
+            self.product_retailer_id = m.get('ProductRetailerId')
+        return self
+
+
+class SendChatappMessageRequestProductActionSections(TeaModel):
+    def __init__(self, product_items=None, title=None):
+        self.product_items = product_items  # type: list[SendChatappMessageRequestProductActionSectionsProductItems]
+        self.title = title  # type: str
+
+    def validate(self):
+        if self.product_items:
+            for k in self.product_items:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(SendChatappMessageRequestProductActionSections, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['ProductItems'] = []
+        if self.product_items is not None:
+            for k in self.product_items:
+                result['ProductItems'].append(k.to_map() if k else None)
+        if self.title is not None:
+            result['Title'] = self.title
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.product_items = []
+        if m.get('ProductItems') is not None:
+            for k in m.get('ProductItems'):
+                temp_model = SendChatappMessageRequestProductActionSectionsProductItems()
+                self.product_items.append(temp_model.from_map(k))
+        if m.get('Title') is not None:
+            self.title = m.get('Title')
+        return self
+
+
+class SendChatappMessageRequestProductAction(TeaModel):
+    def __init__(self, sections=None, thumbnail_product_retailer_id=None):
+        self.sections = sections  # type: list[SendChatappMessageRequestProductActionSections]
+        self.thumbnail_product_retailer_id = thumbnail_product_retailer_id  # type: str
+
+    def validate(self):
+        if self.sections:
+            for k in self.sections:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(SendChatappMessageRequestProductAction, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Sections'] = []
+        if self.sections is not None:
+            for k in self.sections:
+                result['Sections'].append(k.to_map() if k else None)
+        if self.thumbnail_product_retailer_id is not None:
+            result['ThumbnailProductRetailerId'] = self.thumbnail_product_retailer_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.sections = []
+        if m.get('Sections') is not None:
+            for k in m.get('Sections'):
+                temp_model = SendChatappMessageRequestProductActionSections()
+                self.sections.append(temp_model.from_map(k))
+        if m.get('ThumbnailProductRetailerId') is not None:
+            self.thumbnail_product_retailer_id = m.get('ThumbnailProductRetailerId')
+        return self
+
+
 class SendChatappMessageRequest(TeaModel):
     def __init__(self, channel_type=None, content=None, context_message_id=None, cust_space_id=None,
                  cust_waba_id=None, fall_back_content=None, fall_back_duration=None, fall_back_id=None, from_=None,
-                 isv_code=None, label=None, language=None, message_type=None, payload=None, tag=None, task_id=None,
-                 template_code=None, template_params=None, to=None, tracking_data=None, ttl=None, type=None):
+                 isv_code=None, label=None, language=None, message_type=None, payload=None, product_action=None, tag=None,
+                 task_id=None, template_code=None, template_params=None, to=None, tracking_data=None, ttl=None, type=None):
         # The type of the message channel. Valid values:
         # 
         # *   **whatsapp**\
@@ -5939,6 +6542,7 @@ class SendChatappMessageRequest(TeaModel):
         self.message_type = message_type  # type: str
         # The payload of the button.
         self.payload = payload  # type: list[str]
+        self.product_action = product_action  # type: SendChatappMessageRequestProductAction
         # The tag information of the Viber message.
         self.tag = tag  # type: str
         # The ID of the task.
@@ -5960,7 +6564,8 @@ class SendChatappMessageRequest(TeaModel):
         self.type = type  # type: str
 
     def validate(self):
-        pass
+        if self.product_action:
+            self.product_action.validate()
 
     def to_map(self):
         _map = super(SendChatappMessageRequest, self).to_map()
@@ -5996,6 +6601,8 @@ class SendChatappMessageRequest(TeaModel):
             result['MessageType'] = self.message_type
         if self.payload is not None:
             result['Payload'] = self.payload
+        if self.product_action is not None:
+            result['ProductAction'] = self.product_action.to_map()
         if self.tag is not None:
             result['Tag'] = self.tag
         if self.task_id is not None:
@@ -6044,6 +6651,9 @@ class SendChatappMessageRequest(TeaModel):
             self.message_type = m.get('MessageType')
         if m.get('Payload') is not None:
             self.payload = m.get('Payload')
+        if m.get('ProductAction') is not None:
+            temp_model = SendChatappMessageRequestProductAction()
+            self.product_action = temp_model.from_map(m['ProductAction'])
         if m.get('Tag') is not None:
             self.tag = m.get('Tag')
         if m.get('TaskId') is not None:
@@ -6066,8 +6676,9 @@ class SendChatappMessageRequest(TeaModel):
 class SendChatappMessageShrinkRequest(TeaModel):
     def __init__(self, channel_type=None, content=None, context_message_id=None, cust_space_id=None,
                  cust_waba_id=None, fall_back_content=None, fall_back_duration=None, fall_back_id=None, from_=None,
-                 isv_code=None, label=None, language=None, message_type=None, payload_shrink=None, tag=None, task_id=None,
-                 template_code=None, template_params_shrink=None, to=None, tracking_data=None, ttl=None, type=None):
+                 isv_code=None, label=None, language=None, message_type=None, payload_shrink=None,
+                 product_action_shrink=None, tag=None, task_id=None, template_code=None, template_params_shrink=None, to=None,
+                 tracking_data=None, ttl=None, type=None):
         # The type of the message channel. Valid values:
         # 
         # *   **whatsapp**\
@@ -6153,6 +6764,7 @@ class SendChatappMessageShrinkRequest(TeaModel):
         self.message_type = message_type  # type: str
         # The payload of the button.
         self.payload_shrink = payload_shrink  # type: str
+        self.product_action_shrink = product_action_shrink  # type: str
         # The tag information of the Viber message.
         self.tag = tag  # type: str
         # The ID of the task.
@@ -6210,6 +6822,8 @@ class SendChatappMessageShrinkRequest(TeaModel):
             result['MessageType'] = self.message_type
         if self.payload_shrink is not None:
             result['Payload'] = self.payload_shrink
+        if self.product_action_shrink is not None:
+            result['ProductAction'] = self.product_action_shrink
         if self.tag is not None:
             result['Tag'] = self.tag
         if self.task_id is not None:
@@ -6258,6 +6872,8 @@ class SendChatappMessageShrinkRequest(TeaModel):
             self.message_type = m.get('MessageType')
         if m.get('Payload') is not None:
             self.payload_shrink = m.get('Payload')
+        if m.get('ProductAction') is not None:
+            self.product_action_shrink = m.get('ProductAction')
         if m.get('Tag') is not None:
             self.tag = m.get('Tag')
         if m.get('TaskId') is not None:
@@ -6429,7 +7045,8 @@ class SubmitIsvCustomerTermsRequest(TeaModel):
 
 
 class SubmitIsvCustomerTermsResponseBody(TeaModel):
-    def __init__(self, code=None, message=None, request_id=None):
+    def __init__(self, access_denied_detail=None, code=None, message=None, request_id=None):
+        self.access_denied_detail = access_denied_detail  # type: str
         # The HTTP status code returned.
         # 
         # *   A value of OK indicates that the call is successful.
@@ -6449,6 +7066,8 @@ class SubmitIsvCustomerTermsResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.access_denied_detail is not None:
+            result['AccessDeniedDetail'] = self.access_denied_detail
         if self.code is not None:
             result['Code'] = self.code
         if self.message is not None:
@@ -6459,6 +7078,8 @@ class SubmitIsvCustomerTermsResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AccessDeniedDetail') is not None:
+            self.access_denied_detail = m.get('AccessDeniedDetail')
         if m.get('Code') is not None:
             self.code = m.get('Code')
         if m.get('Message') is not None:
@@ -6557,7 +7178,8 @@ class UpdateAccountWebhookRequest(TeaModel):
 
 
 class UpdateAccountWebhookResponseBody(TeaModel):
-    def __init__(self, code=None, message=None, request_id=None):
+    def __init__(self, access_denied_detail=None, code=None, message=None, request_id=None):
+        self.access_denied_detail = access_denied_detail  # type: str
         # The HTTP status code returned.
         # 
         # *   A value of OK indicates that the call is successful.
@@ -6577,6 +7199,8 @@ class UpdateAccountWebhookResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.access_denied_detail is not None:
+            result['AccessDeniedDetail'] = self.access_denied_detail
         if self.code is not None:
             result['Code'] = self.code
         if self.message is not None:
@@ -6587,6 +7211,8 @@ class UpdateAccountWebhookResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AccessDeniedDetail') is not None:
+            self.access_denied_detail = m.get('AccessDeniedDetail')
         if m.get('Code') is not None:
             self.code = m.get('Code')
         if m.get('Message') is not None:
@@ -6686,7 +7312,8 @@ class UpdatePhoneWebhookRequest(TeaModel):
 
 
 class UpdatePhoneWebhookResponseBody(TeaModel):
-    def __init__(self, code=None, message=None, request_id=None):
+    def __init__(self, access_denied_detail=None, code=None, message=None, request_id=None):
+        self.access_denied_detail = access_denied_detail  # type: str
         self.code = code  # type: str
         self.message = message  # type: str
         self.request_id = request_id  # type: str
@@ -6700,6 +7327,8 @@ class UpdatePhoneWebhookResponseBody(TeaModel):
             return _map
 
         result = dict()
+        if self.access_denied_detail is not None:
+            result['AccessDeniedDetail'] = self.access_denied_detail
         if self.code is not None:
             result['Code'] = self.code
         if self.message is not None:
@@ -6710,6 +7339,8 @@ class UpdatePhoneWebhookResponseBody(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AccessDeniedDetail') is not None:
+            self.access_denied_detail = m.get('AccessDeniedDetail')
         if m.get('Code') is not None:
             self.code = m.get('Code')
         if m.get('Message') is not None:
