@@ -1,3 +1,6 @@
+2023-08-17 Version: 1.1.0
+- Generated python2 2022-01-01 for VpcPeer.
+
 2022-07-05 Version: 1.0.5
 - Support bandwidth modification.
 
