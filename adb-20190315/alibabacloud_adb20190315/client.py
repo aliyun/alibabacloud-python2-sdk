@@ -114,7 +114,141 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.allocate_cluster_public_connection_with_options(request, runtime)
 
+    def apply_advice_by_id_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.advice_date):
+            query['AdviceDate'] = request.advice_date
+        if not UtilClient.is_unset(request.advice_id):
+            query['AdviceId'] = request.advice_id
+        if not UtilClient.is_unset(request.dbcluster_id):
+            query['DBClusterId'] = request.dbcluster_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ApplyAdviceById',
+            version='2019-03-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adb_20190315_models.ApplyAdviceByIdResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def apply_advice_by_id(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.apply_advice_by_id_with_options(request, runtime)
+
+    def attach_user_eniwith_options(self, request, runtime):
+        """
+        You can call this operation only for AnalyticDB for MySQL Data Warehouse Edition (V3.0) clusters in elastic mode for Cluster Edition.
+        
+
+        @param request: AttachUserENIRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: AttachUserENIResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbcluster_id):
+            query['DBClusterId'] = request.dbcluster_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='AttachUserENI',
+            version='2019-03-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adb_20190315_models.AttachUserENIResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def attach_user_eni(self, request):
+        """
+        You can call this operation only for AnalyticDB for MySQL Data Warehouse Edition (V3.0) clusters in elastic mode for Cluster Edition.
+        
+
+        @param request: AttachUserENIRequest
+
+        @return: AttachUserENIResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.attach_user_eniwith_options(request, runtime)
+
+    def batch_apply_advice_by_id_list_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.advice_date):
+            query['AdviceDate'] = request.advice_date
+        if not UtilClient.is_unset(request.advice_id_list):
+            query['AdviceIdList'] = request.advice_id_list
+        if not UtilClient.is_unset(request.dbcluster_id):
+            query['DBClusterId'] = request.dbcluster_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='BatchApplyAdviceByIdList',
+            version='2019-03-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adb_20190315_models.BatchApplyAdviceByIdListResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def batch_apply_advice_by_id_list(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.batch_apply_advice_by_id_list_with_options(request, runtime)
+
     def bind_dbresource_group_with_user_with_options(self, request, runtime):
+        """
+        ## Precautions
+        *   This operation is applicable only for elastic clusters of 32 cores or more.
+        *   The default resource group USER_DEFAULT cannot be associated with a database account.
+        
+
+        @param request: BindDBResourceGroupWithUserRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: BindDBResourceGroupWithUserResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbcluster_id):
@@ -151,10 +285,31 @@ class Client(OpenApiClient):
         )
 
     def bind_dbresource_group_with_user(self, request):
+        """
+        ## Precautions
+        *   This operation is applicable only for elastic clusters of 32 cores or more.
+        *   The default resource group USER_DEFAULT cannot be associated with a database account.
+        
+
+        @param request: BindDBResourceGroupWithUserRequest
+
+        @return: BindDBResourceGroupWithUserResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.bind_dbresource_group_with_user_with_options(request, runtime)
 
     def bind_dbresource_pool_with_user_with_options(self, request, runtime):
+        """
+        This operation is available only for AnalyticDB for MySQL clusters in elastic mode for Cluster Edition that have 32 cores or more.
+        *   The default resource group USER_DEFAULT cannot be associated with a database account.
+        
+
+        @param request: BindDBResourcePoolWithUserRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: BindDBResourcePoolWithUserResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbcluster_id):
@@ -191,6 +346,15 @@ class Client(OpenApiClient):
         )
 
     def bind_dbresource_pool_with_user(self, request):
+        """
+        This operation is available only for AnalyticDB for MySQL clusters in elastic mode for Cluster Edition that have 32 cores or more.
+        *   The default resource group USER_DEFAULT cannot be associated with a database account.
+        
+
+        @param request: BindDBResourcePoolWithUserRequest
+
+        @return: BindDBResourcePoolWithUserResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.bind_dbresource_pool_with_user_with_options(request, runtime)
 
@@ -239,6 +403,16 @@ class Client(OpenApiClient):
         return self.create_account_with_options(request, runtime)
 
     def create_dbcluster_with_options(self, request, runtime):
+        """
+        After you create a cluster, you are billed for the cluster specifications that you select. For more information about the billable items and pricing for Data Warehouse Edition (V3.0) clusters, see [Billable items of Data Warehouse Edition (V3.0)](~~303131~~) and [Pricing for Data Warehouse Edition (V3.0)](~~135229~~).
+        
+
+        @param request: CreateDBClusterRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateDBClusterResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.backup_set_id):
@@ -293,6 +467,8 @@ class Client(OpenApiClient):
             query['StorageResource'] = request.storage_resource
         if not UtilClient.is_unset(request.storage_type):
             query['StorageType'] = request.storage_type
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         if not UtilClient.is_unset(request.used_time):
             query['UsedTime'] = request.used_time
         if not UtilClient.is_unset(request.vpcid):
@@ -321,10 +497,29 @@ class Client(OpenApiClient):
         )
 
     def create_dbcluster(self, request):
+        """
+        After you create a cluster, you are billed for the cluster specifications that you select. For more information about the billable items and pricing for Data Warehouse Edition (V3.0) clusters, see [Billable items of Data Warehouse Edition (V3.0)](~~303131~~) and [Pricing for Data Warehouse Edition (V3.0)](~~135229~~).
+        
+
+        @param request: CreateDBClusterRequest
+
+        @return: CreateDBClusterResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_dbcluster_with_options(request, runtime)
 
     def create_dbresource_group_with_options(self, request, runtime):
+        """
+        ## Precautions
+        This operation is applicable only for elastic clusters of 32 cores or more.
+        
+
+        @param request: CreateDBResourceGroupRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateDBResourceGroupResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbcluster_id):
@@ -363,10 +558,29 @@ class Client(OpenApiClient):
         )
 
     def create_dbresource_group(self, request):
+        """
+        ## Precautions
+        This operation is applicable only for elastic clusters of 32 cores or more.
+        
+
+        @param request: CreateDBResourceGroupRequest
+
+        @return: CreateDBResourceGroupResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_dbresource_group_with_options(request, runtime)
 
     def create_dbresource_pool_with_options(self, request, runtime):
+        """
+        This operation is applicable only for elastic clusters of 32 cores or more.
+        
+
+        @param request: CreateDBResourcePoolRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateDBResourcePoolResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbcluster_id):
@@ -405,10 +619,29 @@ class Client(OpenApiClient):
         )
 
     def create_dbresource_pool(self, request):
+        """
+        This operation is applicable only for elastic clusters of 32 cores or more.
+        
+
+        @param request: CreateDBResourcePoolRequest
+
+        @return: CreateDBResourcePoolResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_dbresource_pool_with_options(request, runtime)
 
     def create_elastic_plan_with_options(self, request, runtime):
+        """
+        ###
+        You can call this operation only for AnalyticDB for MySQL Data Warehouse Edition (V3.0) clusters in elastic mode for Cluster Edition that have 32 cores or more.
+        
+
+        @param request: CreateElasticPlanRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateElasticPlanResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbcluster_id):
@@ -427,8 +660,12 @@ class Client(OpenApiClient):
             query['ElasticPlanTimeEnd'] = request.elastic_plan_time_end
         if not UtilClient.is_unset(request.elastic_plan_time_start):
             query['ElasticPlanTimeStart'] = request.elastic_plan_time_start
+        if not UtilClient.is_unset(request.elastic_plan_type):
+            query['ElasticPlanType'] = request.elastic_plan_type
         if not UtilClient.is_unset(request.elastic_plan_weekly_repeat):
             query['ElasticPlanWeeklyRepeat'] = request.elastic_plan_weekly_repeat
+        if not UtilClient.is_unset(request.elastic_plan_worker_spec):
+            query['ElasticPlanWorkerSpec'] = request.elastic_plan_worker_spec
         if not UtilClient.is_unset(request.owner_account):
             query['OwnerAccount'] = request.owner_account
         if not UtilClient.is_unset(request.owner_id):
@@ -459,6 +696,15 @@ class Client(OpenApiClient):
         )
 
     def create_elastic_plan(self, request):
+        """
+        ###
+        You can call this operation only for AnalyticDB for MySQL Data Warehouse Edition (V3.0) clusters in elastic mode for Cluster Edition that have 32 cores or more.
+        
+
+        @param request: CreateElasticPlanRequest
+
+        @return: CreateElasticPlanResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_elastic_plan_with_options(request, runtime)
 
@@ -503,6 +749,17 @@ class Client(OpenApiClient):
         return self.delete_account_with_options(request, runtime)
 
     def delete_dbcluster_with_options(self, request, runtime):
+        """
+        Subscription clusters cannot be deleted by using API operations. After expiration, subscription clusters are automatically released. If you no longer need a cluster, you can submit a request to unsubscribe from the cluster in the Billing Management console. For more information about cluster refunds, see [Refund policy](~~471477~~).
+        *   After you delete a cluster, resources of the cluster are immediately released, and data of the cluster is no longer retained and cannot be recovered. Proceed with caution.
+        
+
+        @param request: DeleteDBClusterRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteDBClusterResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbcluster_id):
@@ -535,10 +792,31 @@ class Client(OpenApiClient):
         )
 
     def delete_dbcluster(self, request):
+        """
+        Subscription clusters cannot be deleted by using API operations. After expiration, subscription clusters are automatically released. If you no longer need a cluster, you can submit a request to unsubscribe from the cluster in the Billing Management console. For more information about cluster refunds, see [Refund policy](~~471477~~).
+        *   After you delete a cluster, resources of the cluster are immediately released, and data of the cluster is no longer retained and cannot be recovered. Proceed with caution.
+        
+
+        @param request: DeleteDBClusterRequest
+
+        @return: DeleteDBClusterResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_dbcluster_with_options(request, runtime)
 
     def delete_dbresource_group_with_options(self, request, runtime):
+        """
+        ## Precautions
+        *   This operation is applicable only for elastic clusters of 32 cores or more.
+        *   The default resource group USER_DEFAULT cannot be deleted.
+        
+
+        @param request: DeleteDBResourceGroupRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteDBResourceGroupResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbcluster_id):
@@ -573,10 +851,32 @@ class Client(OpenApiClient):
         )
 
     def delete_dbresource_group(self, request):
+        """
+        ## Precautions
+        *   This operation is applicable only for elastic clusters of 32 cores or more.
+        *   The default resource group USER_DEFAULT cannot be deleted.
+        
+
+        @param request: DeleteDBResourceGroupRequest
+
+        @return: DeleteDBResourceGroupResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_dbresource_group_with_options(request, runtime)
 
     def delete_dbresource_pool_with_options(self, request, runtime):
+        """
+        *Precautions**\
+        *   This operation is available only for AnalyticDB for MySQL clusters in elastic mode for Cluster Edition that have 32 cores or more.
+        *   The default resource group USER_DEFAULT cannot be deleted.
+        
+
+        @param request: DeleteDBResourcePoolRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteDBResourcePoolResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbcluster_id):
@@ -611,6 +911,16 @@ class Client(OpenApiClient):
         )
 
     def delete_dbresource_pool(self, request):
+        """
+        *Precautions**\
+        *   This operation is available only for AnalyticDB for MySQL clusters in elastic mode for Cluster Edition that have 32 cores or more.
+        *   The default resource group USER_DEFAULT cannot be deleted.
+        
+
+        @param request: DeleteDBResourcePoolRequest
+
+        @return: DeleteDBResourcePoolResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_dbresource_pool_with_options(request, runtime)
 
@@ -692,6 +1002,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_accounts_with_options(request, runtime)
 
+    def describe_advice_service_enabled_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbcluster_id):
+            query['DBClusterId'] = request.dbcluster_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeAdviceServiceEnabled',
+            version='2019-03-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adb_20190315_models.DescribeAdviceServiceEnabledResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_advice_service_enabled(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_advice_service_enabled_with_options(request, runtime)
+
     def describe_all_accounts_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -768,6 +1108,46 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_all_data_source_with_options(request, runtime)
 
+    def describe_applied_advices_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbcluster_id):
+            query['DBClusterId'] = request.dbcluster_id
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeAppliedAdvices',
+            version='2019-03-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adb_20190315_models.DescribeAppliedAdvicesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_applied_advices(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_applied_advices_with_options(request, runtime)
+
     def describe_audit_log_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -807,6 +1187,17 @@ class Client(OpenApiClient):
         return self.describe_audit_log_config_with_options(request, runtime)
 
     def describe_audit_log_records_with_options(self, request, runtime):
+        """
+        Before you call the DescribeAuditLogRecords operation to query the SQL audit logs of an AnalyticDB for MySQL cluster, you must enable SQL audit for the cluster. You can call the [DescribeAuditLogConfig](~~190628~~) operation to query the status of SQL audit. If SQL audit is disabled, you can call the [ModifyAuditLogConfig](~~190629~~) operation to enable SQL audit.
+        SQL audit logs can be queried only when SQL audit is enabled. Only SQL audit logs within the last 30 days can be queried. If SQL audit was disabled and re-enabled, only SQL audit logs from the time when SQL audit was re-enabled can be queried.
+        
+
+        @param request: DescribeAuditLogRecordsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeAuditLogRecordsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbcluster_id):
@@ -865,6 +1256,15 @@ class Client(OpenApiClient):
         )
 
     def describe_audit_log_records(self, request):
+        """
+        Before you call the DescribeAuditLogRecords operation to query the SQL audit logs of an AnalyticDB for MySQL cluster, you must enable SQL audit for the cluster. You can call the [DescribeAuditLogConfig](~~190628~~) operation to query the status of SQL audit. If SQL audit is disabled, you can call the [ModifyAuditLogConfig](~~190629~~) operation to enable SQL audit.
+        SQL audit logs can be queried only when SQL audit is enabled. Only SQL audit logs within the last 30 days can be queried. If SQL audit was disabled and re-enabled, only SQL audit logs from the time when SQL audit was re-enabled can be queried.
+        
+
+        @param request: DescribeAuditLogRecordsRequest
+
+        @return: DescribeAuditLogRecordsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_audit_log_records_with_options(request, runtime)
 
@@ -912,6 +1312,44 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_auto_renew_attribute_with_options(request, runtime)
 
+    def describe_available_advices_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.advice_date):
+            query['AdviceDate'] = request.advice_date
+        if not UtilClient.is_unset(request.dbcluster_id):
+            query['DBClusterId'] = request.dbcluster_id
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeAvailableAdvices',
+            version='2019-03-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adb_20190315_models.DescribeAvailableAdvicesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_available_advices(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_available_advices_with_options(request, runtime)
+
     def describe_available_resource_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -919,6 +1357,8 @@ class Client(OpenApiClient):
             query['AcceptLanguage'] = request.accept_language
         if not UtilClient.is_unset(request.charge_type):
             query['ChargeType'] = request.charge_type
+        if not UtilClient.is_unset(request.dbcluster_version):
+            query['DBClusterVersion'] = request.dbcluster_version
         if not UtilClient.is_unset(request.owner_account):
             query['OwnerAccount'] = request.owner_account
         if not UtilClient.is_unset(request.owner_id):
@@ -1076,6 +1516,50 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_columns_with_options(request, runtime)
 
+    def describe_compute_resource_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbcluster_id):
+            query['DBClusterId'] = request.dbcluster_id
+        if not UtilClient.is_unset(request.dbcluster_version):
+            query['DBClusterVersion'] = request.dbcluster_version
+        if not UtilClient.is_unset(request.migrate):
+            query['Migrate'] = request.migrate
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.zone_id):
+            query['ZoneId'] = request.zone_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeComputeResource',
+            version='2019-03-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adb_20190315_models.DescribeComputeResourceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_compute_resource(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_compute_resource_with_options(request, runtime)
+
     def describe_connection_count_records_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1184,22 +1668,18 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_dbcluster_attribute_with_options(request, runtime)
 
-    def describe_dbcluster_forecast_with_options(self, request, runtime):
+    def describe_dbcluster_health_status_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbcluster_id):
             query['DBClusterId'] = request.dbcluster_id
-        if not UtilClient.is_unset(request.metric_type):
-            query['MetricType'] = request.metric_type
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
-        if not UtilClient.is_unset(request.start_time):
-            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
-            action='DescribeDBClusterForecast',
+            action='DescribeDBClusterHealthStatus',
             version='2019-03-15',
             protocol='HTTPS',
             pathname='/',
@@ -1210,45 +1690,13 @@ class Client(OpenApiClient):
             body_type='json'
         )
         return TeaCore.from_map(
-            adb_20190315_models.DescribeDBClusterForecastResponse(),
+            adb_20190315_models.DescribeDBClusterHealthStatusResponse(),
             self.call_api(params, req, runtime)
         )
 
-    def describe_dbcluster_forecast(self, request):
+    def describe_dbcluster_health_status(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.describe_dbcluster_forecast_with_options(request, runtime)
-
-    def describe_dbcluster_health_report_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.dbcluster_id):
-            query['DBClusterId'] = request.dbcluster_id
-        if not UtilClient.is_unset(request.region_id):
-            query['RegionId'] = request.region_id
-        if not UtilClient.is_unset(request.start_time):
-            query['StartTime'] = request.start_time
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='DescribeDBClusterHealthReport',
-            version='2019-03-15',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            adb_20190315_models.DescribeDBClusterHealthReportResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def describe_dbcluster_health_report(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_dbcluster_health_report_with_options(request, runtime)
+        return self.describe_dbcluster_health_status_with_options(request, runtime)
 
     def describe_dbcluster_net_info_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1287,6 +1735,16 @@ class Client(OpenApiClient):
         return self.describe_dbcluster_net_info_with_options(request, runtime)
 
     def describe_dbcluster_performance_with_options(self, request, runtime):
+        """
+        You can call this operation to query the performance data of a cluster over a time range based on its performance metrics. The data is collected every 30 seconds. This operation allows you to query information about slow queries, such as the SQL query duration, number of scanned rows, and amount of scanned data.
+        
+
+        @param request: DescribeDBClusterPerformanceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDBClusterPerformanceResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbcluster_id):
@@ -1325,10 +1783,28 @@ class Client(OpenApiClient):
         )
 
     def describe_dbcluster_performance(self, request):
+        """
+        You can call this operation to query the performance data of a cluster over a time range based on its performance metrics. The data is collected every 30 seconds. This operation allows you to query information about slow queries, such as the SQL query duration, number of scanned rows, and amount of scanned data.
+        
+
+        @param request: DescribeDBClusterPerformanceRequest
+
+        @return: DescribeDBClusterPerformanceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_dbcluster_performance_with_options(request, runtime)
 
     def describe_dbcluster_resource_pool_performance_with_options(self, request, runtime):
+        """
+        > You can also view the monitoring information about resource groups within an AnalyticDB for MySQL cluster in elastic mode for Cluster Edition in the form of graphs in the console. For more information, see [View monitoring information](~~188721~~).
+        
+
+        @param request: DescribeDBClusterResourcePoolPerformanceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDBClusterResourcePoolPerformanceResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbcluster_id):
@@ -1369,8 +1845,52 @@ class Client(OpenApiClient):
         )
 
     def describe_dbcluster_resource_pool_performance(self, request):
+        """
+        > You can also view the monitoring information about resource groups within an AnalyticDB for MySQL cluster in elastic mode for Cluster Edition in the form of graphs in the console. For more information, see [View monitoring information](~~188721~~).
+        
+
+        @param request: DescribeDBClusterResourcePoolPerformanceRequest
+
+        @return: DescribeDBClusterResourcePoolPerformanceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_dbcluster_resource_pool_performance_with_options(request, runtime)
+
+    def describe_dbcluster_status_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDBClusterStatus',
+            version='2019-03-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adb_20190315_models.DescribeDBClusterStatusResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_dbcluster_status(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_dbcluster_status_with_options(request, runtime)
 
     def describe_dbclusters_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1381,6 +1901,8 @@ class Client(OpenApiClient):
             query['DBClusterIds'] = request.dbcluster_ids
         if not UtilClient.is_unset(request.dbcluster_status):
             query['DBClusterStatus'] = request.dbcluster_status
+        if not UtilClient.is_unset(request.dbversion):
+            query['DBVersion'] = request.dbversion
         if not UtilClient.is_unset(request.owner_account):
             query['OwnerAccount'] = request.owner_account
         if not UtilClient.is_unset(request.owner_id):
@@ -1423,6 +1945,17 @@ class Client(OpenApiClient):
         return self.describe_dbclusters_with_options(request, runtime)
 
     def describe_dbresource_group_with_options(self, request, runtime):
+        """
+        ## Precautions
+        This operation is available only for AnalyticDB for MySQL clusters in elastic mode for Cluster Edition that have 32 cores or more.
+        
+
+        @param request: DescribeDBResourceGroupRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDBResourceGroupResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbcluster_id):
@@ -1457,10 +1990,29 @@ class Client(OpenApiClient):
         )
 
     def describe_dbresource_group(self, request):
+        """
+        ## Precautions
+        This operation is available only for AnalyticDB for MySQL clusters in elastic mode for Cluster Edition that have 32 cores or more.
+        
+
+        @param request: DescribeDBResourceGroupRequest
+
+        @return: DescribeDBResourceGroupResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_dbresource_group_with_options(request, runtime)
 
     def describe_dbresource_pool_with_options(self, request, runtime):
+        """
+        This operation is applicable only for elastic clusters of 32 cores or more.
+        
+
+        @param request: DescribeDBResourcePoolRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDBResourcePoolResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbcluster_id):
@@ -1495,6 +2047,14 @@ class Client(OpenApiClient):
         )
 
     def describe_dbresource_pool(self, request):
+        """
+        This operation is applicable only for elastic clusters of 32 cores or more.
+        
+
+        @param request: DescribeDBResourcePoolRequest
+
+        @return: DescribeDBResourcePoolResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_dbresource_pool_with_options(request, runtime)
 
@@ -1535,6 +2095,44 @@ class Client(OpenApiClient):
     def describe_diagnosis_dimensions(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_diagnosis_dimensions_with_options(request, runtime)
+
+    def describe_diagnosis_monitor_performance_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbcluster_id):
+            query['DBClusterId'] = request.dbcluster_id
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.query_condition):
+            query['QueryCondition'] = request.query_condition
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDiagnosisMonitorPerformance',
+            version='2019-03-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adb_20190315_models.DescribeDiagnosisMonitorPerformanceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_diagnosis_monitor_performance(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_diagnosis_monitor_performance_with_options(request, runtime)
 
     def describe_diagnosis_records_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1600,6 +2198,58 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_diagnosis_records_with_options(request, runtime)
 
+    def describe_diagnosis_sqlinfo_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDiagnosisSQLInfo',
+            version='2019-03-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adb_20190315_models.DescribeDiagnosisSQLInfoResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_diagnosis_sqlinfo(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_diagnosis_sqlinfo_with_options(request, runtime)
+
+    def describe_diagnosis_tasks_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDiagnosisTasks',
+            version='2019-03-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adb_20190315_models.DescribeDiagnosisTasksResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_diagnosis_tasks(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_diagnosis_tasks_with_options(request, runtime)
+
     def describe_download_records_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1632,7 +2282,65 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_download_records_with_options(request, runtime)
 
+    def describe_eiurange_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.compute_resource):
+            query['ComputeResource'] = request.compute_resource
+        if not UtilClient.is_unset(request.dbcluster_id):
+            query['DBClusterId'] = request.dbcluster_id
+        if not UtilClient.is_unset(request.dbcluster_version):
+            query['DBClusterVersion'] = request.dbcluster_version
+        if not UtilClient.is_unset(request.operation):
+            query['Operation'] = request.operation
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.zone_id):
+            query['ZoneId'] = request.zone_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeEIURange',
+            version='2019-03-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adb_20190315_models.DescribeEIURangeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_eiurange(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_eiurange_with_options(request, runtime)
+
     def describe_elastic_daily_plan_with_options(self, request, runtime):
+        """
+        This operation is available only for AnalyticDB for MySQL Data Warehouse Edition (V3.0) clusters in elastic mode for Cluster Edition that have 32 cores or more.
+        
+
+        @param request: DescribeElasticDailyPlanRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeElasticDailyPlanResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbcluster_id):
@@ -1673,10 +2381,28 @@ class Client(OpenApiClient):
         )
 
     def describe_elastic_daily_plan(self, request):
+        """
+        This operation is available only for AnalyticDB for MySQL Data Warehouse Edition (V3.0) clusters in elastic mode for Cluster Edition that have 32 cores or more.
+        
+
+        @param request: DescribeElasticDailyPlanRequest
+
+        @return: DescribeElasticDailyPlanResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_elastic_daily_plan_with_options(request, runtime)
 
     def describe_elastic_plan_with_options(self, request, runtime):
+        """
+        This operation is available only for AnalyticDB for MySQL Data Warehouse Edition (V3.0) clusters in elastic mode for Cluster Edition that have 32 cores or more.
+        
+
+        @param request: DescribeElasticPlanRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeElasticPlanResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbcluster_id):
@@ -1715,6 +2441,14 @@ class Client(OpenApiClient):
         )
 
     def describe_elastic_plan(self, request):
+        """
+        This operation is available only for AnalyticDB for MySQL Data Warehouse Edition (V3.0) clusters in elastic mode for Cluster Edition that have 32 cores or more.
+        
+
+        @param request: DescribeElasticPlanRequest
+
+        @return: DescribeElasticPlanResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_elastic_plan_with_options(request, runtime)
 
@@ -1763,6 +2497,16 @@ class Client(OpenApiClient):
         return self.describe_inclined_tables_with_options(request, runtime)
 
     def describe_load_tasks_records_with_options(self, request, runtime):
+        """
+        For information about how to asynchronously submit import and export tasks, see [Asynchronously submit an import or export task](~~160291~~).
+        
+
+        @param request: DescribeLoadTasksRecordsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeLoadTasksRecordsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbcluster_id):
@@ -1781,6 +2525,8 @@ class Client(OpenApiClient):
             query['PageNumber'] = request.page_number
         if not UtilClient.is_unset(request.page_size):
             query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.resource_owner_account):
             query['ResourceOwnerAccount'] = request.resource_owner_account
         if not UtilClient.is_unset(request.resource_owner_id):
@@ -1809,6 +2555,14 @@ class Client(OpenApiClient):
         )
 
     def describe_load_tasks_records(self, request):
+        """
+        For information about how to asynchronously submit import and export tasks, see [Asynchronously submit an import or export task](~~160291~~).
+        
+
+        @param request: DescribeLoadTasksRecordsRequest
+
+        @return: DescribeLoadTasksRecordsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_load_tasks_records_with_options(request, runtime)
 
@@ -2473,6 +3227,16 @@ class Client(OpenApiClient):
         return self.describe_table_partition_diagnose_with_options(request, runtime)
 
     def describe_table_statistics_with_options(self, request, runtime):
+        """
+        >  For more information about table statistics, see [View monitoring information of resource pools](~~188721~~).
+        
+
+        @param request: DescribeTableStatisticsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeTableStatisticsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbcluster_id):
@@ -2511,6 +3275,14 @@ class Client(OpenApiClient):
         )
 
     def describe_table_statistics(self, request):
+        """
+        >  For more information about table statistics, see [View monitoring information of resource pools](~~188721~~).
+        
+
+        @param request: DescribeTableStatisticsRequest
+
+        @return: DescribeTableStatisticsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_table_statistics_with_options(request, runtime)
 
@@ -2561,6 +3333,8 @@ class Client(OpenApiClient):
             query['OwnerAccount'] = request.owner_account
         if not UtilClient.is_unset(request.owner_id):
             query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.resource_owner_account):
             query['ResourceOwnerAccount'] = request.resource_owner_account
         if not UtilClient.is_unset(request.resource_owner_id):
@@ -2589,6 +3363,90 @@ class Client(OpenApiClient):
     def describe_task_info(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_task_info_with_options(request, runtime)
+
+    def detach_user_eniwith_options(self, request, runtime):
+        """
+        You can call this operation only for AnalyticDB for MySQL Data Warehouse Edition (V3.0) clusters in elastic mode for Cluster Edition.
+        
+
+        @param request: DetachUserENIRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DetachUserENIResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbcluster_id):
+            query['DBClusterId'] = request.dbcluster_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DetachUserENI',
+            version='2019-03-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adb_20190315_models.DetachUserENIResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def detach_user_eni(self, request):
+        """
+        You can call this operation only for AnalyticDB for MySQL Data Warehouse Edition (V3.0) clusters in elastic mode for Cluster Edition.
+        
+
+        @param request: DetachUserENIRequest
+
+        @return: DetachUserENIResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.detach_user_eniwith_options(request, runtime)
+
+    def disable_advice_service_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbcluster_id):
+            query['DBClusterId'] = request.dbcluster_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DisableAdviceService',
+            version='2019-03-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adb_20190315_models.DisableAdviceServiceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def disable_advice_service(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.disable_advice_service_with_options(request, runtime)
 
     def download_diagnosis_records_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -2646,7 +3504,103 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.download_diagnosis_records_with_options(request, runtime)
 
+    def dry_run_cluster_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.compute_resource):
+            query['ComputeResource'] = request.compute_resource
+        if not UtilClient.is_unset(request.dbcluster_description):
+            query['DBClusterDescription'] = request.dbcluster_description
+        if not UtilClient.is_unset(request.dbcluster_id):
+            query['DBClusterId'] = request.dbcluster_id
+        if not UtilClient.is_unset(request.dbcluster_network_type):
+            query['DBClusterNetworkType'] = request.dbcluster_network_type
+        if not UtilClient.is_unset(request.dbcluster_version):
+            query['DBClusterVersion'] = request.dbcluster_version
+        if not UtilClient.is_unset(request.enable_default_resource_pool):
+            query['EnableDefaultResourcePool'] = request.enable_default_resource_pool
+        if not UtilClient.is_unset(request.operation):
+            query['Operation'] = request.operation
+        if not UtilClient.is_unset(request.pay_type):
+            query['PayType'] = request.pay_type
+        if not UtilClient.is_unset(request.period):
+            query['Period'] = request.period
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.storage_resource):
+            query['StorageResource'] = request.storage_resource
+        if not UtilClient.is_unset(request.used_time):
+            query['UsedTime'] = request.used_time
+        if not UtilClient.is_unset(request.vpcid):
+            query['VPCId'] = request.vpcid
+        if not UtilClient.is_unset(request.v_switch_id):
+            query['VSwitchId'] = request.v_switch_id
+        if not UtilClient.is_unset(request.zone_id):
+            query['ZoneId'] = request.zone_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DryRunCluster',
+            version='2019-03-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adb_20190315_models.DryRunClusterResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def dry_run_cluster(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.dry_run_cluster_with_options(request, runtime)
+
+    def enable_advice_service_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbcluster_id):
+            query['DBClusterId'] = request.dbcluster_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='EnableAdviceService',
+            version='2019-03-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adb_20190315_models.EnableAdviceServiceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def enable_advice_service(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.enable_advice_service_with_options(request, runtime)
+
     def grant_operator_permission_with_options(self, request, runtime):
+        """
+        If you need Alibaba Cloud technical support to perform operations on your AnalyticDB for MySQL cluster, you must grant permissions to the service account of your cluster. When the validity period of the authorization ends, the granted permissions are automatically revoked.
+        
+
+        @param request: GrantOperatorPermissionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GrantOperatorPermissionResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbcluster_id):
@@ -2683,6 +3637,14 @@ class Client(OpenApiClient):
         )
 
     def grant_operator_permission(self, request):
+        """
+        If you need Alibaba Cloud technical support to perform operations on your AnalyticDB for MySQL cluster, you must grant permissions to the service account of your cluster. When the validity period of the authorization ends, the granted permissions are automatically revoked.
+        
+
+        @param request: GrantOperatorPermissionRequest
+
+        @return: GrantOperatorPermissionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.grant_operator_permission_with_options(request, runtime)
 
@@ -2767,6 +3729,42 @@ class Client(OpenApiClient):
     def list_tag_resources(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_tag_resources_with_options(request, runtime)
+
+    def migrate_dbcluster_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbcluster_id):
+            query['DBClusterId'] = request.dbcluster_id
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='MigrateDBCluster',
+            version='2019-03-15',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adb_20190315_models.MigrateDBClusterResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def migrate_dbcluster(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.migrate_dbcluster_with_options(request, runtime)
 
     def modify_account_description_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -2995,8 +3993,12 @@ class Client(OpenApiClient):
             query['DBNodeGroupCount'] = request.dbnode_group_count
         if not UtilClient.is_unset(request.dbnode_storage):
             query['DBNodeStorage'] = request.dbnode_storage
+        if not UtilClient.is_unset(request.disk_performance_level):
+            query['DiskPerformanceLevel'] = request.disk_performance_level
         if not UtilClient.is_unset(request.elastic_ioresource):
             query['ElasticIOResource'] = request.elastic_ioresource
+        if not UtilClient.is_unset(request.elastic_ioresource_size):
+            query['ElasticIOResourceSize'] = request.elastic_ioresource_size
         if not UtilClient.is_unset(request.executor_count):
             query['ExecutorCount'] = request.executor_count
         if not UtilClient.is_unset(request.mode):
@@ -3193,6 +4195,16 @@ class Client(OpenApiClient):
         return self.modify_dbcluster_pay_type_with_options(request, runtime)
 
     def modify_dbcluster_resource_group_with_options(self, request, runtime):
+        """
+        Resource Management enables you to build an organizational structure for resources based on your business needs. You can use a resource directory, folders, accounts, and resource groups to hierarchically organize and manage resources. For more information, see [What is Resource Management?](~~94475#concept-zyn-3p1-dhb~~ "Resource Management provides a collection of resource management services that support enterprise IT administration. The services include Resource Directory, Resource Group, and Tag. Resource Directory allows you to build an organizational structure for resources based on your business requirements. Resource Group and Tag allow you to hierarchically manage the resources. Resource Sharing allows you to share the resources among your accounts.")
+        
+
+        @param request: ModifyDBClusterResourceGroupRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyDBClusterResourceGroupResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbcluster_id):
@@ -3227,10 +4239,30 @@ class Client(OpenApiClient):
         )
 
     def modify_dbcluster_resource_group(self, request):
+        """
+        Resource Management enables you to build an organizational structure for resources based on your business needs. You can use a resource directory, folders, accounts, and resource groups to hierarchically organize and manage resources. For more information, see [What is Resource Management?](~~94475#concept-zyn-3p1-dhb~~ "Resource Management provides a collection of resource management services that support enterprise IT administration. The services include Resource Directory, Resource Group, and Tag. Resource Directory allows you to build an organizational structure for resources based on your business requirements. Resource Group and Tag allow you to hierarchically manage the resources. Resource Sharing allows you to share the resources among your accounts.")
+        
+
+        @param request: ModifyDBClusterResourceGroupRequest
+
+        @return: ModifyDBClusterResourceGroupResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_dbcluster_resource_group_with_options(request, runtime)
 
     def modify_dbresource_group_with_options(self, request, runtime):
+        """
+        ## Precautions
+        *   This operation is applicable only for elastic clusters of 32 cores or more.
+        *   The number of nodes cannot be changed for the default resource group USER_DEFAULT.
+        
+
+        @param request: ModifyDBResourceGroupRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyDBResourceGroupResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbcluster_id):
@@ -3269,10 +4301,32 @@ class Client(OpenApiClient):
         )
 
     def modify_dbresource_group(self, request):
+        """
+        ## Precautions
+        *   This operation is applicable only for elastic clusters of 32 cores or more.
+        *   The number of nodes cannot be changed for the default resource group USER_DEFAULT.
+        
+
+        @param request: ModifyDBResourceGroupRequest
+
+        @return: ModifyDBResourceGroupResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_dbresource_group_with_options(request, runtime)
 
     def modify_dbresource_pool_with_options(self, request, runtime):
+        """
+        ###
+        *   You can call this operation only for elastic clusters of 32 cores or more.
+        *   You cannot change the number of nodes for the USER_DEFAULT resource group.
+        
+
+        @param request: ModifyDBResourcePoolRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyDBResourcePoolResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbcluster_id):
@@ -3311,10 +4365,30 @@ class Client(OpenApiClient):
         )
 
     def modify_dbresource_pool(self, request):
+        """
+        ###
+        *   You can call this operation only for elastic clusters of 32 cores or more.
+        *   You cannot change the number of nodes for the USER_DEFAULT resource group.
+        
+
+        @param request: ModifyDBResourcePoolRequest
+
+        @return: ModifyDBResourcePoolResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_dbresource_pool_with_options(request, runtime)
 
     def modify_elastic_plan_with_options(self, request, runtime):
+        """
+        You can call this operation only for AnalyticDB for MySQL Data Warehouse Edition (V3.0) clusters in elastic mode for Cluster Edition that have 32 cores or more.
+        
+
+        @param request: ModifyElasticPlanRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyElasticPlanResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbcluster_id):
@@ -3333,8 +4407,12 @@ class Client(OpenApiClient):
             query['ElasticPlanTimeEnd'] = request.elastic_plan_time_end
         if not UtilClient.is_unset(request.elastic_plan_time_start):
             query['ElasticPlanTimeStart'] = request.elastic_plan_time_start
+        if not UtilClient.is_unset(request.elastic_plan_type):
+            query['ElasticPlanType'] = request.elastic_plan_type
         if not UtilClient.is_unset(request.elastic_plan_weekly_repeat):
             query['ElasticPlanWeeklyRepeat'] = request.elastic_plan_weekly_repeat
+        if not UtilClient.is_unset(request.elastic_plan_worker_spec):
+            query['ElasticPlanWorkerSpec'] = request.elastic_plan_worker_spec
         if not UtilClient.is_unset(request.owner_account):
             query['OwnerAccount'] = request.owner_account
         if not UtilClient.is_unset(request.owner_id):
@@ -3365,6 +4443,14 @@ class Client(OpenApiClient):
         )
 
     def modify_elastic_plan(self, request):
+        """
+        You can call this operation only for AnalyticDB for MySQL Data Warehouse Edition (V3.0) clusters in elastic mode for Cluster Edition that have 32 cores or more.
+        
+
+        @param request: ModifyElasticPlanRequest
+
+        @return: ModifyElasticPlanResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_elastic_plan_with_options(request, runtime)
 
@@ -3381,6 +4467,8 @@ class Client(OpenApiClient):
             query['OwnerAccount'] = request.owner_account
         if not UtilClient.is_unset(request.owner_id):
             query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.resource_owner_account):
             query['ResourceOwnerAccount'] = request.resource_owner_account
         if not UtilClient.is_unset(request.resource_owner_id):
@@ -3419,6 +4507,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.resource_owner_account):
             query['ResourceOwnerAccount'] = request.resource_owner_account
         if not UtilClient.is_unset(request.resource_owner_id):
