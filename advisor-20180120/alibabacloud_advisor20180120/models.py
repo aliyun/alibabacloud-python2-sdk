@@ -4,19 +4,14 @@ from Tea.model import TeaModel
 
 
 class DescribeAdvicesRequest(TeaModel):
-    def __init__(self, advice_id=None, check_id=None, client_uid=None, exclude_advice_id=None, filter_type=None,
-                 filter_value=None, language=None, product=None, region=None, resource_id=None, token=None):
+    def __init__(self, advice_id=None, check_id=None, exclude_advice_id=None, language=None, product=None,
+                 resource_id=None):
         self.advice_id = advice_id  # type: long
         self.check_id = check_id  # type: str
-        self.client_uid = client_uid  # type: long
         self.exclude_advice_id = exclude_advice_id  # type: long
-        self.filter_type = filter_type  # type: str
-        self.filter_value = filter_value  # type: str
         self.language = language  # type: str
         self.product = product  # type: str
-        self.region = region  # type: str
         self.resource_id = resource_id  # type: str
-        self.token = token  # type: str
 
     def validate(self):
         pass
@@ -31,24 +26,14 @@ class DescribeAdvicesRequest(TeaModel):
             result['AdviceId'] = self.advice_id
         if self.check_id is not None:
             result['CheckId'] = self.check_id
-        if self.client_uid is not None:
-            result['ClientUid'] = self.client_uid
         if self.exclude_advice_id is not None:
             result['ExcludeAdviceId'] = self.exclude_advice_id
-        if self.filter_type is not None:
-            result['FilterType'] = self.filter_type
-        if self.filter_value is not None:
-            result['FilterValue'] = self.filter_value
         if self.language is not None:
             result['Language'] = self.language
         if self.product is not None:
             result['Product'] = self.product
-        if self.region is not None:
-            result['Region'] = self.region
         if self.resource_id is not None:
             result['ResourceId'] = self.resource_id
-        if self.token is not None:
-            result['Token'] = self.token
         return result
 
     def from_map(self, m=None):
@@ -57,46 +42,32 @@ class DescribeAdvicesRequest(TeaModel):
             self.advice_id = m.get('AdviceId')
         if m.get('CheckId') is not None:
             self.check_id = m.get('CheckId')
-        if m.get('ClientUid') is not None:
-            self.client_uid = m.get('ClientUid')
         if m.get('ExcludeAdviceId') is not None:
             self.exclude_advice_id = m.get('ExcludeAdviceId')
-        if m.get('FilterType') is not None:
-            self.filter_type = m.get('FilterType')
-        if m.get('FilterValue') is not None:
-            self.filter_value = m.get('FilterValue')
         if m.get('Language') is not None:
             self.language = m.get('Language')
         if m.get('Product') is not None:
             self.product = m.get('Product')
-        if m.get('Region') is not None:
-            self.region = m.get('Region')
         if m.get('ResourceId') is not None:
             self.resource_id = m.get('ResourceId')
-        if m.get('Token') is not None:
-            self.token = m.get('Token')
         return self
 
 
 class DescribeAdvicesResponseBodyDataAdvice(TeaModel):
-    def __init__(self, action=None, aliyun_id=None, check_id=None, check_name=None, content=None, description=None,
-                 details=None, gmt_created=None, gmt_modified=None, id=None, is_expired=None, links=None, product=None,
-                 reason=None, resource=None, resource_id=None, severity=None):
-        self.action = action  # type: str
+    def __init__(self, aliyun_id=None, check_id=None, check_name=None, content=None, description=None,
+                 gmt_created=None, gmt_modified=None, id=None, is_expired=None, product=None, resource=None, resource_id=None,
+                 severity=None):
         self.aliyun_id = aliyun_id  # type: long
         self.check_id = check_id  # type: str
         self.check_name = check_name  # type: str
         self.content = content  # type: str
         self.description = description  # type: str
-        self.details = details  # type: str
         self.gmt_created = gmt_created  # type: str
         self.gmt_modified = gmt_modified  # type: str
         # ID
         self.id = id  # type: long
         self.is_expired = is_expired  # type: bool
-        self.links = links  # type: str
         self.product = product  # type: str
-        self.reason = reason  # type: str
         self.resource = resource  # type: str
         self.resource_id = resource_id  # type: str
         self.severity = severity  # type: int
@@ -110,8 +81,6 @@ class DescribeAdvicesResponseBodyDataAdvice(TeaModel):
             return _map
 
         result = dict()
-        if self.action is not None:
-            result['Action'] = self.action
         if self.aliyun_id is not None:
             result['AliyunId'] = self.aliyun_id
         if self.check_id is not None:
@@ -122,8 +91,6 @@ class DescribeAdvicesResponseBodyDataAdvice(TeaModel):
             result['Content'] = self.content
         if self.description is not None:
             result['Description'] = self.description
-        if self.details is not None:
-            result['Details'] = self.details
         if self.gmt_created is not None:
             result['GmtCreated'] = self.gmt_created
         if self.gmt_modified is not None:
@@ -132,12 +99,8 @@ class DescribeAdvicesResponseBodyDataAdvice(TeaModel):
             result['Id'] = self.id
         if self.is_expired is not None:
             result['IsExpired'] = self.is_expired
-        if self.links is not None:
-            result['Links'] = self.links
         if self.product is not None:
             result['Product'] = self.product
-        if self.reason is not None:
-            result['Reason'] = self.reason
         if self.resource is not None:
             result['Resource'] = self.resource
         if self.resource_id is not None:
@@ -148,8 +111,6 @@ class DescribeAdvicesResponseBodyDataAdvice(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Action') is not None:
-            self.action = m.get('Action')
         if m.get('AliyunId') is not None:
             self.aliyun_id = m.get('AliyunId')
         if m.get('CheckId') is not None:
@@ -160,8 +121,6 @@ class DescribeAdvicesResponseBodyDataAdvice(TeaModel):
             self.content = m.get('Content')
         if m.get('Description') is not None:
             self.description = m.get('Description')
-        if m.get('Details') is not None:
-            self.details = m.get('Details')
         if m.get('GmtCreated') is not None:
             self.gmt_created = m.get('GmtCreated')
         if m.get('GmtModified') is not None:
@@ -170,12 +129,8 @@ class DescribeAdvicesResponseBodyDataAdvice(TeaModel):
             self.id = m.get('Id')
         if m.get('IsExpired') is not None:
             self.is_expired = m.get('IsExpired')
-        if m.get('Links') is not None:
-            self.links = m.get('Links')
         if m.get('Product') is not None:
             self.product = m.get('Product')
-        if m.get('Reason') is not None:
-            self.reason = m.get('Reason')
         if m.get('Resource') is not None:
             self.resource = m.get('Resource')
         if m.get('ResourceId') is not None:
@@ -288,12 +243,10 @@ class DescribeAdvicesResponse(TeaModel):
 
 
 class DescribeAdvicesPageRequest(TeaModel):
-    def __init__(self, advice_id=None, associate_uid=None, check_id=None, exclude_advice_id=None, language=None,
-                 page_number=None, page_size=None, product=None, resource_id=None):
+    def __init__(self, advice_id=None, check_id=None, language=None, page_number=None, page_size=None, product=None,
+                 resource_id=None):
         self.advice_id = advice_id  # type: long
-        self.associate_uid = associate_uid  # type: long
         self.check_id = check_id  # type: str
-        self.exclude_advice_id = exclude_advice_id  # type: str
         self.language = language  # type: str
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
@@ -311,12 +264,8 @@ class DescribeAdvicesPageRequest(TeaModel):
         result = dict()
         if self.advice_id is not None:
             result['AdviceId'] = self.advice_id
-        if self.associate_uid is not None:
-            result['AssociateUid'] = self.associate_uid
         if self.check_id is not None:
             result['CheckId'] = self.check_id
-        if self.exclude_advice_id is not None:
-            result['ExcludeAdviceId'] = self.exclude_advice_id
         if self.language is not None:
             result['Language'] = self.language
         if self.page_number is not None:
@@ -333,12 +282,8 @@ class DescribeAdvicesPageRequest(TeaModel):
         m = m or dict()
         if m.get('AdviceId') is not None:
             self.advice_id = m.get('AdviceId')
-        if m.get('AssociateUid') is not None:
-            self.associate_uid = m.get('AssociateUid')
         if m.get('CheckId') is not None:
             self.check_id = m.get('CheckId')
-        if m.get('ExcludeAdviceId') is not None:
-            self.exclude_advice_id = m.get('ExcludeAdviceId')
         if m.get('Language') is not None:
             self.language = m.get('Language')
         if m.get('PageNumber') is not None:
@@ -353,24 +298,20 @@ class DescribeAdvicesPageRequest(TeaModel):
 
 
 class DescribeAdvicesPageResponseBodyDataResult(TeaModel):
-    def __init__(self, action=None, aliyun_id=None, check_id=None, check_name=None, content=None, description=None,
-                 details=None, gmt_created=None, gmt_modified=None, id=None, is_expired=None, links=None, product=None,
-                 reason=None, resource=None, resource_id=None, severity=None):
-        self.action = action  # type: str
+    def __init__(self, aliyun_id=None, check_id=None, check_name=None, content=None, description=None,
+                 gmt_created=None, gmt_modified=None, id=None, is_expired=None, product=None, resource=None, resource_id=None,
+                 severity=None):
         self.aliyun_id = aliyun_id  # type: long
         self.check_id = check_id  # type: str
         self.check_name = check_name  # type: str
         self.content = content  # type: str
         self.description = description  # type: str
-        self.details = details  # type: str
         self.gmt_created = gmt_created  # type: str
         self.gmt_modified = gmt_modified  # type: str
         # ID
         self.id = id  # type: long
         self.is_expired = is_expired  # type: bool
-        self.links = links  # type: str
         self.product = product  # type: str
-        self.reason = reason  # type: str
         self.resource = resource  # type: str
         self.resource_id = resource_id  # type: str
         self.severity = severity  # type: long
@@ -384,8 +325,6 @@ class DescribeAdvicesPageResponseBodyDataResult(TeaModel):
             return _map
 
         result = dict()
-        if self.action is not None:
-            result['Action'] = self.action
         if self.aliyun_id is not None:
             result['AliyunId'] = self.aliyun_id
         if self.check_id is not None:
@@ -396,8 +335,6 @@ class DescribeAdvicesPageResponseBodyDataResult(TeaModel):
             result['Content'] = self.content
         if self.description is not None:
             result['Description'] = self.description
-        if self.details is not None:
-            result['Details'] = self.details
         if self.gmt_created is not None:
             result['GmtCreated'] = self.gmt_created
         if self.gmt_modified is not None:
@@ -406,12 +343,8 @@ class DescribeAdvicesPageResponseBodyDataResult(TeaModel):
             result['Id'] = self.id
         if self.is_expired is not None:
             result['IsExpired'] = self.is_expired
-        if self.links is not None:
-            result['Links'] = self.links
         if self.product is not None:
             result['Product'] = self.product
-        if self.reason is not None:
-            result['Reason'] = self.reason
         if self.resource is not None:
             result['Resource'] = self.resource
         if self.resource_id is not None:
@@ -422,8 +355,6 @@ class DescribeAdvicesPageResponseBodyDataResult(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Action') is not None:
-            self.action = m.get('Action')
         if m.get('AliyunId') is not None:
             self.aliyun_id = m.get('AliyunId')
         if m.get('CheckId') is not None:
@@ -434,8 +365,6 @@ class DescribeAdvicesPageResponseBodyDataResult(TeaModel):
             self.content = m.get('Content')
         if m.get('Description') is not None:
             self.description = m.get('Description')
-        if m.get('Details') is not None:
-            self.details = m.get('Details')
         if m.get('GmtCreated') is not None:
             self.gmt_created = m.get('GmtCreated')
         if m.get('GmtModified') is not None:
@@ -444,12 +373,8 @@ class DescribeAdvicesPageResponseBodyDataResult(TeaModel):
             self.id = m.get('Id')
         if m.get('IsExpired') is not None:
             self.is_expired = m.get('IsExpired')
-        if m.get('Links') is not None:
-            self.links = m.get('Links')
         if m.get('Product') is not None:
             self.product = m.get('Product')
-        if m.get('Reason') is not None:
-            self.reason = m.get('Reason')
         if m.get('Resource') is not None:
             self.resource = m.get('Resource')
         if m.get('ResourceId') is not None:
@@ -577,11 +502,9 @@ class DescribeAdvicesPageResponse(TeaModel):
 
 
 class DescribeAdvisorChecksRequest(TeaModel):
-    def __init__(self, check_id=None, language=None, product=None, resource_id=None):
-        self.check_id = check_id  # type: str
+    def __init__(self, language=None, product=None):
         self.language = language  # type: str
         self.product = product  # type: str
-        self.resource_id = resource_id  # type: str
 
     def validate(self):
         pass
@@ -592,45 +515,33 @@ class DescribeAdvisorChecksRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.check_id is not None:
-            result['CheckId'] = self.check_id
         if self.language is not None:
             result['Language'] = self.language
         if self.product is not None:
             result['Product'] = self.product
-        if self.resource_id is not None:
-            result['ResourceId'] = self.resource_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('CheckId') is not None:
-            self.check_id = m.get('CheckId')
         if m.get('Language') is not None:
             self.language = m.get('Language')
         if m.get('Product') is not None:
             self.product = m.get('Product')
-        if m.get('ResourceId') is not None:
-            self.resource_id = m.get('ResourceId')
         return self
 
 
 class DescribeAdvisorChecksResponseBodyDataAdvisorCheck(TeaModel):
-    def __init__(self, category=None, code=None, description=None, gmt_created=None, gmt_modified=None, id=None,
-                 name=None, operate_column=None, product=None, status=None, supp_resources=None, tips=None,
-                 view_column=None):
+    def __init__(self, category=None, code=None, description=None, gmt_created=None, gmt_modified=None, name=None,
+                 operate_column=None, product=None, status=None, tips=None, view_column=None):
         self.category = category  # type: str
         self.code = code  # type: str
         self.description = description  # type: str
         self.gmt_created = gmt_created  # type: str
         self.gmt_modified = gmt_modified  # type: str
-        # ID
-        self.id = id  # type: long
         self.name = name  # type: str
         self.operate_column = operate_column  # type: str
         self.product = product  # type: str
         self.status = status  # type: str
-        self.supp_resources = supp_resources  # type: str
         self.tips = tips  # type: str
         self.view_column = view_column  # type: str
 
@@ -653,8 +564,6 @@ class DescribeAdvisorChecksResponseBodyDataAdvisorCheck(TeaModel):
             result['GmtCreated'] = self.gmt_created
         if self.gmt_modified is not None:
             result['GmtModified'] = self.gmt_modified
-        if self.id is not None:
-            result['Id'] = self.id
         if self.name is not None:
             result['Name'] = self.name
         if self.operate_column is not None:
@@ -663,8 +572,6 @@ class DescribeAdvisorChecksResponseBodyDataAdvisorCheck(TeaModel):
             result['Product'] = self.product
         if self.status is not None:
             result['Status'] = self.status
-        if self.supp_resources is not None:
-            result['SuppResources'] = self.supp_resources
         if self.tips is not None:
             result['Tips'] = self.tips
         if self.view_column is not None:
@@ -683,8 +590,6 @@ class DescribeAdvisorChecksResponseBodyDataAdvisorCheck(TeaModel):
             self.gmt_created = m.get('GmtCreated')
         if m.get('GmtModified') is not None:
             self.gmt_modified = m.get('GmtModified')
-        if m.get('Id') is not None:
-            self.id = m.get('Id')
         if m.get('Name') is not None:
             self.name = m.get('Name')
         if m.get('OperateColumn') is not None:
@@ -693,8 +598,6 @@ class DescribeAdvisorChecksResponseBodyDataAdvisorCheck(TeaModel):
             self.product = m.get('Product')
         if m.get('Status') is not None:
             self.status = m.get('Status')
-        if m.get('SuppResources') is not None:
-            self.supp_resources = m.get('SuppResources')
         if m.get('Tips') is not None:
             self.tips = m.get('Tips')
         if m.get('ViewColumn') is not None:
@@ -809,23 +712,250 @@ class DescribeAdvisorChecksResponse(TeaModel):
         return self
 
 
+class DescribeAdvisorResourcesRequest(TeaModel):
+    def __init__(self, keyword=None, language=None, page_number=None, page_size=None, product=None, resource_id=None):
+        self.keyword = keyword  # type: str
+        self.language = language  # type: str
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.product = product  # type: str
+        self.resource_id = resource_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeAdvisorResourcesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.keyword is not None:
+            result['Keyword'] = self.keyword
+        if self.language is not None:
+            result['Language'] = self.language
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.product is not None:
+            result['Product'] = self.product
+        if self.resource_id is not None:
+            result['ResourceId'] = self.resource_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Keyword') is not None:
+            self.keyword = m.get('Keyword')
+        if m.get('Language') is not None:
+            self.language = m.get('Language')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('Product') is not None:
+            self.product = m.get('Product')
+        if m.get('ResourceId') is not None:
+            self.resource_id = m.get('ResourceId')
+        return self
+
+
+class DescribeAdvisorResourcesResponseBodyDataResultResource(TeaModel):
+    def __init__(self, data=None, product=None, region_id=None, resource_id=None, resource_name=None):
+        self.data = data  # type: str
+        self.product = product  # type: str
+        self.region_id = region_id  # type: str
+        self.resource_id = resource_id  # type: str
+        self.resource_name = resource_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeAdvisorResourcesResponseBodyDataResultResource, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.product is not None:
+            result['Product'] = self.product
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.resource_id is not None:
+            result['ResourceId'] = self.resource_id
+        if self.resource_name is not None:
+            result['ResourceName'] = self.resource_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('Product') is not None:
+            self.product = m.get('Product')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('ResourceId') is not None:
+            self.resource_id = m.get('ResourceId')
+        if m.get('ResourceName') is not None:
+            self.resource_name = m.get('ResourceName')
+        return self
+
+
+class DescribeAdvisorResourcesResponseBodyDataResult(TeaModel):
+    def __init__(self, resource=None):
+        self.resource = resource  # type: list[DescribeAdvisorResourcesResponseBodyDataResultResource]
+
+    def validate(self):
+        if self.resource:
+            for k in self.resource:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeAdvisorResourcesResponseBodyDataResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Resource'] = []
+        if self.resource is not None:
+            for k in self.resource:
+                result['Resource'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.resource = []
+        if m.get('Resource') is not None:
+            for k in m.get('Resource'):
+                temp_model = DescribeAdvisorResourcesResponseBodyDataResultResource()
+                self.resource.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeAdvisorResourcesResponseBodyData(TeaModel):
+    def __init__(self, page_no=None, page_size=None, result=None, total=None):
+        self.page_no = page_no  # type: int
+        self.page_size = page_size  # type: int
+        self.result = result  # type: DescribeAdvisorResourcesResponseBodyDataResult
+        self.total = total  # type: int
+
+    def validate(self):
+        if self.result:
+            self.result.validate()
+
+    def to_map(self):
+        _map = super(DescribeAdvisorResourcesResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.page_no is not None:
+            result['PageNo'] = self.page_no
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.result is not None:
+            result['Result'] = self.result.to_map()
+        if self.total is not None:
+            result['Total'] = self.total
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('PageNo') is not None:
+            self.page_no = m.get('PageNo')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('Result') is not None:
+            temp_model = DescribeAdvisorResourcesResponseBodyDataResult()
+            self.result = temp_model.from_map(m['Result'])
+        if m.get('Total') is not None:
+            self.total = m.get('Total')
+        return self
+
+
+class DescribeAdvisorResourcesResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: DescribeAdvisorResourcesResponseBodyData
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(DescribeAdvisorResourcesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            temp_model = DescribeAdvisorResourcesResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeAdvisorResourcesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeAdvisorResourcesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeAdvisorResourcesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeAdvisorResourcesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class GetHistoryAdvicesRequest(TeaModel):
-    def __init__(self, associate_uid=None, check_id=None, client_uid=None, end_date=None, filter_type=None,
-                 filter_value=None, is_expired=None, language=None, page_num=None, page_size=None, product=None, region=None,
-                 resource_id=None, reverse=None, severity=None, start_date=None):
-        self.associate_uid = associate_uid  # type: long
-        self.check_id = check_id  # type: str
-        self.client_uid = client_uid  # type: long
+    def __init__(self, end_date=None, language=None, page_num=None, page_size=None, product=None, reverse=None,
+                 severity=None, start_date=None):
         self.end_date = end_date  # type: str
-        self.filter_type = filter_type  # type: str
-        self.filter_value = filter_value  # type: str
-        self.is_expired = is_expired  # type: bool
         self.language = language  # type: str
         self.page_num = page_num  # type: int
         self.page_size = page_size  # type: int
         self.product = product  # type: str
-        self.region = region  # type: str
-        self.resource_id = resource_id  # type: str
         self.reverse = reverse  # type: bool
         self.severity = severity  # type: str
         self.start_date = start_date  # type: str
@@ -839,20 +969,8 @@ class GetHistoryAdvicesRequest(TeaModel):
             return _map
 
         result = dict()
-        if self.associate_uid is not None:
-            result['AssociateUid'] = self.associate_uid
-        if self.check_id is not None:
-            result['CheckId'] = self.check_id
-        if self.client_uid is not None:
-            result['ClientUid'] = self.client_uid
         if self.end_date is not None:
             result['EndDate'] = self.end_date
-        if self.filter_type is not None:
-            result['FilterType'] = self.filter_type
-        if self.filter_value is not None:
-            result['FilterValue'] = self.filter_value
-        if self.is_expired is not None:
-            result['IsExpired'] = self.is_expired
         if self.language is not None:
             result['Language'] = self.language
         if self.page_num is not None:
@@ -861,10 +979,6 @@ class GetHistoryAdvicesRequest(TeaModel):
             result['PageSize'] = self.page_size
         if self.product is not None:
             result['Product'] = self.product
-        if self.region is not None:
-            result['Region'] = self.region
-        if self.resource_id is not None:
-            result['ResourceId'] = self.resource_id
         if self.reverse is not None:
             result['Reverse'] = self.reverse
         if self.severity is not None:
@@ -875,20 +989,8 @@ class GetHistoryAdvicesRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('AssociateUid') is not None:
-            self.associate_uid = m.get('AssociateUid')
-        if m.get('CheckId') is not None:
-            self.check_id = m.get('CheckId')
-        if m.get('ClientUid') is not None:
-            self.client_uid = m.get('ClientUid')
         if m.get('EndDate') is not None:
             self.end_date = m.get('EndDate')
-        if m.get('FilterType') is not None:
-            self.filter_type = m.get('FilterType')
-        if m.get('FilterValue') is not None:
-            self.filter_value = m.get('FilterValue')
-        if m.get('IsExpired') is not None:
-            self.is_expired = m.get('IsExpired')
         if m.get('Language') is not None:
             self.language = m.get('Language')
         if m.get('PageNum') is not None:
@@ -897,10 +999,6 @@ class GetHistoryAdvicesRequest(TeaModel):
             self.page_size = m.get('PageSize')
         if m.get('Product') is not None:
             self.product = m.get('Product')
-        if m.get('Region') is not None:
-            self.region = m.get('Region')
-        if m.get('ResourceId') is not None:
-            self.resource_id = m.get('ResourceId')
         if m.get('Reverse') is not None:
             self.reverse = m.get('Reverse')
         if m.get('Severity') is not None:

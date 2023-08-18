@@ -37,24 +37,14 @@ class Client(OpenApiClient):
             query['AdviceId'] = request.advice_id
         if not UtilClient.is_unset(request.check_id):
             query['CheckId'] = request.check_id
-        if not UtilClient.is_unset(request.client_uid):
-            query['ClientUid'] = request.client_uid
         if not UtilClient.is_unset(request.exclude_advice_id):
             query['ExcludeAdviceId'] = request.exclude_advice_id
-        if not UtilClient.is_unset(request.filter_type):
-            query['FilterType'] = request.filter_type
-        if not UtilClient.is_unset(request.filter_value):
-            query['FilterValue'] = request.filter_value
         if not UtilClient.is_unset(request.language):
             query['Language'] = request.language
         if not UtilClient.is_unset(request.product):
             query['Product'] = request.product
-        if not UtilClient.is_unset(request.region):
-            query['Region'] = request.region
         if not UtilClient.is_unset(request.resource_id):
             query['ResourceId'] = request.resource_id
-        if not UtilClient.is_unset(request.token):
-            query['Token'] = request.token
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -83,12 +73,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.advice_id):
             query['AdviceId'] = request.advice_id
-        if not UtilClient.is_unset(request.associate_uid):
-            query['AssociateUid'] = request.associate_uid
         if not UtilClient.is_unset(request.check_id):
             query['CheckId'] = request.check_id
-        if not UtilClient.is_unset(request.exclude_advice_id):
-            query['ExcludeAdviceId'] = request.exclude_advice_id
         if not UtilClient.is_unset(request.language):
             query['Language'] = request.language
         if not UtilClient.is_unset(request.page_number):
@@ -125,14 +111,10 @@ class Client(OpenApiClient):
     def describe_advisor_checks_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        if not UtilClient.is_unset(request.check_id):
-            query['CheckId'] = request.check_id
         if not UtilClient.is_unset(request.language):
             query['Language'] = request.language
         if not UtilClient.is_unset(request.product):
             query['Product'] = request.product
-        if not UtilClient.is_unset(request.resource_id):
-            query['ResourceId'] = request.resource_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -156,23 +138,49 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_advisor_checks_with_options(request, runtime)
 
+    def describe_advisor_resources_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.keyword):
+            query['Keyword'] = request.keyword
+        if not UtilClient.is_unset(request.language):
+            query['Language'] = request.language
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.product):
+            query['Product'] = request.product
+        if not UtilClient.is_unset(request.resource_id):
+            query['ResourceId'] = request.resource_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeAdvisorResources',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            advisor_20180120_models.DescribeAdvisorResourcesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_advisor_resources(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_advisor_resources_with_options(request, runtime)
+
     def get_history_advices_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
-        if not UtilClient.is_unset(request.associate_uid):
-            query['AssociateUid'] = request.associate_uid
-        if not UtilClient.is_unset(request.check_id):
-            query['CheckId'] = request.check_id
-        if not UtilClient.is_unset(request.client_uid):
-            query['ClientUid'] = request.client_uid
         if not UtilClient.is_unset(request.end_date):
             query['EndDate'] = request.end_date
-        if not UtilClient.is_unset(request.filter_type):
-            query['FilterType'] = request.filter_type
-        if not UtilClient.is_unset(request.filter_value):
-            query['FilterValue'] = request.filter_value
-        if not UtilClient.is_unset(request.is_expired):
-            query['IsExpired'] = request.is_expired
         if not UtilClient.is_unset(request.language):
             query['Language'] = request.language
         if not UtilClient.is_unset(request.page_num):
@@ -181,10 +189,6 @@ class Client(OpenApiClient):
             query['PageSize'] = request.page_size
         if not UtilClient.is_unset(request.product):
             query['Product'] = request.product
-        if not UtilClient.is_unset(request.region):
-            query['Region'] = request.region
-        if not UtilClient.is_unset(request.resource_id):
-            query['ResourceId'] = request.resource_id
         if not UtilClient.is_unset(request.reverse):
             query['Reverse'] = request.reverse
         if not UtilClient.is_unset(request.severity):
