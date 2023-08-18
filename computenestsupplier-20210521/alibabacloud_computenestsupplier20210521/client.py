@@ -334,6 +334,38 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.delete_service_instances_with_options(request, runtime)
 
+    def deploy_service_instance_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.service_instance_id):
+            query['ServiceInstanceId'] = request.service_instance_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeployServiceInstance',
+            version='2021-05-21',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            compute_nest_supplier_20210521_models.DeployServiceInstanceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def deploy_service_instance(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.deploy_service_instance_with_options(request, runtime)
+
     def get_artifact_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -743,6 +775,36 @@ class Client(OpenApiClient):
     def modify_service_instance_resources(self, request):
         runtime = util_models.RuntimeOptions()
         return self.modify_service_instance_resources_with_options(request, runtime)
+
+    def push_metering_data_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.metering):
+            query['Metering'] = request.metering
+        if not UtilClient.is_unset(request.service_instance_id):
+            query['ServiceInstanceId'] = request.service_instance_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='PushMeteringData',
+            version='2021-05-21',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            compute_nest_supplier_20210521_models.PushMeteringDataResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def push_metering_data(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.push_metering_data_with_options(request, runtime)
 
     def release_artifact_with_options(self, request, runtime):
         UtilClient.validate_model(request)
