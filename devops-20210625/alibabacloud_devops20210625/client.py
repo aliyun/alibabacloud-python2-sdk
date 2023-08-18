@@ -189,6 +189,38 @@ class Client(OpenApiClient):
         headers = {}
         return self.add_webhook_with_options(repository_id, request, headers, runtime)
 
+    def close_merge_request_with_options(self, repository_id, local_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_token):
+            query['accessToken'] = request.access_token
+        if not UtilClient.is_unset(request.organization_id):
+            query['organizationId'] = request.organization_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CloseMergeRequest',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/api/v4/projects/%s/merge_requests/%s/close' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(repository_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(local_id))),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.CloseMergeRequestResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def close_merge_request(self, repository_id, local_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.close_merge_request_with_options(repository_id, local_id, request, headers, runtime)
+
     def create_branch_with_options(self, repository_id, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -420,6 +452,58 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.create_host_group_with_options(organization_id, request, headers, runtime)
+
+    def create_merge_request_with_options(self, repository_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_token):
+            query['accessToken'] = request.access_token
+        if not UtilClient.is_unset(request.organization_id):
+            query['organizationId'] = request.organization_id
+        body = {}
+        if not UtilClient.is_unset(request.create_from):
+            body['createFrom'] = request.create_from
+        if not UtilClient.is_unset(request.description):
+            body['description'] = request.description
+        if not UtilClient.is_unset(request.reviewer_ids):
+            body['reviewerIds'] = request.reviewer_ids
+        if not UtilClient.is_unset(request.source_branch):
+            body['sourceBranch'] = request.source_branch
+        if not UtilClient.is_unset(request.source_project_id):
+            body['sourceProjectId'] = request.source_project_id
+        if not UtilClient.is_unset(request.target_branch):
+            body['targetBranch'] = request.target_branch
+        if not UtilClient.is_unset(request.target_project_id):
+            body['targetProjectId'] = request.target_project_id
+        if not UtilClient.is_unset(request.title):
+            body['title'] = request.title
+        if not UtilClient.is_unset(request.work_item_ids):
+            body['workItemIds'] = request.work_item_ids
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateMergeRequest',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/api/v4/projects/%s/merge_requests' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(repository_id)),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.CreateMergeRequestResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_merge_request(self, repository_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_merge_request_with_options(repository_id, request, headers, runtime)
 
     def create_oauth_token_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2396,6 +2480,38 @@ class Client(OpenApiClient):
         headers = {}
         return self.get_host_group_with_options(organization_id, id, headers, runtime)
 
+    def get_merge_request_with_options(self, repository_id, local_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_token):
+            query['accessToken'] = request.access_token
+        if not UtilClient.is_unset(request.organization_id):
+            query['organizationId'] = request.organization_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetMergeRequest',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/api/v4/projects/%s/merge_requests/%s/detail' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(repository_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(local_id))),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.GetMergeRequestResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_merge_request(self, repository_id, local_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_merge_request_with_options(repository_id, local_id, request, headers, runtime)
+
     def get_organization_member_with_options(self, organization_id, account_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
             headers=headers
@@ -3345,6 +3461,60 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_host_groups_with_options(organization_id, request, headers, runtime)
+
+    def list_merge_requests_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_token):
+            query['accessToken'] = request.access_token
+        if not UtilClient.is_unset(request.author_ids):
+            query['authorIds'] = request.author_ids
+        if not UtilClient.is_unset(request.filter):
+            query['filter'] = request.filter
+        if not UtilClient.is_unset(request.group_ids):
+            query['groupIds'] = request.group_ids
+        if not UtilClient.is_unset(request.order_by):
+            query['orderBy'] = request.order_by
+        if not UtilClient.is_unset(request.organization_id):
+            query['organizationId'] = request.organization_id
+        if not UtilClient.is_unset(request.page):
+            query['page'] = request.page
+        if not UtilClient.is_unset(request.page_size):
+            query['pageSize'] = request.page_size
+        if not UtilClient.is_unset(request.project_ids):
+            query['projectIds'] = request.project_ids
+        if not UtilClient.is_unset(request.reviewer_ids):
+            query['reviewerIds'] = request.reviewer_ids
+        if not UtilClient.is_unset(request.search):
+            query['search'] = request.search
+        if not UtilClient.is_unset(request.sort):
+            query['sort'] = request.sort
+        if not UtilClient.is_unset(request.state):
+            query['state'] = request.state
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListMergeRequests',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/api/v4/projects/merge_requests/advanced_search',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.ListMergeRequestsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_merge_requests(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_merge_requests_with_options(request, headers, runtime)
 
     def list_organization_members_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -4911,6 +5081,46 @@ class Client(OpenApiClient):
         headers = {}
         return self.log_vmdeploy_machine_with_options(organization_id, pipeline_id, deploy_order_id, machine_sn, headers, runtime)
 
+    def merge_merge_request_with_options(self, repository_id, local_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_token):
+            query['accessToken'] = request.access_token
+        if not UtilClient.is_unset(request.organization_id):
+            query['organizationId'] = request.organization_id
+        body = {}
+        if not UtilClient.is_unset(request.merge_message):
+            body['mergeMessage'] = request.merge_message
+        if not UtilClient.is_unset(request.merge_type):
+            body['mergeType'] = request.merge_type
+        if not UtilClient.is_unset(request.remove_source_branch):
+            body['removeSourceBranch'] = request.remove_source_branch
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='MergeMergeRequest',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/api/v4/projects/%s/merge_requests/%s/merge' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(repository_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(local_id))),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.MergeMergeRequestResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def merge_merge_request(self, repository_id, local_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.merge_merge_request_with_options(repository_id, local_id, request, headers, runtime)
+
     def pass_pipeline_validate_with_options(self, organization_id, pipeline_id, pipeline_run_id, job_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
             headers=headers
@@ -4985,6 +5195,38 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.release_workspace_with_options(workspace_id, headers, runtime)
+
+    def reopen_merge_request_with_options(self, repository_id, local_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_token):
+            query['accessToken'] = request.access_token
+        if not UtilClient.is_unset(request.organization_id):
+            query['organizationId'] = request.organization_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ReopenMergeRequest',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/api/v4/projects/%s/merge_requests/%s/reopen' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(repository_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(local_id))),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.ReopenMergeRequestResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def reopen_merge_request(self, repository_id, local_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.reopen_merge_request_with_options(repository_id, local_id, request, headers, runtime)
 
     def reset_ssh_key_with_options(self, organization_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -5085,6 +5327,46 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.retry_vmdeploy_machine_with_options(organization_id, pipeline_id, deploy_order_id, machine_sn, headers, runtime)
+
+    def review_merge_request_with_options(self, repository_id, local_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_token):
+            query['accessToken'] = request.access_token
+        if not UtilClient.is_unset(request.organization_id):
+            query['organizationId'] = request.organization_id
+        body = {}
+        if not UtilClient.is_unset(request.draft_comment_ids):
+            body['draftCommentIds'] = request.draft_comment_ids
+        if not UtilClient.is_unset(request.review_comment):
+            body['reviewComment'] = request.review_comment
+        if not UtilClient.is_unset(request.review_opinion):
+            body['reviewOpinion'] = request.review_opinion
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ReviewMergeRequest',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/api/v4/projects/%s/merge_requests/%s/submit_review_opinion' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(repository_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(local_id))),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.ReviewMergeRequestResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def review_merge_request(self, repository_id, local_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.review_merge_request_with_options(repository_id, local_id, request, headers, runtime)
 
     def skip_pipeline_job_run_with_options(self, organization_id, pipeline_id, pipeline_run_id, job_id, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -5556,6 +5838,80 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.update_host_group_with_options(organization_id, id, request, headers, runtime)
+
+    def update_merge_request_with_options(self, repository_id, local_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_token):
+            query['accessToken'] = request.access_token
+        if not UtilClient.is_unset(request.organization_id):
+            query['organizationId'] = request.organization_id
+        body = {}
+        if not UtilClient.is_unset(request.description):
+            body['description'] = request.description
+        if not UtilClient.is_unset(request.title):
+            body['title'] = request.title
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateMergeRequest',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/api/v4/projects/%s/merge_requests/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(repository_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(local_id))),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.UpdateMergeRequestResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_merge_request(self, repository_id, local_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_merge_request_with_options(repository_id, local_id, request, headers, runtime)
+
+    def update_merge_request_personnel_with_options(self, repository_id, local_id, person_type, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.access_token):
+            query['accessToken'] = request.access_token
+        if not UtilClient.is_unset(request.organization_id):
+            query['organizationId'] = request.organization_id
+        body = {}
+        if not UtilClient.is_unset(request.new_user_id_list):
+            body['newUserIdList'] = request.new_user_id_list
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateMergeRequestPersonnel',
+            version='2021-06-25',
+            protocol='HTTPS',
+            pathname='/api/v4/projects/%s/merge_requests/%s/person/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(repository_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(local_id)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(person_type))),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            devops_20210625_models.UpdateMergeRequestPersonnelResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_merge_request_personnel(self, repository_id, local_id, person_type, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_merge_request_personnel_with_options(repository_id, local_id, person_type, request, headers, runtime)
 
     def update_pipeline_with_options(self, organization_id, request, headers, runtime):
         UtilClient.validate_model(request)
