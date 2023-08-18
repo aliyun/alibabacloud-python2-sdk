@@ -1327,6 +1327,118 @@ class BatchUpdateCdnDomainResponse(TeaModel):
         return self
 
 
+class ChangeCdnDomainToDcdnRequest(TeaModel):
+    def __init__(self, domain_name=None, operation=None, owner_account=None, owner_id=None, security_token=None):
+        self.domain_name = domain_name  # type: str
+        self.operation = operation  # type: str
+        self.owner_account = owner_account  # type: str
+        self.owner_id = owner_id  # type: long
+        self.security_token = security_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ChangeCdnDomainToDcdnRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.operation is not None:
+            result['Operation'] = self.operation
+        if self.owner_account is not None:
+            result['OwnerAccount'] = self.owner_account
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('Operation') is not None:
+            self.operation = m.get('Operation')
+        if m.get('OwnerAccount') is not None:
+            self.owner_account = m.get('OwnerAccount')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
+        return self
+
+
+class ChangeCdnDomainToDcdnResponseBody(TeaModel):
+    def __init__(self, content=None, request_id=None):
+        self.content = content  # type: dict[str, any]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ChangeCdnDomainToDcdnResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.content is not None:
+            result['Content'] = self.content
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Content') is not None:
+            self.content = m.get('Content')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ChangeCdnDomainToDcdnResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ChangeCdnDomainToDcdnResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ChangeCdnDomainToDcdnResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ChangeCdnDomainToDcdnResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CreateCdnCertificateSigningRequestRequest(TeaModel):
     def __init__(self, city=None, common_name=None, country=None, email=None, organization=None,
                  organization_unit=None, sans=None, state=None):
@@ -3331,6 +3443,128 @@ class DescribeCdnCertificateDetailResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeCdnCertificateDetailResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeCdnCertificateDetailByIdRequest(TeaModel):
+    def __init__(self, cert_id=None, cert_region=None, owner_id=None, security_token=None):
+        self.cert_id = cert_id  # type: str
+        self.cert_region = cert_region  # type: str
+        self.owner_id = owner_id  # type: long
+        self.security_token = security_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeCdnCertificateDetailByIdRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cert_id is not None:
+            result['CertId'] = self.cert_id
+        if self.cert_region is not None:
+            result['CertRegion'] = self.cert_region
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CertId') is not None:
+            self.cert_id = m.get('CertId')
+        if m.get('CertRegion') is not None:
+            self.cert_region = m.get('CertRegion')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
+        return self
+
+
+class DescribeCdnCertificateDetailByIdResponseBody(TeaModel):
+    def __init__(self, cert=None, cert_id=None, cert_name=None, key=None, request_id=None):
+        self.cert = cert  # type: str
+        self.cert_id = cert_id  # type: long
+        self.cert_name = cert_name  # type: str
+        self.key = key  # type: str
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeCdnCertificateDetailByIdResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cert is not None:
+            result['Cert'] = self.cert
+        if self.cert_id is not None:
+            result['CertId'] = self.cert_id
+        if self.cert_name is not None:
+            result['CertName'] = self.cert_name
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Cert') is not None:
+            self.cert = m.get('Cert')
+        if m.get('CertId') is not None:
+            self.cert_id = m.get('CertId')
+        if m.get('CertName') is not None:
+            self.cert_name = m.get('CertName')
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeCdnCertificateDetailByIdResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeCdnCertificateDetailByIdResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeCdnCertificateDetailByIdResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeCdnCertificateDetailByIdResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -6473,6 +6707,254 @@ class DescribeCdnSMCertificateListResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeCdnSMCertificateListResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeCdnSSLCertificateListRequest(TeaModel):
+    def __init__(self, domain_name=None, owner_id=None, page_number=None, page_size=None, search_keyword=None,
+                 security_token=None):
+        self.domain_name = domain_name  # type: str
+        self.owner_id = owner_id  # type: long
+        self.page_number = page_number  # type: long
+        self.page_size = page_size  # type: long
+        self.search_keyword = search_keyword  # type: str
+        self.security_token = security_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeCdnSSLCertificateListRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.domain_name is not None:
+            result['DomainName'] = self.domain_name
+        if self.owner_id is not None:
+            result['OwnerId'] = self.owner_id
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.search_keyword is not None:
+            result['SearchKeyword'] = self.search_keyword
+        if self.security_token is not None:
+            result['SecurityToken'] = self.security_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DomainName') is not None:
+            self.domain_name = m.get('DomainName')
+        if m.get('OwnerId') is not None:
+            self.owner_id = m.get('OwnerId')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('SearchKeyword') is not None:
+            self.search_keyword = m.get('SearchKeyword')
+        if m.get('SecurityToken') is not None:
+            self.security_token = m.get('SecurityToken')
+        return self
+
+
+class DescribeCdnSSLCertificateListResponseBodyCertificateListModelCertListCert(TeaModel):
+    def __init__(self, cert_id=None, cert_name=None, cert_region=None, common=None, fingerprint=None, issuer=None,
+                 last_time=None):
+        self.cert_id = cert_id  # type: long
+        self.cert_name = cert_name  # type: str
+        self.cert_region = cert_region  # type: str
+        self.common = common  # type: str
+        self.fingerprint = fingerprint  # type: str
+        self.issuer = issuer  # type: str
+        self.last_time = last_time  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeCdnSSLCertificateListResponseBodyCertificateListModelCertListCert, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cert_id is not None:
+            result['CertId'] = self.cert_id
+        if self.cert_name is not None:
+            result['CertName'] = self.cert_name
+        if self.cert_region is not None:
+            result['CertRegion'] = self.cert_region
+        if self.common is not None:
+            result['Common'] = self.common
+        if self.fingerprint is not None:
+            result['Fingerprint'] = self.fingerprint
+        if self.issuer is not None:
+            result['Issuer'] = self.issuer
+        if self.last_time is not None:
+            result['LastTime'] = self.last_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CertId') is not None:
+            self.cert_id = m.get('CertId')
+        if m.get('CertName') is not None:
+            self.cert_name = m.get('CertName')
+        if m.get('CertRegion') is not None:
+            self.cert_region = m.get('CertRegion')
+        if m.get('Common') is not None:
+            self.common = m.get('Common')
+        if m.get('Fingerprint') is not None:
+            self.fingerprint = m.get('Fingerprint')
+        if m.get('Issuer') is not None:
+            self.issuer = m.get('Issuer')
+        if m.get('LastTime') is not None:
+            self.last_time = m.get('LastTime')
+        return self
+
+
+class DescribeCdnSSLCertificateListResponseBodyCertificateListModelCertList(TeaModel):
+    def __init__(self, cert=None):
+        self.cert = cert  # type: list[DescribeCdnSSLCertificateListResponseBodyCertificateListModelCertListCert]
+
+    def validate(self):
+        if self.cert:
+            for k in self.cert:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeCdnSSLCertificateListResponseBodyCertificateListModelCertList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Cert'] = []
+        if self.cert is not None:
+            for k in self.cert:
+                result['Cert'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.cert = []
+        if m.get('Cert') is not None:
+            for k in m.get('Cert'):
+                temp_model = DescribeCdnSSLCertificateListResponseBodyCertificateListModelCertListCert()
+                self.cert.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeCdnSSLCertificateListResponseBodyCertificateListModel(TeaModel):
+    def __init__(self, cert_list=None, count=None, page_number=None, page_size=None):
+        self.cert_list = cert_list  # type: DescribeCdnSSLCertificateListResponseBodyCertificateListModelCertList
+        self.count = count  # type: int
+        self.page_number = page_number  # type: long
+        self.page_size = page_size  # type: long
+
+    def validate(self):
+        if self.cert_list:
+            self.cert_list.validate()
+
+    def to_map(self):
+        _map = super(DescribeCdnSSLCertificateListResponseBodyCertificateListModel, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cert_list is not None:
+            result['CertList'] = self.cert_list.to_map()
+        if self.count is not None:
+            result['Count'] = self.count
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CertList') is not None:
+            temp_model = DescribeCdnSSLCertificateListResponseBodyCertificateListModelCertList()
+            self.cert_list = temp_model.from_map(m['CertList'])
+        if m.get('Count') is not None:
+            self.count = m.get('Count')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        return self
+
+
+class DescribeCdnSSLCertificateListResponseBody(TeaModel):
+    def __init__(self, certificate_list_model=None, request_id=None):
+        self.certificate_list_model = certificate_list_model  # type: DescribeCdnSSLCertificateListResponseBodyCertificateListModel
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.certificate_list_model:
+            self.certificate_list_model.validate()
+
+    def to_map(self):
+        _map = super(DescribeCdnSSLCertificateListResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.certificate_list_model is not None:
+            result['CertificateListModel'] = self.certificate_list_model.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CertificateListModel') is not None:
+            temp_model = DescribeCdnSSLCertificateListResponseBodyCertificateListModel()
+            self.certificate_list_model = temp_model.from_map(m['CertificateListModel'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeCdnSSLCertificateListResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeCdnSSLCertificateListResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeCdnSSLCertificateListResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeCdnSSLCertificateListResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
