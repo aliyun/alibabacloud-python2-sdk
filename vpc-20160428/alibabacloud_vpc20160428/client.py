@@ -13735,46 +13735,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_nat_gateway_attribute_with_options(request, runtime)
 
-    def get_nat_gateway_convert_status_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.nat_gateway_id):
-            query['NatGatewayId'] = request.nat_gateway_id
-        if not UtilClient.is_unset(request.owner_account):
-            query['OwnerAccount'] = request.owner_account
-        if not UtilClient.is_unset(request.owner_id):
-            query['OwnerId'] = request.owner_id
-        if not UtilClient.is_unset(request.region_id):
-            query['RegionId'] = request.region_id
-        if not UtilClient.is_unset(request.region_id):
-            query['RegionId'] = request.region_id
-        if not UtilClient.is_unset(request.resource_owner_account):
-            query['ResourceOwnerAccount'] = request.resource_owner_account
-        if not UtilClient.is_unset(request.resource_owner_id):
-            query['ResourceOwnerId'] = request.resource_owner_id
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='GetNatGatewayConvertStatus',
-            version='2016-04-28',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            vpc_20160428_models.GetNatGatewayConvertStatusResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def get_nat_gateway_convert_status(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.get_nat_gateway_convert_status_with_options(request, runtime)
-
     def get_physical_connection_service_status_with_options(self, request, runtime):
         """
         You can call this API operation to query the status of outbound data transfer billing for the current account. For more information about outbound data transfer billing, see [Outbound data transfer billing](~~274385~~) and [Billing](~~54582~~).
