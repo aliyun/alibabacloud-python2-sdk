@@ -1,3 +1,6 @@
+2023-08-19 Version: 1.1.0
+- Generated python2 2017-03-21 for vod.
+
 2023-04-26 Version: 1.0.6
 - Api add media storage class.
 

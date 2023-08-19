@@ -83,9 +83,7 @@ class Client(OpenApiClient):
 
     def add_aitemplate_with_options(self, request, runtime):
         """
-        The type of the AI template. Valid values:
-        *   **AIMediaAudit**: automated review
-        *   **AIImage**: smart thumbnail
+        Before you add an AI template for automated review and smart thumbnail tasks, make sure that [automated review](https://ai.aliyun.com/vi/censor) and [smart thumbnail](https://ai.aliyun.com/vi/cover) are enabled.
         
 
         @param request: AddAITemplateRequest
@@ -123,9 +121,7 @@ class Client(OpenApiClient):
 
     def add_aitemplate(self, request):
         """
-        The type of the AI template. Valid values:
-        *   **AIMediaAudit**: automated review
-        *   **AIImage**: smart thumbnail
+        Before you add an AI template for automated review and smart thumbnail tasks, make sure that [automated review](https://ai.aliyun.com/vi/censor) and [smart thumbnail](https://ai.aliyun.com/vi/cover) are enabled.
         
 
         @param request: AddAITemplateRequest
@@ -137,7 +133,7 @@ class Client(OpenApiClient):
 
     def add_category_with_options(self, request, runtime):
         """
-        The level of the category. A value of *0** indicates a level 1 category.
+        A maximum of three category levels can be created. Each category can contain up to 100 subcategories.
         
 
         @param request: AddCategoryRequest
@@ -175,7 +171,7 @@ class Client(OpenApiClient):
 
     def add_category(self, request):
         """
-        The level of the category. A value of *0** indicates a level 1 category.
+        A maximum of three category levels can be created. Each category can contain up to 100 subcategories.
         
 
         @param request: AddCategoryRequest
@@ -229,9 +225,54 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.add_editing_project_with_options(request, runtime)
 
+    def add_editing_project_materials_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.material_ids):
+            query['MaterialIds'] = request.material_ids
+        if not UtilClient.is_unset(request.material_type):
+            query['MaterialType'] = request.material_type
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='AddEditingProjectMaterials',
+            version='2017-03-21',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            vod_20170321_models.AddEditingProjectMaterialsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def add_editing_project_materials(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.add_editing_project_materials_with_options(request, runtime)
+
     def add_transcode_template_group_with_options(self, request, runtime):
         """
-        The ID of the transcoding template group.
+        - You cannot perform custom operations on transcoding template groups that are *locked** in the ApsaraVideo VOD console. To manage these transcoding template groups, submit a ticket to contact Alibaba Cloud technical support.
+        - An Object Storage Service (OSS) bucket is required to store files that are used for transcoding. You can create a transcoding template group only after ApsaraVideo VOD has allocated a bucket to you. You can activate the bucket on the Storage page in the ApsaraVideo VOD console.
+        - You cannot add transcoding templates to the **No Transcoding** template group.
+        - You can create a maximum of 20 transcoding template groups.
+        - You can add a maximum of 20 transcoding templates to a transcoding template group.
+        - If you need to generate an URL for adaptive bitrate streaming, you can add a maximum of 10 video packaging templates to a transcoding template group. If you add more than 10 video packaging templates, URLs of the video transcoded based on the video packaging templates are generated but the URL for adaptive bitrate streaming is not generated.
         
 
         @param request: AddTranscodeTemplateGroupRequest
@@ -271,7 +312,12 @@ class Client(OpenApiClient):
 
     def add_transcode_template_group(self, request):
         """
-        The ID of the transcoding template group.
+        - You cannot perform custom operations on transcoding template groups that are *locked** in the ApsaraVideo VOD console. To manage these transcoding template groups, submit a ticket to contact Alibaba Cloud technical support.
+        - An Object Storage Service (OSS) bucket is required to store files that are used for transcoding. You can create a transcoding template group only after ApsaraVideo VOD has allocated a bucket to you. You can activate the bucket on the Storage page in the ApsaraVideo VOD console.
+        - You cannot add transcoding templates to the **No Transcoding** template group.
+        - You can create a maximum of 20 transcoding template groups.
+        - You can add a maximum of 20 transcoding templates to a transcoding template group.
+        - If you need to generate an URL for adaptive bitrate streaming, you can add a maximum of 10 video packaging templates to a transcoding template group. If you add more than 10 video packaging templates, URLs of the video transcoded based on the video packaging templates are generated but the URL for adaptive bitrate streaming is not generated.
         
 
         @param request: AddTranscodeTemplateGroupRequest
@@ -283,7 +329,10 @@ class Client(OpenApiClient):
 
     def add_vod_domain_with_options(self, request, runtime):
         """
-        The ID of the request.
+        This operation is available only in the **China (Shanghai)** region.
+        *   Before you add a domain name to accelerate, you must activate ApsaraVideo VOD and apply for an Internet content provider (ICP) filing for the domain name. For more information about how to activate ApsaraVideo VOD, see [Activate ApsaraVideo VOD](~~51512~~).
+        *   If the content on the origin server is not stored on Alibaba Cloud, the content must be reviewed by Alibaba Cloud. The review will be complete by the end of the next business day after you submit an application.
+        *   You can add only one domain name to accelerate in a request. You can add a maximum of 20 accelerated domain names within an Alibaba Cloud account.
         
 
         @param request: AddVodDomainRequest
@@ -331,7 +380,10 @@ class Client(OpenApiClient):
 
     def add_vod_domain(self, request):
         """
-        The ID of the request.
+        This operation is available only in the **China (Shanghai)** region.
+        *   Before you add a domain name to accelerate, you must activate ApsaraVideo VOD and apply for an Internet content provider (ICP) filing for the domain name. For more information about how to activate ApsaraVideo VOD, see [Activate ApsaraVideo VOD](~~51512~~).
+        *   If the content on the origin server is not stored on Alibaba Cloud, the content must be reviewed by Alibaba Cloud. The review will be complete by the end of the next business day after you submit an application.
+        *   You can add only one domain name to accelerate in a request. You can add a maximum of 20 accelerated domain names within an Alibaba Cloud account.
         
 
         @param request: AddVodDomainRequest
@@ -343,7 +395,8 @@ class Client(OpenApiClient):
 
     def add_vod_template_with_options(self, request, runtime):
         """
-        The type of the template. Set the value to *Snapshot**.
+        >    After you create a snapshot template, you can specify the ID of the snapshot template in the request of the [SubmitSnapshotJob](~~72213~~) operation to take snapshots.
+        > *   You can receive the [SnapshotComplete](~~57337~~) event notification by using an HTTP or HTTPS URL or in Message Service (MNS). For more information, see [Overview](~~55627~~).
         
 
         @param request: AddVodTemplateRequest
@@ -383,7 +436,8 @@ class Client(OpenApiClient):
 
     def add_vod_template(self, request):
         """
-        The type of the template. Set the value to *Snapshot**.
+        >    After you create a snapshot template, you can specify the ID of the snapshot template in the request of the [SubmitSnapshotJob](~~72213~~) operation to take snapshots.
+        > *   You can receive the [SnapshotComplete](~~57337~~) event notification by using an HTTP or HTTPS URL or in Message Service (MNS). For more information, see [Overview](~~55627~~).
         
 
         @param request: AddVodTemplateRequest
@@ -395,9 +449,7 @@ class Client(OpenApiClient):
 
     def add_watermark_with_options(self, request, runtime):
         """
-        The name of the watermark. Only letters and digits are supported.
-        *   The name can be up to 128 bytes in length.
-        *   The value must be encoded in UTF-8.
+        > ApsaraVideo VOD supports static image watermarks such as PNG files and dynamic image watermarks such as GIF, APNG, and MOV files.
         
 
         @param request: AddWatermarkRequest
@@ -439,9 +491,7 @@ class Client(OpenApiClient):
 
     def add_watermark(self, request):
         """
-        The name of the watermark. Only letters and digits are supported.
-        *   The name can be up to 128 bytes in length.
-        *   The value must be encoded in UTF-8.
+        > ApsaraVideo VOD supports static image watermarks such as PNG files and dynamic image watermarks such as GIF, APNG, and MOV files.
         
 
         @param request: AddWatermarkRequest
@@ -453,7 +503,7 @@ class Client(OpenApiClient):
 
     def attach_app_policy_to_identity_with_options(self, request, runtime):
         """
-        The name of the policy that was not found.
+        > You can grant a maximum of 10 application permissions to a RAM user or RAM role.
         
 
         @param request: AttachAppPolicyToIdentityRequest
@@ -493,7 +543,7 @@ class Client(OpenApiClient):
 
     def attach_app_policy_to_identity(self, request):
         """
-        The name of the policy that was not found.
+        > You can grant a maximum of 10 application permissions to a RAM user or RAM role.
         
 
         @param request: AttachAppPolicyToIdentityRequest
@@ -505,7 +555,7 @@ class Client(OpenApiClient):
 
     def batch_set_vod_domain_configs_with_options(self, request, runtime):
         """
-        The ID of the request.
+        > This operation is available only in the *China (Shanghai)** region.
         
 
         @param request: BatchSetVodDomainConfigsRequest
@@ -547,7 +597,7 @@ class Client(OpenApiClient):
 
     def batch_set_vod_domain_configs(self, request):
         """
-        The ID of the request.
+        > This operation is available only in the *China (Shanghai)** region.
         
 
         @param request: BatchSetVodDomainConfigsRequest
@@ -559,7 +609,8 @@ class Client(OpenApiClient):
 
     def batch_start_vod_domain_with_options(self, request, runtime):
         """
-        The operation that you want to perform. Set the value to *BatchStartVodDomain**.
+        >    This operation is available only in the **China (Shanghai)** region.
+        > *   If the domain name that you want to enable is invalid or your Alibaba Cloud account has overdue payments, you cannot call this operation to enable the domain name.
         
 
         @param request: BatchStartVodDomainRequest
@@ -597,7 +648,8 @@ class Client(OpenApiClient):
 
     def batch_start_vod_domain(self, request):
         """
-        The operation that you want to perform. Set the value to *BatchStartVodDomain**.
+        >    This operation is available only in the **China (Shanghai)** region.
+        > *   If the domain name that you want to enable is invalid or your Alibaba Cloud account has overdue payments, you cannot call this operation to enable the domain name.
         
 
         @param request: BatchStartVodDomainRequest
@@ -609,7 +661,8 @@ class Client(OpenApiClient):
 
     def batch_stop_vod_domain_with_options(self, request, runtime):
         """
-        The operation that you want to perform. Set the value to *BatchStopVodDomain**.
+        >    This operation is available only in the **China (Shanghai)** region.
+        > *   After you disable a domain name for CDN, the information about the domain name is retained. The system automatically reroutes all the requests that are destined for the domain name for CDN to the origin server.
         
 
         @param request: BatchStopVodDomainRequest
@@ -647,7 +700,8 @@ class Client(OpenApiClient):
 
     def batch_stop_vod_domain(self, request):
         """
-        The operation that you want to perform. Set the value to *BatchStopVodDomain**.
+        >    This operation is available only in the **China (Shanghai)** region.
+        > *   After you disable a domain name for CDN, the information about the domain name is retained. The system automatically reroutes all the requests that are destined for the domain name for CDN to the origin server.
         
 
         @param request: BatchStopVodDomainRequest
@@ -659,9 +713,8 @@ class Client(OpenApiClient):
 
     def cancel_url_upload_jobs_with_options(self, request, runtime):
         """
-        The upload URLs of source files. Separate multiple URLs with commas (,). You can specify a maximum of 10 URLs.
-        > *   You must encode the URLs before you use the URLs.
-        > *   You must set one of the JobIds and the UploadUrls parameters. If you set both the JobIds and UploadUrls parameters, only the value of the JobIds parameter takes effect.
+        You can cancel only a URL-based upload job in the **Pending** state. You can query the status of a URL-based upload job by calling the [GetURLUploadInfos](~~106830~~) operation.
+        *   You cannot cancel an upload job that already starts.
         
 
         @param request: CancelUrlUploadJobsRequest
@@ -697,9 +750,8 @@ class Client(OpenApiClient):
 
     def cancel_url_upload_jobs(self, request):
         """
-        The upload URLs of source files. Separate multiple URLs with commas (,). You can specify a maximum of 10 URLs.
-        > *   You must encode the URLs before you use the URLs.
-        > *   You must set one of the JobIds and the UploadUrls parameters. If you set both the JobIds and UploadUrls parameters, only the value of the JobIds parameter takes effect.
+        You can cancel only a URL-based upload job in the **Pending** state. You can query the status of a URL-based upload job by calling the [GetURLUploadInfos](~~106830~~) operation.
+        *   You cannot cancel an upload job that already starts.
         
 
         @param request: CancelUrlUploadJobsRequest
@@ -711,9 +763,7 @@ class Client(OpenApiClient):
 
     def create_app_info_with_options(self, request, runtime):
         """
-        The description of the application.
-        - The description can contain up to 512 characters in length.
-        - The description can contain only UTF-8 characters.
+        You can create a maximum of 10 applications within an Alibaba Cloud account. For more information, see [Overview](https://www.alibabacloud.com/help/en/apsaravideo-for-vod/latest/overview-1).
         
 
         @param request: CreateAppInfoRequest
@@ -749,9 +799,7 @@ class Client(OpenApiClient):
 
     def create_app_info(self, request):
         """
-        The description of the application.
-        - The description can contain up to 512 characters in length.
-        - The description can contain only UTF-8 characters.
+        You can create a maximum of 10 applications within an Alibaba Cloud account. For more information, see [Overview](https://www.alibabacloud.com/help/en/apsaravideo-for-vod/latest/overview-1).
         
 
         @param request: CreateAppInfoRequest
@@ -791,10 +839,9 @@ class Client(OpenApiClient):
 
     def create_upload_attached_media_with_options(self, request, runtime):
         """
-        The type of the media asset. Valid values:
-        *   **watermark**\
-        *   **subtitle**\
-        *   **material**\
+        The process of obtaining upload URLs and credentials is a core process in ApsaraVideo VOD and is required for each upload operation. ApsaraVideo VOD provides multiple upload methods. You can upload auxiliary media assets by using server upload SDKs, client upload SDKs, URLs of auxiliary media assets, Object Storage Service (OSS) API, or native OSS SDKs. Each upload method has different requirements for obtaining upload URLs and credentials. For more information, see the "Usage notes" section of the [Upload URLs and credentials](~~55397~~) topic.
+        *   If the upload credential expires, you can call this operation to obtain a new upload URL and credential. The default validity period of an upload credential is 3,000 seconds.
+        *   You can configure a callback to receive an [AttachedMediaUploadComplete](~~103250~~) event notification to determine whether the upload is successful.
         
 
         @param request: CreateUploadAttachedMediaRequest
@@ -848,10 +895,9 @@ class Client(OpenApiClient):
 
     def create_upload_attached_media(self, request):
         """
-        The type of the media asset. Valid values:
-        *   **watermark**\
-        *   **subtitle**\
-        *   **material**\
+        The process of obtaining upload URLs and credentials is a core process in ApsaraVideo VOD and is required for each upload operation. ApsaraVideo VOD provides multiple upload methods. You can upload auxiliary media assets by using server upload SDKs, client upload SDKs, URLs of auxiliary media assets, Object Storage Service (OSS) API, or native OSS SDKs. Each upload method has different requirements for obtaining upload URLs and credentials. For more information, see the "Usage notes" section of the [Upload URLs and credentials](~~55397~~) topic.
+        *   If the upload credential expires, you can call this operation to obtain a new upload URL and credential. The default validity period of an upload credential is 3,000 seconds.
+        *   You can configure a callback to receive an [AttachedMediaUploadComplete](~~103250~~) event notification to determine whether the upload is successful.
         
 
         @param request: CreateUploadAttachedMediaRequest
@@ -931,7 +977,12 @@ class Client(OpenApiClient):
 
     def create_upload_video_with_options(self, request, runtime):
         """
-        Obtains the upload URLs and credentials for media files and creates media assets in ApsaraVideo VOD.
+        You can call this operation to obtain upload URLs and credentials for video and audio files. For more information, see [Upload URLs and credentials](~~55397~~).
+        *   You can call this operation only to obtain the upload URLs and credentials for media files and create media assets in ApsaraVideo VOD. You cannot call this operation to upload media files. For more information about how to upload media files by calling API operations, see [Upload media files by calling API operations](~~476208~~).
+        *   If the upload credential expires, call the [RefreshUploadVideo](~~55408~~) operation to obtain a new upload credential. The default validity period of an upload credential is 3,000 seconds.
+        *   You can configure a callback to receive an [event notification](~~55396~~) when an audio or video file is uploaded. Alternatively, after you upload an audio or video file, you can call the [GetMezzanineInfo](~~59624~~) operation to determine whether the upload is successful based on the file status in the response.
+        *   The VideoId parameter that is returned after you call this operation can be used for media processing or lifecycle management of media assets.
+        *   You must obtain a URL and a credential before you upload a media file to ApsaraVideo VOD. ApsaraVideo VOD supports multiple upload methods. Each method has different requirements on upload URLs and credentials. For more information, see [Upload URLs and credentials](~~55397~~).
         
 
         @param request: CreateUploadVideoRequest
@@ -987,7 +1038,12 @@ class Client(OpenApiClient):
 
     def create_upload_video(self, request):
         """
-        Obtains the upload URLs and credentials for media files and creates media assets in ApsaraVideo VOD.
+        You can call this operation to obtain upload URLs and credentials for video and audio files. For more information, see [Upload URLs and credentials](~~55397~~).
+        *   You can call this operation only to obtain the upload URLs and credentials for media files and create media assets in ApsaraVideo VOD. You cannot call this operation to upload media files. For more information about how to upload media files by calling API operations, see [Upload media files by calling API operations](~~476208~~).
+        *   If the upload credential expires, call the [RefreshUploadVideo](~~55408~~) operation to obtain a new upload credential. The default validity period of an upload credential is 3,000 seconds.
+        *   You can configure a callback to receive an [event notification](~~55396~~) when an audio or video file is uploaded. Alternatively, after you upload an audio or video file, you can call the [GetMezzanineInfo](~~59624~~) operation to determine whether the upload is successful based on the file status in the response.
+        *   The VideoId parameter that is returned after you call this operation can be used for media processing or lifecycle management of media assets.
+        *   You must obtain a URL and a credential before you upload a media file to ApsaraVideo VOD. ApsaraVideo VOD supports multiple upload methods. Each method has different requirements on upload URLs and credentials. For more information, see [Upload URLs and credentials](~~55397~~).
         
 
         @param request: CreateUploadVideoRequest
@@ -1089,9 +1145,7 @@ class Client(OpenApiClient):
 
     def delete_aitemplate_with_options(self, request, runtime):
         """
-        The ID of the AI template. You can use one of the following methods to obtain the ID of the AI template:
-        *   Call the [AddAITemplate](~~102930~~) operation to add an AI template if no AI template exists. The value of TemplateId from the response is the ID of the AI template.
-        *   Call the [ListAITemplate](~~102936~~) operation if the template already exists. The value of TemplateId from the response is the ID of the AI template.
+        You cannot delete an AI template that is set as the default template.
         
 
         @param request: DeleteAITemplateRequest
@@ -1125,9 +1179,7 @@ class Client(OpenApiClient):
 
     def delete_aitemplate(self, request):
         """
-        The ID of the AI template. You can use one of the following methods to obtain the ID of the AI template:
-        *   Call the [AddAITemplate](~~102930~~) operation to add an AI template if no AI template exists. The value of TemplateId from the response is the ID of the AI template.
-        *   Call the [ListAITemplate](~~102936~~) operation if the template already exists. The value of TemplateId from the response is the ID of the AI template.
+        You cannot delete an AI template that is set as the default template.
         
 
         @param request: DeleteAITemplateRequest
@@ -1139,7 +1191,8 @@ class Client(OpenApiClient):
 
     def delete_app_info_with_options(self, request, runtime):
         """
-        The ID of the request.
+        ## Usage note
+        Application with resources can not be deleted.
         
 
         @param request: DeleteAppInfoRequest
@@ -1173,7 +1226,8 @@ class Client(OpenApiClient):
 
     def delete_app_info(self, request):
         """
-        The ID of the request.
+        ## Usage note
+        Application with resources can not be deleted.
         
 
         @param request: DeleteAppInfoRequest
@@ -1185,7 +1239,7 @@ class Client(OpenApiClient):
 
     def delete_attached_media_with_options(self, request, runtime):
         """
-        The ID of the request.
+        This operation physically deletes auxiliary media assets. Deleted auxiliary media assets cannot be recovered. Exercise caution when you call this operation.
         
 
         @param request: DeleteAttachedMediaRequest
@@ -1219,7 +1273,7 @@ class Client(OpenApiClient):
 
     def delete_attached_media(self, request):
         """
-        The ID of the request.
+        This operation physically deletes auxiliary media assets. Deleted auxiliary media assets cannot be recovered. Exercise caution when you call this operation.
         
 
         @param request: DeleteAttachedMediaRequest
@@ -1231,7 +1285,7 @@ class Client(OpenApiClient):
 
     def delete_category_with_options(self, request, runtime):
         """
-        The ID of the request.
+        > If a video category is deleted, its subcategories, including level 2 and level 3 categories, are also deleted. Exercise caution when you call this operation.
         
 
         @param request: DeleteCategoryRequest
@@ -1265,7 +1319,7 @@ class Client(OpenApiClient):
 
     def delete_category(self, request):
         """
-        The ID of the request.
+        > If a video category is deleted, its subcategories, including level 2 and level 3 categories, are also deleted. Exercise caution when you call this operation.
         
 
         @param request: DeleteCategoryRequest
@@ -1276,6 +1330,16 @@ class Client(OpenApiClient):
         return self.delete_category_with_options(request, runtime)
 
     def delete_dynamic_image_with_options(self, request, runtime):
+        """
+        > This operation deletes only the information about animated stickers, but not the animated stickers themselves.
+        
+
+        @param request: DeleteDynamicImageRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteDynamicImageResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dynamic_image_ids):
@@ -1302,6 +1366,14 @@ class Client(OpenApiClient):
         )
 
     def delete_dynamic_image(self, request):
+        """
+        > This operation deletes only the information about animated stickers, but not the animated stickers themselves.
+        
+
+        @param request: DeleteDynamicImageRequest
+
+        @return: DeleteDynamicImageResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_dynamic_image_with_options(request, runtime)
 
@@ -1341,12 +1413,49 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.delete_editing_project_with_options(request, runtime)
 
+    def delete_editing_project_materials_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.material_ids):
+            query['MaterialIds'] = request.material_ids
+        if not UtilClient.is_unset(request.material_type):
+            query['MaterialType'] = request.material_type
+        if not UtilClient.is_unset(request.owner_account):
+            query['OwnerAccount'] = request.owner_account
+        if not UtilClient.is_unset(request.owner_id):
+            query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.project_id):
+            query['ProjectId'] = request.project_id
+        if not UtilClient.is_unset(request.resource_owner_account):
+            query['ResourceOwnerAccount'] = request.resource_owner_account
+        if not UtilClient.is_unset(request.resource_owner_id):
+            query['ResourceOwnerId'] = request.resource_owner_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteEditingProjectMaterials',
+            version='2017-03-21',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            vod_20170321_models.DeleteEditingProjectMaterialsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_editing_project_materials(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_editing_project_materials_with_options(request, runtime)
+
     def delete_image_with_options(self, request, runtime):
         """
-        The URL of the image.
-        *   This parameter only takes effect when the **DeleteImageType** parameter is set to **ImageURL**. In this case, you must set this parameter.
-        *   Encode multiple image URLs and separate them with commas (,).
-        *   The use of special characters in image URLs may lead to the failure to delete the images. To prevent such failure, you must encode the image URLs before you concatenate them into a string with commas (,).
+        > This operation irreversibly deletes image mezzanine files. Deleted images cannot be recovered. If some images are cached in Content Delivery Network (CDN), the image URLs do not immediately become invalid.
         
 
         @param request: DeleteImageRequest
@@ -1388,10 +1497,7 @@ class Client(OpenApiClient):
 
     def delete_image(self, request):
         """
-        The URL of the image.
-        *   This parameter only takes effect when the **DeleteImageType** parameter is set to **ImageURL**. In this case, you must set this parameter.
-        *   Encode multiple image URLs and separate them with commas (,).
-        *   The use of special characters in image URLs may lead to the failure to delete the images. To prevent such failure, you must encode the image URLs before you concatenate them into a string with commas (,).
+        > This operation irreversibly deletes image mezzanine files. Deleted images cannot be recovered. If some images are cached in Content Delivery Network (CDN), the image URLs do not immediately become invalid.
         
 
         @param request: DeleteImageRequest
@@ -1403,7 +1509,7 @@ class Client(OpenApiClient):
 
     def delete_message_callback_with_options(self, request, runtime):
         """
-        The operation that you want to perform. Set the value to *DeleteMessageCallback**.
+        > For more information, see [Overview](~~55627~~).
         
 
         @param request: DeleteMessageCallbackRequest
@@ -1439,7 +1545,7 @@ class Client(OpenApiClient):
 
     def delete_message_callback(self, request):
         """
-        The operation that you want to perform. Set the value to *DeleteMessageCallback**.
+        > For more information, see [Overview](~~55627~~).
         
 
         @param request: DeleteMessageCallbackRequest
@@ -1451,7 +1557,7 @@ class Client(OpenApiClient):
 
     def delete_mezzanines_with_options(self, request, runtime):
         """
-        The IDs of the videos that do not exist.
+        All media processing operations in ApsaraVideo VOD, such as transcoding, snapshot capture, and content moderation, are performed on mezzanine files. If you delete the mezzanine files, you cannot perform follow-up media processing operations. Exercise caution when you call this operation.
         
 
         @param request: DeleteMezzaninesRequest
@@ -1487,7 +1593,7 @@ class Client(OpenApiClient):
 
     def delete_mezzanines(self, request):
         """
-        The IDs of the videos that do not exist.
+        All media processing operations in ApsaraVideo VOD, such as transcoding, snapshot capture, and content moderation, are performed on mezzanine files. If you delete the mezzanine files, you cannot perform follow-up media processing operations. Exercise caution when you call this operation.
         
 
         @param request: DeleteMezzaninesRequest
@@ -1499,7 +1605,9 @@ class Client(OpenApiClient):
 
     def delete_multipart_upload_with_options(self, request, runtime):
         """
-        The ID of the request.
+        In a multipart upload, fragments may be generated if the upload fails. In most cases, the fragments are automatically deleted after seven days. You can call this operation to delete the generated fragments after the upload is successful or fails.
+        * This operation does not delete the source file or transcoded file, but deletes only the fragments generated during the upload.
+        * If you call the [DeleteVideo](~~52837~~) operation, the entire video file is deleted, including the generated fragments.
         
 
         @param request: DeleteMultipartUploadRequest
@@ -1537,7 +1645,9 @@ class Client(OpenApiClient):
 
     def delete_multipart_upload(self, request):
         """
-        The ID of the request.
+        In a multipart upload, fragments may be generated if the upload fails. In most cases, the fragments are automatically deleted after seven days. You can call this operation to delete the generated fragments after the upload is successful or fails.
+        * This operation does not delete the source file or transcoded file, but deletes only the fragments generated during the upload.
+        * If you call the [DeleteVideo](~~52837~~) operation, the entire video file is deleted, including the generated fragments.
         
 
         @param request: DeleteMultipartUploadRequest
@@ -1579,9 +1689,9 @@ class Client(OpenApiClient):
 
     def delete_transcode_template_group_with_options(self, request, runtime):
         """
-        Specifies whether to forcibly delete the entire transcoding template group. Valid values:
-        *   **true**: deletes the entire transcoding template group and its transcoding templates.
-        *   **false**: removes the specified transcoding templates from the transcoding template group. This is the default value.
+        You cannot remove the default transcoding template. You can remove it only after it is no longer specified as the default.
+        *   For security purposes, you cannot add, modify, or remove transcoding templates in a transcoding template group that is locked in the ApsaraVideo VOD console. To manage such transcoding template groups, contact the ApsaraVideo VOD technical support.
+        *   You can call the GetTranscodeTemplateGroup operation to query the configurations of a transcoding template group and check whether the transcoding template group is locked by using the response parameter Locked.
         
 
         @param request: DeleteTranscodeTemplateGroupRequest
@@ -1619,9 +1729,9 @@ class Client(OpenApiClient):
 
     def delete_transcode_template_group(self, request):
         """
-        Specifies whether to forcibly delete the entire transcoding template group. Valid values:
-        *   **true**: deletes the entire transcoding template group and its transcoding templates.
-        *   **false**: removes the specified transcoding templates from the transcoding template group. This is the default value.
+        You cannot remove the default transcoding template. You can remove it only after it is no longer specified as the default.
+        *   For security purposes, you cannot add, modify, or remove transcoding templates in a transcoding template group that is locked in the ApsaraVideo VOD console. To manage such transcoding template groups, contact the ApsaraVideo VOD technical support.
+        *   You can call the GetTranscodeTemplateGroup operation to query the configurations of a transcoding template group and check whether the transcoding template group is locked by using the response parameter Locked.
         
 
         @param request: DeleteTranscodeTemplateGroupRequest
@@ -1633,10 +1743,9 @@ class Client(OpenApiClient):
 
     def delete_video_with_options(self, request, runtime):
         """
-        The list of video IDs. Separate multiple IDs with commas (,). A maximum of 20 IDs can be specified. You can obtain a video ID in one of the following ways:
-        *   If the video is uploaded by using the [ApsaraVideo VOD console](https://vod.console.aliyun.com), log on to the console and choose **Media Files** > **Audio/Video** to view the ID of the video.
-        *   If the video is uploaded by calling the [CreateUploadVideo](~~55407~~) operation, the video ID is the VideoId value in the response.
-        *   You can also call the [SearchMedia](~~86044~~) operation to obtain the video ID, which is the VideoId value in the response.
+        This operation physically deletes videos. Deleted videos cannot be recovered. Exercise caution when you call this operation.
+        *   You can call this operation to delete multiple videos at a time.
+        *   When you delete a video, its source file, transcoded stream file, and thumbnail screenshot are also deleted. However, the Alibaba Cloud Content Delivery Network (CDN) cache is not refreshed simultaneously. You can use the refresh feature in the ApsaraVideo VOD console to clear garbage data on CDN nodes. For more information, see [Refresh and prefetch](~~86098~~).
         
 
         @param request: DeleteVideoRequest
@@ -1670,10 +1779,9 @@ class Client(OpenApiClient):
 
     def delete_video(self, request):
         """
-        The list of video IDs. Separate multiple IDs with commas (,). A maximum of 20 IDs can be specified. You can obtain a video ID in one of the following ways:
-        *   If the video is uploaded by using the [ApsaraVideo VOD console](https://vod.console.aliyun.com), log on to the console and choose **Media Files** > **Audio/Video** to view the ID of the video.
-        *   If the video is uploaded by calling the [CreateUploadVideo](~~55407~~) operation, the video ID is the VideoId value in the response.
-        *   You can also call the [SearchMedia](~~86044~~) operation to obtain the video ID, which is the VideoId value in the response.
+        This operation physically deletes videos. Deleted videos cannot be recovered. Exercise caution when you call this operation.
+        *   You can call this operation to delete multiple videos at a time.
+        *   When you delete a video, its source file, transcoded stream file, and thumbnail screenshot are also deleted. However, the Alibaba Cloud Content Delivery Network (CDN) cache is not refreshed simultaneously. You can use the refresh feature in the ApsaraVideo VOD console to clear garbage data on CDN nodes. For more information, see [Refresh and prefetch](~~86098~~).
         
 
         @param request: DeleteVideoRequest
@@ -1685,7 +1793,9 @@ class Client(OpenApiClient):
 
     def delete_vod_domain_with_options(self, request, runtime):
         """
-        The ID of the request.
+        >    This operation is available only in the **China (Shanghai)** region.
+        > *   After a domain name for CDN is removed from ApsaraVideo VOD, the domain name becomes unavailable. Proceed with caution. We recommend that you restore the A record at your DNS service provider before you remove the domain name for CDN.
+        > *   After you call this operation to remove a domain name for CDN from ApsaraVideo VOD, all records that are related to the domain name are deleted. If you only want to disable a domain name for CDN, call the [BatchStopVodDomain](~~120208~~) operation.
         
 
         @param request: DeleteVodDomainRequest
@@ -1725,7 +1835,9 @@ class Client(OpenApiClient):
 
     def delete_vod_domain(self, request):
         """
-        The ID of the request.
+        >    This operation is available only in the **China (Shanghai)** region.
+        > *   After a domain name for CDN is removed from ApsaraVideo VOD, the domain name becomes unavailable. Proceed with caution. We recommend that you restore the A record at your DNS service provider before you remove the domain name for CDN.
+        > *   After you call this operation to remove a domain name for CDN from ApsaraVideo VOD, all records that are related to the domain name are deleted. If you only want to disable a domain name for CDN, call the [BatchStopVodDomain](~~120208~~) operation.
         
 
         @param request: DeleteVodDomainRequest
@@ -1737,7 +1849,9 @@ class Client(OpenApiClient):
 
     def delete_vod_specific_config_with_options(self, request, runtime):
         """
-        The ID of the request.
+        >    This operation is available only in the **China (Shanghai)** region.
+        > *   After the configurations of a domain name for CDN are deleted, the domain name becomes unavailable. We recommend that you restore the A record at your DNS service provider before you delete the configurations of the domain name for CDN.
+        > *   After you call this operation to delete the configurations of a domain name for CDN, all records that are related to the domain name are deleted. If you only want to disable a domain name for CDN, call the [BatchStopVodDomain](~~120208~~) operation.
         
 
         @param request: DeleteVodSpecificConfigRequest
@@ -1752,6 +1866,8 @@ class Client(OpenApiClient):
             query['ConfigId'] = request.config_id
         if not UtilClient.is_unset(request.domain_name):
             query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.env):
+            query['Env'] = request.env
         if not UtilClient.is_unset(request.owner_id):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.security_token):
@@ -1777,7 +1893,9 @@ class Client(OpenApiClient):
 
     def delete_vod_specific_config(self, request):
         """
-        The ID of the request.
+        >    This operation is available only in the **China (Shanghai)** region.
+        > *   After the configurations of a domain name for CDN are deleted, the domain name becomes unavailable. We recommend that you restore the A record at your DNS service provider before you delete the configurations of the domain name for CDN.
+        > *   After you call this operation to delete the configurations of a domain name for CDN, all records that are related to the domain name are deleted. If you only want to disable a domain name for CDN, call the [BatchStopVodDomain](~~120208~~) operation.
         
 
         @param request: DeleteVodSpecificConfigRequest
@@ -1817,7 +1935,8 @@ class Client(OpenApiClient):
 
     def delete_watermark_with_options(self, request, runtime):
         """
-        The ID of the request.
+        >    The default watermark cannot be deleted.
+        > *   If you delete a watermark, its mezzanine file is also physically deleted and cannot be recovered.
         
 
         @param request: DeleteWatermarkRequest
@@ -1851,7 +1970,8 @@ class Client(OpenApiClient):
 
     def delete_watermark(self, request):
         """
-        The ID of the request.
+        >    The default watermark cannot be deleted.
+        > *   If you delete a watermark, its mezzanine file is also physically deleted and cannot be recovered.
         
 
         @param request: DeleteWatermarkRequest
@@ -1863,7 +1983,11 @@ class Client(OpenApiClient):
 
     def describe_play_top_videos_with_options(self, request, runtime):
         """
-        The number of entries to return on each page. Default value: *100**. Maximum value: **1000**.
+        >    This operation is available only in the **China (Shanghai)** region.
+        > *   You can query playback statistics on top 1,000 videos at most on a specified day. By default, top videos are sorted in descending order based on video views.
+        > *   You can call this operation to query only playback statistics collected on videos that are played by using ApsaraVideo Player SDKs.
+        > *   Playback statistics for the previous day are generated at 09:00 on the current day, in UTC+8.
+        > *   You can query data that is generated since January 1, 2018. The maximum time range to query is 180 days.
         
 
         @param request: DescribePlayTopVideosRequest
@@ -1903,7 +2027,11 @@ class Client(OpenApiClient):
 
     def describe_play_top_videos(self, request):
         """
-        The number of entries to return on each page. Default value: *100**. Maximum value: **1000**.
+        >    This operation is available only in the **China (Shanghai)** region.
+        > *   You can query playback statistics on top 1,000 videos at most on a specified day. By default, top videos are sorted in descending order based on video views.
+        > *   You can call this operation to query only playback statistics collected on videos that are played by using ApsaraVideo Player SDKs.
+        > *   Playback statistics for the previous day are generated at 09:00 on the current day, in UTC+8.
+        > *   You can query data that is generated since January 1, 2018. The maximum time range to query is 180 days.
         
 
         @param request: DescribePlayTopVideosRequest
@@ -1915,7 +2043,10 @@ class Client(OpenApiClient):
 
     def describe_play_user_avg_with_options(self, request, runtime):
         """
-        The beginning of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-dd*T*HH:mm:ss*Z format. The time must be in UTC.
+        >    This operation is available only in the **China (Shanghai)** region.
+        > *   You can call this operation to query only playback statistics collected on videos that are played by using ApsaraVideo Player SDKs.
+        > *   Playback statistics for the previous day are generated at 09:00 on the current day, in UTC+8.
+        > *   You can query data that is generated since January 1, 2018. The maximum time range to query is 180 days.
         
 
         @param request: DescribePlayUserAvgRequest
@@ -1953,7 +2084,10 @@ class Client(OpenApiClient):
 
     def describe_play_user_avg(self, request):
         """
-        The beginning of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-dd*T*HH:mm:ss*Z format. The time must be in UTC.
+        >    This operation is available only in the **China (Shanghai)** region.
+        > *   You can call this operation to query only playback statistics collected on videos that are played by using ApsaraVideo Player SDKs.
+        > *   Playback statistics for the previous day are generated at 09:00 on the current day, in UTC+8.
+        > *   You can query data that is generated since January 1, 2018. The maximum time range to query is 180 days.
         
 
         @param request: DescribePlayUserAvgRequest
@@ -1965,7 +2099,10 @@ class Client(OpenApiClient):
 
     def describe_play_user_total_with_options(self, request, runtime):
         """
-        The total number of unique visitors who use ApsaraVideo Player SDK for Flash.
+        >    This operation is available only in the **China (Shanghai)** region.
+        > *   You can call this operation to query only playback statistics collected on videos that are played by using ApsaraVideo Player SDKs.
+        > *   Playback statistics for the previous day are generated at 09:00 on the current day, in UTC+8.
+        > *   You can query data that is generated since January 1, 2018. The maximum time range to query is 180 days.
         
 
         @param request: DescribePlayUserTotalRequest
@@ -2003,7 +2140,10 @@ class Client(OpenApiClient):
 
     def describe_play_user_total(self, request):
         """
-        The total number of unique visitors who use ApsaraVideo Player SDK for Flash.
+        >    This operation is available only in the **China (Shanghai)** region.
+        > *   You can call this operation to query only playback statistics collected on videos that are played by using ApsaraVideo Player SDKs.
+        > *   Playback statistics for the previous day are generated at 09:00 on the current day, in UTC+8.
+        > *   You can query data that is generated since January 1, 2018. The maximum time range to query is 180 days.
         
 
         @param request: DescribePlayUserTotalRequest
@@ -2015,7 +2155,10 @@ class Client(OpenApiClient):
 
     def describe_play_video_statis_with_options(self, request, runtime):
         """
-        The beginning of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-dd*T*HH:mm:ss*Z format. The time must be in UTC.
+        >    This operation is available only in the **China (Shanghai)** region.
+        > *   You can call this operation to query only playback statistics collected on videos that are played by using ApsaraVideo Player SDKs.
+        > *   Playback statistics for the previous day are generated at 09:00 on the current day, in UTC+8.
+        > *   You can query only data in the last 730 days. The maximum time range to query is 180 days.
         
 
         @param request: DescribePlayVideoStatisRequest
@@ -2055,7 +2198,10 @@ class Client(OpenApiClient):
 
     def describe_play_video_statis(self, request):
         """
-        The beginning of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-dd*T*HH:mm:ss*Z format. The time must be in UTC.
+        >    This operation is available only in the **China (Shanghai)** region.
+        > *   You can call this operation to query only playback statistics collected on videos that are played by using ApsaraVideo Player SDKs.
+        > *   Playback statistics for the previous day are generated at 09:00 on the current day, in UTC+8.
+        > *   You can query only data in the last 730 days. The maximum time range to query is 180 days.
         
 
         @param request: DescribePlayVideoStatisRequest
@@ -2123,7 +2269,7 @@ class Client(OpenApiClient):
 
     def describe_vod_certificate_list_with_options(self, request, runtime):
         """
-        The domain name for CDN.
+        > This operation is available only in the *China (Shanghai)** region.
         
 
         @param request: DescribeVodCertificateListRequest
@@ -2161,7 +2307,7 @@ class Client(OpenApiClient):
 
     def describe_vod_certificate_list(self, request):
         """
-        The domain name for CDN.
+        > This operation is available only in the *China (Shanghai)** region.
         
 
         @param request: DescribeVodCertificateListRequest
@@ -2173,7 +2319,7 @@ class Client(OpenApiClient):
 
     def describe_vod_domain_bps_data_with_options(self, request, runtime):
         """
-        The domain name for CDN.
+        If you specify neither the StartTime parameter nor the EndTime parameter, the data in the last 24 hours is queried. Alternatively, you can specify both the StartTime and EndTime parameters to query data that is generated in the specified duration. You can query data for the last 90 days at most.
         
 
         @param request: DescribeVodDomainBpsDataRequest
@@ -2219,7 +2365,7 @@ class Client(OpenApiClient):
 
     def describe_vod_domain_bps_data(self, request):
         """
-        The domain name for CDN.
+        If you specify neither the StartTime parameter nor the EndTime parameter, the data in the last 24 hours is queried. Alternatively, you can specify both the StartTime and EndTime parameters to query data that is generated in the specified duration. You can query data for the last 90 days at most.
         
 
         @param request: DescribeVodDomainBpsDataRequest
@@ -2261,7 +2407,7 @@ class Client(OpenApiClient):
 
     def describe_vod_domain_configs_with_options(self, request, runtime):
         """
-        The name of the function.
+        > This operation is available only in the *China (Shanghai)** region.
         
 
         @param request: DescribeVodDomainConfigsRequest
@@ -2301,7 +2447,7 @@ class Client(OpenApiClient):
 
     def describe_vod_domain_configs(self, request):
         """
-        The name of the function.
+        > This operation is available only in the *China (Shanghai)** region.
         
 
         @param request: DescribeVodDomainConfigsRequest
@@ -2313,7 +2459,7 @@ class Client(OpenApiClient):
 
     def describe_vod_domain_detail_with_options(self, request, runtime):
         """
-        The description of the domain name for CDN.
+        > This operation is available only in the *China (Shanghai)** region.
         
 
         @param request: DescribeVodDomainDetailRequest
@@ -2351,7 +2497,7 @@ class Client(OpenApiClient):
 
     def describe_vod_domain_detail(self, request):
         """
-        The description of the domain name for CDN.
+        > This operation is available only in the *China (Shanghai)** region.
         
 
         @param request: DescribeVodDomainDetailRequest
@@ -2363,7 +2509,11 @@ class Client(OpenApiClient):
 
     def describe_vod_domain_log_with_options(self, request, runtime):
         """
-        The total number of entries returned on the current page.
+        ## Usage note
+        *   This operation is available only in the **China (Shanghai)** region.
+        *   For more information about the log format and latency, see [Download logs](~~86099~~).
+        *   If you specify neither the StartTime parameter nor the EndTime parameter, the log data in the last 24 hours is queried.
+        *   You can specify both the StartTime and EndTime parameters to query the log data that is generated in the specified duration.
         
 
         @param request: DescribeVodDomainLogRequest
@@ -2407,7 +2557,11 @@ class Client(OpenApiClient):
 
     def describe_vod_domain_log(self, request):
         """
-        The total number of entries returned on the current page.
+        ## Usage note
+        *   This operation is available only in the **China (Shanghai)** region.
+        *   For more information about the log format and latency, see [Download logs](~~86099~~).
+        *   If you specify neither the StartTime parameter nor the EndTime parameter, the log data in the last 24 hours is queried.
+        *   You can specify both the StartTime and EndTime parameters to query the log data that is generated in the specified duration.
         
 
         @param request: DescribeVodDomainLogRequest
@@ -2557,8 +2711,7 @@ class Client(OpenApiClient):
 
     def describe_vod_domain_usage_data_with_options(self, request, runtime):
         """
-        >
-        *   This operation is available only in the **China (Shanghai)** region.
+        This operation is available only in the **China (Shanghai)** region.
         *   You can specify up to 100 accelerated domain names in a request. Separate multiple domain names with commas (,). If you do not specify an accelerated domain name, the data of all accelerated domain names within your Alibaba Cloud account is returned.
         *   You can query data in the last year. The maximum time range that can be queried is three months. If you specify a time range of one to three days, the system returns data on an hourly basis. If you specify a time range of four days or more, the system returns data on a daily basis.
         
@@ -2608,8 +2761,7 @@ class Client(OpenApiClient):
 
     def describe_vod_domain_usage_data(self, request):
         """
-        >
-        *   This operation is available only in the **China (Shanghai)** region.
+        This operation is available only in the **China (Shanghai)** region.
         *   You can specify up to 100 accelerated domain names in a request. Separate multiple domain names with commas (,). If you do not specify an accelerated domain name, the data of all accelerated domain names within your Alibaba Cloud account is returned.
         *   You can query data in the last year. The maximum time range that can be queried is three months. If you specify a time range of one to three days, the system returns data on an hourly basis. If you specify a time range of four days or more, the system returns data on a daily basis.
         
@@ -2623,7 +2775,8 @@ class Client(OpenApiClient):
 
     def describe_vod_refresh_quota_with_options(self, request, runtime):
         """
-        The maximum number of URLs of files that can be refreshed each day.
+        >    This operation is available only in the **China (Shanghai)** region.
+        > *   You can call the [RefreshVodObjectCaches](~~69215~~) operation to refresh content and the [PreloadVodObjectCaches](~~69211~~) operation to prefetch content.
         
 
         @param request: DescribeVodRefreshQuotaRequest
@@ -2659,7 +2812,8 @@ class Client(OpenApiClient):
 
     def describe_vod_refresh_quota(self, request):
         """
-        The maximum number of URLs of files that can be refreshed each day.
+        >    This operation is available only in the **China (Shanghai)** region.
+        > *   You can call the [RefreshVodObjectCaches](~~69215~~) operation to refresh content and the [PreloadVodObjectCaches](~~69211~~) operation to prefetch content.
         
 
         @param request: DescribeVodRefreshQuotaRequest
@@ -2929,7 +3083,7 @@ class Client(OpenApiClient):
 
     def detach_app_policy_from_identity_with_options(self, request, runtime):
         """
-        The name of the policy that was not found.
+        You can grant a maximum of 10 application permissions to a RAM user or RAM role.
         
 
         @param request: DetachAppPolicyFromIdentityRequest
@@ -2969,7 +3123,7 @@ class Client(OpenApiClient):
 
     def detach_app_policy_from_identity(self, request):
         """
-        The name of the policy that was not found.
+        You can grant a maximum of 10 application permissions to a RAM user or RAM role.
         
 
         @param request: DetachAppPolicyFromIdentityRequest
@@ -3015,7 +3169,11 @@ class Client(OpenApiClient):
 
     def get_aiimage_jobs_with_options(self, request, runtime):
         """
-        The image AI processing jobs.
+        Call the [SubmitAIImageJob](~~SubmitAIImageJob~~) operation to submit image AI processing jobs before you call this operation to query image AI processing jobs. You can query a maximum of 10 jobs of image AI processing in one request.
+        - The smart thumbnail feature is not supported. You cannot call this operation.
+        - Call the [SubmitAIImageJob](~~SubmitAIImageJob~~) operation to submit image AI processing jobs before you call this operation to query image AI processing jobs. You can query a maximum of 10 jobs of image AI processing in one request.
+        ### QPS limit
+        You can call this operation up to 30 times per second per account. Requests that exceed this limit are dropped and you will experience service interruptions. We recommend that you take note of this limit when you call this operation. For more information, see [QPS limits on API operations in ApsaraVideo VoD](~~342790~~).
         
 
         @param request: GetAIImageJobsRequest
@@ -3057,7 +3215,11 @@ class Client(OpenApiClient):
 
     def get_aiimage_jobs(self, request):
         """
-        The image AI processing jobs.
+        Call the [SubmitAIImageJob](~~SubmitAIImageJob~~) operation to submit image AI processing jobs before you call this operation to query image AI processing jobs. You can query a maximum of 10 jobs of image AI processing in one request.
+        - The smart thumbnail feature is not supported. You cannot call this operation.
+        - Call the [SubmitAIImageJob](~~SubmitAIImageJob~~) operation to submit image AI processing jobs before you call this operation to query image AI processing jobs. You can query a maximum of 10 jobs of image AI processing in one request.
+        ### QPS limit
+        You can call this operation up to 30 times per second per account. Requests that exceed this limit are dropped and you will experience service interruptions. We recommend that you take note of this limit when you call this operation. For more information, see [QPS limits on API operations in ApsaraVideo VoD](~~342790~~).
         
 
         @param request: GetAIImageJobsRequest
@@ -3069,10 +3231,7 @@ class Client(OpenApiClient):
 
     def get_aimedia_audit_job_with_options(self, request, runtime):
         """
-        The recommendation for review results. Valid values:
-        *   **block**: The content violates the regulations.
-        *   **review**: The content may violate the regulations.
-        *   **pass**: The content passes the review.
+        ApsaraVideo VOD stores the snapshots of the intelligent review results free of charge for two weeks. After this period, the snapshots are automatically deleted.
         
 
         @param request: GetAIMediaAuditJobRequest
@@ -3106,10 +3265,7 @@ class Client(OpenApiClient):
 
     def get_aimedia_audit_job(self, request):
         """
-        The recommendation for review results. Valid values:
-        *   **block**: The content violates the regulations.
-        *   **review**: The content may violate the regulations.
-        *   **pass**: The content passes the review.
+        ApsaraVideo VOD stores the snapshots of the intelligent review results free of charge for two weeks. After this period, the snapshots are automatically deleted.
         
 
         @param request: GetAIMediaAuditJobRequest
@@ -3121,7 +3277,9 @@ class Client(OpenApiClient):
 
     def get_aitemplate_with_options(self, request, runtime):
         """
-        The detailed configurations of the AI template. The value is a JSON string. For more information, see [AITemplateConfig](https://help.aliyun.com/document_detail/89863.html#title-vd3-499-o36).
+        Before you call this operation to query the details of an AI template, you must obtain the ID of the AI template.
+        ### QPS limit
+        You can call this operation up to five times per second per account. Requests that exceed this limit are dropped and you will experience service interruptions. We recommend that you take note of this limit when you call this operation. For more information, see [QPS limit on API operations](~~342790~~).
         
 
         @param request: GetAITemplateRequest
@@ -3155,7 +3313,9 @@ class Client(OpenApiClient):
 
     def get_aitemplate(self, request):
         """
-        The detailed configurations of the AI template. The value is a JSON string. For more information, see [AITemplateConfig](https://help.aliyun.com/document_detail/89863.html#title-vd3-499-o36).
+        Before you call this operation to query the details of an AI template, you must obtain the ID of the AI template.
+        ### QPS limit
+        You can call this operation up to five times per second per account. Requests that exceed this limit are dropped and you will experience service interruptions. We recommend that you take note of this limit when you call this operation. For more information, see [QPS limit on API operations](~~342790~~).
         
 
         @param request: GetAITemplateRequest
@@ -3167,7 +3327,10 @@ class Client(OpenApiClient):
 
     def get_aivideo_tag_result_with_options(self, request, runtime):
         """
-        Milliseconds
+        - The smart tagging feature is not supported. You cannot call this operation.
+        - You can obtain the smart tagging results by using the video ID.
+        ### QPS limit
+        You can call this operation up to 10 times per second per account. Requests that exceed this limit are dropped and you will experience service interruptions. We recommend that you take note of this limit when you call this operation. For more information, see [QPS limits on API operations in ApsaraVideo VoD](~~342790~~).
         
 
         @param request: GetAIVideoTagResultRequest
@@ -3209,7 +3372,10 @@ class Client(OpenApiClient):
 
     def get_aivideo_tag_result(self, request):
         """
-        Milliseconds
+        - The smart tagging feature is not supported. You cannot call this operation.
+        - You can obtain the smart tagging results by using the video ID.
+        ### QPS limit
+        You can call this operation up to 10 times per second per account. Requests that exceed this limit are dropped and you will experience service interruptions. We recommend that you take note of this limit when you call this operation. For more information, see [QPS limits on API operations in ApsaraVideo VoD](~~342790~~).
         
 
         @param request: GetAIVideoTagResultRequest
@@ -3221,7 +3387,7 @@ class Client(OpenApiClient):
 
     def get_app_infos_with_options(self, request, runtime):
         """
-        The description of the application.
+        Supports batch query.
         
 
         @param request: GetAppInfosRequest
@@ -3255,7 +3421,7 @@ class Client(OpenApiClient):
 
     def get_app_infos(self, request):
         """
-        The description of the application.
+        Supports batch query.
         
 
         @param request: GetAppInfosRequest
@@ -3369,7 +3535,9 @@ class Client(OpenApiClient):
 
     def get_default_aitemplate_with_options(self, request, runtime):
         """
-        The detailed configurations of the AI template. The value is a JSON string. For more information, see [AITemplateConfig](https://help.aliyun.com/document_detail/89863.html#title-vd3-499-o36).
+        You can query information only about the default AI template for automated review.
+        ### QPS limit
+        You can call this operation up to 10 times per second per account. Requests that exceed this limit are dropped and you will experience service interruptions. We recommend that you take note of this limit when you call this operation. For more information, see [QPS limit on API operations](~~342790~~).
         
 
         @param request: GetDefaultAITemplateRequest
@@ -3403,7 +3571,9 @@ class Client(OpenApiClient):
 
     def get_default_aitemplate(self, request):
         """
-        The detailed configurations of the AI template. The value is a JSON string. For more information, see [AITemplateConfig](https://help.aliyun.com/document_detail/89863.html#title-vd3-499-o36).
+        You can query information only about the default AI template for automated review.
+        ### QPS limit
+        You can call this operation up to 10 times per second per account. Requests that exceed this limit are dropped and you will experience service interruptions. We recommend that you take note of this limit when you call this operation. For more information, see [QPS limit on API operations](~~342790~~).
         
 
         @param request: GetDefaultAITemplateRequest
@@ -3451,7 +3621,7 @@ class Client(OpenApiClient):
 
     def get_editing_project_materials_with_options(self, request, runtime):
         """
-        The time when the material was last updated. The time follows the ISO 8601 standard in the yyyy-MM-dd*T*HH:mm:ss*Z format. The time is displayed in UTC.
+        During editing, you can add materials to the timeline, but some of them may not be used.
         
 
         @param request: GetEditingProjectMaterialsRequest
@@ -3497,7 +3667,7 @@ class Client(OpenApiClient):
 
     def get_editing_project_materials(self, request):
         """
-        The time when the material was last updated. The time follows the ISO 8601 standard in the yyyy-MM-dd*T*HH:mm:ss*Z format. The time is displayed in UTC.
+        During editing, you can add materials to the timeline, but some of them may not be used.
         
 
         @param request: GetEditingProjectMaterialsRequest
@@ -3595,7 +3765,7 @@ class Client(OpenApiClient):
 
     def get_media_audit_audio_result_detail_with_options(self, request, runtime):
         """
-        The start time of the audio that failed the review. Unit: seconds.
+        If notifications for the [CreateAuditComplete](~~89576~~) event are configured, event notifications are sent to the callback URL after automated review is complete. You can call this operation to query the details of audio review results.
         
 
         @param request: GetMediaAuditAudioResultDetailRequest
@@ -3639,7 +3809,7 @@ class Client(OpenApiClient):
 
     def get_media_audit_audio_result_detail(self, request):
         """
-        The start time of the audio that failed the review. Unit: seconds.
+        If notifications for the [CreateAuditComplete](~~89576~~) event are configured, event notifications are sent to the callback URL after automated review is complete. You can call this operation to query the details of audio review results.
         
 
         @param request: GetMediaAuditAudioResultDetailRequest
@@ -3679,7 +3849,8 @@ class Client(OpenApiClient):
 
     def get_media_audit_result_detail_with_options(self, request, runtime):
         """
-        Details about review results.
+        - By default, only details of snapshots that violate content regulations and potentially violate content regulations are returned.
+        - ApsaraVideo VOD stores the snapshots in the automated review results free of charge for two weeks. After this period, the snapshots are automatically deleted.
         
 
         @param request: GetMediaAuditResultDetailRequest
@@ -3715,7 +3886,8 @@ class Client(OpenApiClient):
 
     def get_media_audit_result_detail(self, request):
         """
-        Details about review results.
+        - By default, only details of snapshots that violate content regulations and potentially violate content regulations are returned.
+        - ApsaraVideo VOD stores the snapshots in the automated review results free of charge for two weeks. After this period, the snapshots are automatically deleted.
         
 
         @param request: GetMediaAuditResultDetailRequest
@@ -3755,7 +3927,9 @@ class Client(OpenApiClient):
 
     def get_media_dnaresult_with_options(self, request, runtime):
         """
-        The details of the matched video. Information such as the location and duration of the video is returned.
+        This operation is available only in the Singapore (Singapore) region.
+        ### QPS limit
+        You can call this operation up to 20 times per second per account. Requests that exceed this limit are dropped and you will experience service interruptions. We recommend that you take note of this limit when you call this operation. For more information, see [QPS limit](~~342790~~).
         
 
         @param request: GetMediaDNAResultRequest
@@ -3797,7 +3971,9 @@ class Client(OpenApiClient):
 
     def get_media_dnaresult(self, request):
         """
-        The details of the matched video. Information such as the location and duration of the video is returned.
+        This operation is available only in the Singapore (Singapore) region.
+        ### QPS limit
+        You can call this operation up to 20 times per second per account. Requests that exceed this limit are dropped and you will experience service interruptions. We recommend that you take note of this limit when you call this operation. For more information, see [QPS limit](~~342790~~).
         
 
         @param request: GetMediaDNAResultRequest
@@ -3857,7 +4033,7 @@ class Client(OpenApiClient):
 
     def get_message_callback_with_options(self, request, runtime):
         """
-        The type of the callback event.
+        > For more information, see [Overview](~~55627~~).
         
 
         @param request: GetMessageCallbackRequest
@@ -3893,7 +4069,7 @@ class Client(OpenApiClient):
 
     def get_message_callback(self, request):
         """
-        The type of the callback event.
+        > For more information, see [Overview](~~55627~~).
         
 
         @param request: GetMessageCallbackRequest
@@ -3905,7 +4081,7 @@ class Client(OpenApiClient):
 
     def get_mezzanine_info_with_options(self, request, runtime):
         """
-        The sampling format.
+        > You can obtain the complete mezzanine file information only after a stream is transcoded.
         
 
         @param request: GetMezzanineInfoRequest
@@ -3945,7 +4121,7 @@ class Client(OpenApiClient):
 
     def get_mezzanine_info(self, request):
         """
-        The sampling format.
+        > You can obtain the complete mezzanine file information only after a stream is transcoded.
         
 
         @param request: GetMezzanineInfoRequest
@@ -3957,7 +4133,9 @@ class Client(OpenApiClient):
 
     def get_play_info_with_options(self, request, runtime):
         """
-        The ID of the media file.
+        You can use the ID of a media file to query the playback URL of the file. After you integrate ApsaraVideo Player SDK for URL-based playback or a third-party player, you can use the obtained playback URLs to play audio and video files.
+        *   Only videos whose Status is Normal can be played. The Status parameter in the response indicates the status of the video. For more information, see [Overview](~~57290~~).
+        *   If video playback fails, you can call the [GetMezzanineInfo](~~GetMezzanineInfo~~) operation to check whether the video source information is correct.
         
 
         @param request: GetPlayInfoRequest
@@ -4009,7 +4187,9 @@ class Client(OpenApiClient):
 
     def get_play_info(self, request):
         """
-        The ID of the media file.
+        You can use the ID of a media file to query the playback URL of the file. After you integrate ApsaraVideo Player SDK for URL-based playback or a third-party player, you can use the obtained playback URLs to play audio and video files.
+        *   Only videos whose Status is Normal can be played. The Status parameter in the response indicates the status of the video. For more information, see [Overview](~~57290~~).
+        *   If video playback fails, you can call the [GetMezzanineInfo](~~GetMezzanineInfo~~) operation to check whether the video source information is correct.
         
 
         @param request: GetPlayInfoRequest
@@ -4073,18 +4253,7 @@ class Client(OpenApiClient):
 
     def get_transcode_task_with_options(self, request, runtime):
         """
-        The video resolution. Valid values:
-        *   **LD**: low definition
-        *   **SD**: standard definition
-        *   **HD**: high definition
-        *   **FHD**: ultra high definition
-        *   **OD**: original definition
-        *   **2K**: 2K
-        *   **4K**: 4K
-        *   **SQ**: standard sound quality
-        *   **HQ**: high sound quality
-        *   **AUTO**: adaptive bitrate Adaptive bitrate streams are returned only if PackageSetting is set in the transcoding template. For more information, see [Basic structures](~~52839~~).
-        > This parameter indicates the definition that is configured in the transcoding template and does not indicate the actual resolution of the output video.
+        You can call this operation to query only transcoding tasks created within the past year.
         
 
         @param request: GetTranscodeTaskRequest
@@ -4118,18 +4287,7 @@ class Client(OpenApiClient):
 
     def get_transcode_task(self, request):
         """
-        The video resolution. Valid values:
-        *   **LD**: low definition
-        *   **SD**: standard definition
-        *   **HD**: high definition
-        *   **FHD**: ultra high definition
-        *   **OD**: original definition
-        *   **2K**: 2K
-        *   **4K**: 4K
-        *   **SQ**: standard sound quality
-        *   **HQ**: high sound quality
-        *   **AUTO**: adaptive bitrate Adaptive bitrate streams are returned only if PackageSetting is set in the transcoding template. For more information, see [Basic structures](~~52839~~).
-        > This parameter indicates the definition that is configured in the transcoding template and does not indicate the actual resolution of the output video.
+        You can call this operation to query only transcoding tasks created within the past year.
         
 
         @param request: GetTranscodeTaskRequest
@@ -4141,26 +4299,7 @@ class Client(OpenApiClient):
 
     def get_transcode_template_group_with_options(self, request, runtime):
         """
-        Valid values for the definition of a common transcoding template:
-        *   **LD**: low definition.
-        *   **SD**: standard definition.
-        *   **HD**: high definition.
-        *   **FHD**: ultra high definition.
-        *   **OD**: original quality.
-        *   **2K**\
-        *   **4K**\
-        *   **SQ**: standard sound quality.
-        *   **HQ**: high sound quality.
-        Valid values for the definition of a Narrowband HD™ 1.0 transcoding template:
-        *   **LD-NBV1**: low definition.
-        *   **SD-NBV1**: standard definition.
-        *   **HD-NBV1**: high definition.
-        *   **FHD-NBV1**: ultra high definition.
-        *   **2K-NBV1**\
-        *   **4K-NBV1**\
-        >*   You cannot modify the definition of transcoding templates.
-        >*   You cannot modify the system parameters, such as the video resolution, audio resolution, and bitrate, of Narrowband HD™ 1.0 transcoding templates.
-        >*   You can create only Narrowband HD™ 1.0 transcoding templates that support the FLV, M3U8 (HLS), and MP4 output formats.
+        This operation returns the information about the specified transcoding template group and the configurations of all the transcoding templates in the group.
         
 
         @param request: GetTranscodeTemplateGroupRequest
@@ -4194,26 +4333,7 @@ class Client(OpenApiClient):
 
     def get_transcode_template_group(self, request):
         """
-        Valid values for the definition of a common transcoding template:
-        *   **LD**: low definition.
-        *   **SD**: standard definition.
-        *   **HD**: high definition.
-        *   **FHD**: ultra high definition.
-        *   **OD**: original quality.
-        *   **2K**\
-        *   **4K**\
-        *   **SQ**: standard sound quality.
-        *   **HQ**: high sound quality.
-        Valid values for the definition of a Narrowband HD™ 1.0 transcoding template:
-        *   **LD-NBV1**: low definition.
-        *   **SD-NBV1**: standard definition.
-        *   **HD-NBV1**: high definition.
-        *   **FHD-NBV1**: ultra high definition.
-        *   **2K-NBV1**\
-        *   **4K-NBV1**\
-        >*   You cannot modify the definition of transcoding templates.
-        >*   You cannot modify the system parameters, such as the video resolution, audio resolution, and bitrate, of Narrowband HD™ 1.0 transcoding templates.
-        >*   You can create only Narrowband HD™ 1.0 transcoding templates that support the FLV, M3U8 (HLS), and MP4 output formats.
+        This operation returns the information about the specified transcoding template group and the configurations of all the transcoding templates in the group.
         
 
         @param request: GetTranscodeTemplateGroupRequest
@@ -4225,7 +4345,8 @@ class Client(OpenApiClient):
 
     def get_urlupload_infos_with_options(self, request, runtime):
         """
-        The size of the uploaded media file. Unit: byte.
+        You can query the information about a URL-based upload job by specifying the upload URL or using the job ID returned when you upload media files. The information includes the status of the upload job, custom configurations, the time when the job was created, and the time when the job was complete.
+        If the upload fails, you can view the error code and error message. If the upload is successful, you can obtain the video ID.
         
 
         @param request: GetURLUploadInfosRequest
@@ -4261,7 +4382,8 @@ class Client(OpenApiClient):
 
     def get_urlupload_infos(self, request):
         """
-        The size of the uploaded media file. Unit: byte.
+        You can query the information about a URL-based upload job by specifying the upload URL or using the job ID returned when you upload media files. The information includes the status of the upload job, custom configurations, the time when the job was created, and the time when the job was complete.
+        If the upload fails, you can view the error code and error message. If the upload is successful, you can obtain the video ID.
         
 
         @param request: GetURLUploadInfosRequest
@@ -4273,7 +4395,15 @@ class Client(OpenApiClient):
 
     def get_upload_details_with_options(self, request, runtime):
         """
-        The type of the media file. Set the value to *video**, which indicates audio and video files.
+        You can call this operation to obtain the upload details only about audio and video files.
+        *   If you use the ApsaraVideo VOD console to upload audio and video files, you can call this operation to query information such as the upload ratio. If you use an upload SDK to upload audio and video files, make sure that the version of the [upload SDK](~~52200~~) meets one of the following requirements:
+        *   The version of the upload SDK for Java is 1.4.4 or later.
+        *   The version of the upload SDK for C++ is 1.0.0 or later.
+        *   The version of the upload SDK for PHP is 1.0.2 or later.
+        *   The version of the upload SDK for Python is 1.3.0 or later.
+        *   The version of the upload SDK for JavaScript is 1.4.0 or later.
+        *   The version of the upload SDK for Android is 1.5.0 or later.
+        *   The version of the upload SDK for iOS is 1.5.0 or later.
         
 
         @param request: GetUploadDetailsRequest
@@ -4309,7 +4439,15 @@ class Client(OpenApiClient):
 
     def get_upload_details(self, request):
         """
-        The type of the media file. Set the value to *video**, which indicates audio and video files.
+        You can call this operation to obtain the upload details only about audio and video files.
+        *   If you use the ApsaraVideo VOD console to upload audio and video files, you can call this operation to query information such as the upload ratio. If you use an upload SDK to upload audio and video files, make sure that the version of the [upload SDK](~~52200~~) meets one of the following requirements:
+        *   The version of the upload SDK for Java is 1.4.4 or later.
+        *   The version of the upload SDK for C++ is 1.0.0 or later.
+        *   The version of the upload SDK for PHP is 1.0.2 or later.
+        *   The version of the upload SDK for Python is 1.3.0 or later.
+        *   The version of the upload SDK for JavaScript is 1.4.0 or later.
+        *   The version of the upload SDK for Android is 1.5.0 or later.
+        *   The version of the upload SDK for iOS is 1.5.0 or later.
         
 
         @param request: GetUploadDetailsRequest
@@ -4322,6 +4460,7 @@ class Client(OpenApiClient):
     def get_video_info_with_options(self, request, runtime):
         """
         The video snapshot URLs.
+        > This operation returns only data about the snapshots that are captured when you upload a video. The snapshot data includes data of the thumbnail and snapshot data that is generated based on the workflow setting. To query the snapshot data that is generated after the video is uploaded, call the [ListSnapshots](~~ListSnapshots~~) operation. For more information, see [Video snapshots](~~99368~~).
         
 
         @param request: GetVideoInfoRequest
@@ -4356,6 +4495,7 @@ class Client(OpenApiClient):
     def get_video_info(self, request):
         """
         The video snapshot URLs.
+        > This operation returns only data about the snapshots that are captured when you upload a video. The snapshot data includes data of the thumbnail and snapshot data that is generated based on the workflow setting. To query the snapshot data that is generated after the video is uploaded, call the [ListSnapshots](~~ListSnapshots~~) operation. For more information, see [Video snapshots](~~99368~~).
         
 
         @param request: GetVideoInfoRequest
@@ -4367,7 +4507,7 @@ class Client(OpenApiClient):
 
     def get_video_infos_with_options(self, request, runtime):
         """
-        The duration of the video. Unit: seconds.
+        You can call this operation to obtain the basic information about multiple videos at a time based on video IDs. The basic information includes the title, description, duration, thumbnail URL, status, creation time, size, snapshots, category, and tags of each video.
         
 
         @param request: GetVideoInfosRequest
@@ -4401,7 +4541,7 @@ class Client(OpenApiClient):
 
     def get_video_infos(self, request):
         """
-        The duration of the video. Unit: seconds.
+        You can call this operation to obtain the basic information about multiple videos at a time based on video IDs. The basic information includes the title, description, duration, thumbnail URL, status, creation time, size, snapshots, category, and tags of each video.
         
 
         @param request: GetVideoInfosRequest
@@ -4473,7 +4613,11 @@ class Client(OpenApiClient):
 
     def get_video_play_auth_with_options(self, request, runtime):
         """
-        The thumbnail URL of the audio or video file.
+        ###
+        *   You can call this operation to obtain a playback credential when you use ApsaraVideo Player SDK to play a media file based on PlayAuth. The credential is used to obtain the playback URL.
+        *   You cannot obtain the playback URL of a video by using a credential that has expired. A new credential is required.
+        ### QPS limit
+        You can call this operation up to 360 times per second per account. Requests that exceed this limit are dropped and you will experience service interruptions. We recommend that you take note of this limit when you call this operation. For more information, see [QPS limit on API operations](~~342790~~).
         
 
         @param request: GetVideoPlayAuthRequest
@@ -4511,7 +4655,11 @@ class Client(OpenApiClient):
 
     def get_video_play_auth(self, request):
         """
-        The thumbnail URL of the audio or video file.
+        ###
+        *   You can call this operation to obtain a playback credential when you use ApsaraVideo Player SDK to play a media file based on PlayAuth. The credential is used to obtain the playback URL.
+        *   You cannot obtain the playback URL of a video by using a credential that has expired. A new credential is required.
+        ### QPS limit
+        You can call this operation up to 360 times per second per account. Requests that exceed this limit are dropped and you will experience service interruptions. We recommend that you take note of this limit when you call this operation. For more information, see [QPS limit on API operations](~~342790~~).
         
 
         @param request: GetVideoPlayAuthRequest
@@ -4633,7 +4781,7 @@ class Client(OpenApiClient):
 
     def list_aijob_with_options(self, request, runtime):
         """
-        The IDs of the jobs that do not exist.
+        You can call this operation to query video fingerprinting jobs and smart tagging jobs.
         
 
         @param request: ListAIJobRequest
@@ -4675,7 +4823,7 @@ class Client(OpenApiClient):
 
     def list_aijob(self, request):
         """
-        The IDs of the jobs that do not exist.
+        You can call this operation to query video fingerprinting jobs and smart tagging jobs.
         
 
         @param request: ListAIJobRequest
@@ -4687,7 +4835,9 @@ class Client(OpenApiClient):
 
     def list_aitemplate_with_options(self, request, runtime):
         """
-        The returned result.
+        You can call this operation to query AI templates of a specified type.
+        ### QPS limit
+        You can call this operation up to five times per second per account. Requests that exceed this limit are dropped and you will experience service interruptions. We recommend that you take note of this limit when you call this operation. For more information, see [QPS limit on API operations](~~342790~~).
         
 
         @param request: ListAITemplateRequest
@@ -4721,7 +4871,9 @@ class Client(OpenApiClient):
 
     def list_aitemplate(self, request):
         """
-        The returned result.
+        You can call this operation to query AI templates of a specified type.
+        ### QPS limit
+        You can call this operation up to five times per second per account. Requests that exceed this limit are dropped and you will experience service interruptions. We recommend that you take note of this limit when you call this operation. For more information, see [QPS limit on API operations](~~342790~~).
         
 
         @param request: ListAITemplateRequest
@@ -4733,7 +4885,7 @@ class Client(OpenApiClient):
 
     def list_app_info_with_options(self, request, runtime):
         """
-        The description of the application.
+        Supports filtering queries by application status.
         
 
         @param request: ListAppInfoRequest
@@ -4771,7 +4923,7 @@ class Client(OpenApiClient):
 
     def list_app_info(self, request):
         """
-        The description of the application.
+        Supports filtering queries by application status.
         
 
         @param request: ListAppInfoRequest
@@ -4783,9 +4935,7 @@ class Client(OpenApiClient):
 
     def list_app_policies_for_identity_with_options(self, request, runtime):
         """
-        The name of the identity.
-        *   Specifies the ID of the RAM user when the IdentityType parameter is set to RamUser.
-        *   Specifies the name of the RAM role when the IdentityType parameter is set to RamRole.
+        > The IdentityType and IdentityName parameters take effect only when an identity assumes the application administrator role to call this operation. Otherwise, only application policies that are attached to the current identity are returned.
         
 
         @param request: ListAppPoliciesForIdentityRequest
@@ -4823,9 +4973,7 @@ class Client(OpenApiClient):
 
     def list_app_policies_for_identity(self, request):
         """
-        The name of the identity.
-        *   Specifies the ID of the RAM user when the IdentityType parameter is set to RamUser.
-        *   Specifies the name of the RAM role when the IdentityType parameter is set to RamRole.
+        > The IdentityType and IdentityName parameters take effect only when an identity assumes the application administrator role to call this operation. Otherwise, only application policies that are attached to the current identity are returned.
         
 
         @param request: ListAppPoliciesForIdentityRequest
@@ -4893,7 +5041,7 @@ class Client(OpenApiClient):
 
     def list_live_record_video_with_options(self, request, runtime):
         """
-        The ID of the video category.
+        You can query a maximum of 5,000 videos based on the specified filter condition.
         
 
         @param request: ListLiveRecordVideoRequest
@@ -4941,7 +5089,7 @@ class Client(OpenApiClient):
 
     def list_live_record_video(self, request):
         """
-        The ID of the video category.
+        You can query a maximum of 5,000 videos based on the specified filter condition.
         
 
         @param request: ListLiveRecordVideoRequest
@@ -4953,12 +5101,7 @@ class Client(OpenApiClient):
 
     def list_snapshots_with_options(self, request, runtime):
         """
-        The type of snapshots that are returned. Valid values:
-        *   **CoverSnapshot**: thumbnail snapshot
-        *   **NormalSnapshot**: normal snapshot
-        *   **SpriteSnapshot**: sprite snapshot
-        *   **SpriteOriginSnapshot**: sprite source snapshot
-        *   **WebVttSnapshot**: WebVTT snapshot
+        If multiple snapshots of a video exist, the data of the latest snapshot is returned.
         
 
         @param request: ListSnapshotsRequest
@@ -5000,12 +5143,7 @@ class Client(OpenApiClient):
 
     def list_snapshots(self, request):
         """
-        The type of snapshots that are returned. Valid values:
-        *   **CoverSnapshot**: thumbnail snapshot
-        *   **NormalSnapshot**: normal snapshot
-        *   **SpriteSnapshot**: sprite snapshot
-        *   **SpriteOriginSnapshot**: sprite source snapshot
-        *   **WebVttSnapshot**: WebVTT snapshot
+        If multiple snapshots of a video exist, the data of the latest snapshot is returned.
         
 
         @param request: ListSnapshotsRequest
@@ -5017,7 +5155,8 @@ class Client(OpenApiClient):
 
     def list_transcode_task_with_options(self, request, runtime):
         """
-        The time when the transcoding task was created. The time follows the ISO 8601 standard in the yyyy-MM-dd*T*HH:mm:ss*Z format. The time is displayed in UTC.
+        You can call the [GetTranscodeTask](~~109121~~) operation to query details about transcoding jobs.
+        *   **You can call this operation to query only transcoding tasks created within the past year.**\
         
 
         @param request: ListTranscodeTaskRequest
@@ -5059,7 +5198,8 @@ class Client(OpenApiClient):
 
     def list_transcode_task(self, request):
         """
-        The time when the transcoding task was created. The time follows the ISO 8601 standard in the yyyy-MM-dd*T*HH:mm:ss*Z format. The time is displayed in UTC.
+        You can call the [GetTranscodeTask](~~109121~~) operation to query details about transcoding jobs.
+        *   **You can call this operation to query only transcoding tasks created within the past year.**\
         
 
         @param request: ListTranscodeTaskRequest
@@ -5071,7 +5211,7 @@ class Client(OpenApiClient):
 
     def list_transcode_template_group_with_options(self, request, runtime):
         """
-        The ID of the application. Default value: *app-1000000**. For more information, see [Overview](~~113600~~).
+        > This operation does not return the configurations of transcoding templates in each transcoding template group. To query the configurations of transcoding templates in a specific transcoding template group, call the [GetTranscodeTemplateGroup](~~102670~~) operation.
         
 
         @param request: ListTranscodeTemplateGroupRequest
@@ -5105,7 +5245,7 @@ class Client(OpenApiClient):
 
     def list_transcode_template_group(self, request):
         """
-        The ID of the application. Default value: *app-1000000**. For more information, see [Overview](~~113600~~).
+        > This operation does not return the configurations of transcoding templates in each transcoding template group. To query the configurations of transcoding templates in a specific transcoding template group, call the [GetTranscodeTemplateGroup](~~102670~~) operation.
         
 
         @param request: ListTranscodeTemplateGroupRequest
@@ -5207,7 +5347,9 @@ class Client(OpenApiClient):
 
     def preload_vod_object_caches_with_options(self, request, runtime):
         """
-        The operation that you want to perform. Set the value to *PreloadVodObjectCaches**.
+        >    This operation is available only in the **China (Shanghai)** region.
+        > *   You can submit a maximum of 500 requests to prefetch resources based on URLs each day by using an Alibaba Cloud account. You cannot prefetch resources based on directories.
+        > *   You can call the [RefreshVodObjectCaches](~~69215~~) operation to refresh content and the [PreloadVodObjectCaches](~~69211~~l) operation to prefetch content.
         
 
         @param request: PreloadVodObjectCachesRequest
@@ -5245,7 +5387,9 @@ class Client(OpenApiClient):
 
     def preload_vod_object_caches(self, request):
         """
-        The operation that you want to perform. Set the value to *PreloadVodObjectCaches**.
+        >    This operation is available only in the **China (Shanghai)** region.
+        > *   You can submit a maximum of 500 requests to prefetch resources based on URLs each day by using an Alibaba Cloud account. You cannot prefetch resources based on directories.
+        > *   You can call the [RefreshVodObjectCaches](~~69215~~) operation to refresh content and the [PreloadVodObjectCaches](~~69211~~l) operation to prefetch content.
         
 
         @param request: PreloadVodObjectCachesRequest
@@ -5257,7 +5401,14 @@ class Client(OpenApiClient):
 
     def produce_editing_project_video_with_options(self, request, runtime):
         """
-        The title of the online editing project.
+        This operation returns only the submission result of a video production task. When the submission result is returned, video production may still be in progress. After a video production task is submitted, the task is queued in the background for asynchronous processing.
+        *   The mezzanine files that are referenced in the timeline of an online editing project can be materials from media assets or videos in the media library.
+        *   Videos are produced based on the ProjectId and Timeline parameters. Take note of the following items when you specify the parameters:
+        *   You must specify at least one of the ProjectId and Timeline parameters. Otherwise, video production fails.
+        *   If you specify only the Timeline parameter, the system automatically creates an online editing project with the specified timeline. Then, the system obtains the mezzanine files that are referenced in the timeline and produces a video from the mezzanine files.
+        *   If you specify only the ProjectId parameter, the system obtains the latest timeline of the specified project and produces a video based on the timeline.
+        *   If you specify both the ProjectId and Timeline parameters, the system produces a video based on the specified timeline and updates the timeline and mezzanine files for the specified online editing project. If you specify other parameters, the system also updates related settings for the online editing project.
+        *   You can apply effects to the video to be produced. For more information, see [Special effects](~~69082~~).
         
 
         @param request: ProduceEditingProjectVideoRequest
@@ -5311,7 +5462,14 @@ class Client(OpenApiClient):
 
     def produce_editing_project_video(self, request):
         """
-        The title of the online editing project.
+        This operation returns only the submission result of a video production task. When the submission result is returned, video production may still be in progress. After a video production task is submitted, the task is queued in the background for asynchronous processing.
+        *   The mezzanine files that are referenced in the timeline of an online editing project can be materials from media assets or videos in the media library.
+        *   Videos are produced based on the ProjectId and Timeline parameters. Take note of the following items when you specify the parameters:
+        *   You must specify at least one of the ProjectId and Timeline parameters. Otherwise, video production fails.
+        *   If you specify only the Timeline parameter, the system automatically creates an online editing project with the specified timeline. Then, the system obtains the mezzanine files that are referenced in the timeline and produces a video from the mezzanine files.
+        *   If you specify only the ProjectId parameter, the system obtains the latest timeline of the specified project and produces a video based on the timeline.
+        *   If you specify both the ProjectId and Timeline parameters, the system produces a video based on the specified timeline and updates the timeline and mezzanine files for the specified online editing project. If you specify other parameters, the system also updates related settings for the online editing project.
+        *   You can apply effects to the video to be produced. For more information, see [Special effects](~~69082~~).
         
 
         @param request: ProduceEditingProjectVideoRequest
@@ -5323,13 +5481,11 @@ class Client(OpenApiClient):
 
     def refresh_media_play_urls_with_options(self, request, runtime):
         """
-        The formats of the media streams you want to refresh or prefetch. You can specify multiple formats. Separate multiple formats with commas (,). If you leave this parameter empty, media streams in all formats are refreshed or prefetched by default. Valid values:
-        *   **mp4**\
-        *   **m3u8**\
-        *   **mp3**\
-        *   **flv**\
-        *   **webm**\
-        *   **ts**\
+        - ApsaraVideo VOD allows you to refresh and prefetch resources. The refresh feature forces the point of presence (POP) to clear cached resources and retrieve the latest resources from origin servers. The prefetch feature allows the POP to retrieve frequently accessed resources from origin servers during off-peak hours. This increases the cache hit ratio.
+        - You can call this operation to submit refresh or prefetch tasks based on the media ID. You can also specify the format and resolution of the media streams to refresh or prefetch based on your business requirements.
+        - You can submit a maximum of 20 refresh or prefetch tasks at a time.
+        ### QPS limits
+        You can call this operation up to 50 times per second per account. Requests that exceed this limit are dropped and you will experience service interruptions. We recommend that you take note of this limit when you call this operation. For more information, see [QPS limits on API operations in ApsaraVideo VoD](~~342790~~).
         
 
         @param request: RefreshMediaPlayUrlsRequest
@@ -5379,13 +5535,11 @@ class Client(OpenApiClient):
 
     def refresh_media_play_urls(self, request):
         """
-        The formats of the media streams you want to refresh or prefetch. You can specify multiple formats. Separate multiple formats with commas (,). If you leave this parameter empty, media streams in all formats are refreshed or prefetched by default. Valid values:
-        *   **mp4**\
-        *   **m3u8**\
-        *   **mp3**\
-        *   **flv**\
-        *   **webm**\
-        *   **ts**\
+        - ApsaraVideo VOD allows you to refresh and prefetch resources. The refresh feature forces the point of presence (POP) to clear cached resources and retrieve the latest resources from origin servers. The prefetch feature allows the POP to retrieve frequently accessed resources from origin servers during off-peak hours. This increases the cache hit ratio.
+        - You can call this operation to submit refresh or prefetch tasks based on the media ID. You can also specify the format and resolution of the media streams to refresh or prefetch based on your business requirements.
+        - You can submit a maximum of 20 refresh or prefetch tasks at a time.
+        ### QPS limits
+        You can call this operation up to 50 times per second per account. Requests that exceed this limit are dropped and you will experience service interruptions. We recommend that you take note of this limit when you call this operation. For more information, see [QPS limits on API operations in ApsaraVideo VoD](~~342790~~).
         
 
         @param request: RefreshMediaPlayUrlsRequest
@@ -5397,8 +5551,7 @@ class Client(OpenApiClient):
 
     def refresh_upload_video_with_options(self, request, runtime):
         """
-        The upload credential.
-        > The upload credential returned by this operation is Base64-encoded. Before you can use an SDK or an API operation to upload a media asset based on the upload credential, you must decode the upload credential by using the Base64 algorithm. You must parse the upload credential only if you use native OSS SDKs or OSS API for uploads.
+        If you want to overwrite a video or audio source file, you can obtain the upload URL of the source file by calling this operation. Then, you can upload a new source file without changing the video or audio ID. However, the file overwriting may automatically trigger transcoding and snapshot jobs if these jobs are configured. For more information, see [Upload URLs and credentials](~~55397~~).
         
 
         @param request: RefreshUploadVideoRequest
@@ -5438,8 +5591,7 @@ class Client(OpenApiClient):
 
     def refresh_upload_video(self, request):
         """
-        The upload credential.
-        > The upload credential returned by this operation is Base64-encoded. Before you can use an SDK or an API operation to upload a media asset based on the upload credential, you must decode the upload credential by using the Base64 algorithm. You must parse the upload credential only if you use native OSS SDKs or OSS API for uploads.
+        If you want to overwrite a video or audio source file, you can obtain the upload URL of the source file by calling this operation. Then, you can upload a new source file without changing the video or audio ID. However, the file overwriting may automatically trigger transcoding and snapshot jobs if these jobs are configured. For more information, see [Upload URLs and credentials](~~55397~~).
         
 
         @param request: RefreshUploadVideoRequest
@@ -5451,7 +5603,9 @@ class Client(OpenApiClient):
 
     def refresh_vod_object_caches_with_options(self, request, runtime):
         """
-        The ID of the refresh task. Separate multiple task IDs with commas (,).
+        >    This operation is available only in the **China (Shanghai)** region.
+        > *   You can submit a maximum of 2,000 requests to refresh resources based on URLs and 100 requests to refresh resources based on directories each day by using an Alibaba Cloud account.
+        > *   You can call the [RefreshVodObjectCaches](~~69215~~) operation to refresh content and the [PreloadVodObjectCaches](~~69211~~) operation to prefetch content.
         
 
         @param request: RefreshVodObjectCachesRequest
@@ -5491,7 +5645,9 @@ class Client(OpenApiClient):
 
     def refresh_vod_object_caches(self, request):
         """
-        The ID of the refresh task. Separate multiple task IDs with commas (,).
+        >    This operation is available only in the **China (Shanghai)** region.
+        > *   You can submit a maximum of 2,000 requests to refresh resources based on URLs and 100 requests to refresh resources based on directories each day by using an Alibaba Cloud account.
+        > *   You can call the [RefreshVodObjectCaches](~~69215~~) operation to refresh content and the [PreloadVodObjectCaches](~~69211~~) operation to prefetch content.
         
 
         @param request: RefreshVodObjectCachesRequest
@@ -5503,7 +5659,10 @@ class Client(OpenApiClient):
 
     def register_media_with_options(self, request, runtime):
         """
-        The media files that are registered, including newly registered and repeatedly registered media files.
+        After you store an audio or video file in an Object Storage Service (OSS) bucket that is used for ApsaraVideo VOD, you can call the RegisterMedia operation to register the media file. After the media file is registered, you can use the media ID associated with the media file to submit transcoding jobs and snapshot jobs in ApsaraVideo VOD. For more information, see [SubmitTranscodeJobs](~~68570~~) and [SubmitSnapshotJob](~~72213~~).
+        > *   You can register up to 10 OSS media files that have the same storage location at a time.
+        > *   If you use the ApsaraVideo VOD console to upload a media file and do not specify a transcoding template group ID, ApsaraVideo VOD uses the default transcoding template group to transcode the media file. However, if you do not specify a transcoding template group ID when you call the RegisterMedia operation, ApsaraVideo VOD does not automatically transcode the media file after the media file is registered. If you specify a transcoding template group ID, ApsaraVideo VOD uses the specified transcoding template group to transcode the media file.
+        > *   If the media file that you want to register is registered before, this operation returns only the unique media ID that is associated with the media file. No further processing is performed.
         
 
         @param request: RegisterMediaRequest
@@ -5543,7 +5702,10 @@ class Client(OpenApiClient):
 
     def register_media(self, request):
         """
-        The media files that are registered, including newly registered and repeatedly registered media files.
+        After you store an audio or video file in an Object Storage Service (OSS) bucket that is used for ApsaraVideo VOD, you can call the RegisterMedia operation to register the media file. After the media file is registered, you can use the media ID associated with the media file to submit transcoding jobs and snapshot jobs in ApsaraVideo VOD. For more information, see [SubmitTranscodeJobs](~~68570~~) and [SubmitSnapshotJob](~~72213~~).
+        > *   You can register up to 10 OSS media files that have the same storage location at a time.
+        > *   If you use the ApsaraVideo VOD console to upload a media file and do not specify a transcoding template group ID, ApsaraVideo VOD uses the default transcoding template group to transcode the media file. However, if you do not specify a transcoding template group ID when you call the RegisterMedia operation, ApsaraVideo VOD does not automatically transcode the media file after the media file is registered. If you specify a transcoding template group ID, ApsaraVideo VOD uses the specified transcoding template group to transcode the media file.
+        > *   If the media file that you want to register is registered before, this operation returns only the unique media ID that is associated with the media file. No further processing is performed.
         
 
         @param request: RegisterMediaRequest
@@ -5554,6 +5716,16 @@ class Client(OpenApiClient):
         return self.register_media_with_options(request, runtime)
 
     def restore_media_with_options(self, request, runtime):
+        """
+        You can call this operation to restore only Archive and Cold Archive media assets. You need to send a callback notification to the user after media assets are restored. You cannot restore or process media assets that are being restored.
+        
+
+        @param request: RestoreMediaRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RestoreMediaResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.media_ids):
@@ -5584,6 +5756,14 @@ class Client(OpenApiClient):
         )
 
     def restore_media(self, request):
+        """
+        You can call this operation to restore only Archive and Cold Archive media assets. You need to send a callback notification to the user after media assets are restored. You cannot restore or process media assets that are being restored.
+        
+
+        @param request: RestoreMediaRequest
+
+        @return: RestoreMediaResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.restore_media_with_options(request, runtime)
 
@@ -5637,7 +5817,12 @@ class Client(OpenApiClient):
 
     def search_media_with_options(self, request, runtime):
         """
-        The ID of the parent category.
+        The maximum number of data records that you can query is limited based on the method used to query the data. You can use the following methods to query data:
+        *   Method 1: You must use the PageNo and PageSize parameters for the first 5,000 data records that meet the specified filter criteria. This allows you to traverse data page by page. If the number of data records that meet the specified filter criteria exceeds 5,000, use Method 2.
+        *   Method 2: This method applies only to the data of video and audio files. To traverse all the data records that meet the specified filter criteria, you must set the PageNo, PageSize, and ScrollToken parameters to traverse data page by page. The total number of data records from the current page to the desired page cannot exceed 1,200. Assume that the PageSize parameter is set to **20**:
+        *   When the PageNo parameter is set to **1**, you can scroll forward to traverse data records from page 1 to page **60** at most.
+        *   When the PageNo parameter is set to **2**, you can scroll forward to traverse data records from page 2 to page **61** at most.
+        *   When the PageNo parameter is set to **61**, you can scroll backward to traverse data records from page 61 to page **2** at most or scroll forward to traverse data records from page 61 to page **120** at most.
         
 
         @param request: SearchMediaRequest
@@ -5683,7 +5868,12 @@ class Client(OpenApiClient):
 
     def search_media(self, request):
         """
-        The ID of the parent category.
+        The maximum number of data records that you can query is limited based on the method used to query the data. You can use the following methods to query data:
+        *   Method 1: You must use the PageNo and PageSize parameters for the first 5,000 data records that meet the specified filter criteria. This allows you to traverse data page by page. If the number of data records that meet the specified filter criteria exceeds 5,000, use Method 2.
+        *   Method 2: This method applies only to the data of video and audio files. To traverse all the data records that meet the specified filter criteria, you must set the PageNo, PageSize, and ScrollToken parameters to traverse data page by page. The total number of data records from the current page to the desired page cannot exceed 1,200. Assume that the PageSize parameter is set to **20**:
+        *   When the PageNo parameter is set to **1**, you can scroll forward to traverse data records from page 1 to page **60** at most.
+        *   When the PageNo parameter is set to **2**, you can scroll forward to traverse data records from page 2 to page **61** at most.
+        *   When the PageNo parameter is set to **61**, you can scroll backward to traverse data records from page 61 to page **2** at most or scroll forward to traverse data records from page 61 to page **120** at most.
         
 
         @param request: SearchMediaRequest
@@ -5695,7 +5885,7 @@ class Client(OpenApiClient):
 
     def set_audit_security_ip_with_options(self, request, runtime):
         """
-        The name of the review security group. Default value: *Default**. You can specify a maximum of 10 review security groups.
+        > You can play videos in the Checking or Blocked state only from the IP addresses that are added to review security groups.
         
 
         @param request: SetAuditSecurityIpRequest
@@ -5733,7 +5923,7 @@ class Client(OpenApiClient):
 
     def set_audit_security_ip(self, request):
         """
-        The name of the review security group. Default value: *Default**. You can specify a maximum of 10 review security groups.
+        > You can play videos in the Checking or Blocked state only from the IP addresses that are added to review security groups.
         
 
         @param request: SetAuditSecurityIpRequest
@@ -5745,7 +5935,7 @@ class Client(OpenApiClient):
 
     def set_crossdomain_content_with_options(self, request, runtime):
         """
-        The ID of the request.
+        > After you use the cross-domain policy file to update the resources on the origin server, you must refresh the resources that are cached on Alibaba Cloud CDN nodes. You can use the ApsaraVideo VOD console to refresh resources. For more information, see [Refresh and prefetch](~~86098~~). Alternatively, you can call the [RefreshVodObjectCaches](~~69215~~) operation to refresh resources.
         
 
         @param request: SetCrossdomainContentRequest
@@ -5791,7 +5981,7 @@ class Client(OpenApiClient):
 
     def set_crossdomain_content(self, request):
         """
-        The ID of the request.
+        > After you use the cross-domain policy file to update the resources on the origin server, you must refresh the resources that are cached on Alibaba Cloud CDN nodes. You can use the ApsaraVideo VOD console to refresh resources. For more information, see [Refresh and prefetch](~~86098~~). Alternatively, you can call the [RefreshVodObjectCaches](~~69215~~) operation to refresh resources.
         
 
         @param request: SetCrossdomainContentRequest
@@ -5803,7 +5993,7 @@ class Client(OpenApiClient):
 
     def set_default_aitemplate_with_options(self, request, runtime):
         """
-        The ID of the request.
+        Before you can call this operation to specify an AI template as the default template, you must obtain the ID of the AI template. You cannot delete an AI template after you specify it as the default template.
         
 
         @param request: SetDefaultAITemplateRequest
@@ -5837,7 +6027,7 @@ class Client(OpenApiClient):
 
     def set_default_aitemplate(self, request):
         """
-        The ID of the request.
+        Before you can call this operation to specify an AI template as the default template, you must obtain the ID of the AI template. You cannot delete an AI template after you specify it as the default template.
         
 
         @param request: SetDefaultAITemplateRequest
@@ -5943,7 +6133,8 @@ class Client(OpenApiClient):
 
     def set_message_callback_with_options(self, request, runtime):
         """
-        The ID of the application. If you do not set this parameter, the default value *app-1000000** is used.
+        ## Usage note
+        ApsaraVideo VOD supports the HTTP and MNS callback methods. For more information, see [Event notification](~~55627~~).
         
 
         @param request: SetMessageCallbackRequest
@@ -5993,7 +6184,8 @@ class Client(OpenApiClient):
 
     def set_message_callback(self, request):
         """
-        The ID of the application. If you do not set this parameter, the default value *app-1000000** is used.
+        ## Usage note
+        ApsaraVideo VOD supports the HTTP and MNS callback methods. For more information, see [Event notification](~~55627~~).
         
 
         @param request: SetMessageCallbackRequest
@@ -6103,7 +6295,11 @@ class Client(OpenApiClient):
 
     def submit_aiimage_job_with_options(self, request, runtime):
         """
-        The returned data.
+        After you call this operation, you can call the [GetAIImageJobs](~~GetAIImageJobs~~) operation to query the AI processing result of the job.
+        - The smart thumbnail feature is not supported. You cannot call this operation.
+        - After you call this operation, you can call the [GetAIImageJobs](~~GetAIImageJobs~~) operation to query the job execution result.
+        ### QPS limit
+        You can call this operation up to 30 times per second per account. Requests that exceed this limit are dropped and you will experience service interruptions. We recommend that you take note of this limit when you call this operation. For more information, see [QPS limits on API operations in ApsaraVideo VoD](~~342790~~).
         
 
         @param request: SubmitAIImageJobRequest
@@ -6151,7 +6347,11 @@ class Client(OpenApiClient):
 
     def submit_aiimage_job(self, request):
         """
-        The returned data.
+        After you call this operation, you can call the [GetAIImageJobs](~~GetAIImageJobs~~) operation to query the AI processing result of the job.
+        - The smart thumbnail feature is not supported. You cannot call this operation.
+        - After you call this operation, you can call the [GetAIImageJobs](~~GetAIImageJobs~~) operation to query the job execution result.
+        ### QPS limit
+        You can call this operation up to 30 times per second per account. Requests that exceed this limit are dropped and you will experience service interruptions. We recommend that you take note of this limit when you call this operation. For more information, see [QPS limits on API operations in ApsaraVideo VoD](~~342790~~).
         
 
         @param request: SubmitAIImageJobRequest
@@ -6163,7 +6363,11 @@ class Client(OpenApiClient):
 
     def submit_aijob_with_options(self, request, runtime):
         """
-        The returned data.
+        AI jobs include smart tagging jobs and video fingerprinting jobs. You must activate the AI service before you call this operation to submit AI jobs.
+        *   If this is the first time you use the video fingerprinting feature, you must submit a ticket to apply for using the media fingerprint library for free. Otherwise, the video fingerprinting feature will be affected.
+        *   After you submit an AI job, ApsaraVideo VOD asynchronously processes the job. The operation may return a response before the job is complete.
+        ### QPS limits
+        You can call this operation up to 30 times per second per account. Requests that exceed this limit are dropped and you will experience service interruptions. We recommend that you take note of this limit when you call this operation. For more information, see [QPS limits on API operations in ApsaraVideo VoD](~~342790~~).
         
 
         @param request: SubmitAIJobRequest
@@ -6211,7 +6415,11 @@ class Client(OpenApiClient):
 
     def submit_aijob(self, request):
         """
-        The returned data.
+        AI jobs include smart tagging jobs and video fingerprinting jobs. You must activate the AI service before you call this operation to submit AI jobs.
+        *   If this is the first time you use the video fingerprinting feature, you must submit a ticket to apply for using the media fingerprint library for free. Otherwise, the video fingerprinting feature will be affected.
+        *   After you submit an AI job, ApsaraVideo VOD asynchronously processes the job. The operation may return a response before the job is complete.
+        ### QPS limits
+        You can call this operation up to 30 times per second per account. Requests that exceed this limit are dropped and you will experience service interruptions. We recommend that you take note of this limit when you call this operation. For more information, see [QPS limits on API operations in ApsaraVideo VoD](~~342790~~).
         
 
         @param request: SubmitAIJobRequest
@@ -6259,7 +6467,10 @@ class Client(OpenApiClient):
 
     def submit_dynamic_image_job_with_options(self, request, runtime):
         """
-        The ID of the video.
+        You can capture a part of a video and generate animated images only when the video is in the **Uploaded**, **Transcoding**, **Normal**, **Reviewing**, or **Flagged** state.
+        *   The fees for frame animation are included in your video transcoding bill. You are charged based on the output resolution and the duration. For more information, see [Billing of basic services](~~188308~~).
+        ### QPS limits
+        You can call this operation up to 30 times per second per account. Requests that exceed this limit are dropped and you will experience service interruptions. We recommend that you take note of this limit when you call this operation. For more information, see [QPS limit on API operations](~~342790~~).
         
 
         @param request: SubmitDynamicImageJobRequest
@@ -6297,7 +6508,10 @@ class Client(OpenApiClient):
 
     def submit_dynamic_image_job(self, request):
         """
-        The ID of the video.
+        You can capture a part of a video and generate animated images only when the video is in the **Uploaded**, **Transcoding**, **Normal**, **Reviewing**, or **Flagged** state.
+        *   The fees for frame animation are included in your video transcoding bill. You are charged based on the output resolution and the duration. For more information, see [Billing of basic services](~~188308~~).
+        ### QPS limits
+        You can call this operation up to 30 times per second per account. Requests that exceed this limit are dropped and you will experience service interruptions. We recommend that you take note of this limit when you call this operation. For more information, see [QPS limit on API operations](~~342790~~).
         
 
         @param request: SubmitDynamicImageJobRequest
@@ -6309,7 +6523,9 @@ class Client(OpenApiClient):
 
     def submit_media_dnadelete_job_with_options(self, request, runtime):
         """
-        The ID of the request.
+        This operation is available only in the Singapore (Singapore) region.
+        ### QPS limit
+        You can call this operation up to 10 times per second per account. Requests that exceed this limit are dropped and you will experience service interruptions. We recommend that you take note of this limit when you call this operation. For more information, see QPS limit.
         
 
         @param request: SubmitMediaDNADeleteJobRequest
@@ -6351,7 +6567,9 @@ class Client(OpenApiClient):
 
     def submit_media_dnadelete_job(self, request):
         """
-        The ID of the request.
+        This operation is available only in the Singapore (Singapore) region.
+        ### QPS limit
+        You can call this operation up to 10 times per second per account. Requests that exceed this limit are dropped and you will experience service interruptions. We recommend that you take note of this limit when you call this operation. For more information, see QPS limit.
         
 
         @param request: SubmitMediaDNADeleteJobRequest
@@ -6363,7 +6581,8 @@ class Client(OpenApiClient):
 
     def submit_preprocess_jobs_with_options(self, request, runtime):
         """
-        The ID of the job.
+        During video preprocessing, videos are transcoded to meet the playback requirements of the production studio. Therefore, you are **charged** for video preprocessing. You can submit a ticket for information about the **production studio** service.
+        *   You can obtain the preprocessing result in the [TranscodeComplete](~~55638~~) event notification. If the value of the **Preprocess** parameter is true in the event notification, the video is preprocessed.
         
 
         @param request: SubmitPreprocessJobsRequest
@@ -6399,7 +6618,8 @@ class Client(OpenApiClient):
 
     def submit_preprocess_jobs(self, request):
         """
-        The ID of the job.
+        During video preprocessing, videos are transcoded to meet the playback requirements of the production studio. Therefore, you are **charged** for video preprocessing. You can submit a ticket for information about the **production studio** service.
+        *   You can obtain the preprocessing result in the [TranscodeComplete](~~55638~~) event notification. If the value of the **Preprocess** parameter is true in the event notification, the video is preprocessed.
         
 
         @param request: SubmitPreprocessJobsRequest
@@ -6411,10 +6631,8 @@ class Client(OpenApiClient):
 
     def submit_snapshot_job_with_options(self, request, runtime):
         """
-        The ID of the snapshot template.
-        *   We recommend that you create a snapshot template before you specify the ID of the snapshot template.
-        *   If you set the SnapshotTemplateId parameter, all the other request parameters except the Action and VideoId parameters are ignored.
-        *   For more information about how to create a snapshot template, see [AddVodTemplate](~~99406~~).
+        >    Only snapshots in the JPG format are generated.
+        > *   After a snapshot job is complete, ApsaraVideo VOD sends a [SnapshotComplete](~~57337~~) event notification that contains EventType=SnapshotComplete and SubType=SpecifiedTime.
         
 
         @param request: SubmitSnapshotJobRequest
@@ -6464,10 +6682,8 @@ class Client(OpenApiClient):
 
     def submit_snapshot_job(self, request):
         """
-        The ID of the snapshot template.
-        *   We recommend that you create a snapshot template before you specify the ID of the snapshot template.
-        *   If you set the SnapshotTemplateId parameter, all the other request parameters except the Action and VideoId parameters are ignored.
-        *   For more information about how to create a snapshot template, see [AddVodTemplate](~~99406~~).
+        >    Only snapshots in the JPG format are generated.
+        > *   After a snapshot job is complete, ApsaraVideo VOD sends a [SnapshotComplete](~~57337~~) event notification that contains EventType=SnapshotComplete and SubType=SpecifiedTime.
         
 
         @param request: SubmitSnapshotJobRequest
@@ -6479,7 +6695,9 @@ class Client(OpenApiClient):
 
     def submit_transcode_jobs_with_options(self, request, runtime):
         """
-        The ID of the transcoding template group used when the video is transcoded. To specify a transcoding template group, you can log on to the [ApsaraVideo VOD console](https://vod.console.aliyun.com/?spm=a2c4g.11186623.2.18.2f1a2267jCybwh#/vod/settings/transcode/vod) and view the ID of the transcoding template group on the Transcode page.
+        You can transcode a video only in the UploadSucc, Normal, or Checking state.
+        *   You can obtain the transcoding result in the [StreamTranscodeComplete](~~55636~~) or [TranscodeComplete](~~55638~~) event notification.
+        *   If you initiate an HTTP Live Streaming (HLS) packaging task, you can call this operation to dynamically override the subtitle. If the packaging task does not contain subtitles, we recommend that you do not call this operation to initiate the packaging task. Instead, you can specify the ID of the specific template group when you upload the video. The packaging process is automatically initiated.
         
 
         @param request: SubmitTranscodeJobsRequest
@@ -6525,7 +6743,9 @@ class Client(OpenApiClient):
 
     def submit_transcode_jobs(self, request):
         """
-        The ID of the transcoding template group used when the video is transcoded. To specify a transcoding template group, you can log on to the [ApsaraVideo VOD console](https://vod.console.aliyun.com/?spm=a2c4g.11186623.2.18.2f1a2267jCybwh#/vod/settings/transcode/vod) and view the ID of the transcoding template group on the Transcode page.
+        You can transcode a video only in the UploadSucc, Normal, or Checking state.
+        *   You can obtain the transcoding result in the [StreamTranscodeComplete](~~55636~~) or [TranscodeComplete](~~55638~~) event notification.
+        *   If you initiate an HTTP Live Streaming (HLS) packaging task, you can call this operation to dynamically override the subtitle. If the packaging task does not contain subtitles, we recommend that you do not call this operation to initiate the packaging task. Instead, you can specify the ID of the specific template group when you upload the video. The packaging process is automatically initiated.
         
 
         @param request: SubmitTranscodeJobsRequest
@@ -6567,7 +6787,9 @@ class Client(OpenApiClient):
 
     def update_aitemplate_with_options(self, request, runtime):
         """
-        The returned result.
+        After you call the [AddAITemplate](~~102930~~) to add an AI template, you can call this operation to modify the AI template.
+        ### QPS limit
+        You can call this operation up to five times per second per account. Requests that exceed this limit are dropped and you will experience service interruptions. We recommend that you take note of this limit when you call this operation. For more information, see [QPS limit on API operations](~~342790~~).
         
 
         @param request: UpdateAITemplateRequest
@@ -6605,7 +6827,9 @@ class Client(OpenApiClient):
 
     def update_aitemplate(self, request):
         """
-        The returned result.
+        After you call the [AddAITemplate](~~102930~~) to add an AI template, you can call this operation to modify the AI template.
+        ### QPS limit
+        You can call this operation up to five times per second per account. Requests that exceed this limit are dropped and you will experience service interruptions. We recommend that you take note of this limit when you call this operation. For more information, see [QPS limit on API operations](~~342790~~).
         
 
         @param request: UpdateAITemplateRequest
@@ -6617,7 +6841,8 @@ class Client(OpenApiClient):
 
     def update_app_info_with_options(self, request, runtime):
         """
-        The ID of the request.
+        ## QPS limit
+        A single user can perform a maximum of 30 queries per second (QPS). Throttling is triggered when the number of calls per second exceeds the QPS limit. The throttling may affect your business. Thus, we recommend that you observe the QPS limit on this operation.
         
 
         @param request: UpdateAppInfoRequest
@@ -6657,7 +6882,8 @@ class Client(OpenApiClient):
 
     def update_app_info(self, request):
         """
-        The ID of the request.
+        ## QPS limit
+        A single user can perform a maximum of 30 queries per second (QPS). Throttling is triggered when the number of calls per second exceeds the QPS limit. The throttling may affect your business. Thus, we recommend that you observe the QPS limit on this operation.
         
 
         @param request: UpdateAppInfoRequest
@@ -6669,7 +6895,7 @@ class Client(OpenApiClient):
 
     def update_attached_media_infos_with_options(self, request, runtime):
         """
-        The ID of the request.
+        The specific parameter of an auxiliary media asset is updated only when a new value is passed in the parameter.
         
 
         @param request: UpdateAttachedMediaInfosRequest
@@ -6703,7 +6929,7 @@ class Client(OpenApiClient):
 
     def update_attached_media_infos(self, request):
         """
-        The ID of the request.
+        The specific parameter of an auxiliary media asset is updated only when a new value is passed in the parameter.
         
 
         @param request: UpdateAttachedMediaInfosRequest
@@ -6816,6 +7042,16 @@ class Client(OpenApiClient):
         return self.update_image_infos_with_options(request, runtime)
 
     def update_media_storage_class_with_options(self, request, runtime):
+        """
+        You can call this operation to modify the storage classes of Standard and Infrequent Access (IA) media assets in real time. To modify the storage class of an Archive or Cold Archive media asset, the media asset must be restored first. After the storage class is modified, you need to send a callback notification to the user. To modify the storage class of a Cold Archive media asset, you must specify the restoration priority. By default, the restoration priority is set to Standard. Media assets whose storage classes are being modified cannot be used or processed.
+        
+
+        @param request: UpdateMediaStorageClassRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateMediaStorageClassResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.media_ids):
@@ -6846,12 +7082,21 @@ class Client(OpenApiClient):
         )
 
     def update_media_storage_class(self, request):
+        """
+        You can call this operation to modify the storage classes of Standard and Infrequent Access (IA) media assets in real time. To modify the storage class of an Archive or Cold Archive media asset, the media asset must be restored first. After the storage class is modified, you need to send a callback notification to the user. To modify the storage class of a Cold Archive media asset, you must specify the restoration priority. By default, the restoration priority is set to Standard. Media assets whose storage classes are being modified cannot be used or processed.
+        
+
+        @param request: UpdateMediaStorageClassRequest
+
+        @return: UpdateMediaStorageClassResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.update_media_storage_class_with_options(request, runtime)
 
     def update_transcode_template_group_with_options(self, request, runtime):
         """
-        The ID of the transcoding template group.
+        >    You cannot add, modify, or remove transcoding templates in a transcoding template group that is locked in the ApsaraVideo VOD console. To manage such transcoding template groups, contact the ApsaraVideo VOD technical support.
+        > *   You can call the GetTranscodeTemplateGroup operation to query the configurations of a transcoding template group and check whether the transcoding template group is locked by using the response parameter Locked.
         
 
         @param request: UpdateTranscodeTemplateGroupRequest
@@ -6891,7 +7136,8 @@ class Client(OpenApiClient):
 
     def update_transcode_template_group(self, request):
         """
-        The ID of the transcoding template group.
+        >    You cannot add, modify, or remove transcoding templates in a transcoding template group that is locked in the ApsaraVideo VOD console. To manage such transcoding template groups, contact the ApsaraVideo VOD technical support.
+        > *   You can call the GetTranscodeTemplateGroup operation to query the configurations of a transcoding template group and check whether the transcoding template group is locked by using the response parameter Locked.
         
 
         @param request: UpdateTranscodeTemplateGroupRequest
@@ -6903,7 +7149,7 @@ class Client(OpenApiClient):
 
     def update_video_info_with_options(self, request, runtime):
         """
-        The ID of the video.
+        The specific parameter of a video is updated only when a new value is passed in the parameter.
         
 
         @param request: UpdateVideoInfoRequest
@@ -6947,7 +7193,7 @@ class Client(OpenApiClient):
 
     def update_video_info(self, request):
         """
-        The ID of the video.
+        The specific parameter of a video is updated only when a new value is passed in the parameter.
         
 
         @param request: UpdateVideoInfoRequest
@@ -6959,7 +7205,7 @@ class Client(OpenApiClient):
 
     def update_video_infos_with_options(self, request, runtime):
         """
-        The IDs of the videos that do not exist.
+        The specific parameter of a video is updated only when a new value is passed in the parameter.
         
 
         @param request: UpdateVideoInfosRequest
@@ -6993,7 +7239,7 @@ class Client(OpenApiClient):
 
     def update_video_infos(self, request):
         """
-        The IDs of the videos that do not exist.
+        The specific parameter of a video is updated only when a new value is passed in the parameter.
         
 
         @param request: UpdateVideoInfosRequest
@@ -7091,8 +7337,7 @@ class Client(OpenApiClient):
 
     def update_watermark_with_options(self, request, runtime):
         """
-        The configurations such as the position and effect of the text watermark or image watermark. The value is a JSON-formatted string.
-        > The value of this parameter varies with the watermark type. For more information about the data structure, see the "WatermarkConfig" section of the [Media processing parameters](~~98618~~) topic.
+        You can modify only the name and configurations of a watermark.
         
 
         @param request: UpdateWatermarkRequest
@@ -7130,8 +7375,7 @@ class Client(OpenApiClient):
 
     def update_watermark(self, request):
         """
-        The configurations such as the position and effect of the text watermark or image watermark. The value is a JSON-formatted string.
-        > The value of this parameter varies with the watermark type. For more information about the data structure, see the "WatermarkConfig" section of the [Media processing parameters](~~98618~~) topic.
+        You can modify only the name and configurations of a watermark.
         
 
         @param request: UpdateWatermarkRequest
@@ -7143,8 +7387,12 @@ class Client(OpenApiClient):
 
     def upload_media_by_urlwith_options(self, request, runtime):
         """
-        The ID of the workflow. To view the ID of the workflow, log on to the [ApsaraVideo VOD console](https://vod.console.aliyun.com). In the left-side navigation pane, choose *Configuration Management** > **Media Processing** > **Workflows**.
-        > If both the WorkflowId and TemplateGroupId parameters are set, the value of the WorkflowId parameter takes effect. For more information, see [Workflows](~~115347~~).
+        You can call this operation to upload media files that are not stored on a local server or device and must be uploaded based on URLs over the Internet.
+        *   The URL-based upload jobs are asynchronous. After you submit a URL-based upload job by calling this operation, it may take hours, even days to complete. If you require high timeliness, we recommend that you use the upload SDK.
+        *   If you configure callbacks, you can receive an [UploadByURLComplete](~~86326~~) event notification after the media file is uploaded. You can query the upload status by calling the [GetURLUploadInfos](~~106830~~) operation.
+        *   After you submit an upload job, the job is asynchronously processed on the cloud. All URL-based upload jobs that are submitted in each region are queued. The waiting time for the upload job depends on the number of queued jobs. After the upload job is complete, you can associate the playback URL included in the callback with the media ID.
+        *   You can call this operation only in the **China (Shanghai)** and **Singapore** regions.
+        *   Every time you submit a URL-based upload job, a new media ID is generated in ApsaraVideo VOD.
         
 
         @param request: UploadMediaByURLRequest
@@ -7157,6 +7405,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.app_id):
             query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.session_id):
+            query['SessionId'] = request.session_id
         if not UtilClient.is_unset(request.storage_location):
             query['StorageLocation'] = request.storage_location
         if not UtilClient.is_unset(request.template_group_id):
@@ -7190,8 +7440,12 @@ class Client(OpenApiClient):
 
     def upload_media_by_url(self, request):
         """
-        The ID of the workflow. To view the ID of the workflow, log on to the [ApsaraVideo VOD console](https://vod.console.aliyun.com). In the left-side navigation pane, choose *Configuration Management** > **Media Processing** > **Workflows**.
-        > If both the WorkflowId and TemplateGroupId parameters are set, the value of the WorkflowId parameter takes effect. For more information, see [Workflows](~~115347~~).
+        You can call this operation to upload media files that are not stored on a local server or device and must be uploaded based on URLs over the Internet.
+        *   The URL-based upload jobs are asynchronous. After you submit a URL-based upload job by calling this operation, it may take hours, even days to complete. If you require high timeliness, we recommend that you use the upload SDK.
+        *   If you configure callbacks, you can receive an [UploadByURLComplete](~~86326~~) event notification after the media file is uploaded. You can query the upload status by calling the [GetURLUploadInfos](~~106830~~) operation.
+        *   After you submit an upload job, the job is asynchronously processed on the cloud. All URL-based upload jobs that are submitted in each region are queued. The waiting time for the upload job depends on the number of queued jobs. After the upload job is complete, you can associate the playback URL included in the callback with the media ID.
+        *   You can call this operation only in the **China (Shanghai)** and **Singapore** regions.
+        *   Every time you submit a URL-based upload job, a new media ID is generated in ApsaraVideo VOD.
         
 
         @param request: UploadMediaByURLRequest
@@ -7203,8 +7457,8 @@ class Client(OpenApiClient):
 
     def upload_stream_by_urlwith_options(self, request, runtime):
         """
-        The URL of the transcoded stream.
-        If URL authentication is required, you must pass authentication information in this parameter and make sure that the URL can be accessed over the Internet.
+        You can call this operation to upload transcoded streams to ApsaraVideo VOD from external storage. The following HDR types of transcoded streams are supported: HDR, HDR 10, HLG, Dolby Vision, HDR Vivid, and SDR+. You can call the [GetURLUploadInfos](~~106830~~) operation to query the upload status. After the upload is complete, the callback of the UploadByURLComplete event is returned.
+        >  This operation is available only in the Singapore (Singapore) region.
         
 
         @param request: UploadStreamByURLRequest
@@ -7248,8 +7502,8 @@ class Client(OpenApiClient):
 
     def upload_stream_by_url(self, request):
         """
-        The URL of the transcoded stream.
-        If URL authentication is required, you must pass authentication information in this parameter and make sure that the URL can be accessed over the Internet.
+        You can call this operation to upload transcoded streams to ApsaraVideo VOD from external storage. The following HDR types of transcoded streams are supported: HDR, HDR 10, HLG, Dolby Vision, HDR Vivid, and SDR+. You can call the [GetURLUploadInfos](~~106830~~) operation to query the upload status. After the upload is complete, the callback of the UploadByURLComplete event is returned.
+        >  This operation is available only in the Singapore (Singapore) region.
         
 
         @param request: UploadStreamByURLRequest
