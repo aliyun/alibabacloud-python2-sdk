@@ -248,6 +248,8 @@ class Client(OpenApiClient):
             query['Lang'] = request.lang
         if not UtilClient.is_unset(request.reason):
             query['Reason'] = request.reason
+        if not UtilClient.is_unset(request.source):
+            query['Source'] = request.source
         if not UtilClient.is_unset(request.target):
             query['Target'] = request.target
         if not UtilClient.is_unset(request.type):
@@ -3842,6 +3844,8 @@ class Client(OpenApiClient):
             query['RiskId'] = request.risk_id
         if not UtilClient.is_unset(request.risk_status):
             query['RiskStatus'] = request.risk_status
+        if not UtilClient.is_unset(request.source):
+            query['Source'] = request.source
         if not UtilClient.is_unset(request.source_ip):
             query['SourceIp'] = request.source_ip
         if not UtilClient.is_unset(request.uuid):
@@ -5698,6 +5702,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.lang):
             query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.source):
+            query['Source'] = request.source
         if not UtilClient.is_unset(request.strategy_id):
             query['StrategyId'] = request.strategy_id
         req = open_api_models.OpenApiRequest(
@@ -6448,6 +6454,8 @@ class Client(OpenApiClient):
             query['Lang'] = request.lang
         if not UtilClient.is_unset(request.page_size):
             query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.source):
+            query['Source'] = request.source
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -7926,7 +7934,7 @@ class Client(OpenApiClient):
     def describe_risk_check_result_with_options(self, request, runtime):
         """
         @deprecated
-        This operation is phased out. You can use the ListCheckResult operation.
+        This operation is phased out. You can use the [ListCheckResult](~~ListCheckResult~~) operation.
         
 
         @param request: DescribeRiskCheckResultRequest
@@ -7984,7 +7992,7 @@ class Client(OpenApiClient):
     def describe_risk_check_result(self, request):
         """
         @deprecated
-        This operation is phased out. You can use the ListCheckResult operation.
+        This operation is phased out. You can use the [ListCheckResult](~~ListCheckResult~~) operation.
         
 
         @param request: DescribeRiskCheckResultRequest
@@ -8170,6 +8178,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.lang):
             query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.source):
+            query['Source'] = request.source
         if not UtilClient.is_unset(request.source_ip):
             query['SourceIp'] = request.source_ip
         req = open_api_models.OpenApiRequest(
@@ -12446,6 +12456,8 @@ class Client(OpenApiClient):
             query['Lang'] = request.lang
         if not UtilClient.is_unset(request.reason):
             query['Reason'] = request.reason
+        if not UtilClient.is_unset(request.source):
+            query['Source'] = request.source
         if not UtilClient.is_unset(request.type):
             query['Type'] = request.type
         if not UtilClient.is_unset(request.uuid_list):
@@ -12484,6 +12496,8 @@ class Client(OpenApiClient):
             query['Reason'] = request.reason
         if not UtilClient.is_unset(request.risk_id):
             query['RiskId'] = request.risk_id
+        if not UtilClient.is_unset(request.source):
+            query['Source'] = request.source
         if not UtilClient.is_unset(request.source_ip):
             query['SourceIp'] = request.source_ip
         if not UtilClient.is_unset(request.type):
@@ -13108,6 +13122,8 @@ class Client(OpenApiClient):
             query['Remark'] = request.remark
         if not UtilClient.is_unset(request.risk_type):
             query['RiskType'] = request.risk_type
+        if not UtilClient.is_unset(request.source):
+            query['Source'] = request.source
         if not UtilClient.is_unset(request.status):
             query['Status'] = request.status
         req = open_api_models.OpenApiRequest(
@@ -13158,6 +13174,8 @@ class Client(OpenApiClient):
             query['PageSize'] = request.page_size
         if not UtilClient.is_unset(request.risk_type):
             query['RiskType'] = request.risk_type
+        if not UtilClient.is_unset(request.source):
+            query['Source'] = request.source
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -16987,6 +17005,40 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.public_sync_and_create_image_scan_task_with_options(request, runtime)
 
+    def query_attack_count_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.source_ip):
+            query['SourceIp'] = request.source_ip
+        body = {}
+        if not UtilClient.is_unset(request.from_):
+            body['From'] = request.from_
+        if not UtilClient.is_unset(request.lang):
+            body['Lang'] = request.lang
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='QueryAttackCount',
+            version='2018-12-03',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sas_20181203_models.QueryAttackCountResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_attack_count(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_attack_count_with_options(request, runtime)
+
     def query_discover_database_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -17388,6 +17440,8 @@ class Client(OpenApiClient):
             query['BaselineItemList'] = request.baseline_item_list
         if not UtilClient.is_unset(request.lang):
             query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.source):
+            query['Source'] = request.source
         if not UtilClient.is_unset(request.strategy_id):
             query['StrategyId'] = request.strategy_id
         if not UtilClient.is_unset(request.strategy_name):
