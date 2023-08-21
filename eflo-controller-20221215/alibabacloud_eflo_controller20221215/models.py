@@ -591,10 +591,12 @@ class CreateClusterRequestNetworks(TeaModel):
 
 
 class CreateClusterRequestNodeGroupsNodes(TeaModel):
-    def __init__(self, hostname=None, login_password=None, node_id=None):
+    def __init__(self, hostname=None, login_password=None, node_id=None, v_switch_id=None, vpc_id=None):
         self.hostname = hostname  # type: str
         self.login_password = login_password  # type: str
         self.node_id = node_id  # type: str
+        self.v_switch_id = v_switch_id  # type: str
+        self.vpc_id = vpc_id  # type: str
 
     def validate(self):
         pass
@@ -611,6 +613,10 @@ class CreateClusterRequestNodeGroupsNodes(TeaModel):
             result['LoginPassword'] = self.login_password
         if self.node_id is not None:
             result['NodeId'] = self.node_id
+        if self.v_switch_id is not None:
+            result['VSwitchId'] = self.v_switch_id
+        if self.vpc_id is not None:
+            result['VpcId'] = self.vpc_id
         return result
 
     def from_map(self, m=None):
@@ -621,6 +627,10 @@ class CreateClusterRequestNodeGroupsNodes(TeaModel):
             self.login_password = m.get('LoginPassword')
         if m.get('NodeId') is not None:
             self.node_id = m.get('NodeId')
+        if m.get('VSwitchId') is not None:
+            self.v_switch_id = m.get('VSwitchId')
+        if m.get('VpcId') is not None:
+            self.vpc_id = m.get('VpcId')
         return self
 
 
@@ -1152,7 +1162,7 @@ class DescribeClusterResponseBodyNetworks(TeaModel):
 class DescribeClusterResponseBody(TeaModel):
     def __init__(self, cluster_description=None, cluster_id=None, cluster_name=None, cluster_type=None,
                  components=None, create_time=None, networks=None, node_count=None, node_group_count=None,
-                 operating_state=None, request_id=None, resource_group_id=None, task_id=None, update_time=None):
+                 operating_state=None, request_id=None, resource_group_id=None, task_id=None, update_time=None, vpc_id=None):
         self.cluster_description = cluster_description  # type: str
         self.cluster_id = cluster_id  # type: str
         self.cluster_name = cluster_name  # type: str
@@ -1167,6 +1177,7 @@ class DescribeClusterResponseBody(TeaModel):
         self.resource_group_id = resource_group_id  # type: str
         self.task_id = task_id  # type: str
         self.update_time = update_time  # type: str
+        self.vpc_id = vpc_id  # type: str
 
     def validate(self):
         if self.components:
@@ -1216,6 +1227,8 @@ class DescribeClusterResponseBody(TeaModel):
             result['TaskId'] = self.task_id
         if self.update_time is not None:
             result['UpdateTime'] = self.update_time
+        if self.vpc_id is not None:
+            result['VpcId'] = self.vpc_id
         return result
 
     def from_map(self, m=None):
@@ -1254,6 +1267,8 @@ class DescribeClusterResponseBody(TeaModel):
             self.task_id = m.get('TaskId')
         if m.get('UpdateTime') is not None:
             self.update_time = m.get('UpdateTime')
+        if m.get('VpcId') is not None:
+            self.vpc_id = m.get('VpcId')
         return self
 
 
@@ -2813,7 +2828,7 @@ class ListClustersRequest(TeaModel):
 class ListClustersResponseBodyClusters(TeaModel):
     def __init__(self, cluster_description=None, cluster_id=None, cluster_name=None, cluster_type=None,
                  components=None, create_time=None, node_count=None, node_group_count=None, operating_state=None,
-                 resource_group_id=None, task_id=None, update_time=None):
+                 resource_group_id=None, task_id=None, update_time=None, vpc_id=None):
         self.cluster_description = cluster_description  # type: str
         self.cluster_id = cluster_id  # type: str
         self.cluster_name = cluster_name  # type: str
@@ -2826,6 +2841,7 @@ class ListClustersResponseBodyClusters(TeaModel):
         self.resource_group_id = resource_group_id  # type: str
         self.task_id = task_id  # type: str
         self.update_time = update_time  # type: str
+        self.vpc_id = vpc_id  # type: str
 
     def validate(self):
         pass
@@ -2860,6 +2876,8 @@ class ListClustersResponseBodyClusters(TeaModel):
             result['TaskId'] = self.task_id
         if self.update_time is not None:
             result['UpdateTime'] = self.update_time
+        if self.vpc_id is not None:
+            result['VpcId'] = self.vpc_id
         return result
 
     def from_map(self, m=None):
@@ -2888,6 +2906,8 @@ class ListClustersResponseBodyClusters(TeaModel):
             self.task_id = m.get('TaskId')
         if m.get('UpdateTime') is not None:
             self.update_time = m.get('UpdateTime')
+        if m.get('VpcId') is not None:
+            self.vpc_id = m.get('VpcId')
         return self
 
 
