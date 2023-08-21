@@ -188,6 +188,8 @@ class Client(OpenApiClient):
             query['VpcId'] = request.vpc_id
         if not UtilClient.is_unset(request.vpc_switch_id):
             query['VpcSwitchId'] = request.vpc_switch_id
+        if not UtilClient.is_unset(request.zone_id):
+            query['ZoneId'] = request.zone_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -236,6 +238,8 @@ class Client(OpenApiClient):
             query['BackupPlanId'] = request.backup_plan_id
         if not UtilClient.is_unset(request.instance_id):
             query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.zone_id):
+            query['ZoneId'] = request.zone_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )

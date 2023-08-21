@@ -484,7 +484,7 @@ class CreateDownloadResponse(TeaModel):
 class CreateSandboxInstanceRequest(TeaModel):
     def __init__(self, backup_plan_id=None, backup_set_id=None, restore_time=None, sandbox_instance_name=None,
                  sandbox_password=None, sandbox_specification=None, sandbox_type=None, sandbox_user=None, vpc_id=None,
-                 vpc_switch_id=None):
+                 vpc_switch_id=None, zone_id=None):
         # The ID of the backup schedule. You can call the [DescribeBackupPlanList](~~437215~~) operation to obtain the ID of the backup schedule.
         # 
         # > If your instance is an ApsaraDB RDS for MySQL instance, you can [configure automatic access to a data source](~~193091~~) to automatically add the instance to DBS and obtain the ID of the backup schedule.
@@ -528,6 +528,7 @@ class CreateSandboxInstanceRequest(TeaModel):
         self.vpc_id = vpc_id  # type: str
         # The ID of the VSwitch that is used to connect to the sandbox instance.
         self.vpc_switch_id = vpc_switch_id  # type: str
+        self.zone_id = zone_id  # type: str
 
     def validate(self):
         pass
@@ -558,6 +559,8 @@ class CreateSandboxInstanceRequest(TeaModel):
             result['VpcId'] = self.vpc_id
         if self.vpc_switch_id is not None:
             result['VpcSwitchId'] = self.vpc_switch_id
+        if self.zone_id is not None:
+            result['ZoneId'] = self.zone_id
         return result
 
     def from_map(self, m=None):
@@ -582,6 +585,8 @@ class CreateSandboxInstanceRequest(TeaModel):
             self.vpc_id = m.get('VpcId')
         if m.get('VpcSwitchId') is not None:
             self.vpc_switch_id = m.get('VpcSwitchId')
+        if m.get('ZoneId') is not None:
+            self.zone_id = m.get('ZoneId')
         return self
 
 
@@ -720,13 +725,14 @@ class CreateSandboxInstanceResponse(TeaModel):
 
 
 class DeleteSandboxInstanceRequest(TeaModel):
-    def __init__(self, backup_plan_id=None, instance_id=None):
+    def __init__(self, backup_plan_id=None, instance_id=None, zone_id=None):
         # The ID of the backup schedule. You can call the [DescribeBackupPlanList](~~437215~~) operation to query the ID of the backup schedule.
         # 
         # > If your instance is an ApsaraDB RDS for MySQL instance, you can [configure automatic access to a data source](~~193091~~) to automatically add the instance to DBS and obtain the ID of the backup schedule.
         self.backup_plan_id = backup_plan_id  # type: str
         # The ID of the sandbox instance. You can call the [DescribeSandboxInstances](~~437257~~) operation to query the ID of the sandbox instance.
         self.instance_id = instance_id  # type: str
+        self.zone_id = zone_id  # type: str
 
     def validate(self):
         pass
@@ -741,6 +747,8 @@ class DeleteSandboxInstanceRequest(TeaModel):
             result['BackupPlanId'] = self.backup_plan_id
         if self.instance_id is not None:
             result['InstanceId'] = self.instance_id
+        if self.zone_id is not None:
+            result['ZoneId'] = self.zone_id
         return result
 
     def from_map(self, m=None):
@@ -749,6 +757,8 @@ class DeleteSandboxInstanceRequest(TeaModel):
             self.backup_plan_id = m.get('BackupPlanId')
         if m.get('InstanceId') is not None:
             self.instance_id = m.get('InstanceId')
+        if m.get('ZoneId') is not None:
+            self.zone_id = m.get('ZoneId')
         return self
 
 
