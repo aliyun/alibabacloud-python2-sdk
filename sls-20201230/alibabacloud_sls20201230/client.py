@@ -544,6 +544,8 @@ class Client(OpenApiClient):
     def create_project_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         body = {}
+        if not UtilClient.is_unset(request.data_redundancy_type):
+            body['dataRedundancyType'] = request.data_redundancy_type
         if not UtilClient.is_unset(request.description):
             body['description'] = request.description
         if not UtilClient.is_unset(request.project_name):
@@ -563,7 +565,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='json',
-            body_type='json'
+            body_type='none'
         )
         return TeaCore.from_map(
             sls_20201230_models.CreateProjectResponse(),
