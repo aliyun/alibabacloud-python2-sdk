@@ -138,7 +138,7 @@ class Client(OpenApiClient):
 
     def create_users_with_options(self, request, runtime):
         """
-        The mobile number of the end user.
+        Convenience users are dedicated Elastic Desktop Service (EDS) user accounts and are suitable for scenarios in which you do not need to connect to enterprise Active Directory (AD) systems. The information about a convenience user includes the username, email address, and mobile number. You must specify the username or email address.
         
 
         @param request: CreateUsersRequest
@@ -174,7 +174,7 @@ class Client(OpenApiClient):
 
     def create_users(self, request):
         """
-        The mobile number of the end user.
+        Convenience users are dedicated Elastic Desktop Service (EDS) user accounts and are suitable for scenarios in which you do not need to connect to enterprise Active Directory (AD) systems. The information about a convenience user includes the username, email address, and mobile number. You must specify the username or email address.
         
 
         @param request: CreateUsersRequest
@@ -237,6 +237,8 @@ class Client(OpenApiClient):
     def describe_mfa_devices_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.ad_domain):
+            query['AdDomain'] = request.ad_domain
         if not UtilClient.is_unset(request.end_user_ids):
             query['EndUserIds'] = request.end_user_ids
         if not UtilClient.is_unset(request.max_results):
@@ -423,6 +425,8 @@ class Client(OpenApiClient):
         """
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.ad_domain):
+            query['AdDomain'] = request.ad_domain
         if not UtilClient.is_unset(request.serial_number):
             query['SerialNumber'] = request.serial_number
         req = open_api_models.OpenApiRequest(
@@ -541,6 +545,8 @@ class Client(OpenApiClient):
     def remove_mfa_device_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.ad_domain):
+            query['AdDomain'] = request.ad_domain
         if not UtilClient.is_unset(request.serial_number):
             query['SerialNumber'] = request.serial_number
         req = open_api_models.OpenApiRequest(
@@ -729,6 +735,8 @@ class Client(OpenApiClient):
     def unlock_mfa_device_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.ad_domain):
+            query['AdDomain'] = request.ad_domain
         if not UtilClient.is_unset(request.serial_number):
             query['SerialNumber'] = request.serial_number
         req = open_api_models.OpenApiRequest(
