@@ -325,6 +325,35 @@ class CancelOtaTaskResponse(TeaModel):
         return self
 
 
+class CreateAppInstanceGroupRequestNetworkDomainRules(TeaModel):
+    def __init__(self, domain=None, policy=None):
+        self.domain = domain  # type: str
+        self.policy = policy  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateAppInstanceGroupRequestNetworkDomainRules, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.domain is not None:
+            result['Domain'] = self.domain
+        if self.policy is not None:
+            result['Policy'] = self.policy
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Domain') is not None:
+            self.domain = m.get('Domain')
+        if m.get('Policy') is not None:
+            self.policy = m.get('Policy')
+        return self
+
+
 class CreateAppInstanceGroupRequestNetworkRoutes(TeaModel):
     def __init__(self, destination=None, mode=None):
         self.destination = destination  # type: str
@@ -355,12 +384,17 @@ class CreateAppInstanceGroupRequestNetworkRoutes(TeaModel):
 
 
 class CreateAppInstanceGroupRequestNetwork(TeaModel):
-    def __init__(self, ip_expire_minutes=None, routes=None, strategy_type=None):
+    def __init__(self, domain_rules=None, ip_expire_minutes=None, routes=None, strategy_type=None):
+        self.domain_rules = domain_rules  # type: list[CreateAppInstanceGroupRequestNetworkDomainRules]
         self.ip_expire_minutes = ip_expire_minutes  # type: int
         self.routes = routes  # type: list[CreateAppInstanceGroupRequestNetworkRoutes]
         self.strategy_type = strategy_type  # type: str
 
     def validate(self):
+        if self.domain_rules:
+            for k in self.domain_rules:
+                if k:
+                    k.validate()
         if self.routes:
             for k in self.routes:
                 if k:
@@ -372,6 +406,10 @@ class CreateAppInstanceGroupRequestNetwork(TeaModel):
             return _map
 
         result = dict()
+        result['DomainRules'] = []
+        if self.domain_rules is not None:
+            for k in self.domain_rules:
+                result['DomainRules'].append(k.to_map() if k else None)
         if self.ip_expire_minutes is not None:
             result['IpExpireMinutes'] = self.ip_expire_minutes
         result['Routes'] = []
@@ -384,6 +422,11 @@ class CreateAppInstanceGroupRequestNetwork(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        self.domain_rules = []
+        if m.get('DomainRules') is not None:
+            for k in m.get('DomainRules'):
+                temp_model = CreateAppInstanceGroupRequestNetworkDomainRules()
+                self.domain_rules.append(temp_model.from_map(k))
         if m.get('IpExpireMinutes') is not None:
             self.ip_expire_minutes = m.get('IpExpireMinutes')
         self.routes = []
@@ -1667,27 +1710,39 @@ class GetAppInstanceGroupResponseBodyAppInstanceGroupModelsOtaInfo(TeaModel):
 
 class GetAppInstanceGroupResponseBodyAppInstanceGroupModels(TeaModel):
     def __init__(self, amount=None, app_center_image_id=None, app_center_image_name=None,
-                 app_instance_group_id=None, app_instance_group_name=None, app_instance_type=None, app_policy_id=None, apps=None,
-                 charge_type=None, expired_time=None, gmt_create=None, node_pool=None, os_type=None, ota_info=None,
-                 product_type=None, region_id=None, resource_status=None, session_timeout=None, skip_user_auth_check=None,
-                 spec_id=None, status=None):
+                 app_instance_group_id=None, app_instance_group_name=None, app_instance_type=None, app_instance_type_name=None,
+                 app_policy_id=None, apps=None, charge_resource_mode=None, charge_type=None, expired_time=None, gmt_create=None,
+                 max_amount=None, min_amount=None, node_pool=None, os_type=None, ota_info=None, product_type=None,
+                 region_id=None, reserve_amount_ratio=None, reserve_max_amount=None, reserve_min_amount=None,
+                 resource_status=None, scaling_down_after_idle_minutes=None, scaling_step=None, scaling_usage_threshold=None,
+                 session_timeout=None, skip_user_auth_check=None, spec_id=None, status=None):
         self.amount = amount  # type: int
         self.app_center_image_id = app_center_image_id  # type: str
         self.app_center_image_name = app_center_image_name  # type: str
         self.app_instance_group_id = app_instance_group_id  # type: str
         self.app_instance_group_name = app_instance_group_name  # type: str
         self.app_instance_type = app_instance_type  # type: str
+        self.app_instance_type_name = app_instance_type_name  # type: str
         self.app_policy_id = app_policy_id  # type: str
         self.apps = apps  # type: list[GetAppInstanceGroupResponseBodyAppInstanceGroupModelsApps]
+        self.charge_resource_mode = charge_resource_mode  # type: str
         self.charge_type = charge_type  # type: str
         self.expired_time = expired_time  # type: str
         self.gmt_create = gmt_create  # type: str
+        self.max_amount = max_amount  # type: int
+        self.min_amount = min_amount  # type: int
         self.node_pool = node_pool  # type: list[GetAppInstanceGroupResponseBodyAppInstanceGroupModelsNodePool]
         self.os_type = os_type  # type: str
         self.ota_info = ota_info  # type: GetAppInstanceGroupResponseBodyAppInstanceGroupModelsOtaInfo
         self.product_type = product_type  # type: str
         self.region_id = region_id  # type: str
+        self.reserve_amount_ratio = reserve_amount_ratio  # type: str
+        self.reserve_max_amount = reserve_max_amount  # type: int
+        self.reserve_min_amount = reserve_min_amount  # type: int
         self.resource_status = resource_status  # type: str
+        self.scaling_down_after_idle_minutes = scaling_down_after_idle_minutes  # type: int
+        self.scaling_step = scaling_step  # type: int
+        self.scaling_usage_threshold = scaling_usage_threshold  # type: str
         self.session_timeout = session_timeout  # type: str
         self.skip_user_auth_check = skip_user_auth_check  # type: bool
         self.spec_id = spec_id  # type: str
@@ -1723,18 +1778,26 @@ class GetAppInstanceGroupResponseBodyAppInstanceGroupModels(TeaModel):
             result['AppInstanceGroupName'] = self.app_instance_group_name
         if self.app_instance_type is not None:
             result['AppInstanceType'] = self.app_instance_type
+        if self.app_instance_type_name is not None:
+            result['AppInstanceTypeName'] = self.app_instance_type_name
         if self.app_policy_id is not None:
             result['AppPolicyId'] = self.app_policy_id
         result['Apps'] = []
         if self.apps is not None:
             for k in self.apps:
                 result['Apps'].append(k.to_map() if k else None)
+        if self.charge_resource_mode is not None:
+            result['ChargeResourceMode'] = self.charge_resource_mode
         if self.charge_type is not None:
             result['ChargeType'] = self.charge_type
         if self.expired_time is not None:
             result['ExpiredTime'] = self.expired_time
         if self.gmt_create is not None:
             result['GmtCreate'] = self.gmt_create
+        if self.max_amount is not None:
+            result['MaxAmount'] = self.max_amount
+        if self.min_amount is not None:
+            result['MinAmount'] = self.min_amount
         result['NodePool'] = []
         if self.node_pool is not None:
             for k in self.node_pool:
@@ -1747,8 +1810,20 @@ class GetAppInstanceGroupResponseBodyAppInstanceGroupModels(TeaModel):
             result['ProductType'] = self.product_type
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.reserve_amount_ratio is not None:
+            result['ReserveAmountRatio'] = self.reserve_amount_ratio
+        if self.reserve_max_amount is not None:
+            result['ReserveMaxAmount'] = self.reserve_max_amount
+        if self.reserve_min_amount is not None:
+            result['ReserveMinAmount'] = self.reserve_min_amount
         if self.resource_status is not None:
             result['ResourceStatus'] = self.resource_status
+        if self.scaling_down_after_idle_minutes is not None:
+            result['ScalingDownAfterIdleMinutes'] = self.scaling_down_after_idle_minutes
+        if self.scaling_step is not None:
+            result['ScalingStep'] = self.scaling_step
+        if self.scaling_usage_threshold is not None:
+            result['ScalingUsageThreshold'] = self.scaling_usage_threshold
         if self.session_timeout is not None:
             result['SessionTimeout'] = self.session_timeout
         if self.skip_user_auth_check is not None:
@@ -1773,6 +1848,8 @@ class GetAppInstanceGroupResponseBodyAppInstanceGroupModels(TeaModel):
             self.app_instance_group_name = m.get('AppInstanceGroupName')
         if m.get('AppInstanceType') is not None:
             self.app_instance_type = m.get('AppInstanceType')
+        if m.get('AppInstanceTypeName') is not None:
+            self.app_instance_type_name = m.get('AppInstanceTypeName')
         if m.get('AppPolicyId') is not None:
             self.app_policy_id = m.get('AppPolicyId')
         self.apps = []
@@ -1780,12 +1857,18 @@ class GetAppInstanceGroupResponseBodyAppInstanceGroupModels(TeaModel):
             for k in m.get('Apps'):
                 temp_model = GetAppInstanceGroupResponseBodyAppInstanceGroupModelsApps()
                 self.apps.append(temp_model.from_map(k))
+        if m.get('ChargeResourceMode') is not None:
+            self.charge_resource_mode = m.get('ChargeResourceMode')
         if m.get('ChargeType') is not None:
             self.charge_type = m.get('ChargeType')
         if m.get('ExpiredTime') is not None:
             self.expired_time = m.get('ExpiredTime')
         if m.get('GmtCreate') is not None:
             self.gmt_create = m.get('GmtCreate')
+        if m.get('MaxAmount') is not None:
+            self.max_amount = m.get('MaxAmount')
+        if m.get('MinAmount') is not None:
+            self.min_amount = m.get('MinAmount')
         self.node_pool = []
         if m.get('NodePool') is not None:
             for k in m.get('NodePool'):
@@ -1800,8 +1883,20 @@ class GetAppInstanceGroupResponseBodyAppInstanceGroupModels(TeaModel):
             self.product_type = m.get('ProductType')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ReserveAmountRatio') is not None:
+            self.reserve_amount_ratio = m.get('ReserveAmountRatio')
+        if m.get('ReserveMaxAmount') is not None:
+            self.reserve_max_amount = m.get('ReserveMaxAmount')
+        if m.get('ReserveMinAmount') is not None:
+            self.reserve_min_amount = m.get('ReserveMinAmount')
         if m.get('ResourceStatus') is not None:
             self.resource_status = m.get('ResourceStatus')
+        if m.get('ScalingDownAfterIdleMinutes') is not None:
+            self.scaling_down_after_idle_minutes = m.get('ScalingDownAfterIdleMinutes')
+        if m.get('ScalingStep') is not None:
+            self.scaling_step = m.get('ScalingStep')
+        if m.get('ScalingUsageThreshold') is not None:
+            self.scaling_usage_threshold = m.get('ScalingUsageThreshold')
         if m.get('SessionTimeout') is not None:
             self.session_timeout = m.get('SessionTimeout')
         if m.get('SkipUserAuthCheck') is not None:
@@ -1951,7 +2046,7 @@ class GetConnectionTicketRequest(TeaModel):
 
 class GetConnectionTicketResponseBody(TeaModel):
     def __init__(self, app_instance_group_id=None, app_instance_id=None, biz_region_id=None, os_type=None,
-                 request_id=None, task_id=None, task_status=None, ticket=None):
+                 request_id=None, task_id=None, task_status=None, tenant_id=None, ticket=None):
         self.app_instance_group_id = app_instance_group_id  # type: str
         self.app_instance_id = app_instance_id  # type: str
         self.biz_region_id = biz_region_id  # type: str
@@ -1959,6 +2054,7 @@ class GetConnectionTicketResponseBody(TeaModel):
         self.request_id = request_id  # type: str
         self.task_id = task_id  # type: str
         self.task_status = task_status  # type: str
+        self.tenant_id = tenant_id  # type: long
         self.ticket = ticket  # type: str
 
     def validate(self):
@@ -1984,6 +2080,8 @@ class GetConnectionTicketResponseBody(TeaModel):
             result['TaskId'] = self.task_id
         if self.task_status is not None:
             result['TaskStatus'] = self.task_status
+        if self.tenant_id is not None:
+            result['TenantId'] = self.tenant_id
         if self.ticket is not None:
             result['Ticket'] = self.ticket
         return result
@@ -2004,6 +2102,8 @@ class GetConnectionTicketResponseBody(TeaModel):
             self.task_id = m.get('TaskId')
         if m.get('TaskStatus') is not None:
             self.task_status = m.get('TaskStatus')
+        if m.get('TenantId') is not None:
+            self.tenant_id = m.get('TenantId')
         if m.get('Ticket') is not None:
             self.ticket = m.get('Ticket')
         return self
@@ -2285,9 +2385,10 @@ class GetOtaTaskByTaskIdResponse(TeaModel):
 
 
 class GetResourcePriceRequest(TeaModel):
-    def __init__(self, amount=None, biz_region_id=None, charge_type=None, node_instance_type=None, period=None,
-                 period_unit=None, product_type=None):
+    def __init__(self, amount=None, app_instance_type=None, biz_region_id=None, charge_type=None,
+                 node_instance_type=None, period=None, period_unit=None, product_type=None):
         self.amount = amount  # type: long
+        self.app_instance_type = app_instance_type  # type: str
         self.biz_region_id = biz_region_id  # type: str
         self.charge_type = charge_type  # type: str
         self.node_instance_type = node_instance_type  # type: str
@@ -2306,6 +2407,8 @@ class GetResourcePriceRequest(TeaModel):
         result = dict()
         if self.amount is not None:
             result['Amount'] = self.amount
+        if self.app_instance_type is not None:
+            result['AppInstanceType'] = self.app_instance_type
         if self.biz_region_id is not None:
             result['BizRegionId'] = self.biz_region_id
         if self.charge_type is not None:
@@ -2324,6 +2427,8 @@ class GetResourcePriceRequest(TeaModel):
         m = m or dict()
         if m.get('Amount') is not None:
             self.amount = m.get('Amount')
+        if m.get('AppInstanceType') is not None:
+            self.app_instance_type = m.get('AppInstanceType')
         if m.get('BizRegionId') is not None:
             self.biz_region_id = m.get('BizRegionId')
         if m.get('ChargeType') is not None:
@@ -2336,6 +2441,176 @@ class GetResourcePriceRequest(TeaModel):
             self.period_unit = m.get('PeriodUnit')
         if m.get('ProductType') is not None:
             self.product_type = m.get('ProductType')
+        return self
+
+
+class GetResourcePriceResponseBodyPriceListPricePromotions(TeaModel):
+    def __init__(self, option_code=None, promotion_desc=None, promotion_id=None, promotion_name=None, selected=None):
+        self.option_code = option_code  # type: str
+        self.promotion_desc = promotion_desc  # type: str
+        self.promotion_id = promotion_id  # type: str
+        self.promotion_name = promotion_name  # type: str
+        self.selected = selected  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetResourcePriceResponseBodyPriceListPricePromotions, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.option_code is not None:
+            result['OptionCode'] = self.option_code
+        if self.promotion_desc is not None:
+            result['PromotionDesc'] = self.promotion_desc
+        if self.promotion_id is not None:
+            result['PromotionId'] = self.promotion_id
+        if self.promotion_name is not None:
+            result['PromotionName'] = self.promotion_name
+        if self.selected is not None:
+            result['Selected'] = self.selected
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('OptionCode') is not None:
+            self.option_code = m.get('OptionCode')
+        if m.get('PromotionDesc') is not None:
+            self.promotion_desc = m.get('PromotionDesc')
+        if m.get('PromotionId') is not None:
+            self.promotion_id = m.get('PromotionId')
+        if m.get('PromotionName') is not None:
+            self.promotion_name = m.get('PromotionName')
+        if m.get('Selected') is not None:
+            self.selected = m.get('Selected')
+        return self
+
+
+class GetResourcePriceResponseBodyPriceListPrice(TeaModel):
+    def __init__(self, currency=None, discount_price=None, original_price=None, promotions=None, trade_price=None):
+        self.currency = currency  # type: str
+        self.discount_price = discount_price  # type: str
+        self.original_price = original_price  # type: str
+        self.promotions = promotions  # type: list[GetResourcePriceResponseBodyPriceListPricePromotions]
+        self.trade_price = trade_price  # type: str
+
+    def validate(self):
+        if self.promotions:
+            for k in self.promotions:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GetResourcePriceResponseBodyPriceListPrice, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.currency is not None:
+            result['Currency'] = self.currency
+        if self.discount_price is not None:
+            result['DiscountPrice'] = self.discount_price
+        if self.original_price is not None:
+            result['OriginalPrice'] = self.original_price
+        result['Promotions'] = []
+        if self.promotions is not None:
+            for k in self.promotions:
+                result['Promotions'].append(k.to_map() if k else None)
+        if self.trade_price is not None:
+            result['TradePrice'] = self.trade_price
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Currency') is not None:
+            self.currency = m.get('Currency')
+        if m.get('DiscountPrice') is not None:
+            self.discount_price = m.get('DiscountPrice')
+        if m.get('OriginalPrice') is not None:
+            self.original_price = m.get('OriginalPrice')
+        self.promotions = []
+        if m.get('Promotions') is not None:
+            for k in m.get('Promotions'):
+                temp_model = GetResourcePriceResponseBodyPriceListPricePromotions()
+                self.promotions.append(temp_model.from_map(k))
+        if m.get('TradePrice') is not None:
+            self.trade_price = m.get('TradePrice')
+        return self
+
+
+class GetResourcePriceResponseBodyPriceListRules(TeaModel):
+    def __init__(self, description=None, rule_id=None):
+        self.description = description  # type: str
+        self.rule_id = rule_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetResourcePriceResponseBodyPriceListRules, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.description is not None:
+            result['Description'] = self.description
+        if self.rule_id is not None:
+            result['RuleId'] = self.rule_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Description') is not None:
+            self.description = m.get('Description')
+        if m.get('RuleId') is not None:
+            self.rule_id = m.get('RuleId')
+        return self
+
+
+class GetResourcePriceResponseBodyPriceList(TeaModel):
+    def __init__(self, price=None, price_type=None, rules=None):
+        self.price = price  # type: GetResourcePriceResponseBodyPriceListPrice
+        self.price_type = price_type  # type: str
+        self.rules = rules  # type: list[GetResourcePriceResponseBodyPriceListRules]
+
+    def validate(self):
+        if self.price:
+            self.price.validate()
+        if self.rules:
+            for k in self.rules:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GetResourcePriceResponseBodyPriceList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.price is not None:
+            result['Price'] = self.price.to_map()
+        if self.price_type is not None:
+            result['PriceType'] = self.price_type
+        result['Rules'] = []
+        if self.rules is not None:
+            for k in self.rules:
+                result['Rules'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Price') is not None:
+            temp_model = GetResourcePriceResponseBodyPriceListPrice()
+            self.price = temp_model.from_map(m['Price'])
+        if m.get('PriceType') is not None:
+            self.price_type = m.get('PriceType')
+        self.rules = []
+        if m.get('Rules') is not None:
+            for k in m.get('Rules'):
+                temp_model = GetResourcePriceResponseBodyPriceListRules()
+                self.rules.append(temp_model.from_map(k))
         return self
 
 
@@ -2505,13 +2780,18 @@ class GetResourcePriceResponseBodyPriceModel(TeaModel):
 
 
 class GetResourcePriceResponseBody(TeaModel):
-    def __init__(self, code=None, message=None, price_model=None, request_id=None):
+    def __init__(self, code=None, message=None, price_list=None, price_model=None, request_id=None):
         self.code = code  # type: str
         self.message = message  # type: str
+        self.price_list = price_list  # type: list[GetResourcePriceResponseBodyPriceList]
         self.price_model = price_model  # type: GetResourcePriceResponseBodyPriceModel
         self.request_id = request_id  # type: str
 
     def validate(self):
+        if self.price_list:
+            for k in self.price_list:
+                if k:
+                    k.validate()
         if self.price_model:
             self.price_model.validate()
 
@@ -2525,6 +2805,10 @@ class GetResourcePriceResponseBody(TeaModel):
             result['Code'] = self.code
         if self.message is not None:
             result['Message'] = self.message
+        result['PriceList'] = []
+        if self.price_list is not None:
+            for k in self.price_list:
+                result['PriceList'].append(k.to_map() if k else None)
         if self.price_model is not None:
             result['PriceModel'] = self.price_model.to_map()
         if self.request_id is not None:
@@ -2537,6 +2821,11 @@ class GetResourcePriceResponseBody(TeaModel):
             self.code = m.get('Code')
         if m.get('Message') is not None:
             self.message = m.get('Message')
+        self.price_list = []
+        if m.get('PriceList') is not None:
+            for k in m.get('PriceList'):
+                temp_model = GetResourcePriceResponseBodyPriceList()
+                self.price_list.append(temp_model.from_map(k))
         if m.get('PriceModel') is not None:
             temp_model = GetResourcePriceResponseBodyPriceModel()
             self.price_model = temp_model.from_map(m['PriceModel'])
@@ -3203,9 +3492,11 @@ class ListAppInstanceGroupResponseBodyAppInstanceGroupModelsOtaInfo(TeaModel):
 class ListAppInstanceGroupResponseBodyAppInstanceGroupModels(TeaModel):
     def __init__(self, amount=None, app_center_image_id=None, app_instance_group_id=None,
                  app_instance_group_name=None, app_instance_type=None, app_policy_id=None, apps=None, charge_resource_mode=None,
-                 charge_type=None, expired_time=None, gmt_create=None, node_pool=None, os_type=None, ota_info=None,
-                 product_type=None, region_id=None, resource_status=None, session_timeout=None, skip_user_auth_check=None,
-                 spec_id=None, status=None):
+                 charge_type=None, expired_time=None, gmt_create=None, max_amount=None, min_amount=None, node_pool=None,
+                 os_type=None, ota_info=None, product_type=None, region_id=None, reserve_amount_ratio=None,
+                 reserve_max_amount=None, reserve_min_amount=None, resource_status=None, scaling_down_after_idle_minutes=None,
+                 scaling_step=None, scaling_usage_threshold=None, session_timeout=None, skip_user_auth_check=None, spec_id=None,
+                 status=None):
         self.amount = amount  # type: int
         self.app_center_image_id = app_center_image_id  # type: str
         self.app_instance_group_id = app_instance_group_id  # type: str
@@ -3219,12 +3510,20 @@ class ListAppInstanceGroupResponseBodyAppInstanceGroupModels(TeaModel):
         self.charge_type = charge_type  # type: str
         self.expired_time = expired_time  # type: str
         self.gmt_create = gmt_create  # type: str
+        self.max_amount = max_amount  # type: int
+        self.min_amount = min_amount  # type: int
         self.node_pool = node_pool  # type: list[ListAppInstanceGroupResponseBodyAppInstanceGroupModelsNodePool]
         self.os_type = os_type  # type: str
         self.ota_info = ota_info  # type: ListAppInstanceGroupResponseBodyAppInstanceGroupModelsOtaInfo
         self.product_type = product_type  # type: str
         self.region_id = region_id  # type: str
+        self.reserve_amount_ratio = reserve_amount_ratio  # type: str
+        self.reserve_max_amount = reserve_max_amount  # type: int
+        self.reserve_min_amount = reserve_min_amount  # type: int
         self.resource_status = resource_status  # type: str
+        self.scaling_down_after_idle_minutes = scaling_down_after_idle_minutes  # type: int
+        self.scaling_step = scaling_step  # type: int
+        self.scaling_usage_threshold = scaling_usage_threshold  # type: str
         self.session_timeout = session_timeout  # type: str
         self.skip_user_auth_check = skip_user_auth_check  # type: bool
         self.spec_id = spec_id  # type: str
@@ -3272,6 +3571,10 @@ class ListAppInstanceGroupResponseBodyAppInstanceGroupModels(TeaModel):
             result['ExpiredTime'] = self.expired_time
         if self.gmt_create is not None:
             result['GmtCreate'] = self.gmt_create
+        if self.max_amount is not None:
+            result['MaxAmount'] = self.max_amount
+        if self.min_amount is not None:
+            result['MinAmount'] = self.min_amount
         result['NodePool'] = []
         if self.node_pool is not None:
             for k in self.node_pool:
@@ -3284,8 +3587,20 @@ class ListAppInstanceGroupResponseBodyAppInstanceGroupModels(TeaModel):
             result['ProductType'] = self.product_type
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.reserve_amount_ratio is not None:
+            result['ReserveAmountRatio'] = self.reserve_amount_ratio
+        if self.reserve_max_amount is not None:
+            result['ReserveMaxAmount'] = self.reserve_max_amount
+        if self.reserve_min_amount is not None:
+            result['ReserveMinAmount'] = self.reserve_min_amount
         if self.resource_status is not None:
             result['ResourceStatus'] = self.resource_status
+        if self.scaling_down_after_idle_minutes is not None:
+            result['ScalingDownAfterIdleMinutes'] = self.scaling_down_after_idle_minutes
+        if self.scaling_step is not None:
+            result['ScalingStep'] = self.scaling_step
+        if self.scaling_usage_threshold is not None:
+            result['ScalingUsageThreshold'] = self.scaling_usage_threshold
         if self.session_timeout is not None:
             result['SessionTimeout'] = self.session_timeout
         if self.skip_user_auth_check is not None:
@@ -3323,6 +3638,10 @@ class ListAppInstanceGroupResponseBodyAppInstanceGroupModels(TeaModel):
             self.expired_time = m.get('ExpiredTime')
         if m.get('GmtCreate') is not None:
             self.gmt_create = m.get('GmtCreate')
+        if m.get('MaxAmount') is not None:
+            self.max_amount = m.get('MaxAmount')
+        if m.get('MinAmount') is not None:
+            self.min_amount = m.get('MinAmount')
         self.node_pool = []
         if m.get('NodePool') is not None:
             for k in m.get('NodePool'):
@@ -3337,8 +3656,20 @@ class ListAppInstanceGroupResponseBodyAppInstanceGroupModels(TeaModel):
             self.product_type = m.get('ProductType')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ReserveAmountRatio') is not None:
+            self.reserve_amount_ratio = m.get('ReserveAmountRatio')
+        if m.get('ReserveMaxAmount') is not None:
+            self.reserve_max_amount = m.get('ReserveMaxAmount')
+        if m.get('ReserveMinAmount') is not None:
+            self.reserve_min_amount = m.get('ReserveMinAmount')
         if m.get('ResourceStatus') is not None:
             self.resource_status = m.get('ResourceStatus')
+        if m.get('ScalingDownAfterIdleMinutes') is not None:
+            self.scaling_down_after_idle_minutes = m.get('ScalingDownAfterIdleMinutes')
+        if m.get('ScalingStep') is not None:
+            self.scaling_step = m.get('ScalingStep')
+        if m.get('ScalingUsageThreshold') is not None:
+            self.scaling_usage_threshold = m.get('ScalingUsageThreshold')
         if m.get('SessionTimeout') is not None:
             self.session_timeout = m.get('SessionTimeout')
         if m.get('SkipUserAuthCheck') is not None:
@@ -4364,6 +4695,67 @@ class LogOffAllSessionsInAppInstanceGroupResponse(TeaModel):
         return self
 
 
+class ModifyAppInstanceGroupAttributeRequestNetworkDomainRules(TeaModel):
+    def __init__(self, domain=None, policy=None):
+        self.domain = domain  # type: str
+        self.policy = policy  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModifyAppInstanceGroupAttributeRequestNetworkDomainRules, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.domain is not None:
+            result['Domain'] = self.domain
+        if self.policy is not None:
+            result['Policy'] = self.policy
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Domain') is not None:
+            self.domain = m.get('Domain')
+        if m.get('Policy') is not None:
+            self.policy = m.get('Policy')
+        return self
+
+
+class ModifyAppInstanceGroupAttributeRequestNetwork(TeaModel):
+    def __init__(self, domain_rules=None):
+        self.domain_rules = domain_rules  # type: list[ModifyAppInstanceGroupAttributeRequestNetworkDomainRules]
+
+    def validate(self):
+        if self.domain_rules:
+            for k in self.domain_rules:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ModifyAppInstanceGroupAttributeRequestNetwork, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['DomainRules'] = []
+        if self.domain_rules is not None:
+            for k in self.domain_rules:
+                result['DomainRules'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.domain_rules = []
+        if m.get('DomainRules') is not None:
+            for k in m.get('DomainRules'):
+                temp_model = ModifyAppInstanceGroupAttributeRequestNetworkDomainRules()
+                self.domain_rules.append(temp_model.from_map(k))
+        return self
+
+
 class ModifyAppInstanceGroupAttributeRequestNodePool(TeaModel):
     def __init__(self, node_capacity=None, node_pool_id=None):
         self.node_capacity = node_capacity  # type: int
@@ -4447,17 +4839,23 @@ class ModifyAppInstanceGroupAttributeRequestStoragePolicy(TeaModel):
 
 
 class ModifyAppInstanceGroupAttributeRequest(TeaModel):
-    def __init__(self, app_instance_group_id=None, app_instance_group_name=None, node_pool=None, product_type=None,
-                 security_policy=None, session_timeout=None, storage_policy=None):
+    def __init__(self, app_instance_group_id=None, app_instance_group_name=None, network=None, node_pool=None,
+                 pre_open_app_id=None, pre_open_mode=None, product_type=None, security_policy=None, session_timeout=None,
+                 storage_policy=None):
         self.app_instance_group_id = app_instance_group_id  # type: str
         self.app_instance_group_name = app_instance_group_name  # type: str
+        self.network = network  # type: ModifyAppInstanceGroupAttributeRequestNetwork
         self.node_pool = node_pool  # type: ModifyAppInstanceGroupAttributeRequestNodePool
+        self.pre_open_app_id = pre_open_app_id  # type: str
+        self.pre_open_mode = pre_open_mode  # type: str
         self.product_type = product_type  # type: str
         self.security_policy = security_policy  # type: ModifyAppInstanceGroupAttributeRequestSecurityPolicy
         self.session_timeout = session_timeout  # type: int
         self.storage_policy = storage_policy  # type: ModifyAppInstanceGroupAttributeRequestStoragePolicy
 
     def validate(self):
+        if self.network:
+            self.network.validate()
         if self.node_pool:
             self.node_pool.validate()
         if self.security_policy:
@@ -4475,8 +4873,14 @@ class ModifyAppInstanceGroupAttributeRequest(TeaModel):
             result['AppInstanceGroupId'] = self.app_instance_group_id
         if self.app_instance_group_name is not None:
             result['AppInstanceGroupName'] = self.app_instance_group_name
+        if self.network is not None:
+            result['Network'] = self.network.to_map()
         if self.node_pool is not None:
             result['NodePool'] = self.node_pool.to_map()
+        if self.pre_open_app_id is not None:
+            result['PreOpenAppId'] = self.pre_open_app_id
+        if self.pre_open_mode is not None:
+            result['PreOpenMode'] = self.pre_open_mode
         if self.product_type is not None:
             result['ProductType'] = self.product_type
         if self.security_policy is not None:
@@ -4493,9 +4897,16 @@ class ModifyAppInstanceGroupAttributeRequest(TeaModel):
             self.app_instance_group_id = m.get('AppInstanceGroupId')
         if m.get('AppInstanceGroupName') is not None:
             self.app_instance_group_name = m.get('AppInstanceGroupName')
+        if m.get('Network') is not None:
+            temp_model = ModifyAppInstanceGroupAttributeRequestNetwork()
+            self.network = temp_model.from_map(m['Network'])
         if m.get('NodePool') is not None:
             temp_model = ModifyAppInstanceGroupAttributeRequestNodePool()
             self.node_pool = temp_model.from_map(m['NodePool'])
+        if m.get('PreOpenAppId') is not None:
+            self.pre_open_app_id = m.get('PreOpenAppId')
+        if m.get('PreOpenMode') is not None:
+            self.pre_open_mode = m.get('PreOpenMode')
         if m.get('ProductType') is not None:
             self.product_type = m.get('ProductType')
         if m.get('SecurityPolicy') is not None:
@@ -4510,11 +4921,15 @@ class ModifyAppInstanceGroupAttributeRequest(TeaModel):
 
 
 class ModifyAppInstanceGroupAttributeShrinkRequest(TeaModel):
-    def __init__(self, app_instance_group_id=None, app_instance_group_name=None, node_pool_shrink=None,
-                 product_type=None, security_policy_shrink=None, session_timeout=None, storage_policy_shrink=None):
+    def __init__(self, app_instance_group_id=None, app_instance_group_name=None, network_shrink=None,
+                 node_pool_shrink=None, pre_open_app_id=None, pre_open_mode=None, product_type=None, security_policy_shrink=None,
+                 session_timeout=None, storage_policy_shrink=None):
         self.app_instance_group_id = app_instance_group_id  # type: str
         self.app_instance_group_name = app_instance_group_name  # type: str
+        self.network_shrink = network_shrink  # type: str
         self.node_pool_shrink = node_pool_shrink  # type: str
+        self.pre_open_app_id = pre_open_app_id  # type: str
+        self.pre_open_mode = pre_open_mode  # type: str
         self.product_type = product_type  # type: str
         self.security_policy_shrink = security_policy_shrink  # type: str
         self.session_timeout = session_timeout  # type: int
@@ -4533,8 +4948,14 @@ class ModifyAppInstanceGroupAttributeShrinkRequest(TeaModel):
             result['AppInstanceGroupId'] = self.app_instance_group_id
         if self.app_instance_group_name is not None:
             result['AppInstanceGroupName'] = self.app_instance_group_name
+        if self.network_shrink is not None:
+            result['Network'] = self.network_shrink
         if self.node_pool_shrink is not None:
             result['NodePool'] = self.node_pool_shrink
+        if self.pre_open_app_id is not None:
+            result['PreOpenAppId'] = self.pre_open_app_id
+        if self.pre_open_mode is not None:
+            result['PreOpenMode'] = self.pre_open_mode
         if self.product_type is not None:
             result['ProductType'] = self.product_type
         if self.security_policy_shrink is not None:
@@ -4551,8 +4972,14 @@ class ModifyAppInstanceGroupAttributeShrinkRequest(TeaModel):
             self.app_instance_group_id = m.get('AppInstanceGroupId')
         if m.get('AppInstanceGroupName') is not None:
             self.app_instance_group_name = m.get('AppInstanceGroupName')
+        if m.get('Network') is not None:
+            self.network_shrink = m.get('Network')
         if m.get('NodePool') is not None:
             self.node_pool_shrink = m.get('NodePool')
+        if m.get('PreOpenAppId') is not None:
+            self.pre_open_app_id = m.get('PreOpenAppId')
+        if m.get('PreOpenMode') is not None:
+            self.pre_open_mode = m.get('PreOpenMode')
         if m.get('ProductType') is not None:
             self.product_type = m.get('ProductType')
         if m.get('SecurityPolicy') is not None:
