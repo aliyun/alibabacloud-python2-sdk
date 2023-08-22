@@ -1083,6 +1083,40 @@ class ModuleFlightItemListItemListSubItemsShoppingItemMapValue(TeaModel):
         return self
 
 
+class ModuleAgentInfoAttributeShowInfoMapValue(TeaModel):
+    def __init__(self, code=None, name=None, text=None):
+        self.code = code  # type: str
+        self.name = name  # type: str
+        self.text = text  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ModuleAgentInfoAttributeShowInfoMapValue, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.name is not None:
+            result['name'] = self.name
+        if self.text is not None:
+            result['text'] = self.text
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('text') is not None:
+            self.text = m.get('text')
+        return self
+
+
 class ModuleItemListFlightRuleInfosValue(TeaModel):
     def __init__(self, refund_change_rule_desc=None, baggage_desc=None):
         self.refund_change_rule_desc = refund_change_rule_desc  # type: str
@@ -9391,17 +9425,18 @@ class CarBillSettlementQueryRequest(TeaModel):
 class CarBillSettlementQueryResponseBodyModuleDataList(TeaModel):
     def __init__(self, alipay_trade_no=None, apply_arr_city_code=None, apply_arr_city_name=None,
                  apply_dep_city_code=None, apply_dep_city_name=None, apply_extend_field=None, apply_id=None, arr_city=None,
-                 arr_city_code=None, arr_date=None, arr_location=None, arr_time=None, bill_record_time=None, book_time=None,
-                 booker_id=None, booker_job_no=None, booker_name=None, business_category=None, capital_direction=None,
-                 car_level=None, cascade_department=None, cost_center=None, cost_center_number=None, coupon=None,
-                 coupon_price=None, dep_city_code=None, department=None, department_id=None, dept_city=None, dept_date=None,
-                 dept_location=None, dept_time=None, estimate_drive_distance=None, estimate_price=None, fee_type=None, index=None,
-                 invoice_title=None, memo=None, order_id=None, order_price=None, over_apply_id=None, person_settle_fee=None,
-                 primary_id=None, project_code=None, project_name=None, provider_name=None, real_drive_distance=None,
-                 real_from_addr=None, real_to_addr=None, remark=None, service_fee=None, settlement_fee=None,
-                 settlement_grant_fee=None, settlement_time=None, settlement_type=None, special_order=None, special_reason=None,
-                 status=None, sub_order_id=None, tax_rate=None, third_itinerary_id=None, traveler_id=None,
-                 traveler_job_no=None, traveler_name=None, user_confirm_desc=None, voucher_type=None):
+                 arr_city_code=None, arr_date=None, arr_location=None, arr_time=None, bill_record_time=None, book_model=None,
+                 book_time=None, booker_id=None, booker_job_no=None, booker_name=None, business_category=None,
+                 capital_direction=None, car_level=None, cascade_department=None, cost_center=None, cost_center_number=None,
+                 coupon=None, coupon_price=None, dep_city_code=None, department=None, department_id=None, dept_city=None,
+                 dept_date=None, dept_location=None, dept_time=None, estimate_drive_distance=None, estimate_price=None,
+                 fee_type=None, index=None, invoice_title=None, memo=None, order_id=None, order_price=None,
+                 over_apply_id=None, person_settle_fee=None, primary_id=None, project_code=None, project_name=None,
+                 provider_name=None, real_drive_distance=None, real_from_addr=None, real_to_addr=None, remark=None,
+                 service_fee=None, settlement_fee=None, settlement_grant_fee=None, settlement_time=None, settlement_type=None,
+                 special_order=None, special_reason=None, status=None, sub_order_id=None, tax_rate=None, third_itinerary_id=None,
+                 time_type=None, traveler_id=None, traveler_job_no=None, traveler_name=None, user_confirm_desc=None,
+                 voucher_type=None):
         self.alipay_trade_no = alipay_trade_no  # type: str
         self.apply_arr_city_code = apply_arr_city_code  # type: str
         self.apply_arr_city_name = apply_arr_city_name  # type: str
@@ -9416,6 +9451,7 @@ class CarBillSettlementQueryResponseBodyModuleDataList(TeaModel):
         self.arr_location = arr_location  # type: str
         self.arr_time = arr_time  # type: str
         self.bill_record_time = bill_record_time  # type: str
+        self.book_model = book_model  # type: str
         self.book_time = book_time  # type: str
         self.booker_id = booker_id  # type: str
         self.booker_job_no = booker_job_no  # type: str
@@ -9465,6 +9501,7 @@ class CarBillSettlementQueryResponseBodyModuleDataList(TeaModel):
         # 税率
         self.tax_rate = tax_rate  # type: str
         self.third_itinerary_id = third_itinerary_id  # type: str
+        self.time_type = time_type  # type: str
         self.traveler_id = traveler_id  # type: str
         self.traveler_job_no = traveler_job_no  # type: str
         self.traveler_name = traveler_name  # type: str
@@ -9506,6 +9543,8 @@ class CarBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             result['arr_time'] = self.arr_time
         if self.bill_record_time is not None:
             result['bill_record_time'] = self.bill_record_time
+        if self.book_model is not None:
+            result['book_model'] = self.book_model
         if self.book_time is not None:
             result['book_time'] = self.book_time
         if self.booker_id is not None:
@@ -9602,6 +9641,8 @@ class CarBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             result['tax_rate'] = self.tax_rate
         if self.third_itinerary_id is not None:
             result['third_itinerary_id'] = self.third_itinerary_id
+        if self.time_type is not None:
+            result['time_type'] = self.time_type
         if self.traveler_id is not None:
             result['traveler_id'] = self.traveler_id
         if self.traveler_job_no is not None:
@@ -9642,6 +9683,8 @@ class CarBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             self.arr_time = m.get('arr_time')
         if m.get('bill_record_time') is not None:
             self.bill_record_time = m.get('bill_record_time')
+        if m.get('book_model') is not None:
+            self.book_model = m.get('book_model')
         if m.get('book_time') is not None:
             self.book_time = m.get('book_time')
         if m.get('booker_id') is not None:
@@ -9738,6 +9781,8 @@ class CarBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             self.tax_rate = m.get('tax_rate')
         if m.get('third_itinerary_id') is not None:
             self.third_itinerary_id = m.get('third_itinerary_id')
+        if m.get('time_type') is not None:
+            self.time_type = m.get('time_type')
         if m.get('traveler_id') is not None:
             self.traveler_id = m.get('traveler_id')
         if m.get('traveler_job_no') is not None:
@@ -20972,6 +21017,4315 @@ class FlightListingSearchV2Response(TeaModel):
         return self
 
 
+class FlightModifyApplyV2Headers(TeaModel):
+    def __init__(self, common_headers=None, x_acs_btrip_corp_token=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_acs_btrip_corp_token = x_acs_btrip_corp_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightModifyApplyV2Headers, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_acs_btrip_corp_token is not None:
+            result['x-acs-btrip-corp-token'] = self.x_acs_btrip_corp_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('x-acs-btrip-corp-token') is not None:
+            self.x_acs_btrip_corp_token = m.get('x-acs-btrip-corp-token')
+        return self
+
+
+class FlightModifyApplyV2RequestPassengerSegmentRelations(TeaModel):
+    def __init__(self, passenger_id=None, segment_id_list=None):
+        self.passenger_id = passenger_id  # type: str
+        self.segment_id_list = segment_id_list  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightModifyApplyV2RequestPassengerSegmentRelations, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.passenger_id is not None:
+            result['passenger_id'] = self.passenger_id
+        if self.segment_id_list is not None:
+            result['segment_id_list'] = self.segment_id_list
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('passenger_id') is not None:
+            self.passenger_id = m.get('passenger_id')
+        if m.get('segment_id_list') is not None:
+            self.segment_id_list = m.get('segment_id_list')
+        return self
+
+
+class FlightModifyApplyV2Request(TeaModel):
+    def __init__(self, cache_key=None, contact_phone=None, isv_name=None, item_id=None, order_id=None,
+                 out_order_id=None, out_sub_order_id=None, passenger_segment_relations=None, reason=None, session_id=None,
+                 voluntary=None):
+        self.cache_key = cache_key  # type: str
+        self.contact_phone = contact_phone  # type: str
+        self.isv_name = isv_name  # type: str
+        self.item_id = item_id  # type: str
+        self.order_id = order_id  # type: long
+        self.out_order_id = out_order_id  # type: str
+        self.out_sub_order_id = out_sub_order_id  # type: str
+        self.passenger_segment_relations = passenger_segment_relations  # type: list[FlightModifyApplyV2RequestPassengerSegmentRelations]
+        self.reason = reason  # type: str
+        # sessionId
+        self.session_id = session_id  # type: str
+        self.voluntary = voluntary  # type: bool
+
+    def validate(self):
+        if self.passenger_segment_relations:
+            for k in self.passenger_segment_relations:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(FlightModifyApplyV2Request, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cache_key is not None:
+            result['cache_key'] = self.cache_key
+        if self.contact_phone is not None:
+            result['contact_phone'] = self.contact_phone
+        if self.isv_name is not None:
+            result['isv_name'] = self.isv_name
+        if self.item_id is not None:
+            result['item_id'] = self.item_id
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.out_order_id is not None:
+            result['out_order_id'] = self.out_order_id
+        if self.out_sub_order_id is not None:
+            result['out_sub_order_id'] = self.out_sub_order_id
+        result['passenger_segment_relations'] = []
+        if self.passenger_segment_relations is not None:
+            for k in self.passenger_segment_relations:
+                result['passenger_segment_relations'].append(k.to_map() if k else None)
+        if self.reason is not None:
+            result['reason'] = self.reason
+        if self.session_id is not None:
+            result['session_id'] = self.session_id
+        if self.voluntary is not None:
+            result['voluntary'] = self.voluntary
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('cache_key') is not None:
+            self.cache_key = m.get('cache_key')
+        if m.get('contact_phone') is not None:
+            self.contact_phone = m.get('contact_phone')
+        if m.get('isv_name') is not None:
+            self.isv_name = m.get('isv_name')
+        if m.get('item_id') is not None:
+            self.item_id = m.get('item_id')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('out_order_id') is not None:
+            self.out_order_id = m.get('out_order_id')
+        if m.get('out_sub_order_id') is not None:
+            self.out_sub_order_id = m.get('out_sub_order_id')
+        self.passenger_segment_relations = []
+        if m.get('passenger_segment_relations') is not None:
+            for k in m.get('passenger_segment_relations'):
+                temp_model = FlightModifyApplyV2RequestPassengerSegmentRelations()
+                self.passenger_segment_relations.append(temp_model.from_map(k))
+        if m.get('reason') is not None:
+            self.reason = m.get('reason')
+        if m.get('session_id') is not None:
+            self.session_id = m.get('session_id')
+        if m.get('voluntary') is not None:
+            self.voluntary = m.get('voluntary')
+        return self
+
+
+class FlightModifyApplyV2ShrinkRequest(TeaModel):
+    def __init__(self, cache_key=None, contact_phone=None, isv_name=None, item_id=None, order_id=None,
+                 out_order_id=None, out_sub_order_id=None, passenger_segment_relations_shrink=None, reason=None,
+                 session_id=None, voluntary=None):
+        self.cache_key = cache_key  # type: str
+        self.contact_phone = contact_phone  # type: str
+        self.isv_name = isv_name  # type: str
+        self.item_id = item_id  # type: str
+        self.order_id = order_id  # type: long
+        self.out_order_id = out_order_id  # type: str
+        self.out_sub_order_id = out_sub_order_id  # type: str
+        self.passenger_segment_relations_shrink = passenger_segment_relations_shrink  # type: str
+        self.reason = reason  # type: str
+        # sessionId
+        self.session_id = session_id  # type: str
+        self.voluntary = voluntary  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightModifyApplyV2ShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cache_key is not None:
+            result['cache_key'] = self.cache_key
+        if self.contact_phone is not None:
+            result['contact_phone'] = self.contact_phone
+        if self.isv_name is not None:
+            result['isv_name'] = self.isv_name
+        if self.item_id is not None:
+            result['item_id'] = self.item_id
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.out_order_id is not None:
+            result['out_order_id'] = self.out_order_id
+        if self.out_sub_order_id is not None:
+            result['out_sub_order_id'] = self.out_sub_order_id
+        if self.passenger_segment_relations_shrink is not None:
+            result['passenger_segment_relations'] = self.passenger_segment_relations_shrink
+        if self.reason is not None:
+            result['reason'] = self.reason
+        if self.session_id is not None:
+            result['session_id'] = self.session_id
+        if self.voluntary is not None:
+            result['voluntary'] = self.voluntary
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('cache_key') is not None:
+            self.cache_key = m.get('cache_key')
+        if m.get('contact_phone') is not None:
+            self.contact_phone = m.get('contact_phone')
+        if m.get('isv_name') is not None:
+            self.isv_name = m.get('isv_name')
+        if m.get('item_id') is not None:
+            self.item_id = m.get('item_id')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('out_order_id') is not None:
+            self.out_order_id = m.get('out_order_id')
+        if m.get('out_sub_order_id') is not None:
+            self.out_sub_order_id = m.get('out_sub_order_id')
+        if m.get('passenger_segment_relations') is not None:
+            self.passenger_segment_relations_shrink = m.get('passenger_segment_relations')
+        if m.get('reason') is not None:
+            self.reason = m.get('reason')
+        if m.get('session_id') is not None:
+            self.session_id = m.get('session_id')
+        if m.get('voluntary') is not None:
+            self.voluntary = m.get('voluntary')
+        return self
+
+
+class FlightModifyApplyV2ResponseBodyModule(TeaModel):
+    def __init__(self, order_id=None, out_order_id=None, out_sub_order_id=None, sub_order_id=None):
+        self.order_id = order_id  # type: str
+        self.out_order_id = out_order_id  # type: str
+        self.out_sub_order_id = out_sub_order_id  # type: str
+        self.sub_order_id = sub_order_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightModifyApplyV2ResponseBodyModule, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.out_order_id is not None:
+            result['out_order_id'] = self.out_order_id
+        if self.out_sub_order_id is not None:
+            result['out_sub_order_id'] = self.out_sub_order_id
+        if self.sub_order_id is not None:
+            result['sub_order_id'] = self.sub_order_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('out_order_id') is not None:
+            self.out_order_id = m.get('out_order_id')
+        if m.get('out_sub_order_id') is not None:
+            self.out_sub_order_id = m.get('out_sub_order_id')
+        if m.get('sub_order_id') is not None:
+            self.sub_order_id = m.get('sub_order_id')
+        return self
+
+
+class FlightModifyApplyV2ResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+        # module
+        self.module = module  # type: FlightModifyApplyV2ResponseBodyModule
+        # requestId
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+        # traceId
+        self.trace_id = trace_id  # type: str
+
+    def validate(self):
+        if self.module:
+            self.module.validate()
+
+    def to_map(self):
+        _map = super(FlightModifyApplyV2ResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
+        if self.module is not None:
+            result['module'] = self.module.to_map()
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.success is not None:
+            result['success'] = self.success
+        if self.trace_id is not None:
+            result['traceId'] = self.trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('module') is not None:
+            temp_model = FlightModifyApplyV2ResponseBodyModule()
+            self.module = temp_model.from_map(m['module'])
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('traceId') is not None:
+            self.trace_id = m.get('traceId')
+        return self
+
+
+class FlightModifyApplyV2Response(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: FlightModifyApplyV2ResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(FlightModifyApplyV2Response, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = FlightModifyApplyV2ResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class FlightModifyCancelV2Headers(TeaModel):
+    def __init__(self, common_headers=None, x_acs_btrip_corp_token=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_acs_btrip_corp_token = x_acs_btrip_corp_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightModifyCancelV2Headers, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_acs_btrip_corp_token is not None:
+            result['x-acs-btrip-corp-token'] = self.x_acs_btrip_corp_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('x-acs-btrip-corp-token') is not None:
+            self.x_acs_btrip_corp_token = m.get('x-acs-btrip-corp-token')
+        return self
+
+
+class FlightModifyCancelV2Request(TeaModel):
+    def __init__(self, isv_name=None, order_id=None, out_order_id=None, out_sub_order_id=None, sub_order_id=None):
+        self.isv_name = isv_name  # type: str
+        self.order_id = order_id  # type: long
+        self.out_order_id = out_order_id  # type: str
+        self.out_sub_order_id = out_sub_order_id  # type: str
+        self.sub_order_id = sub_order_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightModifyCancelV2Request, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.isv_name is not None:
+            result['isv_name'] = self.isv_name
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.out_order_id is not None:
+            result['out_order_id'] = self.out_order_id
+        if self.out_sub_order_id is not None:
+            result['out_sub_order_id'] = self.out_sub_order_id
+        if self.sub_order_id is not None:
+            result['sub_order_id'] = self.sub_order_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('isv_name') is not None:
+            self.isv_name = m.get('isv_name')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('out_order_id') is not None:
+            self.out_order_id = m.get('out_order_id')
+        if m.get('out_sub_order_id') is not None:
+            self.out_sub_order_id = m.get('out_sub_order_id')
+        if m.get('sub_order_id') is not None:
+            self.sub_order_id = m.get('sub_order_id')
+        return self
+
+
+class FlightModifyCancelV2ResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+        # module
+        self.module = module  # type: dict[str, any]
+        # requestId
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+        # traceId
+        self.trace_id = trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightModifyCancelV2ResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
+        if self.module is not None:
+            result['module'] = self.module
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.success is not None:
+            result['success'] = self.success
+        if self.trace_id is not None:
+            result['traceId'] = self.trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('module') is not None:
+            self.module = m.get('module')
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('traceId') is not None:
+            self.trace_id = m.get('traceId')
+        return self
+
+
+class FlightModifyCancelV2Response(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: FlightModifyCancelV2ResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(FlightModifyCancelV2Response, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = FlightModifyCancelV2ResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class FlightModifyListingSearchV2Headers(TeaModel):
+    def __init__(self, common_headers=None, x_acs_btrip_corp_token=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_acs_btrip_corp_token = x_acs_btrip_corp_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightModifyListingSearchV2Headers, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_acs_btrip_corp_token is not None:
+            result['x-acs-btrip-corp-token'] = self.x_acs_btrip_corp_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('x-acs-btrip-corp-token') is not None:
+            self.x_acs_btrip_corp_token = m.get('x-acs-btrip-corp-token')
+        return self
+
+
+class FlightModifyListingSearchV2RequestPassengerSegmentRelations(TeaModel):
+    def __init__(self, passenger_id=None, segment_id_list=None):
+        self.passenger_id = passenger_id  # type: str
+        self.segment_id_list = segment_id_list  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightModifyListingSearchV2RequestPassengerSegmentRelations, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.passenger_id is not None:
+            result['passenger_id'] = self.passenger_id
+        if self.segment_id_list is not None:
+            result['segment_id_list'] = self.segment_id_list
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('passenger_id') is not None:
+            self.passenger_id = m.get('passenger_id')
+        if m.get('segment_id_list') is not None:
+            self.segment_id_list = m.get('segment_id_list')
+        return self
+
+
+class FlightModifyListingSearchV2RequestSelectedSegments(TeaModel):
+    def __init__(self, arr_city_code=None, dep_city_code=None, dep_date_time=None, journey_seq=None,
+                 marketing_flight_no=None, operating_flight_no=None, segment_seq=None):
+        self.arr_city_code = arr_city_code  # type: str
+        self.dep_city_code = dep_city_code  # type: str
+        self.dep_date_time = dep_date_time  # type: str
+        self.journey_seq = journey_seq  # type: int
+        self.marketing_flight_no = marketing_flight_no  # type: str
+        self.operating_flight_no = operating_flight_no  # type: str
+        self.segment_seq = segment_seq  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightModifyListingSearchV2RequestSelectedSegments, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.arr_city_code is not None:
+            result['arr_city_code'] = self.arr_city_code
+        if self.dep_city_code is not None:
+            result['dep_city_code'] = self.dep_city_code
+        if self.dep_date_time is not None:
+            result['dep_date_time'] = self.dep_date_time
+        if self.journey_seq is not None:
+            result['journey_seq'] = self.journey_seq
+        if self.marketing_flight_no is not None:
+            result['marketing_flight_no'] = self.marketing_flight_no
+        if self.operating_flight_no is not None:
+            result['operating_flight_no'] = self.operating_flight_no
+        if self.segment_seq is not None:
+            result['segment_seq'] = self.segment_seq
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('arr_city_code') is not None:
+            self.arr_city_code = m.get('arr_city_code')
+        if m.get('dep_city_code') is not None:
+            self.dep_city_code = m.get('dep_city_code')
+        if m.get('dep_date_time') is not None:
+            self.dep_date_time = m.get('dep_date_time')
+        if m.get('journey_seq') is not None:
+            self.journey_seq = m.get('journey_seq')
+        if m.get('marketing_flight_no') is not None:
+            self.marketing_flight_no = m.get('marketing_flight_no')
+        if m.get('operating_flight_no') is not None:
+            self.operating_flight_no = m.get('operating_flight_no')
+        if m.get('segment_seq') is not None:
+            self.segment_seq = m.get('segment_seq')
+        return self
+
+
+class FlightModifyListingSearchV2Request(TeaModel):
+    def __init__(self, cabin_class=None, dep_date=None, isv_name=None, order_id=None, out_order_id=None,
+                 passenger_segment_relations=None, search_mode=None, selected_segments=None, session_id=None, voluntary=None):
+        self.cabin_class = cabin_class  # type: list[int]
+        self.dep_date = dep_date  # type: list[str]
+        self.isv_name = isv_name  # type: str
+        self.order_id = order_id  # type: long
+        self.out_order_id = out_order_id  # type: str
+        self.passenger_segment_relations = passenger_segment_relations  # type: list[FlightModifyListingSearchV2RequestPassengerSegmentRelations]
+        self.search_mode = search_mode  # type: int
+        self.selected_segments = selected_segments  # type: list[FlightModifyListingSearchV2RequestSelectedSegments]
+        self.session_id = session_id  # type: str
+        self.voluntary = voluntary  # type: bool
+
+    def validate(self):
+        if self.passenger_segment_relations:
+            for k in self.passenger_segment_relations:
+                if k:
+                    k.validate()
+        if self.selected_segments:
+            for k in self.selected_segments:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(FlightModifyListingSearchV2Request, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cabin_class is not None:
+            result['cabin_class'] = self.cabin_class
+        if self.dep_date is not None:
+            result['dep_date'] = self.dep_date
+        if self.isv_name is not None:
+            result['isv_name'] = self.isv_name
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.out_order_id is not None:
+            result['out_order_id'] = self.out_order_id
+        result['passenger_segment_relations'] = []
+        if self.passenger_segment_relations is not None:
+            for k in self.passenger_segment_relations:
+                result['passenger_segment_relations'].append(k.to_map() if k else None)
+        if self.search_mode is not None:
+            result['search_mode'] = self.search_mode
+        result['selected_segments'] = []
+        if self.selected_segments is not None:
+            for k in self.selected_segments:
+                result['selected_segments'].append(k.to_map() if k else None)
+        if self.session_id is not None:
+            result['session_id'] = self.session_id
+        if self.voluntary is not None:
+            result['voluntary'] = self.voluntary
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('cabin_class') is not None:
+            self.cabin_class = m.get('cabin_class')
+        if m.get('dep_date') is not None:
+            self.dep_date = m.get('dep_date')
+        if m.get('isv_name') is not None:
+            self.isv_name = m.get('isv_name')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('out_order_id') is not None:
+            self.out_order_id = m.get('out_order_id')
+        self.passenger_segment_relations = []
+        if m.get('passenger_segment_relations') is not None:
+            for k in m.get('passenger_segment_relations'):
+                temp_model = FlightModifyListingSearchV2RequestPassengerSegmentRelations()
+                self.passenger_segment_relations.append(temp_model.from_map(k))
+        if m.get('search_mode') is not None:
+            self.search_mode = m.get('search_mode')
+        self.selected_segments = []
+        if m.get('selected_segments') is not None:
+            for k in m.get('selected_segments'):
+                temp_model = FlightModifyListingSearchV2RequestSelectedSegments()
+                self.selected_segments.append(temp_model.from_map(k))
+        if m.get('session_id') is not None:
+            self.session_id = m.get('session_id')
+        if m.get('voluntary') is not None:
+            self.voluntary = m.get('voluntary')
+        return self
+
+
+class FlightModifyListingSearchV2ShrinkRequest(TeaModel):
+    def __init__(self, cabin_class_shrink=None, dep_date_shrink=None, isv_name=None, order_id=None,
+                 out_order_id=None, passenger_segment_relations_shrink=None, search_mode=None, selected_segments_shrink=None,
+                 session_id=None, voluntary=None):
+        self.cabin_class_shrink = cabin_class_shrink  # type: str
+        self.dep_date_shrink = dep_date_shrink  # type: str
+        self.isv_name = isv_name  # type: str
+        self.order_id = order_id  # type: long
+        self.out_order_id = out_order_id  # type: str
+        self.passenger_segment_relations_shrink = passenger_segment_relations_shrink  # type: str
+        self.search_mode = search_mode  # type: int
+        self.selected_segments_shrink = selected_segments_shrink  # type: str
+        self.session_id = session_id  # type: str
+        self.voluntary = voluntary  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightModifyListingSearchV2ShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cabin_class_shrink is not None:
+            result['cabin_class'] = self.cabin_class_shrink
+        if self.dep_date_shrink is not None:
+            result['dep_date'] = self.dep_date_shrink
+        if self.isv_name is not None:
+            result['isv_name'] = self.isv_name
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.out_order_id is not None:
+            result['out_order_id'] = self.out_order_id
+        if self.passenger_segment_relations_shrink is not None:
+            result['passenger_segment_relations'] = self.passenger_segment_relations_shrink
+        if self.search_mode is not None:
+            result['search_mode'] = self.search_mode
+        if self.selected_segments_shrink is not None:
+            result['selected_segments'] = self.selected_segments_shrink
+        if self.session_id is not None:
+            result['session_id'] = self.session_id
+        if self.voluntary is not None:
+            result['voluntary'] = self.voluntary
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('cabin_class') is not None:
+            self.cabin_class_shrink = m.get('cabin_class')
+        if m.get('dep_date') is not None:
+            self.dep_date_shrink = m.get('dep_date')
+        if m.get('isv_name') is not None:
+            self.isv_name = m.get('isv_name')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('out_order_id') is not None:
+            self.out_order_id = m.get('out_order_id')
+        if m.get('passenger_segment_relations') is not None:
+            self.passenger_segment_relations_shrink = m.get('passenger_segment_relations')
+        if m.get('search_mode') is not None:
+            self.search_mode = m.get('search_mode')
+        if m.get('selected_segments') is not None:
+            self.selected_segments_shrink = m.get('selected_segments')
+        if m.get('session_id') is not None:
+            self.session_id = m.get('session_id')
+        if m.get('voluntary') is not None:
+            self.voluntary = m.get('voluntary')
+        return self
+
+
+class FlightModifyListingSearchV2ResponseBodyModuleDirectFlightListAirlineInfo(TeaModel):
+    def __init__(self, airline_chinese_name=None, airline_chinese_short_name=None, airline_code=None,
+                 airline_icon=None, cheap_flight=None):
+        self.airline_chinese_name = airline_chinese_name  # type: str
+        self.airline_chinese_short_name = airline_chinese_short_name  # type: str
+        self.airline_code = airline_code  # type: str
+        self.airline_icon = airline_icon  # type: str
+        self.cheap_flight = cheap_flight  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightModifyListingSearchV2ResponseBodyModuleDirectFlightListAirlineInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.airline_chinese_name is not None:
+            result['airline_chinese_name'] = self.airline_chinese_name
+        if self.airline_chinese_short_name is not None:
+            result['airline_chinese_short_name'] = self.airline_chinese_short_name
+        if self.airline_code is not None:
+            result['airline_code'] = self.airline_code
+        if self.airline_icon is not None:
+            result['airline_icon'] = self.airline_icon
+        if self.cheap_flight is not None:
+            result['cheap_flight'] = self.cheap_flight
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('airline_chinese_name') is not None:
+            self.airline_chinese_name = m.get('airline_chinese_name')
+        if m.get('airline_chinese_short_name') is not None:
+            self.airline_chinese_short_name = m.get('airline_chinese_short_name')
+        if m.get('airline_code') is not None:
+            self.airline_code = m.get('airline_code')
+        if m.get('airline_icon') is not None:
+            self.airline_icon = m.get('airline_icon')
+        if m.get('cheap_flight') is not None:
+            self.cheap_flight = m.get('cheap_flight')
+        return self
+
+
+class FlightModifyListingSearchV2ResponseBodyModuleDirectFlightListArrAirportInfo(TeaModel):
+    def __init__(self, airport_code=None, airport_name=None, airport_short_name=None, terminal=None):
+        self.airport_code = airport_code  # type: str
+        self.airport_name = airport_name  # type: str
+        self.airport_short_name = airport_short_name  # type: str
+        self.terminal = terminal  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightModifyListingSearchV2ResponseBodyModuleDirectFlightListArrAirportInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.airport_code is not None:
+            result['airport_code'] = self.airport_code
+        if self.airport_name is not None:
+            result['airport_name'] = self.airport_name
+        if self.airport_short_name is not None:
+            result['airport_short_name'] = self.airport_short_name
+        if self.terminal is not None:
+            result['terminal'] = self.terminal
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('airport_code') is not None:
+            self.airport_code = m.get('airport_code')
+        if m.get('airport_name') is not None:
+            self.airport_name = m.get('airport_name')
+        if m.get('airport_short_name') is not None:
+            self.airport_short_name = m.get('airport_short_name')
+        if m.get('terminal') is not None:
+            self.terminal = m.get('terminal')
+        return self
+
+
+class FlightModifyListingSearchV2ResponseBodyModuleDirectFlightListDepAirportInfo(TeaModel):
+    def __init__(self, airport_code=None, airport_name=None, airport_short_name=None, terminal=None):
+        self.airport_code = airport_code  # type: str
+        self.airport_name = airport_name  # type: str
+        self.airport_short_name = airport_short_name  # type: str
+        self.terminal = terminal  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightModifyListingSearchV2ResponseBodyModuleDirectFlightListDepAirportInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.airport_code is not None:
+            result['airport_code'] = self.airport_code
+        if self.airport_name is not None:
+            result['airport_name'] = self.airport_name
+        if self.airport_short_name is not None:
+            result['airport_short_name'] = self.airport_short_name
+        if self.terminal is not None:
+            result['terminal'] = self.terminal
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('airport_code') is not None:
+            self.airport_code = m.get('airport_code')
+        if m.get('airport_name') is not None:
+            self.airport_name = m.get('airport_name')
+        if m.get('airport_short_name') is not None:
+            self.airport_short_name = m.get('airport_short_name')
+        if m.get('terminal') is not None:
+            self.terminal = m.get('terminal')
+        return self
+
+
+class FlightModifyListingSearchV2ResponseBodyModuleDirectFlightListFlightShareInfoOperatingAirlineInfo(TeaModel):
+    def __init__(self, airline_chinese_name=None, airline_chinese_short_name=None, airline_code=None,
+                 airline_icon=None, cheap_flight=None):
+        self.airline_chinese_name = airline_chinese_name  # type: str
+        self.airline_chinese_short_name = airline_chinese_short_name  # type: str
+        self.airline_code = airline_code  # type: str
+        self.airline_icon = airline_icon  # type: str
+        self.cheap_flight = cheap_flight  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightModifyListingSearchV2ResponseBodyModuleDirectFlightListFlightShareInfoOperatingAirlineInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.airline_chinese_name is not None:
+            result['airline_chinese_name'] = self.airline_chinese_name
+        if self.airline_chinese_short_name is not None:
+            result['airline_chinese_short_name'] = self.airline_chinese_short_name
+        if self.airline_code is not None:
+            result['airline_code'] = self.airline_code
+        if self.airline_icon is not None:
+            result['airline_icon'] = self.airline_icon
+        if self.cheap_flight is not None:
+            result['cheap_flight'] = self.cheap_flight
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('airline_chinese_name') is not None:
+            self.airline_chinese_name = m.get('airline_chinese_name')
+        if m.get('airline_chinese_short_name') is not None:
+            self.airline_chinese_short_name = m.get('airline_chinese_short_name')
+        if m.get('airline_code') is not None:
+            self.airline_code = m.get('airline_code')
+        if m.get('airline_icon') is not None:
+            self.airline_icon = m.get('airline_icon')
+        if m.get('cheap_flight') is not None:
+            self.cheap_flight = m.get('cheap_flight')
+        return self
+
+
+class FlightModifyListingSearchV2ResponseBodyModuleDirectFlightListFlightShareInfo(TeaModel):
+    def __init__(self, operating_airline_info=None, operating_flight_no=None):
+        self.operating_airline_info = operating_airline_info  # type: FlightModifyListingSearchV2ResponseBodyModuleDirectFlightListFlightShareInfoOperatingAirlineInfo
+        self.operating_flight_no = operating_flight_no  # type: str
+
+    def validate(self):
+        if self.operating_airline_info:
+            self.operating_airline_info.validate()
+
+    def to_map(self):
+        _map = super(FlightModifyListingSearchV2ResponseBodyModuleDirectFlightListFlightShareInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.operating_airline_info is not None:
+            result['operating_airline_info'] = self.operating_airline_info.to_map()
+        if self.operating_flight_no is not None:
+            result['operating_flight_no'] = self.operating_flight_no
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('operating_airline_info') is not None:
+            temp_model = FlightModifyListingSearchV2ResponseBodyModuleDirectFlightListFlightShareInfoOperatingAirlineInfo()
+            self.operating_airline_info = temp_model.from_map(m['operating_airline_info'])
+        if m.get('operating_flight_no') is not None:
+            self.operating_flight_no = m.get('operating_flight_no')
+        return self
+
+
+class FlightModifyListingSearchV2ResponseBodyModuleDirectFlightListFlightStopInfo(TeaModel):
+    def __init__(self, stop_airport=None, stop_arr_term=None, stop_arr_time=None, stop_city_code=None,
+                 stop_city_name=None, stop_dep_term=None, stop_dep_time=None):
+        self.stop_airport = stop_airport  # type: str
+        self.stop_arr_term = stop_arr_term  # type: str
+        self.stop_arr_time = stop_arr_time  # type: str
+        self.stop_city_code = stop_city_code  # type: str
+        self.stop_city_name = stop_city_name  # type: str
+        self.stop_dep_term = stop_dep_term  # type: str
+        self.stop_dep_time = stop_dep_time  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightModifyListingSearchV2ResponseBodyModuleDirectFlightListFlightStopInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.stop_airport is not None:
+            result['stop_airport'] = self.stop_airport
+        if self.stop_arr_term is not None:
+            result['stop_arr_term'] = self.stop_arr_term
+        if self.stop_arr_time is not None:
+            result['stop_arr_time'] = self.stop_arr_time
+        if self.stop_city_code is not None:
+            result['stop_city_code'] = self.stop_city_code
+        if self.stop_city_name is not None:
+            result['stop_city_name'] = self.stop_city_name
+        if self.stop_dep_term is not None:
+            result['stop_dep_term'] = self.stop_dep_term
+        if self.stop_dep_time is not None:
+            result['stop_dep_time'] = self.stop_dep_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('stop_airport') is not None:
+            self.stop_airport = m.get('stop_airport')
+        if m.get('stop_arr_term') is not None:
+            self.stop_arr_term = m.get('stop_arr_term')
+        if m.get('stop_arr_time') is not None:
+            self.stop_arr_time = m.get('stop_arr_time')
+        if m.get('stop_city_code') is not None:
+            self.stop_city_code = m.get('stop_city_code')
+        if m.get('stop_city_name') is not None:
+            self.stop_city_name = m.get('stop_city_name')
+        if m.get('stop_dep_term') is not None:
+            self.stop_dep_term = m.get('stop_dep_term')
+        if m.get('stop_dep_time') is not None:
+            self.stop_dep_time = m.get('stop_dep_time')
+        return self
+
+
+class FlightModifyListingSearchV2ResponseBodyModuleDirectFlightListFlightTransferInfoTransferAirlineInfo(TeaModel):
+    def __init__(self, airline_chinese_name=None, airline_chinese_short_name=None, airline_code=None,
+                 airline_icon=None, cheap_flight=None):
+        self.airline_chinese_name = airline_chinese_name  # type: str
+        self.airline_chinese_short_name = airline_chinese_short_name  # type: str
+        self.airline_code = airline_code  # type: str
+        self.airline_icon = airline_icon  # type: str
+        self.cheap_flight = cheap_flight  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightModifyListingSearchV2ResponseBodyModuleDirectFlightListFlightTransferInfoTransferAirlineInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.airline_chinese_name is not None:
+            result['airline_chinese_name'] = self.airline_chinese_name
+        if self.airline_chinese_short_name is not None:
+            result['airline_chinese_short_name'] = self.airline_chinese_short_name
+        if self.airline_code is not None:
+            result['airline_code'] = self.airline_code
+        if self.airline_icon is not None:
+            result['airline_icon'] = self.airline_icon
+        if self.cheap_flight is not None:
+            result['cheap_flight'] = self.cheap_flight
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('airline_chinese_name') is not None:
+            self.airline_chinese_name = m.get('airline_chinese_name')
+        if m.get('airline_chinese_short_name') is not None:
+            self.airline_chinese_short_name = m.get('airline_chinese_short_name')
+        if m.get('airline_code') is not None:
+            self.airline_code = m.get('airline_code')
+        if m.get('airline_icon') is not None:
+            self.airline_icon = m.get('airline_icon')
+        if m.get('cheap_flight') is not None:
+            self.cheap_flight = m.get('cheap_flight')
+        return self
+
+
+class FlightModifyListingSearchV2ResponseBodyModuleDirectFlightListFlightTransferInfo(TeaModel):
+    def __init__(self, transfer_airline_info=None, transfer_city_code=None, transfer_city_name=None,
+                 transfer_dep_time=None, transfer_flight_no=None, transfer_flight_size=None, transfer_share=None,
+                 transfer_stop_time=None):
+        self.transfer_airline_info = transfer_airline_info  # type: FlightModifyListingSearchV2ResponseBodyModuleDirectFlightListFlightTransferInfoTransferAirlineInfo
+        self.transfer_city_code = transfer_city_code  # type: str
+        self.transfer_city_name = transfer_city_name  # type: str
+        self.transfer_dep_time = transfer_dep_time  # type: str
+        self.transfer_flight_no = transfer_flight_no  # type: str
+        self.transfer_flight_size = transfer_flight_size  # type: str
+        self.transfer_share = transfer_share  # type: bool
+        self.transfer_stop_time = transfer_stop_time  # type: int
+
+    def validate(self):
+        if self.transfer_airline_info:
+            self.transfer_airline_info.validate()
+
+    def to_map(self):
+        _map = super(FlightModifyListingSearchV2ResponseBodyModuleDirectFlightListFlightTransferInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.transfer_airline_info is not None:
+            result['transfer_airline_info'] = self.transfer_airline_info.to_map()
+        if self.transfer_city_code is not None:
+            result['transfer_city_code'] = self.transfer_city_code
+        if self.transfer_city_name is not None:
+            result['transfer_city_name'] = self.transfer_city_name
+        if self.transfer_dep_time is not None:
+            result['transfer_dep_time'] = self.transfer_dep_time
+        if self.transfer_flight_no is not None:
+            result['transfer_flight_no'] = self.transfer_flight_no
+        if self.transfer_flight_size is not None:
+            result['transfer_flight_size'] = self.transfer_flight_size
+        if self.transfer_share is not None:
+            result['transfer_share'] = self.transfer_share
+        if self.transfer_stop_time is not None:
+            result['transfer_stop_time'] = self.transfer_stop_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('transfer_airline_info') is not None:
+            temp_model = FlightModifyListingSearchV2ResponseBodyModuleDirectFlightListFlightTransferInfoTransferAirlineInfo()
+            self.transfer_airline_info = temp_model.from_map(m['transfer_airline_info'])
+        if m.get('transfer_city_code') is not None:
+            self.transfer_city_code = m.get('transfer_city_code')
+        if m.get('transfer_city_name') is not None:
+            self.transfer_city_name = m.get('transfer_city_name')
+        if m.get('transfer_dep_time') is not None:
+            self.transfer_dep_time = m.get('transfer_dep_time')
+        if m.get('transfer_flight_no') is not None:
+            self.transfer_flight_no = m.get('transfer_flight_no')
+        if m.get('transfer_flight_size') is not None:
+            self.transfer_flight_size = m.get('transfer_flight_size')
+        if m.get('transfer_share') is not None:
+            self.transfer_share = m.get('transfer_share')
+        if m.get('transfer_stop_time') is not None:
+            self.transfer_stop_time = m.get('transfer_stop_time')
+        return self
+
+
+class FlightModifyListingSearchV2ResponseBodyModuleDirectFlightListPriceInfoDTOReShopPriceInfoDTO(TeaModel):
+    def __init__(self, re_shop_adult_change_fee=None, re_shop_adult_price=None, re_shop_adult_price_gap=None,
+                 re_shop_child_change_fee=None, re_shop_child_price=None, re_shop_child_price_gap=None, re_shop_inf_change_fee=None,
+                 re_shop_inf_price=None, re_shop_inf_price_gap=None):
+        self.re_shop_adult_change_fee = re_shop_adult_change_fee  # type: int
+        self.re_shop_adult_price = re_shop_adult_price  # type: int
+        self.re_shop_adult_price_gap = re_shop_adult_price_gap  # type: int
+        self.re_shop_child_change_fee = re_shop_child_change_fee  # type: int
+        self.re_shop_child_price = re_shop_child_price  # type: int
+        self.re_shop_child_price_gap = re_shop_child_price_gap  # type: int
+        self.re_shop_inf_change_fee = re_shop_inf_change_fee  # type: int
+        self.re_shop_inf_price = re_shop_inf_price  # type: int
+        self.re_shop_inf_price_gap = re_shop_inf_price_gap  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightModifyListingSearchV2ResponseBodyModuleDirectFlightListPriceInfoDTOReShopPriceInfoDTO, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.re_shop_adult_change_fee is not None:
+            result['re_shop_adult_change_fee'] = self.re_shop_adult_change_fee
+        if self.re_shop_adult_price is not None:
+            result['re_shop_adult_price'] = self.re_shop_adult_price
+        if self.re_shop_adult_price_gap is not None:
+            result['re_shop_adult_price_gap'] = self.re_shop_adult_price_gap
+        if self.re_shop_child_change_fee is not None:
+            result['re_shop_child_change_fee'] = self.re_shop_child_change_fee
+        if self.re_shop_child_price is not None:
+            result['re_shop_child_price'] = self.re_shop_child_price
+        if self.re_shop_child_price_gap is not None:
+            result['re_shop_child_price_gap'] = self.re_shop_child_price_gap
+        if self.re_shop_inf_change_fee is not None:
+            result['re_shop_inf_change_fee'] = self.re_shop_inf_change_fee
+        if self.re_shop_inf_price is not None:
+            result['re_shop_inf_price'] = self.re_shop_inf_price
+        if self.re_shop_inf_price_gap is not None:
+            result['re_shop_inf_price_gap'] = self.re_shop_inf_price_gap
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('re_shop_adult_change_fee') is not None:
+            self.re_shop_adult_change_fee = m.get('re_shop_adult_change_fee')
+        if m.get('re_shop_adult_price') is not None:
+            self.re_shop_adult_price = m.get('re_shop_adult_price')
+        if m.get('re_shop_adult_price_gap') is not None:
+            self.re_shop_adult_price_gap = m.get('re_shop_adult_price_gap')
+        if m.get('re_shop_child_change_fee') is not None:
+            self.re_shop_child_change_fee = m.get('re_shop_child_change_fee')
+        if m.get('re_shop_child_price') is not None:
+            self.re_shop_child_price = m.get('re_shop_child_price')
+        if m.get('re_shop_child_price_gap') is not None:
+            self.re_shop_child_price_gap = m.get('re_shop_child_price_gap')
+        if m.get('re_shop_inf_change_fee') is not None:
+            self.re_shop_inf_change_fee = m.get('re_shop_inf_change_fee')
+        if m.get('re_shop_inf_price') is not None:
+            self.re_shop_inf_price = m.get('re_shop_inf_price')
+        if m.get('re_shop_inf_price_gap') is not None:
+            self.re_shop_inf_price_gap = m.get('re_shop_inf_price_gap')
+        return self
+
+
+class FlightModifyListingSearchV2ResponseBodyModuleDirectFlightListPriceInfoDTO(TeaModel):
+    def __init__(self, adult_price=None, adult_tax=None, adult_total_price=None, before_control_price=None,
+                 child_price=None, child_tax=None, child_total_price=None, infant_price=None, infant_tax=None,
+                 infant_total_price=None, original_adult_price=None, original_adult_total_price=None, re_shop_price_info_dto=None):
+        self.adult_price = adult_price  # type: int
+        self.adult_tax = adult_tax  # type: int
+        self.adult_total_price = adult_total_price  # type: int
+        self.before_control_price = before_control_price  # type: int
+        self.child_price = child_price  # type: int
+        self.child_tax = child_tax  # type: int
+        self.child_total_price = child_total_price  # type: int
+        self.infant_price = infant_price  # type: int
+        self.infant_tax = infant_tax  # type: int
+        self.infant_total_price = infant_total_price  # type: int
+        self.original_adult_price = original_adult_price  # type: int
+        self.original_adult_total_price = original_adult_total_price  # type: int
+        self.re_shop_price_info_dto = re_shop_price_info_dto  # type: FlightModifyListingSearchV2ResponseBodyModuleDirectFlightListPriceInfoDTOReShopPriceInfoDTO
+
+    def validate(self):
+        if self.re_shop_price_info_dto:
+            self.re_shop_price_info_dto.validate()
+
+    def to_map(self):
+        _map = super(FlightModifyListingSearchV2ResponseBodyModuleDirectFlightListPriceInfoDTO, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.adult_price is not None:
+            result['adult_price'] = self.adult_price
+        if self.adult_tax is not None:
+            result['adult_tax'] = self.adult_tax
+        if self.adult_total_price is not None:
+            result['adult_total_price'] = self.adult_total_price
+        if self.before_control_price is not None:
+            result['before_control_price'] = self.before_control_price
+        if self.child_price is not None:
+            result['child_price'] = self.child_price
+        if self.child_tax is not None:
+            result['child_tax'] = self.child_tax
+        if self.child_total_price is not None:
+            result['child_total_price'] = self.child_total_price
+        if self.infant_price is not None:
+            result['infant_price'] = self.infant_price
+        if self.infant_tax is not None:
+            result['infant_tax'] = self.infant_tax
+        if self.infant_total_price is not None:
+            result['infant_total_price'] = self.infant_total_price
+        if self.original_adult_price is not None:
+            result['original_adult_price'] = self.original_adult_price
+        if self.original_adult_total_price is not None:
+            result['original_adult_total_price'] = self.original_adult_total_price
+        if self.re_shop_price_info_dto is not None:
+            result['re_shop_price_info_d_t_o'] = self.re_shop_price_info_dto.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('adult_price') is not None:
+            self.adult_price = m.get('adult_price')
+        if m.get('adult_tax') is not None:
+            self.adult_tax = m.get('adult_tax')
+        if m.get('adult_total_price') is not None:
+            self.adult_total_price = m.get('adult_total_price')
+        if m.get('before_control_price') is not None:
+            self.before_control_price = m.get('before_control_price')
+        if m.get('child_price') is not None:
+            self.child_price = m.get('child_price')
+        if m.get('child_tax') is not None:
+            self.child_tax = m.get('child_tax')
+        if m.get('child_total_price') is not None:
+            self.child_total_price = m.get('child_total_price')
+        if m.get('infant_price') is not None:
+            self.infant_price = m.get('infant_price')
+        if m.get('infant_tax') is not None:
+            self.infant_tax = m.get('infant_tax')
+        if m.get('infant_total_price') is not None:
+            self.infant_total_price = m.get('infant_total_price')
+        if m.get('original_adult_price') is not None:
+            self.original_adult_price = m.get('original_adult_price')
+        if m.get('original_adult_total_price') is not None:
+            self.original_adult_total_price = m.get('original_adult_total_price')
+        if m.get('re_shop_price_info_d_t_o') is not None:
+            temp_model = FlightModifyListingSearchV2ResponseBodyModuleDirectFlightListPriceInfoDTOReShopPriceInfoDTO()
+            self.re_shop_price_info_dto = temp_model.from_map(m['re_shop_price_info_d_t_o'])
+        return self
+
+
+class FlightModifyListingSearchV2ResponseBodyModuleDirectFlightList(TeaModel):
+    def __init__(self, airline_info=None, arr_airport_info=None, arr_city_code=None, arr_time=None,
+                 dep_airport_info=None, dep_city_code=None, dep_time=None, duration=None, flight_no=None, flight_share_info=None,
+                 flight_size=None, flight_stop_info=None, flight_transfer_info=None, flight_type=None, journey_seq=None,
+                 left_num=None, manufacturer=None, meal_desc=None, price_info_dto=None, segment_seq=None, share=None,
+                 short_flight_size=None, span_day=None, stop=None, transfer=None):
+        self.airline_info = airline_info  # type: FlightModifyListingSearchV2ResponseBodyModuleDirectFlightListAirlineInfo
+        self.arr_airport_info = arr_airport_info  # type: FlightModifyListingSearchV2ResponseBodyModuleDirectFlightListArrAirportInfo
+        self.arr_city_code = arr_city_code  # type: str
+        self.arr_time = arr_time  # type: str
+        self.dep_airport_info = dep_airport_info  # type: FlightModifyListingSearchV2ResponseBodyModuleDirectFlightListDepAirportInfo
+        self.dep_city_code = dep_city_code  # type: str
+        self.dep_time = dep_time  # type: str
+        self.duration = duration  # type: int
+        self.flight_no = flight_no  # type: str
+        self.flight_share_info = flight_share_info  # type: FlightModifyListingSearchV2ResponseBodyModuleDirectFlightListFlightShareInfo
+        self.flight_size = flight_size  # type: str
+        self.flight_stop_info = flight_stop_info  # type: FlightModifyListingSearchV2ResponseBodyModuleDirectFlightListFlightStopInfo
+        self.flight_transfer_info = flight_transfer_info  # type: FlightModifyListingSearchV2ResponseBodyModuleDirectFlightListFlightTransferInfo
+        self.flight_type = flight_type  # type: str
+        self.journey_seq = journey_seq  # type: int
+        self.left_num = left_num  # type: str
+        self.manufacturer = manufacturer  # type: str
+        self.meal_desc = meal_desc  # type: str
+        self.price_info_dto = price_info_dto  # type: FlightModifyListingSearchV2ResponseBodyModuleDirectFlightListPriceInfoDTO
+        self.segment_seq = segment_seq  # type: int
+        self.share = share  # type: bool
+        self.short_flight_size = short_flight_size  # type: str
+        self.span_day = span_day  # type: str
+        self.stop = stop  # type: bool
+        self.transfer = transfer  # type: bool
+
+    def validate(self):
+        if self.airline_info:
+            self.airline_info.validate()
+        if self.arr_airport_info:
+            self.arr_airport_info.validate()
+        if self.dep_airport_info:
+            self.dep_airport_info.validate()
+        if self.flight_share_info:
+            self.flight_share_info.validate()
+        if self.flight_stop_info:
+            self.flight_stop_info.validate()
+        if self.flight_transfer_info:
+            self.flight_transfer_info.validate()
+        if self.price_info_dto:
+            self.price_info_dto.validate()
+
+    def to_map(self):
+        _map = super(FlightModifyListingSearchV2ResponseBodyModuleDirectFlightList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.airline_info is not None:
+            result['airline_info'] = self.airline_info.to_map()
+        if self.arr_airport_info is not None:
+            result['arr_airport_info'] = self.arr_airport_info.to_map()
+        if self.arr_city_code is not None:
+            result['arr_city_code'] = self.arr_city_code
+        if self.arr_time is not None:
+            result['arr_time'] = self.arr_time
+        if self.dep_airport_info is not None:
+            result['dep_airport_info'] = self.dep_airport_info.to_map()
+        if self.dep_city_code is not None:
+            result['dep_city_code'] = self.dep_city_code
+        if self.dep_time is not None:
+            result['dep_time'] = self.dep_time
+        if self.duration is not None:
+            result['duration'] = self.duration
+        if self.flight_no is not None:
+            result['flight_no'] = self.flight_no
+        if self.flight_share_info is not None:
+            result['flight_share_info'] = self.flight_share_info.to_map()
+        if self.flight_size is not None:
+            result['flight_size'] = self.flight_size
+        if self.flight_stop_info is not None:
+            result['flight_stop_info'] = self.flight_stop_info.to_map()
+        if self.flight_transfer_info is not None:
+            result['flight_transfer_info'] = self.flight_transfer_info.to_map()
+        if self.flight_type is not None:
+            result['flight_type'] = self.flight_type
+        if self.journey_seq is not None:
+            result['journey_seq'] = self.journey_seq
+        if self.left_num is not None:
+            result['left_num'] = self.left_num
+        if self.manufacturer is not None:
+            result['manufacturer'] = self.manufacturer
+        if self.meal_desc is not None:
+            result['meal_desc'] = self.meal_desc
+        if self.price_info_dto is not None:
+            result['price_info_d_t_o'] = self.price_info_dto.to_map()
+        if self.segment_seq is not None:
+            result['segment_seq'] = self.segment_seq
+        if self.share is not None:
+            result['share'] = self.share
+        if self.short_flight_size is not None:
+            result['short_flight_size'] = self.short_flight_size
+        if self.span_day is not None:
+            result['span_day'] = self.span_day
+        if self.stop is not None:
+            result['stop'] = self.stop
+        if self.transfer is not None:
+            result['transfer'] = self.transfer
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('airline_info') is not None:
+            temp_model = FlightModifyListingSearchV2ResponseBodyModuleDirectFlightListAirlineInfo()
+            self.airline_info = temp_model.from_map(m['airline_info'])
+        if m.get('arr_airport_info') is not None:
+            temp_model = FlightModifyListingSearchV2ResponseBodyModuleDirectFlightListArrAirportInfo()
+            self.arr_airport_info = temp_model.from_map(m['arr_airport_info'])
+        if m.get('arr_city_code') is not None:
+            self.arr_city_code = m.get('arr_city_code')
+        if m.get('arr_time') is not None:
+            self.arr_time = m.get('arr_time')
+        if m.get('dep_airport_info') is not None:
+            temp_model = FlightModifyListingSearchV2ResponseBodyModuleDirectFlightListDepAirportInfo()
+            self.dep_airport_info = temp_model.from_map(m['dep_airport_info'])
+        if m.get('dep_city_code') is not None:
+            self.dep_city_code = m.get('dep_city_code')
+        if m.get('dep_time') is not None:
+            self.dep_time = m.get('dep_time')
+        if m.get('duration') is not None:
+            self.duration = m.get('duration')
+        if m.get('flight_no') is not None:
+            self.flight_no = m.get('flight_no')
+        if m.get('flight_share_info') is not None:
+            temp_model = FlightModifyListingSearchV2ResponseBodyModuleDirectFlightListFlightShareInfo()
+            self.flight_share_info = temp_model.from_map(m['flight_share_info'])
+        if m.get('flight_size') is not None:
+            self.flight_size = m.get('flight_size')
+        if m.get('flight_stop_info') is not None:
+            temp_model = FlightModifyListingSearchV2ResponseBodyModuleDirectFlightListFlightStopInfo()
+            self.flight_stop_info = temp_model.from_map(m['flight_stop_info'])
+        if m.get('flight_transfer_info') is not None:
+            temp_model = FlightModifyListingSearchV2ResponseBodyModuleDirectFlightListFlightTransferInfo()
+            self.flight_transfer_info = temp_model.from_map(m['flight_transfer_info'])
+        if m.get('flight_type') is not None:
+            self.flight_type = m.get('flight_type')
+        if m.get('journey_seq') is not None:
+            self.journey_seq = m.get('journey_seq')
+        if m.get('left_num') is not None:
+            self.left_num = m.get('left_num')
+        if m.get('manufacturer') is not None:
+            self.manufacturer = m.get('manufacturer')
+        if m.get('meal_desc') is not None:
+            self.meal_desc = m.get('meal_desc')
+        if m.get('price_info_d_t_o') is not None:
+            temp_model = FlightModifyListingSearchV2ResponseBodyModuleDirectFlightListPriceInfoDTO()
+            self.price_info_dto = temp_model.from_map(m['price_info_d_t_o'])
+        if m.get('segment_seq') is not None:
+            self.segment_seq = m.get('segment_seq')
+        if m.get('share') is not None:
+            self.share = m.get('share')
+        if m.get('short_flight_size') is not None:
+            self.short_flight_size = m.get('short_flight_size')
+        if m.get('span_day') is not None:
+            self.span_day = m.get('span_day')
+        if m.get('stop') is not None:
+            self.stop = m.get('stop')
+        if m.get('transfer') is not None:
+            self.transfer = m.get('transfer')
+        return self
+
+
+class FlightModifyListingSearchV2ResponseBodyModuleTransferFlightListAirlineInfo(TeaModel):
+    def __init__(self, airline_chinese_name=None, airline_chinese_short_name=None, airline_code=None,
+                 airline_icon=None, cheap_flight=None):
+        self.airline_chinese_name = airline_chinese_name  # type: str
+        self.airline_chinese_short_name = airline_chinese_short_name  # type: str
+        self.airline_code = airline_code  # type: str
+        self.airline_icon = airline_icon  # type: str
+        self.cheap_flight = cheap_flight  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightModifyListingSearchV2ResponseBodyModuleTransferFlightListAirlineInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.airline_chinese_name is not None:
+            result['airline_chinese_name'] = self.airline_chinese_name
+        if self.airline_chinese_short_name is not None:
+            result['airline_chinese_short_name'] = self.airline_chinese_short_name
+        if self.airline_code is not None:
+            result['airline_code'] = self.airline_code
+        if self.airline_icon is not None:
+            result['airline_icon'] = self.airline_icon
+        if self.cheap_flight is not None:
+            result['cheap_flight'] = self.cheap_flight
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('airline_chinese_name') is not None:
+            self.airline_chinese_name = m.get('airline_chinese_name')
+        if m.get('airline_chinese_short_name') is not None:
+            self.airline_chinese_short_name = m.get('airline_chinese_short_name')
+        if m.get('airline_code') is not None:
+            self.airline_code = m.get('airline_code')
+        if m.get('airline_icon') is not None:
+            self.airline_icon = m.get('airline_icon')
+        if m.get('cheap_flight') is not None:
+            self.cheap_flight = m.get('cheap_flight')
+        return self
+
+
+class FlightModifyListingSearchV2ResponseBodyModuleTransferFlightListArrAirportInfo(TeaModel):
+    def __init__(self, airport_code=None, airport_name=None, airport_short_name=None, terminal=None):
+        self.airport_code = airport_code  # type: str
+        self.airport_name = airport_name  # type: str
+        self.airport_short_name = airport_short_name  # type: str
+        self.terminal = terminal  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightModifyListingSearchV2ResponseBodyModuleTransferFlightListArrAirportInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.airport_code is not None:
+            result['airport_code'] = self.airport_code
+        if self.airport_name is not None:
+            result['airport_name'] = self.airport_name
+        if self.airport_short_name is not None:
+            result['airport_short_name'] = self.airport_short_name
+        if self.terminal is not None:
+            result['terminal'] = self.terminal
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('airport_code') is not None:
+            self.airport_code = m.get('airport_code')
+        if m.get('airport_name') is not None:
+            self.airport_name = m.get('airport_name')
+        if m.get('airport_short_name') is not None:
+            self.airport_short_name = m.get('airport_short_name')
+        if m.get('terminal') is not None:
+            self.terminal = m.get('terminal')
+        return self
+
+
+class FlightModifyListingSearchV2ResponseBodyModuleTransferFlightListDepAirportInfo(TeaModel):
+    def __init__(self, airport_code=None, airport_name=None, airport_short_name=None, terminal=None):
+        self.airport_code = airport_code  # type: str
+        self.airport_name = airport_name  # type: str
+        self.airport_short_name = airport_short_name  # type: str
+        self.terminal = terminal  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightModifyListingSearchV2ResponseBodyModuleTransferFlightListDepAirportInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.airport_code is not None:
+            result['airport_code'] = self.airport_code
+        if self.airport_name is not None:
+            result['airport_name'] = self.airport_name
+        if self.airport_short_name is not None:
+            result['airport_short_name'] = self.airport_short_name
+        if self.terminal is not None:
+            result['terminal'] = self.terminal
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('airport_code') is not None:
+            self.airport_code = m.get('airport_code')
+        if m.get('airport_name') is not None:
+            self.airport_name = m.get('airport_name')
+        if m.get('airport_short_name') is not None:
+            self.airport_short_name = m.get('airport_short_name')
+        if m.get('terminal') is not None:
+            self.terminal = m.get('terminal')
+        return self
+
+
+class FlightModifyListingSearchV2ResponseBodyModuleTransferFlightListFlightShareInfoOperatingAirlineInfo(TeaModel):
+    def __init__(self, airline_chinese_name=None, airline_chinese_short_name=None, airline_code=None,
+                 airline_icon=None, cheap_flight=None):
+        self.airline_chinese_name = airline_chinese_name  # type: str
+        self.airline_chinese_short_name = airline_chinese_short_name  # type: str
+        self.airline_code = airline_code  # type: str
+        self.airline_icon = airline_icon  # type: str
+        self.cheap_flight = cheap_flight  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightModifyListingSearchV2ResponseBodyModuleTransferFlightListFlightShareInfoOperatingAirlineInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.airline_chinese_name is not None:
+            result['airline_chinese_name'] = self.airline_chinese_name
+        if self.airline_chinese_short_name is not None:
+            result['airline_chinese_short_name'] = self.airline_chinese_short_name
+        if self.airline_code is not None:
+            result['airline_code'] = self.airline_code
+        if self.airline_icon is not None:
+            result['airline_icon'] = self.airline_icon
+        if self.cheap_flight is not None:
+            result['cheap_flight'] = self.cheap_flight
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('airline_chinese_name') is not None:
+            self.airline_chinese_name = m.get('airline_chinese_name')
+        if m.get('airline_chinese_short_name') is not None:
+            self.airline_chinese_short_name = m.get('airline_chinese_short_name')
+        if m.get('airline_code') is not None:
+            self.airline_code = m.get('airline_code')
+        if m.get('airline_icon') is not None:
+            self.airline_icon = m.get('airline_icon')
+        if m.get('cheap_flight') is not None:
+            self.cheap_flight = m.get('cheap_flight')
+        return self
+
+
+class FlightModifyListingSearchV2ResponseBodyModuleTransferFlightListFlightShareInfo(TeaModel):
+    def __init__(self, operating_airline_info=None, operating_flight_no=None):
+        self.operating_airline_info = operating_airline_info  # type: FlightModifyListingSearchV2ResponseBodyModuleTransferFlightListFlightShareInfoOperatingAirlineInfo
+        self.operating_flight_no = operating_flight_no  # type: str
+
+    def validate(self):
+        if self.operating_airline_info:
+            self.operating_airline_info.validate()
+
+    def to_map(self):
+        _map = super(FlightModifyListingSearchV2ResponseBodyModuleTransferFlightListFlightShareInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.operating_airline_info is not None:
+            result['operating_airline_info'] = self.operating_airline_info.to_map()
+        if self.operating_flight_no is not None:
+            result['operating_flight_no'] = self.operating_flight_no
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('operating_airline_info') is not None:
+            temp_model = FlightModifyListingSearchV2ResponseBodyModuleTransferFlightListFlightShareInfoOperatingAirlineInfo()
+            self.operating_airline_info = temp_model.from_map(m['operating_airline_info'])
+        if m.get('operating_flight_no') is not None:
+            self.operating_flight_no = m.get('operating_flight_no')
+        return self
+
+
+class FlightModifyListingSearchV2ResponseBodyModuleTransferFlightListFlightStopInfo(TeaModel):
+    def __init__(self, stop_airport=None, stop_arr_term=None, stop_arr_time=None, stop_city_code=None,
+                 stop_city_name=None, stop_dep_term=None, stop_dep_time=None):
+        self.stop_airport = stop_airport  # type: str
+        self.stop_arr_term = stop_arr_term  # type: str
+        self.stop_arr_time = stop_arr_time  # type: str
+        self.stop_city_code = stop_city_code  # type: str
+        self.stop_city_name = stop_city_name  # type: str
+        self.stop_dep_term = stop_dep_term  # type: str
+        self.stop_dep_time = stop_dep_time  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightModifyListingSearchV2ResponseBodyModuleTransferFlightListFlightStopInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.stop_airport is not None:
+            result['stop_airport'] = self.stop_airport
+        if self.stop_arr_term is not None:
+            result['stop_arr_term'] = self.stop_arr_term
+        if self.stop_arr_time is not None:
+            result['stop_arr_time'] = self.stop_arr_time
+        if self.stop_city_code is not None:
+            result['stop_city_code'] = self.stop_city_code
+        if self.stop_city_name is not None:
+            result['stop_city_name'] = self.stop_city_name
+        if self.stop_dep_term is not None:
+            result['stop_dep_term'] = self.stop_dep_term
+        if self.stop_dep_time is not None:
+            result['stop_dep_time'] = self.stop_dep_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('stop_airport') is not None:
+            self.stop_airport = m.get('stop_airport')
+        if m.get('stop_arr_term') is not None:
+            self.stop_arr_term = m.get('stop_arr_term')
+        if m.get('stop_arr_time') is not None:
+            self.stop_arr_time = m.get('stop_arr_time')
+        if m.get('stop_city_code') is not None:
+            self.stop_city_code = m.get('stop_city_code')
+        if m.get('stop_city_name') is not None:
+            self.stop_city_name = m.get('stop_city_name')
+        if m.get('stop_dep_term') is not None:
+            self.stop_dep_term = m.get('stop_dep_term')
+        if m.get('stop_dep_time') is not None:
+            self.stop_dep_time = m.get('stop_dep_time')
+        return self
+
+
+class FlightModifyListingSearchV2ResponseBodyModuleTransferFlightListFlightTransferInfoTransferAirlineInfo(TeaModel):
+    def __init__(self, airline_chinese_name=None, airline_chinese_short_name=None, airline_code=None,
+                 airline_icon=None, cheap_flight=None):
+        self.airline_chinese_name = airline_chinese_name  # type: str
+        self.airline_chinese_short_name = airline_chinese_short_name  # type: str
+        self.airline_code = airline_code  # type: str
+        self.airline_icon = airline_icon  # type: str
+        self.cheap_flight = cheap_flight  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightModifyListingSearchV2ResponseBodyModuleTransferFlightListFlightTransferInfoTransferAirlineInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.airline_chinese_name is not None:
+            result['airline_chinese_name'] = self.airline_chinese_name
+        if self.airline_chinese_short_name is not None:
+            result['airline_chinese_short_name'] = self.airline_chinese_short_name
+        if self.airline_code is not None:
+            result['airline_code'] = self.airline_code
+        if self.airline_icon is not None:
+            result['airline_icon'] = self.airline_icon
+        if self.cheap_flight is not None:
+            result['cheap_flight'] = self.cheap_flight
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('airline_chinese_name') is not None:
+            self.airline_chinese_name = m.get('airline_chinese_name')
+        if m.get('airline_chinese_short_name') is not None:
+            self.airline_chinese_short_name = m.get('airline_chinese_short_name')
+        if m.get('airline_code') is not None:
+            self.airline_code = m.get('airline_code')
+        if m.get('airline_icon') is not None:
+            self.airline_icon = m.get('airline_icon')
+        if m.get('cheap_flight') is not None:
+            self.cheap_flight = m.get('cheap_flight')
+        return self
+
+
+class FlightModifyListingSearchV2ResponseBodyModuleTransferFlightListFlightTransferInfo(TeaModel):
+    def __init__(self, transfer_airline_info=None, transfer_city_code=None, transfer_city_name=None,
+                 transfer_dep_time=None, transfer_flight_no=None, transfer_flight_size=None, transfer_share=None,
+                 transfer_stop_time=None):
+        self.transfer_airline_info = transfer_airline_info  # type: FlightModifyListingSearchV2ResponseBodyModuleTransferFlightListFlightTransferInfoTransferAirlineInfo
+        self.transfer_city_code = transfer_city_code  # type: str
+        self.transfer_city_name = transfer_city_name  # type: str
+        self.transfer_dep_time = transfer_dep_time  # type: str
+        self.transfer_flight_no = transfer_flight_no  # type: str
+        self.transfer_flight_size = transfer_flight_size  # type: str
+        self.transfer_share = transfer_share  # type: bool
+        self.transfer_stop_time = transfer_stop_time  # type: int
+
+    def validate(self):
+        if self.transfer_airline_info:
+            self.transfer_airline_info.validate()
+
+    def to_map(self):
+        _map = super(FlightModifyListingSearchV2ResponseBodyModuleTransferFlightListFlightTransferInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.transfer_airline_info is not None:
+            result['transfer_airline_info'] = self.transfer_airline_info.to_map()
+        if self.transfer_city_code is not None:
+            result['transfer_city_code'] = self.transfer_city_code
+        if self.transfer_city_name is not None:
+            result['transfer_city_name'] = self.transfer_city_name
+        if self.transfer_dep_time is not None:
+            result['transfer_dep_time'] = self.transfer_dep_time
+        if self.transfer_flight_no is not None:
+            result['transfer_flight_no'] = self.transfer_flight_no
+        if self.transfer_flight_size is not None:
+            result['transfer_flight_size'] = self.transfer_flight_size
+        if self.transfer_share is not None:
+            result['transfer_share'] = self.transfer_share
+        if self.transfer_stop_time is not None:
+            result['transfer_stop_time'] = self.transfer_stop_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('transfer_airline_info') is not None:
+            temp_model = FlightModifyListingSearchV2ResponseBodyModuleTransferFlightListFlightTransferInfoTransferAirlineInfo()
+            self.transfer_airline_info = temp_model.from_map(m['transfer_airline_info'])
+        if m.get('transfer_city_code') is not None:
+            self.transfer_city_code = m.get('transfer_city_code')
+        if m.get('transfer_city_name') is not None:
+            self.transfer_city_name = m.get('transfer_city_name')
+        if m.get('transfer_dep_time') is not None:
+            self.transfer_dep_time = m.get('transfer_dep_time')
+        if m.get('transfer_flight_no') is not None:
+            self.transfer_flight_no = m.get('transfer_flight_no')
+        if m.get('transfer_flight_size') is not None:
+            self.transfer_flight_size = m.get('transfer_flight_size')
+        if m.get('transfer_share') is not None:
+            self.transfer_share = m.get('transfer_share')
+        if m.get('transfer_stop_time') is not None:
+            self.transfer_stop_time = m.get('transfer_stop_time')
+        return self
+
+
+class FlightModifyListingSearchV2ResponseBodyModuleTransferFlightListPriceInfoDTOReShopPriceInfoDTO(TeaModel):
+    def __init__(self, re_shop_adult_change_fee=None, re_shop_adult_price=None, re_shop_adult_price_gap=None,
+                 re_shop_child_change_fee=None, re_shop_child_price=None, re_shop_child_price_gap=None, re_shop_inf_change_fee=None,
+                 re_shop_inf_price=None, re_shop_inf_price_gap=None):
+        self.re_shop_adult_change_fee = re_shop_adult_change_fee  # type: int
+        self.re_shop_adult_price = re_shop_adult_price  # type: int
+        self.re_shop_adult_price_gap = re_shop_adult_price_gap  # type: int
+        self.re_shop_child_change_fee = re_shop_child_change_fee  # type: int
+        self.re_shop_child_price = re_shop_child_price  # type: int
+        self.re_shop_child_price_gap = re_shop_child_price_gap  # type: int
+        self.re_shop_inf_change_fee = re_shop_inf_change_fee  # type: int
+        self.re_shop_inf_price = re_shop_inf_price  # type: int
+        self.re_shop_inf_price_gap = re_shop_inf_price_gap  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightModifyListingSearchV2ResponseBodyModuleTransferFlightListPriceInfoDTOReShopPriceInfoDTO, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.re_shop_adult_change_fee is not None:
+            result['re_shop_adult_change_fee'] = self.re_shop_adult_change_fee
+        if self.re_shop_adult_price is not None:
+            result['re_shop_adult_price'] = self.re_shop_adult_price
+        if self.re_shop_adult_price_gap is not None:
+            result['re_shop_adult_price_gap'] = self.re_shop_adult_price_gap
+        if self.re_shop_child_change_fee is not None:
+            result['re_shop_child_change_fee'] = self.re_shop_child_change_fee
+        if self.re_shop_child_price is not None:
+            result['re_shop_child_price'] = self.re_shop_child_price
+        if self.re_shop_child_price_gap is not None:
+            result['re_shop_child_price_gap'] = self.re_shop_child_price_gap
+        if self.re_shop_inf_change_fee is not None:
+            result['re_shop_inf_change_fee'] = self.re_shop_inf_change_fee
+        if self.re_shop_inf_price is not None:
+            result['re_shop_inf_price'] = self.re_shop_inf_price
+        if self.re_shop_inf_price_gap is not None:
+            result['re_shop_inf_price_gap'] = self.re_shop_inf_price_gap
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('re_shop_adult_change_fee') is not None:
+            self.re_shop_adult_change_fee = m.get('re_shop_adult_change_fee')
+        if m.get('re_shop_adult_price') is not None:
+            self.re_shop_adult_price = m.get('re_shop_adult_price')
+        if m.get('re_shop_adult_price_gap') is not None:
+            self.re_shop_adult_price_gap = m.get('re_shop_adult_price_gap')
+        if m.get('re_shop_child_change_fee') is not None:
+            self.re_shop_child_change_fee = m.get('re_shop_child_change_fee')
+        if m.get('re_shop_child_price') is not None:
+            self.re_shop_child_price = m.get('re_shop_child_price')
+        if m.get('re_shop_child_price_gap') is not None:
+            self.re_shop_child_price_gap = m.get('re_shop_child_price_gap')
+        if m.get('re_shop_inf_change_fee') is not None:
+            self.re_shop_inf_change_fee = m.get('re_shop_inf_change_fee')
+        if m.get('re_shop_inf_price') is not None:
+            self.re_shop_inf_price = m.get('re_shop_inf_price')
+        if m.get('re_shop_inf_price_gap') is not None:
+            self.re_shop_inf_price_gap = m.get('re_shop_inf_price_gap')
+        return self
+
+
+class FlightModifyListingSearchV2ResponseBodyModuleTransferFlightListPriceInfoDTO(TeaModel):
+    def __init__(self, adult_price=None, adult_tax=None, adult_total_price=None, before_control_price=None,
+                 child_price=None, child_tax=None, child_total_price=None, infant_price=None, infant_tax=None,
+                 infant_total_price=None, original_adult_price=None, original_adult_total_price=None, re_shop_price_info_dto=None):
+        self.adult_price = adult_price  # type: int
+        self.adult_tax = adult_tax  # type: int
+        self.adult_total_price = adult_total_price  # type: int
+        self.before_control_price = before_control_price  # type: int
+        self.child_price = child_price  # type: int
+        self.child_tax = child_tax  # type: int
+        self.child_total_price = child_total_price  # type: int
+        self.infant_price = infant_price  # type: int
+        self.infant_tax = infant_tax  # type: int
+        self.infant_total_price = infant_total_price  # type: int
+        self.original_adult_price = original_adult_price  # type: int
+        self.original_adult_total_price = original_adult_total_price  # type: int
+        self.re_shop_price_info_dto = re_shop_price_info_dto  # type: FlightModifyListingSearchV2ResponseBodyModuleTransferFlightListPriceInfoDTOReShopPriceInfoDTO
+
+    def validate(self):
+        if self.re_shop_price_info_dto:
+            self.re_shop_price_info_dto.validate()
+
+    def to_map(self):
+        _map = super(FlightModifyListingSearchV2ResponseBodyModuleTransferFlightListPriceInfoDTO, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.adult_price is not None:
+            result['adult_price'] = self.adult_price
+        if self.adult_tax is not None:
+            result['adult_tax'] = self.adult_tax
+        if self.adult_total_price is not None:
+            result['adult_total_price'] = self.adult_total_price
+        if self.before_control_price is not None:
+            result['before_control_price'] = self.before_control_price
+        if self.child_price is not None:
+            result['child_price'] = self.child_price
+        if self.child_tax is not None:
+            result['child_tax'] = self.child_tax
+        if self.child_total_price is not None:
+            result['child_total_price'] = self.child_total_price
+        if self.infant_price is not None:
+            result['infant_price'] = self.infant_price
+        if self.infant_tax is not None:
+            result['infant_tax'] = self.infant_tax
+        if self.infant_total_price is not None:
+            result['infant_total_price'] = self.infant_total_price
+        if self.original_adult_price is not None:
+            result['original_adult_price'] = self.original_adult_price
+        if self.original_adult_total_price is not None:
+            result['original_adult_total_price'] = self.original_adult_total_price
+        if self.re_shop_price_info_dto is not None:
+            result['re_shop_price_info_d_t_o'] = self.re_shop_price_info_dto.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('adult_price') is not None:
+            self.adult_price = m.get('adult_price')
+        if m.get('adult_tax') is not None:
+            self.adult_tax = m.get('adult_tax')
+        if m.get('adult_total_price') is not None:
+            self.adult_total_price = m.get('adult_total_price')
+        if m.get('before_control_price') is not None:
+            self.before_control_price = m.get('before_control_price')
+        if m.get('child_price') is not None:
+            self.child_price = m.get('child_price')
+        if m.get('child_tax') is not None:
+            self.child_tax = m.get('child_tax')
+        if m.get('child_total_price') is not None:
+            self.child_total_price = m.get('child_total_price')
+        if m.get('infant_price') is not None:
+            self.infant_price = m.get('infant_price')
+        if m.get('infant_tax') is not None:
+            self.infant_tax = m.get('infant_tax')
+        if m.get('infant_total_price') is not None:
+            self.infant_total_price = m.get('infant_total_price')
+        if m.get('original_adult_price') is not None:
+            self.original_adult_price = m.get('original_adult_price')
+        if m.get('original_adult_total_price') is not None:
+            self.original_adult_total_price = m.get('original_adult_total_price')
+        if m.get('re_shop_price_info_d_t_o') is not None:
+            temp_model = FlightModifyListingSearchV2ResponseBodyModuleTransferFlightListPriceInfoDTOReShopPriceInfoDTO()
+            self.re_shop_price_info_dto = temp_model.from_map(m['re_shop_price_info_d_t_o'])
+        return self
+
+
+class FlightModifyListingSearchV2ResponseBodyModuleTransferFlightList(TeaModel):
+    def __init__(self, airline_info=None, arr_airport_info=None, arr_city_code=None, arr_time=None,
+                 dep_airport_info=None, dep_city_code=None, dep_time=None, duration=None, flight_no=None, flight_share_info=None,
+                 flight_size=None, flight_stop_info=None, flight_transfer_info=None, flight_type=None, journey_seq=None,
+                 left_num=None, manufacturer=None, meal_desc=None, price_info_dto=None, segment_seq=None, share=None,
+                 short_flight_size=None, span_day=None, stop=None, transfer=None):
+        self.airline_info = airline_info  # type: FlightModifyListingSearchV2ResponseBodyModuleTransferFlightListAirlineInfo
+        self.arr_airport_info = arr_airport_info  # type: FlightModifyListingSearchV2ResponseBodyModuleTransferFlightListArrAirportInfo
+        self.arr_city_code = arr_city_code  # type: str
+        self.arr_time = arr_time  # type: str
+        self.dep_airport_info = dep_airport_info  # type: FlightModifyListingSearchV2ResponseBodyModuleTransferFlightListDepAirportInfo
+        self.dep_city_code = dep_city_code  # type: str
+        self.dep_time = dep_time  # type: str
+        self.duration = duration  # type: int
+        self.flight_no = flight_no  # type: str
+        self.flight_share_info = flight_share_info  # type: FlightModifyListingSearchV2ResponseBodyModuleTransferFlightListFlightShareInfo
+        self.flight_size = flight_size  # type: str
+        self.flight_stop_info = flight_stop_info  # type: FlightModifyListingSearchV2ResponseBodyModuleTransferFlightListFlightStopInfo
+        self.flight_transfer_info = flight_transfer_info  # type: FlightModifyListingSearchV2ResponseBodyModuleTransferFlightListFlightTransferInfo
+        self.flight_type = flight_type  # type: str
+        self.journey_seq = journey_seq  # type: int
+        self.left_num = left_num  # type: str
+        self.manufacturer = manufacturer  # type: str
+        self.meal_desc = meal_desc  # type: str
+        self.price_info_dto = price_info_dto  # type: FlightModifyListingSearchV2ResponseBodyModuleTransferFlightListPriceInfoDTO
+        self.segment_seq = segment_seq  # type: int
+        self.share = share  # type: bool
+        self.short_flight_size = short_flight_size  # type: str
+        self.span_day = span_day  # type: str
+        self.stop = stop  # type: bool
+        self.transfer = transfer  # type: bool
+
+    def validate(self):
+        if self.airline_info:
+            self.airline_info.validate()
+        if self.arr_airport_info:
+            self.arr_airport_info.validate()
+        if self.dep_airport_info:
+            self.dep_airport_info.validate()
+        if self.flight_share_info:
+            self.flight_share_info.validate()
+        if self.flight_stop_info:
+            self.flight_stop_info.validate()
+        if self.flight_transfer_info:
+            self.flight_transfer_info.validate()
+        if self.price_info_dto:
+            self.price_info_dto.validate()
+
+    def to_map(self):
+        _map = super(FlightModifyListingSearchV2ResponseBodyModuleTransferFlightList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.airline_info is not None:
+            result['airline_info'] = self.airline_info.to_map()
+        if self.arr_airport_info is not None:
+            result['arr_airport_info'] = self.arr_airport_info.to_map()
+        if self.arr_city_code is not None:
+            result['arr_city_code'] = self.arr_city_code
+        if self.arr_time is not None:
+            result['arr_time'] = self.arr_time
+        if self.dep_airport_info is not None:
+            result['dep_airport_info'] = self.dep_airport_info.to_map()
+        if self.dep_city_code is not None:
+            result['dep_city_code'] = self.dep_city_code
+        if self.dep_time is not None:
+            result['dep_time'] = self.dep_time
+        if self.duration is not None:
+            result['duration'] = self.duration
+        if self.flight_no is not None:
+            result['flight_no'] = self.flight_no
+        if self.flight_share_info is not None:
+            result['flight_share_info'] = self.flight_share_info.to_map()
+        if self.flight_size is not None:
+            result['flight_size'] = self.flight_size
+        if self.flight_stop_info is not None:
+            result['flight_stop_info'] = self.flight_stop_info.to_map()
+        if self.flight_transfer_info is not None:
+            result['flight_transfer_info'] = self.flight_transfer_info.to_map()
+        if self.flight_type is not None:
+            result['flight_type'] = self.flight_type
+        if self.journey_seq is not None:
+            result['journey_seq'] = self.journey_seq
+        if self.left_num is not None:
+            result['left_num'] = self.left_num
+        if self.manufacturer is not None:
+            result['manufacturer'] = self.manufacturer
+        if self.meal_desc is not None:
+            result['meal_desc'] = self.meal_desc
+        if self.price_info_dto is not None:
+            result['price_info_d_t_o'] = self.price_info_dto.to_map()
+        if self.segment_seq is not None:
+            result['segment_seq'] = self.segment_seq
+        if self.share is not None:
+            result['share'] = self.share
+        if self.short_flight_size is not None:
+            result['short_flight_size'] = self.short_flight_size
+        if self.span_day is not None:
+            result['span_day'] = self.span_day
+        if self.stop is not None:
+            result['stop'] = self.stop
+        if self.transfer is not None:
+            result['transfer'] = self.transfer
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('airline_info') is not None:
+            temp_model = FlightModifyListingSearchV2ResponseBodyModuleTransferFlightListAirlineInfo()
+            self.airline_info = temp_model.from_map(m['airline_info'])
+        if m.get('arr_airport_info') is not None:
+            temp_model = FlightModifyListingSearchV2ResponseBodyModuleTransferFlightListArrAirportInfo()
+            self.arr_airport_info = temp_model.from_map(m['arr_airport_info'])
+        if m.get('arr_city_code') is not None:
+            self.arr_city_code = m.get('arr_city_code')
+        if m.get('arr_time') is not None:
+            self.arr_time = m.get('arr_time')
+        if m.get('dep_airport_info') is not None:
+            temp_model = FlightModifyListingSearchV2ResponseBodyModuleTransferFlightListDepAirportInfo()
+            self.dep_airport_info = temp_model.from_map(m['dep_airport_info'])
+        if m.get('dep_city_code') is not None:
+            self.dep_city_code = m.get('dep_city_code')
+        if m.get('dep_time') is not None:
+            self.dep_time = m.get('dep_time')
+        if m.get('duration') is not None:
+            self.duration = m.get('duration')
+        if m.get('flight_no') is not None:
+            self.flight_no = m.get('flight_no')
+        if m.get('flight_share_info') is not None:
+            temp_model = FlightModifyListingSearchV2ResponseBodyModuleTransferFlightListFlightShareInfo()
+            self.flight_share_info = temp_model.from_map(m['flight_share_info'])
+        if m.get('flight_size') is not None:
+            self.flight_size = m.get('flight_size')
+        if m.get('flight_stop_info') is not None:
+            temp_model = FlightModifyListingSearchV2ResponseBodyModuleTransferFlightListFlightStopInfo()
+            self.flight_stop_info = temp_model.from_map(m['flight_stop_info'])
+        if m.get('flight_transfer_info') is not None:
+            temp_model = FlightModifyListingSearchV2ResponseBodyModuleTransferFlightListFlightTransferInfo()
+            self.flight_transfer_info = temp_model.from_map(m['flight_transfer_info'])
+        if m.get('flight_type') is not None:
+            self.flight_type = m.get('flight_type')
+        if m.get('journey_seq') is not None:
+            self.journey_seq = m.get('journey_seq')
+        if m.get('left_num') is not None:
+            self.left_num = m.get('left_num')
+        if m.get('manufacturer') is not None:
+            self.manufacturer = m.get('manufacturer')
+        if m.get('meal_desc') is not None:
+            self.meal_desc = m.get('meal_desc')
+        if m.get('price_info_d_t_o') is not None:
+            temp_model = FlightModifyListingSearchV2ResponseBodyModuleTransferFlightListPriceInfoDTO()
+            self.price_info_dto = temp_model.from_map(m['price_info_d_t_o'])
+        if m.get('segment_seq') is not None:
+            self.segment_seq = m.get('segment_seq')
+        if m.get('share') is not None:
+            self.share = m.get('share')
+        if m.get('short_flight_size') is not None:
+            self.short_flight_size = m.get('short_flight_size')
+        if m.get('span_day') is not None:
+            self.span_day = m.get('span_day')
+        if m.get('stop') is not None:
+            self.stop = m.get('stop')
+        if m.get('transfer') is not None:
+            self.transfer = m.get('transfer')
+        return self
+
+
+class FlightModifyListingSearchV2ResponseBodyModule(TeaModel):
+    def __init__(self, direct_flight_list=None, session_id=None, transfer_flight_list=None, transfer_title=None):
+        self.direct_flight_list = direct_flight_list  # type: list[FlightModifyListingSearchV2ResponseBodyModuleDirectFlightList]
+        self.session_id = session_id  # type: str
+        self.transfer_flight_list = transfer_flight_list  # type: list[FlightModifyListingSearchV2ResponseBodyModuleTransferFlightList]
+        self.transfer_title = transfer_title  # type: str
+
+    def validate(self):
+        if self.direct_flight_list:
+            for k in self.direct_flight_list:
+                if k:
+                    k.validate()
+        if self.transfer_flight_list:
+            for k in self.transfer_flight_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(FlightModifyListingSearchV2ResponseBodyModule, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['direct_flight_list'] = []
+        if self.direct_flight_list is not None:
+            for k in self.direct_flight_list:
+                result['direct_flight_list'].append(k.to_map() if k else None)
+        if self.session_id is not None:
+            result['session_id'] = self.session_id
+        result['transfer_flight_list'] = []
+        if self.transfer_flight_list is not None:
+            for k in self.transfer_flight_list:
+                result['transfer_flight_list'].append(k.to_map() if k else None)
+        if self.transfer_title is not None:
+            result['transfer_title'] = self.transfer_title
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.direct_flight_list = []
+        if m.get('direct_flight_list') is not None:
+            for k in m.get('direct_flight_list'):
+                temp_model = FlightModifyListingSearchV2ResponseBodyModuleDirectFlightList()
+                self.direct_flight_list.append(temp_model.from_map(k))
+        if m.get('session_id') is not None:
+            self.session_id = m.get('session_id')
+        self.transfer_flight_list = []
+        if m.get('transfer_flight_list') is not None:
+            for k in m.get('transfer_flight_list'):
+                temp_model = FlightModifyListingSearchV2ResponseBodyModuleTransferFlightList()
+                self.transfer_flight_list.append(temp_model.from_map(k))
+        if m.get('transfer_title') is not None:
+            self.transfer_title = m.get('transfer_title')
+        return self
+
+
+class FlightModifyListingSearchV2ResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+        # module
+        self.module = module  # type: FlightModifyListingSearchV2ResponseBodyModule
+        # requestId
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+        # requestId
+        self.trace_id = trace_id  # type: str
+
+    def validate(self):
+        if self.module:
+            self.module.validate()
+
+    def to_map(self):
+        _map = super(FlightModifyListingSearchV2ResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
+        if self.module is not None:
+            result['module'] = self.module.to_map()
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.success is not None:
+            result['success'] = self.success
+        if self.trace_id is not None:
+            result['traceId'] = self.trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('module') is not None:
+            temp_model = FlightModifyListingSearchV2ResponseBodyModule()
+            self.module = temp_model.from_map(m['module'])
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('traceId') is not None:
+            self.trace_id = m.get('traceId')
+        return self
+
+
+class FlightModifyListingSearchV2Response(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: FlightModifyListingSearchV2ResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(FlightModifyListingSearchV2Response, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = FlightModifyListingSearchV2ResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class FlightModifyOrderDetailV2Headers(TeaModel):
+    def __init__(self, common_headers=None, x_acs_btrip_corp_token=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_acs_btrip_corp_token = x_acs_btrip_corp_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightModifyOrderDetailV2Headers, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_acs_btrip_corp_token is not None:
+            result['x-acs-btrip-corp-token'] = self.x_acs_btrip_corp_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('x-acs-btrip-corp-token') is not None:
+            self.x_acs_btrip_corp_token = m.get('x-acs-btrip-corp-token')
+        return self
+
+
+class FlightModifyOrderDetailV2Request(TeaModel):
+    def __init__(self, isv_name=None, modify_apply_id=None, need_query_service_fee=None, order_id=None):
+        self.isv_name = isv_name  # type: str
+        self.modify_apply_id = modify_apply_id  # type: str
+        self.need_query_service_fee = need_query_service_fee  # type: bool
+        self.order_id = order_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightModifyOrderDetailV2Request, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.isv_name is not None:
+            result['isv_name'] = self.isv_name
+        if self.modify_apply_id is not None:
+            result['modify_apply_id'] = self.modify_apply_id
+        if self.need_query_service_fee is not None:
+            result['need_query_service_fee'] = self.need_query_service_fee
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('isv_name') is not None:
+            self.isv_name = m.get('isv_name')
+        if m.get('modify_apply_id') is not None:
+            self.modify_apply_id = m.get('modify_apply_id')
+        if m.get('need_query_service_fee') is not None:
+            self.need_query_service_fee = m.get('need_query_service_fee')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        return self
+
+
+class FlightModifyOrderDetailV2ResponseBodyModuleContactInfoDTO(TeaModel):
+    def __init__(self, contact_email=None, contact_name=None, contact_phone=None, send_msg_to_passenger=None):
+        self.contact_email = contact_email  # type: str
+        self.contact_name = contact_name  # type: str
+        self.contact_phone = contact_phone  # type: str
+        self.send_msg_to_passenger = send_msg_to_passenger  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightModifyOrderDetailV2ResponseBodyModuleContactInfoDTO, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.contact_email is not None:
+            result['contact_email'] = self.contact_email
+        if self.contact_name is not None:
+            result['contact_name'] = self.contact_name
+        if self.contact_phone is not None:
+            result['contact_phone'] = self.contact_phone
+        if self.send_msg_to_passenger is not None:
+            result['send_msg_to_passenger'] = self.send_msg_to_passenger
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('contact_email') is not None:
+            self.contact_email = m.get('contact_email')
+        if m.get('contact_name') is not None:
+            self.contact_name = m.get('contact_name')
+        if m.get('contact_phone') is not None:
+            self.contact_phone = m.get('contact_phone')
+        if m.get('send_msg_to_passenger') is not None:
+            self.send_msg_to_passenger = m.get('send_msg_to_passenger')
+        return self
+
+
+class FlightModifyOrderDetailV2ResponseBodyModuleDestFlightInfoDTOSSegmentPosition(TeaModel):
+    def __init__(self, journey_index=None, segment_index=None):
+        self.journey_index = journey_index  # type: int
+        self.segment_index = segment_index  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightModifyOrderDetailV2ResponseBodyModuleDestFlightInfoDTOSSegmentPosition, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.journey_index is not None:
+            result['journey_index'] = self.journey_index
+        if self.segment_index is not None:
+            result['segment_index'] = self.segment_index
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('journey_index') is not None:
+            self.journey_index = m.get('journey_index')
+        if m.get('segment_index') is not None:
+            self.segment_index = m.get('segment_index')
+        return self
+
+
+class FlightModifyOrderDetailV2ResponseBodyModuleDestFlightInfoDTOS(TeaModel):
+    def __init__(self, airline_code=None, airline_icon_url=None, airline_name=None, arr_airport_code=None,
+                 arr_airport_name=None, arr_city_code=None, arr_city_name=None, arr_terminal=None, arr_time=None, cabin=None,
+                 cabin_class=None, cabin_class_name=None, cabin_discount=None, carrier_airline_code=None,
+                 carrier_airline_icon_url=None, carrier_airline_name=None, carrier_flight_no=None, dep_airport_code=None,
+                 dep_airport_name=None, dep_city_code=None, dep_city_name=None, dep_terminal=None, dep_time=None, flight_no=None,
+                 flight_type=None, meal_desc=None, segment_iid=None, segment_position=None, stop_arr_time=None, stop_city=None,
+                 stop_dep_time=None):
+        self.airline_code = airline_code  # type: str
+        self.airline_icon_url = airline_icon_url  # type: str
+        self.airline_name = airline_name  # type: str
+        self.arr_airport_code = arr_airport_code  # type: str
+        self.arr_airport_name = arr_airport_name  # type: str
+        self.arr_city_code = arr_city_code  # type: str
+        self.arr_city_name = arr_city_name  # type: str
+        self.arr_terminal = arr_terminal  # type: str
+        self.arr_time = arr_time  # type: str
+        self.cabin = cabin  # type: str
+        self.cabin_class = cabin_class  # type: str
+        self.cabin_class_name = cabin_class_name  # type: str
+        self.cabin_discount = cabin_discount  # type: long
+        self.carrier_airline_code = carrier_airline_code  # type: str
+        self.carrier_airline_icon_url = carrier_airline_icon_url  # type: str
+        self.carrier_airline_name = carrier_airline_name  # type: str
+        self.carrier_flight_no = carrier_flight_no  # type: str
+        self.dep_airport_code = dep_airport_code  # type: str
+        self.dep_airport_name = dep_airport_name  # type: str
+        self.dep_city_code = dep_city_code  # type: str
+        self.dep_city_name = dep_city_name  # type: str
+        self.dep_terminal = dep_terminal  # type: str
+        self.dep_time = dep_time  # type: str
+        self.flight_no = flight_no  # type: str
+        self.flight_type = flight_type  # type: str
+        self.meal_desc = meal_desc  # type: str
+        self.segment_iid = segment_iid  # type: str
+        self.segment_position = segment_position  # type: FlightModifyOrderDetailV2ResponseBodyModuleDestFlightInfoDTOSSegmentPosition
+        self.stop_arr_time = stop_arr_time  # type: str
+        self.stop_city = stop_city  # type: str
+        self.stop_dep_time = stop_dep_time  # type: str
+
+    def validate(self):
+        if self.segment_position:
+            self.segment_position.validate()
+
+    def to_map(self):
+        _map = super(FlightModifyOrderDetailV2ResponseBodyModuleDestFlightInfoDTOS, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.airline_code is not None:
+            result['airline_code'] = self.airline_code
+        if self.airline_icon_url is not None:
+            result['airline_icon_url'] = self.airline_icon_url
+        if self.airline_name is not None:
+            result['airline_name'] = self.airline_name
+        if self.arr_airport_code is not None:
+            result['arr_airport_code'] = self.arr_airport_code
+        if self.arr_airport_name is not None:
+            result['arr_airport_name'] = self.arr_airport_name
+        if self.arr_city_code is not None:
+            result['arr_city_code'] = self.arr_city_code
+        if self.arr_city_name is not None:
+            result['arr_city_name'] = self.arr_city_name
+        if self.arr_terminal is not None:
+            result['arr_terminal'] = self.arr_terminal
+        if self.arr_time is not None:
+            result['arr_time'] = self.arr_time
+        if self.cabin is not None:
+            result['cabin'] = self.cabin
+        if self.cabin_class is not None:
+            result['cabin_class'] = self.cabin_class
+        if self.cabin_class_name is not None:
+            result['cabin_class_name'] = self.cabin_class_name
+        if self.cabin_discount is not None:
+            result['cabin_discount'] = self.cabin_discount
+        if self.carrier_airline_code is not None:
+            result['carrier_airline_code'] = self.carrier_airline_code
+        if self.carrier_airline_icon_url is not None:
+            result['carrier_airline_icon_url'] = self.carrier_airline_icon_url
+        if self.carrier_airline_name is not None:
+            result['carrier_airline_name'] = self.carrier_airline_name
+        if self.carrier_flight_no is not None:
+            result['carrier_flight_no'] = self.carrier_flight_no
+        if self.dep_airport_code is not None:
+            result['dep_airport_code'] = self.dep_airport_code
+        if self.dep_airport_name is not None:
+            result['dep_airport_name'] = self.dep_airport_name
+        if self.dep_city_code is not None:
+            result['dep_city_code'] = self.dep_city_code
+        if self.dep_city_name is not None:
+            result['dep_city_name'] = self.dep_city_name
+        if self.dep_terminal is not None:
+            result['dep_terminal'] = self.dep_terminal
+        if self.dep_time is not None:
+            result['dep_time'] = self.dep_time
+        if self.flight_no is not None:
+            result['flight_no'] = self.flight_no
+        if self.flight_type is not None:
+            result['flight_type'] = self.flight_type
+        if self.meal_desc is not None:
+            result['meal_desc'] = self.meal_desc
+        if self.segment_iid is not None:
+            result['segmentI_id'] = self.segment_iid
+        if self.segment_position is not None:
+            result['segment_position'] = self.segment_position.to_map()
+        if self.stop_arr_time is not None:
+            result['stop_arr_time'] = self.stop_arr_time
+        if self.stop_city is not None:
+            result['stop_city'] = self.stop_city
+        if self.stop_dep_time is not None:
+            result['stop_dep_time'] = self.stop_dep_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('airline_code') is not None:
+            self.airline_code = m.get('airline_code')
+        if m.get('airline_icon_url') is not None:
+            self.airline_icon_url = m.get('airline_icon_url')
+        if m.get('airline_name') is not None:
+            self.airline_name = m.get('airline_name')
+        if m.get('arr_airport_code') is not None:
+            self.arr_airport_code = m.get('arr_airport_code')
+        if m.get('arr_airport_name') is not None:
+            self.arr_airport_name = m.get('arr_airport_name')
+        if m.get('arr_city_code') is not None:
+            self.arr_city_code = m.get('arr_city_code')
+        if m.get('arr_city_name') is not None:
+            self.arr_city_name = m.get('arr_city_name')
+        if m.get('arr_terminal') is not None:
+            self.arr_terminal = m.get('arr_terminal')
+        if m.get('arr_time') is not None:
+            self.arr_time = m.get('arr_time')
+        if m.get('cabin') is not None:
+            self.cabin = m.get('cabin')
+        if m.get('cabin_class') is not None:
+            self.cabin_class = m.get('cabin_class')
+        if m.get('cabin_class_name') is not None:
+            self.cabin_class_name = m.get('cabin_class_name')
+        if m.get('cabin_discount') is not None:
+            self.cabin_discount = m.get('cabin_discount')
+        if m.get('carrier_airline_code') is not None:
+            self.carrier_airline_code = m.get('carrier_airline_code')
+        if m.get('carrier_airline_icon_url') is not None:
+            self.carrier_airline_icon_url = m.get('carrier_airline_icon_url')
+        if m.get('carrier_airline_name') is not None:
+            self.carrier_airline_name = m.get('carrier_airline_name')
+        if m.get('carrier_flight_no') is not None:
+            self.carrier_flight_no = m.get('carrier_flight_no')
+        if m.get('dep_airport_code') is not None:
+            self.dep_airport_code = m.get('dep_airport_code')
+        if m.get('dep_airport_name') is not None:
+            self.dep_airport_name = m.get('dep_airport_name')
+        if m.get('dep_city_code') is not None:
+            self.dep_city_code = m.get('dep_city_code')
+        if m.get('dep_city_name') is not None:
+            self.dep_city_name = m.get('dep_city_name')
+        if m.get('dep_terminal') is not None:
+            self.dep_terminal = m.get('dep_terminal')
+        if m.get('dep_time') is not None:
+            self.dep_time = m.get('dep_time')
+        if m.get('flight_no') is not None:
+            self.flight_no = m.get('flight_no')
+        if m.get('flight_type') is not None:
+            self.flight_type = m.get('flight_type')
+        if m.get('meal_desc') is not None:
+            self.meal_desc = m.get('meal_desc')
+        if m.get('segmentI_id') is not None:
+            self.segment_iid = m.get('segmentI_id')
+        if m.get('segment_position') is not None:
+            temp_model = FlightModifyOrderDetailV2ResponseBodyModuleDestFlightInfoDTOSSegmentPosition()
+            self.segment_position = temp_model.from_map(m['segment_position'])
+        if m.get('stop_arr_time') is not None:
+            self.stop_arr_time = m.get('stop_arr_time')
+        if m.get('stop_city') is not None:
+            self.stop_city = m.get('stop_city')
+        if m.get('stop_dep_time') is not None:
+            self.stop_dep_time = m.get('stop_dep_time')
+        return self
+
+
+class FlightModifyOrderDetailV2ResponseBodyModuleTravelerInfoDTOS(TeaModel):
+    def __init__(self, birth_date=None, cert_no=None, cert_type=None, gender=None, origin_ticket_nos=None,
+                 passenger_id=None, passenger_name=None, passenger_type=None, phone=None, pid=None, ticket_nos=None):
+        self.birth_date = birth_date  # type: str
+        self.cert_no = cert_no  # type: str
+        self.cert_type = cert_type  # type: int
+        self.gender = gender  # type: int
+        self.origin_ticket_nos = origin_ticket_nos  # type: list[str]
+        self.passenger_id = passenger_id  # type: str
+        self.passenger_name = passenger_name  # type: str
+        self.passenger_type = passenger_type  # type: int
+        self.phone = phone  # type: str
+        self.pid = pid  # type: long
+        self.ticket_nos = ticket_nos  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightModifyOrderDetailV2ResponseBodyModuleTravelerInfoDTOS, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.birth_date is not None:
+            result['birth_date'] = self.birth_date
+        if self.cert_no is not None:
+            result['cert_no'] = self.cert_no
+        if self.cert_type is not None:
+            result['cert_type'] = self.cert_type
+        if self.gender is not None:
+            result['gender'] = self.gender
+        if self.origin_ticket_nos is not None:
+            result['origin_ticket_nos'] = self.origin_ticket_nos
+        if self.passenger_id is not None:
+            result['passenger_id'] = self.passenger_id
+        if self.passenger_name is not None:
+            result['passenger_name'] = self.passenger_name
+        if self.passenger_type is not None:
+            result['passenger_type'] = self.passenger_type
+        if self.phone is not None:
+            result['phone'] = self.phone
+        if self.pid is not None:
+            result['pid'] = self.pid
+        if self.ticket_nos is not None:
+            result['ticket_nos'] = self.ticket_nos
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('birth_date') is not None:
+            self.birth_date = m.get('birth_date')
+        if m.get('cert_no') is not None:
+            self.cert_no = m.get('cert_no')
+        if m.get('cert_type') is not None:
+            self.cert_type = m.get('cert_type')
+        if m.get('gender') is not None:
+            self.gender = m.get('gender')
+        if m.get('origin_ticket_nos') is not None:
+            self.origin_ticket_nos = m.get('origin_ticket_nos')
+        if m.get('passenger_id') is not None:
+            self.passenger_id = m.get('passenger_id')
+        if m.get('passenger_name') is not None:
+            self.passenger_name = m.get('passenger_name')
+        if m.get('passenger_type') is not None:
+            self.passenger_type = m.get('passenger_type')
+        if m.get('phone') is not None:
+            self.phone = m.get('phone')
+        if m.get('pid') is not None:
+            self.pid = m.get('pid')
+        if m.get('ticket_nos') is not None:
+            self.ticket_nos = m.get('ticket_nos')
+        return self
+
+
+class FlightModifyOrderDetailV2ResponseBodyModule(TeaModel):
+    def __init__(self, apply_time=None, book_user_email=None, book_user_name=None, bookuser_phone=None,
+                 change_fail_reason=None, contact_info_dto=None, dest_flight_info_dtos=None, last_pay_time=None, order_id=None,
+                 out_order_id=None, out_sub_order_id=None, pay_time=None, reason=None, status=None, sub_order_id=None,
+                 ticket_time=None, total_price=None, total_service_fee_price=None, traveler_info_dtos=None):
+        self.apply_time = apply_time  # type: str
+        self.book_user_email = book_user_email  # type: str
+        self.book_user_name = book_user_name  # type: str
+        self.bookuser_phone = bookuser_phone  # type: str
+        self.change_fail_reason = change_fail_reason  # type: str
+        self.contact_info_dto = contact_info_dto  # type: FlightModifyOrderDetailV2ResponseBodyModuleContactInfoDTO
+        self.dest_flight_info_dtos = dest_flight_info_dtos  # type: list[FlightModifyOrderDetailV2ResponseBodyModuleDestFlightInfoDTOS]
+        self.last_pay_time = last_pay_time  # type: str
+        self.order_id = order_id  # type: long
+        self.out_order_id = out_order_id  # type: str
+        self.out_sub_order_id = out_sub_order_id  # type: str
+        self.pay_time = pay_time  # type: str
+        self.reason = reason  # type: str
+        self.status = status  # type: int
+        self.sub_order_id = sub_order_id  # type: long
+        self.ticket_time = ticket_time  # type: str
+        self.total_price = total_price  # type: long
+        self.total_service_fee_price = total_service_fee_price  # type: long
+        self.traveler_info_dtos = traveler_info_dtos  # type: list[FlightModifyOrderDetailV2ResponseBodyModuleTravelerInfoDTOS]
+
+    def validate(self):
+        if self.contact_info_dto:
+            self.contact_info_dto.validate()
+        if self.dest_flight_info_dtos:
+            for k in self.dest_flight_info_dtos:
+                if k:
+                    k.validate()
+        if self.traveler_info_dtos:
+            for k in self.traveler_info_dtos:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(FlightModifyOrderDetailV2ResponseBodyModule, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.apply_time is not None:
+            result['apply_time'] = self.apply_time
+        if self.book_user_email is not None:
+            result['book_user_email'] = self.book_user_email
+        if self.book_user_name is not None:
+            result['book_user_name'] = self.book_user_name
+        if self.bookuser_phone is not None:
+            result['bookuser_phone'] = self.bookuser_phone
+        if self.change_fail_reason is not None:
+            result['change_fail_reason'] = self.change_fail_reason
+        if self.contact_info_dto is not None:
+            result['contact_info_d_t_o'] = self.contact_info_dto.to_map()
+        result['dest_flight_info_d_t_o_s'] = []
+        if self.dest_flight_info_dtos is not None:
+            for k in self.dest_flight_info_dtos:
+                result['dest_flight_info_d_t_o_s'].append(k.to_map() if k else None)
+        if self.last_pay_time is not None:
+            result['last_pay_time'] = self.last_pay_time
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.out_order_id is not None:
+            result['out_order_id'] = self.out_order_id
+        if self.out_sub_order_id is not None:
+            result['out_sub_order_id'] = self.out_sub_order_id
+        if self.pay_time is not None:
+            result['pay_time'] = self.pay_time
+        if self.reason is not None:
+            result['reason'] = self.reason
+        if self.status is not None:
+            result['status'] = self.status
+        if self.sub_order_id is not None:
+            result['sub_order_id'] = self.sub_order_id
+        if self.ticket_time is not None:
+            result['ticket_time'] = self.ticket_time
+        if self.total_price is not None:
+            result['total_price'] = self.total_price
+        if self.total_service_fee_price is not None:
+            result['total_service_fee_price'] = self.total_service_fee_price
+        result['traveler_info_d_t_o_s'] = []
+        if self.traveler_info_dtos is not None:
+            for k in self.traveler_info_dtos:
+                result['traveler_info_d_t_o_s'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('apply_time') is not None:
+            self.apply_time = m.get('apply_time')
+        if m.get('book_user_email') is not None:
+            self.book_user_email = m.get('book_user_email')
+        if m.get('book_user_name') is not None:
+            self.book_user_name = m.get('book_user_name')
+        if m.get('bookuser_phone') is not None:
+            self.bookuser_phone = m.get('bookuser_phone')
+        if m.get('change_fail_reason') is not None:
+            self.change_fail_reason = m.get('change_fail_reason')
+        if m.get('contact_info_d_t_o') is not None:
+            temp_model = FlightModifyOrderDetailV2ResponseBodyModuleContactInfoDTO()
+            self.contact_info_dto = temp_model.from_map(m['contact_info_d_t_o'])
+        self.dest_flight_info_dtos = []
+        if m.get('dest_flight_info_d_t_o_s') is not None:
+            for k in m.get('dest_flight_info_d_t_o_s'):
+                temp_model = FlightModifyOrderDetailV2ResponseBodyModuleDestFlightInfoDTOS()
+                self.dest_flight_info_dtos.append(temp_model.from_map(k))
+        if m.get('last_pay_time') is not None:
+            self.last_pay_time = m.get('last_pay_time')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('out_order_id') is not None:
+            self.out_order_id = m.get('out_order_id')
+        if m.get('out_sub_order_id') is not None:
+            self.out_sub_order_id = m.get('out_sub_order_id')
+        if m.get('pay_time') is not None:
+            self.pay_time = m.get('pay_time')
+        if m.get('reason') is not None:
+            self.reason = m.get('reason')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('sub_order_id') is not None:
+            self.sub_order_id = m.get('sub_order_id')
+        if m.get('ticket_time') is not None:
+            self.ticket_time = m.get('ticket_time')
+        if m.get('total_price') is not None:
+            self.total_price = m.get('total_price')
+        if m.get('total_service_fee_price') is not None:
+            self.total_service_fee_price = m.get('total_service_fee_price')
+        self.traveler_info_dtos = []
+        if m.get('traveler_info_d_t_o_s') is not None:
+            for k in m.get('traveler_info_d_t_o_s'):
+                temp_model = FlightModifyOrderDetailV2ResponseBodyModuleTravelerInfoDTOS()
+                self.traveler_info_dtos.append(temp_model.from_map(k))
+        return self
+
+
+class FlightModifyOrderDetailV2ResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+        # module
+        self.module = module  # type: FlightModifyOrderDetailV2ResponseBodyModule
+        # requestId
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+        # traceId
+        self.trace_id = trace_id  # type: str
+
+    def validate(self):
+        if self.module:
+            self.module.validate()
+
+    def to_map(self):
+        _map = super(FlightModifyOrderDetailV2ResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
+        if self.module is not None:
+            result['module'] = self.module.to_map()
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.success is not None:
+            result['success'] = self.success
+        if self.trace_id is not None:
+            result['traceId'] = self.trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('module') is not None:
+            temp_model = FlightModifyOrderDetailV2ResponseBodyModule()
+            self.module = temp_model.from_map(m['module'])
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('traceId') is not None:
+            self.trace_id = m.get('traceId')
+        return self
+
+
+class FlightModifyOrderDetailV2Response(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: FlightModifyOrderDetailV2ResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(FlightModifyOrderDetailV2Response, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = FlightModifyOrderDetailV2ResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class FlightModifyOtaSearchV2Headers(TeaModel):
+    def __init__(self, common_headers=None, x_acs_btrip_corp_token=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_acs_btrip_corp_token = x_acs_btrip_corp_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightModifyOtaSearchV2Headers, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_acs_btrip_corp_token is not None:
+            result['x-acs-btrip-corp-token'] = self.x_acs_btrip_corp_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('x-acs-btrip-corp-token') is not None:
+            self.x_acs_btrip_corp_token = m.get('x-acs-btrip-corp-token')
+        return self
+
+
+class FlightModifyOtaSearchV2RequestPassengerSegmentRelations(TeaModel):
+    def __init__(self, passenger_id=None, segment_id_list=None):
+        self.passenger_id = passenger_id  # type: str
+        self.segment_id_list = segment_id_list  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightModifyOtaSearchV2RequestPassengerSegmentRelations, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.passenger_id is not None:
+            result['passenger_id'] = self.passenger_id
+        if self.segment_id_list is not None:
+            result['segment_id_list'] = self.segment_id_list
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('passenger_id') is not None:
+            self.passenger_id = m.get('passenger_id')
+        if m.get('segment_id_list') is not None:
+            self.segment_id_list = m.get('segment_id_list')
+        return self
+
+
+class FlightModifyOtaSearchV2RequestSelectedSegments(TeaModel):
+    def __init__(self, arr_city_code=None, dep_city_code=None, dep_date_time=None, journey_seq=None,
+                 marketing_flight_no=None, operating_flight_no=None, segment_seq=None):
+        self.arr_city_code = arr_city_code  # type: str
+        self.dep_city_code = dep_city_code  # type: str
+        self.dep_date_time = dep_date_time  # type: str
+        self.journey_seq = journey_seq  # type: int
+        self.marketing_flight_no = marketing_flight_no  # type: str
+        self.operating_flight_no = operating_flight_no  # type: str
+        self.segment_seq = segment_seq  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightModifyOtaSearchV2RequestSelectedSegments, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.arr_city_code is not None:
+            result['arr_city_code'] = self.arr_city_code
+        if self.dep_city_code is not None:
+            result['dep_city_code'] = self.dep_city_code
+        if self.dep_date_time is not None:
+            result['dep_date_time'] = self.dep_date_time
+        if self.journey_seq is not None:
+            result['journey_seq'] = self.journey_seq
+        if self.marketing_flight_no is not None:
+            result['marketing_flight_no'] = self.marketing_flight_no
+        if self.operating_flight_no is not None:
+            result['operating_flight_no'] = self.operating_flight_no
+        if self.segment_seq is not None:
+            result['segment_seq'] = self.segment_seq
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('arr_city_code') is not None:
+            self.arr_city_code = m.get('arr_city_code')
+        if m.get('dep_city_code') is not None:
+            self.dep_city_code = m.get('dep_city_code')
+        if m.get('dep_date_time') is not None:
+            self.dep_date_time = m.get('dep_date_time')
+        if m.get('journey_seq') is not None:
+            self.journey_seq = m.get('journey_seq')
+        if m.get('marketing_flight_no') is not None:
+            self.marketing_flight_no = m.get('marketing_flight_no')
+        if m.get('operating_flight_no') is not None:
+            self.operating_flight_no = m.get('operating_flight_no')
+        if m.get('segment_seq') is not None:
+            self.segment_seq = m.get('segment_seq')
+        return self
+
+
+class FlightModifyOtaSearchV2Request(TeaModel):
+    def __init__(self, cabin_class=None, dep_date=None, isv_name=None, order_id=None, out_order_id=None,
+                 passenger_segment_relations=None, selected_segments=None, session_id=None, voluntary=None):
+        self.cabin_class = cabin_class  # type: list[int]
+        self.dep_date = dep_date  # type: list[str]
+        self.isv_name = isv_name  # type: str
+        self.order_id = order_id  # type: long
+        self.out_order_id = out_order_id  # type: str
+        self.passenger_segment_relations = passenger_segment_relations  # type: list[FlightModifyOtaSearchV2RequestPassengerSegmentRelations]
+        self.selected_segments = selected_segments  # type: list[FlightModifyOtaSearchV2RequestSelectedSegments]
+        self.session_id = session_id  # type: str
+        self.voluntary = voluntary  # type: bool
+
+    def validate(self):
+        if self.passenger_segment_relations:
+            for k in self.passenger_segment_relations:
+                if k:
+                    k.validate()
+        if self.selected_segments:
+            for k in self.selected_segments:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(FlightModifyOtaSearchV2Request, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cabin_class is not None:
+            result['cabin_class'] = self.cabin_class
+        if self.dep_date is not None:
+            result['dep_date'] = self.dep_date
+        if self.isv_name is not None:
+            result['isv_name'] = self.isv_name
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.out_order_id is not None:
+            result['out_order_id'] = self.out_order_id
+        result['passenger_segment_relations'] = []
+        if self.passenger_segment_relations is not None:
+            for k in self.passenger_segment_relations:
+                result['passenger_segment_relations'].append(k.to_map() if k else None)
+        result['selected_segments'] = []
+        if self.selected_segments is not None:
+            for k in self.selected_segments:
+                result['selected_segments'].append(k.to_map() if k else None)
+        if self.session_id is not None:
+            result['session_id'] = self.session_id
+        if self.voluntary is not None:
+            result['voluntary'] = self.voluntary
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('cabin_class') is not None:
+            self.cabin_class = m.get('cabin_class')
+        if m.get('dep_date') is not None:
+            self.dep_date = m.get('dep_date')
+        if m.get('isv_name') is not None:
+            self.isv_name = m.get('isv_name')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('out_order_id') is not None:
+            self.out_order_id = m.get('out_order_id')
+        self.passenger_segment_relations = []
+        if m.get('passenger_segment_relations') is not None:
+            for k in m.get('passenger_segment_relations'):
+                temp_model = FlightModifyOtaSearchV2RequestPassengerSegmentRelations()
+                self.passenger_segment_relations.append(temp_model.from_map(k))
+        self.selected_segments = []
+        if m.get('selected_segments') is not None:
+            for k in m.get('selected_segments'):
+                temp_model = FlightModifyOtaSearchV2RequestSelectedSegments()
+                self.selected_segments.append(temp_model.from_map(k))
+        if m.get('session_id') is not None:
+            self.session_id = m.get('session_id')
+        if m.get('voluntary') is not None:
+            self.voluntary = m.get('voluntary')
+        return self
+
+
+class FlightModifyOtaSearchV2ShrinkRequest(TeaModel):
+    def __init__(self, cabin_class_shrink=None, dep_date_shrink=None, isv_name=None, order_id=None,
+                 out_order_id=None, passenger_segment_relations_shrink=None, selected_segments_shrink=None, session_id=None,
+                 voluntary=None):
+        self.cabin_class_shrink = cabin_class_shrink  # type: str
+        self.dep_date_shrink = dep_date_shrink  # type: str
+        self.isv_name = isv_name  # type: str
+        self.order_id = order_id  # type: long
+        self.out_order_id = out_order_id  # type: str
+        self.passenger_segment_relations_shrink = passenger_segment_relations_shrink  # type: str
+        self.selected_segments_shrink = selected_segments_shrink  # type: str
+        self.session_id = session_id  # type: str
+        self.voluntary = voluntary  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightModifyOtaSearchV2ShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cabin_class_shrink is not None:
+            result['cabin_class'] = self.cabin_class_shrink
+        if self.dep_date_shrink is not None:
+            result['dep_date'] = self.dep_date_shrink
+        if self.isv_name is not None:
+            result['isv_name'] = self.isv_name
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.out_order_id is not None:
+            result['out_order_id'] = self.out_order_id
+        if self.passenger_segment_relations_shrink is not None:
+            result['passenger_segment_relations'] = self.passenger_segment_relations_shrink
+        if self.selected_segments_shrink is not None:
+            result['selected_segments'] = self.selected_segments_shrink
+        if self.session_id is not None:
+            result['session_id'] = self.session_id
+        if self.voluntary is not None:
+            result['voluntary'] = self.voluntary
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('cabin_class') is not None:
+            self.cabin_class_shrink = m.get('cabin_class')
+        if m.get('dep_date') is not None:
+            self.dep_date_shrink = m.get('dep_date')
+        if m.get('isv_name') is not None:
+            self.isv_name = m.get('isv_name')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('out_order_id') is not None:
+            self.out_order_id = m.get('out_order_id')
+        if m.get('passenger_segment_relations') is not None:
+            self.passenger_segment_relations_shrink = m.get('passenger_segment_relations')
+        if m.get('selected_segments') is not None:
+            self.selected_segments_shrink = m.get('selected_segments')
+        if m.get('session_id') is not None:
+            self.session_id = m.get('session_id')
+        if m.get('voluntary') is not None:
+            self.voluntary = m.get('voluntary')
+        return self
+
+
+class FlightModifyOtaSearchV2ResponseBodyModuleAgentInfoCabinClassInfo(TeaModel):
+    def __init__(self, cabin_class=None, class_name=None, inner_cabin_class=None, quantity=None):
+        self.cabin_class = cabin_class  # type: str
+        self.class_name = class_name  # type: str
+        # inner_cabin_class
+        self.inner_cabin_class = inner_cabin_class  # type: int
+        self.quantity = quantity  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightModifyOtaSearchV2ResponseBodyModuleAgentInfoCabinClassInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cabin_class is not None:
+            result['cabin_class'] = self.cabin_class
+        if self.class_name is not None:
+            result['class_name'] = self.class_name
+        if self.inner_cabin_class is not None:
+            result['inner_cabin_class'] = self.inner_cabin_class
+        if self.quantity is not None:
+            result['quantity'] = self.quantity
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('cabin_class') is not None:
+            self.cabin_class = m.get('cabin_class')
+        if m.get('class_name') is not None:
+            self.class_name = m.get('class_name')
+        if m.get('inner_cabin_class') is not None:
+            self.inner_cabin_class = m.get('inner_cabin_class')
+        if m.get('quantity') is not None:
+            self.quantity = m.get('quantity')
+        return self
+
+
+class FlightModifyOtaSearchV2ResponseBodyModuleAgentInfoPriceInfoDTOReShopPriceInfoDTO(TeaModel):
+    def __init__(self, re_shop_adult_change_fee=None, re_shop_adult_price=None, re_shop_adult_price_gap=None,
+                 re_shop_child_change_fee=None, re_shop_child_price=None, re_shop_child_price_gap=None, re_shop_inf_change_fee=None,
+                 re_shop_inf_price=None, re_shop_inf_price_gap=None):
+        self.re_shop_adult_change_fee = re_shop_adult_change_fee  # type: int
+        self.re_shop_adult_price = re_shop_adult_price  # type: int
+        self.re_shop_adult_price_gap = re_shop_adult_price_gap  # type: int
+        self.re_shop_child_change_fee = re_shop_child_change_fee  # type: int
+        self.re_shop_child_price = re_shop_child_price  # type: int
+        self.re_shop_child_price_gap = re_shop_child_price_gap  # type: int
+        self.re_shop_inf_change_fee = re_shop_inf_change_fee  # type: int
+        self.re_shop_inf_price = re_shop_inf_price  # type: int
+        self.re_shop_inf_price_gap = re_shop_inf_price_gap  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightModifyOtaSearchV2ResponseBodyModuleAgentInfoPriceInfoDTOReShopPriceInfoDTO, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.re_shop_adult_change_fee is not None:
+            result['re_shop_adult_change_fee'] = self.re_shop_adult_change_fee
+        if self.re_shop_adult_price is not None:
+            result['re_shop_adult_price'] = self.re_shop_adult_price
+        if self.re_shop_adult_price_gap is not None:
+            result['re_shop_adult_price_gap'] = self.re_shop_adult_price_gap
+        if self.re_shop_child_change_fee is not None:
+            result['re_shop_child_change_fee'] = self.re_shop_child_change_fee
+        if self.re_shop_child_price is not None:
+            result['re_shop_child_price'] = self.re_shop_child_price
+        if self.re_shop_child_price_gap is not None:
+            result['re_shop_child_price_gap'] = self.re_shop_child_price_gap
+        if self.re_shop_inf_change_fee is not None:
+            result['re_shop_inf_change_fee'] = self.re_shop_inf_change_fee
+        if self.re_shop_inf_price is not None:
+            result['re_shop_inf_price'] = self.re_shop_inf_price
+        if self.re_shop_inf_price_gap is not None:
+            result['re_shop_inf_price_gap'] = self.re_shop_inf_price_gap
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('re_shop_adult_change_fee') is not None:
+            self.re_shop_adult_change_fee = m.get('re_shop_adult_change_fee')
+        if m.get('re_shop_adult_price') is not None:
+            self.re_shop_adult_price = m.get('re_shop_adult_price')
+        if m.get('re_shop_adult_price_gap') is not None:
+            self.re_shop_adult_price_gap = m.get('re_shop_adult_price_gap')
+        if m.get('re_shop_child_change_fee') is not None:
+            self.re_shop_child_change_fee = m.get('re_shop_child_change_fee')
+        if m.get('re_shop_child_price') is not None:
+            self.re_shop_child_price = m.get('re_shop_child_price')
+        if m.get('re_shop_child_price_gap') is not None:
+            self.re_shop_child_price_gap = m.get('re_shop_child_price_gap')
+        if m.get('re_shop_inf_change_fee') is not None:
+            self.re_shop_inf_change_fee = m.get('re_shop_inf_change_fee')
+        if m.get('re_shop_inf_price') is not None:
+            self.re_shop_inf_price = m.get('re_shop_inf_price')
+        if m.get('re_shop_inf_price_gap') is not None:
+            self.re_shop_inf_price_gap = m.get('re_shop_inf_price_gap')
+        return self
+
+
+class FlightModifyOtaSearchV2ResponseBodyModuleAgentInfoPriceInfoDTO(TeaModel):
+    def __init__(self, adult_price=None, adult_tax=None, adult_total_price=None, before_control_price=None,
+                 child_price=None, child_tax=None, child_total_price=None, infant_price=None, infant_tax=None,
+                 infant_total_price=None, original_adult_price=None, original_adult_total_price=None, re_shop_price_info_dto=None):
+        self.adult_price = adult_price  # type: int
+        self.adult_tax = adult_tax  # type: int
+        self.adult_total_price = adult_total_price  # type: int
+        self.before_control_price = before_control_price  # type: int
+        self.child_price = child_price  # type: int
+        self.child_tax = child_tax  # type: int
+        self.child_total_price = child_total_price  # type: int
+        self.infant_price = infant_price  # type: int
+        self.infant_tax = infant_tax  # type: int
+        self.infant_total_price = infant_total_price  # type: int
+        self.original_adult_price = original_adult_price  # type: int
+        self.original_adult_total_price = original_adult_total_price  # type: int
+        self.re_shop_price_info_dto = re_shop_price_info_dto  # type: FlightModifyOtaSearchV2ResponseBodyModuleAgentInfoPriceInfoDTOReShopPriceInfoDTO
+
+    def validate(self):
+        if self.re_shop_price_info_dto:
+            self.re_shop_price_info_dto.validate()
+
+    def to_map(self):
+        _map = super(FlightModifyOtaSearchV2ResponseBodyModuleAgentInfoPriceInfoDTO, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.adult_price is not None:
+            result['adult_price'] = self.adult_price
+        if self.adult_tax is not None:
+            result['adult_tax'] = self.adult_tax
+        if self.adult_total_price is not None:
+            result['adult_total_price'] = self.adult_total_price
+        if self.before_control_price is not None:
+            result['before_control_price'] = self.before_control_price
+        if self.child_price is not None:
+            result['child_price'] = self.child_price
+        if self.child_tax is not None:
+            result['child_tax'] = self.child_tax
+        if self.child_total_price is not None:
+            result['child_total_price'] = self.child_total_price
+        if self.infant_price is not None:
+            result['infant_price'] = self.infant_price
+        if self.infant_tax is not None:
+            result['infant_tax'] = self.infant_tax
+        if self.infant_total_price is not None:
+            result['infant_total_price'] = self.infant_total_price
+        if self.original_adult_price is not None:
+            result['original_adult_price'] = self.original_adult_price
+        if self.original_adult_total_price is not None:
+            result['original_adult_total_price'] = self.original_adult_total_price
+        if self.re_shop_price_info_dto is not None:
+            result['re_shop_price_info_d_t_o'] = self.re_shop_price_info_dto.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('adult_price') is not None:
+            self.adult_price = m.get('adult_price')
+        if m.get('adult_tax') is not None:
+            self.adult_tax = m.get('adult_tax')
+        if m.get('adult_total_price') is not None:
+            self.adult_total_price = m.get('adult_total_price')
+        if m.get('before_control_price') is not None:
+            self.before_control_price = m.get('before_control_price')
+        if m.get('child_price') is not None:
+            self.child_price = m.get('child_price')
+        if m.get('child_tax') is not None:
+            self.child_tax = m.get('child_tax')
+        if m.get('child_total_price') is not None:
+            self.child_total_price = m.get('child_total_price')
+        if m.get('infant_price') is not None:
+            self.infant_price = m.get('infant_price')
+        if m.get('infant_tax') is not None:
+            self.infant_tax = m.get('infant_tax')
+        if m.get('infant_total_price') is not None:
+            self.infant_total_price = m.get('infant_total_price')
+        if m.get('original_adult_price') is not None:
+            self.original_adult_price = m.get('original_adult_price')
+        if m.get('original_adult_total_price') is not None:
+            self.original_adult_total_price = m.get('original_adult_total_price')
+        if m.get('re_shop_price_info_d_t_o') is not None:
+            temp_model = FlightModifyOtaSearchV2ResponseBodyModuleAgentInfoPriceInfoDTOReShopPriceInfoDTO()
+            self.re_shop_price_info_dto = temp_model.from_map(m['re_shop_price_info_d_t_o'])
+        return self
+
+
+class FlightModifyOtaSearchV2ResponseBodyModuleAgentInfo(TeaModel):
+    def __init__(self, attribute_show_info_map=None, best_discount=None, cabin_class_info=None, cabin_code=None,
+                 cabin_name=None, item_id=None, modify_type_desc=None, modify_type_name=None, price_info_dto=None,
+                 quantity=None, support_child_ticket=None):
+        self.attribute_show_info_map = attribute_show_info_map  # type: dict[str, list[ModuleAgentInfoAttributeShowInfoMapValue]]
+        self.best_discount = best_discount  # type: float
+        self.cabin_class_info = cabin_class_info  # type: FlightModifyOtaSearchV2ResponseBodyModuleAgentInfoCabinClassInfo
+        self.cabin_code = cabin_code  # type: int
+        self.cabin_name = cabin_name  # type: str
+        # item_id
+        self.item_id = item_id  # type: str
+        self.modify_type_desc = modify_type_desc  # type: str
+        self.modify_type_name = modify_type_name  # type: str
+        self.price_info_dto = price_info_dto  # type: FlightModifyOtaSearchV2ResponseBodyModuleAgentInfoPriceInfoDTO
+        self.quantity = quantity  # type: int
+        self.support_child_ticket = support_child_ticket  # type: bool
+
+    def validate(self):
+        if self.attribute_show_info_map:
+            for v in self.attribute_show_info_map.values():
+                for k1 in v:
+                    if k1:
+                        k1.validate()
+        if self.cabin_class_info:
+            self.cabin_class_info.validate()
+        if self.price_info_dto:
+            self.price_info_dto.validate()
+
+    def to_map(self):
+        _map = super(FlightModifyOtaSearchV2ResponseBodyModuleAgentInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['attribute_show_info_map'] = {}
+        if self.attribute_show_info_map is not None:
+            for k, v in self.attribute_show_info_map.items():
+                l1 = []
+                for k1 in v:
+                    l1.append(k1.to_map() if k1 else None)
+                result['attributeShowInfoMap'][k] = l1
+        if self.best_discount is not None:
+            result['best_discount'] = self.best_discount
+        if self.cabin_class_info is not None:
+            result['cabin_class_info'] = self.cabin_class_info.to_map()
+        if self.cabin_code is not None:
+            result['cabin_code'] = self.cabin_code
+        if self.cabin_name is not None:
+            result['cabin_name'] = self.cabin_name
+        if self.item_id is not None:
+            result['item_id'] = self.item_id
+        if self.modify_type_desc is not None:
+            result['modify_type_desc'] = self.modify_type_desc
+        if self.modify_type_name is not None:
+            result['modify_type_name'] = self.modify_type_name
+        if self.price_info_dto is not None:
+            result['price_info_d_t_o'] = self.price_info_dto.to_map()
+        if self.quantity is not None:
+            result['quantity'] = self.quantity
+        if self.support_child_ticket is not None:
+            result['support_child_ticket'] = self.support_child_ticket
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.attribute_show_info_map = {}
+        if m.get('attribute_show_info_map') is not None:
+            for k, v in m.get('attribute_show_info_map').items():
+                l1 = []
+                for k1 in v:
+                    temp_model = ModuleAgentInfoAttributeShowInfoMapValue()
+                    l1.append(temp_model.from_map(k1))
+                self.attribute_show_info_map['k'] = l1
+        if m.get('best_discount') is not None:
+            self.best_discount = m.get('best_discount')
+        if m.get('cabin_class_info') is not None:
+            temp_model = FlightModifyOtaSearchV2ResponseBodyModuleAgentInfoCabinClassInfo()
+            self.cabin_class_info = temp_model.from_map(m['cabin_class_info'])
+        if m.get('cabin_code') is not None:
+            self.cabin_code = m.get('cabin_code')
+        if m.get('cabin_name') is not None:
+            self.cabin_name = m.get('cabin_name')
+        if m.get('item_id') is not None:
+            self.item_id = m.get('item_id')
+        if m.get('modify_type_desc') is not None:
+            self.modify_type_desc = m.get('modify_type_desc')
+        if m.get('modify_type_name') is not None:
+            self.modify_type_name = m.get('modify_type_name')
+        if m.get('price_info_d_t_o') is not None:
+            temp_model = FlightModifyOtaSearchV2ResponseBodyModuleAgentInfoPriceInfoDTO()
+            self.price_info_dto = temp_model.from_map(m['price_info_d_t_o'])
+        if m.get('quantity') is not None:
+            self.quantity = m.get('quantity')
+        if m.get('support_child_ticket') is not None:
+            self.support_child_ticket = m.get('support_child_ticket')
+        return self
+
+
+class FlightModifyOtaSearchV2ResponseBodyModuleFlightSegmentInfosDepAirportInfo(TeaModel):
+    def __init__(self, airport_code=None, airport_name=None, airport_short_name=None, terminal=None):
+        self.airport_code = airport_code  # type: str
+        self.airport_name = airport_name  # type: str
+        self.airport_short_name = airport_short_name  # type: str
+        self.terminal = terminal  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightModifyOtaSearchV2ResponseBodyModuleFlightSegmentInfosDepAirportInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.airport_code is not None:
+            result['airport_code'] = self.airport_code
+        if self.airport_name is not None:
+            result['airport_name'] = self.airport_name
+        if self.airport_short_name is not None:
+            result['airport_short_name'] = self.airport_short_name
+        if self.terminal is not None:
+            result['terminal'] = self.terminal
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('airport_code') is not None:
+            self.airport_code = m.get('airport_code')
+        if m.get('airport_name') is not None:
+            self.airport_name = m.get('airport_name')
+        if m.get('airport_short_name') is not None:
+            self.airport_short_name = m.get('airport_short_name')
+        if m.get('terminal') is not None:
+            self.terminal = m.get('terminal')
+        return self
+
+
+class FlightModifyOtaSearchV2ResponseBodyModuleFlightSegmentInfosArrAirportInfo(TeaModel):
+    def __init__(self, airport_code=None, airport_name=None, airport_short_name=None, terminal=None):
+        self.airport_code = airport_code  # type: str
+        self.airport_name = airport_name  # type: str
+        self.airport_short_name = airport_short_name  # type: str
+        self.terminal = terminal  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightModifyOtaSearchV2ResponseBodyModuleFlightSegmentInfosArrAirportInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.airport_code is not None:
+            result['airport_code'] = self.airport_code
+        if self.airport_name is not None:
+            result['airport_name'] = self.airport_name
+        if self.airport_short_name is not None:
+            result['airport_short_name'] = self.airport_short_name
+        if self.terminal is not None:
+            result['terminal'] = self.terminal
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('airport_code') is not None:
+            self.airport_code = m.get('airport_code')
+        if m.get('airport_name') is not None:
+            self.airport_name = m.get('airport_name')
+        if m.get('airport_short_name') is not None:
+            self.airport_short_name = m.get('airport_short_name')
+        if m.get('terminal') is not None:
+            self.terminal = m.get('terminal')
+        return self
+
+
+class FlightModifyOtaSearchV2ResponseBodyModuleFlightSegmentInfosAirlineInfo(TeaModel):
+    def __init__(self, airline_code=None, airline_chinese_name=None, airline_chinese_short_name=None,
+                 airline_icon=None, cheap_flight=None):
+        self.airline_code = airline_code  # type: str
+        self.airline_chinese_name = airline_chinese_name  # type: str
+        self.airline_chinese_short_name = airline_chinese_short_name  # type: str
+        self.airline_icon = airline_icon  # type: str
+        self.cheap_flight = cheap_flight  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightModifyOtaSearchV2ResponseBodyModuleFlightSegmentInfosAirlineInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.airline_code is not None:
+            result['airline_code'] = self.airline_code
+        if self.airline_chinese_name is not None:
+            result['airline_chinese_name'] = self.airline_chinese_name
+        if self.airline_chinese_short_name is not None:
+            result['airline_chinese_short_name'] = self.airline_chinese_short_name
+        if self.airline_icon is not None:
+            result['airline_icon'] = self.airline_icon
+        if self.cheap_flight is not None:
+            result['cheap_flight'] = self.cheap_flight
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('airline_code') is not None:
+            self.airline_code = m.get('airline_code')
+        if m.get('airline_chinese_name') is not None:
+            self.airline_chinese_name = m.get('airline_chinese_name')
+        if m.get('airline_chinese_short_name') is not None:
+            self.airline_chinese_short_name = m.get('airline_chinese_short_name')
+        if m.get('airline_icon') is not None:
+            self.airline_icon = m.get('airline_icon')
+        if m.get('cheap_flight') is not None:
+            self.cheap_flight = m.get('cheap_flight')
+        return self
+
+
+class FlightModifyOtaSearchV2ResponseBodyModuleFlightSegmentInfosFlightSharedInfoOperatingAirlineInfo(TeaModel):
+    def __init__(self, airline_code=None, airline_chinese_name=None, airline_chinese_short_name=None,
+                 airline_icon=None, cheap_flight=None):
+        self.airline_code = airline_code  # type: str
+        self.airline_chinese_name = airline_chinese_name  # type: str
+        self.airline_chinese_short_name = airline_chinese_short_name  # type: str
+        self.airline_icon = airline_icon  # type: str
+        self.cheap_flight = cheap_flight  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightModifyOtaSearchV2ResponseBodyModuleFlightSegmentInfosFlightSharedInfoOperatingAirlineInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.airline_code is not None:
+            result['airline_code'] = self.airline_code
+        if self.airline_chinese_name is not None:
+            result['airline_chinese_name'] = self.airline_chinese_name
+        if self.airline_chinese_short_name is not None:
+            result['airline_chinese_short_name'] = self.airline_chinese_short_name
+        if self.airline_icon is not None:
+            result['airline_icon'] = self.airline_icon
+        if self.cheap_flight is not None:
+            result['cheap_flight'] = self.cheap_flight
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('airline_code') is not None:
+            self.airline_code = m.get('airline_code')
+        if m.get('airline_chinese_name') is not None:
+            self.airline_chinese_name = m.get('airline_chinese_name')
+        if m.get('airline_chinese_short_name') is not None:
+            self.airline_chinese_short_name = m.get('airline_chinese_short_name')
+        if m.get('airline_icon') is not None:
+            self.airline_icon = m.get('airline_icon')
+        if m.get('cheap_flight') is not None:
+            self.cheap_flight = m.get('cheap_flight')
+        return self
+
+
+class FlightModifyOtaSearchV2ResponseBodyModuleFlightSegmentInfosFlightSharedInfo(TeaModel):
+    def __init__(self, operating_flight_no=None, operating_airline_info=None):
+        self.operating_flight_no = operating_flight_no  # type: str
+        self.operating_airline_info = operating_airline_info  # type: FlightModifyOtaSearchV2ResponseBodyModuleFlightSegmentInfosFlightSharedInfoOperatingAirlineInfo
+
+    def validate(self):
+        if self.operating_airline_info:
+            self.operating_airline_info.validate()
+
+    def to_map(self):
+        _map = super(FlightModifyOtaSearchV2ResponseBodyModuleFlightSegmentInfosFlightSharedInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.operating_flight_no is not None:
+            result['operating_flight_no'] = self.operating_flight_no
+        if self.operating_airline_info is not None:
+            result['operating_airline_info'] = self.operating_airline_info.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('operating_flight_no') is not None:
+            self.operating_flight_no = m.get('operating_flight_no')
+        if m.get('operating_airline_info') is not None:
+            temp_model = FlightModifyOtaSearchV2ResponseBodyModuleFlightSegmentInfosFlightSharedInfoOperatingAirlineInfo()
+            self.operating_airline_info = temp_model.from_map(m['operating_airline_info'])
+        return self
+
+
+class FlightModifyOtaSearchV2ResponseBodyModuleFlightSegmentInfosFlightStopInfo(TeaModel):
+    def __init__(self, stop_city_name=None, stop_arr_time=None, stop_dep_time=None, stop_city_code=None,
+                 stop_airport=None, stop_arr_term=None, stop_dep_term=None):
+        self.stop_city_name = stop_city_name  # type: str
+        self.stop_arr_time = stop_arr_time  # type: str
+        self.stop_dep_time = stop_dep_time  # type: str
+        self.stop_city_code = stop_city_code  # type: str
+        self.stop_airport = stop_airport  # type: str
+        self.stop_arr_term = stop_arr_term  # type: str
+        self.stop_dep_term = stop_dep_term  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightModifyOtaSearchV2ResponseBodyModuleFlightSegmentInfosFlightStopInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.stop_city_name is not None:
+            result['stop_city_name'] = self.stop_city_name
+        if self.stop_arr_time is not None:
+            result['stop_arr_time'] = self.stop_arr_time
+        if self.stop_dep_time is not None:
+            result['stop_dep_time'] = self.stop_dep_time
+        if self.stop_city_code is not None:
+            result['stop_city_code'] = self.stop_city_code
+        if self.stop_airport is not None:
+            result['stop_airport'] = self.stop_airport
+        if self.stop_arr_term is not None:
+            result['stop_arr_term'] = self.stop_arr_term
+        if self.stop_dep_term is not None:
+            result['stop_dep_term'] = self.stop_dep_term
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('stop_city_name') is not None:
+            self.stop_city_name = m.get('stop_city_name')
+        if m.get('stop_arr_time') is not None:
+            self.stop_arr_time = m.get('stop_arr_time')
+        if m.get('stop_dep_time') is not None:
+            self.stop_dep_time = m.get('stop_dep_time')
+        if m.get('stop_city_code') is not None:
+            self.stop_city_code = m.get('stop_city_code')
+        if m.get('stop_airport') is not None:
+            self.stop_airport = m.get('stop_airport')
+        if m.get('stop_arr_term') is not None:
+            self.stop_arr_term = m.get('stop_arr_term')
+        if m.get('stop_dep_term') is not None:
+            self.stop_dep_term = m.get('stop_dep_term')
+        return self
+
+
+class FlightModifyOtaSearchV2ResponseBodyModuleFlightSegmentInfos(TeaModel):
+    def __init__(self, journey_seq=None, segment_seq=None, flight_no=None, dep_city_code=None, arr_city_code=None,
+                 dep_city_name=None, arr_city_name=None, dep_airport_info=None, arr_airport_info=None, dep_time=None,
+                 arr_time=None, airline_info=None, share=None, flight_shared_info=None, stop=None, flight_stop_info=None,
+                 transfer_time=None, duration=None, manufacturer=None, flight_type=None, flight_size=None, meal_desc=None,
+                 on_time_rate=None):
+        self.journey_seq = journey_seq  # type: int
+        self.segment_seq = segment_seq  # type: int
+        self.flight_no = flight_no  # type: str
+        self.dep_city_code = dep_city_code  # type: str
+        self.arr_city_code = arr_city_code  # type: str
+        self.dep_city_name = dep_city_name  # type: str
+        self.arr_city_name = arr_city_name  # type: str
+        self.dep_airport_info = dep_airport_info  # type: FlightModifyOtaSearchV2ResponseBodyModuleFlightSegmentInfosDepAirportInfo
+        self.arr_airport_info = arr_airport_info  # type: FlightModifyOtaSearchV2ResponseBodyModuleFlightSegmentInfosArrAirportInfo
+        self.dep_time = dep_time  # type: str
+        self.arr_time = arr_time  # type: str
+        self.airline_info = airline_info  # type: FlightModifyOtaSearchV2ResponseBodyModuleFlightSegmentInfosAirlineInfo
+        self.share = share  # type: bool
+        self.flight_shared_info = flight_shared_info  # type: FlightModifyOtaSearchV2ResponseBodyModuleFlightSegmentInfosFlightSharedInfo
+        self.stop = stop  # type: bool
+        self.flight_stop_info = flight_stop_info  # type: FlightModifyOtaSearchV2ResponseBodyModuleFlightSegmentInfosFlightStopInfo
+        self.transfer_time = transfer_time  # type: int
+        self.duration = duration  # type: int
+        self.manufacturer = manufacturer  # type: str
+        self.flight_type = flight_type  # type: str
+        self.flight_size = flight_size  # type: str
+        self.meal_desc = meal_desc  # type: str
+        self.on_time_rate = on_time_rate  # type: str
+
+    def validate(self):
+        if self.dep_airport_info:
+            self.dep_airport_info.validate()
+        if self.arr_airport_info:
+            self.arr_airport_info.validate()
+        if self.airline_info:
+            self.airline_info.validate()
+        if self.flight_shared_info:
+            self.flight_shared_info.validate()
+        if self.flight_stop_info:
+            self.flight_stop_info.validate()
+
+    def to_map(self):
+        _map = super(FlightModifyOtaSearchV2ResponseBodyModuleFlightSegmentInfos, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.journey_seq is not None:
+            result['journey_seq'] = self.journey_seq
+        if self.segment_seq is not None:
+            result['segment_seq'] = self.segment_seq
+        if self.flight_no is not None:
+            result['flight_no'] = self.flight_no
+        if self.dep_city_code is not None:
+            result['dep_city_code'] = self.dep_city_code
+        if self.arr_city_code is not None:
+            result['arr_city_code'] = self.arr_city_code
+        if self.dep_city_name is not None:
+            result['dep_city_name'] = self.dep_city_name
+        if self.arr_city_name is not None:
+            result['arr_city_name'] = self.arr_city_name
+        if self.dep_airport_info is not None:
+            result['dep_airport_info'] = self.dep_airport_info.to_map()
+        if self.arr_airport_info is not None:
+            result['arr_airport_info'] = self.arr_airport_info.to_map()
+        if self.dep_time is not None:
+            result['dep_time'] = self.dep_time
+        if self.arr_time is not None:
+            result['arr_time'] = self.arr_time
+        if self.airline_info is not None:
+            result['airline_info'] = self.airline_info.to_map()
+        if self.share is not None:
+            result['share'] = self.share
+        if self.flight_shared_info is not None:
+            result['flight_shared_info'] = self.flight_shared_info.to_map()
+        if self.stop is not None:
+            result['stop'] = self.stop
+        if self.flight_stop_info is not None:
+            result['flight_stop_info'] = self.flight_stop_info.to_map()
+        if self.transfer_time is not None:
+            result['transfer_time'] = self.transfer_time
+        if self.duration is not None:
+            result['duration'] = self.duration
+        if self.manufacturer is not None:
+            result['manufacturer'] = self.manufacturer
+        if self.flight_type is not None:
+            result['flight_type'] = self.flight_type
+        if self.flight_size is not None:
+            result['flight_size'] = self.flight_size
+        if self.meal_desc is not None:
+            result['meal_desc'] = self.meal_desc
+        if self.on_time_rate is not None:
+            result['on_time_rate'] = self.on_time_rate
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('journey_seq') is not None:
+            self.journey_seq = m.get('journey_seq')
+        if m.get('segment_seq') is not None:
+            self.segment_seq = m.get('segment_seq')
+        if m.get('flight_no') is not None:
+            self.flight_no = m.get('flight_no')
+        if m.get('dep_city_code') is not None:
+            self.dep_city_code = m.get('dep_city_code')
+        if m.get('arr_city_code') is not None:
+            self.arr_city_code = m.get('arr_city_code')
+        if m.get('dep_city_name') is not None:
+            self.dep_city_name = m.get('dep_city_name')
+        if m.get('arr_city_name') is not None:
+            self.arr_city_name = m.get('arr_city_name')
+        if m.get('dep_airport_info') is not None:
+            temp_model = FlightModifyOtaSearchV2ResponseBodyModuleFlightSegmentInfosDepAirportInfo()
+            self.dep_airport_info = temp_model.from_map(m['dep_airport_info'])
+        if m.get('arr_airport_info') is not None:
+            temp_model = FlightModifyOtaSearchV2ResponseBodyModuleFlightSegmentInfosArrAirportInfo()
+            self.arr_airport_info = temp_model.from_map(m['arr_airport_info'])
+        if m.get('dep_time') is not None:
+            self.dep_time = m.get('dep_time')
+        if m.get('arr_time') is not None:
+            self.arr_time = m.get('arr_time')
+        if m.get('airline_info') is not None:
+            temp_model = FlightModifyOtaSearchV2ResponseBodyModuleFlightSegmentInfosAirlineInfo()
+            self.airline_info = temp_model.from_map(m['airline_info'])
+        if m.get('share') is not None:
+            self.share = m.get('share')
+        if m.get('flight_shared_info') is not None:
+            temp_model = FlightModifyOtaSearchV2ResponseBodyModuleFlightSegmentInfosFlightSharedInfo()
+            self.flight_shared_info = temp_model.from_map(m['flight_shared_info'])
+        if m.get('stop') is not None:
+            self.stop = m.get('stop')
+        if m.get('flight_stop_info') is not None:
+            temp_model = FlightModifyOtaSearchV2ResponseBodyModuleFlightSegmentInfosFlightStopInfo()
+            self.flight_stop_info = temp_model.from_map(m['flight_stop_info'])
+        if m.get('transfer_time') is not None:
+            self.transfer_time = m.get('transfer_time')
+        if m.get('duration') is not None:
+            self.duration = m.get('duration')
+        if m.get('manufacturer') is not None:
+            self.manufacturer = m.get('manufacturer')
+        if m.get('flight_type') is not None:
+            self.flight_type = m.get('flight_type')
+        if m.get('flight_size') is not None:
+            self.flight_size = m.get('flight_size')
+        if m.get('meal_desc') is not None:
+            self.meal_desc = m.get('meal_desc')
+        if m.get('on_time_rate') is not None:
+            self.on_time_rate = m.get('on_time_rate')
+        return self
+
+
+class FlightModifyOtaSearchV2ResponseBodyModulePassengerCount(TeaModel):
+    def __init__(self, adult_passenger_num=None, child_passenger_num=None, infant_passenger_num=None):
+        self.adult_passenger_num = adult_passenger_num  # type: int
+        self.child_passenger_num = child_passenger_num  # type: int
+        self.infant_passenger_num = infant_passenger_num  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightModifyOtaSearchV2ResponseBodyModulePassengerCount, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.adult_passenger_num is not None:
+            result['adult_passenger_num'] = self.adult_passenger_num
+        if self.child_passenger_num is not None:
+            result['child_passenger_num'] = self.child_passenger_num
+        if self.infant_passenger_num is not None:
+            result['infant_passenger_num'] = self.infant_passenger_num
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('adult_passenger_num') is not None:
+            self.adult_passenger_num = m.get('adult_passenger_num')
+        if m.get('child_passenger_num') is not None:
+            self.child_passenger_num = m.get('child_passenger_num')
+        if m.get('infant_passenger_num') is not None:
+            self.infant_passenger_num = m.get('infant_passenger_num')
+        return self
+
+
+class FlightModifyOtaSearchV2ResponseBodyModule(TeaModel):
+    def __init__(self, agent_info=None, cache_key=None, flight_segment_infos=None, passenger_count=None,
+                 session_id=None):
+        self.agent_info = agent_info  # type: FlightModifyOtaSearchV2ResponseBodyModuleAgentInfo
+        self.cache_key = cache_key  # type: str
+        self.flight_segment_infos = flight_segment_infos  # type: list[list[FlightModifyOtaSearchV2ResponseBodyModuleFlightSegmentInfos]]
+        self.passenger_count = passenger_count  # type: FlightModifyOtaSearchV2ResponseBodyModulePassengerCount
+        self.session_id = session_id  # type: str
+
+    def validate(self):
+        if self.agent_info:
+            self.agent_info.validate()
+        if self.flight_segment_infos:
+            for k in self.flight_segment_infos:
+                for k1 in k:
+                    if k1:
+                        k1.validate()
+        if self.passenger_count:
+            self.passenger_count.validate()
+
+    def to_map(self):
+        _map = super(FlightModifyOtaSearchV2ResponseBodyModule, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.agent_info is not None:
+            result['agent_info'] = self.agent_info.to_map()
+        if self.cache_key is not None:
+            result['cache_key'] = self.cache_key
+        result['flight_segment_infos'] = []
+        if self.flight_segment_infos is not None:
+            for k in self.flight_segment_infos:
+                l1 = []
+                for k1 in k:
+                    l1.append(k1.to_map() if k1 else None)
+                result['flightSegmentInfos'].append(l1)
+        if self.passenger_count is not None:
+            result['passenger_count'] = self.passenger_count.to_map()
+        if self.session_id is not None:
+            result['session_id'] = self.session_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('agent_info') is not None:
+            temp_model = FlightModifyOtaSearchV2ResponseBodyModuleAgentInfo()
+            self.agent_info = temp_model.from_map(m['agent_info'])
+        if m.get('cache_key') is not None:
+            self.cache_key = m.get('cache_key')
+        self.flight_segment_infos = []
+        if m.get('flight_segment_infos') is not None:
+            for k in m.get('flight_segment_infos'):
+                l1 = []
+                for k1 in k:
+                    temp_model = FlightModifyOtaSearchV2ResponseBodyModuleFlightSegmentInfos()
+                    l1.append(temp_model.from_map(k1))
+                self.flight_segment_infos.append(l1)
+        if m.get('passenger_count') is not None:
+            temp_model = FlightModifyOtaSearchV2ResponseBodyModulePassengerCount()
+            self.passenger_count = temp_model.from_map(m['passenger_count'])
+        if m.get('session_id') is not None:
+            self.session_id = m.get('session_id')
+        return self
+
+
+class FlightModifyOtaSearchV2ResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+        # module
+        self.module = module  # type: FlightModifyOtaSearchV2ResponseBodyModule
+        # requestId
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+        # traceId
+        self.trace_id = trace_id  # type: str
+
+    def validate(self):
+        if self.module:
+            self.module.validate()
+
+    def to_map(self):
+        _map = super(FlightModifyOtaSearchV2ResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
+        if self.module is not None:
+            result['module'] = self.module.to_map()
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.success is not None:
+            result['success'] = self.success
+        if self.trace_id is not None:
+            result['traceId'] = self.trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('module') is not None:
+            temp_model = FlightModifyOtaSearchV2ResponseBodyModule()
+            self.module = temp_model.from_map(m['module'])
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('traceId') is not None:
+            self.trace_id = m.get('traceId')
+        return self
+
+
+class FlightModifyOtaSearchV2Response(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: FlightModifyOtaSearchV2ResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(FlightModifyOtaSearchV2Response, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = FlightModifyOtaSearchV2ResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class FlightModifyPayV2Headers(TeaModel):
+    def __init__(self, common_headers=None, x_acs_btrip_corp_token=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_acs_btrip_corp_token = x_acs_btrip_corp_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightModifyPayV2Headers, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_acs_btrip_corp_token is not None:
+            result['x-acs-btrip-corp-token'] = self.x_acs_btrip_corp_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('x-acs-btrip-corp-token') is not None:
+            self.x_acs_btrip_corp_token = m.get('x-acs-btrip-corp-token')
+        return self
+
+
+class FlightModifyPayV2Request(TeaModel):
+    def __init__(self, ext_params=None, isv_name=None, modify_pay_amount=None, order_id=None, out_order_id=None,
+                 out_sub_order_id=None, sub_order_id=None):
+        self.ext_params = ext_params  # type: dict[str, any]
+        self.isv_name = isv_name  # type: str
+        self.modify_pay_amount = modify_pay_amount  # type: long
+        self.order_id = order_id  # type: long
+        self.out_order_id = out_order_id  # type: str
+        self.out_sub_order_id = out_sub_order_id  # type: str
+        self.sub_order_id = sub_order_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightModifyPayV2Request, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ext_params is not None:
+            result['ext_params'] = self.ext_params
+        if self.isv_name is not None:
+            result['isv_name'] = self.isv_name
+        if self.modify_pay_amount is not None:
+            result['modify_pay_amount'] = self.modify_pay_amount
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.out_order_id is not None:
+            result['out_order_id'] = self.out_order_id
+        if self.out_sub_order_id is not None:
+            result['out_sub_order_id'] = self.out_sub_order_id
+        if self.sub_order_id is not None:
+            result['sub_order_id'] = self.sub_order_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ext_params') is not None:
+            self.ext_params = m.get('ext_params')
+        if m.get('isv_name') is not None:
+            self.isv_name = m.get('isv_name')
+        if m.get('modify_pay_amount') is not None:
+            self.modify_pay_amount = m.get('modify_pay_amount')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('out_order_id') is not None:
+            self.out_order_id = m.get('out_order_id')
+        if m.get('out_sub_order_id') is not None:
+            self.out_sub_order_id = m.get('out_sub_order_id')
+        if m.get('sub_order_id') is not None:
+            self.sub_order_id = m.get('sub_order_id')
+        return self
+
+
+class FlightModifyPayV2ShrinkRequest(TeaModel):
+    def __init__(self, ext_params_shrink=None, isv_name=None, modify_pay_amount=None, order_id=None,
+                 out_order_id=None, out_sub_order_id=None, sub_order_id=None):
+        self.ext_params_shrink = ext_params_shrink  # type: str
+        self.isv_name = isv_name  # type: str
+        self.modify_pay_amount = modify_pay_amount  # type: long
+        self.order_id = order_id  # type: long
+        self.out_order_id = out_order_id  # type: str
+        self.out_sub_order_id = out_sub_order_id  # type: str
+        self.sub_order_id = sub_order_id  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightModifyPayV2ShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ext_params_shrink is not None:
+            result['ext_params'] = self.ext_params_shrink
+        if self.isv_name is not None:
+            result['isv_name'] = self.isv_name
+        if self.modify_pay_amount is not None:
+            result['modify_pay_amount'] = self.modify_pay_amount
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.out_order_id is not None:
+            result['out_order_id'] = self.out_order_id
+        if self.out_sub_order_id is not None:
+            result['out_sub_order_id'] = self.out_sub_order_id
+        if self.sub_order_id is not None:
+            result['sub_order_id'] = self.sub_order_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ext_params') is not None:
+            self.ext_params_shrink = m.get('ext_params')
+        if m.get('isv_name') is not None:
+            self.isv_name = m.get('isv_name')
+        if m.get('modify_pay_amount') is not None:
+            self.modify_pay_amount = m.get('modify_pay_amount')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('out_order_id') is not None:
+            self.out_order_id = m.get('out_order_id')
+        if m.get('out_sub_order_id') is not None:
+            self.out_sub_order_id = m.get('out_sub_order_id')
+        if m.get('sub_order_id') is not None:
+            self.sub_order_id = m.get('sub_order_id')
+        return self
+
+
+class FlightModifyPayV2ResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+        # module
+        self.module = module  # type: dict[str, any]
+        # requestId
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+        # traceId
+        self.trace_id = trace_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightModifyPayV2ResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
+        if self.module is not None:
+            result['module'] = self.module
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.success is not None:
+            result['success'] = self.success
+        if self.trace_id is not None:
+            result['traceId'] = self.trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('module') is not None:
+            self.module = m.get('module')
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('traceId') is not None:
+            self.trace_id = m.get('traceId')
+        return self
+
+
+class FlightModifyPayV2Response(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: FlightModifyPayV2ResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(FlightModifyPayV2Response, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = FlightModifyPayV2ResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class FlightOrderDetailInfoHeaders(TeaModel):
     def __init__(self, common_headers=None, x_acs_btrip_corp_token=None):
         self.common_headers = common_headers  # type: dict[str, str]
@@ -30186,6 +34540,365 @@ class FlightRefundApplyResponse(TeaModel):
         return self
 
 
+class FlightRefundApplyV2Headers(TeaModel):
+    def __init__(self, common_headers=None, x_acs_btrip_corp_token=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_acs_btrip_corp_token = x_acs_btrip_corp_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightRefundApplyV2Headers, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_acs_btrip_corp_token is not None:
+            result['x-acs-btrip-corp-token'] = self.x_acs_btrip_corp_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('x-acs-btrip-corp-token') is not None:
+            self.x_acs_btrip_corp_token = m.get('x-acs-btrip-corp-token')
+        return self
+
+
+class FlightRefundApplyV2RequestPassengerSegmentRelations(TeaModel):
+    def __init__(self, passenger_id=None, segment_id_list=None):
+        self.passenger_id = passenger_id  # type: str
+        self.segment_id_list = segment_id_list  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightRefundApplyV2RequestPassengerSegmentRelations, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.passenger_id is not None:
+            result['passenger_id'] = self.passenger_id
+        if self.segment_id_list is not None:
+            result['segment_id_list'] = self.segment_id_list
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('passenger_id') is not None:
+            self.passenger_id = m.get('passenger_id')
+        if m.get('segment_id_list') is not None:
+            self.segment_id_list = m.get('segment_id_list')
+        return self
+
+
+class FlightRefundApplyV2Request(TeaModel):
+    def __init__(self, isv_name=None, order_id=None, out_order_id=None, out_sub_order_id=None,
+                 passenger_segment_relations=None, pre_cal_type=None, refund_reason=None, refund_reason_type=None, ticket_nos=None,
+                 total_refund_price=None, upload_pict_urls=None, voluntary=None):
+        self.isv_name = isv_name  # type: str
+        self.order_id = order_id  # type: str
+        self.out_order_id = out_order_id  # type: str
+        self.out_sub_order_id = out_sub_order_id  # type: str
+        self.passenger_segment_relations = passenger_segment_relations  # type: list[FlightRefundApplyV2RequestPassengerSegmentRelations]
+        self.pre_cal_type = pre_cal_type  # type: int
+        self.refund_reason = refund_reason  # type: str
+        self.refund_reason_type = refund_reason_type  # type: int
+        self.ticket_nos = ticket_nos  # type: list[str]
+        self.total_refund_price = total_refund_price  # type: long
+        self.upload_pict_urls = upload_pict_urls  # type: str
+        self.voluntary = voluntary  # type: bool
+
+    def validate(self):
+        if self.passenger_segment_relations:
+            for k in self.passenger_segment_relations:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(FlightRefundApplyV2Request, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.isv_name is not None:
+            result['isv_name'] = self.isv_name
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.out_order_id is not None:
+            result['out_order_id'] = self.out_order_id
+        if self.out_sub_order_id is not None:
+            result['out_sub_order_id'] = self.out_sub_order_id
+        result['passenger_segment_relations'] = []
+        if self.passenger_segment_relations is not None:
+            for k in self.passenger_segment_relations:
+                result['passenger_segment_relations'].append(k.to_map() if k else None)
+        if self.pre_cal_type is not None:
+            result['pre_cal_type'] = self.pre_cal_type
+        if self.refund_reason is not None:
+            result['refund_reason'] = self.refund_reason
+        if self.refund_reason_type is not None:
+            result['refund_reason_type'] = self.refund_reason_type
+        if self.ticket_nos is not None:
+            result['ticket_nos'] = self.ticket_nos
+        if self.total_refund_price is not None:
+            result['total_refund_price'] = self.total_refund_price
+        if self.upload_pict_urls is not None:
+            result['upload_pict_urls'] = self.upload_pict_urls
+        if self.voluntary is not None:
+            result['voluntary'] = self.voluntary
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('isv_name') is not None:
+            self.isv_name = m.get('isv_name')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('out_order_id') is not None:
+            self.out_order_id = m.get('out_order_id')
+        if m.get('out_sub_order_id') is not None:
+            self.out_sub_order_id = m.get('out_sub_order_id')
+        self.passenger_segment_relations = []
+        if m.get('passenger_segment_relations') is not None:
+            for k in m.get('passenger_segment_relations'):
+                temp_model = FlightRefundApplyV2RequestPassengerSegmentRelations()
+                self.passenger_segment_relations.append(temp_model.from_map(k))
+        if m.get('pre_cal_type') is not None:
+            self.pre_cal_type = m.get('pre_cal_type')
+        if m.get('refund_reason') is not None:
+            self.refund_reason = m.get('refund_reason')
+        if m.get('refund_reason_type') is not None:
+            self.refund_reason_type = m.get('refund_reason_type')
+        if m.get('ticket_nos') is not None:
+            self.ticket_nos = m.get('ticket_nos')
+        if m.get('total_refund_price') is not None:
+            self.total_refund_price = m.get('total_refund_price')
+        if m.get('upload_pict_urls') is not None:
+            self.upload_pict_urls = m.get('upload_pict_urls')
+        if m.get('voluntary') is not None:
+            self.voluntary = m.get('voluntary')
+        return self
+
+
+class FlightRefundApplyV2ShrinkRequest(TeaModel):
+    def __init__(self, isv_name=None, order_id=None, out_order_id=None, out_sub_order_id=None,
+                 passenger_segment_relations_shrink=None, pre_cal_type=None, refund_reason=None, refund_reason_type=None, ticket_nos_shrink=None,
+                 total_refund_price=None, upload_pict_urls=None, voluntary=None):
+        self.isv_name = isv_name  # type: str
+        self.order_id = order_id  # type: str
+        self.out_order_id = out_order_id  # type: str
+        self.out_sub_order_id = out_sub_order_id  # type: str
+        self.passenger_segment_relations_shrink = passenger_segment_relations_shrink  # type: str
+        self.pre_cal_type = pre_cal_type  # type: int
+        self.refund_reason = refund_reason  # type: str
+        self.refund_reason_type = refund_reason_type  # type: int
+        self.ticket_nos_shrink = ticket_nos_shrink  # type: str
+        self.total_refund_price = total_refund_price  # type: long
+        self.upload_pict_urls = upload_pict_urls  # type: str
+        self.voluntary = voluntary  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightRefundApplyV2ShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.isv_name is not None:
+            result['isv_name'] = self.isv_name
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.out_order_id is not None:
+            result['out_order_id'] = self.out_order_id
+        if self.out_sub_order_id is not None:
+            result['out_sub_order_id'] = self.out_sub_order_id
+        if self.passenger_segment_relations_shrink is not None:
+            result['passenger_segment_relations'] = self.passenger_segment_relations_shrink
+        if self.pre_cal_type is not None:
+            result['pre_cal_type'] = self.pre_cal_type
+        if self.refund_reason is not None:
+            result['refund_reason'] = self.refund_reason
+        if self.refund_reason_type is not None:
+            result['refund_reason_type'] = self.refund_reason_type
+        if self.ticket_nos_shrink is not None:
+            result['ticket_nos'] = self.ticket_nos_shrink
+        if self.total_refund_price is not None:
+            result['total_refund_price'] = self.total_refund_price
+        if self.upload_pict_urls is not None:
+            result['upload_pict_urls'] = self.upload_pict_urls
+        if self.voluntary is not None:
+            result['voluntary'] = self.voluntary
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('isv_name') is not None:
+            self.isv_name = m.get('isv_name')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('out_order_id') is not None:
+            self.out_order_id = m.get('out_order_id')
+        if m.get('out_sub_order_id') is not None:
+            self.out_sub_order_id = m.get('out_sub_order_id')
+        if m.get('passenger_segment_relations') is not None:
+            self.passenger_segment_relations_shrink = m.get('passenger_segment_relations')
+        if m.get('pre_cal_type') is not None:
+            self.pre_cal_type = m.get('pre_cal_type')
+        if m.get('refund_reason') is not None:
+            self.refund_reason = m.get('refund_reason')
+        if m.get('refund_reason_type') is not None:
+            self.refund_reason_type = m.get('refund_reason_type')
+        if m.get('ticket_nos') is not None:
+            self.ticket_nos_shrink = m.get('ticket_nos')
+        if m.get('total_refund_price') is not None:
+            self.total_refund_price = m.get('total_refund_price')
+        if m.get('upload_pict_urls') is not None:
+            self.upload_pict_urls = m.get('upload_pict_urls')
+        if m.get('voluntary') is not None:
+            self.voluntary = m.get('voluntary')
+        return self
+
+
+class FlightRefundApplyV2ResponseBodyModule(TeaModel):
+    def __init__(self, order_id=None, out_order_id=None, out_sub_order_id=None, sub_order_id=None):
+        self.order_id = order_id  # type: str
+        self.out_order_id = out_order_id  # type: str
+        self.out_sub_order_id = out_sub_order_id  # type: str
+        self.sub_order_id = sub_order_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightRefundApplyV2ResponseBodyModule, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.out_order_id is not None:
+            result['out_order_id'] = self.out_order_id
+        if self.out_sub_order_id is not None:
+            result['out_sub_order_id'] = self.out_sub_order_id
+        if self.sub_order_id is not None:
+            result['sub_order_id'] = self.sub_order_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('out_order_id') is not None:
+            self.out_order_id = m.get('out_order_id')
+        if m.get('out_sub_order_id') is not None:
+            self.out_sub_order_id = m.get('out_sub_order_id')
+        if m.get('sub_order_id') is not None:
+            self.sub_order_id = m.get('sub_order_id')
+        return self
+
+
+class FlightRefundApplyV2ResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+        self.module = module  # type: FlightRefundApplyV2ResponseBodyModule
+        # requestId
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+        # traceId
+        self.trace_id = trace_id  # type: str
+
+    def validate(self):
+        if self.module:
+            self.module.validate()
+
+    def to_map(self):
+        _map = super(FlightRefundApplyV2ResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
+        if self.module is not None:
+            result['module'] = self.module.to_map()
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.success is not None:
+            result['success'] = self.success
+        if self.trace_id is not None:
+            result['traceId'] = self.trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('module') is not None:
+            temp_model = FlightRefundApplyV2ResponseBodyModule()
+            self.module = temp_model.from_map(m['module'])
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('traceId') is not None:
+            self.trace_id = m.get('traceId')
+        return self
+
+
+class FlightRefundApplyV2Response(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: FlightRefundApplyV2ResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(FlightRefundApplyV2Response, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = FlightRefundApplyV2ResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class FlightRefundDetailHeaders(TeaModel):
     def __init__(self, common_headers=None, x_acs_btrip_corp_token=None):
         self.common_headers = common_headers  # type: dict[str, str]
@@ -30447,6 +35160,598 @@ class FlightRefundDetailResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = FlightRefundDetailResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class FlightRefundDetailV2Headers(TeaModel):
+    def __init__(self, common_headers=None, x_acs_btrip_corp_token=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_acs_btrip_corp_token = x_acs_btrip_corp_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightRefundDetailV2Headers, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_acs_btrip_corp_token is not None:
+            result['x-acs-btrip-corp-token'] = self.x_acs_btrip_corp_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('x-acs-btrip-corp-token') is not None:
+            self.x_acs_btrip_corp_token = m.get('x-acs-btrip-corp-token')
+        return self
+
+
+class FlightRefundDetailV2Request(TeaModel):
+    def __init__(self, isv_name=None, order_id=None, refund_apply_id=None):
+        self.isv_name = isv_name  # type: str
+        self.order_id = order_id  # type: str
+        self.refund_apply_id = refund_apply_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightRefundDetailV2Request, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.isv_name is not None:
+            result['isv_name'] = self.isv_name
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.refund_apply_id is not None:
+            result['refund_apply_id'] = self.refund_apply_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('isv_name') is not None:
+            self.isv_name = m.get('isv_name')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('refund_apply_id') is not None:
+            self.refund_apply_id = m.get('refund_apply_id')
+        return self
+
+
+class FlightRefundDetailV2ResponseBodyModuleContactInfoDTO(TeaModel):
+    def __init__(self, contact_email=None, contact_name=None, contact_phone=None, send_msg_to_passenger=None):
+        self.contact_email = contact_email  # type: str
+        self.contact_name = contact_name  # type: str
+        self.contact_phone = contact_phone  # type: str
+        self.send_msg_to_passenger = send_msg_to_passenger  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightRefundDetailV2ResponseBodyModuleContactInfoDTO, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.contact_email is not None:
+            result['contact_email'] = self.contact_email
+        if self.contact_name is not None:
+            result['contact_name'] = self.contact_name
+        if self.contact_phone is not None:
+            result['contact_phone'] = self.contact_phone
+        if self.send_msg_to_passenger is not None:
+            result['send_msg_to_passenger'] = self.send_msg_to_passenger
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('contact_email') is not None:
+            self.contact_email = m.get('contact_email')
+        if m.get('contact_name') is not None:
+            self.contact_name = m.get('contact_name')
+        if m.get('contact_phone') is not None:
+            self.contact_phone = m.get('contact_phone')
+        if m.get('send_msg_to_passenger') is not None:
+            self.send_msg_to_passenger = m.get('send_msg_to_passenger')
+        return self
+
+
+class FlightRefundDetailV2ResponseBodyModuleFlightInfoDTOSSegmentPosition(TeaModel):
+    def __init__(self, journey_index=None, segment_index=None):
+        self.journey_index = journey_index  # type: int
+        self.segment_index = segment_index  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightRefundDetailV2ResponseBodyModuleFlightInfoDTOSSegmentPosition, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.journey_index is not None:
+            result['journey_index'] = self.journey_index
+        if self.segment_index is not None:
+            result['segment_index'] = self.segment_index
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('journey_index') is not None:
+            self.journey_index = m.get('journey_index')
+        if m.get('segment_index') is not None:
+            self.segment_index = m.get('segment_index')
+        return self
+
+
+class FlightRefundDetailV2ResponseBodyModuleFlightInfoDTOS(TeaModel):
+    def __init__(self, airline_code=None, airline_icon_url=None, airline_name=None, arr_airport_code=None,
+                 arr_airport_name=None, arr_city_code=None, arr_city_name=None, arr_terminal=None, arr_time=None, cabin=None,
+                 cabin_class=None, cabin_class_name=None, cabin_discount=None, carrier_airline_code=None,
+                 carrier_airline_icon_url=None, carrier_airline_name=None, carrier_flight_no=None, dep_airport_code=None,
+                 dep_airport_name=None, dep_city_code=None, dep_city_name=None, dep_terminal=None, dep_time=None, flight_no=None,
+                 flight_type=None, meal_desc=None, segment_id=None, segment_position=None, stop_arr_time=None, stop_city=None,
+                 stop_dep_time=None):
+        self.airline_code = airline_code  # type: str
+        self.airline_icon_url = airline_icon_url  # type: str
+        self.airline_name = airline_name  # type: str
+        self.arr_airport_code = arr_airport_code  # type: str
+        self.arr_airport_name = arr_airport_name  # type: str
+        self.arr_city_code = arr_city_code  # type: str
+        self.arr_city_name = arr_city_name  # type: str
+        self.arr_terminal = arr_terminal  # type: str
+        self.arr_time = arr_time  # type: str
+        self.cabin = cabin  # type: str
+        self.cabin_class = cabin_class  # type: str
+        self.cabin_class_name = cabin_class_name  # type: str
+        self.cabin_discount = cabin_discount  # type: long
+        self.carrier_airline_code = carrier_airline_code  # type: str
+        self.carrier_airline_icon_url = carrier_airline_icon_url  # type: str
+        self.carrier_airline_name = carrier_airline_name  # type: str
+        self.carrier_flight_no = carrier_flight_no  # type: str
+        self.dep_airport_code = dep_airport_code  # type: str
+        self.dep_airport_name = dep_airport_name  # type: str
+        self.dep_city_code = dep_city_code  # type: str
+        self.dep_city_name = dep_city_name  # type: str
+        self.dep_terminal = dep_terminal  # type: str
+        self.dep_time = dep_time  # type: str
+        self.flight_no = flight_no  # type: str
+        self.flight_type = flight_type  # type: str
+        self.meal_desc = meal_desc  # type: str
+        self.segment_id = segment_id  # type: str
+        self.segment_position = segment_position  # type: FlightRefundDetailV2ResponseBodyModuleFlightInfoDTOSSegmentPosition
+        self.stop_arr_time = stop_arr_time  # type: str
+        self.stop_city = stop_city  # type: str
+        self.stop_dep_time = stop_dep_time  # type: str
+
+    def validate(self):
+        if self.segment_position:
+            self.segment_position.validate()
+
+    def to_map(self):
+        _map = super(FlightRefundDetailV2ResponseBodyModuleFlightInfoDTOS, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.airline_code is not None:
+            result['airline_code'] = self.airline_code
+        if self.airline_icon_url is not None:
+            result['airline_icon_url'] = self.airline_icon_url
+        if self.airline_name is not None:
+            result['airline_name'] = self.airline_name
+        if self.arr_airport_code is not None:
+            result['arr_airport_code'] = self.arr_airport_code
+        if self.arr_airport_name is not None:
+            result['arr_airport_name'] = self.arr_airport_name
+        if self.arr_city_code is not None:
+            result['arr_city_code'] = self.arr_city_code
+        if self.arr_city_name is not None:
+            result['arr_city_name'] = self.arr_city_name
+        if self.arr_terminal is not None:
+            result['arr_terminal'] = self.arr_terminal
+        if self.arr_time is not None:
+            result['arr_time'] = self.arr_time
+        if self.cabin is not None:
+            result['cabin'] = self.cabin
+        if self.cabin_class is not None:
+            result['cabin_class'] = self.cabin_class
+        if self.cabin_class_name is not None:
+            result['cabin_class_name'] = self.cabin_class_name
+        if self.cabin_discount is not None:
+            result['cabin_discount'] = self.cabin_discount
+        if self.carrier_airline_code is not None:
+            result['carrier_airline_code'] = self.carrier_airline_code
+        if self.carrier_airline_icon_url is not None:
+            result['carrier_airline_icon_url'] = self.carrier_airline_icon_url
+        if self.carrier_airline_name is not None:
+            result['carrier_airline_name'] = self.carrier_airline_name
+        if self.carrier_flight_no is not None:
+            result['carrier_flight_no'] = self.carrier_flight_no
+        if self.dep_airport_code is not None:
+            result['dep_airport_code'] = self.dep_airport_code
+        if self.dep_airport_name is not None:
+            result['dep_airport_name'] = self.dep_airport_name
+        if self.dep_city_code is not None:
+            result['dep_city_code'] = self.dep_city_code
+        if self.dep_city_name is not None:
+            result['dep_city_name'] = self.dep_city_name
+        if self.dep_terminal is not None:
+            result['dep_terminal'] = self.dep_terminal
+        if self.dep_time is not None:
+            result['dep_time'] = self.dep_time
+        if self.flight_no is not None:
+            result['flight_no'] = self.flight_no
+        if self.flight_type is not None:
+            result['flight_type'] = self.flight_type
+        if self.meal_desc is not None:
+            result['meal_desc'] = self.meal_desc
+        if self.segment_id is not None:
+            result['segment_id'] = self.segment_id
+        if self.segment_position is not None:
+            result['segment_position'] = self.segment_position.to_map()
+        if self.stop_arr_time is not None:
+            result['stop_arr_time'] = self.stop_arr_time
+        if self.stop_city is not None:
+            result['stop_city'] = self.stop_city
+        if self.stop_dep_time is not None:
+            result['stop_dep_time'] = self.stop_dep_time
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('airline_code') is not None:
+            self.airline_code = m.get('airline_code')
+        if m.get('airline_icon_url') is not None:
+            self.airline_icon_url = m.get('airline_icon_url')
+        if m.get('airline_name') is not None:
+            self.airline_name = m.get('airline_name')
+        if m.get('arr_airport_code') is not None:
+            self.arr_airport_code = m.get('arr_airport_code')
+        if m.get('arr_airport_name') is not None:
+            self.arr_airport_name = m.get('arr_airport_name')
+        if m.get('arr_city_code') is not None:
+            self.arr_city_code = m.get('arr_city_code')
+        if m.get('arr_city_name') is not None:
+            self.arr_city_name = m.get('arr_city_name')
+        if m.get('arr_terminal') is not None:
+            self.arr_terminal = m.get('arr_terminal')
+        if m.get('arr_time') is not None:
+            self.arr_time = m.get('arr_time')
+        if m.get('cabin') is not None:
+            self.cabin = m.get('cabin')
+        if m.get('cabin_class') is not None:
+            self.cabin_class = m.get('cabin_class')
+        if m.get('cabin_class_name') is not None:
+            self.cabin_class_name = m.get('cabin_class_name')
+        if m.get('cabin_discount') is not None:
+            self.cabin_discount = m.get('cabin_discount')
+        if m.get('carrier_airline_code') is not None:
+            self.carrier_airline_code = m.get('carrier_airline_code')
+        if m.get('carrier_airline_icon_url') is not None:
+            self.carrier_airline_icon_url = m.get('carrier_airline_icon_url')
+        if m.get('carrier_airline_name') is not None:
+            self.carrier_airline_name = m.get('carrier_airline_name')
+        if m.get('carrier_flight_no') is not None:
+            self.carrier_flight_no = m.get('carrier_flight_no')
+        if m.get('dep_airport_code') is not None:
+            self.dep_airport_code = m.get('dep_airport_code')
+        if m.get('dep_airport_name') is not None:
+            self.dep_airport_name = m.get('dep_airport_name')
+        if m.get('dep_city_code') is not None:
+            self.dep_city_code = m.get('dep_city_code')
+        if m.get('dep_city_name') is not None:
+            self.dep_city_name = m.get('dep_city_name')
+        if m.get('dep_terminal') is not None:
+            self.dep_terminal = m.get('dep_terminal')
+        if m.get('dep_time') is not None:
+            self.dep_time = m.get('dep_time')
+        if m.get('flight_no') is not None:
+            self.flight_no = m.get('flight_no')
+        if m.get('flight_type') is not None:
+            self.flight_type = m.get('flight_type')
+        if m.get('meal_desc') is not None:
+            self.meal_desc = m.get('meal_desc')
+        if m.get('segment_id') is not None:
+            self.segment_id = m.get('segment_id')
+        if m.get('segment_position') is not None:
+            temp_model = FlightRefundDetailV2ResponseBodyModuleFlightInfoDTOSSegmentPosition()
+            self.segment_position = temp_model.from_map(m['segment_position'])
+        if m.get('stop_arr_time') is not None:
+            self.stop_arr_time = m.get('stop_arr_time')
+        if m.get('stop_city') is not None:
+            self.stop_city = m.get('stop_city')
+        if m.get('stop_dep_time') is not None:
+            self.stop_dep_time = m.get('stop_dep_time')
+        return self
+
+
+class FlightRefundDetailV2ResponseBodyModuleTravelerInfoDTOS(TeaModel):
+    def __init__(self, birth_date=None, cert_no=None, cert_type=None, gender=None, origin_ticket_nos=None,
+                 passenger_id=None, passenger_name=None, passenger_type=None, phone=None, pid=None, ticket_nos=None):
+        self.birth_date = birth_date  # type: str
+        self.cert_no = cert_no  # type: str
+        self.cert_type = cert_type  # type: int
+        self.gender = gender  # type: int
+        self.origin_ticket_nos = origin_ticket_nos  # type: list[str]
+        self.passenger_id = passenger_id  # type: str
+        self.passenger_name = passenger_name  # type: str
+        self.passenger_type = passenger_type  # type: int
+        self.phone = phone  # type: str
+        self.pid = pid  # type: long
+        self.ticket_nos = ticket_nos  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightRefundDetailV2ResponseBodyModuleTravelerInfoDTOS, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.birth_date is not None:
+            result['birth_date'] = self.birth_date
+        if self.cert_no is not None:
+            result['cert_no'] = self.cert_no
+        if self.cert_type is not None:
+            result['cert_type'] = self.cert_type
+        if self.gender is not None:
+            result['gender'] = self.gender
+        if self.origin_ticket_nos is not None:
+            result['origin_ticket_nos'] = self.origin_ticket_nos
+        if self.passenger_id is not None:
+            result['passenger_id'] = self.passenger_id
+        if self.passenger_name is not None:
+            result['passenger_name'] = self.passenger_name
+        if self.passenger_type is not None:
+            result['passenger_type'] = self.passenger_type
+        if self.phone is not None:
+            result['phone'] = self.phone
+        if self.pid is not None:
+            result['pid'] = self.pid
+        if self.ticket_nos is not None:
+            result['ticket_nos'] = self.ticket_nos
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('birth_date') is not None:
+            self.birth_date = m.get('birth_date')
+        if m.get('cert_no') is not None:
+            self.cert_no = m.get('cert_no')
+        if m.get('cert_type') is not None:
+            self.cert_type = m.get('cert_type')
+        if m.get('gender') is not None:
+            self.gender = m.get('gender')
+        if m.get('origin_ticket_nos') is not None:
+            self.origin_ticket_nos = m.get('origin_ticket_nos')
+        if m.get('passenger_id') is not None:
+            self.passenger_id = m.get('passenger_id')
+        if m.get('passenger_name') is not None:
+            self.passenger_name = m.get('passenger_name')
+        if m.get('passenger_type') is not None:
+            self.passenger_type = m.get('passenger_type')
+        if m.get('phone') is not None:
+            self.phone = m.get('phone')
+        if m.get('pid') is not None:
+            self.pid = m.get('pid')
+        if m.get('ticket_nos') is not None:
+            self.ticket_nos = m.get('ticket_nos')
+        return self
+
+
+class FlightRefundDetailV2ResponseBodyModule(TeaModel):
+    def __init__(self, apply_time=None, contact_info_dto=None, flight_info_dtos=None, order_id=None,
+                 out_order_id=None, out_sub_order_id=None, reason=None, reason_code=None, refund_fail_reason=None,
+                 refund_handling_fee=None, refund_money=None, status=None, sub_order_id=None, traveler_info_dtos=None):
+        self.apply_time = apply_time  # type: str
+        self.contact_info_dto = contact_info_dto  # type: FlightRefundDetailV2ResponseBodyModuleContactInfoDTO
+        self.flight_info_dtos = flight_info_dtos  # type: list[FlightRefundDetailV2ResponseBodyModuleFlightInfoDTOS]
+        self.order_id = order_id  # type: long
+        self.out_order_id = out_order_id  # type: str
+        self.out_sub_order_id = out_sub_order_id  # type: str
+        self.reason = reason  # type: str
+        self.reason_code = reason_code  # type: str
+        self.refund_fail_reason = refund_fail_reason  # type: str
+        self.refund_handling_fee = refund_handling_fee  # type: long
+        self.refund_money = refund_money  # type: long
+        self.status = status  # type: int
+        self.sub_order_id = sub_order_id  # type: long
+        self.traveler_info_dtos = traveler_info_dtos  # type: list[FlightRefundDetailV2ResponseBodyModuleTravelerInfoDTOS]
+
+    def validate(self):
+        if self.contact_info_dto:
+            self.contact_info_dto.validate()
+        if self.flight_info_dtos:
+            for k in self.flight_info_dtos:
+                if k:
+                    k.validate()
+        if self.traveler_info_dtos:
+            for k in self.traveler_info_dtos:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(FlightRefundDetailV2ResponseBodyModule, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.apply_time is not None:
+            result['apply_time'] = self.apply_time
+        if self.contact_info_dto is not None:
+            result['contact_info_d_t_o'] = self.contact_info_dto.to_map()
+        result['flight_info_d_t_o_s'] = []
+        if self.flight_info_dtos is not None:
+            for k in self.flight_info_dtos:
+                result['flight_info_d_t_o_s'].append(k.to_map() if k else None)
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.out_order_id is not None:
+            result['out_order_id'] = self.out_order_id
+        if self.out_sub_order_id is not None:
+            result['out_sub_order_id'] = self.out_sub_order_id
+        if self.reason is not None:
+            result['reason'] = self.reason
+        if self.reason_code is not None:
+            result['reason_code'] = self.reason_code
+        if self.refund_fail_reason is not None:
+            result['refund_fail_reason'] = self.refund_fail_reason
+        if self.refund_handling_fee is not None:
+            result['refund_handling_fee'] = self.refund_handling_fee
+        if self.refund_money is not None:
+            result['refund_money'] = self.refund_money
+        if self.status is not None:
+            result['status'] = self.status
+        if self.sub_order_id is not None:
+            result['sub_order_id'] = self.sub_order_id
+        result['traveler_info_d_t_o_s'] = []
+        if self.traveler_info_dtos is not None:
+            for k in self.traveler_info_dtos:
+                result['traveler_info_d_t_o_s'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('apply_time') is not None:
+            self.apply_time = m.get('apply_time')
+        if m.get('contact_info_d_t_o') is not None:
+            temp_model = FlightRefundDetailV2ResponseBodyModuleContactInfoDTO()
+            self.contact_info_dto = temp_model.from_map(m['contact_info_d_t_o'])
+        self.flight_info_dtos = []
+        if m.get('flight_info_d_t_o_s') is not None:
+            for k in m.get('flight_info_d_t_o_s'):
+                temp_model = FlightRefundDetailV2ResponseBodyModuleFlightInfoDTOS()
+                self.flight_info_dtos.append(temp_model.from_map(k))
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('out_order_id') is not None:
+            self.out_order_id = m.get('out_order_id')
+        if m.get('out_sub_order_id') is not None:
+            self.out_sub_order_id = m.get('out_sub_order_id')
+        if m.get('reason') is not None:
+            self.reason = m.get('reason')
+        if m.get('reason_code') is not None:
+            self.reason_code = m.get('reason_code')
+        if m.get('refund_fail_reason') is not None:
+            self.refund_fail_reason = m.get('refund_fail_reason')
+        if m.get('refund_handling_fee') is not None:
+            self.refund_handling_fee = m.get('refund_handling_fee')
+        if m.get('refund_money') is not None:
+            self.refund_money = m.get('refund_money')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('sub_order_id') is not None:
+            self.sub_order_id = m.get('sub_order_id')
+        self.traveler_info_dtos = []
+        if m.get('traveler_info_d_t_o_s') is not None:
+            for k in m.get('traveler_info_d_t_o_s'):
+                temp_model = FlightRefundDetailV2ResponseBodyModuleTravelerInfoDTOS()
+                self.traveler_info_dtos.append(temp_model.from_map(k))
+        return self
+
+
+class FlightRefundDetailV2ResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+        # module
+        self.module = module  # type: FlightRefundDetailV2ResponseBodyModule
+        # requestId
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+        # traceId
+        self.trace_id = trace_id  # type: str
+
+    def validate(self):
+        if self.module:
+            self.module.validate()
+
+    def to_map(self):
+        _map = super(FlightRefundDetailV2ResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
+        if self.module is not None:
+            result['module'] = self.module.to_map()
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.success is not None:
+            result['success'] = self.success
+        if self.trace_id is not None:
+            result['traceId'] = self.trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('module') is not None:
+            temp_model = FlightRefundDetailV2ResponseBodyModule()
+            self.module = temp_model.from_map(m['module'])
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('traceId') is not None:
+            self.trace_id = m.get('traceId')
+        return self
+
+
+class FlightRefundDetailV2Response(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: FlightRefundDetailV2ResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(FlightRefundDetailV2Response, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = FlightRefundDetailV2ResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -30847,6 +36152,410 @@ class FlightRefundPreCalResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = FlightRefundPreCalResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class FlightRefundPreCalV2Headers(TeaModel):
+    def __init__(self, common_headers=None, x_acs_btrip_corp_token=None):
+        self.common_headers = common_headers  # type: dict[str, str]
+        self.x_acs_btrip_corp_token = x_acs_btrip_corp_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightRefundPreCalV2Headers, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.common_headers is not None:
+            result['commonHeaders'] = self.common_headers
+        if self.x_acs_btrip_corp_token is not None:
+            result['x-acs-btrip-corp-token'] = self.x_acs_btrip_corp_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('commonHeaders') is not None:
+            self.common_headers = m.get('commonHeaders')
+        if m.get('x-acs-btrip-corp-token') is not None:
+            self.x_acs_btrip_corp_token = m.get('x-acs-btrip-corp-token')
+        return self
+
+
+class FlightRefundPreCalV2RequestPassengerSegmentRelations(TeaModel):
+    def __init__(self, passenger_id=None, segment_id_list=None):
+        self.passenger_id = passenger_id  # type: str
+        self.segment_id_list = segment_id_list  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightRefundPreCalV2RequestPassengerSegmentRelations, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.passenger_id is not None:
+            result['passenger_id'] = self.passenger_id
+        if self.segment_id_list is not None:
+            result['segment_id_list'] = self.segment_id_list
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('passenger_id') is not None:
+            self.passenger_id = m.get('passenger_id')
+        if m.get('segment_id_list') is not None:
+            self.segment_id_list = m.get('segment_id_list')
+        return self
+
+
+class FlightRefundPreCalV2Request(TeaModel):
+    def __init__(self, isv_name=None, order_id=None, out_order_id=None, passenger_segment_relations=None,
+                 pre_cal_type=None, ticket_nos=None, voluntary=None):
+        self.isv_name = isv_name  # type: str
+        self.order_id = order_id  # type: str
+        self.out_order_id = out_order_id  # type: str
+        self.passenger_segment_relations = passenger_segment_relations  # type: list[FlightRefundPreCalV2RequestPassengerSegmentRelations]
+        self.pre_cal_type = pre_cal_type  # type: int
+        self.ticket_nos = ticket_nos  # type: list[str]
+        self.voluntary = voluntary  # type: bool
+
+    def validate(self):
+        if self.passenger_segment_relations:
+            for k in self.passenger_segment_relations:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(FlightRefundPreCalV2Request, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.isv_name is not None:
+            result['isv_name'] = self.isv_name
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.out_order_id is not None:
+            result['out_order_id'] = self.out_order_id
+        result['passenger_segment_relations'] = []
+        if self.passenger_segment_relations is not None:
+            for k in self.passenger_segment_relations:
+                result['passenger_segment_relations'].append(k.to_map() if k else None)
+        if self.pre_cal_type is not None:
+            result['pre_cal_type'] = self.pre_cal_type
+        if self.ticket_nos is not None:
+            result['ticket_nos'] = self.ticket_nos
+        if self.voluntary is not None:
+            result['voluntary'] = self.voluntary
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('isv_name') is not None:
+            self.isv_name = m.get('isv_name')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('out_order_id') is not None:
+            self.out_order_id = m.get('out_order_id')
+        self.passenger_segment_relations = []
+        if m.get('passenger_segment_relations') is not None:
+            for k in m.get('passenger_segment_relations'):
+                temp_model = FlightRefundPreCalV2RequestPassengerSegmentRelations()
+                self.passenger_segment_relations.append(temp_model.from_map(k))
+        if m.get('pre_cal_type') is not None:
+            self.pre_cal_type = m.get('pre_cal_type')
+        if m.get('ticket_nos') is not None:
+            self.ticket_nos = m.get('ticket_nos')
+        if m.get('voluntary') is not None:
+            self.voluntary = m.get('voluntary')
+        return self
+
+
+class FlightRefundPreCalV2ShrinkRequest(TeaModel):
+    def __init__(self, isv_name=None, order_id=None, out_order_id=None, passenger_segment_relations_shrink=None,
+                 pre_cal_type=None, ticket_nos_shrink=None, voluntary=None):
+        self.isv_name = isv_name  # type: str
+        self.order_id = order_id  # type: str
+        self.out_order_id = out_order_id  # type: str
+        self.passenger_segment_relations_shrink = passenger_segment_relations_shrink  # type: str
+        self.pre_cal_type = pre_cal_type  # type: int
+        self.ticket_nos_shrink = ticket_nos_shrink  # type: str
+        self.voluntary = voluntary  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightRefundPreCalV2ShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.isv_name is not None:
+            result['isv_name'] = self.isv_name
+        if self.order_id is not None:
+            result['order_id'] = self.order_id
+        if self.out_order_id is not None:
+            result['out_order_id'] = self.out_order_id
+        if self.passenger_segment_relations_shrink is not None:
+            result['passenger_segment_relations'] = self.passenger_segment_relations_shrink
+        if self.pre_cal_type is not None:
+            result['pre_cal_type'] = self.pre_cal_type
+        if self.ticket_nos_shrink is not None:
+            result['ticket_nos'] = self.ticket_nos_shrink
+        if self.voluntary is not None:
+            result['voluntary'] = self.voluntary
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('isv_name') is not None:
+            self.isv_name = m.get('isv_name')
+        if m.get('order_id') is not None:
+            self.order_id = m.get('order_id')
+        if m.get('out_order_id') is not None:
+            self.out_order_id = m.get('out_order_id')
+        if m.get('passenger_segment_relations') is not None:
+            self.passenger_segment_relations_shrink = m.get('passenger_segment_relations')
+        if m.get('pre_cal_type') is not None:
+            self.pre_cal_type = m.get('pre_cal_type')
+        if m.get('ticket_nos') is not None:
+            self.ticket_nos_shrink = m.get('ticket_nos')
+        if m.get('voluntary') is not None:
+            self.voluntary = m.get('voluntary')
+        return self
+
+
+class FlightRefundPreCalV2ResponseBodyModuleMultiRefundFeeDTOS(TeaModel):
+    def __init__(self, passenger_id=None, passenger_name=None, pre_refund_money=None, refund_charge_fee=None):
+        self.passenger_id = passenger_id  # type: str
+        self.passenger_name = passenger_name  # type: str
+        self.pre_refund_money = pre_refund_money  # type: long
+        self.refund_charge_fee = refund_charge_fee  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightRefundPreCalV2ResponseBodyModuleMultiRefundFeeDTOS, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.passenger_id is not None:
+            result['passenger_id'] = self.passenger_id
+        if self.passenger_name is not None:
+            result['passenger_name'] = self.passenger_name
+        if self.pre_refund_money is not None:
+            result['pre_refund_money'] = self.pre_refund_money
+        if self.refund_charge_fee is not None:
+            result['refund_charge_fee'] = self.refund_charge_fee
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('passenger_id') is not None:
+            self.passenger_id = m.get('passenger_id')
+        if m.get('passenger_name') is not None:
+            self.passenger_name = m.get('passenger_name')
+        if m.get('pre_refund_money') is not None:
+            self.pre_refund_money = m.get('pre_refund_money')
+        if m.get('refund_charge_fee') is not None:
+            self.refund_charge_fee = m.get('refund_charge_fee')
+        return self
+
+
+class FlightRefundPreCalV2ResponseBodyModuleRefundReasonOptionDTOS(TeaModel):
+    def __init__(self, reason=None, reason_type=None, volunteer=None):
+        self.reason = reason  # type: str
+        self.reason_type = reason_type  # type: int
+        self.volunteer = volunteer  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(FlightRefundPreCalV2ResponseBodyModuleRefundReasonOptionDTOS, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.reason is not None:
+            result['reason'] = self.reason
+        if self.reason_type is not None:
+            result['reason_type'] = self.reason_type
+        if self.volunteer is not None:
+            result['volunteer'] = self.volunteer
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('reason') is not None:
+            self.reason = m.get('reason')
+        if m.get('reason_type') is not None:
+            self.reason_type = m.get('reason_type')
+        if m.get('volunteer') is not None:
+            self.volunteer = m.get('volunteer')
+        return self
+
+
+class FlightRefundPreCalV2ResponseBodyModule(TeaModel):
+    def __init__(self, multi_refund_fee_dtos=None, pre_refund_money=None, refund_charge_fee=None,
+                 refund_reason_option_dtos=None, service_charge_fee=None):
+        self.multi_refund_fee_dtos = multi_refund_fee_dtos  # type: list[FlightRefundPreCalV2ResponseBodyModuleMultiRefundFeeDTOS]
+        self.pre_refund_money = pre_refund_money  # type: long
+        self.refund_charge_fee = refund_charge_fee  # type: long
+        self.refund_reason_option_dtos = refund_reason_option_dtos  # type: list[FlightRefundPreCalV2ResponseBodyModuleRefundReasonOptionDTOS]
+        self.service_charge_fee = service_charge_fee  # type: long
+
+    def validate(self):
+        if self.multi_refund_fee_dtos:
+            for k in self.multi_refund_fee_dtos:
+                if k:
+                    k.validate()
+        if self.refund_reason_option_dtos:
+            for k in self.refund_reason_option_dtos:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(FlightRefundPreCalV2ResponseBodyModule, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['multi_refund_fee_d_t_o_s'] = []
+        if self.multi_refund_fee_dtos is not None:
+            for k in self.multi_refund_fee_dtos:
+                result['multi_refund_fee_d_t_o_s'].append(k.to_map() if k else None)
+        if self.pre_refund_money is not None:
+            result['pre_refund_money'] = self.pre_refund_money
+        if self.refund_charge_fee is not None:
+            result['refund_charge_fee'] = self.refund_charge_fee
+        result['refund_reason_option_d_t_o_s'] = []
+        if self.refund_reason_option_dtos is not None:
+            for k in self.refund_reason_option_dtos:
+                result['refund_reason_option_d_t_o_s'].append(k.to_map() if k else None)
+        if self.service_charge_fee is not None:
+            result['service_charge_fee'] = self.service_charge_fee
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.multi_refund_fee_dtos = []
+        if m.get('multi_refund_fee_d_t_o_s') is not None:
+            for k in m.get('multi_refund_fee_d_t_o_s'):
+                temp_model = FlightRefundPreCalV2ResponseBodyModuleMultiRefundFeeDTOS()
+                self.multi_refund_fee_dtos.append(temp_model.from_map(k))
+        if m.get('pre_refund_money') is not None:
+            self.pre_refund_money = m.get('pre_refund_money')
+        if m.get('refund_charge_fee') is not None:
+            self.refund_charge_fee = m.get('refund_charge_fee')
+        self.refund_reason_option_dtos = []
+        if m.get('refund_reason_option_d_t_o_s') is not None:
+            for k in m.get('refund_reason_option_d_t_o_s'):
+                temp_model = FlightRefundPreCalV2ResponseBodyModuleRefundReasonOptionDTOS()
+                self.refund_reason_option_dtos.append(temp_model.from_map(k))
+        if m.get('service_charge_fee') is not None:
+            self.service_charge_fee = m.get('service_charge_fee')
+        return self
+
+
+class FlightRefundPreCalV2ResponseBody(TeaModel):
+    def __init__(self, code=None, message=None, module=None, request_id=None, success=None, trace_id=None):
+        self.code = code  # type: str
+        self.message = message  # type: str
+        # module
+        self.module = module  # type: FlightRefundPreCalV2ResponseBodyModule
+        # requestId
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+        # traceId
+        self.trace_id = trace_id  # type: str
+
+    def validate(self):
+        if self.module:
+            self.module.validate()
+
+    def to_map(self):
+        _map = super(FlightRefundPreCalV2ResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['code'] = self.code
+        if self.message is not None:
+            result['message'] = self.message
+        if self.module is not None:
+            result['module'] = self.module.to_map()
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
+        if self.success is not None:
+            result['success'] = self.success
+        if self.trace_id is not None:
+            result['traceId'] = self.trace_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('code') is not None:
+            self.code = m.get('code')
+        if m.get('message') is not None:
+            self.message = m.get('message')
+        if m.get('module') is not None:
+            temp_model = FlightRefundPreCalV2ResponseBodyModule()
+            self.module = temp_model.from_map(m['module'])
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
+        if m.get('success') is not None:
+            self.success = m.get('success')
+        if m.get('traceId') is not None:
+            self.trace_id = m.get('traceId')
+        return self
+
+
+class FlightRefundPreCalV2Response(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: FlightRefundPreCalV2ResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(FlightRefundPreCalV2Response, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = FlightRefundPreCalV2ResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -36202,17 +41911,17 @@ class HotelBillSettlementQueryRequest(TeaModel):
 
 class HotelBillSettlementQueryResponseBodyModuleDataList(TeaModel):
     def __init__(self, alipay_trade_no=None, apply_arr_city_code=None, apply_arr_city_name=None,
-                 apply_dep_city_code=None, apply_dep_city_name=None, apply_extend_field=None, apply_id=None, bill_record_time=None,
-                 book_time=None, booker_id=None, booker_job_no=None, booker_name=None, capital_direction=None,
+                 apply_dep_city_code=None, apply_dep_city_name=None, apply_extend_field=None, apply_id=None, average_nights=None,
+                 bill_record_time=None, book_time=None, booker_id=None, booker_job_no=None, booker_name=None, capital_direction=None,
                  cascade_department=None, check_in_date=None, checkout_date=None, city=None, city_code=None, corp_refund_fee=None,
                  corp_total_fee=None, cost_center=None, cost_center_number=None, department=None, department_id=None,
                  fee_type=None, fees=None, fu_point_fee=None, hotel_name=None, index=None, invoice_title=None,
                  is_negotiation=None, is_share_str=None, nights=None, order_id=None, order_price=None, order_type=None,
                  over_apply_id=None, person_refund_fee=None, person_settle_price=None, primary_id=None, project_code=None,
-                 project_name=None, promotion_fee=None, remark=None, room_number=None, room_price=None, room_type=None,
-                 service_fee=None, settlement_fee=None, settlement_grant_fee=None, settlement_time=None, settlement_type=None,
-                 status=None, tax_rate=None, third_itinerary_id=None, total_nights=None, traveler_id=None,
-                 traveler_job_no=None, traveler_name=None, voucher_type=None):
+                 project_name=None, promotion_fee=None, remark=None, reserve_rule=None, room_no=None, room_number=None,
+                 room_price=None, room_type=None, service_fee=None, settlement_fee=None, settlement_grant_fee=None,
+                 settlement_time=None, settlement_type=None, status=None, tax_rate=None, third_itinerary_id=None, total_nights=None,
+                 traveler_id=None, traveler_job_no=None, traveler_name=None, voucher_type=None):
         self.alipay_trade_no = alipay_trade_no  # type: str
         self.apply_arr_city_code = apply_arr_city_code  # type: str
         self.apply_arr_city_name = apply_arr_city_name  # type: str
@@ -36221,6 +41930,7 @@ class HotelBillSettlementQueryResponseBodyModuleDataList(TeaModel):
         # 审批扩展自定义字段
         self.apply_extend_field = apply_extend_field  # type: str
         self.apply_id = apply_id  # type: str
+        self.average_nights = average_nights  # type: str
         self.bill_record_time = bill_record_time  # type: str
         self.book_time = book_time  # type: str
         self.booker_id = booker_id  # type: str
@@ -36258,6 +41968,8 @@ class HotelBillSettlementQueryResponseBodyModuleDataList(TeaModel):
         self.project_name = project_name  # type: str
         self.promotion_fee = promotion_fee  # type: float
         self.remark = remark  # type: str
+        self.reserve_rule = reserve_rule  # type: str
+        self.room_no = room_no  # type: str
         self.room_number = room_number  # type: int
         self.room_price = room_price  # type: float
         self.room_type = room_type  # type: str
@@ -36299,6 +42011,8 @@ class HotelBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             result['apply_extend_field'] = self.apply_extend_field
         if self.apply_id is not None:
             result['apply_id'] = self.apply_id
+        if self.average_nights is not None:
+            result['average_nights'] = self.average_nights
         if self.bill_record_time is not None:
             result['bill_record_time'] = self.bill_record_time
         if self.book_time is not None:
@@ -36373,6 +42087,10 @@ class HotelBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             result['promotion_fee'] = self.promotion_fee
         if self.remark is not None:
             result['remark'] = self.remark
+        if self.reserve_rule is not None:
+            result['reserve_rule'] = self.reserve_rule
+        if self.room_no is not None:
+            result['room_no'] = self.room_no
         if self.room_number is not None:
             result['room_number'] = self.room_number
         if self.room_price is not None:
@@ -36423,6 +42141,8 @@ class HotelBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             self.apply_extend_field = m.get('apply_extend_field')
         if m.get('apply_id') is not None:
             self.apply_id = m.get('apply_id')
+        if m.get('average_nights') is not None:
+            self.average_nights = m.get('average_nights')
         if m.get('bill_record_time') is not None:
             self.bill_record_time = m.get('bill_record_time')
         if m.get('book_time') is not None:
@@ -36497,6 +42217,10 @@ class HotelBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             self.promotion_fee = m.get('promotion_fee')
         if m.get('remark') is not None:
             self.remark = m.get('remark')
+        if m.get('reserve_rule') is not None:
+            self.reserve_rule = m.get('reserve_rule')
+        if m.get('room_no') is not None:
+            self.room_no = m.get('room_no')
         if m.get('room_number') is not None:
             self.room_number = m.get('room_number')
         if m.get('room_price') is not None:
@@ -48210,7 +53934,7 @@ class QueryReimbursementOrderResponseBodyModulePaymentInfos(TeaModel):
 
 class QueryReimbursementOrderResponseBodyModule(TeaModel):
     def __init__(self, company_amount=None, company_pay_amount=None, corp_id=None, expenses=None, gmt_create=None,
-                 gmt_modified=None, itineraries=None, payment_infos=None, personal_amount=None, reason=None,
+                 gmt_modified=None, is_deleted=None, itineraries=None, payment_infos=None, personal_amount=None, reason=None,
                  reimbursement_no=None, remark=None, status=None, travel_third_apply_id=None, user_id=None, user_name=None):
         self.company_amount = company_amount  # type: str
         self.company_pay_amount = company_pay_amount  # type: str
@@ -48218,6 +53942,7 @@ class QueryReimbursementOrderResponseBodyModule(TeaModel):
         self.expenses = expenses  # type: list[QueryReimbursementOrderResponseBodyModuleExpenses]
         self.gmt_create = gmt_create  # type: str
         self.gmt_modified = gmt_modified  # type: str
+        self.is_deleted = is_deleted  # type: str
         self.itineraries = itineraries  # type: list[QueryReimbursementOrderResponseBodyModuleItineraries]
         self.payment_infos = payment_infos  # type: list[QueryReimbursementOrderResponseBodyModulePaymentInfos]
         self.personal_amount = personal_amount  # type: str
@@ -48263,6 +53988,8 @@ class QueryReimbursementOrderResponseBodyModule(TeaModel):
             result['gmt_create'] = self.gmt_create
         if self.gmt_modified is not None:
             result['gmt_modified'] = self.gmt_modified
+        if self.is_deleted is not None:
+            result['is_deleted'] = self.is_deleted
         result['itineraries'] = []
         if self.itineraries is not None:
             for k in self.itineraries:
@@ -48306,6 +54033,8 @@ class QueryReimbursementOrderResponseBodyModule(TeaModel):
             self.gmt_create = m.get('gmt_create')
         if m.get('gmt_modified') is not None:
             self.gmt_modified = m.get('gmt_modified')
+        if m.get('is_deleted') is not None:
+            self.is_deleted = m.get('is_deleted')
         self.itineraries = []
         if m.get('itineraries') is not None:
             for k in m.get('itineraries'):
@@ -52735,13 +58464,13 @@ class TrainBillSettlementQueryResponseBodyModuleDataList(TeaModel):
                  apply_dep_city_code=None, apply_dep_city_name=None, apply_extend_field=None, apply_id=None, arr_city_code=None,
                  arr_date=None, arr_station=None, arr_time=None, bill_record_time=None, book_time=None, booker_id=None,
                  booker_job_no=None, booker_name=None, capital_direction=None, cascade_department=None, change_fee=None,
-                 cost_center=None, cost_center_number=None, coupon=None, dep_city_code=None, department=None,
+                 coach_no=None, cost_center=None, cost_center_number=None, coupon=None, dep_city_code=None, department=None,
                  department_id=None, dept_date=None, dept_station=None, dept_time=None, fee_type=None, index=None,
                  invoice_title=None, order_id=None, order_price=None, over_apply_id=None, primary_id=None, project_code=None,
                  project_name=None, refund_fee=None, remark=None, run_time=None, seat_no=None, seat_type=None, service_fee=None,
-                 settlement_fee=None, settlement_grant_fee=None, settlement_time=None, settlement_type=None, status=None,
-                 tax_rate=None, third_itinerary_id=None, ticket_no=None, ticket_price=None, train_no=None, train_type=None,
-                 traveler_id=None, traveler_job_no=None, traveler_name=None, voucher_type=None):
+                 settlement_fee=None, settlement_grant_fee=None, settlement_time=None, settlement_type=None, short_ticket_no=None,
+                 status=None, tax_rate=None, third_itinerary_id=None, ticket_no=None, ticket_price=None, train_no=None,
+                 train_type=None, traveler_id=None, traveler_job_no=None, traveler_name=None, voucher_type=None):
         self.alipay_trade_no = alipay_trade_no  # type: str
         self.apply_arr_city_code = apply_arr_city_code  # type: str
         self.apply_arr_city_name = apply_arr_city_name  # type: str
@@ -52762,6 +58491,7 @@ class TrainBillSettlementQueryResponseBodyModuleDataList(TeaModel):
         self.capital_direction = capital_direction  # type: str
         self.cascade_department = cascade_department  # type: str
         self.change_fee = change_fee  # type: float
+        self.coach_no = coach_no  # type: str
         self.cost_center = cost_center  # type: str
         self.cost_center_number = cost_center_number  # type: str
         self.coupon = coupon  # type: float
@@ -52790,6 +58520,7 @@ class TrainBillSettlementQueryResponseBodyModuleDataList(TeaModel):
         self.settlement_grant_fee = settlement_grant_fee  # type: float
         self.settlement_time = settlement_time  # type: str
         self.settlement_type = settlement_type  # type: str
+        self.short_ticket_no = short_ticket_no  # type: str
         self.status = status  # type: int
         # 税率
         self.tax_rate = tax_rate  # type: str
@@ -52850,6 +58581,8 @@ class TrainBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             result['cascade_department'] = self.cascade_department
         if self.change_fee is not None:
             result['change_fee'] = self.change_fee
+        if self.coach_no is not None:
+            result['coach_no'] = self.coach_no
         if self.cost_center is not None:
             result['cost_center'] = self.cost_center
         if self.cost_center_number is not None:
@@ -52906,6 +58639,8 @@ class TrainBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             result['settlement_time'] = self.settlement_time
         if self.settlement_type is not None:
             result['settlement_type'] = self.settlement_type
+        if self.short_ticket_no is not None:
+            result['short_ticket_no'] = self.short_ticket_no
         if self.status is not None:
             result['status'] = self.status
         if self.tax_rate is not None:
@@ -52970,6 +58705,8 @@ class TrainBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             self.cascade_department = m.get('cascade_department')
         if m.get('change_fee') is not None:
             self.change_fee = m.get('change_fee')
+        if m.get('coach_no') is not None:
+            self.coach_no = m.get('coach_no')
         if m.get('cost_center') is not None:
             self.cost_center = m.get('cost_center')
         if m.get('cost_center_number') is not None:
@@ -53026,6 +58763,8 @@ class TrainBillSettlementQueryResponseBodyModuleDataList(TeaModel):
             self.settlement_time = m.get('settlement_time')
         if m.get('settlement_type') is not None:
             self.settlement_type = m.get('settlement_type')
+        if m.get('short_ticket_no') is not None:
+            self.short_ticket_no = m.get('short_ticket_no')
         if m.get('status') is not None:
             self.status = m.get('status')
         if m.get('tax_rate') is not None:
