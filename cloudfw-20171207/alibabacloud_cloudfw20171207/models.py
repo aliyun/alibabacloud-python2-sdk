@@ -5604,6 +5604,118 @@ class DescribeNatFirewallControlPolicyResponse(TeaModel):
         return self
 
 
+class DescribeNatFirewallPolicyPriorUsedRequest(TeaModel):
+    def __init__(self, direction=None, ip_version=None, lang=None, nat_gateway_id=None):
+        self.direction = direction  # type: str
+        self.ip_version = ip_version  # type: str
+        self.lang = lang  # type: str
+        self.nat_gateway_id = nat_gateway_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeNatFirewallPolicyPriorUsedRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.direction is not None:
+            result['Direction'] = self.direction
+        if self.ip_version is not None:
+            result['IpVersion'] = self.ip_version
+        if self.lang is not None:
+            result['Lang'] = self.lang
+        if self.nat_gateway_id is not None:
+            result['NatGatewayId'] = self.nat_gateway_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Direction') is not None:
+            self.direction = m.get('Direction')
+        if m.get('IpVersion') is not None:
+            self.ip_version = m.get('IpVersion')
+        if m.get('Lang') is not None:
+            self.lang = m.get('Lang')
+        if m.get('NatGatewayId') is not None:
+            self.nat_gateway_id = m.get('NatGatewayId')
+        return self
+
+
+class DescribeNatFirewallPolicyPriorUsedResponseBody(TeaModel):
+    def __init__(self, end=None, request_id=None, start=None):
+        self.end = end  # type: int
+        self.request_id = request_id  # type: str
+        self.start = start  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeNatFirewallPolicyPriorUsedResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.end is not None:
+            result['End'] = self.end
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.start is not None:
+            result['Start'] = self.start
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('End') is not None:
+            self.end = m.get('End')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Start') is not None:
+            self.start = m.get('Start')
+        return self
+
+
+class DescribeNatFirewallPolicyPriorUsedResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeNatFirewallPolicyPriorUsedResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeNatFirewallPolicyPriorUsedResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeNatFirewallPolicyPriorUsedResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeOutgoingDestinationIPRequest(TeaModel):
     def __init__(self, application_name=None, category_id=None, current_page=None, dst_ip=None, end_time=None,
                  lang=None, order=None, page_size=None, port=None, private_ip=None, public_ip=None, sort=None,
@@ -7650,6 +7762,190 @@ class DescribeRiskEventGroupResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeRiskEventGroupResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeRiskEventPayloadRequest(TeaModel):
+    def __init__(self, dst_ip=None, dst_vpc_id=None, end_time=None, firewall_type=None, public_ip=None, src_ip=None,
+                 src_vpc_id=None, start_time=None, uuid=None):
+        self.dst_ip = dst_ip  # type: str
+        self.dst_vpc_id = dst_vpc_id  # type: str
+        self.end_time = end_time  # type: str
+        self.firewall_type = firewall_type  # type: str
+        self.public_ip = public_ip  # type: str
+        self.src_ip = src_ip  # type: str
+        self.src_vpc_id = src_vpc_id  # type: str
+        self.start_time = start_time  # type: str
+        self.uuid = uuid  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeRiskEventPayloadRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dst_ip is not None:
+            result['DstIP'] = self.dst_ip
+        if self.dst_vpc_id is not None:
+            result['DstVpcId'] = self.dst_vpc_id
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.firewall_type is not None:
+            result['FirewallType'] = self.firewall_type
+        if self.public_ip is not None:
+            result['PublicIP'] = self.public_ip
+        if self.src_ip is not None:
+            result['SrcIP'] = self.src_ip
+        if self.src_vpc_id is not None:
+            result['SrcVpcId'] = self.src_vpc_id
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        if self.uuid is not None:
+            result['UUID'] = self.uuid
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DstIP') is not None:
+            self.dst_ip = m.get('DstIP')
+        if m.get('DstVpcId') is not None:
+            self.dst_vpc_id = m.get('DstVpcId')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('FirewallType') is not None:
+            self.firewall_type = m.get('FirewallType')
+        if m.get('PublicIP') is not None:
+            self.public_ip = m.get('PublicIP')
+        if m.get('SrcIP') is not None:
+            self.src_ip = m.get('SrcIP')
+        if m.get('SrcVpcId') is not None:
+            self.src_vpc_id = m.get('SrcVpcId')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        if m.get('UUID') is not None:
+            self.uuid = m.get('UUID')
+        return self
+
+
+class DescribeRiskEventPayloadResponseBody(TeaModel):
+    def __init__(self, dst_ip=None, dst_port=None, dst_vpc_id=None, payload=None, payload_len=None, proto=None,
+                 real_ip=None, request_id=None, src_ip=None, src_port=None, src_vpc_id=None, xforward_for=None):
+        self.dst_ip = dst_ip  # type: str
+        self.dst_port = dst_port  # type: int
+        self.dst_vpc_id = dst_vpc_id  # type: str
+        self.payload = payload  # type: str
+        self.payload_len = payload_len  # type: int
+        self.proto = proto  # type: str
+        self.real_ip = real_ip  # type: str
+        self.request_id = request_id  # type: str
+        self.src_ip = src_ip  # type: str
+        self.src_port = src_port  # type: int
+        self.src_vpc_id = src_vpc_id  # type: str
+        self.xforward_for = xforward_for  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeRiskEventPayloadResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dst_ip is not None:
+            result['DstIP'] = self.dst_ip
+        if self.dst_port is not None:
+            result['DstPort'] = self.dst_port
+        if self.dst_vpc_id is not None:
+            result['DstVpcId'] = self.dst_vpc_id
+        if self.payload is not None:
+            result['Payload'] = self.payload
+        if self.payload_len is not None:
+            result['PayloadLen'] = self.payload_len
+        if self.proto is not None:
+            result['Proto'] = self.proto
+        if self.real_ip is not None:
+            result['RealIp'] = self.real_ip
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.src_ip is not None:
+            result['SrcIP'] = self.src_ip
+        if self.src_port is not None:
+            result['SrcPort'] = self.src_port
+        if self.src_vpc_id is not None:
+            result['SrcVpcId'] = self.src_vpc_id
+        if self.xforward_for is not None:
+            result['XForwardFor'] = self.xforward_for
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DstIP') is not None:
+            self.dst_ip = m.get('DstIP')
+        if m.get('DstPort') is not None:
+            self.dst_port = m.get('DstPort')
+        if m.get('DstVpcId') is not None:
+            self.dst_vpc_id = m.get('DstVpcId')
+        if m.get('Payload') is not None:
+            self.payload = m.get('Payload')
+        if m.get('PayloadLen') is not None:
+            self.payload_len = m.get('PayloadLen')
+        if m.get('Proto') is not None:
+            self.proto = m.get('Proto')
+        if m.get('RealIp') is not None:
+            self.real_ip = m.get('RealIp')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('SrcIP') is not None:
+            self.src_ip = m.get('SrcIP')
+        if m.get('SrcPort') is not None:
+            self.src_port = m.get('SrcPort')
+        if m.get('SrcVpcId') is not None:
+            self.src_vpc_id = m.get('SrcVpcId')
+        if m.get('XForwardFor') is not None:
+            self.xforward_for = m.get('XForwardFor')
+        return self
+
+
+class DescribeRiskEventPayloadResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeRiskEventPayloadResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeRiskEventPayloadResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeRiskEventPayloadResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
