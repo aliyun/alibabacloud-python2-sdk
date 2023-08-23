@@ -1786,8 +1786,7 @@ class Client(OpenApiClient):
 
     def delete_dcdn_waf_policy_with_options(self, request, runtime):
         """
-        #
-        *   You can call this operation up to 20 times per second.
+        You can call this operation up to 20 times per second per account.
         *   Alibaba Cloud Dynamic Content Delivery Network (DCDN) supports POST requests.
         
 
@@ -1822,8 +1821,7 @@ class Client(OpenApiClient):
 
     def delete_dcdn_waf_policy(self, request):
         """
-        #
-        *   You can call this operation up to 20 times per second.
+        You can call this operation up to 20 times per second per account.
         *   Alibaba Cloud Dynamic Content Delivery Network (DCDN) supports POST requests.
         
 
@@ -2575,6 +2573,8 @@ class Client(OpenApiClient):
         """
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.exact):
+            query['Exact'] = request.exact
         if not UtilClient.is_unset(request.sslpub):
             query['SSLPub'] = request.sslpub
         if not UtilClient.is_unset(request.sslstatus):
@@ -2678,7 +2678,7 @@ class Client(OpenApiClient):
 
     def describe_dcdn_domain_certificate_info_with_options(self, request, runtime):
         """
-        The ID of the request.
+        > You can call this operation up to 100 times per second per account.
         
 
         @param request: DescribeDcdnDomainCertificateInfoRequest
@@ -2712,7 +2712,7 @@ class Client(OpenApiClient):
 
     def describe_dcdn_domain_certificate_info(self, request):
         """
-        The ID of the request.
+        > You can call this operation up to 100 times per second per account.
         
 
         @param request: DescribeDcdnDomainCertificateInfoRequest
@@ -3006,11 +3006,16 @@ class Client(OpenApiClient):
 
     def describe_dcdn_domain_http_code_data_by_layer_with_options(self, request, runtime):
         """
-        #
-        *   You can call this operation up to 20 times per second per account.
-        *   You cannot query the distribution of HTTP status codes by IP protocol.
-        *   If you do not set the **StartTime** or **EndTime** parameter, the request returns the data collected in the last 24 hours. If you set both the **StartTime** and **EndTime** parameters, the request returns the data collected within the specified time range.
-        **Time granularity** The time granularity supported by the Interval parameter, the maximum time period within which historical data is available, and the data delay vary with the maximum time range per query, as described in the following table. |Time granularity |Maximum time range per query |Historical data available |Data delay | -------------- | -------------- | ------ |5 minutes |3 days |93 days |15 minutes |1 hour |31 days |186 days |4 hours |1 day |366 days |366 days |04:00 on the next day
+        You can call this operation up to 20 times per second per account.
+        * You cannot query the distribution of HTTP status codes by IP protocol.
+        * If you do not specify the **StartTime** or **EndTime** parameter, the data that is collected within the last 24 hours is collected. If you specify both the **StartTime** and **EndTime** parameters, the data that is collected within the time range that you specify is collected.
+        **Time granularity**\
+        The time granularity supported by the Interval parameter, the maximum time period within which historical data is available, and the data delay vary with the maximum time range per query, as described in the following table.
+        |Time granularity|Maximum time range per query|Historical data available|Data delay|
+        |---|---|---|---|
+        |5 minutes|3 days|93 days|15 minutes|
+        |1 hour|31 days|186 days|4 hours|
+        |1 day|366 days|366 days|04:00 on the next day|
         
 
         @param request: DescribeDcdnDomainHttpCodeDataByLayerRequest
@@ -3056,11 +3061,16 @@ class Client(OpenApiClient):
 
     def describe_dcdn_domain_http_code_data_by_layer(self, request):
         """
-        #
-        *   You can call this operation up to 20 times per second per account.
-        *   You cannot query the distribution of HTTP status codes by IP protocol.
-        *   If you do not set the **StartTime** or **EndTime** parameter, the request returns the data collected in the last 24 hours. If you set both the **StartTime** and **EndTime** parameters, the request returns the data collected within the specified time range.
-        **Time granularity** The time granularity supported by the Interval parameter, the maximum time period within which historical data is available, and the data delay vary with the maximum time range per query, as described in the following table. |Time granularity |Maximum time range per query |Historical data available |Data delay | -------------- | -------------- | ------ |5 minutes |3 days |93 days |15 minutes |1 hour |31 days |186 days |4 hours |1 day |366 days |366 days |04:00 on the next day
+        You can call this operation up to 20 times per second per account.
+        * You cannot query the distribution of HTTP status codes by IP protocol.
+        * If you do not specify the **StartTime** or **EndTime** parameter, the data that is collected within the last 24 hours is collected. If you specify both the **StartTime** and **EndTime** parameters, the data that is collected within the time range that you specify is collected.
+        **Time granularity**\
+        The time granularity supported by the Interval parameter, the maximum time period within which historical data is available, and the data delay vary with the maximum time range per query, as described in the following table.
+        |Time granularity|Maximum time range per query|Historical data available|Data delay|
+        |---|---|---|---|
+        |5 minutes|3 days|93 days|15 minutes|
+        |1 hour|31 days|186 days|4 hours|
+        |1 day|366 days|366 days|04:00 on the next day|
         
 
         @param request: DescribeDcdnDomainHttpCodeDataByLayerRequest
@@ -3138,8 +3148,7 @@ class Client(OpenApiClient):
 
     def describe_dcdn_domain_ipa_conn_data_with_options(self, request, runtime):
         """
-        #
-        *   You can call this operation up to 10 times per second per account.
+        You can call this operation up to 10 times per second per user.
         *   If you do not set the **StartTime** or **EndTime** parameter, the request returns the data collected in the last 24 hours. If you set both the **StartTime** and **EndTime** parameters, the request returns the data collected within the specified time range.
         *   The minimum time granularity at which the data is queried is 5 minutes. The maximum time range for a single query is 31 days. The period within which historical data is available is 366 days. The data latency is no more than 10 minutes.
         
@@ -3181,8 +3190,7 @@ class Client(OpenApiClient):
 
     def describe_dcdn_domain_ipa_conn_data(self, request):
         """
-        #
-        *   You can call this operation up to 10 times per second per account.
+        You can call this operation up to 10 times per second per user.
         *   If you do not set the **StartTime** or **EndTime** parameter, the request returns the data collected in the last 24 hours. If you set both the **StartTime** and **EndTime** parameters, the request returns the data collected within the specified time range.
         *   The minimum time granularity at which the data is queried is 5 minutes. The maximum time range for a single query is 31 days. The period within which historical data is available is 366 days. The data latency is no more than 10 minutes.
         
@@ -3728,14 +3736,15 @@ class Client(OpenApiClient):
 
     def describe_dcdn_domain_qps_data_by_layer_with_options(self, request, runtime):
         """
-        - You can call this operation up to 20 times per second per account.
-        - If you do not set the **StartTime** or **EndTime** parameter, the request returns the data collected in the last 24 hours. If you set both the **StartTime** and **EndTime** parameters, the request returns the data collected within the specified time range.
-        **Time granularity**The time granularity supported by the Interval parameter varies with the maximum time range per query. The following table describes the time period within which historical data is available and the data delay.
-        | Time granularity | Maximum time range per query | Historical data available | Data delay |
-        | ---------------- | ---------------------------- | ------------------------- | ---------- |
-        | 5 minutes | 3 days | 93 days | 15 minutes |
-        | 1 hour | 31 days | 186 days | 4 hours |
-        | 1 day | 366 days | 366 days | 04:00 on the next day |
+        You can call this operation up to 20 times per second per account.
+        * If you do not set the **StartTime** or **EndTime** parameter, the request returns the data collected in the last 24 hours. If you set both the **StartTime** and **EndTime** parameters, the request returns the data collected within the specified time range.
+        **Time granularity**\
+        The time granularity supported by the Interval parameter, the maximum time period within which historical data is available, and the data delay vary with the time range to query, as described in the following table.
+        |Time granularity|Maximum time range per query|Historical data available|Data delay|
+        |---|---|---|---|
+        |5 minutes|3 days|93 days|15 minutes|
+        |1 hour|31 days|186 days|4 hours|
+        |1 day|366 days|366 days|04:00 on the next day|
         
 
         @param request: DescribeDcdnDomainQpsDataByLayerRequest
@@ -3781,14 +3790,15 @@ class Client(OpenApiClient):
 
     def describe_dcdn_domain_qps_data_by_layer(self, request):
         """
-        - You can call this operation up to 20 times per second per account.
-        - If you do not set the **StartTime** or **EndTime** parameter, the request returns the data collected in the last 24 hours. If you set both the **StartTime** and **EndTime** parameters, the request returns the data collected within the specified time range.
-        **Time granularity**The time granularity supported by the Interval parameter varies with the maximum time range per query. The following table describes the time period within which historical data is available and the data delay.
-        | Time granularity | Maximum time range per query | Historical data available | Data delay |
-        | ---------------- | ---------------------------- | ------------------------- | ---------- |
-        | 5 minutes | 3 days | 93 days | 15 minutes |
-        | 1 hour | 31 days | 186 days | 4 hours |
-        | 1 day | 366 days | 366 days | 04:00 on the next day |
+        You can call this operation up to 20 times per second per account.
+        * If you do not set the **StartTime** or **EndTime** parameter, the request returns the data collected in the last 24 hours. If you set both the **StartTime** and **EndTime** parameters, the request returns the data collected within the specified time range.
+        **Time granularity**\
+        The time granularity supported by the Interval parameter, the maximum time period within which historical data is available, and the data delay vary with the time range to query, as described in the following table.
+        |Time granularity|Maximum time range per query|Historical data available|Data delay|
+        |---|---|---|---|
+        |5 minutes|3 days|93 days|15 minutes|
+        |1 hour|31 days|186 days|4 hours|
+        |1 day|366 days|366 days|04:00 on the next day|
         
 
         @param request: DescribeDcdnDomainQpsDataByLayerRequest
@@ -4312,9 +4322,14 @@ class Client(OpenApiClient):
 
     def describe_dcdn_domain_real_time_traffic_data_with_options(self, request, runtime):
         """
-        #
         You can call this operation up to 50 times per second per user.
-        **Time granularity** The time granularity varies with the time range specified by the StartTime and EndTime parameters. The following table describes the time period within which historical data is available and the data delay. |Time granularity |Maximum time range per query |Historical data available|Data delay| |---------------|--------| |1 minute|1 hour|7 days|5 minutes| |5 minutes|3 days|93 days|15 minutes| |1 hour|31 days|186 days|4 hours|
+        **Time granularity**\
+        The time granularity varies with the time range specified by the StartTime and EndTime parameters. The following table describes the time period within which historical data is available and the data delay.
+        |Time granularity|Maximum time range per query|Historical data available|Data delay|
+        |---|---|---|---|
+        |1 minute|1 hour|7 days|5 minutes|
+        |5 minutes|3 days|93 days|15 minutes|
+        |1 hour|31 days|186 days|4 hours|
         
 
         @param request: DescribeDcdnDomainRealTimeTrafficDataRequest
@@ -4352,9 +4367,14 @@ class Client(OpenApiClient):
 
     def describe_dcdn_domain_real_time_traffic_data(self, request):
         """
-        #
         You can call this operation up to 50 times per second per user.
-        **Time granularity** The time granularity varies with the time range specified by the StartTime and EndTime parameters. The following table describes the time period within which historical data is available and the data delay. |Time granularity |Maximum time range per query |Historical data available|Data delay| |---------------|--------| |1 minute|1 hour|7 days|5 minutes| |5 minutes|3 days|93 days|15 minutes| |1 hour|31 days|186 days|4 hours|
+        **Time granularity**\
+        The time granularity varies with the time range specified by the StartTime and EndTime parameters. The following table describes the time period within which historical data is available and the data delay.
+        |Time granularity|Maximum time range per query|Historical data available|Data delay|
+        |---|---|---|---|
+        |1 minute|1 hour|7 days|5 minutes|
+        |5 minutes|3 days|93 days|15 minutes|
+        |1 hour|31 days|186 days|4 hours|
         
 
         @param request: DescribeDcdnDomainRealTimeTrafficDataRequest
@@ -4774,10 +4794,15 @@ class Client(OpenApiClient):
 
     def describe_dcdn_domain_websocket_bps_data_with_options(self, request, runtime):
         """
-        #
-        *   You can call this operation up to 100 times per second per account.
-        *   If you do not set the **StartTime** or **EndTime** parameter, the request returns the data collected in the last 24 hours. If you set both the **StartTime** and **EndTime** parameters, the request returns the data collected within the specified time range.
-        **Time granularity** The time granularity supported by the Interval parameter, the maximum time period within which historical data is available, and the data delay vary with the maximum time range per query, as described in the following table. |Time granularity |Maximum time range per query |Historical data available |Data delay | -------------- | -------------- | ------ |5 minutes |3 days |93 days |15 minutes |1 hour |31 days |186 days |4 hours |1 day |366 days |366 days |04:00 on the next day
+        You can call this operation up to 100 times per second per account.
+        * If you do not set the **StartTime** or **EndTime** parameter, the request returns the data collected in the last 24 hours. If you set both the **StartTime** and **EndTime** parameters, the request returns the data collected within the specified time range.
+        **Time granularity**\
+        The time granularity supported by the Interval parameter, the maximum time period within which historical data is available, and the data delay vary with the maximum time range per query, as described in the following table.
+        |Time granularity|Maximum time range per query|Historical data available|Data delay|
+        |---|---|---|---|
+        |5 minutes|3 days|93 days|15 minutes|
+        |1 hour|31 days|186 days|4 hours|
+        |1 day|366 days|366 days|04:00 on the next day|
         
 
         @param request: DescribeDcdnDomainWebsocketBpsDataRequest
@@ -4821,10 +4846,15 @@ class Client(OpenApiClient):
 
     def describe_dcdn_domain_websocket_bps_data(self, request):
         """
-        #
-        *   You can call this operation up to 100 times per second per account.
-        *   If you do not set the **StartTime** or **EndTime** parameter, the request returns the data collected in the last 24 hours. If you set both the **StartTime** and **EndTime** parameters, the request returns the data collected within the specified time range.
-        **Time granularity** The time granularity supported by the Interval parameter, the maximum time period within which historical data is available, and the data delay vary with the maximum time range per query, as described in the following table. |Time granularity |Maximum time range per query |Historical data available |Data delay | -------------- | -------------- | ------ |5 minutes |3 days |93 days |15 minutes |1 hour |31 days |186 days |4 hours |1 day |366 days |366 days |04:00 on the next day
+        You can call this operation up to 100 times per second per account.
+        * If you do not set the **StartTime** or **EndTime** parameter, the request returns the data collected in the last 24 hours. If you set both the **StartTime** and **EndTime** parameters, the request returns the data collected within the specified time range.
+        **Time granularity**\
+        The time granularity supported by the Interval parameter, the maximum time period within which historical data is available, and the data delay vary with the maximum time range per query, as described in the following table.
+        |Time granularity|Maximum time range per query|Historical data available|Data delay|
+        |---|---|---|---|
+        |5 minutes|3 days|93 days|15 minutes|
+        |1 hour|31 days|186 days|4 hours|
+        |1 day|366 days|366 days|04:00 on the next day|
         
 
         @param request: DescribeDcdnDomainWebsocketBpsDataRequest
@@ -4836,9 +4866,14 @@ class Client(OpenApiClient):
 
     def describe_dcdn_domain_websocket_http_code_data_with_options(self, request, runtime):
         """
-        #
         You can call this operation up to 100 times per second per account.
-        **Time granularity** The time granularity supported by the Interval parameter, the maximum time period within which historical data is available, and the data delay vary with the maximum time range per query, as described in the following table. |Time granularity |Maximum time range per query |Historical data available |Data delay | -------------- | -------------- | ------ |5 minutes |3 days |93 days |15 minutes |1 hour |31 days |186 days |4 hours |1 day |366 days |366 days |04:00 on the next day
+        **Time granularity**\
+        The time granularity supported by the Interval parameter, the maximum time period within which historical data is available, and the data delay vary with the time range to query, as described in the following table.
+        |Time granularity|Maximum time range per query|Historical data available|Data delay|
+        |---|---|---|---|
+        |5 minutes|3 days|93 days|15 minutes|
+        |1 hour|31 days|186 days|4 hours|
+        |1 day|366 days|366 days|04:00 on the next day|
         
 
         @param request: DescribeDcdnDomainWebsocketHttpCodeDataRequest
@@ -4882,9 +4917,14 @@ class Client(OpenApiClient):
 
     def describe_dcdn_domain_websocket_http_code_data(self, request):
         """
-        #
         You can call this operation up to 100 times per second per account.
-        **Time granularity** The time granularity supported by the Interval parameter, the maximum time period within which historical data is available, and the data delay vary with the maximum time range per query, as described in the following table. |Time granularity |Maximum time range per query |Historical data available |Data delay | -------------- | -------------- | ------ |5 minutes |3 days |93 days |15 minutes |1 hour |31 days |186 days |4 hours |1 day |366 days |366 days |04:00 on the next day
+        **Time granularity**\
+        The time granularity supported by the Interval parameter, the maximum time period within which historical data is available, and the data delay vary with the time range to query, as described in the following table.
+        |Time granularity|Maximum time range per query|Historical data available|Data delay|
+        |---|---|---|---|
+        |5 minutes|3 days|93 days|15 minutes|
+        |1 hour|31 days|186 days|4 hours|
+        |1 day|366 days|366 days|04:00 on the next day|
         
 
         @param request: DescribeDcdnDomainWebsocketHttpCodeDataRequest
@@ -4968,8 +5008,7 @@ class Client(OpenApiClient):
 
     def describe_dcdn_er_usage_data_with_options(self, request, runtime):
         """
-        # Usage notes
-        *   You can call this operation up to 10 times per second per account.
+        You can call this operation up to 10 times per second per account.
         *   The minimum time granularity for a query is 1 hour. The maximum time span for a query is 24 hours. The time period within which historical data is available for a query is 366 days.
         
 
@@ -5012,8 +5051,7 @@ class Client(OpenApiClient):
 
     def describe_dcdn_er_usage_data(self, request):
         """
-        # Usage notes
-        *   You can call this operation up to 10 times per second per account.
+        You can call this operation up to 10 times per second per account.
         *   The minimum time granularity for a query is 1 hour. The maximum time span for a query is 24 hours. The time period within which historical data is available for a query is 366 days.
         
 
@@ -6498,7 +6536,6 @@ class Client(OpenApiClient):
 
     def describe_dcdn_user_certificate_expire_count_with_options(self, runtime):
         """
-        # Usage notes
         > You can call this operation up to 100 times per second per account.
         
 
@@ -6527,7 +6564,6 @@ class Client(OpenApiClient):
 
     def describe_dcdn_user_certificate_expire_count(self):
         """
-        # Usage notes
         > You can call this operation up to 100 times per second per account.
         
 
@@ -7150,7 +7186,6 @@ class Client(OpenApiClient):
 
     def describe_dcdn_waf_domain_detail_with_options(self, request, runtime):
         """
-        # Usage notes
         You can call this operation up to 20 times per second per account.
         
 
@@ -7185,7 +7220,6 @@ class Client(OpenApiClient):
 
     def describe_dcdn_waf_domain_detail(self, request):
         """
-        # Usage notes
         You can call this operation up to 20 times per second per account.
         
 
@@ -7198,7 +7232,6 @@ class Client(OpenApiClient):
 
     def describe_dcdn_waf_domains_with_options(self, request, runtime):
         """
-        #
         You can call this operation up to 20 times per second per account.
         
 
@@ -7237,7 +7270,6 @@ class Client(OpenApiClient):
 
     def describe_dcdn_waf_domains(self, request):
         """
-        #
         You can call this operation up to 20 times per second per account.
         
 
@@ -7622,7 +7654,6 @@ class Client(OpenApiClient):
 
     def describe_dcdn_waf_policy_valid_domains_with_options(self, request, runtime):
         """
-        #
         You can call this operation up to 20 times per second per account.
         
 
@@ -7663,7 +7694,6 @@ class Client(OpenApiClient):
 
     def describe_dcdn_waf_policy_valid_domains(self, request):
         """
-        #
         You can call this operation up to 20 times per second per account.
         
 
@@ -7908,7 +7938,7 @@ class Client(OpenApiClient):
 
     def describe_dcdn_waf_usage_data_with_options(self, request, runtime):
         """
-        >   You can call this operation up to 10 times per second per account.
+        You can call this operation up to 10 times per second per account.
         *   The minimum time granularity for a query is 5 minutes. The maximum time span for a query is 31 days. The time period within which historical data is available for a query is 90 days.
         
 
@@ -7951,7 +7981,7 @@ class Client(OpenApiClient):
 
     def describe_dcdn_waf_usage_data(self, request):
         """
-        >   You can call this operation up to 10 times per second per account.
+        You can call this operation up to 10 times per second per account.
         *   The minimum time granularity for a query is 5 minutes. The maximum time span for a query is 31 days. The time period within which historical data is available for a query is 90 days.
         
 
@@ -8844,8 +8874,7 @@ class Client(OpenApiClient):
 
     def modify_dcdn_waf_policy_with_options(self, request, runtime):
         """
-        #
-        *   You can call this operation up to 20 times per second per account.
+        You can call this operation up to 20 times per second per account.
         *   Alibaba Cloud Dynamic Content Delivery Network (DCDN) supports POST requests.
         
 
@@ -8884,8 +8913,7 @@ class Client(OpenApiClient):
 
     def modify_dcdn_waf_policy(self, request):
         """
-        #
-        *   You can call this operation up to 20 times per second per account.
+        You can call this operation up to 20 times per second per account.
         *   Alibaba Cloud Dynamic Content Delivery Network (DCDN) supports POST requests.
         
 
@@ -8954,9 +8982,8 @@ class Client(OpenApiClient):
 
     def modify_dcdn_waf_rule_with_options(self, request, runtime):
         """
-        #
-        *   You can call this operation up to 20 times per second.
-        *   Alibaba Cloud Dynamic Route for CDN (DCDN) supports POST requests.
+        You can call this operation up to 20 times per second per account.
+        *   Alibaba Cloud Dynamic Content Delivery Network (DCDN) supports POST requests.
         *   You must configure at least one of the **RuleStatus**, **RuleName** and **RuleConfig** parameters.
         
 
@@ -8997,9 +9024,8 @@ class Client(OpenApiClient):
 
     def modify_dcdn_waf_rule(self, request):
         """
-        #
-        *   You can call this operation up to 20 times per second.
-        *   Alibaba Cloud Dynamic Route for CDN (DCDN) supports POST requests.
+        You can call this operation up to 20 times per second per account.
+        *   Alibaba Cloud Dynamic Content Delivery Network (DCDN) supports POST requests.
         *   You must configure at least one of the **RuleStatus**, **RuleName** and **RuleConfig** parameters.
         
 
