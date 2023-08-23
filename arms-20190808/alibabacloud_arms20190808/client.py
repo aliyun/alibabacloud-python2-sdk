@@ -997,6 +997,8 @@ class Client(OpenApiClient):
     def create_or_update_notification_policy_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
+        if not UtilClient.is_unset(request.directed_mode):
+            body['DirectedMode'] = request.directed_mode
         if not UtilClient.is_unset(request.escalation_policy_id):
             body['EscalationPolicyId'] = request.escalation_policy_id
         if not UtilClient.is_unset(request.group_rule):
@@ -1183,8 +1185,6 @@ class Client(OpenApiClient):
             query['ClusterType'] = request.cluster_type
         if not UtilClient.is_unset(request.grafana_instance_id):
             query['GrafanaInstanceId'] = request.grafana_instance_id
-        if not UtilClient.is_unset(request.param_json):
-            query['ParamJson'] = request.param_json
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.resource_group_id):
@@ -2956,7 +2956,7 @@ class Client(OpenApiClient):
 
     def get_prometheus_api_token_with_options(self, request, runtime):
         """
-        The ID of the request.
+        None.
         
 
         @param request: GetPrometheusApiTokenRequest
@@ -2990,7 +2990,7 @@ class Client(OpenApiClient):
 
     def get_prometheus_api_token(self, request):
         """
-        The ID of the request.
+        None.
         
 
         @param request: GetPrometheusApiTokenRequest
@@ -3724,7 +3724,7 @@ class Client(OpenApiClient):
 
     def install_managed_prometheus_with_options(self, request, runtime):
         """
-        $.parameters[5].schema.example
+        If you call the operation to monitor an ASK cluster or an ECS instance, a Prometheus agent is installed in the ASK cluster or ECS instance. Make sure that the ASK cluster or ECS instance has no Prometheus agent installed in advance.
         
 
         @param request: InstallManagedPrometheusRequest
@@ -3776,7 +3776,7 @@ class Client(OpenApiClient):
 
     def install_managed_prometheus(self, request):
         """
-        $.parameters[5].schema.example
+        If you call the operation to monitor an ASK cluster or an ECS instance, a Prometheus agent is installed in the ASK cluster or ECS instance. Make sure that the ASK cluster or ECS instance has no Prometheus agent installed in advance.
         
 
         @param request: InstallManagedPrometheusRequest
@@ -3873,6 +3873,8 @@ class Client(OpenApiClient):
             query['IntegrationType'] = request.integration_type
         if not UtilClient.is_unset(request.page):
             query['Page'] = request.page
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.severity):
             query['Severity'] = request.severity
         if not UtilClient.is_unset(request.show_activities):
@@ -4221,6 +4223,8 @@ class Client(OpenApiClient):
     def list_notification_policies_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.directed_mode):
+            query['DirectedMode'] = request.directed_mode
         if not UtilClient.is_unset(request.ids):
             query['Ids'] = request.ids
         if not UtilClient.is_unset(request.is_detail):
@@ -4821,6 +4825,20 @@ class Client(OpenApiClient):
         return self.open_arms_default_slrwith_options(request, runtime)
 
     def open_arms_service_second_version_with_options(self, request, runtime):
+        """
+        The *OpenArmsServiceSecondVersion** operation supports the following sub-service editions:
+        *   Application Monitoring: Basic Edition
+        *   Browser Monitoring: Basic Edition
+        *   Synthetic Monitoring: Pro Edition (pay-as-you-go)
+        *   Prometheus Service: Pro Edition
+        
+
+        @param request: OpenArmsServiceSecondVersionRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: OpenArmsServiceSecondVersionResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.region_id):
@@ -4847,6 +4865,18 @@ class Client(OpenApiClient):
         )
 
     def open_arms_service_second_version(self, request):
+        """
+        The *OpenArmsServiceSecondVersion** operation supports the following sub-service editions:
+        *   Application Monitoring: Basic Edition
+        *   Browser Monitoring: Basic Edition
+        *   Synthetic Monitoring: Pro Edition (pay-as-you-go)
+        *   Prometheus Service: Pro Edition
+        
+
+        @param request: OpenArmsServiceSecondVersionRequest
+
+        @return: OpenArmsServiceSecondVersionResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.open_arms_service_second_version_with_options(request, runtime)
 
@@ -5988,7 +6018,7 @@ class Client(OpenApiClient):
 
     def uninstall_managed_prometheus_with_options(self, request, runtime):
         """
-        The status code. The status code 200 indicates that the request was successful. If another status code is returned, the request failed.
+        Make sure that the ASK cluster or ECS instance is monitored in Managed Service for Prometheus.
         
 
         @param request: UninstallManagedPrometheusRequest
@@ -6030,7 +6060,7 @@ class Client(OpenApiClient):
 
     def uninstall_managed_prometheus(self, request):
         """
-        The status code. The status code 200 indicates that the request was successful. If another status code is returned, the request failed.
+        Make sure that the ASK cluster or ECS instance is monitored in Managed Service for Prometheus.
         
 
         @param request: UninstallManagedPrometheusRequest
@@ -6381,8 +6411,6 @@ class Client(OpenApiClient):
             query['GroupName'] = request.group_name
         if not UtilClient.is_unset(request.most_region_id):
             query['MostRegionId'] = request.most_region_id
-        if not UtilClient.is_unset(request.param_json):
-            query['ParamJson'] = request.param_json
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.resource_group_id):
