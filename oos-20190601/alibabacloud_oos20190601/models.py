@@ -10658,8 +10658,8 @@ class ListPatchBaselinesRequestTags(TeaModel):
 
 class ListPatchBaselinesRequest(TeaModel):
     def __init__(self, approved_patches=None, approved_patches_enable_non_security=None, max_results=None,
-                 name=None, next_token=None, operation_system=None, region_id=None, share_type=None, sources=None,
-                 tags=None):
+                 name=None, next_token=None, operation_system=None, region_id=None, resource_groupld=None,
+                 share_type=None, sources=None, tags=None):
         self.approved_patches = approved_patches  # type: list[str]
         self.approved_patches_enable_non_security = approved_patches_enable_non_security  # type: bool
         # The token that is used to retrieve the next page of results.
@@ -10680,6 +10680,7 @@ class ListPatchBaselinesRequest(TeaModel):
         # *   RedhatEnterpriseLinux
         # *   Anolis
         self.region_id = region_id  # type: str
+        self.resource_groupld = resource_groupld  # type: str
         # The token that is used to retrieve the next page of results.
         self.share_type = share_type  # type: str
         self.sources = sources  # type: list[str]
@@ -10711,6 +10712,8 @@ class ListPatchBaselinesRequest(TeaModel):
             result['OperationSystem'] = self.operation_system
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_groupld is not None:
+            result['ResourceGroupld'] = self.resource_groupld
         if self.share_type is not None:
             result['ShareType'] = self.share_type
         if self.sources is not None:
@@ -10737,6 +10740,8 @@ class ListPatchBaselinesRequest(TeaModel):
             self.operation_system = m.get('OperationSystem')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupld') is not None:
+            self.resource_groupld = m.get('ResourceGroupld')
         if m.get('ShareType') is not None:
             self.share_type = m.get('ShareType')
         if m.get('Sources') is not None:
@@ -10751,8 +10756,8 @@ class ListPatchBaselinesRequest(TeaModel):
 
 class ListPatchBaselinesShrinkRequest(TeaModel):
     def __init__(self, approved_patches_shrink=None, approved_patches_enable_non_security=None, max_results=None,
-                 name=None, next_token=None, operation_system=None, region_id=None, share_type=None, sources_shrink=None,
-                 tags_shrink=None):
+                 name=None, next_token=None, operation_system=None, region_id=None, resource_groupld=None,
+                 share_type=None, sources_shrink=None, tags_shrink=None):
         self.approved_patches_shrink = approved_patches_shrink  # type: str
         self.approved_patches_enable_non_security = approved_patches_enable_non_security  # type: bool
         # The token that is used to retrieve the next page of results.
@@ -10773,6 +10778,7 @@ class ListPatchBaselinesShrinkRequest(TeaModel):
         # *   RedhatEnterpriseLinux
         # *   Anolis
         self.region_id = region_id  # type: str
+        self.resource_groupld = resource_groupld  # type: str
         # The token that is used to retrieve the next page of results.
         self.share_type = share_type  # type: str
         self.sources_shrink = sources_shrink  # type: str
@@ -10801,6 +10807,8 @@ class ListPatchBaselinesShrinkRequest(TeaModel):
             result['OperationSystem'] = self.operation_system
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_groupld is not None:
+            result['ResourceGroupld'] = self.resource_groupld
         if self.share_type is not None:
             result['ShareType'] = self.share_type
         if self.sources_shrink is not None:
@@ -10825,6 +10833,8 @@ class ListPatchBaselinesShrinkRequest(TeaModel):
             self.operation_system = m.get('OperationSystem')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupld') is not None:
+            self.resource_groupld = m.get('ResourceGroupld')
         if m.get('ShareType') is not None:
             self.share_type = m.get('ShareType')
         if m.get('Sources') is not None:
@@ -10865,8 +10875,8 @@ class ListPatchBaselinesResponseBodyPatchBaselinesTags(TeaModel):
 
 class ListPatchBaselinesResponseBodyPatchBaselines(TeaModel):
     def __init__(self, approved_patches=None, approved_patches_enable_non_security=None, created_by=None,
-                 created_date=None, description=None, id=None, is_default=None, name=None, operation_system=None, share_type=None,
-                 sources=None, tags=None, updated_by=None, updated_date=None):
+                 created_date=None, description=None, id=None, is_default=None, name=None, operation_system=None,
+                 resource_groupld=None, share_type=None, sources=None, tags=None, updated_by=None, updated_date=None):
         self.approved_patches = approved_patches  # type: list[str]
         self.approved_patches_enable_non_security = approved_patches_enable_non_security  # type: bool
         # The name of the patch baseline.
@@ -10883,6 +10893,7 @@ class ListPatchBaselinesResponseBodyPatchBaselines(TeaModel):
         self.name = name  # type: str
         # The description of the patch baseline.
         self.operation_system = operation_system  # type: str
+        self.resource_groupld = resource_groupld  # type: str
         # Queries the details of patch baselines.
         self.share_type = share_type  # type: str
         self.sources = sources  # type: list[str]
@@ -10922,6 +10933,8 @@ class ListPatchBaselinesResponseBodyPatchBaselines(TeaModel):
             result['Name'] = self.name
         if self.operation_system is not None:
             result['OperationSystem'] = self.operation_system
+        if self.resource_groupld is not None:
+            result['ResourceGroupld'] = self.resource_groupld
         if self.share_type is not None:
             result['ShareType'] = self.share_type
         if self.sources is not None:
@@ -10956,6 +10969,8 @@ class ListPatchBaselinesResponseBodyPatchBaselines(TeaModel):
             self.name = m.get('Name')
         if m.get('OperationSystem') is not None:
             self.operation_system = m.get('OperationSystem')
+        if m.get('ResourceGroupld') is not None:
+            self.resource_groupld = m.get('ResourceGroupld')
         if m.get('ShareType') is not None:
             self.share_type = m.get('ShareType')
         if m.get('Sources') is not None:
