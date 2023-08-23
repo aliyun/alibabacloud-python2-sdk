@@ -800,7 +800,7 @@ class Client(OpenApiClient):
 
     def create_instant_site_monitor_with_options(self, request, runtime):
         """
-        You can create an instant test task only by using the Alibaba Cloud account that you used to enable Network Analysis and Monitoring. For more information, see [Billing of Network Analysis and Monitoring](~~341649~~).
+        You can create an instant test task only by using the Alibaba Cloud account that you used to enable Network Analysis and Monitoring.
         This topic provides an example to show how to create an instant test task. The name of the task is `task1`. The tested address is `http://www.aliyun.com`. The test type is `HTTP`. The number of detection points is `1`.
         
 
@@ -845,7 +845,7 @@ class Client(OpenApiClient):
 
     def create_instant_site_monitor(self, request):
         """
-        You can create an instant test task only by using the Alibaba Cloud account that you used to enable Network Analysis and Monitoring. For more information, see [Billing of Network Analysis and Monitoring](~~341649~~).
+        You can create an instant test task only by using the Alibaba Cloud account that you used to enable Network Analysis and Monitoring.
         This topic provides an example to show how to create an instant test task. The name of the task is `task1`. The tested address is `http://www.aliyun.com`. The test type is `HTTP`. The number of detection points is `1`.
         
 
@@ -4894,7 +4894,7 @@ class Client(OpenApiClient):
 
     def describe_site_monitor_log_with_options(self, request, runtime):
         """
-        You can create an instant test task only by using the Alibaba Cloud account that you used to enable Network Analysis and Monitoring. For more information, see [Billing of Network Analysis and Monitoring](~~341649~~).
+        You can create an instant test task only by using the Alibaba Cloud account that you used to enable Network Analysis and Monitoring.
         This topic provides an example to show how to query the logs of an instant test task whose ID is `afa5c3ce-f944-4363-9edb-ce919a29****`.
         
 
@@ -4906,8 +4906,14 @@ class Client(OpenApiClient):
         """
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.browser):
+            query['Browser'] = request.browser
+        if not UtilClient.is_unset(request.browser_info):
+            query['BrowserInfo'] = request.browser_info
         if not UtilClient.is_unset(request.city):
             query['City'] = request.city
+        if not UtilClient.is_unset(request.device):
+            query['Device'] = request.device
         if not UtilClient.is_unset(request.end_time):
             query['EndTime'] = request.end_time
         if not UtilClient.is_unset(request.filter):
@@ -4945,7 +4951,7 @@ class Client(OpenApiClient):
 
     def describe_site_monitor_log(self, request):
         """
-        You can create an instant test task only by using the Alibaba Cloud account that you used to enable Network Analysis and Monitoring. For more information, see [Billing of Network Analysis and Monitoring](~~341649~~).
+        You can create an instant test task only by using the Alibaba Cloud account that you used to enable Network Analysis and Monitoring.
         This topic provides an example to show how to query the logs of an instant test task whose ID is `afa5c3ce-f944-4363-9edb-ce919a29****`.
         
 
