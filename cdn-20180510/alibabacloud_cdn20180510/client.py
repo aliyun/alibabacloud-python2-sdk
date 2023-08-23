@@ -1700,6 +1700,8 @@ class Client(OpenApiClient):
         """
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.exact):
+            query['Exact'] = request.exact
         if not UtilClient.is_unset(request.sslpub):
             query['SSLPub'] = request.sslpub
         if not UtilClient.is_unset(request.sslstatus):
@@ -5796,16 +5798,6 @@ class Client(OpenApiClient):
         return self.describe_fctrigger_with_options(request, runtime)
 
     def describe_ip_info_with_options(self, request, runtime):
-        """
-        > You can call this operation up to 50 times per second per account.
-        
-
-        @param request: DescribeIpInfoRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: DescribeIpInfoResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.ip):
@@ -5830,14 +5822,6 @@ class Client(OpenApiClient):
         )
 
     def describe_ip_info(self, request):
-        """
-        > You can call this operation up to 50 times per second per account.
-        
-
-        @param request: DescribeIpInfoRequest
-
-        @return: DescribeIpInfoResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.describe_ip_info_with_options(request, runtime)
 

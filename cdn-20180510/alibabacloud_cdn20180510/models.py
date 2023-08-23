@@ -4202,7 +4202,8 @@ class DescribeCdnDeliverListResponse(TeaModel):
 
 
 class DescribeCdnDomainByCertificateRequest(TeaModel):
-    def __init__(self, sslpub=None, sslstatus=None):
+    def __init__(self, exact=None, sslpub=None, sslstatus=None):
+        self.exact = exact  # type: bool
         # The public key of the SSL certificate. You must encode the public key in Base64 before you invoke the encodeURIComponent function to encode a URI component.
         # 
         # A public key in the Privacy Enhanced Mail (PEM) format is supported.
@@ -4222,6 +4223,8 @@ class DescribeCdnDomainByCertificateRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.exact is not None:
+            result['Exact'] = self.exact
         if self.sslpub is not None:
             result['SSLPub'] = self.sslpub
         if self.sslstatus is not None:
@@ -4230,6 +4233,8 @@ class DescribeCdnDomainByCertificateRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Exact') is not None:
+            self.exact = m.get('Exact')
         if m.get('SSLPub') is not None:
             self.sslpub = m.get('SSLPub')
         if m.get('SSLStatus') is not None:
@@ -4824,7 +4829,7 @@ class DescribeCdnDomainDetailResponseBodyGetDomainDetailModelSourceModels(TeaMod
 
 class DescribeCdnDomainDetailResponseBodyGetDomainDetailModel(TeaModel):
     def __init__(self, cdn_type=None, cname=None, description=None, domain_name=None, domain_status=None,
-                 global_resource_plan=None, gmt_created=None, gmt_modified=None, https_cname=None, resource_group_id=None, scope=None,
+                 gmt_created=None, gmt_modified=None, https_cname=None, resource_group_id=None, scope=None,
                  server_certificate_status=None, source_models=None):
         # The workload type of the accelerated domain name. Valid values:
         # 
@@ -4849,7 +4854,6 @@ class DescribeCdnDomainDetailResponseBodyGetDomainDetailModel(TeaModel):
         # *   **stopping**\
         # *   **deleting**\
         self.domain_status = domain_status  # type: str
-        self.global_resource_plan = global_resource_plan  # type: str
         # The time when the domain name was created.
         self.gmt_created = gmt_created  # type: str
         # The time when the domain name was last modified.
@@ -4888,8 +4892,6 @@ class DescribeCdnDomainDetailResponseBodyGetDomainDetailModel(TeaModel):
             result['DomainName'] = self.domain_name
         if self.domain_status is not None:
             result['DomainStatus'] = self.domain_status
-        if self.global_resource_plan is not None:
-            result['GlobalResourcePlan'] = self.global_resource_plan
         if self.gmt_created is not None:
             result['GmtCreated'] = self.gmt_created
         if self.gmt_modified is not None:
@@ -4918,8 +4920,6 @@ class DescribeCdnDomainDetailResponseBodyGetDomainDetailModel(TeaModel):
             self.domain_name = m.get('DomainName')
         if m.get('DomainStatus') is not None:
             self.domain_status = m.get('DomainStatus')
-        if m.get('GlobalResourcePlan') is not None:
-            self.global_resource_plan = m.get('GlobalResourcePlan')
         if m.get('GmtCreated') is not None:
             self.gmt_created = m.get('GmtCreated')
         if m.get('GmtModified') is not None:
@@ -8497,7 +8497,9 @@ class DescribeCdnUserQuotaResponseBody(TeaModel):
         self.block_remain = block_remain  # type: int
         # The maximum number of accelerated domain names.
         self.domain_quota = domain_quota  # type: int
+        # The maximum number of ignore params that can be refreshed.
         self.ignore_params_quota = ignore_params_quota  # type: int
+        # The remaining number of ignore params that can be refreshed.
         self.ignore_params_remain = ignore_params_remain  # type: int
         # The maximum number of URLs that can be prefetched.
         self.preload_quota = preload_quota  # type: int
@@ -20977,7 +20979,7 @@ class DescribeFCTriggerResponse(TeaModel):
 
 class DescribeIpInfoRequest(TeaModel):
     def __init__(self, ip=None):
-        # The IP address that you want to query. You can specify only one IP address in each request.
+        # The IP address. You can specify only one IP address.
         self.ip = ip  # type: str
 
     def validate(self):
@@ -21003,17 +21005,16 @@ class DescribeIpInfoRequest(TeaModel):
 class DescribeIpInfoResponseBody(TeaModel):
     def __init__(self, cdn_ip=None, isp=None, isp_ename=None, region=None, region_ename=None, request_id=None):
         # Indicates whether the IP address belongs to an Alibaba Cloud CDN POP.
-        # 
-        # *   **True**\
-        # *   **False**\
+        # *   **True**:Yes.
+        # *   **False**:No.
         self.cdn_ip = cdn_ip  # type: str
-        # The Chinese name of the ISP.
+        # The name of the ISP in Chinese.
         self.isp = isp  # type: str
-        # The English name of the Internet service provider (ISP).
+        # The name of the ISP.
         self.isp_ename = isp_ename  # type: str
-        # The Chinese name of the region.
+        # The name of the region in Chinese.
         self.region = region  # type: str
-        # The English name of the region.
+        # The name of the region.
         self.region_ename = region_ename  # type: str
         # The ID of the request.
         self.request_id = request_id  # type: str
@@ -23701,8 +23702,8 @@ class DescribeUserDomainsResponseBodyDomainsPageDataSources(TeaModel):
 
 class DescribeUserDomainsResponseBodyDomainsPageData(TeaModel):
     def __init__(self, cdn_type=None, cname=None, coverage=None, description=None, domain_id=None, domain_name=None,
-                 domain_status=None, global_resource_plan=None, gmt_created=None, gmt_modified=None, resource_group_id=None,
-                 sandbox=None, sources=None, ssl_protocol=None):
+                 domain_status=None, gmt_created=None, gmt_modified=None, resource_group_id=None, sandbox=None, sources=None,
+                 ssl_protocol=None):
         # The type of the workload accelerated by Alibaba Cloud CDN. Valid values:
         # 
         # *   **web**: images and small files
@@ -23734,7 +23735,6 @@ class DescribeUserDomainsResponseBodyDomainsPageData(TeaModel):
         # *   **stopping**\
         # *   **deleting**\
         self.domain_status = domain_status  # type: str
-        self.global_resource_plan = global_resource_plan  # type: str
         # The time when the accelerated domain name was added.
         self.gmt_created = gmt_created  # type: str
         # The time when the accelerated domain name was modified.
@@ -23775,8 +23775,6 @@ class DescribeUserDomainsResponseBodyDomainsPageData(TeaModel):
             result['DomainName'] = self.domain_name
         if self.domain_status is not None:
             result['DomainStatus'] = self.domain_status
-        if self.global_resource_plan is not None:
-            result['GlobalResourcePlan'] = self.global_resource_plan
         if self.gmt_created is not None:
             result['GmtCreated'] = self.gmt_created
         if self.gmt_modified is not None:
@@ -23807,8 +23805,6 @@ class DescribeUserDomainsResponseBodyDomainsPageData(TeaModel):
             self.domain_name = m.get('DomainName')
         if m.get('DomainStatus') is not None:
             self.domain_status = m.get('DomainStatus')
-        if m.get('GlobalResourcePlan') is not None:
-            self.global_resource_plan = m.get('GlobalResourcePlan')
         if m.get('GmtCreated') is not None:
             self.gmt_created = m.get('GmtCreated')
         if m.get('GmtModified') is not None:
