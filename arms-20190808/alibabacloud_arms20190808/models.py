@@ -4398,6 +4398,35 @@ class CreateIntegrationResponse(TeaModel):
         return self
 
 
+class CreateOrUpdateAlertRuleRequestMarkTags(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateOrUpdateAlertRuleRequestMarkTags, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
 class CreateOrUpdateAlertRuleRequestTags(TeaModel):
     def __init__(self, key=None, value=None):
         self.key = key  # type: str
@@ -4430,8 +4459,8 @@ class CreateOrUpdateAlertRuleRequestTags(TeaModel):
 class CreateOrUpdateAlertRuleRequest(TeaModel):
     def __init__(self, alert_check_type=None, alert_group=None, alert_id=None, alert_name=None,
                  alert_rule_content=None, alert_status=None, alert_type=None, annotations=None, auto_add_new_application=None,
-                 cluster_id=None, duration=None, filters=None, labels=None, level=None, message=None, metrics_key=None,
-                 metrics_type=None, notify_strategy=None, pids=None, prom_ql=None, region_id=None, tags=None):
+                 cluster_id=None, duration=None, filters=None, labels=None, level=None, mark_tags=None, message=None,
+                 metrics_key=None, metrics_type=None, notify_strategy=None, pids=None, prom_ql=None, region_id=None, tags=None):
         # The alert check type of the Prometheus alert rule. Valid values:
         # 
         # *   STATIC: a static threshold value. If you set the parameter to STATIC, you must specify the **MetricsKey** parameter. For more information, see the **Correspondence between AlertGroup and MetricsKey for Prometheus Service** table.
@@ -4525,6 +4554,7 @@ class CreateOrUpdateAlertRuleRequest(TeaModel):
         # *   P4: Alert notifications are sent for low-priority issues that do not affect your business.
         # *   Default: Alert notifications are sent regardless of alert levels.
         self.level = level  # type: str
+        self.mark_tags = mark_tags  # type: list[CreateOrUpdateAlertRuleRequestMarkTags]
         # The alert message of the Prometheus alert rule.
         self.message = message  # type: str
         # The alert metrics. If you set the **AlertCheckType** parameter to **STATIC** when you create a Prometheus alert rule, you must specify the **MetricsKey** parameter.
@@ -4547,6 +4577,10 @@ class CreateOrUpdateAlertRuleRequest(TeaModel):
         self.tags = tags  # type: list[CreateOrUpdateAlertRuleRequestTags]
 
     def validate(self):
+        if self.mark_tags:
+            for k in self.mark_tags:
+                if k:
+                    k.validate()
         if self.tags:
             for k in self.tags:
                 if k:
@@ -4586,6 +4620,10 @@ class CreateOrUpdateAlertRuleRequest(TeaModel):
             result['Labels'] = self.labels
         if self.level is not None:
             result['Level'] = self.level
+        result['MarkTags'] = []
+        if self.mark_tags is not None:
+            for k in self.mark_tags:
+                result['MarkTags'].append(k.to_map() if k else None)
         if self.message is not None:
             result['Message'] = self.message
         if self.metrics_key is not None:
@@ -4636,6 +4674,11 @@ class CreateOrUpdateAlertRuleRequest(TeaModel):
             self.labels = m.get('Labels')
         if m.get('Level') is not None:
             self.level = m.get('Level')
+        self.mark_tags = []
+        if m.get('MarkTags') is not None:
+            for k in m.get('MarkTags'):
+                temp_model = CreateOrUpdateAlertRuleRequestMarkTags()
+                self.mark_tags.append(temp_model.from_map(k))
         if m.get('Message') is not None:
             self.message = m.get('Message')
         if m.get('MetricsKey') is not None:
@@ -13207,8 +13250,9 @@ class DeleteSyntheticTaskResponse(TeaModel):
 
 
 class DeleteTimingSyntheticTaskRequest(TeaModel):
-    def __init__(self, region_id=None, task_id=None):
+    def __init__(self, region_id=None, resource_group_id=None, task_id=None):
         self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -13222,6 +13266,8 @@ class DeleteTimingSyntheticTaskRequest(TeaModel):
         result = dict()
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.task_id is not None:
             result['TaskId'] = self.task_id
         return result
@@ -13230,6 +13276,8 @@ class DeleteTimingSyntheticTaskRequest(TeaModel):
         m = m or dict()
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('TaskId') is not None:
             self.task_id = m.get('TaskId')
         return self
