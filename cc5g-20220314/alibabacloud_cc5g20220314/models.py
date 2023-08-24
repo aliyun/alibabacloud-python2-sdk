@@ -3869,6 +3869,108 @@ class ListBatchOperateCardsTasksResponse(TeaModel):
         return self
 
 
+class ListCardAreaLimitSupportAreaRequest(TeaModel):
+    def __init__(self, accept_language=None, province_name=None, region_id=None):
+        self.accept_language = accept_language  # type: str
+        self.province_name = province_name  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListCardAreaLimitSupportAreaRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.accept_language is not None:
+            result['AcceptLanguage'] = self.accept_language
+        if self.province_name is not None:
+            result['ProvinceName'] = self.province_name
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AcceptLanguage') is not None:
+            self.accept_language = m.get('AcceptLanguage')
+        if m.get('ProvinceName') is not None:
+            self.province_name = m.get('ProvinceName')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class ListCardAreaLimitSupportAreaResponseBody(TeaModel):
+    def __init__(self, provinces=None, request_id=None):
+        self.provinces = provinces  # type: list[str]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListCardAreaLimitSupportAreaResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.provinces is not None:
+            result['Provinces'] = self.provinces
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Provinces') is not None:
+            self.provinces = m.get('Provinces')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ListCardAreaLimitSupportAreaResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListCardAreaLimitSupportAreaResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListCardAreaLimitSupportAreaResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListCardAreaLimitSupportAreaResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ListCardDayUsagesRequest(TeaModel):
     def __init__(self, iccids=None, latest_month_num=None, wireless_cloud_connector_id=None):
         self.iccids = iccids  # type: list[str]
@@ -6930,6 +7032,113 @@ class RemoveWirelessCloudConnectorFromGroupResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = RemoveWirelessCloudConnectorFromGroupResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ResetAreaLimitCardsRequest(TeaModel):
+    def __init__(self, client_token=None, dry_run=None, iccids=None, province=None, region_id=None):
+        self.client_token = client_token  # type: str
+        self.dry_run = dry_run  # type: bool
+        self.iccids = iccids  # type: list[str]
+        self.province = province  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ResetAreaLimitCardsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.client_token is not None:
+            result['ClientToken'] = self.client_token
+        if self.dry_run is not None:
+            result['DryRun'] = self.dry_run
+        if self.iccids is not None:
+            result['Iccids'] = self.iccids
+        if self.province is not None:
+            result['Province'] = self.province
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ClientToken') is not None:
+            self.client_token = m.get('ClientToken')
+        if m.get('DryRun') is not None:
+            self.dry_run = m.get('DryRun')
+        if m.get('Iccids') is not None:
+            self.iccids = m.get('Iccids')
+        if m.get('Province') is not None:
+            self.province = m.get('Province')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class ResetAreaLimitCardsResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ResetAreaLimitCardsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ResetAreaLimitCardsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ResetAreaLimitCardsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ResetAreaLimitCardsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ResetAreaLimitCardsResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
