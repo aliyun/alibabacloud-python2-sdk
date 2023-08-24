@@ -1,3 +1,6 @@
+2023-08-24 Version: 1.14.2
+- Generated python2 2018-11-01 for dms-enterprise.
+
 2023-08-10 Version: 1.14.1
 - Generated python2 2018-11-01 for dms-enterprise.
 
