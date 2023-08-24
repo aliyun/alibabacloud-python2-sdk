@@ -113,31 +113,26 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_dynamic_route_with_options(request, runtime)
 
-    def create_private_access_application_with_options(self, tmp_req, runtime):
-        UtilClient.validate_model(tmp_req)
-        request = csas_20230120_models.CreatePrivateAccessApplicationShrinkRequest()
-        OpenApiUtilClient.convert(tmp_req, request)
-        if not UtilClient.is_unset(tmp_req.addresses):
-            request.addresses_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.addresses, 'Addresses', 'json')
-        if not UtilClient.is_unset(tmp_req.port_ranges):
-            request.port_ranges_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.port_ranges, 'PortRanges', 'json')
-        if not UtilClient.is_unset(tmp_req.tag_ids):
-            request.tag_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.tag_ids, 'TagIds', 'json')
+    def create_private_access_application_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
         body = {}
-        if not UtilClient.is_unset(request.addresses_shrink):
-            body['Addresses'] = request.addresses_shrink
+        body_flat = {}
+        if not UtilClient.is_unset(request.addresses):
+            body_flat['Addresses'] = request.addresses
         if not UtilClient.is_unset(request.description):
             body['Description'] = request.description
         if not UtilClient.is_unset(request.name):
             body['Name'] = request.name
-        if not UtilClient.is_unset(request.port_ranges_shrink):
-            body['PortRanges'] = request.port_ranges_shrink
+        if not UtilClient.is_unset(request.port_ranges):
+            body_flat['PortRanges'] = request.port_ranges
         if not UtilClient.is_unset(request.protocol):
             body['Protocol'] = request.protocol
         if not UtilClient.is_unset(request.status):
             body['Status'] = request.status
-        if not UtilClient.is_unset(request.tag_ids_shrink):
-            body['TagIds'] = request.tag_ids_shrink
+        if not UtilClient.is_unset(request.tag_ids):
+            body_flat['TagIds'] = request.tag_ids
+        body = TeaCore.merge(body,
+            OpenApiUtilClient.query(body_flat))
         req = open_api_models.OpenApiRequest(
             body=OpenApiUtilClient.parse_to_map(body)
         )
@@ -161,25 +156,16 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_private_access_application_with_options(request, runtime)
 
-    def create_private_access_policy_with_options(self, tmp_req, runtime):
-        UtilClient.validate_model(tmp_req)
-        request = csas_20230120_models.CreatePrivateAccessPolicyShrinkRequest()
-        OpenApiUtilClient.convert(tmp_req, request)
-        if not UtilClient.is_unset(tmp_req.application_ids):
-            request.application_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.application_ids, 'ApplicationIds', 'json')
-        if not UtilClient.is_unset(tmp_req.custom_user_attributes):
-            request.custom_user_attributes_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.custom_user_attributes, 'CustomUserAttributes', 'json')
-        if not UtilClient.is_unset(tmp_req.tag_ids):
-            request.tag_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.tag_ids, 'TagIds', 'json')
-        if not UtilClient.is_unset(tmp_req.user_group_ids):
-            request.user_group_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.user_group_ids, 'UserGroupIds', 'json')
+    def create_private_access_policy_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
         body = {}
-        if not UtilClient.is_unset(request.application_ids_shrink):
-            body['ApplicationIds'] = request.application_ids_shrink
+        body_flat = {}
+        if not UtilClient.is_unset(request.application_ids):
+            body_flat['ApplicationIds'] = request.application_ids
         if not UtilClient.is_unset(request.application_type):
             body['ApplicationType'] = request.application_type
-        if not UtilClient.is_unset(request.custom_user_attributes_shrink):
-            body['CustomUserAttributes'] = request.custom_user_attributes_shrink
+        if not UtilClient.is_unset(request.custom_user_attributes):
+            body_flat['CustomUserAttributes'] = request.custom_user_attributes
         if not UtilClient.is_unset(request.description):
             body['Description'] = request.description
         if not UtilClient.is_unset(request.name):
@@ -190,12 +176,14 @@ class Client(OpenApiClient):
             body['Priority'] = request.priority
         if not UtilClient.is_unset(request.status):
             body['Status'] = request.status
-        if not UtilClient.is_unset(request.tag_ids_shrink):
-            body['TagIds'] = request.tag_ids_shrink
-        if not UtilClient.is_unset(request.user_group_ids_shrink):
-            body['UserGroupIds'] = request.user_group_ids_shrink
+        if not UtilClient.is_unset(request.tag_ids):
+            body_flat['TagIds'] = request.tag_ids
+        if not UtilClient.is_unset(request.user_group_ids):
+            body_flat['UserGroupIds'] = request.user_group_ids
         if not UtilClient.is_unset(request.user_group_mode):
             body['UserGroupMode'] = request.user_group_mode
+        body = TeaCore.merge(body,
+            OpenApiUtilClient.query(body_flat))
         req = open_api_models.OpenApiRequest(
             body=OpenApiUtilClient.parse_to_map(body)
         )
@@ -1053,33 +1041,28 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.update_dynamic_route_with_options(request, runtime)
 
-    def update_private_access_application_with_options(self, tmp_req, runtime):
-        UtilClient.validate_model(tmp_req)
-        request = csas_20230120_models.UpdatePrivateAccessApplicationShrinkRequest()
-        OpenApiUtilClient.convert(tmp_req, request)
-        if not UtilClient.is_unset(tmp_req.addresses):
-            request.addresses_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.addresses, 'Addresses', 'json')
-        if not UtilClient.is_unset(tmp_req.port_ranges):
-            request.port_ranges_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.port_ranges, 'PortRanges', 'json')
-        if not UtilClient.is_unset(tmp_req.tag_ids):
-            request.tag_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.tag_ids, 'TagIds', 'json')
+    def update_private_access_application_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
         body = {}
-        if not UtilClient.is_unset(request.addresses_shrink):
-            body['Addresses'] = request.addresses_shrink
+        body_flat = {}
+        if not UtilClient.is_unset(request.addresses):
+            body_flat['Addresses'] = request.addresses
         if not UtilClient.is_unset(request.application_id):
             body['ApplicationId'] = request.application_id
         if not UtilClient.is_unset(request.description):
             body['Description'] = request.description
         if not UtilClient.is_unset(request.modify_type):
             body['ModifyType'] = request.modify_type
-        if not UtilClient.is_unset(request.port_ranges_shrink):
-            body['PortRanges'] = request.port_ranges_shrink
+        if not UtilClient.is_unset(request.port_ranges):
+            body_flat['PortRanges'] = request.port_ranges
         if not UtilClient.is_unset(request.protocol):
             body['Protocol'] = request.protocol
         if not UtilClient.is_unset(request.status):
             body['Status'] = request.status
-        if not UtilClient.is_unset(request.tag_ids_shrink):
-            body['TagIds'] = request.tag_ids_shrink
+        if not UtilClient.is_unset(request.tag_ids):
+            body_flat['TagIds'] = request.tag_ids
+        body = TeaCore.merge(body,
+            OpenApiUtilClient.query(body_flat))
         req = open_api_models.OpenApiRequest(
             body=OpenApiUtilClient.parse_to_map(body)
         )
@@ -1103,25 +1086,16 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.update_private_access_application_with_options(request, runtime)
 
-    def update_private_access_policy_with_options(self, tmp_req, runtime):
-        UtilClient.validate_model(tmp_req)
-        request = csas_20230120_models.UpdatePrivateAccessPolicyShrinkRequest()
-        OpenApiUtilClient.convert(tmp_req, request)
-        if not UtilClient.is_unset(tmp_req.application_ids):
-            request.application_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.application_ids, 'ApplicationIds', 'json')
-        if not UtilClient.is_unset(tmp_req.custom_user_attributes):
-            request.custom_user_attributes_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.custom_user_attributes, 'CustomUserAttributes', 'json')
-        if not UtilClient.is_unset(tmp_req.tag_ids):
-            request.tag_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.tag_ids, 'TagIds', 'json')
-        if not UtilClient.is_unset(tmp_req.user_group_ids):
-            request.user_group_ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.user_group_ids, 'UserGroupIds', 'json')
+    def update_private_access_policy_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
         body = {}
-        if not UtilClient.is_unset(request.application_ids_shrink):
-            body['ApplicationIds'] = request.application_ids_shrink
+        body_flat = {}
+        if not UtilClient.is_unset(request.application_ids):
+            body_flat['ApplicationIds'] = request.application_ids
         if not UtilClient.is_unset(request.application_type):
             body['ApplicationType'] = request.application_type
-        if not UtilClient.is_unset(request.custom_user_attributes_shrink):
-            body['CustomUserAttributes'] = request.custom_user_attributes_shrink
+        if not UtilClient.is_unset(request.custom_user_attributes):
+            body_flat['CustomUserAttributes'] = request.custom_user_attributes
         if not UtilClient.is_unset(request.description):
             body['Description'] = request.description
         if not UtilClient.is_unset(request.modify_type):
@@ -1134,12 +1108,14 @@ class Client(OpenApiClient):
             body['Priority'] = request.priority
         if not UtilClient.is_unset(request.status):
             body['Status'] = request.status
-        if not UtilClient.is_unset(request.tag_ids_shrink):
-            body['TagIds'] = request.tag_ids_shrink
-        if not UtilClient.is_unset(request.user_group_ids_shrink):
-            body['UserGroupIds'] = request.user_group_ids_shrink
+        if not UtilClient.is_unset(request.tag_ids):
+            body_flat['TagIds'] = request.tag_ids
+        if not UtilClient.is_unset(request.user_group_ids):
+            body_flat['UserGroupIds'] = request.user_group_ids
         if not UtilClient.is_unset(request.user_group_mode):
             body['UserGroupMode'] = request.user_group_mode
+        body = TeaCore.merge(body,
+            OpenApiUtilClient.query(body_flat))
         req = open_api_models.OpenApiRequest(
             body=OpenApiUtilClient.parse_to_map(body)
         )
