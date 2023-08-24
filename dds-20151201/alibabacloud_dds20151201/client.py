@@ -375,6 +375,8 @@ class Client(OpenApiClient):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.period):
             query['Period'] = request.period
+        if not UtilClient.is_unset(request.provisioned_iops):
+            query['ProvisionedIops'] = request.provisioned_iops
         if not UtilClient.is_unset(request.readonly_replicas):
             query['ReadonlyReplicas'] = request.readonly_replicas
         if not UtilClient.is_unset(request.region_id):
@@ -687,6 +689,8 @@ class Client(OpenApiClient):
             query['Period'] = request.period
         if not UtilClient.is_unset(request.protocol_type):
             query['ProtocolType'] = request.protocol_type
+        if not UtilClient.is_unset(request.provisioned_iops):
+            query['ProvisionedIops'] = request.provisioned_iops
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.replica_set):
@@ -928,7 +932,7 @@ class Client(OpenApiClient):
 
     def describe_accounts_with_options(self, request, runtime):
         """
-        >  This operation can query only the information of the root account.
+        >  You can call this operation to query only the information of the root account.
         
 
         @param request: DescribeAccountsRequest
@@ -974,7 +978,7 @@ class Client(OpenApiClient):
 
     def describe_accounts(self, request):
         """
-        >  This operation can query only the information of the root account.
+        >  You can call this operation to query only the information of the root account.
         
 
         @param request: DescribeAccountsRequest
@@ -1064,9 +1068,9 @@ class Client(OpenApiClient):
 
     def describe_audit_log_filter_with_options(self, request, runtime):
         """
-        The role of the node in the instance. Valid values:
-        *   **primary**\
-        *   **secondary**\
+        The instance must be in the running state when you call this operation.
+        *   This operation is applicable only to **general-purpose local-disk** and **dedicated local-disk** instances.
+        *   You can call this operation up to 30 times per minute. To call this operation at a higher frequency, use a Logstore. For more information, see [Manage a Logstore](~~48990~~).
         
 
         @param request: DescribeAuditLogFilterRequest
@@ -1112,9 +1116,9 @@ class Client(OpenApiClient):
 
     def describe_audit_log_filter(self, request):
         """
-        The role of the node in the instance. Valid values:
-        *   **primary**\
-        *   **secondary**\
+        The instance must be in the running state when you call this operation.
+        *   This operation is applicable only to **general-purpose local-disk** and **dedicated local-disk** instances.
+        *   You can call this operation up to 30 times per minute. To call this operation at a higher frequency, use a Logstore. For more information, see [Manage a Logstore](~~48990~~).
         
 
         @param request: DescribeAuditLogFilterRequest
@@ -3846,10 +3850,10 @@ class Client(OpenApiClient):
 
     def modify_dbinstance_monitor_with_options(self, request, runtime):
         """
-        >  operation is currently unavailable.
+        >  This operation is applicable only to the ApsaraDB for MongoDB console of the previous version due to the change in the frequency at which the monitoring data of an ApsaraDB for MongoDB instance is collected.
         Before you call this operation, make sure that the following requirements are met:
-        *   A replica set or sharded cluster instance is used.
-        *   MongoDB 3.4 (the latest minor version) or 4.0 must be selected.
+        *   The instance is a replica set or sharded cluster instance.
+        *   The instance runs MongoDB 3.4 (the latest minor version) or 4.0.
         
 
         @param request: ModifyDBInstanceMonitorRequest
@@ -3895,10 +3899,10 @@ class Client(OpenApiClient):
 
     def modify_dbinstance_monitor(self, request):
         """
-        >  operation is currently unavailable.
+        >  This operation is applicable only to the ApsaraDB for MongoDB console of the previous version due to the change in the frequency at which the monitoring data of an ApsaraDB for MongoDB instance is collected.
         Before you call this operation, make sure that the following requirements are met:
-        *   A replica set or sharded cluster instance is used.
-        *   MongoDB 3.4 (the latest minor version) or 4.0 must be selected.
+        *   The instance is a replica set or sharded cluster instance.
+        *   The instance runs MongoDB 3.4 (the latest minor version) or 4.0.
         
 
         @param request: ModifyDBInstanceMonitorRequest

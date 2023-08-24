@@ -745,7 +745,7 @@ class CreateDBInstanceRequest(TeaModel):
                  client_token=None, cluster_id=None, coupon_no=None, dbinstance_class=None, dbinstance_description=None,
                  dbinstance_storage=None, database_names=None, encrypted=None, encryption_key=None, engine=None, engine_version=None,
                  global_security_group_ids=None, hidden_zone_id=None, network_type=None, owner_account=None, owner_id=None, period=None,
-                 readonly_replicas=None, region_id=None, replication_factor=None, resource_group_id=None,
+                 provisioned_iops=None, readonly_replicas=None, region_id=None, replication_factor=None, resource_group_id=None,
                  resource_owner_account=None, resource_owner_id=None, restore_time=None, secondary_zone_id=None, security_iplist=None,
                  security_token=None, src_dbinstance_id=None, storage_engine=None, storage_type=None, tag=None, v_switch_id=None,
                  vpc_id=None, zone_id=None):
@@ -837,6 +837,7 @@ class CreateDBInstanceRequest(TeaModel):
         self.owner_id = owner_id  # type: long
         # The ID of the vSwitch to which the instance is connected.
         self.period = period  # type: int
+        self.provisioned_iops = provisioned_iops  # type: long
         # The storage type of the instance. Valid values:
         # 
         # *   **cloud_essd1** :ESSD PL1.
@@ -983,6 +984,8 @@ class CreateDBInstanceRequest(TeaModel):
             result['OwnerId'] = self.owner_id
         if self.period is not None:
             result['Period'] = self.period
+        if self.provisioned_iops is not None:
+            result['ProvisionedIops'] = self.provisioned_iops
         if self.readonly_replicas is not None:
             result['ReadonlyReplicas'] = self.readonly_replicas
         if self.region_id is not None:
@@ -1067,6 +1070,8 @@ class CreateDBInstanceRequest(TeaModel):
             self.owner_id = m.get('OwnerId')
         if m.get('Period') is not None:
             self.period = m.get('Period')
+        if m.get('ProvisionedIops') is not None:
+            self.provisioned_iops = m.get('ProvisionedIops')
         if m.get('ReadonlyReplicas') is not None:
             self.readonly_replicas = m.get('ReadonlyReplicas')
         if m.get('RegionId') is not None:
@@ -1909,10 +1914,10 @@ class CreateShardingDBInstanceRequest(TeaModel):
     def __init__(self, account_password=None, auto_renew=None, charge_type=None, client_token=None,
                  config_server=None, dbinstance_description=None, encrypted=None, encryption_key=None, engine=None,
                  engine_version=None, global_security_group_ids=None, hidden_zone_id=None, mongos=None, network_type=None,
-                 owner_account=None, owner_id=None, period=None, protocol_type=None, region_id=None, replica_set=None,
-                 resource_group_id=None, resource_owner_account=None, resource_owner_id=None, restore_time=None,
-                 secondary_zone_id=None, security_iplist=None, security_token=None, src_dbinstance_id=None, storage_engine=None,
-                 storage_type=None, tag=None, v_switch_id=None, vpc_id=None, zone_id=None):
+                 owner_account=None, owner_id=None, period=None, protocol_type=None, provisioned_iops=None, region_id=None,
+                 replica_set=None, resource_group_id=None, resource_owner_account=None, resource_owner_id=None,
+                 restore_time=None, secondary_zone_id=None, security_iplist=None, security_token=None, src_dbinstance_id=None,
+                 storage_engine=None, storage_type=None, tag=None, v_switch_id=None, vpc_id=None, zone_id=None):
         # The password of the root account. The password must meet the following requirements:
         # 
         # *   The password must contain at least three of the following character types: uppercase letters, lowercase letters, digits, and special characters.
@@ -2019,6 +2024,7 @@ class CreateShardingDBInstanceRequest(TeaModel):
         # *   **mongodb**: the MongoDB protocol
         # *   **dynamodb**: the DynamoDB protocol
         self.protocol_type = protocol_type  # type: str
+        self.provisioned_iops = provisioned_iops  # type: long
         # The region ID of the instance. You can call the [DescribeRegions](~~61933~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         # The shard nodes of the instance.
@@ -2169,6 +2175,8 @@ class CreateShardingDBInstanceRequest(TeaModel):
             result['Period'] = self.period
         if self.protocol_type is not None:
             result['ProtocolType'] = self.protocol_type
+        if self.provisioned_iops is not None:
+            result['ProvisionedIops'] = self.provisioned_iops
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         result['ReplicaSet'] = []
@@ -2251,6 +2259,8 @@ class CreateShardingDBInstanceRequest(TeaModel):
             self.period = m.get('Period')
         if m.get('ProtocolType') is not None:
             self.protocol_type = m.get('ProtocolType')
+        if m.get('ProvisionedIops') is not None:
+            self.provisioned_iops = m.get('ProvisionedIops')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         self.replica_set = []
@@ -2756,7 +2766,7 @@ class DescribeAccountsRequest(TeaModel):
                  resource_owner_account=None, resource_owner_id=None, security_token=None):
         # The name of the account. Set the value to **root**.
         self.account_name = account_name  # type: str
-        # The ID of the instance.
+        # The instance ID.
         self.dbinstance_id = dbinstance_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -2812,21 +2822,23 @@ class DescribeAccountsResponseBodyAccountsAccount(TeaModel):
     def __init__(self, account_description=None, account_name=None, account_status=None, character_type=None,
                  dbinstance_id=None):
         # The description of the account.
+        # 
+        # > This parameter is returned only after you configure the description of the account by calling the [ModifyAccountDescription](~~468391~~) operation.
         self.account_description = account_description  # type: str
         # The name of the account.
         self.account_name = account_name  # type: str
         # The status of the account.
         # 
-        # *   Unavailable
-        # *   Available
+        # *   **Unavailable**\
+        # *   **Available**\
         self.account_status = account_status  # type: str
         # The role of the account. Valid values:
         # 
-        # *   db: shard
-        # *   cs: Configserver
-        # *   mongos: mongos
-        # *   logic: sharded cluster instance
-        # *   normal: replica set instance
+        # *   **db**: shard
+        # *   **cs**: Configserver
+        # *   **mongos**: mongos
+        # *   **logic:** sharded cluster instance
+        # *   **normal:** replica set instance
         self.character_type = character_type  # type: str
         # The name of the instance to which the account belongs.
         self.dbinstance_id = dbinstance_id  # type: str
@@ -2901,9 +2913,9 @@ class DescribeAccountsResponseBodyAccounts(TeaModel):
 
 class DescribeAccountsResponseBody(TeaModel):
     def __init__(self, accounts=None, request_id=None):
-        # Details about the accounts.
+        # The username of the account.
         self.accounts = accounts  # type: DescribeAccountsResponseBodyAccounts
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3290,11 +3302,17 @@ class DescribeActiveOperationTaskTypeResponse(TeaModel):
 class DescribeAuditLogFilterRequest(TeaModel):
     def __init__(self, dbinstance_id=None, owner_account=None, owner_id=None, resource_owner_account=None,
                  resource_owner_id=None, role_type=None, security_token=None):
+        # The ID of the instance.
         self.dbinstance_id = dbinstance_id  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
+        # The role of the node in the instance. Valid values:
+        # 
+        # * **mongos**: mongos node.
+        # * **db** : shard node.
+        # * **logic** : logical instance.
         self.role_type = role_type  # type: str
         self.security_token = security_token  # type: str
 
@@ -3344,8 +3362,19 @@ class DescribeAuditLogFilterRequest(TeaModel):
 
 class DescribeAuditLogFilterResponseBody(TeaModel):
     def __init__(self, filter=None, request_id=None, role_type=None):
+        # The type of the audit log entries. Valid values:
+        # 
+        # *   **admin**: O\&M and management operations
+        # *   **slow**: slow query logs
+        # *   **query**: query operations
+        # *   **insert**: insert operations
+        # *   **update**: update operations
+        # *   **delete**: delete operations
+        # *   **command**: protocol commands such as the aggregate method
         self.filter = filter  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
+        # The role of the node.
         self.role_type = role_type  # type: str
 
     def validate(self):
@@ -6199,16 +6228,18 @@ class DescribeDBInstanceAttributeResponseBodyDBInstancesDBInstanceTags(TeaModel)
 
 
 class DescribeDBInstanceAttributeResponseBodyDBInstancesDBInstance(TeaModel):
-    def __init__(self, capacity_unit=None, charge_type=None, configserver_list=None, creation_time=None,
-                 current_kernel_version=None, dbinstance_class=None, dbinstance_description=None, dbinstance_id=None,
-                 dbinstance_order_status=None, dbinstance_release_protection=None, dbinstance_status=None, dbinstance_storage=None,
-                 dbinstance_type=None, destroy_time=None, encrypted=None, encryption_key=None, engine=None, engine_version=None,
-                 expire_time=None, hidden_zone_id=None, kind_code=None, last_downgrade_time=None, lock_mode=None,
-                 maintain_end_time=None, maintain_start_time=None, max_connections=None, max_iops=None, mongos_list=None,
-                 network_type=None, protocol_type=None, readonly_replicas=None, region_id=None, replacate_id=None,
-                 replica_set_name=None, replica_sets=None, replication_factor=None, resource_group_id=None, secondary_zone_id=None,
-                 shard_list=None, storage_engine=None, storage_type=None, sync_percent=None, tags=None,
-                 vpccloud_instance_ids=None, vpcid=None, v_switch_id=None, vpc_auth_mode=None, zone_id=None):
+    def __init__(self, bursting_enabled=None, capacity_unit=None, charge_type=None, configserver_list=None,
+                 creation_time=None, current_kernel_version=None, dbinstance_class=None, dbinstance_description=None,
+                 dbinstance_id=None, dbinstance_order_status=None, dbinstance_release_protection=None, dbinstance_status=None,
+                 dbinstance_storage=None, dbinstance_type=None, destroy_time=None, encrypted=None, encryption_key=None, engine=None,
+                 engine_version=None, expire_time=None, hidden_zone_id=None, kind_code=None, last_downgrade_time=None,
+                 lock_mode=None, maintain_end_time=None, maintain_start_time=None, max_connections=None, max_iops=None,
+                 mongos_list=None, network_type=None, protocol_type=None, provisioned_iops=None, readonly_replicas=None,
+                 region_id=None, replacate_id=None, replica_set_name=None, replica_sets=None, replication_factor=None,
+                 resource_group_id=None, secondary_zone_id=None, shard_list=None, storage_engine=None, storage_type=None,
+                 sync_percent=None, tags=None, vpccloud_instance_ids=None, vpcid=None, v_switch_id=None, vpc_auth_mode=None,
+                 zone_id=None):
+        self.bursting_enabled = bursting_enabled  # type: bool
         # The storage type of the instance. Valid values:
         # 
         # **cloud_essd1** :ESSD PL1 **cloud_essd2**: ESSD of PL2. **cloud_essd3**: ESSD of PL3. **local_ssd**: local SSD.
@@ -6338,6 +6369,7 @@ class DescribeDBInstanceAttributeResponseBodyDBInstancesDBInstance(TeaModel):
         self.network_type = network_type  # type: str
         # Test database
         self.protocol_type = protocol_type  # type: str
+        self.provisioned_iops = provisioned_iops  # type: long
         # The kind code of the instance. Valid values:
         # 
         # *   **0**: physical machine
@@ -6439,6 +6471,8 @@ class DescribeDBInstanceAttributeResponseBodyDBInstancesDBInstance(TeaModel):
             return _map
 
         result = dict()
+        if self.bursting_enabled is not None:
+            result['BurstingEnabled'] = self.bursting_enabled
         if self.capacity_unit is not None:
             result['CapacityUnit'] = self.capacity_unit
         if self.charge_type is not None:
@@ -6499,6 +6533,8 @@ class DescribeDBInstanceAttributeResponseBodyDBInstancesDBInstance(TeaModel):
             result['NetworkType'] = self.network_type
         if self.protocol_type is not None:
             result['ProtocolType'] = self.protocol_type
+        if self.provisioned_iops is not None:
+            result['ProvisionedIops'] = self.provisioned_iops
         if self.readonly_replicas is not None:
             result['ReadonlyReplicas'] = self.readonly_replicas
         if self.region_id is not None:
@@ -6539,6 +6575,8 @@ class DescribeDBInstanceAttributeResponseBodyDBInstancesDBInstance(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('BurstingEnabled') is not None:
+            self.bursting_enabled = m.get('BurstingEnabled')
         if m.get('CapacityUnit') is not None:
             self.capacity_unit = m.get('CapacityUnit')
         if m.get('ChargeType') is not None:
@@ -6601,6 +6639,8 @@ class DescribeDBInstanceAttributeResponseBodyDBInstancesDBInstance(TeaModel):
             self.network_type = m.get('NetworkType')
         if m.get('ProtocolType') is not None:
             self.protocol_type = m.get('ProtocolType')
+        if m.get('ProvisionedIops') is not None:
+            self.provisioned_iops = m.get('ProvisionedIops')
         if m.get('ReadonlyReplicas') is not None:
             self.readonly_replicas = m.get('ReadonlyReplicas')
         if m.get('RegionId') is not None:
@@ -16738,7 +16778,9 @@ class ModifyDBInstanceMaintainTimeResponse(TeaModel):
 class ModifyDBInstanceMonitorRequest(TeaModel):
     def __init__(self, dbinstance_id=None, granularity=None, owner_account=None, owner_id=None,
                  resource_owner_account=None, resource_owner_id=None, security_token=None):
+        # The ID of the instance.
         self.dbinstance_id = dbinstance_id  # type: str
+        # The collection frequency of monitoring data. Valid values: **1** or **300**. Unit: seconds.
         self.granularity = granularity  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
@@ -16792,6 +16834,7 @@ class ModifyDBInstanceMonitorRequest(TeaModel):
 
 class ModifyDBInstanceMonitorResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
