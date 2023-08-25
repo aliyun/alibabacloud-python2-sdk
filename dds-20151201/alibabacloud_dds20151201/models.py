@@ -20460,8 +20460,8 @@ class TagResourcesResponse(TeaModel):
 
 class TransformInstanceChargeTypeRequest(TeaModel):
     def __init__(self, auto_pay=None, auto_renew=None, business_info=None, charge_type=None, coupon_no=None,
-                 instance_id=None, owner_account=None, owner_id=None, period=None, resource_owner_account=None,
-                 resource_owner_id=None, security_token=None):
+                 instance_id=None, owner_account=None, owner_id=None, period=None, pricing_cycle=None,
+                 resource_owner_account=None, resource_owner_id=None, security_token=None):
         # Specifies whether to enable automatic payment. Valid values:
         # 
         # *   **true**\
@@ -20491,6 +20491,7 @@ class TransformInstanceChargeTypeRequest(TeaModel):
         self.owner_id = owner_id  # type: long
         # The subscription duration of the instance. Unit: months. Valid values: **1, 2, 3, 4, 5, 6, 7, 8, 9******, **12**, **24**, and **36**.
         self.period = period  # type: long
+        self.pricing_cycle = pricing_cycle  # type: str
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
         self.security_token = security_token  # type: str
@@ -20522,6 +20523,8 @@ class TransformInstanceChargeTypeRequest(TeaModel):
             result['OwnerId'] = self.owner_id
         if self.period is not None:
             result['Period'] = self.period
+        if self.pricing_cycle is not None:
+            result['PricingCycle'] = self.pricing_cycle
         if self.resource_owner_account is not None:
             result['ResourceOwnerAccount'] = self.resource_owner_account
         if self.resource_owner_id is not None:
@@ -20550,6 +20553,8 @@ class TransformInstanceChargeTypeRequest(TeaModel):
             self.owner_id = m.get('OwnerId')
         if m.get('Period') is not None:
             self.period = m.get('Period')
+        if m.get('PricingCycle') is not None:
+            self.pricing_cycle = m.get('PricingCycle')
         if m.get('ResourceOwnerAccount') is not None:
             self.resource_owner_account = m.get('ResourceOwnerAccount')
         if m.get('ResourceOwnerId') is not None:
