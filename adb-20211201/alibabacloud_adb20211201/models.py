@@ -2843,7 +2843,7 @@ class DeleteAccountRequest(TeaModel):
     def __init__(self, account_name=None, dbcluster_id=None):
         # The name of the database account.
         # 
-        # > You can call the [DescribeAccounts](~~~~) operation to query the information about database accounts in a cluster, including the database account name.
+        # > You can call the [DescribeAccounts](~~612430~~) operation to query the information about database accounts in a cluster, including the database account name.
         self.account_name = account_name  # type: str
         # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
         self.dbcluster_id = dbcluster_id  # type: str
@@ -3039,7 +3039,7 @@ class DeleteDBResourceGroupRequest(TeaModel):
         self.dbcluster_id = dbcluster_id  # type: str
         # The name of the resource group.
         # 
-        # > You can call the [DescribeDBResourceGroup](~~~~) operation to query the resource group information of a cluster, including the resource group name.
+        # > You can call the [DescribeDBResourceGroup](~~612410~~) operation to query the resource group information of a cluster, including the resource group name.
         self.group_name = group_name  # type: str
 
     def validate(self):
@@ -4974,6 +4974,345 @@ class DescribeAdbMySqlTablesResponse(TeaModel):
         return self
 
 
+class DescribeAllDataSourceRequest(TeaModel):
+    def __init__(self, dbcluster_id=None, region_id=None, schema_name=None, table_name=None):
+        self.dbcluster_id = dbcluster_id  # type: str
+        self.region_id = region_id  # type: str
+        self.schema_name = schema_name  # type: str
+        self.table_name = table_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeAllDataSourceRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbcluster_id is not None:
+            result['DBClusterId'] = self.dbcluster_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.schema_name is not None:
+            result['SchemaName'] = self.schema_name
+        if self.table_name is not None:
+            result['TableName'] = self.table_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBClusterId') is not None:
+            self.dbcluster_id = m.get('DBClusterId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('SchemaName') is not None:
+            self.schema_name = m.get('SchemaName')
+        if m.get('TableName') is not None:
+            self.table_name = m.get('TableName')
+        return self
+
+
+class DescribeAllDataSourceResponseBodyColumnsColumn(TeaModel):
+    def __init__(self, auto_increment_column=None, column_name=None, dbcluster_id=None, primary_key=None,
+                 schema_name=None, table_name=None, type=None):
+        self.auto_increment_column = auto_increment_column  # type: bool
+        self.column_name = column_name  # type: str
+        self.dbcluster_id = dbcluster_id  # type: str
+        self.primary_key = primary_key  # type: bool
+        self.schema_name = schema_name  # type: str
+        self.table_name = table_name  # type: str
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeAllDataSourceResponseBodyColumnsColumn, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auto_increment_column is not None:
+            result['AutoIncrementColumn'] = self.auto_increment_column
+        if self.column_name is not None:
+            result['ColumnName'] = self.column_name
+        if self.dbcluster_id is not None:
+            result['DBClusterId'] = self.dbcluster_id
+        if self.primary_key is not None:
+            result['PrimaryKey'] = self.primary_key
+        if self.schema_name is not None:
+            result['SchemaName'] = self.schema_name
+        if self.table_name is not None:
+            result['TableName'] = self.table_name
+        if self.type is not None:
+            result['Type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AutoIncrementColumn') is not None:
+            self.auto_increment_column = m.get('AutoIncrementColumn')
+        if m.get('ColumnName') is not None:
+            self.column_name = m.get('ColumnName')
+        if m.get('DBClusterId') is not None:
+            self.dbcluster_id = m.get('DBClusterId')
+        if m.get('PrimaryKey') is not None:
+            self.primary_key = m.get('PrimaryKey')
+        if m.get('SchemaName') is not None:
+            self.schema_name = m.get('SchemaName')
+        if m.get('TableName') is not None:
+            self.table_name = m.get('TableName')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        return self
+
+
+class DescribeAllDataSourceResponseBodyColumns(TeaModel):
+    def __init__(self, column=None):
+        self.column = column  # type: list[DescribeAllDataSourceResponseBodyColumnsColumn]
+
+    def validate(self):
+        if self.column:
+            for k in self.column:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeAllDataSourceResponseBodyColumns, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Column'] = []
+        if self.column is not None:
+            for k in self.column:
+                result['Column'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.column = []
+        if m.get('Column') is not None:
+            for k in m.get('Column'):
+                temp_model = DescribeAllDataSourceResponseBodyColumnsColumn()
+                self.column.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeAllDataSourceResponseBodySchemasSchema(TeaModel):
+    def __init__(self, dbcluster_id=None, schema_name=None):
+        self.dbcluster_id = dbcluster_id  # type: str
+        self.schema_name = schema_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeAllDataSourceResponseBodySchemasSchema, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbcluster_id is not None:
+            result['DBClusterId'] = self.dbcluster_id
+        if self.schema_name is not None:
+            result['SchemaName'] = self.schema_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBClusterId') is not None:
+            self.dbcluster_id = m.get('DBClusterId')
+        if m.get('SchemaName') is not None:
+            self.schema_name = m.get('SchemaName')
+        return self
+
+
+class DescribeAllDataSourceResponseBodySchemas(TeaModel):
+    def __init__(self, schema=None):
+        self.schema = schema  # type: list[DescribeAllDataSourceResponseBodySchemasSchema]
+
+    def validate(self):
+        if self.schema:
+            for k in self.schema:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeAllDataSourceResponseBodySchemas, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Schema'] = []
+        if self.schema is not None:
+            for k in self.schema:
+                result['Schema'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.schema = []
+        if m.get('Schema') is not None:
+            for k in m.get('Schema'):
+                temp_model = DescribeAllDataSourceResponseBodySchemasSchema()
+                self.schema.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeAllDataSourceResponseBodyTablesTable(TeaModel):
+    def __init__(self, dbcluster_id=None, schema_name=None, table_name=None):
+        self.dbcluster_id = dbcluster_id  # type: str
+        self.schema_name = schema_name  # type: str
+        self.table_name = table_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeAllDataSourceResponseBodyTablesTable, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbcluster_id is not None:
+            result['DBClusterId'] = self.dbcluster_id
+        if self.schema_name is not None:
+            result['SchemaName'] = self.schema_name
+        if self.table_name is not None:
+            result['TableName'] = self.table_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBClusterId') is not None:
+            self.dbcluster_id = m.get('DBClusterId')
+        if m.get('SchemaName') is not None:
+            self.schema_name = m.get('SchemaName')
+        if m.get('TableName') is not None:
+            self.table_name = m.get('TableName')
+        return self
+
+
+class DescribeAllDataSourceResponseBodyTables(TeaModel):
+    def __init__(self, table=None):
+        self.table = table  # type: list[DescribeAllDataSourceResponseBodyTablesTable]
+
+    def validate(self):
+        if self.table:
+            for k in self.table:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeAllDataSourceResponseBodyTables, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Table'] = []
+        if self.table is not None:
+            for k in self.table:
+                result['Table'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.table = []
+        if m.get('Table') is not None:
+            for k in m.get('Table'):
+                temp_model = DescribeAllDataSourceResponseBodyTablesTable()
+                self.table.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeAllDataSourceResponseBody(TeaModel):
+    def __init__(self, columns=None, request_id=None, schemas=None, tables=None):
+        self.columns = columns  # type: DescribeAllDataSourceResponseBodyColumns
+        self.request_id = request_id  # type: str
+        self.schemas = schemas  # type: DescribeAllDataSourceResponseBodySchemas
+        self.tables = tables  # type: DescribeAllDataSourceResponseBodyTables
+
+    def validate(self):
+        if self.columns:
+            self.columns.validate()
+        if self.schemas:
+            self.schemas.validate()
+        if self.tables:
+            self.tables.validate()
+
+    def to_map(self):
+        _map = super(DescribeAllDataSourceResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.columns is not None:
+            result['Columns'] = self.columns.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.schemas is not None:
+            result['Schemas'] = self.schemas.to_map()
+        if self.tables is not None:
+            result['Tables'] = self.tables.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Columns') is not None:
+            temp_model = DescribeAllDataSourceResponseBodyColumns()
+            self.columns = temp_model.from_map(m['Columns'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Schemas') is not None:
+            temp_model = DescribeAllDataSourceResponseBodySchemas()
+            self.schemas = temp_model.from_map(m['Schemas'])
+        if m.get('Tables') is not None:
+            temp_model = DescribeAllDataSourceResponseBodyTables()
+            self.tables = temp_model.from_map(m['Tables'])
+        return self
+
+
+class DescribeAllDataSourceResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeAllDataSourceResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeAllDataSourceResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeAllDataSourceResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeApsActionLogsRequest(TeaModel):
     def __init__(self, dbcluster_id=None, end_time=None, keyword=None, owner_account=None, owner_id=None,
                  page_number=None, page_size=None, region_id=None, resource_owner_account=None, resource_owner_id=None,
@@ -6214,6 +6553,202 @@ class DescribeClusterNetInfoResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DescribeClusterNetInfoResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class DescribeColumnsRequest(TeaModel):
+    def __init__(self, dbcluster_id=None, region_id=None, schema_name=None, table_name=None):
+        self.dbcluster_id = dbcluster_id  # type: str
+        self.region_id = region_id  # type: str
+        self.schema_name = schema_name  # type: str
+        self.table_name = table_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeColumnsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbcluster_id is not None:
+            result['DBClusterId'] = self.dbcluster_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.schema_name is not None:
+            result['SchemaName'] = self.schema_name
+        if self.table_name is not None:
+            result['TableName'] = self.table_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBClusterId') is not None:
+            self.dbcluster_id = m.get('DBClusterId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('SchemaName') is not None:
+            self.schema_name = m.get('SchemaName')
+        if m.get('TableName') is not None:
+            self.table_name = m.get('TableName')
+        return self
+
+
+class DescribeColumnsResponseBodyItemsColumn(TeaModel):
+    def __init__(self, auto_increment_column=None, column_name=None, dbcluster_id=None, primary_key=None,
+                 schema_name=None, table_name=None, type=None):
+        self.auto_increment_column = auto_increment_column  # type: bool
+        self.column_name = column_name  # type: str
+        self.dbcluster_id = dbcluster_id  # type: str
+        self.primary_key = primary_key  # type: bool
+        self.schema_name = schema_name  # type: str
+        self.table_name = table_name  # type: str
+        self.type = type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeColumnsResponseBodyItemsColumn, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.auto_increment_column is not None:
+            result['AutoIncrementColumn'] = self.auto_increment_column
+        if self.column_name is not None:
+            result['ColumnName'] = self.column_name
+        if self.dbcluster_id is not None:
+            result['DBClusterId'] = self.dbcluster_id
+        if self.primary_key is not None:
+            result['PrimaryKey'] = self.primary_key
+        if self.schema_name is not None:
+            result['SchemaName'] = self.schema_name
+        if self.table_name is not None:
+            result['TableName'] = self.table_name
+        if self.type is not None:
+            result['Type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AutoIncrementColumn') is not None:
+            self.auto_increment_column = m.get('AutoIncrementColumn')
+        if m.get('ColumnName') is not None:
+            self.column_name = m.get('ColumnName')
+        if m.get('DBClusterId') is not None:
+            self.dbcluster_id = m.get('DBClusterId')
+        if m.get('PrimaryKey') is not None:
+            self.primary_key = m.get('PrimaryKey')
+        if m.get('SchemaName') is not None:
+            self.schema_name = m.get('SchemaName')
+        if m.get('TableName') is not None:
+            self.table_name = m.get('TableName')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        return self
+
+
+class DescribeColumnsResponseBodyItems(TeaModel):
+    def __init__(self, column=None):
+        self.column = column  # type: list[DescribeColumnsResponseBodyItemsColumn]
+
+    def validate(self):
+        if self.column:
+            for k in self.column:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeColumnsResponseBodyItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Column'] = []
+        if self.column is not None:
+            for k in self.column:
+                result['Column'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.column = []
+        if m.get('Column') is not None:
+            for k in m.get('Column'):
+                temp_model = DescribeColumnsResponseBodyItemsColumn()
+                self.column.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeColumnsResponseBody(TeaModel):
+    def __init__(self, items=None, request_id=None):
+        self.items = items  # type: DescribeColumnsResponseBodyItems
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.items:
+            self.items.validate()
+
+    def to_map(self):
+        _map = super(DescribeColumnsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.items is not None:
+            result['Items'] = self.items.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Items') is not None:
+            temp_model = DescribeColumnsResponseBodyItems()
+            self.items = temp_model.from_map(m['Items'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeColumnsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeColumnsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeColumnsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeColumnsResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -10522,6 +11057,166 @@ class DescribeSQLPatternsResponse(TeaModel):
         return self
 
 
+class DescribeSchemasRequest(TeaModel):
+    def __init__(self, dbcluster_id=None, region_id=None):
+        self.dbcluster_id = dbcluster_id  # type: str
+        self.region_id = region_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeSchemasRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbcluster_id is not None:
+            result['DBClusterId'] = self.dbcluster_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBClusterId') is not None:
+            self.dbcluster_id = m.get('DBClusterId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        return self
+
+
+class DescribeSchemasResponseBodyItemsSchema(TeaModel):
+    def __init__(self, dbcluster_id=None, schema_name=None):
+        self.dbcluster_id = dbcluster_id  # type: str
+        self.schema_name = schema_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeSchemasResponseBodyItemsSchema, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbcluster_id is not None:
+            result['DBClusterId'] = self.dbcluster_id
+        if self.schema_name is not None:
+            result['SchemaName'] = self.schema_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBClusterId') is not None:
+            self.dbcluster_id = m.get('DBClusterId')
+        if m.get('SchemaName') is not None:
+            self.schema_name = m.get('SchemaName')
+        return self
+
+
+class DescribeSchemasResponseBodyItems(TeaModel):
+    def __init__(self, schema=None):
+        self.schema = schema  # type: list[DescribeSchemasResponseBodyItemsSchema]
+
+    def validate(self):
+        if self.schema:
+            for k in self.schema:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeSchemasResponseBodyItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Schema'] = []
+        if self.schema is not None:
+            for k in self.schema:
+                result['Schema'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.schema = []
+        if m.get('Schema') is not None:
+            for k in m.get('Schema'):
+                temp_model = DescribeSchemasResponseBodyItemsSchema()
+                self.schema.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeSchemasResponseBody(TeaModel):
+    def __init__(self, items=None, request_id=None):
+        self.items = items  # type: DescribeSchemasResponseBodyItems
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.items:
+            self.items.validate()
+
+    def to_map(self):
+        _map = super(DescribeSchemasResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.items is not None:
+            result['Items'] = self.items.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Items') is not None:
+            temp_model = DescribeSchemasResponseBodyItems()
+            self.items = temp_model.from_map(m['Items'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeSchemasResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeSchemasResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeSchemasResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeSchemasResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeSparkCodeLogRequest(TeaModel):
     def __init__(self, dbcluster_id=None, job_id=None, region_id=None):
         self.dbcluster_id = dbcluster_id  # type: str
@@ -11302,6 +11997,176 @@ class DescribeTableAccessCountResponse(TeaModel):
         return self
 
 
+class DescribeTablesRequest(TeaModel):
+    def __init__(self, dbcluster_id=None, region_id=None, schema_name=None):
+        self.dbcluster_id = dbcluster_id  # type: str
+        self.region_id = region_id  # type: str
+        self.schema_name = schema_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeTablesRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbcluster_id is not None:
+            result['DBClusterId'] = self.dbcluster_id
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.schema_name is not None:
+            result['SchemaName'] = self.schema_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBClusterId') is not None:
+            self.dbcluster_id = m.get('DBClusterId')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('SchemaName') is not None:
+            self.schema_name = m.get('SchemaName')
+        return self
+
+
+class DescribeTablesResponseBodyItemsTable(TeaModel):
+    def __init__(self, dbcluster_id=None, schema_name=None, table_name=None):
+        self.dbcluster_id = dbcluster_id  # type: str
+        self.schema_name = schema_name  # type: str
+        self.table_name = table_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeTablesResponseBodyItemsTable, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbcluster_id is not None:
+            result['DBClusterId'] = self.dbcluster_id
+        if self.schema_name is not None:
+            result['SchemaName'] = self.schema_name
+        if self.table_name is not None:
+            result['TableName'] = self.table_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBClusterId') is not None:
+            self.dbcluster_id = m.get('DBClusterId')
+        if m.get('SchemaName') is not None:
+            self.schema_name = m.get('SchemaName')
+        if m.get('TableName') is not None:
+            self.table_name = m.get('TableName')
+        return self
+
+
+class DescribeTablesResponseBodyItems(TeaModel):
+    def __init__(self, table=None):
+        self.table = table  # type: list[DescribeTablesResponseBodyItemsTable]
+
+    def validate(self):
+        if self.table:
+            for k in self.table:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(DescribeTablesResponseBodyItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Table'] = []
+        if self.table is not None:
+            for k in self.table:
+                result['Table'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.table = []
+        if m.get('Table') is not None:
+            for k in m.get('Table'):
+                temp_model = DescribeTablesResponseBodyItemsTable()
+                self.table.append(temp_model.from_map(k))
+        return self
+
+
+class DescribeTablesResponseBody(TeaModel):
+    def __init__(self, items=None, request_id=None):
+        self.items = items  # type: DescribeTablesResponseBodyItems
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.items:
+            self.items.validate()
+
+    def to_map(self):
+        _map = super(DescribeTablesResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.items is not None:
+            result['Items'] = self.items.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Items') is not None:
+            temp_model = DescribeTablesResponseBodyItems()
+            self.items = temp_model.from_map(m['Items'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeTablesResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeTablesResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeTablesResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeTablesResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DisableElasticPlanRequest(TeaModel):
     def __init__(self, dbcluster_id=None, elastic_plan_name=None):
         # The ID of the cluster.
@@ -11894,9 +12759,9 @@ class GetSparkAppAttemptLogRequest(TeaModel):
     def __init__(self, attempt_id=None, log_length=None):
         # The ID of the log.
         # 
-        # >  You can call the [ListSparkAppAttempts](~~455887~~) operation to query the retry history of an application, including the log ID of a retry attempt.
+        # > You can call the [ListSparkAppAttempts](~~455887~~) operation to query the information about the retry attempts of a Spark application, including the retry log IDs.
         self.attempt_id = attempt_id  # type: str
-        # The number of rows to return in the log. Valid values: 1 to 500. Default value: 300.
+        # The number of log entries to return. Valid values: 1 to 500. Default value: 300.
         self.log_length = log_length  # type: long
 
     def validate(self):
@@ -11925,10 +12790,11 @@ class GetSparkAppAttemptLogRequest(TeaModel):
 
 class GetSparkAppAttemptLogResponseBodyData(TeaModel):
     def __init__(self, dbcluster_id=None, log_content=None, message=None):
+        # The ID of the Data Lakehouse Edition (V3.0) cluster.
         self.dbcluster_id = dbcluster_id  # type: str
         # The content of the log.
         self.log_content = log_content  # type: str
-        # The alert message returned for the operation, such as task execution failure or insufficient resources. Null is returned if no alert occurs.
+        # The alert message returned for the request, such as task execution failure or insufficient resources. If no alert occurs, null is returned.
         self.message = message  # type: str
 
     def validate(self):
@@ -11961,9 +12827,9 @@ class GetSparkAppAttemptLogResponseBodyData(TeaModel):
 
 class GetSparkAppAttemptLogResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
-        # The data returned.
+        # The queried log.
         self.data = data  # type: GetSparkAppAttemptLogResponseBodyData
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -12033,6 +12899,9 @@ class GetSparkAppAttemptLogResponse(TeaModel):
 
 class GetSparkAppInfoRequest(TeaModel):
     def __init__(self, app_id=None):
+        # The ID of the application. 
+        # 
+        # >  You can call the [ListSparkApps](/help/en/analyticdb-for-mysql/latest/listsparkapps) operation to query the Spark application ID.
         self.app_id = app_id  # type: str
 
     def validate(self):
@@ -12057,7 +12926,22 @@ class GetSparkAppInfoRequest(TeaModel):
 
 class GetSparkAppInfoResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # Details of the Spark application. Fields in the response parameter:
+        # 
+        # - **Data**: the data of the Spark application template.
+        # - **EstimateExecutionCpuTimeInSeconds**: the amount of time it takes to consume CPU resources for running the Spark application. Unit: milliseconds.
+        # - **LogRootPath**: the storage path of log files.
+        # - **LastAttemptId**: the most recent attempt ID.
+        # - **WebUiAddress**: the web UI URL.
+        # - **SubmittedTimeInMillis**: the time when the Spark application was submitted. The time is displayed in the UNIX timestamp format. Unit: milliseconds.
+        # - **StartedTimeInMillis**: the time when the Spark application was created. The time is displayed in the UNIX timestamp format. Unit: milliseconds.
+        # - **LastUpdatedTimeInMillis**: the time when the Spark application was last updated. The time is displayed in the UNIX timestamp format. Unit: milliseconds.
+        # - **TerminatedTimeInMillis**: the time when the Spark application task was terminated. The time is displayed in the UNIX timestamp format. Unit: milliseconds.
+        # - **DBClusterId**: the ID of the cluster on which the Spark application runs.
+        # - **ResourceGroupName**: the name of the job resource group.
+        # - **DurationInMillis**: the amount of time it takes to run the Spark application. Unit: milliseconds.
         self.data = data  # type: SparkAppInfo
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -12892,6 +13776,7 @@ class GetSparkConfigLogPathResponse(TeaModel):
 
 class GetSparkDefinitionsRequest(TeaModel):
     def __init__(self, dbcluster_id=None):
+        # The ID of the cluster.
         self.dbcluster_id = dbcluster_id  # type: str
 
     def validate(self):
@@ -12916,7 +13801,9 @@ class GetSparkDefinitionsRequest(TeaModel):
 
 class GetSparkDefinitionsResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # The common definitions of Spark applications.
         self.data = data  # type: str
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -15725,7 +16612,7 @@ class ModifyAccountDescriptionRequest(TeaModel):
         self.account_description = account_description  # type: str
         # The name of the database account.
         # 
-        # > You can call the [DescribeAccounts](~~~) operation to query the information about database accounts in a cluster, including the database account name.
+        # > You can call the [DescribeAccounts](~~612430~~) operation to query the information about database accounts in a cluster, including the database account name.
         self.account_name = account_name  # type: str
         # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
         self.dbcluster_id = dbcluster_id  # type: str
@@ -17323,7 +18210,7 @@ class ResetAccountPasswordRequest(TeaModel):
         self.account_description = account_description  # type: str
         # The name of the database account.
         # 
-        # > You can call the [DescribeAccounts](~~~) operation to query the information about database accounts in a cluster, including the database account name.
+        # > You can call the [DescribeAccounts](~~612430~~) operation to query the information about database accounts in a cluster, including the database account name.
         self.account_name = account_name  # type: str
         # The password of the database account.
         # 
@@ -18073,7 +18960,7 @@ class UnbindAccountRequest(TeaModel):
     def __init__(self, account_name=None, dbcluster_id=None):
         # The name of the database account.
         # 
-        # > You can call the [DescribeAccounts](~~~~) operation to view the information about a database account in a cluster, including the name of the database account.
+        # > You can call the [DescribeAccounts](~~612430~~) operation to view the information about a database account in a cluster, including the name of the database account.
         self.account_name = account_name  # type: str
         # The ID of the AnalyticDB for MySQL Data Lakehouse Edition (V3.0) cluster.
         self.dbcluster_id = dbcluster_id  # type: str

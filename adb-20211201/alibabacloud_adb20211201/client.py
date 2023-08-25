@@ -890,6 +890,40 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_adb_my_sql_tables_with_options(request, runtime)
 
+    def describe_all_data_source_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbcluster_id):
+            query['DBClusterId'] = request.dbcluster_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.schema_name):
+            query['SchemaName'] = request.schema_name
+        if not UtilClient.is_unset(request.table_name):
+            query['TableName'] = request.table_name
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeAllDataSource',
+            version='2021-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adb_20211201_models.DescribeAllDataSourceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_all_data_source(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_all_data_source_with_options(request, runtime)
+
     def describe_aps_action_logs_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1093,6 +1127,40 @@ class Client(OpenApiClient):
     def describe_cluster_net_info(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_cluster_net_info_with_options(request, runtime)
+
+    def describe_columns_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbcluster_id):
+            query['DBClusterId'] = request.dbcluster_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.schema_name):
+            query['SchemaName'] = request.schema_name
+        if not UtilClient.is_unset(request.table_name):
+            query['TableName'] = request.table_name
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeColumns',
+            version='2021-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adb_20211201_models.DescribeColumnsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_columns(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_columns_with_options(request, runtime)
 
     def describe_dbcluster_attribute_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1710,6 +1778,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_sqlpatterns_with_options(request, runtime)
 
+    def describe_schemas_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbcluster_id):
+            query['DBClusterId'] = request.dbcluster_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeSchemas',
+            version='2021-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adb_20211201_models.DescribeSchemasResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_schemas(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_schemas_with_options(request, runtime)
+
     def describe_spark_code_log_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1887,6 +1985,38 @@ class Client(OpenApiClient):
     def describe_table_access_count(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_table_access_count_with_options(request, runtime)
+
+    def describe_tables_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbcluster_id):
+            query['DBClusterId'] = request.dbcluster_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.schema_name):
+            query['SchemaName'] = request.schema_name
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeTables',
+            version='2021-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adb_20211201_models.DescribeTablesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_tables(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_tables_with_options(request, runtime)
 
     def disable_elastic_plan_with_options(self, request, runtime):
         UtilClient.validate_model(request)
