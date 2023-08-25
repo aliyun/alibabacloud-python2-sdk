@@ -45,6 +45,8 @@ class Client(OpenApiClient):
             query['InternetChargeType'] = request.internet_charge_type
         if not UtilClient.is_unset(request.name):
             query['Name'] = request.name
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.service_location):
             query['ServiceLocation'] = request.service_location
         req = open_api_models.OpenApiRequest(
@@ -225,10 +227,14 @@ class Client(OpenApiClient):
             query['Name'] = request.name
         if not UtilClient.is_unset(request.next_token):
             query['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.service_location):
             query['ServiceLocation'] = request.service_location
         if not UtilClient.is_unset(request.status):
             query['Status'] = request.status
+        if not UtilClient.is_unset(request.tags):
+            query['Tags'] = request.tags
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -251,6 +257,42 @@ class Client(OpenApiClient):
     def list_anycast_eip_addresses(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_anycast_eip_addresses_with_options(request, runtime)
+
+    def list_tag_resources_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.max_results):
+            query['MaxResults'] = request.max_results
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
+        if not UtilClient.is_unset(request.resource_id):
+            query['ResourceId'] = request.resource_id
+        if not UtilClient.is_unset(request.resource_type):
+            query['ResourceType'] = request.resource_type
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListTagResources',
+            version='2020-03-09',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eipanycast_20200309_models.ListTagResourcesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_tag_resources(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_tag_resources_with_options(request, runtime)
 
     def modify_anycast_eip_address_attribute_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -344,6 +386,38 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.release_anycast_eip_address_with_options(request, runtime)
 
+    def tag_resources_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.resource_id):
+            query['ResourceId'] = request.resource_id
+        if not UtilClient.is_unset(request.resource_type):
+            query['ResourceType'] = request.resource_type
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='TagResources',
+            version='2020-03-09',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eipanycast_20200309_models.TagResourcesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def tag_resources(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.tag_resources_with_options(request, runtime)
+
     def unassociate_anycast_eip_address_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -383,6 +457,38 @@ class Client(OpenApiClient):
     def unassociate_anycast_eip_address(self, request):
         runtime = util_models.RuntimeOptions()
         return self.unassociate_anycast_eip_address_with_options(request, runtime)
+
+    def untag_resources_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.resource_id):
+            query['ResourceId'] = request.resource_id
+        if not UtilClient.is_unset(request.resource_type):
+            query['ResourceType'] = request.resource_type
+        if not UtilClient.is_unset(request.tag_key):
+            query['TagKey'] = request.tag_key
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UntagResources',
+            version='2020-03-09',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eipanycast_20200309_models.UntagResourcesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def untag_resources(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.untag_resources_with_options(request, runtime)
 
     def update_anycast_eip_address_associations_with_options(self, request, runtime):
         UtilClient.validate_model(request)
