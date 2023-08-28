@@ -1063,11 +1063,12 @@ class GetVideoTaskInfoShrinkRequest(TeaModel):
 
 
 class GetVideoTaskInfoResponseBodyDataTaskResult(TeaModel):
-    def __init__(self, alpha_url=None, fail_code=None, fail_reason=None, subtitles_url=None, video_duration=None,
-                 video_url=None, word_subtitles_url=None):
+    def __init__(self, alpha_url=None, fail_code=None, fail_reason=None, preview_pic=None, subtitles_url=None,
+                 video_duration=None, video_url=None, word_subtitles_url=None):
         self.alpha_url = alpha_url  # type: str
         self.fail_code = fail_code  # type: str
         self.fail_reason = fail_reason  # type: str
+        self.preview_pic = preview_pic  # type: str
         self.subtitles_url = subtitles_url  # type: str
         self.video_duration = video_duration  # type: int
         self.video_url = video_url  # type: str
@@ -1089,6 +1090,8 @@ class GetVideoTaskInfoResponseBodyDataTaskResult(TeaModel):
             result['FailCode'] = self.fail_code
         if self.fail_reason is not None:
             result['FailReason'] = self.fail_reason
+        if self.preview_pic is not None:
+            result['PreviewPic'] = self.preview_pic
         if self.subtitles_url is not None:
             result['SubtitlesUrl'] = self.subtitles_url
         if self.video_duration is not None:
@@ -1107,6 +1110,8 @@ class GetVideoTaskInfoResponseBodyDataTaskResult(TeaModel):
             self.fail_code = m.get('FailCode')
         if m.get('FailReason') is not None:
             self.fail_reason = m.get('FailReason')
+        if m.get('PreviewPic') is not None:
+            self.preview_pic = m.get('PreviewPic')
         if m.get('SubtitlesUrl') is not None:
             self.subtitles_url = m.get('SubtitlesUrl')
         if m.get('VideoDuration') is not None:
@@ -1536,12 +1541,15 @@ class QueryAvatarResponseBodyDataSupportedResolutions(TeaModel):
 
 
 class QueryAvatarResponseBodyData(TeaModel):
-    def __init__(self, avatar_type=None, description=None, image=None, make_fail_reason=None, make_status=None,
-                 model_type=None, name=None, portrait=None, supported_resolutions=None):
+    def __init__(self, all_locate_images=None, avatar_type=None, description=None, image=None,
+                 make_fail_reason=None, make_stage=None, make_status=None, model_type=None, name=None, portrait=None,
+                 supported_resolutions=None):
+        self.all_locate_images = all_locate_images  # type: dict[str, any]
         self.avatar_type = avatar_type  # type: str
         self.description = description  # type: str
         self.image = image  # type: str
         self.make_fail_reason = make_fail_reason  # type: str
+        self.make_stage = make_stage  # type: str
         self.make_status = make_status  # type: str
         self.model_type = model_type  # type: str
         self.name = name  # type: str
@@ -1558,6 +1566,8 @@ class QueryAvatarResponseBodyData(TeaModel):
             return _map
 
         result = dict()
+        if self.all_locate_images is not None:
+            result['AllLocateImages'] = self.all_locate_images
         if self.avatar_type is not None:
             result['AvatarType'] = self.avatar_type
         if self.description is not None:
@@ -1566,6 +1576,8 @@ class QueryAvatarResponseBodyData(TeaModel):
             result['Image'] = self.image
         if self.make_fail_reason is not None:
             result['MakeFailReason'] = self.make_fail_reason
+        if self.make_stage is not None:
+            result['MakeStage'] = self.make_stage
         if self.make_status is not None:
             result['MakeStatus'] = self.make_status
         if self.model_type is not None:
@@ -1580,6 +1592,8 @@ class QueryAvatarResponseBodyData(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AllLocateImages') is not None:
+            self.all_locate_images = m.get('AllLocateImages')
         if m.get('AvatarType') is not None:
             self.avatar_type = m.get('AvatarType')
         if m.get('Description') is not None:
@@ -1588,6 +1602,8 @@ class QueryAvatarResponseBodyData(TeaModel):
             self.image = m.get('Image')
         if m.get('MakeFailReason') is not None:
             self.make_fail_reason = m.get('MakeFailReason')
+        if m.get('MakeStage') is not None:
+            self.make_stage = m.get('MakeStage')
         if m.get('MakeStatus') is not None:
             self.make_status = m.get('MakeStatus')
         if m.get('ModelType') is not None:
@@ -1842,12 +1858,13 @@ class QueryAvatarListResponseBodyDataListSupportedResolutions(TeaModel):
 
 class QueryAvatarListResponseBodyDataList(TeaModel):
     def __init__(self, avatar_type=None, code=None, description=None, image=None, make_fail_reason=None,
-                 make_status=None, model_type=None, name=None, portrait=None, supported_resolutions=None):
+                 make_stage=None, make_status=None, model_type=None, name=None, portrait=None, supported_resolutions=None):
         self.avatar_type = avatar_type  # type: str
         self.code = code  # type: str
         self.description = description  # type: str
         self.image = image  # type: str
         self.make_fail_reason = make_fail_reason  # type: str
+        self.make_stage = make_stage  # type: str
         self.make_status = make_status  # type: str
         self.model_type = model_type  # type: str
         self.name = name  # type: str
@@ -1874,6 +1891,8 @@ class QueryAvatarListResponseBodyDataList(TeaModel):
             result['Image'] = self.image
         if self.make_fail_reason is not None:
             result['MakeFailReason'] = self.make_fail_reason
+        if self.make_stage is not None:
+            result['MakeStage'] = self.make_stage
         if self.make_status is not None:
             result['MakeStatus'] = self.make_status
         if self.model_type is not None:
@@ -1898,6 +1917,8 @@ class QueryAvatarListResponseBodyDataList(TeaModel):
             self.image = m.get('Image')
         if m.get('MakeFailReason') is not None:
             self.make_fail_reason = m.get('MakeFailReason')
+        if m.get('MakeStage') is not None:
+            self.make_stage = m.get('MakeStage')
         if m.get('MakeStatus') is not None:
             self.make_status = m.get('MakeStatus')
         if m.get('ModelType') is not None:
@@ -2517,6 +2538,401 @@ class QueryTimedResetOperateStatusResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = QueryTimedResetOperateStatusResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class QueryVideoTaskInfoRequestApp(TeaModel):
+    def __init__(self, app_id=None):
+        self.app_id = app_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryVideoTaskInfoRequestApp, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_id is not None:
+            result['AppId'] = self.app_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AppId') is not None:
+            self.app_id = m.get('AppId')
+        return self
+
+
+class QueryVideoTaskInfoRequest(TeaModel):
+    def __init__(self, app=None, order_by_id=None, page_no=None, page_size=None, status=None, task_uuid=None,
+                 tenant_id=None, title=None, type=None):
+        self.app = app  # type: QueryVideoTaskInfoRequestApp
+        self.order_by_id = order_by_id  # type: str
+        self.page_no = page_no  # type: int
+        self.page_size = page_size  # type: int
+        self.status = status  # type: int
+        self.task_uuid = task_uuid  # type: str
+        self.tenant_id = tenant_id  # type: long
+        self.title = title  # type: str
+        self.type = type  # type: int
+
+    def validate(self):
+        if self.app:
+            self.app.validate()
+
+    def to_map(self):
+        _map = super(QueryVideoTaskInfoRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app is not None:
+            result['App'] = self.app.to_map()
+        if self.order_by_id is not None:
+            result['OrderById'] = self.order_by_id
+        if self.page_no is not None:
+            result['PageNo'] = self.page_no
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.task_uuid is not None:
+            result['TaskUuid'] = self.task_uuid
+        if self.tenant_id is not None:
+            result['TenantId'] = self.tenant_id
+        if self.title is not None:
+            result['Title'] = self.title
+        if self.type is not None:
+            result['Type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('App') is not None:
+            temp_model = QueryVideoTaskInfoRequestApp()
+            self.app = temp_model.from_map(m['App'])
+        if m.get('OrderById') is not None:
+            self.order_by_id = m.get('OrderById')
+        if m.get('PageNo') is not None:
+            self.page_no = m.get('PageNo')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('TaskUuid') is not None:
+            self.task_uuid = m.get('TaskUuid')
+        if m.get('TenantId') is not None:
+            self.tenant_id = m.get('TenantId')
+        if m.get('Title') is not None:
+            self.title = m.get('Title')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        return self
+
+
+class QueryVideoTaskInfoShrinkRequest(TeaModel):
+    def __init__(self, app_shrink=None, order_by_id=None, page_no=None, page_size=None, status=None, task_uuid=None,
+                 tenant_id=None, title=None, type=None):
+        self.app_shrink = app_shrink  # type: str
+        self.order_by_id = order_by_id  # type: str
+        self.page_no = page_no  # type: int
+        self.page_size = page_size  # type: int
+        self.status = status  # type: int
+        self.task_uuid = task_uuid  # type: str
+        self.tenant_id = tenant_id  # type: long
+        self.title = title  # type: str
+        self.type = type  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryVideoTaskInfoShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_shrink is not None:
+            result['App'] = self.app_shrink
+        if self.order_by_id is not None:
+            result['OrderById'] = self.order_by_id
+        if self.page_no is not None:
+            result['PageNo'] = self.page_no
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.task_uuid is not None:
+            result['TaskUuid'] = self.task_uuid
+        if self.tenant_id is not None:
+            result['TenantId'] = self.tenant_id
+        if self.title is not None:
+            result['Title'] = self.title
+        if self.type is not None:
+            result['Type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('App') is not None:
+            self.app_shrink = m.get('App')
+        if m.get('OrderById') is not None:
+            self.order_by_id = m.get('OrderById')
+        if m.get('PageNo') is not None:
+            self.page_no = m.get('PageNo')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('TaskUuid') is not None:
+            self.task_uuid = m.get('TaskUuid')
+        if m.get('TenantId') is not None:
+            self.tenant_id = m.get('TenantId')
+        if m.get('Title') is not None:
+            self.title = m.get('Title')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        return self
+
+
+class QueryVideoTaskInfoResponseBodyDataListTaskResult(TeaModel):
+    def __init__(self, alpha_url=None, fail_code=None, fail_reason=None, preview_pic=None, subtitles_url=None,
+                 video_duration=None, video_url=None, word_subtitles_url=None):
+        self.alpha_url = alpha_url  # type: str
+        self.fail_code = fail_code  # type: str
+        self.fail_reason = fail_reason  # type: str
+        self.preview_pic = preview_pic  # type: str
+        self.subtitles_url = subtitles_url  # type: str
+        self.video_duration = video_duration  # type: int
+        self.video_url = video_url  # type: str
+        self.word_subtitles_url = word_subtitles_url  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryVideoTaskInfoResponseBodyDataListTaskResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.alpha_url is not None:
+            result['AlphaUrl'] = self.alpha_url
+        if self.fail_code is not None:
+            result['FailCode'] = self.fail_code
+        if self.fail_reason is not None:
+            result['FailReason'] = self.fail_reason
+        if self.preview_pic is not None:
+            result['PreviewPic'] = self.preview_pic
+        if self.subtitles_url is not None:
+            result['SubtitlesUrl'] = self.subtitles_url
+        if self.video_duration is not None:
+            result['VideoDuration'] = self.video_duration
+        if self.video_url is not None:
+            result['VideoUrl'] = self.video_url
+        if self.word_subtitles_url is not None:
+            result['WordSubtitlesUrl'] = self.word_subtitles_url
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AlphaUrl') is not None:
+            self.alpha_url = m.get('AlphaUrl')
+        if m.get('FailCode') is not None:
+            self.fail_code = m.get('FailCode')
+        if m.get('FailReason') is not None:
+            self.fail_reason = m.get('FailReason')
+        if m.get('PreviewPic') is not None:
+            self.preview_pic = m.get('PreviewPic')
+        if m.get('SubtitlesUrl') is not None:
+            self.subtitles_url = m.get('SubtitlesUrl')
+        if m.get('VideoDuration') is not None:
+            self.video_duration = m.get('VideoDuration')
+        if m.get('VideoUrl') is not None:
+            self.video_url = m.get('VideoUrl')
+        if m.get('WordSubtitlesUrl') is not None:
+            self.word_subtitles_url = m.get('WordSubtitlesUrl')
+        return self
+
+
+class QueryVideoTaskInfoResponseBodyDataList(TeaModel):
+    def __init__(self, status=None, task_result=None, task_uuid=None, title=None, type=None):
+        self.status = status  # type: int
+        self.task_result = task_result  # type: QueryVideoTaskInfoResponseBodyDataListTaskResult
+        self.task_uuid = task_uuid  # type: str
+        self.title = title  # type: str
+        self.type = type  # type: int
+
+    def validate(self):
+        if self.task_result:
+            self.task_result.validate()
+
+    def to_map(self):
+        _map = super(QueryVideoTaskInfoResponseBodyDataList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.task_result is not None:
+            result['TaskResult'] = self.task_result.to_map()
+        if self.task_uuid is not None:
+            result['TaskUuid'] = self.task_uuid
+        if self.title is not None:
+            result['Title'] = self.title
+        if self.type is not None:
+            result['Type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('TaskResult') is not None:
+            temp_model = QueryVideoTaskInfoResponseBodyDataListTaskResult()
+            self.task_result = temp_model.from_map(m['TaskResult'])
+        if m.get('TaskUuid') is not None:
+            self.task_uuid = m.get('TaskUuid')
+        if m.get('Title') is not None:
+            self.title = m.get('Title')
+        if m.get('Type') is not None:
+            self.type = m.get('Type')
+        return self
+
+
+class QueryVideoTaskInfoResponseBodyData(TeaModel):
+    def __init__(self, list=None, page_no=None, page_size=None, total_count=None):
+        self.list = list  # type: list[QueryVideoTaskInfoResponseBodyDataList]
+        self.page_no = page_no  # type: int
+        self.page_size = page_size  # type: int
+        self.total_count = total_count  # type: long
+
+    def validate(self):
+        if self.list:
+            for k in self.list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(QueryVideoTaskInfoResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['List'] = []
+        if self.list is not None:
+            for k in self.list:
+                result['List'].append(k.to_map() if k else None)
+        if self.page_no is not None:
+            result['PageNo'] = self.page_no
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.total_count is not None:
+            result['TotalCount'] = self.total_count
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.list = []
+        if m.get('List') is not None:
+            for k in m.get('List'):
+                temp_model = QueryVideoTaskInfoResponseBodyDataList()
+                self.list.append(temp_model.from_map(k))
+        if m.get('PageNo') is not None:
+            self.page_no = m.get('PageNo')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('TotalCount') is not None:
+            self.total_count = m.get('TotalCount')
+        return self
+
+
+class QueryVideoTaskInfoResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: QueryVideoTaskInfoResponseBodyData
+        self.message = message  # type: str
+        # Id of the request
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(QueryVideoTaskInfoResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            temp_model = QueryVideoTaskInfoResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class QueryVideoTaskInfoResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: QueryVideoTaskInfoResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(QueryVideoTaskInfoResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = QueryVideoTaskInfoResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
