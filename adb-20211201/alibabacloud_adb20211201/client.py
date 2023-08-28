@@ -207,6 +207,8 @@ class Client(OpenApiClient):
     def create_dbcluster_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.backup_set_id):
+            query['BackupSetId'] = request.backup_set_id
         if not UtilClient.is_unset(request.compute_resource):
             query['ComputeResource'] = request.compute_resource
         if not UtilClient.is_unset(request.dbcluster_description):
@@ -225,6 +227,12 @@ class Client(OpenApiClient):
             query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.resource_group_id):
             query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.restore_to_time):
+            query['RestoreToTime'] = request.restore_to_time
+        if not UtilClient.is_unset(request.restore_type):
+            query['RestoreType'] = request.restore_type
+        if not UtilClient.is_unset(request.source_db_cluster_id):
+            query['SourceDbClusterId'] = request.source_db_cluster_id
         if not UtilClient.is_unset(request.storage_resource):
             query['StorageResource'] = request.storage_resource
         if not UtilClient.is_unset(request.tag):

@@ -1997,9 +1997,11 @@ class CreateDBClusterRequestTag(TeaModel):
 
 
 class CreateDBClusterRequest(TeaModel):
-    def __init__(self, compute_resource=None, dbcluster_description=None, dbcluster_network_type=None,
-                 dbcluster_version=None, enable_default_resource_pool=None, pay_type=None, period=None, region_id=None,
-                 resource_group_id=None, storage_resource=None, tag=None, used_time=None, vpcid=None, v_switch_id=None, zone_id=None):
+    def __init__(self, backup_set_id=None, compute_resource=None, dbcluster_description=None,
+                 dbcluster_network_type=None, dbcluster_version=None, enable_default_resource_pool=None, pay_type=None, period=None,
+                 region_id=None, resource_group_id=None, restore_to_time=None, restore_type=None, source_db_cluster_id=None,
+                 storage_resource=None, tag=None, used_time=None, vpcid=None, v_switch_id=None, zone_id=None):
+        self.backup_set_id = backup_set_id  # type: str
         # The reserved computing resources. Unit: ACUs. Valid values: 0 to 4096. The value must be in increments of 16 ACUs. Each ACU is equivalent to 1 core and 4 GB memory.
         # 
         # >  You must specify a value with the unit for this parameter.
@@ -2035,6 +2037,9 @@ class CreateDBClusterRequest(TeaModel):
         # >  You can call the [DescribeRegions](~~454314~~) operation to query the most recent region list.
         self.region_id = region_id  # type: str
         self.resource_group_id = resource_group_id  # type: str
+        self.restore_to_time = restore_to_time  # type: str
+        self.restore_type = restore_type  # type: str
+        self.source_db_cluster_id = source_db_cluster_id  # type: str
         # The reserved storage resources. Unit: AnalyticDB Compute Units (ACUs). Valid values: 0 to 2064. The value must be in increments of 24 ACUs. Each ACU is equivalent to 1 core and 4 GB memory.
         # 
         # >  You must specify a value with the unit for this parameter.
@@ -2068,6 +2073,8 @@ class CreateDBClusterRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.backup_set_id is not None:
+            result['BackupSetId'] = self.backup_set_id
         if self.compute_resource is not None:
             result['ComputeResource'] = self.compute_resource
         if self.dbcluster_description is not None:
@@ -2086,6 +2093,12 @@ class CreateDBClusterRequest(TeaModel):
             result['RegionId'] = self.region_id
         if self.resource_group_id is not None:
             result['ResourceGroupId'] = self.resource_group_id
+        if self.restore_to_time is not None:
+            result['RestoreToTime'] = self.restore_to_time
+        if self.restore_type is not None:
+            result['RestoreType'] = self.restore_type
+        if self.source_db_cluster_id is not None:
+            result['SourceDbClusterId'] = self.source_db_cluster_id
         if self.storage_resource is not None:
             result['StorageResource'] = self.storage_resource
         result['Tag'] = []
@@ -2104,6 +2117,8 @@ class CreateDBClusterRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('BackupSetId') is not None:
+            self.backup_set_id = m.get('BackupSetId')
         if m.get('ComputeResource') is not None:
             self.compute_resource = m.get('ComputeResource')
         if m.get('DBClusterDescription') is not None:
@@ -2122,6 +2137,12 @@ class CreateDBClusterRequest(TeaModel):
             self.region_id = m.get('RegionId')
         if m.get('ResourceGroupId') is not None:
             self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('RestoreToTime') is not None:
+            self.restore_to_time = m.get('RestoreToTime')
+        if m.get('RestoreType') is not None:
+            self.restore_type = m.get('RestoreType')
+        if m.get('SourceDbClusterId') is not None:
+            self.source_db_cluster_id = m.get('SourceDbClusterId')
         if m.get('StorageResource') is not None:
             self.storage_resource = m.get('StorageResource')
         self.tag = []
@@ -13011,9 +13032,11 @@ class GetSparkAppInfoResponse(TeaModel):
 
 class GetSparkAppLogRequest(TeaModel):
     def __init__(self, app_id=None, log_length=None):
-        # The number of log entries to return. Valid values: 1 to 500. Default value: 300.
+        # The Spark application ID.
+        # 
+        # > You can call the [ListSparkApps](~~~~) operation to query the Spark application ID.
         self.app_id = app_id  # type: str
-        # The ID of the request.
+        # The number of log entries to return. Valid values: 1 to 500. Default value: 300.
         self.log_length = log_length  # type: long
 
     def validate(self):
@@ -13042,9 +13065,11 @@ class GetSparkAppLogRequest(TeaModel):
 
 class GetSparkAppLogResponseBodyData(TeaModel):
     def __init__(self, dbcluster_id=None, log_content=None, message=None):
+        # The ID of the Data Lakehouse Edition (V3.0) cluster.
         self.dbcluster_id = dbcluster_id  # type: str
-        # The alert message returned for the operation, such as task execution failure or insufficient resources. Null is returned if no alert occurs.
+        # The content of the log.
         self.log_content = log_content  # type: str
+        # The alert message returned for the request, such as task execution failure or insufficient resources. If no alert occurs, null is returned.
         self.message = message  # type: str
 
     def validate(self):
@@ -13077,9 +13102,9 @@ class GetSparkAppLogResponseBodyData(TeaModel):
 
 class GetSparkAppLogResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
-        # The content of the log.
+        # The queried log.
         self.data = data  # type: GetSparkAppLogResponseBodyData
-        # Details of the logs.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
