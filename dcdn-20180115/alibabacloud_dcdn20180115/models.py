@@ -35,14 +35,15 @@ class AddDcdnDomainRequestTag(TeaModel):
 
 
 class AddDcdnDomainRequest(TeaModel):
-    def __init__(self, check_url=None, domain_name=None, owner_account=None, owner_id=None, resource_group_id=None,
-                 scene=None, scope=None, security_token=None, sources=None, tag=None, top_level_domain=None):
+    def __init__(self, check_url=None, domain_name=None, function_type=None, owner_account=None, owner_id=None,
+                 resource_group_id=None, scene=None, scope=None, security_token=None, sources=None, tag=None, top_level_domain=None):
         # The URL that is used for health checks.
         self.check_url = check_url  # type: str
         # The domain name that you want to add. You can specify only one domain name in each request.
         # 
         # Wildcard domain names are supported. A wildcard domain name must start with a period (.), such as .example.com.
         self.domain_name = domain_name  # type: str
+        self.function_type = function_type  # type: str
         self.owner_account = owner_account  # type: str
         self.owner_id = owner_id  # type: long
         # The ID of the resource group. If you do not specify a value for this parameter, the system automatically assigns the ID of the default resource group.
@@ -80,6 +81,8 @@ class AddDcdnDomainRequest(TeaModel):
             result['CheckUrl'] = self.check_url
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
+        if self.function_type is not None:
+            result['FunctionType'] = self.function_type
         if self.owner_account is not None:
             result['OwnerAccount'] = self.owner_account
         if self.owner_id is not None:
@@ -108,6 +111,8 @@ class AddDcdnDomainRequest(TeaModel):
             self.check_url = m.get('CheckUrl')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
+        if m.get('FunctionType') is not None:
+            self.function_type = m.get('FunctionType')
         if m.get('OwnerAccount') is not None:
             self.owner_account = m.get('OwnerAccount')
         if m.get('OwnerId') is not None:
@@ -1943,6 +1948,184 @@ class BatchModifyDcdnWafRulesResponse(TeaModel):
         return self
 
 
+class BatchPutDcdnKvRequestKvList(TeaModel):
+    def __init__(self, expiration=None, expiration_ttl=None, key=None, value=None):
+        self.expiration = expiration  # type: long
+        self.expiration_ttl = expiration_ttl  # type: long
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BatchPutDcdnKvRequestKvList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.expiration is not None:
+            result['Expiration'] = self.expiration
+        if self.expiration_ttl is not None:
+            result['ExpirationTtl'] = self.expiration_ttl
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Expiration') is not None:
+            self.expiration = m.get('Expiration')
+        if m.get('ExpirationTtl') is not None:
+            self.expiration_ttl = m.get('ExpirationTtl')
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
+class BatchPutDcdnKvRequest(TeaModel):
+    def __init__(self, kv_list=None, namespace=None):
+        self.kv_list = kv_list  # type: list[BatchPutDcdnKvRequestKvList]
+        self.namespace = namespace  # type: str
+
+    def validate(self):
+        if self.kv_list:
+            for k in self.kv_list:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(BatchPutDcdnKvRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['KvList'] = []
+        if self.kv_list is not None:
+            for k in self.kv_list:
+                result['KvList'].append(k.to_map() if k else None)
+        if self.namespace is not None:
+            result['Namespace'] = self.namespace
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.kv_list = []
+        if m.get('KvList') is not None:
+            for k in m.get('KvList'):
+                temp_model = BatchPutDcdnKvRequestKvList()
+                self.kv_list.append(temp_model.from_map(k))
+        if m.get('Namespace') is not None:
+            self.namespace = m.get('Namespace')
+        return self
+
+
+class BatchPutDcdnKvShrinkRequest(TeaModel):
+    def __init__(self, kv_list_shrink=None, namespace=None):
+        self.kv_list_shrink = kv_list_shrink  # type: str
+        self.namespace = namespace  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BatchPutDcdnKvShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.kv_list_shrink is not None:
+            result['KvList'] = self.kv_list_shrink
+        if self.namespace is not None:
+            result['Namespace'] = self.namespace
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('KvList') is not None:
+            self.kv_list_shrink = m.get('KvList')
+        if m.get('Namespace') is not None:
+            self.namespace = m.get('Namespace')
+        return self
+
+
+class BatchPutDcdnKvResponseBody(TeaModel):
+    def __init__(self, fail_keys=None, request_id=None, success_keys=None):
+        self.fail_keys = fail_keys  # type: list[str]
+        self.request_id = request_id  # type: str
+        self.success_keys = success_keys  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(BatchPutDcdnKvResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.fail_keys is not None:
+            result['FailKeys'] = self.fail_keys
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success_keys is not None:
+            result['SuccessKeys'] = self.success_keys
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('FailKeys') is not None:
+            self.fail_keys = m.get('FailKeys')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('SuccessKeys') is not None:
+            self.success_keys = m.get('SuccessKeys')
+        return self
+
+
+class BatchPutDcdnKvResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: BatchPutDcdnKvResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(BatchPutDcdnKvResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = BatchPutDcdnKvResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class BatchSetDcdnDomainCertificateRequest(TeaModel):
     def __init__(self, cert_name=None, cert_type=None, domain_name=None, owner_id=None, region=None, sslpri=None,
                  sslprotocol=None, sslpub=None, security_token=None):
@@ -2440,7 +2623,7 @@ class BatchSetDcdnWafDomainConfigsResponse(TeaModel):
 
 class BatchStartDcdnDomainRequest(TeaModel):
     def __init__(self, domain_names=None, owner_id=None, security_token=None):
-        # The accelerated domain name. Separate multiple accelerated domain names with commas (,).
+        # The accelerated domain name. You can specify multiple accelerated domain names and separate them with commas (,).
         self.domain_names = domain_names  # type: str
         self.owner_id = owner_id  # type: long
         self.security_token = security_token  # type: str
@@ -2475,7 +2658,7 @@ class BatchStartDcdnDomainRequest(TeaModel):
 
 class BatchStartDcdnDomainResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -2574,7 +2757,7 @@ class BatchStopDcdnDomainRequest(TeaModel):
 
 class BatchStopDcdnDomainResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3984,7 +4167,7 @@ class DeleteDcdnDomainRequest(TeaModel):
 
 class DeleteDcdnDomainResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4088,7 +4271,7 @@ class DeleteDcdnIpaDomainRequest(TeaModel):
 
 class DeleteDcdnIpaDomainResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4571,7 +4754,7 @@ class DeleteDcdnSpecificConfigRequest(TeaModel):
 
 class DeleteDcdnSpecificConfigResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5363,9 +5546,9 @@ class DescribeDcdnAclFieldsResponseBodyContent(TeaModel):
 
 class DescribeDcdnAclFieldsResponseBody(TeaModel):
     def __init__(self, content=None, request_id=None):
-        # Details about the rules.
+        # The details about the rules.
         self.content = content  # type: list[DescribeDcdnAclFieldsResponseBodyContent]
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -7448,6 +7631,10 @@ class DescribeDcdnDomainBpsDataByLayerResponse(TeaModel):
 
 class DescribeDcdnDomainByCertificateRequest(TeaModel):
     def __init__(self, exact=None, sslpub=None, sslstatus=None):
+        # Specifies whether the domain name list to return match the SSL certificate.
+        # 
+        # - **true**: The domain name list match the SSL certificate.
+        # - **false**: The domain name list do not match the SSL certificate.
         self.exact = exact  # type: bool
         # The public key of the certificate.
         # 
@@ -7684,31 +7871,31 @@ class DescribeDcdnDomainCcActivityLogRequest(TeaModel):
         # 
         # The end time must be later than the start time.
         self.end_time = end_time  # type: str
-        # The page number of the returned page. Default value: **1**.
+        # The page number of the page returned. Default value: **1**.
         self.page_number = page_number  # type: long
         # The number of entries to return on each page. Default value: **30**.
         self.page_size = page_size  # type: long
-        # The name of the rule.
+        # The name of the defense rule.
         # 
         # *   default_normal in normal mode
         # *   default_attack in emergency mode
         # *   A custom rule name in custom mode. Example: test2.
         # 
-        # If you leave this parameter empty, all events that triggered rate limiting are queried.
+        # If you leave this parameter empty, events that triggered rate limiting based on all rules are queried.
         self.rule_name = rule_name  # type: str
         # The beginning of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         # 
-        # The minimum data granularity is 5 minutes.
+        # The resolution of the queried data is 5 minutes.
         # 
         # If you leave this parameter empty, the data collected over the last 24 hours is queried.
         self.start_time = start_time  # type: str
-        # The object that triggered rate limiting.
+        # The trigger of rate limiting by which you want to query data.
         # 
         # If you leave this parameter empty, all events that triggered rate limiting are queried.
         self.trigger_object = trigger_object  # type: str
         # The value of the object that triggered rate limiting.
         # 
-        # If you leave this parameter empty, all events that triggered rate limiting are queried.
+        # If you leave this parameter empty, events that triggered rate limiting based on all rules are queried.
         self.value = value  # type: str
 
     def validate(self):
@@ -7764,17 +7951,17 @@ class DescribeDcdnDomainCcActivityLogResponseBodyActivityLog(TeaModel):
                  value=None):
         # The action that was triggered.
         self.action = action  # type: str
-        # The accelerated domain name.
+        # The accelerated domain name whose ICP filing status you want to update.
         self.domain_name = domain_name  # type: str
         # The name of the rule that was triggered.
         self.rule_name = rule_name  # type: str
-        # The timestamp of the returned data.
+        # The timestamp of the data returned.
         self.time_stamp = time_stamp  # type: str
-        # The object that triggered rate limiting.
+        # The object that triggered the blocking event.
         self.trigger_object = trigger_object  # type: str
         # The period of time during which rate limiting remains effective.
         self.ttl = ttl  # type: long
-        # The value of the object that triggered rate limiting.
+        # The value of the trigger for rate limiting.
         self.value = value  # type: str
 
     def validate(self):
@@ -7829,7 +8016,7 @@ class DescribeDcdnDomainCcActivityLogResponseBody(TeaModel):
         self.page_index = page_index  # type: long
         # The number of entries returned per page.
         self.page_size = page_size  # type: long
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
         # The total number of entries returned.
         self.total = total  # type: long
@@ -8254,7 +8441,7 @@ class DescribeDcdnDomainCnameResponseBody(TeaModel):
     def __init__(self, cname_datas=None, request_id=None):
         # The CNAME information.
         self.cname_datas = cname_datas  # type: DescribeDcdnDomainCnameResponseBodyCnameDatas
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -8719,8 +8906,9 @@ class DescribeDcdnDomainDetailResponseBodyDomainDetailSources(TeaModel):
 
 
 class DescribeDcdnDomainDetailResponseBodyDomainDetail(TeaModel):
-    def __init__(self, cname=None, description=None, domain_name=None, domain_status=None, gmt_created=None,
-                 gmt_modified=None, resource_group_id=None, sslprotocol=None, sslpub=None, scene=None, scope=None, sources=None):
+    def __init__(self, cname=None, description=None, domain_name=None, domain_status=None, function_type=None,
+                 gmt_created=None, gmt_modified=None, resource_group_id=None, sslprotocol=None, sslpub=None, scene=None,
+                 scope=None, sources=None):
         # The CNAME that is assigned to the accelerated domain name. You must add the CNAME record to the system of your Domain Name System (DNS) provider to map the accelerated domain name to the CNAME.
         self.cname = cname  # type: str
         # The information about the Internet content provider (ICP) filing of the domain name.
@@ -8736,6 +8924,7 @@ class DescribeDcdnDomainDetailResponseBodyDomainDetail(TeaModel):
         # *   **checking**\
         # *   **check_failed**\
         self.domain_status = domain_status  # type: str
+        self.function_type = function_type  # type: str
         # The time when the domain name was added.
         self.gmt_created = gmt_created  # type: str
         # The time when the domain name was last modified.
@@ -8777,6 +8966,8 @@ class DescribeDcdnDomainDetailResponseBodyDomainDetail(TeaModel):
             result['DomainName'] = self.domain_name
         if self.domain_status is not None:
             result['DomainStatus'] = self.domain_status
+        if self.function_type is not None:
+            result['FunctionType'] = self.function_type
         if self.gmt_created is not None:
             result['GmtCreated'] = self.gmt_created
         if self.gmt_modified is not None:
@@ -8805,6 +8996,8 @@ class DescribeDcdnDomainDetailResponseBodyDomainDetail(TeaModel):
             self.domain_name = m.get('DomainName')
         if m.get('DomainStatus') is not None:
             self.domain_status = m.get('DomainStatus')
+        if m.get('FunctionType') is not None:
+            self.function_type = m.get('FunctionType')
         if m.get('GmtCreated') is not None:
             self.gmt_created = m.get('GmtCreated')
         if m.get('GmtModified') is not None:
@@ -10920,21 +11113,21 @@ class DescribeDcdnDomainMultiUsageDataRequest(TeaModel):
     def __init__(self, domain_name=None, end_time=None, start_time=None):
         # If this parameter is not set, data of all your accelerated domain names is queried.
         # 
-        # You can specify one or more accelerated domain names. Separate domain names with commas (,).
+        # You can specify multiple domain names and separate them with commas (,).
         self.domain_name = domain_name  # type: str
         # The end time must be later than the start time.
         # 
-        # *   Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format.
-        # *   The time must be in UTC.
-        # *   You must set both the start time and the end time.
+        # *   Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
+        # *   The time follows the ISO 8601 standard in the YYYY-MM-DDThh:mm:ssZ format. The time is displayed in UTC.
+        # *   You need to set both the start time and the end time.
         self.end_time = end_time  # type: str
         # The beginning of the time range to query.
         # 
-        # *   Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format.
-        # *   The time must be in UTC.
-        # *   The minimum data granularity is 5 minutes.
+        # *   Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
+        # *   The time follows the ISO 8601 standard in the YYYY-MM-DDThh:mm:ssZ format. The time is displayed in UTC.
+        # *   The resolution of the queried data is 5 minutes.
         # *   If you do not set this parameter, data in the last 24 hours is queried.
-        # *   You must set both the start time and the end time.
+        # *   You need to set both the start time and the end time.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -10971,7 +11164,7 @@ class DescribeDcdnDomainMultiUsageDataResponseBodyRequestPerIntervalRequestDataM
         self.domain = domain  # type: str
         # The number of requests.
         self.request = request  # type: long
-        # The timestamp of the returned data.
+        # The timestamp of the data returned.
         self.time_stamp = time_stamp  # type: str
         # The type of the requests. Valid values: StaticHttps, DynamicHttps, DynamicHttp, StaticQuic, and DynamicQuic.
         self.type = type  # type: str
@@ -11048,7 +11241,7 @@ class DescribeDcdnDomainMultiUsageDataResponseBodyTrafficPerIntervalTrafficDataM
         self.bps = bps  # type: float
         # The domain name.
         self.domain = domain  # type: str
-        # The timestamp of the returned data.
+        # The timestamp of the data returned.
         self.time_stamp = time_stamp  # type: str
         # The type of the network traffic. Valid values: Simple, IPA, and WebSocket.
         self.type = type  # type: str
@@ -11124,13 +11317,13 @@ class DescribeDcdnDomainMultiUsageDataResponseBodyTrafficPerInterval(TeaModel):
 class DescribeDcdnDomainMultiUsageDataResponseBody(TeaModel):
     def __init__(self, end_time=None, request_id=None, request_per_interval=None, start_time=None,
                  traffic_per_interval=None):
-        # The end of the time range during which data was queried.
+        # The end of the time range that was queried.
         self.end_time = end_time  # type: str
         # The ID of the request.
         self.request_id = request_id  # type: str
         # The information about requests collected every 5 minutes.
         self.request_per_interval = request_per_interval  # type: DescribeDcdnDomainMultiUsageDataResponseBodyRequestPerInterval
-        # The start of the time range during which data was queried.
+        # The beginning of the time range that was queried.
         self.start_time = start_time  # type: str
         # The statistics of network traffic collected every 5 minutes.
         self.traffic_per_interval = traffic_per_interval  # type: DescribeDcdnDomainMultiUsageDataResponseBodyTrafficPerInterval
@@ -11789,7 +11982,7 @@ class DescribeDcdnDomainPvDataRequest(TeaModel):
         self.domain_name = domain_name  # type: str
         # The end of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         self.end_time = end_time  # type: str
-        # The beginning of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
+        # The start of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -11890,13 +12083,13 @@ class DescribeDcdnDomainPvDataResponseBody(TeaModel):
         self.data_interval = data_interval  # type: str
         # The accelerated domain name.
         self.domain_name = domain_name  # type: str
-        # The end of the time range during which data was queried.
+        # The end of the time range that was queried.
         self.end_time = end_time  # type: str
         # The number of PVs at each interval.
         self.pv_data_interval = pv_data_interval  # type: DescribeDcdnDomainPvDataResponseBodyPvDataInterval
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # The start of the time range during which data was queried.
+        # The beginning of the time range that was queried.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -15079,18 +15272,18 @@ class DescribeDcdnDomainTopReferVisitRequest(TeaModel):
     def __init__(self, domain_name=None, sort_by=None, start_time=None):
         # The accelerated domain name. You can specify only one domain name.
         self.domain_name = domain_name  # type: str
-        # The method that is used to arrange the returned application information. Valid values:
+        # The sorting order. Valid values:
         # 
         # *   **traf**: by network traffic
         # *   **pv**: by the number of visits
         # 
         # Default value: **pv**.
         self.sort_by = sort_by  # type: str
-        # The start of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
+        # The beginning of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         # 
         # To query the data on a specified day, use the yyyy-MM-ddT16:00:00Z format.
         # 
-        # If you leave this parameter empty, data collected in the last 24 hours is queried.
+        # If you do not set this parameter, data collected within the last 24 hours is queried.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -15123,13 +15316,13 @@ class DescribeDcdnDomainTopReferVisitRequest(TeaModel):
 
 class DescribeDcdnDomainTopReferVisitResponseBodyTopReferListReferList(TeaModel):
     def __init__(self, flow=None, flow_proportion=None, refer_detail=None, visit_data=None, visit_proportion=None):
-        # The amount of network traffic. Unit: bytes.
+        # The amount of network traffic. (Unit: bytes)
         self.flow = flow  # type: str
         # The proportion of network traffic consumed to access the URL.
         self.flow_proportion = flow_proportion  # type: float
         # The complete referenced URL.
         self.refer_detail = refer_detail  # type: str
-        # The number of visits to the URL.
+        # The number of visits.
         self.visit_data = visit_data  # type: str
         # The proportion of visits to the URL.
         self.visit_proportion = visit_proportion  # type: float
@@ -15206,7 +15399,7 @@ class DescribeDcdnDomainTopReferVisitResponseBody(TeaModel):
     def __init__(self, domain_name=None, request_id=None, start_time=None, top_refer_list=None):
         # The accelerated domain name.
         self.domain_name = domain_name  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
         # The start of the time range during which data was queried.
         self.start_time = start_time  # type: str
@@ -15290,7 +15483,7 @@ class DescribeDcdnDomainTopUrlVisitRequest(TeaModel):
     def __init__(self, domain_name=None, sort_by=None, start_time=None):
         # The accelerated domain name. You can specify only one domain name in each request.
         self.domain_name = domain_name  # type: str
-        # The sorting method. Valid values:
+        # The sorting order. Valid values:
         # 
         # *   **traf**: by network traffic
         # *   **pv**: by the number of visits
@@ -15336,15 +15529,15 @@ class DescribeDcdnDomainTopUrlVisitRequest(TeaModel):
 
 class DescribeDcdnDomainTopUrlVisitResponseBodyAllUrlListUrlList(TeaModel):
     def __init__(self, flow=None, flow_proportion=None, url_detail=None, visit_data=None, visit_proportion=None):
-        # The amount of network traffic. Unit: bytes.
+        # The amount of network traffic. (Unit: bytes)
         self.flow = flow  # type: str
         # The proportion of network traffic consumed to access the URL.
         self.flow_proportion = flow_proportion  # type: float
         # The complete URL.
         self.url_detail = url_detail  # type: str
-        # The number of visits to the URL.
+        # The number of visits.
         self.visit_data = visit_data  # type: str
-        # The proportion of visits to the URL.
+        # The proportion of visits.
         self.visit_proportion = visit_proportion  # type: float
 
     def validate(self):
@@ -15417,15 +15610,15 @@ class DescribeDcdnDomainTopUrlVisitResponseBodyAllUrlList(TeaModel):
 
 class DescribeDcdnDomainTopUrlVisitResponseBodyUrl200ListUrlList(TeaModel):
     def __init__(self, flow=None, flow_proportion=None, url_detail=None, visit_data=None, visit_proportion=None):
-        # The amount of network traffic. Unit: bytes.
+        # The amount of network traffic. (Unit: bytes)
         self.flow = flow  # type: str
         # The proportion of network traffic consumed to access the URL.
         self.flow_proportion = flow_proportion  # type: float
         # The complete URL.
         self.url_detail = url_detail  # type: str
-        # The number of visits to the URL.
+        # The number of visits.
         self.visit_data = visit_data  # type: str
-        # The proportion of visits to the URL.
+        # The proportion of visits.
         self.visit_proportion = visit_proportion  # type: float
 
     def validate(self):
@@ -15498,15 +15691,15 @@ class DescribeDcdnDomainTopUrlVisitResponseBodyUrl200List(TeaModel):
 
 class DescribeDcdnDomainTopUrlVisitResponseBodyUrl300ListUrlList(TeaModel):
     def __init__(self, flow=None, flow_proportion=None, url_detail=None, visit_data=None, visit_proportion=None):
-        # The amount of network traffic. Unit: bytes.
+        # The amount of network traffic. (Unit: bytes)
         self.flow = flow  # type: str
         # The proportion of network traffic consumed to access the URL.
         self.flow_proportion = flow_proportion  # type: float
         # The complete URL.
         self.url_detail = url_detail  # type: str
-        # The number of visits to the URL.
+        # The number of visits.
         self.visit_data = visit_data  # type: str
-        # The proportion of visits to the URL.
+        # The proportion of visits.
         self.visit_proportion = visit_proportion  # type: float
 
     def validate(self):
@@ -15579,15 +15772,15 @@ class DescribeDcdnDomainTopUrlVisitResponseBodyUrl300List(TeaModel):
 
 class DescribeDcdnDomainTopUrlVisitResponseBodyUrl400ListUrlList(TeaModel):
     def __init__(self, flow=None, flow_proportion=None, url_detail=None, visit_data=None, visit_proportion=None):
-        # The amount of network traffic. Unit: bytes.
+        # The amount of network traffic. (Unit: bytes)
         self.flow = flow  # type: str
         # The proportion of network traffic consumed to access the URL.
         self.flow_proportion = flow_proportion  # type: float
         # The complete URL.
         self.url_detail = url_detail  # type: str
-        # The number of visits to the URL.
+        # The number of visits.
         self.visit_data = visit_data  # type: str
-        # The proportion of visits to the URL.
+        # The proportion of visits.
         self.visit_proportion = visit_proportion  # type: float
 
     def validate(self):
@@ -15660,15 +15853,15 @@ class DescribeDcdnDomainTopUrlVisitResponseBodyUrl400List(TeaModel):
 
 class DescribeDcdnDomainTopUrlVisitResponseBodyUrl500ListUrlList(TeaModel):
     def __init__(self, flow=None, flow_proportion=None, url_detail=None, visit_data=None, visit_proportion=None):
-        # The amount of network traffic. Unit: bytes.
+        # The amount of network traffic. (Unit: bytes)
         self.flow = flow  # type: str
         # The proportion of network traffic consumed to access the URL.
         self.flow_proportion = flow_proportion  # type: float
         # The complete URL.
         self.url_detail = url_detail  # type: str
-        # The number of visits to the URL.
+        # The number of visits.
         self.visit_data = visit_data  # type: str
-        # The proportion of visits to the URL.
+        # The proportion of visits.
         self.visit_proportion = visit_proportion  # type: float
 
     def validate(self):
@@ -15746,7 +15939,7 @@ class DescribeDcdnDomainTopUrlVisitResponseBody(TeaModel):
         self.all_url_list = all_url_list  # type: DescribeDcdnDomainTopUrlVisitResponseBodyAllUrlList
         # The accelerated domain name.
         self.domain_name = domain_name  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
         # The start of the time range during which data was queried.
         self.start_time = start_time  # type: str
@@ -16419,7 +16612,7 @@ class DescribeDcdnDomainUvDataRequest(TeaModel):
         # 
         # The end time must be later than the start time.
         self.end_time = end_time  # type: str
-        # The beginning of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
+        # The start of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -16520,11 +16713,11 @@ class DescribeDcdnDomainUvDataResponseBody(TeaModel):
         self.data_interval = data_interval  # type: str
         # The accelerated domain name.
         self.domain_name = domain_name  # type: str
-        # The end of the time range during which data was queried.
+        # The end of the time range that was queried.
         self.end_time = end_time  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # The start of the time range during which data was queried.
+        # The beginning of the time range that was queried.
         self.start_time = start_time  # type: str
         # The number of UVs at each interval.
         self.uv_data_interval = uv_data_interval  # type: DescribeDcdnDomainUvDataResponseBodyUvDataInterval
@@ -19693,9 +19886,9 @@ class DescribeDcdnKvNamespaceRequest(TeaModel):
 class DescribeDcdnKvNamespaceResponseBody(TeaModel):
     def __init__(self, capacity_string=None, capacity_used_string=None, description=None, namespace=None,
                  namespace_id=None, request_id=None, status=None):
-        # The available capacity of namespace.
+        # The available capacity of all namespaces in your account.
         self.capacity_string = capacity_string  # type: str
-        # Used capacity of namespace.
+        # The used capacity of all namespaces in your account.
         self.capacity_used_string = capacity_used_string  # type: str
         # The description of the namespace.
         self.description = description  # type: str
@@ -20349,7 +20542,7 @@ class DescribeDcdnRefreshTaskByIdResponseBodyTasks(TeaModel):
         self.object_type = object_type  # type: str
         # The progress of the task, in percentage.
         self.process = process  # type: str
-        # The status of the task. Valid values:
+        # The task status. Valid values:
         # 
         # *   **Complete**: The task is complete.
         # *   **Pending**: The task is pending.
@@ -20405,7 +20598,7 @@ class DescribeDcdnRefreshTaskByIdResponseBodyTasks(TeaModel):
 
 class DescribeDcdnRefreshTaskByIdResponseBody(TeaModel):
     def __init__(self, request_id=None, tasks=None, total_count=None):
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
         # A list of prefetch or refresh tasks.
         self.tasks = tasks  # type: list[DescribeDcdnRefreshTaskByIdResponseBodyTasks]
@@ -20502,6 +20695,7 @@ class DescribeDcdnRefreshTasksRequest(TeaModel):
         # 
         # *   **file**: URL-based refresh
         # *   **directory**: directory-based refresh
+        # *   **regex**: regular expression-based refresh
         # *   **preload**: URL-based prefetch
         # 
         # If you set **DomainName** or **Status**, you must also set this parameter.
@@ -20600,17 +20794,18 @@ class DescribeDcdnRefreshTasksResponseBodyTasksTask(TeaModel):
         # 
         # *   **file**: URL-based refresh
         # *   **path**: directory-based refresh
+        # *   **regex**: regular expression-based refresh
         # *   **preload**: URL-based prefetch
         self.object_type = object_type  # type: str
         # The progress of the task in percentage.
         self.process = process  # type: str
-        # The status of the task. Valid values:
+        # The status of the auxiliary media asset.
         # 
         # *   **Complete**: The task is complete.
         # *   **Refreshing**: The task is in progress.
         # *   **Failed**: The task failed.
         self.status = status  # type: str
-        # The ID of the task.
+        # The task ID.
         self.task_id = task_id  # type: str
 
     def validate(self):
@@ -20697,7 +20892,7 @@ class DescribeDcdnRefreshTasksResponseBody(TeaModel):
         self.page_size = page_size  # type: long
         # The ID of the request.
         self.request_id = request_id  # type: str
-        # Details about tasks.
+        # The tasks.
         self.tasks = tasks  # type: DescribeDcdnRefreshTasksResponseBodyTasks
         # The number of tasks.
         self.total_count = total_count  # type: long
@@ -22152,7 +22347,7 @@ class DescribeDcdnSecSpecInfoResponseBodySpecInfos(TeaModel):
 
 class DescribeDcdnSecSpecInfoResponseBody(TeaModel):
     def __init__(self, request_id=None, spec_infos=None, version=None):
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
         # The code and configurations of the security rules.
         self.spec_infos = spec_infos  # type: list[DescribeDcdnSecSpecInfoResponseBodySpecInfos]
@@ -22265,7 +22460,7 @@ class DescribeDcdnServiceRequest(TeaModel):
 
 class DescribeDcdnServiceResponseBodyOperationLocksLockReason(TeaModel):
     def __init__(self, lock_reason=None):
-        # The reason why the instance is locked. For example, a value of financial indicates that an overdue payment exists.
+        # The reason why secure DCDN was locked. For example, a value of financial indicates that an overdue payment exists.
         self.lock_reason = lock_reason  # type: str
 
     def validate(self):
@@ -22326,33 +22521,33 @@ class DescribeDcdnServiceResponseBody(TeaModel):
                  websocket_changing_type=None, websocket_type=None):
         # The time when the renewed secure DCDN takes effect. The time is displayed in UTC.
         self.changing_affect_time = changing_affect_time  # type: str
-        # The new metering method for DCDN. Valid values:
+        # The new metering method for the renewed secure DCDN. Valid values:
         # 
-        # *   **PayByTraffic**: pay-by-data-transfer
-        # *   **PayByBandwidth**: pay-by-bandwidth
-        # *   **PayByBandwidth95**: pay-by-95th percentile bandwidth
-        # *   **PayByBandwidth_monthavg**: pay-by-monthly average bandwidth
-        # *   **PayByBandwidth_month4th**: pay-by-fourth peak bandwidth per month
-        # *   **PayByBandwidth_monthday95avg**: pay-by-monthly average 95th percentile bandwidth
-        # *   **PayByBandwidth_nighthalf95**: pay-by-95th percentile bandwidth (50% off during nighttime)
+        # *   **PayByTraffic**: pay by data transfer
+        # *   **PayByBandwidth**: pay by bandwidth
+        # *   **PayByBandwidth95**: pay by 95th percentile bandwidth
+        # *   **PayByBandwidth_monthavg**: pay by monthly average bandwidth
+        # *   **PayByBandwidth_month4th**: pay by fourth peak bandwidth per month
+        # *   **PayByBandwidth_monthday95avg**: pay by monthly average 95th percentile bandwidth
+        # *   **PayByBandwidth_nighthalf95**: pay by 95th percentile bandwidth (50% off during nighttime)
         self.changing_charge_type = changing_charge_type  # type: str
         # The ID of the instance.
         self.instance_id = instance_id  # type: str
         # The current metering method. Valid values:
         # 
-        # *   **PayByTraffic**: pay-by-data-transfer
-        # *   **PayByBandwidth**: pay-by-bandwidth
-        # *   **PayByBandwidth95**: pay-by-95th percentile bandwidth
-        # *   **PayByBandwidth_monthavg**: pay-by-monthly average bandwidth
-        # *   **PayByBandwidth_month4th**: pay-by-fourth peak bandwidth per month
-        # *   **PayByBandwidth_monthday95avg**: pay-by-monthly average 95th percentile bandwidth
-        # *   **PayByBandwidth_nighthalf95**: pay-by-95th percentile bandwidth (50% off during nighttime)
+        # *   **PayByTraffic**: pay by data transfer
+        # *   **PayByBandwidth**: pay by bandwidth
+        # *   **PayByBandwidth95**: pay by 95th percentile bandwidth
+        # *   **PayByBandwidth_monthavg**: pay by monthly average bandwidth
+        # *   **PayByBandwidth_month4th**: pay by fourth peak bandwidth per month
+        # *   **PayByBandwidth_monthday95avg**: pay by monthly average 95th percentile bandwidth
+        # *   **PayByBandwidth_nighthalf95**: pay by 95th percentile bandwidth (50% off during nighttime)
         self.internet_charge_type = internet_charge_type  # type: str
         # The time when the DCDN service was activated. The time follows the ISO 8601 standard.
         self.opening_time = opening_time  # type: str
-        # The lock status of secure DCDN.
+        # The lock status of DCDN.
         self.operation_locks = operation_locks  # type: DescribeDcdnServiceResponseBodyOperationLocks
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
         # The time when the changes of the WebSocket configuration take effect. The value is the same as that of the ChangingAffectTime parameter. This parameter can be displayed in the console only if the specified time is later than the current time.
         self.websocket_changing_time = websocket_changing_time  # type: str
@@ -22557,7 +22752,7 @@ class DescribeDcdnSubListResponseBody(TeaModel):
     def __init__(self, content=None, request_id=None):
         # The information about the custom report.
         self.content = content  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -22855,7 +23050,7 @@ class DescribeDcdnTopDomainsByFlowRequest(TeaModel):
         self.end_time = end_time  # type: str
         # The maximum number of domain names to return. Valid values: **1** to **100**. Default value: **20**.
         self.limit = limit  # type: long
-        # The beginning of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
+        # The start of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC.
         self.start_time = start_time  # type: str
 
     def validate(self):
@@ -22897,9 +23092,9 @@ class DescribeDcdnTopDomainsByFlowResponseBodyTopDomainsTopDomain(TeaModel):
         self.max_bps_time = max_bps_time  # type: str
         # The ranking of the accelerated domain name.
         self.rank = rank  # type: long
-        # The number of visits to the URL.
+        # The number of visits.
         self.total_access = total_access  # type: long
-        # The total volume of traffic.
+        # The total amount of network traffic.
         self.total_traffic = total_traffic  # type: str
         # The proportion of network traffic consumed to access the URL.
         self.traffic_percent = traffic_percent  # type: str
@@ -22987,11 +23182,11 @@ class DescribeDcdnTopDomainsByFlowResponseBody(TeaModel):
         self.domain_count = domain_count  # type: long
         # The total number of accelerated domains that are in the **Enabled** state under your account.
         self.domain_online_count = domain_online_count  # type: long
-        # The end of the time range during which data was queried.
+        # The end of the reporting period.
         self.end_time = end_time  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # The beginning of the time range during which data was queried.
+        # The beginning of the reporting period.
         self.start_time = start_time  # type: str
         # The top N domain names ranked by network traffic.
         self.top_domains = top_domains  # type: DescribeDcdnTopDomainsByFlowResponseBodyTopDomains
@@ -23394,7 +23589,7 @@ class DescribeDcdnUserBillTypeResponseBodyBillTypeDataBillTypeDataItem(TeaModel)
         # *   **hour_count**: pay by request per hour
         # *   **rtlog_count_day**: pay by the number of real-time logs per day
         self.bill_type = bill_type  # type: str
-        # The billing cycle.
+        # The metering cycle.
         self.billing_cycle = billing_cycle  # type: str
         # The dimension. Valid values:
         # 
@@ -23487,7 +23682,7 @@ class DescribeDcdnUserBillTypeResponseBody(TeaModel):
     def __init__(self, bill_type_data=None, request_id=None):
         # The information about the metering method.
         self.bill_type_data = bill_type_data  # type: DescribeDcdnUserBillTypeResponseBodyBillTypeData
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -23819,7 +24014,7 @@ class DescribeDcdnUserDomainsRequestTag(TeaModel):
 class DescribeDcdnUserDomainsRequest(TeaModel):
     def __init__(self, change_end_time=None, change_start_time=None, check_domain_show=None, coverage=None,
                  domain_name=None, domain_search_type=None, domain_status=None, owner_id=None, page_number=None, page_size=None,
-                 resource_group_id=None, security_token=None, tag=None):
+                 resource_group_id=None, security_token=None, tag=None, web_site_type=None):
         # The end of the time range to query. Specify the time in the ISO 8601 standard in the yyyy-MM-ddTHH:mm:ssZ format. The time must be in UTC+0.
         # 
         # > The end time must be later than the start time.
@@ -23867,6 +24062,7 @@ class DescribeDcdnUserDomainsRequest(TeaModel):
         self.security_token = security_token  # type: str
         # The list of tags.
         self.tag = tag  # type: list[DescribeDcdnUserDomainsRequestTag]
+        self.web_site_type = web_site_type  # type: str
 
     def validate(self):
         if self.tag:
@@ -23908,6 +24104,8 @@ class DescribeDcdnUserDomainsRequest(TeaModel):
         if self.tag is not None:
             for k in self.tag:
                 result['Tag'].append(k.to_map() if k else None)
+        if self.web_site_type is not None:
+            result['WebSiteType'] = self.web_site_type
         return result
 
     def from_map(self, m=None):
@@ -23941,6 +24139,8 @@ class DescribeDcdnUserDomainsRequest(TeaModel):
             for k in m.get('Tag'):
                 temp_model = DescribeDcdnUserDomainsRequestTag()
                 self.tag.append(temp_model.from_map(k))
+        if m.get('WebSiteType') is not None:
+            self.web_site_type = m.get('WebSiteType')
         return self
 
 
@@ -24027,8 +24227,8 @@ class DescribeDcdnUserDomainsResponseBodyDomainsPageDataSources(TeaModel):
 
 class DescribeDcdnUserDomainsResponseBodyDomainsPageData(TeaModel):
     def __init__(self, cname=None, description=None, domain_id=None, domain_name=None, domain_status=None,
-                 gmt_created=None, gmt_modified=None, resource_group_id=None, sslprotocol=None, sandbox=None, scene=None,
-                 sources=None):
+                 function_type=None, gmt_created=None, gmt_modified=None, resource_group_id=None, sslprotocol=None, sandbox=None,
+                 scene=None, sources=None):
         # The CNAME assigned to the accelerated domain name.
         self.cname = cname  # type: str
         # The reason why the accelerated domain name failed the review.
@@ -24046,6 +24246,7 @@ class DescribeDcdnUserDomainsResponseBodyDomainsPageData(TeaModel):
         # *   **checking**: reviewing
         # *   **check_failed:** review failed
         self.domain_status = domain_status  # type: str
+        self.function_type = function_type  # type: str
         # The time when the accelerated domain name was added to Dynamic Content Delivery Network (DCDN).
         self.gmt_created = gmt_created  # type: str
         # The time when the accelerated domain name was modified.
@@ -24059,11 +24260,11 @@ class DescribeDcdnUserDomainsResponseBodyDomainsPageData(TeaModel):
         self.sslprotocol = sslprotocol  # type: str
         # Indicates whether the accelerated domain name was in a sandbox.
         self.sandbox = sandbox  # type: str
-        # The moderation scenario. Valid values:
-        # 
-        # *   **apiscene**: Api scene acceleration. 
-        # *   **webservicescene**: Web scene acceleration.
-        # *   **staticscene**: Video and graphic scene acceleration.
+        # 场景。支持：
+        # - **apiscene**：API加速。
+        # - **webservicescene**：网站业务加速。
+        # - **staticscene**：视频、图文类加速。
+        # - **（空）**：没有场景。
         self.scene = scene  # type: str
         # The information about the origin server.
         self.sources = sources  # type: DescribeDcdnUserDomainsResponseBodyDomainsPageDataSources
@@ -24088,6 +24289,8 @@ class DescribeDcdnUserDomainsResponseBodyDomainsPageData(TeaModel):
             result['DomainName'] = self.domain_name
         if self.domain_status is not None:
             result['DomainStatus'] = self.domain_status
+        if self.function_type is not None:
+            result['FunctionType'] = self.function_type
         if self.gmt_created is not None:
             result['GmtCreated'] = self.gmt_created
         if self.gmt_modified is not None:
@@ -24116,6 +24319,8 @@ class DescribeDcdnUserDomainsResponseBodyDomainsPageData(TeaModel):
             self.domain_name = m.get('DomainName')
         if m.get('DomainStatus') is not None:
             self.domain_status = m.get('DomainStatus')
+        if m.get('FunctionType') is not None:
+            self.function_type = m.get('FunctionType')
         if m.get('GmtCreated') is not None:
             self.gmt_created = m.get('GmtCreated')
         if m.get('GmtModified') is not None:
@@ -24259,9 +24464,9 @@ class DescribeDcdnUserDomainsResponse(TeaModel):
 class DescribeDcdnUserDomainsByFuncRequest(TeaModel):
     def __init__(self, domain_name=None, func_filter=None, func_id=None, page_number=None, page_size=None,
                  resource_group_id=None):
-        # The accelerated domain name.
+        # The accelerated domain name whose ICP filing status you want to update.
         self.domain_name = domain_name  # type: str
-        # Specifies whether the feature that is specified by the FuncId parameter is enabled. Valid values:
+        # Specifies whether the feature that is specified by the FuncId parameter is enabled.
         # 
         # *   **config**: enabled
         # *   **unconfig**: not enabled
@@ -24317,7 +24522,7 @@ class DescribeDcdnUserDomainsByFuncRequest(TeaModel):
 
 class DescribeDcdnUserDomainsByFuncResponseBodyDomainsPageDataSourcesSource(TeaModel):
     def __init__(self, content=None, port=None, priority=None, type=None, weight=None):
-        # The address of the origin server.
+        # The origin server address.
         self.content = content  # type: str
         # The port of the origin server.
         self.port = port  # type: int
@@ -24422,12 +24627,12 @@ class DescribeDcdnUserDomainsByFuncResponseBodyDomainsPageData(TeaModel):
         self.resource_group_id = resource_group_id  # type: str
         # Indicates whether the accelerated domain name was in a sandbox.
         self.sandbox = sandbox  # type: str
-        # The information about the origin server.
+        # The information about the origin servers.
         self.sources = sources  # type: DescribeDcdnUserDomainsByFuncResponseBodyDomainsPageDataSources
         # Indicates whether HTTPS is enabled. Valid values:
         # 
-        # *   **on**\
-        # *   **off**\
+        # *   **on**: HTTPS is enabled.
+        # *   **off**: HTTPS is disabled.
         self.ssl_protocol = ssl_protocol  # type: str
 
     def validate(self):
@@ -24524,7 +24729,7 @@ class DescribeDcdnUserDomainsByFuncResponseBody(TeaModel):
     def __init__(self, domains=None, page_number=None, page_size=None, request_id=None, total_count=None):
         # The array that consists of multiple PageData parameters. The details about each accelerated domain name are included in a separate PageData parameter.
         self.domains = domains  # type: DescribeDcdnUserDomainsByFuncResponseBodyDomains
-        # The number of the returned page.
+        # The page number of the page returned.
         self.page_number = page_number  # type: long
         # The number of entries returned per page.
         self.page_size = page_size  # type: long
@@ -24649,9 +24854,9 @@ class DescribeDcdnUserQuotaResponseBody(TeaModel):
         self.block_remain = block_remain  # type: int
         # The maximum number of accelerated domains.
         self.domain_quota = domain_quota  # type: int
-        # The maximum number of URLs or directories with parameters ignored that can be refreshed on the current day.
+        # The maximum number of URLs or directories with parameters ignored that can be refreshed.
         self.ignore_params_quota = ignore_params_quota  # type: int
-        # The number of remaining URLs or directories that can be refreshed with parameters ignored on the current day.
+        # The number of remaining URLs or directories with parameters ignored that can be refreshed.
         self.ignore_params_remain = ignore_params_remain  # type: int
         # The maximum number of URLs that can be prefetched.
         self.preload_quota = preload_quota  # type: int
@@ -31058,6 +31263,98 @@ class DescribeRoutineCodeRevisionResponse(TeaModel):
         return self
 
 
+class DescribeRoutineRelatedDomainsRequest(TeaModel):
+    def __init__(self, name=None):
+        self.name = name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeRoutineRelatedDomainsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.name is not None:
+            result['Name'] = self.name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        return self
+
+
+class DescribeRoutineRelatedDomainsResponseBody(TeaModel):
+    def __init__(self, content=None, request_id=None):
+        self.content = content  # type: dict[str, any]
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DescribeRoutineRelatedDomainsResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.content is not None:
+            result['Content'] = self.content
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Content') is not None:
+            self.content = m.get('Content')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DescribeRoutineRelatedDomainsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DescribeRoutineRelatedDomainsResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DescribeRoutineRelatedDomainsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DescribeRoutineRelatedDomainsResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DescribeRoutineSpecResponseBody(TeaModel):
     def __init__(self, content=None, request_id=None):
         # The specification of the CPU time slice. Valid values: 5 ms, 50 ms, and 100 ms.
@@ -32344,7 +32641,7 @@ class ModifyDCdnDomainSchdmByPropertyRequest(TeaModel):
         # The region where the acceleration service is deployed. Valid values:
         # 
         # *   **domestic**: Chinese mainland
-        # *   **overseas**: outside the Chinese mainland
+        # *   **overseas**: global (excluding mainland China)
         # *   **global**: global
         self.property = property  # type: str
 
@@ -32374,7 +32671,7 @@ class ModifyDCdnDomainSchdmByPropertyRequest(TeaModel):
 
 class ModifyDCdnDomainSchdmByPropertyResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -32438,8 +32735,11 @@ class ModifyDCdnDomainSchdmByPropertyResponse(TeaModel):
 
 class ModifyDcdnWafGroupRequest(TeaModel):
     def __init__(self, id=None, name=None, rules=None):
+        # The ID of the custom WAF rule group.
         self.id = id  # type: long
+        # The name of the custom WAF rule group.
         self.name = name  # type: str
+        # The incremental modification of the rules in the custom WAF rule group. The value is a string in the JSON format.
         self.rules = rules  # type: str
 
     def validate(self):
@@ -32472,6 +32772,7 @@ class ModifyDcdnWafGroupRequest(TeaModel):
 
 class ModifyDcdnWafGroupResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -32647,15 +32948,15 @@ class ModifyDcdnWafPolicyDomainsRequest(TeaModel):
         # 
         # > You can configure either **BindDomains** or **UnbindDomains**.
         self.bind_domains = bind_domains  # type: str
-        # The change method. Valid values:
+        # The association method. Valid values:
         # 
-        # *   0: replace
-        # *   1: add
+        # *   0: replace.
+        # *   1: add.
         # *   Default value: 0.
         # 
         # > 
         # 
-        # *   This parameter takes effect only when you specify **BindDomains**. If you have bound a domain name indicated by **BindDomains** to the default protection policy, the `Policy.DefaultAndCustom.BindToSameDomain` error is returned.
+        # *   This parameter takes effect only when you specify **BindDomains**. If you have associated a domain name indicated by **BindDomains** with the default protection policy, the `Policy.DefaultAndCustom.BindToSameDomain` error is returned.
         # 
         # *   You can only replace accelerated domain names that are bound to the default protection policy.
         self.method = method  # type: int
@@ -33218,7 +33519,7 @@ class PublishRoutineCodeRevisionRequest(TeaModel):
         # 
         # *   production: the name of the environment, including the environment name (SpecName) and the domain name whitelist (AllowedHosts).
         # 
-        # *   Preset_Canary_xx: You can add canary release environments based on your business requirements. This parameter is optional.
+        # *   presetCanary: You can add canary release environments based on your business requirements. This parameter is optional.
         self.envs = envs  # type: dict[str, any]
         # The name of the routine. The name must be unique among the routines that belong to the same Alibaba Cloud account.
         self.name = name  # type: str
@@ -33261,7 +33562,7 @@ class PublishRoutineCodeRevisionShrinkRequest(TeaModel):
         # 
         # *   production: the name of the environment, including the environment name (SpecName) and the domain name whitelist (AllowedHosts).
         # 
-        # *   Preset_Canary_xx: You can add canary release environments based on your business requirements. This parameter is optional.
+        # *   presetCanary: You can add canary release environments based on your business requirements. This parameter is optional.
         self.envs_shrink = envs_shrink  # type: str
         # The name of the routine. The name must be unique among the routines that belong to the same Alibaba Cloud account.
         self.name = name  # type: str
@@ -34698,7 +34999,7 @@ class SetRoutineSubdomainResponse(TeaModel):
 
 class StartDcdnDomainRequest(TeaModel):
     def __init__(self, domain_name=None, owner_id=None, security_token=None):
-        # The name of the accelerated domain to be enabled. You can specify only one domain name.
+        # The accelerated domain name. You can specify only one domain name in each request.
         self.domain_name = domain_name  # type: str
         self.owner_id = owner_id  # type: long
         self.security_token = security_token  # type: str
@@ -34733,7 +35034,7 @@ class StartDcdnDomainRequest(TeaModel):
 
 class StartDcdnDomainResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -34896,7 +35197,7 @@ class StartDcdnIpaDomainResponse(TeaModel):
 
 class StopDcdnDomainRequest(TeaModel):
     def __init__(self, domain_name=None, owner_id=None, security_token=None):
-        # The name of the accelerated domain to be disabled. You can specify only one domain name.
+        # The accelerated domain name that you want to disable. You can specify only one domain name in each request.
         self.domain_name = domain_name  # type: str
         self.owner_id = owner_id  # type: long
         self.security_token = security_token  # type: str
@@ -34931,7 +35232,7 @@ class StopDcdnDomainRequest(TeaModel):
 
 class StopDcdnDomainResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -35030,7 +35331,7 @@ class StopDcdnIpaDomainRequest(TeaModel):
 
 class StopDcdnIpaDomainResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
