@@ -16062,13 +16062,51 @@ class PutEnableFwSwitchRequest(TeaModel):
         return self
 
 
+class PutEnableFwSwitchResponseBodyAbnormalResourceStatusList(TeaModel):
+    def __init__(self, msg=None, resource=None, status=None):
+        self.msg = msg  # type: str
+        self.resource = resource  # type: str
+        self.status = status  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(PutEnableFwSwitchResponseBodyAbnormalResourceStatusList, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.msg is not None:
+            result['Msg'] = self.msg
+        if self.resource is not None:
+            result['Resource'] = self.resource
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Msg') is not None:
+            self.msg = m.get('Msg')
+        if m.get('Resource') is not None:
+            self.resource = m.get('Resource')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
 class PutEnableFwSwitchResponseBody(TeaModel):
-    def __init__(self, request_id=None):
+    def __init__(self, abnormal_resource_status_list=None, request_id=None):
+        self.abnormal_resource_status_list = abnormal_resource_status_list  # type: list[PutEnableFwSwitchResponseBodyAbnormalResourceStatusList]
         # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
-        pass
+        if self.abnormal_resource_status_list:
+            for k in self.abnormal_resource_status_list:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(PutEnableFwSwitchResponseBody, self).to_map()
@@ -16076,12 +16114,21 @@ class PutEnableFwSwitchResponseBody(TeaModel):
             return _map
 
         result = dict()
+        result['AbnormalResourceStatusList'] = []
+        if self.abnormal_resource_status_list is not None:
+            for k in self.abnormal_resource_status_list:
+                result['AbnormalResourceStatusList'].append(k.to_map() if k else None)
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
+        self.abnormal_resource_status_list = []
+        if m.get('AbnormalResourceStatusList') is not None:
+            for k in m.get('AbnormalResourceStatusList'):
+                temp_model = PutEnableFwSwitchResponseBodyAbnormalResourceStatusList()
+                self.abnormal_resource_status_list.append(temp_model.from_map(k))
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         return self
