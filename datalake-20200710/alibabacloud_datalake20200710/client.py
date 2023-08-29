@@ -89,11 +89,6 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
-    def abort_lock(self, request):
-        runtime = util_models.RuntimeOptions()
-        headers = {}
-        return self.abort_lock_with_options(request, headers, runtime)
-
     def abort_lock_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -119,10 +114,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def batch_create_partitions(self, request):
+    def abort_lock(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.batch_create_partitions_with_options(request, headers, runtime)
+        return self.abort_lock_with_options(request, headers, runtime)
 
     def batch_create_partitions_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -159,10 +154,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def batch_create_tables(self, request):
+    def batch_create_partitions(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.batch_create_tables_with_options(request, headers, runtime)
+        return self.batch_create_partitions_with_options(request, headers, runtime)
 
     def batch_create_tables_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -195,10 +190,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def batch_delete_partitions(self, request):
+    def batch_create_tables(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.batch_delete_partitions_with_options(request, headers, runtime)
+        return self.batch_create_tables_with_options(request, headers, runtime)
 
     def batch_delete_partitions_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -233,10 +228,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def batch_delete_table_versions(self, request):
+    def batch_delete_partitions(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.batch_delete_table_versions_with_options(request, headers, runtime)
+        return self.batch_delete_partitions_with_options(request, headers, runtime)
 
     def batch_delete_table_versions_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -269,10 +264,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def batch_delete_tables(self, request):
+    def batch_delete_table_versions(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.batch_delete_tables_with_options(request, headers, runtime)
+        return self.batch_delete_table_versions_with_options(request, headers, runtime)
 
     def batch_delete_tables_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -305,10 +300,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def batch_get_partition_column_statistics(self, request):
+    def batch_delete_tables(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.batch_get_partition_column_statistics_with_options(request, headers, runtime)
+        return self.batch_delete_tables_with_options(request, headers, runtime)
 
     def batch_get_partition_column_statistics_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -343,10 +338,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def batch_get_partitions(self, request):
+    def batch_get_partition_column_statistics(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.batch_get_partitions_with_options(request, headers, runtime)
+        return self.batch_get_partition_column_statistics_with_options(request, headers, runtime)
 
     def batch_get_partitions_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -381,10 +376,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def batch_get_tables(self, request):
+    def batch_get_partitions(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.batch_get_tables_with_options(request, headers, runtime)
+        return self.batch_get_partitions_with_options(request, headers, runtime)
 
     def batch_get_tables_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -415,10 +410,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def batch_grant_permissions(self, request):
+    def batch_get_tables(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.batch_grant_permissions_with_options(request, headers, runtime)
+        return self.batch_get_tables_with_options(request, headers, runtime)
 
     def batch_grant_permissions_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -449,10 +444,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def batch_revoke_permissions(self, request):
+    def batch_grant_permissions(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.batch_revoke_permissions_with_options(request, headers, runtime)
+        return self.batch_grant_permissions_with_options(request, headers, runtime)
 
     def batch_revoke_permissions_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -483,10 +478,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def batch_update_partitions(self, request):
+    def batch_revoke_permissions(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.batch_update_partitions_with_options(request, headers, runtime)
+        return self.batch_revoke_permissions_with_options(request, headers, runtime)
 
     def batch_update_partitions_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -519,10 +514,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def batch_update_tables(self, request):
+    def batch_update_partitions(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.batch_update_tables_with_options(request, headers, runtime)
+        return self.batch_update_partitions_with_options(request, headers, runtime)
 
     def batch_update_tables_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -555,10 +550,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def cancel_query(self, request):
+    def batch_update_tables(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.cancel_query_with_options(request, headers, runtime)
+        return self.batch_update_tables_with_options(request, headers, runtime)
 
     def cancel_query_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -585,16 +580,16 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def check_permissions(self, request):
+    def cancel_query(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.check_permissions_with_options(request, headers, runtime)
+        return self.cancel_query_with_options(request, headers, runtime)
 
     def check_permissions_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.body))
+            body=OpenApiUtilClient.parse_to_map(request.body)
         )
         params = open_api_models.Params(
             action='CheckPermissions',
@@ -612,10 +607,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_catalog(self, request):
+    def check_permissions(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_catalog_with_options(request, headers, runtime)
+        return self.check_permissions_with_options(request, headers, runtime)
 
     def create_catalog_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -642,10 +637,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_database(self, request):
+    def create_catalog(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_database_with_options(request, headers, runtime)
+        return self.create_catalog_with_options(request, headers, runtime)
 
     def create_database_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -674,10 +669,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_function(self, request):
+    def create_database(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_function_with_options(request, headers, runtime)
+        return self.create_database_with_options(request, headers, runtime)
 
     def create_function_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -708,10 +703,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_lock(self, request):
+    def create_function(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_lock_with_options(request, headers, runtime)
+        return self.create_function_with_options(request, headers, runtime)
 
     def create_lock_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -738,10 +733,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_partition(self, request):
+    def create_lock(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_partition_with_options(request, headers, runtime)
+        return self.create_lock_with_options(request, headers, runtime)
 
     def create_partition_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -778,16 +773,16 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_role(self, request):
+    def create_partition(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_role_with_options(request, headers, runtime)
+        return self.create_partition_with_options(request, headers, runtime)
 
     def create_role_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.body))
+            body=OpenApiUtilClient.parse_to_map(request.body)
         )
         params = open_api_models.Params(
             action='CreateRole',
@@ -805,10 +800,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_table(self, request):
+    def create_role(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.create_table_with_options(request, headers, runtime)
+        return self.create_role_with_options(request, headers, runtime)
 
     def create_table_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -839,10 +834,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_catalog(self, request):
+    def create_table(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_catalog_with_options(request, headers, runtime)
+        return self.create_table_with_options(request, headers, runtime)
 
     def delete_catalog_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -871,14 +866,16 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_database(self, request):
+    def delete_catalog(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_database_with_options(request, headers, runtime)
+        return self.delete_catalog_with_options(request, headers, runtime)
 
     def delete_database_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.async):
+            query['Async'] = request.async
         if not UtilClient.is_unset(request.cascade):
             query['Cascade'] = request.cascade
         if not UtilClient.is_unset(request.catalog_id):
@@ -905,10 +902,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_function(self, request):
+    def delete_database(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_function_with_options(request, headers, runtime)
+        return self.delete_database_with_options(request, headers, runtime)
 
     def delete_function_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -939,10 +936,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_partition(self, request):
+    def delete_function(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_partition_with_options(request, headers, runtime)
+        return self.delete_function_with_options(request, headers, runtime)
 
     def delete_partition_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -977,10 +974,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_partition_column_statistics(self, request):
+    def delete_partition(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_partition_column_statistics_with_options(request, headers, runtime)
+        return self.delete_partition_with_options(request, headers, runtime)
 
     def delete_partition_column_statistics_with_options(self, tmp_req, headers, runtime):
         UtilClient.validate_model(tmp_req)
@@ -1021,10 +1018,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_role(self, request):
+    def delete_partition_column_statistics(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_role_with_options(request, headers, runtime)
+        return self.delete_partition_column_statistics_with_options(request, headers, runtime)
 
     def delete_role_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1051,10 +1048,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_table(self, request):
+    def delete_role(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_table_with_options(request, headers, runtime)
+        return self.delete_role_with_options(request, headers, runtime)
 
     def delete_table_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1085,10 +1082,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_table_column_statistics(self, request):
+    def delete_table(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_table_column_statistics_with_options(request, headers, runtime)
+        return self.delete_table_with_options(request, headers, runtime)
 
     def delete_table_column_statistics_with_options(self, tmp_req, headers, runtime):
         UtilClient.validate_model(tmp_req)
@@ -1125,10 +1122,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_table_version(self, request):
+    def delete_table_column_statistics(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.delete_table_version_with_options(request, headers, runtime)
+        return self.delete_table_column_statistics_with_options(request, headers, runtime)
 
     def delete_table_version_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1161,10 +1158,40 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def describe_regions(self):
+    def delete_table_version(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.describe_regions_with_options(headers, runtime)
+        return self.delete_table_version_with_options(request, headers, runtime)
+
+    def deregister_location_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.location_id):
+            query['LocationId'] = request.location_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeregisterLocation',
+            version='2020-07-10',
+            protocol='HTTPS',
+            pathname='/webapi/locations',
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            data_lake_20200710_models.DeregisterLocationResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def deregister_location(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.deregister_location_with_options(request, headers, runtime)
 
     def describe_regions_with_options(self, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -1186,10 +1213,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_async_task_status(self, request):
+    def describe_regions(self):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_async_task_status_with_options(request, headers, runtime)
+        return self.describe_regions_with_options(headers, runtime)
 
     def get_async_task_status_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1218,10 +1245,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_catalog(self, request):
+    def get_async_task_status(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_catalog_with_options(request, headers, runtime)
+        return self.get_async_task_status_with_options(request, headers, runtime)
 
     def get_catalog_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1248,10 +1275,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_catalog_settings(self, request):
+    def get_catalog(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_catalog_settings_with_options(request, headers, runtime)
+        return self.get_catalog_with_options(request, headers, runtime)
 
     def get_catalog_settings_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1278,10 +1305,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_database(self, request):
+    def get_catalog_settings(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_database_with_options(request, headers, runtime)
+        return self.get_catalog_settings_with_options(request, headers, runtime)
 
     def get_database_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1310,10 +1337,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_function(self, request):
+    def get_database(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_function_with_options(request, headers, runtime)
+        return self.get_database_with_options(request, headers, runtime)
 
     def get_function_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1344,10 +1371,42 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_lock(self, request):
+    def get_function(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_lock_with_options(request, headers, runtime)
+        return self.get_function_with_options(request, headers, runtime)
+
+    def get_lifecycle_rule_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.biz_id):
+            query['BizId'] = request.biz_id
+        if not UtilClient.is_unset(request.resource_name):
+            query['ResourceName'] = request.resource_name
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetLifecycleRule',
+            version='2020-07-10',
+            protocol='HTTPS',
+            pathname='/webapi/metastorehouse/lifecycle/rule/getLifecycleRule',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            data_lake_20200710_models.GetLifecycleRuleResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_lifecycle_rule(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_lifecycle_rule_with_options(request, headers, runtime)
 
     def get_lock_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1374,10 +1433,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_partition(self, request):
+    def get_lock(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_partition_with_options(request, headers, runtime)
+        return self.get_lock_with_options(request, headers, runtime)
 
     def get_partition_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1410,10 +1469,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_partition_column_statistics(self, request):
+    def get_partition(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_partition_column_statistics_with_options(request, headers, runtime)
+        return self.get_partition_with_options(request, headers, runtime)
 
     def get_partition_column_statistics_with_options(self, tmp_req, headers, runtime):
         UtilClient.validate_model(tmp_req)
@@ -1454,10 +1513,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_query_result(self, request):
+    def get_partition_column_statistics(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_query_result_with_options(request, headers, runtime)
+        return self.get_partition_column_statistics_with_options(request, headers, runtime)
 
     def get_query_result_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1488,10 +1547,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_region_status(self, request):
+    def get_query_result(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_region_status_with_options(request, headers, runtime)
+        return self.get_query_result_with_options(request, headers, runtime)
 
     def get_region_status_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1518,10 +1577,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_role(self, request):
+    def get_region_status(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_role_with_options(request, headers, runtime)
+        return self.get_region_status_with_options(request, headers, runtime)
 
     def get_role_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1548,10 +1607,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_service_status(self, request):
+    def get_role(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_service_status_with_options(request, headers, runtime)
+        return self.get_role_with_options(request, headers, runtime)
 
     def get_service_status_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1578,10 +1637,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_table(self, request):
+    def get_service_status(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_table_with_options(request, headers, runtime)
+        return self.get_service_status_with_options(request, headers, runtime)
 
     def get_table_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1612,10 +1671,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_table_column_statistics(self, request):
+    def get_table(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_table_column_statistics_with_options(request, headers, runtime)
+        return self.get_table_with_options(request, headers, runtime)
 
     def get_table_column_statistics_with_options(self, tmp_req, headers, runtime):
         UtilClient.validate_model(tmp_req)
@@ -1652,10 +1711,44 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_table_version(self, request):
+    def get_table_column_statistics(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.get_table_version_with_options(request, headers, runtime)
+        return self.get_table_column_statistics_with_options(request, headers, runtime)
+
+    def get_table_profile_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.catalog_id):
+            query['CatalogId'] = request.catalog_id
+        if not UtilClient.is_unset(request.database_name):
+            query['DatabaseName'] = request.database_name
+        if not UtilClient.is_unset(request.table_name):
+            query['TableName'] = request.table_name
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetTableProfile',
+            version='2020-07-10',
+            protocol='HTTPS',
+            pathname='/webapi/metastorehouse/catalog/database/tableprofile',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            data_lake_20200710_models.GetTableProfileResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_table_profile(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_table_profile_with_options(request, headers, runtime)
 
     def get_table_version_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1688,10 +1781,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def grant_permissions(self, request):
+    def get_table_version(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.grant_permissions_with_options(request, headers, runtime)
+        return self.get_table_version_with_options(request, headers, runtime)
 
     def grant_permissions_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1728,10 +1821,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def grant_role_to_users(self, request):
+    def grant_permissions(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.grant_role_to_users_with_options(request, headers, runtime)
+        return self.grant_permissions_with_options(request, headers, runtime)
 
     def grant_role_to_users_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1760,10 +1853,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def grant_roles_to_user(self, request):
+    def grant_role_to_users(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.grant_roles_to_user_with_options(request, headers, runtime)
+        return self.grant_role_to_users_with_options(request, headers, runtime)
 
     def grant_roles_to_user_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1792,10 +1885,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_catalogs(self, request):
+    def grant_roles_to_user(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_catalogs_with_options(request, headers, runtime)
+        return self.grant_roles_to_user_with_options(request, headers, runtime)
 
     def list_catalogs_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1826,10 +1919,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_databases(self, request):
+    def list_catalogs(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_databases_with_options(request, headers, runtime)
+        return self.list_catalogs_with_options(request, headers, runtime)
 
     def list_databases_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1862,10 +1955,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_function_names(self, request):
+    def list_databases(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_function_names_with_options(request, headers, runtime)
+        return self.list_databases_with_options(request, headers, runtime)
 
     def list_function_names_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1900,10 +1993,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_functions(self, request):
+    def list_function_names(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_functions_with_options(request, headers, runtime)
+        return self.list_function_names_with_options(request, headers, runtime)
 
     def list_functions_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1938,10 +2031,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_partition_names(self, request):
+    def list_functions(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_partition_names_with_options(request, headers, runtime)
+        return self.list_functions_with_options(request, headers, runtime)
 
     def list_partition_names_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -1978,10 +2071,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_partitions(self, request):
+    def list_partition_names(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_partitions_with_options(request, headers, runtime)
+        return self.list_partition_names_with_options(request, headers, runtime)
 
     def list_partitions_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2020,10 +2113,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_partitions_by_expr(self):
+    def list_partitions(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_partitions_by_expr_with_options(headers, runtime)
+        return self.list_partitions_with_options(request, headers, runtime)
 
     def list_partitions_by_expr_with_options(self, headers, runtime):
         req = open_api_models.OpenApiRequest(
@@ -2045,10 +2138,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_partitions_by_filter(self, request):
+    def list_partitions_by_expr(self):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_partitions_by_filter_with_options(request, headers, runtime)
+        return self.list_partitions_by_expr_with_options(headers, runtime)
 
     def list_partitions_by_filter_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2087,10 +2180,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_permissions(self, request):
+    def list_partitions_by_filter(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_permissions_with_options(request, headers, runtime)
+        return self.list_partitions_by_filter_with_options(request, headers, runtime)
 
     def list_permissions_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2131,10 +2224,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_role_users(self, request):
+    def list_permissions(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_role_users_with_options(request, headers, runtime)
+        return self.list_permissions_with_options(request, headers, runtime)
 
     def list_role_users_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2167,10 +2260,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_roles(self, request):
+    def list_role_users(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_roles_with_options(request, headers, runtime)
+        return self.list_role_users_with_options(request, headers, runtime)
 
     def list_roles_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2201,10 +2294,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_table_names(self, request):
+    def list_roles(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_table_names_with_options(request, headers, runtime)
+        return self.list_roles_with_options(request, headers, runtime)
 
     def list_table_names_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2241,10 +2334,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_table_versions(self, request):
+    def list_table_names(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_table_versions_with_options(request, headers, runtime)
+        return self.list_table_names_with_options(request, headers, runtime)
 
     def list_table_versions_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2279,10 +2372,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_tables(self, request):
+    def list_table_versions(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_tables_with_options(request, headers, runtime)
+        return self.list_table_versions_with_options(request, headers, runtime)
 
     def list_tables_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2319,10 +2412,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_user_roles(self, request):
+    def list_tables(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.list_user_roles_with_options(request, headers, runtime)
+        return self.list_tables_with_options(request, headers, runtime)
 
     def list_user_roles_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2355,10 +2448,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def refresh_lock(self, request):
+    def list_user_roles(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.refresh_lock_with_options(request, headers, runtime)
+        return self.list_user_roles_with_options(request, headers, runtime)
 
     def refresh_lock_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2385,10 +2478,46 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def rename_partition(self, request):
+    def refresh_lock(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.rename_partition_with_options(request, headers, runtime)
+        return self.refresh_lock_with_options(request, headers, runtime)
+
+    def register_location_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.inventory_collect_enabled):
+            body['InventoryCollectEnabled'] = request.inventory_collect_enabled
+        if not UtilClient.is_unset(request.location):
+            body['Location'] = request.location
+        if not UtilClient.is_unset(request.oss_log_collect_enabled):
+            body['OssLogCollectEnabled'] = request.oss_log_collect_enabled
+        if not UtilClient.is_unset(request.role_name):
+            body['RoleName'] = request.role_name
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='RegisterLocation',
+            version='2020-07-10',
+            protocol='HTTPS',
+            pathname='/webapi/locations',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            data_lake_20200710_models.RegisterLocationResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def register_location(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.register_location_with_options(request, headers, runtime)
 
     def rename_partition_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2423,10 +2552,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def rename_table(self, request):
+    def rename_partition(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.rename_table_with_options(request, headers, runtime)
+        return self.rename_partition_with_options(request, headers, runtime)
 
     def rename_table_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2461,10 +2590,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def revoke_permissions(self, request):
+    def rename_table(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.revoke_permissions_with_options(request, headers, runtime)
+        return self.rename_table_with_options(request, headers, runtime)
 
     def revoke_permissions_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2501,10 +2630,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def revoke_role_from_users(self, request):
+    def revoke_permissions(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.revoke_role_from_users_with_options(request, headers, runtime)
+        return self.revoke_permissions_with_options(request, headers, runtime)
 
     def revoke_role_from_users_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2533,10 +2662,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def revoke_roles_from_user(self, request):
+    def revoke_role_from_users(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.revoke_roles_from_user_with_options(request, headers, runtime)
+        return self.revoke_role_from_users_with_options(request, headers, runtime)
 
     def revoke_roles_from_user_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2565,10 +2694,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def run_migration_workflow(self, request):
+    def revoke_roles_from_user(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.run_migration_workflow_with_options(request, headers, runtime)
+        return self.revoke_roles_from_user_with_options(request, headers, runtime)
 
     def run_migration_workflow_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2595,10 +2724,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def search(self, request):
+    def run_migration_workflow(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.search_with_options(request, headers, runtime)
+        return self.run_migration_workflow_with_options(request, headers, runtime)
 
     def search_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2635,10 +2764,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def search_across_catalog(self, request):
+    def search(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.search_across_catalog_with_options(request, headers, runtime)
+        return self.search_with_options(request, headers, runtime)
 
     def search_across_catalog_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2675,10 +2804,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def stop_migration_workflow(self, request):
+    def search_across_catalog(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.stop_migration_workflow_with_options(request, headers, runtime)
+        return self.search_across_catalog_with_options(request, headers, runtime)
 
     def stop_migration_workflow_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2705,14 +2834,16 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def submit_query(self, request):
+    def stop_migration_workflow(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.submit_query_with_options(request, headers, runtime)
+        return self.stop_migration_workflow_with_options(request, headers, runtime)
 
     def submit_query_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         body = {}
+        if not UtilClient.is_unset(request.catalog_id):
+            body['catalogId'] = request.catalog_id
         if not UtilClient.is_unset(request.sql):
             body['sql'] = request.sql
         if not UtilClient.is_unset(request.workspace_id):
@@ -2737,10 +2868,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def un_lock(self, request):
+    def submit_query(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.un_lock_with_options(request, headers, runtime)
+        return self.submit_query_with_options(request, headers, runtime)
 
     def un_lock_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2767,10 +2898,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_catalog(self, request):
+    def un_lock(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_catalog_with_options(request, headers, runtime)
+        return self.un_lock_with_options(request, headers, runtime)
 
     def update_catalog_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2797,10 +2928,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_catalog_settings(self, request):
+    def update_catalog(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_catalog_settings_with_options(request, headers, runtime)
+        return self.update_catalog_with_options(request, headers, runtime)
 
     def update_catalog_settings_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2829,10 +2960,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_database(self, request):
+    def update_catalog_settings(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_database_with_options(request, headers, runtime)
+        return self.update_catalog_settings_with_options(request, headers, runtime)
 
     def update_database_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2863,10 +2994,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_function(self, request):
+    def update_database(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_function_with_options(request, headers, runtime)
+        return self.update_database_with_options(request, headers, runtime)
 
     def update_function_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2899,16 +3030,16 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_partition_column_statistics(self, request):
+    def update_function(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_partition_column_statistics_with_options(request, headers, runtime)
+        return self.update_function_with_options(request, headers, runtime)
 
     def update_partition_column_statistics_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.update_table_partition_column_statistics_request))
+            body=OpenApiUtilClient.parse_to_map(request.update_table_partition_column_statistics_request)
         )
         params = open_api_models.Params(
             action='UpdatePartitionColumnStatistics',
@@ -2926,10 +3057,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_permissions(self, request):
+    def update_partition_column_statistics(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_permissions_with_options(request, headers, runtime)
+        return self.update_partition_column_statistics_with_options(request, headers, runtime)
 
     def update_permissions_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2966,10 +3097,44 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_role(self, request):
+    def update_permissions(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_role_with_options(request, headers, runtime)
+        return self.update_permissions_with_options(request, headers, runtime)
+
+    def update_registered_location_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.inventory_collect_enabled):
+            body['InventoryCollectEnabled'] = request.inventory_collect_enabled
+        if not UtilClient.is_unset(request.location_id):
+            body['LocationId'] = request.location_id
+        if not UtilClient.is_unset(request.oss_log_collect_enabled):
+            body['OssLogCollectEnabled'] = request.oss_log_collect_enabled
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateRegisteredLocation',
+            version='2020-07-10',
+            protocol='HTTPS',
+            pathname='/webapi/locations',
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            data_lake_20200710_models.UpdateRegisteredLocationResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_registered_location(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_registered_location_with_options(request, headers, runtime)
 
     def update_role_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -2998,10 +3163,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_role_users(self, request):
+    def update_role(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_role_users_with_options(request, headers, runtime)
+        return self.update_role_with_options(request, headers, runtime)
 
     def update_role_users_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3030,10 +3195,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_table(self, request):
+    def update_role_users(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_table_with_options(request, headers, runtime)
+        return self.update_role_users_with_options(request, headers, runtime)
 
     def update_table_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -3072,16 +3237,16 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_table_column_statistics(self, request):
+    def update_table(self, request):
         runtime = util_models.RuntimeOptions()
         headers = {}
-        return self.update_table_column_statistics_with_options(request, headers, runtime)
+        return self.update_table_with_options(request, headers, runtime)
 
     def update_table_column_statistics_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         req = open_api_models.OpenApiRequest(
             headers=headers,
-            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.update_table_partition_column_statistics_request))
+            body=OpenApiUtilClient.parse_to_map(request.update_table_partition_column_statistics_request)
         )
         params = open_api_models.Params(
             action='UpdateTableColumnStatistics',
@@ -3098,3 +3263,8 @@ class Client(OpenApiClient):
             data_lake_20200710_models.UpdateTableColumnStatisticsResponse(),
             self.call_api(params, req, runtime)
         )
+
+    def update_table_column_statistics(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_table_column_statistics_with_options(request, headers, runtime)
