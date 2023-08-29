@@ -1980,9 +1980,9 @@ class DescDomainRequest(TeaModel):
 class DescDomainResponseBody(TeaModel):
     def __init__(self, cname_auth_status=None, cname_confirm_status=None, cname_record=None, create_time=None,
                  default_domain=None, dkim_auth_status=None, dkim_public_key=None, dkim_rr=None, dns_mx=None, dns_spf=None,
-                 dns_txt=None, domain_id=None, domain_name=None, domain_status=None, domain_type=None, icp_status=None,
-                 mx_auth_status=None, mx_record=None, request_id=None, spf_auth_status=None, spf_record=None, spf_record_v2=None,
-                 tl_domain_name=None, tracef_record=None):
+                 dns_txt=None, domain_id=None, domain_name=None, domain_status=None, domain_type=None, host_record=None,
+                 icp_status=None, mx_auth_status=None, mx_record=None, request_id=None, spf_auth_status=None, spf_record=None,
+                 spf_record_v2=None, tl_domain_name=None, tracef_record=None):
         self.cname_auth_status = cname_auth_status  # type: str
         self.cname_confirm_status = cname_confirm_status  # type: str
         self.cname_record = cname_record  # type: str
@@ -1998,6 +1998,7 @@ class DescDomainResponseBody(TeaModel):
         self.domain_name = domain_name  # type: str
         self.domain_status = domain_status  # type: str
         self.domain_type = domain_type  # type: str
+        self.host_record = host_record  # type: str
         self.icp_status = icp_status  # type: str
         self.mx_auth_status = mx_auth_status  # type: str
         self.mx_record = mx_record  # type: str
@@ -2047,6 +2048,8 @@ class DescDomainResponseBody(TeaModel):
             result['DomainStatus'] = self.domain_status
         if self.domain_type is not None:
             result['DomainType'] = self.domain_type
+        if self.host_record is not None:
+            result['HostRecord'] = self.host_record
         if self.icp_status is not None:
             result['IcpStatus'] = self.icp_status
         if self.mx_auth_status is not None:
@@ -2099,6 +2102,8 @@ class DescDomainResponseBody(TeaModel):
             self.domain_status = m.get('DomainStatus')
         if m.get('DomainType') is not None:
             self.domain_type = m.get('DomainType')
+        if m.get('HostRecord') is not None:
+            self.host_record = m.get('HostRecord')
         if m.get('IcpStatus') is not None:
             self.icp_status = m.get('IcpStatus')
         if m.get('MxAuthStatus') is not None:
