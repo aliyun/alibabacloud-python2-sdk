@@ -31,6 +31,54 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
+    def add_auth_policy_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.accept_language):
+            query['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.auth_rule):
+            query['AuthRule'] = request.auth_rule
+        if not UtilClient.is_unset(request.auth_type):
+            query['AuthType'] = request.auth_type
+        if not UtilClient.is_unset(request.enable):
+            query['Enable'] = request.enable
+        if not UtilClient.is_unset(request.k_8s_namespace):
+            query['K8sNamespace'] = request.k_8s_namespace
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.namespace):
+            query['Namespace'] = request.namespace
+        if not UtilClient.is_unset(request.protocol):
+            query['Protocol'] = request.protocol
+        if not UtilClient.is_unset(request.region):
+            query['Region'] = request.region
+        if not UtilClient.is_unset(request.source):
+            query['Source'] = request.source
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='AddAuthPolicy',
+            version='2019-05-31',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            mse_20190531_models.AddAuthPolicyResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def add_auth_policy(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.add_auth_policy_with_options(request, runtime)
+
     def add_auth_resource_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
         request = mse_20190531_models.AddAuthResourceShrinkRequest()
@@ -123,11 +171,17 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.add_black_white_list_with_options(request, runtime)
 
-    def add_gateway_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
+    def add_gateway_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = mse_20190531_models.AddGatewayShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.zone_info):
+            request.zone_info_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.zone_info, 'ZoneInfo', 'json')
         query = {}
         if not UtilClient.is_unset(request.accept_language):
             query['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.charge_type):
+            query['ChargeType'] = request.charge_type
         if not UtilClient.is_unset(request.enable_hardware_acceleration):
             query['EnableHardwareAcceleration'] = request.enable_hardware_acceleration
         if not UtilClient.is_unset(request.enable_sls):
@@ -162,6 +216,8 @@ class Client(OpenApiClient):
             query['Vpc'] = request.vpc
         if not UtilClient.is_unset(request.xtrace_ratio):
             query['XtraceRatio'] = request.xtrace_ratio
+        if not UtilClient.is_unset(request.zone_info_shrink):
+            query['ZoneInfo'] = request.zone_info_shrink
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -387,8 +443,12 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.add_gateway_service_version_with_options(request, runtime)
 
-    def add_gateway_slb_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
+    def add_gateway_slb_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = mse_20190531_models.AddGatewaySlbShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.vservice_list):
+            request.vservice_list_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.vservice_list, 'VServiceList', 'json')
         query = {}
         if not UtilClient.is_unset(request.accept_language):
             query['AcceptLanguage'] = request.accept_language
@@ -408,6 +468,8 @@ class Client(OpenApiClient):
             query['Type'] = request.type
         if not UtilClient.is_unset(request.vserver_group_id):
             query['VServerGroupId'] = request.vserver_group_id
+        if not UtilClient.is_unset(request.vservice_list_shrink):
+            query['VServiceList'] = request.vservice_list_shrink
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -700,8 +762,6 @@ class Client(OpenApiClient):
             query['Region'] = request.region
         if not UtilClient.is_unset(request.rules):
             query['Rules'] = request.rules
-        if not UtilClient.is_unset(request.source):
-            query['Source'] = request.source
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -727,7 +787,7 @@ class Client(OpenApiClient):
 
     def clone_nacos_config_with_options(self, request, runtime):
         """
-        > The operation is not provided in Nacos SDKs. For information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
+        mse-200-105
         
 
         @param request: CloneNacosConfigRequest
@@ -771,7 +831,7 @@ class Client(OpenApiClient):
 
     def clone_nacos_config(self, request):
         """
-        > The operation is not provided in Nacos SDKs. For information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
+        mse-200-105
         
 
         @param request: CloneNacosConfigRequest
@@ -823,6 +883,62 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_application_with_options(request, runtime)
 
+    def create_circuit_breaker_rule_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.accept_language):
+            query['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.app_name):
+            query['AppName'] = request.app_name
+        if not UtilClient.is_unset(request.enable):
+            query['Enable'] = request.enable
+        if not UtilClient.is_unset(request.half_open_base_amount_per_step):
+            query['HalfOpenBaseAmountPerStep'] = request.half_open_base_amount_per_step
+        if not UtilClient.is_unset(request.half_open_recovery_step_num):
+            query['HalfOpenRecoveryStepNum'] = request.half_open_recovery_step_num
+        if not UtilClient.is_unset(request.max_allowed_rt_ms):
+            query['MaxAllowedRtMs'] = request.max_allowed_rt_ms
+        if not UtilClient.is_unset(request.min_request_amount):
+            query['MinRequestAmount'] = request.min_request_amount
+        if not UtilClient.is_unset(request.namespace):
+            query['Namespace'] = request.namespace
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource):
+            query['Resource'] = request.resource
+        if not UtilClient.is_unset(request.retry_timeout_ms):
+            query['RetryTimeoutMs'] = request.retry_timeout_ms
+        if not UtilClient.is_unset(request.stat_interval_ms):
+            query['StatIntervalMs'] = request.stat_interval_ms
+        if not UtilClient.is_unset(request.strategy):
+            query['Strategy'] = request.strategy
+        if not UtilClient.is_unset(request.threshold):
+            query['Threshold'] = request.threshold
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateCircuitBreakerRule',
+            version='2019-05-31',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            mse_20190531_models.CreateCircuitBreakerRuleResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_circuit_breaker_rule(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_circuit_breaker_rule_with_options(request, runtime)
+
     def create_cluster_with_options(self, request, runtime):
         """
         Before you call this API operation, you must make sure that you fully understand the billing methods and pricing of MSE.
@@ -838,6 +954,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.accept_language):
             query['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.charge_type):
+            query['ChargeType'] = request.charge_type
         if not UtilClient.is_unset(request.cluster_specification):
             query['ClusterSpecification'] = request.cluster_specification
         if not UtilClient.is_unset(request.cluster_type):
@@ -848,6 +966,8 @@ class Client(OpenApiClient):
             query['ConnectionType'] = request.connection_type
         if not UtilClient.is_unset(request.disk_type):
             query['DiskType'] = request.disk_type
+        if not UtilClient.is_unset(request.eip_enabled):
+            query['EipEnabled'] = request.eip_enabled
         if not UtilClient.is_unset(request.instance_count):
             query['InstanceCount'] = request.instance_count
         if not UtilClient.is_unset(request.instance_name):
@@ -868,6 +988,8 @@ class Client(OpenApiClient):
             query['RequestPars'] = request.request_pars
         if not UtilClient.is_unset(request.resource_group_id):
             query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.security_group_type):
+            query['SecurityGroupType'] = request.security_group_type
         if not UtilClient.is_unset(request.tag):
             query['Tag'] = request.tag
         if not UtilClient.is_unset(request.v_switch_id):
@@ -944,6 +1066,52 @@ class Client(OpenApiClient):
     def create_engine_namespace(self, request):
         runtime = util_models.RuntimeOptions()
         return self.create_engine_namespace_with_options(request, runtime)
+
+    def create_flow_rule_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.accept_language):
+            query['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.app_name):
+            query['AppName'] = request.app_name
+        if not UtilClient.is_unset(request.control_behavior):
+            query['ControlBehavior'] = request.control_behavior
+        if not UtilClient.is_unset(request.enable):
+            query['Enable'] = request.enable
+        if not UtilClient.is_unset(request.max_queueing_time_ms):
+            query['MaxQueueingTimeMs'] = request.max_queueing_time_ms
+        if not UtilClient.is_unset(request.namespace):
+            query['Namespace'] = request.namespace
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource):
+            query['Resource'] = request.resource
+        if not UtilClient.is_unset(request.threshold):
+            query['Threshold'] = request.threshold
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateFlowRule',
+            version='2019-05-31',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            mse_20190531_models.CreateFlowRuleResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_flow_rule(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_flow_rule_with_options(request, runtime)
 
     def create_mse_service_application_with_options(self, request, runtime):
         """
@@ -1077,7 +1245,7 @@ class Client(OpenApiClient):
 
     def create_nacos_instance_with_options(self, request, runtime):
         """
-        > The operation is not provided in Nacos SDKs. For information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
+        mse-200-105
         
 
         @param request: CreateNacosInstanceRequest
@@ -1135,7 +1303,7 @@ class Client(OpenApiClient):
 
     def create_nacos_instance(self, request):
         """
-        > The operation is not provided in Nacos SDKs. For information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
+        mse-200-105
         
 
         @param request: CreateNacosInstanceRequest
@@ -1220,36 +1388,26 @@ class Client(OpenApiClient):
             query['EnableRules'] = request.enable_rules
         if not UtilClient.is_unset(request.entry_rule):
             query['EntryRule'] = request.entry_rule
-        if not UtilClient.is_unset(request.entry_rules):
-            query['EntryRules'] = request.entry_rules
         if not UtilClient.is_unset(request.gateway_swimming_lane_route_json_shrink):
             query['GatewaySwimmingLaneRouteJson'] = request.gateway_swimming_lane_route_json_shrink
-        if not UtilClient.is_unset(request.gmt_create):
-            query['GmtCreate'] = request.gmt_create
-        if not UtilClient.is_unset(request.gmt_modified):
-            query['GmtModified'] = request.gmt_modified
         if not UtilClient.is_unset(request.group_id):
             query['GroupId'] = request.group_id
         if not UtilClient.is_unset(request.id):
             query['Id'] = request.id
-        if not UtilClient.is_unset(request.license_key):
-            query['LicenseKey'] = request.license_key
         if not UtilClient.is_unset(request.name):
             query['Name'] = request.name
         if not UtilClient.is_unset(request.namespace):
             query['Namespace'] = request.namespace
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
-        if not UtilClient.is_unset(request.source):
-            query['Source'] = request.source
-        if not UtilClient.is_unset(request.status):
-            query['Status'] = request.status
         if not UtilClient.is_unset(request.tag):
             query['Tag'] = request.tag
-        if not UtilClient.is_unset(request.user_id):
-            query['UserId'] = request.user_id
+        body = {}
+        if not UtilClient.is_unset(request.entry_rules):
+            body['EntryRules'] = request.entry_rules
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='CreateOrUpdateSwimmingLane',
@@ -1280,18 +1438,10 @@ class Client(OpenApiClient):
             query['AppIds'] = request.app_ids
         if not UtilClient.is_unset(request.db_gray_enable):
             query['DbGrayEnable'] = request.db_gray_enable
-        if not UtilClient.is_unset(request.enable):
-            query['Enable'] = request.enable
         if not UtilClient.is_unset(request.entry_app):
             query['EntryApp'] = request.entry_app
-        if not UtilClient.is_unset(request.gmt_create):
-            query['GmtCreate'] = request.gmt_create
-        if not UtilClient.is_unset(request.gmt_modified):
-            query['GmtModified'] = request.gmt_modified
         if not UtilClient.is_unset(request.id):
             query['Id'] = request.id
-        if not UtilClient.is_unset(request.license_key):
-            query['LicenseKey'] = request.license_key
         if not UtilClient.is_unset(request.message_queue_filter_side):
             query['MessageQueueFilterSide'] = request.message_queue_filter_side
         if not UtilClient.is_unset(request.message_queue_gray_enable):
@@ -1304,12 +1454,8 @@ class Client(OpenApiClient):
             query['RecordCanaryDetail'] = request.record_canary_detail
         if not UtilClient.is_unset(request.region):
             query['Region'] = request.region
-        if not UtilClient.is_unset(request.source):
-            query['Source'] = request.source
         if not UtilClient.is_unset(request.status):
             query['Status'] = request.status
-        if not UtilClient.is_unset(request.user_id):
-            query['UserId'] = request.user_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1399,6 +1545,44 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.delete_auth_resource_with_options(request, runtime)
 
+    def delete_circuit_breaker_rules_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = mse_20190531_models.DeleteCircuitBreakerRulesShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.ids):
+            request.ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.ids, 'Ids', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.accept_language):
+            query['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.app_name):
+            query['AppName'] = request.app_name
+        if not UtilClient.is_unset(request.ids_shrink):
+            query['Ids'] = request.ids_shrink
+        if not UtilClient.is_unset(request.namespace):
+            query['Namespace'] = request.namespace
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteCircuitBreakerRules',
+            version='2019-05-31',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            mse_20190531_models.DeleteCircuitBreakerRulesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_circuit_breaker_rules(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_circuit_breaker_rules_with_options(request, runtime)
+
     def delete_cluster_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1462,6 +1646,44 @@ class Client(OpenApiClient):
     def delete_engine_namespace(self, request):
         runtime = util_models.RuntimeOptions()
         return self.delete_engine_namespace_with_options(request, runtime)
+
+    def delete_flow_rules_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = mse_20190531_models.DeleteFlowRulesShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.ids):
+            request.ids_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.ids, 'Ids', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.accept_language):
+            query['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.app_name):
+            query['AppName'] = request.app_name
+        if not UtilClient.is_unset(request.ids_shrink):
+            query['Ids'] = request.ids_shrink
+        if not UtilClient.is_unset(request.namespace):
+            query['Namespace'] = request.namespace
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteFlowRules',
+            version='2019-05-31',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            mse_20190531_models.DeleteFlowRulesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_flow_rules(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_flow_rules_with_options(request, runtime)
 
     def delete_gateway_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1704,6 +1926,8 @@ class Client(OpenApiClient):
             query['GatewayUniqueId'] = request.gateway_unique_id
         if not UtilClient.is_unset(request.id):
             query['Id'] = request.id
+        if not UtilClient.is_unset(request.slb_id):
+            query['SlbId'] = request.slb_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -1760,16 +1984,6 @@ class Client(OpenApiClient):
         return self.delete_migration_task_with_options(request, runtime)
 
     def delete_nacos_config_with_options(self, request, runtime):
-        """
-        > The operation is not provided in Nacos SDKs. For information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
-        
-
-        @param request: DeleteNacosConfigRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: DeleteNacosConfigResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.accept_language):
@@ -1804,14 +2018,6 @@ class Client(OpenApiClient):
         )
 
     def delete_nacos_config(self, request):
-        """
-        > The operation is not provided in Nacos SDKs. For information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
-        
-
-        @param request: DeleteNacosConfigRequest
-
-        @return: DeleteNacosConfigResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.delete_nacos_config_with_options(request, runtime)
 
@@ -2118,12 +2324,10 @@ class Client(OpenApiClient):
             query['AcceptLanguage'] = request.accept_language
         if not UtilClient.is_unset(request.group_id):
             query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
         if not UtilClient.is_unset(request.namespace):
             query['Namespace'] = request.namespace
-        if not UtilClient.is_unset(request.region):
-            query['Region'] = request.region
-        if not UtilClient.is_unset(request.name):
-            query['name'] = request.name
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -2200,6 +2404,8 @@ class Client(OpenApiClient):
             query['AppName'] = request.app_name
         if not UtilClient.is_unset(request.data_id):
             query['DataId'] = request.data_id
+        if not UtilClient.is_unset(request.data_ids):
+            query['DataIds'] = request.data_ids
         if not UtilClient.is_unset(request.group):
             query['Group'] = request.group
         if not UtilClient.is_unset(request.ids):
@@ -2436,6 +2642,17 @@ class Client(OpenApiClient):
         return self.get_application_list_with_options(request, runtime)
 
     def get_application_list_with_metircs_with_options(self, request, runtime):
+        """
+        @deprecated : GetApplicationListWithMetircs is deprecated, please use mse::2019-05-31::GetApplicationList instead.
+        
+
+        @param request: GetApplicationListWithMetircsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetApplicationListWithMetircsResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.accept_language):
@@ -2474,6 +2691,15 @@ class Client(OpenApiClient):
         )
 
     def get_application_list_with_metircs(self, request):
+        """
+        @deprecated : GetApplicationListWithMetircs is deprecated, please use mse::2019-05-31::GetApplicationList instead.
+        
+
+        @param request: GetApplicationListWithMetircsRequest
+
+        @return: GetApplicationListWithMetircsResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_application_list_with_metircs_with_options(request, runtime)
 
@@ -2801,7 +3027,7 @@ class Client(OpenApiClient):
 
     def get_import_file_url_with_options(self, request, runtime):
         """
-        > The operation is not provided in Nacos SDKs. For information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
+        > The operation is not provided in Nacos SDKs. For information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).\\n
         
 
         @param request: GetImportFileUrlRequest
@@ -2841,7 +3067,7 @@ class Client(OpenApiClient):
 
     def get_import_file_url(self, request):
         """
-        > The operation is not provided in Nacos SDKs. For information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).
+        > The operation is not provided in Nacos SDKs. For information about Nacos SDKs, see the [official documentation](https://nacos.io/zh-cn/docs/sdk.html).\\n
         
 
         @param request: GetImportFileUrlRequest
@@ -2858,6 +3084,8 @@ class Client(OpenApiClient):
             query['AcceptLanguage'] = request.accept_language
         if not UtilClient.is_unset(request.gateway_unique_id):
             query['GatewayUniqueId'] = request.gateway_unique_id
+        if not UtilClient.is_unset(request.is_all):
+            query['IsAll'] = request.is_all
         if not UtilClient.is_unset(request.vpc_id):
             query['VpcId'] = request.vpc_id
         req = open_api_models.OpenApiRequest(
@@ -2882,6 +3110,64 @@ class Client(OpenApiClient):
     def get_kubernetes_source(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_kubernetes_source_with_options(request, runtime)
+
+    def get_lossless_rule_by_app_with_options(self, request, runtime):
+        """
+        You can call this operation to query the rules for graceful start and shutdown of an application.
+        You can query the rules for graceful start and shutdown of an application preferentially by using the AppId parameter.
+        If the AppId parameter is left empty, you can use the RegionId, Namespace, and AppName parameters to query the rules for graceful start and shutdown of an application.
+        
+
+        @param request: GetLosslessRuleByAppRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetLosslessRuleByAppResponse
+        """
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.accept_language):
+            query['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.app_name):
+            query['AppName'] = request.app_name
+        if not UtilClient.is_unset(request.namespace):
+            query['Namespace'] = request.namespace
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetLosslessRuleByApp',
+            version='2019-05-31',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            mse_20190531_models.GetLosslessRuleByAppResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_lossless_rule_by_app(self, request):
+        """
+        You can call this operation to query the rules for graceful start and shutdown of an application.
+        You can query the rules for graceful start and shutdown of an application preferentially by using the AppId parameter.
+        If the AppId parameter is left empty, you can use the RegionId, Namespace, and AppName parameters to query the rules for graceful start and shutdown of an application.
+        
+
+        @param request: GetLosslessRuleByAppRequest
+
+        @return: GetLosslessRuleByAppResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        return self.get_lossless_rule_by_app_with_options(request, runtime)
 
     def get_mse_feature_switch_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -3057,7 +3343,7 @@ class Client(OpenApiClient):
 
     def get_overview_with_options(self, request, runtime):
         """
-        You can call the GetOverview operation to query overview information about service governance.
+        You can call this operation to query overview information about service governance.
         
 
         @param request: GetOverviewRequest
@@ -3095,7 +3381,7 @@ class Client(OpenApiClient):
 
     def get_overview(self, request):
         """
-        You can call the GetOverview operation to query overview information about service governance.
+        You can call this operation to query overview information about service governance.
         
 
         @param request: GetOverviewRequest
@@ -3211,6 +3497,50 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_service_list_with_options(request, runtime)
 
+    def get_service_list_page_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.accept_language):
+            query['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.ip):
+            query['Ip'] = request.ip
+        if not UtilClient.is_unset(request.namespace):
+            query['Namespace'] = request.namespace
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region):
+            query['Region'] = request.region
+        if not UtilClient.is_unset(request.service_name):
+            query['ServiceName'] = request.service_name
+        if not UtilClient.is_unset(request.service_type):
+            query['ServiceType'] = request.service_type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetServiceListPage',
+            version='2019-05-31',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            mse_20190531_models.GetServiceListPageResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_service_list_page(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_service_list_page_with_options(request, runtime)
+
     def get_service_listeners_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -3260,6 +3590,60 @@ class Client(OpenApiClient):
     def get_service_listeners(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_service_listeners_with_options(request, runtime)
+
+    def get_service_method_page_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.accept_language):
+            query['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.app_name):
+            query['AppName'] = request.app_name
+        if not UtilClient.is_unset(request.ip):
+            query['Ip'] = request.ip
+        if not UtilClient.is_unset(request.method_controller):
+            query['MethodController'] = request.method_controller
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.path):
+            query['Path'] = request.path
+        if not UtilClient.is_unset(request.region):
+            query['Region'] = request.region
+        if not UtilClient.is_unset(request.service_group):
+            query['ServiceGroup'] = request.service_group
+        if not UtilClient.is_unset(request.service_name):
+            query['ServiceName'] = request.service_name
+        if not UtilClient.is_unset(request.service_type):
+            query['ServiceType'] = request.service_type
+        if not UtilClient.is_unset(request.service_version):
+            query['ServiceVersion'] = request.service_version
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetServiceMethodPage',
+            version='2019-05-31',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            mse_20190531_models.GetServiceMethodPageResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_service_method_page(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_service_method_page_with_options(request, runtime)
 
     def get_tags_by_swimming_lane_group_id_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -3425,8 +3809,7 @@ class Client(OpenApiClient):
 
     def import_zookeeper_data_with_options(self, request, runtime):
         """
-        *\
-        **Danger** This operation clears existing data. Exercise caution when you call this API operation.
+        *Danger** This operation clears existing data. Exercise caution when you call this API operation.
         
 
         @param request: ImportZookeeperDataRequest
@@ -3470,8 +3853,7 @@ class Client(OpenApiClient):
 
     def import_zookeeper_data(self, request):
         """
-        *\
-        **Danger** This operation clears existing data. Exercise caution when you call this API operation.
+        *Danger** This operation clears existing data. Exercise caution when you call this API operation.
         
 
         @param request: ImportZookeeperDataRequest
@@ -3537,7 +3919,25 @@ class Client(OpenApiClient):
         @return: ListAnsServiceClustersResponse
         """
         UtilClient.validate_model(request)
-        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        query = {}
+        if not UtilClient.is_unset(request.accept_language):
+            query['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.cluster_name):
+            query['ClusterName'] = request.cluster_name
+        if not UtilClient.is_unset(request.group_name):
+            query['GroupName'] = request.group_name
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.namespace_id):
+            query['NamespaceId'] = request.namespace_id
+        if not UtilClient.is_unset(request.page_num):
+            query['PageNum'] = request.page_num
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.service_name):
+            query['ServiceName'] = request.service_name
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -3546,7 +3946,7 @@ class Client(OpenApiClient):
             version='2019-05-31',
             protocol='HTTPS',
             pathname='/',
-            method='GET',
+            method='POST',
             auth_type='AK',
             style='RPC',
             req_body_type='formData',
@@ -3581,7 +3981,31 @@ class Client(OpenApiClient):
         @return: ListAnsServicesResponse
         """
         UtilClient.validate_model(request)
-        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        query = {}
+        if not UtilClient.is_unset(request.accept_language):
+            query['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.cluster_name):
+            query['ClusterName'] = request.cluster_name
+        if not UtilClient.is_unset(request.group_name):
+            query['GroupName'] = request.group_name
+        if not UtilClient.is_unset(request.has_ip_count):
+            query['HasIpCount'] = request.has_ip_count
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.namespace_id):
+            query['NamespaceId'] = request.namespace_id
+        if not UtilClient.is_unset(request.page_num):
+            query['PageNum'] = request.page_num
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.request_pars):
+            query['RequestPars'] = request.request_pars
+        if not UtilClient.is_unset(request.service_name):
+            query['ServiceName'] = request.service_name
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -3590,7 +4014,7 @@ class Client(OpenApiClient):
             version='2019-05-31',
             protocol='HTTPS',
             pathname='/',
-            method='GET',
+            method='POST',
             auth_type='AK',
             style='RPC',
             req_body_type='formData',
@@ -3614,6 +4038,17 @@ class Client(OpenApiClient):
         return self.list_ans_services_with_options(request, runtime)
 
     def list_app_by_swimming_lane_group_tag_with_options(self, request, runtime):
+        """
+        @deprecated : ListAppBySwimmingLaneGroupTag is deprecated, please use mse::2019-05-31::ListAppBySwimmingLaneGroupTags instead.
+        
+
+        @param request: ListAppBySwimmingLaneGroupTagRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListAppBySwimmingLaneGroupTagResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.accept_language):
@@ -3644,8 +4079,55 @@ class Client(OpenApiClient):
         )
 
     def list_app_by_swimming_lane_group_tag(self, request):
+        """
+        @deprecated : ListAppBySwimmingLaneGroupTag is deprecated, please use mse::2019-05-31::ListAppBySwimmingLaneGroupTags instead.
+        
+
+        @param request: ListAppBySwimmingLaneGroupTagRequest
+
+        @return: ListAppBySwimmingLaneGroupTagResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_app_by_swimming_lane_group_tag_with_options(request, runtime)
+
+    def list_app_by_swimming_lane_group_tags_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = mse_20190531_models.ListAppBySwimmingLaneGroupTagsShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.tags):
+            request.tags_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.tags, 'Tags', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.accept_language):
+            query['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.group_id):
+            query['GroupId'] = request.group_id
+        if not UtilClient.is_unset(request.namespace):
+            query['Namespace'] = request.namespace
+        if not UtilClient.is_unset(request.tags_shrink):
+            query['Tags'] = request.tags_shrink
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListAppBySwimmingLaneGroupTags',
+            version='2019-05-31',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            mse_20190531_models.ListAppBySwimmingLaneGroupTagsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_app_by_swimming_lane_group_tags(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_app_by_swimming_lane_group_tags_with_options(request, runtime)
 
     def list_applications_with_tag_rules_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -3672,6 +4154,92 @@ class Client(OpenApiClient):
     def list_applications_with_tag_rules(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_applications_with_tag_rules_with_options(request, runtime)
+
+    def list_auth_policy_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.accept_language):
+            query['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.namespace):
+            query['Namespace'] = request.namespace
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.protocol):
+            query['Protocol'] = request.protocol
+        if not UtilClient.is_unset(request.region):
+            query['Region'] = request.region
+        if not UtilClient.is_unset(request.source):
+            query['Source'] = request.source
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListAuthPolicy',
+            version='2019-05-31',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            mse_20190531_models.ListAuthPolicyResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_auth_policy(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_auth_policy_with_options(request, runtime)
+
+    def list_circuit_breaker_rules_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.accept_language):
+            query['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.app_name):
+            query['AppName'] = request.app_name
+        if not UtilClient.is_unset(request.namespace):
+            query['Namespace'] = request.namespace
+        if not UtilClient.is_unset(request.page_index):
+            query['PageIndex'] = request.page_index
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.resource):
+            query['Resource'] = request.resource
+        if not UtilClient.is_unset(request.resource_search_key):
+            query['ResourceSearchKey'] = request.resource_search_key
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListCircuitBreakerRules',
+            version='2019-05-31',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            mse_20190531_models.ListCircuitBreakerRulesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_circuit_breaker_rules(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_circuit_breaker_rules_with_options(request, runtime)
 
     def list_cluster_connection_types_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -3807,7 +4375,23 @@ class Client(OpenApiClient):
 
     def list_clusters_with_options(self, request, runtime):
         UtilClient.validate_model(request)
-        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        query = {}
+        if not UtilClient.is_unset(request.accept_language):
+            query['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.cluster_alias_name):
+            query['ClusterAliasName'] = request.cluster_alias_name
+        if not UtilClient.is_unset(request.page_num):
+            query['PageNum'] = request.page_num
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.request_pars):
+            query['RequestPars'] = request.request_pars
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -3816,7 +4400,7 @@ class Client(OpenApiClient):
             version='2019-05-31',
             protocol='HTTPS',
             pathname='/',
-            method='GET',
+            method='POST',
             auth_type='AK',
             style='RPC',
             req_body_type='formData',
@@ -3833,7 +4417,31 @@ class Client(OpenApiClient):
 
     def list_config_track_with_options(self, request, runtime):
         UtilClient.validate_model(request)
-        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        query = {}
+        if not UtilClient.is_unset(request.accept_language):
+            query['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.data_id):
+            query['DataId'] = request.data_id
+        if not UtilClient.is_unset(request.end_ts):
+            query['EndTs'] = request.end_ts
+        if not UtilClient.is_unset(request.group):
+            query['Group'] = request.group
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.ip):
+            query['Ip'] = request.ip
+        if not UtilClient.is_unset(request.namespace_id):
+            query['NamespaceId'] = request.namespace_id
+        if not UtilClient.is_unset(request.page_num):
+            query['PageNum'] = request.page_num
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.request_pars):
+            query['RequestPars'] = request.request_pars
+        if not UtilClient.is_unset(request.reverse):
+            query['Reverse'] = request.reverse
+        if not UtilClient.is_unset(request.start_ts):
+            query['StartTs'] = request.start_ts
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -3842,7 +4450,7 @@ class Client(OpenApiClient):
             version='2019-05-31',
             protocol='HTTPS',
             pathname='/',
-            method='GET',
+            method='POST',
             auth_type='AK',
             style='RPC',
             req_body_type='formData',
@@ -3859,7 +4467,11 @@ class Client(OpenApiClient):
 
     def list_engine_namespaces_with_options(self, request, runtime):
         UtilClient.validate_model(request)
-        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        query = {}
+        if not UtilClient.is_unset(request.accept_language):
+            query['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -3868,7 +4480,7 @@ class Client(OpenApiClient):
             version='2019-05-31',
             protocol='HTTPS',
             pathname='/',
-            method='GET',
+            method='POST',
             auth_type='AK',
             style='RPC',
             req_body_type='formData',
@@ -3968,6 +4580,48 @@ class Client(OpenApiClient):
     def list_export_zookeeper_data(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_export_zookeeper_data_with_options(request, runtime)
+
+    def list_flow_rules_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.accept_language):
+            query['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.app_name):
+            query['AppName'] = request.app_name
+        if not UtilClient.is_unset(request.namespace):
+            query['Namespace'] = request.namespace
+        if not UtilClient.is_unset(request.page_index):
+            query['PageIndex'] = request.page_index
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.resource):
+            query['Resource'] = request.resource
+        if not UtilClient.is_unset(request.resource_search_key):
+            query['ResourceSearchKey'] = request.resource_search_key
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListFlowRules',
+            version='2019-05-31',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            mse_20190531_models.ListFlowRulesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_flow_rules(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_flow_rules_with_options(request, runtime)
 
     def list_gateway_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
@@ -4755,7 +5409,27 @@ class Client(OpenApiClient):
 
     def list_zk_track_with_options(self, request, runtime):
         UtilClient.validate_model(request)
-        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        query = {}
+        if not UtilClient.is_unset(request.accept_language):
+            query['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.end_ts):
+            query['EndTs'] = request.end_ts
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.page_num):
+            query['PageNum'] = request.page_num
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.path):
+            query['Path'] = request.path
+        if not UtilClient.is_unset(request.request_pars):
+            query['RequestPars'] = request.request_pars
+        if not UtilClient.is_unset(request.reverse):
+            query['Reverse'] = request.reverse
+        if not UtilClient.is_unset(request.session_id):
+            query['SessionId'] = request.session_id
+        if not UtilClient.is_unset(request.start_ts):
+            query['StartTs'] = request.start_ts
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -4764,7 +5438,7 @@ class Client(OpenApiClient):
             version='2019-05-31',
             protocol='HTTPS',
             pathname='/',
-            method='GET',
+            method='POST',
             auth_type='AK',
             style='RPC',
             req_body_type='formData',
@@ -4781,7 +5455,13 @@ class Client(OpenApiClient):
 
     def list_znode_children_with_options(self, request, runtime):
         UtilClient.validate_model(request)
-        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        query = {}
+        if not UtilClient.is_unset(request.accept_language):
+            query['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.path):
+            query['Path'] = request.path
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -4790,7 +5470,7 @@ class Client(OpenApiClient):
             version='2019-05-31',
             protocol='HTTPS',
             pathname='/',
-            method='GET',
+            method='POST',
             auth_type='AK',
             style='RPC',
             req_body_type='formData',
@@ -4805,19 +5485,25 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_znode_children_with_options(request, runtime)
 
-    def modify_governance_kubernetes_cluster_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
+    def modify_governance_kubernetes_cluster_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = mse_20190531_models.ModifyGovernanceKubernetesClusterShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.namespace_infos):
+            request.namespace_infos_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.namespace_infos, 'NamespaceInfos', 'json')
         query = {}
         if not UtilClient.is_unset(request.accept_language):
             query['AcceptLanguage'] = request.accept_language
         if not UtilClient.is_unset(request.cluster_id):
             query['ClusterId'] = request.cluster_id
-        if not UtilClient.is_unset(request.namespace_infos):
-            query['NamespaceInfos'] = request.namespace_infos
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        body = {}
+        if not UtilClient.is_unset(request.namespace_infos_shrink):
+            body['NamespaceInfos'] = request.namespace_infos_shrink
         req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
             action='ModifyGovernanceKubernetesCluster',
@@ -5253,7 +5939,19 @@ class Client(OpenApiClient):
 
     def query_config_with_options(self, request, runtime):
         UtilClient.validate_model(request)
-        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        query = {}
+        if not UtilClient.is_unset(request.accept_language):
+            query['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.cluster_id):
+            query['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.config_type):
+            query['ConfigType'] = request.config_type
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.need_running_conf):
+            query['NeedRunningConf'] = request.need_running_conf
+        if not UtilClient.is_unset(request.request_pars):
+            query['RequestPars'] = request.request_pars
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -5262,7 +5960,7 @@ class Client(OpenApiClient):
             version='2019-05-31',
             protocol='HTTPS',
             pathname='/',
-            method='GET',
+            method='POST',
             auth_type='AK',
             style='RPC',
             req_body_type='formData',
@@ -5399,7 +6097,21 @@ class Client(OpenApiClient):
 
     def query_monitor_with_options(self, request, runtime):
         UtilClient.validate_model(request)
-        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        query = {}
+        if not UtilClient.is_unset(request.accept_language):
+            query['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.monitor_type):
+            query['MonitorType'] = request.monitor_type
+        if not UtilClient.is_unset(request.request_pars):
+            query['RequestPars'] = request.request_pars
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        if not UtilClient.is_unset(request.step):
+            query['Step'] = request.step
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -5408,7 +6120,7 @@ class Client(OpenApiClient):
             version='2019-05-31',
             protocol='HTTPS',
             pathname='/',
-            method='GET',
+            method='POST',
             auth_type='AK',
             style='RPC',
             req_body_type='formData',
@@ -5538,6 +6250,72 @@ class Client(OpenApiClient):
     def query_znode_detail(self, request):
         runtime = util_models.RuntimeOptions()
         return self.query_znode_detail_with_options(request, runtime)
+
+    def remove_application_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.accept_language):
+            query['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.app_name):
+            query['AppName'] = request.app_name
+        if not UtilClient.is_unset(request.namespace):
+            query['Namespace'] = request.namespace
+        if not UtilClient.is_unset(request.region):
+            query['Region'] = request.region
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RemoveApplication',
+            version='2019-05-31',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            mse_20190531_models.RemoveApplicationResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def remove_application(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.remove_application_with_options(request, runtime)
+
+    def remove_auth_policy_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.accept_language):
+            query['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.policy_id):
+            query['PolicyId'] = request.policy_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RemoveAuthPolicy',
+            version='2019-05-31',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            mse_20190531_models.RemoveAuthPolicyResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def remove_auth_policy(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.remove_auth_policy_with_options(request, runtime)
 
     def restart_cluster_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -5747,6 +6525,52 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.update_acl_with_options(request, runtime)
 
+    def update_auth_policy_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.accept_language):
+            query['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.auth_rule):
+            query['AuthRule'] = request.auth_rule
+        if not UtilClient.is_unset(request.enable):
+            query['Enable'] = request.enable
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        if not UtilClient.is_unset(request.k_8s_namespace):
+            query['K8sNamespace'] = request.k_8s_namespace
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        if not UtilClient.is_unset(request.protocol):
+            query['Protocol'] = request.protocol
+        if not UtilClient.is_unset(request.region):
+            query['Region'] = request.region
+        if not UtilClient.is_unset(request.source):
+            query['Source'] = request.source
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateAuthPolicy',
+            version='2019-05-31',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            mse_20190531_models.UpdateAuthPolicyResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_auth_policy(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_auth_policy_with_options(request, runtime)
+
     def update_black_white_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -5794,6 +6618,60 @@ class Client(OpenApiClient):
     def update_black_white_list(self, request):
         runtime = util_models.RuntimeOptions()
         return self.update_black_white_list_with_options(request, runtime)
+
+    def update_circuit_breaker_rule_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.accept_language):
+            query['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.app_name):
+            query['AppName'] = request.app_name
+        if not UtilClient.is_unset(request.enable):
+            query['Enable'] = request.enable
+        if not UtilClient.is_unset(request.half_open_base_amount_per_step):
+            query['HalfOpenBaseAmountPerStep'] = request.half_open_base_amount_per_step
+        if not UtilClient.is_unset(request.half_open_recovery_step_num):
+            query['HalfOpenRecoveryStepNum'] = request.half_open_recovery_step_num
+        if not UtilClient.is_unset(request.max_allowed_rt_ms):
+            query['MaxAllowedRtMs'] = request.max_allowed_rt_ms
+        if not UtilClient.is_unset(request.min_request_amount):
+            query['MinRequestAmount'] = request.min_request_amount
+        if not UtilClient.is_unset(request.namespace):
+            query['Namespace'] = request.namespace
+        if not UtilClient.is_unset(request.retry_timeout_ms):
+            query['RetryTimeoutMs'] = request.retry_timeout_ms
+        if not UtilClient.is_unset(request.rule_id):
+            query['RuleId'] = request.rule_id
+        if not UtilClient.is_unset(request.stat_interval_ms):
+            query['StatIntervalMs'] = request.stat_interval_ms
+        if not UtilClient.is_unset(request.strategy):
+            query['Strategy'] = request.strategy
+        if not UtilClient.is_unset(request.threshold):
+            query['Threshold'] = request.threshold
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateCircuitBreakerRule',
+            version='2019-05-31',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            mse_20190531_models.UpdateCircuitBreakerRuleResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_circuit_breaker_rule(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_circuit_breaker_rule_with_options(request, runtime)
 
     def update_cluster_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -5930,6 +6808,8 @@ class Client(OpenApiClient):
             query['SnapshotCount'] = request.snapshot_count
         if not UtilClient.is_unset(request.sync_limit):
             query['SyncLimit'] = request.sync_limit
+        if not UtilClient.is_unset(request.tlsenabled):
+            query['TLSEnabled'] = request.tlsenabled
         if not UtilClient.is_unset(request.tick_time):
             query['TickTime'] = request.tick_time
         if not UtilClient.is_unset(request.user_name):
@@ -6000,6 +6880,50 @@ class Client(OpenApiClient):
     def update_engine_namespace(self, request):
         runtime = util_models.RuntimeOptions()
         return self.update_engine_namespace_with_options(request, runtime)
+
+    def update_flow_rule_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.accept_language):
+            query['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.app_name):
+            query['AppName'] = request.app_name
+        if not UtilClient.is_unset(request.control_behavior):
+            query['ControlBehavior'] = request.control_behavior
+        if not UtilClient.is_unset(request.enable):
+            query['Enable'] = request.enable
+        if not UtilClient.is_unset(request.max_queueing_time_ms):
+            query['MaxQueueingTimeMs'] = request.max_queueing_time_ms
+        if not UtilClient.is_unset(request.namespace):
+            query['Namespace'] = request.namespace
+        if not UtilClient.is_unset(request.rule_id):
+            query['RuleId'] = request.rule_id
+        if not UtilClient.is_unset(request.threshold):
+            query['Threshold'] = request.threshold
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UpdateFlowRule',
+            version='2019-05-31',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            mse_20190531_models.UpdateFlowRuleResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_flow_rule(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_flow_rule_with_options(request, runtime)
 
     def update_gateway_auth_consumer_with_options(self, request, runtime):
         UtilClient.validate_model(request)
