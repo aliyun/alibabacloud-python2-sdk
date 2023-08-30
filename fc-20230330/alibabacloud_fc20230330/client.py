@@ -33,7 +33,7 @@ class Client(OpenApiClient):
 
     def create_alias_with_options(self, function_name, request, headers, runtime):
         """
-        create function version
+        创建函数别名
         
 
         @param request: CreateAliasRequest
@@ -68,7 +68,7 @@ class Client(OpenApiClient):
 
     def create_alias(self, function_name, request):
         """
-        create function version
+        创建函数别名
         
 
         @param request: CreateAliasRequest
@@ -81,7 +81,7 @@ class Client(OpenApiClient):
 
     def create_custom_domain_with_options(self, request, headers, runtime):
         """
-        Create custom domain.
+        创建自定义域名
         
 
         @param request: CreateCustomDomainRequest
@@ -116,7 +116,7 @@ class Client(OpenApiClient):
 
     def create_custom_domain(self, request):
         """
-        Create custom domain.
+        创建自定义域名
         
 
         @param request: CreateCustomDomainRequest
@@ -129,7 +129,7 @@ class Client(OpenApiClient):
 
     def create_function_with_options(self, request, headers, runtime):
         """
-        Create function
+        创建函数
         
 
         @param request: CreateFunctionRequest
@@ -164,7 +164,7 @@ class Client(OpenApiClient):
 
     def create_function(self, request):
         """
-        Create function
+        创建函数
         
 
         @param request: CreateFunctionRequest
@@ -177,7 +177,7 @@ class Client(OpenApiClient):
 
     def create_layer_version_with_options(self, layer_name, request, headers, runtime):
         """
-        Create layer version
+        创建层版本
         
 
         @param request: CreateLayerVersionRequest
@@ -212,7 +212,7 @@ class Client(OpenApiClient):
 
     def create_layer_version(self, layer_name, request):
         """
-        Create layer version
+        创建层版本
         
 
         @param request: CreateLayerVersionRequest
@@ -225,7 +225,7 @@ class Client(OpenApiClient):
 
     def create_trigger_with_options(self, function_name, request, headers, runtime):
         """
-        Create trigger.
+        创建函数触发器
         
 
         @param request: CreateTriggerRequest
@@ -260,7 +260,7 @@ class Client(OpenApiClient):
 
     def create_trigger(self, function_name, request):
         """
-        Create trigger.
+        创建函数触发器
         
 
         @param request: CreateTriggerRequest
@@ -271,9 +271,57 @@ class Client(OpenApiClient):
         headers = {}
         return self.create_trigger_with_options(function_name, request, headers, runtime)
 
+    def create_vpc_binding_with_options(self, function_name, request, headers, runtime):
+        """
+        创建VPC绑定
+        
+
+        @param request: CreateVpcBindingRequest
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateVpcBindingResponse
+        """
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(request.body)
+        )
+        params = open_api_models.Params(
+            action='CreateVpcBinding',
+            version='2023-03-30',
+            protocol='HTTPS',
+            pathname='/2023-03-30/functions/%s/vpc-bindings' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(function_name)),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            fc20230330_models.CreateVpcBindingResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_vpc_binding(self, function_name, request):
+        """
+        创建VPC绑定
+        
+
+        @param request: CreateVpcBindingRequest
+
+        @return: CreateVpcBindingResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_vpc_binding_with_options(function_name, request, headers, runtime)
+
     def delete_alias_with_options(self, function_name, alias_name, headers, runtime):
         """
-        Delete function alias
+        删除函数别名
         
 
         @type headers: dict
@@ -304,7 +352,7 @@ class Client(OpenApiClient):
 
     def delete_alias(self, function_name, alias_name):
         """
-        Delete function alias
+        删除函数别名
         
 
         @return: DeleteAliasResponse
@@ -315,7 +363,7 @@ class Client(OpenApiClient):
 
     def delete_async_invoke_config_with_options(self, function_name, request, headers, runtime):
         """
-        Delete function async invoke config
+        删除函数异步调用配置
         
 
         @param request: DeleteAsyncInvokeConfigRequest
@@ -353,7 +401,7 @@ class Client(OpenApiClient):
 
     def delete_async_invoke_config(self, function_name, request):
         """
-        Delete function async invoke config
+        删除函数异步调用配置
         
 
         @param request: DeleteAsyncInvokeConfigRequest
@@ -366,7 +414,7 @@ class Client(OpenApiClient):
 
     def delete_concurrency_config_with_options(self, function_name, headers, runtime):
         """
-        deletes the concurrency config for a function
+        删除函数并发度配置
         
 
         @type headers: dict
@@ -397,7 +445,7 @@ class Client(OpenApiClient):
 
     def delete_concurrency_config(self, function_name):
         """
-        deletes the concurrency config for a function
+        删除函数并发度配置
         
 
         @return: DeleteConcurrencyConfigResponse
@@ -408,7 +456,7 @@ class Client(OpenApiClient):
 
     def delete_custom_domain_with_options(self, domain_name, headers, runtime):
         """
-        Delete custom domain.
+        删除自定义域名
         
 
         @type headers: dict
@@ -439,7 +487,7 @@ class Client(OpenApiClient):
 
     def delete_custom_domain(self, domain_name):
         """
-        Delete custom domain.
+        删除自定义域名
         
 
         @return: DeleteCustomDomainResponse
@@ -450,7 +498,7 @@ class Client(OpenApiClient):
 
     def delete_function_with_options(self, function_name, headers, runtime):
         """
-        Delete function
+        删除函数
         
 
         @type headers: dict
@@ -481,7 +529,7 @@ class Client(OpenApiClient):
 
     def delete_function(self, function_name):
         """
-        Delete function
+        删除函数
         
 
         @return: DeleteFunctionResponse
@@ -492,7 +540,7 @@ class Client(OpenApiClient):
 
     def delete_function_version_with_options(self, function_name, version_id, headers, runtime):
         """
-        Delete function version
+        删除函数版本
         
 
         @type headers: dict
@@ -523,7 +571,7 @@ class Client(OpenApiClient):
 
     def delete_function_version(self, function_name, version_id):
         """
-        Delete function version
+        删除函数版本
         
 
         @return: DeleteFunctionVersionResponse
@@ -534,7 +582,7 @@ class Client(OpenApiClient):
 
     def delete_layer_version_with_options(self, layer_name, version, headers, runtime):
         """
-        Delete layer version
+        删除层版本
         
 
         @type headers: dict
@@ -565,7 +613,7 @@ class Client(OpenApiClient):
 
     def delete_layer_version(self, layer_name, version):
         """
-        Delete layer version
+        删除层版本
         
 
         @return: DeleteLayerVersionResponse
@@ -576,7 +624,7 @@ class Client(OpenApiClient):
 
     def delete_provision_config_with_options(self, function_name, request, headers, runtime):
         """
-        Delete provision config.
+        删除函数预留配置
         
 
         @param request: DeleteProvisionConfigRequest
@@ -614,7 +662,7 @@ class Client(OpenApiClient):
 
     def delete_provision_config(self, function_name, request):
         """
-        Delete provision config.
+        删除函数预留配置
         
 
         @param request: DeleteProvisionConfigRequest
@@ -627,7 +675,7 @@ class Client(OpenApiClient):
 
     def delete_trigger_with_options(self, function_name, trigger_name, headers, runtime):
         """
-        Delete trigger.
+        删除函数触发器
         
 
         @type headers: dict
@@ -658,7 +706,7 @@ class Client(OpenApiClient):
 
     def delete_trigger(self, function_name, trigger_name):
         """
-        Delete trigger.
+        删除函数触发器
         
 
         @return: DeleteTriggerResponse
@@ -667,9 +715,51 @@ class Client(OpenApiClient):
         headers = {}
         return self.delete_trigger_with_options(function_name, trigger_name, headers, runtime)
 
+    def delete_vpc_binding_with_options(self, function_name, vpc_id, headers, runtime):
+        """
+        删除VPC绑定
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteVpcBindingResponse
+        """
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='DeleteVpcBinding',
+            version='2023-03-30',
+            protocol='HTTPS',
+            pathname='/2023-03-30/functions/%s/vpc-bindings/%s' % (TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(function_name)), TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(vpc_id))),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            fc20230330_models.DeleteVpcBindingResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_vpc_binding(self, function_name, vpc_id):
+        """
+        删除VPC绑定
+        
+
+        @return: DeleteVpcBindingResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_vpc_binding_with_options(function_name, vpc_id, headers, runtime)
+
     def get_alias_with_options(self, function_name, alias_name, headers, runtime):
         """
-        Get function alias
+        获取函数别名信息
         
 
         @type headers: dict
@@ -700,7 +790,7 @@ class Client(OpenApiClient):
 
     def get_alias(self, function_name, alias_name):
         """
-        Get function alias
+        获取函数别名信息
         
 
         @return: GetAliasResponse
@@ -711,7 +801,7 @@ class Client(OpenApiClient):
 
     def get_async_invoke_config_with_options(self, function_name, request, headers, runtime):
         """
-        Get function async invoke config
+        获取函数异步调用配置
         
 
         @param request: GetAsyncInvokeConfigRequest
@@ -749,7 +839,7 @@ class Client(OpenApiClient):
 
     def get_async_invoke_config(self, function_name, request):
         """
-        Get function async invoke config
+        获取函数异步调用配置
         
 
         @param request: GetAsyncInvokeConfigRequest
@@ -762,7 +852,7 @@ class Client(OpenApiClient):
 
     def get_concurrency_config_with_options(self, function_name, headers, runtime):
         """
-        gets the concurrency config for a function
+        获取函数并发度配置
         
 
         @type headers: dict
@@ -793,7 +883,7 @@ class Client(OpenApiClient):
 
     def get_concurrency_config(self, function_name):
         """
-        gets the concurrency config for a function
+        获取函数并发度配置
         
 
         @return: GetConcurrencyConfigResponse
@@ -804,7 +894,7 @@ class Client(OpenApiClient):
 
     def get_custom_domain_with_options(self, domain_name, headers, runtime):
         """
-        Get custom domain.
+        获取自定义域名
         
 
         @type headers: dict
@@ -835,7 +925,7 @@ class Client(OpenApiClient):
 
     def get_custom_domain(self, domain_name):
         """
-        Get custom domain.
+        获取自定义域名
         
 
         @return: GetCustomDomainResponse
@@ -846,7 +936,7 @@ class Client(OpenApiClient):
 
     def get_function_with_options(self, function_name, request, headers, runtime):
         """
-        Get function info by function name
+        获取函数信息
         
 
         @param request: GetFunctionRequest
@@ -884,7 +974,7 @@ class Client(OpenApiClient):
 
     def get_function(self, function_name, request):
         """
-        Get function info by function name
+        获取函数信息
         
 
         @param request: GetFunctionRequest
@@ -897,7 +987,7 @@ class Client(OpenApiClient):
 
     def get_function_code_with_options(self, function_name, request, headers, runtime):
         """
-        Get function code by function name
+        获取函数代码
         
 
         @param request: GetFunctionCodeRequest
@@ -935,7 +1025,7 @@ class Client(OpenApiClient):
 
     def get_function_code(self, function_name, request):
         """
-        Get function code by function name
+        获取函数代码
         
 
         @param request: GetFunctionCodeRequest
@@ -948,7 +1038,7 @@ class Client(OpenApiClient):
 
     def get_layer_version_with_options(self, layer_name, version, headers, runtime):
         """
-        Get layer version.
+        获取层版本
         
 
         @type headers: dict
@@ -979,7 +1069,7 @@ class Client(OpenApiClient):
 
     def get_layer_version(self, layer_name, version):
         """
-        Get layer version.
+        获取层版本
         
 
         @return: GetLayerVersionResponse
@@ -990,7 +1080,7 @@ class Client(OpenApiClient):
 
     def get_layer_version_by_arn_with_options(self, arn, headers, runtime):
         """
-        Get layer version by arn.
+        根据资源标识获取层版本
         
 
         @type headers: dict
@@ -1021,7 +1111,7 @@ class Client(OpenApiClient):
 
     def get_layer_version_by_arn(self, arn):
         """
-        Get layer version by arn.
+        根据资源标识获取层版本
         
 
         @return: GetLayerVersionByArnResponse
@@ -1032,7 +1122,7 @@ class Client(OpenApiClient):
 
     def get_provision_config_with_options(self, function_name, request, headers, runtime):
         """
-        Get provision config.
+        获取函数预留配置
         
 
         @param request: GetProvisionConfigRequest
@@ -1070,7 +1160,7 @@ class Client(OpenApiClient):
 
     def get_provision_config(self, function_name, request):
         """
-        Get provision config.
+        获取函数预留配置
         
 
         @param request: GetProvisionConfigRequest
@@ -1083,7 +1173,7 @@ class Client(OpenApiClient):
 
     def get_resource_tags_with_options(self, request, headers, runtime):
         """
-        Get resource tag
+        获取资源标签
         
 
         @param request: GetResourceTagsRequest
@@ -1121,7 +1211,7 @@ class Client(OpenApiClient):
 
     def get_resource_tags(self, request):
         """
-        Get resource tag
+        获取资源标签
         
 
         @param request: GetResourceTagsRequest
@@ -1134,7 +1224,7 @@ class Client(OpenApiClient):
 
     def get_trigger_with_options(self, function_name, trigger_name, headers, runtime):
         """
-        Get trigger.
+        获取函数触发器
         
 
         @type headers: dict
@@ -1165,7 +1255,7 @@ class Client(OpenApiClient):
 
     def get_trigger(self, function_name, trigger_name):
         """
-        Get trigger.
+        获取函数触发器
         
 
         @return: GetTriggerResponse
@@ -1176,7 +1266,7 @@ class Client(OpenApiClient):
 
     def invoke_function_with_options(self, function_name, request, headers, runtime):
         """
-        Invoke function
+        调用函数
         
 
         @param request: InvokeFunctionRequest
@@ -1230,7 +1320,7 @@ class Client(OpenApiClient):
 
     def invoke_function(self, function_name, request):
         """
-        Invoke function
+        调用函数
         
 
         @param request: InvokeFunctionRequest
@@ -1243,7 +1333,7 @@ class Client(OpenApiClient):
 
     def list_aliases_with_options(self, function_name, request, headers, runtime):
         """
-        List function aliases
+        列出函数别名
         
 
         @param request: ListAliasesRequest
@@ -1285,7 +1375,7 @@ class Client(OpenApiClient):
 
     def list_aliases(self, function_name, request):
         """
-        List function aliases
+        列出函数别名
         
 
         @param request: ListAliasesRequest
@@ -1298,7 +1388,7 @@ class Client(OpenApiClient):
 
     def list_async_invoke_configs_with_options(self, request, headers, runtime):
         """
-        List all functions async invoke config
+        列出函数异步调用配置
         
 
         @param request: ListAsyncInvokeConfigsRequest
@@ -1340,7 +1430,7 @@ class Client(OpenApiClient):
 
     def list_async_invoke_configs(self, request):
         """
-        List all functions async invoke config
+        列出函数异步调用配置
         
 
         @param request: ListAsyncInvokeConfigsRequest
@@ -1353,7 +1443,7 @@ class Client(OpenApiClient):
 
     def list_concurrency_configs_with_options(self, request, headers, runtime):
         """
-        List all functions concurrency configs
+        列出函数并发度配置
         
 
         @param request: ListConcurrencyConfigsRequest
@@ -1395,7 +1485,7 @@ class Client(OpenApiClient):
 
     def list_concurrency_configs(self, request):
         """
-        List all functions concurrency configs
+        列出函数并发度配置
         
 
         @param request: ListConcurrencyConfigsRequest
@@ -1408,7 +1498,7 @@ class Client(OpenApiClient):
 
     def list_custom_domains_with_options(self, request, headers, runtime):
         """
-        List custom domains.
+        列出自定义域名
         
 
         @param request: ListCustomDomainsRequest
@@ -1450,7 +1540,7 @@ class Client(OpenApiClient):
 
     def list_custom_domains(self, request):
         """
-        List custom domains.
+        列出自定义域名
         
 
         @param request: ListCustomDomainsRequest
@@ -1463,7 +1553,7 @@ class Client(OpenApiClient):
 
     def list_function_versions_with_options(self, function_name, request, headers, runtime):
         """
-        List function versions
+        列出函数版本
         
 
         @param request: ListFunctionVersionsRequest
@@ -1505,7 +1595,7 @@ class Client(OpenApiClient):
 
     def list_function_versions(self, function_name, request):
         """
-        List function versions
+        列出函数版本
         
 
         @param request: ListFunctionVersionsRequest
@@ -1518,7 +1608,7 @@ class Client(OpenApiClient):
 
     def list_functions_with_options(self, request, headers, runtime):
         """
-        Lists existing functions.
+        列出函数
         
 
         @param request: ListFunctionsRequest
@@ -1560,7 +1650,7 @@ class Client(OpenApiClient):
 
     def list_functions(self, request):
         """
-        Lists existing functions.
+        列出函数
         
 
         @param request: ListFunctionsRequest
@@ -1573,7 +1663,7 @@ class Client(OpenApiClient):
 
     def list_instances_with_options(self, function_name, request, headers, runtime):
         """
-        List instances for function.
+        列出函数实例
         
 
         @param request: ListInstancesRequest
@@ -1613,7 +1703,7 @@ class Client(OpenApiClient):
 
     def list_instances(self, function_name, request):
         """
-        List instances for function.
+        列出函数实例
         
 
         @param request: ListInstancesRequest
@@ -1626,7 +1716,7 @@ class Client(OpenApiClient):
 
     def list_layer_versions_with_options(self, layer_name, request, headers, runtime):
         """
-        List layer versions.
+        列出层版本
         
 
         @param request: ListLayerVersionsRequest
@@ -1666,7 +1756,7 @@ class Client(OpenApiClient):
 
     def list_layer_versions(self, layer_name, request):
         """
-        List layer versions.
+        列出层版本
         
 
         @param request: ListLayerVersionsRequest
@@ -1679,7 +1769,7 @@ class Client(OpenApiClient):
 
     def list_layers_with_options(self, request, headers, runtime):
         """
-        List layers .
+        列出层
         
 
         @param request: ListLayersRequest
@@ -1725,7 +1815,7 @@ class Client(OpenApiClient):
 
     def list_layers(self, request):
         """
-        List layers .
+        列出层
         
 
         @param request: ListLayersRequest
@@ -1738,7 +1828,7 @@ class Client(OpenApiClient):
 
     def list_provision_configs_with_options(self, request, headers, runtime):
         """
-        List provision configs.
+        列出函数预留配置
         
 
         @param request: ListProvisionConfigsRequest
@@ -1780,7 +1870,7 @@ class Client(OpenApiClient):
 
     def list_provision_configs(self, request):
         """
-        List provision configs.
+        列出函数预留配置
         
 
         @param request: ListProvisionConfigsRequest
@@ -1793,7 +1883,7 @@ class Client(OpenApiClient):
 
     def list_tagged_resources_with_options(self, request, headers, runtime):
         """
-        List tagged resources
+        列出具有标签的资源
         
 
         @param request: ListTaggedResourcesRequest
@@ -1833,7 +1923,7 @@ class Client(OpenApiClient):
 
     def list_tagged_resources(self, request):
         """
-        List tagged resources
+        列出具有标签的资源
         
 
         @param request: ListTaggedResourcesRequest
@@ -1846,7 +1936,7 @@ class Client(OpenApiClient):
 
     def list_triggers_with_options(self, function_name, request, headers, runtime):
         """
-        List triggers.
+        列出函数触发器
         
 
         @param request: ListTriggersRequest
@@ -1888,7 +1978,7 @@ class Client(OpenApiClient):
 
     def list_triggers(self, function_name, request):
         """
-        List triggers.
+        列出函数触发器
         
 
         @param request: ListTriggersRequest
@@ -1899,9 +1989,51 @@ class Client(OpenApiClient):
         headers = {}
         return self.list_triggers_with_options(function_name, request, headers, runtime)
 
+    def list_vpc_bindings_with_options(self, function_name, headers, runtime):
+        """
+        列出VPC绑定配置
+        
+
+        @type headers: dict
+        @param headers: map
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListVpcBindingsResponse
+        """
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='ListVpcBindings',
+            version='2023-03-30',
+            protocol='HTTPS',
+            pathname='/2023-03-30/functions/%s/vpc-bindings' % TeaConverter.to_unicode(OpenApiUtilClient.get_encode_param(function_name)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            fc20230330_models.ListVpcBindingsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_vpc_bindings(self, function_name):
+        """
+        列出VPC绑定配置
+        
+
+        @return: ListVpcBindingsResponse
+        """
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_vpc_bindings_with_options(function_name, headers, runtime)
+
     def publish_function_version_with_options(self, function_name, request, headers, runtime):
         """
-        publish new function version
+        发布函数版本
         
 
         @param request: PublishFunctionVersionRequest
@@ -1936,7 +2068,7 @@ class Client(OpenApiClient):
 
     def publish_function_version(self, function_name, request):
         """
-        publish new function version
+        发布函数版本
         
 
         @param request: PublishFunctionVersionRequest
@@ -1949,7 +2081,7 @@ class Client(OpenApiClient):
 
     def put_async_invoke_config_with_options(self, function_name, request, headers, runtime):
         """
-        Put function async invoke config.
+        设置函数异步调用配置
         
 
         @param request: PutAsyncInvokeConfigRequest
@@ -1988,7 +2120,7 @@ class Client(OpenApiClient):
 
     def put_async_invoke_config(self, function_name, request):
         """
-        Put function async invoke config.
+        设置函数异步调用配置
         
 
         @param request: PutAsyncInvokeConfigRequest
@@ -2001,7 +2133,7 @@ class Client(OpenApiClient):
 
     def put_concurrency_config_with_options(self, function_name, request, headers, runtime):
         """
-        sets the concurrency config for a function
+        设置函数并发度配置
         
 
         @param request: PutConcurrencyConfigRequest
@@ -2036,7 +2168,7 @@ class Client(OpenApiClient):
 
     def put_concurrency_config(self, function_name, request):
         """
-        sets the concurrency config for a function
+        设置函数并发度配置
         
 
         @param request: PutConcurrencyConfigRequest
@@ -2049,7 +2181,7 @@ class Client(OpenApiClient):
 
     def put_layer_aclwith_options(self, layer_name, request, headers, runtime):
         """
-        Update layer ACL.
+        设置层的访问权限
         
 
         @param request: PutLayerACLRequest
@@ -2087,7 +2219,7 @@ class Client(OpenApiClient):
 
     def put_layer_acl(self, layer_name, request):
         """
-        Update layer ACL.
+        设置层的访问权限
         
 
         @param request: PutLayerACLRequest
@@ -2100,7 +2232,7 @@ class Client(OpenApiClient):
 
     def put_provision_config_with_options(self, function_name, request, headers, runtime):
         """
-        Put provision config.
+        设置函数预留配置
         
 
         @param request: PutProvisionConfigRequest
@@ -2139,7 +2271,7 @@ class Client(OpenApiClient):
 
     def put_provision_config(self, function_name, request):
         """
-        Put provision config.
+        设置函数预留配置
         
 
         @param request: PutProvisionConfigRequest
@@ -2152,7 +2284,7 @@ class Client(OpenApiClient):
 
     def tag_resource_with_options(self, request, headers, runtime):
         """
-        Tag resource
+        设置资源标签
         
 
         @param request: TagResourceRequest
@@ -2178,7 +2310,7 @@ class Client(OpenApiClient):
             auth_type='AK',
             style='ROA',
             req_body_type='json',
-            body_type='json'
+            body_type='none'
         )
         return TeaCore.from_map(
             fc20230330_models.TagResourceResponse(),
@@ -2187,7 +2319,7 @@ class Client(OpenApiClient):
 
     def tag_resource(self, request):
         """
-        Tag resource
+        设置资源标签
         
 
         @param request: TagResourceRequest
@@ -2200,7 +2332,7 @@ class Client(OpenApiClient):
 
     def untag_resource_with_options(self, request, headers, runtime):
         """
-        Untag resource tag, support resource type: function, service
+        删除资源标签
         
 
         @param request: UntagResourceRequest
@@ -2242,7 +2374,7 @@ class Client(OpenApiClient):
 
     def untag_resource(self, request):
         """
-        Untag resource tag, support resource type: function, service
+        删除资源标签
         
 
         @param request: UntagResourceRequest
@@ -2255,7 +2387,7 @@ class Client(OpenApiClient):
 
     def update_alias_with_options(self, function_name, alias_name, request, headers, runtime):
         """
-        Update function alias
+        更新函数别名
         
 
         @param request: UpdateAliasRequest
@@ -2290,7 +2422,7 @@ class Client(OpenApiClient):
 
     def update_alias(self, function_name, alias_name, request):
         """
-        Update function alias
+        更新函数别名
         
 
         @param request: UpdateAliasRequest
@@ -2303,7 +2435,7 @@ class Client(OpenApiClient):
 
     def update_custom_domain_with_options(self, domain_name, request, headers, runtime):
         """
-        Update custom domain.
+        更新自定义域名
         
 
         @param request: UpdateCustomDomainRequest
@@ -2338,7 +2470,7 @@ class Client(OpenApiClient):
 
     def update_custom_domain(self, domain_name, request):
         """
-        Update custom domain.
+        更新自定义域名
         
 
         @param request: UpdateCustomDomainRequest
@@ -2351,7 +2483,7 @@ class Client(OpenApiClient):
 
     def update_function_with_options(self, function_name, request, headers, runtime):
         """
-        Update function
+        更新函数
         
 
         @param request: UpdateFunctionRequest
@@ -2386,7 +2518,7 @@ class Client(OpenApiClient):
 
     def update_function(self, function_name, request):
         """
-        Update function
+        更新函数
         
 
         @param request: UpdateFunctionRequest
@@ -2399,7 +2531,7 @@ class Client(OpenApiClient):
 
     def update_trigger_with_options(self, function_name, trigger_name, request, headers, runtime):
         """
-        Update trigger.
+        更新函数触发器
         
 
         @param request: UpdateTriggerRequest
@@ -2434,7 +2566,7 @@ class Client(OpenApiClient):
 
     def update_trigger(self, function_name, trigger_name, request):
         """
-        Update trigger.
+        更新函数触发器
         
 
         @param request: UpdateTriggerRequest
