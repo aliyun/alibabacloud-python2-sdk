@@ -114,6 +114,8 @@ class Client(OpenApiClient):
             query['ShardCount'] = request.shard_count
         if not UtilClient.is_unset(request.source_biz):
             query['SourceBiz'] = request.source_biz
+        if not UtilClient.is_unset(request.v_switch_id):
+            query['VSwitchId'] = request.v_switch_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -147,7 +149,13 @@ class Client(OpenApiClient):
 
     def allocate_direct_connection_with_options(self, request, runtime):
         """
-        The ID of the instance.
+        In direct connection mode, you can use private endpoints to bypass proxy nodes and connect to ApsaraDB for Redis instances from clients in the same manner as you connect to native Redis clusters. The direct connection mode can reduce communication overheads and accelerate the response speed. For more information, see [Enable the direct connection mode](~~146901~~).
+        To call this operation, the instance must meet the following requirements:
+        *   The instance is an ApsaraDB for Redis cluster instance.
+        *   The instance is a Community Edition instance that runs Redis 4.0 or 5.0, or an Enhanced Edition instance (Tair) that runs Redis 5.0.
+        *   The instance is deployed in a virtual private cloud (VPC). If the instance is deployed in the classic network, call the [SwitchNetwork](~~61005~~) operation to change the network type to VPC.
+        *   SSL encryption is disabled for the instance. If SSL encryption is enabled, you can call the [ModifyInstanceSSL](~~96194~~) operation to disable it.
+        *   The vSwitch to which the instance is connected has sufficient IP addresses to be allocated. For more information, see [Obtain the number of available IP addresses in the vSwitch to which an ApsaraDB for Redis instance is connected](~~183151~~).
         
 
         @param request: AllocateDirectConnectionRequest
@@ -195,7 +203,13 @@ class Client(OpenApiClient):
 
     def allocate_direct_connection(self, request):
         """
-        The ID of the instance.
+        In direct connection mode, you can use private endpoints to bypass proxy nodes and connect to ApsaraDB for Redis instances from clients in the same manner as you connect to native Redis clusters. The direct connection mode can reduce communication overheads and accelerate the response speed. For more information, see [Enable the direct connection mode](~~146901~~).
+        To call this operation, the instance must meet the following requirements:
+        *   The instance is an ApsaraDB for Redis cluster instance.
+        *   The instance is a Community Edition instance that runs Redis 4.0 or 5.0, or an Enhanced Edition instance (Tair) that runs Redis 5.0.
+        *   The instance is deployed in a virtual private cloud (VPC). If the instance is deployed in the classic network, call the [SwitchNetwork](~~61005~~) operation to change the network type to VPC.
+        *   SSL encryption is disabled for the instance. If SSL encryption is enabled, you can call the [ModifyInstanceSSL](~~96194~~) operation to disable it.
+        *   The vSwitch to which the instance is connected has sufficient IP addresses to be allocated. For more information, see [Obtain the number of available IP addresses in the vSwitch to which an ApsaraDB for Redis instance is connected](~~183151~~).
         
 
         @param request: AllocateDirectConnectionRequest
@@ -267,7 +281,8 @@ class Client(OpenApiClient):
 
     def check_cloud_resource_authorized_with_options(self, request, runtime):
         """
-        The operation that you want to perform. Set the value to *CheckCloudResourceAuthorized**.
+        For information about Transparent Data Encryption (TDE) and the usage notes of TDE, see [Enable TDE](~~265913~~).
+        *   If the ApsaraDB for Redis instance is authorized to use KMS, you can call the [ModifyInstanceTDE](~~302337~~) operation to enable TDE.
         
 
         @param request: CheckCloudResourceAuthorizedRequest
@@ -313,7 +328,8 @@ class Client(OpenApiClient):
 
     def check_cloud_resource_authorized(self, request):
         """
-        The operation that you want to perform. Set the value to *CheckCloudResourceAuthorized**.
+        For information about Transparent Data Encryption (TDE) and the usage notes of TDE, see [Enable TDE](~~265913~~).
+        *   If the ApsaraDB for Redis instance is authorized to use KMS, you can call the [ModifyInstanceTDE](~~302337~~) operation to enable TDE.
         
 
         @param request: CheckCloudResourceAuthorizedRequest
@@ -325,7 +341,11 @@ class Client(OpenApiClient):
 
     def create_account_with_options(self, request, runtime):
         """
-        The name of the account.
+        >
+        *   This operation is supported only for ApsaraDB for Redis instances that run Redis 4.0 or later.
+        *   The ApsaraDB for Redis instance for which you want to call this operation must be in the running state.
+        *   You can create up to 18 accounts for an ApsaraDB for Redis instance.
+        You can also create an account in the ApsaraDB for Redis console. For more information, see [Manage database accounts](~~92665~~).
         
 
         @param request: CreateAccountRequest
@@ -379,7 +399,11 @@ class Client(OpenApiClient):
 
     def create_account(self, request):
         """
-        The name of the account.
+        >
+        *   This operation is supported only for ApsaraDB for Redis instances that run Redis 4.0 or later.
+        *   The ApsaraDB for Redis instance for which you want to call this operation must be in the running state.
+        *   You can create up to 18 accounts for an ApsaraDB for Redis instance.
+        You can also create an account in the ApsaraDB for Redis console. For more information, see [Manage database accounts](~~92665~~).
         
 
         @param request: CreateAccountRequest
@@ -391,7 +415,7 @@ class Client(OpenApiClient):
 
     def create_backup_with_options(self, request, runtime):
         """
-        The ID of the backup job.
+        You can also back up an instance in the ApsaraDB for Redis console. For more information, see [Backup and recovery](~~43886~~).
         
 
         @param request: CreateBackupRequest
@@ -435,7 +459,7 @@ class Client(OpenApiClient):
 
     def create_backup(self, request):
         """
-        The ID of the backup job.
+        You can also back up an instance in the ApsaraDB for Redis console. For more information, see [Backup and recovery](~~43886~~).
         
 
         @param request: CreateBackupRequest
@@ -447,7 +471,13 @@ class Client(OpenApiClient):
 
     def create_cache_analysis_task_with_options(self, request, runtime):
         """
-        The operation that you want to perform. Set the value to *CreateCacheAnalysisTask**.
+        > ApsaraDB for Redis has optimized the cache analytics feature to improve user experience. This API operation is phased out. You can use the new API operation for cache analytics. For more information, see [API operations for cache analytics are upgraded](~~186019~~).
+        Before you call this operation, make sure that the instance meets the following requirements:
+        *   The engine version of the instance is Redis 4.0 or later.
+        *   The instance is a Community Edition instance or an Enhanced Edition (Tair) [DRAM-based instance](~~126164~~).
+        This feature is unavailable for cloud disk-based cluster instances. For more information, see [Comparison between ApsaraDB for Redis instances that use local disks and those that use cloud disks](~~188068~~).
+        *   The instance is of the latest minor version. For more information about whether you must update the minor version of an instance, see [How do I check whether the minor version of an ApsaraDB for Redis instance is the latest?](~~129203~~)
+        After you call this operation, you can call the [DescribeCacheAnalysisReport](~~128808~~) operation to view the analytic results.
         
 
         @param request: CreateCacheAnalysisTaskRequest
@@ -491,7 +521,13 @@ class Client(OpenApiClient):
 
     def create_cache_analysis_task(self, request):
         """
-        The operation that you want to perform. Set the value to *CreateCacheAnalysisTask**.
+        > ApsaraDB for Redis has optimized the cache analytics feature to improve user experience. This API operation is phased out. You can use the new API operation for cache analytics. For more information, see [API operations for cache analytics are upgraded](~~186019~~).
+        Before you call this operation, make sure that the instance meets the following requirements:
+        *   The engine version of the instance is Redis 4.0 or later.
+        *   The instance is a Community Edition instance or an Enhanced Edition (Tair) [DRAM-based instance](~~126164~~).
+        This feature is unavailable for cloud disk-based cluster instances. For more information, see [Comparison between ApsaraDB for Redis instances that use local disks and those that use cloud disks](~~188068~~).
+        *   The instance is of the latest minor version. For more information about whether you must update the minor version of an instance, see [How do I check whether the minor version of an ApsaraDB for Redis instance is the latest?](~~129203~~)
+        After you call this operation, you can call the [DescribeCacheAnalysisReport](~~128808~~) operation to view the analytic results.
         
 
         @param request: CreateCacheAnalysisTaskRequest
@@ -670,6 +706,8 @@ class Client(OpenApiClient):
             query['OwnerAccount'] = request.owner_account
         if not UtilClient.is_unset(request.owner_id):
             query['OwnerId'] = request.owner_id
+        if not UtilClient.is_unset(request.param_group_id):
+            query['ParamGroupId'] = request.param_group_id
         if not UtilClient.is_unset(request.password):
             query['Password'] = request.password
         if not UtilClient.is_unset(request.period):
@@ -1269,10 +1307,10 @@ class Client(OpenApiClient):
 
     def describe_audit_log_config_with_options(self, request, runtime):
         """
-        >  You can call the [ModifyAuditLogConfig](~~130206~~) operation to enable or disable the audit log feature for an ApsaraDB for Redis instance. For more information, see [Enable the new audit log feature](~~102015~~).
-        Before you call this API operation, make sure that the ApsaraDB for Redis instance meets the following requirements:
-        *   The instance is an instance of the ApsaraDB for Redis Community Edition or a performance-enhanced instance of the ApsaraDB for Redis Enhanced Edition (Tair). For more information, see [Performance-enhanced instances](~~126164~~).
-        *   The engine version of the instance is Redis 4.0 or later, and the latest minor version is used. You can call the [DescribeEngineVersion](~~95268~~) operation to check whether the instance uses the latest major version and minor version.
+        > You can call the [ModifyAuditLogConfig](~~130206~~) operation to enable or disable the audit log feature for an ApsaraDB for Redis instance. For more information, see [Enable the new audit log feature](~~102015~~).
+        Before you call this operation, make sure that the ApsaraDB for Redis instance meets the following requirements:
+        *   The instance is an ApsaraDB for Redis Community Edition instance or ApsaraDB for Redis Enhanced Edition (Tair) [DRAM-based instance](~~126164~~).
+        *   The engine version of the instance is Redis 4.0 or later, and the latest minor version is used. You can call the [DescribeEngineVersion](~~95268~~) operation to check whether the instance uses the latest minor version.
         *   The audit log feature is enabled for the instance. For more information, see [ModifyAuditLogConfig](~~130206~~).
         
 
@@ -1319,10 +1357,10 @@ class Client(OpenApiClient):
 
     def describe_audit_log_config(self, request):
         """
-        >  You can call the [ModifyAuditLogConfig](~~130206~~) operation to enable or disable the audit log feature for an ApsaraDB for Redis instance. For more information, see [Enable the new audit log feature](~~102015~~).
-        Before you call this API operation, make sure that the ApsaraDB for Redis instance meets the following requirements:
-        *   The instance is an instance of the ApsaraDB for Redis Community Edition or a performance-enhanced instance of the ApsaraDB for Redis Enhanced Edition (Tair). For more information, see [Performance-enhanced instances](~~126164~~).
-        *   The engine version of the instance is Redis 4.0 or later, and the latest minor version is used. You can call the [DescribeEngineVersion](~~95268~~) operation to check whether the instance uses the latest major version and minor version.
+        > You can call the [ModifyAuditLogConfig](~~130206~~) operation to enable or disable the audit log feature for an ApsaraDB for Redis instance. For more information, see [Enable the new audit log feature](~~102015~~).
+        Before you call this operation, make sure that the ApsaraDB for Redis instance meets the following requirements:
+        *   The instance is an ApsaraDB for Redis Community Edition instance or ApsaraDB for Redis Enhanced Edition (Tair) [DRAM-based instance](~~126164~~).
+        *   The engine version of the instance is Redis 4.0 or later, and the latest minor version is used. You can call the [DescribeEngineVersion](~~95268~~) operation to check whether the instance uses the latest minor version.
         *   The audit log feature is enabled for the instance. For more information, see [ModifyAuditLogConfig](~~130206~~).
         
 
@@ -1554,6 +1592,17 @@ class Client(OpenApiClient):
         return self.describe_backup_tasks_with_options(request, runtime)
 
     def describe_backups_with_options(self, request, runtime):
+        """
+        ## Debugging
+        [OpenAPI Explorer automatically calculates the signature value. For your convenience, we recommend that you call this operation in OpenAPI Explorer. OpenAPI Explorer dynamically generates the sample code of the operation for different SDKs.](https://api.aliyun.com/#product=R-kvstore\\&api=DescribeBackups\\&type=RPC\\&version=2015-01-01)
+        
+
+        @param request: DescribeBackupsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeBackupsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.backup_id):
@@ -1600,12 +1649,24 @@ class Client(OpenApiClient):
         )
 
     def describe_backups(self, request):
+        """
+        ## Debugging
+        [OpenAPI Explorer automatically calculates the signature value. For your convenience, we recommend that you call this operation in OpenAPI Explorer. OpenAPI Explorer dynamically generates the sample code of the operation for different SDKs.](https://api.aliyun.com/#product=R-kvstore\\&api=DescribeBackups\\&type=RPC\\&version=2015-01-01)
+        
+
+        @param request: DescribeBackupsRequest
+
+        @return: DescribeBackupsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_backups_with_options(request, runtime)
 
     def describe_cache_analysis_report_with_options(self, request, runtime):
         """
-        The number of entries returned on the current page.
+        > ApsaraDB for Redis has optimized the cache analytics feature to improve user experience. This API operation is phased out. You can use the new API operation for cache analytics. For more information, see [API operations for cache analytics are upgraded](~~186019~~).
+        Before you call this operation, make sure that the instance meets the following requirements:
+        *   The engine version of the instance is Redis 4.0 or later.
+        *   The instance uses the latest minor version. For more information about how to check whether to update the minor version of an instance, see [How do I check whether the minor version of an ApsaraDB for Redis instance is the latest?](~~129203~~)
         
 
         @param request: DescribeCacheAnalysisReportRequest
@@ -1659,7 +1720,10 @@ class Client(OpenApiClient):
 
     def describe_cache_analysis_report(self, request):
         """
-        The number of entries returned on the current page.
+        > ApsaraDB for Redis has optimized the cache analytics feature to improve user experience. This API operation is phased out. You can use the new API operation for cache analytics. For more information, see [API operations for cache analytics are upgraded](~~186019~~).
+        Before you call this operation, make sure that the instance meets the following requirements:
+        *   The engine version of the instance is Redis 4.0 or later.
+        *   The instance uses the latest minor version. For more information about how to check whether to update the minor version of an instance, see [How do I check whether the minor version of an ApsaraDB for Redis instance is the latest?](~~129203~~)
         
 
         @param request: DescribeCacheAnalysisReportRequest
@@ -1671,7 +1735,10 @@ class Client(OpenApiClient):
 
     def describe_cache_analysis_report_list_with_options(self, request, runtime):
         """
-        The operation that you want to perform. Set the value to *DescribeCacheAnalysisReportList**.
+        > ApsaraDB for Redis has optimized the cache analytics feature to improve user experience. This API operation is phased out. You can use the new API operation for cache analytics. For more information, see [API operations for cache analytics are upgraded](~~186019~~).
+        Before you call this operation, make sure that the instance meets the following requirements:
+        *   The engine version of the instance is Redis 4.0 or later.
+        *   The instance uses the latest minor version. For more information about how to check whether to update the minor version of an instance, see [How do I check whether the minor version of an ApsaraDB for Redis instance is the latest?](~~129203~~)
         
 
         @param request: DescribeCacheAnalysisReportListRequest
@@ -1723,7 +1790,10 @@ class Client(OpenApiClient):
 
     def describe_cache_analysis_report_list(self, request):
         """
-        The operation that you want to perform. Set the value to *DescribeCacheAnalysisReportList**.
+        > ApsaraDB for Redis has optimized the cache analytics feature to improve user experience. This API operation is phased out. You can use the new API operation for cache analytics. For more information, see [API operations for cache analytics are upgraded](~~186019~~).
+        Before you call this operation, make sure that the instance meets the following requirements:
+        *   The engine version of the instance is Redis 4.0 or later.
+        *   The instance uses the latest minor version. For more information about how to check whether to update the minor version of an instance, see [How do I check whether the minor version of an ApsaraDB for Redis instance is the latest?](~~129203~~)
         
 
         @param request: DescribeCacheAnalysisReportListRequest
@@ -1969,7 +2039,8 @@ class Client(OpenApiClient):
 
     def describe_encryption_key_list_with_options(self, request, runtime):
         """
-        The ID of the request.
+        You can specify a custom key when you call the [ModifyInstanceTDE](~~302337~~) operation to enable Transparent Data Encryption (TDE). You can call the DescribeEncryptionKeyList operation to query the custom keys that are in use. To create a custom key, you can call the [CreateKey](~~28947~~) operation of Key Management Service (KMS).
+        *   For more information about TDE and the usage notes of TDE, see [Enable TDE](~~265913~~).
         
 
         @param request: DescribeEncryptionKeyListRequest
@@ -2013,7 +2084,8 @@ class Client(OpenApiClient):
 
     def describe_encryption_key_list(self, request):
         """
-        The ID of the request.
+        You can specify a custom key when you call the [ModifyInstanceTDE](~~302337~~) operation to enable Transparent Data Encryption (TDE). You can call the DescribeEncryptionKeyList operation to query the custom keys that are in use. To create a custom key, you can call the [CreateKey](~~28947~~) operation of Key Management Service (KMS).
+        *   For more information about TDE and the usage notes of TDE, see [Enable TDE](~~265913~~).
         
 
         @param request: DescribeEncryptionKeyListRequest
@@ -2459,7 +2531,8 @@ class Client(OpenApiClient):
 
     def describe_instance_tdestatus_with_options(self, request, runtime):
         """
-        r-bp1zxszhcgatnx***\
+        For more information about TDE and the usage notes of TDE, see [Enable TDE](~~265913~~).
+        >  You can call the [ModifyInstanceTDE](~~302337~~) to enable or disable TDE.
         
 
         @param request: DescribeInstanceTDEStatusRequest
@@ -2503,7 +2576,8 @@ class Client(OpenApiClient):
 
     def describe_instance_tdestatus(self, request):
         """
-        r-bp1zxszhcgatnx***\
+        For more information about TDE and the usage notes of TDE, see [Enable TDE](~~265913~~).
+        >  You can call the [ModifyInstanceTDE](~~302337~~) to enable or disable TDE.
         
 
         @param request: DescribeInstanceTDEStatusRequest
@@ -2739,7 +2813,7 @@ class Client(OpenApiClient):
 
     def describe_logic_instance_topology_with_options(self, request, runtime):
         """
-        The maximum number of connections.
+        This parameter is supported only for cluster and read/write splitting instances.
         
 
         @param request: DescribeLogicInstanceTopologyRequest
@@ -2783,7 +2857,7 @@ class Client(OpenApiClient):
 
     def describe_logic_instance_topology(self, request):
         """
-        The maximum number of connections.
+        This parameter is supported only for cluster and read/write splitting instances.
         
 
         @param request: DescribeLogicInstanceTopologyRequest
@@ -3704,6 +3778,17 @@ class Client(OpenApiClient):
         return self.flush_instance_with_options(request, runtime)
 
     def flush_instance_for_dbwith_options(self, request, runtime):
+        """
+        Each ApsaraDB for Redis or Tair instance can contain up to 256 databases. Each database does not have a separate memory usage limit. The memory capacity that a database can use is subject to the total memory limit of the instance. You can execute the `SELECT` statement to switch between databases. For more information, see [What is the size of each database on an ApsaraDB for Redis instance, and how can I choose databases?](~~38688~~)
+        >  This operation is available only for cloud-native instances that use cloud disks.
+        
+
+        @param request: FlushInstanceForDBRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: FlushInstanceForDBResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.db_index):
@@ -3740,6 +3825,15 @@ class Client(OpenApiClient):
         )
 
     def flush_instance_for_db(self, request):
+        """
+        Each ApsaraDB for Redis or Tair instance can contain up to 256 databases. Each database does not have a separate memory usage limit. The memory capacity that a database can use is subject to the total memory limit of the instance. You can execute the `SELECT` statement to switch between databases. For more information, see [What is the size of each database on an ApsaraDB for Redis instance, and how can I choose databases?](~~38688~~)
+        >  This operation is available only for cloud-native instances that use cloud disks.
+        
+
+        @param request: FlushInstanceForDBRequest
+
+        @return: FlushInstanceForDBResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.flush_instance_for_dbwith_options(request, runtime)
 
@@ -4091,7 +4185,7 @@ class Client(OpenApiClient):
 
     def modify_active_operation_task_with_options(self, request, runtime):
         """
-        11111,22222
+        You can receive notifications for ApsaraDB for Redis events such as instance migration and version upgrade by text message, phone call, email, internal message, or by using the ApsaraDB for Redis console. You can also change the scheduled switchover time of a task in the ApsaraDB for Redis console. For more information, see [Query or manage pending events](~~187022~~).
         
 
         @param request: ModifyActiveOperationTaskRequest
@@ -4137,7 +4231,7 @@ class Client(OpenApiClient):
 
     def modify_active_operation_task(self, request):
         """
-        11111,22222
+        You can receive notifications for ApsaraDB for Redis events such as instance migration and version upgrade by text message, phone call, email, internal message, or by using the ApsaraDB for Redis console. You can also change the scheduled switchover time of a task in the ApsaraDB for Redis console. For more information, see [Query or manage pending events](~~187022~~).
         
 
         @param request: ModifyActiveOperationTaskRequest
@@ -4149,10 +4243,10 @@ class Client(OpenApiClient):
 
     def modify_audit_log_config_with_options(self, request, runtime):
         """
-        Specifies whether to enable the audit log feature. Default value: true. Valid values:
-        *   **true**: enables the audit log feature.
-        *   **false**: disables the audit log feature.
-        > If the instance uses the [cluster architecture](~~52228~~) or [read/write splitting architecture](~~62870~~), the audit log feature is enabled or disabled for both the data nodes and proxy nodes. You cannot separately enable the audit log feature for the data nodes or proxy nodes.
+        Before you call this operation, make sure that you understand the billing methods and [pricing](~~54532~~) of the audit log feature.
+        Before you call this operation, make sure that the ApsaraDB for Redis instance meets the following requirements:
+        *   The instance is an ApsaraDB for Redis Community Edition instance or ApsaraDB for Redis Enhanced Edition (Tair) [DRAM-based instance](~~126164~~).
+        *   The engine version of the instance is Redis 4.0 or later, and the latest minor version is used. You can call the [DescribeEngineVersion](~~95268~~) operation to check whether the instance uses the latest major version and minor version.
         
 
         @param request: ModifyAuditLogConfigRequest
@@ -4200,10 +4294,10 @@ class Client(OpenApiClient):
 
     def modify_audit_log_config(self, request):
         """
-        Specifies whether to enable the audit log feature. Default value: true. Valid values:
-        *   **true**: enables the audit log feature.
-        *   **false**: disables the audit log feature.
-        > If the instance uses the [cluster architecture](~~52228~~) or [read/write splitting architecture](~~62870~~), the audit log feature is enabled or disabled for both the data nodes and proxy nodes. You cannot separately enable the audit log feature for the data nodes or proxy nodes.
+        Before you call this operation, make sure that you understand the billing methods and [pricing](~~54532~~) of the audit log feature.
+        Before you call this operation, make sure that the ApsaraDB for Redis instance meets the following requirements:
+        *   The instance is an ApsaraDB for Redis Community Edition instance or ApsaraDB for Redis Enhanced Edition (Tair) [DRAM-based instance](~~126164~~).
+        *   The engine version of the instance is Redis 4.0 or later, and the latest minor version is used. You can call the [DescribeEngineVersion](~~95268~~) operation to check whether the instance uses the latest major version and minor version.
         
 
         @param request: ModifyAuditLogConfigRequest
@@ -4323,7 +4417,7 @@ class Client(OpenApiClient):
 
     def modify_instance_attribute_with_options(self, request, runtime):
         """
-        uW8+nsrp
+        You can also modify the information of an instance in the ApsaraDB for Redis console. For more information, see [Change or reset the password](~~43874~~).
         
 
         @param request: ModifyInstanceAttributeRequest
@@ -4373,7 +4467,7 @@ class Client(OpenApiClient):
 
     def modify_instance_attribute(self, request):
         """
-        uW8+nsrp
+        You can also modify the information of an instance in the ApsaraDB for Redis console. For more information, see [Change or reset the password](~~43874~~).
         
 
         @param request: ModifyInstanceAttributeRequest
@@ -4484,6 +4578,16 @@ class Client(OpenApiClient):
         return self.modify_instance_config_with_options(request, runtime)
 
     def modify_instance_maintain_time_with_options(self, request, runtime):
+        """
+        You can also modify the maintenance window of an instance in the ApsaraDB for Redis console. For more information, see [Set a maintenance window](~~55252~~).
+        
+
+        @param request: ModifyInstanceMaintainTimeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyInstanceMaintainTimeResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.instance_id):
@@ -4522,12 +4626,20 @@ class Client(OpenApiClient):
         )
 
     def modify_instance_maintain_time(self, request):
+        """
+        You can also modify the maintenance window of an instance in the ApsaraDB for Redis console. For more information, see [Set a maintenance window](~~55252~~).
+        
+
+        @param request: ModifyInstanceMaintainTimeRequest
+
+        @return: ModifyInstanceMaintainTimeResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_instance_maintain_time_with_options(request, runtime)
 
     def modify_instance_major_version_with_options(self, request, runtime):
         """
-        r-bp1zxszhcgatnx***\
+        For more information about how to perform the corresponding operation in the console, see [Upgrade the major version](~~101764~~).
         
 
         @param request: ModifyInstanceMajorVersionRequest
@@ -4575,7 +4687,7 @@ class Client(OpenApiClient):
 
     def modify_instance_major_version(self, request):
         """
-        r-bp1zxszhcgatnx***\
+        For more information about how to perform the corresponding operation in the console, see [Upgrade the major version](~~101764~~).
         
 
         @param request: ModifyInstanceMajorVersionRequest
@@ -4587,7 +4699,10 @@ class Client(OpenApiClient):
 
     def modify_instance_minor_version_with_options(self, request, runtime):
         """
-        The ID of the instance.
+        The procedure to update the minor version of an instance varies based on types of ApsaraDB for Redis instances. For more information, see [Upgrade the minor version](~~56450~~).
+        >
+        *   Before you call this operation, you can call the [DescribeEngineVersion](~~95268~~) operation to query the minor version of the current instance.
+        *   When you switch your workloads over from the original instance to a new instance or from the master node to the replica node in the original instance, you may experience disconnections that last a few seconds. The original instance stays in the read-only state within 60 seconds until all data is synchronized. We recommend that you upgrade the original instance during off-peak hours and make sure that your application is configured to automatically reconnect to the original instance.
         
 
         @param request: ModifyInstanceMinorVersionRequest
@@ -4635,7 +4750,10 @@ class Client(OpenApiClient):
 
     def modify_instance_minor_version(self, request):
         """
-        The ID of the instance.
+        The procedure to update the minor version of an instance varies based on types of ApsaraDB for Redis instances. For more information, see [Upgrade the minor version](~~56450~~).
+        >
+        *   Before you call this operation, you can call the [DescribeEngineVersion](~~95268~~) operation to query the minor version of the current instance.
+        *   When you switch your workloads over from the original instance to a new instance or from the master node to the replica node in the original instance, you may experience disconnections that last a few seconds. The original instance stays in the read-only state within 60 seconds until all data is synchronized. We recommend that you upgrade the original instance during off-peak hours and make sure that your application is configured to automatically reconnect to the original instance.
         
 
         @param request: ModifyInstanceMinorVersionRequest
@@ -4815,7 +4933,7 @@ class Client(OpenApiClient):
 
     def modify_instance_spec_with_options(self, request, runtime):
         """
-        The ID of the promotional event or business information.
+        >  For more information about the procedure, impacts, limits, and fees of this operation, see [Change the configurations of an instance](~~26353~~).
         
 
         @param request: ModifyInstanceSpecRequest
@@ -4887,7 +5005,7 @@ class Client(OpenApiClient):
 
     def modify_instance_spec(self, request):
         """
-        The ID of the promotional event or business information.
+        >  For more information about the procedure, impacts, limits, and fees of this operation, see [Change the configurations of an instance](~~26353~~).
         
 
         @param request: ModifyInstanceSpecRequest
@@ -4963,7 +5081,8 @@ class Client(OpenApiClient):
 
     def modify_instance_vpc_auth_mode_with_options(self, request, runtime):
         """
-        The ID of the request.
+        When the password-free access feature is enabled, Elastic Compute Service (ECS) instances in the same virtual private cloud (VPC) can connect to the ApsaraDB for Redis instance without a password. You can also use the username and password to connect to the ApsaraDB for Redis instance.
+        > The ApsaraDB for Redis instance is deployed in a VPC. For more information, see [Enable password-free access](~~85168~~).
         
 
         @param request: ModifyInstanceVpcAuthModeRequest
@@ -5009,7 +5128,8 @@ class Client(OpenApiClient):
 
     def modify_instance_vpc_auth_mode(self, request):
         """
-        The ID of the request.
+        When the password-free access feature is enabled, Elastic Compute Service (ECS) instances in the same virtual private cloud (VPC) can connect to the ApsaraDB for Redis instance without a password. You can also use the username and password to connect to the ApsaraDB for Redis instance.
+        > The ApsaraDB for Redis instance is deployed in a VPC. For more information, see [Enable password-free access](~~85168~~).
         
 
         @param request: ModifyInstanceVpcAuthModeRequest
@@ -5145,7 +5265,7 @@ class Client(OpenApiClient):
 
     def modify_security_group_configuration_with_options(self, request, runtime):
         """
-        The ID of the request.
+        > After you call this operation, the security groups that are added to the whitelists of the ApsaraDB for Redis instance are deleted, and the security group specified by the *SecurityGroupId** parameter are added to the whitelists. For more information about how to reset security groups in the ApsaraDB for Redis console, see [Add security groups](~~148267~~).
         
 
         @param request: ModifySecurityGroupConfigurationRequest
@@ -5191,7 +5311,7 @@ class Client(OpenApiClient):
 
     def modify_security_group_configuration(self, request):
         """
-        The ID of the request.
+        > After you call this operation, the security groups that are added to the whitelists of the ApsaraDB for Redis instance are deleted, and the security group specified by the *SecurityGroupId** parameter are added to the whitelists. For more information about how to reset security groups in the ApsaraDB for Redis console, see [Add security groups](~~148267~~).
         
 
         @param request: ModifySecurityGroupConfigurationRequest
@@ -5203,7 +5323,7 @@ class Client(OpenApiClient):
 
     def modify_security_ips_with_options(self, request, runtime):
         """
-        The IP addresses in the whitelist group. Up to 1,000 IP addresses can be specified in each whitelist. Separate multiple IP addresses with a comma (,). You can add 0.0.0.0/0, IP addresses such as 10.23.12.24, and Classless Inter-Domain Routing (CIDR) blocks such as 10.23.12.24/24 to the whitelist group. In CIDR block 10.23.12.24/24, /24 specifies the length of the prefix in the IP addresses. The prefix length ranges from 1 to 32.
+        You can also modify the whitelists of an instance in the ApsaraDB for Redis console. For more information, see [Configure a whitelist for an instance](~~56464~~).
         
 
         @param request: ModifySecurityIpsRequest
@@ -5255,7 +5375,7 @@ class Client(OpenApiClient):
 
     def modify_security_ips(self, request):
         """
-        The IP addresses in the whitelist group. Up to 1,000 IP addresses can be specified in each whitelist. Separate multiple IP addresses with a comma (,). You can add 0.0.0.0/0, IP addresses such as 10.23.12.24, and Classless Inter-Domain Routing (CIDR) blocks such as 10.23.12.24/24 to the whitelist group. In CIDR block 10.23.12.24/24, /24 specifies the length of the prefix in the IP addresses. The prefix length ranges from 1 to 32.
+        You can also modify the whitelists of an instance in the ApsaraDB for Redis console. For more information, see [Configure a whitelist for an instance](~~56464~~).
         
 
         @param request: ModifySecurityIpsRequest
