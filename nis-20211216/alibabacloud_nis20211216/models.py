@@ -4,8 +4,9 @@ from Tea.model import TeaModel
 
 
 class CreateAndAnalyzeNetworkPathRequest(TeaModel):
-    def __init__(self, protocol=None, region_id=None, source_id=None, source_ip_address=None, source_port=None,
-                 source_type=None, target_id=None, target_ip_address=None, target_port=None, target_type=None):
+    def __init__(self, audit_param=None, protocol=None, region_id=None, source_id=None, source_ip_address=None,
+                 source_port=None, source_type=None, target_id=None, target_ip_address=None, target_port=None, target_type=None):
+        self.audit_param = audit_param  # type: str
         # The protocol type. Valid values:
         # 
         # *   **tcp**: Transmission Control Protocol (TCP)
@@ -53,6 +54,8 @@ class CreateAndAnalyzeNetworkPathRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.audit_param is not None:
+            result['AuditParam'] = self.audit_param
         if self.protocol is not None:
             result['Protocol'] = self.protocol
         if self.region_id is not None:
@@ -77,6 +80,8 @@ class CreateAndAnalyzeNetworkPathRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AuditParam') is not None:
+            self.audit_param = m.get('AuditParam')
         if m.get('Protocol') is not None:
             self.protocol = m.get('Protocol')
         if m.get('RegionId') is not None:
@@ -478,7 +483,8 @@ class CreateNetworkReachableAnalysisRequestTag(TeaModel):
 
 
 class CreateNetworkReachableAnalysisRequest(TeaModel):
-    def __init__(self, network_path_id=None, region_id=None, tag=None):
+    def __init__(self, audit_param=None, network_path_id=None, region_id=None, tag=None):
+        self.audit_param = audit_param  # type: str
         # The ID of the network path. You can call the **CreateNetworkPath** operation to obtain the ID of the network path.
         self.network_path_id = network_path_id  # type: str
         # The ID of the region for which you want to create a task for analyzing network reachability.
@@ -497,6 +503,8 @@ class CreateNetworkReachableAnalysisRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.audit_param is not None:
+            result['AuditParam'] = self.audit_param
         if self.network_path_id is not None:
             result['NetworkPathId'] = self.network_path_id
         if self.region_id is not None:
@@ -509,6 +517,8 @@ class CreateNetworkReachableAnalysisRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('AuditParam') is not None:
+            self.audit_param = m.get('AuditParam')
         if m.get('NetworkPathId') is not None:
             self.network_path_id = m.get('NetworkPathId')
         if m.get('RegionId') is not None:
@@ -848,26 +858,75 @@ class GetInternetTupleRequest(TeaModel):
                  direction=None, end_time=None, instance_id=None, instance_list=None, order_by=None, other_city=None,
                  other_country=None, other_ip=None, other_isp=None, other_port=None, protocol=None, region_id=None, sort=None,
                  top_n=None, tuple_type=None, use_multi_account=None):
+        # The IDs of member accounts.
         self.account_ids = account_ids  # type: list[str]
+        # The beginning of the time range to query. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.begin_time = begin_time  # type: long
+        # The local IP address.
         self.cloud_ip = cloud_ip  # type: str
+        # The local Internet service provider (ISP).
+        # 
+        # > In most cases, the value is Alibaba or Alibaba Cloud.
         self.cloud_isp = cloud_isp  # type: str
+        # The local port.
+        # 
+        # > This parameter is required only when you set **TupleType** to **5**.
         self.cloud_port = cloud_port  # type: str
+        # The direction of the Internet traffic that you want to query. Valid values:
+        # 
+        # - **in**: inbound
+        # - **out**: outbound
         self.direction = direction  # type: str
+        # The end of the time range to query. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.end_time = end_time  # type: long
+        # The ID of the Alibaba Cloud instance.
         self.instance_id = instance_id  # type: str
+        # The instance IDs for filtering.
         self.instance_list = instance_list  # type: list[str]
+        # The metric for instance ranking. Default value: **ByteCount**. This value specifies that instances are ranked by traffic volume.
         self.order_by = order_by  # type: str
+        # The remote city.
+        # 
+        # > This parameter is required only if you set **TupleType** to **5**.
         self.other_city = other_city  # type: str
+        # The remote country.
+        # 
+        # > This parameter is required only if you set **TupleType** to **5**.
         self.other_country = other_country  # type: str
+        # The remote IP address.
+        # 
+        # > This parameter is required only when you set **TupleType** to **2** or **5**.
         self.other_ip = other_ip  # type: str
+        # The remote ISP.
+        # 
+        # > This parameter is required if you want to view the information about the remote ISP.
         self.other_isp = other_isp  # type: str
+        # The remote port.
+        # 
+        # > This parameter is required only when you set **TupleType** to **5**.
         self.other_port = other_port  # type: str
+        # The protocol number.
+        # 
+        # > All protocols are supported. This parameter is required only when you set **TupleType** to **5**.
         self.protocol = protocol  # type: str
+        # The ID of the region for which you want to query the Internet traffic.
         self.region_id = region_id  # type: str
+        # The order in which instances are ranked by Internet traffic. Valid values:
+        # 
+        # - **desc**: the descending order
+        # - **asc**: the ascending order
         self.sort = sort  # type: str
+        # Specifies top-N traffic data to display. Default value: **10**. This value specifies to display top-10 traffic data by default.
         self.top_n = top_n  # type: int
+        # The type of the tuple. Valid values:
+        # 
+        # - **1**: 1-tuple
+        # - **2**: 2-tuples
+        # - **5**: 5-tuples
         self.tuple_type = tuple_type  # type: int
+        # Specifies whether to enable the multi-account management feature. Default value: **false**. This value specifies that the multi-account management feature is disabled.
+        # 
+        # > By default, the multi-account management feature is disabled. If you want to enable this feature, contact your customer business manager.
         self.use_multi_account = use_multi_account  # type: bool
 
     def validate(self):
@@ -975,26 +1034,75 @@ class GetInternetTupleShrinkRequest(TeaModel):
                  direction=None, end_time=None, instance_id=None, instance_list_shrink=None, order_by=None, other_city=None,
                  other_country=None, other_ip=None, other_isp=None, other_port=None, protocol=None, region_id=None, sort=None,
                  top_n=None, tuple_type=None, use_multi_account=None):
+        # The IDs of member accounts.
         self.account_ids = account_ids  # type: list[str]
+        # The beginning of the time range to query. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.begin_time = begin_time  # type: long
+        # The local IP address.
         self.cloud_ip = cloud_ip  # type: str
+        # The local Internet service provider (ISP).
+        # 
+        # > In most cases, the value is Alibaba or Alibaba Cloud.
         self.cloud_isp = cloud_isp  # type: str
+        # The local port.
+        # 
+        # > This parameter is required only when you set **TupleType** to **5**.
         self.cloud_port = cloud_port  # type: str
+        # The direction of the Internet traffic that you want to query. Valid values:
+        # 
+        # - **in**: inbound
+        # - **out**: outbound
         self.direction = direction  # type: str
+        # The end of the time range to query. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.end_time = end_time  # type: long
+        # The ID of the Alibaba Cloud instance.
         self.instance_id = instance_id  # type: str
+        # The instance IDs for filtering.
         self.instance_list_shrink = instance_list_shrink  # type: str
+        # The metric for instance ranking. Default value: **ByteCount**. This value specifies that instances are ranked by traffic volume.
         self.order_by = order_by  # type: str
+        # The remote city.
+        # 
+        # > This parameter is required only if you set **TupleType** to **5**.
         self.other_city = other_city  # type: str
+        # The remote country.
+        # 
+        # > This parameter is required only if you set **TupleType** to **5**.
         self.other_country = other_country  # type: str
+        # The remote IP address.
+        # 
+        # > This parameter is required only when you set **TupleType** to **2** or **5**.
         self.other_ip = other_ip  # type: str
+        # The remote ISP.
+        # 
+        # > This parameter is required if you want to view the information about the remote ISP.
         self.other_isp = other_isp  # type: str
+        # The remote port.
+        # 
+        # > This parameter is required only when you set **TupleType** to **5**.
         self.other_port = other_port  # type: str
+        # The protocol number.
+        # 
+        # > All protocols are supported. This parameter is required only when you set **TupleType** to **5**.
         self.protocol = protocol  # type: str
+        # The ID of the region for which you want to query the Internet traffic.
         self.region_id = region_id  # type: str
+        # The order in which instances are ranked by Internet traffic. Valid values:
+        # 
+        # - **desc**: the descending order
+        # - **asc**: the ascending order
         self.sort = sort  # type: str
+        # Specifies top-N traffic data to display. Default value: **10**. This value specifies to display top-10 traffic data by default.
         self.top_n = top_n  # type: int
+        # The type of the tuple. Valid values:
+        # 
+        # - **1**: 1-tuple
+        # - **2**: 2-tuples
+        # - **5**: 5-tuples
         self.tuple_type = tuple_type  # type: int
+        # Specifies whether to enable the multi-account management feature. Default value: **false**. This value specifies that the multi-account management feature is disabled.
+        # 
+        # > By default, the multi-account management feature is disabled. If you want to enable this feature, contact your customer business manager.
         self.use_multi_account = use_multi_account  # type: bool
 
     def validate(self):
@@ -1104,37 +1212,74 @@ class GetInternetTupleResponseBodyData(TeaModel):
                  other_city=None, other_country=None, other_ip=None, other_isp=None, other_port=None, other_product=None,
                  other_province=None, out_byte_count=None, out_order_count=None, out_out_order_count=None, out_packet_count=None,
                  out_retran_count=None, packet_count=None, protocol=None, retran_count=None, rtt=None):
+        # The access point of Alibaba Cloud.
+        # 
+        # > This parameter is valid only when the value of **InstanceId** is the instance ID of an Anycast elastic IP address (EIP).
         self.access_region = access_region  # type: str
+        # The beginning of the time range that you queried. This value is a UNIX timestamp representing the number of milliseconds that have elapsed since January 1, 1970, 00:00:00 UTC.
         self.begin_time = begin_time  # type: str
+        # The traffic volume. Unit: bytes.
         self.byte_count = byte_count  # type: float
+        # The local city.
         self.cloud_city = cloud_city  # type: str
+        # The local country or region.
         self.cloud_country = cloud_country  # type: str
+        # The local IP address.
         self.cloud_ip = cloud_ip  # type: str
+        # The local ISP.
         self.cloud_isp = cloud_isp  # type: str
+        # The local port.
         self.cloud_port = cloud_port  # type: str
+        # The product code of the instance to which the local IP address belongs.
         self.cloud_product = cloud_product  # type: str
+        # The local province.
         self.cloud_province = cloud_province  # type: str
+        # The direction of the Internet traffic. Valid values:
+        # 
+        # - **in**: inbound
+        # - **out**: outbound
         self.direction = direction  # type: str
+        # The inbound traffic volume. Unit: bytes.
         self.in_byte_count = in_byte_count  # type: float
+        # The number of inbound disordered packets.
         self.in_out_order_count = in_out_order_count  # type: float
+        # The number of inbound packets.
         self.in_packet_count = in_packet_count  # type: float
+        # The number of inbound repeated packets.
         self.in_retran_count = in_retran_count  # type: float
+        # The instance ID to which the local IP address belongs.
         self.instance_id = instance_id  # type: str
+        # The remote city. In most cases, this parameter is empty if the value of **OtherCountry** is not China.
         self.other_city = other_city  # type: str
+        # The remote country or region.
         self.other_country = other_country  # type: str
+        # The remote IP address.
         self.other_ip = other_ip  # type: str
+        # The remote ISP.
         self.other_isp = other_isp  # type: str
+        # The remote port.
         self.other_port = other_port  # type: str
+        # The product code of the instance to which the remote IP address belongs. If the IP address is not in the cloud, this parameter is empty.
         self.other_product = other_product  # type: str
+        # The remote province. In most cases, this parameter is empty if the value of **OtherCountry** is not China.
         self.other_province = other_province  # type: str
+        # The outbound traffic volume. Unit: bytes.
         self.out_byte_count = out_byte_count  # type: float
+        # The number of disordered packets.
         self.out_order_count = out_order_count  # type: float
+        # The number of outbound disordered packets.
         self.out_out_order_count = out_out_order_count  # type: float
+        # The number of outbound packets.
         self.out_packet_count = out_packet_count  # type: float
+        # The number of outbound repeated packets.
         self.out_retran_count = out_retran_count  # type: float
+        # The number of packets.
         self.packet_count = packet_count  # type: float
+        # The protocol number.
         self.protocol = protocol  # type: str
+        # The number of repeated packets.
         self.retran_count = retran_count  # type: float
+        # The round-trip time (RTT). Unit: milliseconds.
         self.rtt = rtt  # type: float
 
     def validate(self):
@@ -1283,7 +1428,9 @@ class GetInternetTupleResponseBodyData(TeaModel):
 
 class GetInternetTupleResponseBody(TeaModel):
     def __init__(self, data=None, request_id=None):
+        # The ranking result of instances by Internet traffic.
         self.data = data  # type: list[GetInternetTupleResponseBodyData]
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -1736,6 +1883,769 @@ class GetNetworkReachableAnalysisResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = GetNetworkReachableAnalysisResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetTransitRouterFlowTopNRequest(TeaModel):
+    def __init__(self, account_ids=None, bandwith_package_id=None, begin_time=None, cen_id=None, direction=None,
+                 end_time=None, group_by=None, order_by=None, other_ip=None, other_port=None, other_region=None,
+                 protocol=None, sort=None, this_ip=None, this_port=None, this_region=None, top_n=None, use_multi_account=None):
+        self.account_ids = account_ids  # type: list[str]
+        self.bandwith_package_id = bandwith_package_id  # type: str
+        self.begin_time = begin_time  # type: long
+        self.cen_id = cen_id  # type: str
+        self.direction = direction  # type: str
+        self.end_time = end_time  # type: long
+        self.group_by = group_by  # type: str
+        self.order_by = order_by  # type: str
+        self.other_ip = other_ip  # type: str
+        self.other_port = other_port  # type: str
+        self.other_region = other_region  # type: str
+        self.protocol = protocol  # type: str
+        self.sort = sort  # type: str
+        self.this_ip = this_ip  # type: str
+        self.this_port = this_port  # type: str
+        self.this_region = this_region  # type: str
+        self.top_n = top_n  # type: int
+        self.use_multi_account = use_multi_account  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetTransitRouterFlowTopNRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.account_ids is not None:
+            result['AccountIds'] = self.account_ids
+        if self.bandwith_package_id is not None:
+            result['BandwithPackageId'] = self.bandwith_package_id
+        if self.begin_time is not None:
+            result['BeginTime'] = self.begin_time
+        if self.cen_id is not None:
+            result['CenId'] = self.cen_id
+        if self.direction is not None:
+            result['Direction'] = self.direction
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.group_by is not None:
+            result['GroupBy'] = self.group_by
+        if self.order_by is not None:
+            result['OrderBy'] = self.order_by
+        if self.other_ip is not None:
+            result['OtherIp'] = self.other_ip
+        if self.other_port is not None:
+            result['OtherPort'] = self.other_port
+        if self.other_region is not None:
+            result['OtherRegion'] = self.other_region
+        if self.protocol is not None:
+            result['Protocol'] = self.protocol
+        if self.sort is not None:
+            result['Sort'] = self.sort
+        if self.this_ip is not None:
+            result['ThisIp'] = self.this_ip
+        if self.this_port is not None:
+            result['ThisPort'] = self.this_port
+        if self.this_region is not None:
+            result['ThisRegion'] = self.this_region
+        if self.top_n is not None:
+            result['TopN'] = self.top_n
+        if self.use_multi_account is not None:
+            result['UseMultiAccount'] = self.use_multi_account
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccountIds') is not None:
+            self.account_ids = m.get('AccountIds')
+        if m.get('BandwithPackageId') is not None:
+            self.bandwith_package_id = m.get('BandwithPackageId')
+        if m.get('BeginTime') is not None:
+            self.begin_time = m.get('BeginTime')
+        if m.get('CenId') is not None:
+            self.cen_id = m.get('CenId')
+        if m.get('Direction') is not None:
+            self.direction = m.get('Direction')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('GroupBy') is not None:
+            self.group_by = m.get('GroupBy')
+        if m.get('OrderBy') is not None:
+            self.order_by = m.get('OrderBy')
+        if m.get('OtherIp') is not None:
+            self.other_ip = m.get('OtherIp')
+        if m.get('OtherPort') is not None:
+            self.other_port = m.get('OtherPort')
+        if m.get('OtherRegion') is not None:
+            self.other_region = m.get('OtherRegion')
+        if m.get('Protocol') is not None:
+            self.protocol = m.get('Protocol')
+        if m.get('Sort') is not None:
+            self.sort = m.get('Sort')
+        if m.get('ThisIp') is not None:
+            self.this_ip = m.get('ThisIp')
+        if m.get('ThisPort') is not None:
+            self.this_port = m.get('ThisPort')
+        if m.get('ThisRegion') is not None:
+            self.this_region = m.get('ThisRegion')
+        if m.get('TopN') is not None:
+            self.top_n = m.get('TopN')
+        if m.get('UseMultiAccount') is not None:
+            self.use_multi_account = m.get('UseMultiAccount')
+        return self
+
+
+class GetTransitRouterFlowTopNShrinkRequest(TeaModel):
+    def __init__(self, account_ids_shrink=None, bandwith_package_id=None, begin_time=None, cen_id=None,
+                 direction=None, end_time=None, group_by=None, order_by=None, other_ip=None, other_port=None,
+                 other_region=None, protocol=None, sort=None, this_ip=None, this_port=None, this_region=None, top_n=None,
+                 use_multi_account=None):
+        self.account_ids_shrink = account_ids_shrink  # type: str
+        self.bandwith_package_id = bandwith_package_id  # type: str
+        self.begin_time = begin_time  # type: long
+        self.cen_id = cen_id  # type: str
+        self.direction = direction  # type: str
+        self.end_time = end_time  # type: long
+        self.group_by = group_by  # type: str
+        self.order_by = order_by  # type: str
+        self.other_ip = other_ip  # type: str
+        self.other_port = other_port  # type: str
+        self.other_region = other_region  # type: str
+        self.protocol = protocol  # type: str
+        self.sort = sort  # type: str
+        self.this_ip = this_ip  # type: str
+        self.this_port = this_port  # type: str
+        self.this_region = this_region  # type: str
+        self.top_n = top_n  # type: int
+        self.use_multi_account = use_multi_account  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetTransitRouterFlowTopNShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.account_ids_shrink is not None:
+            result['AccountIds'] = self.account_ids_shrink
+        if self.bandwith_package_id is not None:
+            result['BandwithPackageId'] = self.bandwith_package_id
+        if self.begin_time is not None:
+            result['BeginTime'] = self.begin_time
+        if self.cen_id is not None:
+            result['CenId'] = self.cen_id
+        if self.direction is not None:
+            result['Direction'] = self.direction
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.group_by is not None:
+            result['GroupBy'] = self.group_by
+        if self.order_by is not None:
+            result['OrderBy'] = self.order_by
+        if self.other_ip is not None:
+            result['OtherIp'] = self.other_ip
+        if self.other_port is not None:
+            result['OtherPort'] = self.other_port
+        if self.other_region is not None:
+            result['OtherRegion'] = self.other_region
+        if self.protocol is not None:
+            result['Protocol'] = self.protocol
+        if self.sort is not None:
+            result['Sort'] = self.sort
+        if self.this_ip is not None:
+            result['ThisIp'] = self.this_ip
+        if self.this_port is not None:
+            result['ThisPort'] = self.this_port
+        if self.this_region is not None:
+            result['ThisRegion'] = self.this_region
+        if self.top_n is not None:
+            result['TopN'] = self.top_n
+        if self.use_multi_account is not None:
+            result['UseMultiAccount'] = self.use_multi_account
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccountIds') is not None:
+            self.account_ids_shrink = m.get('AccountIds')
+        if m.get('BandwithPackageId') is not None:
+            self.bandwith_package_id = m.get('BandwithPackageId')
+        if m.get('BeginTime') is not None:
+            self.begin_time = m.get('BeginTime')
+        if m.get('CenId') is not None:
+            self.cen_id = m.get('CenId')
+        if m.get('Direction') is not None:
+            self.direction = m.get('Direction')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('GroupBy') is not None:
+            self.group_by = m.get('GroupBy')
+        if m.get('OrderBy') is not None:
+            self.order_by = m.get('OrderBy')
+        if m.get('OtherIp') is not None:
+            self.other_ip = m.get('OtherIp')
+        if m.get('OtherPort') is not None:
+            self.other_port = m.get('OtherPort')
+        if m.get('OtherRegion') is not None:
+            self.other_region = m.get('OtherRegion')
+        if m.get('Protocol') is not None:
+            self.protocol = m.get('Protocol')
+        if m.get('Sort') is not None:
+            self.sort = m.get('Sort')
+        if m.get('ThisIp') is not None:
+            self.this_ip = m.get('ThisIp')
+        if m.get('ThisPort') is not None:
+            self.this_port = m.get('ThisPort')
+        if m.get('ThisRegion') is not None:
+            self.this_region = m.get('ThisRegion')
+        if m.get('TopN') is not None:
+            self.top_n = m.get('TopN')
+        if m.get('UseMultiAccount') is not None:
+            self.use_multi_account = m.get('UseMultiAccount')
+        return self
+
+
+class GetTransitRouterFlowTopNResponseBodyTransitRouterFlowTopN(TeaModel):
+    def __init__(self, account_id=None, bandwith_package_id=None, bytes=None, cen_id=None, end_time=None,
+                 other_ip=None, other_port=None, other_region=None, packets=None, protocol=None, start_time=None,
+                 this_ip=None, this_port=None, this_region=None):
+        self.account_id = account_id  # type: str
+        self.bandwith_package_id = bandwith_package_id  # type: str
+        self.bytes = bytes  # type: float
+        self.cen_id = cen_id  # type: str
+        self.end_time = end_time  # type: str
+        self.other_ip = other_ip  # type: str
+        self.other_port = other_port  # type: str
+        self.other_region = other_region  # type: str
+        self.packets = packets  # type: float
+        self.protocol = protocol  # type: str
+        self.start_time = start_time  # type: str
+        self.this_ip = this_ip  # type: str
+        self.this_port = this_port  # type: str
+        self.this_region = this_region  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetTransitRouterFlowTopNResponseBodyTransitRouterFlowTopN, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.account_id is not None:
+            result['AccountId'] = self.account_id
+        if self.bandwith_package_id is not None:
+            result['BandwithPackageId'] = self.bandwith_package_id
+        if self.bytes is not None:
+            result['Bytes'] = self.bytes
+        if self.cen_id is not None:
+            result['CenId'] = self.cen_id
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.other_ip is not None:
+            result['OtherIp'] = self.other_ip
+        if self.other_port is not None:
+            result['OtherPort'] = self.other_port
+        if self.other_region is not None:
+            result['OtherRegion'] = self.other_region
+        if self.packets is not None:
+            result['Packets'] = self.packets
+        if self.protocol is not None:
+            result['Protocol'] = self.protocol
+        if self.start_time is not None:
+            result['StartTime'] = self.start_time
+        if self.this_ip is not None:
+            result['ThisIp'] = self.this_ip
+        if self.this_port is not None:
+            result['ThisPort'] = self.this_port
+        if self.this_region is not None:
+            result['ThisRegion'] = self.this_region
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccountId') is not None:
+            self.account_id = m.get('AccountId')
+        if m.get('BandwithPackageId') is not None:
+            self.bandwith_package_id = m.get('BandwithPackageId')
+        if m.get('Bytes') is not None:
+            self.bytes = m.get('Bytes')
+        if m.get('CenId') is not None:
+            self.cen_id = m.get('CenId')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('OtherIp') is not None:
+            self.other_ip = m.get('OtherIp')
+        if m.get('OtherPort') is not None:
+            self.other_port = m.get('OtherPort')
+        if m.get('OtherRegion') is not None:
+            self.other_region = m.get('OtherRegion')
+        if m.get('Packets') is not None:
+            self.packets = m.get('Packets')
+        if m.get('Protocol') is not None:
+            self.protocol = m.get('Protocol')
+        if m.get('StartTime') is not None:
+            self.start_time = m.get('StartTime')
+        if m.get('ThisIp') is not None:
+            self.this_ip = m.get('ThisIp')
+        if m.get('ThisPort') is not None:
+            self.this_port = m.get('ThisPort')
+        if m.get('ThisRegion') is not None:
+            self.this_region = m.get('ThisRegion')
+        return self
+
+
+class GetTransitRouterFlowTopNResponseBody(TeaModel):
+    def __init__(self, request_id=None, transit_router_flow_top_n=None):
+        self.request_id = request_id  # type: str
+        self.transit_router_flow_top_n = transit_router_flow_top_n  # type: list[GetTransitRouterFlowTopNResponseBodyTransitRouterFlowTopN]
+
+    def validate(self):
+        if self.transit_router_flow_top_n:
+            for k in self.transit_router_flow_top_n:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GetTransitRouterFlowTopNResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        result['TransitRouterFlowTopN'] = []
+        if self.transit_router_flow_top_n is not None:
+            for k in self.transit_router_flow_top_n:
+                result['TransitRouterFlowTopN'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        self.transit_router_flow_top_n = []
+        if m.get('TransitRouterFlowTopN') is not None:
+            for k in m.get('TransitRouterFlowTopN'):
+                temp_model = GetTransitRouterFlowTopNResponseBodyTransitRouterFlowTopN()
+                self.transit_router_flow_top_n.append(temp_model.from_map(k))
+        return self
+
+
+class GetTransitRouterFlowTopNResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetTransitRouterFlowTopNResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetTransitRouterFlowTopNResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetTransitRouterFlowTopNResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetVbrFlowTopNRequest(TeaModel):
+    def __init__(self, account_ids=None, attachment_id=None, begin_time=None, cen_id=None, cloud_ip=None,
+                 cloud_port=None, direction=None, end_time=None, group_by=None, order_by=None, other_ip=None, other_port=None,
+                 protocol=None, region_id=None, sort=None, top_n=None, use_multi_account=None, virtual_border_router_id=None):
+        self.account_ids = account_ids  # type: list[str]
+        self.attachment_id = attachment_id  # type: str
+        self.begin_time = begin_time  # type: long
+        self.cen_id = cen_id  # type: str
+        self.cloud_ip = cloud_ip  # type: str
+        self.cloud_port = cloud_port  # type: str
+        self.direction = direction  # type: str
+        self.end_time = end_time  # type: long
+        self.group_by = group_by  # type: str
+        self.order_by = order_by  # type: str
+        self.other_ip = other_ip  # type: str
+        self.other_port = other_port  # type: str
+        self.protocol = protocol  # type: str
+        self.region_id = region_id  # type: str
+        self.sort = sort  # type: str
+        self.top_n = top_n  # type: int
+        self.use_multi_account = use_multi_account  # type: bool
+        self.virtual_border_router_id = virtual_border_router_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetVbrFlowTopNRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.account_ids is not None:
+            result['AccountIds'] = self.account_ids
+        if self.attachment_id is not None:
+            result['AttachmentId'] = self.attachment_id
+        if self.begin_time is not None:
+            result['BeginTime'] = self.begin_time
+        if self.cen_id is not None:
+            result['CenId'] = self.cen_id
+        if self.cloud_ip is not None:
+            result['CloudIp'] = self.cloud_ip
+        if self.cloud_port is not None:
+            result['CloudPort'] = self.cloud_port
+        if self.direction is not None:
+            result['Direction'] = self.direction
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.group_by is not None:
+            result['GroupBy'] = self.group_by
+        if self.order_by is not None:
+            result['OrderBy'] = self.order_by
+        if self.other_ip is not None:
+            result['OtherIp'] = self.other_ip
+        if self.other_port is not None:
+            result['OtherPort'] = self.other_port
+        if self.protocol is not None:
+            result['Protocol'] = self.protocol
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.sort is not None:
+            result['Sort'] = self.sort
+        if self.top_n is not None:
+            result['TopN'] = self.top_n
+        if self.use_multi_account is not None:
+            result['UseMultiAccount'] = self.use_multi_account
+        if self.virtual_border_router_id is not None:
+            result['VirtualBorderRouterId'] = self.virtual_border_router_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccountIds') is not None:
+            self.account_ids = m.get('AccountIds')
+        if m.get('AttachmentId') is not None:
+            self.attachment_id = m.get('AttachmentId')
+        if m.get('BeginTime') is not None:
+            self.begin_time = m.get('BeginTime')
+        if m.get('CenId') is not None:
+            self.cen_id = m.get('CenId')
+        if m.get('CloudIp') is not None:
+            self.cloud_ip = m.get('CloudIp')
+        if m.get('CloudPort') is not None:
+            self.cloud_port = m.get('CloudPort')
+        if m.get('Direction') is not None:
+            self.direction = m.get('Direction')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('GroupBy') is not None:
+            self.group_by = m.get('GroupBy')
+        if m.get('OrderBy') is not None:
+            self.order_by = m.get('OrderBy')
+        if m.get('OtherIp') is not None:
+            self.other_ip = m.get('OtherIp')
+        if m.get('OtherPort') is not None:
+            self.other_port = m.get('OtherPort')
+        if m.get('Protocol') is not None:
+            self.protocol = m.get('Protocol')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('Sort') is not None:
+            self.sort = m.get('Sort')
+        if m.get('TopN') is not None:
+            self.top_n = m.get('TopN')
+        if m.get('UseMultiAccount') is not None:
+            self.use_multi_account = m.get('UseMultiAccount')
+        if m.get('VirtualBorderRouterId') is not None:
+            self.virtual_border_router_id = m.get('VirtualBorderRouterId')
+        return self
+
+
+class GetVbrFlowTopNShrinkRequest(TeaModel):
+    def __init__(self, account_ids_shrink=None, attachment_id=None, begin_time=None, cen_id=None, cloud_ip=None,
+                 cloud_port=None, direction=None, end_time=None, group_by=None, order_by=None, other_ip=None, other_port=None,
+                 protocol=None, region_id=None, sort=None, top_n=None, use_multi_account=None, virtual_border_router_id=None):
+        self.account_ids_shrink = account_ids_shrink  # type: str
+        self.attachment_id = attachment_id  # type: str
+        self.begin_time = begin_time  # type: long
+        self.cen_id = cen_id  # type: str
+        self.cloud_ip = cloud_ip  # type: str
+        self.cloud_port = cloud_port  # type: str
+        self.direction = direction  # type: str
+        self.end_time = end_time  # type: long
+        self.group_by = group_by  # type: str
+        self.order_by = order_by  # type: str
+        self.other_ip = other_ip  # type: str
+        self.other_port = other_port  # type: str
+        self.protocol = protocol  # type: str
+        self.region_id = region_id  # type: str
+        self.sort = sort  # type: str
+        self.top_n = top_n  # type: int
+        self.use_multi_account = use_multi_account  # type: bool
+        self.virtual_border_router_id = virtual_border_router_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetVbrFlowTopNShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.account_ids_shrink is not None:
+            result['AccountIds'] = self.account_ids_shrink
+        if self.attachment_id is not None:
+            result['AttachmentId'] = self.attachment_id
+        if self.begin_time is not None:
+            result['BeginTime'] = self.begin_time
+        if self.cen_id is not None:
+            result['CenId'] = self.cen_id
+        if self.cloud_ip is not None:
+            result['CloudIp'] = self.cloud_ip
+        if self.cloud_port is not None:
+            result['CloudPort'] = self.cloud_port
+        if self.direction is not None:
+            result['Direction'] = self.direction
+        if self.end_time is not None:
+            result['EndTime'] = self.end_time
+        if self.group_by is not None:
+            result['GroupBy'] = self.group_by
+        if self.order_by is not None:
+            result['OrderBy'] = self.order_by
+        if self.other_ip is not None:
+            result['OtherIp'] = self.other_ip
+        if self.other_port is not None:
+            result['OtherPort'] = self.other_port
+        if self.protocol is not None:
+            result['Protocol'] = self.protocol
+        if self.region_id is not None:
+            result['RegionId'] = self.region_id
+        if self.sort is not None:
+            result['Sort'] = self.sort
+        if self.top_n is not None:
+            result['TopN'] = self.top_n
+        if self.use_multi_account is not None:
+            result['UseMultiAccount'] = self.use_multi_account
+        if self.virtual_border_router_id is not None:
+            result['VirtualBorderRouterId'] = self.virtual_border_router_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccountIds') is not None:
+            self.account_ids_shrink = m.get('AccountIds')
+        if m.get('AttachmentId') is not None:
+            self.attachment_id = m.get('AttachmentId')
+        if m.get('BeginTime') is not None:
+            self.begin_time = m.get('BeginTime')
+        if m.get('CenId') is not None:
+            self.cen_id = m.get('CenId')
+        if m.get('CloudIp') is not None:
+            self.cloud_ip = m.get('CloudIp')
+        if m.get('CloudPort') is not None:
+            self.cloud_port = m.get('CloudPort')
+        if m.get('Direction') is not None:
+            self.direction = m.get('Direction')
+        if m.get('EndTime') is not None:
+            self.end_time = m.get('EndTime')
+        if m.get('GroupBy') is not None:
+            self.group_by = m.get('GroupBy')
+        if m.get('OrderBy') is not None:
+            self.order_by = m.get('OrderBy')
+        if m.get('OtherIp') is not None:
+            self.other_ip = m.get('OtherIp')
+        if m.get('OtherPort') is not None:
+            self.other_port = m.get('OtherPort')
+        if m.get('Protocol') is not None:
+            self.protocol = m.get('Protocol')
+        if m.get('RegionId') is not None:
+            self.region_id = m.get('RegionId')
+        if m.get('Sort') is not None:
+            self.sort = m.get('Sort')
+        if m.get('TopN') is not None:
+            self.top_n = m.get('TopN')
+        if m.get('UseMultiAccount') is not None:
+            self.use_multi_account = m.get('UseMultiAccount')
+        if m.get('VirtualBorderRouterId') is not None:
+            self.virtual_border_router_id = m.get('VirtualBorderRouterId')
+        return self
+
+
+class GetVbrFlowTopNResponseBodyVirtualBorderRouterFlowlogTopN(TeaModel):
+    def __init__(self, account_id=None, attachment_id=None, bytes=None, cloud_ip=None, cloud_port=None,
+                 cloud_region=None, other_ip=None, other_port=None, packets=None, protocol=None, virtual_border_router_id=None):
+        self.account_id = account_id  # type: str
+        self.attachment_id = attachment_id  # type: str
+        self.bytes = bytes  # type: float
+        self.cloud_ip = cloud_ip  # type: str
+        self.cloud_port = cloud_port  # type: str
+        self.cloud_region = cloud_region  # type: str
+        self.other_ip = other_ip  # type: str
+        self.other_port = other_port  # type: str
+        self.packets = packets  # type: float
+        self.protocol = protocol  # type: str
+        self.virtual_border_router_id = virtual_border_router_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetVbrFlowTopNResponseBodyVirtualBorderRouterFlowlogTopN, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.account_id is not None:
+            result['AccountId'] = self.account_id
+        if self.attachment_id is not None:
+            result['AttachmentId'] = self.attachment_id
+        if self.bytes is not None:
+            result['Bytes'] = self.bytes
+        if self.cloud_ip is not None:
+            result['CloudIp'] = self.cloud_ip
+        if self.cloud_port is not None:
+            result['CloudPort'] = self.cloud_port
+        if self.cloud_region is not None:
+            result['CloudRegion'] = self.cloud_region
+        if self.other_ip is not None:
+            result['OtherIp'] = self.other_ip
+        if self.other_port is not None:
+            result['OtherPort'] = self.other_port
+        if self.packets is not None:
+            result['Packets'] = self.packets
+        if self.protocol is not None:
+            result['Protocol'] = self.protocol
+        if self.virtual_border_router_id is not None:
+            result['VirtualBorderRouterId'] = self.virtual_border_router_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AccountId') is not None:
+            self.account_id = m.get('AccountId')
+        if m.get('AttachmentId') is not None:
+            self.attachment_id = m.get('AttachmentId')
+        if m.get('Bytes') is not None:
+            self.bytes = m.get('Bytes')
+        if m.get('CloudIp') is not None:
+            self.cloud_ip = m.get('CloudIp')
+        if m.get('CloudPort') is not None:
+            self.cloud_port = m.get('CloudPort')
+        if m.get('CloudRegion') is not None:
+            self.cloud_region = m.get('CloudRegion')
+        if m.get('OtherIp') is not None:
+            self.other_ip = m.get('OtherIp')
+        if m.get('OtherPort') is not None:
+            self.other_port = m.get('OtherPort')
+        if m.get('Packets') is not None:
+            self.packets = m.get('Packets')
+        if m.get('Protocol') is not None:
+            self.protocol = m.get('Protocol')
+        if m.get('VirtualBorderRouterId') is not None:
+            self.virtual_border_router_id = m.get('VirtualBorderRouterId')
+        return self
+
+
+class GetVbrFlowTopNResponseBody(TeaModel):
+    def __init__(self, request_id=None, virtual_border_router_flowlog_top_n=None):
+        self.request_id = request_id  # type: str
+        self.virtual_border_router_flowlog_top_n = virtual_border_router_flowlog_top_n  # type: list[GetVbrFlowTopNResponseBodyVirtualBorderRouterFlowlogTopN]
+
+    def validate(self):
+        if self.virtual_border_router_flowlog_top_n:
+            for k in self.virtual_border_router_flowlog_top_n:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(GetVbrFlowTopNResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        result['VirtualBorderRouterFlowlogTopN'] = []
+        if self.virtual_border_router_flowlog_top_n is not None:
+            for k in self.virtual_border_router_flowlog_top_n:
+                result['VirtualBorderRouterFlowlogTopN'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        self.virtual_border_router_flowlog_top_n = []
+        if m.get('VirtualBorderRouterFlowlogTopN') is not None:
+            for k in m.get('VirtualBorderRouterFlowlogTopN'):
+                temp_model = GetVbrFlowTopNResponseBodyVirtualBorderRouterFlowlogTopN()
+                self.virtual_border_router_flowlog_top_n.append(temp_model.from_map(k))
+        return self
+
+
+class GetVbrFlowTopNResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetVbrFlowTopNResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetVbrFlowTopNResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetVbrFlowTopNResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
