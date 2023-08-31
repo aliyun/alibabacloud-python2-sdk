@@ -3,6 +3,45 @@
 from Tea.model import TeaModel
 
 
+class Adb4MysqlSparkDiagnosisInfo(TeaModel):
+    def __init__(self, diagnosis_code=None, diagnosis_code_label=None, diagnosis_msg=None, diagnosis_type=None):
+        self.diagnosis_code = diagnosis_code  # type: str
+        self.diagnosis_code_label = diagnosis_code_label  # type: str
+        self.diagnosis_msg = diagnosis_msg  # type: str
+        self.diagnosis_type = diagnosis_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(Adb4MysqlSparkDiagnosisInfo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.diagnosis_code is not None:
+            result['DiagnosisCode'] = self.diagnosis_code
+        if self.diagnosis_code_label is not None:
+            result['DiagnosisCodeLabel'] = self.diagnosis_code_label
+        if self.diagnosis_msg is not None:
+            result['DiagnosisMsg'] = self.diagnosis_msg
+        if self.diagnosis_type is not None:
+            result['DiagnosisType'] = self.diagnosis_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DiagnosisCode') is not None:
+            self.diagnosis_code = m.get('DiagnosisCode')
+        if m.get('DiagnosisCodeLabel') is not None:
+            self.diagnosis_code_label = m.get('DiagnosisCodeLabel')
+        if m.get('DiagnosisMsg') is not None:
+            self.diagnosis_msg = m.get('DiagnosisMsg')
+        if m.get('DiagnosisType') is not None:
+            self.diagnosis_type = m.get('DiagnosisType')
+        return self
+
+
 class ColDetailModel(TeaModel):
     def __init__(self, column_name=None, create_time=None, description=None, distribute_key=None, nullable=None,
                  partition_key=None, primary_key=None, schema_name=None, table_name=None, type=None, update_time=None):
@@ -12550,6 +12589,103 @@ class EnableElasticPlanResponse(TeaModel):
         return self
 
 
+class ExistRunningSQLEngineRequest(TeaModel):
+    def __init__(self, dbcluster_id=None, resource_group_name=None):
+        self.dbcluster_id = dbcluster_id  # type: str
+        self.resource_group_name = resource_group_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ExistRunningSQLEngineRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbcluster_id is not None:
+            result['DBClusterId'] = self.dbcluster_id
+        if self.resource_group_name is not None:
+            result['ResourceGroupName'] = self.resource_group_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBClusterId') is not None:
+            self.dbcluster_id = m.get('DBClusterId')
+        if m.get('ResourceGroupName') is not None:
+            self.resource_group_name = m.get('ResourceGroupName')
+        return self
+
+
+class ExistRunningSQLEngineResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: bool
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ExistRunningSQLEngineResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class ExistRunningSQLEngineResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ExistRunningSQLEngineResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ExistRunningSQLEngineResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ExistRunningSQLEngineResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class GetDatabaseObjectsRequest(TeaModel):
     def __init__(self, dbcluster_id=None, filter_owner=None, filter_schema_name=None, order_by=None,
                  page_number=None, page_size=None, region_id=None):
@@ -12922,7 +13058,7 @@ class GetSparkAppInfoRequest(TeaModel):
     def __init__(self, app_id=None):
         # The ID of the application. 
         # 
-        # >  You can call the [ListSparkApps](/help/en/analyticdb-for-mysql/latest/listsparkapps) operation to query the Spark application ID.
+        # >  You can call the [ListSparkApps](~~612475~~) operation to query the Spark application ID.
         self.app_id = app_id  # type: str
 
     def validate(self):
@@ -13034,7 +13170,7 @@ class GetSparkAppLogRequest(TeaModel):
     def __init__(self, app_id=None, log_length=None):
         # The Spark application ID.
         # 
-        # > You can call the [ListSparkApps](~~~~) operation to query the Spark application ID.
+        # > You can call the [ListSparkApps](~~612475~~) operation to query the Spark application ID.
         self.app_id = app_id  # type: str
         # The number of log entries to return. Valid values: 1 to 500. Default value: 300.
         self.log_length = log_length  # type: long
@@ -18222,6 +18358,134 @@ class ReleaseClusterPublicConnectionResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ReleaseClusterPublicConnectionResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class RenameSparkTemplateFileRequest(TeaModel):
+    def __init__(self, dbcluster_id=None, id=None, name=None):
+        self.dbcluster_id = dbcluster_id  # type: str
+        self.id = id  # type: long
+        self.name = name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RenameSparkTemplateFileRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.dbcluster_id is not None:
+            result['DBClusterId'] = self.dbcluster_id
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.name is not None:
+            result['Name'] = self.name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('DBClusterId') is not None:
+            self.dbcluster_id = m.get('DBClusterId')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        return self
+
+
+class RenameSparkTemplateFileResponseBodyData(TeaModel):
+    def __init__(self, succeeded=None):
+        self.succeeded = succeeded  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RenameSparkTemplateFileResponseBodyData, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.succeeded is not None:
+            result['Succeeded'] = self.succeeded
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Succeeded') is not None:
+            self.succeeded = m.get('Succeeded')
+        return self
+
+
+class RenameSparkTemplateFileResponseBody(TeaModel):
+    def __init__(self, data=None, request_id=None):
+        self.data = data  # type: RenameSparkTemplateFileResponseBodyData
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        if self.data:
+            self.data.validate()
+
+    def to_map(self):
+        _map = super(RenameSparkTemplateFileResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.data is not None:
+            result['Data'] = self.data.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Data') is not None:
+            temp_model = RenameSparkTemplateFileResponseBodyData()
+            self.data = temp_model.from_map(m['Data'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class RenameSparkTemplateFileResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: RenameSparkTemplateFileResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(RenameSparkTemplateFileResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = RenameSparkTemplateFileResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 

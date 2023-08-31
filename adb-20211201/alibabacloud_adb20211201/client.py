@@ -2142,6 +2142,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.enable_elastic_plan_with_options(request, runtime)
 
+    def exist_running_sqlengine_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.dbcluster_id):
+            body['DBClusterId'] = request.dbcluster_id
+        if not UtilClient.is_unset(request.resource_group_name):
+            body['ResourceGroupName'] = request.resource_group_name
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ExistRunningSQLEngine',
+            version='2021-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adb_20211201_models.ExistRunningSQLEngineResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def exist_running_sqlengine(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.exist_running_sqlengine_with_options(request, runtime)
+
     def get_database_objects_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -3449,6 +3479,38 @@ class Client(OpenApiClient):
     def release_cluster_public_connection(self, request):
         runtime = util_models.RuntimeOptions()
         return self.release_cluster_public_connection_with_options(request, runtime)
+
+    def rename_spark_template_file_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbcluster_id):
+            query['DBClusterId'] = request.dbcluster_id
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        if not UtilClient.is_unset(request.name):
+            query['Name'] = request.name
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='RenameSparkTemplateFile',
+            version='2021-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adb_20211201_models.RenameSparkTemplateFileResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def rename_spark_template_file(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.rename_spark_template_file_with_options(request, runtime)
 
     def reset_account_password_with_options(self, request, runtime):
         UtilClient.validate_model(request)
