@@ -60,7 +60,7 @@ class Client(OpenApiClient):
 
     def check_used_property_value_with_options(self, request, runtime):
         """
-        The operation that you want to perform. Set the value to *CheckUsedPropertyValue**.
+        Before you call the operation, you can call the [ListProperty](~~410890~~) operation to query the existing user properties and their IDs (PropertyId) and values (PropertyValueId).
         
 
         @param request: CheckUsedPropertyValueRequest
@@ -96,7 +96,7 @@ class Client(OpenApiClient):
 
     def check_used_property_value(self, request):
         """
-        The operation that you want to perform. Set the value to *CheckUsedPropertyValue**.
+        Before you call the operation, you can call the [ListProperty](~~410890~~) operation to query the existing user properties and their IDs (PropertyId) and values (PropertyValueId).
         
 
         @param request: CheckUsedPropertyValueRequest
@@ -148,12 +148,16 @@ class Client(OpenApiClient):
         @return: CreateUsersResponse
         """
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.auto_lock_time):
+            query['AutoLockTime'] = request.auto_lock_time
         body = {}
         if not UtilClient.is_unset(request.password):
             body['Password'] = request.password
         if not UtilClient.is_unset(request.users):
             body['Users'] = request.users
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
@@ -414,7 +418,8 @@ class Client(OpenApiClient):
 
     def lock_mfa_device_with_options(self, request, runtime):
         """
-        Locks a virtual MFA device that is bound to a convenience user.
+        ## Description
+        After a virtual MFA device is locked, the status of the virtual MFA device changes to LOCKED. The convenience user to which the MFA device is bound cannot log on to the cloud desktop that resides in the workspace with the MFA feature enabled because the convenience user will fail authentication based on the virtual MFA device. You can call the UnlockMfaDevice operation to unlock the virtual MFA device.
         
 
         @param request: LockMfaDeviceRequest
@@ -450,7 +455,8 @@ class Client(OpenApiClient):
 
     def lock_mfa_device(self, request):
         """
-        Locks a virtual MFA device that is bound to a convenience user.
+        ## Description
+        After a virtual MFA device is locked, the status of the virtual MFA device changes to LOCKED. The convenience user to which the MFA device is bound cannot log on to the cloud desktop that resides in the workspace with the MFA feature enabled because the convenience user will fail authentication based on the virtual MFA device. You can call the UnlockMfaDevice operation to unlock the virtual MFA device.
         
 
         @param request: LockMfaDeviceRequest
@@ -764,10 +770,14 @@ class Client(OpenApiClient):
 
     def unlock_users_with_options(self, request, runtime):
         UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.auto_lock_time):
+            query['AutoLockTime'] = request.auto_lock_time
         body = {}
         if not UtilClient.is_unset(request.users):
             body['Users'] = request.users
         req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query),
             body=OpenApiUtilClient.parse_to_map(body)
         )
         params = open_api_models.Params(
