@@ -4293,7 +4293,8 @@ class DescribeAvailableEngineVersionResponse(TeaModel):
 
 class DescribeAvailableResourceRequest(TeaModel):
     def __init__(self, db_type=None, instance_charge_type=None, owner_account=None, owner_id=None, region_id=None,
-                 resource_group_id=None, resource_owner_account=None, resource_owner_id=None, security_token=None, zone_id=None):
+                 resource_group_id=None, resource_owner_account=None, resource_owner_id=None, security_token=None, storage_type=None,
+                 zone_id=None):
         # The architecture of the instance. Valid values:
         # 
         # *   **normal**: replica set instance
@@ -4313,6 +4314,7 @@ class DescribeAvailableResourceRequest(TeaModel):
         self.resource_owner_account = resource_owner_account  # type: str
         self.resource_owner_id = resource_owner_id  # type: long
         self.security_token = security_token  # type: str
+        self.storage_type = storage_type  # type: str
         # The ID of the zone. You can call the [DescribeRegions](~~61933~~) operation to query the available zones.
         self.zone_id = zone_id  # type: str
 
@@ -4343,6 +4345,8 @@ class DescribeAvailableResourceRequest(TeaModel):
             result['ResourceOwnerId'] = self.resource_owner_id
         if self.security_token is not None:
             result['SecurityToken'] = self.security_token
+        if self.storage_type is not None:
+            result['StorageType'] = self.storage_type
         if self.zone_id is not None:
             result['ZoneId'] = self.zone_id
         return result
@@ -4367,6 +4371,8 @@ class DescribeAvailableResourceRequest(TeaModel):
             self.resource_owner_id = m.get('ResourceOwnerId')
         if m.get('SecurityToken') is not None:
             self.security_token = m.get('SecurityToken')
+        if m.get('StorageType') is not None:
+            self.storage_type = m.get('StorageType')
         if m.get('ZoneId') is not None:
             self.zone_id = m.get('ZoneId')
         return self
@@ -12030,7 +12036,8 @@ class DescribeRegionsResponseBodyRegionsDdsRegionZones(TeaModel):
 
 
 class DescribeRegionsResponseBodyRegionsDdsRegion(TeaModel):
-    def __init__(self, region_id=None, region_name=None, zones=None):
+    def __init__(self, end_point=None, region_id=None, region_name=None, zones=None):
+        self.end_point = end_point  # type: str
         # The ID of the region.
         self.region_id = region_id  # type: str
         # The name of the region.
@@ -12050,6 +12057,8 @@ class DescribeRegionsResponseBodyRegionsDdsRegion(TeaModel):
             return _map
 
         result = dict()
+        if self.end_point is not None:
+            result['EndPoint'] = self.end_point
         if self.region_id is not None:
             result['RegionId'] = self.region_id
         if self.region_name is not None:
@@ -12060,6 +12069,8 @@ class DescribeRegionsResponseBodyRegionsDdsRegion(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('EndPoint') is not None:
+            self.end_point = m.get('EndPoint')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
         if m.get('RegionName') is not None:
