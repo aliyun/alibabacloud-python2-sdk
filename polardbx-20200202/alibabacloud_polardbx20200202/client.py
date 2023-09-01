@@ -77,6 +77,72 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
+    def align_storage_primary_azone_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_name):
+            query['DBInstanceName'] = request.dbinstance_name
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.storage_instance_name):
+            query['StorageInstanceName'] = request.storage_instance_name
+        if not UtilClient.is_unset(request.switch_time):
+            query['SwitchTime'] = request.switch_time
+        if not UtilClient.is_unset(request.switch_time_mode):
+            query['SwitchTimeMode'] = request.switch_time_mode
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='AlignStoragePrimaryAzone',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            polardbx_20200202_models.AlignStoragePrimaryAzoneResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def align_storage_primary_azone(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.align_storage_primary_azone_with_options(request, runtime)
+
+    def allocate_cold_data_volume_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_name):
+            query['DBInstanceName'] = request.dbinstance_name
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='AllocateColdDataVolume',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            polardbx_20200202_models.AllocateColdDataVolumeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def allocate_cold_data_volume(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.allocate_cold_data_volume_with_options(request, runtime)
+
     def allocate_instance_public_connection_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -338,12 +404,20 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.auto_renew):
             query['AutoRenew'] = request.auto_renew
+        if not UtilClient.is_unset(request.cnnode_count):
+            query['CNNodeCount'] = request.cnnode_count
         if not UtilClient.is_unset(request.client_token):
             query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.cn_class):
+            query['CnClass'] = request.cn_class
         if not UtilClient.is_unset(request.dbnode_class):
             query['DBNodeClass'] = request.dbnode_class
         if not UtilClient.is_unset(request.dbnode_count):
             query['DBNodeCount'] = request.dbnode_count
+        if not UtilClient.is_unset(request.dnnode_count):
+            query['DNNodeCount'] = request.dnnode_count
+        if not UtilClient.is_unset(request.dn_class):
+            query['DnClass'] = request.dn_class
         if not UtilClient.is_unset(request.engine_version):
             query['EngineVersion'] = request.engine_version
         if not UtilClient.is_unset(request.is_read_dbinstance):
@@ -647,6 +721,46 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_active_operation_tasks_with_options(request, runtime)
 
+    def describe_archive_table_list_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_name):
+            query['DBInstanceName'] = request.dbinstance_name
+        if not UtilClient.is_unset(request.page_index):
+            query['PageIndex'] = request.page_index
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.schema_name):
+            query['SchemaName'] = request.schema_name
+        if not UtilClient.is_unset(request.status):
+            query['Status'] = request.status
+        if not UtilClient.is_unset(request.table_name):
+            query['TableName'] = request.table_name
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeArchiveTableList',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            polardbx_20200202_models.DescribeArchiveTableListResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_archive_table_list(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_archive_table_list_with_options(request, runtime)
+
     def describe_backup_policy_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -676,6 +790,40 @@ class Client(OpenApiClient):
     def describe_backup_policy(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_backup_policy_with_options(request, runtime)
+
+    def describe_backup_set_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.backup_set_id):
+            query['BackupSetId'] = request.backup_set_id
+        if not UtilClient.is_unset(request.dbinstance_name):
+            query['DBInstanceName'] = request.dbinstance_name
+        if not UtilClient.is_unset(request.dest_cross_region):
+            query['DestCrossRegion'] = request.dest_cross_region
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeBackupSet',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            polardbx_20200202_models.DescribeBackupSetResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_backup_set(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_backup_set_with_options(request, runtime)
 
     def describe_backup_set_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -710,6 +858,8 @@ class Client(OpenApiClient):
             query['DBInstanceName'] = request.dbinstance_name
         if not UtilClient.is_unset(request.end_time):
             query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.instance_name):
+            query['InstanceName'] = request.instance_name
         if not UtilClient.is_unset(request.page_number):
             query['PageNumber'] = request.page_number
         if not UtilClient.is_unset(request.page_size):
@@ -770,6 +920,32 @@ class Client(OpenApiClient):
     def describe_character_set(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_character_set_with_options(request, runtime)
+
+    def describe_cold_data_basic_info_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeColdDataBasicInfo',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            polardbx_20200202_models.DescribeColdDataBasicInfoResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_cold_data_basic_info(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_cold_data_basic_info_with_options(request, runtime)
 
     def describe_dbinstance_attribute_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -834,6 +1010,36 @@ class Client(OpenApiClient):
     def describe_dbinstance_config(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_dbinstance_config_with_options(request, runtime)
+
+    def describe_dbinstance_hawith_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_name):
+            query['DBInstanceName'] = request.dbinstance_name
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDBInstanceHA',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            polardbx_20200202_models.DescribeDBInstanceHAResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_dbinstance_ha(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_dbinstance_hawith_options(request, runtime)
 
     def describe_dbinstance_sslwith_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -900,8 +1106,12 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.dbinstance_name):
             query['DBInstanceName'] = request.dbinstance_name
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -925,11 +1135,43 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_dbinstance_topology_with_options(request, runtime)
 
+    def describe_dbinstance_via_endpoint_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.endpoint):
+            query['Endpoint'] = request.endpoint
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDBInstanceViaEndpoint',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            polardbx_20200202_models.DescribeDBInstanceViaEndpointResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_dbinstance_via_endpoint(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_dbinstance_via_endpoint_with_options(request, runtime)
+
     def describe_dbinstances_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.instance_id):
             query['InstanceId'] = request.instance_id
+        if not UtilClient.is_unset(request.must_has_cdc):
+            query['MustHasCdc'] = request.must_has_cdc
         if not UtilClient.is_unset(request.page_number):
             query['PageNumber'] = request.page_number
         if not UtilClient.is_unset(request.page_size):
@@ -938,6 +1180,8 @@ class Client(OpenApiClient):
             query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.resource_group_id):
             query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.series):
+            query['Series'] = request.series
         if not UtilClient.is_unset(request.tags):
             query['Tags'] = request.tags
         req = open_api_models.OpenApiRequest(
@@ -1247,44 +1491,6 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_security_ips_with_options(request, runtime)
 
-    def describe_slink_task_info_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
-        query = {}
-        if not UtilClient.is_unset(request.fail_page_number):
-            query['FailPageNumber'] = request.fail_page_number
-        if not UtilClient.is_unset(request.fail_page_size):
-            query['FailPageSize'] = request.fail_page_size
-        if not UtilClient.is_unset(request.region_id):
-            query['RegionId'] = request.region_id
-        if not UtilClient.is_unset(request.slink_task_id):
-            query['SlinkTaskId'] = request.slink_task_id
-        if not UtilClient.is_unset(request.success_page_number):
-            query['SuccessPageNumber'] = request.success_page_number
-        if not UtilClient.is_unset(request.success_page_size):
-            query['SuccessPageSize'] = request.success_page_size
-        req = open_api_models.OpenApiRequest(
-            query=OpenApiUtilClient.query(query)
-        )
-        params = open_api_models.Params(
-            action='DescribeSlinkTaskInfo',
-            version='2020-02-02',
-            protocol='HTTPS',
-            pathname='/',
-            method='POST',
-            auth_type='AK',
-            style='RPC',
-            req_body_type='formData',
-            body_type='json'
-        )
-        return TeaCore.from_map(
-            polardbx_20200202_models.DescribeSlinkTaskInfoResponse(),
-            self.call_api(params, req, runtime)
-        )
-
-    def describe_slink_task_info(self, request):
-        runtime = util_models.RuntimeOptions()
-        return self.describe_slink_task_info_with_options(request, runtime)
-
     def describe_tags_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1393,18 +1599,22 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_user_encryption_key_list_with_options(request, runtime)
 
-    def init_dbinstance_resource_group_id_with_options(self, request, runtime):
+    def disable_rights_separation_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbinstance_name):
             query['DBInstanceName'] = request.dbinstance_name
+        if not UtilClient.is_unset(request.dba_account_name):
+            query['DbaAccountName'] = request.dba_account_name
+        if not UtilClient.is_unset(request.dba_account_password):
+            query['DbaAccountPassword'] = request.dba_account_password
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
         params = open_api_models.Params(
-            action='InitDBInstanceResourceGroupId',
+            action='DisableRightsSeparation',
             version='2020-02-02',
             protocol='HTTPS',
             pathname='/',
@@ -1415,13 +1625,55 @@ class Client(OpenApiClient):
             body_type='json'
         )
         return TeaCore.from_map(
-            polardbx_20200202_models.InitDBInstanceResourceGroupIdResponse(),
+            polardbx_20200202_models.DisableRightsSeparationResponse(),
             self.call_api(params, req, runtime)
         )
 
-    def init_dbinstance_resource_group_id(self, request):
+    def disable_rights_separation(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.init_dbinstance_resource_group_id_with_options(request, runtime)
+        return self.disable_rights_separation_with_options(request, runtime)
+
+    def enable_rights_separation_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.audit_account_description):
+            query['AuditAccountDescription'] = request.audit_account_description
+        if not UtilClient.is_unset(request.audit_account_name):
+            query['AuditAccountName'] = request.audit_account_name
+        if not UtilClient.is_unset(request.audit_account_password):
+            query['AuditAccountPassword'] = request.audit_account_password
+        if not UtilClient.is_unset(request.dbinstance_name):
+            query['DBInstanceName'] = request.dbinstance_name
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.security_account_description):
+            query['SecurityAccountDescription'] = request.security_account_description
+        if not UtilClient.is_unset(request.security_account_name):
+            query['SecurityAccountName'] = request.security_account_name
+        if not UtilClient.is_unset(request.security_account_password):
+            query['SecurityAccountPassword'] = request.security_account_password
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='EnableRightsSeparation',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            polardbx_20200202_models.EnableRightsSeparationResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def enable_rights_separation(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.enable_rights_separation_with_options(request, runtime)
 
     def list_tag_resources_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1493,6 +1745,46 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.modify_account_description_with_options(request, runtime)
 
+    def modify_account_privilege_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.account_name):
+            query['AccountName'] = request.account_name
+        if not UtilClient.is_unset(request.account_privilege):
+            query['AccountPrivilege'] = request.account_privilege
+        if not UtilClient.is_unset(request.dbinstance_name):
+            query['DBInstanceName'] = request.dbinstance_name
+        if not UtilClient.is_unset(request.db_name):
+            query['DbName'] = request.db_name
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.security_account_name):
+            query['SecurityAccountName'] = request.security_account_name
+        if not UtilClient.is_unset(request.security_account_password):
+            query['SecurityAccountPassword'] = request.security_account_password
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ModifyAccountPrivilege',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            polardbx_20200202_models.ModifyAccountPrivilegeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def modify_account_privilege(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.modify_account_privilege_with_options(request, runtime)
+
     def modify_active_operation_maintain_conf_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
@@ -1558,8 +1850,12 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.client_token):
             query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.cn_class):
+            query['CnClass'] = request.cn_class
         if not UtilClient.is_unset(request.dbinstance_name):
             query['DBInstanceName'] = request.dbinstance_name
+        if not UtilClient.is_unset(request.dn_class):
+            query['DnClass'] = request.dn_class
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.target_dbinstance_class):
@@ -1795,6 +2091,36 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.modify_security_ips_with_options(request, runtime)
 
+    def release_cold_data_volume_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_name):
+            query['DBInstanceName'] = request.dbinstance_name
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ReleaseColdDataVolume',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            polardbx_20200202_models.ReleaseColdDataVolumeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def release_cold_data_volume(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.release_cold_data_volume_with_options(request, runtime)
+
     def release_instance_public_connection_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1835,6 +2161,44 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.release_instance_public_connection_with_options(request, runtime)
 
+    def reset_account_password_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.account_name):
+            query['AccountName'] = request.account_name
+        if not UtilClient.is_unset(request.account_password):
+            query['AccountPassword'] = request.account_password
+        if not UtilClient.is_unset(request.dbinstance_name):
+            query['DBInstanceName'] = request.dbinstance_name
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.security_account_name):
+            query['SecurityAccountName'] = request.security_account_name
+        if not UtilClient.is_unset(request.security_account_password):
+            query['SecurityAccountPassword'] = request.security_account_password
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ResetAccountPassword',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            polardbx_20200202_models.ResetAccountPasswordResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def reset_account_password(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.reset_account_password_with_options(request, runtime)
+
     def restart_dbinstance_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1864,6 +2228,44 @@ class Client(OpenApiClient):
     def restart_dbinstance(self, request):
         runtime = util_models.RuntimeOptions()
         return self.restart_dbinstance_with_options(request, runtime)
+
+    def switch_dbinstance_hawith_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbinstance_name):
+            query['DBInstanceName'] = request.dbinstance_name
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.switch_time):
+            query['SwitchTime'] = request.switch_time
+        if not UtilClient.is_unset(request.switch_time_mode):
+            query['SwitchTimeMode'] = request.switch_time_mode
+        if not UtilClient.is_unset(request.target_primary_azone_id):
+            query['TargetPrimaryAzoneId'] = request.target_primary_azone_id
+        if not UtilClient.is_unset(request.target_primary_region_id):
+            query['TargetPrimaryRegionId'] = request.target_primary_region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='SwitchDBInstanceHA',
+            version='2020-02-02',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            polardbx_20200202_models.SwitchDBInstanceHAResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def switch_dbinstance_ha(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.switch_dbinstance_hawith_options(request, runtime)
 
     def tag_resources_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1948,14 +2350,30 @@ class Client(OpenApiClient):
             query['BackupType'] = request.backup_type
         if not UtilClient.is_unset(request.backup_way):
             query['BackupWay'] = request.backup_way
+        if not UtilClient.is_unset(request.cold_data_backup_interval):
+            query['ColdDataBackupInterval'] = request.cold_data_backup_interval
+        if not UtilClient.is_unset(request.cold_data_backup_retention):
+            query['ColdDataBackupRetention'] = request.cold_data_backup_retention
+        if not UtilClient.is_unset(request.cross_region_data_backup_retention):
+            query['CrossRegionDataBackupRetention'] = request.cross_region_data_backup_retention
+        if not UtilClient.is_unset(request.cross_region_log_backup_retention):
+            query['CrossRegionLogBackupRetention'] = request.cross_region_log_backup_retention
         if not UtilClient.is_unset(request.dbinstance_name):
             query['DBInstanceName'] = request.dbinstance_name
+        if not UtilClient.is_unset(request.dest_cross_region):
+            query['DestCrossRegion'] = request.dest_cross_region
         if not UtilClient.is_unset(request.force_clean_on_high_space_usage):
             query['ForceCleanOnHighSpaceUsage'] = request.force_clean_on_high_space_usage
+        if not UtilClient.is_unset(request.is_cross_region_data_backup_enabled):
+            query['IsCrossRegionDataBackupEnabled'] = request.is_cross_region_data_backup_enabled
+        if not UtilClient.is_unset(request.is_cross_region_log_backup_enabled):
+            query['IsCrossRegionLogBackupEnabled'] = request.is_cross_region_log_backup_enabled
         if not UtilClient.is_unset(request.is_enabled):
             query['IsEnabled'] = request.is_enabled
         if not UtilClient.is_unset(request.local_log_retention):
             query['LocalLogRetention'] = request.local_log_retention
+        if not UtilClient.is_unset(request.local_log_retention_number):
+            query['LocalLogRetentionNumber'] = request.local_log_retention_number
         if not UtilClient.is_unset(request.log_local_retention_space):
             query['LogLocalRetentionSpace'] = request.log_local_retention_space
         if not UtilClient.is_unset(request.region_id):
@@ -2058,10 +2476,14 @@ class Client(OpenApiClient):
     def update_polar_dbxinstance_node_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.cnnode_count):
+            query['CNNodeCount'] = request.cnnode_count
         if not UtilClient.is_unset(request.client_token):
             query['ClientToken'] = request.client_token
         if not UtilClient.is_unset(request.dbinstance_name):
             query['DBInstanceName'] = request.dbinstance_name
+        if not UtilClient.is_unset(request.dnnode_count):
+            query['DNNodeCount'] = request.dnnode_count
         if not UtilClient.is_unset(request.db_instance_node_count):
             query['DbInstanceNodeCount'] = request.db_instance_node_count
         if not UtilClient.is_unset(request.region_id):
@@ -2094,6 +2516,8 @@ class Client(OpenApiClient):
         query = {}
         if not UtilClient.is_unset(request.dbinstance_name):
             query['DBInstanceName'] = request.dbinstance_name
+        if not UtilClient.is_unset(request.minor_version):
+            query['MinorVersion'] = request.minor_version
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.switch_mode):
