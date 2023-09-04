@@ -9721,6 +9721,8 @@ class Client(OpenApiClient):
             query['CertType'] = request.cert_type
         if not UtilClient.is_unset(request.domain_name):
             query['DomainName'] = request.domain_name
+        if not UtilClient.is_unset(request.env):
+            query['Env'] = request.env
         if not UtilClient.is_unset(request.owner_id):
             query['OwnerId'] = request.owner_id
         if not UtilClient.is_unset(request.sslpri):

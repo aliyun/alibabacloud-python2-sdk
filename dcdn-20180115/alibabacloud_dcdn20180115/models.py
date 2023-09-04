@@ -34480,7 +34480,7 @@ class SetDcdnDomainSMCertificateResponse(TeaModel):
 
 
 class SetDcdnDomainSSLCertificateRequest(TeaModel):
-    def __init__(self, cert_id=None, cert_name=None, cert_region=None, cert_type=None, domain_name=None,
+    def __init__(self, cert_id=None, cert_name=None, cert_region=None, cert_type=None, domain_name=None, env=None,
                  owner_id=None, sslpri=None, sslprotocol=None, sslpub=None, security_token=None):
         # The ID of the certificate. This parameter takes effect only when **CertType** is set to **cas**.
         self.cert_id = cert_id  # type: long
@@ -34495,6 +34495,7 @@ class SetDcdnDomainSSLCertificateRequest(TeaModel):
         self.cert_type = cert_type  # type: str
         # The domain name that is secured by the SSL certificate.
         self.domain_name = domain_name  # type: str
+        self.env = env  # type: str
         self.owner_id = owner_id  # type: long
         # The private key. Specify the private key only if you want to enable the SSL certificate.
         self.sslpri = sslpri  # type: str
@@ -34526,6 +34527,8 @@ class SetDcdnDomainSSLCertificateRequest(TeaModel):
             result['CertType'] = self.cert_type
         if self.domain_name is not None:
             result['DomainName'] = self.domain_name
+        if self.env is not None:
+            result['Env'] = self.env
         if self.owner_id is not None:
             result['OwnerId'] = self.owner_id
         if self.sslpri is not None:
@@ -34550,6 +34553,8 @@ class SetDcdnDomainSSLCertificateRequest(TeaModel):
             self.cert_type = m.get('CertType')
         if m.get('DomainName') is not None:
             self.domain_name = m.get('DomainName')
+        if m.get('Env') is not None:
+            self.env = m.get('Env')
         if m.get('OwnerId') is not None:
             self.owner_id = m.get('OwnerId')
         if m.get('SSLPri') is not None:
