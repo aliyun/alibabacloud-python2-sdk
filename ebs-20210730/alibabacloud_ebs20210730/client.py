@@ -31,6 +31,16 @@ class Client(OpenApiClient):
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
     def add_disk_replica_pair_with_options(self, request, runtime):
+        """
+        The region ID of the replication pair-consistent group.
+        
+
+        @param request: AddDiskReplicaPairRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: AddDiskReplicaPairResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -61,10 +71,29 @@ class Client(OpenApiClient):
         )
 
     def add_disk_replica_pair(self, request):
+        """
+        The region ID of the replication pair-consistent group.
+        
+
+        @param request: AddDiskReplicaPairRequest
+
+        @return: AddDiskReplicaPairResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.add_disk_replica_pair_with_options(request, runtime)
 
     def apply_lens_service_with_options(self, runtime):
+        """
+        ## Usage notes
+        CloudLens for EBS is in invitational preview in the China (Hangzhou), China (Shanghai), China (Zhangjiakou), China (Shenzhen), and China (Hong Kong) regions. To use the feature, [submit a ticket](https://workorder-intl.console.aliyun.com/#/ticket/createIndex).
+        
+
+        @param request: ApplyLensServiceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ApplyLensServiceResponse
+        """
         req = open_api_models.OpenApiRequest()
         params = open_api_models.Params(
             action='ApplyLensService',
@@ -83,10 +112,28 @@ class Client(OpenApiClient):
         )
 
     def apply_lens_service(self):
+        """
+        ## Usage notes
+        CloudLens for EBS is in invitational preview in the China (Hangzhou), China (Shanghai), China (Zhangjiakou), China (Shenzhen), and China (Hong Kong) regions. To use the feature, [submit a ticket](https://workorder-intl.console.aliyun.com/#/ticket/createIndex).
+        
+
+        @return: ApplyLensServiceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.apply_lens_service_with_options(runtime)
 
     def cancel_lens_service_with_options(self, runtime):
+        """
+        ## Usage notes
+        CloudLens for EBS is in invitational preview in the China (Hangzhou), China (Shanghai), China (Zhangjiakou), China (Shenzhen), and China (Hong Kong) regions. To use the feature, [submit a ticket](https://workorder-intl.console.aliyun.com/#/ticket/createIndex).
+        
+
+        @param request: CancelLensServiceRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CancelLensServiceResponse
+        """
         req = open_api_models.OpenApiRequest()
         params = open_api_models.Params(
             action='CancelLensService',
@@ -105,10 +152,66 @@ class Client(OpenApiClient):
         )
 
     def cancel_lens_service(self):
+        """
+        ## Usage notes
+        CloudLens for EBS is in invitational preview in the China (Hangzhou), China (Shanghai), China (Zhangjiakou), China (Shenzhen), and China (Hong Kong) regions. To use the feature, [submit a ticket](https://workorder-intl.console.aliyun.com/#/ticket/createIndex).
+        
+
+        @return: CancelLensServiceResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.cancel_lens_service_with_options(runtime)
 
+    def change_resource_group_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.new_resource_group_id):
+            query['NewResourceGroupId'] = request.new_resource_group_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_id):
+            query['ResourceId'] = request.resource_id
+        if not UtilClient.is_unset(request.resource_type):
+            query['ResourceType'] = request.resource_type
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ChangeResourceGroup',
+            version='2021-07-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ebs_20210730_models.ChangeResourceGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def change_resource_group(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.change_resource_group_with_options(request, runtime)
+
     def create_dedicated_block_storage_cluster_with_options(self, request, runtime):
+        """
+        Dedicated block storage clusters are physically isolated from public block storage clusters. The owner of each dedicated block storage cluster has exclusive access to all resources in the cluster. For more information, see [Overview](~~208883~~).
+        Disks created in a dedicated block storage cluster can be attached only to Elastic Compute Service (ECS) instances that reside in the same zone as the cluster. Before you create a dedicated block storage cluster, decide the regions and zones in which to deploy your cloud resources.
+        Dedicated block storage clusters are classified into basic and performance types. When you create a dedicated block storage cluster, select a cluster type based on your business requirements.
+        You are charged for creating dedicated block storage clusters. For more information, see [~~208884~~](~~208884~~).
+        
+
+        @param request: CreateDedicatedBlockStorageClusterRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateDedicatedBlockStorageClusterResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.azone):
@@ -119,10 +222,16 @@ class Client(OpenApiClient):
             query['DbscId'] = request.dbsc_id
         if not UtilClient.is_unset(request.dbsc_name):
             query['DbscName'] = request.dbsc_name
+        if not UtilClient.is_unset(request.period):
+            query['Period'] = request.period
+        if not UtilClient.is_unset(request.period_unit):
+            query['PeriodUnit'] = request.period_unit
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.resource_group_id):
             query['ResourceGroupId'] = request.resource_group_id
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         if not UtilClient.is_unset(request.type):
             query['Type'] = request.type
         req = open_api_models.OpenApiRequest(
@@ -145,10 +254,36 @@ class Client(OpenApiClient):
         )
 
     def create_dedicated_block_storage_cluster(self, request):
+        """
+        Dedicated block storage clusters are physically isolated from public block storage clusters. The owner of each dedicated block storage cluster has exclusive access to all resources in the cluster. For more information, see [Overview](~~208883~~).
+        Disks created in a dedicated block storage cluster can be attached only to Elastic Compute Service (ECS) instances that reside in the same zone as the cluster. Before you create a dedicated block storage cluster, decide the regions and zones in which to deploy your cloud resources.
+        Dedicated block storage clusters are classified into basic and performance types. When you create a dedicated block storage cluster, select a cluster type based on your business requirements.
+        You are charged for creating dedicated block storage clusters. For more information, see [~~208884~~](~~208884~~).
+        
+
+        @param request: CreateDedicatedBlockStorageClusterRequest
+
+        @return: CreateDedicatedBlockStorageClusterResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_dedicated_block_storage_cluster_with_options(request, runtime)
 
     def create_disk_replica_group_with_options(self, request, runtime):
+        """
+        The replication pair-consistent group feature allows you to batch manage multiple disks in disaster recovery scenarios. You can restore the data of all disks in the same replication pair-consistent group to the same point in time to allow for disaster recovery of one or more instances.
+        When you create a replication pair-consistent group, take note of the following items:
+        *   The replication pair-consistent group feature is supported in the China (Hangzhou), China (Shanghai), China (Beijing), China (Shenzhen), China (Heyuan), China (Chengdu), China (Hong Kong), Singapore, US (Silicon Valley), and US (Virginia) regions.
+        *   Replication pair-consistent groups support disaster recovery across zones within the same region and disaster recovery across regions.
+        *   A replication pair and a replication pair-consistent group replicate in the same direction if they have the same primary region (production region), primary zone (production zone), secondary region (disaster recovery region), and secondary zone (disaster recovery zone). Replication pairs can be added only to a replication pair-consistent group that replicates in the same direction as them.
+        *   After replication pairs are added to a replication pair-consistent group, the recovery point objective (RPO) of the group takes effect on the pairs in place of their original RPOs.
+        
+
+        @param request: CreateDiskReplicaGroupRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateDiskReplicaGroupResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.bandwidth):
@@ -167,8 +302,12 @@ class Client(OpenApiClient):
             query['RPO'] = request.rpo
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.source_zone_id):
             query['SourceZoneId'] = request.source_zone_id
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -189,10 +328,38 @@ class Client(OpenApiClient):
         )
 
     def create_disk_replica_group(self, request):
+        """
+        The replication pair-consistent group feature allows you to batch manage multiple disks in disaster recovery scenarios. You can restore the data of all disks in the same replication pair-consistent group to the same point in time to allow for disaster recovery of one or more instances.
+        When you create a replication pair-consistent group, take note of the following items:
+        *   The replication pair-consistent group feature is supported in the China (Hangzhou), China (Shanghai), China (Beijing), China (Shenzhen), China (Heyuan), China (Chengdu), China (Hong Kong), Singapore, US (Silicon Valley), and US (Virginia) regions.
+        *   Replication pair-consistent groups support disaster recovery across zones within the same region and disaster recovery across regions.
+        *   A replication pair and a replication pair-consistent group replicate in the same direction if they have the same primary region (production region), primary zone (production zone), secondary region (disaster recovery region), and secondary zone (disaster recovery zone). Replication pairs can be added only to a replication pair-consistent group that replicates in the same direction as them.
+        *   After replication pairs are added to a replication pair-consistent group, the recovery point objective (RPO) of the group takes effect on the pairs in place of their original RPOs.
+        
+
+        @param request: CreateDiskReplicaGroupRequest
+
+        @return: CreateDiskReplicaGroupResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_disk_replica_group_with_options(request, runtime)
 
     def create_disk_replica_pair_with_options(self, request, runtime):
+        """
+        Async replication is a feature that protects data across regions by using the data replication capability of Elastic Block Storage (EBS). This feature can be used to asynchronously replicate data from a disk in one region to a disk in another region for disaster recovery purposes. You can use this feature to implement disaster recovery for critical business to protect data in your databases and improve business continuity.
+        Currently, the async replication feature can asynchronously replicate data only between enhanced SSDs (ESSDs). The functionality of disks in replication pairs is limited. You are charged on a subscription basis for the bandwidth that is used by the async replication feature.
+        Before you call this operation, take note of the following items:
+        *   Make sure that the source disk (primary disk) from which to replicate data and the destination disk (secondary disk) to which to replicate data are created. You can call the [CreateDisk](~~25513~~) operation to create disks.
+        *   The secondary disk cannot reside the same region as the primary disk. The async replication feature is supported in the China (Hangzhou), China (Shanghai), China (Beijing), China (Shenzhen), China (Heyuan), China (Chengdu), China (Hong Kong), Singapore, US (Silicon Valley), and US (Virginia) regions.
+        *   After you call this operation to create a replication pair, you must call the [StartDiskReplicaPair](~~354205~~) operation to enable async replication to periodically replicate data from the primary disk to the secondary disk across regions.
+        
+
+        @param request: CreateDiskReplicaPairRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateDiskReplicaPairResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.bandwidth):
@@ -221,8 +388,12 @@ class Client(OpenApiClient):
             query['RPO'] = request.rpo
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.source_zone_id):
             query['SourceZoneId'] = request.source_zone_id
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -243,10 +414,35 @@ class Client(OpenApiClient):
         )
 
     def create_disk_replica_pair(self, request):
+        """
+        Async replication is a feature that protects data across regions by using the data replication capability of Elastic Block Storage (EBS). This feature can be used to asynchronously replicate data from a disk in one region to a disk in another region for disaster recovery purposes. You can use this feature to implement disaster recovery for critical business to protect data in your databases and improve business continuity.
+        Currently, the async replication feature can asynchronously replicate data only between enhanced SSDs (ESSDs). The functionality of disks in replication pairs is limited. You are charged on a subscription basis for the bandwidth that is used by the async replication feature.
+        Before you call this operation, take note of the following items:
+        *   Make sure that the source disk (primary disk) from which to replicate data and the destination disk (secondary disk) to which to replicate data are created. You can call the [CreateDisk](~~25513~~) operation to create disks.
+        *   The secondary disk cannot reside the same region as the primary disk. The async replication feature is supported in the China (Hangzhou), China (Shanghai), China (Beijing), China (Shenzhen), China (Heyuan), China (Chengdu), China (Hong Kong), Singapore, US (Silicon Valley), and US (Virginia) regions.
+        *   After you call this operation to create a replication pair, you must call the [StartDiskReplicaPair](~~354205~~) operation to enable async replication to periodically replicate data from the primary disk to the secondary disk across regions.
+        
+
+        @param request: CreateDiskReplicaPairRequest
+
+        @return: CreateDiskReplicaPairResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_disk_replica_pair_with_options(request, runtime)
 
     def delete_disk_replica_group_with_options(self, request, runtime):
+        """
+        The replication pair-consistent group feature is supported in the China (Hangzhou), China (Shanghai), China (Beijing), China (Shenzhen), China (Heyuan), China (Chengdu), China (Hong Kong), Singapore (Singapore), US (Silicon Valley), and US (Virginia) regions.
+        *   Before you can delete a replication pair-consistent group, make sure that no replication pairs are present in the group.
+        *   The replication pair-consistent group that you want to delete must be in the **Created** (`created`), **Creation Failed** (`create_failed`), **Stopped** (`stopped`), **Failover Failed** (`failovered`), **Deleting** (`deleting`), **Deletion Failed** (`delete_failed`), or **Invalid** (`invalid`) state.
+        
+
+        @param request: DeleteDiskReplicaGroupRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteDiskReplicaGroupResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -275,10 +471,32 @@ class Client(OpenApiClient):
         )
 
     def delete_disk_replica_group(self, request):
+        """
+        The replication pair-consistent group feature is supported in the China (Hangzhou), China (Shanghai), China (Beijing), China (Shenzhen), China (Heyuan), China (Chengdu), China (Hong Kong), Singapore (Singapore), US (Silicon Valley), and US (Virginia) regions.
+        *   Before you can delete a replication pair-consistent group, make sure that no replication pairs are present in the group.
+        *   The replication pair-consistent group that you want to delete must be in the **Created** (`created`), **Creation Failed** (`create_failed`), **Stopped** (`stopped`), **Failover Failed** (`failovered`), **Deleting** (`deleting`), **Deletion Failed** (`delete_failed`), or **Invalid** (`invalid`) state.
+        
+
+        @param request: DeleteDiskReplicaGroupRequest
+
+        @return: DeleteDiskReplicaGroupResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_disk_replica_group_with_options(request, runtime)
 
     def delete_disk_replica_pair_with_options(self, request, runtime):
+        """
+        The async replication feature is supported in the China (Hangzhou), China (Shanghai), China (Beijing), China (Shenzhen), China (Heyuan), China (Chengdu), China (Hong Kong), Singapore (Singapore), US (Silicon Valley), and US (Virginia) regions.
+        *   Only replication pairs that are in the **Stopped** (`stopped`), **Invalid** (`invalid`), or **Failed Over** (`failovered`) state can be deleted. This operation deletes only replication pairs. The primary and secondary disks in the deleted replication pairs are retained.
+        *   To delete a replication pair, you must call this operation in the region where the primary disk is located. After the replication pair is deleted, the functionality limits are lifted from the primary and secondary disks. For example, you can attach the secondary disk, resize the disk, or read data from or write data to the disk.
+        
+
+        @param request: DeleteDiskReplicaPairRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteDiskReplicaPairResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -307,10 +525,35 @@ class Client(OpenApiClient):
         )
 
     def delete_disk_replica_pair(self, request):
+        """
+        The async replication feature is supported in the China (Hangzhou), China (Shanghai), China (Beijing), China (Shenzhen), China (Heyuan), China (Chengdu), China (Hong Kong), Singapore (Singapore), US (Silicon Valley), and US (Virginia) regions.
+        *   Only replication pairs that are in the **Stopped** (`stopped`), **Invalid** (`invalid`), or **Failed Over** (`failovered`) state can be deleted. This operation deletes only replication pairs. The primary and secondary disks in the deleted replication pairs are retained.
+        *   To delete a replication pair, you must call this operation in the region where the primary disk is located. After the replication pair is deleted, the functionality limits are lifted from the primary and secondary disks. For example, you can attach the secondary disk, resize the disk, or read data from or write data to the disk.
+        
+
+        @param request: DeleteDiskReplicaPairRequest
+
+        @return: DeleteDiskReplicaPairResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_disk_replica_pair_with_options(request, runtime)
 
     def describe_dedicated_block_storage_cluster_disks_with_options(self, request, runtime):
+        """
+        You can use one of the following methods to check the responses:
+        *   Method 1: Use `NextToken` to configure the query token. Set the value to the `NextToken` value that is returned in the last call to the DescribeDisks operation. Then, use `MaxResults` to specify the maximum number of entries to return on each page.
+        *   Method 2: Use `PageSize` to specify the number of entries to return on each page and then use `PageNumber` to specify the number of the page to return.
+        You can use only one of the preceding methods. If a large number of entries are to be returned, we recommend that you use method 1. When `NextToken` is specified, `PageSize` and `PageNumber` do not take effect and `TotalCount` in the response is invalid.
+        *   A disk that has the multi-attach feature enabled can be attached to multiple instances. You can query the attachment information of the disk based on the `Attachment` values in the response.
+        When you call an API operation by using Alibaba Cloud CLI, you must specify request parameter values of different data types in the required formats. For more information, see [Parameter format overview](~~110340~~).
+        
+
+        @param request: DescribeDedicatedBlockStorageClusterDisksRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDedicatedBlockStorageClusterDisksResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.dbsc_id):
@@ -341,12 +584,45 @@ class Client(OpenApiClient):
         )
 
     def describe_dedicated_block_storage_cluster_disks(self, request):
+        """
+        You can use one of the following methods to check the responses:
+        *   Method 1: Use `NextToken` to configure the query token. Set the value to the `NextToken` value that is returned in the last call to the DescribeDisks operation. Then, use `MaxResults` to specify the maximum number of entries to return on each page.
+        *   Method 2: Use `PageSize` to specify the number of entries to return on each page and then use `PageNumber` to specify the number of the page to return.
+        You can use only one of the preceding methods. If a large number of entries are to be returned, we recommend that you use method 1. When `NextToken` is specified, `PageSize` and `PageNumber` do not take effect and `TotalCount` in the response is invalid.
+        *   A disk that has the multi-attach feature enabled can be attached to multiple instances. You can query the attachment information of the disk based on the `Attachment` values in the response.
+        When you call an API operation by using Alibaba Cloud CLI, you must specify request parameter values of different data types in the required formats. For more information, see [Parameter format overview](~~110340~~).
+        
+
+        @param request: DescribeDedicatedBlockStorageClusterDisksRequest
+
+        @return: DescribeDedicatedBlockStorageClusterDisksResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_dedicated_block_storage_cluster_disks_with_options(request, runtime)
 
     def describe_dedicated_block_storage_clusters_with_options(self, request, runtime):
+        """
+        >  Dedicated Block Storage Cluster is supported in the China (Heyuan), Indonesia (Jakarta), and China (Shenzhen) regions.
+        *   You can specify multiple request parameters to be queried. Specified parameters have logical AND relations. Only the specified parameters are included in the filter conditions.
+        *   We recommend that you use the NextToken and MaxResults parameters to perform a paged query. During a paged query, when you call the DescribeDedicatedBlockStorageClusters operation to retrieve the first page of results, set MaxResults to specify the maximum number of entries to return in the call. The return value of NextToken is a pagination token, which can be used in the next call to retrieve a new page of results. When you call the DescribeDedicatedBlockStorageClusters operation to retrieve a new page of results, set NextToken to the NextToken value returned in the previous call and set MaxResults to specify the maximum number of entries to return in this call.
+        
+
+        @param request: DescribeDedicatedBlockStorageClustersRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDedicatedBlockStorageClustersResponse
+        """
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.client_token):
+            query['ClientToken'] = request.client_token
+        if not UtilClient.is_unset(request.dedicated_block_storage_cluster_id):
+            query['DedicatedBlockStorageClusterId'] = request.dedicated_block_storage_cluster_id
+        if not UtilClient.is_unset(request.max_results):
+            query['MaxResults'] = request.max_results
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
         if not UtilClient.is_unset(request.page_number):
             query['PageNumber'] = request.page_number
         if not UtilClient.is_unset(request.page_size):
@@ -360,14 +636,6 @@ class Client(OpenApiClient):
             body['AzoneId'] = request.azone_id
         if not UtilClient.is_unset(request.category):
             body['Category'] = request.category
-        if not UtilClient.is_unset(request.client_token):
-            body['ClientToken'] = request.client_token
-        if not UtilClient.is_unset(request.dedicated_block_storage_cluster_id):
-            body['DedicatedBlockStorageClusterId'] = request.dedicated_block_storage_cluster_id
-        if not UtilClient.is_unset(request.max_results):
-            body['MaxResults'] = request.max_results
-        if not UtilClient.is_unset(request.next_token):
-            body['NextToken'] = request.next_token
         if not UtilClient.is_unset(request.region_id):
             body['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.status):
@@ -393,10 +661,31 @@ class Client(OpenApiClient):
         )
 
     def describe_dedicated_block_storage_clusters(self, request):
+        """
+        >  Dedicated Block Storage Cluster is supported in the China (Heyuan), Indonesia (Jakarta), and China (Shenzhen) regions.
+        *   You can specify multiple request parameters to be queried. Specified parameters have logical AND relations. Only the specified parameters are included in the filter conditions.
+        *   We recommend that you use the NextToken and MaxResults parameters to perform a paged query. During a paged query, when you call the DescribeDedicatedBlockStorageClusters operation to retrieve the first page of results, set MaxResults to specify the maximum number of entries to return in the call. The return value of NextToken is a pagination token, which can be used in the next call to retrieve a new page of results. When you call the DescribeDedicatedBlockStorageClusters operation to retrieve a new page of results, set NextToken to the NextToken value returned in the previous call and set MaxResults to specify the maximum number of entries to return in this call.
+        
+
+        @param request: DescribeDedicatedBlockStorageClustersRequest
+
+        @return: DescribeDedicatedBlockStorageClustersResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_dedicated_block_storage_clusters_with_options(request, runtime)
 
     def describe_disk_events_with_options(self, request, runtime):
+        """
+        ## Usage notes
+        CloudLens for EBS is in invitational preview in the China (Hangzhou), China (Shanghai), China (Zhangjiakou), China (Shenzhen), and China (Hong Kong) regions. To use the feature, [submit a ticket](https://workorder-intl.console.aliyun.com/#/ticket/createIndex).
+        
+
+        @param request: DescribeDiskEventsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDiskEventsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.disk_category):
@@ -435,10 +724,32 @@ class Client(OpenApiClient):
         )
 
     def describe_disk_events(self, request):
+        """
+        ## Usage notes
+        CloudLens for EBS is in invitational preview in the China (Hangzhou), China (Shanghai), China (Zhangjiakou), China (Shenzhen), and China (Hong Kong) regions. To use the feature, [submit a ticket](https://workorder-intl.console.aliyun.com/#/ticket/createIndex).
+        
+
+        @param request: DescribeDiskEventsRequest
+
+        @return: DescribeDiskEventsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_disk_events_with_options(request, runtime)
 
     def describe_disk_monitor_data_with_options(self, request, runtime):
+        """
+        ## Usage notes
+        *   CloudLens for EBS is in invitational preview in the China (Hangzhou), China (Shanghai), China (Zhangjiakou), China (Shenzhen), and China (Hong Kong) regions. To use the feature, [submit a ticket](https://workorder-intl.console.aliyun.com/#/ticket/createIndex).
+        *   Up to 400 monitoring data entries can be returned at a time. An error is returned if the value calculated based on the following formula is greater than 400: `(EndTime - StartTime)/Period`.
+        *   You can query the monitoring data collected in the last three days. An error is returned if the time specified by `StartTime` is more than three days prior to the current time.
+        
+
+        @param request: DescribeDiskMonitorDataRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDiskMonitorDataResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.disk_id):
@@ -473,10 +784,32 @@ class Client(OpenApiClient):
         )
 
     def describe_disk_monitor_data(self, request):
+        """
+        ## Usage notes
+        *   CloudLens for EBS is in invitational preview in the China (Hangzhou), China (Shanghai), China (Zhangjiakou), China (Shenzhen), and China (Hong Kong) regions. To use the feature, [submit a ticket](https://workorder-intl.console.aliyun.com/#/ticket/createIndex).
+        *   Up to 400 monitoring data entries can be returned at a time. An error is returned if the value calculated based on the following formula is greater than 400: `(EndTime - StartTime)/Period`.
+        *   You can query the monitoring data collected in the last three days. An error is returned if the time specified by `StartTime` is more than three days prior to the current time.
+        
+
+        @param request: DescribeDiskMonitorDataRequest
+
+        @return: DescribeDiskMonitorDataResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_disk_monitor_data_with_options(request, runtime)
 
     def describe_disk_monitor_data_list_with_options(self, request, runtime):
+        """
+        ## Usage notes
+        CloudLens for EBS is in invitational preview in the China (Hangzhou), China (Shanghai), China (Zhangjiakou), China (Shenzhen), and China (Hong Kong) regions. To use the feature, [submit a ticket](https://workorder-intl.console.aliyun.com/#/ticket/createIndex).
+        
+
+        @param request: DescribeDiskMonitorDataListRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDiskMonitorDataListResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.disk_ids):
@@ -513,10 +846,30 @@ class Client(OpenApiClient):
         )
 
     def describe_disk_monitor_data_list(self, request):
+        """
+        ## Usage notes
+        CloudLens for EBS is in invitational preview in the China (Hangzhou), China (Shanghai), China (Zhangjiakou), China (Shenzhen), and China (Hong Kong) regions. To use the feature, [submit a ticket](https://workorder-intl.console.aliyun.com/#/ticket/createIndex).
+        
+
+        @param request: DescribeDiskMonitorDataListRequest
+
+        @return: DescribeDiskMonitorDataListResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_disk_monitor_data_list_with_options(request, runtime)
 
     def describe_disk_replica_groups_with_options(self, request, runtime):
+        """
+        To perform a paged query, set the MaxResults and NextToken parameters.
+        During a paged query, when you call the DescribeDiskReplicaGroups operation to retrieve the first page of results, set `MaxResults` to specify the maximum number of entries to return in the call. The return value of `NextToken` is a pagination token, which can be used in the next call to retrieve a new page of results. When you call the DescribeDiskReplicaGroups operation to retrieve a new page of results, set `NextToken` to the `NextToken` value returned in the previous call and set MaxResults to specify the maximum number of entries to return in this call.
+        
+
+        @param request: DescribeDiskReplicaGroupsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDiskReplicaGroupsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.group_ids):
@@ -531,8 +884,12 @@ class Client(OpenApiClient):
             query['PageSize'] = request.page_size
         if not UtilClient.is_unset(request.region_id):
             query['RegionId'] = request.region_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.site):
             query['Site'] = request.site
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -553,6 +910,15 @@ class Client(OpenApiClient):
         )
 
     def describe_disk_replica_groups(self, request):
+        """
+        To perform a paged query, set the MaxResults and NextToken parameters.
+        During a paged query, when you call the DescribeDiskReplicaGroups operation to retrieve the first page of results, set `MaxResults` to specify the maximum number of entries to return in the call. The return value of `NextToken` is a pagination token, which can be used in the next call to retrieve a new page of results. When you call the DescribeDiskReplicaGroups operation to retrieve a new page of results, set `NextToken` to the `NextToken` value returned in the previous call and set MaxResults to specify the maximum number of entries to return in this call.
+        
+
+        @param request: DescribeDiskReplicaGroupsRequest
+
+        @return: DescribeDiskReplicaGroupsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_disk_replica_groups_with_options(request, runtime)
 
@@ -587,6 +953,18 @@ class Client(OpenApiClient):
         return self.describe_disk_replica_pair_progress_with_options(request, runtime)
 
     def describe_disk_replica_pairs_with_options(self, request, runtime):
+        """
+        The async replication feature is supported in the China (Hangzhou), China (Shanghai), China (Beijing), China (Shenzhen), China (Heyuan), China (Chengdu), China (Hong Kong), Singapore, US (Silicon Valley), and US (Virginia) regions.
+        *   When you call this operation for a specific region, if the primary disk (source disk) or secondary disk (destination disk) of a replication pair resides within the region, the information of the replication pair is displayed in the response.
+        *   If you want to perform a paged query, configure the `NextToken` and `MaxResults` parameters. During a paged query, when you call the DescribeDiskReplicaPairs operation to retrieve the first page of results, set `MaxResults` to limit the maximum number of entries to return in the call. The return value of NextToken is a pagination token, which can be used in the next call to retrieve a new page of results. When you call the DescribeDiskReplicaPairs operation to retrieve a new page of results, set NextToken to the NextToken value returned in the previous call and set MaxResults to specify the maximum number of entries to return in this call.
+        
+
+        @param request: DescribeDiskReplicaPairsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeDiskReplicaPairsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.max_results):
@@ -603,8 +981,12 @@ class Client(OpenApiClient):
             query['RegionId'] = request.region_id
         if not UtilClient.is_unset(request.replica_group_id):
             query['ReplicaGroupId'] = request.replica_group_id
+        if not UtilClient.is_unset(request.resource_group_id):
+            query['ResourceGroupId'] = request.resource_group_id
         if not UtilClient.is_unset(request.site):
             query['Site'] = request.site
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
@@ -625,10 +1007,31 @@ class Client(OpenApiClient):
         )
 
     def describe_disk_replica_pairs(self, request):
+        """
+        The async replication feature is supported in the China (Hangzhou), China (Shanghai), China (Beijing), China (Shenzhen), China (Heyuan), China (Chengdu), China (Hong Kong), Singapore, US (Silicon Valley), and US (Virginia) regions.
+        *   When you call this operation for a specific region, if the primary disk (source disk) or secondary disk (destination disk) of a replication pair resides within the region, the information of the replication pair is displayed in the response.
+        *   If you want to perform a paged query, configure the `NextToken` and `MaxResults` parameters. During a paged query, when you call the DescribeDiskReplicaPairs operation to retrieve the first page of results, set `MaxResults` to limit the maximum number of entries to return in the call. The return value of NextToken is a pagination token, which can be used in the next call to retrieve a new page of results. When you call the DescribeDiskReplicaPairs operation to retrieve a new page of results, set NextToken to the NextToken value returned in the previous call and set MaxResults to specify the maximum number of entries to return in this call.
+        
+
+        @param request: DescribeDiskReplicaPairsRequest
+
+        @return: DescribeDiskReplicaPairsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_disk_replica_pairs_with_options(request, runtime)
 
     def describe_lens_service_status_with_options(self, runtime):
+        """
+        ## Usage notes
+        CloudLens for EBS is in invitational preview in the China (Hangzhou), China (Shanghai), China (Zhangjiakou), China (Shenzhen), and China (Hong Kong) regions. To use the feature, [submit a ticket](https://workorder-intl.console.aliyun.com/#/ticket/createIndex).
+        
+
+        @param request: DescribeLensServiceStatusRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeLensServiceStatusResponse
+        """
         req = open_api_models.OpenApiRequest()
         params = open_api_models.Params(
             action='DescribeLensServiceStatus',
@@ -647,6 +1050,13 @@ class Client(OpenApiClient):
         )
 
     def describe_lens_service_status(self):
+        """
+        ## Usage notes
+        CloudLens for EBS is in invitational preview in the China (Hangzhou), China (Shanghai), China (Zhangjiakou), China (Shenzhen), and China (Hong Kong) regions. To use the feature, [submit a ticket](https://workorder-intl.console.aliyun.com/#/ticket/createIndex).
+        
+
+        @return: DescribeLensServiceStatusResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_lens_service_status_with_options(runtime)
 
@@ -683,6 +1093,16 @@ class Client(OpenApiClient):
         return self.describe_regions_with_options(request, runtime)
 
     def failover_disk_replica_group_with_options(self, request, runtime):
+        """
+        The operation that you want to perform. Set the value to *FailoverDiskReplicaGroup**.
+        
+
+        @param request: FailoverDiskReplicaGroupRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: FailoverDiskReplicaGroupResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -711,10 +1131,28 @@ class Client(OpenApiClient):
         )
 
     def failover_disk_replica_group(self, request):
+        """
+        The operation that you want to perform. Set the value to *FailoverDiskReplicaGroup**.
+        
+
+        @param request: FailoverDiskReplicaGroupRequest
+
+        @return: FailoverDiskReplicaGroupResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.failover_disk_replica_group_with_options(request, runtime)
 
     def failover_disk_replica_pair_with_options(self, request, runtime):
+        """
+        The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must make sure that the value is unique among different requests. The ClientToken value can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).
+        
+
+        @param request: FailoverDiskReplicaPairRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: FailoverDiskReplicaPairResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -743,10 +1181,31 @@ class Client(OpenApiClient):
         )
 
     def failover_disk_replica_pair(self, request):
+        """
+        The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must make sure that the value is unique among different requests. The ClientToken value can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).
+        
+
+        @param request: FailoverDiskReplicaPairRequest
+
+        @return: FailoverDiskReplicaPairResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.failover_disk_replica_pair_with_options(request, runtime)
 
     def list_tag_resources_with_options(self, request, runtime):
+        """
+        Specify at least one of the following parameters or parameter pairs in a request to determine a query object:
+        *   `ResourceId.N`
+        *   `Tag.N` parameter pair (`Tag.N.Key` and `Tag.N.Value`)
+        If you set `Tag.N` and `ResourceId.N` at the same time, the EBS resources that match both the parameters are returned.
+        
+
+        @param request: ListTagResourcesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListTagResourcesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -781,10 +1240,31 @@ class Client(OpenApiClient):
         )
 
     def list_tag_resources(self, request):
+        """
+        Specify at least one of the following parameters or parameter pairs in a request to determine a query object:
+        *   `ResourceId.N`
+        *   `Tag.N` parameter pair (`Tag.N.Key` and `Tag.N.Value`)
+        If you set `Tag.N` and `ResourceId.N` at the same time, the EBS resources that match both the parameters are returned.
+        
+
+        @param request: ListTagResourcesRequest
+
+        @return: ListTagResourcesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_tag_resources_with_options(request, runtime)
 
     def modify_dedicated_block_storage_cluster_attribute_with_options(self, request, runtime):
+        """
+        You can call this operation to modify the information of a dedicated block storage cluster. The information includes the name and description of the cluster.
+        
+
+        @param request: ModifyDedicatedBlockStorageClusterAttributeRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyDedicatedBlockStorageClusterAttributeResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -817,10 +1297,29 @@ class Client(OpenApiClient):
         )
 
     def modify_dedicated_block_storage_cluster_attribute(self, request):
+        """
+        You can call this operation to modify the information of a dedicated block storage cluster. The information includes the name and description of the cluster.
+        
+
+        @param request: ModifyDedicatedBlockStorageClusterAttributeRequest
+
+        @return: ModifyDedicatedBlockStorageClusterAttributeResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_dedicated_block_storage_cluster_attribute_with_options(request, runtime)
 
     def modify_disk_replica_group_with_options(self, request, runtime):
+        """
+        The replication pair-consistent group feature is supported in the China (Hangzhou), China (Shanghai), China (Beijing), China (Shenzhen), China (Heyuan), China (Chengdu), China (Hong Kong), Singapore (Singapore), US (Silicon Valley), and US (Virginia) regions.
+        *   The replication pair-consistent group must be in the **Created** (`created`) or **Stopped** (`stopped`) state.
+        
+
+        @param request: ModifyDiskReplicaGroupRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyDiskReplicaGroupResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.bandwidth):
@@ -857,10 +1356,29 @@ class Client(OpenApiClient):
         )
 
     def modify_disk_replica_group(self, request):
+        """
+        The replication pair-consistent group feature is supported in the China (Hangzhou), China (Shanghai), China (Beijing), China (Shenzhen), China (Heyuan), China (Chengdu), China (Hong Kong), Singapore (Singapore), US (Silicon Valley), and US (Virginia) regions.
+        *   The replication pair-consistent group must be in the **Created** (`created`) or **Stopped** (`stopped`) state.
+        
+
+        @param request: ModifyDiskReplicaGroupRequest
+
+        @return: ModifyDiskReplicaGroupResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_disk_replica_group_with_options(request, runtime)
 
     def modify_disk_replica_pair_with_options(self, request, runtime):
+        """
+        The name of the replication pair.
+        
+
+        @param request: ModifyDiskReplicaPairRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyDiskReplicaPairResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.bandwidth):
@@ -897,10 +1415,29 @@ class Client(OpenApiClient):
         )
 
     def modify_disk_replica_pair(self, request):
+        """
+        The name of the replication pair.
+        
+
+        @param request: ModifyDiskReplicaPairRequest
+
+        @return: ModifyDiskReplicaPairResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_disk_replica_pair_with_options(request, runtime)
 
     def remove_disk_replica_pair_with_options(self, request, runtime):
+        """
+        The replication pair-consistent group feature is supported in the China (Hangzhou), China (Shanghai), China (Beijing), China (Shenzhen), China (Heyuan), China (Chengdu), China (Hong Kong), Singapore (Singapore), US (Silicon Valley), and US (Virginia) regions.
+        *   The replication pair-consistent group from which you want to remove a replication pair must be in the **Created** (`created`), **Stopped** (`stopped`), or **Invalid** (`invalid`) state.
+        
+
+        @param request: RemoveDiskReplicaPairRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: RemoveDiskReplicaPairResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -931,10 +1468,29 @@ class Client(OpenApiClient):
         )
 
     def remove_disk_replica_pair(self, request):
+        """
+        The replication pair-consistent group feature is supported in the China (Hangzhou), China (Shanghai), China (Beijing), China (Shenzhen), China (Heyuan), China (Chengdu), China (Hong Kong), Singapore (Singapore), US (Silicon Valley), and US (Virginia) regions.
+        *   The replication pair-consistent group from which you want to remove a replication pair must be in the **Created** (`created`), **Stopped** (`stopped`), or **Invalid** (`invalid`) state.
+        
+
+        @param request: RemoveDiskReplicaPairRequest
+
+        @return: RemoveDiskReplicaPairResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.remove_disk_replica_pair_with_options(request, runtime)
 
     def reprotect_disk_replica_group_with_options(self, request, runtime):
+        """
+        The operation that you want to perform. Set the value to *ReprotectDiskReplicaGroup**.
+        
+
+        @param request: ReprotectDiskReplicaGroupRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ReprotectDiskReplicaGroupResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -963,10 +1519,28 @@ class Client(OpenApiClient):
         )
 
     def reprotect_disk_replica_group(self, request):
+        """
+        The operation that you want to perform. Set the value to *ReprotectDiskReplicaGroup**.
+        
+
+        @param request: ReprotectDiskReplicaGroupRequest
+
+        @return: ReprotectDiskReplicaGroupResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.reprotect_disk_replica_group_with_options(request, runtime)
 
     def reprotect_disk_replica_pair_with_options(self, request, runtime):
+        """
+        The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must make sure that the value is unique among different requests. The ClientToken value can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).
+        
+
+        @param request: ReprotectDiskReplicaPairRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ReprotectDiskReplicaPairResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -995,10 +1569,30 @@ class Client(OpenApiClient):
         )
 
     def reprotect_disk_replica_pair(self, request):
+        """
+        The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must make sure that the value is unique among different requests. The ClientToken value can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).
+        
+
+        @param request: ReprotectDiskReplicaPairRequest
+
+        @return: ReprotectDiskReplicaPairResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.reprotect_disk_replica_pair_with_options(request, runtime)
 
     def start_disk_monitor_with_options(self, tmp_req, runtime):
+        """
+        ## Usage notes
+        *   CloudLens for EBS is in invitational preview in the China (Hangzhou), China (Shanghai), China (Zhangjiakou), China (Shenzhen), and China (Hong Kong) regions. To use the feature, [submit a ticket](https://workorder-intl.console.aliyun.com/#/ticket/createIndex).
+        *   CloudLens for EBS can be used to monitor the performance of enhanced SSDs (ESSDs), standard SSDs, and ultra disks. After you enable CloudLens for EBS, you can enable the data collection feature to obtain the near real-time monitoring data. For more information, see [Enable near real-time monitoring for disks](~~354196~~).
+        
+
+        @param tmp_req: StartDiskMonitorRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: StartDiskMonitorResponse
+        """
         UtilClient.validate_model(tmp_req)
         request = ebs_20210730_models.StartDiskMonitorShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
@@ -1029,10 +1623,30 @@ class Client(OpenApiClient):
         )
 
     def start_disk_monitor(self, request):
+        """
+        ## Usage notes
+        *   CloudLens for EBS is in invitational preview in the China (Hangzhou), China (Shanghai), China (Zhangjiakou), China (Shenzhen), and China (Hong Kong) regions. To use the feature, [submit a ticket](https://workorder-intl.console.aliyun.com/#/ticket/createIndex).
+        *   CloudLens for EBS can be used to monitor the performance of enhanced SSDs (ESSDs), standard SSDs, and ultra disks. After you enable CloudLens for EBS, you can enable the data collection feature to obtain the near real-time monitoring data. For more information, see [Enable near real-time monitoring for disks](~~354196~~).
+        
+
+        @param request: StartDiskMonitorRequest
+
+        @return: StartDiskMonitorResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.start_disk_monitor_with_options(request, runtime)
 
     def start_disk_replica_group_with_options(self, request, runtime):
+        """
+        The operation that you want to perform. Set the value to *StartDiskReplicaGroup**.
+        
+
+        @param request: StartDiskReplicaGroupRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: StartDiskReplicaGroupResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -1063,10 +1677,28 @@ class Client(OpenApiClient):
         )
 
     def start_disk_replica_group(self, request):
+        """
+        The operation that you want to perform. Set the value to *StartDiskReplicaGroup**.
+        
+
+        @param request: StartDiskReplicaGroupRequest
+
+        @return: StartDiskReplicaGroupResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.start_disk_replica_group_with_options(request, runtime)
 
     def start_disk_replica_pair_with_options(self, request, runtime):
+        """
+        The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must make sure that the value is unique among different requests. The ClientToken value can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).
+        
+
+        @param request: StartDiskReplicaPairRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: StartDiskReplicaPairResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -1097,10 +1729,29 @@ class Client(OpenApiClient):
         )
 
     def start_disk_replica_pair(self, request):
+        """
+        The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must make sure that the value is unique among different requests. The ClientToken value can contain only ASCII characters and cannot exceed 64 characters in length. For more information, see [How to ensure idempotence](~~25693~~).
+        
+
+        @param request: StartDiskReplicaPairRequest
+
+        @return: StartDiskReplicaPairResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.start_disk_replica_pair_with_options(request, runtime)
 
     def stop_disk_monitor_with_options(self, tmp_req, runtime):
+        """
+        ## Usage notes
+        CloudLens for EBS is in invitational preview in the China (Hangzhou), China (Shanghai), China (Zhangjiakou), China (Shenzhen), and China (Hong Kong) regions. To use the feature, [submit a ticket](https://workorder-intl.console.aliyun.com/#/ticket/createIndex).
+        
+
+        @param tmp_req: StopDiskMonitorRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: StopDiskMonitorResponse
+        """
         UtilClient.validate_model(tmp_req)
         request = ebs_20210730_models.StopDiskMonitorShrinkRequest()
         OpenApiUtilClient.convert(tmp_req, request)
@@ -1131,10 +1782,31 @@ class Client(OpenApiClient):
         )
 
     def stop_disk_monitor(self, request):
+        """
+        ## Usage notes
+        CloudLens for EBS is in invitational preview in the China (Hangzhou), China (Shanghai), China (Zhangjiakou), China (Shenzhen), and China (Hong Kong) regions. To use the feature, [submit a ticket](https://workorder-intl.console.aliyun.com/#/ticket/createIndex).
+        
+
+        @param request: StopDiskMonitorRequest
+
+        @return: StopDiskMonitorResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.stop_disk_monitor_with_options(request, runtime)
 
     def stop_disk_replica_group_with_options(self, request, runtime):
+        """
+        The replication pair-consistent group feature is supported in the China (Hangzhou), China (Shanghai), China (Beijing), China (Shenzhen), China (Heyuan), China (Chengdu), China (Hong Kong), Singapore (Singapore), US (Silicon Valley), and US (Virginia) regions.
+        *   The replication pair-consistent group that you want to stop must be in the **One-time Syncing** (`manual_syncing`), **Syncing** (`syncing`), **Normal** (`normal`), **Stopping** (`stopping`), **Stop Failed** (`stop_failed`), or **Stopped** (`stopped`) state.
+        *   When a replication pair-consistent group is stopped, it enters the **Stopped** (`stopped`) state. If a replication pair-consistent group cannot be stopped, the state of the group remains unchanged or changes to **Stop Failed** (`stop_failed`). In this case, try again later.
+        
+
+        @param request: StopDiskReplicaGroupRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: StopDiskReplicaGroupResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -1163,10 +1835,31 @@ class Client(OpenApiClient):
         )
 
     def stop_disk_replica_group(self, request):
+        """
+        The replication pair-consistent group feature is supported in the China (Hangzhou), China (Shanghai), China (Beijing), China (Shenzhen), China (Heyuan), China (Chengdu), China (Hong Kong), Singapore (Singapore), US (Silicon Valley), and US (Virginia) regions.
+        *   The replication pair-consistent group that you want to stop must be in the **One-time Syncing** (`manual_syncing`), **Syncing** (`syncing`), **Normal** (`normal`), **Stopping** (`stopping`), **Stop Failed** (`stop_failed`), or **Stopped** (`stopped`) state.
+        *   When a replication pair-consistent group is stopped, it enters the **Stopped** (`stopped`) state. If a replication pair-consistent group cannot be stopped, the state of the group remains unchanged or changes to **Stop Failed** (`stop_failed`). In this case, try again later.
+        
+
+        @param request: StopDiskReplicaGroupRequest
+
+        @return: StopDiskReplicaGroupResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.stop_disk_replica_group_with_options(request, runtime)
 
     def stop_disk_replica_pair_with_options(self, request, runtime):
+        """
+        The async replication feature is supported in the China (Hangzhou), China (Shanghai), China (Beijing), China (Shenzhen), China (Heyuan), China (Chengdu), China (Hong Kong), Singapore (Singapore), US (Silicon Valley), and US (Virginia) regions.
+        *   Only replication pairs that are in the **Initial Syncing** (`initial_syncing`), **Syncing** (`syncing`), **One-time Syncing** (`manual_syncing`), or **Normal** (`normal`) state can be stopped. When a replication pair is stopped, it enters the Stopped (`stopped`) state. The secondary disk rolls back to the point in time when the last asynchronous replication was complete and drops all the data that is being replicated from the primary disk.
+        
+
+        @param request: StopDiskReplicaPairRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: StopDiskReplicaPairResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -1195,10 +1888,29 @@ class Client(OpenApiClient):
         )
 
     def stop_disk_replica_pair(self, request):
+        """
+        The async replication feature is supported in the China (Hangzhou), China (Shanghai), China (Beijing), China (Shenzhen), China (Heyuan), China (Chengdu), China (Hong Kong), Singapore (Singapore), US (Silicon Valley), and US (Virginia) regions.
+        *   Only replication pairs that are in the **Initial Syncing** (`initial_syncing`), **Syncing** (`syncing`), **One-time Syncing** (`manual_syncing`), or **Normal** (`normal`) state can be stopped. When a replication pair is stopped, it enters the Stopped (`stopped`) state. The secondary disk rolls back to the point in time when the last asynchronous replication was complete and drops all the data that is being replicated from the primary disk.
+        
+
+        @param request: StopDiskReplicaPairRequest
+
+        @return: StopDiskReplicaPairResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.stop_disk_replica_pair_with_options(request, runtime)
 
     def tag_resources_with_options(self, request, runtime):
+        """
+        Before you add tags to a resource, Alibaba Cloud checks the number of existing tags of the resource. If the maximum number of tags is reached, an error message is returned. For more information, see the "Tag limits" section in [Limits](~~25412~~).
+        
+
+        @param request: TagResourcesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: TagResourcesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -1231,10 +1943,29 @@ class Client(OpenApiClient):
         )
 
     def tag_resources(self, request):
+        """
+        Before you add tags to a resource, Alibaba Cloud checks the number of existing tags of the resource. If the maximum number of tags is reached, an error message is returned. For more information, see the "Tag limits" section in [Limits](~~25412~~).
+        
+
+        @param request: TagResourcesRequest
+
+        @return: TagResourcesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.tag_resources_with_options(request, runtime)
 
     def untag_resources_with_options(self, request, runtime):
+        """
+        You can remove up to 20 tags at a time.
+        *   After a tag is removed from an EBS resource, the tag is automatically deleted if the tag is not added to any instance.
+        
+
+        @param request: UntagResourcesRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UntagResourcesResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.all):
@@ -1269,5 +2000,14 @@ class Client(OpenApiClient):
         )
 
     def untag_resources(self, request):
+        """
+        You can remove up to 20 tags at a time.
+        *   After a tag is removed from an EBS resource, the tag is automatically deleted if the tag is not added to any instance.
+        
+
+        @param request: UntagResourcesRequest
+
+        @return: UntagResourcesResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.untag_resources_with_options(request, runtime)
