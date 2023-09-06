@@ -298,8 +298,7 @@ class Client(OpenApiClient):
 
     def create_cluster_with_options(self, request, runtime):
         """
-        The ID of the zone.
-        You can call the [ListRegions](~~188593~~) and [DescribeZones](~~25610~~) operations to query IDs of the zones where E-HPC is supported.
+        After you create an Elastic High Performance Computing (E-HPC) cluster, you are charged for the cluster resources that you use. We recommend that you learn about the billing methods of E-HPC in advance. For more information, see [Billing overview](~~57844~~).
         
 
         @param request: CreateClusterRequest
@@ -331,8 +330,7 @@ class Client(OpenApiClient):
 
     def create_cluster(self, request):
         """
-        The ID of the zone.
-        You can call the [ListRegions](~~188593~~) and [DescribeZones](~~25610~~) operations to query IDs of the zones where E-HPC is supported.
+        After you create an Elastic High Performance Computing (E-HPC) cluster, you are charged for the cluster resources that you use. We recommend that you learn about the billing methods of E-HPC in advance. For more information, see [Billing overview](~~57844~~).
         
 
         @param request: CreateClusterRequest
@@ -543,6 +541,16 @@ class Client(OpenApiClient):
         return self.delete_cluster_with_options(request, runtime)
 
     def delete_container_apps_with_options(self, request, runtime):
+        """
+        Before you delete container applications, you can call the [ListContainerApps](~~87333~~) operation to query the container applications.
+        
+
+        @param request: DeleteContainerAppsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteContainerAppsResponse
+        """
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
@@ -565,6 +573,14 @@ class Client(OpenApiClient):
         )
 
     def delete_container_apps(self, request):
+        """
+        Before you delete container applications, you can call the [ListContainerApps](~~87333~~) operation to query the container applications.
+        
+
+        @param request: DeleteContainerAppsRequest
+
+        @return: DeleteContainerAppsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_container_apps_with_options(request, runtime)
 
@@ -822,7 +838,6 @@ class Client(OpenApiClient):
 
     def delete_users_with_options(self, request, runtime):
         """
-        ## Description
         If you delete a user, only its information is deleted. The files stored in the /home directory for the user are retained. For example, if you delete a user named user1, the files in the `/home/user1/` directory of the cluster are not deleted. However, a deleted user cannot be recovered. Even if you create another user that has the same name, the data retained for the deleted user is not reused.
         
 
@@ -855,7 +870,6 @@ class Client(OpenApiClient):
 
     def delete_users(self, request):
         """
-        ## Description
         If you delete a user, only its information is deleted. The files stored in the /home directory for the user are retained. For example, if you delete a user named user1, the files in the `/home/user1/` directory of the cluster are not deleted. However, a deleted user cannot be recovered. Even if you create another user that has the same name, the data retained for the deleted user is not reused.
         
 
@@ -1319,6 +1333,17 @@ class Client(OpenApiClient):
         return self.get_accounting_report_with_options(request, runtime)
 
     def get_auto_scale_config_with_options(self, request, runtime):
+        """
+        ## Debugging
+        [OpenAPI Explorer automatically calculates the signature value. For your convenience, we recommend that you call this operation in OpenAPI Explorer. OpenAPI Explorer dynamically generates the sample code of the operation for different SDKs.](https://api.aliyun.com/#product=EHPC\\&api=GetAutoScaleConfig\\&type=RPC\\&version=2018-04-12)
+        
+
+        @param request: GetAutoScaleConfigRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetAutoScaleConfigResponse
+        """
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
         req = open_api_models.OpenApiRequest(
@@ -1341,6 +1366,15 @@ class Client(OpenApiClient):
         )
 
     def get_auto_scale_config(self, request):
+        """
+        ## Debugging
+        [OpenAPI Explorer automatically calculates the signature value. For your convenience, we recommend that you call this operation in OpenAPI Explorer. OpenAPI Explorer dynamically generates the sample code of the operation for different SDKs.](https://api.aliyun.com/#product=EHPC\\&api=GetAutoScaleConfig\\&type=RPC\\&version=2018-04-12)
+        
+
+        @param request: GetAutoScaleConfigRequest
+
+        @return: GetAutoScaleConfigResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_auto_scale_config_with_options(request, runtime)
 
@@ -2714,7 +2748,8 @@ class Client(OpenApiClient):
 
     def modify_cluster_attributes_with_options(self, request, runtime):
         """
-        The new cluster name.
+        ## Usage notes
+        Before you call this operation, you can call the [DescribeCluster](~~87126~~) operation to query details of the selected cluster.
         
 
         @param request: ModifyClusterAttributesRequest
@@ -2746,7 +2781,8 @@ class Client(OpenApiClient):
 
     def modify_cluster_attributes(self, request):
         """
-        The new cluster name.
+        ## Usage notes
+        Before you call this operation, you can call the [DescribeCluster](~~87126~~) operation to query details of the selected cluster.
         
 
         @param request: ModifyClusterAttributesRequest
@@ -3110,7 +3146,8 @@ class Client(OpenApiClient):
 
     def set_auto_scale_config_with_options(self, request, runtime):
         """
-        Configures the auto scaling settings of a cluster.
+        ## Usage notes
+        If the settings in the Queue Configuration section are different from the settings in the Global Configurations section, the former prevails.
         
 
         @param request: SetAutoScaleConfigRequest
@@ -3142,7 +3179,8 @@ class Client(OpenApiClient):
 
     def set_auto_scale_config(self, request):
         """
-        Configures the auto scaling settings of a cluster.
+        ## Usage notes
+        If the settings in the Queue Configuration section are different from the settings in the Global Configurations section, the former prevails.
         
 
         @param request: SetAutoScaleConfigRequest
@@ -3661,9 +3699,11 @@ class Client(OpenApiClient):
         if not UtilClient.is_unset(tmp_req.depends_on):
             request.depends_on_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.depends_on, 'DependsOn', 'json')
         if not UtilClient.is_unset(tmp_req.instance_type):
-            request.instance_type_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.instance_type, 'InstanceType', 'simple')
+            request.instance_type_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.instance_type, 'InstanceType', 'json')
+        if not UtilClient.is_unset(tmp_req.retry_strategy):
+            request.retry_strategy_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.retry_strategy, 'RetryStrategy', 'json')
         if not UtilClient.is_unset(tmp_req.v_switch_id):
-            request.v_switch_id_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.v_switch_id, 'VSwitchId', 'simple')
+            request.v_switch_id_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.v_switch_id, 'VSwitchId', 'json')
         query = {}
         if not UtilClient.is_unset(request.array_properties_shrink):
             query['ArrayProperties'] = request.array_properties_shrink
@@ -3687,6 +3727,8 @@ class Client(OpenApiClient):
             query['Memory'] = request.memory
         if not UtilClient.is_unset(request.ram_role_name):
             query['RamRoleName'] = request.ram_role_name
+        if not UtilClient.is_unset(request.retry_strategy_shrink):
+            query['RetryStrategy'] = request.retry_strategy_shrink
         if not UtilClient.is_unset(request.spot_price_limit):
             query['SpotPriceLimit'] = request.spot_price_limit
         if not UtilClient.is_unset(request.spot_strategy):
@@ -3920,7 +3962,7 @@ class Client(OpenApiClient):
 
     def update_queue_config_with_options(self, request, runtime):
         """
-        After you update the instance types of a resource group, the nodes that you add by scaling out the cluster are automatically included in the resource group.
+        After you update the resource group, the nodes that you add by scaling out the cluster are automatically included in the resource group.
         
 
         @param request: UpdateQueueConfigRequest
@@ -3952,7 +3994,7 @@ class Client(OpenApiClient):
 
     def update_queue_config(self, request):
         """
-        After you update the instance types of a resource group, the nodes that you add by scaling out the cluster are automatically included in the resource group.
+        After you update the resource group, the nodes that you add by scaling out the cluster are automatically included in the resource group.
         
 
         @param request: UpdateQueueConfigRequest
