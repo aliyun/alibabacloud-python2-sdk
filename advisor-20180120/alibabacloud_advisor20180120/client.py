@@ -218,6 +218,32 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_history_advices_with_options(request, runtime)
 
+    def get_task_status_by_id_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetTaskStatusById',
+            version='2018-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            advisor_20180120_models.GetTaskStatusByIdResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_task_status_by_id(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_task_status_by_id_with_options(request, runtime)
+
     def refresh_advisor_check_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
