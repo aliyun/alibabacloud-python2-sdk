@@ -1342,6 +1342,38 @@ class Client(OpenApiClient):
         headers = {}
         return self.get_database_with_options(request, headers, runtime)
 
+    def get_database_profile_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.catalog_id):
+            query['CatalogId'] = request.catalog_id
+        if not UtilClient.is_unset(request.database_name):
+            query['DatabaseName'] = request.database_name
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetDatabaseProfile',
+            version='2020-07-10',
+            protocol='HTTPS',
+            pathname='/webapi/metastorehouse/catalog/database/databaseprofile',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            data_lake_20200710_models.GetDatabaseProfileResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_database_profile(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_database_profile_with_options(request, headers, runtime)
+
     def get_function_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -2184,6 +2216,50 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.list_partitions_by_filter_with_options(request, headers, runtime)
+
+    def list_partitions_profile_with_options(self, tmp_req, headers, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = data_lake_20200710_models.ListPartitionsProfileShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.partition_names):
+            request.partition_names_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.partition_names, 'PartitionNames', 'simple')
+        query = {}
+        if not UtilClient.is_unset(request.catalog_id):
+            query['CatalogId'] = request.catalog_id
+        if not UtilClient.is_unset(request.database_name):
+            query['DatabaseName'] = request.database_name
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.partition_names_shrink):
+            query['PartitionNames'] = request.partition_names_shrink
+        if not UtilClient.is_unset(request.table_name):
+            query['TableName'] = request.table_name
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListPartitionsProfile',
+            version='2020-07-10',
+            protocol='HTTPS',
+            pathname='/webapi/metastorehouse/catalog/database/tableprofile/partitionprofile/listPartitionsProfile',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            data_lake_20200710_models.ListPartitionsProfileResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_partitions_profile(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_partitions_profile_with_options(request, headers, runtime)
 
     def list_permissions_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)

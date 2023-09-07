@@ -9144,6 +9144,126 @@ class GetDatabaseResponse(TeaModel):
         return self
 
 
+class GetDatabaseProfileRequest(TeaModel):
+    def __init__(self, catalog_id=None, database_name=None):
+        # CatalogId
+        self.catalog_id = catalog_id  # type: str
+        # DatabaseName
+        self.database_name = database_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetDatabaseProfileRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.catalog_id is not None:
+            result['CatalogId'] = self.catalog_id
+        if self.database_name is not None:
+            result['DatabaseName'] = self.database_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CatalogId') is not None:
+            self.catalog_id = m.get('CatalogId')
+        if m.get('DatabaseName') is not None:
+            self.database_name = m.get('DatabaseName')
+        return self
+
+
+class GetDatabaseProfileResponseBody(TeaModel):
+    def __init__(self, code=None, database_profile=None, message=None, request_id=None, success=None):
+        # Code
+        self.code = code  # type: str
+        self.database_profile = database_profile  # type: DatabaseProfile
+        # Message
+        self.message = message  # type: str
+        # RequestId
+        self.request_id = request_id  # type: str
+        # Success
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.database_profile:
+            self.database_profile.validate()
+
+    def to_map(self):
+        _map = super(GetDatabaseProfileResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.database_profile is not None:
+            result['DatabaseProfile'] = self.database_profile.to_map()
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('DatabaseProfile') is not None:
+            temp_model = DatabaseProfile()
+            self.database_profile = temp_model.from_map(m['DatabaseProfile'])
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class GetDatabaseProfileResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetDatabaseProfileResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetDatabaseProfileResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetDatabaseProfileResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class GetFunctionRequest(TeaModel):
     def __init__(self, catalog_id=None, database_name=None, function_name=None):
         self.catalog_id = catalog_id  # type: str
@@ -12343,6 +12463,213 @@ class ListPartitionsByFilterResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListPartitionsByFilterResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListPartitionsProfileRequest(TeaModel):
+    def __init__(self, catalog_id=None, database_name=None, page_number=None, page_size=None, partition_names=None,
+                 table_name=None):
+        self.catalog_id = catalog_id  # type: str
+        self.database_name = database_name  # type: str
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.partition_names = partition_names  # type: list[str]
+        self.table_name = table_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListPartitionsProfileRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.catalog_id is not None:
+            result['CatalogId'] = self.catalog_id
+        if self.database_name is not None:
+            result['DatabaseName'] = self.database_name
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.partition_names is not None:
+            result['PartitionNames'] = self.partition_names
+        if self.table_name is not None:
+            result['TableName'] = self.table_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CatalogId') is not None:
+            self.catalog_id = m.get('CatalogId')
+        if m.get('DatabaseName') is not None:
+            self.database_name = m.get('DatabaseName')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('PartitionNames') is not None:
+            self.partition_names = m.get('PartitionNames')
+        if m.get('TableName') is not None:
+            self.table_name = m.get('TableName')
+        return self
+
+
+class ListPartitionsProfileShrinkRequest(TeaModel):
+    def __init__(self, catalog_id=None, database_name=None, page_number=None, page_size=None,
+                 partition_names_shrink=None, table_name=None):
+        self.catalog_id = catalog_id  # type: str
+        self.database_name = database_name  # type: str
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.partition_names_shrink = partition_names_shrink  # type: str
+        self.table_name = table_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListPartitionsProfileShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.catalog_id is not None:
+            result['CatalogId'] = self.catalog_id
+        if self.database_name is not None:
+            result['DatabaseName'] = self.database_name
+        if self.page_number is not None:
+            result['PageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['PageSize'] = self.page_size
+        if self.partition_names_shrink is not None:
+            result['PartitionNames'] = self.partition_names_shrink
+        if self.table_name is not None:
+            result['TableName'] = self.table_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CatalogId') is not None:
+            self.catalog_id = m.get('CatalogId')
+        if m.get('DatabaseName') is not None:
+            self.database_name = m.get('DatabaseName')
+        if m.get('PageNumber') is not None:
+            self.page_number = m.get('PageNumber')
+        if m.get('PageSize') is not None:
+            self.page_size = m.get('PageSize')
+        if m.get('PartitionNames') is not None:
+            self.partition_names_shrink = m.get('PartitionNames')
+        if m.get('TableName') is not None:
+            self.table_name = m.get('TableName')
+        return self
+
+
+class ListPartitionsProfileResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, latest_access_num_date=None, latest_date=None, message=None,
+                 request_id=None, success=None, total=None):
+        self.code = code  # type: str
+        self.data = data  # type: list[PartitionProfile]
+        self.latest_access_num_date = latest_access_num_date  # type: str
+        self.latest_date = latest_date  # type: str
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+        self.total = total  # type: int
+
+    def validate(self):
+        if self.data:
+            for k in self.data:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListPartitionsProfileResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        result['Data'] = []
+        if self.data is not None:
+            for k in self.data:
+                result['Data'].append(k.to_map() if k else None)
+        if self.latest_access_num_date is not None:
+            result['LatestAccessNumDate'] = self.latest_access_num_date
+        if self.latest_date is not None:
+            result['LatestDate'] = self.latest_date
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        if self.total is not None:
+            result['Total'] = self.total
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        self.data = []
+        if m.get('Data') is not None:
+            for k in m.get('Data'):
+                temp_model = PartitionProfile()
+                self.data.append(temp_model.from_map(k))
+        if m.get('LatestAccessNumDate') is not None:
+            self.latest_access_num_date = m.get('LatestAccessNumDate')
+        if m.get('LatestDate') is not None:
+            self.latest_date = m.get('LatestDate')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('Total') is not None:
+            self.total = m.get('Total')
+        return self
+
+
+class ListPartitionsProfileResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListPartitionsProfileResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListPartitionsProfileResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListPartitionsProfileResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
