@@ -253,10 +253,12 @@ class BriefResourceSetting(TeaModel):
 
 
 class Deployment(TeaModel):
-    def __init__(self, artifact=None, deployment_has_changed=None, deployment_id=None, deployment_target=None,
-                 description=None, engine_version=None, execution_mode=None, flink_conf=None, job_summary=None, logging=None,
-                 name=None, namespace=None):
+    def __init__(self, artifact=None, creator=None, creator_name=None, deployment_has_changed=None,
+                 deployment_id=None, deployment_target=None, description=None, engine_version=None, execution_mode=None,
+                 flink_conf=None, job_summary=None, logging=None, modifier=None, modifier_name=None, name=None, namespace=None):
         self.artifact = artifact  # type: Artifact
+        self.creator = creator  # type: str
+        self.creator_name = creator_name  # type: str
         self.deployment_has_changed = deployment_has_changed  # type: bool
         self.deployment_id = deployment_id  # type: str
         self.deployment_target = deployment_target  # type: BriefDeploymentTarget
@@ -266,6 +268,8 @@ class Deployment(TeaModel):
         self.flink_conf = flink_conf  # type: dict[str, any]
         self.job_summary = job_summary  # type: JobSummary
         self.logging = logging  # type: Logging
+        self.modifier = modifier  # type: str
+        self.modifier_name = modifier_name  # type: str
         self.name = name  # type: str
         self.namespace = namespace  # type: str
 
@@ -287,6 +291,10 @@ class Deployment(TeaModel):
         result = dict()
         if self.artifact is not None:
             result['artifact'] = self.artifact.to_map()
+        if self.creator is not None:
+            result['creator'] = self.creator
+        if self.creator_name is not None:
+            result['creatorName'] = self.creator_name
         if self.deployment_has_changed is not None:
             result['deploymentHasChanged'] = self.deployment_has_changed
         if self.deployment_id is not None:
@@ -305,6 +313,10 @@ class Deployment(TeaModel):
             result['jobSummary'] = self.job_summary.to_map()
         if self.logging is not None:
             result['logging'] = self.logging.to_map()
+        if self.modifier is not None:
+            result['modifier'] = self.modifier
+        if self.modifier_name is not None:
+            result['modifierName'] = self.modifier_name
         if self.name is not None:
             result['name'] = self.name
         if self.namespace is not None:
@@ -316,6 +328,10 @@ class Deployment(TeaModel):
         if m.get('artifact') is not None:
             temp_model = Artifact()
             self.artifact = temp_model.from_map(m['artifact'])
+        if m.get('creator') is not None:
+            self.creator = m.get('creator')
+        if m.get('creatorName') is not None:
+            self.creator_name = m.get('creatorName')
         if m.get('deploymentHasChanged') is not None:
             self.deployment_has_changed = m.get('deploymentHasChanged')
         if m.get('deploymentId') is not None:
@@ -337,6 +353,10 @@ class Deployment(TeaModel):
         if m.get('logging') is not None:
             temp_model = Logging()
             self.logging = temp_model.from_map(m['logging'])
+        if m.get('modifier') is not None:
+            self.modifier = m.get('modifier')
+        if m.get('modifierName') is not None:
+            self.modifier_name = m.get('modifierName')
         if m.get('name') is not None:
             self.name = m.get('name')
         if m.get('namespace') is not None:
@@ -585,12 +605,14 @@ class JarArtifact(TeaModel):
 
 
 class Job(TeaModel):
-    def __init__(self, artifact=None, batch_resource_setting=None, deployment_id=None, deployment_name=None,
-                 end_time=None, engine_version=None, execution_mode=None, flink_conf=None, job_id=None, logging=None,
-                 metric=None, namespace=None, restore_strategy=None, session_cluster_name=None, start_time=None,
-                 status=None, streaming_resource_setting=None):
+    def __init__(self, artifact=None, batch_resource_setting=None, creator=None, creator_name=None,
+                 deployment_id=None, deployment_name=None, end_time=None, engine_version=None, execution_mode=None,
+                 flink_conf=None, job_id=None, logging=None, metric=None, modifier=None, modifier_name=None, namespace=None,
+                 restore_strategy=None, session_cluster_name=None, start_time=None, status=None, streaming_resource_setting=None):
         self.artifact = artifact  # type: Artifact
         self.batch_resource_setting = batch_resource_setting  # type: BatchResourceSetting
+        self.creator = creator  # type: str
+        self.creator_name = creator_name  # type: str
         self.deployment_id = deployment_id  # type: str
         self.deployment_name = deployment_name  # type: str
         self.end_time = end_time  # type: long
@@ -600,6 +622,8 @@ class Job(TeaModel):
         self.job_id = job_id  # type: str
         self.logging = logging  # type: Logging
         self.metric = metric  # type: JobMetric
+        self.modifier = modifier  # type: str
+        self.modifier_name = modifier_name  # type: str
         self.namespace = namespace  # type: str
         self.restore_strategy = restore_strategy  # type: DeploymentRestoreStrategy
         self.session_cluster_name = session_cluster_name  # type: str
@@ -633,6 +657,10 @@ class Job(TeaModel):
             result['artifact'] = self.artifact.to_map()
         if self.batch_resource_setting is not None:
             result['batchResourceSetting'] = self.batch_resource_setting.to_map()
+        if self.creator is not None:
+            result['creator'] = self.creator
+        if self.creator_name is not None:
+            result['creatorName'] = self.creator_name
         if self.deployment_id is not None:
             result['deploymentId'] = self.deployment_id
         if self.deployment_name is not None:
@@ -651,6 +679,10 @@ class Job(TeaModel):
             result['logging'] = self.logging.to_map()
         if self.metric is not None:
             result['metric'] = self.metric.to_map()
+        if self.modifier is not None:
+            result['modifier'] = self.modifier
+        if self.modifier_name is not None:
+            result['modifierName'] = self.modifier_name
         if self.namespace is not None:
             result['namespace'] = self.namespace
         if self.restore_strategy is not None:
@@ -673,6 +705,10 @@ class Job(TeaModel):
         if m.get('batchResourceSetting') is not None:
             temp_model = BatchResourceSetting()
             self.batch_resource_setting = temp_model.from_map(m['batchResourceSetting'])
+        if m.get('creator') is not None:
+            self.creator = m.get('creator')
+        if m.get('creatorName') is not None:
+            self.creator_name = m.get('creatorName')
         if m.get('deploymentId') is not None:
             self.deployment_id = m.get('deploymentId')
         if m.get('deploymentName') is not None:
@@ -693,6 +729,10 @@ class Job(TeaModel):
         if m.get('metric') is not None:
             temp_model = JobMetric()
             self.metric = temp_model.from_map(m['metric'])
+        if m.get('modifier') is not None:
+            self.modifier = m.get('modifier')
+        if m.get('modifierName') is not None:
+            self.modifier_name = m.get('modifierName')
         if m.get('namespace') is not None:
             self.namespace = m.get('namespace')
         if m.get('restoreStrategy') is not None:

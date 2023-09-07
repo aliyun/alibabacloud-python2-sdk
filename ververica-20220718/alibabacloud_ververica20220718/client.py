@@ -2,8 +2,8 @@
 # This file is auto-generated, don't edit it. Thanks.
 from __future__ import unicode_literals
 
-from Tea.core import TeaCore
 from Tea.converter import TeaConverter
+from Tea.core import TeaCore
 
 from alibabacloud_tea_openapi.client import Client as OpenApiClient
 from alibabacloud_tea_openapi import models as open_api_models
@@ -31,11 +31,6 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
-    def create_deployment(self, namespace, request):
-        runtime = util_models.RuntimeOptions()
-        headers = ververica_20220718_models.CreateDeploymentHeaders()
-        return self.create_deployment_with_options(namespace, request, headers, runtime)
-
     def create_deployment_with_options(self, namespace, request, headers, runtime):
         UtilClient.validate_model(request)
         real_headers = {}
@@ -45,7 +40,7 @@ class Client(OpenApiClient):
             real_headers['workspace'] = UtilClient.to_jsonstring(headers.workspace)
         req = open_api_models.OpenApiRequest(
             headers=real_headers,
-            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.body))
+            body=OpenApiUtilClient.parse_to_map(request.body)
         )
         params = open_api_models.Params(
             action='CreateDeployment',
@@ -63,10 +58,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_savepoint(self, namespace, request):
+    def create_deployment(self, namespace, request):
         runtime = util_models.RuntimeOptions()
-        headers = ververica_20220718_models.CreateSavepointHeaders()
-        return self.create_savepoint_with_options(namespace, request, headers, runtime)
+        headers = ververica_20220718_models.CreateDeploymentHeaders()
+        return self.create_deployment_with_options(namespace, request, headers, runtime)
 
     def create_savepoint_with_options(self, namespace, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -102,10 +97,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def create_variable(self, namespace, request):
+    def create_savepoint(self, namespace, request):
         runtime = util_models.RuntimeOptions()
-        headers = ververica_20220718_models.CreateVariableHeaders()
-        return self.create_variable_with_options(namespace, request, headers, runtime)
+        headers = ververica_20220718_models.CreateSavepointHeaders()
+        return self.create_savepoint_with_options(namespace, request, headers, runtime)
 
     def create_variable_with_options(self, namespace, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -116,7 +111,7 @@ class Client(OpenApiClient):
             real_headers['workspace'] = UtilClient.to_jsonstring(headers.workspace)
         req = open_api_models.OpenApiRequest(
             headers=real_headers,
-            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.body))
+            body=OpenApiUtilClient.parse_to_map(request.body)
         )
         params = open_api_models.Params(
             action='CreateVariable',
@@ -134,10 +129,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_deployment(self, namespace, deployment_id):
+    def create_variable(self, namespace, request):
         runtime = util_models.RuntimeOptions()
-        headers = ververica_20220718_models.DeleteDeploymentHeaders()
-        return self.delete_deployment_with_options(namespace, deployment_id, headers, runtime)
+        headers = ververica_20220718_models.CreateVariableHeaders()
+        return self.create_variable_with_options(namespace, request, headers, runtime)
 
     def delete_deployment_with_options(self, namespace, deployment_id, headers, runtime):
         real_headers = {}
@@ -164,10 +159,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_job(self, namespace, job_id):
+    def delete_deployment(self, namespace, deployment_id):
         runtime = util_models.RuntimeOptions()
-        headers = ververica_20220718_models.DeleteJobHeaders()
-        return self.delete_job_with_options(namespace, job_id, headers, runtime)
+        headers = ververica_20220718_models.DeleteDeploymentHeaders()
+        return self.delete_deployment_with_options(namespace, deployment_id, headers, runtime)
 
     def delete_job_with_options(self, namespace, job_id, headers, runtime):
         real_headers = {}
@@ -194,10 +189,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_savepoint(self, namespace, savepoint_id):
+    def delete_job(self, namespace, job_id):
         runtime = util_models.RuntimeOptions()
-        headers = ververica_20220718_models.DeleteSavepointHeaders()
-        return self.delete_savepoint_with_options(namespace, savepoint_id, headers, runtime)
+        headers = ververica_20220718_models.DeleteJobHeaders()
+        return self.delete_job_with_options(namespace, job_id, headers, runtime)
 
     def delete_savepoint_with_options(self, namespace, savepoint_id, headers, runtime):
         real_headers = {}
@@ -224,10 +219,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def delete_variable(self, namespace, name):
+    def delete_savepoint(self, namespace, savepoint_id):
         runtime = util_models.RuntimeOptions()
-        headers = ververica_20220718_models.DeleteVariableHeaders()
-        return self.delete_variable_with_options(namespace, name, headers, runtime)
+        headers = ververica_20220718_models.DeleteSavepointHeaders()
+        return self.delete_savepoint_with_options(namespace, savepoint_id, headers, runtime)
 
     def delete_variable_with_options(self, namespace, name, headers, runtime):
         real_headers = {}
@@ -254,10 +249,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def flink_api_proxy(self, request):
+    def delete_variable(self, namespace, name):
         runtime = util_models.RuntimeOptions()
-        headers = ververica_20220718_models.FlinkApiProxyHeaders()
-        return self.flink_api_proxy_with_options(request, headers, runtime)
+        headers = ververica_20220718_models.DeleteVariableHeaders()
+        return self.delete_variable_with_options(namespace, name, headers, runtime)
 
     def flink_api_proxy_with_options(self, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -295,10 +290,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def generate_resource_plan_with_flink_conf_async(self, namespace, deployment_id, request):
+    def flink_api_proxy(self, request):
         runtime = util_models.RuntimeOptions()
-        headers = ververica_20220718_models.GenerateResourcePlanWithFlinkConfAsyncHeaders()
-        return self.generate_resource_plan_with_flink_conf_async_with_options(namespace, deployment_id, request, headers, runtime)
+        headers = ververica_20220718_models.FlinkApiProxyHeaders()
+        return self.flink_api_proxy_with_options(request, headers, runtime)
 
     def generate_resource_plan_with_flink_conf_async_with_options(self, namespace, deployment_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -327,10 +322,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_deployment(self, namespace, deployment_id):
+    def generate_resource_plan_with_flink_conf_async(self, namespace, deployment_id, request):
         runtime = util_models.RuntimeOptions()
-        headers = ververica_20220718_models.GetDeploymentHeaders()
-        return self.get_deployment_with_options(namespace, deployment_id, headers, runtime)
+        headers = ververica_20220718_models.GenerateResourcePlanWithFlinkConfAsyncHeaders()
+        return self.generate_resource_plan_with_flink_conf_async_with_options(namespace, deployment_id, request, headers, runtime)
 
     def get_deployment_with_options(self, namespace, deployment_id, headers, runtime):
         real_headers = {}
@@ -357,10 +352,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_generate_resource_plan_result(self, namespace, ticket_id):
+    def get_deployment(self, namespace, deployment_id):
         runtime = util_models.RuntimeOptions()
-        headers = ververica_20220718_models.GetGenerateResourcePlanResultHeaders()
-        return self.get_generate_resource_plan_result_with_options(namespace, ticket_id, headers, runtime)
+        headers = ververica_20220718_models.GetDeploymentHeaders()
+        return self.get_deployment_with_options(namespace, deployment_id, headers, runtime)
 
     def get_generate_resource_plan_result_with_options(self, namespace, ticket_id, headers, runtime):
         real_headers = {}
@@ -387,10 +382,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_job(self, namespace, job_id):
+    def get_generate_resource_plan_result(self, namespace, ticket_id):
         runtime = util_models.RuntimeOptions()
-        headers = ververica_20220718_models.GetJobHeaders()
-        return self.get_job_with_options(namespace, job_id, headers, runtime)
+        headers = ververica_20220718_models.GetGenerateResourcePlanResultHeaders()
+        return self.get_generate_resource_plan_result_with_options(namespace, ticket_id, headers, runtime)
 
     def get_job_with_options(self, namespace, job_id, headers, runtime):
         real_headers = {}
@@ -417,10 +412,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_savepoint(self, namespace, savepoint_id):
+    def get_job(self, namespace, job_id):
         runtime = util_models.RuntimeOptions()
-        headers = ververica_20220718_models.GetSavepointHeaders()
-        return self.get_savepoint_with_options(namespace, savepoint_id, headers, runtime)
+        headers = ververica_20220718_models.GetJobHeaders()
+        return self.get_job_with_options(namespace, job_id, headers, runtime)
 
     def get_savepoint_with_options(self, namespace, savepoint_id, headers, runtime):
         real_headers = {}
@@ -447,10 +442,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_deployment_targets(self, namespace, request):
+    def get_savepoint(self, namespace, savepoint_id):
         runtime = util_models.RuntimeOptions()
-        headers = ververica_20220718_models.ListDeploymentTargetsHeaders()
-        return self.list_deployment_targets_with_options(namespace, request, headers, runtime)
+        headers = ververica_20220718_models.GetSavepointHeaders()
+        return self.get_savepoint_with_options(namespace, savepoint_id, headers, runtime)
 
     def list_deployment_targets_with_options(self, namespace, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -484,10 +479,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_deployments(self, namespace, request):
+    def list_deployment_targets(self, namespace, request):
         runtime = util_models.RuntimeOptions()
-        headers = ververica_20220718_models.ListDeploymentsHeaders()
-        return self.list_deployments_with_options(namespace, request, headers, runtime)
+        headers = ververica_20220718_models.ListDeploymentTargetsHeaders()
+        return self.list_deployment_targets_with_options(namespace, request, headers, runtime)
 
     def list_deployments_with_options(self, namespace, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -521,10 +516,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_engine_version_metadata(self):
+    def list_deployments(self, namespace, request):
         runtime = util_models.RuntimeOptions()
-        headers = ververica_20220718_models.ListEngineVersionMetadataHeaders()
-        return self.list_engine_version_metadata_with_options(headers, runtime)
+        headers = ververica_20220718_models.ListDeploymentsHeaders()
+        return self.list_deployments_with_options(namespace, request, headers, runtime)
 
     def list_engine_version_metadata_with_options(self, headers, runtime):
         real_headers = {}
@@ -551,10 +546,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_jobs(self, namespace, request):
+    def list_engine_version_metadata(self):
         runtime = util_models.RuntimeOptions()
-        headers = ververica_20220718_models.ListJobsHeaders()
-        return self.list_jobs_with_options(namespace, request, headers, runtime)
+        headers = ververica_20220718_models.ListEngineVersionMetadataHeaders()
+        return self.list_engine_version_metadata_with_options(headers, runtime)
 
     def list_jobs_with_options(self, namespace, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -590,10 +585,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_savepoints(self, namespace, request):
+    def list_jobs(self, namespace, request):
         runtime = util_models.RuntimeOptions()
-        headers = ververica_20220718_models.ListSavepointsHeaders()
-        return self.list_savepoints_with_options(namespace, request, headers, runtime)
+        headers = ververica_20220718_models.ListJobsHeaders()
+        return self.list_jobs_with_options(namespace, request, headers, runtime)
 
     def list_savepoints_with_options(self, namespace, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -631,10 +626,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def list_variables(self, namespace, request):
+    def list_savepoints(self, namespace, request):
         runtime = util_models.RuntimeOptions()
-        headers = ververica_20220718_models.ListVariablesHeaders()
-        return self.list_variables_with_options(namespace, request, headers, runtime)
+        headers = ververica_20220718_models.ListSavepointsHeaders()
+        return self.list_savepoints_with_options(namespace, request, headers, runtime)
 
     def list_variables_with_options(self, namespace, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -668,10 +663,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def start_job(self, namespace, request):
+    def list_variables(self, namespace, request):
         runtime = util_models.RuntimeOptions()
-        headers = ververica_20220718_models.StartJobHeaders()
-        return self.start_job_with_options(namespace, request, headers, runtime)
+        headers = ververica_20220718_models.ListVariablesHeaders()
+        return self.list_variables_with_options(namespace, request, headers, runtime)
 
     def start_job_with_options(self, namespace, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -682,7 +677,7 @@ class Client(OpenApiClient):
             real_headers['workspace'] = UtilClient.to_jsonstring(headers.workspace)
         req = open_api_models.OpenApiRequest(
             headers=real_headers,
-            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.body))
+            body=OpenApiUtilClient.parse_to_map(request.body)
         )
         params = open_api_models.Params(
             action='StartJob',
@@ -700,10 +695,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def stop_job(self, namespace, job_id, request):
+    def start_job(self, namespace, request):
         runtime = util_models.RuntimeOptions()
-        headers = ververica_20220718_models.StopJobHeaders()
-        return self.stop_job_with_options(namespace, job_id, request, headers, runtime)
+        headers = ververica_20220718_models.StartJobHeaders()
+        return self.start_job_with_options(namespace, request, headers, runtime)
 
     def stop_job_with_options(self, namespace, job_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -714,7 +709,7 @@ class Client(OpenApiClient):
             real_headers['workspace'] = UtilClient.to_jsonstring(headers.workspace)
         req = open_api_models.OpenApiRequest(
             headers=real_headers,
-            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.body))
+            body=OpenApiUtilClient.parse_to_map(request.body)
         )
         params = open_api_models.Params(
             action='StopJob',
@@ -732,10 +727,10 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def update_deployment(self, namespace, deployment_id, request):
+    def stop_job(self, namespace, job_id, request):
         runtime = util_models.RuntimeOptions()
-        headers = ververica_20220718_models.UpdateDeploymentHeaders()
-        return self.update_deployment_with_options(namespace, deployment_id, request, headers, runtime)
+        headers = ververica_20220718_models.StopJobHeaders()
+        return self.stop_job_with_options(namespace, job_id, request, headers, runtime)
 
     def update_deployment_with_options(self, namespace, deployment_id, request, headers, runtime):
         UtilClient.validate_model(request)
@@ -746,7 +741,7 @@ class Client(OpenApiClient):
             real_headers['workspace'] = UtilClient.to_jsonstring(headers.workspace)
         req = open_api_models.OpenApiRequest(
             headers=real_headers,
-            body=OpenApiUtilClient.parse_to_map(TeaCore.to_map(request.body))
+            body=OpenApiUtilClient.parse_to_map(request.body)
         )
         params = open_api_models.Params(
             action='UpdateDeployment',
@@ -763,3 +758,8 @@ class Client(OpenApiClient):
             ververica_20220718_models.UpdateDeploymentResponse(),
             self.call_api(params, req, runtime)
         )
+
+    def update_deployment(self, namespace, deployment_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = ververica_20220718_models.UpdateDeploymentHeaders()
+        return self.update_deployment_with_options(namespace, deployment_id, request, headers, runtime)
