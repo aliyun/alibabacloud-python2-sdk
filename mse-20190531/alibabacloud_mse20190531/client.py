@@ -743,8 +743,12 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.apply_gateway_route_with_options(request, runtime)
 
-    def apply_tag_policies_with_options(self, request, runtime):
-        UtilClient.validate_model(request)
+    def apply_tag_policies_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = mse_20190531_models.ApplyTagPoliciesShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.rules):
+            request.rules_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.rules, 'Rules', 'json')
         query = {}
         if not UtilClient.is_unset(request.accept_language):
             query['AcceptLanguage'] = request.accept_language
@@ -760,8 +764,8 @@ class Client(OpenApiClient):
             query['NamespaceId'] = request.namespace_id
         if not UtilClient.is_unset(request.region):
             query['Region'] = request.region
-        if not UtilClient.is_unset(request.rules):
-            query['Rules'] = request.rules
+        if not UtilClient.is_unset(request.rules_shrink):
+            query['Rules'] = request.rules_shrink
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )

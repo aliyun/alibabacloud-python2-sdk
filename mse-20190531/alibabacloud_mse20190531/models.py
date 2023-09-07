@@ -427,6 +427,405 @@ class TrafficPolicy(TeaModel):
         return self
 
 
+class RulesValueRulesSpringcloudRestItems(TeaModel):
+    def __init__(self, datum=None, operator=None, name_list=None, cond=None, divisor=None, remainder=None, rate=None,
+                 type=None, name=None, value=None):
+        self.datum = datum  # type: str
+        self.operator = operator  # type: str
+        self.name_list = name_list  # type: list[str]
+        self.cond = cond  # type: str
+        self.divisor = divisor  # type: int
+        self.remainder = remainder  # type: int
+        self.rate = rate  # type: int
+        self.type = type  # type: str
+        self.name = name  # type: str
+        self.value = value  # type: any
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RulesValueRulesSpringcloudRestItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.datum is not None:
+            result['datum'] = self.datum
+        if self.operator is not None:
+            result['operator'] = self.operator
+        if self.name_list is not None:
+            result['nameList'] = self.name_list
+        if self.cond is not None:
+            result['cond'] = self.cond
+        if self.divisor is not None:
+            result['divisor'] = self.divisor
+        if self.remainder is not None:
+            result['remainder'] = self.remainder
+        if self.rate is not None:
+            result['rate'] = self.rate
+        if self.type is not None:
+            result['type'] = self.type
+        if self.name is not None:
+            result['name'] = self.name
+        if self.value is not None:
+            result['value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('datum') is not None:
+            self.datum = m.get('datum')
+        if m.get('operator') is not None:
+            self.operator = m.get('operator')
+        if m.get('nameList') is not None:
+            self.name_list = m.get('nameList')
+        if m.get('cond') is not None:
+            self.cond = m.get('cond')
+        if m.get('divisor') is not None:
+            self.divisor = m.get('divisor')
+        if m.get('remainder') is not None:
+            self.remainder = m.get('remainder')
+        if m.get('rate') is not None:
+            self.rate = m.get('rate')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('value') is not None:
+            self.value = m.get('value')
+        return self
+
+
+class RulesValueRulesSpringcloud(TeaModel):
+    def __init__(self, condition=None, rest_items=None, trigger_policy=None, enable=None, app_id=None, priority=None,
+                 tags=None, paths=None, path=None):
+        self.condition = condition  # type: str
+        self.rest_items = rest_items  # type: list[RulesValueRulesSpringcloudRestItems]
+        self.trigger_policy = trigger_policy  # type: str
+        self.enable = enable  # type: bool
+        self.app_id = app_id  # type: str
+        self.priority = priority  # type: int
+        self.tags = tags  # type: list[str]
+        self.paths = paths  # type: list[str]
+        self.path = path  # type: str
+
+    def validate(self):
+        if self.rest_items:
+            for k in self.rest_items:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(RulesValueRulesSpringcloud, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.condition is not None:
+            result['condition'] = self.condition
+        result['restItems'] = []
+        if self.rest_items is not None:
+            for k in self.rest_items:
+                result['restItems'].append(k.to_map() if k else None)
+        if self.trigger_policy is not None:
+            result['triggerPolicy'] = self.trigger_policy
+        if self.enable is not None:
+            result['enable'] = self.enable
+        if self.app_id is not None:
+            result['appId'] = self.app_id
+        if self.priority is not None:
+            result['priority'] = self.priority
+        if self.tags is not None:
+            result['tags'] = self.tags
+        if self.paths is not None:
+            result['paths'] = self.paths
+        if self.path is not None:
+            result['path'] = self.path
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('condition') is not None:
+            self.condition = m.get('condition')
+        self.rest_items = []
+        if m.get('restItems') is not None:
+            for k in m.get('restItems'):
+                temp_model = RulesValueRulesSpringcloudRestItems()
+                self.rest_items.append(temp_model.from_map(k))
+        if m.get('triggerPolicy') is not None:
+            self.trigger_policy = m.get('triggerPolicy')
+        if m.get('enable') is not None:
+            self.enable = m.get('enable')
+        if m.get('appId') is not None:
+            self.app_id = m.get('appId')
+        if m.get('priority') is not None:
+            self.priority = m.get('priority')
+        if m.get('tags') is not None:
+            self.tags = m.get('tags')
+        if m.get('paths') is not None:
+            self.paths = m.get('paths')
+        if m.get('path') is not None:
+            self.path = m.get('path')
+        return self
+
+
+class RulesValueRulesDubboArgumentItems(TeaModel):
+    def __init__(self, operator=None, name_list=None, datum=None, cond=None, divisor=None, remainder=None, rate=None,
+                 index=None, expr=None, value=None):
+        self.operator = operator  # type: str
+        self.name_list = name_list  # type: list[str]
+        self.datum = datum  # type: str
+        self.cond = cond  # type: str
+        self.divisor = divisor  # type: int
+        self.remainder = remainder  # type: int
+        self.rate = rate  # type: int
+        self.index = index  # type: int
+        self.expr = expr  # type: str
+        self.value = value  # type: any
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(RulesValueRulesDubboArgumentItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.operator is not None:
+            result['operator'] = self.operator
+        if self.name_list is not None:
+            result['nameList'] = self.name_list
+        if self.datum is not None:
+            result['datum'] = self.datum
+        if self.cond is not None:
+            result['cond'] = self.cond
+        if self.divisor is not None:
+            result['divisor'] = self.divisor
+        if self.remainder is not None:
+            result['remainder'] = self.remainder
+        if self.rate is not None:
+            result['rate'] = self.rate
+        if self.index is not None:
+            result['index'] = self.index
+        if self.expr is not None:
+            result['expr'] = self.expr
+        if self.value is not None:
+            result['value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('operator') is not None:
+            self.operator = m.get('operator')
+        if m.get('nameList') is not None:
+            self.name_list = m.get('nameList')
+        if m.get('datum') is not None:
+            self.datum = m.get('datum')
+        if m.get('cond') is not None:
+            self.cond = m.get('cond')
+        if m.get('divisor') is not None:
+            self.divisor = m.get('divisor')
+        if m.get('remainder') is not None:
+            self.remainder = m.get('remainder')
+        if m.get('rate') is not None:
+            self.rate = m.get('rate')
+        if m.get('index') is not None:
+            self.index = m.get('index')
+        if m.get('expr') is not None:
+            self.expr = m.get('expr')
+        if m.get('value') is not None:
+            self.value = m.get('value')
+        return self
+
+
+class RulesValueRulesDubbo(TeaModel):
+    def __init__(self, app_id=None, tags=None, trigger_policy=None, service_name=None, group=None, version=None,
+                 method_name=None, param_types=None, condition=None, argument_items=None):
+        self.app_id = app_id  # type: str
+        self.tags = tags  # type: list[str]
+        self.trigger_policy = trigger_policy  # type: str
+        self.service_name = service_name  # type: str
+        self.group = group  # type: str
+        self.version = version  # type: str
+        self.method_name = method_name  # type: str
+        self.param_types = param_types  # type: list[str]
+        self.condition = condition  # type: str
+        self.argument_items = argument_items  # type: list[RulesValueRulesDubboArgumentItems]
+
+    def validate(self):
+        if self.argument_items:
+            for k in self.argument_items:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(RulesValueRulesDubbo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_id is not None:
+            result['appId'] = self.app_id
+        if self.tags is not None:
+            result['tags'] = self.tags
+        if self.trigger_policy is not None:
+            result['triggerPolicy'] = self.trigger_policy
+        if self.service_name is not None:
+            result['serviceName'] = self.service_name
+        if self.group is not None:
+            result['group'] = self.group
+        if self.version is not None:
+            result['version'] = self.version
+        if self.method_name is not None:
+            result['methodName'] = self.method_name
+        if self.param_types is not None:
+            result['paramTypes'] = self.param_types
+        if self.condition is not None:
+            result['condition'] = self.condition
+        result['argumentItems'] = []
+        if self.argument_items is not None:
+            for k in self.argument_items:
+                result['argumentItems'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('appId') is not None:
+            self.app_id = m.get('appId')
+        if m.get('tags') is not None:
+            self.tags = m.get('tags')
+        if m.get('triggerPolicy') is not None:
+            self.trigger_policy = m.get('triggerPolicy')
+        if m.get('serviceName') is not None:
+            self.service_name = m.get('serviceName')
+        if m.get('group') is not None:
+            self.group = m.get('group')
+        if m.get('version') is not None:
+            self.version = m.get('version')
+        if m.get('methodName') is not None:
+            self.method_name = m.get('methodName')
+        if m.get('paramTypes') is not None:
+            self.param_types = m.get('paramTypes')
+        if m.get('condition') is not None:
+            self.condition = m.get('condition')
+        self.argument_items = []
+        if m.get('argumentItems') is not None:
+            for k in m.get('argumentItems'):
+                temp_model = RulesValueRulesDubboArgumentItems()
+                self.argument_items.append(temp_model.from_map(k))
+        return self
+
+
+class RulesValueRules(TeaModel):
+    def __init__(self, springcloud=None, dubbo=None):
+        self.springcloud = springcloud  # type: list[RulesValueRulesSpringcloud]
+        self.dubbo = dubbo  # type: list[RulesValueRulesDubbo]
+
+    def validate(self):
+        if self.springcloud:
+            for k in self.springcloud:
+                if k:
+                    k.validate()
+        if self.dubbo:
+            for k in self.dubbo:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(RulesValueRules, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['springcloud'] = []
+        if self.springcloud is not None:
+            for k in self.springcloud:
+                result['springcloud'].append(k.to_map() if k else None)
+        result['dubbo'] = []
+        if self.dubbo is not None:
+            for k in self.dubbo:
+                result['dubbo'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.springcloud = []
+        if m.get('springcloud') is not None:
+            for k in m.get('springcloud'):
+                temp_model = RulesValueRulesSpringcloud()
+                self.springcloud.append(temp_model.from_map(k))
+        self.dubbo = []
+        if m.get('dubbo') is not None:
+            for k in m.get('dubbo'):
+                temp_model = RulesValueRulesDubbo()
+                self.dubbo.append(temp_model.from_map(k))
+        return self
+
+
+class RulesValue(TeaModel):
+    def __init__(self, status=None, rate=None, enable=None, tag=None, name=None, id=None, instance_num=None,
+                 rules=None):
+        self.status = status  # type: int
+        self.rate = rate  # type: int
+        self.enable = enable  # type: bool
+        self.tag = tag  # type: str
+        self.name = name  # type: str
+        self.id = id  # type: long
+        self.instance_num = instance_num  # type: int
+        self.rules = rules  # type: RulesValueRules
+
+    def validate(self):
+        if self.rules:
+            self.rules.validate()
+
+    def to_map(self):
+        _map = super(RulesValue, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.status is not None:
+            result['Status'] = self.status
+        if self.rate is not None:
+            result['Rate'] = self.rate
+        if self.enable is not None:
+            result['Enable'] = self.enable
+        if self.tag is not None:
+            result['Tag'] = self.tag
+        if self.name is not None:
+            result['Name'] = self.name
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.instance_num is not None:
+            result['InstanceNum'] = self.instance_num
+        if self.rules is not None:
+            result['Rules'] = self.rules.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        if m.get('Rate') is not None:
+            self.rate = m.get('Rate')
+        if m.get('Enable') is not None:
+            self.enable = m.get('Enable')
+        if m.get('Tag') is not None:
+            self.tag = m.get('Tag')
+        if m.get('Name') is not None:
+            self.name = m.get('Name')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('InstanceNum') is not None:
+            self.instance_num = m.get('InstanceNum')
+        if m.get('Rules') is not None:
+            temp_model = RulesValueRules()
+            self.rules = temp_model.from_map(m['Rules'])
+        return self
+
+
 class DataValue(TeaModel):
     def __init__(self, user_id=None, region_id=None, namespace=None, app_name=None, app_id=None):
         self.user_id = user_id  # type: str
@@ -4923,10 +5322,13 @@ class ApplyTagPoliciesRequest(TeaModel):
         # The region ID.
         self.region = region  # type: str
         # The details of the routing rule.
-        self.rules = rules  # type: str
+        self.rules = rules  # type: dict[str, RulesValue]
 
     def validate(self):
-        pass
+        if self.rules:
+            for v in self.rules.values():
+                if v:
+                    v.validate()
 
     def to_map(self):
         _map = super(ApplyTagPoliciesRequest, self).to_map()
@@ -4948,8 +5350,82 @@ class ApplyTagPoliciesRequest(TeaModel):
             result['NamespaceId'] = self.namespace_id
         if self.region is not None:
             result['Region'] = self.region
+        result['Rules'] = {}
         if self.rules is not None:
-            result['Rules'] = self.rules
+            for k, v in self.rules.items():
+                result['Rules'][k] = v.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AcceptLanguage') is not None:
+            self.accept_language = m.get('AcceptLanguage')
+        if m.get('AppId') is not None:
+            self.app_id = m.get('AppId')
+        if m.get('AppName') is not None:
+            self.app_name = m.get('AppName')
+        if m.get('Enable') is not None:
+            self.enable = m.get('Enable')
+        if m.get('Namespace') is not None:
+            self.namespace = m.get('Namespace')
+        if m.get('NamespaceId') is not None:
+            self.namespace_id = m.get('NamespaceId')
+        if m.get('Region') is not None:
+            self.region = m.get('Region')
+        self.rules = {}
+        if m.get('Rules') is not None:
+            for k, v in m.get('Rules').items():
+                temp_model = RulesValue()
+                self.rules[k] = temp_model.from_map(v)
+        return self
+
+
+class ApplyTagPoliciesShrinkRequest(TeaModel):
+    def __init__(self, accept_language=None, app_id=None, app_name=None, enable=None, namespace=None,
+                 namespace_id=None, region=None, rules_shrink=None):
+        # The language of the response. Valid values:
+        # 
+        # *   zh: Chinese
+        # *   en: English
+        self.accept_language = accept_language  # type: str
+        # The ID of the application.
+        self.app_id = app_id  # type: str
+        self.app_name = app_name  # type: str
+        # Specifies whether to enable the routing rule.
+        self.enable = enable  # type: bool
+        self.namespace = namespace  # type: str
+        # Optional. The ID of the namespace.
+        self.namespace_id = namespace_id  # type: str
+        # The region ID.
+        self.region = region  # type: str
+        # The details of the routing rule.
+        self.rules_shrink = rules_shrink  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ApplyTagPoliciesShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.accept_language is not None:
+            result['AcceptLanguage'] = self.accept_language
+        if self.app_id is not None:
+            result['AppId'] = self.app_id
+        if self.app_name is not None:
+            result['AppName'] = self.app_name
+        if self.enable is not None:
+            result['Enable'] = self.enable
+        if self.namespace is not None:
+            result['Namespace'] = self.namespace
+        if self.namespace_id is not None:
+            result['NamespaceId'] = self.namespace_id
+        if self.region is not None:
+            result['Region'] = self.region
+        if self.rules_shrink is not None:
+            result['Rules'] = self.rules_shrink
         return result
 
     def from_map(self, m=None):
@@ -4969,7 +5445,7 @@ class ApplyTagPoliciesRequest(TeaModel):
         if m.get('Region') is not None:
             self.region = m.get('Region')
         if m.get('Rules') is not None:
-            self.rules = m.get('Rules')
+            self.rules_shrink = m.get('Rules')
         return self
 
 
@@ -14045,7 +14521,7 @@ class GetApplicationListRequest(TeaModel):
 
 class GetApplicationListResponseBodyDataResult(TeaModel):
     def __init__(self, app_id=None, app_name=None, extra_info=None, instances_number=None, language=None,
-                 namespace=None, region_id=None, source=None, status=None, tag_count=None, user_id=None):
+                 namespace=None, region_id=None, source=None, status=None, user_id=None):
         # The ID of the application.
         self.app_id = app_id  # type: str
         # The name of the application.
@@ -14063,7 +14539,6 @@ class GetApplicationListResponseBodyDataResult(TeaModel):
         self.source = source  # type: str
         # The status.
         self.status = status  # type: long
-        self.tag_count = tag_count  # type: long
         # The ID of the user.
         self.user_id = user_id  # type: str
 
@@ -14094,8 +14569,6 @@ class GetApplicationListResponseBodyDataResult(TeaModel):
             result['Source'] = self.source
         if self.status is not None:
             result['Status'] = self.status
-        if self.tag_count is not None:
-            result['TagCount'] = self.tag_count
         if self.user_id is not None:
             result['UserId'] = self.user_id
         return result
@@ -14120,8 +14593,6 @@ class GetApplicationListResponseBodyDataResult(TeaModel):
             self.source = m.get('Source')
         if m.get('Status') is not None:
             self.status = m.get('Status')
-        if m.get('TagCount') is not None:
-            self.tag_count = m.get('TagCount')
         if m.get('UserId') is not None:
             self.user_id = m.get('UserId')
         return self
@@ -14179,10 +14650,9 @@ class GetApplicationListResponseBodyData(TeaModel):
 
 
 class GetApplicationListResponseBody(TeaModel):
-    def __init__(self, data=None, error_code=None, message=None, request_id=None, success=None):
+    def __init__(self, data=None, message=None, request_id=None, success=None):
         # The data structure.
         self.data = data  # type: GetApplicationListResponseBodyData
-        self.error_code = error_code  # type: str
         # The message returned.
         self.message = message  # type: str
         # The ID of the request.
@@ -14205,8 +14675,6 @@ class GetApplicationListResponseBody(TeaModel):
         result = dict()
         if self.data is not None:
             result['Data'] = self.data.to_map()
-        if self.error_code is not None:
-            result['ErrorCode'] = self.error_code
         if self.message is not None:
             result['Message'] = self.message
         if self.request_id is not None:
@@ -14220,8 +14688,6 @@ class GetApplicationListResponseBody(TeaModel):
         if m.get('Data') is not None:
             temp_model = GetApplicationListResponseBodyData()
             self.data = temp_model.from_map(m['Data'])
-        if m.get('ErrorCode') is not None:
-            self.error_code = m.get('ErrorCode')
         if m.get('Message') is not None:
             self.message = m.get('Message')
         if m.get('RequestId') is not None:
@@ -18163,8 +18629,7 @@ class GetGovernanceKubernetesClusterRequest(TeaModel):
 
 
 class GetGovernanceKubernetesClusterResponseBodyDataNamespaces(TeaModel):
-    def __init__(self, labels=None, mse_namespace=None, name=None):
-        self.labels = labels  # type: dict[str, str]
+    def __init__(self, mse_namespace=None, name=None):
         self.mse_namespace = mse_namespace  # type: str
         # The name.
         self.name = name  # type: str
@@ -18178,8 +18643,6 @@ class GetGovernanceKubernetesClusterResponseBodyDataNamespaces(TeaModel):
             return _map
 
         result = dict()
-        if self.labels is not None:
-            result['Labels'] = self.labels
         if self.mse_namespace is not None:
             result['MseNamespace'] = self.mse_namespace
         if self.name is not None:
@@ -18188,8 +18651,6 @@ class GetGovernanceKubernetesClusterResponseBodyDataNamespaces(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('Labels') is not None:
-            self.labels = m.get('Labels')
         if m.get('MseNamespace') is not None:
             self.mse_namespace = m.get('MseNamespace')
         if m.get('Name') is not None:
@@ -24439,18 +24900,351 @@ class ListApplicationsWithTagRulesRequest(TeaModel):
         return self
 
 
+class ListApplicationsWithTagRulesResponseBodyDataResultRouteRulesRulesDubboArgumentItems(TeaModel):
+    def __init__(self, cond=None, datum=None, divisor=None, expr=None, index=None, name_list=None, operator=None,
+                 rate=None, remainder=None, value=None):
+        self.cond = cond  # type: str
+        self.datum = datum  # type: str
+        self.divisor = divisor  # type: int
+        self.expr = expr  # type: str
+        self.index = index  # type: int
+        self.name_list = name_list  # type: list[str]
+        self.operator = operator  # type: str
+        self.rate = rate  # type: int
+        self.remainder = remainder  # type: int
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListApplicationsWithTagRulesResponseBodyDataResultRouteRulesRulesDubboArgumentItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cond is not None:
+            result['cond'] = self.cond
+        if self.datum is not None:
+            result['datum'] = self.datum
+        if self.divisor is not None:
+            result['divisor'] = self.divisor
+        if self.expr is not None:
+            result['expr'] = self.expr
+        if self.index is not None:
+            result['index'] = self.index
+        if self.name_list is not None:
+            result['nameList'] = self.name_list
+        if self.operator is not None:
+            result['operator'] = self.operator
+        if self.rate is not None:
+            result['rate'] = self.rate
+        if self.remainder is not None:
+            result['remainder'] = self.remainder
+        if self.value is not None:
+            result['value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('cond') is not None:
+            self.cond = m.get('cond')
+        if m.get('datum') is not None:
+            self.datum = m.get('datum')
+        if m.get('divisor') is not None:
+            self.divisor = m.get('divisor')
+        if m.get('expr') is not None:
+            self.expr = m.get('expr')
+        if m.get('index') is not None:
+            self.index = m.get('index')
+        if m.get('nameList') is not None:
+            self.name_list = m.get('nameList')
+        if m.get('operator') is not None:
+            self.operator = m.get('operator')
+        if m.get('rate') is not None:
+            self.rate = m.get('rate')
+        if m.get('remainder') is not None:
+            self.remainder = m.get('remainder')
+        if m.get('value') is not None:
+            self.value = m.get('value')
+        return self
+
+
+class ListApplicationsWithTagRulesResponseBodyDataResultRouteRulesRulesDubbo(TeaModel):
+    def __init__(self, app_id=None, argument_items=None, condition=None, group=None, method_name=None,
+                 param_types=None, service_name=None, tags=None, trigger_policy=None, version=None):
+        self.app_id = app_id  # type: str
+        self.argument_items = argument_items  # type: list[ListApplicationsWithTagRulesResponseBodyDataResultRouteRulesRulesDubboArgumentItems]
+        self.condition = condition  # type: str
+        self.group = group  # type: str
+        self.method_name = method_name  # type: str
+        self.param_types = param_types  # type: list[str]
+        self.service_name = service_name  # type: str
+        self.tags = tags  # type: list[str]
+        self.trigger_policy = trigger_policy  # type: str
+        self.version = version  # type: str
+
+    def validate(self):
+        if self.argument_items:
+            for k in self.argument_items:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListApplicationsWithTagRulesResponseBodyDataResultRouteRulesRulesDubbo, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_id is not None:
+            result['appId'] = self.app_id
+        result['argumentItems'] = []
+        if self.argument_items is not None:
+            for k in self.argument_items:
+                result['argumentItems'].append(k.to_map() if k else None)
+        if self.condition is not None:
+            result['condition'] = self.condition
+        if self.group is not None:
+            result['group'] = self.group
+        if self.method_name is not None:
+            result['methodName'] = self.method_name
+        if self.param_types is not None:
+            result['paramTypes'] = self.param_types
+        if self.service_name is not None:
+            result['serviceName'] = self.service_name
+        if self.tags is not None:
+            result['tags'] = self.tags
+        if self.trigger_policy is not None:
+            result['triggerPolicy'] = self.trigger_policy
+        if self.version is not None:
+            result['version'] = self.version
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('appId') is not None:
+            self.app_id = m.get('appId')
+        self.argument_items = []
+        if m.get('argumentItems') is not None:
+            for k in m.get('argumentItems'):
+                temp_model = ListApplicationsWithTagRulesResponseBodyDataResultRouteRulesRulesDubboArgumentItems()
+                self.argument_items.append(temp_model.from_map(k))
+        if m.get('condition') is not None:
+            self.condition = m.get('condition')
+        if m.get('group') is not None:
+            self.group = m.get('group')
+        if m.get('methodName') is not None:
+            self.method_name = m.get('methodName')
+        if m.get('paramTypes') is not None:
+            self.param_types = m.get('paramTypes')
+        if m.get('serviceName') is not None:
+            self.service_name = m.get('serviceName')
+        if m.get('tags') is not None:
+            self.tags = m.get('tags')
+        if m.get('triggerPolicy') is not None:
+            self.trigger_policy = m.get('triggerPolicy')
+        if m.get('version') is not None:
+            self.version = m.get('version')
+        return self
+
+
+class ListApplicationsWithTagRulesResponseBodyDataResultRouteRulesRulesSpringcloudRestItems(TeaModel):
+    def __init__(self, cond=None, datum=None, divisor=None, name=None, name_list=None, operator=None, rate=None,
+                 remainder=None, type=None, value=None):
+        self.cond = cond  # type: str
+        self.datum = datum  # type: str
+        self.divisor = divisor  # type: int
+        self.name = name  # type: str
+        self.name_list = name_list  # type: list[str]
+        self.operator = operator  # type: str
+        self.rate = rate  # type: int
+        self.remainder = remainder  # type: int
+        self.type = type  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListApplicationsWithTagRulesResponseBodyDataResultRouteRulesRulesSpringcloudRestItems, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cond is not None:
+            result['cond'] = self.cond
+        if self.datum is not None:
+            result['datum'] = self.datum
+        if self.divisor is not None:
+            result['divisor'] = self.divisor
+        if self.name is not None:
+            result['name'] = self.name
+        if self.name_list is not None:
+            result['nameList'] = self.name_list
+        if self.operator is not None:
+            result['operator'] = self.operator
+        if self.rate is not None:
+            result['rate'] = self.rate
+        if self.remainder is not None:
+            result['remainder'] = self.remainder
+        if self.type is not None:
+            result['type'] = self.type
+        if self.value is not None:
+            result['value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('cond') is not None:
+            self.cond = m.get('cond')
+        if m.get('datum') is not None:
+            self.datum = m.get('datum')
+        if m.get('divisor') is not None:
+            self.divisor = m.get('divisor')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('nameList') is not None:
+            self.name_list = m.get('nameList')
+        if m.get('operator') is not None:
+            self.operator = m.get('operator')
+        if m.get('rate') is not None:
+            self.rate = m.get('rate')
+        if m.get('remainder') is not None:
+            self.remainder = m.get('remainder')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('value') is not None:
+            self.value = m.get('value')
+        return self
+
+
+class ListApplicationsWithTagRulesResponseBodyDataResultRouteRulesRulesSpringcloud(TeaModel):
+    def __init__(self, app_id=None, condition=None, enable=None, path=None, paths=None, priority=None,
+                 rest_items=None, tags=None, trigger_policy=None):
+        self.app_id = app_id  # type: str
+        self.condition = condition  # type: str
+        self.enable = enable  # type: bool
+        self.path = path  # type: str
+        self.paths = paths  # type: list[str]
+        self.priority = priority  # type: int
+        self.rest_items = rest_items  # type: list[ListApplicationsWithTagRulesResponseBodyDataResultRouteRulesRulesSpringcloudRestItems]
+        self.tags = tags  # type: list[str]
+        self.trigger_policy = trigger_policy  # type: str
+
+    def validate(self):
+        if self.rest_items:
+            for k in self.rest_items:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListApplicationsWithTagRulesResponseBodyDataResultRouteRulesRulesSpringcloud, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_id is not None:
+            result['appId'] = self.app_id
+        if self.condition is not None:
+            result['condition'] = self.condition
+        if self.enable is not None:
+            result['enable'] = self.enable
+        if self.path is not None:
+            result['path'] = self.path
+        if self.paths is not None:
+            result['paths'] = self.paths
+        if self.priority is not None:
+            result['priority'] = self.priority
+        result['restItems'] = []
+        if self.rest_items is not None:
+            for k in self.rest_items:
+                result['restItems'].append(k.to_map() if k else None)
+        if self.tags is not None:
+            result['tags'] = self.tags
+        if self.trigger_policy is not None:
+            result['triggerPolicy'] = self.trigger_policy
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('appId') is not None:
+            self.app_id = m.get('appId')
+        if m.get('condition') is not None:
+            self.condition = m.get('condition')
+        if m.get('enable') is not None:
+            self.enable = m.get('enable')
+        if m.get('path') is not None:
+            self.path = m.get('path')
+        if m.get('paths') is not None:
+            self.paths = m.get('paths')
+        if m.get('priority') is not None:
+            self.priority = m.get('priority')
+        self.rest_items = []
+        if m.get('restItems') is not None:
+            for k in m.get('restItems'):
+                temp_model = ListApplicationsWithTagRulesResponseBodyDataResultRouteRulesRulesSpringcloudRestItems()
+                self.rest_items.append(temp_model.from_map(k))
+        if m.get('tags') is not None:
+            self.tags = m.get('tags')
+        if m.get('triggerPolicy') is not None:
+            self.trigger_policy = m.get('triggerPolicy')
+        return self
+
+
+class ListApplicationsWithTagRulesResponseBodyDataResultRouteRulesRules(TeaModel):
+    def __init__(self, dubbo=None, springcloud=None):
+        self.dubbo = dubbo  # type: list[ListApplicationsWithTagRulesResponseBodyDataResultRouteRulesRulesDubbo]
+        self.springcloud = springcloud  # type: list[ListApplicationsWithTagRulesResponseBodyDataResultRouteRulesRulesSpringcloud]
+
+    def validate(self):
+        if self.dubbo:
+            for k in self.dubbo:
+                if k:
+                    k.validate()
+        if self.springcloud:
+            for k in self.springcloud:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListApplicationsWithTagRulesResponseBodyDataResultRouteRulesRules, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['dubbo'] = []
+        if self.dubbo is not None:
+            for k in self.dubbo:
+                result['dubbo'].append(k.to_map() if k else None)
+        result['springcloud'] = []
+        if self.springcloud is not None:
+            for k in self.springcloud:
+                result['springcloud'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.dubbo = []
+        if m.get('dubbo') is not None:
+            for k in m.get('dubbo'):
+                temp_model = ListApplicationsWithTagRulesResponseBodyDataResultRouteRulesRulesDubbo()
+                self.dubbo.append(temp_model.from_map(k))
+        self.springcloud = []
+        if m.get('springcloud') is not None:
+            for k in m.get('springcloud'):
+                temp_model = ListApplicationsWithTagRulesResponseBodyDataResultRouteRulesRulesSpringcloud()
+                self.springcloud.append(temp_model.from_map(k))
+        return self
+
+
 class ListApplicationsWithTagRulesResponseBodyDataResultRouteRules(TeaModel):
-    def __init__(self, carry_data=None, enable=None, gmt_modified=None, id=None, instance_num=None, name=None,
-                 rate=None, remove=None, rules=None, status=None, tag=None):
-        # Indicates whether the field is a primary key.
-        self.carry_data = carry_data  # type: bool
+    def __init__(self, enable=None, id=None, instance_num=None, name=None, rate=None, rules=None, status=None,
+                 tag=None):
         # Indicates whether the alert rule is enabled. Valid value:
         # 
         # *   `true`: enabled.
         # *   `false`: disabled.
         self.enable = enable  # type: bool
-        # The modification time.
-        self.gmt_modified = gmt_modified  # type: str
         # The ID of the rule.
         self.id = id  # type: long
         # The number of instances.
@@ -24459,17 +25253,16 @@ class ListApplicationsWithTagRulesResponseBodyDataResultRouteRules(TeaModel):
         self.name = name  # type: str
         # The rate.
         self.rate = rate  # type: int
-        # Indicates whether the routing rule is deleted.
-        self.remove = remove  # type: bool
         # The details of the routing rule.
-        self.rules = rules  # type: str
+        self.rules = rules  # type: ListApplicationsWithTagRulesResponseBodyDataResultRouteRulesRules
         # The status.
         self.status = status  # type: int
         # The tag.
         self.tag = tag  # type: str
 
     def validate(self):
-        pass
+        if self.rules:
+            self.rules.validate()
 
     def to_map(self):
         _map = super(ListApplicationsWithTagRulesResponseBodyDataResultRouteRules, self).to_map()
@@ -24477,12 +25270,8 @@ class ListApplicationsWithTagRulesResponseBodyDataResultRouteRules(TeaModel):
             return _map
 
         result = dict()
-        if self.carry_data is not None:
-            result['CarryData'] = self.carry_data
         if self.enable is not None:
             result['Enable'] = self.enable
-        if self.gmt_modified is not None:
-            result['GmtModified'] = self.gmt_modified
         if self.id is not None:
             result['Id'] = self.id
         if self.instance_num is not None:
@@ -24491,10 +25280,8 @@ class ListApplicationsWithTagRulesResponseBodyDataResultRouteRules(TeaModel):
             result['Name'] = self.name
         if self.rate is not None:
             result['Rate'] = self.rate
-        if self.remove is not None:
-            result['Remove'] = self.remove
         if self.rules is not None:
-            result['Rules'] = self.rules
+            result['Rules'] = self.rules.to_map()
         if self.status is not None:
             result['Status'] = self.status
         if self.tag is not None:
@@ -24503,12 +25290,8 @@ class ListApplicationsWithTagRulesResponseBodyDataResultRouteRules(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('CarryData') is not None:
-            self.carry_data = m.get('CarryData')
         if m.get('Enable') is not None:
             self.enable = m.get('Enable')
-        if m.get('GmtModified') is not None:
-            self.gmt_modified = m.get('GmtModified')
         if m.get('Id') is not None:
             self.id = m.get('Id')
         if m.get('InstanceNum') is not None:
@@ -24517,10 +25300,9 @@ class ListApplicationsWithTagRulesResponseBodyDataResultRouteRules(TeaModel):
             self.name = m.get('Name')
         if m.get('Rate') is not None:
             self.rate = m.get('Rate')
-        if m.get('Remove') is not None:
-            self.remove = m.get('Remove')
         if m.get('Rules') is not None:
-            self.rules = m.get('Rules')
+            temp_model = ListApplicationsWithTagRulesResponseBodyDataResultRouteRulesRules()
+            self.rules = temp_model.from_map(m['Rules'])
         if m.get('Status') is not None:
             self.status = m.get('Status')
         if m.get('Tag') is not None:
