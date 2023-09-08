@@ -227,20 +227,55 @@ class CreateArtifactRequestArtifactProperty(TeaModel):
         return self
 
 
+class CreateArtifactRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateArtifactRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
 class CreateArtifactRequest(TeaModel):
     def __init__(self, artifact_id=None, artifact_property=None, artifact_type=None, description=None, name=None,
-                 support_region_ids=None, version_name=None):
+                 resource_group_id=None, support_region_ids=None, tag=None, version_name=None):
         self.artifact_id = artifact_id  # type: str
         self.artifact_property = artifact_property  # type: CreateArtifactRequestArtifactProperty
         self.artifact_type = artifact_type  # type: str
         self.description = description  # type: str
         self.name = name  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.support_region_ids = support_region_ids  # type: list[str]
+        self.tag = tag  # type: list[CreateArtifactRequestTag]
         self.version_name = version_name  # type: str
 
     def validate(self):
         if self.artifact_property:
             self.artifact_property.validate()
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(CreateArtifactRequest, self).to_map()
@@ -258,8 +293,14 @@ class CreateArtifactRequest(TeaModel):
             result['Description'] = self.description
         if self.name is not None:
             result['Name'] = self.name
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.support_region_ids is not None:
             result['SupportRegionIds'] = self.support_region_ids
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
         if self.version_name is not None:
             result['VersionName'] = self.version_name
         return result
@@ -277,26 +318,67 @@ class CreateArtifactRequest(TeaModel):
             self.description = m.get('Description')
         if m.get('Name') is not None:
             self.name = m.get('Name')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('SupportRegionIds') is not None:
             self.support_region_ids = m.get('SupportRegionIds')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = CreateArtifactRequestTag()
+                self.tag.append(temp_model.from_map(k))
         if m.get('VersionName') is not None:
             self.version_name = m.get('VersionName')
         return self
 
 
+class CreateArtifactShrinkRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateArtifactShrinkRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
 class CreateArtifactShrinkRequest(TeaModel):
     def __init__(self, artifact_id=None, artifact_property_shrink=None, artifact_type=None, description=None,
-                 name=None, support_region_ids=None, version_name=None):
+                 name=None, resource_group_id=None, support_region_ids=None, tag=None, version_name=None):
         self.artifact_id = artifact_id  # type: str
         self.artifact_property_shrink = artifact_property_shrink  # type: str
         self.artifact_type = artifact_type  # type: str
         self.description = description  # type: str
         self.name = name  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.support_region_ids = support_region_ids  # type: list[str]
+        self.tag = tag  # type: list[CreateArtifactShrinkRequestTag]
         self.version_name = version_name  # type: str
 
     def validate(self):
-        pass
+        if self.tag:
+            for k in self.tag:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(CreateArtifactShrinkRequest, self).to_map()
@@ -314,8 +396,14 @@ class CreateArtifactShrinkRequest(TeaModel):
             result['Description'] = self.description
         if self.name is not None:
             result['Name'] = self.name
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.support_region_ids is not None:
             result['SupportRegionIds'] = self.support_region_ids
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
         if self.version_name is not None:
             result['VersionName'] = self.version_name
         return result
@@ -332,8 +420,15 @@ class CreateArtifactShrinkRequest(TeaModel):
             self.description = m.get('Description')
         if m.get('Name') is not None:
             self.name = m.get('Name')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('SupportRegionIds') is not None:
             self.support_region_ids = m.get('SupportRegionIds')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = CreateArtifactShrinkRequestTag()
+                self.tag.append(temp_model.from_map(k))
         if m.get('VersionName') is not None:
             self.version_name = m.get('VersionName')
         return self
@@ -1501,10 +1596,39 @@ class GetArtifactRequest(TeaModel):
         return self
 
 
+class GetArtifactResponseBodyTags(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetArtifactResponseBodyTags, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
 class GetArtifactResponseBody(TeaModel):
     def __init__(self, artifact_id=None, artifact_property=None, artifact_type=None, artifact_version=None,
-                 description=None, gmt_modified=None, max_version=None, name=None, progress=None, request_id=None, status=None,
-                 support_region_ids=None, version_name=None):
+                 description=None, gmt_modified=None, max_version=None, name=None, progress=None, request_id=None,
+                 resource_group_id=None, status=None, support_region_ids=None, tags=None, version_name=None):
         self.artifact_id = artifact_id  # type: str
         self.artifact_property = artifact_property  # type: str
         self.artifact_type = artifact_type  # type: str
@@ -1515,12 +1639,17 @@ class GetArtifactResponseBody(TeaModel):
         self.name = name  # type: str
         self.progress = progress  # type: str
         self.request_id = request_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.status = status  # type: str
         self.support_region_ids = support_region_ids  # type: str
+        self.tags = tags  # type: list[GetArtifactResponseBodyTags]
         self.version_name = version_name  # type: str
 
     def validate(self):
-        pass
+        if self.tags:
+            for k in self.tags:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(GetArtifactResponseBody, self).to_map()
@@ -1548,10 +1677,16 @@ class GetArtifactResponseBody(TeaModel):
             result['Progress'] = self.progress
         if self.request_id is not None:
             result['RequestId'] = self.request_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.status is not None:
             result['Status'] = self.status
         if self.support_region_ids is not None:
             result['SupportRegionIds'] = self.support_region_ids
+        result['Tags'] = []
+        if self.tags is not None:
+            for k in self.tags:
+                result['Tags'].append(k.to_map() if k else None)
         if self.version_name is not None:
             result['VersionName'] = self.version_name
         return result
@@ -1578,10 +1713,17 @@ class GetArtifactResponseBody(TeaModel):
             self.progress = m.get('Progress')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('Status') is not None:
             self.status = m.get('Status')
         if m.get('SupportRegionIds') is not None:
             self.support_region_ids = m.get('SupportRegionIds')
+        self.tags = []
+        if m.get('Tags') is not None:
+            for k in m.get('Tags'):
+                temp_model = GetArtifactResponseBodyTags()
+                self.tags.append(temp_model.from_map(k))
         if m.get('VersionName') is not None:
             self.version_name = m.get('VersionName')
         return self
@@ -3976,15 +4118,50 @@ class ListArtifactsRequestFilter(TeaModel):
         return self
 
 
+class ListArtifactsRequestTag(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListArtifactsRequestTag, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
+        return self
+
+
 class ListArtifactsRequest(TeaModel):
-    def __init__(self, filter=None, max_results=None, next_token=None):
+    def __init__(self, filter=None, max_results=None, next_token=None, resource_group_id=None, tag=None):
         self.filter = filter  # type: list[ListArtifactsRequestFilter]
         self.max_results = max_results  # type: int
         self.next_token = next_token  # type: str
+        self.resource_group_id = resource_group_id  # type: str
+        self.tag = tag  # type: list[ListArtifactsRequestTag]
 
     def validate(self):
         if self.filter:
             for k in self.filter:
+                if k:
+                    k.validate()
+        if self.tag:
+            for k in self.tag:
                 if k:
                     k.validate()
 
@@ -4002,6 +4179,12 @@ class ListArtifactsRequest(TeaModel):
             result['MaxResults'] = self.max_results
         if self.next_token is not None:
             result['NextToken'] = self.next_token
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
+        result['Tag'] = []
+        if self.tag is not None:
+            for k in self.tag:
+                result['Tag'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m=None):
@@ -4015,22 +4198,63 @@ class ListArtifactsRequest(TeaModel):
             self.max_results = m.get('MaxResults')
         if m.get('NextToken') is not None:
             self.next_token = m.get('NextToken')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
+        self.tag = []
+        if m.get('Tag') is not None:
+            for k in m.get('Tag'):
+                temp_model = ListArtifactsRequestTag()
+                self.tag.append(temp_model.from_map(k))
+        return self
+
+
+class ListArtifactsResponseBodyArtifactsTags(TeaModel):
+    def __init__(self, key=None, value=None):
+        self.key = key  # type: str
+        self.value = value  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListArtifactsResponseBodyArtifactsTags, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.key is not None:
+            result['Key'] = self.key
+        if self.value is not None:
+            result['Value'] = self.value
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Key') is not None:
+            self.key = m.get('Key')
+        if m.get('Value') is not None:
+            self.value = m.get('Value')
         return self
 
 
 class ListArtifactsResponseBodyArtifacts(TeaModel):
     def __init__(self, artifact_id=None, artifact_type=None, description=None, gmt_modified=None, max_version=None,
-                 name=None, status=None):
+                 name=None, resource_group_id=None, status=None, tags=None):
         self.artifact_id = artifact_id  # type: str
         self.artifact_type = artifact_type  # type: str
         self.description = description  # type: str
         self.gmt_modified = gmt_modified  # type: str
         self.max_version = max_version  # type: str
         self.name = name  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         self.status = status  # type: str
+        self.tags = tags  # type: list[ListArtifactsResponseBodyArtifactsTags]
 
     def validate(self):
-        pass
+        if self.tags:
+            for k in self.tags:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(ListArtifactsResponseBodyArtifacts, self).to_map()
@@ -4050,8 +4274,14 @@ class ListArtifactsResponseBodyArtifacts(TeaModel):
             result['MaxVersion'] = self.max_version
         if self.name is not None:
             result['Name'] = self.name
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.status is not None:
             result['Status'] = self.status
+        result['Tags'] = []
+        if self.tags is not None:
+            for k in self.tags:
+                result['Tags'].append(k.to_map() if k else None)
         return result
 
     def from_map(self, m=None):
@@ -4068,8 +4298,15 @@ class ListArtifactsResponseBodyArtifacts(TeaModel):
             self.max_version = m.get('MaxVersion')
         if m.get('Name') is not None:
             self.name = m.get('Name')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('Status') is not None:
             self.status = m.get('Status')
+        self.tags = []
+        if m.get('Tags') is not None:
+            for k in m.get('Tags'):
+                temp_model = ListArtifactsResponseBodyArtifactsTags()
+                self.tags.append(temp_model.from_map(k))
         return self
 
 
