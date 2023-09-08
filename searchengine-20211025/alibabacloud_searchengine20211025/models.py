@@ -7943,14 +7943,13 @@ class ModifyClusterDescResponse(TeaModel):
 
 
 class ModifyClusterOfflineConfigRequest(TeaModel):
-    def __init__(self, build_mode=None, config=None, data_source=None, data_source_type=None, data_time_sec=None,
-                 domain=None, generation=None, partition=None, trigger_build=None):
+    def __init__(self, build_mode=None, config=None, data_source_name=None, data_source_type=None,
+                 data_time_sec=None, domain=None, generation=None, partition=None, push_mode=None):
         # The reindexing method. Valid values: api: API data source. indexRecover: data recovery through indexing.
         self.build_mode = build_mode  # type: str
         # The configuration name, which is stored as a key.
         self.config = config  # type: dict[str, int]
-        # The name of the data source.
-        self.data_source = data_source  # type: str
+        self.data_source_name = data_source_name  # type: str
         # The type of the data source. Valid values: odps: MaxCompute. swift: Swift. unKnow: unknown type.
         self.data_source_type = data_source_type  # type: str
         # This parameter is required if the API data source experiences full indexing.
@@ -7961,11 +7960,7 @@ class ModifyClusterOfflineConfigRequest(TeaModel):
         self.generation = generation  # type: long
         # This parameter is required if the MaxCompute data source experiences full indexing.
         self.partition = partition  # type: str
-        # Specifies whether to trigger reindexing.
-        # 
-        # *   true: synchronizes the configuration and triggers reindexing.
-        # *   false: waits for the configuration to take effect next time when reindexing is triggered.
-        self.trigger_build = trigger_build  # type: bool
+        self.push_mode = push_mode  # type: str
 
     def validate(self):
         pass
@@ -7980,8 +7975,8 @@ class ModifyClusterOfflineConfigRequest(TeaModel):
             result['buildMode'] = self.build_mode
         if self.config is not None:
             result['config'] = self.config
-        if self.data_source is not None:
-            result['dataSource'] = self.data_source
+        if self.data_source_name is not None:
+            result['dataSourceName'] = self.data_source_name
         if self.data_source_type is not None:
             result['dataSourceType'] = self.data_source_type
         if self.data_time_sec is not None:
@@ -7992,8 +7987,8 @@ class ModifyClusterOfflineConfigRequest(TeaModel):
             result['generation'] = self.generation
         if self.partition is not None:
             result['partition'] = self.partition
-        if self.trigger_build is not None:
-            result['triggerBuild'] = self.trigger_build
+        if self.push_mode is not None:
+            result['pushMode'] = self.push_mode
         return result
 
     def from_map(self, m=None):
@@ -8002,8 +7997,8 @@ class ModifyClusterOfflineConfigRequest(TeaModel):
             self.build_mode = m.get('buildMode')
         if m.get('config') is not None:
             self.config = m.get('config')
-        if m.get('dataSource') is not None:
-            self.data_source = m.get('dataSource')
+        if m.get('dataSourceName') is not None:
+            self.data_source_name = m.get('dataSourceName')
         if m.get('dataSourceType') is not None:
             self.data_source_type = m.get('dataSourceType')
         if m.get('dataTimeSec') is not None:
@@ -8014,8 +8009,8 @@ class ModifyClusterOfflineConfigRequest(TeaModel):
             self.generation = m.get('generation')
         if m.get('partition') is not None:
             self.partition = m.get('partition')
-        if m.get('triggerBuild') is not None:
-            self.trigger_build = m.get('triggerBuild')
+        if m.get('pushMode') is not None:
+            self.push_mode = m.get('pushMode')
         return self
 
 

@@ -1837,8 +1837,8 @@ class Client(OpenApiClient):
             body['buildMode'] = request.build_mode
         if not UtilClient.is_unset(request.config):
             body['config'] = request.config
-        if not UtilClient.is_unset(request.data_source):
-            body['dataSource'] = request.data_source
+        if not UtilClient.is_unset(request.data_source_name):
+            body['dataSourceName'] = request.data_source_name
         if not UtilClient.is_unset(request.data_source_type):
             body['dataSourceType'] = request.data_source_type
         if not UtilClient.is_unset(request.data_time_sec):
@@ -1849,8 +1849,8 @@ class Client(OpenApiClient):
             body['generation'] = request.generation
         if not UtilClient.is_unset(request.partition):
             body['partition'] = request.partition
-        if not UtilClient.is_unset(request.trigger_build):
-            body['triggerBuild'] = request.trigger_build
+        if not UtilClient.is_unset(request.push_mode):
+            body['pushMode'] = request.push_mode
         req = open_api_models.OpenApiRequest(
             headers=headers,
             body=OpenApiUtilClient.parse_to_map(body)
