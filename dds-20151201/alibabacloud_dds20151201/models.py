@@ -17070,6 +17070,7 @@ class ModifyDBInstanceNetworkTypeRequest(TeaModel):
         # 
         # >  This parameter is required when the **NetworkType** parameter is set to **VPC**.
         self.vpc_id = vpc_id  # type: str
+        # The zone ID of the instance. You can call the [DescribeRegions](~~468365~~) operation to query the most recent zone list.
         self.zone_id = zone_id  # type: str
 
     def validate(self):
