@@ -412,14 +412,14 @@ class Client(OpenApiClient):
 
     def create_oidcprovider_with_options(self, request, runtime):
         """
-        ### Prerequisites
+        ### [](#)Prerequisite
         Before you call this operation, make sure that the information such as the URL of the issuer, the fingerprints of HTTPS certificates, and the client IDs are obtained from an external IdP, such as Google G Suite or Okta.
-        ### Limits
+        ### [](#)Limits
         *   You can create a maximum of 100 OIDC IdPs in an Alibaba Cloud account.
         *   You can add a maximum of 20 client IDs to an OIDC IdP.
         *   You can add a maximum of five fingerprints to an OIDC IdP.
-        ###
-        ``
+        ### [](#)
+        This topic provides an example on how to create an IdP named `TestOIDCProvider` to configure a trust relationship between the external IdP and Alibaba Cloud.
         
 
         @param request: CreateOIDCProviderRequest
@@ -463,14 +463,14 @@ class Client(OpenApiClient):
 
     def create_oidcprovider(self, request):
         """
-        ### Prerequisites
+        ### [](#)Prerequisite
         Before you call this operation, make sure that the information such as the URL of the issuer, the fingerprints of HTTPS certificates, and the client IDs are obtained from an external IdP, such as Google G Suite or Okta.
-        ### Limits
+        ### [](#)Limits
         *   You can create a maximum of 100 OIDC IdPs in an Alibaba Cloud account.
         *   You can add a maximum of 20 client IDs to an OIDC IdP.
         *   You can add a maximum of five fingerprints to an OIDC IdP.
-        ###
-        ``
+        ### [](#)
+        This topic provides an example on how to create an IdP named `TestOIDCProvider` to configure a trust relationship between the external IdP and Alibaba Cloud.
         
 
         @param request: CreateOIDCProviderRequest
@@ -1114,8 +1114,16 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_application_with_options(request, runtime)
 
-    def get_credential_report_with_options(self, runtime):
-        req = open_api_models.OpenApiRequest()
+    def get_credential_report_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.max_items):
+            query['MaxItems'] = request.max_items
+        if not UtilClient.is_unset(request.next_token):
+            query['NextToken'] = request.next_token
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
         params = open_api_models.Params(
             action='GetCredentialReport',
             version='2019-08-15',
@@ -1132,9 +1140,9 @@ class Client(OpenApiClient):
             self.call_api(params, req, runtime)
         )
 
-    def get_credential_report(self):
+    def get_credential_report(self, request):
         runtime = util_models.RuntimeOptions()
-        return self.get_credential_report_with_options(runtime)
+        return self.get_credential_report_with_options(request, runtime)
 
     def get_default_domain_with_options(self, runtime):
         req = open_api_models.OpenApiRequest()

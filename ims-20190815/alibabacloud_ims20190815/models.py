@@ -56,6 +56,7 @@ class AddClientIdToOIDCProviderResponseBodyOIDCProvider(TeaModel):
         self.gmt_create = gmt_create  # type: str
         # The timestamp when the OIDC IdP was modified.
         self.gmt_modified = gmt_modified  # type: str
+        # The earliest time when an external IdP can issue an ID token. If the value of the iat field in the ID token is later than the current time, the request is rejected. Unit: hours. Valid values: 1 to 168.
         self.issuance_limit_time = issuance_limit_time  # type: long
         # The URL of the issuer.
         self.issuer_url = issuer_url  # type: str
@@ -249,6 +250,7 @@ class AddFingerprintToOIDCProviderResponseBodyOIDCProvider(TeaModel):
         self.gmt_create = gmt_create  # type: str
         # The timestamp when the OIDC IdP was modified.
         self.gmt_modified = gmt_modified  # type: str
+        # The earliest time when an external IdP can issue an ID token. If the value of the iat field in the ID token is later than the current time, the request is rejected. Unit: hours. Valid values: 1 to 168.
         self.issuance_limit_time = issuance_limit_time  # type: long
         # The URL of the issuer.
         self.issuer_url = issuer_url  # type: str
@@ -1754,8 +1756,9 @@ class CreateOIDCProviderRequest(TeaModel):
         # 
         # The fingerprint can be up to 40 characters in length.
         self.fingerprints = fingerprints  # type: str
+        # The earliest time when an external IdP can issue an ID token. If the value of the iat field in the ID token is later than the current time, the request is rejected. Unit: hours. Valid values: 1 to 168.
         self.issuance_limit_time = issuance_limit_time  # type: long
-        # The URL of the issuer, which is provided by the external IdP Okta. The URL of the issuer must be unique within an Alibaba Cloud account.
+        # The URL of the issuer, which is provided by the external IdP. The URL of the issuer must be unique within an Alibaba Cloud account.
         # 
         # The URL of the issuer must start with `https` and be in the valid URL format. The URL cannot contain query parameters that follow a question mark (`?`) or logon information that is identified by at signs (`@`). The URL cannot be a fragment URL that contains number signs (`#`).
         # 
@@ -1826,8 +1829,9 @@ class CreateOIDCProviderResponseBodyOIDCProvider(TeaModel):
         self.gmt_create = gmt_create  # type: str
         # The timestamp when the OIDC IdP was modified.
         self.gmt_modified = gmt_modified  # type: str
+        # The earliest time when an external IdP can issue an ID token. If the value of the iat field in the ID token is later than the current time, the request is rejected. Unit: hours. Valid values: 1 to 168.
         self.issuance_limit_time = issuance_limit_time  # type: long
-        # The URL of the issuer.
+        # The URL of the issuer,
         self.issuer_url = issuer_url  # type: str
         # The name of the OIDC IdP.
         self.oidcprovider_name = oidcprovider_name  # type: str
@@ -3635,7 +3639,7 @@ class GetAccessKeyLastUsedResponseBodyAccessKeyLastUsed(TeaModel):
     def __init__(self, last_used_date=None, service_name=None):
         # The time when the AccessKey pair was used for the last time.
         self.last_used_date = last_used_date  # type: str
-        # The Alibaba Cloud service that was last accessed.
+        # The Alibaba Cloud service that was last accessed by using the AccessKey pair.
         self.service_name = service_name  # type: str
 
     def validate(self):
@@ -4294,7 +4298,7 @@ class GetAppSecretResponseBody(TeaModel):
     def __init__(self, app_secret=None, request_id=None):
         # The details of the application secret.
         self.app_secret = app_secret  # type: GetAppSecretResponseBodyAppSecret
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4452,7 +4456,7 @@ class GetApplicationResponseBodyApplicationDelegatedScopePredefinedScopes(TeaMod
 
 class GetApplicationResponseBodyApplicationDelegatedScope(TeaModel):
     def __init__(self, predefined_scopes=None):
-        # An array consisting of the information about the permissions that are granted on the application.
+        # The information about the permissions that are granted on the application.
         self.predefined_scopes = predefined_scopes  # type: GetApplicationResponseBodyApplicationDelegatedScopePredefinedScopes
 
     def validate(self):
@@ -4611,7 +4615,7 @@ class GetApplicationResponseBodyApplication(TeaModel):
 
 class GetApplicationResponseBody(TeaModel):
     def __init__(self, application=None, request_id=None):
-        # The information about the application.
+        # The configuration information about the application.
         self.application = application  # type: GetApplicationResponseBodyApplication
         # The ID of the request.
         self.request_id = request_id  # type: str
@@ -4681,15 +4685,46 @@ class GetApplicationResponse(TeaModel):
         return self
 
 
+class GetCredentialReportRequest(TeaModel):
+    def __init__(self, max_items=None, next_token=None):
+        self.max_items = max_items  # type: str
+        self.next_token = next_token  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetCredentialReportRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.max_items is not None:
+            result['MaxItems'] = self.max_items
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('MaxItems') is not None:
+            self.max_items = m.get('MaxItems')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
+        return self
+
+
 class GetCredentialReportResponseBody(TeaModel):
-    def __init__(self, content=None, generated_time=None, request_id=None):
+    def __init__(self, content=None, generated_time=None, is_truncated=None, next_token=None, request_id=None):
         # The content of the user credential report.
         # 
         # The report is Base64-encoded. After you decode the report, the credential report is in the CSV format.
         self.content = content  # type: str
         # The time when the user credential report was generated.
         self.generated_time = generated_time  # type: str
-        # The ID of the request.
+        self.is_truncated = is_truncated  # type: str
+        self.next_token = next_token  # type: str
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4705,6 +4740,10 @@ class GetCredentialReportResponseBody(TeaModel):
             result['Content'] = self.content
         if self.generated_time is not None:
             result['GeneratedTime'] = self.generated_time
+        if self.is_truncated is not None:
+            result['IsTruncated'] = self.is_truncated
+        if self.next_token is not None:
+            result['NextToken'] = self.next_token
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         return result
@@ -4715,6 +4754,10 @@ class GetCredentialReportResponseBody(TeaModel):
             self.content = m.get('Content')
         if m.get('GeneratedTime') is not None:
             self.generated_time = m.get('GeneratedTime')
+        if m.get('IsTruncated') is not None:
+            self.is_truncated = m.get('IsTruncated')
+        if m.get('NextToken') is not None:
+            self.next_token = m.get('NextToken')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         return self
@@ -4763,7 +4806,7 @@ class GetDefaultDomainResponseBody(TeaModel):
     def __init__(self, default_domain_name=None, request_id=None):
         # The default domain name.
         self.default_domain_name = default_domain_name  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4912,9 +4955,9 @@ class GetGroupResponseBodyGroup(TeaModel):
 
 class GetGroupResponseBody(TeaModel):
     def __init__(self, group=None, request_id=None):
-        # The information of the RAM user group.
+        # The information about the RAM user group.
         self.group = group  # type: GetGroupResponseBodyGroup
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5067,7 +5110,7 @@ class GetLoginProfileResponseBody(TeaModel):
     def __init__(self, login_profile=None, request_id=None):
         # The logon information.
         self.login_profile = login_profile  # type: GetLoginProfileResponseBodyLoginProfile
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5178,6 +5221,7 @@ class GetOIDCProviderResponseBodyOIDCProvider(TeaModel):
         self.gmt_create = gmt_create  # type: str
         # The timestamp when the OIDC IdP was modified.
         self.gmt_modified = gmt_modified  # type: str
+        # The earliest time when an external IdP can issue an ID token. If the value of the iat field in the ID token is later than the current time, the request is rejected. Unit: hours. Valid values: 1 to 168.
         self.issuance_limit_time = issuance_limit_time  # type: long
         # The URL of the issuer.
         self.issuer_url = issuer_url  # type: str
@@ -5331,7 +5375,7 @@ class GetPasswordPolicyResponseBodyPasswordPolicy(TeaModel):
         self.max_password_age = max_password_age  # type: int
         # The minimum number of unique characters in the password.
         self.minimum_password_different_character = minimum_password_different_character  # type: int
-        # The minimum number of characters in the password.
+        # The minimum required number of characters in a password.
         self.minimum_password_length = minimum_password_length  # type: int
         # Indicates whether to exclude the username from the password.
         self.password_not_contain_user_name = password_not_contain_user_name  # type: bool
@@ -5410,7 +5454,7 @@ class GetPasswordPolicyResponseBody(TeaModel):
     def __init__(self, password_policy=None, request_id=None):
         # The details of the password policy.
         self.password_policy = password_policy  # type: GetPasswordPolicyResponseBodyPasswordPolicy
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5561,9 +5605,9 @@ class GetSAMLProviderResponseBodySAMLProvider(TeaModel):
 
 class GetSAMLProviderResponseBody(TeaModel):
     def __init__(self, request_id=None, samlprovider=None):
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # The information of the IdP.
+        # The information about the IdP.
         self.samlprovider = samlprovider  # type: GetSAMLProviderResponseBodySAMLProvider
 
     def validate(self):
@@ -5633,10 +5677,10 @@ class GetSAMLProviderResponse(TeaModel):
 
 class GetSecurityPreferenceResponseBodySecurityPreferenceAccessKeyPreference(TeaModel):
     def __init__(self, allow_user_to_manage_access_keys=None):
-        # Specifies whether RAM users can manage their AccessKey pairs. Valid values:
+        # Indicates whether RAM users can manage their AccessKey pairs. Valid values:
         # 
-        # *   true: yes
-        # *   false: no
+        # *   true
+        # *   false
         self.allow_user_to_manage_access_keys = allow_user_to_manage_access_keys  # type: bool
 
     def validate(self):
@@ -5662,30 +5706,30 @@ class GetSecurityPreferenceResponseBodySecurityPreferenceAccessKeyPreference(Tea
 class GetSecurityPreferenceResponseBodySecurityPreferenceLoginProfilePreference(TeaModel):
     def __init__(self, allow_user_to_change_password=None, enable_save_mfaticket=None, login_network_masks=None,
                  login_session_duration=None, mfaoperation_for_login=None, operation_for_risk_login=None):
-        # Specifies whether RAM users can change their passwords. Valid values:
+        # Indicates whether RAM users can change their passwords. Valid values:
         # 
-        # *   true: yes
-        # *   false: no
+        # *   true
+        # *   false
         self.allow_user_to_change_password = allow_user_to_change_password  # type: bool
-        # Specifies whether to remember the multi-factor authentication (MFA) devices for seven days. Valid values:
+        # Indicates whether RAM users can remember the multi-factor authentication (MFA) devices for seven days. Valid values:
         # 
-        # *   true: yes
-        # *   false: no
+        # *   true
+        # *   false
         self.enable_save_mfaticket = enable_save_mfaticket  # type: bool
         # The subnet mask.
         self.login_network_masks = login_network_masks  # type: str
         # The validity period of the logon session of RAM users. Unit: hours.
         self.login_session_duration = login_session_duration  # type: int
-        # Specifies whether MFA is required for all RAM users when they log on to the Alibaba Cloud Management Console. This parameter is used to replace the EnforceMFAForLogin parameter. The EnforceMFAForLogin parameter is still valid. However, we recommend that you use the MFAOperationForLogin parameter. Valid values:
+        # Indicates whether MFA is required for all RAM users when they log on to the Alibaba Cloud Management Console. Valid values:
         # 
-        # *   mandatory: MFA is required for all RAM users. If you use the EnforceMFAForLogin parameter, set the value to true.
-        # *   independent: User-specific settings are applied. This is the default value. If you use the EnforceMFAForLogin parameter, set the value to false.
+        # *   mandatory: MFA is required for all RAM users. If you use EnforceMFAForLogin, set the value to true.
+        # *   independent (default): User-specific settings are applied. If you use EnforceMFAForLogin, set the value to false.
         # *   adaptive: MFA is required only for RAM users who initiated unusual logons.
         self.mfaoperation_for_login = mfaoperation_for_login  # type: str
-        # Specifies whether to enable MFA for RAM users who initiated unusual logons. Valid values:
+        # Indicates whether to enable MFA for RAM users who initiated unusual logons. Valid values:
         # 
-        # *   autonomous: yes. MFA is prompted for RAM users who initiated unusual logons. However, the RAM users are allowed to skip MFA. This is the default value.
-        # *   enforceVerify: no.
+        # *   autonomous (default): yes. MFA is prompted for RAM users who initiated unusual logons. However, the RAM users are allowed to skip MFA.
+        # *   enforceVerify: MFA is prompted for RAM users who initiated unusual logons and the RAM users cannot skip MFA.
         self.operation_for_risk_login = operation_for_risk_login  # type: str
 
     def validate(self):
@@ -5732,8 +5776,8 @@ class GetSecurityPreferenceResponseBodySecurityPreferenceMFAPreference(TeaModel)
     def __init__(self, allow_user_to_manage_mfadevices=None):
         # Indicates whether RAM users can manage their MFA devices. Valid values:
         # 
-        # *   true: yes
-        # *   false: no
+        # *   true
+        # *   false
         self.allow_user_to_manage_mfadevices = allow_user_to_manage_mfadevices  # type: bool
 
     def validate(self):
@@ -5758,10 +5802,10 @@ class GetSecurityPreferenceResponseBodySecurityPreferenceMFAPreference(TeaModel)
 
 class GetSecurityPreferenceResponseBodySecurityPreferencePersonalInfoPreference(TeaModel):
     def __init__(self, allow_user_to_manage_personal_ding_talk=None):
-        # Specifies whether RAM users can manage their personal DingTalk accounts, such as binding and unbinding of the accounts. Valid values:
+        # Indicates whether RAM users can manage their personal DingTalk accounts, such as binding and unbinding of the accounts. Valid values:
         # 
-        # *   true: yes
-        # *   false: no
+        # *   true
+        # *   false
         self.allow_user_to_manage_personal_ding_talk = allow_user_to_manage_personal_ding_talk  # type: bool
 
     def validate(self):
@@ -5786,7 +5830,7 @@ class GetSecurityPreferenceResponseBodySecurityPreferencePersonalInfoPreference(
 
 class GetSecurityPreferenceResponseBodySecurityPreferenceVerificationPreference(TeaModel):
     def __init__(self, verification_types=None):
-        # The MFA method.
+        # The MFA methods.
         self.verification_types = verification_types  # type: list[str]
 
     def validate(self):
@@ -5875,7 +5919,7 @@ class GetSecurityPreferenceResponseBodySecurityPreference(TeaModel):
 
 class GetSecurityPreferenceResponseBody(TeaModel):
     def __init__(self, request_id=None, security_preference=None):
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
         # The details of security preferences.
         self.security_preference = security_preference  # type: GetSecurityPreferenceResponseBodySecurityPreference
@@ -5949,19 +5993,19 @@ class GetUserRequest(TeaModel):
     def __init__(self, user_access_key_id=None, user_id=None, user_principal_name=None):
         # The AccessKey ID of the RAM user.
         # 
-        # >  You must specify only one of the following parameters: `UserPrincipalName`, `UserId`, and `UserAccessKeyId`.
+        # > You must specify only one of the following parameters: `UserPrincipalName`, `UserId`, and `UserAccessKeyId`.
         self.user_access_key_id = user_access_key_id  # type: str
         # The ID of the RAM user.
         # 
-        # >  You must specify only one of the following parameters: `UserPrincipalName`, `UserId`, and `UserAccessKeyId`.
+        # > You must specify only one of the following parameters: `UserPrincipalName`, `UserId`, and `UserAccessKeyId`.
         self.user_id = user_id  # type: str
         # The logon name of the RAM user.
         # 
         # The name is in the format of `<username>@<AccountAlias>.onaliyun.com`. `<username>` indicates the name of the RAM user. `<AccountAlias>.onaliyun.com` indicates the default domain name.
         # 
-        # The value of `UserPrincipalName` must be 1 to 128 characters in length and can contain letters, digits, periods (.), hyphens (-), and underscores (\_). The value of `<AccountAlias>.onaliyun.com` must be 1 to 64 characters in length.
+        # The value of `UserPrincipalName` must be `1 to 128` characters in length and can contain letters, digits, periods (.), hyphens (-), and underscores (\_). The value of `<username>` must be `1 to 64` characters in length.
         # 
-        # >  You must specify only one of the following parameters: `UserPrincipalName`, `UserId`, and `UserAccessKeyId`.
+        # > You must specify only one of the following parameters: `UserPrincipalName`, `UserId`, and `UserAccessKeyId`.
         self.user_principal_name = user_principal_name  # type: str
 
     def validate(self):
@@ -6066,21 +6110,21 @@ class GetUserResponseBodyUser(TeaModel):
         self.display_name = display_name  # type: str
         # The email address of the RAM user.
         # 
-        # >  This parameter is valid only on the China site (aliyun.com).
+        # > This parameter is valid only on the China site (aliyun.com).
         self.email = email  # type: str
         # The last time when the RAM user logged on to the Alibaba Cloud Management Console.
         self.last_login_date = last_login_date  # type: str
         # The mobile phone number of the RAM user.
         # 
-        # >  This parameter is valid only on the China site (aliyun.com).
+        # > This parameter is valid only on the China site (aliyun.com).
         self.mobile_phone = mobile_phone  # type: str
-        # The source of the RAM user. Valid values:
+        # The source of the RAM user. Valid value:
         # 
         # *   Manual: The RAM user is manually created in the RAM console.
         # *   SCIM: The RAM user is mapped by using System for Cross-domain Identity Management (SCIM).
         # *   CloudSSO: The RAM user is mapped from a CloudSSO user.
         self.provision_type = provision_type  # type: str
-        # An array that consists of tags.
+        # The tags.
         self.tags = tags  # type: GetUserResponseBodyUserTags
         # The time when the information about the RAM user was updated.
         self.update_date = update_date  # type: str
@@ -6153,7 +6197,7 @@ class GetUserResponseBodyUser(TeaModel):
 
 class GetUserResponseBody(TeaModel):
     def __init__(self, request_id=None, user=None):
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
         # The information about the RAM user.
         self.user = user  # type: GetUserResponseBodyUser
@@ -7569,7 +7613,7 @@ class ListOIDCProvidersResponseBodyOIDCProvidersOIDCProvider(TeaModel):
                  update_date=None):
         # The Alibaba Cloud Resource Name (ARN) of the OIDC IdP.
         self.arn = arn  # type: str
-        # The ID of the client. If multiple client IDs are returned, the client IDs are separated by commas (,).
+        # The ID of the client, If you want to specify multiple client IDs, separate the client IDs with commas (,).
         self.client_ids = client_ids  # type: str
         # The time when the OIDC IdP was created. The time is displayed in UTC.
         self.create_date = create_date  # type: str
@@ -7581,6 +7625,7 @@ class ListOIDCProvidersResponseBodyOIDCProvidersOIDCProvider(TeaModel):
         self.gmt_create = gmt_create  # type: str
         # The timestamp when the OIDC IdP was modified.
         self.gmt_modified = gmt_modified  # type: str
+        # The earliest time when an external IdP can issue an ID token. If the value of the iat field in the ID token is later than the current time, the request is rejected. Unit: hours. Valid values: 1 to 168.
         self.issuance_limit_time = issuance_limit_time  # type: long
         # The URL of the issuer.
         self.issuer_url = issuer_url  # type: str
@@ -7690,7 +7735,7 @@ class ListOIDCProvidersResponseBody(TeaModel):
         self.is_truncated = is_truncated  # type: bool
         # The `marker`. This parameter is returned only if the value of `IsTruncated` is `true`. If the parameter is returned, you can call this operation again and set this parameter to obtain the truncated part.``
         self.marker = marker  # type: str
-        # The timestamp when the OIDC IdP was modified.
+        # The information about the OIDC IdP.
         self.oidcproviders = oidcproviders  # type: ListOIDCProvidersResponseBodyOIDCProviders
         # The request ID.
         self.request_id = request_id  # type: str
@@ -9490,6 +9535,7 @@ class RemoveClientIdFromOIDCProviderResponseBodyOIDCProvider(TeaModel):
         self.gmt_create = gmt_create  # type: str
         # The timestamp when the OIDC IdP was modified.
         self.gmt_modified = gmt_modified  # type: str
+        # The earliest time when an external IdP can issue an ID token. If the value of the iat field in the ID token is later than the current time, the request is rejected. Unit: hours. Valid values: 1 to 168.
         self.issuance_limit_time = issuance_limit_time  # type: long
         # The URL of the issuer.
         self.issuer_url = issuer_url  # type: str
@@ -9679,6 +9725,7 @@ class RemoveFingerprintFromOIDCProviderResponseBodyOIDCProvider(TeaModel):
         self.gmt_create = gmt_create  # type: str
         # The timestamp when the OIDC IdP was modified.
         self.gmt_modified = gmt_modified  # type: str
+        # The earliest time when an external IdP can issue an ID token. If the value of the iat field in the ID token is later than the current time, the request is rejected. Unit: hours. Valid values: 1 to 168.
         self.issuance_limit_time = issuance_limit_time  # type: long
         # The URL of the issuer.
         self.issuer_url = issuer_url  # type: str
@@ -12242,6 +12289,7 @@ class UpdateOIDCProviderRequest(TeaModel):
         # 
         # > If you specify this parameter, all the client IDs of the OIDC IdP are replaced. If you need to only add or remove a client ID, call the AddClientIdToOIDCProvider or RemoveClientIdFromOIDCProvider operation. For more information, see [AddClientIdToOIDCProvider](~~332057~~) or [RemoveClientIdFromOIDCProvider](~~332058~~).
         self.client_ids = client_ids  # type: str
+        # The earliest time when an external IdP can issue an ID token. If the value of the iat field in the ID token is later than the current time, the request is rejected. Unit: hours. Valid values: 1 to 168.
         self.issuance_limit_time = issuance_limit_time  # type: long
         # The description of the OIDC IdP.
         # 
@@ -12300,6 +12348,7 @@ class UpdateOIDCProviderResponseBodyOIDCProvider(TeaModel):
         self.gmt_create = gmt_create  # type: str
         # The timestamp when the OIDC IdP was modified.
         self.gmt_modified = gmt_modified  # type: str
+        # The earliest time when an external IdP can issue an ID token. If the value of the iat field in the ID token is later than the current time, the request is rejected. Unit: hours. Valid values: 1 to 168.
         self.issuance_limit_time = issuance_limit_time  # type: long
         # The URL of the issuer.
         self.issuer_url = issuer_url  # type: str
