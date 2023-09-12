@@ -7977,21 +7977,23 @@ class DescribeDBClusterAttributeResponseBodyTags(TeaModel):
 
 
 class DescribeDBClusterAttributeResponseBody(TeaModel):
-    def __init__(self, ai_type=None, blktag_total=None, blktag_used=None, category=None, compress_storage_mode=None,
-                 creation_time=None, dbcluster_description=None, dbcluster_id=None, dbcluster_network_type=None,
-                 dbcluster_status=None, dbnodes=None, dbtype=None, dbversion=None, dbversion_status=None,
+    def __init__(self, ai_type=None, architecture=None, blktag_total=None, blktag_used=None, category=None,
+                 compress_storage_mode=None, creation_time=None, dbcluster_description=None, dbcluster_id=None,
+                 dbcluster_network_type=None, dbcluster_status=None, dbnodes=None, dbtype=None, dbversion=None, dbversion_status=None,
                  data_level_1backup_chain_size=None, data_sync_mode=None, deletion_lock=None, deploy_unit=None, engine=None, expire_time=None,
-                 expired=None, has_complete_standby_res=None, inode_total=None, inode_used=None, is_latest_version=None,
-                 is_proxy_latest_version=None, lock_mode=None, maintain_time=None, pay_type=None, proxy_cpu_cores=None,
-                 proxy_serverless_type=None, proxy_standard_cpu_cores=None, proxy_status=None, proxy_type=None, region_id=None,
-                 request_id=None, resource_group_id=None, sqlsize=None, serverless_type=None, standby_hamode=None,
-                 storage_max=None, storage_pay_type=None, storage_space=None, storage_type=None, storage_used=None,
-                 strict_consistency=None, sub_category=None, tags=None, vpcid=None, v_switch_id=None, zone_ids=None):
+                 expired=None, has_complete_standby_res=None, hot_standby_cluster=None, inode_total=None, inode_used=None,
+                 is_latest_version=None, is_proxy_latest_version=None, lock_mode=None, maintain_time=None, pay_type=None,
+                 proxy_cpu_cores=None, proxy_serverless_type=None, proxy_standard_cpu_cores=None, proxy_status=None,
+                 proxy_type=None, region_id=None, request_id=None, resource_group_id=None, sqlsize=None, serverless_type=None,
+                 standby_hamode=None, storage_max=None, storage_pay_type=None, storage_space=None, storage_type=None,
+                 storage_used=None, strict_consistency=None, sub_category=None, tags=None, vpcid=None, v_switch_id=None,
+                 zone_ids=None):
         # The information status of the AI node. Valid values:
         # 
         # *   SearchNode: search node.
         # *   DLNode: AI node
         self.ai_type = ai_type  # type: str
+        self.architecture = architecture  # type: str
         # Maximum blktags in file system.
         self.blktag_total = blktag_total  # type: long
         # The current blktag usage.
@@ -8056,6 +8058,7 @@ class DescribeDBClusterAttributeResponseBody(TeaModel):
         self.expired = expired  # type: str
         # Indicates whether to replenish resources for the primary database after a cross-zone switchover. Valid values: true false
         self.has_complete_standby_res = has_complete_standby_res  # type: bool
+        self.hot_standby_cluster = hot_standby_cluster  # type: str
         # Maximum inodes in file system.
         self.inode_total = inode_total  # type: long
         # The current inode usage.
@@ -8172,6 +8175,8 @@ class DescribeDBClusterAttributeResponseBody(TeaModel):
         result = dict()
         if self.ai_type is not None:
             result['AiType'] = self.ai_type
+        if self.architecture is not None:
+            result['Architecture'] = self.architecture
         if self.blktag_total is not None:
             result['BlktagTotal'] = self.blktag_total
         if self.blktag_used is not None:
@@ -8216,6 +8221,8 @@ class DescribeDBClusterAttributeResponseBody(TeaModel):
             result['Expired'] = self.expired
         if self.has_complete_standby_res is not None:
             result['HasCompleteStandbyRes'] = self.has_complete_standby_res
+        if self.hot_standby_cluster is not None:
+            result['HotStandbyCluster'] = self.hot_standby_cluster
         if self.inode_total is not None:
             result['InodeTotal'] = self.inode_total
         if self.inode_used is not None:
@@ -8282,6 +8289,8 @@ class DescribeDBClusterAttributeResponseBody(TeaModel):
         m = m or dict()
         if m.get('AiType') is not None:
             self.ai_type = m.get('AiType')
+        if m.get('Architecture') is not None:
+            self.architecture = m.get('Architecture')
         if m.get('BlktagTotal') is not None:
             self.blktag_total = m.get('BlktagTotal')
         if m.get('BlktagUsed') is not None:
@@ -8327,6 +8336,8 @@ class DescribeDBClusterAttributeResponseBody(TeaModel):
             self.expired = m.get('Expired')
         if m.get('HasCompleteStandbyRes') is not None:
             self.has_complete_standby_res = m.get('HasCompleteStandbyRes')
+        if m.get('HotStandbyCluster') is not None:
+            self.hot_standby_cluster = m.get('HotStandbyCluster')
         if m.get('InodeTotal') is not None:
             self.inode_total = m.get('InodeTotal')
         if m.get('InodeUsed') is not None:
@@ -24221,15 +24232,16 @@ class ModifyDBEndpointAddressResponse(TeaModel):
 
 
 class ModifyDBNodeClassRequest(TeaModel):
-    def __init__(self, client_token=None, dbcluster_id=None, dbnode_target_class=None, modify_type=None,
-                 owner_account=None, owner_id=None, planned_end_time=None, planned_start_time=None, resource_owner_account=None,
-                 resource_owner_id=None, sub_category=None):
+    def __init__(self, client_token=None, dbcluster_id=None, dbnode_target_class=None, dbnode_type=None,
+                 modify_type=None, owner_account=None, owner_id=None, planned_end_time=None, planned_start_time=None,
+                 resource_owner_account=None, resource_owner_id=None, sub_category=None):
         # The client token that is used to ensure the idempotence of the request. You can use the client to generate the value, but you must ensure that it is unique among different requests. The token can only contain ASCII characters and cannot exceed 64 characters in length. The token is case-sensitive.
         self.client_token = client_token  # type: str
         # The ID of the cluster.
         self.dbcluster_id = dbcluster_id  # type: str
         # The specifications of all nodes. For more information, see [Specifications of computing nodes](~~102542~~).
         self.dbnode_target_class = dbnode_target_class  # type: str
+        self.dbnode_type = dbnode_type  # type: str
         # The type of the configuration change. Valid values:
         # 
         # *   **Upgrade**\
@@ -24271,6 +24283,8 @@ class ModifyDBNodeClassRequest(TeaModel):
             result['DBClusterId'] = self.dbcluster_id
         if self.dbnode_target_class is not None:
             result['DBNodeTargetClass'] = self.dbnode_target_class
+        if self.dbnode_type is not None:
+            result['DBNodeType'] = self.dbnode_type
         if self.modify_type is not None:
             result['ModifyType'] = self.modify_type
         if self.owner_account is not None:
@@ -24297,6 +24311,8 @@ class ModifyDBNodeClassRequest(TeaModel):
             self.dbcluster_id = m.get('DBClusterId')
         if m.get('DBNodeTargetClass') is not None:
             self.dbnode_target_class = m.get('DBNodeTargetClass')
+        if m.get('DBNodeType') is not None:
+            self.dbnode_type = m.get('DBNodeType')
         if m.get('ModifyType') is not None:
             self.modify_type = m.get('ModifyType')
         if m.get('OwnerAccount') is not None:
