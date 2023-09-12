@@ -1421,8 +1421,11 @@ class GetUserResponseBodyCustomFields(TeaModel):
 
 class GetUserResponseBodyGroups(TeaModel):
     def __init__(self, description=None, group_id=None, group_name=None):
+        # 组描述。
         self.description = description  # type: str
+        # 组ID。
         self.group_id = group_id  # type: str
+        # 组名称。
         self.group_name = group_name  # type: str
 
     def validate(self):
@@ -1500,6 +1503,7 @@ class GetUserResponseBody(TeaModel):
         self.display_name = display_name  # type: str
         self.email = email  # type: str
         self.email_verified = email_verified  # type: bool
+        # 账户所属组列表。
         self.groups = groups  # type: list[GetUserResponseBodyGroups]
         self.instance_id = instance_id  # type: str
         self.lock_expire_time = lock_expire_time  # type: long
@@ -2172,6 +2176,7 @@ class GetUserIdByUsernameResponse(TeaModel):
 class GetUserInfoHeaders(TeaModel):
     def __init__(self, common_headers=None, authorization=None):
         self.common_headers = common_headers  # type: dict[str, str]
+        # The authentication information. Format: Bearer ${access_token}. Example: Bearer ATxxxx.
         self.authorization = authorization  # type: str
 
     def validate(self):
