@@ -278,6 +278,68 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_application_client_secret_with_options(request, runtime)
 
+    def create_domain_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain):
+            query['Domain'] = request.domain
+        if not UtilClient.is_unset(request.filing):
+            query['Filing'] = request.filing
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateDomain',
+            version='2021-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eiam_20211201_models.CreateDomainResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_domain(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_domain_with_options(request, runtime)
+
+    def create_domain_proxy_token_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_id):
+            query['DomainId'] = request.domain_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CreateDomainProxyToken',
+            version='2021-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eiam_20211201_models.CreateDomainProxyTokenResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_domain_proxy_token(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_domain_proxy_token_with_options(request, runtime)
+
     def create_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -549,6 +611,68 @@ class Client(OpenApiClient):
     def delete_application_client_secret(self, request):
         runtime = util_models.RuntimeOptions()
         return self.delete_application_client_secret_with_options(request, runtime)
+
+    def delete_domain_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_id):
+            query['DomainId'] = request.domain_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteDomain',
+            version='2021-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eiam_20211201_models.DeleteDomainResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_domain(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_domain_with_options(request, runtime)
+
+    def delete_domain_proxy_token_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_id):
+            query['DomainId'] = request.domain_id
+        if not UtilClient.is_unset(request.domain_proxy_token_id):
+            query['DomainProxyTokenId'] = request.domain_proxy_token_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DeleteDomainProxyToken',
+            version='2021-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eiam_20211201_models.DeleteDomainProxyTokenResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_domain_proxy_token(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_domain_proxy_token_with_options(request, runtime)
 
     def delete_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -886,6 +1010,66 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.disable_application_sso_with_options(request, runtime)
 
+    def disable_domain_proxy_token_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_id):
+            query['DomainId'] = request.domain_id
+        if not UtilClient.is_unset(request.domain_proxy_token_id):
+            query['DomainProxyTokenId'] = request.domain_proxy_token_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DisableDomainProxyToken',
+            version='2021-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eiam_20211201_models.DisableDomainProxyTokenResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def disable_domain_proxy_token(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.disable_domain_proxy_token_with_options(request, runtime)
+
+    def disable_init_domain_auto_redirect_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DisableInitDomainAutoRedirect',
+            version='2021-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eiam_20211201_models.DisableInitDomainAutoRedirectResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def disable_init_domain_auto_redirect(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.disable_init_domain_auto_redirect_with_options(request, runtime)
+
     def disable_user_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1068,6 +1252,66 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.enable_application_sso_with_options(request, runtime)
 
+    def enable_domain_proxy_token_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_id):
+            query['DomainId'] = request.domain_id
+        if not UtilClient.is_unset(request.domain_proxy_token_id):
+            query['DomainProxyTokenId'] = request.domain_proxy_token_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='EnableDomainProxyToken',
+            version='2021-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eiam_20211201_models.EnableDomainProxyTokenResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def enable_domain_proxy_token(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.enable_domain_proxy_token_with_options(request, runtime)
+
+    def enable_init_domain_auto_redirect_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='EnableInitDomainAutoRedirect',
+            version='2021-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eiam_20211201_models.EnableInitDomainAutoRedirectResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def enable_init_domain_auto_redirect(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.enable_init_domain_auto_redirect_with_options(request, runtime)
+
     def enable_user_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -1247,6 +1491,66 @@ class Client(OpenApiClient):
     def get_application_sso_config(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_application_sso_config_with_options(request, runtime)
+
+    def get_domain_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_id):
+            query['DomainId'] = request.domain_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetDomain',
+            version='2021-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eiam_20211201_models.GetDomainResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_domain(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_domain_with_options(request, runtime)
+
+    def get_domain_dns_challenge_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain):
+            query['Domain'] = request.domain
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetDomainDnsChallenge',
+            version='2021-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eiam_20211201_models.GetDomainDnsChallengeResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_domain_dns_challenge(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_domain_dns_challenge_with_options(request, runtime)
 
     def get_forget_password_configuration_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1725,6 +2029,64 @@ class Client(OpenApiClient):
     def list_applications_for_user(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_applications_for_user_with_options(request, runtime)
+
+    def list_domain_proxy_tokens_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_id):
+            query['DomainId'] = request.domain_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListDomainProxyTokens',
+            version='2021-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eiam_20211201_models.ListDomainProxyTokensResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_domain_proxy_tokens(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_domain_proxy_tokens_with_options(request, runtime)
+
+    def list_domains_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListDomains',
+            version='2021-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eiam_20211201_models.ListDomainsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_domains(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_domains_with_options(request, runtime)
 
     def list_groups_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -2276,6 +2638,38 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.obtain_application_client_secret_with_options(request, runtime)
 
+    def obtain_domain_proxy_token_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_id):
+            query['DomainId'] = request.domain_id
+        if not UtilClient.is_unset(request.domain_proxy_token_id):
+            query['DomainProxyTokenId'] = request.domain_proxy_token_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ObtainDomainProxyToken',
+            version='2021-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eiam_20211201_models.ObtainDomainProxyTokenResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def obtain_domain_proxy_token(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.obtain_domain_proxy_token_with_options(request, runtime)
+
     def remove_user_from_organizational_units_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -2593,6 +2987,36 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.set_application_sso_config_with_options(request, runtime)
+
+    def set_default_domain_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.domain_id):
+            query['DomainId'] = request.domain_id
+        if not UtilClient.is_unset(request.instance_id):
+            query['InstanceId'] = request.instance_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='SetDefaultDomain',
+            version='2021-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            eiam_20211201_models.SetDefaultDomainResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def set_default_domain(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.set_default_domain_with_options(request, runtime)
 
     def set_forget_password_configuration_with_options(self, request, runtime):
         UtilClient.validate_model(request)
