@@ -2597,6 +2597,48 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.get_app_message_queue_route_with_options(request, runtime)
 
+    def get_application_instance_list_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.accept_language):
+            query['AcceptLanguage'] = request.accept_language
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.app_name):
+            query['AppName'] = request.app_name
+        if not UtilClient.is_unset(request.namespace):
+            query['Namespace'] = request.namespace
+        if not UtilClient.is_unset(request.page_number):
+            query['PageNumber'] = request.page_number
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.region):
+            query['Region'] = request.region
+        if not UtilClient.is_unset(request.tag):
+            query['Tag'] = request.tag
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetApplicationInstanceList',
+            version='2019-05-31',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            mse_20190531_models.GetApplicationInstanceListResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_application_instance_list(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_application_instance_list_with_options(request, runtime)
+
     def get_application_list_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -3508,6 +3550,8 @@ class Client(OpenApiClient):
             query['AcceptLanguage'] = request.accept_language
         if not UtilClient.is_unset(request.app_id):
             query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.app_name):
+            query['AppName'] = request.app_name
         if not UtilClient.is_unset(request.ip):
             query['Ip'] = request.ip
         if not UtilClient.is_unset(request.namespace):
@@ -3610,6 +3654,8 @@ class Client(OpenApiClient):
             query['MethodController'] = request.method_controller
         if not UtilClient.is_unset(request.name):
             query['Name'] = request.name
+        if not UtilClient.is_unset(request.namespace):
+            query['Namespace'] = request.namespace
         if not UtilClient.is_unset(request.page_number):
             query['PageNumber'] = request.page_number
         if not UtilClient.is_unset(request.page_size):
