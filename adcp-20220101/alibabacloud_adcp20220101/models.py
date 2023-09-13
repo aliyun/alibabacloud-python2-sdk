@@ -3893,7 +3893,7 @@ class DescribePolicyInstancesStatusResponse(TeaModel):
 
 class DescribeRegionsRequest(TeaModel):
     def __init__(self, language=None):
-        # The ID of the request.
+        # The language. Valid values: zh and en.
         self.language = language  # type: str
 
     def validate(self):
@@ -3918,8 +3918,9 @@ class DescribeRegionsRequest(TeaModel):
 
 class DescribeRegionsResponseBodyRegions(TeaModel):
     def __init__(self, local_name=None, region_id=None):
+        # The name of the region.
         self.local_name = local_name  # type: str
-        # You can call the DescribeRegions operation to query available regions.
+        # The ID of the region.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -3948,9 +3949,9 @@ class DescribeRegionsResponseBodyRegions(TeaModel):
 
 class DescribeRegionsResponseBody(TeaModel):
     def __init__(self, regions=None, request_id=None):
-        # Example 1
+        # A list of available regions that are returned.
         self.regions = regions  # type: list[DescribeRegionsResponseBodyRegions]
-        # The name of the region.
+        # The ID of the request.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4301,10 +4302,42 @@ class GrantUserPermissionRequest(TeaModel):
     def __init__(self, cluster_id=None, is_ram_role=None, namespace=None, role_name=None, role_type=None,
                  user_id=None):
         self.cluster_id = cluster_id  # type: str
+        # The entity to which the permissions are granted. A value of `true` indicates that the permissions are granted to a RAM user. A value of `false` indicates that the permissions are granted to a RAM role.
         self.is_ram_role = is_ram_role  # type: bool
         self.namespace = namespace  # type: str
+        # The predefined role that you want to assign. Valid values:
+        # 
+        # *   admin: the administrator role.
+        # *   dev: the developer role.
+        # 
+        # Enumerated values:
+        # 
+        # *   arms-admin
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        # *   dev
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        # *   admin
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
         self.role_name = role_name  # type: str
         self.role_type = role_type  # type: str
+        # The ID of the RAM user or RAM role.
         self.user_id = user_id  # type: str
 
     def validate(self):
@@ -4585,14 +4618,15 @@ class GrantUserPermissionsResponse(TeaModel):
 
 class UpdateHubClusterFeatureRequest(TeaModel):
     def __init__(self, access_control_list=None, api_server_eip_id=None, argo_cdenabled=None,
-                 argo_cdhaenabled=None, argo_server_enabled=None, audit_log_enabled=None, cluster_id=None, deletion_protection=None,
-                 enable_mesh=None, monitor_enabled=None, name=None, price_limit=None, public_access_enabled=None,
-                 public_api_server_enabled=None, v_switches=None, workflow_schedule_mode=None):
+                 argo_cdhaenabled=None, argo_events_enabled=None, argo_server_enabled=None, audit_log_enabled=None, cluster_id=None,
+                 deletion_protection=None, enable_mesh=None, monitor_enabled=None, name=None, price_limit=None,
+                 public_access_enabled=None, public_api_server_enabled=None, v_switches=None, workflow_schedule_mode=None):
         self.access_control_list = access_control_list  # type: list[str]
         # The ID of the EIP.
         self.api_server_eip_id = api_server_eip_id  # type: str
         self.argo_cdenabled = argo_cdenabled  # type: bool
         self.argo_cdhaenabled = argo_cdhaenabled  # type: bool
+        self.argo_events_enabled = argo_events_enabled  # type: bool
         self.argo_server_enabled = argo_server_enabled  # type: bool
         # Specifies whether to enable the audit logging feature. Valid values:
         # 
@@ -4641,6 +4675,8 @@ class UpdateHubClusterFeatureRequest(TeaModel):
             result['ArgoCDEnabled'] = self.argo_cdenabled
         if self.argo_cdhaenabled is not None:
             result['ArgoCDHAEnabled'] = self.argo_cdhaenabled
+        if self.argo_events_enabled is not None:
+            result['ArgoEventsEnabled'] = self.argo_events_enabled
         if self.argo_server_enabled is not None:
             result['ArgoServerEnabled'] = self.argo_server_enabled
         if self.audit_log_enabled is not None:
@@ -4677,6 +4713,8 @@ class UpdateHubClusterFeatureRequest(TeaModel):
             self.argo_cdenabled = m.get('ArgoCDEnabled')
         if m.get('ArgoCDHAEnabled') is not None:
             self.argo_cdhaenabled = m.get('ArgoCDHAEnabled')
+        if m.get('ArgoEventsEnabled') is not None:
+            self.argo_events_enabled = m.get('ArgoEventsEnabled')
         if m.get('ArgoServerEnabled') is not None:
             self.argo_server_enabled = m.get('ArgoServerEnabled')
         if m.get('AuditLogEnabled') is not None:
@@ -4706,14 +4744,15 @@ class UpdateHubClusterFeatureRequest(TeaModel):
 
 class UpdateHubClusterFeatureShrinkRequest(TeaModel):
     def __init__(self, access_control_list_shrink=None, api_server_eip_id=None, argo_cdenabled=None,
-                 argo_cdhaenabled=None, argo_server_enabled=None, audit_log_enabled=None, cluster_id=None, deletion_protection=None,
-                 enable_mesh=None, monitor_enabled=None, name=None, price_limit=None, public_access_enabled=None,
-                 public_api_server_enabled=None, v_switches_shrink=None, workflow_schedule_mode=None):
+                 argo_cdhaenabled=None, argo_events_enabled=None, argo_server_enabled=None, audit_log_enabled=None, cluster_id=None,
+                 deletion_protection=None, enable_mesh=None, monitor_enabled=None, name=None, price_limit=None,
+                 public_access_enabled=None, public_api_server_enabled=None, v_switches_shrink=None, workflow_schedule_mode=None):
         self.access_control_list_shrink = access_control_list_shrink  # type: str
         # The ID of the EIP.
         self.api_server_eip_id = api_server_eip_id  # type: str
         self.argo_cdenabled = argo_cdenabled  # type: bool
         self.argo_cdhaenabled = argo_cdhaenabled  # type: bool
+        self.argo_events_enabled = argo_events_enabled  # type: bool
         self.argo_server_enabled = argo_server_enabled  # type: bool
         # Specifies whether to enable the audit logging feature. Valid values:
         # 
@@ -4762,6 +4801,8 @@ class UpdateHubClusterFeatureShrinkRequest(TeaModel):
             result['ArgoCDEnabled'] = self.argo_cdenabled
         if self.argo_cdhaenabled is not None:
             result['ArgoCDHAEnabled'] = self.argo_cdhaenabled
+        if self.argo_events_enabled is not None:
+            result['ArgoEventsEnabled'] = self.argo_events_enabled
         if self.argo_server_enabled is not None:
             result['ArgoServerEnabled'] = self.argo_server_enabled
         if self.audit_log_enabled is not None:
@@ -4798,6 +4839,8 @@ class UpdateHubClusterFeatureShrinkRequest(TeaModel):
             self.argo_cdenabled = m.get('ArgoCDEnabled')
         if m.get('ArgoCDHAEnabled') is not None:
             self.argo_cdhaenabled = m.get('ArgoCDHAEnabled')
+        if m.get('ArgoEventsEnabled') is not None:
+            self.argo_events_enabled = m.get('ArgoEventsEnabled')
         if m.get('ArgoServerEnabled') is not None:
             self.argo_server_enabled = m.get('ArgoServerEnabled')
         if m.get('AuditLogEnabled') is not None:
