@@ -1800,8 +1800,8 @@ class DescAccountSummaryRequest(TeaModel):
 
 class DescAccountSummaryResponseBody(TeaModel):
     def __init__(self, daily_quota=None, dayu_status=None, domains=None, enable_times=None, mail_addresses=None,
-                 max_quota_level=None, month_quota=None, quota_level=None, receivers=None, request_id=None, sms_record=None,
-                 sms_sign=None, sms_templates=None, tags=None, templates=None, user_status=None):
+                 max_quota_level=None, month_quota=None, quota_level=None, receivers=None, remain_free_quota=None, request_id=None,
+                 sms_record=None, sms_sign=None, sms_templates=None, tags=None, templates=None, user_status=None):
         self.daily_quota = daily_quota  # type: int
         self.dayu_status = dayu_status  # type: int
         self.domains = domains  # type: int
@@ -1811,6 +1811,7 @@ class DescAccountSummaryResponseBody(TeaModel):
         self.month_quota = month_quota  # type: int
         self.quota_level = quota_level  # type: int
         self.receivers = receivers  # type: int
+        self.remain_free_quota = remain_free_quota  # type: int
         self.request_id = request_id  # type: str
         self.sms_record = sms_record  # type: int
         self.sms_sign = sms_sign  # type: int
@@ -1846,6 +1847,8 @@ class DescAccountSummaryResponseBody(TeaModel):
             result['QuotaLevel'] = self.quota_level
         if self.receivers is not None:
             result['Receivers'] = self.receivers
+        if self.remain_free_quota is not None:
+            result['RemainFreeQuota'] = self.remain_free_quota
         if self.request_id is not None:
             result['RequestId'] = self.request_id
         if self.sms_record is not None:
@@ -1882,6 +1885,8 @@ class DescAccountSummaryResponseBody(TeaModel):
             self.quota_level = m.get('QuotaLevel')
         if m.get('Receivers') is not None:
             self.receivers = m.get('Receivers')
+        if m.get('RemainFreeQuota') is not None:
+            self.remain_free_quota = m.get('RemainFreeQuota')
         if m.get('RequestId') is not None:
             self.request_id = m.get('RequestId')
         if m.get('SmsRecord') is not None:
