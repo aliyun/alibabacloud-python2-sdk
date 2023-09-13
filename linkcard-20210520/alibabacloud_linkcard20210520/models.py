@@ -5730,6 +5730,207 @@ class ResumeSingleCardResponse(TeaModel):
         return self
 
 
+class SendMessageRequest(TeaModel):
+    def __init__(self, api_product=None, message_send_time=None, message_template_id=None,
+                 message_variable_param=None, msisdns=None, task_name=None):
+        # Linkcard
+        self.api_product = api_product  # type: str
+        self.message_send_time = message_send_time  # type: long
+        self.message_template_id = message_template_id  # type: long
+        self.message_variable_param = message_variable_param  # type: str
+        self.msisdns = msisdns  # type: list[str]
+        self.task_name = task_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SendMessageRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.api_product is not None:
+            result['ApiProduct'] = self.api_product
+        if self.message_send_time is not None:
+            result['MessageSendTime'] = self.message_send_time
+        if self.message_template_id is not None:
+            result['MessageTemplateId'] = self.message_template_id
+        if self.message_variable_param is not None:
+            result['MessageVariableParam'] = self.message_variable_param
+        if self.msisdns is not None:
+            result['Msisdns'] = self.msisdns
+        if self.task_name is not None:
+            result['TaskName'] = self.task_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ApiProduct') is not None:
+            self.api_product = m.get('ApiProduct')
+        if m.get('MessageSendTime') is not None:
+            self.message_send_time = m.get('MessageSendTime')
+        if m.get('MessageTemplateId') is not None:
+            self.message_template_id = m.get('MessageTemplateId')
+        if m.get('MessageVariableParam') is not None:
+            self.message_variable_param = m.get('MessageVariableParam')
+        if m.get('Msisdns') is not None:
+            self.msisdns = m.get('Msisdns')
+        if m.get('TaskName') is not None:
+            self.task_name = m.get('TaskName')
+        return self
+
+
+class SendMessageShrinkRequest(TeaModel):
+    def __init__(self, api_product=None, message_send_time=None, message_template_id=None,
+                 message_variable_param=None, msisdns_shrink=None, task_name=None):
+        # Linkcard
+        self.api_product = api_product  # type: str
+        self.message_send_time = message_send_time  # type: long
+        self.message_template_id = message_template_id  # type: long
+        self.message_variable_param = message_variable_param  # type: str
+        self.msisdns_shrink = msisdns_shrink  # type: str
+        self.task_name = task_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SendMessageShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.api_product is not None:
+            result['ApiProduct'] = self.api_product
+        if self.message_send_time is not None:
+            result['MessageSendTime'] = self.message_send_time
+        if self.message_template_id is not None:
+            result['MessageTemplateId'] = self.message_template_id
+        if self.message_variable_param is not None:
+            result['MessageVariableParam'] = self.message_variable_param
+        if self.msisdns_shrink is not None:
+            result['Msisdns'] = self.msisdns_shrink
+        if self.task_name is not None:
+            result['TaskName'] = self.task_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ApiProduct') is not None:
+            self.api_product = m.get('ApiProduct')
+        if m.get('MessageSendTime') is not None:
+            self.message_send_time = m.get('MessageSendTime')
+        if m.get('MessageTemplateId') is not None:
+            self.message_template_id = m.get('MessageTemplateId')
+        if m.get('MessageVariableParam') is not None:
+            self.message_variable_param = m.get('MessageVariableParam')
+        if m.get('Msisdns') is not None:
+            self.msisdns_shrink = m.get('Msisdns')
+        if m.get('TaskName') is not None:
+            self.task_name = m.get('TaskName')
+        return self
+
+
+class SendMessageResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, dynamic_code=None, dynamic_message=None, error_message=None,
+                 localized_message=None, request_id=None, success=None):
+        self.code = code  # type: str
+        self.data = data  # type: long
+        self.dynamic_code = dynamic_code  # type: str
+        self.dynamic_message = dynamic_message  # type: str
+        self.error_message = error_message  # type: str
+        self.localized_message = localized_message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(SendMessageResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.dynamic_code is not None:
+            result['DynamicCode'] = self.dynamic_code
+        if self.dynamic_message is not None:
+            result['DynamicMessage'] = self.dynamic_message
+        if self.error_message is not None:
+            result['ErrorMessage'] = self.error_message
+        if self.localized_message is not None:
+            result['LocalizedMessage'] = self.localized_message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('DynamicCode') is not None:
+            self.dynamic_code = m.get('DynamicCode')
+        if m.get('DynamicMessage') is not None:
+            self.dynamic_message = m.get('DynamicMessage')
+        if m.get('ErrorMessage') is not None:
+            self.error_message = m.get('ErrorMessage')
+        if m.get('LocalizedMessage') is not None:
+            self.localized_message = m.get('LocalizedMessage')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class SendMessageResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: SendMessageResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(SendMessageResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = SendMessageResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class SetCardStopRuleRequest(TeaModel):
     def __init__(self, auto_restore=None, flow_limit=None, iccid=None):
         self.auto_restore = auto_restore  # type: bool
