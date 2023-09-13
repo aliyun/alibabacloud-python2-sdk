@@ -695,6 +695,17 @@ class Client(OpenApiClient):
         return self.get_account_list_with_options(request, runtime)
 
     def get_mail_address_msg_call_back_url_with_options(self, request, runtime):
+        """
+        @deprecated
+        
+
+        @param request: GetMailAddressMsgCallBackUrlRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: GetMailAddressMsgCallBackUrlResponse
+        Deprecated
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.mail_from):
@@ -725,6 +736,15 @@ class Client(OpenApiClient):
         )
 
     def get_mail_address_msg_call_back_url(self, request):
+        """
+        @deprecated
+        
+
+        @param request: GetMailAddressMsgCallBackUrlRequest
+
+        @return: GetMailAddressMsgCallBackUrlResponse
+        Deprecated
+        """
         runtime = util_models.RuntimeOptions()
         return self.get_mail_address_msg_call_back_url_with_options(request, runtime)
 
