@@ -106,6 +106,34 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.allocate_cluster_public_connection_with_options(request, runtime)
 
+    def attach_user_eniwith_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbcluster_id):
+            query['DBClusterId'] = request.dbcluster_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='AttachUserENI',
+            version='2021-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adb_20211201_models.AttachUserENIResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def attach_user_eni(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.attach_user_eniwith_options(request, runtime)
+
     def bind_account_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -138,6 +166,38 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.bind_account_with_options(request, runtime)
 
+    def bind_dbresource_group_with_user_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbcluster_id):
+            query['DBClusterId'] = request.dbcluster_id
+        if not UtilClient.is_unset(request.group_name):
+            query['GroupName'] = request.group_name
+        if not UtilClient.is_unset(request.group_user):
+            query['GroupUser'] = request.group_user
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='BindDBResourceGroupWithUser',
+            version='2021-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adb_20211201_models.BindDBResourceGroupWithUserResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def bind_dbresource_group_with_user(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.bind_dbresource_group_with_user_with_options(request, runtime)
+
     def check_bind_ram_user_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -167,6 +227,34 @@ class Client(OpenApiClient):
     def check_bind_ram_user(self, request):
         runtime = util_models.RuntimeOptions()
         return self.check_bind_ram_user_with_options(request, runtime)
+
+    def check_sample_data_set_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbcluster_id):
+            query['DBClusterId'] = request.dbcluster_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='CheckSampleDataSet',
+            version='2021-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adb_20211201_models.CheckSampleDataSetResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def check_sample_data_set(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.check_sample_data_set_with_options(request, runtime)
 
     def create_account_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1266,6 +1354,34 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.describe_dbcluster_performance_with_options(request, runtime)
 
+    def describe_dbcluster_status_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeDBClusterStatus',
+            version='2021-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adb_20211201_models.DescribeDBClusterStatusResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_dbcluster_status(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_dbcluster_status_with_options(request, runtime)
+
     def describe_dbclusters_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -2025,6 +2141,60 @@ class Client(OpenApiClient):
     def describe_tables(self, request):
         runtime = util_models.RuntimeOptions()
         return self.describe_tables_with_options(request, runtime)
+
+    def describe_user_quota_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeUserQuota',
+            version='2021-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adb_20211201_models.DescribeUserQuotaResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_user_quota(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_user_quota_with_options(request, runtime)
+
+    def detach_user_eniwith_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbcluster_id):
+            query['DBClusterId'] = request.dbcluster_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DetachUserENI',
+            version='2021-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adb_20211201_models.DetachUserENIResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def detach_user_eni(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.detach_user_eniwith_options(request, runtime)
 
     def disable_elastic_plan_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -3717,6 +3887,38 @@ class Client(OpenApiClient):
     def unbind_account(self, request):
         runtime = util_models.RuntimeOptions()
         return self.unbind_account_with_options(request, runtime)
+
+    def unbind_dbresource_group_with_user_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dbcluster_id):
+            query['DBClusterId'] = request.dbcluster_id
+        if not UtilClient.is_unset(request.group_name):
+            query['GroupName'] = request.group_name
+        if not UtilClient.is_unset(request.group_user):
+            query['GroupUser'] = request.group_user
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='UnbindDBResourceGroupWithUser',
+            version='2021-12-01',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            adb_20211201_models.UnbindDBResourceGroupWithUserResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def unbind_dbresource_group_with_user(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.unbind_dbresource_group_with_user_with_options(request, runtime)
 
     def update_spark_template_file_with_options(self, request, runtime):
         UtilClient.validate_model(request)
