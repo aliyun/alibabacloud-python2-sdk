@@ -237,6 +237,63 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.create_private_access_tag_with_options(request, runtime)
 
+    def create_registration_policy_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = csas_20230120_models.CreateRegistrationPolicyShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.company_limit_count):
+            request.company_limit_count_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.company_limit_count, 'CompanyLimitCount', 'json')
+        if not UtilClient.is_unset(tmp_req.personal_limit_count):
+            request.personal_limit_count_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.personal_limit_count, 'PersonalLimitCount', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.company_limit_count_shrink):
+            body['CompanyLimitCount'] = request.company_limit_count_shrink
+        if not UtilClient.is_unset(request.company_limit_type):
+            body['CompanyLimitType'] = request.company_limit_type
+        if not UtilClient.is_unset(request.description):
+            body['Description'] = request.description
+        if not UtilClient.is_unset(request.match_mode):
+            body['MatchMode'] = request.match_mode
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.personal_limit_count_shrink):
+            body['PersonalLimitCount'] = request.personal_limit_count_shrink
+        if not UtilClient.is_unset(request.personal_limit_type):
+            body['PersonalLimitType'] = request.personal_limit_type
+        if not UtilClient.is_unset(request.priority):
+            body['Priority'] = request.priority
+        if not UtilClient.is_unset(request.status):
+            body['Status'] = request.status
+        body_flat = {}
+        if not UtilClient.is_unset(request.user_group_ids):
+            body_flat['UserGroupIds'] = request.user_group_ids
+        if not UtilClient.is_unset(request.whitelist):
+            body_flat['Whitelist'] = request.whitelist
+        body = TeaCore.merge(body,
+            OpenApiUtilClient.query(body_flat))
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CreateRegistrationPolicy',
+            version='2023-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            csas_20230120_models.CreateRegistrationPolicyResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def create_registration_policy(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.create_registration_policy_with_options(request, runtime)
+
     def create_user_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -384,6 +441,37 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.delete_private_access_tag_with_options(request, runtime)
 
+    def delete_registration_policies_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        body_flat = {}
+        if not UtilClient.is_unset(request.policy_ids):
+            body_flat['PolicyIds'] = request.policy_ids
+        body = TeaCore.merge(body,
+            OpenApiUtilClient.query(body_flat))
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='DeleteRegistrationPolicies',
+            version='2023-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            csas_20230120_models.DeleteRegistrationPoliciesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def delete_registration_policies(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.delete_registration_policies_with_options(request, runtime)
+
     def delete_user_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -523,6 +611,58 @@ class Client(OpenApiClient):
     def get_private_access_policy(self, request):
         runtime = util_models.RuntimeOptions()
         return self.get_private_access_policy_with_options(request, runtime)
+
+    def get_registration_policy_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetRegistrationPolicy',
+            version='2023-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            csas_20230120_models.GetRegistrationPolicyResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_registration_policy(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_registration_policy_with_options(request, runtime)
+
+    def get_user_device_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='GetUserDevice',
+            version='2023-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            csas_20230120_models.GetUserDeviceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_user_device(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.get_user_device_with_options(request, runtime)
 
     def get_user_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -675,6 +815,32 @@ class Client(OpenApiClient):
     def list_dynamic_routes(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_dynamic_routes_with_options(request, runtime)
+
+    def list_excessive_device_registration_applications_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListExcessiveDeviceRegistrationApplications',
+            version='2023-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            csas_20230120_models.ListExcessiveDeviceRegistrationApplicationsResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_excessive_device_registration_applications(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_excessive_device_registration_applications_with_options(request, runtime)
 
     def list_polices_for_private_access_application_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -884,6 +1050,84 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_private_access_tags_for_dynamic_route_with_options(request, runtime)
 
+    def list_registration_policies_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListRegistrationPolicies',
+            version='2023-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            csas_20230120_models.ListRegistrationPoliciesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_registration_policies(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_registration_policies_with_options(request, runtime)
+
+    def list_registration_policies_for_user_group_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListRegistrationPoliciesForUserGroup',
+            version='2023-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            csas_20230120_models.ListRegistrationPoliciesForUserGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_registration_policies_for_user_group(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_registration_policies_for_user_group_with_options(request, runtime)
+
+    def list_software_for_user_device_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListSoftwareForUserDevice',
+            version='2023-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            csas_20230120_models.ListSoftwareForUserDeviceResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_software_for_user_device(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_software_for_user_device_with_options(request, runtime)
+
     def list_tags_for_private_access_application_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = OpenApiUtilClient.query(UtilClient.to_map(request))
@@ -935,6 +1179,32 @@ class Client(OpenApiClient):
     def list_tags_for_private_access_policy(self, request):
         runtime = util_models.RuntimeOptions()
         return self.list_tags_for_private_access_policy_with_options(request, runtime)
+
+    def list_user_devices_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListUserDevices',
+            version='2023-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            csas_20230120_models.ListUserDevicesResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_user_devices(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_user_devices_with_options(request, runtime)
 
     def list_user_groups_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -988,6 +1258,32 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_user_groups_for_private_access_policy_with_options(request, runtime)
 
+    def list_user_groups_for_registration_policy_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListUserGroupsForRegistrationPolicy',
+            version='2023-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            csas_20230120_models.ListUserGroupsForRegistrationPolicyResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_user_groups_for_registration_policy(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_user_groups_for_registration_policy_with_options(request, runtime)
+
     def update_dynamic_route_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         body = {}
@@ -1040,6 +1336,39 @@ class Client(OpenApiClient):
     def update_dynamic_route(self, request):
         runtime = util_models.RuntimeOptions()
         return self.update_dynamic_route_with_options(request, runtime)
+
+    def update_excessive_device_registration_applications_status_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        body_flat = {}
+        if not UtilClient.is_unset(request.application_ids):
+            body_flat['ApplicationIds'] = request.application_ids
+        if not UtilClient.is_unset(request.status):
+            body['Status'] = request.status
+        body = TeaCore.merge(body,
+            OpenApiUtilClient.query(body_flat))
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateExcessiveDeviceRegistrationApplicationsStatus',
+            version='2023-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            csas_20230120_models.UpdateExcessiveDeviceRegistrationApplicationsStatusResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_excessive_device_registration_applications_status(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_excessive_device_registration_applications_status_with_options(request, runtime)
 
     def update_private_access_application_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1138,6 +1467,131 @@ class Client(OpenApiClient):
     def update_private_access_policy(self, request):
         runtime = util_models.RuntimeOptions()
         return self.update_private_access_policy_with_options(request, runtime)
+
+    def update_registration_policy_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = csas_20230120_models.UpdateRegistrationPolicyShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.company_limit_count):
+            request.company_limit_count_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.company_limit_count, 'CompanyLimitCount', 'json')
+        if not UtilClient.is_unset(tmp_req.personal_limit_count):
+            request.personal_limit_count_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.personal_limit_count, 'PersonalLimitCount', 'json')
+        body = {}
+        if not UtilClient.is_unset(request.company_limit_count_shrink):
+            body['CompanyLimitCount'] = request.company_limit_count_shrink
+        if not UtilClient.is_unset(request.company_limit_type):
+            body['CompanyLimitType'] = request.company_limit_type
+        if not UtilClient.is_unset(request.description):
+            body['Description'] = request.description
+        if not UtilClient.is_unset(request.match_mode):
+            body['MatchMode'] = request.match_mode
+        if not UtilClient.is_unset(request.name):
+            body['Name'] = request.name
+        if not UtilClient.is_unset(request.personal_limit_count_shrink):
+            body['PersonalLimitCount'] = request.personal_limit_count_shrink
+        if not UtilClient.is_unset(request.personal_limit_type):
+            body['PersonalLimitType'] = request.personal_limit_type
+        if not UtilClient.is_unset(request.policy_id):
+            body['PolicyId'] = request.policy_id
+        if not UtilClient.is_unset(request.priority):
+            body['Priority'] = request.priority
+        if not UtilClient.is_unset(request.status):
+            body['Status'] = request.status
+        body_flat = {}
+        if not UtilClient.is_unset(request.user_group_ids):
+            body_flat['UserGroupIds'] = request.user_group_ids
+        if not UtilClient.is_unset(request.whitelist):
+            body_flat['Whitelist'] = request.whitelist
+        body = TeaCore.merge(body,
+            OpenApiUtilClient.query(body_flat))
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateRegistrationPolicy',
+            version='2023-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            csas_20230120_models.UpdateRegistrationPolicyResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_registration_policy(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_registration_policy_with_options(request, runtime)
+
+    def update_user_devices_sharing_status_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        body_flat = {}
+        if not UtilClient.is_unset(request.device_tags):
+            body_flat['DeviceTags'] = request.device_tags
+        if not UtilClient.is_unset(request.sharing_status):
+            body['SharingStatus'] = request.sharing_status
+        body = TeaCore.merge(body,
+            OpenApiUtilClient.query(body_flat))
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateUserDevicesSharingStatus',
+            version='2023-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            csas_20230120_models.UpdateUserDevicesSharingStatusResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_user_devices_sharing_status(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_user_devices_sharing_status_with_options(request, runtime)
+
+    def update_user_devices_status_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.device_action):
+            body['DeviceAction'] = request.device_action
+        body_flat = {}
+        if not UtilClient.is_unset(request.device_tags):
+            body_flat['DeviceTags'] = request.device_tags
+        body = TeaCore.merge(body,
+            OpenApiUtilClient.query(body_flat))
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='UpdateUserDevicesStatus',
+            version='2023-01-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            csas_20230120_models.UpdateUserDevicesStatusResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def update_user_devices_status(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.update_user_devices_status_with_options(request, runtime)
 
     def update_user_group_with_options(self, request, runtime):
         UtilClient.validate_model(request)
