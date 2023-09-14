@@ -3807,6 +3807,17 @@ class Client(OpenApiClient):
         return self.describe_endpoint_group_with_options(request, runtime)
 
     def describe_ip_set_with_options(self, request, runtime):
+        """
+        ## Debugging
+        [OpenAPI Explorer automatically calculates the signature value. For your convenience, we recommend that you call this operation in OpenAPI Explorer. OpenAPI Explorer dynamically generates the sample code of the operation for different SDKs.](https://api.aliyun.com/#product=Ga\\&api=DescribeIpSet\\&type=RPC\\&version=2019-11-20)
+        
+
+        @param request: DescribeIpSetRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeIpSetResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.ip_set_id):
@@ -3833,6 +3844,15 @@ class Client(OpenApiClient):
         )
 
     def describe_ip_set(self, request):
+        """
+        ## Debugging
+        [OpenAPI Explorer automatically calculates the signature value. For your convenience, we recommend that you call this operation in OpenAPI Explorer. OpenAPI Explorer dynamically generates the sample code of the operation for different SDKs.](https://api.aliyun.com/#product=Ga\\&api=DescribeIpSet\\&type=RPC\\&version=2019-11-20)
+        
+
+        @param request: DescribeIpSetRequest
+
+        @return: DescribeIpSetResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_ip_set_with_options(request, runtime)
 
@@ -3883,6 +3903,40 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.describe_listener_with_options(request, runtime)
+
+    def describe_log_store_of_endpoint_group_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.accelerator_id):
+            query['AcceleratorId'] = request.accelerator_id
+        if not UtilClient.is_unset(request.endpoint_group_id):
+            query['EndpointGroupId'] = request.endpoint_group_id
+        if not UtilClient.is_unset(request.listener_id):
+            query['ListenerId'] = request.listener_id
+        if not UtilClient.is_unset(request.region_id):
+            query['RegionId'] = request.region_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeLogStoreOfEndpointGroup',
+            version='2019-11-20',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            ga_20191120_models.DescribeLogStoreOfEndpointGroupResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_log_store_of_endpoint_group(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_log_store_of_endpoint_group_with_options(request, runtime)
 
     def describe_regions_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -3968,7 +4022,8 @@ class Client(OpenApiClient):
 
     def detach_log_store_from_endpoint_group_with_options(self, request, runtime):
         """
-        **DetachLogStoreFromEndpointGroup** is an asynchronous operation. After you send a request, the system returns a request ID, but the operation is still being performed in the system background. You can call the [DescribeEndpointGroup](~~153260~~) operation to query the state of an endpoint group.
+        ## Description
+        *   **DetachLogStoreFromEndpointGroup** is an asynchronous operation. After you send a request, the system returns a request ID, but the operation is still being performed in the system background. You can call the [DescribeEndpointGroup](~~153260~~) operation to query the state of an endpoint group.
         *   If the endpoint group is in the **updating** state, the Log Service Logstore is being disassociated from the endpoint group. In this case, you can perform only query operations.
         <!---->
         *   If the endpoint group is in the **active** state, the Log Service Logstore is disassociated from the endpoint group.
@@ -4014,7 +4069,8 @@ class Client(OpenApiClient):
 
     def detach_log_store_from_endpoint_group(self, request):
         """
-        **DetachLogStoreFromEndpointGroup** is an asynchronous operation. After you send a request, the system returns a request ID, but the operation is still being performed in the system background. You can call the [DescribeEndpointGroup](~~153260~~) operation to query the state of an endpoint group.
+        ## Description
+        *   **DetachLogStoreFromEndpointGroup** is an asynchronous operation. After you send a request, the system returns a request ID, but the operation is still being performed in the system background. You can call the [DescribeEndpointGroup](~~153260~~) operation to query the state of an endpoint group.
         *   If the endpoint group is in the **updating** state, the Log Service Logstore is being disassociated from the endpoint group. In this case, you can perform only query operations.
         <!---->
         *   If the endpoint group is in the **active** state, the Log Service Logstore is disassociated from the endpoint group.
@@ -4094,7 +4150,8 @@ class Client(OpenApiClient):
 
     def dissociate_acls_from_listener_with_options(self, request, runtime):
         """
-        **DissociateAclsFromListener** is an asynchronous operation. After you send a request, the system returns a request ID, but the operation is still being performed in the system background. You can call the [DescribeListener](~~153254~~) operation to query the state of a listener:
+        ## Description
+        *   **DissociateAclsFromListener** is an asynchronous operation. After you send a request, the system returns a request ID, but the operation is still being performed in the system background. You can call the [DescribeListener](~~153254~~) operation to query the state of a listener:
         *   If the listener is in the **updating** state, ACLs are being disassociated from the listener. In this case, you can perform only query operations.
         *   If the listener is in the **active** state, ACLs are disassociated from the listener.
         *   The **DissociateAclsFromListener** operation cannot be repeatedly called for the same Global Accelerator (GA) instance within a specific period of time.
@@ -4139,7 +4196,8 @@ class Client(OpenApiClient):
 
     def dissociate_acls_from_listener(self, request):
         """
-        **DissociateAclsFromListener** is an asynchronous operation. After you send a request, the system returns a request ID, but the operation is still being performed in the system background. You can call the [DescribeListener](~~153254~~) operation to query the state of a listener:
+        ## Description
+        *   **DissociateAclsFromListener** is an asynchronous operation. After you send a request, the system returns a request ID, but the operation is still being performed in the system background. You can call the [DescribeListener](~~153254~~) operation to query the state of a listener:
         *   If the listener is in the **updating** state, ACLs are being disassociated from the listener. In this case, you can perform only query operations.
         *   If the listener is in the **active** state, ACLs are disassociated from the listener.
         *   The **DissociateAclsFromListener** operation cannot be repeatedly called for the same Global Accelerator (GA) instance within a specific period of time.
@@ -4154,7 +4212,8 @@ class Client(OpenApiClient):
 
     def dissociate_additional_certificates_from_listener_with_options(self, request, runtime):
         """
-        **DissociateAdditionalCertificatesFromListener** is an asynchronous operation. After you send a request, the system returns a request ID, but this operation is still being performed in the system background. You can call the [DescribeListener](~~153254~~) operation to query the state of an HTTPS listener.
+        ## Description
+        *   **DissociateAdditionalCertificatesFromListener** is an asynchronous operation. After you send a request, the system returns a request ID, but this operation is still being performed in the system background. You can call the [DescribeListener](~~153254~~) operation to query the state of an HTTPS listener.
         *   If the listener is in the **updating** state, it indicates that the additional certificate is being dissociated from the listener. In this case, you can perform only query operations.
         *   If the listener is in the **active** state, it indicates that the additional certificate is dissociated from the listener.
         *   The **DissociateAdditionalCertificatesFromListener** operation cannot be repeatedly called for the same Global Accelerator (GA) instance with a specific period of time.
@@ -4199,7 +4258,8 @@ class Client(OpenApiClient):
 
     def dissociate_additional_certificates_from_listener(self, request):
         """
-        **DissociateAdditionalCertificatesFromListener** is an asynchronous operation. After you send a request, the system returns a request ID, but this operation is still being performed in the system background. You can call the [DescribeListener](~~153254~~) operation to query the state of an HTTPS listener.
+        ## Description
+        *   **DissociateAdditionalCertificatesFromListener** is an asynchronous operation. After you send a request, the system returns a request ID, but this operation is still being performed in the system background. You can call the [DescribeListener](~~153254~~) operation to query the state of an HTTPS listener.
         *   If the listener is in the **updating** state, it indicates that the additional certificate is being dissociated from the listener. In this case, you can perform only query operations.
         *   If the listener is in the **active** state, it indicates that the additional certificate is dissociated from the listener.
         *   The **DissociateAdditionalCertificatesFromListener** operation cannot be repeatedly called for the same Global Accelerator (GA) instance with a specific period of time.
@@ -5231,6 +5291,17 @@ class Client(OpenApiClient):
         return self.list_custom_routing_endpoint_group_destinations_with_options(request, runtime)
 
     def list_custom_routing_endpoint_groups_with_options(self, request, runtime):
+        """
+        ## Debugging
+        [OpenAPI Explorer automatically calculates the signature value. For your convenience, we recommend that you call this operation in OpenAPI Explorer. OpenAPI Explorer dynamically generates the sample code for different SDKs.](https://api.aliyun.com/#product=Ga\\&api=ListCustomRoutingEndpointGroups\\&type=RPC\\&version=2019-11-20)
+        
+
+        @param request: ListCustomRoutingEndpointGroupsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListCustomRoutingEndpointGroupsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.accelerator_id):
@@ -5265,6 +5336,15 @@ class Client(OpenApiClient):
         )
 
     def list_custom_routing_endpoint_groups(self, request):
+        """
+        ## Debugging
+        [OpenAPI Explorer automatically calculates the signature value. For your convenience, we recommend that you call this operation in OpenAPI Explorer. OpenAPI Explorer dynamically generates the sample code for different SDKs.](https://api.aliyun.com/#product=Ga\\&api=ListCustomRoutingEndpointGroups\\&type=RPC\\&version=2019-11-20)
+        
+
+        @param request: ListCustomRoutingEndpointGroupsRequest
+
+        @return: ListCustomRoutingEndpointGroupsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_custom_routing_endpoint_groups_with_options(request, runtime)
 
@@ -5509,6 +5589,17 @@ class Client(OpenApiClient):
         return self.list_endpoint_group_ip_address_cidr_blocks_with_options(request, runtime)
 
     def list_endpoint_groups_with_options(self, request, runtime):
+        """
+        ## Debugging
+        [OpenAPI Explorer automatically calculates the signature value. For your convenience, we recommend that you call this operation in OpenAPI Explorer. OpenAPI Explorer dynamically generates the sample code of the operation for different SDKs.](https://api.aliyun.com/#product=Ga\\&api=ListEndpointGroups\\&type=RPC\\&version=2019-11-20)
+        
+
+        @param request: ListEndpointGroupsRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ListEndpointGroupsResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.accelerator_id):
@@ -5549,12 +5640,21 @@ class Client(OpenApiClient):
         )
 
     def list_endpoint_groups(self, request):
+        """
+        ## Debugging
+        [OpenAPI Explorer automatically calculates the signature value. For your convenience, we recommend that you call this operation in OpenAPI Explorer. OpenAPI Explorer dynamically generates the sample code of the operation for different SDKs.](https://api.aliyun.com/#product=Ga\\&api=ListEndpointGroups\\&type=RPC\\&version=2019-11-20)
+        
+
+        @param request: ListEndpointGroupsRequest
+
+        @return: ListEndpointGroupsResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.list_endpoint_groups_with_options(request, runtime)
 
     def list_forwarding_rules_with_options(self, request, runtime):
         """
-        >  You can call this operation to query only custom forwarding rules. You cannot call this operation to query the default forwarding rule.
+        >  This operation is used to query only custom forwarding rules, not the default forwarding rule.
         
 
         @param request: ListForwardingRulesRequest
@@ -5600,7 +5700,7 @@ class Client(OpenApiClient):
 
     def list_forwarding_rules(self, request):
         """
-        >  You can call this operation to query only custom forwarding rules. You cannot call this operation to query the default forwarding rule.
+        >  This operation is used to query only custom forwarding rules, not the default forwarding rule.
         
 
         @param request: ListForwardingRulesRequest
@@ -6425,6 +6525,21 @@ class Client(OpenApiClient):
         return self.update_accelerator_cross_border_mode_with_options(request, runtime)
 
     def update_accelerator_cross_border_status_with_options(self, request, runtime):
+        """
+        You can use this operation to enable or disable the cross-border data transmission feature for a GA instance. Before you enable the cross-border data transmission feature, make sure that the following requirements are met:
+        - **Basic GA instances**:
+        Cloud Data Transfer (CDT) is activated. When you call the CreateBasicAccelerator operation to create a basic GA instance, set BandwidthBillingType to CDT. Then, the system automatically activates CDT. The data transfer fees are managed by CDT.
+        If you want to enable the cross-border data transmission feature, make sure that the current account has completed enterprise real-name registration. For more information, see Real-name registration FAQs.
+        - **Standard GA instances**:
+        CDT is activated. When you call the CreateAccelerator operation to create a standard GA instance, set BandwidthBillingType to CDT. Then, the system automatically activates CDT. The data transfer fees are managed by CDT.
+        
+
+        @param request: UpdateAcceleratorCrossBorderStatusRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateAcceleratorCrossBorderStatusResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.accelerator_id):
@@ -6455,6 +6570,19 @@ class Client(OpenApiClient):
         )
 
     def update_accelerator_cross_border_status(self, request):
+        """
+        You can use this operation to enable or disable the cross-border data transmission feature for a GA instance. Before you enable the cross-border data transmission feature, make sure that the following requirements are met:
+        - **Basic GA instances**:
+        Cloud Data Transfer (CDT) is activated. When you call the CreateBasicAccelerator operation to create a basic GA instance, set BandwidthBillingType to CDT. Then, the system automatically activates CDT. The data transfer fees are managed by CDT.
+        If you want to enable the cross-border data transmission feature, make sure that the current account has completed enterprise real-name registration. For more information, see Real-name registration FAQs.
+        - **Standard GA instances**:
+        CDT is activated. When you call the CreateAccelerator operation to create a standard GA instance, set BandwidthBillingType to CDT. Then, the system automatically activates CDT. The data transfer fees are managed by CDT.
+        
+
+        @param request: UpdateAcceleratorCrossBorderStatusRequest
+
+        @return: UpdateAcceleratorCrossBorderStatusResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.update_accelerator_cross_border_status_with_options(request, runtime)
 
@@ -7120,7 +7248,8 @@ class Client(OpenApiClient):
 
     def update_custom_routing_endpoints_with_options(self, request, runtime):
         """
-        **UpdateCustomRoutingEndpoints** is an asynchronous operation. After you send a request, the system returns a request ID, but the operation is still being performed in the system background. You can call the [DescribeCustomRoutingEndpointGroup](~~449373~~) operation to query the state of the endpoint groups associated with a custom routing listener to check whether the endpoints in the endpoint groups are modified.
+        ## Description
+        *   **UpdateCustomRoutingEndpoints** is an asynchronous operation. After you send a request, the system returns a request ID, but the operation is still being performed in the system background. You can call the [DescribeCustomRoutingEndpointGroup](~~449373~~) operation to query the state of the endpoint groups associated with a custom routing listener to check whether the endpoints in the endpoint groups are modified.
         *   If an endpoint group is in the **updating** state, the endpoints in the endpoint group are being modified. In this case, you can perform only query operations.
         *   If an endpoint group is in the **active** state, the endpoints in the endpoint group are modified.
         *   The **UpdateCustomRoutingEndpoints** operation cannot be repeatedly called for the same Global Accelerator (GA) instance within a specific period of time.
@@ -7163,7 +7292,8 @@ class Client(OpenApiClient):
 
     def update_custom_routing_endpoints(self, request):
         """
-        **UpdateCustomRoutingEndpoints** is an asynchronous operation. After you send a request, the system returns a request ID, but the operation is still being performed in the system background. You can call the [DescribeCustomRoutingEndpointGroup](~~449373~~) operation to query the state of the endpoint groups associated with a custom routing listener to check whether the endpoints in the endpoint groups are modified.
+        ## Description
+        *   **UpdateCustomRoutingEndpoints** is an asynchronous operation. After you send a request, the system returns a request ID, but the operation is still being performed in the system background. You can call the [DescribeCustomRoutingEndpointGroup](~~449373~~) operation to query the state of the endpoint groups associated with a custom routing listener to check whether the endpoints in the endpoint groups are modified.
         *   If an endpoint group is in the **updating** state, the endpoints in the endpoint group are being modified. In this case, you can perform only query operations.
         *   If an endpoint group is in the **active** state, the endpoints in the endpoint group are modified.
         *   The **UpdateCustomRoutingEndpoints** operation cannot be repeatedly called for the same Global Accelerator (GA) instance within a specific period of time.
@@ -7281,9 +7411,9 @@ class Client(OpenApiClient):
     def update_endpoint_group_with_options(self, request, runtime):
         """
         **UpdateEndpointGroup** is an asynchronous operation. After you send a request, the system returns a request ID, but the operation is still being performed in the system background. You can call the [DescribeEndpointGroup](~~153260~~) operation to query the state of an endpoint group.
-        *   If the endpoint group is in the **updating** state, the configurations of the endpoint group are being modified. In this case, you can perform only query operations.
-        *   If the endpoint group is in the **active** state, the configurations of the endpoint group are modified.
-        *   The **UpdateEndpointGroup** operation cannot be repeatedly called for the same GA instance within a specific period of time.
+        *   If the endpoint group is in the **updating** state, it indicates that the configurations of the endpoint group are being modified. In this case, you can perform only query operations.
+        *   If the endpoint group is in the **active** state, it indicates that the configurations of the endpoint group are modified.
+        *   The **UpdateEndpointGroup** operation cannot be repeatedly called for the same Global Accelerator (GA) instance within a specific period of time.
         
 
         @param request: UpdateEndpointGroupRequest
@@ -7348,9 +7478,9 @@ class Client(OpenApiClient):
     def update_endpoint_group(self, request):
         """
         **UpdateEndpointGroup** is an asynchronous operation. After you send a request, the system returns a request ID, but the operation is still being performed in the system background. You can call the [DescribeEndpointGroup](~~153260~~) operation to query the state of an endpoint group.
-        *   If the endpoint group is in the **updating** state, the configurations of the endpoint group are being modified. In this case, you can perform only query operations.
-        *   If the endpoint group is in the **active** state, the configurations of the endpoint group are modified.
-        *   The **UpdateEndpointGroup** operation cannot be repeatedly called for the same GA instance within a specific period of time.
+        *   If the endpoint group is in the **updating** state, it indicates that the configurations of the endpoint group are being modified. In this case, you can perform only query operations.
+        *   If the endpoint group is in the **active** state, it indicates that the configurations of the endpoint group are modified.
+        *   The **UpdateEndpointGroup** operation cannot be repeatedly called for the same Global Accelerator (GA) instance within a specific period of time.
         
 
         @param request: UpdateEndpointGroupRequest
@@ -7398,10 +7528,11 @@ class Client(OpenApiClient):
 
     def update_endpoint_groups_with_options(self, request, runtime):
         """
-        **UpdateEndpointGroups** is an asynchronous operation. After you send a request, the system returns a request ID, but the operation is still being performed in the system background. You can call the [DescribeEndpointGroup](~~153260~~) or [ListEndpointGroups](~~153261~~) operation to query the state of an endpoint group.
-        *   If the endpoint group is in the **updating** state, the configuration of the endpoint group is being modified. In this case, you can perform only query operations.
-        *   If the endpoint group is in the **active**, the configuration of the endpoint group is modified.
-        *   The **UpdateEndpointGroups** operation cannot be repeatedly called for the same Global Accelerator (GA) instance within a specific period of time.
+        ### Description
+        *   **UpdateEndpointGroups** is an asynchronous operation. After a request is sent, the system returns a request ID and runs the task in the background. You can call the [DescribeEndpointGroup](~~153260~~) or [ListEndpointGroups](~~153261~~) operation to query the status of an endpoint group.
+        *   If the endpoint group is in the **updating** state, it indicates that the configuration of the endpoint group is being modified. In this case, you can perform only query operations.
+        *   If the endpoint group is in the **active** state, it indicates that the configuration of the endpoint group is modified.
+        *   The **UpdateEndpointGroups** operation holds an exclusive lock on the Global Accelerator (GA) instance. While the operation is in progress, you cannot call the same operation in the same Alibaba Cloud account.
         
 
         @param request: UpdateEndpointGroupsRequest
@@ -7443,10 +7574,11 @@ class Client(OpenApiClient):
 
     def update_endpoint_groups(self, request):
         """
-        **UpdateEndpointGroups** is an asynchronous operation. After you send a request, the system returns a request ID, but the operation is still being performed in the system background. You can call the [DescribeEndpointGroup](~~153260~~) or [ListEndpointGroups](~~153261~~) operation to query the state of an endpoint group.
-        *   If the endpoint group is in the **updating** state, the configuration of the endpoint group is being modified. In this case, you can perform only query operations.
-        *   If the endpoint group is in the **active**, the configuration of the endpoint group is modified.
-        *   The **UpdateEndpointGroups** operation cannot be repeatedly called for the same Global Accelerator (GA) instance within a specific period of time.
+        ### Description
+        *   **UpdateEndpointGroups** is an asynchronous operation. After a request is sent, the system returns a request ID and runs the task in the background. You can call the [DescribeEndpointGroup](~~153260~~) or [ListEndpointGroups](~~153261~~) operation to query the status of an endpoint group.
+        *   If the endpoint group is in the **updating** state, it indicates that the configuration of the endpoint group is being modified. In this case, you can perform only query operations.
+        *   If the endpoint group is in the **active** state, it indicates that the configuration of the endpoint group is modified.
+        *   The **UpdateEndpointGroups** operation holds an exclusive lock on the Global Accelerator (GA) instance. While the operation is in progress, you cannot call the same operation in the same Alibaba Cloud account.
         
 
         @param request: UpdateEndpointGroupsRequest
@@ -7709,6 +7841,20 @@ class Client(OpenApiClient):
         return self.update_listener_with_options(request, runtime)
 
     def update_service_managed_control_with_options(self, request, runtime):
+        """
+        This operation is applicable only to **managed** Global Accelerator (GA) instances.
+        *   After you change the control mode of a GA instance from managed mode to unmanaged mode, you cannot change the mode of the instance to managed mode.
+        *   After you change the control mode of a GA instance from managed mode to unmanaged mode, you can obtain all operation permissions on the instance.
+        **\
+        **Warning** If you change or delete a configuration of a GA instance whose control mode is changed from managed mode to unmanaged mode, the cloud services that depend on the instance may not work as expected. Proceed with caution.
+        
+
+        @param request: UpdateServiceManagedControlRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: UpdateServiceManagedControlResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.client_token):
@@ -7741,5 +7887,17 @@ class Client(OpenApiClient):
         )
 
     def update_service_managed_control(self, request):
+        """
+        This operation is applicable only to **managed** Global Accelerator (GA) instances.
+        *   After you change the control mode of a GA instance from managed mode to unmanaged mode, you cannot change the mode of the instance to managed mode.
+        *   After you change the control mode of a GA instance from managed mode to unmanaged mode, you can obtain all operation permissions on the instance.
+        **\
+        **Warning** If you change or delete a configuration of a GA instance whose control mode is changed from managed mode to unmanaged mode, the cloud services that depend on the instance may not work as expected. Proceed with caution.
+        
+
+        @param request: UpdateServiceManagedControlRequest
+
+        @return: UpdateServiceManagedControlResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.update_service_managed_control_with_options(request, runtime)
