@@ -4987,6 +4987,93 @@ class DeleteDcdnSubTaskResponse(TeaModel):
         return self
 
 
+class DeleteDcdnUserConfigRequest(TeaModel):
+    def __init__(self, function_name=None):
+        self.function_name = function_name  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteDcdnUserConfigRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.function_name is not None:
+            result['FunctionName'] = self.function_name
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('FunctionName') is not None:
+            self.function_name = m.get('FunctionName')
+        return self
+
+
+class DeleteDcdnUserConfigResponseBody(TeaModel):
+    def __init__(self, request_id=None):
+        self.request_id = request_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(DeleteDcdnUserConfigResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        return self
+
+
+class DeleteDcdnUserConfigResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: DeleteDcdnUserConfigResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(DeleteDcdnUserConfigResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = DeleteDcdnUserConfigResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class DeleteDcdnWafGroupRequest(TeaModel):
     def __init__(self, id=None):
         self.id = id  # type: long
@@ -6748,11 +6835,12 @@ class DescribeDcdnDdosSpecInfoResponseBodySpecInfos(TeaModel):
 
 
 class DescribeDcdnDdosSpecInfoResponseBody(TeaModel):
-    def __init__(self, bandwidth_limit=None, edition=None, enable=None, protected_area=None, qps_limit=None,
-                 request_id=None, spec_infos=None):
+    def __init__(self, bandwidth_limit=None, edition=None, enable=None, is_special_port=None, protected_area=None,
+                 qps_limit=None, request_id=None, spec_infos=None):
         self.bandwidth_limit = bandwidth_limit  # type: str
         self.edition = edition  # type: str
         self.enable = enable  # type: str
+        self.is_special_port = is_special_port  # type: str
         self.protected_area = protected_area  # type: str
         self.qps_limit = qps_limit  # type: str
         self.request_id = request_id  # type: str
@@ -6776,6 +6864,8 @@ class DescribeDcdnDdosSpecInfoResponseBody(TeaModel):
             result['Edition'] = self.edition
         if self.enable is not None:
             result['Enable'] = self.enable
+        if self.is_special_port is not None:
+            result['IsSpecialPort'] = self.is_special_port
         if self.protected_area is not None:
             result['ProtectedArea'] = self.protected_area
         if self.qps_limit is not None:
@@ -6796,6 +6886,8 @@ class DescribeDcdnDdosSpecInfoResponseBody(TeaModel):
             self.edition = m.get('Edition')
         if m.get('Enable') is not None:
             self.enable = m.get('Enable')
+        if m.get('IsSpecialPort') is not None:
+            self.is_special_port = m.get('IsSpecialPort')
         if m.get('ProtectedArea') is not None:
             self.protected_area = m.get('ProtectedArea')
         if m.get('QpsLimit') is not None:
