@@ -101,18 +101,6 @@ class Client(OpenApiClient):
         return self.add_address_book_with_options(request, runtime)
 
     def add_control_policy_with_options(self, request, runtime):
-        """
-        You can call the AddControlPolicy operation to create an access control policy to allow, block, or monitor traffic that reaches Cloud Firewall.
-        ## Limits
-        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
-        
-
-        @param request: AddControlPolicyRequest
-
-        @param runtime: runtime options for this request RuntimeOptions
-
-        @return: AddControlPolicyResponse
-        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.acl_action):
@@ -171,16 +159,6 @@ class Client(OpenApiClient):
         )
 
     def add_control_policy(self, request):
-        """
-        You can call the AddControlPolicy operation to create an access control policy to allow, block, or monitor traffic that reaches Cloud Firewall.
-        ## Limits
-        You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
-        
-
-        @param request: AddControlPolicyRequest
-
-        @return: AddControlPolicyResponse
-        """
         runtime = util_models.RuntimeOptions()
         return self.add_control_policy_with_options(request, runtime)
 
@@ -297,6 +275,16 @@ class Client(OpenApiClient):
         return self.batch_copy_vpc_firewall_control_policy_with_options(request, runtime)
 
     def create_nat_firewall_control_policy_with_options(self, request, runtime):
+        """
+        You can use this operation to create an access control policy to allow, deny, or monitor traffic that passes through a NAT firewall.
+        
+
+        @param request: CreateNatFirewallControlPolicyRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: CreateNatFirewallControlPolicyResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.acl_action):
@@ -355,6 +343,14 @@ class Client(OpenApiClient):
         )
 
     def create_nat_firewall_control_policy(self, request):
+        """
+        You can use this operation to create an access control policy to allow, deny, or monitor traffic that passes through a NAT firewall.
+        
+
+        @param request: CreateNatFirewallControlPolicyRequest
+
+        @return: CreateNatFirewallControlPolicyResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.create_nat_firewall_control_policy_with_options(request, runtime)
 
@@ -613,6 +609,8 @@ class Client(OpenApiClient):
             query['AclAction'] = request.acl_action
         if not UtilClient.is_unset(request.application_name):
             query['ApplicationName'] = request.application_name
+        if not UtilClient.is_unset(request.application_name_list):
+            query['ApplicationNameList'] = request.application_name_list
         if not UtilClient.is_unset(request.description):
             query['Description'] = request.description
         if not UtilClient.is_unset(request.dest_port):
@@ -867,6 +865,16 @@ class Client(OpenApiClient):
         return self.delete_instance_members_with_options(request, runtime)
 
     def delete_nat_firewall_control_policy_with_options(self, request, runtime):
+        """
+        You can use this operation to delete an outbound access control policy that is created for a NAT firewall.
+        
+
+        @param request: DeleteNatFirewallControlPolicyRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DeleteNatFirewallControlPolicyResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.acl_uuid):
@@ -897,6 +905,14 @@ class Client(OpenApiClient):
         )
 
     def delete_nat_firewall_control_policy(self, request):
+        """
+        You can use this operation to delete an outbound access control policy that is created for a NAT firewall.
+        
+
+        @param request: DeleteNatFirewallControlPolicyRequest
+
+        @return: DeleteNatFirewallControlPolicyResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.delete_nat_firewall_control_policy_with_options(request, runtime)
 
@@ -1332,7 +1348,7 @@ class Client(OpenApiClient):
 
     def describe_domain_resolve_with_options(self, request, runtime):
         """
-        You can call the DescribeDomainResolve operation to query the DNS record of a domain name. This operation can retrieve DNS records only from Alibaba Cloud DNS. Before you can call this operation, make sure that your domain name is hosted on Alibaba Cloud DNS.
+        You can use this operation to query the DNS record of a domain name. This operation can retrieve DNS records only from Alibaba Cloud DNS. Before you can call this operation, make sure that your domain name is hosted on Alibaba Cloud DNS.
         ## Limits
         You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -1376,7 +1392,7 @@ class Client(OpenApiClient):
 
     def describe_domain_resolve(self, request):
         """
-        You can call the DescribeDomainResolve operation to query the DNS record of a domain name. This operation can retrieve DNS records only from Alibaba Cloud DNS. Before you can call this operation, make sure that your domain name is hosted on Alibaba Cloud DNS.
+        You can use this operation to query the DNS record of a domain name. This operation can retrieve DNS records only from Alibaba Cloud DNS. Before you can call this operation, make sure that your domain name is hosted on Alibaba Cloud DNS.
         ## Limits
         You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -1390,7 +1406,7 @@ class Client(OpenApiClient):
 
     def describe_instance_members_with_options(self, request, runtime):
         """
-        You can call the DescribeInstanceMembers operation to query the information about members in Cloud Firewall.
+        You can use this operation to query the information about members in Cloud Firewall.
         ## Limits
         You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -1434,7 +1450,7 @@ class Client(OpenApiClient):
 
     def describe_instance_members(self, request):
         """
-        You can call the DescribeInstanceMembers operation to query the information about members in Cloud Firewall.
+        You can use this operation to query the information about members in Cloud Firewall.
         ## Limits
         You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -1445,6 +1461,58 @@ class Client(OpenApiClient):
         """
         runtime = util_models.RuntimeOptions()
         return self.describe_instance_members_with_options(request, runtime)
+
+    def describe_internet_open_ip_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.assets_instance_id):
+            query['AssetsInstanceId'] = request.assets_instance_id
+        if not UtilClient.is_unset(request.assets_instance_name):
+            query['AssetsInstanceName'] = request.assets_instance_name
+        if not UtilClient.is_unset(request.assets_type):
+            query['AssetsType'] = request.assets_type
+        if not UtilClient.is_unset(request.current_page):
+            query['CurrentPage'] = request.current_page
+        if not UtilClient.is_unset(request.end_time):
+            query['EndTime'] = request.end_time
+        if not UtilClient.is_unset(request.lang):
+            query['Lang'] = request.lang
+        if not UtilClient.is_unset(request.page_size):
+            query['PageSize'] = request.page_size
+        if not UtilClient.is_unset(request.port):
+            query['Port'] = request.port
+        if not UtilClient.is_unset(request.public_ip):
+            query['PublicIp'] = request.public_ip
+        if not UtilClient.is_unset(request.region_no):
+            query['RegionNo'] = request.region_no
+        if not UtilClient.is_unset(request.risk_level):
+            query['RiskLevel'] = request.risk_level
+        if not UtilClient.is_unset(request.service_name):
+            query['ServiceName'] = request.service_name
+        if not UtilClient.is_unset(request.start_time):
+            query['StartTime'] = request.start_time
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='DescribeInternetOpenIp',
+            version='2017-12-07',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            cloudfw_20171207_models.DescribeInternetOpenIpResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def describe_internet_open_ip(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.describe_internet_open_ip_with_options(request, runtime)
 
     def describe_internet_traffic_trend_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -1551,6 +1619,16 @@ class Client(OpenApiClient):
         return self.describe_invade_event_list_with_options(request, runtime)
 
     def describe_nat_firewall_control_policy_with_options(self, request, runtime):
+        """
+        You can use this operation to query the information about all access control policies that are created for NAT firewalls by page.
+        
+
+        @param request: DescribeNatFirewallControlPolicyRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeNatFirewallControlPolicyResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.acl_action):
@@ -1597,10 +1675,28 @@ class Client(OpenApiClient):
         )
 
     def describe_nat_firewall_control_policy(self, request):
+        """
+        You can use this operation to query the information about all access control policies that are created for NAT firewalls by page.
+        
+
+        @param request: DescribeNatFirewallControlPolicyRequest
+
+        @return: DescribeNatFirewallControlPolicyResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_nat_firewall_control_policy_with_options(request, runtime)
 
     def describe_nat_firewall_policy_prior_used_with_options(self, request, runtime):
+        """
+        You can use this operation to query the priority range of access control policies that are created for a NAT firewall.
+        
+
+        @param request: DescribeNatFirewallPolicyPriorUsedRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: DescribeNatFirewallPolicyPriorUsedResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.direction):
@@ -1631,6 +1727,14 @@ class Client(OpenApiClient):
         )
 
     def describe_nat_firewall_policy_prior_used(self, request):
+        """
+        You can use this operation to query the priority range of access control policies that are created for a NAT firewall.
+        
+
+        @param request: DescribeNatFirewallPolicyPriorUsedRequest
+
+        @return: DescribeNatFirewallPolicyPriorUsedResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.describe_nat_firewall_policy_prior_used_with_options(request, runtime)
 
@@ -3121,6 +3225,16 @@ class Client(OpenApiClient):
         return self.modify_instance_member_attributes_with_options(request, runtime)
 
     def modify_nat_firewall_control_policy_with_options(self, request, runtime):
+        """
+        You can use this operation to modify the configurations of an access control policy. The policy is used to allow, deny, or monitor traffic that reaches a NAT firewall.
+        
+
+        @param request: ModifyNatFirewallControlPolicyRequest
+
+        @param runtime: runtime options for this request RuntimeOptions
+
+        @return: ModifyNatFirewallControlPolicyResponse
+        """
         UtilClient.validate_model(request)
         query = {}
         if not UtilClient.is_unset(request.acl_action):
@@ -3175,6 +3289,14 @@ class Client(OpenApiClient):
         )
 
     def modify_nat_firewall_control_policy(self, request):
+        """
+        You can use this operation to modify the configurations of an access control policy. The policy is used to allow, deny, or monitor traffic that reaches a NAT firewall.
+        
+
+        @param request: ModifyNatFirewallControlPolicyRequest
+
+        @return: ModifyNatFirewallControlPolicyResponse
+        """
         runtime = util_models.RuntimeOptions()
         return self.modify_nat_firewall_control_policy_with_options(request, runtime)
 
@@ -3577,6 +3699,8 @@ class Client(OpenApiClient):
             query['AclUuid'] = request.acl_uuid
         if not UtilClient.is_unset(request.application_name):
             query['ApplicationName'] = request.application_name
+        if not UtilClient.is_unset(request.application_name_list):
+            query['ApplicationNameList'] = request.application_name_list
         if not UtilClient.is_unset(request.description):
             query['Description'] = request.description
         if not UtilClient.is_unset(request.dest_port):
@@ -3636,7 +3760,7 @@ class Client(OpenApiClient):
 
     def modify_vpc_firewall_control_policy_position_with_options(self, request, runtime):
         """
-        You can call the ModifyVpcFirewallControlPolicyPosition operation to modify the priority of an access control policy that is created for a VPC firewall in a specific policy group.
+        You can use this operation to modify the priority of an access control policy that is created for a VPC firewall in a specific policy group.
         ## Limits
         You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
@@ -3680,7 +3804,7 @@ class Client(OpenApiClient):
 
     def modify_vpc_firewall_control_policy_position(self, request):
         """
-        You can call the ModifyVpcFirewallControlPolicyPosition operation to modify the priority of an access control policy that is created for a VPC firewall in a specific policy group.
+        You can use this operation to modify the priority of an access control policy that is created for a VPC firewall in a specific policy group.
         ## Limits
         You can call this operation up to 10 times per second per account. If the number of the calls per second exceeds the limit, throttling is triggered. As a result, your business may be affected. We recommend that you take note of the limit when you call this operation.
         
