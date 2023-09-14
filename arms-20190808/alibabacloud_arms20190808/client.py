@@ -769,6 +769,8 @@ class Client(OpenApiClient):
             body['AlertId'] = request.alert_id
         if not UtilClient.is_unset(request.alert_name):
             body['AlertName'] = request.alert_name
+        if not UtilClient.is_unset(request.alert_piplines):
+            body['AlertPiplines'] = request.alert_piplines
         if not UtilClient.is_unset(request.alert_rule_content):
             body['AlertRuleContent'] = request.alert_rule_content
         if not UtilClient.is_unset(request.alert_status):
@@ -781,6 +783,8 @@ class Client(OpenApiClient):
             body['AutoAddNewApplication'] = request.auto_add_new_application
         if not UtilClient.is_unset(request.cluster_id):
             body['ClusterId'] = request.cluster_id
+        if not UtilClient.is_unset(request.data_config):
+            body['DataConfig'] = request.data_config
         if not UtilClient.is_unset(request.duration):
             body['Duration'] = request.duration
         if not UtilClient.is_unset(request.filters):
@@ -797,6 +801,8 @@ class Client(OpenApiClient):
             body['MetricsKey'] = request.metrics_key
         if not UtilClient.is_unset(request.metrics_type):
             body['MetricsType'] = request.metrics_type
+        if not UtilClient.is_unset(request.notice):
+            body['Notice'] = request.notice
         if not UtilClient.is_unset(request.notify_strategy):
             body['NotifyStrategy'] = request.notify_strategy
         if not UtilClient.is_unset(request.pids):
