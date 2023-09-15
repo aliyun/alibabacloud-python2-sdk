@@ -177,16 +177,20 @@ class LogContent(TeaModel):
 
 class LogGroup(TeaModel):
     def __init__(self, log_tags=None, logs=None, source=None, topic=None):
-        self.log_tags = log_tags  # type: LogTag
-        self.logs = logs  # type: LogItem
+        self.log_tags = log_tags  # type: list[LogTag]
+        self.logs = logs  # type: list[LogItem]
         self.source = source  # type: str
         self.topic = topic  # type: str
 
     def validate(self):
         if self.log_tags:
-            self.log_tags.validate()
+            for k in self.log_tags:
+                if k:
+                    k.validate()
         if self.logs:
-            self.logs.validate()
+            for k in self.logs:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(LogGroup, self).to_map()
@@ -194,10 +198,14 @@ class LogGroup(TeaModel):
             return _map
 
         result = dict()
+        result['LogTags'] = []
         if self.log_tags is not None:
-            result['LogTags'] = self.log_tags.to_map()
+            for k in self.log_tags:
+                result['LogTags'].append(k.to_map() if k else None)
+        result['Logs'] = []
         if self.logs is not None:
-            result['Logs'] = self.logs.to_map()
+            for k in self.logs:
+                result['Logs'].append(k.to_map() if k else None)
         if self.source is not None:
             result['Source'] = self.source
         if self.topic is not None:
@@ -206,12 +214,16 @@ class LogGroup(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        self.log_tags = []
         if m.get('LogTags') is not None:
-            temp_model = LogTag()
-            self.log_tags = temp_model.from_map(m['LogTags'])
+            for k in m.get('LogTags'):
+                temp_model = LogTag()
+                self.log_tags.append(temp_model.from_map(k))
+        self.logs = []
         if m.get('Logs') is not None:
-            temp_model = LogItem()
-            self.logs = temp_model.from_map(m['Logs'])
+            for k in m.get('Logs'):
+                temp_model = LogItem()
+                self.logs.append(temp_model.from_map(k))
         if m.get('Source') is not None:
             self.source = m.get('Source')
         if m.get('Topic') is not None:
@@ -222,7 +234,7 @@ class LogGroup(TeaModel):
 class LogItem(TeaModel):
     def __init__(self, contents=None, time=None):
         self.contents = contents  # type: list[LogContent]
-        self.time = time  # type: long
+        self.time = time  # type: int
 
     def validate(self):
         if self.contents:
@@ -446,6 +458,417 @@ class LogtailPipelineConfig(TeaModel):
         return self
 
 
+class MLDataParam(TeaModel):
+    def __init__(self, annotationdata_id=None, annotations=None, config=None, create_time=None, data_hash=None,
+                 dataset_id=None, last_modify_time=None, predictions=None, value=None, value_type=None):
+        self.annotationdata_id = annotationdata_id  # type: str
+        self.annotations = annotations  # type: dict[str, MLDataParamAnnotationsValue]
+        self.config = config  # type: dict[str, str]
+        self.create_time = create_time  # type: long
+        self.data_hash = data_hash  # type: str
+        self.dataset_id = dataset_id  # type: str
+        self.last_modify_time = last_modify_time  # type: long
+        self.predictions = predictions  # type: dict[str, MLDataParamPredictionsValue]
+        self.value = value  # type: str
+        self.value_type = value_type  # type: str
+
+    def validate(self):
+        if self.annotations:
+            for v in self.annotations.values():
+                if v:
+                    v.validate()
+        if self.predictions:
+            for v in self.predictions.values():
+                if v:
+                    v.validate()
+
+    def to_map(self):
+        _map = super(MLDataParam, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.annotationdata_id is not None:
+            result['annotationdataId'] = self.annotationdata_id
+        result['annotations'] = {}
+        if self.annotations is not None:
+            for k, v in self.annotations.items():
+                result['annotations'][k] = v.to_map()
+        if self.config is not None:
+            result['config'] = self.config
+        if self.create_time is not None:
+            result['createTime'] = self.create_time
+        if self.data_hash is not None:
+            result['dataHash'] = self.data_hash
+        if self.dataset_id is not None:
+            result['datasetId'] = self.dataset_id
+        if self.last_modify_time is not None:
+            result['lastModifyTime'] = self.last_modify_time
+        result['predictions'] = {}
+        if self.predictions is not None:
+            for k, v in self.predictions.items():
+                result['predictions'][k] = v.to_map()
+        if self.value is not None:
+            result['value'] = self.value
+        if self.value_type is not None:
+            result['valueType'] = self.value_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('annotationdataId') is not None:
+            self.annotationdata_id = m.get('annotationdataId')
+        self.annotations = {}
+        if m.get('annotations') is not None:
+            for k, v in m.get('annotations').items():
+                temp_model = MLDataParamAnnotationsValue()
+                self.annotations[k] = temp_model.from_map(v)
+        if m.get('config') is not None:
+            self.config = m.get('config')
+        if m.get('createTime') is not None:
+            self.create_time = m.get('createTime')
+        if m.get('dataHash') is not None:
+            self.data_hash = m.get('dataHash')
+        if m.get('datasetId') is not None:
+            self.dataset_id = m.get('datasetId')
+        if m.get('lastModifyTime') is not None:
+            self.last_modify_time = m.get('lastModifyTime')
+        self.predictions = {}
+        if m.get('predictions') is not None:
+            for k, v in m.get('predictions').items():
+                temp_model = MLDataParamPredictionsValue()
+                self.predictions[k] = temp_model.from_map(v)
+        if m.get('value') is not None:
+            self.value = m.get('value')
+        if m.get('valueType') is not None:
+            self.value_type = m.get('valueType')
+        return self
+
+
+class MLDataSetParam(TeaModel):
+    def __init__(self, create_by=None, create_time=None, data_type=None, dataset_id=None, description=None,
+                 label_id=None, last_modify_time=None, name=None, setting_type=None):
+        self.create_by = create_by  # type: str
+        self.create_time = create_time  # type: long
+        self.data_type = data_type  # type: str
+        self.dataset_id = dataset_id  # type: str
+        self.description = description  # type: str
+        self.label_id = label_id  # type: str
+        self.last_modify_time = last_modify_time  # type: long
+        self.name = name  # type: str
+        self.setting_type = setting_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(MLDataSetParam, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.create_by is not None:
+            result['createBy'] = self.create_by
+        if self.create_time is not None:
+            result['createTime'] = self.create_time
+        if self.data_type is not None:
+            result['dataType'] = self.data_type
+        if self.dataset_id is not None:
+            result['datasetId'] = self.dataset_id
+        if self.description is not None:
+            result['description'] = self.description
+        if self.label_id is not None:
+            result['labelId'] = self.label_id
+        if self.last_modify_time is not None:
+            result['lastModifyTime'] = self.last_modify_time
+        if self.name is not None:
+            result['name'] = self.name
+        if self.setting_type is not None:
+            result['settingType'] = self.setting_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('createBy') is not None:
+            self.create_by = m.get('createBy')
+        if m.get('createTime') is not None:
+            self.create_time = m.get('createTime')
+        if m.get('dataType') is not None:
+            self.data_type = m.get('dataType')
+        if m.get('datasetId') is not None:
+            self.dataset_id = m.get('datasetId')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('labelId') is not None:
+            self.label_id = m.get('labelId')
+        if m.get('lastModifyTime') is not None:
+            self.last_modify_time = m.get('lastModifyTime')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('settingType') is not None:
+            self.setting_type = m.get('settingType')
+        return self
+
+
+class MLLabelParamSettings(TeaModel):
+    def __init__(self, config=None, mode=None, type=None, version=None):
+        self.config = config  # type: str
+        self.mode = mode  # type: str
+        self.type = type  # type: str
+        self.version = version  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(MLLabelParamSettings, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.config is not None:
+            result['config'] = self.config
+        if self.mode is not None:
+            result['mode'] = self.mode
+        if self.type is not None:
+            result['type'] = self.type
+        if self.version is not None:
+            result['version'] = self.version
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('config') is not None:
+            self.config = m.get('config')
+        if m.get('mode') is not None:
+            self.mode = m.get('mode')
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        if m.get('version') is not None:
+            self.version = m.get('version')
+        return self
+
+
+class MLLabelParam(TeaModel):
+    def __init__(self, create_time=None, description=None, label_id=None, last_modify_time=None, name=None,
+                 settings=None, type=None):
+        self.create_time = create_time  # type: long
+        self.description = description  # type: str
+        self.label_id = label_id  # type: str
+        self.last_modify_time = last_modify_time  # type: long
+        self.name = name  # type: str
+        self.settings = settings  # type: list[MLLabelParamSettings]
+        self.type = type  # type: str
+
+    def validate(self):
+        if self.settings:
+            for k in self.settings:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(MLLabelParam, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.create_time is not None:
+            result['createTime'] = self.create_time
+        if self.description is not None:
+            result['description'] = self.description
+        if self.label_id is not None:
+            result['labelId'] = self.label_id
+        if self.last_modify_time is not None:
+            result['lastModifyTime'] = self.last_modify_time
+        if self.name is not None:
+            result['name'] = self.name
+        result['settings'] = []
+        if self.settings is not None:
+            for k in self.settings:
+                result['settings'].append(k.to_map() if k else None)
+        if self.type is not None:
+            result['type'] = self.type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('createTime') is not None:
+            self.create_time = m.get('createTime')
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('labelId') is not None:
+            self.label_id = m.get('labelId')
+        if m.get('lastModifyTime') is not None:
+            self.last_modify_time = m.get('lastModifyTime')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        self.settings = []
+        if m.get('settings') is not None:
+            for k in m.get('settings'):
+                temp_model = MLLabelParamSettings()
+                self.settings.append(temp_model.from_map(k))
+        if m.get('type') is not None:
+            self.type = m.get('type')
+        return self
+
+
+class MLServiceAnalysisParam(TeaModel):
+    def __init__(self, input=None, parameter=None):
+        self.input = input  # type: list[dict[str, str]]
+        self.parameter = parameter  # type: dict[str, str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(MLServiceAnalysisParam, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.input is not None:
+            result['input'] = self.input
+        if self.parameter is not None:
+            result['parameter'] = self.parameter
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('input') is not None:
+            self.input = m.get('input')
+        if m.get('parameter') is not None:
+            self.parameter = m.get('parameter')
+        return self
+
+
+class MLServiceParamModel(TeaModel):
+    def __init__(self, model_resource_id=None, model_resource_type=None):
+        self.model_resource_id = model_resource_id  # type: str
+        self.model_resource_type = model_resource_type  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(MLServiceParamModel, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.model_resource_id is not None:
+            result['modelResourceId'] = self.model_resource_id
+        if self.model_resource_type is not None:
+            result['modelResourceType'] = self.model_resource_type
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('modelResourceId') is not None:
+            self.model_resource_id = m.get('modelResourceId')
+        if m.get('modelResourceType') is not None:
+            self.model_resource_type = m.get('modelResourceType')
+        return self
+
+
+class MLServiceParamResource(TeaModel):
+    def __init__(self, cpu_limit=None, gpu=None, memory_limit=None, replica=None):
+        self.cpu_limit = cpu_limit  # type: int
+        self.gpu = gpu  # type: int
+        self.memory_limit = memory_limit  # type: int
+        self.replica = replica  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(MLServiceParamResource, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cpu_limit is not None:
+            result['cpuLimit'] = self.cpu_limit
+        if self.gpu is not None:
+            result['gpu'] = self.gpu
+        if self.memory_limit is not None:
+            result['memoryLimit'] = self.memory_limit
+        if self.replica is not None:
+            result['replica'] = self.replica
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('cpuLimit') is not None:
+            self.cpu_limit = m.get('cpuLimit')
+        if m.get('gpu') is not None:
+            self.gpu = m.get('gpu')
+        if m.get('memoryLimit') is not None:
+            self.memory_limit = m.get('memoryLimit')
+        if m.get('replica') is not None:
+            self.replica = m.get('replica')
+        return self
+
+
+class MLServiceParam(TeaModel):
+    def __init__(self, description=None, model=None, name=None, resource=None, service_type=None, status=None,
+                 update_timestamp=None):
+        self.description = description  # type: str
+        self.model = model  # type: MLServiceParamModel
+        self.name = name  # type: str
+        self.resource = resource  # type: MLServiceParamResource
+        self.service_type = service_type  # type: str
+        self.status = status  # type: str
+        self.update_timestamp = update_timestamp  # type: long
+
+    def validate(self):
+        if self.model:
+            self.model.validate()
+        if self.resource:
+            self.resource.validate()
+
+    def to_map(self):
+        _map = super(MLServiceParam, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.description is not None:
+            result['description'] = self.description
+        if self.model is not None:
+            result['model'] = self.model.to_map()
+        if self.name is not None:
+            result['name'] = self.name
+        if self.resource is not None:
+            result['resource'] = self.resource.to_map()
+        if self.service_type is not None:
+            result['serviceType'] = self.service_type
+        if self.status is not None:
+            result['status'] = self.status
+        if self.update_timestamp is not None:
+            result['updateTimestamp'] = self.update_timestamp
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('description') is not None:
+            self.description = m.get('description')
+        if m.get('model') is not None:
+            temp_model = MLServiceParamModel()
+            self.model = temp_model.from_map(m['model'])
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('resource') is not None:
+            temp_model = MLServiceParamResource()
+            self.resource = temp_model.from_map(m['resource'])
+        if m.get('serviceType') is not None:
+            self.service_type = m.get('serviceType')
+        if m.get('status') is not None:
+            self.status = m.get('status')
+        if m.get('updateTimestamp') is not None:
+            self.update_timestamp = m.get('updateTimestamp')
+        return self
+
+
 class SavedSearch(TeaModel):
     def __init__(self, display_name=None, logstore=None, savedsearch_name=None, search_query=None, topic=None):
         self.display_name = display_name  # type: str
@@ -487,6 +910,97 @@ class SavedSearch(TeaModel):
             self.search_query = m.get('searchQuery')
         if m.get('topic') is not None:
             self.topic = m.get('topic')
+        return self
+
+
+class Ticket(TeaModel):
+    def __init__(self, caller_uid=None, create_date=None, expiration_time=None, expire_date=None, extra=None,
+                 name=None, number=None, policy=None, ticket=None, ticket_id=None, unlimited_expiration=None,
+                 unlimited_number=None, used_number=None, valid=None):
+        self.caller_uid = caller_uid  # type: long
+        self.create_date = create_date  # type: str
+        self.expiration_time = expiration_time  # type: long
+        self.expire_date = expire_date  # type: str
+        self.extra = extra  # type: str
+        self.name = name  # type: str
+        self.number = number  # type: int
+        self.policy = policy  # type: str
+        self.ticket = ticket  # type: str
+        self.ticket_id = ticket_id  # type: str
+        self.unlimited_expiration = unlimited_expiration  # type: bool
+        self.unlimited_number = unlimited_number  # type: bool
+        self.used_number = used_number  # type: int
+        self.valid = valid  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(Ticket, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.caller_uid is not None:
+            result['callerUid'] = self.caller_uid
+        if self.create_date is not None:
+            result['createDate'] = self.create_date
+        if self.expiration_time is not None:
+            result['expirationTime'] = self.expiration_time
+        if self.expire_date is not None:
+            result['expireDate'] = self.expire_date
+        if self.extra is not None:
+            result['extra'] = self.extra
+        if self.name is not None:
+            result['name'] = self.name
+        if self.number is not None:
+            result['number'] = self.number
+        if self.policy is not None:
+            result['policy'] = self.policy
+        if self.ticket is not None:
+            result['ticket'] = self.ticket
+        if self.ticket_id is not None:
+            result['ticketId'] = self.ticket_id
+        if self.unlimited_expiration is not None:
+            result['unlimitedExpiration'] = self.unlimited_expiration
+        if self.unlimited_number is not None:
+            result['unlimitedNumber'] = self.unlimited_number
+        if self.used_number is not None:
+            result['usedNumber'] = self.used_number
+        if self.valid is not None:
+            result['valid'] = self.valid
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('callerUid') is not None:
+            self.caller_uid = m.get('callerUid')
+        if m.get('createDate') is not None:
+            self.create_date = m.get('createDate')
+        if m.get('expirationTime') is not None:
+            self.expiration_time = m.get('expirationTime')
+        if m.get('expireDate') is not None:
+            self.expire_date = m.get('expireDate')
+        if m.get('extra') is not None:
+            self.extra = m.get('extra')
+        if m.get('name') is not None:
+            self.name = m.get('name')
+        if m.get('number') is not None:
+            self.number = m.get('number')
+        if m.get('policy') is not None:
+            self.policy = m.get('policy')
+        if m.get('ticket') is not None:
+            self.ticket = m.get('ticket')
+        if m.get('ticketId') is not None:
+            self.ticket_id = m.get('ticketId')
+        if m.get('unlimitedExpiration') is not None:
+            self.unlimited_expiration = m.get('unlimitedExpiration')
+        if m.get('unlimitedNumber') is not None:
+            self.unlimited_number = m.get('unlimitedNumber')
+        if m.get('usedNumber') is not None:
+            self.used_number = m.get('usedNumber')
+        if m.get('valid') is not None:
+            self.valid = m.get('valid')
         return self
 
 
@@ -1382,6 +1896,74 @@ class Shard(TeaModel):
         return self
 
 
+class MLDataParamAnnotationsValue(TeaModel):
+    def __init__(self, annotated_by=None, update_time=None, results=None):
+        self.annotated_by = annotated_by  # type: str
+        self.update_time = update_time  # type: long
+        self.results = results  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(MLDataParamAnnotationsValue, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.annotated_by is not None:
+            result['annotatedBy'] = self.annotated_by
+        if self.update_time is not None:
+            result['updateTime'] = self.update_time
+        if self.results is not None:
+            result['results'] = self.results
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('annotatedBy') is not None:
+            self.annotated_by = m.get('annotatedBy')
+        if m.get('updateTime') is not None:
+            self.update_time = m.get('updateTime')
+        if m.get('results') is not None:
+            self.results = m.get('results')
+        return self
+
+
+class MLDataParamPredictionsValue(TeaModel):
+    def __init__(self, annotated_by=None, update_time=None, results=None):
+        self.annotated_by = annotated_by  # type: str
+        self.update_time = update_time  # type: long
+        self.results = results  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(MLDataParamPredictionsValue, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.annotated_by is not None:
+            result['annotatedBy'] = self.annotated_by
+        if self.update_time is not None:
+            result['updateTime'] = self.update_time
+        if self.results is not None:
+            result['results'] = self.results
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('annotatedBy') is not None:
+            self.annotated_by = m.get('annotatedBy')
+        if m.get('updateTime') is not None:
+            self.update_time = m.get('updateTime')
+        if m.get('results') is not None:
+            self.results = m.get('results')
+        return self
+
+
 class IndexKeysValue(TeaModel):
     def __init__(self, chn=None, case_sensitive=None, token=None, alias=None, type=None, doc_value=None):
         self.chn = chn  # type: bool
@@ -2193,6 +2775,91 @@ class CreateLoggingResponse(TeaModel):
 
     def to_map(self):
         _map = super(CreateLoggingResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        return self
+
+
+class CreateLogtailPipelineConfigRequest(TeaModel):
+    def __init__(self, aggregators=None, config_name=None, flushers=None, global_=None, inputs=None, log_sample=None,
+                 processors=None):
+        self.aggregators = aggregators  # type: list[dict[str, any]]
+        self.config_name = config_name  # type: str
+        self.flushers = flushers  # type: list[dict[str, any]]
+        self.global_ = global_  # type: dict[str, any]
+        self.inputs = inputs  # type: list[dict[str, any]]
+        self.log_sample = log_sample  # type: str
+        self.processors = processors  # type: list[dict[str, any]]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CreateLogtailPipelineConfigRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.aggregators is not None:
+            result['aggregators'] = self.aggregators
+        if self.config_name is not None:
+            result['configName'] = self.config_name
+        if self.flushers is not None:
+            result['flushers'] = self.flushers
+        if self.global_ is not None:
+            result['global'] = self.global_
+        if self.inputs is not None:
+            result['inputs'] = self.inputs
+        if self.log_sample is not None:
+            result['logSample'] = self.log_sample
+        if self.processors is not None:
+            result['processors'] = self.processors
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('aggregators') is not None:
+            self.aggregators = m.get('aggregators')
+        if m.get('configName') is not None:
+            self.config_name = m.get('configName')
+        if m.get('flushers') is not None:
+            self.flushers = m.get('flushers')
+        if m.get('global') is not None:
+            self.global_ = m.get('global')
+        if m.get('inputs') is not None:
+            self.inputs = m.get('inputs')
+        if m.get('logSample') is not None:
+            self.log_sample = m.get('logSample')
+        if m.get('processors') is not None:
+            self.processors = m.get('processors')
+        return self
+
+
+class CreateLogtailPipelineConfigResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+
+    def to_map(self):
+        _map = super(CreateLogtailPipelineConfigResponse, self).to_map()
         if _map is not None:
             return _map
 
@@ -3258,6 +3925,36 @@ class DeleteLoggingResponse(TeaModel):
 
     def to_map(self):
         _map = super(DeleteLoggingResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        return self
+
+
+class DeleteLogtailPipelineConfigResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+
+    def to_map(self):
+        _map = super(DeleteLogtailPipelineConfigResponse, self).to_map()
         if _map is not None:
             return _map
 
@@ -4807,6 +5504,45 @@ class GetLogsV2Response(TeaModel):
         return self
 
 
+class GetLogtailPipelineConfigResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: LogtailPipelineConfig
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetLogtailPipelineConfigResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = LogtailPipelineConfig()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class GetMachineGroupResponse(TeaModel):
     def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
@@ -5880,6 +6616,118 @@ class ListLogStoresResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ListLogStoresResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListLogtailPipelineConfigRequest(TeaModel):
+    def __init__(self, config_name=None, logstore=None, offset=None, size=None):
+        self.config_name = config_name  # type: str
+        self.logstore = logstore  # type: str
+        self.offset = offset  # type: long
+        self.size = size  # type: long
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListLogtailPipelineConfigRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.config_name is not None:
+            result['configName'] = self.config_name
+        if self.logstore is not None:
+            result['logstore'] = self.logstore
+        if self.offset is not None:
+            result['offset'] = self.offset
+        if self.size is not None:
+            result['size'] = self.size
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('configName') is not None:
+            self.config_name = m.get('configName')
+        if m.get('logstore') is not None:
+            self.logstore = m.get('logstore')
+        if m.get('offset') is not None:
+            self.offset = m.get('offset')
+        if m.get('size') is not None:
+            self.size = m.get('size')
+        return self
+
+
+class ListLogtailPipelineConfigResponseBody(TeaModel):
+    def __init__(self, configs=None, count=None, total=None):
+        self.configs = configs  # type: list[str]
+        self.count = count  # type: int
+        self.total = total  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListLogtailPipelineConfigResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.configs is not None:
+            result['configs'] = self.configs
+        if self.count is not None:
+            result['count'] = self.count
+        if self.total is not None:
+            result['total'] = self.total
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('configs') is not None:
+            self.configs = m.get('configs')
+        if m.get('count') is not None:
+            self.count = m.get('count')
+        if m.get('total') is not None:
+            self.total = m.get('total')
+        return self
+
+
+class ListLogtailPipelineConfigResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListLogtailPipelineConfigResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListLogtailPipelineConfigResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListLogtailPipelineConfigResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -7646,6 +8494,91 @@ class UpdateLoggingResponse(TeaModel):
 
     def to_map(self):
         _map = super(UpdateLoggingResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        return self
+
+
+class UpdateLogtailPipelineConfigRequest(TeaModel):
+    def __init__(self, aggregators=None, config_name=None, flushers=None, global_=None, inputs=None, log_sample=None,
+                 processors=None):
+        self.aggregators = aggregators  # type: list[dict[str, any]]
+        self.config_name = config_name  # type: str
+        self.flushers = flushers  # type: list[dict[str, any]]
+        self.global_ = global_  # type: dict[str, any]
+        self.inputs = inputs  # type: list[dict[str, any]]
+        self.log_sample = log_sample  # type: str
+        self.processors = processors  # type: list[dict[str, any]]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateLogtailPipelineConfigRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.aggregators is not None:
+            result['aggregators'] = self.aggregators
+        if self.config_name is not None:
+            result['configName'] = self.config_name
+        if self.flushers is not None:
+            result['flushers'] = self.flushers
+        if self.global_ is not None:
+            result['global'] = self.global_
+        if self.inputs is not None:
+            result['inputs'] = self.inputs
+        if self.log_sample is not None:
+            result['logSample'] = self.log_sample
+        if self.processors is not None:
+            result['processors'] = self.processors
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('aggregators') is not None:
+            self.aggregators = m.get('aggregators')
+        if m.get('configName') is not None:
+            self.config_name = m.get('configName')
+        if m.get('flushers') is not None:
+            self.flushers = m.get('flushers')
+        if m.get('global') is not None:
+            self.global_ = m.get('global')
+        if m.get('inputs') is not None:
+            self.inputs = m.get('inputs')
+        if m.get('logSample') is not None:
+            self.log_sample = m.get('logSample')
+        if m.get('processors') is not None:
+            self.processors = m.get('processors')
+        return self
+
+
+class UpdateLogtailPipelineConfigResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+
+    def to_map(self):
+        _map = super(UpdateLogtailPipelineConfigResponse, self).to_map()
         if _map is not None:
             return _map
 
