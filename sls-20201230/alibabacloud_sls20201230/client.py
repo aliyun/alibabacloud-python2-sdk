@@ -126,6 +126,64 @@ class Client(OpenApiClient):
         headers = {}
         return self.consumer_group_heart_beat_with_options(project, logstore, consumer_group, request, headers, runtime)
 
+    def create_annotation_data_set_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.dataset_id):
+            query['datasetId'] = request.dataset_id
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(request.body)
+        )
+        params = open_api_models.Params(
+            action='CreateAnnotationDataSet',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/ml/annotationdataset',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.CreateAnnotationDataSetResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def create_annotation_data_set(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_annotation_data_set_with_options(request, headers, runtime)
+
+    def create_annotation_label_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(request.body)
+        )
+        params = open_api_models.Params(
+            action='CreateAnnotationLabel',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/ml/annotationlabel',
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.CreateAnnotationLabelResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def create_annotation_label(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.create_annotation_label_with_options(request, headers, runtime)
+
     def create_config_with_options(self, project, request, headers, runtime):
         UtilClient.validate_model(request)
         host_map = {}
@@ -700,6 +758,81 @@ class Client(OpenApiClient):
         headers = {}
         return self.create_saved_search_with_options(project, request, headers, runtime)
 
+    def delete_annotation_data_with_options(self, dataset_id, annotationdata_id, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='DeleteAnnotationData',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/ml/annotationdataset/%s/annotationdata/%s' % (TeaConverter.to_unicode(dataset_id), TeaConverter.to_unicode(annotationdata_id)),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.DeleteAnnotationDataResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def delete_annotation_data(self, dataset_id, annotationdata_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_annotation_data_with_options(dataset_id, annotationdata_id, headers, runtime)
+
+    def delete_annotation_data_set_with_options(self, dataset_id, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='DeleteAnnotationDataSet',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/ml/annotationdataset/%s' % TeaConverter.to_unicode(dataset_id),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.DeleteAnnotationDataSetResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def delete_annotation_data_set(self, dataset_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_annotation_data_set_with_options(dataset_id, headers, runtime)
+
+    def delete_annotation_label_with_options(self, label_id, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='DeleteAnnotationLabel',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/ml/annotationlabel/%s' % TeaConverter.to_unicode(label_id),
+            method='DELETE',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.DeleteAnnotationLabelResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def delete_annotation_label(self, label_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.delete_annotation_label_with_options(label_id, headers, runtime)
+
     def delete_config_with_options(self, project, config_name, headers, runtime):
         host_map = {}
         host_map['project'] = project
@@ -1091,6 +1224,81 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.delete_shipper_with_options(project, logstore, shipper_name, headers, runtime)
+
+    def get_annotation_data_with_options(self, dataset_id, annotationdata_id, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='GetAnnotationData',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/ml/annotationdataset/%s/annotationdata/%s' % (TeaConverter.to_unicode(dataset_id), TeaConverter.to_unicode(annotationdata_id)),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.GetAnnotationDataResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def get_annotation_data(self, dataset_id, annotationdata_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_annotation_data_with_options(dataset_id, annotationdata_id, headers, runtime)
+
+    def get_annotation_data_set_with_options(self, dataset_id, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='GetAnnotationDataSet',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/ml/annotationdataset/%s' % TeaConverter.to_unicode(dataset_id),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.GetAnnotationDataSetResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def get_annotation_data_set(self, dataset_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_annotation_data_set_with_options(dataset_id, headers, runtime)
+
+    def get_annotation_label_with_options(self, label_id, headers, runtime):
+        req = open_api_models.OpenApiRequest(
+            headers=headers
+        )
+        params = open_api_models.Params(
+            action='GetAnnotationLabel',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/ml/annotationlabel/%s' % TeaConverter.to_unicode(label_id),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.GetAnnotationLabelResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def get_annotation_label(self, label_id):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.get_annotation_label_with_options(label_id, headers, runtime)
 
     def get_applied_configs_with_options(self, project, machine_group, headers, runtime):
         host_map = {}
@@ -1816,6 +2024,102 @@ class Client(OpenApiClient):
         headers = {}
         return self.get_shipper_status_with_options(project, logstore, shipper_name, request, headers, runtime)
 
+    def list_annotation_data_with_options(self, dataset_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.offset):
+            query['offset'] = request.offset
+        if not UtilClient.is_unset(request.size):
+            query['size'] = request.size
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListAnnotationData',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/ml/annotationdataset/%s/annotationdata' % TeaConverter.to_unicode(dataset_id),
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.ListAnnotationDataResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def list_annotation_data(self, dataset_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_annotation_data_with_options(dataset_id, request, headers, runtime)
+
+    def list_annotation_data_sets_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.offset):
+            query['offset'] = request.offset
+        if not UtilClient.is_unset(request.size):
+            query['size'] = request.size
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListAnnotationDataSets',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/ml/annotationdataset',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.ListAnnotationDataSetsResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def list_annotation_data_sets(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_annotation_data_sets_with_options(request, headers, runtime)
+
+    def list_annotation_labels_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.offset):
+            query['offset'] = request.offset
+        if not UtilClient.is_unset(request.size):
+            query['size'] = request.size
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListAnnotationLabels',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/ml/annotationlabel',
+            method='GET',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.ListAnnotationLabelsResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def list_annotation_labels(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.list_annotation_labels_with_options(request, headers, runtime)
+
     def list_config_with_options(self, project, request, headers, runtime):
         UtilClient.validate_model(request)
         host_map = {}
@@ -2346,6 +2650,42 @@ class Client(OpenApiClient):
         headers = {}
         return self.pull_data_with_options(project, logstore, shard, request, headers, runtime)
 
+    def put_annotation_data_with_options(self, dataset_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.annotationdata_id):
+            query['annotationdataId'] = request.annotationdata_id
+        body = {}
+        if not UtilClient.is_unset(request.ml_data_param):
+            body['mlDataParam'] = request.ml_data_param
+        if not UtilClient.is_unset(request.raw_log):
+            body['rawLog'] = request.raw_log
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='PutAnnotationData',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/ml/annotationdataset/%s/annotationdata' % TeaConverter.to_unicode(dataset_id),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.PutAnnotationDataResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def put_annotation_data(self, dataset_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.put_annotation_data_with_options(dataset_id, request, headers, runtime)
+
     def put_project_policy_with_options(self, project, request, headers, runtime):
         UtilClient.validate_model(request)
         host_map = {}
@@ -2414,6 +2754,37 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.put_webtracking_with_options(project, logstore_name, request, headers, runtime)
+
+    def query_mlservice_results_with_options(self, service_name, request, headers, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.allow_builtin):
+            query['allowBuiltin'] = request.allow_builtin
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            query=OpenApiUtilClient.query(query),
+            body=OpenApiUtilClient.parse_to_map(request.body)
+        )
+        params = open_api_models.Params(
+            action='QueryMLServiceResults',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/ml/service/%s/analysis' % TeaConverter.to_unicode(service_name),
+            method='POST',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.QueryMLServiceResultsResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def query_mlservice_results(self, service_name, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.query_mlservice_results_with_options(service_name, request, headers, runtime)
 
     def remove_config_from_machine_group_with_options(self, project, machine_group, config_name, headers, runtime):
         host_map = {}
@@ -2547,6 +2918,60 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         headers = {}
         return self.untag_resources_with_options(request, headers, runtime)
+
+    def update_annotation_data_set_with_options(self, dataset_id, request, headers, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(request.body)
+        )
+        params = open_api_models.Params(
+            action='UpdateAnnotationDataSet',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/ml/annotationdataset/%s' % TeaConverter.to_unicode(dataset_id),
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.UpdateAnnotationDataSetResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def update_annotation_data_set(self, dataset_id, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_annotation_data_set_with_options(dataset_id, request, headers, runtime)
+
+    def update_annotation_label_with_options(self, request, headers, runtime):
+        UtilClient.validate_model(request)
+        req = open_api_models.OpenApiRequest(
+            headers=headers,
+            body=OpenApiUtilClient.parse_to_map(request.body)
+        )
+        params = open_api_models.Params(
+            action='UpdateAnnotationLabel',
+            version='2020-12-30',
+            protocol='HTTPS',
+            pathname='/ml/annotationlabel',
+            method='PUT',
+            auth_type='AK',
+            style='ROA',
+            req_body_type='json',
+            body_type='none'
+        )
+        return TeaCore.from_map(
+            sls_20201230_models.UpdateAnnotationLabelResponse(),
+            self.execute(params, req, runtime)
+        )
+
+    def update_annotation_label(self, request):
+        runtime = util_models.RuntimeOptions()
+        headers = {}
+        return self.update_annotation_label_with_options(request, headers, runtime)
 
     def update_config_with_options(self, project, config_name, request, headers, runtime):
         UtilClient.validate_model(request)
