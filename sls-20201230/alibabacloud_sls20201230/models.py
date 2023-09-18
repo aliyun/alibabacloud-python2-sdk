@@ -7260,9 +7260,9 @@ class ListLogStoresResponse(TeaModel):
 
 
 class ListLogtailPipelineConfigRequest(TeaModel):
-    def __init__(self, config_name=None, logstore=None, offset=None, size=None):
+    def __init__(self, config_name=None, logstore_name=None, offset=None, size=None):
         self.config_name = config_name  # type: str
-        self.logstore = logstore  # type: str
+        self.logstore_name = logstore_name  # type: str
         self.offset = offset  # type: long
         self.size = size  # type: long
 
@@ -7277,8 +7277,8 @@ class ListLogtailPipelineConfigRequest(TeaModel):
         result = dict()
         if self.config_name is not None:
             result['configName'] = self.config_name
-        if self.logstore is not None:
-            result['logstore'] = self.logstore
+        if self.logstore_name is not None:
+            result['logstoreName'] = self.logstore_name
         if self.offset is not None:
             result['offset'] = self.offset
         if self.size is not None:
@@ -7289,8 +7289,8 @@ class ListLogtailPipelineConfigRequest(TeaModel):
         m = m or dict()
         if m.get('configName') is not None:
             self.config_name = m.get('configName')
-        if m.get('logstore') is not None:
-            self.logstore = m.get('logstore')
+        if m.get('logstoreName') is not None:
+            self.logstore_name = m.get('logstoreName')
         if m.get('offset') is not None:
             self.offset = m.get('offset')
         if m.get('size') is not None:
