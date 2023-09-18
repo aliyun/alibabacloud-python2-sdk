@@ -751,7 +751,7 @@ class Client(OpenApiClient):
 
     def associate_eip_address_with_options(self, request, runtime):
         """
-        @deprecated
+        @deprecated : AssociateEipAddress is deprecated, please use Vpc::2016-04-28::AssociateEipAddress instead.
         
 
         @param request: AssociateEipAddressRequest
@@ -800,7 +800,7 @@ class Client(OpenApiClient):
 
     def associate_eip_address(self, request):
         """
-        @deprecated
+        @deprecated : AssociateEipAddress is deprecated, please use Vpc::2016-04-28::AssociateEipAddress instead.
         
 
         @param request: AssociateEipAddressRequest
@@ -2072,9 +2072,9 @@ class Client(OpenApiClient):
     def copy_snapshot_with_options(self, request, runtime):
         """
         When you call this operation, take note of the following items:
-        *   New snapshots (copies) cannot be used to roll back disks from which the source snapshots (originals) were created.
-        *   Encrypted snapshots cannot be copied.
-        *   Local snapshots cannot be copied.
+        - New snapshots (copies) cannot be used to roll back disks from which the source snapshots (originals) were created.
+        - Encrypted snapshots cannot be copied.
+        - Local snapshots cannot be copied.
         
 
         @param request: CopySnapshotRequest
@@ -2137,9 +2137,9 @@ class Client(OpenApiClient):
     def copy_snapshot(self, request):
         """
         When you call this operation, take note of the following items:
-        *   New snapshots (copies) cannot be used to roll back disks from which the source snapshots (originals) were created.
-        *   Encrypted snapshots cannot be copied.
-        *   Local snapshots cannot be copied.
+        - New snapshots (copies) cannot be used to roll back disks from which the source snapshots (originals) were created.
+        - Encrypted snapshots cannot be copied.
+        - Local snapshots cannot be copied.
         
 
         @param request: CopySnapshotRequest
@@ -6549,7 +6549,7 @@ class Client(OpenApiClient):
 
     def delete_network_interface_permission_with_options(self, request, runtime):
         """
-        @deprecated
+        @deprecated : DeleteNetworkInterfacePermission is deprecated, please use Ecs::2014-05-26::DeleteNetworkInterface instead.
         
 
         @param request: DeleteNetworkInterfacePermissionRequest
@@ -6598,7 +6598,7 @@ class Client(OpenApiClient):
 
     def delete_network_interface_permission(self, request):
         """
-        @deprecated
+        @deprecated : DeleteNetworkInterfacePermission is deprecated, please use Ecs::2014-05-26::DeleteNetworkInterface instead.
         
 
         @param request: DeleteNetworkInterfacePermissionRequest
@@ -19724,6 +19724,8 @@ class Client(OpenApiClient):
             query['ResourceOwnerAccount'] = request.resource_owner_account
         if not UtilClient.is_unset(request.resource_owner_id):
             query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.retention_days):
+            query['RetentionDays'] = request.retention_days
         if not UtilClient.is_unset(request.snapshot_id):
             query['SnapshotId'] = request.snapshot_id
         if not UtilClient.is_unset(request.snapshot_name):
@@ -22703,6 +22705,8 @@ class Client(OpenApiClient):
         """
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.command_line):
+            query['CommandLine'] = request.command_line
         if not UtilClient.is_unset(request.instance_id):
             query['InstanceId'] = request.instance_id
         if not UtilClient.is_unset(request.owner_account):
@@ -22719,6 +22723,8 @@ class Client(OpenApiClient):
             query['ResourceOwnerAccount'] = request.resource_owner_account
         if not UtilClient.is_unset(request.resource_owner_id):
             query['ResourceOwnerId'] = request.resource_owner_id
+        if not UtilClient.is_unset(request.target_server):
+            query['TargetServer'] = request.target_server
         req = open_api_models.OpenApiRequest(
             query=OpenApiUtilClient.query(query)
         )
