@@ -66,6 +66,74 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.cancel_video_task_with_options(request, runtime)
 
+    def client_auth_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.device_id):
+            query['DeviceId'] = request.device_id
+        if not UtilClient.is_unset(request.device_info):
+            query['DeviceInfo'] = request.device_info
+        if not UtilClient.is_unset(request.device_type):
+            query['DeviceType'] = request.device_type
+        if not UtilClient.is_unset(request.license):
+            query['License'] = request.license
+        if not UtilClient.is_unset(request.tenant_id):
+            query['TenantId'] = request.tenant_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ClientAuth',
+            version='2022-01-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            avatar_20220130_models.ClientAuthResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def client_auth(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.client_auth_with_options(request, runtime)
+
+    def client_start_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.tenant_id):
+            query['TenantId'] = request.tenant_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ClientStart',
+            version='2022-01-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            avatar_20220130_models.ClientStartResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def client_start(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.client_start_with_options(request, runtime)
+
     def close_timed_reset_operate_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -461,6 +529,38 @@ class Client(OpenApiClient):
     def query_video_task_info(self, request):
         runtime = util_models.RuntimeOptions()
         return self.query_video_task_info_with_options(request, runtime)
+
+    def render_3d_avatar_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = {}
+        if not UtilClient.is_unset(request.app_id):
+            query['AppId'] = request.app_id
+        if not UtilClient.is_unset(request.code):
+            query['Code'] = request.code
+        if not UtilClient.is_unset(request.tenant_id):
+            query['TenantId'] = request.tenant_id
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='Render3dAvatar',
+            version='2022-01-30',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            avatar_20220130_models.Render3dAvatarResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def render_3d_avatar(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.render_3d_avatar_with_options(request, runtime)
 
     def send_command_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
