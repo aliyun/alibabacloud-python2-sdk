@@ -1164,6 +1164,8 @@ class Client(OpenApiClient):
         """
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.acs_product):
+            query['AcsProduct'] = request.acs_product
         if not UtilClient.is_unset(request.database_instance_id):
             query['DatabaseInstanceId'] = request.database_instance_id
         if not UtilClient.is_unset(request.end_time):
@@ -2074,6 +2076,8 @@ class Client(OpenApiClient):
         """
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.acs_product):
+            query['AcsProduct'] = request.acs_product
         if not UtilClient.is_unset(request.instance_ids):
             query['InstanceIds'] = request.instance_ids
         if not UtilClient.is_unset(request.region_id):
@@ -2223,6 +2227,8 @@ class Client(OpenApiClient):
         """
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.acs_product):
+            query['AcsProduct'] = request.acs_product
         if not UtilClient.is_unset(request.disk_id):
             query['DiskId'] = request.disk_id
         if not UtilClient.is_unset(request.instance_id):
