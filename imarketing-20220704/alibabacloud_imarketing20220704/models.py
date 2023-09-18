@@ -3,6 +3,627 @@
 from Tea.model import TeaModel
 
 
+class CancelOrderRequest(TeaModel):
+    def __init__(self, channel_id=None, trade_id=None):
+        self.channel_id = channel_id  # type: str
+        self.trade_id = trade_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CancelOrderRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.channel_id is not None:
+            result['ChannelId'] = self.channel_id
+        if self.trade_id is not None:
+            result['TradeId'] = self.trade_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ChannelId') is not None:
+            self.channel_id = m.get('ChannelId')
+        if m.get('TradeId') is not None:
+            self.trade_id = m.get('TradeId')
+        return self
+
+
+class CancelOrderResponseBodyHeader(TeaModel):
+    def __init__(self, cost_time=None, inner_error_code=None, inner_error_msg=None, rpc_id=None, trace_id=None,
+                 version=None):
+        self.cost_time = cost_time  # type: long
+        self.inner_error_code = inner_error_code  # type: str
+        self.inner_error_msg = inner_error_msg  # type: str
+        # RPC ID
+        self.rpc_id = rpc_id  # type: str
+        self.trace_id = trace_id  # type: str
+        self.version = version  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CancelOrderResponseBodyHeader, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cost_time is not None:
+            result['CostTime'] = self.cost_time
+        if self.inner_error_code is not None:
+            result['InnerErrorCode'] = self.inner_error_code
+        if self.inner_error_msg is not None:
+            result['InnerErrorMsg'] = self.inner_error_msg
+        if self.rpc_id is not None:
+            result['RpcId'] = self.rpc_id
+        if self.trace_id is not None:
+            result['TraceId'] = self.trace_id
+        if self.version is not None:
+            result['Version'] = self.version
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CostTime') is not None:
+            self.cost_time = m.get('CostTime')
+        if m.get('InnerErrorCode') is not None:
+            self.inner_error_code = m.get('InnerErrorCode')
+        if m.get('InnerErrorMsg') is not None:
+            self.inner_error_msg = m.get('InnerErrorMsg')
+        if m.get('RpcId') is not None:
+            self.rpc_id = m.get('RpcId')
+        if m.get('TraceId') is not None:
+            self.trace_id = m.get('TraceId')
+        if m.get('Version') is not None:
+            self.version = m.get('Version')
+        return self
+
+
+class CancelOrderResponseBodyResult(TeaModel):
+    def __init__(self, request_id=None, success=None):
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CancelOrderResponseBodyResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class CancelOrderResponseBody(TeaModel):
+    def __init__(self, error_code=None, error_msg=None, ext=None, header=None, result=None, success=None):
+        self.error_code = error_code  # type: str
+        self.error_msg = error_msg  # type: str
+        self.ext = ext  # type: dict[str, any]
+        self.header = header  # type: CancelOrderResponseBodyHeader
+        self.result = result  # type: CancelOrderResponseBodyResult
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.header:
+            self.header.validate()
+        if self.result:
+            self.result.validate()
+
+    def to_map(self):
+        _map = super(CancelOrderResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
+        if self.error_msg is not None:
+            result['ErrorMsg'] = self.error_msg
+        if self.ext is not None:
+            result['Ext'] = self.ext
+        if self.header is not None:
+            result['Header'] = self.header.to_map()
+        if self.result is not None:
+            result['Result'] = self.result.to_map()
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
+        if m.get('ErrorMsg') is not None:
+            self.error_msg = m.get('ErrorMsg')
+        if m.get('Ext') is not None:
+            self.ext = m.get('Ext')
+        if m.get('Header') is not None:
+            temp_model = CancelOrderResponseBodyHeader()
+            self.header = temp_model.from_map(m['Header'])
+        if m.get('Result') is not None:
+            temp_model = CancelOrderResponseBodyResult()
+            self.result = temp_model.from_map(m['Result'])
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class CancelOrderResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CancelOrderResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CancelOrderResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CancelOrderResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ConfirmSampleReceivedRequest(TeaModel):
+    def __init__(self, channel_id=None, trade_id=None):
+        self.channel_id = channel_id  # type: str
+        self.trade_id = trade_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ConfirmSampleReceivedRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.channel_id is not None:
+            result['ChannelId'] = self.channel_id
+        if self.trade_id is not None:
+            result['TradeId'] = self.trade_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ChannelId') is not None:
+            self.channel_id = m.get('ChannelId')
+        if m.get('TradeId') is not None:
+            self.trade_id = m.get('TradeId')
+        return self
+
+
+class ConfirmSampleReceivedResponseBodyHeader(TeaModel):
+    def __init__(self, cost_time=None, inner_error_code=None, inner_error_msg=None, rpc_id=None, trace_id=None,
+                 version=None):
+        self.cost_time = cost_time  # type: long
+        self.inner_error_code = inner_error_code  # type: str
+        self.inner_error_msg = inner_error_msg  # type: str
+        # RPC ID
+        self.rpc_id = rpc_id  # type: str
+        self.trace_id = trace_id  # type: str
+        self.version = version  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ConfirmSampleReceivedResponseBodyHeader, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cost_time is not None:
+            result['CostTime'] = self.cost_time
+        if self.inner_error_code is not None:
+            result['InnerErrorCode'] = self.inner_error_code
+        if self.inner_error_msg is not None:
+            result['InnerErrorMsg'] = self.inner_error_msg
+        if self.rpc_id is not None:
+            result['RpcId'] = self.rpc_id
+        if self.trace_id is not None:
+            result['TraceId'] = self.trace_id
+        if self.version is not None:
+            result['Version'] = self.version
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CostTime') is not None:
+            self.cost_time = m.get('CostTime')
+        if m.get('InnerErrorCode') is not None:
+            self.inner_error_code = m.get('InnerErrorCode')
+        if m.get('InnerErrorMsg') is not None:
+            self.inner_error_msg = m.get('InnerErrorMsg')
+        if m.get('RpcId') is not None:
+            self.rpc_id = m.get('RpcId')
+        if m.get('TraceId') is not None:
+            self.trace_id = m.get('TraceId')
+        if m.get('Version') is not None:
+            self.version = m.get('Version')
+        return self
+
+
+class ConfirmSampleReceivedResponseBodyResult(TeaModel):
+    def __init__(self, request_id=None, success=None):
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ConfirmSampleReceivedResponseBodyResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class ConfirmSampleReceivedResponseBody(TeaModel):
+    def __init__(self, error_code=None, error_msg=None, ext=None, header=None, result=None, success=None):
+        self.error_code = error_code  # type: str
+        self.error_msg = error_msg  # type: str
+        self.ext = ext  # type: dict[str, any]
+        self.header = header  # type: ConfirmSampleReceivedResponseBodyHeader
+        self.result = result  # type: ConfirmSampleReceivedResponseBodyResult
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.header:
+            self.header.validate()
+        if self.result:
+            self.result.validate()
+
+    def to_map(self):
+        _map = super(ConfirmSampleReceivedResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
+        if self.error_msg is not None:
+            result['ErrorMsg'] = self.error_msg
+        if self.ext is not None:
+            result['Ext'] = self.ext
+        if self.header is not None:
+            result['Header'] = self.header.to_map()
+        if self.result is not None:
+            result['Result'] = self.result.to_map()
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
+        if m.get('ErrorMsg') is not None:
+            self.error_msg = m.get('ErrorMsg')
+        if m.get('Ext') is not None:
+            self.ext = m.get('Ext')
+        if m.get('Header') is not None:
+            temp_model = ConfirmSampleReceivedResponseBodyHeader()
+            self.header = temp_model.from_map(m['Header'])
+        if m.get('Result') is not None:
+            temp_model = ConfirmSampleReceivedResponseBodyResult()
+            self.result = temp_model.from_map(m['Result'])
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class ConfirmSampleReceivedResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ConfirmSampleReceivedResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ConfirmSampleReceivedResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ConfirmSampleReceivedResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ConfirmSampleShippedRequest(TeaModel):
+    def __init__(self, buyer_address=None, buyer_name=None, buyer_phone_number=None, channel_id=None, trade_id=None):
+        self.buyer_address = buyer_address  # type: str
+        self.buyer_name = buyer_name  # type: str
+        self.buyer_phone_number = buyer_phone_number  # type: str
+        self.channel_id = channel_id  # type: str
+        self.trade_id = trade_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ConfirmSampleShippedRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.buyer_address is not None:
+            result['BuyerAddress'] = self.buyer_address
+        if self.buyer_name is not None:
+            result['BuyerName'] = self.buyer_name
+        if self.buyer_phone_number is not None:
+            result['BuyerPhoneNumber'] = self.buyer_phone_number
+        if self.channel_id is not None:
+            result['ChannelId'] = self.channel_id
+        if self.trade_id is not None:
+            result['TradeId'] = self.trade_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('BuyerAddress') is not None:
+            self.buyer_address = m.get('BuyerAddress')
+        if m.get('BuyerName') is not None:
+            self.buyer_name = m.get('BuyerName')
+        if m.get('BuyerPhoneNumber') is not None:
+            self.buyer_phone_number = m.get('BuyerPhoneNumber')
+        if m.get('ChannelId') is not None:
+            self.channel_id = m.get('ChannelId')
+        if m.get('TradeId') is not None:
+            self.trade_id = m.get('TradeId')
+        return self
+
+
+class ConfirmSampleShippedResponseBodyHeader(TeaModel):
+    def __init__(self, cost_time=None, inner_error_code=None, inner_error_msg=None, rpc_id=None, trace_id=None,
+                 version=None):
+        self.cost_time = cost_time  # type: long
+        self.inner_error_code = inner_error_code  # type: str
+        self.inner_error_msg = inner_error_msg  # type: str
+        # RPC ID
+        self.rpc_id = rpc_id  # type: str
+        self.trace_id = trace_id  # type: str
+        self.version = version  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ConfirmSampleShippedResponseBodyHeader, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cost_time is not None:
+            result['CostTime'] = self.cost_time
+        if self.inner_error_code is not None:
+            result['InnerErrorCode'] = self.inner_error_code
+        if self.inner_error_msg is not None:
+            result['InnerErrorMsg'] = self.inner_error_msg
+        if self.rpc_id is not None:
+            result['RpcId'] = self.rpc_id
+        if self.trace_id is not None:
+            result['TraceId'] = self.trace_id
+        if self.version is not None:
+            result['Version'] = self.version
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CostTime') is not None:
+            self.cost_time = m.get('CostTime')
+        if m.get('InnerErrorCode') is not None:
+            self.inner_error_code = m.get('InnerErrorCode')
+        if m.get('InnerErrorMsg') is not None:
+            self.inner_error_msg = m.get('InnerErrorMsg')
+        if m.get('RpcId') is not None:
+            self.rpc_id = m.get('RpcId')
+        if m.get('TraceId') is not None:
+            self.trace_id = m.get('TraceId')
+        if m.get('Version') is not None:
+            self.version = m.get('Version')
+        return self
+
+
+class ConfirmSampleShippedResponseBodyResult(TeaModel):
+    def __init__(self, request_id=None, success=None):
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ConfirmSampleShippedResponseBodyResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class ConfirmSampleShippedResponseBody(TeaModel):
+    def __init__(self, error_code=None, error_msg=None, ext=None, header=None, result=None, success=None):
+        self.error_code = error_code  # type: str
+        self.error_msg = error_msg  # type: str
+        self.ext = ext  # type: dict[str, any]
+        self.header = header  # type: ConfirmSampleShippedResponseBodyHeader
+        self.result = result  # type: ConfirmSampleShippedResponseBodyResult
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.header:
+            self.header.validate()
+        if self.result:
+            self.result.validate()
+
+    def to_map(self):
+        _map = super(ConfirmSampleShippedResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
+        if self.error_msg is not None:
+            result['ErrorMsg'] = self.error_msg
+        if self.ext is not None:
+            result['Ext'] = self.ext
+        if self.header is not None:
+            result['Header'] = self.header.to_map()
+        if self.result is not None:
+            result['Result'] = self.result.to_map()
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
+        if m.get('ErrorMsg') is not None:
+            self.error_msg = m.get('ErrorMsg')
+        if m.get('Ext') is not None:
+            self.ext = m.get('Ext')
+        if m.get('Header') is not None:
+            temp_model = ConfirmSampleShippedResponseBodyHeader()
+            self.header = temp_model.from_map(m['Header'])
+        if m.get('Result') is not None:
+            temp_model = ConfirmSampleShippedResponseBodyResult()
+            self.result = temp_model.from_map(m['Result'])
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class ConfirmSampleShippedResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ConfirmSampleShippedResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ConfirmSampleShippedResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ConfirmSampleShippedResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class CreateDeviceRequest(TeaModel):
     def __init__(self, channel_id=None, city=None, device_model_number=None, device_name=None, device_type=None,
                  district=None, extra_map=None, first_scene=None, floor=None, location_name=None, media_id=None,
@@ -393,6 +1014,188 @@ class DeleteCreativeInfoResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = DeleteCreativeInfoResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetAdvertisingForE2ResponseBodyHeader(TeaModel):
+    def __init__(self, cost_time=None, inner_error_code=None, inner_error_msg=None, rpc_id=None, trace_id=None,
+                 version=None):
+        # costTime
+        self.cost_time = cost_time  # type: long
+        # innerErrorCode
+        self.inner_error_code = inner_error_code  # type: str
+        # innerErrorMsg
+        self.inner_error_msg = inner_error_msg  # type: str
+        # rpcId
+        self.rpc_id = rpc_id  # type: str
+        # traceId
+        self.trace_id = trace_id  # type: str
+        # version
+        self.version = version  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetAdvertisingForE2ResponseBodyHeader, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cost_time is not None:
+            result['CostTime'] = self.cost_time
+        if self.inner_error_code is not None:
+            result['InnerErrorCode'] = self.inner_error_code
+        if self.inner_error_msg is not None:
+            result['InnerErrorMsg'] = self.inner_error_msg
+        if self.rpc_id is not None:
+            result['RpcId'] = self.rpc_id
+        if self.trace_id is not None:
+            result['TraceId'] = self.trace_id
+        if self.version is not None:
+            result['Version'] = self.version
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CostTime') is not None:
+            self.cost_time = m.get('CostTime')
+        if m.get('InnerErrorCode') is not None:
+            self.inner_error_code = m.get('InnerErrorCode')
+        if m.get('InnerErrorMsg') is not None:
+            self.inner_error_msg = m.get('InnerErrorMsg')
+        if m.get('RpcId') is not None:
+            self.rpc_id = m.get('RpcId')
+        if m.get('TraceId') is not None:
+            self.trace_id = m.get('TraceId')
+        if m.get('Version') is not None:
+            self.version = m.get('Version')
+        return self
+
+
+class GetAdvertisingForE2ResponseBodyResult(TeaModel):
+    def __init__(self, img_url=None, target_url=None):
+        self.img_url = img_url  # type: str
+        self.target_url = target_url  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetAdvertisingForE2ResponseBodyResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.img_url is not None:
+            result['ImgUrl'] = self.img_url
+        if self.target_url is not None:
+            result['TargetUrl'] = self.target_url
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ImgUrl') is not None:
+            self.img_url = m.get('ImgUrl')
+        if m.get('TargetUrl') is not None:
+            self.target_url = m.get('TargetUrl')
+        return self
+
+
+class GetAdvertisingForE2ResponseBody(TeaModel):
+    def __init__(self, error_code=None, error_msg=None, header=None, request_id=None, result=None, success=None):
+        # errorCode
+        self.error_code = error_code  # type: str
+        # errorMsg
+        self.error_msg = error_msg  # type: str
+        # header
+        self.header = header  # type: GetAdvertisingForE2ResponseBodyHeader
+        self.request_id = request_id  # type: str
+        self.result = result  # type: GetAdvertisingForE2ResponseBodyResult
+        # success
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.header:
+            self.header.validate()
+        if self.result:
+            self.result.validate()
+
+    def to_map(self):
+        _map = super(GetAdvertisingForE2ResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
+        if self.error_msg is not None:
+            result['ErrorMsg'] = self.error_msg
+        if self.header is not None:
+            result['Header'] = self.header.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.result is not None:
+            result['Result'] = self.result.to_map()
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
+        if m.get('ErrorMsg') is not None:
+            self.error_msg = m.get('ErrorMsg')
+        if m.get('Header') is not None:
+            temp_model = GetAdvertisingForE2ResponseBodyHeader()
+            self.header = temp_model.from_map(m['Header'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Result') is not None:
+            temp_model = GetAdvertisingForE2ResponseBodyResult()
+            self.result = temp_model.from_map(m['Result'])
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class GetAdvertisingForE2Response(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: GetAdvertisingForE2ResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetAdvertisingForE2Response, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = GetAdvertisingForE2ResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -2048,7 +2851,8 @@ class GetUserFinishedAdResponse(TeaModel):
 
 
 class ListAdvertisingRequestApp(TeaModel):
-    def __init__(self, ext=None, mediaid=None, sn=None):
+    def __init__(self, appid=None, ext=None, mediaid=None, sn=None):
+        self.appid = appid  # type: str
         self.ext = ext  # type: dict[str, any]
         self.mediaid = mediaid  # type: str
         self.sn = sn  # type: str
@@ -2062,6 +2866,8 @@ class ListAdvertisingRequestApp(TeaModel):
             return _map
 
         result = dict()
+        if self.appid is not None:
+            result['Appid'] = self.appid
         if self.ext is not None:
             result['Ext'] = self.ext
         if self.mediaid is not None:
@@ -2072,6 +2878,8 @@ class ListAdvertisingRequestApp(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('Appid') is not None:
+            self.appid = m.get('Appid')
         if m.get('Ext') is not None:
             self.ext = m.get('Ext')
         if m.get('Mediaid') is not None:
@@ -2893,6 +3701,684 @@ class ListAdvertisingResponse(TeaModel):
         return self
 
 
+class ListSpecificAdRequestApp(TeaModel):
+    def __init__(self, ext=None, mediaid=None, sn=None):
+        # ext
+        self.ext = ext  # type: dict[str, any]
+        # mediaid
+        self.mediaid = mediaid  # type: str
+        # sn
+        self.sn = sn  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListSpecificAdRequestApp, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.ext is not None:
+            result['Ext'] = self.ext
+        if self.mediaid is not None:
+            result['Mediaid'] = self.mediaid
+        if self.sn is not None:
+            result['Sn'] = self.sn
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Ext') is not None:
+            self.ext = m.get('Ext')
+        if m.get('Mediaid') is not None:
+            self.mediaid = m.get('Mediaid')
+        if m.get('Sn') is not None:
+            self.sn = m.get('Sn')
+        return self
+
+
+class ListSpecificAdRequestImp(TeaModel):
+    def __init__(self, id=None, tagid=None):
+        # id
+        self.id = id  # type: str
+        # tagid
+        self.tagid = tagid  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListSpecificAdRequestImp, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.tagid is not None:
+            result['Tagid'] = self.tagid
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('Tagid') is not None:
+            self.tagid = m.get('Tagid')
+        return self
+
+
+class ListSpecificAdRequestUser(TeaModel):
+    def __init__(self, id=None, usertype=None):
+        # uid
+        self.id = id  # type: str
+        # uidtype
+        self.usertype = usertype  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListSpecificAdRequestUser, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.usertype is not None:
+            result['Usertype'] = self.usertype
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('Usertype') is not None:
+            self.usertype = m.get('Usertype')
+        return self
+
+
+class ListSpecificAdRequestVerifyad(TeaModel):
+    def __init__(self, id=None, itemid=None, marketingtype=None, seat=None):
+        # id
+        self.id = id  # type: str
+        self.itemid = itemid  # type: str
+        self.marketingtype = marketingtype  # type: str
+        self.seat = seat  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListSpecificAdRequestVerifyad, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.itemid is not None:
+            result['Itemid'] = self.itemid
+        if self.marketingtype is not None:
+            result['Marketingtype'] = self.marketingtype
+        if self.seat is not None:
+            result['Seat'] = self.seat
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('Itemid') is not None:
+            self.itemid = m.get('Itemid')
+        if m.get('Marketingtype') is not None:
+            self.marketingtype = m.get('Marketingtype')
+        if m.get('Seat') is not None:
+            self.seat = m.get('Seat')
+        return self
+
+
+class ListSpecificAdRequest(TeaModel):
+    def __init__(self, app=None, ext=None, id=None, imp=None, user=None, verifyad=None):
+        # app
+        self.app = app  # type: ListSpecificAdRequestApp
+        self.ext = ext  # type: dict[str, any]
+        # id
+        self.id = id  # type: str
+        # imp
+        self.imp = imp  # type: list[ListSpecificAdRequestImp]
+        # user
+        self.user = user  # type: ListSpecificAdRequestUser
+        self.verifyad = verifyad  # type: list[ListSpecificAdRequestVerifyad]
+
+    def validate(self):
+        if self.app:
+            self.app.validate()
+        if self.imp:
+            for k in self.imp:
+                if k:
+                    k.validate()
+        if self.user:
+            self.user.validate()
+        if self.verifyad:
+            for k in self.verifyad:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListSpecificAdRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app is not None:
+            result['App'] = self.app.to_map()
+        if self.ext is not None:
+            result['Ext'] = self.ext
+        if self.id is not None:
+            result['Id'] = self.id
+        result['Imp'] = []
+        if self.imp is not None:
+            for k in self.imp:
+                result['Imp'].append(k.to_map() if k else None)
+        if self.user is not None:
+            result['User'] = self.user.to_map()
+        result['Verifyad'] = []
+        if self.verifyad is not None:
+            for k in self.verifyad:
+                result['Verifyad'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('App') is not None:
+            temp_model = ListSpecificAdRequestApp()
+            self.app = temp_model.from_map(m['App'])
+        if m.get('Ext') is not None:
+            self.ext = m.get('Ext')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        self.imp = []
+        if m.get('Imp') is not None:
+            for k in m.get('Imp'):
+                temp_model = ListSpecificAdRequestImp()
+                self.imp.append(temp_model.from_map(k))
+        if m.get('User') is not None:
+            temp_model = ListSpecificAdRequestUser()
+            self.user = temp_model.from_map(m['User'])
+        self.verifyad = []
+        if m.get('Verifyad') is not None:
+            for k in m.get('Verifyad'):
+                temp_model = ListSpecificAdRequestVerifyad()
+                self.verifyad.append(temp_model.from_map(k))
+        return self
+
+
+class ListSpecificAdShrinkRequest(TeaModel):
+    def __init__(self, app_shrink=None, ext_shrink=None, id=None, imp_shrink=None, user_shrink=None,
+                 verifyad_shrink=None):
+        # app
+        self.app_shrink = app_shrink  # type: str
+        self.ext_shrink = ext_shrink  # type: str
+        # id
+        self.id = id  # type: str
+        # imp
+        self.imp_shrink = imp_shrink  # type: str
+        # user
+        self.user_shrink = user_shrink  # type: str
+        self.verifyad_shrink = verifyad_shrink  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListSpecificAdShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.app_shrink is not None:
+            result['App'] = self.app_shrink
+        if self.ext_shrink is not None:
+            result['Ext'] = self.ext_shrink
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.imp_shrink is not None:
+            result['Imp'] = self.imp_shrink
+        if self.user_shrink is not None:
+            result['User'] = self.user_shrink
+        if self.verifyad_shrink is not None:
+            result['Verifyad'] = self.verifyad_shrink
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('App') is not None:
+            self.app_shrink = m.get('App')
+        if m.get('Ext') is not None:
+            self.ext_shrink = m.get('Ext')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('Imp') is not None:
+            self.imp_shrink = m.get('Imp')
+        if m.get('User') is not None:
+            self.user_shrink = m.get('User')
+        if m.get('Verifyad') is not None:
+            self.verifyad_shrink = m.get('Verifyad')
+        return self
+
+
+class ListSpecificAdResponseBodyHeader(TeaModel):
+    def __init__(self, cost_time=None, rpc_id=None, trace_id=None, version=None):
+        # costTime
+        self.cost_time = cost_time  # type: long
+        # rpcId
+        self.rpc_id = rpc_id  # type: str
+        # traceId
+        self.trace_id = trace_id  # type: str
+        # version
+        self.version = version  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListSpecificAdResponseBodyHeader, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cost_time is not None:
+            result['CostTime'] = self.cost_time
+        if self.rpc_id is not None:
+            result['RpcId'] = self.rpc_id
+        if self.trace_id is not None:
+            result['TraceId'] = self.trace_id
+        if self.version is not None:
+            result['Version'] = self.version
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CostTime') is not None:
+            self.cost_time = m.get('CostTime')
+        if m.get('RpcId') is not None:
+            self.rpc_id = m.get('RpcId')
+        if m.get('TraceId') is not None:
+            self.trace_id = m.get('TraceId')
+        if m.get('Version') is not None:
+            self.version = m.get('Version')
+        return self
+
+
+class ListSpecificAdResponseBodyResultSeatbidBidAdsIcon(TeaModel):
+    def __init__(self, url=None):
+        self.url = url  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListSpecificAdResponseBodyResultSeatbidBidAdsIcon, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.url is not None:
+            result['Url'] = self.url
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Url') is not None:
+            self.url = m.get('Url')
+        return self
+
+
+class ListSpecificAdResponseBodyResultSeatbidBidAdsTrackers(TeaModel):
+    def __init__(self, imps=None):
+        self.imps = imps  # type: list[str]
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListSpecificAdResponseBodyResultSeatbidBidAdsTrackers, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.imps is not None:
+            result['Imps'] = self.imps
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Imps') is not None:
+            self.imps = m.get('Imps')
+        return self
+
+
+class ListSpecificAdResponseBodyResultSeatbidBidAds(TeaModel):
+    def __init__(self, crid=None, crurl=None, icon=None, id=None, interacttype=None, itemid=None, labeltype=None,
+                 landingurls=None, marketingtype=None, objective=None, price=None, seat=None, title=None, trackers=None):
+        # crid
+        self.crid = crid  # type: str
+        self.crurl = crurl  # type: str
+        self.icon = icon  # type: ListSpecificAdResponseBodyResultSeatbidBidAdsIcon
+        self.id = id  # type: str
+        # Interacttype
+        self.interacttype = interacttype  # type: int
+        self.itemid = itemid  # type: str
+        self.labeltype = labeltype  # type: str
+        self.landingurls = landingurls  # type: list[str]
+        self.marketingtype = marketingtype  # type: str
+        self.objective = objective  # type: str
+        self.price = price  # type: str
+        # seat
+        self.seat = seat  # type: str
+        self.title = title  # type: str
+        self.trackers = trackers  # type: ListSpecificAdResponseBodyResultSeatbidBidAdsTrackers
+
+    def validate(self):
+        if self.icon:
+            self.icon.validate()
+        if self.trackers:
+            self.trackers.validate()
+
+    def to_map(self):
+        _map = super(ListSpecificAdResponseBodyResultSeatbidBidAds, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.crid is not None:
+            result['Crid'] = self.crid
+        if self.crurl is not None:
+            result['Crurl'] = self.crurl
+        if self.icon is not None:
+            result['Icon'] = self.icon.to_map()
+        if self.id is not None:
+            result['Id'] = self.id
+        if self.interacttype is not None:
+            result['Interacttype'] = self.interacttype
+        if self.itemid is not None:
+            result['Itemid'] = self.itemid
+        if self.labeltype is not None:
+            result['Labeltype'] = self.labeltype
+        if self.landingurls is not None:
+            result['Landingurls'] = self.landingurls
+        if self.marketingtype is not None:
+            result['Marketingtype'] = self.marketingtype
+        if self.objective is not None:
+            result['Objective'] = self.objective
+        if self.price is not None:
+            result['Price'] = self.price
+        if self.seat is not None:
+            result['Seat'] = self.seat
+        if self.title is not None:
+            result['Title'] = self.title
+        if self.trackers is not None:
+            result['Trackers'] = self.trackers.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Crid') is not None:
+            self.crid = m.get('Crid')
+        if m.get('Crurl') is not None:
+            self.crurl = m.get('Crurl')
+        if m.get('Icon') is not None:
+            temp_model = ListSpecificAdResponseBodyResultSeatbidBidAdsIcon()
+            self.icon = temp_model.from_map(m['Icon'])
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        if m.get('Interacttype') is not None:
+            self.interacttype = m.get('Interacttype')
+        if m.get('Itemid') is not None:
+            self.itemid = m.get('Itemid')
+        if m.get('Labeltype') is not None:
+            self.labeltype = m.get('Labeltype')
+        if m.get('Landingurls') is not None:
+            self.landingurls = m.get('Landingurls')
+        if m.get('Marketingtype') is not None:
+            self.marketingtype = m.get('Marketingtype')
+        if m.get('Objective') is not None:
+            self.objective = m.get('Objective')
+        if m.get('Price') is not None:
+            self.price = m.get('Price')
+        if m.get('Seat') is not None:
+            self.seat = m.get('Seat')
+        if m.get('Title') is not None:
+            self.title = m.get('Title')
+        if m.get('Trackers') is not None:
+            temp_model = ListSpecificAdResponseBodyResultSeatbidBidAdsTrackers()
+            self.trackers = temp_model.from_map(m['Trackers'])
+        return self
+
+
+class ListSpecificAdResponseBodyResultSeatbidBid(TeaModel):
+    def __init__(self, ads=None, impid=None):
+        # ad
+        self.ads = ads  # type: list[ListSpecificAdResponseBodyResultSeatbidBidAds]
+        # impId
+        self.impid = impid  # type: str
+
+    def validate(self):
+        if self.ads:
+            for k in self.ads:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListSpecificAdResponseBodyResultSeatbidBid, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Ads'] = []
+        if self.ads is not None:
+            for k in self.ads:
+                result['Ads'].append(k.to_map() if k else None)
+        if self.impid is not None:
+            result['Impid'] = self.impid
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.ads = []
+        if m.get('Ads') is not None:
+            for k in m.get('Ads'):
+                temp_model = ListSpecificAdResponseBodyResultSeatbidBidAds()
+                self.ads.append(temp_model.from_map(k))
+        if m.get('Impid') is not None:
+            self.impid = m.get('Impid')
+        return self
+
+
+class ListSpecificAdResponseBodyResultSeatbid(TeaModel):
+    def __init__(self, bid=None):
+        # Bid
+        self.bid = bid  # type: list[ListSpecificAdResponseBodyResultSeatbidBid]
+
+    def validate(self):
+        if self.bid:
+            for k in self.bid:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListSpecificAdResponseBodyResultSeatbid, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        result['Bid'] = []
+        if self.bid is not None:
+            for k in self.bid:
+                result['Bid'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        self.bid = []
+        if m.get('Bid') is not None:
+            for k in m.get('Bid'):
+                temp_model = ListSpecificAdResponseBodyResultSeatbidBid()
+                self.bid.append(temp_model.from_map(k))
+        return self
+
+
+class ListSpecificAdResponseBodyResult(TeaModel):
+    def __init__(self, bidid=None, id=None, seatbid=None):
+        self.bidid = bidid  # type: str
+        # id
+        self.id = id  # type: str
+        # seat
+        self.seatbid = seatbid  # type: list[ListSpecificAdResponseBodyResultSeatbid]
+
+    def validate(self):
+        if self.seatbid:
+            for k in self.seatbid:
+                if k:
+                    k.validate()
+
+    def to_map(self):
+        _map = super(ListSpecificAdResponseBodyResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.bidid is not None:
+            result['Bidid'] = self.bidid
+        if self.id is not None:
+            result['Id'] = self.id
+        result['Seatbid'] = []
+        if self.seatbid is not None:
+            for k in self.seatbid:
+                result['Seatbid'].append(k.to_map() if k else None)
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Bidid') is not None:
+            self.bidid = m.get('Bidid')
+        if m.get('Id') is not None:
+            self.id = m.get('Id')
+        self.seatbid = []
+        if m.get('Seatbid') is not None:
+            for k in m.get('Seatbid'):
+                temp_model = ListSpecificAdResponseBodyResultSeatbid()
+                self.seatbid.append(temp_model.from_map(k))
+        return self
+
+
+class ListSpecificAdResponseBody(TeaModel):
+    def __init__(self, errorcode=None, errormsg=None, ext=None, header=None, request_id=None, result=None,
+                 success=None):
+        # errorCode
+        self.errorcode = errorcode  # type: str
+        # errorMsg
+        self.errormsg = errormsg  # type: str
+        # ext
+        self.ext = ext  # type: dict[str, str]
+        # header
+        self.header = header  # type: ListSpecificAdResponseBodyHeader
+        self.request_id = request_id  # type: str
+        self.result = result  # type: ListSpecificAdResponseBodyResult
+        # success
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.header:
+            self.header.validate()
+        if self.result:
+            self.result.validate()
+
+    def to_map(self):
+        _map = super(ListSpecificAdResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.errorcode is not None:
+            result['Errorcode'] = self.errorcode
+        if self.errormsg is not None:
+            result['Errormsg'] = self.errormsg
+        if self.ext is not None:
+            result['Ext'] = self.ext
+        if self.header is not None:
+            result['Header'] = self.header.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.result is not None:
+            result['Result'] = self.result.to_map()
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Errorcode') is not None:
+            self.errorcode = m.get('Errorcode')
+        if m.get('Errormsg') is not None:
+            self.errormsg = m.get('Errormsg')
+        if m.get('Ext') is not None:
+            self.ext = m.get('Ext')
+        if m.get('Header') is not None:
+            temp_model = ListSpecificAdResponseBodyHeader()
+            self.header = temp_model.from_map(m['Header'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Result') is not None:
+            temp_model = ListSpecificAdResponseBodyResult()
+            self.result = temp_model.from_map(m['Result'])
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class ListSpecificAdResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ListSpecificAdResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListSpecificAdResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ListSpecificAdResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class QueryAuditResultRequest(TeaModel):
     def __init__(self, dsp_id=None, ids=None):
         self.dsp_id = dsp_id  # type: str
@@ -3043,6 +4529,428 @@ class QueryAuditResultResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = QueryAuditResultResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class QueryBenefitGrantResultRequest(TeaModel):
+    def __init__(self, cloducode_flow_no=None, outer_customer_id=None):
+        self.cloducode_flow_no = cloducode_flow_no  # type: str
+        self.outer_customer_id = outer_customer_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryBenefitGrantResultRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cloducode_flow_no is not None:
+            result['CloducodeFlowNo'] = self.cloducode_flow_no
+        if self.outer_customer_id is not None:
+            result['OuterCustomerId'] = self.outer_customer_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CloducodeFlowNo') is not None:
+            self.cloducode_flow_no = m.get('CloducodeFlowNo')
+        if m.get('OuterCustomerId') is not None:
+            self.outer_customer_id = m.get('OuterCustomerId')
+        return self
+
+
+class QueryBenefitGrantResultResponseBodyModel(TeaModel):
+    def __init__(self, amount=None, cloudcode_flow_no=None, outer_customer_id=None, outer_flow_no=None, remark=None,
+                 status=None):
+        self.amount = amount  # type: long
+        # 12345
+        self.cloudcode_flow_no = cloudcode_flow_no  # type: str
+        # 12345
+        self.outer_customer_id = outer_customer_id  # type: str
+        # 12345
+        self.outer_flow_no = outer_flow_no  # type: str
+        self.remark = remark  # type: str
+        self.status = status  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryBenefitGrantResultResponseBodyModel, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.amount is not None:
+            result['Amount'] = self.amount
+        if self.cloudcode_flow_no is not None:
+            result['CloudcodeFlowNo'] = self.cloudcode_flow_no
+        if self.outer_customer_id is not None:
+            result['OuterCustomerId'] = self.outer_customer_id
+        if self.outer_flow_no is not None:
+            result['OuterFlowNo'] = self.outer_flow_no
+        if self.remark is not None:
+            result['Remark'] = self.remark
+        if self.status is not None:
+            result['Status'] = self.status
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Amount') is not None:
+            self.amount = m.get('Amount')
+        if m.get('CloudcodeFlowNo') is not None:
+            self.cloudcode_flow_no = m.get('CloudcodeFlowNo')
+        if m.get('OuterCustomerId') is not None:
+            self.outer_customer_id = m.get('OuterCustomerId')
+        if m.get('OuterFlowNo') is not None:
+            self.outer_flow_no = m.get('OuterFlowNo')
+        if m.get('Remark') is not None:
+            self.remark = m.get('Remark')
+        if m.get('Status') is not None:
+            self.status = m.get('Status')
+        return self
+
+
+class QueryBenefitGrantResultResponseBody(TeaModel):
+    def __init__(self, code=None, debug=None, message=None, model=None, request_id=None, success=None):
+        # Id of the request
+        self.code = code  # type: str
+        # 123
+        self.debug = debug  # type: bool
+        self.message = message  # type: str
+        self.model = model  # type: QueryBenefitGrantResultResponseBodyModel
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.model:
+            self.model.validate()
+
+    def to_map(self):
+        _map = super(QueryBenefitGrantResultResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.debug is not None:
+            result['Debug'] = self.debug
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.model is not None:
+            result['Model'] = self.model.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Debug') is not None:
+            self.debug = m.get('Debug')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('Model') is not None:
+            temp_model = QueryBenefitGrantResultResponseBodyModel()
+            self.model = temp_model.from_map(m['Model'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class QueryBenefitGrantResultResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: QueryBenefitGrantResultResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(QueryBenefitGrantResultResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = QueryBenefitGrantResultResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class QueryOrderRequest(TeaModel):
+    def __init__(self, channel_id=None, channel_trade_id=None, trade_id=None):
+        self.channel_id = channel_id  # type: str
+        self.channel_trade_id = channel_trade_id  # type: str
+        self.trade_id = trade_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryOrderRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.channel_id is not None:
+            result['ChannelId'] = self.channel_id
+        if self.channel_trade_id is not None:
+            result['ChannelTradeId'] = self.channel_trade_id
+        if self.trade_id is not None:
+            result['TradeId'] = self.trade_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ChannelId') is not None:
+            self.channel_id = m.get('ChannelId')
+        if m.get('ChannelTradeId') is not None:
+            self.channel_trade_id = m.get('ChannelTradeId')
+        if m.get('TradeId') is not None:
+            self.trade_id = m.get('TradeId')
+        return self
+
+
+class QueryOrderResponseBodyHeader(TeaModel):
+    def __init__(self, cost_time=None, inner_error_code=None, inner_error_msg=None, rpc_id=None, trace_id=None,
+                 version=None):
+        self.cost_time = cost_time  # type: long
+        self.inner_error_code = inner_error_code  # type: str
+        self.inner_error_msg = inner_error_msg  # type: str
+        # RPC ID
+        self.rpc_id = rpc_id  # type: str
+        self.trace_id = trace_id  # type: str
+        self.version = version  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryOrderResponseBodyHeader, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cost_time is not None:
+            result['CostTime'] = self.cost_time
+        if self.inner_error_code is not None:
+            result['InnerErrorCode'] = self.inner_error_code
+        if self.inner_error_msg is not None:
+            result['InnerErrorMsg'] = self.inner_error_msg
+        if self.rpc_id is not None:
+            result['RpcId'] = self.rpc_id
+        if self.trace_id is not None:
+            result['TraceId'] = self.trace_id
+        if self.version is not None:
+            result['Version'] = self.version
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CostTime') is not None:
+            self.cost_time = m.get('CostTime')
+        if m.get('InnerErrorCode') is not None:
+            self.inner_error_code = m.get('InnerErrorCode')
+        if m.get('InnerErrorMsg') is not None:
+            self.inner_error_msg = m.get('InnerErrorMsg')
+        if m.get('RpcId') is not None:
+            self.rpc_id = m.get('RpcId')
+        if m.get('TraceId') is not None:
+            self.trace_id = m.get('TraceId')
+        if m.get('Version') is not None:
+            self.version = m.get('Version')
+        return self
+
+
+class QueryOrderResponseBodyResult(TeaModel):
+    def __init__(self, alipay_trade_id=None, channel_trade_id=None, item_id=None, modified_time=None,
+                 order_status=None, price=None, request_id=None, success=None, taobao_trade_id=None, trade_id=None):
+        self.alipay_trade_id = alipay_trade_id  # type: str
+        self.channel_trade_id = channel_trade_id  # type: str
+        self.item_id = item_id  # type: long
+        self.modified_time = modified_time  # type: long
+        self.order_status = order_status  # type: int
+        self.price = price  # type: long
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+        self.taobao_trade_id = taobao_trade_id  # type: str
+        self.trade_id = trade_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(QueryOrderResponseBodyResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.alipay_trade_id is not None:
+            result['AlipayTradeId'] = self.alipay_trade_id
+        if self.channel_trade_id is not None:
+            result['ChannelTradeId'] = self.channel_trade_id
+        if self.item_id is not None:
+            result['ItemId'] = self.item_id
+        if self.modified_time is not None:
+            result['ModifiedTime'] = self.modified_time
+        if self.order_status is not None:
+            result['OrderStatus'] = self.order_status
+        if self.price is not None:
+            result['Price'] = self.price
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        if self.taobao_trade_id is not None:
+            result['TaobaoTradeId'] = self.taobao_trade_id
+        if self.trade_id is not None:
+            result['TradeId'] = self.trade_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AlipayTradeId') is not None:
+            self.alipay_trade_id = m.get('AlipayTradeId')
+        if m.get('ChannelTradeId') is not None:
+            self.channel_trade_id = m.get('ChannelTradeId')
+        if m.get('ItemId') is not None:
+            self.item_id = m.get('ItemId')
+        if m.get('ModifiedTime') is not None:
+            self.modified_time = m.get('ModifiedTime')
+        if m.get('OrderStatus') is not None:
+            self.order_status = m.get('OrderStatus')
+        if m.get('Price') is not None:
+            self.price = m.get('Price')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        if m.get('TaobaoTradeId') is not None:
+            self.taobao_trade_id = m.get('TaobaoTradeId')
+        if m.get('TradeId') is not None:
+            self.trade_id = m.get('TradeId')
+        return self
+
+
+class QueryOrderResponseBody(TeaModel):
+    def __init__(self, error_code=None, error_msg=None, ext=None, header=None, result=None, success=None):
+        self.error_code = error_code  # type: str
+        self.error_msg = error_msg  # type: str
+        self.ext = ext  # type: dict[str, any]
+        self.header = header  # type: QueryOrderResponseBodyHeader
+        self.result = result  # type: QueryOrderResponseBodyResult
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.header:
+            self.header.validate()
+        if self.result:
+            self.result.validate()
+
+    def to_map(self):
+        _map = super(QueryOrderResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
+        if self.error_msg is not None:
+            result['ErrorMsg'] = self.error_msg
+        if self.ext is not None:
+            result['Ext'] = self.ext
+        if self.header is not None:
+            result['Header'] = self.header.to_map()
+        if self.result is not None:
+            result['Result'] = self.result.to_map()
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
+        if m.get('ErrorMsg') is not None:
+            self.error_msg = m.get('ErrorMsg')
+        if m.get('Ext') is not None:
+            self.ext = m.get('Ext')
+        if m.get('Header') is not None:
+            temp_model = QueryOrderResponseBodyHeader()
+            self.header = temp_model.from_map(m['Header'])
+        if m.get('Result') is not None:
+            temp_model = QueryOrderResponseBodyResult()
+            self.result = temp_model.from_map(m['Result'])
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class QueryOrderResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: QueryOrderResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(QueryOrderResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = QueryOrderResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -3244,6 +5152,213 @@ class ReportImpressionResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = ReportImpressionResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ReportTranslateRequest(TeaModel):
+    def __init__(self, impressionlink=None):
+        self.impressionlink = impressionlink  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ReportTranslateRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.impressionlink is not None:
+            result['Impressionlink'] = self.impressionlink
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Impressionlink') is not None:
+            self.impressionlink = m.get('Impressionlink')
+        return self
+
+
+class ReportTranslateResponseBodyHeader(TeaModel):
+    def __init__(self, cost_time=None, inner_error_code=None, inner_error_msg=None, rpc_id=None, trace_id=None,
+                 version=None):
+        # costTime
+        self.cost_time = cost_time  # type: long
+        # innerErrorCode
+        self.inner_error_code = inner_error_code  # type: str
+        # innerErrorMsg
+        self.inner_error_msg = inner_error_msg  # type: str
+        # rpcId
+        self.rpc_id = rpc_id  # type: str
+        # traceId
+        self.trace_id = trace_id  # type: str
+        # version
+        self.version = version  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ReportTranslateResponseBodyHeader, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cost_time is not None:
+            result['CostTime'] = self.cost_time
+        if self.inner_error_code is not None:
+            result['InnerErrorCode'] = self.inner_error_code
+        if self.inner_error_msg is not None:
+            result['InnerErrorMsg'] = self.inner_error_msg
+        if self.rpc_id is not None:
+            result['RpcId'] = self.rpc_id
+        if self.trace_id is not None:
+            result['TraceId'] = self.trace_id
+        if self.version is not None:
+            result['Version'] = self.version
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CostTime') is not None:
+            self.cost_time = m.get('CostTime')
+        if m.get('InnerErrorCode') is not None:
+            self.inner_error_code = m.get('InnerErrorCode')
+        if m.get('InnerErrorMsg') is not None:
+            self.inner_error_msg = m.get('InnerErrorMsg')
+        if m.get('RpcId') is not None:
+            self.rpc_id = m.get('RpcId')
+        if m.get('TraceId') is not None:
+            self.trace_id = m.get('TraceId')
+        if m.get('Version') is not None:
+            self.version = m.get('Version')
+        return self
+
+
+class ReportTranslateResponseBodyResult(TeaModel):
+    def __init__(self, bidid=None, success=None):
+        self.bidid = bidid  # type: str
+        # success
+        self.success = success  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ReportTranslateResponseBodyResult, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.bidid is not None:
+            result['Bidid'] = self.bidid
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Bidid') is not None:
+            self.bidid = m.get('Bidid')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class ReportTranslateResponseBody(TeaModel):
+    def __init__(self, error_code=None, error_msg=None, header=None, request_id=None, result=None, success=None):
+        # errorCode
+        self.error_code = error_code  # type: str
+        # errorMsg
+        self.error_msg = error_msg  # type: str
+        # header
+        self.header = header  # type: ReportTranslateResponseBodyHeader
+        self.request_id = request_id  # type: str
+        self.result = result  # type: ReportTranslateResponseBodyResult
+        # success
+        self.success = success  # type: bool
+
+    def validate(self):
+        if self.header:
+            self.header.validate()
+        if self.result:
+            self.result.validate()
+
+    def to_map(self):
+        _map = super(ReportTranslateResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.error_code is not None:
+            result['ErrorCode'] = self.error_code
+        if self.error_msg is not None:
+            result['ErrorMsg'] = self.error_msg
+        if self.header is not None:
+            result['Header'] = self.header.to_map()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.result is not None:
+            result['Result'] = self.result.to_map()
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('ErrorCode') is not None:
+            self.error_code = m.get('ErrorCode')
+        if m.get('ErrorMsg') is not None:
+            self.error_msg = m.get('ErrorMsg')
+        if m.get('Header') is not None:
+            temp_model = ReportTranslateResponseBodyHeader()
+            self.header = temp_model.from_map(m['Header'])
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Result') is not None:
+            temp_model = ReportTranslateResponseBodyResult()
+            self.result = temp_model.from_map(m['Result'])
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class ReportTranslateResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ReportTranslateResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ReportTranslateResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ReportTranslateResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 

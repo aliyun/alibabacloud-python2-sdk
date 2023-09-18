@@ -30,6 +30,102 @@ class Client(OpenApiClient):
             return endpoint_map.get(region_id)
         return EndpointUtilClient.get_endpoint_rules(product_id, region_id, endpoint_rule, network, suffix)
 
+    def cancel_order_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.channel_id):
+            body['ChannelId'] = request.channel_id
+        if not UtilClient.is_unset(request.trade_id):
+            body['TradeId'] = request.trade_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='CancelOrder',
+            version='2022-07-04',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            imarketing_20220704_models.CancelOrderResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def cancel_order(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.cancel_order_with_options(request, runtime)
+
+    def confirm_sample_received_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.channel_id):
+            body['ChannelId'] = request.channel_id
+        if not UtilClient.is_unset(request.trade_id):
+            body['TradeId'] = request.trade_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ConfirmSampleReceived',
+            version='2022-07-04',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            imarketing_20220704_models.ConfirmSampleReceivedResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def confirm_sample_received(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.confirm_sample_received_with_options(request, runtime)
+
+    def confirm_sample_shipped_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.buyer_address):
+            body['BuyerAddress'] = request.buyer_address
+        if not UtilClient.is_unset(request.buyer_name):
+            body['BuyerName'] = request.buyer_name
+        if not UtilClient.is_unset(request.buyer_phone_number):
+            body['BuyerPhoneNumber'] = request.buyer_phone_number
+        if not UtilClient.is_unset(request.channel_id):
+            body['ChannelId'] = request.channel_id
+        if not UtilClient.is_unset(request.trade_id):
+            body['TradeId'] = request.trade_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='ConfirmSampleShipped',
+            version='2022-07-04',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            imarketing_20220704_models.ConfirmSampleShippedResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def confirm_sample_shipped(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.confirm_sample_shipped_with_options(request, runtime)
+
     def create_device_with_options(self, tmp_req, runtime):
         UtilClient.validate_model(tmp_req)
         request = imarketing_20220704_models.CreateDeviceShrinkRequest()
@@ -123,6 +219,28 @@ class Client(OpenApiClient):
     def delete_creative_info(self, request):
         runtime = util_models.RuntimeOptions()
         return self.delete_creative_info_with_options(request, runtime)
+
+    def get_advertising_for_e2with_options(self, runtime):
+        req = open_api_models.OpenApiRequest()
+        params = open_api_models.Params(
+            action='GetAdvertisingForE2',
+            version='2022-07-04',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            imarketing_20220704_models.GetAdvertisingForE2Response(),
+            self.call_api(params, req, runtime)
+        )
+
+    def get_advertising_for_e2(self):
+        runtime = util_models.RuntimeOptions()
+        return self.get_advertising_for_e2with_options(runtime)
 
     def get_brand_page_with_options(self, request, runtime):
         UtilClient.validate_model(request)
@@ -418,6 +536,56 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.list_advertising_with_options(request, runtime)
 
+    def list_specific_ad_with_options(self, tmp_req, runtime):
+        UtilClient.validate_model(tmp_req)
+        request = imarketing_20220704_models.ListSpecificAdShrinkRequest()
+        OpenApiUtilClient.convert(tmp_req, request)
+        if not UtilClient.is_unset(tmp_req.app):
+            request.app_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.app, 'App', 'json')
+        if not UtilClient.is_unset(tmp_req.ext):
+            request.ext_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.ext, 'Ext', 'json')
+        if not UtilClient.is_unset(tmp_req.imp):
+            request.imp_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.imp, 'Imp', 'json')
+        if not UtilClient.is_unset(tmp_req.user):
+            request.user_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.user, 'User', 'json')
+        if not UtilClient.is_unset(tmp_req.verifyad):
+            request.verifyad_shrink = OpenApiUtilClient.array_to_string_with_specified_style(tmp_req.verifyad, 'Verifyad', 'json')
+        query = {}
+        if not UtilClient.is_unset(request.app_shrink):
+            query['App'] = request.app_shrink
+        if not UtilClient.is_unset(request.ext_shrink):
+            query['Ext'] = request.ext_shrink
+        if not UtilClient.is_unset(request.id):
+            query['Id'] = request.id
+        if not UtilClient.is_unset(request.imp_shrink):
+            query['Imp'] = request.imp_shrink
+        if not UtilClient.is_unset(request.user_shrink):
+            query['User'] = request.user_shrink
+        if not UtilClient.is_unset(request.verifyad_shrink):
+            query['Verifyad'] = request.verifyad_shrink
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ListSpecificAd',
+            version='2022-07-04',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            imarketing_20220704_models.ListSpecificAdResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def list_specific_ad(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.list_specific_ad_with_options(request, runtime)
+
     def query_audit_result_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -448,6 +616,68 @@ class Client(OpenApiClient):
         runtime = util_models.RuntimeOptions()
         return self.query_audit_result_with_options(request, runtime)
 
+    def query_benefit_grant_result_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.cloducode_flow_no):
+            body['CloducodeFlowNo'] = request.cloducode_flow_no
+        if not UtilClient.is_unset(request.outer_customer_id):
+            body['OuterCustomerId'] = request.outer_customer_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='QueryBenefitGrantResult',
+            version='2022-07-04',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            imarketing_20220704_models.QueryBenefitGrantResultResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_benefit_grant_result(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_benefit_grant_result_with_options(request, runtime)
+
+    def query_order_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        body = {}
+        if not UtilClient.is_unset(request.channel_id):
+            body['ChannelId'] = request.channel_id
+        if not UtilClient.is_unset(request.channel_trade_id):
+            body['ChannelTradeId'] = request.channel_trade_id
+        if not UtilClient.is_unset(request.trade_id):
+            body['TradeId'] = request.trade_id
+        req = open_api_models.OpenApiRequest(
+            body=OpenApiUtilClient.parse_to_map(body)
+        )
+        params = open_api_models.Params(
+            action='QueryOrder',
+            version='2022-07-04',
+            protocol='HTTPS',
+            pathname='/',
+            method='POST',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            imarketing_20220704_models.QueryOrderResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def query_order(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.query_order_with_options(request, runtime)
+
     def report_impression_with_options(self, request, runtime):
         UtilClient.validate_model(request)
         query = {}
@@ -475,6 +705,32 @@ class Client(OpenApiClient):
     def report_impression(self, request):
         runtime = util_models.RuntimeOptions()
         return self.report_impression_with_options(request, runtime)
+
+    def report_translate_with_options(self, request, runtime):
+        UtilClient.validate_model(request)
+        query = OpenApiUtilClient.query(UtilClient.to_map(request))
+        req = open_api_models.OpenApiRequest(
+            query=OpenApiUtilClient.query(query)
+        )
+        params = open_api_models.Params(
+            action='ReportTranslate',
+            version='2022-07-04',
+            protocol='HTTPS',
+            pathname='/',
+            method='GET',
+            auth_type='AK',
+            style='RPC',
+            req_body_type='formData',
+            body_type='json'
+        )
+        return TeaCore.from_map(
+            imarketing_20220704_models.ReportTranslateResponse(),
+            self.call_api(params, req, runtime)
+        )
+
+    def report_translate(self, request):
+        runtime = util_models.RuntimeOptions()
+        return self.report_translate_with_options(request, runtime)
 
     def send_sms_with_options(self, request, runtime):
         UtilClient.validate_model(request)
