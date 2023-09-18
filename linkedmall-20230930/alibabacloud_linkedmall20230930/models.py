@@ -184,6 +184,40 @@ class ConfirmDisburseResult(TeaModel):
         return self
 
 
+class CooperationShop(TeaModel):
+    def __init__(self, cooperation_company_id=None, cooperation_shop_id=None, shop_id=None):
+        self.cooperation_company_id = cooperation_company_id  # type: str
+        self.cooperation_shop_id = cooperation_shop_id  # type: str
+        self.shop_id = shop_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CooperationShop, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.cooperation_company_id is not None:
+            result['CooperationCompanyId'] = self.cooperation_company_id
+        if self.cooperation_shop_id is not None:
+            result['CooperationShopId'] = self.cooperation_shop_id
+        if self.shop_id is not None:
+            result['shopId'] = self.shop_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CooperationCompanyId') is not None:
+            self.cooperation_company_id = m.get('CooperationCompanyId')
+        if m.get('CooperationShopId') is not None:
+            self.cooperation_shop_id = m.get('CooperationShopId')
+        if m.get('shopId') is not None:
+            self.shop_id = m.get('shopId')
+        return self
+
+
 class DeliveryInfo(TeaModel):
     def __init__(self, display_name=None, id=None, post_fee=None, service_type=None):
         self.display_name = display_name  # type: str
@@ -919,25 +953,22 @@ class Money(TeaModel):
 
 class OrderLineResult(TeaModel):
     def __init__(self, logistics_status=None, number=None, order_id=None, order_line_id=None,
-                 order_line_status=None, product_id=None, product_pic=None, product_price=None, product_title=None, sku_id=None,
+                 order_line_status=None, pay_fee=None, product_id=None, product_pic=None, product_title=None, sku_id=None,
                  sku_title=None):
         self.logistics_status = logistics_status  # type: str
         self.number = number  # type: str
         self.order_id = order_id  # type: str
         self.order_line_id = order_line_id  # type: str
         self.order_line_status = order_line_status  # type: str
+        self.pay_fee = pay_fee  # type: long
         self.product_id = product_id  # type: str
         self.product_pic = product_pic  # type: str
-        self.product_price = product_price  # type: list[ProductPrice]
         self.product_title = product_title  # type: str
         self.sku_id = sku_id  # type: str
         self.sku_title = sku_title  # type: str
 
     def validate(self):
-        if self.product_price:
-            for k in self.product_price:
-                if k:
-                    k.validate()
+        pass
 
     def to_map(self):
         _map = super(OrderLineResult, self).to_map()
@@ -955,14 +986,12 @@ class OrderLineResult(TeaModel):
             result['orderLineId'] = self.order_line_id
         if self.order_line_status is not None:
             result['orderLineStatus'] = self.order_line_status
+        if self.pay_fee is not None:
+            result['payFee'] = self.pay_fee
         if self.product_id is not None:
             result['productId'] = self.product_id
         if self.product_pic is not None:
             result['productPic'] = self.product_pic
-        result['productPrice'] = []
-        if self.product_price is not None:
-            for k in self.product_price:
-                result['productPrice'].append(k.to_map() if k else None)
         if self.product_title is not None:
             result['productTitle'] = self.product_title
         if self.sku_id is not None:
@@ -983,15 +1012,12 @@ class OrderLineResult(TeaModel):
             self.order_line_id = m.get('orderLineId')
         if m.get('orderLineStatus') is not None:
             self.order_line_status = m.get('orderLineStatus')
+        if m.get('payFee') is not None:
+            self.pay_fee = m.get('payFee')
         if m.get('productId') is not None:
             self.product_id = m.get('productId')
         if m.get('productPic') is not None:
             self.product_pic = m.get('productPic')
-        self.product_price = []
-        if m.get('productPrice') is not None:
-            for k in m.get('productPrice'):
-                temp_model = ProductPrice()
-                self.product_price.append(temp_model.from_map(k))
         if m.get('productTitle') is not None:
             self.product_title = m.get('productTitle')
         if m.get('skuId') is not None:
@@ -1084,7 +1110,7 @@ class OrderPageQuery(TeaModel):
 
 class OrderProductResult(TeaModel):
     def __init__(self, can_sell=None, features=None, message=None, price=None, product_id=None, product_pic_url=None,
-                 product_title=None, quantity=None, shop_id=None, sku_id=None, sku_title=None):
+                 product_title=None, purchaser_id=None, quantity=None, sku_id=None, sku_title=None):
         self.can_sell = can_sell  # type: bool
         self.features = features  # type: dict[str, any]
         self.message = message  # type: str
@@ -1092,8 +1118,8 @@ class OrderProductResult(TeaModel):
         self.product_id = product_id  # type: str
         self.product_pic_url = product_pic_url  # type: str
         self.product_title = product_title  # type: str
+        self.purchaser_id = purchaser_id  # type: str
         self.quantity = quantity  # type: int
-        self.shop_id = shop_id  # type: str
         self.sku_id = sku_id  # type: str
         self.sku_title = sku_title  # type: str
 
@@ -1120,10 +1146,10 @@ class OrderProductResult(TeaModel):
             result['productPicUrl'] = self.product_pic_url
         if self.product_title is not None:
             result['productTitle'] = self.product_title
+        if self.purchaser_id is not None:
+            result['purchaserId'] = self.purchaser_id
         if self.quantity is not None:
             result['quantity'] = self.quantity
-        if self.shop_id is not None:
-            result['shopId'] = self.shop_id
         if self.sku_id is not None:
             result['skuId'] = self.sku_id
         if self.sku_title is not None:
@@ -1146,10 +1172,10 @@ class OrderProductResult(TeaModel):
             self.product_pic_url = m.get('productPicUrl')
         if m.get('productTitle') is not None:
             self.product_title = m.get('productTitle')
+        if m.get('purchaserId') is not None:
+            self.purchaser_id = m.get('purchaserId')
         if m.get('quantity') is not None:
             self.quantity = m.get('quantity')
-        if m.get('shopId') is not None:
-            self.shop_id = m.get('shopId')
         if m.get('skuId') is not None:
             self.sku_id = m.get('skuId')
         if m.get('skuTitle') is not None:
@@ -1158,10 +1184,10 @@ class OrderProductResult(TeaModel):
 
 
 class OrderRenderProductDTO(TeaModel):
-    def __init__(self, product_id=None, quantity=None, shop_id=None, sku_id=None):
+    def __init__(self, product_id=None, purchaser_id=None, quantity=None, sku_id=None):
         self.product_id = product_id  # type: str
+        self.purchaser_id = purchaser_id  # type: str
         self.quantity = quantity  # type: int
-        self.shop_id = shop_id  # type: str
         self.sku_id = sku_id  # type: str
 
     def validate(self):
@@ -1175,10 +1201,10 @@ class OrderRenderProductDTO(TeaModel):
         result = dict()
         if self.product_id is not None:
             result['productId'] = self.product_id
+        if self.purchaser_id is not None:
+            result['purchaserId'] = self.purchaser_id
         if self.quantity is not None:
             result['quantity'] = self.quantity
-        if self.shop_id is not None:
-            result['shopId'] = self.shop_id
         if self.sku_id is not None:
             result['skuId'] = self.sku_id
         return result
@@ -1187,10 +1213,10 @@ class OrderRenderProductDTO(TeaModel):
         m = m or dict()
         if m.get('productId') is not None:
             self.product_id = m.get('productId')
+        if m.get('purchaserId') is not None:
+            self.purchaser_id = m.get('purchaserId')
         if m.get('quantity') is not None:
             self.quantity = m.get('quantity')
-        if m.get('shopId') is not None:
-            self.shop_id = m.get('shopId')
         if m.get('skuId') is not None:
             self.sku_id = m.get('skuId')
         return self
@@ -1263,7 +1289,7 @@ class OrderResult(TeaModel):
         self.create_date = create_date  # type: str
         self.distributor_id = distributor_id  # type: str
         self.logistics_status = logistics_status  # type: str
-        self.order_amount = order_amount  # type: str
+        self.order_amount = order_amount  # type: long
         self.order_id = order_id  # type: str
         self.order_line_list = order_line_list  # type: list[OrderLineResult]
         self.order_status = order_status  # type: str
@@ -1488,11 +1514,11 @@ class Product(TeaModel):
 
 
 class ProductDTO(TeaModel):
-    def __init__(self, price=None, product_id=None, quantity=None, shop_id=None, sku_id=None):
+    def __init__(self, price=None, product_id=None, purchaser_id=None, quantity=None, sku_id=None):
         self.price = price  # type: long
         self.product_id = product_id  # type: str
+        self.purchaser_id = purchaser_id  # type: str
         self.quantity = quantity  # type: int
-        self.shop_id = shop_id  # type: str
         self.sku_id = sku_id  # type: str
 
     def validate(self):
@@ -1508,10 +1534,10 @@ class ProductDTO(TeaModel):
             result['price'] = self.price
         if self.product_id is not None:
             result['productId'] = self.product_id
+        if self.purchaser_id is not None:
+            result['purchaserId'] = self.purchaser_id
         if self.quantity is not None:
             result['quantity'] = self.quantity
-        if self.shop_id is not None:
-            result['shopId'] = self.shop_id
         if self.sku_id is not None:
             result['skuId'] = self.sku_id
         return result
@@ -1522,10 +1548,10 @@ class ProductDTO(TeaModel):
             self.price = m.get('price')
         if m.get('productId') is not None:
             self.product_id = m.get('productId')
+        if m.get('purchaserId') is not None:
+            self.purchaser_id = m.get('purchaserId')
         if m.get('quantity') is not None:
             self.quantity = m.get('quantity')
-        if m.get('shopId') is not None:
-            self.shop_id = m.get('shopId')
         if m.get('skuId') is not None:
             self.sku_id = m.get('skuId')
         return self
@@ -1744,10 +1770,10 @@ class ProductSaleInfo(TeaModel):
 
 
 class ProductSaleInfoListQuery(TeaModel):
-    def __init__(self, distributor_shop_id=None, division_code=None, product_ids=None):
-        self.distributor_shop_id = distributor_shop_id  # type: str
+    def __init__(self, division_code=None, product_ids=None, purchaser_id=None):
         self.division_code = division_code  # type: str
         self.product_ids = product_ids  # type: list[str]
+        self.purchaser_id = purchaser_id  # type: str
 
     def validate(self):
         pass
@@ -1758,22 +1784,22 @@ class ProductSaleInfoListQuery(TeaModel):
             return _map
 
         result = dict()
-        if self.distributor_shop_id is not None:
-            result['distributorShopId'] = self.distributor_shop_id
         if self.division_code is not None:
             result['divisionCode'] = self.division_code
         if self.product_ids is not None:
             result['productIds'] = self.product_ids
+        if self.purchaser_id is not None:
+            result['purchaserId'] = self.purchaser_id
         return result
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('distributorShopId') is not None:
-            self.distributor_shop_id = m.get('distributorShopId')
         if m.get('divisionCode') is not None:
             self.division_code = m.get('divisionCode')
         if m.get('productIds') is not None:
             self.product_ids = m.get('productIds')
+        if m.get('purchaserId') is not None:
+            self.purchaser_id = m.get('purchaserId')
         return self
 
 
@@ -2263,10 +2289,9 @@ class RefundOrderCmd(TeaModel):
 
 
 class RefundOrderResult(TeaModel):
-    def __init__(self, dispute_id=None, dispute_status=None, dispute_type=None, order_line_id=None, request_id=None):
+    def __init__(self, dispute_id=None, dispute_status=None, order_line_id=None, request_id=None):
         self.dispute_id = dispute_id  # type: str
         self.dispute_status = dispute_status  # type: int
-        self.dispute_type = dispute_type  # type: int
         self.order_line_id = order_line_id  # type: str
         self.request_id = request_id  # type: str
 
@@ -2283,8 +2308,6 @@ class RefundOrderResult(TeaModel):
             result['disputeId'] = self.dispute_id
         if self.dispute_status is not None:
             result['disputeStatus'] = self.dispute_status
-        if self.dispute_type is not None:
-            result['disputeType'] = self.dispute_type
         if self.order_line_id is not None:
             result['orderLineId'] = self.order_line_id
         if self.request_id is not None:
@@ -2297,8 +2320,6 @@ class RefundOrderResult(TeaModel):
             self.dispute_id = m.get('disputeId')
         if m.get('disputeStatus') is not None:
             self.dispute_status = m.get('disputeStatus')
-        if m.get('disputeType') is not None:
-            self.dispute_type = m.get('disputeType')
         if m.get('orderLineId') is not None:
             self.order_line_id = m.get('orderLineId')
         if m.get('requestId') is not None:
@@ -2380,10 +2401,9 @@ class RefundRenderCmd(TeaModel):
 
 
 class RefundRenderResult(TeaModel):
-    def __init__(self, biz_claim_type=None, main_order_refund=None, max_refund_fee_data=None, order_line_id=None,
-                 refund_reason_list=None, request_id=None):
+    def __init__(self, biz_claim_type=None, max_refund_fee_data=None, order_line_id=None, refund_reason_list=None,
+                 request_id=None):
         self.biz_claim_type = biz_claim_type  # type: int
-        self.main_order_refund = main_order_refund  # type: bool
         self.max_refund_fee_data = max_refund_fee_data  # type: DistributionMaxRefundFee
         self.order_line_id = order_line_id  # type: str
         self.refund_reason_list = refund_reason_list  # type: list[RefundReason]
@@ -2405,8 +2425,6 @@ class RefundRenderResult(TeaModel):
         result = dict()
         if self.biz_claim_type is not None:
             result['bizClaimType'] = self.biz_claim_type
-        if self.main_order_refund is not None:
-            result['mainOrderRefund'] = self.main_order_refund
         if self.max_refund_fee_data is not None:
             result['maxRefundFeeData'] = self.max_refund_fee_data.to_map()
         if self.order_line_id is not None:
@@ -2423,8 +2441,6 @@ class RefundRenderResult(TeaModel):
         m = m or dict()
         if m.get('bizClaimType') is not None:
             self.biz_claim_type = m.get('bizClaimType')
-        if m.get('mainOrderRefund') is not None:
-            self.main_order_refund = m.get('mainOrderRefund')
         if m.get('maxRefundFeeData') is not None:
             temp_model = DistributionMaxRefundFee()
             self.max_refund_fee_data = temp_model.from_map(m['maxRefundFeeData'])
@@ -2442,10 +2458,10 @@ class RefundRenderResult(TeaModel):
 
 class RefundResult(TeaModel):
     def __init__(self, apply_dispute_desc=None, apply_reason=None, biz_claim_type=None, dispute_create_time=None,
-                 dispute_desc=None, dispute_end_time=None, dispute_id=None, dispute_status=None, dispute_type=None,
-                 order_id=None, order_line_id=None, order_logistics_status=None, refund_fee=None, refund_fee_data=None,
-                 refunder_address=None, refunder_name=None, refunder_tel=None, refunder_zip_code=None,
-                 return_good_logistics_status=None, seller_agree_msg=None, seller_refuse_agreement_message=None, seller_refuse_reason=None):
+                 dispute_desc=None, dispute_end_time=None, dispute_id=None, dispute_status=None, order_id=None,
+                 order_line_id=None, order_logistics_status=None, refund_fee=None, refund_fee_data=None, refunder_address=None,
+                 refunder_name=None, refunder_tel=None, refunder_zip_code=None, return_good_logistics_status=None,
+                 seller_agree_msg=None, seller_refuse_agreement_message=None, seller_refuse_reason=None):
         self.apply_dispute_desc = apply_dispute_desc  # type: str
         self.apply_reason = apply_reason  # type: ApplyReason
         self.biz_claim_type = biz_claim_type  # type: int
@@ -2454,7 +2470,6 @@ class RefundResult(TeaModel):
         self.dispute_end_time = dispute_end_time  # type: str
         self.dispute_id = dispute_id  # type: str
         self.dispute_status = dispute_status  # type: int
-        self.dispute_type = dispute_type  # type: int
         self.order_id = order_id  # type: str
         self.order_line_id = order_line_id  # type: str
         self.order_logistics_status = order_logistics_status  # type: int
@@ -2497,8 +2512,6 @@ class RefundResult(TeaModel):
             result['disputeId'] = self.dispute_id
         if self.dispute_status is not None:
             result['disputeStatus'] = self.dispute_status
-        if self.dispute_type is not None:
-            result['disputeType'] = self.dispute_type
         if self.order_id is not None:
             result['orderId'] = self.order_id
         if self.order_line_id is not None:
@@ -2546,8 +2559,6 @@ class RefundResult(TeaModel):
             self.dispute_id = m.get('disputeId')
         if m.get('disputeStatus') is not None:
             self.dispute_status = m.get('disputeStatus')
-        if m.get('disputeType') is not None:
-            self.dispute_type = m.get('disputeType')
         if m.get('orderId') is not None:
             self.order_id = m.get('orderId')
         if m.get('orderLineId') is not None:
@@ -2579,11 +2590,13 @@ class RefundResult(TeaModel):
 
 
 class Shop(TeaModel):
-    def __init__(self, channel_supplier_id=None, distributor_id=None, end_date=None, shop_id=None, shop_name=None,
-                 shop_type=None, start_date=None, status=None):
-        self.channel_supplier_id = channel_supplier_id  # type: str
+    def __init__(self, cooperation_shops=None, distributor_id=None, end_date=None, purchaser_id=None,
+                 request_id=None, shop_id=None, shop_name=None, shop_type=None, start_date=None, status=None):
+        self.cooperation_shops = cooperation_shops  # type: list[CooperationShop]
         self.distributor_id = distributor_id  # type: str
         self.end_date = end_date  # type: str
+        self.purchaser_id = purchaser_id  # type: str
+        self.request_id = request_id  # type: str
         self.shop_id = shop_id  # type: str
         self.shop_name = shop_name  # type: str
         self.shop_type = shop_type  # type: str
@@ -2591,7 +2604,10 @@ class Shop(TeaModel):
         self.status = status  # type: str
 
     def validate(self):
-        pass
+        if self.cooperation_shops:
+            for k in self.cooperation_shops:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(Shop, self).to_map()
@@ -2599,12 +2615,18 @@ class Shop(TeaModel):
             return _map
 
         result = dict()
-        if self.channel_supplier_id is not None:
-            result['channelSupplierId'] = self.channel_supplier_id
+        result['cooperationShops'] = []
+        if self.cooperation_shops is not None:
+            for k in self.cooperation_shops:
+                result['cooperationShops'].append(k.to_map() if k else None)
         if self.distributor_id is not None:
             result['distributorId'] = self.distributor_id
         if self.end_date is not None:
             result['endDate'] = self.end_date
+        if self.purchaser_id is not None:
+            result['purchaserId'] = self.purchaser_id
+        if self.request_id is not None:
+            result['requestId'] = self.request_id
         if self.shop_id is not None:
             result['shopId'] = self.shop_id
         if self.shop_name is not None:
@@ -2619,12 +2641,19 @@ class Shop(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('channelSupplierId') is not None:
-            self.channel_supplier_id = m.get('channelSupplierId')
+        self.cooperation_shops = []
+        if m.get('cooperationShops') is not None:
+            for k in m.get('cooperationShops'):
+                temp_model = CooperationShop()
+                self.cooperation_shops.append(temp_model.from_map(k))
         if m.get('distributorId') is not None:
             self.distributor_id = m.get('distributorId')
         if m.get('endDate') is not None:
             self.end_date = m.get('endDate')
+        if m.get('purchaserId') is not None:
+            self.purchaser_id = m.get('purchaserId')
+        if m.get('requestId') is not None:
+            self.request_id = m.get('requestId')
         if m.get('shopId') is not None:
             self.shop_id = m.get('shopId')
         if m.get('shopName') is not None:
@@ -2639,10 +2668,11 @@ class Shop(TeaModel):
 
 
 class ShopPageDataResult(TeaModel):
-    def __init__(self, channel_supplier_id=None, end_date=None, shop_id=None, shop_name=None, shop_type=None,
-                 start_date=None, status=None):
-        self.channel_supplier_id = channel_supplier_id  # type: str
+    def __init__(self, cooperation_shops=None, end_date=None, purchaser_id=None, shop_id=None, shop_name=None,
+                 shop_type=None, start_date=None, status=None):
+        self.cooperation_shops = cooperation_shops  # type: list[CooperationShop]
         self.end_date = end_date  # type: str
+        self.purchaser_id = purchaser_id  # type: str
         self.shop_id = shop_id  # type: str
         self.shop_name = shop_name  # type: str
         self.shop_type = shop_type  # type: str
@@ -2650,7 +2680,10 @@ class ShopPageDataResult(TeaModel):
         self.status = status  # type: str
 
     def validate(self):
-        pass
+        if self.cooperation_shops:
+            for k in self.cooperation_shops:
+                if k:
+                    k.validate()
 
     def to_map(self):
         _map = super(ShopPageDataResult, self).to_map()
@@ -2658,10 +2691,14 @@ class ShopPageDataResult(TeaModel):
             return _map
 
         result = dict()
-        if self.channel_supplier_id is not None:
-            result['channelSupplierId'] = self.channel_supplier_id
+        result['cooperationShops'] = []
+        if self.cooperation_shops is not None:
+            for k in self.cooperation_shops:
+                result['cooperationShops'].append(k.to_map() if k else None)
         if self.end_date is not None:
             result['endDate'] = self.end_date
+        if self.purchaser_id is not None:
+            result['purchaserId'] = self.purchaser_id
         if self.shop_id is not None:
             result['shopId'] = self.shop_id
         if self.shop_name is not None:
@@ -2676,10 +2713,15 @@ class ShopPageDataResult(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('channelSupplierId') is not None:
-            self.channel_supplier_id = m.get('channelSupplierId')
+        self.cooperation_shops = []
+        if m.get('cooperationShops') is not None:
+            for k in m.get('cooperationShops'):
+                temp_model = CooperationShop()
+                self.cooperation_shops.append(temp_model.from_map(k))
         if m.get('endDate') is not None:
             self.end_date = m.get('endDate')
+        if m.get('purchaserId') is not None:
+            self.purchaser_id = m.get('purchaserId')
         if m.get('shopId') is not None:
             self.shop_id = m.get('shopId')
         if m.get('shopName') is not None:
@@ -2944,9 +2986,9 @@ class SkuSaleInfo(TeaModel):
 
 
 class SkuSaleInfoListQuery(TeaModel):
-    def __init__(self, distributor_shop_id=None, division_code=None, sku_query_params=None):
-        self.distributor_shop_id = distributor_shop_id  # type: str
+    def __init__(self, division_code=None, purchaser_id=None, sku_query_params=None):
         self.division_code = division_code  # type: str
+        self.purchaser_id = purchaser_id  # type: str
         self.sku_query_params = sku_query_params  # type: list[SkuQueryParam]
 
     def validate(self):
@@ -2961,10 +3003,10 @@ class SkuSaleInfoListQuery(TeaModel):
             return _map
 
         result = dict()
-        if self.distributor_shop_id is not None:
-            result['distributorShopId'] = self.distributor_shop_id
         if self.division_code is not None:
             result['divisionCode'] = self.division_code
+        if self.purchaser_id is not None:
+            result['purchaserId'] = self.purchaser_id
         result['skuQueryParams'] = []
         if self.sku_query_params is not None:
             for k in self.sku_query_params:
@@ -2973,10 +3015,10 @@ class SkuSaleInfoListQuery(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('distributorShopId') is not None:
-            self.distributor_shop_id = m.get('distributorShopId')
         if m.get('divisionCode') is not None:
             self.division_code = m.get('divisionCode')
+        if m.get('purchaserId') is not None:
+            self.purchaser_id = m.get('purchaserId')
         self.sku_query_params = []
         if m.get('skuQueryParams') is not None:
             for k in m.get('skuQueryParams'):
@@ -3399,142 +3441,6 @@ class GetOrderResponse(TeaModel):
         return self
 
 
-class GetProductRequest(TeaModel):
-    def __init__(self, distributor_shop_id=None, division_code=None):
-        self.distributor_shop_id = distributor_shop_id  # type: str
-        self.division_code = division_code  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(GetProductRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.distributor_shop_id is not None:
-            result['distributorShopId'] = self.distributor_shop_id
-        if self.division_code is not None:
-            result['divisionCode'] = self.division_code
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('distributorShopId') is not None:
-            self.distributor_shop_id = m.get('distributorShopId')
-        if m.get('divisionCode') is not None:
-            self.division_code = m.get('divisionCode')
-        return self
-
-
-class GetProductResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.status_code = status_code  # type: int
-        self.body = body  # type: Product
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(GetProductResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.status_code is not None:
-            result['statusCode'] = self.status_code
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('statusCode') is not None:
-            self.status_code = m.get('statusCode')
-        if m.get('body') is not None:
-            temp_model = Product()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class GetProductSaleInfoRequest(TeaModel):
-    def __init__(self, distributor_shop_id=None, division_code=None):
-        self.distributor_shop_id = distributor_shop_id  # type: str
-        self.division_code = division_code  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(GetProductSaleInfoRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.distributor_shop_id is not None:
-            result['distributorShopId'] = self.distributor_shop_id
-        if self.division_code is not None:
-            result['divisionCode'] = self.division_code
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('distributorShopId') is not None:
-            self.distributor_shop_id = m.get('distributorShopId')
-        if m.get('divisionCode') is not None:
-            self.division_code = m.get('divisionCode')
-        return self
-
-
-class GetProductSaleInfoResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.status_code = status_code  # type: int
-        self.body = body  # type: ProductSaleInfo
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(GetProductSaleInfoResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.status_code is not None:
-            result['statusCode'] = self.status_code
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('statusCode') is not None:
-            self.status_code = m.get('statusCode')
-        if m.get('body') is not None:
-            temp_model = ProductSaleInfo()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
 class GetPurchaseOrderStatusResponse(TeaModel):
     def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
@@ -3570,6 +3476,45 @@ class GetPurchaseOrderStatusResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = PurchaseOrderStatusResult()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetPurchaserShopResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: Shop
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetPurchaserShopResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = Shop()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -3613,11 +3558,40 @@ class GetRefundOrderResponse(TeaModel):
         return self
 
 
-class GetShopResponse(TeaModel):
+class GetSelectionProductRequest(TeaModel):
+    def __init__(self, division_code=None, purchaser_id=None):
+        self.division_code = division_code  # type: str
+        self.purchaser_id = purchaser_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetSelectionProductRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.division_code is not None:
+            result['divisionCode'] = self.division_code
+        if self.purchaser_id is not None:
+            result['purchaserId'] = self.purchaser_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('divisionCode') is not None:
+            self.division_code = m.get('divisionCode')
+        if m.get('purchaserId') is not None:
+            self.purchaser_id = m.get('purchaserId')
+        return self
+
+
+class GetSelectionProductResponse(TeaModel):
     def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
         self.status_code = status_code  # type: int
-        self.body = body  # type: Shop
+        self.body = body  # type: Product
 
     def validate(self):
         self.validate_required(self.headers, 'headers')
@@ -3627,7 +3601,7 @@ class GetShopResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
-        _map = super(GetShopResponse, self).to_map()
+        _map = super(GetSelectionProductResponse, self).to_map()
         if _map is not None:
             return _map
 
@@ -3647,7 +3621,75 @@ class GetShopResponse(TeaModel):
         if m.get('statusCode') is not None:
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
-            temp_model = Shop()
+            temp_model = Product()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class GetSelectionProductSaleInfoRequest(TeaModel):
+    def __init__(self, division_code=None, purchaser_id=None):
+        self.division_code = division_code  # type: str
+        self.purchaser_id = purchaser_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(GetSelectionProductSaleInfoRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.division_code is not None:
+            result['divisionCode'] = self.division_code
+        if self.purchaser_id is not None:
+            result['purchaserId'] = self.purchaser_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('divisionCode') is not None:
+            self.division_code = m.get('divisionCode')
+        if m.get('purchaserId') is not None:
+            self.purchaser_id = m.get('purchaserId')
+        return self
+
+
+class GetSelectionProductSaleInfoResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ProductSaleInfo
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(GetSelectionProductSaleInfoResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ProductSaleInfo()
             self.body = temp_model.from_map(m['body'])
         return self
 
@@ -3691,139 +3733,8 @@ class ListLogisticsOrdersResponse(TeaModel):
         return self
 
 
-class ListProductGeneralBillsRequest(TeaModel):
-    def __init__(self, body=None):
-        self.body = body  # type: GeneralBillPageQuery
-
-    def validate(self):
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(ListProductGeneralBillsRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('body') is not None:
-            temp_model = GeneralBillPageQuery()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class ListProductGeneralBillsResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.status_code = status_code  # type: int
-        self.body = body  # type: GeneralBillPageResult
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(ListProductGeneralBillsResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.status_code is not None:
-            result['statusCode'] = self.status_code
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('statusCode') is not None:
-            self.status_code = m.get('statusCode')
-        if m.get('body') is not None:
-            temp_model = GeneralBillPageResult()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class ListProductSaleInfosRequest(TeaModel):
-    def __init__(self, body=None):
-        self.body = body  # type: ProductSaleInfoListQuery
-
-    def validate(self):
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(ListProductSaleInfosRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('body') is not None:
-            temp_model = ProductSaleInfoListQuery()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class ListProductSaleInfosResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.status_code = status_code  # type: int
-        self.body = body  # type: ProductSaleInfoListResult
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(ListProductSaleInfosResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.status_code is not None:
-            result['statusCode'] = self.status_code
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('statusCode') is not None:
-            self.status_code = m.get('statusCode')
-        if m.get('body') is not None:
-            temp_model = ProductSaleInfoListResult()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class ListProductsRequest(TeaModel):
-    def __init__(self, distributor_shop_id=None, page_number=None, page_size=None):
-        self.distributor_shop_id = distributor_shop_id  # type: str
+class ListPurchaserShopsRequest(TeaModel):
+    def __init__(self, page_number=None, page_size=None):
         self.page_number = page_number  # type: int
         self.page_size = page_size  # type: int
 
@@ -3831,13 +3742,11 @@ class ListProductsRequest(TeaModel):
         pass
 
     def to_map(self):
-        _map = super(ListProductsRequest, self).to_map()
+        _map = super(ListPurchaserShopsRequest, self).to_map()
         if _map is not None:
             return _map
 
         result = dict()
-        if self.distributor_shop_id is not None:
-            result['distributorShopId'] = self.distributor_shop_id
         if self.page_number is not None:
             result['pageNumber'] = self.page_number
         if self.page_size is not None:
@@ -3846,8 +3755,6 @@ class ListProductsRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
-        if m.get('distributorShopId') is not None:
-            self.distributor_shop_id = m.get('distributorShopId')
         if m.get('pageNumber') is not None:
             self.page_number = m.get('pageNumber')
         if m.get('pageSize') is not None:
@@ -3855,101 +3762,7 @@ class ListProductsRequest(TeaModel):
         return self
 
 
-class ListProductsResponse(TeaModel):
-    def __init__(self, headers=None, status_code=None, body=None):
-        self.headers = headers  # type: dict[str, str]
-        self.status_code = status_code  # type: int
-        self.body = body  # type: ProductPageResult
-
-    def validate(self):
-        self.validate_required(self.headers, 'headers')
-        self.validate_required(self.status_code, 'status_code')
-        self.validate_required(self.body, 'body')
-        if self.body:
-            self.body.validate()
-
-    def to_map(self):
-        _map = super(ListProductsResponse, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.headers is not None:
-            result['headers'] = self.headers
-        if self.status_code is not None:
-            result['statusCode'] = self.status_code
-        if self.body is not None:
-            result['body'] = self.body.to_map()
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('headers') is not None:
-            self.headers = m.get('headers')
-        if m.get('statusCode') is not None:
-            self.status_code = m.get('statusCode')
-        if m.get('body') is not None:
-            temp_model = ProductPageResult()
-            self.body = temp_model.from_map(m['body'])
-        return self
-
-
-class ListShopsRequest(TeaModel):
-    def __init__(self, channel_supplier_id=None, end_date=None, page_number=None, page_size=None, shop_id=None,
-                 shop_name=None, start_date=None):
-        self.channel_supplier_id = channel_supplier_id  # type: str
-        self.end_date = end_date  # type: str
-        self.page_number = page_number  # type: int
-        self.page_size = page_size  # type: int
-        self.shop_id = shop_id  # type: str
-        self.shop_name = shop_name  # type: str
-        self.start_date = start_date  # type: str
-
-    def validate(self):
-        pass
-
-    def to_map(self):
-        _map = super(ListShopsRequest, self).to_map()
-        if _map is not None:
-            return _map
-
-        result = dict()
-        if self.channel_supplier_id is not None:
-            result['channelSupplierId'] = self.channel_supplier_id
-        if self.end_date is not None:
-            result['endDate'] = self.end_date
-        if self.page_number is not None:
-            result['pageNumber'] = self.page_number
-        if self.page_size is not None:
-            result['pageSize'] = self.page_size
-        if self.shop_id is not None:
-            result['shopId'] = self.shop_id
-        if self.shop_name is not None:
-            result['shopName'] = self.shop_name
-        if self.start_date is not None:
-            result['startDate'] = self.start_date
-        return result
-
-    def from_map(self, m=None):
-        m = m or dict()
-        if m.get('channelSupplierId') is not None:
-            self.channel_supplier_id = m.get('channelSupplierId')
-        if m.get('endDate') is not None:
-            self.end_date = m.get('endDate')
-        if m.get('pageNumber') is not None:
-            self.page_number = m.get('pageNumber')
-        if m.get('pageSize') is not None:
-            self.page_size = m.get('pageSize')
-        if m.get('shopId') is not None:
-            self.shop_id = m.get('shopId')
-        if m.get('shopName') is not None:
-            self.shop_name = m.get('shopName')
-        if m.get('startDate') is not None:
-            self.start_date = m.get('startDate')
-        return self
-
-
-class ListShopsResponse(TeaModel):
+class ListPurchaserShopsResponse(TeaModel):
     def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
         self.status_code = status_code  # type: int
@@ -3963,7 +3776,7 @@ class ListShopsResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
-        _map = super(ListShopsResponse, self).to_map()
+        _map = super(ListPurchaserShopsResponse, self).to_map()
         if _map is not None:
             return _map
 
@@ -3988,7 +3801,145 @@ class ListShopsResponse(TeaModel):
         return self
 
 
-class ListSkuSaleInfosRequest(TeaModel):
+class ListSelectionProductSaleInfosRequest(TeaModel):
+    def __init__(self, body=None):
+        self.body = body  # type: ProductSaleInfoListQuery
+
+    def validate(self):
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListSelectionProductSaleInfosRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('body') is not None:
+            temp_model = ProductSaleInfoListQuery()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListSelectionProductSaleInfosResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ProductSaleInfoListResult
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListSelectionProductSaleInfosResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ProductSaleInfoListResult()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListSelectionProductsRequest(TeaModel):
+    def __init__(self, page_number=None, page_size=None, purchaser_id=None):
+        self.page_number = page_number  # type: int
+        self.page_size = page_size  # type: int
+        self.purchaser_id = purchaser_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(ListSelectionProductsRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.page_number is not None:
+            result['pageNumber'] = self.page_number
+        if self.page_size is not None:
+            result['pageSize'] = self.page_size
+        if self.purchaser_id is not None:
+            result['purchaserId'] = self.purchaser_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('pageNumber') is not None:
+            self.page_number = m.get('pageNumber')
+        if m.get('pageSize') is not None:
+            self.page_size = m.get('pageSize')
+        if m.get('purchaserId') is not None:
+            self.purchaser_id = m.get('purchaserId')
+        return self
+
+
+class ListSelectionProductsResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: ProductPageResult
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(ListSelectionProductsResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = ProductPageResult()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class ListSelectionSkuSaleInfosRequest(TeaModel):
     def __init__(self, body=None):
         self.body = body  # type: SkuSaleInfoListQuery
 
@@ -3997,7 +3948,7 @@ class ListSkuSaleInfosRequest(TeaModel):
             self.body.validate()
 
     def to_map(self):
-        _map = super(ListSkuSaleInfosRequest, self).to_map()
+        _map = super(ListSelectionSkuSaleInfosRequest, self).to_map()
         if _map is not None:
             return _map
 
@@ -4014,7 +3965,7 @@ class ListSkuSaleInfosRequest(TeaModel):
         return self
 
 
-class ListSkuSaleInfosResponse(TeaModel):
+class ListSelectionSkuSaleInfosResponse(TeaModel):
     def __init__(self, headers=None, status_code=None, body=None):
         self.headers = headers  # type: dict[str, str]
         self.status_code = status_code  # type: int
@@ -4028,7 +3979,7 @@ class ListSkuSaleInfosResponse(TeaModel):
             self.body.validate()
 
     def to_map(self):
-        _map = super(ListSkuSaleInfosResponse, self).to_map()
+        _map = super(ListSelectionSkuSaleInfosResponse, self).to_map()
         if _map is not None:
             return _map
 
