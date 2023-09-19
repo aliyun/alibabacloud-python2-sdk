@@ -2313,35 +2313,29 @@ class CreateStateConfigurationRequest(TeaModel):
     def __init__(self, client_token=None, configure_mode=None, description=None, parameters=None, region_id=None,
                  resource_group_id=None, schedule_expression=None, schedule_type=None, tags=None, targets=None, template_name=None,
                  template_version=None):
-        # The description of the desired-state configuration.
+        # The client token that is used to ensure the idempotence of the request.
         self.client_token = client_token  # type: str
-        # 收集Inventory数据
+        # The configuration mode. Valid values: ApplyOnce: The configuration is applied only once. After a configuration is updated, the new configuration is applied. ApplyAndMonitor: The configuration is applied only once. After the configuration is applied, the system only checks whether the configuration is migrated in the future. ApplyAndAutoCorrect: The configuration is always applied.
         self.configure_mode = configure_mode  # type: str
-        # The configuration mode.
-        # 
-        # ApplyOnce: The configuration is applied only once. After a configuration is updated, the new configuration is applied.
-        # 
-        # ApplyAndMonitor: The configuration is applied only once. After the configuration is applied, the system only checks whether the configuration is migrated in the future.
-        # 
-        # ApplyAndAutoCorrect: The configuration is always applied.
+        # The description of the desired-state configuration.
         self.description = description  # type: str
-        # The ID of resource group.
+        # The parameters.
         self.parameters = parameters  # type: str
-        # The ID of the template.
+        # The region ID.
         self.region_id = region_id  # type: str
-        # The type of the schedule. Valid value: rate.
+        # The resource group ID.
         self.resource_group_id = resource_group_id  # type: str
-        # The description.
-        self.schedule_expression = schedule_expression  # type: str
-        # The schedule expression.
-        self.schedule_type = schedule_type  # type: str
-        # The name of the template. The name must be 1 to 200 characters in length, and can contain letters, digits, hyphens (-), and underscores (\_).
-        self.tags = tags  # type: dict[str, any]
         # The schedule expression. The interval between two schedules must be a minimum of 30 minutes.
+        self.schedule_expression = schedule_expression  # type: str
+        # The schedule type. Set the value to rate.
+        self.schedule_type = schedule_type  # type: str
+        # The tags to be added to the configuration.
+        self.tags = tags  # type: dict[str, any]
+        # The resources to be queried.
         self.targets = targets  # type: str
-        # The version of the template.
+        # The name of the template. The name must be 1 to 200 characters in length and can contain letters, digits, hyphens (-), and underscores (\_).
         self.template_name = template_name  # type: str
-        # The required resources.
+        # The version number of the template. If you do not specify this parameter, the latest version of the template is used.
         self.template_version = template_version  # type: str
 
     def validate(self):
@@ -2412,35 +2406,29 @@ class CreateStateConfigurationShrinkRequest(TeaModel):
     def __init__(self, client_token=None, configure_mode=None, description=None, parameters=None, region_id=None,
                  resource_group_id=None, schedule_expression=None, schedule_type=None, tags_shrink=None, targets=None,
                  template_name=None, template_version=None):
-        # The description of the desired-state configuration.
+        # The client token that is used to ensure the idempotence of the request.
         self.client_token = client_token  # type: str
-        # 收集Inventory数据
+        # The configuration mode. Valid values: ApplyOnce: The configuration is applied only once. After a configuration is updated, the new configuration is applied. ApplyAndMonitor: The configuration is applied only once. After the configuration is applied, the system only checks whether the configuration is migrated in the future. ApplyAndAutoCorrect: The configuration is always applied.
         self.configure_mode = configure_mode  # type: str
-        # The configuration mode.
-        # 
-        # ApplyOnce: The configuration is applied only once. After a configuration is updated, the new configuration is applied.
-        # 
-        # ApplyAndMonitor: The configuration is applied only once. After the configuration is applied, the system only checks whether the configuration is migrated in the future.
-        # 
-        # ApplyAndAutoCorrect: The configuration is always applied.
+        # The description of the desired-state configuration.
         self.description = description  # type: str
-        # The ID of resource group.
+        # The parameters.
         self.parameters = parameters  # type: str
-        # The ID of the template.
+        # The region ID.
         self.region_id = region_id  # type: str
-        # The type of the schedule. Valid value: rate.
+        # The resource group ID.
         self.resource_group_id = resource_group_id  # type: str
-        # The description.
-        self.schedule_expression = schedule_expression  # type: str
-        # The schedule expression.
-        self.schedule_type = schedule_type  # type: str
-        # The name of the template. The name must be 1 to 200 characters in length, and can contain letters, digits, hyphens (-), and underscores (\_).
-        self.tags_shrink = tags_shrink  # type: str
         # The schedule expression. The interval between two schedules must be a minimum of 30 minutes.
+        self.schedule_expression = schedule_expression  # type: str
+        # The schedule type. Set the value to rate.
+        self.schedule_type = schedule_type  # type: str
+        # The tags to be added to the configuration.
+        self.tags_shrink = tags_shrink  # type: str
+        # The resources to be queried.
         self.targets = targets  # type: str
-        # The version of the template.
+        # The name of the template. The name must be 1 to 200 characters in length and can contain letters, digits, hyphens (-), and underscores (\_).
         self.template_name = template_name  # type: str
-        # The required resources.
+        # The version number of the template. If you do not specify this parameter, the latest version of the template is used.
         self.template_version = template_version  # type: str
 
     def validate(self):
@@ -2511,29 +2499,31 @@ class CreateStateConfigurationResponseBodyStateConfiguration(TeaModel):
     def __init__(self, configure_mode=None, create_time=None, description=None, parameters=None,
                  resource_group_id=None, schedule_expression=None, schedule_type=None, state_configuration_id=None, tags=None,
                  targets=None, template_id=None, template_name=None, template_version=None):
-        # The parameters.
+        # The configuration mode. Valid values:
         self.configure_mode = configure_mode  # type: str
-        # The desired-state configuration.
+        # The time when the desired-state configuration was created.
         self.create_time = create_time  # type: str
-        # WB502027
+        # The description.
         self.description = description  # type: str
-        # CreateStateConfiguration
+        # The parameters.
         self.parameters = parameters  # type: dict[str, any]
+        # The resource group ID.
         self.resource_group_id = resource_group_id  # type: str
-        # The version number. If you do not specify this parameter, the system uses the latest version.
+        # The schedule expression.
         self.schedule_expression = schedule_expression  # type: str
-        # Creates a desired-state configuration.
+        # The schedule type.
         self.schedule_type = schedule_type  # type: str
-        # 收集Inventory数据
+        # The ID of the desired-state configuration.
         self.state_configuration_id = state_configuration_id  # type: str
-        # The required resources.
+        # The tags added to the configuration.
         self.tags = tags  # type: dict[str, any]
-        # 1 hour 或 30 minutes
+        # The queried resources.
         self.targets = targets  # type: str
+        # The template ID.
         self.template_id = template_id  # type: str
         # The name of the template.
         self.template_name = template_name  # type: str
-        # The ID of the request.
+        # The name of the template version.
         self.template_version = template_version  # type: str
 
     def validate(self):
@@ -2606,9 +2596,9 @@ class CreateStateConfigurationResponseBodyStateConfiguration(TeaModel):
 
 class CreateStateConfigurationResponseBody(TeaModel):
     def __init__(self, request_id=None, state_configuration=None):
-        # The configuration mode.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # The tag.
+        # The information about the desired-state configuration.
         self.state_configuration = state_configuration  # type: CreateStateConfigurationResponseBodyStateConfiguration
 
     def validate(self):
@@ -3178,9 +3168,11 @@ class DeleteApplicationGroupResponse(TeaModel):
 
 class DeleteExecutionsRequest(TeaModel):
     def __init__(self, execution_ids=None, region_id=None):
-        # The ID of the request.
+        # The execution IDs.
+        # 
+        # You can specify multiple execution IDs in a JSON array in the format of `["xxxxxxxxx", "yyyyyyyyy", ... "zzzzzzzzz"]`. You can specify up to 100 execution IDs at a time. Separate multiple IDs with commas (,).
         self.execution_ids = execution_ids  # type: str
-        # A JSON array that consists of multiple instance IDs. The format of the JSON array is [“xxxxxxxxx”, “yyyyyyyyy”, … “zzzzzzzzz”]. Separate multiple instance IDs with commas (,). A maximum of 100 instance IDs can be specified at a time.
+        # The region ID.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -3209,7 +3201,7 @@ class DeleteExecutionsRequest(TeaModel):
 
 class DeleteExecutionsResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Deletes multiple executions.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3370,7 +3362,7 @@ class DeletePatchBaselineRequest(TeaModel):
     def __init__(self, name=None, region_id=None):
         # The name of the patch baseline.
         self.name = name  # type: str
-        # The ID of the region.
+        # The region ID.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -3399,7 +3391,7 @@ class DeletePatchBaselineRequest(TeaModel):
 
 class DeletePatchBaselineResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3463,9 +3455,9 @@ class DeletePatchBaselineResponse(TeaModel):
 
 class DeleteSecretParameterRequest(TeaModel):
     def __init__(self, name=None, region_id=None):
-        # The name of the encryption parameter. The name can be up to 180 characters in length and can contain only letters, digits, hyphens (-), and underscores (\_). It cannot start with ALIYUN, ACS, ALIBABA, ALICLOUD, or OOS.
+        # The name of the encryption parameter. The name must be 1 to 180 characters in length and can contain letters, digits, hyphens (-), and underscores (\_). It cannot start with ALIYUN, ACS, ALIBABA, ALICLOUD, or OOS.
         self.name = name  # type: str
-        # The ID of the region.
+        # The region ID.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -3494,7 +3486,7 @@ class DeleteSecretParameterRequest(TeaModel):
 
 class DeleteSecretParameterResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3558,13 +3550,11 @@ class DeleteSecretParameterResponse(TeaModel):
 
 class DeleteStateConfigurationsRequest(TeaModel):
     def __init__(self, client_token=None, region_id=None, state_configuration_ids=None):
-        # Deletes desired-state configurations in batches
+        # The client token that is used to ensure the idempotence of the request.
         self.client_token = client_token  # type: str
-        # The ID of the request.
+        # The region ID.
         self.region_id = region_id  # type: str
-        # ## Debugging
-        # 
-        # [OpenAPI Explorer automatically calculates the signature value. For your convenience, we recommend that you call this operation in OpenAPI Explorer. OpenAPI Explorer dynamically generates the sample code of the operation for different SDKs.](https://api.aliyun.com/#product=oos\&api=DeleteStateConfigurations\&type=RPC\&version=2019-06-01)
+        # The IDs of desired-state configurations.
         self.state_configuration_ids = state_configuration_ids  # type: str
 
     def validate(self):
@@ -3597,7 +3587,7 @@ class DeleteStateConfigurationsRequest(TeaModel):
 
 class DeleteStateConfigurationsResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Deletes desired-state configurations in batches.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3661,11 +3651,11 @@ class DeleteStateConfigurationsResponse(TeaModel):
 
 class DeleteTemplateRequest(TeaModel):
     def __init__(self, auto_delete_executions=None, region_id=None, template_name=None):
-        # You can call this operation to delete a template.
-        self.auto_delete_executions = auto_delete_executions  # type: bool
         # Specifies whether to delete the related executions when a template is deleted.
+        self.auto_delete_executions = auto_delete_executions  # type: bool
+        # The region ID.
         self.region_id = region_id  # type: str
-        # The ID of the request.
+        # The name of the template. The name can be 1 to 200 characters in length and can contain letters, digits, hyphens (-), and underscores (\_). It cannot start with ALIYUN, ACS, ALIBABA, or ALICLOUD.
         self.template_name = template_name  # type: str
 
     def validate(self):
@@ -3698,7 +3688,7 @@ class DeleteTemplateRequest(TeaModel):
 
 class DeleteTemplateResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # You can call this operation to delete a template.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3762,11 +3752,11 @@ class DeleteTemplateResponse(TeaModel):
 
 class DeleteTemplatesRequest(TeaModel):
     def __init__(self, auto_delete_executions=None, region_id=None, template_names=None):
-        # The ID of the request.
-        self.auto_delete_executions = auto_delete_executions  # type: bool
-        # The name list of templates to be deleted.
-        self.region_id = region_id  # type: str
         # Specifies whether to delete the related executions when a template is deleted.
+        self.auto_delete_executions = auto_delete_executions  # type: bool
+        # The region ID.
+        self.region_id = region_id  # type: str
+        # The names of the templates to be deleted.
         self.template_names = template_names  # type: str
 
     def validate(self):
@@ -3799,7 +3789,7 @@ class DeleteTemplatesRequest(TeaModel):
 
 class DeleteTemplatesResponseBody(TeaModel):
     def __init__(self, request_id=None):
-        # Deletes multiple templates.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -3999,8 +3989,11 @@ class DescribeRegionsRequest(TeaModel):
 
 class DescribeRegionsResponseBodyRegions(TeaModel):
     def __init__(self, local_name=None, region_endpoint=None, region_id=None):
+        # The name of the region.
         self.local_name = local_name  # type: str
+        # The endpoint of the region.
         self.region_endpoint = region_endpoint  # type: str
+        # The region ID.
         self.region_id = region_id  # type: str
 
     def validate(self):
@@ -4033,7 +4026,9 @@ class DescribeRegionsResponseBodyRegions(TeaModel):
 
 class DescribeRegionsResponseBody(TeaModel):
     def __init__(self, regions=None, request_id=None):
+        # The details of the regions.
         self.regions = regions  # type: list[DescribeRegionsResponseBodyRegions]
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -4849,20 +4844,18 @@ class GetExecutionTemplateResponse(TeaModel):
 
 class GetInventorySchemaRequest(TeaModel):
     def __init__(self, aggregator=None, max_results=None, next_token=None, region_id=None, type_name=None):
-        # Specifies whether only to return a combination of specified properties.
+        # Specifies whether to return only properties that support the aggregate feature in the configuration list. Valid values:
         # 
-        # Valid values:
-        # 
-        # *   true: only returns a combination of specified properties
-        # *   false: returns all properties of the component
+        # *   true: only returns properties that support the aggregate feature in the configuration list.
+        # *   false: returns all properties in the configuration list.
         self.aggregator = aggregator  # type: bool
-        # The number of entries to return on each page. Valid values: 1 to 100. Default value: 50.
+        # The number of entries per page. Valid values: 1 to 100. Default value: 50.
         self.max_results = max_results  # type: int
-        # The token that is used to retrieve the next page of results.
+        # A pagination token. It can be used in the next request to retrieve a new page of results.
         self.next_token = next_token  # type: str
-        # The ID of the region.
+        # The region ID.
         self.region_id = region_id  # type: str
-        # The name of the component. Valid values:
+        # The configuration list type name. Valid values:
         # 
         # *   ACS:InstanceInformation
         # *   ACS:Application
@@ -4943,11 +4936,11 @@ class GetInventorySchemaResponseBodySchemasAttributes(TeaModel):
 
 class GetInventorySchemaResponseBodySchemas(TeaModel):
     def __init__(self, attributes=None, type_name=None, version=None):
-        # The properties of component.
+        # The properties of the configuration list.
         self.attributes = attributes  # type: list[GetInventorySchemaResponseBodySchemasAttributes]
-        # The name of the component.
+        # The name of the configuration list.
         self.type_name = type_name  # type: str
-        # The version of the component.
+        # The version of the configuration list.
         self.version = version  # type: str
 
     def validate(self):
@@ -4988,13 +4981,13 @@ class GetInventorySchemaResponseBodySchemas(TeaModel):
 
 class GetInventorySchemaResponseBody(TeaModel):
     def __init__(self, max_results=None, next_token=None, request_id=None, schemas=None):
-        # Max results.
+        # The number of entries per page.
         self.max_results = max_results  # type: str
-        # The token that is used to retrieve the next page of results.
+        # The pagination token that was used in the next request to retrieve a new page of results.
         self.next_token = next_token  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # The detailed configurations of the component.
+        # The detailed configurations of the configuration list.
         self.schemas = schemas  # type: list[GetInventorySchemaResponseBodySchemas]
 
     def validate(self):
@@ -5289,13 +5282,13 @@ class GetOpsItemResponse(TeaModel):
 
 class GetParameterRequest(TeaModel):
     def __init__(self, name=None, parameter_version=None, region_id=None, resource_group_id=None):
-        # The operation that you want to perform. Set the value to GetParameter.
+        # The name of the common parameter. The name can be up to 200 characters in length and can contain letters, digits, hyphens (-), and underscores (\_).
         self.name = name  # type: str
-        # The time when the common parameter was updated.
+        # The version number of the common parameter. Valid values: 1 to 100.
         self.parameter_version = parameter_version  # type: int
-        # The name of the common parameter.
+        # The region ID.
         self.region_id = region_id  # type: str
-        # The user who created the common parameter.
+        # The resource group ID.
         self.resource_group_id = resource_group_id  # type: str
 
     def validate(self):
@@ -5334,24 +5327,33 @@ class GetParameterResponseBodyParameter(TeaModel):
     def __init__(self, constraints=None, created_by=None, created_date=None, description=None, id=None, name=None,
                  parameter_version=None, resource_group_id=None, share_type=None, tags=None, type=None, updated_by=None,
                  updated_date=None, value=None):
+        # The constraints of the common parameter.
         self.constraints = constraints  # type: str
+        # The user who created the common parameter.
         self.created_by = created_by  # type: str
+        # The time when the common parameter was created.
         self.created_date = created_date  # type: str
+        # The description of the common parameter.
         self.description = description  # type: str
+        # The ID of the common parameter.
         self.id = id  # type: str
+        # The name of the common parameter.
         self.name = name  # type: str
+        # The version number of the common parameter.
         self.parameter_version = parameter_version  # type: int
+        # The resource group ID.
         self.resource_group_id = resource_group_id  # type: str
+        # The share type of the common parameter.
         self.share_type = share_type  # type: str
-        # The ID of the request.
+        # The tags added to the common parameter.
         self.tags = tags  # type: dict[str, any]
-        # The region ID of the resource.
+        # The data type of the common parameter.
         self.type = type  # type: str
-        # The value of the common parameter.
+        # The user who updated the common parameter.
         self.updated_by = updated_by  # type: str
-        # The information of the common parameter.
+        # The time when the common parameter was updated.
         self.updated_date = updated_date  # type: str
-        # Queries a common parameter and its value.
+        # The value of the common parameter.
         self.value = value  # type: str
 
     def validate(self):
@@ -5428,9 +5430,9 @@ class GetParameterResponseBodyParameter(TeaModel):
 
 class GetParameterResponseBody(TeaModel):
     def __init__(self, parameter=None, request_id=None):
-        # The description of the common parameter.
+        # The information about the common parameter.
         self.parameter = parameter  # type: GetParameterResponseBodyParameter
-        # The user who updated the common parameter.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -5746,18 +5748,31 @@ class GetParametersByPathRequest(TeaModel):
 class GetParametersByPathResponseBodyParameters(TeaModel):
     def __init__(self, constraints=None, created_by=None, created_date=None, description=None, id=None, name=None,
                  parameter_version=None, share_type=None, tags=None, type=None, updated_by=None, updated_date=None, value=None):
+        # The constraints of the common parameter.
         self.constraints = constraints  # type: str
+        # The user who created the common parameter.
         self.created_by = created_by  # type: str
+        # The time when the common parameter was created.
         self.created_date = created_date  # type: str
+        # The description of the common parameter.
         self.description = description  # type: str
+        # The ID of the common parameter.
         self.id = id  # type: str
+        # The name of the common parameter.
         self.name = name  # type: str
+        # The version number of the common parameter.
         self.parameter_version = parameter_version  # type: int
+        # The share type of the common parameter.
         self.share_type = share_type  # type: str
+        # The tags added to the common parameters.
         self.tags = tags  # type: dict[str, any]
+        # The type of the common parameter.
         self.type = type  # type: str
+        # The user who updated the common parameter.
         self.updated_by = updated_by  # type: str
+        # The time when the common parameter was last updated.
         self.updated_date = updated_date  # type: str
+        # The value of the common parameter.
         self.value = value  # type: str
 
     def validate(self):
@@ -5832,6 +5847,7 @@ class GetParametersByPathResponseBody(TeaModel):
     def __init__(self, max_results=None, next_token=None, parameters=None, request_id=None, total_count=None):
         self.max_results = max_results  # type: int
         self.next_token = next_token  # type: str
+        # The information about the common parameters.
         self.parameters = parameters  # type: list[GetParametersByPathResponseBodyParameters]
         self.request_id = request_id  # type: str
         self.total_count = total_count  # type: int
@@ -6646,25 +6662,23 @@ class GetSecretParametersResponse(TeaModel):
 class GetSecretParametersByPathRequest(TeaModel):
     def __init__(self, max_results=None, next_token=None, path=None, recursive=None, region_id=None,
                  with_decryption=None):
-        # The number of entries to return on each page. Valid values: 1 to 10. Default value: 10.
+        # The number of entries per page. Valid values: 1 to 10. Default value: 10.
         self.max_results = max_results  # type: int
-        # The token that is used to retrieve the next page of results.
+        # A pagination token. It can be used in the next request to retrieve a new page of results.
         self.next_token = next_token  # type: str
         # The path of the encryption parameter. The path must be 1 to 200 characters in length. For example, if the name of an encryption parameter is /secretParameter/mySecretParameter, the path of the encryption parameter is /secretParameter.
         self.path = path  # type: str
-        # Specifies whether to recursively query encryption parameters from all levels of directories in the specified path. Valid values: true and false. For example, if you want to query the /secretParameter/mySecretParameter and /secretParameter/secretParameter 1/mySecretParameter parameters, the valid values specify the parameters to return.
+        # Specifies whether to recursively query encryption parameters from all levels of directories in the specified path. Valid values: true and false. For example, if you want to query the /secretParameter/mySecretParameter and /secretParameter/secretParameter 1/mySecretParameter parameters, the valid values specify the parameters to be returned.
         # 
-        # *   true: Returns both of the /secretParameter/mySecretParameter and /secretParameter/secretParameter1/mySecretParameter parameters.
-        # *   false: Returns only the /parameter/myparameter parameter.
+        # *   true: returns both of the /secretParameter/mySecretParameter and /secretParameter/secretParameter1/mySecretParameter parameters.
+        # *   false: returns only the /secretParameter/mySecretParameter parameter.
         self.recursive = recursive  # type: bool
-        # The ID of the region.
+        # The region ID.
         self.region_id = region_id  # type: str
-        # Specifies whether to decrypt the parameter value.
-        # 
-        # Valid values:
+        # Specifies whether to decrypt the parameter value. Default value: false. Valid values:
         # 
         # *   true
-        # *   false (Default)
+        # *   false
         self.with_decryption = with_decryption  # type: bool
 
     def validate(self):
@@ -6721,7 +6735,7 @@ class GetSecretParametersByPathResponseBodyParameters(TeaModel):
         self.description = description  # type: str
         # The ID of the encryption parameter.
         self.id = id  # type: str
-        # The AccessKey ID.
+        # The ID of the key.
         self.key_id = key_id  # type: str
         # The name of the encryption parameter.
         self.name = name  # type: str
@@ -6808,13 +6822,13 @@ class GetSecretParametersByPathResponseBodyParameters(TeaModel):
 
 class GetSecretParametersByPathResponseBody(TeaModel):
     def __init__(self, max_results=None, next_token=None, parameters=None, request_id=None, total_count=None):
-        # The number of entries returned per page.
+        # The number of entries per page.
         self.max_results = max_results  # type: int
-        # The token that is used to retrieve the next page of results.
+        # A pagination token. It can be used in the next request to retrieve a new page of results.
         self.next_token = next_token  # type: str
-        # The information of the encryption parameter.
+        # The information about the encryption parameters.
         self.parameters = parameters  # type: list[GetSecretParametersByPathResponseBodyParameters]
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
         # The total number of returned entries.
         self.total_count = total_count  # type: int
@@ -7729,6 +7743,32 @@ class ListApplicationsRequest(TeaModel):
     def __init__(self, application_type=None, max_results=None, name=None, names=None, next_token=None,
                  region_id=None, tags=None):
         # The type of the application.
+        # 
+        # Valid values:
+        # 
+        # *   ComputeNest
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        # *   Custom
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        # *   DingTalk
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
         self.application_type = application_type  # type: str
         # The number of entries to return on each page. Valid values: 10 to 100. Default value: 50.
         self.max_results = max_results  # type: int
@@ -7791,6 +7831,32 @@ class ListApplicationsShrinkRequest(TeaModel):
     def __init__(self, application_type=None, max_results=None, name=None, names=None, next_token=None,
                  region_id=None, tags_shrink=None):
         # The type of the application.
+        # 
+        # Valid values:
+        # 
+        # *   ComputeNest
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        # *   Custom
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        # *   DingTalk
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
+        # 
+        #     <!-- -->
         self.application_type = application_type  # type: str
         # The number of entries to return on each page. Valid values: 10 to 100. Default value: 50.
         self.max_results = max_results  # type: int
@@ -7860,9 +7926,9 @@ class ListApplicationsResponseBodyApplications(TeaModel):
         self.description = description  # type: str
         # The name of the application.
         self.name = name  # type: str
-        # The ID of the resource group.
+        # The resource group ID.
         self.resource_group_id = resource_group_id  # type: str
-        # A tag of the resource.
+        # The tags added to the application.
         self.tags = tags  # type: dict[str, any]
         # The time when the application was updated.
         self.update_date = update_date  # type: str
@@ -7913,7 +7979,7 @@ class ListApplicationsResponseBodyApplications(TeaModel):
 
 class ListApplicationsResponseBody(TeaModel):
     def __init__(self, applications=None, max_results=None, next_token=None, request_id=None):
-        # The applications.
+        # The details of the application.
         self.applications = applications  # type: list[ListApplicationsResponseBodyApplications]
         # The number of entries returned per page.
         self.max_results = max_results  # type: int
@@ -8059,11 +8125,11 @@ class ListExecutionLogsRequest(TeaModel):
 
 class ListExecutionLogsResponseBodyExecutionLogs(TeaModel):
     def __init__(self, log_type=None, message=None, task_execution_id=None, timestamp=None):
-        # The type of the log.
+        # The log type.
         self.log_type = log_type  # type: str
         # The details of the task execution.
         self.message = message  # type: str
-        # The execution ID of the task.
+        # The task execution ID.
         self.task_execution_id = task_execution_id  # type: str
         # The timestamp when the task was run.
         self.timestamp = timestamp  # type: str
@@ -8102,15 +8168,15 @@ class ListExecutionLogsResponseBodyExecutionLogs(TeaModel):
 
 class ListExecutionLogsResponseBody(TeaModel):
     def __init__(self, execution_logs=None, is_truncated=None, max_results=None, next_token=None, request_id=None):
-        # The execution logs.
+        # The logs of the execution.
         self.execution_logs = execution_logs  # type: list[ListExecutionLogsResponseBodyExecutionLogs]
         # Indicates whether the log is truncated.
         self.is_truncated = is_truncated  # type: bool
-        # The number of entries returned per page.
+        # The number of entries per page.
         self.max_results = max_results  # type: int
-        # The token that is used to retrieve the next page of results.
+        # A pagination token. It can be used in the next request to retrieve a new page of results.
         self.next_token = next_token  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -8354,12 +8420,11 @@ class ListExecutionsRequest(TeaModel):
                  mode=None, next_token=None, parent_execution_id=None, ram_role=None, region_id=None,
                  resource_group_id=None, resource_id=None, resource_template_name=None, sort_field=None, sort_order=None,
                  start_date_after=None, start_date_before=None, status=None, tags=None, template_name=None):
-        # 执行的模板类型列表。可分为Other、TimerTrigger、EventTrigger、AlarmTrigger。此参数和Categories参数只能同时传入一个，推荐使用Categories。
+        # The types of the execution template. Valid values: Other, TimerTrigger, EventTrigger, and AlarmTrigger. You can specify only one of the Categories and Category parameters. We recommend that you specify Categories.
         self.categories = categories  # type: str
         # The type of the execution template. Valid values: Other, TimerTrigger, EventTrigger, and AlarmTrigger.
         self.category = category  # type: str
-        # 执行的深度，可分为RootDepth、FirstChildDepth
-        # RootDepth只返回主执行，FirstChildDepth只返回第一层的子执行。此参数和IncludeChildExecution参数只能同时传入一个，推荐使用Depth。
+        # The depth of execution. Valid values: RootDepth and FirstChildDepth. If you set this parameter to RootDepth, only the parent execution is returned. If you set this parameter to FirstChildDepth, only the child executions at the first level are returned. You can specify only one of the Depth and IncludeChildExecution parameters. We recommend that you specify Depth.
         self.depth = depth  # type: str
         self.description = description  # type: str
         # The earliest end time. The executions that stop running at or later than the specified time are queried.
@@ -8537,12 +8602,11 @@ class ListExecutionsShrinkRequest(TeaModel):
                  mode=None, next_token=None, parent_execution_id=None, ram_role=None, region_id=None,
                  resource_group_id=None, resource_id=None, resource_template_name=None, sort_field=None, sort_order=None,
                  start_date_after=None, start_date_before=None, status=None, tags_shrink=None, template_name=None):
-        # 执行的模板类型列表。可分为Other、TimerTrigger、EventTrigger、AlarmTrigger。此参数和Categories参数只能同时传入一个，推荐使用Categories。
+        # The types of the execution template. Valid values: Other, TimerTrigger, EventTrigger, and AlarmTrigger. You can specify only one of the Categories and Category parameters. We recommend that you specify Categories.
         self.categories = categories  # type: str
         # The type of the execution template. Valid values: Other, TimerTrigger, EventTrigger, and AlarmTrigger.
         self.category = category  # type: str
-        # 执行的深度，可分为RootDepth、FirstChildDepth
-        # RootDepth只返回主执行，FirstChildDepth只返回第一层的子执行。此参数和IncludeChildExecution参数只能同时传入一个，推荐使用Depth。
+        # The depth of execution. Valid values: RootDepth and FirstChildDepth. If you set this parameter to RootDepth, only the parent execution is returned. If you set this parameter to FirstChildDepth, only the child executions at the first level are returned. You can specify only one of the Depth and IncludeChildExecution parameters. We recommend that you specify Depth.
         self.depth = depth  # type: str
         self.description = description  # type: str
         # The earliest end time. The executions that stop running at or later than the specified time are queried.
@@ -9546,7 +9610,7 @@ class ListInventoryEntriesRequest(TeaModel):
         self.filter = filter  # type: list[ListInventoryEntriesRequestFilter]
         # The ID of the instance.
         self.instance_id = instance_id  # type: str
-        # The number of entries to return on each page. Valid values: 1 to 100. Default value: 50.
+        # The number of entries per page. Valid values: 1 to 100. Default value: 50.
         self.max_results = max_results  # type: int
         # The pagination token that is used in the next request to retrieve a new page of results. You do not need to specify this parameter for the first request.
         self.next_token = next_token  # type: str
@@ -10070,15 +10134,15 @@ class ListOpsItemsResponse(TeaModel):
 
 class ListParameterVersionsRequest(TeaModel):
     def __init__(self, max_results=None, name=None, next_token=None, region_id=None, share_type=None):
-        # The share type of the common parameter.
+        # The number of entries per page. Valid values: 10 to 100. Default value: 50.
         self.max_results = max_results  # type: int
-        # The pagination token.
+        # The name of the common parameter.
         self.name = name  # type: str
-        # The data type of the common parameter.
+        # A pagination token. It can be used in the next request to retrieve a new page of results.
         self.next_token = next_token  # type: str
-        # The number of entries to return on each page. Valid values: 10 to 100. Default value: 50.
+        # The region ID.
         self.region_id = region_id  # type: str
-        # The pagination token.
+        # The share type of the common parameter.
         self.share_type = share_type  # type: str
 
     def validate(self):
@@ -10119,15 +10183,13 @@ class ListParameterVersionsRequest(TeaModel):
 
 class ListParameterVersionsResponseBodyParameterVersions(TeaModel):
     def __init__(self, parameter_version=None, updated_by=None, updated_date=None, value=None):
-        # The time when the common parameter was updated.
+        # The version number of the common parameter.
         self.parameter_version = parameter_version  # type: int
-        # Queries versions of a common parameter.
-        self.updated_by = updated_by  # type: str
-        # ## Debugging
-        # 
-        # [OpenAPI Explorer automatically calculates the signature value. For your convenience, we recommend that you call this operation in OpenAPI Explorer. OpenAPI Explorer dynamically generates the sample code of the operation for different SDKs.](https://api.aliyun.com/#product=oos\&api=ListParameterVersions\&type=RPC\&version=2019-06-01)
-        self.updated_date = updated_date  # type: str
         # The user who updated the common parameter.
+        self.updated_by = updated_by  # type: str
+        # The time when the common parameter was last updated.
+        self.updated_date = updated_date  # type: str
+        # The value of the common parameter.
         self.value = value  # type: str
 
     def validate(self):
@@ -10165,27 +10227,27 @@ class ListParameterVersionsResponseBodyParameterVersions(TeaModel):
 class ListParameterVersionsResponseBody(TeaModel):
     def __init__(self, created_by=None, created_date=None, description=None, id=None, max_results=None, name=None,
                  next_token=None, parameter_versions=None, request_id=None, total_count=None, type=None):
-        # The name of the common parameter.
-        self.created_by = created_by  # type: str
-        # The total number of entries returned.
-        self.created_date = created_date  # type: str
         # The user who created the common parameter.
-        self.description = description  # type: str
-        # The version number of the common parameter.
-        self.id = id  # type: str
+        self.created_by = created_by  # type: str
         # The time when the common parameter was created.
-        self.max_results = max_results  # type: int
-        # The ID of the common parameter.
-        self.name = name  # type: str
+        self.created_date = created_date  # type: str
         # The description of the common parameter.
+        self.description = description  # type: str
+        # The ID of the common parameter.
+        self.id = id  # type: str
+        # The number of entries per page.
+        self.max_results = max_results  # type: int
+        # The name of the common parameter.
+        self.name = name  # type: str
+        # The pagination token that was used in the next request to retrieve a new page of results.
         self.next_token = next_token  # type: str
-        # The value of the common parameter.
+        # The information about the version of the common parameter.
         self.parameter_versions = parameter_versions  # type: list[ListParameterVersionsResponseBodyParameterVersions]
-        # The number of entries returned per page.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # The version information of the common parameter.
+        # The total number of entries returned.
         self.total_count = total_count  # type: int
-        # The ID of the request.
+        # The data type of the common parameter.
         self.type = type  # type: str
 
     def validate(self):
@@ -10629,7 +10691,9 @@ class ListParametersResponse(TeaModel):
 
 class ListPatchBaselinesRequestTags(TeaModel):
     def __init__(self, key=None, value=None):
+        # The tag key.
         self.key = key  # type: str
+        # The tag value.
         self.value = value  # type: str
 
     def validate(self):
@@ -10658,32 +10722,40 @@ class ListPatchBaselinesRequestTags(TeaModel):
 
 class ListPatchBaselinesRequest(TeaModel):
     def __init__(self, approved_patches=None, approved_patches_enable_non_security=None, max_results=None,
-                 name=None, next_token=None, operation_system=None, region_id=None, resource_groupld=None,
+                 name=None, next_token=None, operation_system=None, region_id=None, resource_group_id=None,
                  share_type=None, sources=None, tags=None):
+        # The approved patches.
         self.approved_patches = approved_patches  # type: list[str]
+        # Whether the approved patch includes updates other than security.
         self.approved_patches_enable_non_security = approved_patches_enable_non_security  # type: bool
-        # The token that is used to retrieve the next page of results.
+        # The number of entries returned per page.
         self.max_results = max_results  # type: int
-        # The share type of the patch baseline.
+        # The name of the patch baseline.
         self.name = name  # type: str
-        # The ID of the request.
+        # The token that is used to retrieve the next page of results.
         self.next_token = next_token  # type: str
-        # The number of entries to return on each page.
-        self.operation_system = operation_system  # type: str
         # The type of the operating system. Valid values:
         # 
-        # *   AliyunLinux
         # *   Windows
         # *   Ubuntu
-        # *   Centos
+        # *   CentOS
         # *   Debian
+        # *   AliyunLinux
         # *   RedhatEnterpriseLinux
         # *   Anolis
+        # *   AlmaLinux
+        self.operation_system = operation_system  # type: str
+        # The ID of the region.
         self.region_id = region_id  # type: str
-        self.resource_groupld = resource_groupld  # type: str
-        # The token that is used to retrieve the next page of results.
+        self.resource_group_id = resource_group_id  # type: str
+        # The share type of the template. Valid values:
+        # 
+        # *   **Public**\
+        # *   **Private**\
         self.share_type = share_type  # type: str
+        # The list of patch source configurations.
         self.sources = sources  # type: list[str]
+        # The tags.
         self.tags = tags  # type: list[ListPatchBaselinesRequestTags]
 
     def validate(self):
@@ -10712,8 +10784,8 @@ class ListPatchBaselinesRequest(TeaModel):
             result['OperationSystem'] = self.operation_system
         if self.region_id is not None:
             result['RegionId'] = self.region_id
-        if self.resource_groupld is not None:
-            result['ResourceGroupld'] = self.resource_groupld
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.share_type is not None:
             result['ShareType'] = self.share_type
         if self.sources is not None:
@@ -10740,8 +10812,8 @@ class ListPatchBaselinesRequest(TeaModel):
             self.operation_system = m.get('OperationSystem')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
-        if m.get('ResourceGroupld') is not None:
-            self.resource_groupld = m.get('ResourceGroupld')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ShareType') is not None:
             self.share_type = m.get('ShareType')
         if m.get('Sources') is not None:
@@ -10756,32 +10828,40 @@ class ListPatchBaselinesRequest(TeaModel):
 
 class ListPatchBaselinesShrinkRequest(TeaModel):
     def __init__(self, approved_patches_shrink=None, approved_patches_enable_non_security=None, max_results=None,
-                 name=None, next_token=None, operation_system=None, region_id=None, resource_groupld=None,
+                 name=None, next_token=None, operation_system=None, region_id=None, resource_group_id=None,
                  share_type=None, sources_shrink=None, tags_shrink=None):
+        # The approved patches.
         self.approved_patches_shrink = approved_patches_shrink  # type: str
+        # Whether the approved patch includes updates other than security.
         self.approved_patches_enable_non_security = approved_patches_enable_non_security  # type: bool
-        # The token that is used to retrieve the next page of results.
+        # The number of entries returned per page.
         self.max_results = max_results  # type: int
-        # The share type of the patch baseline.
+        # The name of the patch baseline.
         self.name = name  # type: str
-        # The ID of the request.
+        # The token that is used to retrieve the next page of results.
         self.next_token = next_token  # type: str
-        # The number of entries to return on each page.
-        self.operation_system = operation_system  # type: str
         # The type of the operating system. Valid values:
         # 
-        # *   AliyunLinux
         # *   Windows
         # *   Ubuntu
-        # *   Centos
+        # *   CentOS
         # *   Debian
+        # *   AliyunLinux
         # *   RedhatEnterpriseLinux
         # *   Anolis
+        # *   AlmaLinux
+        self.operation_system = operation_system  # type: str
+        # The ID of the region.
         self.region_id = region_id  # type: str
-        self.resource_groupld = resource_groupld  # type: str
-        # The token that is used to retrieve the next page of results.
+        self.resource_group_id = resource_group_id  # type: str
+        # The share type of the template. Valid values:
+        # 
+        # *   **Public**\
+        # *   **Private**\
         self.share_type = share_type  # type: str
+        # The list of patch source configurations.
         self.sources_shrink = sources_shrink  # type: str
+        # The tags.
         self.tags_shrink = tags_shrink  # type: str
 
     def validate(self):
@@ -10807,8 +10887,8 @@ class ListPatchBaselinesShrinkRequest(TeaModel):
             result['OperationSystem'] = self.operation_system
         if self.region_id is not None:
             result['RegionId'] = self.region_id
-        if self.resource_groupld is not None:
-            result['ResourceGroupld'] = self.resource_groupld
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.share_type is not None:
             result['ShareType'] = self.share_type
         if self.sources_shrink is not None:
@@ -10833,8 +10913,8 @@ class ListPatchBaselinesShrinkRequest(TeaModel):
             self.operation_system = m.get('OperationSystem')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
-        if m.get('ResourceGroupld') is not None:
-            self.resource_groupld = m.get('ResourceGroupld')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ShareType') is not None:
             self.share_type = m.get('ShareType')
         if m.get('Sources') is not None:
@@ -10846,7 +10926,9 @@ class ListPatchBaselinesShrinkRequest(TeaModel):
 
 class ListPatchBaselinesResponseBodyPatchBaselinesTags(TeaModel):
     def __init__(self, tag_key=None, tag_value=None):
+        # 标签键。
         self.tag_key = tag_key  # type: str
+        # 标签值。
         self.tag_value = tag_value  # type: str
 
     def validate(self):
@@ -10876,8 +10958,10 @@ class ListPatchBaselinesResponseBodyPatchBaselinesTags(TeaModel):
 class ListPatchBaselinesResponseBodyPatchBaselines(TeaModel):
     def __init__(self, approved_patches=None, approved_patches_enable_non_security=None, created_by=None,
                  created_date=None, description=None, id=None, is_default=None, name=None, operation_system=None,
-                 resource_groupld=None, share_type=None, sources=None, tags=None, updated_by=None, updated_date=None):
+                 resource_group_id=None, share_type=None, sources=None, tags=None, updated_by=None, updated_date=None):
+        # 批准补丁的列表。
         self.approved_patches = approved_patches  # type: list[str]
+        # 批准补丁是否包括除安全性之外的更新
         self.approved_patches_enable_non_security = approved_patches_enable_non_security  # type: bool
         # The name of the patch baseline.
         self.created_by = created_by  # type: str
@@ -10893,10 +10977,12 @@ class ListPatchBaselinesResponseBodyPatchBaselines(TeaModel):
         self.name = name  # type: str
         # The description of the patch baseline.
         self.operation_system = operation_system  # type: str
-        self.resource_groupld = resource_groupld  # type: str
+        self.resource_group_id = resource_group_id  # type: str
         # Queries the details of patch baselines.
         self.share_type = share_type  # type: str
+        # 补丁源配置列表。
         self.sources = sources  # type: list[str]
+        # 标签。
         self.tags = tags  # type: list[ListPatchBaselinesResponseBodyPatchBaselinesTags]
         # The time when the patch baseline was created.
         self.updated_by = updated_by  # type: str
@@ -10933,8 +11019,8 @@ class ListPatchBaselinesResponseBodyPatchBaselines(TeaModel):
             result['Name'] = self.name
         if self.operation_system is not None:
             result['OperationSystem'] = self.operation_system
-        if self.resource_groupld is not None:
-            result['ResourceGroupld'] = self.resource_groupld
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
         if self.share_type is not None:
             result['ShareType'] = self.share_type
         if self.sources is not None:
@@ -10969,8 +11055,8 @@ class ListPatchBaselinesResponseBodyPatchBaselines(TeaModel):
             self.name = m.get('Name')
         if m.get('OperationSystem') is not None:
             self.operation_system = m.get('OperationSystem')
-        if m.get('ResourceGroupld') is not None:
-            self.resource_groupld = m.get('ResourceGroupld')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
         if m.get('ShareType') is not None:
             self.share_type = m.get('ShareType')
         if m.get('Sources') is not None:
@@ -11262,7 +11348,7 @@ class ListResourceExecutionStatusResponse(TeaModel):
 class ListSecretParameterVersionsRequest(TeaModel):
     def __init__(self, max_results=None, name=None, next_token=None, region_id=None, share_type=None,
                  with_decryption=None):
-        # The number of entries to return on each page. Valid values: 10 to 100. Default value: 50.
+        # The number of entries per page. Valid values: 10 to 100. Default value: 50.
         self.max_results = max_results  # type: int
         # The name of the encryption parameter.
         self.name = name  # type: str
@@ -11494,7 +11580,7 @@ class ListSecretParameterVersionsResponse(TeaModel):
 class ListSecretParametersRequest(TeaModel):
     def __init__(self, max_results=None, name=None, next_token=None, path=None, recursive=None, region_id=None,
                  resource_group_id=None, sort_field=None, sort_order=None, tags=None):
-        # The number of entries to return on each page. Valid values: 10 to 100. Default value: 50.
+        # The number of entries per page. Valid values: 10 to 100. Default value: 50.
         self.max_results = max_results  # type: int
         # The name of the parameter. **You can enter a keyword to query parameter names in fuzzy match mode.
         self.name = name  # type: str
@@ -11580,7 +11666,7 @@ class ListSecretParametersRequest(TeaModel):
 class ListSecretParametersShrinkRequest(TeaModel):
     def __init__(self, max_results=None, name=None, next_token=None, path=None, recursive=None, region_id=None,
                  resource_group_id=None, sort_field=None, sort_order=None, tags_shrink=None):
-        # The number of entries to return on each page. Valid values: 10 to 100. Default value: 50.
+        # The number of entries per page. Valid values: 10 to 100. Default value: 50.
         self.max_results = max_results  # type: int
         # The name of the parameter. **You can enter a keyword to query parameter names in fuzzy match mode.
         self.name = name  # type: str
@@ -11855,21 +11941,21 @@ class ListSecretParametersResponse(TeaModel):
 class ListStateConfigurationsRequest(TeaModel):
     def __init__(self, max_results=None, next_token=None, region_id=None, resource_group_id=None,
                  state_configuration_ids=None, tags=None, template_name=None, template_version=None):
-        # The maximum number of entries to return on each page.
+        # The maximum number of entries per page.
         self.max_results = max_results  # type: int
-        # The token of the next page.
+        # A pagination token. It can be used in the next request to retrieve a new page of results.
         self.next_token = next_token  # type: str
-        # The ID of the region.
+        # The region ID.
         self.region_id = region_id  # type: str
-        # The ID of the resource group.
+        # The resource group ID.
         self.resource_group_id = resource_group_id  # type: str
-        # The ID of each desired-state configuration.
+        # The ID of the desired-state configuration.
         self.state_configuration_ids = state_configuration_ids  # type: str
-        # The tag.
+        # The tags to be added to the configuration.
         self.tags = tags  # type: dict[str, any]
-        # The name of the template. The name must be 1 to 200 characters in length, and can contain letters, digits, hyphens (-), and underscores (\_).
+        # The name of the template. The name must be 1 to 200 characters in length and can contain letters, digits, hyphens (-), and underscores (\_).
         self.template_name = template_name  # type: str
-        # The version number. If you do not specify this parameter, the system uses the latest version.
+        # The version number of the template. If you do not specify this parameter, the latest version of the template is used.
         self.template_version = template_version  # type: str
 
     def validate(self):
@@ -11923,21 +12009,21 @@ class ListStateConfigurationsRequest(TeaModel):
 class ListStateConfigurationsShrinkRequest(TeaModel):
     def __init__(self, max_results=None, next_token=None, region_id=None, resource_group_id=None,
                  state_configuration_ids=None, tags_shrink=None, template_name=None, template_version=None):
-        # The maximum number of entries to return on each page.
+        # The maximum number of entries per page.
         self.max_results = max_results  # type: int
-        # The token of the next page.
+        # A pagination token. It can be used in the next request to retrieve a new page of results.
         self.next_token = next_token  # type: str
-        # The ID of the region.
+        # The region ID.
         self.region_id = region_id  # type: str
-        # The ID of the resource group.
+        # The resource group ID.
         self.resource_group_id = resource_group_id  # type: str
-        # The ID of each desired-state configuration.
+        # The ID of the desired-state configuration.
         self.state_configuration_ids = state_configuration_ids  # type: str
-        # The tag.
+        # The tags to be added to the configuration.
         self.tags_shrink = tags_shrink  # type: str
-        # The name of the template. The name must be 1 to 200 characters in length, and can contain letters, digits, hyphens (-), and underscores (\_).
+        # The name of the template. The name must be 1 to 200 characters in length and can contain letters, digits, hyphens (-), and underscores (\_).
         self.template_name = template_name  # type: str
-        # The version number. If you do not specify this parameter, the system uses the latest version.
+        # The version number of the template. If you do not specify this parameter, the latest version of the template is used.
         self.template_version = template_version  # type: str
 
     def validate(self):
@@ -11992,15 +12078,15 @@ class ListStateConfigurationsResponseBodyStateConfigurations(TeaModel):
     def __init__(self, configure_mode=None, create_time=None, description=None, parameters=None,
                  resource_group_id=None, schedule_expression=None, schedule_type=None, state_configuration_id=None, tags=None,
                  targets=None, template_id=None, template_name=None, template_version=None, update_time=None):
-        # The configuration mode.
+        # The configuration mode. Valid values:
         self.configure_mode = configure_mode  # type: str
-        # The creation time.
+        # The time when the desired-state configuration was created.
         self.create_time = create_time  # type: str
         # The description.
         self.description = description  # type: str
         # The parameters.
         self.parameters = parameters  # type: str
-        # The ID of the resource group.
+        # The resource group ID.
         self.resource_group_id = resource_group_id  # type: str
         # The schedule expression.
         self.schedule_expression = schedule_expression  # type: str
@@ -12008,17 +12094,17 @@ class ListStateConfigurationsResponseBodyStateConfigurations(TeaModel):
         self.schedule_type = schedule_type  # type: str
         # The ID of the desired-state configuration.
         self.state_configuration_id = state_configuration_id  # type: str
-        # The tag of the auxiliary media asset.
+        # The tags added to the configuration.
         self.tags = tags  # type: dict[str, any]
-        # The target EMR resource.
+        # The queried resources.
         self.targets = targets  # type: str
-        # The ID of the cluster template.
+        # The template ID.
         self.template_id = template_id  # type: str
         # The name of the template.
         self.template_name = template_name  # type: str
         # The version of the template.
         self.template_version = template_version  # type: str
-        # The time when the configuration is updated.
+        # The time when the configuration was updated.
         self.update_time = update_time  # type: str
 
     def validate(self):
@@ -12095,11 +12181,11 @@ class ListStateConfigurationsResponseBodyStateConfigurations(TeaModel):
 
 class ListStateConfigurationsResponseBody(TeaModel):
     def __init__(self, next_token=None, request_id=None, state_configurations=None):
-        # The token that is used to retrieve the next page of results.
+        # The pagination token that was used in the next request to retrieve a new page of results.
         self.next_token = next_token  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # The desired-state configurations.
+        # The information about the desired-state configurations.
         self.state_configurations = state_configurations  # type: list[ListStateConfigurationsResponseBodyStateConfigurations]
 
     def validate(self):
@@ -13038,11 +13124,11 @@ class ListTaskExecutionsResponse(TeaModel):
 
 class ListTemplateVersionsRequest(TeaModel):
     def __init__(self, max_results=None, next_token=None, region_id=None, share_type=None, template_name=None):
-        # The maximum number of results on each page. Valid values: 10 to 100
+        # The number of entries per page. Valid values: 10 to 100
         self.max_results = max_results  # type: int
-        # The token that is used to retrieve the next page of results.
+        # A pagination token. It can be used in the next request to retrieve a new page of results.
         self.next_token = next_token  # type: str
-        # The ID of the region.
+        # The region ID.
         self.region_id = region_id  # type: str
         # The type of the template. Valid values: Private and Public.
         self.share_type = share_type  # type: str
@@ -13143,11 +13229,11 @@ class ListTemplateVersionsResponseBodyTemplateVersions(TeaModel):
 
 class ListTemplateVersionsResponseBody(TeaModel):
     def __init__(self, max_results=None, next_token=None, request_id=None, template_versions=None):
-        # The maximum number of results on each page.
+        # The number of entries per page.
         self.max_results = max_results  # type: int
-        # The token that is used to retrieve the next page of results.
+        # A pagination token. It can be used in the next request to retrieve a new page of results.
         self.next_token = next_token  # type: str
-        # The ID of the request.
+        # The request ID.
         self.request_id = request_id  # type: str
         # The versions of the template.
         self.template_versions = template_versions  # type: list[ListTemplateVersionsResponseBodyTemplateVersions]
@@ -14126,7 +14212,7 @@ class SearchInventoryRequest(TeaModel):
         self.aggregator = aggregator  # type: list[str]
         # The filter rules for the component.
         self.filter = filter  # type: list[SearchInventoryRequestFilter]
-        # The number of entries to return on each page. Valid values: 1 to 100. Default value: 50.
+        # The number of entries per page. Valid values: 1 to 100. Default value: 50.
         self.max_results = max_results  # type: int
         # The token that is used to retrieve the next page of results.
         self.next_token = next_token  # type: str
@@ -14956,12 +15042,25 @@ class StartExecutionResponse(TeaModel):
 
 class TagResourcesRequest(TeaModel):
     def __init__(self, region_id=None, resource_ids=None, resource_type=None, tags=None):
-        # The ID of the request.
+        # The region ID.
         self.region_id = region_id  # type: str
-        # The operation that you want to perform. Set the value to TagResources.
+        # The IDs of the resources for which you want to modify the resource group. The number of resource IDs is 1 to 50.
+        # 
+        # *   If you set ResourceType to template, specify ResourceIds in the \["TemplateName1","TemplateName2"] format.
+        # *   If you set ResourceType to parameter, specify ResourceIds in the \["Name1","Name2"] format.
+        # *   If you set ResourceType to secretparameter, specify ResourceIds in the \["Name1","Name2"] format.
+        # *   If you set ResourceType to stateconfiguration, specify ResourceIds in the \["StateConfigurationId 1","StateConfigurationId 2"] format.
+        # *   If you set ResourceType to application, specify ResourceIds in the \["Name1","Name2"] format.
         self.resource_ids = resource_ids  # type: dict[str, any]
-        # The IDs of resources. The number of resource IDs ranges from 1 to 50.
+        # The type of the resource for which you want to modify the resource group. Valid values:
+        # 
+        # *   template: template.
+        # *   parameter: parameter.
+        # *   secretparameter: encryption parameter.
+        # *   stateconfiguration: desired-state configuration.
+        # *   application: application.
         self.resource_type = resource_type  # type: str
+        # The tag keys and values. The number of key-value pairs ranges from 1 to 20.
         self.tags = tags  # type: dict[str, any]
 
     def validate(self):
@@ -14998,12 +15097,25 @@ class TagResourcesRequest(TeaModel):
 
 class TagResourcesShrinkRequest(TeaModel):
     def __init__(self, region_id=None, resource_ids_shrink=None, resource_type=None, tags_shrink=None):
-        # The ID of the request.
+        # The region ID.
         self.region_id = region_id  # type: str
-        # The operation that you want to perform. Set the value to TagResources.
+        # The IDs of the resources for which you want to modify the resource group. The number of resource IDs is 1 to 50.
+        # 
+        # *   If you set ResourceType to template, specify ResourceIds in the \["TemplateName1","TemplateName2"] format.
+        # *   If you set ResourceType to parameter, specify ResourceIds in the \["Name1","Name2"] format.
+        # *   If you set ResourceType to secretparameter, specify ResourceIds in the \["Name1","Name2"] format.
+        # *   If you set ResourceType to stateconfiguration, specify ResourceIds in the \["StateConfigurationId 1","StateConfigurationId 2"] format.
+        # *   If you set ResourceType to application, specify ResourceIds in the \["Name1","Name2"] format.
         self.resource_ids_shrink = resource_ids_shrink  # type: str
-        # The IDs of resources. The number of resource IDs ranges from 1 to 50.
+        # The type of the resource for which you want to modify the resource group. Valid values:
+        # 
+        # *   template: template.
+        # *   parameter: parameter.
+        # *   secretparameter: encryption parameter.
+        # *   stateconfiguration: desired-state configuration.
+        # *   application: application.
         self.resource_type = resource_type  # type: str
+        # The tag keys and values. The number of key-value pairs ranges from 1 to 20.
         self.tags_shrink = tags_shrink  # type: str
 
     def validate(self):
@@ -15040,6 +15152,7 @@ class TagResourcesShrinkRequest(TeaModel):
 
 class TagResourcesResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -15103,14 +15216,19 @@ class TagResourcesResponse(TeaModel):
 
 class TriggerExecutionRequest(TeaModel):
     def __init__(self, client_token=None, content=None, execution_id=None, region_id=None, type=None):
-        self.client_token = client_token  # type: str
         # The client token that is used to ensure the idempotence of the request.
-        self.content = content  # type: str
-        # The ID of the request.
-        self.execution_id = execution_id  # type: str
+        self.client_token = client_token  # type: str
         # The message body to be sent to the trigger task.
+        self.content = content  # type: str
+        # The ID of the event-, alert-, or timer-triggered execution.
+        self.execution_id = execution_id  # type: str
+        # The region ID.
         self.region_id = region_id  # type: str
-        # The operation that you want to perform. Set the value to TriggerExecution.
+        # The type of the trigger. Valid values:
+        # 
+        # *   Event
+        # *   Alarm
+        # *   Timer
         self.type = type  # type: str
 
     def validate(self):
@@ -15151,6 +15269,7 @@ class TriggerExecutionRequest(TeaModel):
 
 class TriggerExecutionResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -15214,12 +15333,27 @@ class TriggerExecutionResponse(TeaModel):
 
 class UntagResourcesRequest(TeaModel):
     def __init__(self, all=None, region_id=None, resource_ids=None, resource_type=None, tag_keys=None):
+        # Specifies whether to remove all tags. This parameter takes effect only if TagKeys is left empty. Valid values: true and false. Default value: false. TagKeys is required if this parameter is set to false.
         self.all = all  # type: bool
-        # Specifies whether to delete all tags. This parameter takes effect only when the TagKeys parameter is not specified. Valid values: true and false. Default value: false. The TagKeys parameter is required when this parameter is set to false.
+        # The region ID.
         self.region_id = region_id  # type: str
-        # You can call this operation to delete tags that are attached to one or more resources.
+        # The IDs of the resources for which you want to modify the resource group. The number of resource IDs is 1 to 50.
+        # 
+        # *   If you set ResourceType to template, specify ResourceIds in the \["TemplateName1","TemplateName2"] format.
+        # *   If you set ResourceType to parameter, specify ResourceIds in the \["Name1","Name2"] format.
+        # *   If you set ResourceType to secretparameter, specify ResourceIds in the \["Name1","Name2"] format.
+        # *   If you set ResourceType to stateconfiguration, specify ResourceIds in the \["StateConfigurationId 1","StateConfigurationId 2"] format.
+        # *   If you set ResourceType to application, specify ResourceIds in the \["Name1","Name2"] format.
         self.resource_ids = resource_ids  # type: dict[str, any]
+        # The type of the resource for which you want to modify the resource group. Valid values:
+        # 
+        # *   template: template.
+        # *   parameter: parameter.
+        # *   secretparameter: encryption parameter.
+        # *   stateconfiguration: desired-state configuration.
+        # *   application: application.
         self.resource_type = resource_type  # type: str
+        # The tag keys. The number of keys ranges from 1 to 20.
         self.tag_keys = tag_keys  # type: dict[str, any]
 
     def validate(self):
@@ -15260,12 +15394,27 @@ class UntagResourcesRequest(TeaModel):
 
 class UntagResourcesShrinkRequest(TeaModel):
     def __init__(self, all=None, region_id=None, resource_ids_shrink=None, resource_type=None, tag_keys_shrink=None):
+        # Specifies whether to remove all tags. This parameter takes effect only if TagKeys is left empty. Valid values: true and false. Default value: false. TagKeys is required if this parameter is set to false.
         self.all = all  # type: bool
-        # Specifies whether to delete all tags. This parameter takes effect only when the TagKeys parameter is not specified. Valid values: true and false. Default value: false. The TagKeys parameter is required when this parameter is set to false.
+        # The region ID.
         self.region_id = region_id  # type: str
-        # You can call this operation to delete tags that are attached to one or more resources.
+        # The IDs of the resources for which you want to modify the resource group. The number of resource IDs is 1 to 50.
+        # 
+        # *   If you set ResourceType to template, specify ResourceIds in the \["TemplateName1","TemplateName2"] format.
+        # *   If you set ResourceType to parameter, specify ResourceIds in the \["Name1","Name2"] format.
+        # *   If you set ResourceType to secretparameter, specify ResourceIds in the \["Name1","Name2"] format.
+        # *   If you set ResourceType to stateconfiguration, specify ResourceIds in the \["StateConfigurationId 1","StateConfigurationId 2"] format.
+        # *   If you set ResourceType to application, specify ResourceIds in the \["Name1","Name2"] format.
         self.resource_ids_shrink = resource_ids_shrink  # type: str
+        # The type of the resource for which you want to modify the resource group. Valid values:
+        # 
+        # *   template: template.
+        # *   parameter: parameter.
+        # *   secretparameter: encryption parameter.
+        # *   stateconfiguration: desired-state configuration.
+        # *   application: application.
         self.resource_type = resource_type  # type: str
+        # The tag keys. The number of keys ranges from 1 to 20.
         self.tag_keys_shrink = tag_keys_shrink  # type: str
 
     def validate(self):
@@ -15306,6 +15455,7 @@ class UntagResourcesShrinkRequest(TeaModel):
 
 class UntagResourcesResponseBody(TeaModel):
     def __init__(self, request_id=None):
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -15823,17 +15973,20 @@ class UpdateApplicationGroupResponse(TeaModel):
 
 
 class UpdateExecutionRequest(TeaModel):
-    def __init__(self, client_token=None, description=None, execution_id=None, parameters=None, region_id=None):
+    def __init__(self, client_token=None, description=None, execution_id=None, parameters=None, region_id=None,
+                 resource_group_id=None, tags=None):
         # The description of the execution.
         self.client_token = client_token  # type: str
-        # 执行的描述。
+        # The description of the execution.
         self.description = description  # type: str
         # The ID of the execution.
         self.execution_id = execution_id  # type: str
-        # A JSON string consisting of a collection of parameters. Default value: {}.
+        # The information about the parameters.
         self.parameters = parameters  # type: str
         # The ID of the region.
         self.region_id = region_id  # type: str
+        self.resource_group_id = resource_group_id  # type: str
+        self.tags = tags  # type: str
 
     def validate(self):
         pass
@@ -15854,6 +16007,10 @@ class UpdateExecutionRequest(TeaModel):
             result['Parameters'] = self.parameters
         if self.region_id is not None:
             result['RegionId'] = self.region_id
+        if self.resource_group_id is not None:
+            result['ResourceGroupId'] = self.resource_group_id
+        if self.tags is not None:
+            result['Tags'] = self.tags
         return result
 
     def from_map(self, m=None):
@@ -15868,6 +16025,10 @@ class UpdateExecutionRequest(TeaModel):
             self.parameters = m.get('Parameters')
         if m.get('RegionId') is not None:
             self.region_id = m.get('RegionId')
+        if m.get('ResourceGroupId') is not None:
+            self.resource_group_id = m.get('ResourceGroupId')
+        if m.get('Tags') is not None:
+            self.tags = m.get('Tags')
         return self
 
 
@@ -16305,17 +16466,17 @@ class UpdateOpsItemResponse(TeaModel):
 
 class UpdateParameterRequest(TeaModel):
     def __init__(self, description=None, name=None, region_id=None, resource_group_id=None, tags=None, value=None):
-        # The ID of the common parameter.
+        # The description of the common parameter. The description must be 1 to 200 characters in length.
         self.description = description  # type: str
-        # The data type of the common parameter.
+        # The name of the common parameter. The name must be 1 to 200 characters in length, and can contain letters, digits, hyphens (-), and underscores (\_). It cannot start with ALIYUN, ACS, ALIBABA, ALICLOUD, or OOS.
         self.name = name  # type: str
-        # The version number of the common parameter.
+        # The region ID.
         self.region_id = region_id  # type: str
-        # The operation that you want to perform. Set the value to UpdateParameter.
+        # The resource group ID.
         self.resource_group_id = resource_group_id  # type: str
-        # The name of the common parameter.
+        # The tags to be added to common parameter.
         self.tags = tags  # type: str
-        # The value of the common parameter. The value must be 1 to 4096 characters in length.
+        # The value of the common parameter. The value must be 1 to 4,096 characters in length.
         self.value = value  # type: str
 
     def validate(self):
@@ -16362,25 +16523,31 @@ class UpdateParameterResponseBodyParameter(TeaModel):
     def __init__(self, constraints=None, created_by=None, created_date=None, description=None, id=None, name=None,
                  parameter_version=None, resource_group_id=None, share_type=None, tags=None, type=None, updated_by=None,
                  updated_date=None):
-        # The ID of the request.
+        # The constraints of the common parameter.
         self.constraints = constraints  # type: str
+        # The user who created the common parameter.
         self.created_by = created_by  # type: str
+        # The time when the common parameter was created.
         self.created_date = created_date  # type: str
-        # The description of the common parameter. The description must be 1 to 200 characters in length.
-        self.description = description  # type: str
-        self.id = id  # type: str
-        self.name = name  # type: str
-        self.parameter_version = parameter_version  # type: int
-        # Updates a common parameter.
-        self.resource_group_id = resource_group_id  # type: str
-        self.share_type = share_type  # type: str
-        # The information of the common parameter.
-        self.tags = tags  # type: str
-        # The user who updated the common parameter.
-        self.type = type  # type: str
-        # The region ID of the resource.
-        self.updated_by = updated_by  # type: str
         # The description of the common parameter.
+        self.description = description  # type: str
+        # The parameter ID.
+        self.id = id  # type: str
+        # The name of the common parameter.
+        self.name = name  # type: str
+        # The version number of the common parameter.
+        self.parameter_version = parameter_version  # type: int
+        # The resource group ID.
+        self.resource_group_id = resource_group_id  # type: str
+        # The share type of the common parameter.
+        self.share_type = share_type  # type: str
+        # The tag added to the common parameter.
+        self.tags = tags  # type: str
+        # The data type of the common parameter.
+        self.type = type  # type: str
+        # The user who updated the common parameter.
+        self.updated_by = updated_by  # type: str
+        # The time when the common parameter was updated.
         self.updated_date = updated_date  # type: str
 
     def validate(self):
@@ -16453,9 +16620,9 @@ class UpdateParameterResponseBodyParameter(TeaModel):
 
 class UpdateParameterResponseBody(TeaModel):
     def __init__(self, parameter=None, request_id=None):
-        # The user who created the common parameter.
+        # The information about the common parameter.
         self.parameter = parameter  # type: UpdateParameterResponseBodyParameter
-        # The time when the common parameter was updated.
+        # The request ID.
         self.request_id = request_id  # type: str
 
     def validate(self):
@@ -17250,27 +17417,27 @@ class UpdateStateConfigurationRequest(TeaModel):
     def __init__(self, client_token=None, configure_mode=None, description=None, parameters=None, region_id=None,
                  resource_group_id=None, schedule_expression=None, schedule_type=None, state_configuration_id=None, tags=None,
                  targets=None):
-        # The schedule type.
+        # The client token that is used to ensure the idempotence of the request.
         self.client_token = client_token  # type: str
-        # The description of the desired-state configuration.
+        # The configuration mode. Valid values: ApplyOnce: The configuration is applied only once. After a configuration is updated, the new configuration is applied. ApplyAndMonitor: The configuration is applied only once. After the configuration is applied, the system only checks whether the configuration is migrated in the future. ApplyAndAutoCorrect: The configuration is always applied.
         self.configure_mode = configure_mode  # type: str
-        # The schedule expression.
+        # The description.
         self.description = description  # type: str
-        # The ID of the region.
-        self.parameters = parameters  # type: dict[str, any]
-        # The configuration mode.
-        self.region_id = region_id  # type: str
         # The parameters.
+        self.parameters = parameters  # type: dict[str, any]
+        # The region ID.
+        self.region_id = region_id  # type: str
+        # The resource group ID.
         self.resource_group_id = resource_group_id  # type: str
-        # The name of the template.
+        # The schedule expression.
         self.schedule_expression = schedule_expression  # type: str
-        # The ID of the resource group.
+        # The schedule type.
         self.schedule_type = schedule_type  # type: str
         # The ID of the desired-state configuration.
         self.state_configuration_id = state_configuration_id  # type: str
-        # The tag.
+        # The tags to be added to the configuration.
         self.tags = tags  # type: dict[str, any]
-        # The required resources.
+        # The resources to be queried.
         self.targets = targets  # type: str
 
     def validate(self):
@@ -17337,27 +17504,27 @@ class UpdateStateConfigurationShrinkRequest(TeaModel):
     def __init__(self, client_token=None, configure_mode=None, description=None, parameters_shrink=None,
                  region_id=None, resource_group_id=None, schedule_expression=None, schedule_type=None,
                  state_configuration_id=None, tags_shrink=None, targets=None):
-        # The schedule type.
+        # The client token that is used to ensure the idempotence of the request.
         self.client_token = client_token  # type: str
-        # The description of the desired-state configuration.
+        # The configuration mode. Valid values: ApplyOnce: The configuration is applied only once. After a configuration is updated, the new configuration is applied. ApplyAndMonitor: The configuration is applied only once. After the configuration is applied, the system only checks whether the configuration is migrated in the future. ApplyAndAutoCorrect: The configuration is always applied.
         self.configure_mode = configure_mode  # type: str
-        # The schedule expression.
+        # The description.
         self.description = description  # type: str
-        # The ID of the region.
-        self.parameters_shrink = parameters_shrink  # type: str
-        # The configuration mode.
-        self.region_id = region_id  # type: str
         # The parameters.
+        self.parameters_shrink = parameters_shrink  # type: str
+        # The region ID.
+        self.region_id = region_id  # type: str
+        # The resource group ID.
         self.resource_group_id = resource_group_id  # type: str
-        # The name of the template.
+        # The schedule expression.
         self.schedule_expression = schedule_expression  # type: str
-        # The ID of the resource group.
+        # The schedule type.
         self.schedule_type = schedule_type  # type: str
         # The ID of the desired-state configuration.
         self.state_configuration_id = state_configuration_id  # type: str
-        # The tag.
+        # The tags to be added to the configuration.
         self.tags_shrink = tags_shrink  # type: str
-        # The required resources.
+        # The resources to be queried.
         self.targets = targets  # type: str
 
     def validate(self):
@@ -17424,31 +17591,33 @@ class UpdateStateConfigurationResponseBodyStateConfiguration(TeaModel):
     def __init__(self, configure_mode=None, create_time=None, description=None, parameters=None,
                  resource_group_id=None, schedule_expression=None, schedule_type=None, state_configuration_id=None, tags=None,
                  targets=None, template_id=None, template_name=None, template_version=None, update_time=None):
-        # The configuration mode. ApplyOnce: The configuration is applied only once. After a configuration is updated, the new configuration is applied. ApplyAndMonitor: The configuration is applied only once. After the configuration is applied, the system only checks whether the configuration is migrated in the future. ApplyAndAutoCorrect: The configuration is always applied.
+        # The configuration mode. Valid values:
         self.configure_mode = configure_mode  # type: str
-        # The parameters.
+        # The time when the configuration was created.
         self.create_time = create_time  # type: str
-        # Updates a desired-state configuration.
+        # The description of the desired-state configuration.
         self.description = description  # type: str
-        # The ID of the request.
+        # The parameters.
         self.parameters = parameters  # type: str
+        # The resource group ID.
         self.resource_group_id = resource_group_id  # type: str
-        # The configuration list.
+        # The CRON expression.
         self.schedule_expression = schedule_expression  # type: str
-        # The update time.
+        # The schedule type.
         self.schedule_type = schedule_type  # type: str
-        # The schedule expression.
-        self.state_configuration_id = state_configuration_id  # type: str
-        # The ID of the resource group.
-        self.tags = tags  # type: dict[str, any]
-        # The required resources.
-        self.targets = targets  # type: str
-        self.template_id = template_id  # type: str
         # The ID of the desired-state configuration.
+        self.state_configuration_id = state_configuration_id  # type: str
+        # The tags added to the configuration.
+        self.tags = tags  # type: dict[str, any]
+        # The queried resources.
+        self.targets = targets  # type: str
+        # The template ID.
+        self.template_id = template_id  # type: str
+        # The name of the template.
         self.template_name = template_name  # type: str
-        # The ID of the template.
+        # The name of the template version.
         self.template_version = template_version  # type: str
-        # The version of the template.
+        # The time when the configuration was updated.
         self.update_time = update_time  # type: str
 
     def validate(self):
@@ -17525,9 +17694,9 @@ class UpdateStateConfigurationResponseBodyStateConfiguration(TeaModel):
 
 class UpdateStateConfigurationResponseBody(TeaModel):
     def __init__(self, request_id=None, state_configuration=None):
-        # The idempotency token.
+        # The request ID.
         self.request_id = request_id  # type: str
-        # The description.
+        # The details of the configuration.
         self.state_configuration = state_configuration  # type: list[UpdateStateConfigurationResponseBodyStateConfiguration]
 
     def validate(self):
