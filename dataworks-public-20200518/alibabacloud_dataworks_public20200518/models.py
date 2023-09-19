@@ -854,6 +854,113 @@ class ApprovePermissionApplyOrderResponse(TeaModel):
         return self
 
 
+class CallbackExtensionRequest(TeaModel):
+    def __init__(self, check_message=None, check_result=None, extension_code=None, message_id=None):
+        self.check_message = check_message  # type: str
+        self.check_result = check_result  # type: str
+        self.extension_code = extension_code  # type: str
+        self.message_id = message_id  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CallbackExtensionRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.check_message is not None:
+            result['CheckMessage'] = self.check_message
+        if self.check_result is not None:
+            result['CheckResult'] = self.check_result
+        if self.extension_code is not None:
+            result['ExtensionCode'] = self.extension_code
+        if self.message_id is not None:
+            result['MessageId'] = self.message_id
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('CheckMessage') is not None:
+            self.check_message = m.get('CheckMessage')
+        if m.get('CheckResult') is not None:
+            self.check_result = m.get('CheckResult')
+        if m.get('ExtensionCode') is not None:
+            self.extension_code = m.get('ExtensionCode')
+        if m.get('MessageId') is not None:
+            self.message_id = m.get('MessageId')
+        return self
+
+
+class CallbackExtensionResponseBody(TeaModel):
+    def __init__(self, request_id=None, success=None):
+        self.request_id = request_id  # type: str
+        self.success = success  # type: str
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(CallbackExtensionResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class CallbackExtensionResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: CallbackExtensionResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(CallbackExtensionResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = CallbackExtensionResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
 class ChangeResourceManagerResourceGroupRequest(TeaModel):
     def __init__(self, resource_id=None, resource_manager_resource_group_id=None, resource_type=None):
         # The ID of the new resource group.
@@ -17261,7 +17368,7 @@ class GetFileRequest(TeaModel):
 class GetFileResponseBodyDataFile(TeaModel):
     def __init__(self, advanced_settings=None, auto_parsing=None, biz_id=None, business_id=None, commit_status=None,
                  connection_name=None, content=None, create_time=None, create_user=None, current_version=None, deleted_status=None,
-                 file_description=None, file_folder_id=None, file_name=None, file_type=None, is_max_compute=None,
+                 file_description=None, file_folder_id=None, file_id=None, file_name=None, file_type=None, is_max_compute=None,
                  last_edit_time=None, last_edit_user=None, node_id=None, owner=None, parent_id=None, use_type=None):
         # The advanced configurations of the node.
         # 
@@ -17302,6 +17409,7 @@ class GetFileResponseBodyDataFile(TeaModel):
         self.file_description = file_description  # type: str
         # The ID of the folder to which the file belongs.
         self.file_folder_id = file_folder_id  # type: str
+        self.file_id = file_id  # type: long
         # The name of the file.
         self.file_name = file_name  # type: str
         # The type of the code for the file. Valid values: 6 (Shell), 10 (ODPS SQL), 11 (ODPS MR), 23 (Data Integration), 24 (ODPS Script), 99 (zero load), 221 (PyODPS 2), 225 (ODPS Spark), 227 (EMR Hive), 228 (EMR Spark), 229 (EMR Spark SQL), 230 (EMR MR), 239 (OSS object inspection), 257 (EMR Shell), 258 (EMR Spark Shell), 259 (EMR Presto), 260 (EMR Impala), 900 (real-time synchronization), 1089 (cross-tenant collaboration), 1091 (Hologres development), 1093 (Hologres SQL), 1100 (assignment), and 1221 (PyODPS 3).
@@ -17365,6 +17473,8 @@ class GetFileResponseBodyDataFile(TeaModel):
             result['FileDescription'] = self.file_description
         if self.file_folder_id is not None:
             result['FileFolderId'] = self.file_folder_id
+        if self.file_id is not None:
+            result['FileId'] = self.file_id
         if self.file_name is not None:
             result['FileName'] = self.file_name
         if self.file_type is not None:
@@ -17413,6 +17523,8 @@ class GetFileResponseBodyDataFile(TeaModel):
             self.file_description = m.get('FileDescription')
         if m.get('FileFolderId') is not None:
             self.file_folder_id = m.get('FileFolderId')
+        if m.get('FileId') is not None:
+            self.file_id = m.get('FileId')
         if m.get('FileName') is not None:
             self.file_name = m.get('FileName')
         if m.get('FileType') is not None:
@@ -27444,9 +27556,10 @@ class GetPermissionApplyOrderDetailResponse(TeaModel):
 
 
 class GetProjectRequest(TeaModel):
-    def __init__(self, project_id=None):
+    def __init__(self, project_id=None, project_identifier=None):
         # The ID of the request. You can use the ID to locate logs and troubleshoot issues.
         self.project_id = project_id  # type: long
+        self.project_identifier = project_identifier  # type: str
 
     def validate(self):
         pass
@@ -27459,12 +27572,16 @@ class GetProjectRequest(TeaModel):
         result = dict()
         if self.project_id is not None:
             result['ProjectId'] = self.project_id
+        if self.project_identifier is not None:
+            result['ProjectIdentifier'] = self.project_identifier
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('ProjectId') is not None:
             self.project_id = m.get('ProjectId')
+        if m.get('ProjectIdentifier') is not None:
+            self.project_identifier = m.get('ProjectIdentifier')
         return self
 
 
