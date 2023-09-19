@@ -108,9 +108,12 @@ class GatewayOptionLogConfigDetails(TeaModel):
 
 
 class GatewayOptionTraceDetails(TeaModel):
-    def __init__(self, sample=None, trace_enabled=None):
+    def __init__(self, sample=None, service_id=None, service_port=None, trace_enabled=None, trace_type=None):
         self.sample = sample  # type: long
+        self.service_id = service_id  # type: long
+        self.service_port = service_port  # type: str
         self.trace_enabled = trace_enabled  # type: bool
+        self.trace_type = trace_type  # type: str
 
     def validate(self):
         pass
@@ -123,16 +126,28 @@ class GatewayOptionTraceDetails(TeaModel):
         result = dict()
         if self.sample is not None:
             result['Sample'] = self.sample
+        if self.service_id is not None:
+            result['ServiceId'] = self.service_id
+        if self.service_port is not None:
+            result['ServicePort'] = self.service_port
         if self.trace_enabled is not None:
             result['TraceEnabled'] = self.trace_enabled
+        if self.trace_type is not None:
+            result['TraceType'] = self.trace_type
         return result
 
     def from_map(self, m=None):
         m = m or dict()
         if m.get('Sample') is not None:
             self.sample = m.get('Sample')
+        if m.get('ServiceId') is not None:
+            self.service_id = m.get('ServiceId')
+        if m.get('ServicePort') is not None:
+            self.service_port = m.get('ServicePort')
         if m.get('TraceEnabled') is not None:
             self.trace_enabled = m.get('TraceEnabled')
+        if m.get('TraceType') is not None:
+            self.trace_type = m.get('TraceType')
         return self
 
 
@@ -49748,6 +49763,256 @@ class UpdateGatewayRouteWafStatusResponse(TeaModel):
             self.status_code = m.get('statusCode')
         if m.get('body') is not None:
             temp_model = UpdateGatewayRouteWafStatusResponseBody()
+            self.body = temp_model.from_map(m['body'])
+        return self
+
+
+class UpdateGatewayServiceCheckRequest(TeaModel):
+    def __init__(self, accept_language=None, check=None, expected_statuses=None, gateway_unique_id=None,
+                 healthy_threshold=None, http_host=None, http_path=None, interval=None, protocol=None, service_id=None, timeout=None,
+                 unhealthy_threshold=None):
+        self.accept_language = accept_language  # type: str
+        self.check = check  # type: bool
+        self.expected_statuses = expected_statuses  # type: list[int]
+        self.gateway_unique_id = gateway_unique_id  # type: str
+        self.healthy_threshold = healthy_threshold  # type: int
+        self.http_host = http_host  # type: str
+        self.http_path = http_path  # type: str
+        self.interval = interval  # type: int
+        self.protocol = protocol  # type: str
+        self.service_id = service_id  # type: str
+        self.timeout = timeout  # type: int
+        self.unhealthy_threshold = unhealthy_threshold  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateGatewayServiceCheckRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.accept_language is not None:
+            result['AcceptLanguage'] = self.accept_language
+        if self.check is not None:
+            result['Check'] = self.check
+        if self.expected_statuses is not None:
+            result['ExpectedStatuses'] = self.expected_statuses
+        if self.gateway_unique_id is not None:
+            result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.healthy_threshold is not None:
+            result['HealthyThreshold'] = self.healthy_threshold
+        if self.http_host is not None:
+            result['HttpHost'] = self.http_host
+        if self.http_path is not None:
+            result['HttpPath'] = self.http_path
+        if self.interval is not None:
+            result['Interval'] = self.interval
+        if self.protocol is not None:
+            result['Protocol'] = self.protocol
+        if self.service_id is not None:
+            result['ServiceId'] = self.service_id
+        if self.timeout is not None:
+            result['Timeout'] = self.timeout
+        if self.unhealthy_threshold is not None:
+            result['UnhealthyThreshold'] = self.unhealthy_threshold
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AcceptLanguage') is not None:
+            self.accept_language = m.get('AcceptLanguage')
+        if m.get('Check') is not None:
+            self.check = m.get('Check')
+        if m.get('ExpectedStatuses') is not None:
+            self.expected_statuses = m.get('ExpectedStatuses')
+        if m.get('GatewayUniqueId') is not None:
+            self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('HealthyThreshold') is not None:
+            self.healthy_threshold = m.get('HealthyThreshold')
+        if m.get('HttpHost') is not None:
+            self.http_host = m.get('HttpHost')
+        if m.get('HttpPath') is not None:
+            self.http_path = m.get('HttpPath')
+        if m.get('Interval') is not None:
+            self.interval = m.get('Interval')
+        if m.get('Protocol') is not None:
+            self.protocol = m.get('Protocol')
+        if m.get('ServiceId') is not None:
+            self.service_id = m.get('ServiceId')
+        if m.get('Timeout') is not None:
+            self.timeout = m.get('Timeout')
+        if m.get('UnhealthyThreshold') is not None:
+            self.unhealthy_threshold = m.get('UnhealthyThreshold')
+        return self
+
+
+class UpdateGatewayServiceCheckShrinkRequest(TeaModel):
+    def __init__(self, accept_language=None, check=None, expected_statuses_shrink=None, gateway_unique_id=None,
+                 healthy_threshold=None, http_host=None, http_path=None, interval=None, protocol=None, service_id=None, timeout=None,
+                 unhealthy_threshold=None):
+        self.accept_language = accept_language  # type: str
+        self.check = check  # type: bool
+        self.expected_statuses_shrink = expected_statuses_shrink  # type: str
+        self.gateway_unique_id = gateway_unique_id  # type: str
+        self.healthy_threshold = healthy_threshold  # type: int
+        self.http_host = http_host  # type: str
+        self.http_path = http_path  # type: str
+        self.interval = interval  # type: int
+        self.protocol = protocol  # type: str
+        self.service_id = service_id  # type: str
+        self.timeout = timeout  # type: int
+        self.unhealthy_threshold = unhealthy_threshold  # type: int
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateGatewayServiceCheckShrinkRequest, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.accept_language is not None:
+            result['AcceptLanguage'] = self.accept_language
+        if self.check is not None:
+            result['Check'] = self.check
+        if self.expected_statuses_shrink is not None:
+            result['ExpectedStatuses'] = self.expected_statuses_shrink
+        if self.gateway_unique_id is not None:
+            result['GatewayUniqueId'] = self.gateway_unique_id
+        if self.healthy_threshold is not None:
+            result['HealthyThreshold'] = self.healthy_threshold
+        if self.http_host is not None:
+            result['HttpHost'] = self.http_host
+        if self.http_path is not None:
+            result['HttpPath'] = self.http_path
+        if self.interval is not None:
+            result['Interval'] = self.interval
+        if self.protocol is not None:
+            result['Protocol'] = self.protocol
+        if self.service_id is not None:
+            result['ServiceId'] = self.service_id
+        if self.timeout is not None:
+            result['Timeout'] = self.timeout
+        if self.unhealthy_threshold is not None:
+            result['UnhealthyThreshold'] = self.unhealthy_threshold
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('AcceptLanguage') is not None:
+            self.accept_language = m.get('AcceptLanguage')
+        if m.get('Check') is not None:
+            self.check = m.get('Check')
+        if m.get('ExpectedStatuses') is not None:
+            self.expected_statuses_shrink = m.get('ExpectedStatuses')
+        if m.get('GatewayUniqueId') is not None:
+            self.gateway_unique_id = m.get('GatewayUniqueId')
+        if m.get('HealthyThreshold') is not None:
+            self.healthy_threshold = m.get('HealthyThreshold')
+        if m.get('HttpHost') is not None:
+            self.http_host = m.get('HttpHost')
+        if m.get('HttpPath') is not None:
+            self.http_path = m.get('HttpPath')
+        if m.get('Interval') is not None:
+            self.interval = m.get('Interval')
+        if m.get('Protocol') is not None:
+            self.protocol = m.get('Protocol')
+        if m.get('ServiceId') is not None:
+            self.service_id = m.get('ServiceId')
+        if m.get('Timeout') is not None:
+            self.timeout = m.get('Timeout')
+        if m.get('UnhealthyThreshold') is not None:
+            self.unhealthy_threshold = m.get('UnhealthyThreshold')
+        return self
+
+
+class UpdateGatewayServiceCheckResponseBody(TeaModel):
+    def __init__(self, code=None, data=None, http_status_code=None, message=None, request_id=None, success=None):
+        self.code = code  # type: int
+        self.data = data  # type: long
+        self.http_status_code = http_status_code  # type: int
+        self.message = message  # type: str
+        self.request_id = request_id  # type: str
+        self.success = success  # type: bool
+
+    def validate(self):
+        pass
+
+    def to_map(self):
+        _map = super(UpdateGatewayServiceCheckResponseBody, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.code is not None:
+            result['Code'] = self.code
+        if self.data is not None:
+            result['Data'] = self.data
+        if self.http_status_code is not None:
+            result['HttpStatusCode'] = self.http_status_code
+        if self.message is not None:
+            result['Message'] = self.message
+        if self.request_id is not None:
+            result['RequestId'] = self.request_id
+        if self.success is not None:
+            result['Success'] = self.success
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('Code') is not None:
+            self.code = m.get('Code')
+        if m.get('Data') is not None:
+            self.data = m.get('Data')
+        if m.get('HttpStatusCode') is not None:
+            self.http_status_code = m.get('HttpStatusCode')
+        if m.get('Message') is not None:
+            self.message = m.get('Message')
+        if m.get('RequestId') is not None:
+            self.request_id = m.get('RequestId')
+        if m.get('Success') is not None:
+            self.success = m.get('Success')
+        return self
+
+
+class UpdateGatewayServiceCheckResponse(TeaModel):
+    def __init__(self, headers=None, status_code=None, body=None):
+        self.headers = headers  # type: dict[str, str]
+        self.status_code = status_code  # type: int
+        self.body = body  # type: UpdateGatewayServiceCheckResponseBody
+
+    def validate(self):
+        self.validate_required(self.headers, 'headers')
+        self.validate_required(self.status_code, 'status_code')
+        self.validate_required(self.body, 'body')
+        if self.body:
+            self.body.validate()
+
+    def to_map(self):
+        _map = super(UpdateGatewayServiceCheckResponse, self).to_map()
+        if _map is not None:
+            return _map
+
+        result = dict()
+        if self.headers is not None:
+            result['headers'] = self.headers
+        if self.status_code is not None:
+            result['statusCode'] = self.status_code
+        if self.body is not None:
+            result['body'] = self.body.to_map()
+        return result
+
+    def from_map(self, m=None):
+        m = m or dict()
+        if m.get('headers') is not None:
+            self.headers = m.get('headers')
+        if m.get('statusCode') is not None:
+            self.status_code = m.get('statusCode')
+        if m.get('body') is not None:
+            temp_model = UpdateGatewayServiceCheckResponseBody()
             self.body = temp_model.from_map(m['body'])
         return self
 
