@@ -5651,7 +5651,8 @@ class DescribeDBInstanceErrorLogResponse(TeaModel):
 
 
 class DescribeDBInstanceIPArrayListRequest(TeaModel):
-    def __init__(self, dbinstance_id=None, resource_group_id=None):
+    def __init__(self, dbinstance_iparray_name=None, dbinstance_id=None, resource_group_id=None):
+        self.dbinstance_iparray_name = dbinstance_iparray_name  # type: str
         # The instance ID.
         # 
         # > You can call the [DescribeDBInstances](~~86911~~) operation to query details about all AnalyticDB for PostgreSQL instances within a region, including instance IDs.
@@ -5668,6 +5669,8 @@ class DescribeDBInstanceIPArrayListRequest(TeaModel):
             return _map
 
         result = dict()
+        if self.dbinstance_iparray_name is not None:
+            result['DBInstanceIPArrayName'] = self.dbinstance_iparray_name
         if self.dbinstance_id is not None:
             result['DBInstanceId'] = self.dbinstance_id
         if self.resource_group_id is not None:
@@ -5676,6 +5679,8 @@ class DescribeDBInstanceIPArrayListRequest(TeaModel):
 
     def from_map(self, m=None):
         m = m or dict()
+        if m.get('DBInstanceIPArrayName') is not None:
+            self.dbinstance_iparray_name = m.get('DBInstanceIPArrayName')
         if m.get('DBInstanceId') is not None:
             self.dbinstance_id = m.get('DBInstanceId')
         if m.get('ResourceGroupId') is not None:

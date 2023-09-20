@@ -1498,6 +1498,8 @@ class Client(OpenApiClient):
         """
         UtilClient.validate_model(request)
         query = {}
+        if not UtilClient.is_unset(request.dbinstance_iparray_name):
+            query['DBInstanceIPArrayName'] = request.dbinstance_iparray_name
         if not UtilClient.is_unset(request.dbinstance_id):
             query['DBInstanceId'] = request.dbinstance_id
         if not UtilClient.is_unset(request.resource_group_id):
