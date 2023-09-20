@@ -52965,14 +52965,15 @@ class IsvUserSaveRequestUserListCertList(TeaModel):
 
 
 class IsvUserSaveRequestUserList(TeaModel):
-    def __init__(self, birthday=None, cert_list=None, depart_id=None, email=None, gender=None, job_no=None,
-                 leave_status=None, manager_user_id=None, phone=None, position=None, position_level=None, real_name_en=None,
-                 third_depart_id=None, third_depart_id_list=None, user_id=None, user_name=None):
+    def __init__(self, birthday=None, cert_list=None, depart_id=None, email=None, gender=None, is_admin=None,
+                 job_no=None, leave_status=None, manager_user_id=None, phone=None, position=None, position_level=None,
+                 real_name_en=None, third_depart_id=None, third_depart_id_list=None, user_id=None, user_name=None):
         self.birthday = birthday  # type: str
         self.cert_list = cert_list  # type: list[IsvUserSaveRequestUserListCertList]
         self.depart_id = depart_id  # type: long
         self.email = email  # type: str
         self.gender = gender  # type: str
+        self.is_admin = is_admin  # type: bool
         self.job_no = job_no  # type: str
         self.leave_status = leave_status  # type: int
         self.manager_user_id = manager_user_id  # type: str
@@ -53009,6 +53010,8 @@ class IsvUserSaveRequestUserList(TeaModel):
             result['email'] = self.email
         if self.gender is not None:
             result['gender'] = self.gender
+        if self.is_admin is not None:
+            result['is_admin'] = self.is_admin
         if self.job_no is not None:
             result['job_no'] = self.job_no
         if self.leave_status is not None:
@@ -53048,6 +53051,8 @@ class IsvUserSaveRequestUserList(TeaModel):
             self.email = m.get('email')
         if m.get('gender') is not None:
             self.gender = m.get('gender')
+        if m.get('is_admin') is not None:
+            self.is_admin = m.get('is_admin')
         if m.get('job_no') is not None:
             self.job_no = m.get('job_no')
         if m.get('leave_status') is not None:
