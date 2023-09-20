@@ -41,7 +41,7 @@ class AndroidPayload(TeaModel):
     def __init__(self, body=None, display_type=None, extra=None):
         self.body = body  # type: Body
         self.display_type = display_type  # type: str
-        self.extra = extra  # type: dict[str, str]
+        self.extra = extra  # type: dict[str, any]
 
     def validate(self):
         if self.body:
@@ -127,8 +127,8 @@ class Aps(TeaModel):
 
 class Body(TeaModel):
     def __init__(self, activity=None, add_badge=None, after_open=None, builder_id=None, custom=None,
-                 expand_image=None, icon=None, img=None, large_icon=None, play_lights=None, play_sound=None, play_vibrate=None,
-                 re_pop=None, set_badge=None, sound=None, text=None, title=None, url=None):
+                 expand_image=None, icon=None, img=None, play_lights=None, play_sound=None, play_vibrate=None, re_pop=None,
+                 set_badge=None, sound=None, text=None, title=None, url=None):
         self.activity = activity  # type: str
         self.add_badge = add_badge  # type: int
         self.after_open = after_open  # type: str
@@ -137,7 +137,6 @@ class Body(TeaModel):
         self.expand_image = expand_image  # type: str
         self.icon = icon  # type: str
         self.img = img  # type: str
-        self.large_icon = large_icon  # type: str
         self.play_lights = play_lights  # type: bool
         self.play_sound = play_sound  # type: bool
         self.play_vibrate = play_vibrate  # type: bool
@@ -173,8 +172,6 @@ class Body(TeaModel):
             result['icon'] = self.icon
         if self.img is not None:
             result['img'] = self.img
-        if self.large_icon is not None:
-            result['largeIcon'] = self.large_icon
         if self.play_lights is not None:
             result['playLights'] = self.play_lights
         if self.play_sound is not None:
@@ -213,8 +210,6 @@ class Body(TeaModel):
             self.icon = m.get('icon')
         if m.get('img') is not None:
             self.img = m.get('img')
-        if m.get('largeIcon') is not None:
-            self.large_icon = m.get('largeIcon')
         if m.get('playLights') is not None:
             self.play_lights = m.get('playLights')
         if m.get('playSound') is not None:

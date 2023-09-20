@@ -25,7 +25,7 @@ from setuptools import setup, find_packages
 """
 setup module for alibabacloud_umeng-push20220225_py2.
 
-Created on 10/08/2023
+Created on 20/09/2023
 
 @author: Alibaba Cloud SDK
 """
