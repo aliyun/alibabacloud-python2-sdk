@@ -28630,12 +28630,13 @@ class ListServiceConnectionsRequest(TeaModel):
 
 
 class ListServiceConnectionsResponseBodyServiceConnections(TeaModel):
-    def __init__(self, create_time=None, id=None, name=None, owner_account_id=None, type=None):
+    def __init__(self, create_time=None, id=None, name=None, owner_account_id=None, type=None, uuid=None):
         self.create_time = create_time  # type: long
         self.id = id  # type: long
         self.name = name  # type: str
         self.owner_account_id = owner_account_id  # type: long
         self.type = type  # type: str
+        self.uuid = uuid  # type: str
 
     def validate(self):
         pass
@@ -28656,6 +28657,8 @@ class ListServiceConnectionsResponseBodyServiceConnections(TeaModel):
             result['ownerAccountId'] = self.owner_account_id
         if self.type is not None:
             result['type'] = self.type
+        if self.uuid is not None:
+            result['uuid'] = self.uuid
         return result
 
     def from_map(self, m=None):
@@ -28670,6 +28673,8 @@ class ListServiceConnectionsResponseBodyServiceConnections(TeaModel):
             self.owner_account_id = m.get('ownerAccountId')
         if m.get('type') is not None:
             self.type = m.get('type')
+        if m.get('uuid') is not None:
+            self.uuid = m.get('uuid')
         return self
 
 
